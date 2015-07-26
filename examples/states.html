@@ -29,7 +29,6 @@
 		<script src="../dist/modules/easeljs-animation.js"></script>
 		<script src="../dist/modules/easeljs-ui.js"></script>
 		<script src="../dist/modules/states.js"></script>
-		<script src="../dist/modules/tasks.js"></script>
 
 		<!-- CreateJS Assets -->
 		<script src="assets/js/Transition.js"></script>
@@ -42,7 +41,7 @@
 				<button id="code">Code</button>
 				<button id="back">Back</button>
 			</nav>
-			<canvas id="stage" width="800" height="500"></canvas>
+			<canvas id="stage" width="800" height="400"></canvas>
 			<pre id="codeDisplay"></pre>
 <script>
 
@@ -52,39 +51,21 @@ var Application = include('springroll.Application'),
 	Bitmap = include('createjs.Bitmap'),
 	Container = include('createjs.Container'),
 	State = include('springroll.BaseState'),
-	LoadTask = include('springroll.LoadTask'),
 	Loader = include('springroll.Loader'),
 	Transition = include('lib.Transition');
 
-// Create the new application
 var app = new Application({
 	canvasId: "stage",
-	state: "title", // initial state
-	transition: new Transition(), // transition movieclip
+	state: "title",
+	transition: new Transition(),
 	display: EaselJSDisplay,
 	displayOptions: {
 		clearView: true
-	}
+	},
+	preload: ['assets/images/button.png']
 });
 
-// The button image
-var image = null;
-
-app.on('loading', function(tasks)
-{
-	tasks.push(new LoadTask(
-		'button', 
-		'assets/images/button.png', 
-		function(result)
-		{
-			// Save the bitmap image to use late
-			image = result.content
-		}
-	));
-});
-
-// Wait until the app is ready
-app.on('init', function()
+app.once('init', function()
 {
 	// Add the states to the application
 	// this is a map where the key is the state
@@ -93,6 +74,9 @@ app.on('init', function()
 		title: getTitleState(),
 		game: getGameState()
 	};					
+
+	// Update the psotion
+	this.transition.x = -140;
 });
 
 // Create the title state
@@ -107,15 +91,10 @@ function getTitleState()
 	// When the transition starts transitining into to state
 	state.enter = function()
 	{
-		var button = this.nextButton = new Button(image, {
-			text: "Play",
-			font: "24px Arial",
-			color: "#ffffff"
-		});
-		button.x = 330;
-		button.y = 230;
+		var button = addButton("Play");
 		this.panel.addChild(button);
 		button.on('buttonPress', this.nextState.bind(this));
+		this.nextButton = button;
 	};
 
 	// When the transition is done transitioning out of state
@@ -142,27 +121,26 @@ function getGameState()
 	// When the transition starts transitining into to state
 	state.enter = function()
 	{
-		var button = this.backButton = new Button(image, {
-			text: "Back",
-			font: "24px Arial",
-			color: "#ffffff"
-		});
+		var button = addButton("Back");
 		this.panel.addChild(button);
 		button.on('buttonPress', this.previousState.bind(this));
+		this.backButton = button;
 
 		// Start async loading
 		this.loadingStart();
 
 		// Load the background
-		Loader.instance.load(
-			'assets/images/background.jpg', 
+		app.load(
+			'assets/images/background2.jpg', 
 			onLoadingDone.bind(this)
 		);
 	};
 
-	var onLoadingDone = function(result)
+	var onLoadingDone = function(background)
 	{
-		this.panel.addChildAt(new Bitmap(result.content), 0);
+		this.panel.addChildAt(new Bitmap(background), 0);
+
+		// Resume the load
 		this.loadingDone();
 	};
 
@@ -175,6 +153,19 @@ function getGameState()
 	};
 	return state;
 }
+
+// Create a simple button
+var addButton = function(text)
+{
+	var button = new Button(app.getCache('button'), {
+		text: text,
+		font: "20px Arial",
+		color: "#ffffff"
+	});
+	button.x = 340;
+	button.y = 300;
+	return button;
+};
 
 </script>
 		</div>

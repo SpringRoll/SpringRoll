@@ -1,29 +1,29 @@
 /**
- *  @module Core
- *  @namespace springroll
+  * @module Core
+  * @namespace springroll
  */
 (function(undefined)
 {
 	// classes to import
 	var TimeUtils = include('springroll.TimeUtils'),
-		async = include('springroll.async'),
 		EventDispatcher = include('springroll.EventDispatcher'),
 		ApplicationOptions = include('springroll.ApplicationOptions');
 
 	/**
-	*  Creates a new application, for example (HappyCamel extends Application)
-	*  manages displays, update loop controlling, handles resizing
-	*
-	*	var app = new Application();
-	*
-	*  @class Application
-	*  @extend EventDispatcher
-	*  @constructor
-	*  @param {Object} [options] The options for creating the application,
-	* 		see `springroll.ApplicationOptions` for the specific options
-	*		that can be overridden and set.
-	*/
-	var Application = function(options)
+	 * Creates a new application, for example (HappyCamel extends Application)
+	 * manages displays, update loop controlling, handles resizing
+	 *
+	 *	var app = new Application();
+	 *
+	 * @class Application
+	 * @extend EventDispatcher
+	 * @constructor
+	 * @param {Object} [options] The options for creating the application,
+	 * 		see `springroll.ApplicationOptions` for the specific options
+	 *		that can be overridden and set.
+	 * @param {Function} [init=null] The callback when initialized
+	 */
+	var Application = function(options, init)
 	{
 		if (_instance)
 		{
@@ -34,21 +34,27 @@
 		EventDispatcher.call(this);
 
 		/**
-		 *  Initialization options/query string parameters, these properties are read-only
-		 *  Application properties like raf, fps, don't have any affect on the options object.
-		 *  @property {springroll.ApplicationOptions} options
-		 *  @readOnly
+		 * Initialization options/query string parameters, these properties are read-only
+		 * Application properties like raf, fps, don't have any affect on the options object.
+		 * @property {springroll.ApplicationOptions} options
+		 * @readOnly
 		 */
 		this.options = new ApplicationOptions(this, options);
 
 		/**
-		 *  Primary renderer for the application, for simply accessing
-		 *  Application.instance.display.stage;
-		 *  The first display added becomes the primary display automatically.
-		 *  @property {Display} display
-		 *  @public
+		 * Primary renderer for the application, for simply accessing
+		 * Application.instance.display.stage;
+		 * The first display added becomes the primary display automatically.
+		 * @property {Display} display
+		 * @public
 		 */
 		this.display = null;
+
+		/**
+		 * Override this to do post constructor initialization
+		 * @property {Function} init
+		 */
+		this.init = init || null;
 
 		// Reset the displays
 		_displaysMap = {};
@@ -68,10 +74,10 @@
 		this.options.init();
 
 		/**
-		*  The name of the game, useful for debugging purposes
-		*  @property {String} name
-		*  @default ""
-		*/
+		 * The name of the game, useful for debugging purposes
+		 * @property {String} name
+		 * @default ""
+		 */
 		this.name = this.options.name;
 
 		//other initialization stuff too
@@ -86,54 +92,54 @@
 	var p = extend(Application, EventDispatcher);
 
 	/**
-	 *  The collection of function references to call when initializing the application
-	 *  these are registered by external modules.
-	 *  @property {Array} _plugins
-	 *  @private
-	 *  @static
+	 * The collection of function references to call when initializing the application
+	 * these are registered by external modules.
+	 * @property {Array} _plugins
+	 * @private
+	 * @static
 	 */
 	Application._plugins = [];
 
 	/**
-	 *  The number of ms since the last frame update
-	 *  @private
-	 *  @property {int} _lastFrameTime
+	 * The number of ms since the last frame update
+	 * @private
+	 * @property {int} _lastFrameTime
 	 */
 	var _lastFrameTime = 0,
 
 	/**
-	 *	The bound callback for listening to tick events
-	 *	@private
-	 *   @property {Function} _tickCallback
+	 * The bound callback for listening to tick events
+	 * @private
+	 * @property {Function} _tickCallback
 	 */
 	_tickCallback = null,
 
 	/**
-	 *  If the current application is paused
-	 *  @private
-	 *  @property {Boolean} _paused
+	 * If the current application is paused
+	 * @private
+	 * @property {Boolean} _paused
 	 */
 	_paused = false,
 
 	/**
-	 *  If the current application is enabled
-	 *  @private
-	 *  @property {Boolean} _enabled
+	 * If the current application is enabled
+	 * @private
+	 * @property {Boolean} _enabled
 	 */
 	_enabled = true,
 
 	/**
-	 *  The id of the active requestAnimationFrame or setTimeout call.
-	 *  @property {Number} _tickId
-	 *  @private
+	 * The id of the active requestAnimationFrame or setTimeout call.
+	 * @property {Number} _tickId
+	 * @private
 	 */
 	_tickId = -1,
 
 	/**
-	 *  If requestionAnimationFrame should be used
-	 *  @private
-	 *  @property {Bool} _useRAF
-	 *  @default false
+	 * If requestionAnimationFrame should be used
+	 * @private
+	 * @property {Bool} _useRAF
+	 * @default false
 	 */
 	_useRAF = false,
 
@@ -145,79 +151,79 @@
 	_msPerFrame = 0,
 
 	/**
-	 *  The collection of displays
-	 *  @property {Array} _displays
-	 *  @private
+	 * The collection of displays
+	 * @property {Array} _displays
+	 * @private
 	 */
 	_displays = null,
 
 	/**
-	 *  The displays by canvas id
-	 *  @property {Object} _displaysMap
-	 *  @private
+	 * The displays by canvas id
+	 * @property {Object} _displaysMap
+	 * @private
 	 */
 	_displaysMap = null;
 
 
 	/**
-	 *  Fired when initialization of the application is ready
-	 *  @event init
+	 * Fired when initialization of the application is ready
+	 * @event init
 	 */
 	
 	/**
-	 *  Fired when initialization of the application is done
-	 *  @event afterInit
+	 * Fired when initialization of the application is done
+	 * @event afterInit
 	 */
 	
 	/**
-	 *  Fired when before initialization of the application
-	 *  @event beforeInit
+	 * Fired when before initialization of the application
+	 * @event beforeInit
 	 */
 	
 	/**
-	 *  Fired when an update is called, every frame update
-	 *  @event update
-	 *  @param {int} elasped The number of milliseconds since the last frame update
+	 * Fired when an update is called, every frame update
+	 * @event update
+	 * @param {int} elasped The number of milliseconds since the last frame update
 	 */
 
 	/**
-	 *  Fired when the pause state is toggled
-	 *  @event pause
-	 *  @param {boolean} paused If the application is now paused
+	 * Fired when the pause state is toggled
+	 * @event pause
+	 * @param {boolean} paused If the application is now paused
 	 */
 
 	/**
-	 *  When a display is added.
-	 *  @event displayAdded
-	 *  @param {springroll.AbstractDisplay} [display] The current display being added
+	 * When a display is added.
+	 * @event displayAdded
+	 * @param {springroll.AbstractDisplay} [display] The current display being added
 	 */
 	
 	/**
-	 *  When a display is removed.
-	 *  @event displayRemoved
-	 *  @param {string} [displayId] The display alias
+	 * When a display is removed.
+	 * @event displayRemoved
+	 * @param {string} [displayId] The display alias
 	 */
 
 	/**
-	 *  Fired when the application becomes paused
-	 *  @event paused
+	 * Fired when the application becomes paused
+	 * @event paused
 	 */
 
 	/**
-	 *  Fired when the application resumes from a paused state
-	 *  @event resumed
+	 * Fired when the application resumes from a paused state
+	 * @event resumed
 	 */
 
 	/**
-	 *  Fired when the application is destroyed
-	 *  @event destroy
+	 * Fired when the application is destroyed
+	 * @event destroy
 	 */
 
 	/**
-	 *  Get the singleton instance of the application
-	 *  @property {Application} instance
-	 *  @static
-	 *  @public
+	 * Get the singleton instance of the application
+	 * @property {Application} instance
+	 * @static
+	 * @public
 	 */
 	var _instance = null;
 	Object.defineProperty(Application, "instance",
@@ -229,9 +235,9 @@
 	});
 
 	/**
-	 *  The internal initialization
-	 *  @method _preInit
-	 *  @private
+	 * The internal initialization
+	 * @method _preInit
+	 * @private
 	 */
 	p._preInit = function()
 	{
@@ -273,21 +279,21 @@
 			}
 		});
 
-		// Run the asyncronous tasks
-		async.waterfall(tasks, this._doInit.bind(this));
+		// Run the asyncronous tasks in series
+		this.load(tasks, {
+			complete: this._doInit.bind(this), 
+			startAll: false
+		});
 	};
 
 	/**
-	 *  Initialize the application
-	 *  @method _doInit
-	 *  @protected
+	 * Initialize the application
+	 * @method _doInit
+	 * @protected
 	 */
-	p._doInit = function(err)
+	p._doInit = function()
 	{
 		if (this.destroyed) return;
-
-		// Error with the async startup
-		if (err) throw err;
 
 		this.trigger('beforeInit');
 
@@ -297,24 +303,17 @@
 		// Dispatch the init event
 		this.trigger('init');
 
-		// Call the init function
-		if (this.init) this.init();
+		// Call the init function, bind to app
+		if (this.init) this.init.call(this);
 
 		this.trigger('afterInit');
 	};
 
 	/**
-	 *  Override this to do post constructor initialization
-	 *  @method init
-	 *  @protected
-	 */
-	p.init = null;
-
-	/**
-	 *  Enables at the application level which enables
-	 *  and disables all the displays.
-	 *  @property {Boolean} enabled
-	 *  @default true
+	 * Enables at the application level which enables
+	 * and disables all the displays.
+	 * @property {Boolean} enabled
+	 * @default true
 	 */
 	Object.defineProperty(p, "enabled",
 	{
@@ -333,8 +332,8 @@
 	});
 
 	/**
-	 *  Pause updates at the application level
-	 *  @property {Boolean} paused
+	 * Pause updates at the application level
+	 * @property {Boolean} paused
 	 */
 	Object.defineProperty(p, "paused",
 	{
@@ -375,12 +374,12 @@
 	});
 
 	/**
-	 *  Makes a setTimeout with a time based on _msPerFrame and the amount of time spent in the
-	 *  current tick.
-	 *  @method setTargetedTimeout
-	 *  @param {Function} callback The tick function to call.
-	 *  @param {int} timeInFrame=0 The amount of time spent in the current tick in milliseconds.
-	 *  @private
+	 * Makes a setTimeout with a time based on _msPerFrame and the amount of time spent in the
+	 * current tick.
+	 * @method setTargetedTimeout
+	 * @param {Function} callback The tick function to call.
+	 * @param {int} timeInFrame=0 The amount of time spent in the current tick in milliseconds.
+	 * @private
 	 */
 	var setTargetedTimeout = function(callback, timeInFrame)
 	{
@@ -392,15 +391,15 @@
 	};
 
 	/**
-	 *  Add a display. If this is the first display added, then it will be stored as this.display.
-	 *  @method addDisplay
-	 *  @param {String} id The id of the canvas element, this will be used to grab the Display later
-	 *                     also the Display should be the one to called document.getElementById(id)
-	 *                     and not the application sinc we don't care about the DOMElement as this
-	 *                     point
-	 *  @param {function} displayConstructor The function to call to create the display instance
-	 *  @param {Object} [options] Optional Display specific options
-	 *  @return {Display} The created display.
+	 * Add a display. If this is the first display added, then it will be stored as this.display.
+	 * @method addDisplay
+	 * @param {String} id The id of the canvas element, this will be used to grab the Display later
+	 *                   also the Display should be the one to called document.getElementById(id)
+	 *                   and not the application sinc we don't care about the DOMElement as this
+	 *                   point
+	 * @param {function} displayConstructor The function to call to create the display instance
+	 * @param {Object} [options] Optional Display specific options
+	 * @return {Display} The created display.
 	 */
 	p.addDisplay = function(id, displayConstructor, options)
 	{
@@ -427,9 +426,9 @@
 	};
 
 	/**
-	 *  Get all the displays
-	 *  @property {Array} displays
-	 *  @readOnly
+	 * Get all the displays
+	 * @property {Array} displays
+	 * @readOnly
 	 */
 	Object.defineProperty(p, 'displays',
 	{
@@ -440,32 +439,14 @@
 	});
 
 	/**
-	 *  Gets a specific renderer by the canvas id.
-	 *  @method getDisplay
-	 *  @param {String} id The id of the canvas
-	 *  @return {Display} The requested display.
+	 * Gets a specific renderer by the canvas id.
+	 * @method getDisplay
+	 * @param {String} id The id of the canvas
+	 * @return {Display} The requested display.
 	 */
 	p.getDisplay = function(id)
 	{
 		return _displaysMap[id];
-	};
-
-	/**
-	 *  Gets a specific renderer by the canvas id.
-	 *  @method getDisplays
-	 *  @deprecated Use the displays property on the application instead.
-	 *  @public
-	 *  @param {function} [each] Optional looping method, callback takes a single parameter of the
-	 *                           display
-	 *  @return {Array} The collection of Display objects
-	 */
-	p.getDisplays = function(each)
-	{
-		if (typeof each == "function")
-		{
-			_displays.forEach(each);
-		}
-		return _displays;
 	};
 
 	/**
@@ -486,9 +467,9 @@
 	};
 
 	/**
-	 *  _tick would be bound in _tickCallback
-	 *  @method _tick
-	 *  @private
+	 * _tick would be bound in _tickCallback
+	 * @method _tick
+	 * @private
 	 */
 	p._tick = function()
 	{
@@ -563,10 +544,10 @@
 	};
 
 	/**
-	*  The toString debugging method
-	*  @method toString
-	*  @return {String} The reprsentation of this class
-	*/
+	 * The toString debugging method
+	 * @method toString
+	 * @return {String} The reprsentation of this class
+	 */
 	p.toString = function()
 	{
 		return "[Application name='" + this.name + "']";

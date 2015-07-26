@@ -16,19 +16,10 @@
 	 * @class CaptionsPlugin
 	 * @extends springroll.ApplicationPlugin
 	 */
-	var CaptionsPlugin = function()
-	{
-		ApplicationPlugin.call(this);
-
-		// Must happen before container plugin
-		this.priority = 60;
-	};
-
-	// Reference to the prototype
-	var p = extend(CaptionsPlugin, ApplicationPlugin);
+	var plugin = new ApplicationPlugin(60);
 
 	// Initialize
-	p.setup = function()
+	plugin.setup = function()
 	{
 		/**
 		 * The captions text field object to use for the 
@@ -48,14 +39,14 @@
 		this.options.add('captionsPath', null, true);
 		
 		/**
-		*  The global captions object
-		*  @property {springroll.Captions} captions
-		*/
+		 * The global captions object
+		 * @property {springroll.Captions} captions
+		 */
 		this.captions = new Captions();
 	};
 
 	// Preload the captions
-	p.preload = function(done)
+	plugin.preload = function(done)
 	{
 		// Give the player a reference
 		if (this.voPlayer)
@@ -69,9 +60,9 @@
 		var captionsPath = this.options.captionsPath;
 		if (captionsPath)
 		{
-			this.loader.load(captionsPath, function(result)
+			this.load(captionsPath, function(data)
 			{
-				this.captions.data = result.content;
+				this.captions.data = data;
 				done();
 			}
 			.bind(this));
@@ -87,7 +78,7 @@
 	};
 
 	// Destroy the animator
-	p.teardown = function()
+	plugin.teardown = function()
 	{
 		if (this.captions)
 		{
@@ -95,8 +86,5 @@
 			this.captions = null;
 		}
 	};
-
-	// register plugin
-	ApplicationPlugin.register(CaptionsPlugin);
 
 }());

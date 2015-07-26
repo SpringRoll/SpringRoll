@@ -6,18 +6,19 @@
 (function()
 {
 	/**
-	 *  Abstract base class for hints used by HintPlayer
-	 *  @class AbstractHint
-	 *  @constructor
-	 *  @param {springroll.HintsPlayer} hints The instance of the hints
-	 *  @param {Function} done called on hint complete
+	 * Abstract base class for hints used by HintPlayer
+	 * @class AbstractHint
+	 * @constructor
+	 * @private
+	 * @param {springroll.HintsPlayer} hints The instance of the hints
+	 * @param {Function} done called on hint complete
 	 */
 	var AbstractHint = function(hints, done)
 	{
 		/**
-		* The reference to the hint play
-		* @property {springroll.HintsPlayer} _hints
-		*/
+		 * The reference to the hint play
+		 * @property {springroll.HintsPlayer} _hints
+		 */
 		this._hints = hints;
 		this._done = done;
 	};
@@ -26,8 +27,8 @@
 	var p = AbstractHint.prototype;
 
 	/**
-	 *  Run the hint
-	 *  @method play
+	 * Run the hint
+	 * @method play
 	 */
 	p.play = function()
 	{
@@ -36,10 +37,10 @@
 	};
 
 	/**
-	 *  Handle when the media completes
-	 *  @method _onPlayComplete
-	 *  @private
-	 *  @param {function} original The original callback, either complete or cancelled
+	 * Handle when the media completes
+	 * @method _onPlayComplete
+	 * @private
+	 * @param {function} original The original callback, either complete or cancelled
 	 */
 	p._onPlayComplete = function(original, cancelled)
 	{
@@ -51,8 +52,8 @@
 	};
 
 	/**
-	 *  Clean-up the hint, don't use after this
-	 *  @method destroy
+	 * Clean-up the hint, don't use after this
+	 * @method destroy
 	 */
 	p.destroy = function()
 	{

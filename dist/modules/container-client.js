@@ -1,8 +1,8 @@
-/*! SpringRoll 0.3.7 */
+/*! SpringRoll 0.4.0 */
 /**
-*  @module Container Client
-*  @namespace springroll
-*/
+ * @module Container Client
+ * @namespace springroll
+ */
 (function(undefined)
 {
 	// Include classes
@@ -16,18 +16,10 @@
 	 * @class ContainerPlugin
 	 * @extends springroll.ApplicationPlugin
 	 */
-	var ContainerPlugin = function()
-	{
-		ApplicationPlugin.call(this);
-
-		this.priority = 50;
-	};
-
-	// Reference to the prototype
-	var p = extend(ContainerPlugin, ApplicationPlugin);
+	var plugin = new ApplicationPlugin(50);
 
 	// Init the animator
-	p.setup = function()
+	plugin.setup = function()
 	{
 		/**
 		 * The default play-mode for the application is continuous, if the application is
@@ -154,7 +146,7 @@
 	};
 
 	// Check for application name
-	p.preload = function(done)
+	plugin.preload = function(done)
 	{
 		if (!this.name)
 		{
@@ -319,7 +311,7 @@
 	};
 
 	// Destroy the animator
-	p.teardown = function()
+	plugin.teardown = function()
 	{
 		if (this._pageVisibility)
 		{
@@ -335,8 +327,5 @@
 			this.container = null;
 		}
 	};
-
-	// register plugin
-	ApplicationPlugin.register(ContainerPlugin);
 
 }());

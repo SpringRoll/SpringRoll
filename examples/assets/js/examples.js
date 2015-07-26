@@ -1,18 +1,23 @@
 (function(){
 	
-	window.addEventListener('load', function(){
-
+	window.addEventListener('load', function()
+	{
 		var content = document.getElementById('content');
 
-		document.getElementById('canvas').addEventListener('click', function(e){
+		document.getElementById('canvas').addEventListener('click', function(e)
+		{
 			content.className = 'canvas';
+			window.app.paused = false;
 		});
 
-		document.getElementById('code').addEventListener('click', function(e){
+		document.getElementById('code').addEventListener('click', function(e)
+		{
 			content.className = 'code';
+			window.app.paused = true;
 		});
 
-		document.getElementById('back').addEventListener('click', function(e){
+		document.getElementById('back').addEventListener('click', function(e)
+		{
 			document.location.href = "index.html";
 		});
 

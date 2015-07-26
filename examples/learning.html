@@ -19,7 +19,6 @@
 		<script src="../components/easeljs/lib/easeljs.combined.js"></script>
 		<script src="../dist/core.js"></script>	
 		<script src="../dist/modules/debug.js"></script>
-		<script src="../dist/modules/tasks.js"></script>
 		<script src="../dist/modules/easeljs-display.js"></script>
 		<script src="../dist/modules/easeljs-ui.js"></script>
 
@@ -49,7 +48,6 @@
 var Application = include('springroll.Application'),
 	Button = include('springroll.easeljs.Button'),
 	Debug = include('springroll.Debug'),
-	LoadTask = include('springroll.LoadTask'),
 	EaselJSDisplay = include('springroll.easeljs.EaselJSDisplay');
 
 // Create the new application
@@ -60,23 +58,8 @@ var app = new Application({
 	display: EaselJSDisplay,
 	displayOptions: {
 		clearView: true
-	}
-});
-
-// The button states image
-var buttonImage;
-
-// Load the button
-app.on('loading', function(tasks)
-{
-	tasks.push(new LoadTask(
-		'button', 
-		'assets/images/button.png', 
-		function(result)
-		{
-			buttonImage = result.content;
-		}
-	));
+	},
+	preload: ['assets/images/button.png']
 });
 
 // Handle the events
@@ -86,24 +69,24 @@ app.on('learningEvent', function(data)
 }); 
 
 // Wait until the app is ready
-app.on('init', function()
+app.once('init', function()
 {
 	var learning = this.learning;
 
-	addButton("startGame", 0, 0, function(){
+	this.addButton("startGame", 0, 0, function(){
 		learning.startGame();
 	});
 
-	addButton("startRound", 1, 0, function(){
+	this.addButton("startRound", 1, 0, function(){
 		learning.startRound(1, {size:1, type:"tub", animal:"pig"}, [1, 2], ["pig", "hog"], 1);
 	});
 
-	addButton("startRound", 1, 0, function(){
+	this.addButton("startRound", 1, 0, function(){
 		learning.startTimer('round');
 		learning.startRound(1, {size:1, type:"tub", animal:"pig"}, [1, 2], ["pig", "hog"], 1);
 	});
 
-	addButton("endRound", 1, 1, function(){
+	this.addButton("endRound", 1, 1, function(){
 		learning.requires("startRound");
 		learning.endRound(
 			1, 
@@ -114,41 +97,41 @@ app.on('init', function()
 		);
 	});
 
-	addButton("startInstruction", 2, 0, function(){
+	this.addButton("startInstruction", 2, 0, function(){
 		learning.startInstruction("Audio caption or text", "SomeAudio", "audio", 1000);
 	});
 
-	addButton("endInstruction", 2, 1, function(){
+	this.addButton("endInstruction", 2, 1, function(){
 		learning.endInstruction();
 	});
 
-	addButton("startIncorrect", 2, 2, function(){
+	this.addButton("startIncorrect", 2, 2, function(){
 		learning.startIncorrectFeedback("Audio caption or text", "SomeAudio", "audio", 1000);
 	});
 
-	addButton("endIncorrect", 2, 3, function(){
+	this.addButton("endIncorrect", 2, 3, function(){
 		learning.endIncorrectFeedback();
 	});
 
-	addButton("startCorrect", 2, 4, function(){
+	this.addButton("startCorrect", 2, 4, function(){
 		learning.startCorrectFeedback("Audio caption or text", "SomeAudio", "audio", 1000);
 	});
 
-	addButton("endCorrect", 2, 5, function(){
+	this.addButton("endCorrect", 2, 5, function(){
 		learning.endCorrectFeedback();
 	});
 
-	addButton("endGame", 4, 0, function(){
+	this.addButton("endGame", 4, 0, function(){
 		learning.endGame();
 	});
 });
 
 // Generic method for adding a button to the stage
 // add a label and some positioning information
-var addButton = function(label, row, col, handler)
+app.addButton = function(label, row, col, handler)
 {
 	// Create a play button
-	var button = new Button(buttonImage, {
+	var button = new Button(this.getCache('button'), {
 		text: label,
 		font: "16px Arial",
 		color: "#ffffff"
@@ -162,7 +145,7 @@ var addButton = function(label, row, col, handler)
 		button.on('buttonPress', handler);
 	}
 
-	app.display.stage.addChild(button);
+	this.display.stage.addChild(button);
 	return button;
 };
 

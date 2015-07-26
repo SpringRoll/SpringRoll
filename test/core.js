@@ -14,6 +14,48 @@ test('namespace & include', function(assert){
 	delete window.my;
 });
 
+test('mixin', function(assert){
+	
+	var instance = {};
+	var MyClass = function(value)
+	{
+		this.value = value;
+	};
+	var p = MyClass.prototype;
+
+	// Method to add to the object instance
+	p.test = function()
+	{
+		return true;
+	};
+
+	// Add a getter or setter with enumerable
+	Object.defineProperty(p, "enabled", {
+		enumerable: true,
+		get: function()
+		{
+			return true;
+		}
+	});
+
+	// We want this to fail, no enumerable property
+	Object.defineProperty(p, "active", {
+		get: function()
+		{
+			return true;
+		}
+	});
+
+	// do the mixin
+	mixin(instance, MyClass, 100);
+
+	assert.strictEqual(instance.value, 100, "Constructor arguments");
+	assert.ok(instance.test, "Instance includes prototype method");
+	assert.strictEqual(instance.test(), true, "function mixin works");
+	assert.notOk(instance.active, "Non-enumerable getter doesn't work");
+	assert.strictEqual(instance.enabled, true, "getter works");
+});
+
 test('Enum', function(assert){
 
 	expect(8);
@@ -62,13 +104,15 @@ test('Application', function(assert){
 });
 
 test('Math', function(assert){
-	expect(11);
+	expect(13);
 
 	assert.strictEqual(10, Math.clamp(20,2,10), "Upper clamp");
 	assert.strictEqual(2, Math.clamp(-1,2,10), "Lower clamp");
 	assert.strictEqual(0, Math.clamp(-1,10), "Zero-based clamp");
 	assert.strictEqual(4, Math.dist({x:0,y:4}, {x:0,y:0}), "2 Point distance");
+	assert.strictEqual(16, Math.distSq({x:0,y:4}, {x:0,y:0}), "2 Point distance squared");
 	assert.strictEqual(4, Math.dist(0,4,0,0), "X, Y, X1, Y1 distance");
+	assert.strictEqual(16, Math.distSq(0,4,0,0), "X, Y, X1, Y1 distance squared");
 
 	var i = Math.randomInt(4, 10);
 	assert.ok(i >= 4, "Random Int Min");

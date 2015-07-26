@@ -6,8 +6,8 @@
 (function()
 {
 	// Include classes
-	var ApplicationPlugin = include('springroll.ApplicationPlugin');
-	var HintsPlayer = include('springroll.HintsPlayer');
+	var ApplicationPlugin = include('springroll.ApplicationPlugin'),
+		HintsPlayer = include('springroll.HintsPlayer');
 
 	/**
 	 * Create an app plugin for Hinting, all properties and methods documented
@@ -15,16 +15,10 @@
 	 * @class HintsPlugin
 	 * @extends springroll.ApplicationPlugin
 	 */
-	var HintsPlugin = function()
-	{
-		ApplicationPlugin.call(this);
-	};
-
-	// Reference to the prototype
-	var p = extend(HintsPlugin, ApplicationPlugin);
-
+	var plugin = new ApplicationPlugin();
+	
 	// Init the animator
-	p.setup = function()
+	plugin.setup = function()
 	{
 		/**
 		 * The hint player API
@@ -34,7 +28,7 @@
 	};
 
 	// Check for dependencies
-	p.preload = function(done)
+	plugin.preload = function(done)
 	{
 		if (!this.display.animator)
 		{
@@ -83,11 +77,11 @@
 	};
 
 	/**
-	* Handle the VO event
-	* @method onVOHint
-	* @private
-	* @param {object} data The VO data
-	*/
+	 * Handle the VO event
+	 * @method onVOHint
+	 * @private
+	 * @param {object} data The VO data
+	 */
 	var onVOHint = function(data)
 	{
 		if (!!this.media)
@@ -109,11 +103,11 @@
 	};
 
 	/**
-	* Handle the animator event
-	* @method onAnimatorHint
-	* @private
-	* @param {object} data The animator data
-	*/
+	 * Handle the animator event
+	 * @method onAnimatorHint
+	 * @private
+	 * @param {object} data The animator data
+	 */
 	var onAnimatorHint = function(data)
 	{
 		if (!!this.media)
@@ -137,7 +131,7 @@
 	};
 
 	// Destroy the animator
-	p.teardown = function()
+	plugin.teardown = function()
 	{
 		if (this.container)
 		{
@@ -150,8 +144,5 @@
 			this.hints = null;
 		}
 	};
-
-	// register plugin
-	ApplicationPlugin.register(HintsPlugin);
 
 }());

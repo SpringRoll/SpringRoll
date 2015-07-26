@@ -4,7 +4,6 @@
  */
 (function()
 {
-	// Include classes
 	var ApplicationPlugin = include('springroll.ApplicationPlugin');
 
 	/**
@@ -13,18 +12,10 @@
 	 * @class StringFiltersPlugin
 	 * @extends springroll.ApplicationPlugin
 	 */
-	var StringFiltersPlugin = function()
-	{
-		ApplicationPlugin.call(this);
-
-		this.priority = 110;
-	};
-
-	// Reference to the prototype
-	var p = extend(StringFiltersPlugin, ApplicationPlugin);
+	var plugin = new ApplicationPlugin(110);
 
 	// Init the animator
-	p.setup = function()
+	plugin.setup = function()
 	{
 		/**
 		 * The StringFilters instance
@@ -35,13 +26,10 @@
 	};
 
 	// Destroy the animator
-	p.teardown = function()
+	plugin.teardown = function()
 	{
 		if (this.filters) this.filters.destroy();
 		this.filters = null;
 	};
-
-	// register plugin
-	ApplicationPlugin.register(StringFiltersPlugin);
 
 }());

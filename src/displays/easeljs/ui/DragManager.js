@@ -11,16 +11,16 @@
 		Application = include("springroll.Application");
 
 	/**
-	 *  Drag manager is responsible for handling the dragging of stage elements.
-	 *  Supports click-n-stick (click to start, move mouse, click to release) and click-n-drag (standard dragging) functionality.
+	 * Drag manager is responsible for handling the dragging of stage elements.
+	 * Supports click-n-stick (click to start, move mouse, click to release) and click-n-drag (standard dragging) functionality.
 	 *
-	 *  @class DragManager
-	 *  @constructor
-	 *  @param {PixiDisplay} display The display that this DragManager is handling objects on.
+	 * @class DragManager
+	 * @constructor
+	 * @param {PixiDisplay} display The display that this DragManager is handling objects on.
 	 *                               Optionally, this parameter an be omitted and the
 	 *                               Application's default display will be used.
-	 *  @param {function} startCallback The callback when when starting
-	 *  @param {function} endCallback The callback when ending
+	 * @param {function} startCallback The callback when when starting
+	 * @param {function} endCallback The callback when ending
 	 */
 	var DragManager = function(display, startCallback, endCallback)
 	{
@@ -114,15 +114,15 @@
 		/**
 		 * Settings for snapping.
 		 *
-		 *  Format for snapping to a list of points:
-		 *	{
-		 *		mode:"points",
-		 *		dist:20,//snap when within 20 pixels/units
-		 *		points:[
-		 *			{ x: 20, y:30 },
-		 *			{ x: 50, y:10 }
-		 *		]
-		 *	}
+		 * Format for snapping to a list of points:
+		 * {
+		 * 	mode:"points",
+		 * 	dist:20,//snap when within 20 pixels/units
+		 * 	points:[
+		 * 		{ x: 20, y:30 },
+		 * 		{ x: 50, y:10 }
+		 * 	]
+		 * }
 		 *
 		 * @public
 		 * @property {Object} snapSettings
@@ -148,6 +148,14 @@
 		 * @property {createjs.Point} _dragOffset
 		 */
 		this._dragOffset = null;
+		
+		/**
+		 * The pointer id that triggered the drag. This is only used when multitouch is false
+		 * - the DragData is indexed by pointer id when multitouch is true.
+		 * @private
+		 * @property {Number} _dragPointerID
+		 */
+		this._dragPointerID = 0;
 
 		/**
 		 * Callback when we start dragging
@@ -225,16 +233,16 @@
 	});
 
 	/**
-	 *  Manually starts dragging an object. If a mouse down event is not
-	 *  supplied as the second argument, it defaults to a held drag, that ends as
-	 *  soon as the mouse is released. When using multitouch, passing a mouse event is
-	 *  required.
-	 *  @method startDrag
-	 *  @public
-	 *  @param {createjs.DisplayObject} object The object that should be dragged.
-	 *  @param {createjs.MouseEvent} ev A mouse down event that should be considered to have
-	 *                                  started the drag, to determine what type of drag should be
-	 *                                  used.
+	 * Manually starts dragging an object. If a mouse down event is not
+	 * supplied as the second argument, it defaults to a held drag, that ends as
+	 * soon as the mouse is released. When using multitouch, passing a mouse event is
+	 * required.
+	 * @method startDrag
+	 * @public
+	 * @param {createjs.DisplayObject} object The object that should be dragged.
+	 * @param {createjs.MouseEvent} ev A mouse down event that should be considered to have
+	 *                                started the drag, to determine what type of drag should be
+	 *                                used.
 	 */
 	p.startDrag = function(object, ev)
 	{
@@ -243,11 +251,11 @@
 
 	/**
 	 * Mouse down on an obmect
-	 *  @method _objMouseDown
-	 *  @private
-	 *  @param {createjs.MouseEvent} ev A mouse down event to listen to to determine
-	 *                                  what type of drag should be used.
-	 *  @param {createjs.DisplayObject} object The object that should be dragged.
+	 * @method _objMouseDown
+	 * @private
+	 * @param {createjs.MouseEvent} ev A mouse down event to listen to to determine
+	 *                                what type of drag should be used.
+	 * @param {createjs.DisplayObject} object The object that should be dragged.
 	 */
 	p._objMouseDown = function(ev, obj)
 	{
@@ -293,6 +301,7 @@
 		if (!ev)
 		{
 			this.isHeldDrag = true;
+			this._dragPointerID = -1;//allow any touch/mouse up to stop drag
 			this._startDrag();
 		}
 		else
@@ -300,6 +309,7 @@
 			//override the target for the mousedown/touchstart event to be
 			//this object, in case we are dragging a cloned object
 			this._theStage._getPointerData(ev.pointerID).target = obj;
+			this._dragPointerID = ev.pointerID;
 			//if it is a touch event, force it to be the held drag type
 			if (!this.allowStickyClick || ev.nativeEvent.type == 'touchstart')
 			{
@@ -388,7 +398,7 @@
 	 * @method stopDrag
 	 * @param {Boolean} [doCallback=false] If the drag end callback should be called.
 	 * @param {createjs.DisplayObject} [obj] A specific object to stop dragging, if multitouch
-	 *                                       is true. If this is omitted, it stops all drags.
+	 *                                     is true. If this is omitted, it stops all drags.
 	 */
 	p.stopDrag = function(doCallback, obj)
 	{
@@ -448,6 +458,9 @@
 		}
 		else
 		{
+			//don't stop the drag if a different finger than the dragging one was released
+			if(ev && ev.pointerID != this._dragPointerID && this._dragPointerID > -1) return;
+			
 			obj = this.draggedObj;
 			this.draggedObj = null;
 		}
@@ -495,11 +508,15 @@
 		if (this._multitouch)
 		{
 			var data = this.draggedObj[ev.pointerID];
+			if(!data) return;
+			
 			draggedObj = data.obj;
 			dragOffset = data.dragOffset;
 		}
 		else
 		{
+			if(ev.pointerID != this._dragPointerID && this._dragPointerID > -1) return;
+			
 			draggedObj = this.draggedObj;
 			dragOffset = this._dragOffset;
 		}
@@ -537,7 +554,7 @@
 	 * @method _handlePointSnap
 	 * @private
 	 * @param {createjs.Point} localMousePos The mouse position in the same
-	 *                                       space as the dragged object.
+	 *                                     space as the dragged object.
 	 * @param {createjs.Point} dragOffset The drag offset for the dragged object.
 	 * @param {createjs.DisplayObject} obj The object to snap.
 	 */
@@ -622,7 +639,7 @@
 	 * @public
 	 * @param {createjs.DisplayObject} obj The display object
 	 * @param {createjs.Rectangle} [bounds] The rectangle bounds. 'right' and 'bottom' properties
-	 *                                      will be added to this object.
+	 *                                    will be added to this object.
 	 */
 	p.addObject = function(obj, bounds)
 	{
@@ -664,9 +681,9 @@
 	};
 
 	/**
-	 *  Destroy the manager
-	 *  @public
-	 *  @method destroy
+	 * Destroy the manager
+	 * @public
+	 * @method destroy
 	 */
 	p.destroy = function()
 	{

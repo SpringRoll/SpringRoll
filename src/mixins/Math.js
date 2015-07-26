@@ -29,7 +29,7 @@
 	};
 
 	/**
-	 * Return dist between two points
+	 * Return distance between two points
 	 * @method dist
 	 * @static
 	 * @param {Number} x The x position of the first point
@@ -40,7 +40,7 @@
 	 */
 	
 	/**
-	 * Return dist between two points
+	 * Return distance between two points
 	 * @method dist
 	 * @static
 	 * @param {Object} p1 The first point
@@ -52,6 +52,34 @@
 	 * @return {Number} The distance
 	 */
 	Math.dist = function (x, y, x0, y0)
+	{
+		return Math.sqrt(Math.distSq(x, y, x0, y0));
+	};
+
+	/**
+	 * Return squared distance between two points
+	 * @method distSq
+	 * @static
+	 * @param {Number} x The x position of the first point
+	 * @param {Number} y The y position of the first point
+	 * @param {Number} x0 The x position of the second point
+	 * @param {Number} y0 The y position of the second point
+	 * @return {Number} The distance
+	 */
+	
+	/**
+	 * Return squared distance between two points
+	 * @method distSq
+	 * @static
+	 * @param {Object} p1 The first point
+	 * @param {Object} p1.x The x position of the first point
+	 * @param {Object} p1.y The y position of the first point
+	 * @param {Object} p2 The second point
+	 * @param {Object} p2.x The x position of the second point
+	 * @param {Number} p2.y The y position of the second point
+	 * @return {Number} The distance
+	 */
+	Math.distSq = function (x, y, x0, y0)
 	{
 		//see if the first parameter is a point
 		if (typeof x.x == "number" && x.x == x.x) //faster !isNaN
@@ -69,26 +97,26 @@
 			y0 = x0.y;
 			x0 = x0.x;
 		}
-		return Math.sqrt((x - x0) * (x - x0) + (y - y0) * (y - y0));
+		return (x - x0) * (x - x0) + (y - y0) * (y - y0);
 	};
 
 	/**
-	 *	Constrain a number between 0 and a max value.
-	 *	@method clamp
-	 *	@static
-	 *	@param {Number} value The number to be constrained.
-	 *	@param {Number} max Highest number.
-	 *	@return {Number} The constrained value
+	 * Constrain a number between 0 and a max value.
+	 * @method clamp
+	 * @static
+	 * @param {Number} value The number to be constrained.
+	 * @param {Number} max Highest number.
+	 * @return {Number} The constrained value
 	 */
 
 	/**
-	 *	Constrain a number between a minimum and maximum values.
-	 *	@method clamp
-	 *	@static
-	 *	@param {Number} value The number to be constrained.
-	 *	@param {Number} min Lowest number to constrain value to.
-	 *	@param {Number} max Highest number.
-	 *	@return {Number} The constrained value
+	 * Constrain a number between a minimum and maximum values.
+	 * @method clamp
+	 * @static
+	 * @param {Number} value The number to be constrained.
+	 * @param {Number} min Lowest number to constrain value to.
+	 * @param {Number} max Highest number.
+	 * @return {Number} The constrained value
 	 */
 	Math.clamp = function (value, min, max)
 	{

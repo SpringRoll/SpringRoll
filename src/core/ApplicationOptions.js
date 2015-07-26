@@ -1,7 +1,7 @@
 /**
-*  @module Core
-*  @namespace springroll
-*/
+ * @module Core
+ * @namespace springroll
+ */
 (function(undefined)
 {
 	var Tween = include('createjs.Tween', false),
@@ -10,11 +10,11 @@
 		Debug;
 
 	/**
-	* Manage the Application options
-	* @class ApplicationOptions
-	* @extends springroll.PropertyDispatcher
-	* @constructor {Object} [overrides] The supplied options
-	*/
+	 * Manage the Application options
+	 * @class ApplicationOptions
+	 * @extends springroll.PropertyDispatcher
+	 * @constructor {Object} [overrides] The supplied options
+	 */
 	var ApplicationOptions = function(app, options)
 	{
 		if(Debug === undefined)

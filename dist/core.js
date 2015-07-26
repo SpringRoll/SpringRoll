@@ -1,4 +1,4 @@
-/*! SpringRoll 0.3.7 */
+/*! SpringRoll 0.4.0 */
 /**
  * @module Core
  * @namespace window
@@ -6,15 +6,15 @@
 (function(Array, Math, Object)
 {
 	/**
-	*  Add methods to Array
-	*  See https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/defineProperty
-	*  @class Array
-	*/
+	 * Add methods to Array
+	 * See https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/defineProperty
+	 * @class Array
+	 */
 
 	/**
-	*  Shuffles the array
-	*  @method shuffle
-	*/
+	 * Shuffles the array
+	 * @method shuffle
+	 */
 	// In EcmaScript 5 specs and browsers that support it you can use the Object.defineProperty
 	// to make it not enumerable set the enumerable property to false
 	if(!Array.prototype.shuffle)
@@ -31,12 +31,11 @@
 	}
 
 	/**
-	*  Get a random item from an array
-	*  @method random
-	*  @static
-	*  @param {Array} array The array
-	*  @return {*} The random item
-	*/
+	 * Get a random item from an array
+	 * @method random
+	 * @param {Array} array The array
+	 * @return {*} The random item
+	 */
 	if(!Array.prototype.random)
 	{
 		Object.defineProperty(Array.prototype, 'random',
@@ -50,12 +49,11 @@
 	}
 
 	/**
-	*  Get the last item in the array
-	*  @method last
-	*  @static
-	*  @param {Array} array The array
-	*  @return {*} The last item
-	*/
+	 * Get the last item in the array
+	 * @method last
+	 * @param {Array} array The array
+	 * @return {*} The last item
+	 */
 	if(!Array.prototype.last)
 	{
 		Object.defineProperty(Array.prototype, 'last',
@@ -101,7 +99,7 @@
 	};
 
 	/**
-	 * Return dist between two points
+	 * Return distance between two points
 	 * @method dist
 	 * @static
 	 * @param {Number} x The x position of the first point
@@ -112,7 +110,7 @@
 	 */
 	
 	/**
-	 * Return dist between two points
+	 * Return distance between two points
 	 * @method dist
 	 * @static
 	 * @param {Object} p1 The first point
@@ -124,6 +122,34 @@
 	 * @return {Number} The distance
 	 */
 	Math.dist = function (x, y, x0, y0)
+	{
+		return Math.sqrt(Math.distSq(x, y, x0, y0));
+	};
+
+	/**
+	 * Return squared distance between two points
+	 * @method distSq
+	 * @static
+	 * @param {Number} x The x position of the first point
+	 * @param {Number} y The y position of the first point
+	 * @param {Number} x0 The x position of the second point
+	 * @param {Number} y0 The y position of the second point
+	 * @return {Number} The distance
+	 */
+	
+	/**
+	 * Return squared distance between two points
+	 * @method distSq
+	 * @static
+	 * @param {Object} p1 The first point
+	 * @param {Object} p1.x The x position of the first point
+	 * @param {Object} p1.y The y position of the first point
+	 * @param {Object} p2 The second point
+	 * @param {Object} p2.x The x position of the second point
+	 * @param {Number} p2.y The y position of the second point
+	 * @return {Number} The distance
+	 */
+	Math.distSq = function (x, y, x0, y0)
 	{
 		//see if the first parameter is a point
 		if (typeof x.x == "number" && x.x == x.x) //faster !isNaN
@@ -141,26 +167,26 @@
 			y0 = x0.y;
 			x0 = x0.x;
 		}
-		return Math.sqrt((x - x0) * (x - x0) + (y - y0) * (y - y0));
+		return (x - x0) * (x - x0) + (y - y0) * (y - y0);
 	};
 
 	/**
-	 *	Constrain a number between 0 and a max value.
-	 *	@method clamp
-	 *	@static
-	 *	@param {Number} value The number to be constrained.
-	 *	@param {Number} max Highest number.
-	 *	@return {Number} The constrained value
+	 * Constrain a number between 0 and a max value.
+	 * @method clamp
+	 * @static
+	 * @param {Number} value The number to be constrained.
+	 * @param {Number} max Highest number.
+	 * @return {Number} The constrained value
 	 */
 
 	/**
-	 *	Constrain a number between a minimum and maximum values.
-	 *	@method clamp
-	 *	@static
-	 *	@param {Number} value The number to be constrained.
-	 *	@param {Number} min Lowest number to constrain value to.
-	 *	@param {Number} max Highest number.
-	 *	@return {Number} The constrained value
+	 * Constrain a number between a minimum and maximum values.
+	 * @method clamp
+	 * @static
+	 * @param {Number} value The number to be constrained.
+	 * @param {Number} min Lowest number to constrain value to.
+	 * @param {Number} max Highest number.
+	 * @return {Number} The constrained value
 	 */
 	Math.clamp = function (value, min, max)
 	{
@@ -181,24 +207,70 @@
  * @module Core
  * @namespace window
  */
+(function(Number, Object)
+{
+	/**
+	 * Add methods to Number
+	 * @class Number
+	 */
+	
+	/**
+	 * Returns a string of the number as an integer with leading zeros to fill the string out
+	 * to a certain number of digits.
+	 * @method toPaddedString
+	 * @param {Number} [totalDigits=2] The total number of digits to be displayed.
+	 * @return {String} The number string.
+	 */
+	if(!Number.prototype.toPaddedString)
+	{
+		Object.defineProperty(Number.prototype, 'toPaddedString',
+		{
+			enumerable: false,
+			writable:false,
+			value: function(totalDigits) {
+				if(!totalDigits)
+					totalDigits = 2;
+				var num = this;
+				var leader;
+				if(num < 0)
+				{
+					num *= -1;
+					leader = "-";
+				}
+				var s = String(Math.floor(num));
+				while(s.length < totalDigits)
+					s = "0" + s;
+				if(leader)
+					s = leader + s;
+				return s;
+			}
+		});
+	}
+
+}(Number, Object));
+
+/**
+ * @module Core
+ * @namespace window
+ */
 (function(Object, support, undefined){
 
 	/**
-	*  Add methods to Object
-	*  @class Object
-	*/
+	 * Add methods to Object
+	 * @class Object
+	 */
 
 	/**
-	*  Merges two (or more) objects, giving the last one precedence
-	*  @method merge
-	*  @example
+	 * Merges two (or more) objects, giving the last one precedence
+	 * @method merge
+	 * @example
 		var obj1 = { id : 'foo', name : 'Hello!', value : 100 };
 		var obj2 = { id : 'bar', value : 200 };
 		Object.merge({}, obj1, obj2); // Returns: { id : 'bar', name : 'Hello!', value : 200 }
-	*  @static
-	*  @param {Object} target The target object
-	*  @param {Object} source* Additional objects to add
-	*/
+	 * @static
+	 * @param {Object} target The target object
+	 * @param {Object} source* Additional objects to add
+	 */
 	Object.merge = function(target, source)
 	{
 		if (!target || typeof target !== 'object')
@@ -229,12 +301,12 @@
 	};
 
 	/**
-	*  Check to see if an object is a plain object definition
-	*  @method isPlain
-	*  @static
-	*  @param {Object} target The target object
-	*  @return {Boolean} If the object is plain
-	*/
+	 * Check to see if an object is a plain object definition
+	 * @method isPlain
+	 * @static
+	 * @param {Object} target The target object
+	 * @return {Boolean} If the object is plain
+	 */
 	Object.isPlain = function(obj)
 	{
 		var key;
@@ -280,10 +352,10 @@
 	};
 	
 	/**
-	*  Creates a shallow copy of the object.
-	*  @method clone
-	*  @return {Object} The shallow copy.
-	*/
+	 * Creates a shallow copy of the object.
+	 * @method clone
+	 * @return {Object} The shallow copy.
+	 */
 	if(!Object.prototype.clone)
 	{
 		Object.defineProperty(Object.prototype, 'clone',
@@ -311,22 +383,22 @@
 (function(String, Object)
 {
 	/**
-	*  Add methods to String
-	*  See https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/defineProperty
-	*  @class String
-	*/
+	 * Add methods to String
+	 * See https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/defineProperty
+	 * @class String
+	 */
 
 	/**
-	*  Returns a formatted string, similar to the printf() function in many languages.
-	*  This simplified version substitutes "%s" with the arguments in order. To escape "%s",
-	*  use "%%s".
-	*  @method format
-	*  @param {Array|*} args An array or list of arguments for formatting.
-	*  @return {String} The substituted string.
-	*/
+	 * Returns a formatted string, similar to the printf() function in many languages.
+	 * This simplified version substitutes "%s" with the arguments in order. To escape "%s",
+	 * use "%%s".
+	 * @method format
+	 * @param {Array|*} args An array or list of arguments for formatting.
+	 * @return {String} The substituted string.
+	 */
 	// In EcmaScript 5 specs and browsers that support it you can use the Object.defineProperty
 	// to make it not enumerable set the enumerable property to false
-	Object.defineProperty(String.prototype, 'format', 
+	Object.defineProperty(String.prototype, 'format',
 	{
 		enumerable: false,
 		writable:false,
@@ -349,13 +421,13 @@
 	});
 	
 	/**
-	*  Returns a reversed copy of the string.
-	*  @method format
-	*  @return {String} The reversed string.
-	*/
+	 * Returns a reversed copy of the string.
+	 * @method reverse
+	 * @return {String} The reversed string.
+	 */
 	if(!String.prototype.reverse)
 	{
-		Object.defineProperty(String.prototype, 'reverse', 
+		Object.defineProperty(String.prototype, 'reverse',
 		{
 			enumerable: false,
 			writable:false,
@@ -375,27 +447,27 @@
  * @namespace window
  */
 /**
-*  Use to do class inheritence
-*  @class extend
-*  @static
-*/
+ * Use to do class inheritence
+ * @class extend
+ * @static
+ */
 (function(window){
 	
 	// The extend function already exists
 	if ("extend" in window) return;
 
 	/**
-	*  Extend prototype
-	*
-	*  @example
+	 * Extend prototype
+	 *
+	 * @example
 		var p = extend(MyClass, ParentClass);
-	*
-	*  @constructor
-	*  @method extend
-	*  @param {function} subClass The reference to the class
-	*  @param {function|String} superClass The parent reference or full classname
-	*  @return {object} Reference to the subClass's prototype
-	*/
+	 *
+	 * @constructor
+	 * @method extend
+	 * @param {function} subClass The reference to the class
+	 * @param {function|String} superClass The parent reference or full classname
+	 * @return {object} Reference to the subClass's prototype
+	 */
 	window.extend = function(subClass, superClass)
 	{
 		if (typeof superClass == "string")
@@ -414,28 +486,28 @@
  * @namespace window
  */
 /**
-*  Used to include required classes by name
-*  @class include
-*  @static
-*/
+ * Used to include required classes by name
+ * @class include
+ * @static
+ */
 (function(window, undefined){
 	
 	// The include function already exists
 	if ("include" in window) return;
 	
 	/**
-	*  Import a class
-	*
-	*  @example
+	 * Import a class
+	 *
+	 * @example
 		var Application = include('springroll.Application');
-	*
-	*  @constructor
-	*  @method include
-	*  @param {string} namespaceString Name space, for instance 'springroll.Application'
-	*  @param {Boolean} [required=true] If the class we're trying to include is required.
-	* 		For classes that aren't found and are required, an error is thrown.
-	*  @return {object|function} The object attached at the given namespace
-	*/
+	 *
+	 * @constructor
+	 * @method include
+	 * @param {string} namespaceString Name space, for instance 'springroll.Application'
+	 * @param {Boolean} [required=true] If the class we're trying to include is required.
+	 * 		For classes that aren't found and are required, an error is thrown.
+	 * @return {object|function} The object attached at the given namespace
+	 */
 	var include = function(namespaceString, required)
 	{
 		var parts = namespaceString.split('.'),
@@ -476,28 +548,108 @@
  * @namespace window
  */
 /**
-*  Static class for namespacing objects and adding
-*  classes to it.
-*  @class namespace
-*  @static
-*/
+ * Static class for mixing in functionality into objects.
+ * @class mixin
+ * @static
+ */
+(function(window, Object)
+{
+	// The mixin function already exists
+	if ("mixin" in window) return;
+
+	/**
+	 * Mixin functionality to an object
+	 *
+	 * @example
+		mixin(instance, MyClass);
+	 *
+	 * @constructor
+	 * @method mixin
+	 * @param {*} target The instance object to add functionality to
+	 * @param {function|String} superClass The parent reference or full classname
+	 * @param {*} [args] Any additional arguments to pass to the constructor of the superClass
+	 * @return {*} Return reference to target
+	 */
+	var mixin = function(target, superClass)
+	{
+		if (true && !superClass)
+		{
+			throw 'Did not supply a valid mixin class';
+		}
+
+		// Include using string
+		if (typeof superClass === "string")
+		{
+			superClass = window.include(superClass);
+		}
+
+		// Check for existence of prototype
+		if (!superClass.prototype)
+		{
+			if (true)
+			{
+				throw 'The mixin class does not have a valid protoype';
+			}
+			else
+			{
+				throw 'no mixin prototype';
+			}
+		}
+		//loop over mixin prototype to add functions
+		var p = superClass.prototype;
+
+		for(var prop in p)
+		{
+			// For things that we set using Object.defineProperty
+			// very important that enumerable:true for the 
+			// defineProperty options
+			var propDesc = Object.getOwnPropertyDescriptor(p, prop);
+			if(propDesc)
+			{
+				Object.defineProperty(target, prop, propDesc);
+			}
+			else
+			{
+				// Should cover all other prototype methods/properties
+				target[prop] = p[prop];
+			}
+		}
+		// call mixin on target and apply any arguments
+		superClass.apply(target, Array.prototype.slice.call(arguments, 2));
+		return target;
+	};
+
+	// Assign to the window namespace
+	window.mixin = mixin;
+	
+}(window, Object));
+/**
+ * @module Core
+ * @namespace window
+ */
+/**
+ * Static class for namespacing objects and adding
+ * classes to it.
+ * @class namespace
+ * @static
+ */
 (function(window){
 	
 	// The namespace function already exists
 	if ("namespace" in window) return;
 	
 	/**
-	*  Create the namespace and assing to the window
-	*
-	*  @example
+	 * Create the namespace and assing to the window
+	 *
+	 * @example
 		var SpriteUtils = function(){};
 		namespace('springroll').SpriteUtils = SpriteUtils;
-	*
-	*  @constructor
-	*  @method namespace
-	*  @param {string} namespaceString Name space, for instance 'springroll.utils'
-	*  @return {object} The namespace object attached to the current window
-	*/
+	 *
+	 * @constructor
+	 * @method namespace
+	 * @param {string} namespaceString Name space, for instance 'springroll.utils'
+	 * @return {object} The namespace object attached to the current window
+	 */
 	var namespace = function(namespaceString) {
 		var parts = namespaceString.split('.'),
 			parent = window,
@@ -526,23 +678,23 @@
 {
 	
 	/**
-	*  A function that is used as a normal callback, but checks an object for a property in order to combine two
-	*  callbacks into one. For example usage:
-	*
-	*  var voPlayer = new springroll.VOPlayer();
-	*  var callback = springroll.CombinedCallback.create(myFunc.bind(this), voPlayer, "playing", "_callback");
-	*  Animator.play(myClip, "myAnim", callback);
-	*  
-	*  In this example, when Animator calls 'callback', if voPlayer["playing"] is false, 'myFunc' is called immediately.
-	*  If voPlayer["playing"] is true, then voPlayer["_callback"] is set to 'myFunc' so that it will be called when voPlayer completes.
-	*  
-	*  @class CombinedCallback
-	*  @constructor
-	*  @param {function} call The callback to call when everything is complete.
-	*  @param {*} obj The object to check as an additional completion dependency.
-	*  @param {String} prop The property to check on obj. If obj[prop] is false, then it is considered complete.
-	*  @param {String} callProp The property to set on obj if obj[prop] is true when the CombinedCallback is called.
-	*/
+	 * A function that is used as a normal callback, but checks an object for a property in order to combine two
+	 * callbacks into one. For example usage:
+	 *
+	 * var voPlayer = new springroll.VOPlayer();
+	 * var callback = springroll.CombinedCallback.create(myFunc.bind(this), voPlayer, "playing", "_callback");
+	 * Animator.play(myClip, "myAnim", callback);
+	 * 
+	 * In this example, when Animator calls 'callback', if voPlayer["playing"] is false, 'myFunc' is called immediately.
+	 * If voPlayer["playing"] is true, then voPlayer["_callback"] is set to 'myFunc' so that it will be called when voPlayer completes.
+	 * 
+	 * @class CombinedCallback
+	 * @constructor
+	 * @param {function} call The callback to call when everything is complete.
+	 * @param {*} obj The object to check as an additional completion dependency.
+	 * @param {String} prop The property to check on obj. If obj[prop] is false, then it is considered complete.
+	 * @param {String} callProp The property to set on obj if obj[prop] is true when the CombinedCallback is called.
+	 */
 	var CombinedCallback = function(call, obj, prop, callProp)
 	{
 		if(!obj[prop])//accept anything that resolves to false: eg voPlayer.playing == false
@@ -552,15 +704,15 @@
 	};
 
 	/**
-	*  Creates a CombinedCallback for use.
-	*  
-	*  @method create
-	*  @static
-	*  @param {function} call The callback to call when everything is complete.
-	*  @param {*} obj The object to check as an additional completion dependency.
-	*  @param {String} prop The property to check on obj. If obj[prop] is false, then it is considered complete.
-	*  @param {String} callProp The property to set on obj if obj[prop] is true when the CombinedCallback is called.
-	*/
+	 * Creates a CombinedCallback for use.
+	 * 
+	 * @method create
+	 * @static
+	 * @param {function} call The callback to call when everything is complete.
+	 * @param {*} obj The object to check as an additional completion dependency.
+	 * @param {String} prop The property to check on obj. If obj[prop] is false, then it is considered complete.
+	 * @param {String} callProp The property to set on obj if obj[prop] is true when the CombinedCallback is called.
+	 */
 	CombinedCallback.create = function(call, obj, prop, callProp)
 	{
 		return CombinedCallback.bind(this, call, obj, prop, callProp);
@@ -577,23 +729,23 @@
 	var Application;
 
 	/**
-	*  A class for delaying a call through the Application, instead of relying on setInterval() or
-	*  setTimeout().
-	*
-	*  @class DelayedCall
-	*  @constructor
-	*  @param {function} callback The function to call when the delay has completed.
-	*  @param {int} delay The time to delay the call, in milliseconds (or optionally frames).
-	*  @param {Object|Boolean} [options=false] The options to use or repeat value
-	*  @param {Boolean} [options.repeat=false] If the DelayedCall should automatically repeat itself when
-	*                                  completed.
-	*  @param {Boolean} [options.autoDestroy=true] If the DelayedCall should clean itself up when completed.
-	*  @param {Boolean} [options.useFrames=false] If the DelayedCall should use frames instead of
-	*                                     milliseconds for the delay.
-	*  @param {Boolean} [autoDestroy=true] If the DelayedCall should clean itself up when completed.
-	*  @param {Boolean} [useFrames=false] If the DelayedCall should use frames instead of
-	*                                     milliseconds for the delay.
-	*/
+	 * A class for delaying a call through the Application, instead of relying on setInterval() or
+	 * setTimeout().
+	 *
+	 * @class DelayedCall
+	 * @constructor
+	 * @param {function} callback The function to call when the delay has completed.
+	 * @param {int} delay The time to delay the call, in milliseconds (or optionally frames).
+	 * @param {Object|Boolean} [options=false] The options to use or repeat value
+	 * @param {Boolean} [options.repeat=false] If the DelayedCall should automatically repeat itself when
+	 *                              completed.
+	 * @param {Boolean} [options.autoDestroy=true] If the DelayedCall should clean itself up when completed.
+	 * @param {Boolean} [options.useFrames=false] If the DelayedCall should use frames instead of
+	 *                                 milliseconds for the delay.
+	 * @param {Boolean} [autoDestroy=true] If the DelayedCall should clean itself up when completed.
+	 * @param {Boolean} [useFrames=false] If the DelayedCall should use frames instead of
+	 *                                 milliseconds for the delay.
+	 */
 	var DelayedCall = function(callback, delay, options, autoDestroy, useFrames)
 	{
 		if (!Application)
@@ -620,55 +772,55 @@
 
 		
 		/**
-		*  The function to call when the delay is completed.
-		*  @private
-		*  @property {function} _callback
-		*/
+		 * The function to call when the delay is completed.
+		 * @private
+		 * @property {function} _callback
+		 */
 		this._callback = callback;
 
 		/**
-		*  The delay time, in milliseconds.
-		*  @private
-		*  @property {int} _delay
-		*/
+		 * The delay time, in milliseconds.
+		 * @private
+		 * @property {int} _delay
+		 */
 		this._delay = delay;
 
 		/**
-		*  The timer counting down from _delay, in milliseconds.
-		*  @private
-		*  @property {int} _timer
-		*/
+		 * The timer counting down from _delay, in milliseconds.
+		 * @private
+		 * @property {int} _timer
+		 */
 		this._timer = delay;
 
 		/**
-		*  If the DelayedCall should repeat itself automatically.
-		*  @private
-		*  @property {Boolean} _repeat
-		*  @default false
-		*/
+		 * If the DelayedCall should repeat itself automatically.
+		 * @private
+		 * @property {Boolean} _repeat
+		 * @default false
+		 */
 		this._repeat = options.repeat;
 
 		/**
-		*  If the DelayedCall should destroy itself after completing
-		*  @private
-		*  @property {Boolean} _autoDestroy
-		*  @default true
-		*/
+		 * If the DelayedCall should destroy itself after completing
+		 * @private
+		 * @property {Boolean} _autoDestroy
+		 * @default true
+		 */
 		this._autoDestroy = options.autoDestroy;
 		
 		/**
-		*  If the DelayedCall should use frames instead of milliseconds for the delay.
-		*  @private
-		*  @property {Boolean} _useFrames
-		*  @default false
-		*/
+		 * If the DelayedCall should use frames instead of milliseconds for the delay.
+		 * @private
+		 * @property {Boolean} _useFrames
+		 * @default false
+		 */
 		this._useFrames = options.useFrames;
 
 		/**
-		*  If the DelayedCall is currently paused (not stopped).
-		*  @private
-		*  @property {Boolean} _paused
-		*/
+		 * If the DelayedCall is currently paused (not stopped).
+		 * @private
+		 * @property {Boolean} _paused
+		 */
 		this._paused = false;
 
 		//save a bound version of the update function
@@ -681,11 +833,11 @@
 	var p = DelayedCall.prototype;
 
 	/**
-	*  The callback supplied to the Application for an update each frame.
-	*  @private
-	*  @method _update
-	*  @param {int} elapsed The time elapsed since the previous frame.
-	*/
+	 * The callback supplied to the Application for an update each frame.
+	 * @private
+	 * @method _update
+	 * @param {int} elapsed The time elapsed since the previous frame.
+	 */
 	p._update = function(elapsed)
 	{
 		if(!this._callback)
@@ -708,10 +860,10 @@
 	};
 
 	/**
-	*  Restarts the DelayedCall, whether it is running or not.
-	*  @public
-	*  @method restart
-	*/
+	 * Restarts the DelayedCall, whether it is running or not.
+	 * @public
+	 * @method restart
+	 */
 	p.restart = function()
 	{
 		if(!this._callback) return;
@@ -723,10 +875,10 @@
 	};
 
 	/**
-	*  Stops the DelayedCall, without destroying it.
-	*  @public
-	*  @method stop
-	*/
+	 * Stops the DelayedCall, without destroying it.
+	 * @public
+	 * @method stop
+	 */
 	p.stop = function()
 	{
 		Application.instance.off("update", this._update);
@@ -734,10 +886,10 @@
 	};
 
 	/**
-	*  If the DelayedCall is paused or not.
-	*  @public
-	*  @property {Boolean} paused
-	*/
+	 * If the DelayedCall is paused or not.
+	 * @public
+	 * @property {Boolean} paused
+	 */
 	Object.defineProperty(p, "paused", {
 		get: function() { return this._paused; },
 		set: function(value)
@@ -762,11 +914,11 @@
 	});
 
 	/**
-	*  Stops and cleans up the DelayedCall. Do not use it after calling
-	*  destroy().
-	*  @public
-	*  @method destroy
-	*/
+	 * Stops and cleans up the DelayedCall. Do not use it after calling
+	 * destroy().
+	 * @public
+	 * @method destroy
+	 */
 	p.destroy = function()
 	{
 		Application.instance.off("update", this._update);
@@ -777,126 +929,12 @@
 }());
 /**
  * @module Core
- * @namespace window
- */
-(function()
-{
-	/**
-	*  Simplified fork of async (https://github.com/caolan/async) which only contains waterfall.
-	*  @class async
-	*/
-	var async = {};
-
-	/**
-	 * Process the next task
-	 * @method  setImmediate
-	 * @param  {function}   fn    The next process function to call
-	 */
-	async.setImmediate = function (fn)
-	{
-		setTimeout(fn, 0);
-	};
-
-	/**
-	 * Async waterfall
-	 * @method  waterfall
-	 * @param  {array}   tasks    Collection of functions
-	 * @param  {Function} callback The callback when all functions are called
-	 */
-	async.waterfall = function (tasks, callback)
-	{
-		callback = callback || function () {};
-
-		if (!_isArray(tasks))
-		{
-			var err = new Error('First argument to waterfall must be an array of functions');
-			return callback(err);
-		}
-
-		if (!tasks.length)
-		{
-			return callback();
-		}
-
-		var wrapIterator = function(iterator)
-		{
-			return function(err)
-			{
-				if (err)
-				{
-					callback.apply(null, arguments);
-					callback = function () {};
-				}
-				else 
-				{
-					var args = Array.prototype.slice.call(arguments, 1);
-					var next = iterator.next();
-					
-					if (next)
-					{
-						args.push(wrapIterator(next));
-					}
-					else 
-					{
-						args.push(callback);
-					}
-					async.setImmediate(function()
-					{
-						iterator.apply(null, args);
-					});
-				}
-			};
-		};
-		wrapIterator(async.iterator(tasks))();
-	};
-
-	/**
-	 * Async waterfall
-	 * @method  iterator
-	 * @private
-	 * @param  {array}   tasks    Collection of functions
-	 */
-	async.iterator = function(tasks)
-	{
-        var makeCallback = function(index)
-        {
-            var fn = function()
-            {
-                if (tasks.length)
-                {
-                    tasks[index].apply(null, arguments);
-                }
-                return fn.next();
-            };
-            fn.next = function()
-            {
-                return (index < tasks.length - 1) ? makeCallback(index + 1): null;
-            };
-            return fn;
-        };
-        return makeCallback(0);
-    };
-
-	//// cross-browser compatiblity functions ////
-
-	var _toString = Object.prototype.toString;
-
-	var _isArray = Array.isArray || function(obj)
-	{
-		return _toString.call(obj) === '[object Array]';
-	};
-
-	// Assign to namespace
-	namespace('springroll').async = async;
-
-}());
-/**
- * @module Core
  * @namespace springroll
  */
 (function()
 {
 	var Debug;
+	
 	/**
 	 * An enumeration value. This class is private, and is only used by Enum.
 	 * @class EnumValue
@@ -917,12 +955,14 @@
 		 * @property {String} name
 		 */
 		this.name = name;
+
 		/**
 		 * The integer value of this enum entry.
 		 * @property {int} _value
 		 * @private
 		 */
 		this._value = value;
+
 		/**
 		 * A string for toString() to return, instead of the name.
 		 * @property {String} _toString
@@ -949,9 +989,9 @@
 	};
 
 	/**
-	* An enumeration, similar to Enums in C#. Each value is created as an EnumValue on the Enum,
-	* referenced as a property with the same name as the EnumValue. Examples:
-	*
+	 * An enumeration, similar to Enums in C#. Each value is created as an EnumValue on the Enum,
+	 * referenced as a property with the same name as the EnumValue. Examples:
+	 *
 		var myEnum = new springroll.Enum(
 			"valueOf0",
 			"valueOf1",
@@ -968,16 +1008,16 @@
 		console.log(myOtherEnum.one.toString());//outputs "I am the One!"
 
 		for (var i in myEnum) console.log(i); //outputs "valueOf0","valueOf1","valueOf2"
-	*
-	* @class Enum
-	* @constructor
-	* @param {Array|String|Object} arguments 
-	*  The list of enumeration values. You can pass either an
-	*  array or a list of parameters. Each string will be
-	*  the previous value plus one, while objects with
-	*  'name' and 'value' properties will have the specified
-	*  numeric value.
-	*/
+	 *
+	 * @class Enum
+	 * @constructor
+	 * @param {Array|String|Object} arguments 
+	 * The list of enumeration values. You can pass either an
+	 * array or a list of parameters. Each string will be
+	 * the previous value plus one, while objects with
+	 * 'name' and 'value' properties will have the specified
+	 * numeric value.
+	 */
 	var Enum = function()
 	{
 		var args = Array.isArray(arguments[0]) ?
@@ -1145,16 +1185,16 @@
 	namespace('springroll').Enum = Enum;
 }());
 /**
-*  @module Core
-*  @namespace springroll
-*/
+ * @module Core
+ * @namespace springroll
+ */
 (function(undefined){
 
 	/**
-	*  The SavedData functions use localStorage and sessionStorage, with a cookie fallback.
-	*
-	*  @class SavedData
-	*/
+	 * The SavedData functions use localStorage and sessionStorage, with a cookie fallback.
+	 *
+	 * @class SavedData
+	 */
 	var SavedData = {},
 
 	/** A constant to determine if we can use localStorage and sessionStorage */
@@ -1178,11 +1218,11 @@
 	}
 
 	/**
-	*  Remove a saved variable by name.
-	*  @method remove
-	*  @static
-	*  @param {String} name The name of the value to remove
-	*/
+	 * Remove a saved variable by name.
+	 * @method remove
+	 * @static
+	 * @param {String} name The name of the value to remove
+	 */
 	SavedData.remove = function(name)
 	{
 		if(WEB_STORAGE_SUPPORT)
@@ -1195,13 +1235,13 @@
 	};
 
 	/**
-	*  Save a variable.
-	*  @method write
-	*  @static
-	*  @param {String} name The name of the value to save
-	*  @param {mixed} value The value to save. This will be run through JSON.stringify().
-	*  @param {Boolean} [tempOnly=false] If the value should be saved only in the current browser session.
-	*/
+	 * Save a variable.
+	 * @method write
+	 * @static
+	 * @param {String} name The name of the value to save
+	 * @param {mixed} value The value to save. This will be run through JSON.stringify().
+	 * @param {Boolean} [tempOnly=false] If the value should be saved only in the current browser session.
+	 */
 	SavedData.write = function(name, value, tempOnly)
 	{
 		if(WEB_STORAGE_SUPPORT)
@@ -1229,12 +1269,12 @@
 	};
 
 	/**
-	*  Read the value of a saved variable
-	*  @method read
-	*  @static
-	*  @param {String} name The name of the variable
-	*  @return {mixed} The value (run through `JSON.parse()`) or null if it doesn't exist
-	*/
+	 * Read the value of a saved variable
+	 * @method read
+	 * @static
+	 * @param {String} name The name of the variable
+	 * @return {mixed} The value (run through `JSON.parse()`) or null if it doesn't exist
+	 */
 	SavedData.read = function(name)
 	{
 		if(WEB_STORAGE_SUPPORT)
@@ -1320,20 +1360,20 @@
 	if (now) performance.now = now;
 
 	/**
-	*  A collection of Time related utility functions
-	*  @class TimeUtils
-	*/
+	 * A collection of Time related utility functions
+	 * @class TimeUtils
+	 */
 	var TimeUtils = {};
 	
 	/**
-	*  This method gets timestamp in micromilliseconds for doing performance
-	*  intense operations. Fallback support is to `Date.now()`. We aren't overridding
-	*  `performance.now()` incase dependencies on this actually demand 
-	*  the optimization and accuracy that performance actually provides.
-	*  @static
-	*  @method now
-	*  @return {int} The number of micromilliseconds of the current timestamp
-	*/
+	 * This method gets timestamp in micromilliseconds for doing performance
+	 * intense operations. Fallback support is to `Date.now()`. We aren't overridding
+	 * `performance.now()` incase dependencies on this actually demand 
+	 * the optimization and accuracy that performance actually provides.
+	 * @static
+	 * @method now
+	 * @return {int} The number of micromilliseconds of the current timestamp
+	 */
 	TimeUtils.now = !now ? Date.now : function()
 	{ 
 		return performance.now(); 
@@ -1346,20 +1386,20 @@
 (function(){
 	
 	/**
-	*  A class for generating weighted random values. Input objects are dictionary objects
-	*  where the keys are the strings to be picked from, and the values are the corresponding
-	*  odds as integers. For example:
-	*
-	*      {
-	*          itemWith25PercentChance: 2,
-	*          itemWith50PercentChance: 4,
-	*          otherItemWith25PercentChance: 2
-	*      }
-	*
-	*  @class WeightedRandom
-	*  @constructor
-	*  @param {Object} object The configuration object for this weighted value generator.
-	*/
+	 * A class for generating weighted random values. Input objects are dictionary objects
+	 * where the keys are the strings to be picked from, and the values are the corresponding
+	 * odds as integers. For example:
+	 *
+	 *  {
+	 *      itemWith25PercentChance: 2,
+	 *      itemWith50PercentChance: 4,
+	 *      otherItemWith25PercentChance: 2
+	 *  }
+	 *
+	 * @class WeightedRandom
+	 * @constructor
+	 * @param {Object} object The configuration object for this weighted value generator.
+	 */
 	var WeightedRandom = function(object)
 	{
 		this.max = -1;
@@ -1437,25 +1477,25 @@
 }());
 
 /**
-*  @module Core
-*  @namespace springroll
-*/
+ * @module Core
+ * @namespace springroll
+ */
 (function(undefined){
 
 	/**
-	*  The EventDispatcher mirrors the functionality of AS3 and EaselJS's EventDispatcher,
-	*  but is more robust in terms of inputs for the `on()` and `off()` methods.
-	*
-	*  @class EventDispatcher
-	*  @constructor
-	*/
+	 * The EventDispatcher mirrors the functionality of AS3 and EaselJS's EventDispatcher,
+	 * but is more robust in terms of inputs for the `on()` and `off()` methods.
+	 *
+	 * @class EventDispatcher
+	 * @constructor
+	 */
 	var EventDispatcher = function()
 	{
 		/**
-		* The collection of listeners
-		* @property {Array} _listeners
-		* @private
-		*/
+		 * The collection of listeners
+		 * @property {Array} _listeners
+		 * @private
+		 */
 		this._listeners = [];
 
 		/**
@@ -1475,6 +1515,7 @@
 	 */
 	Object.defineProperty(p, 'destroyed',
 	{
+		enumerable:true,
 		get: function()
 		{
 			return this._destroyed;
@@ -1482,11 +1523,11 @@
 	});
 
 	/**
-	*  Dispatch an event
-	*  @method trigger
-	*  @param {String} type The type of event to trigger
-	*  @param {*} arguments Additional parameters for the listener functions.
-	*/
+	 * Dispatch an event
+	 * @method trigger
+	 * @param {String} type The type of event to trigger
+	 * @param {*} arguments Additional parameters for the listener functions.
+	 */
 	p.trigger = function(type)
 	{
 		if (this._destroyed) return;
@@ -1517,30 +1558,30 @@
 	};
 
 	/**
-	*  Add an event listener but only handle it one time.
-	*
-	*  @method once
-	*  @param {String|object} name The type of event (can be multiple events separated by spaces),
-	*          or a map of events to handlers
-	*  @param {Function|Array*} callback The callback function when event is fired or an array of callbacks.
-	*  @param {int} [priority=0] The priority of the event listener. Higher numbers are handled first.
-	*  @return {EventDispatcher} Return this EventDispatcher for chaining calls.
-	*/
+	 * Add an event listener but only handle it one time.
+	 *
+	 * @method once
+	 * @param {String|object} name The type of event (can be multiple events separated by spaces),
+	 *      or a map of events to handlers
+	 * @param {Function|Array*} callback The callback function when event is fired or an array of callbacks.
+	 * @param {int} [priority=0] The priority of the event listener. Higher numbers are handled first.
+	 * @return {EventDispatcher} Return this EventDispatcher for chaining calls.
+	 */
 	p.once = function(name, callback, priority)
 	{
 		return this.on(name, callback, priority, true);
 	};
 
 	/**
-	*  Add an event listener. The parameters for the listener functions depend on the event.
-	*
-	*  @method on
-	*  @param {String|object} name The type of event (can be multiple events separated by spaces),
-	*          or a map of events to handlers
-	*  @param {Function|Array*} callback The callback function when event is fired or an array of callbacks.
-	*  @param {int} [priority=0] The priority of the event listener. Higher numbers are handled first.
-	*  @return {EventDispatcher} Return this EventDispatcher for chaining calls.
-	*/
+	 * Add an event listener. The parameters for the listener functions depend on the event.
+	 *
+	 * @method on
+	 * @param {String|object} name The type of event (can be multiple events separated by spaces),
+	 *      or a map of events to handlers
+	 * @param {Function|Array*} callback The callback function when event is fired or an array of callbacks.
+	 * @param {int} [priority=0] The priority of the event listener. Higher numbers are handled first.
+	 * @return {EventDispatcher} Return this EventDispatcher for chaining calls.
+	 */
 	p.on = function(name, callback, priority, once)
 	{
 		if (this._destroyed) return;
@@ -1600,13 +1641,13 @@
 	}
 
 	/**
-	*  Remove the event listener
-	*
-	*  @method off
-	*  @param {String*} name The type of event string separated by spaces, if no name is specifed remove all listeners.
-	*  @param {Function|Array*} callback The listener function or collection of callback functions
-	*  @return {EventDispatcher} Return this EventDispatcher for chaining calls.
-	*/
+	 * Remove the event listener
+	 *
+	 * @method off
+	 * @param {String*} name The type of event string separated by spaces, if no name is specifed remove all listeners.
+	 * @param {Function|Array*} callback The listener function or collection of callback functions
+	 * @return {EventDispatcher} Return this EventDispatcher for chaining calls.
+	 */
 	p.off = function(name, callback)
 	{
 		if (this._destroyed) return;
@@ -1657,13 +1698,13 @@
 	};
 
 	/**
-	*  Checks if the EventDispatcher has a specific listener or any listener for a given event.
-	*
-	*  @method has
-	*  @param {String} name The name of the single event type to check for
-	*  @param {Function} [callback] The listener function to check for. If omitted, checks for any listener.
-	*  @return {Boolean} If the EventDispatcher has the specified listener.
-	*/
+	 * Checks if the EventDispatcher has a specific listener or any listener for a given event.
+	 *
+	 * @method has
+	 * @param {String} name The name of the single event type to check for
+	 * @param {Function} [callback] The listener function to check for. If omitted, checks for any listener.
+	 * @return {Boolean} If the EventDispatcher has the specified listener.
+	 */
 	p.has = function(name, callback)
 	{
 		if(!name) return false;
@@ -1676,9 +1717,9 @@
 	};
 
 	/**
-	*  Destroy and don't use after this
-	*  @method destroy
-	*/
+	 * Destroy and don't use after this
+	 * @method destroy
+	 */
 	p.destroy = function()
 	{
 		this._destroyed = true;
@@ -1686,13 +1727,13 @@
 	};
 
 	/**
-	*  Return type of the value.
-	*
-	*  @private
-	*  @method type
-	*  @param  {*} value
-	*  @return {String} The type
-	*/
+	 * Return type of the value.
+	 *
+	 * @private
+	 * @method type
+	 * @param  {*} value
+	 * @return {String} The type
+	 */
 	function type(value)
 	{
 		if (value === null)
@@ -1707,45 +1748,25 @@
 		return typeOfValue;
 	}
 
-	/**
-	*  Adds EventDispatcher methods and properties to an object or object prototype.
-	*  @method mixIn
-	*  @param {Object} object The object or prototype
-	*  @param {Boolean} [callConstructor=false] If the EventDispatcher constructor should be called as well.
-	*  @static
-	*  @public
-	*/
-	EventDispatcher.mixIn = function(object, callConstructor)
-	{
-		object.trigger = p.trigger;
-		object.on = p.on;
-		object.off = p.off;
-		object.has = p.has;
-		object.once = p.once;
-		if(callConstructor)
-			EventDispatcher.call(object);
-	};
-
 	// Assign to name space
 	namespace('springroll').EventDispatcher = EventDispatcher;
 
 }());
-
 /**
-*  @module Core
-*  @namespace springroll
-*/
+ * @module Core
+ * @namespace springroll
+ */
 (function(undefined)
 {
 	var EventDispatcher = include('springroll.EventDispatcher');
 
 	/**
-	* Event dispatcher with ability to detect whenever a property
-	* is changed.
-	* @class PropertyDispatcher
-	* @extends springroll.EventDispatcher
-	* @constructor {Object} [overrides] The supplied options
-	*/
+	 * Event dispatcher with ability to detect whenever a property
+	 * is changed.
+	 * @class PropertyDispatcher
+	 * @extends springroll.EventDispatcher
+	 * @constructor {Object} [overrides] The supplied options
+	 */
 	var PropertyDispatcher = function()
 	{
 		EventDispatcher.call(this);
@@ -1926,9 +1947,9 @@
 
 }());
 /**
-*  @module Core
-*  @namespace springroll
-*/
+ * @module Core
+ * @namespace springroll
+ */
 (function(undefined)
 {
 	var Tween = include('createjs.Tween', false),
@@ -1937,11 +1958,11 @@
 		Debug;
 
 	/**
-	* Manage the Application options
-	* @class ApplicationOptions
-	* @extends springroll.PropertyDispatcher
-	* @constructor {Object} [overrides] The supplied options
-	*/
+	 * Manage the Application options
+	 * @class ApplicationOptions
+	 * @extends springroll.PropertyDispatcher
+	 * @constructor {Object} [overrides] The supplied options
+	 */
 	var ApplicationOptions = function(app, options)
 	{
 		if(Debug === undefined)
@@ -2166,18 +2187,19 @@
 
 }());
 /**
- *  @module Core
- *  @namespace springroll
+  * @module Core
+  * @namespace springroll
  */
 (function()
 {
 	var Application;
 
 	/**
-	* Responsible for creating mixins, bindings, and setup for the SpringRoll Application
-	* @class ApplicationPlugin
-	*/
-	var ApplicationPlugin = function()
+	 * Responsible for creating properties, methods to 
+	 * the SpringRoll Application when it's created.
+	 * @class ApplicationPlugin
+	 */
+	var ApplicationPlugin = function(priority)
 	{
 		if (!Application)
 		{
@@ -2188,94 +2210,74 @@
 		 * The priority of the plugin. Higher numbers handled first. This should be set
 		 * in the constructor of the extending ApplicationPlugin.
 		 * @property {int} priority
+		 * @default 0
 		 */
-		this.priority = 0;
+		this.priority = priority || 0;
+
+		/**
+		 * When the application is being initialized. This function 
+		 * is bound to the application. This should be overridden.
+		 * @property {function} setup
+		 * @protected
+		 */
+		this.setup = function(){};
+
+		/**
+		 * The function to call right before the app is initailized. 
+		 * This function is bound to the application. `preload` takes
+		 * a single parameter which is a call back to call when
+		 * the asyncronous event is completed.
+		 * @property {function} preload 
+		 * @protected
+		 */
+		this.preload = null;
+
+		/**
+		 * When the application is being destroyed. This function 
+		 * is bound to the application. This should be overridden.
+		 * @property {function} teardown
+		 * @protected
+		 */
+		this.teardown = function(){};
+
+		// Add the plugin to application
+		Application._plugins.push(this);
+		Application._plugins.sort(function(a, b)
+		{
+			return b.priority - a.priority;
+		});
 	};
-
-	// reference to prototype
-	var p = ApplicationPlugin.prototype;
-
-	/**
-	 * When the application is being initialized. This function is bound to the application.
-	 * @method setup
-	 */
-	p.setup = function()
-	{
-		// implementation specific
-	};
-
-	/**
-	 * The function to call right before the app is initailized. This function is bound to the application.
-	 * @method preload 
-	 * @param {function} done The done function, takes one argument for an error.
-	 */
-	p.preload = null;
-
-	/**
-	 * When the application is being destroyed. This function is bound to the application.
-	 * @method teardown
-	 */
-	p.teardown = function()
-	{
-		// implementation specific
-	};
-
-	/**
-	 * Register the plugin with the Application
-	 * @method register
-	 * @static
-	 */
-	ApplicationPlugin.register = function(func)
-	{
-		var plugin = new func();
-		Application._plugins.push(plugin);
-
-		// Sort the plugins
-		Application._plugins.sort(prioritySort);
-	};
-
-	/**
-	 * Comparator function for sorting the plugins by priority
-	 * @method prioritySort
-	 * @private
-	 * @param {springroll.ApplicationPlugin} a First plugin
-	 * @param {springroll.ApplicationPlugin} b Second plugin
-	 */
-	function prioritySort(a, b)
-	{
-		return b.priority - a.priority;
-	}
 
 	// Assign to namespace
 	namespace('springroll').ApplicationPlugin = ApplicationPlugin;
 
 }());
 /**
- *  @module Core
- *  @namespace springroll
+  * @module Core
+  * @namespace springroll
  */
 (function(undefined)
 {
 	// classes to import
 	var TimeUtils = include('springroll.TimeUtils'),
-		async = include('springroll.async'),
 		EventDispatcher = include('springroll.EventDispatcher'),
 		ApplicationOptions = include('springroll.ApplicationOptions');
 
 	/**
-	*  Creates a new application, for example (HappyCamel extends Application)
-	*  manages displays, update loop controlling, handles resizing
-	*
-	*	var app = new Application();
-	*
-	*  @class Application
-	*  @extend EventDispatcher
-	*  @constructor
-	*  @param {Object} [options] The options for creating the application,
-	* 		see `springroll.ApplicationOptions` for the specific options
-	*		that can be overridden and set.
-	*/
-	var Application = function(options)
+	 * Creates a new application, for example (HappyCamel extends Application)
+	 * manages displays, update loop controlling, handles resizing
+	 *
+	 *	var app = new Application();
+	 *
+	 * @class Application
+	 * @extend EventDispatcher
+	 * @constructor
+	 * @param {Object} [options] The options for creating the application,
+	 * 		see `springroll.ApplicationOptions` for the specific options
+	 *		that can be overridden and set.
+	 * @param {Function} [init=null] The callback when initialized
+	 */
+	var Application = function(options, init)
 	{
 		if (_instance)
 		{
@@ -2286,21 +2288,27 @@
 		EventDispatcher.call(this);
 
 		/**
-		 *  Initialization options/query string parameters, these properties are read-only
-		 *  Application properties like raf, fps, don't have any affect on the options object.
-		 *  @property {springroll.ApplicationOptions} options
-		 *  @readOnly
+		 * Initialization options/query string parameters, these properties are read-only
+		 * Application properties like raf, fps, don't have any affect on the options object.
+		 * @property {springroll.ApplicationOptions} options
+		 * @readOnly
 		 */
 		this.options = new ApplicationOptions(this, options);
 
 		/**
-		 *  Primary renderer for the application, for simply accessing
-		 *  Application.instance.display.stage;
-		 *  The first display added becomes the primary display automatically.
-		 *  @property {Display} display
-		 *  @public
+		 * Primary renderer for the application, for simply accessing
+		 * Application.instance.display.stage;
+		 * The first display added becomes the primary display automatically.
+		 * @property {Display} display
+		 * @public
 		 */
 		this.display = null;
+
+		/**
+		 * Override this to do post constructor initialization
+		 * @property {Function} init
+		 */
+		this.init = init || null;
 
 		// Reset the displays
 		_displaysMap = {};
@@ -2320,10 +2328,10 @@
 		this.options.init();
 
 		/**
-		*  The name of the game, useful for debugging purposes
-		*  @property {String} name
-		*  @default ""
-		*/
+		 * The name of the game, useful for debugging purposes
+		 * @property {String} name
+		 * @default ""
+		 */
 		this.name = this.options.name;
 
 		//other initialization stuff too
@@ -2338,54 +2346,54 @@
 	var p = extend(Application, EventDispatcher);
 
 	/**
-	 *  The collection of function references to call when initializing the application
-	 *  these are registered by external modules.
-	 *  @property {Array} _plugins
-	 *  @private
-	 *  @static
+	 * The collection of function references to call when initializing the application
+	 * these are registered by external modules.
+	 * @property {Array} _plugins
+	 * @private
+	 * @static
 	 */
 	Application._plugins = [];
 
 	/**
-	 *  The number of ms since the last frame update
-	 *  @private
-	 *  @property {int} _lastFrameTime
+	 * The number of ms since the last frame update
+	 * @private
+	 * @property {int} _lastFrameTime
 	 */
 	var _lastFrameTime = 0,
 
 	/**
-	 *	The bound callback for listening to tick events
-	 *	@private
-	 *   @property {Function} _tickCallback
+	 * The bound callback for listening to tick events
+	 * @private
+	 * @property {Function} _tickCallback
 	 */
 	_tickCallback = null,
 
 	/**
-	 *  If the current application is paused
-	 *  @private
-	 *  @property {Boolean} _paused
+	 * If the current application is paused
+	 * @private
+	 * @property {Boolean} _paused
 	 */
 	_paused = false,
 
 	/**
-	 *  If the current application is enabled
-	 *  @private
-	 *  @property {Boolean} _enabled
+	 * If the current application is enabled
+	 * @private
+	 * @property {Boolean} _enabled
 	 */
 	_enabled = true,
 
 	/**
-	 *  The id of the active requestAnimationFrame or setTimeout call.
-	 *  @property {Number} _tickId
-	 *  @private
+	 * The id of the active requestAnimationFrame or setTimeout call.
+	 * @property {Number} _tickId
+	 * @private
 	 */
 	_tickId = -1,
 
 	/**
-	 *  If requestionAnimationFrame should be used
-	 *  @private
-	 *  @property {Bool} _useRAF
-	 *  @default false
+	 * If requestionAnimationFrame should be used
+	 * @private
+	 * @property {Bool} _useRAF
+	 * @default false
 	 */
 	_useRAF = false,
 
@@ -2397,79 +2405,79 @@
 	_msPerFrame = 0,
 
 	/**
-	 *  The collection of displays
-	 *  @property {Array} _displays
-	 *  @private
+	 * The collection of displays
+	 * @property {Array} _displays
+	 * @private
 	 */
 	_displays = null,
 
 	/**
-	 *  The displays by canvas id
-	 *  @property {Object} _displaysMap
-	 *  @private
+	 * The displays by canvas id
+	 * @property {Object} _displaysMap
+	 * @private
 	 */
 	_displaysMap = null;
 
 
 	/**
-	 *  Fired when initialization of the application is ready
-	 *  @event init
+	 * Fired when initialization of the application is ready
+	 * @event init
 	 */
 	
 	/**
-	 *  Fired when initialization of the application is done
-	 *  @event afterInit
+	 * Fired when initialization of the application is done
+	 * @event afterInit
 	 */
 	
 	/**
-	 *  Fired when before initialization of the application
-	 *  @event beforeInit
+	 * Fired when before initialization of the application
+	 * @event beforeInit
 	 */
 	
 	/**
-	 *  Fired when an update is called, every frame update
-	 *  @event update
-	 *  @param {int} elasped The number of milliseconds since the last frame update
+	 * Fired when an update is called, every frame update
+	 * @event update
+	 * @param {int} elasped The number of milliseconds since the last frame update
 	 */
 
 	/**
-	 *  Fired when the pause state is toggled
-	 *  @event pause
-	 *  @param {boolean} paused If the application is now paused
+	 * Fired when the pause state is toggled
+	 * @event pause
+	 * @param {boolean} paused If the application is now paused
 	 */
 
 	/**
-	 *  When a display is added.
-	 *  @event displayAdded
-	 *  @param {springroll.AbstractDisplay} [display] The current display being added
+	 * When a display is added.
+	 * @event displayAdded
+	 * @param {springroll.AbstractDisplay} [display] The current display being added
 	 */
 	
 	/**
-	 *  When a display is removed.
-	 *  @event displayRemoved
-	 *  @param {string} [displayId] The display alias
+	 * When a display is removed.
+	 * @event displayRemoved
+	 * @param {string} [displayId] The display alias
 	 */
 
 	/**
-	 *  Fired when the application becomes paused
-	 *  @event paused
+	 * Fired when the application becomes paused
+	 * @event paused
 	 */
 
 	/**
-	 *  Fired when the application resumes from a paused state
-	 *  @event resumed
+	 * Fired when the application resumes from a paused state
+	 * @event resumed
 	 */
 
 	/**
-	 *  Fired when the application is destroyed
-	 *  @event destroy
+	 * Fired when the application is destroyed
+	 * @event destroy
 	 */
 
 	/**
-	 *  Get the singleton instance of the application
-	 *  @property {Application} instance
-	 *  @static
-	 *  @public
+	 * Get the singleton instance of the application
+	 * @property {Application} instance
+	 * @static
+	 * @public
 	 */
 	var _instance = null;
 	Object.defineProperty(Application, "instance",
@@ -2481,9 +2489,9 @@
 	});
 
 	/**
-	 *  The internal initialization
-	 *  @method _preInit
-	 *  @private
+	 * The internal initialization
+	 * @method _preInit
+	 * @private
 	 */
 	p._preInit = function()
 	{
@@ -2525,21 +2533,21 @@
 			}
 		});
 
-		// Run the asyncronous tasks
-		async.waterfall(tasks, this._doInit.bind(this));
+		// Run the asyncronous tasks in series
+		this.load(tasks, {
+			complete: this._doInit.bind(this), 
+			startAll: false
+		});
 	};
 
 	/**
-	 *  Initialize the application
-	 *  @method _doInit
-	 *  @protected
+	 * Initialize the application
+	 * @method _doInit
+	 * @protected
 	 */
-	p._doInit = function(err)
+	p._doInit = function()
 	{
 		if (this.destroyed) return;
-
-		// Error with the async startup
-		if (err) throw err;
 
 		this.trigger('beforeInit');
 
@@ -2549,24 +2557,17 @@
 		// Dispatch the init event
 		this.trigger('init');
 
-		// Call the init function
-		if (this.init) this.init();
+		// Call the init function, bind to app
+		if (this.init) this.init.call(this);
 
 		this.trigger('afterInit');
 	};
 
 	/**
-	 *  Override this to do post constructor initialization
-	 *  @method init
-	 *  @protected
-	 */
-	p.init = null;
-
-	/**
-	 *  Enables at the application level which enables
-	 *  and disables all the displays.
-	 *  @property {Boolean} enabled
-	 *  @default true
+	 * Enables at the application level which enables
+	 * and disables all the displays.
+	 * @property {Boolean} enabled
+	 * @default true
 	 */
 	Object.defineProperty(p, "enabled",
 	{
@@ -2585,8 +2586,8 @@
 	});
 
 	/**
-	 *  Pause updates at the application level
-	 *  @property {Boolean} paused
+	 * Pause updates at the application level
+	 * @property {Boolean} paused
 	 */
 	Object.defineProperty(p, "paused",
 	{
@@ -2627,12 +2628,12 @@
 	});
 
 	/**
-	 *  Makes a setTimeout with a time based on _msPerFrame and the amount of time spent in the
-	 *  current tick.
-	 *  @method setTargetedTimeout
-	 *  @param {Function} callback The tick function to call.
-	 *  @param {int} timeInFrame=0 The amount of time spent in the current tick in milliseconds.
-	 *  @private
+	 * Makes a setTimeout with a time based on _msPerFrame and the amount of time spent in the
+	 * current tick.
+	 * @method setTargetedTimeout
+	 * @param {Function} callback The tick function to call.
+	 * @param {int} timeInFrame=0 The amount of time spent in the current tick in milliseconds.
+	 * @private
 	 */
 	var setTargetedTimeout = function(callback, timeInFrame)
 	{
@@ -2644,15 +2645,15 @@
 	};
 
 	/**
-	 *  Add a display. If this is the first display added, then it will be stored as this.display.
-	 *  @method addDisplay
-	 *  @param {String} id The id of the canvas element, this will be used to grab the Display later
-	 *                     also the Display should be the one to called document.getElementById(id)
-	 *                     and not the application sinc we don't care about the DOMElement as this
-	 *                     point
-	 *  @param {function} displayConstructor The function to call to create the display instance
-	 *  @param {Object} [options] Optional Display specific options
-	 *  @return {Display} The created display.
+	 * Add a display. If this is the first display added, then it will be stored as this.display.
+	 * @method addDisplay
+	 * @param {String} id The id of the canvas element, this will be used to grab the Display later
+	 *                   also the Display should be the one to called document.getElementById(id)
+	 *                   and not the application sinc we don't care about the DOMElement as this
+	 *                   point
+	 * @param {function} displayConstructor The function to call to create the display instance
+	 * @param {Object} [options] Optional Display specific options
+	 * @return {Display} The created display.
 	 */
 	p.addDisplay = function(id, displayConstructor, options)
 	{
@@ -2679,9 +2680,9 @@
 	};
 
 	/**
-	 *  Get all the displays
-	 *  @property {Array} displays
-	 *  @readOnly
+	 * Get all the displays
+	 * @property {Array} displays
+	 * @readOnly
 	 */
 	Object.defineProperty(p, 'displays',
 	{
@@ -2692,32 +2693,14 @@
 	});
 
 	/**
-	 *  Gets a specific renderer by the canvas id.
-	 *  @method getDisplay
-	 *  @param {String} id The id of the canvas
-	 *  @return {Display} The requested display.
+	 * Gets a specific renderer by the canvas id.
+	 * @method getDisplay
+	 * @param {String} id The id of the canvas
+	 * @return {Display} The requested display.
 	 */
 	p.getDisplay = function(id)
 	{
 		return _displaysMap[id];
-	};
-
-	/**
-	 *  Gets a specific renderer by the canvas id.
-	 *  @method getDisplays
-	 *  @deprecated Use the displays property on the application instead.
-	 *  @public
-	 *  @param {function} [each] Optional looping method, callback takes a single parameter of the
-	 *                           display
-	 *  @return {Array} The collection of Display objects
-	 */
-	p.getDisplays = function(each)
-	{
-		if (typeof each == "function")
-		{
-			_displays.forEach(each);
-		}
-		return _displays;
 	};
 
 	/**
@@ -2738,9 +2721,9 @@
 	};
 
 	/**
-	 *  _tick would be bound in _tickCallback
-	 *  @method _tick
-	 *  @private
+	 * _tick would be bound in _tickCallback
+	 * @method _tick
+	 * @private
 	 */
 	p._tick = function()
 	{
@@ -2815,10 +2798,10 @@
 	};
 
 	/**
-	*  The toString debugging method
-	*  @method toString
-	*  @return {String} The reprsentation of this class
-	*/
+	 * The toString debugging method
+	 * @method toString
+	 * @return {String} The reprsentation of this class
+	 */
 	p.toString = function()
 	{
 		return "[Application name='" + this.name + "']";
@@ -2835,46 +2818,46 @@
 (function(global, doc, undefined){
 		
 	/**
-	*  Handle the page visiblity change, if supported. Application uses one of these to
-	*  monitor page visibility. It is suggested that you listen to "pause", "paused",
-	*  or "unpaused" events on the application instead of using one of these yourself.
-	*
-	*  @class PageVisibility
-	*  @constructor
-	*  @param {Function} onFocus Callback when the page becomes visible
-	*  @param {Function} onBlur Callback when the page loses visibility
-	*/
+	 * Handle the page visiblity change, if supported. Application uses one of these to
+	 * monitor page visibility. It is suggested that you listen to "pause", "paused",
+	 * or "unpaused" events on the application instead of using one of these yourself.
+	 *
+	 * @class PageVisibility
+	 * @constructor
+	 * @param {Function} onFocus Callback when the page becomes visible
+	 * @param {Function} onBlur Callback when the page loses visibility
+	 */
 	var PageVisibility = function(onFocus, onBlur)
 	{
 		/**
-		* Callback when the page becomes visible
-		* @property {Function} _onFocus
-		* @private
-		*/
+		 * Callback when the page becomes visible
+		 * @property {Function} _onFocus
+		 * @private
+		 */
 		this._onFocus = onFocus;
 		
 		/**
-		* Callback when the page loses visibility
-		* @property {Function} _onBlur
-		* @private
-		*/
+		 * Callback when the page loses visibility
+		 * @property {Function} _onBlur
+		 * @private
+		 */
 		this._onBlur = onBlur;
 		
 		/**
-		* If this object is enabled.
-		* @property {Function} _enabled
-		* @private
-		*/
+		 * If this object is enabled.
+		 * @property {Function} _enabled
+		 * @private
+		 */
 		this._enabled = false;
 
 		// If this browser doesn't support visibility
 		if (!_visibilityChange && doc.onfocusin === undefined) return;
 		
 		/**
-		* The visibility toggle listener function
-		* @property {Function} _onToggle
-		* @private
-		*/
+		 * The visibility toggle listener function
+		 * @property {Function} _onToggle
+		 * @private
+		 */
 		this._onToggle = function()
 		{
 			if (doc.hidden || doc.webkitHidden || doc.msHidden || doc.mozHidden)
@@ -2890,11 +2873,11 @@
 	p = PageVisibility.prototype,
 	
 	/**
-	* The name of the visibility change event for the browser
-	*
-	* @property {String} _visibilityChange
-	* @private
-	*/
+	 * The name of the visibility change event for the browser
+	 *
+	 * @property {String} _visibilityChange
+	 * @private
+	 */
 	_visibilityChange = null;
 	
 	// Select the visiblity change event name
@@ -2918,10 +2901,10 @@
 	var isIE9 = !_visibilityChange && doc.onfocusin !== undefined;
 	
 	/**
-	* If this object is enabled.
-	* @property {Function} enabled
-	* @private
-	*/
+	 * If this object is enabled.
+	 * @property {Function} enabled
+	 * @private
+	 */
 	Object.defineProperty(p, "enabled", {
 		get: function() { return this._enabled; },
 		set: function(value)
@@ -2964,9 +2947,9 @@
 	});
 	
 	/**
-	*  Disable the detection
-	*  @method destroy
-	*/
+	 * Disable the detection
+	 * @method destroy
+	 */
 	p.destroy = function()
 	{
 		// If this browser doesn't support visibility
@@ -2983,12 +2966,11 @@
 	
 }(window, document));
 /**
-*  @module Core
-*  @namespace springroll
-*/
+ * @module Core
+ * @namespace springroll
+ */
 (function()
 {
-	// Include classes
 	var ApplicationPlugin = include('springroll.ApplicationPlugin');
 
 	/**
@@ -2997,16 +2979,10 @@
 	 * @class PageVisibilityPlugin
 	 * @extends springroll.ApplicationPlugin
 	 */
-	var PageVisibilityPlugin = function()
-	{
-		ApplicationPlugin.call(this);
-	};
-
-	// Reference to the prototype
-	var p = extend(PageVisibilityPlugin, ApplicationPlugin);
+	var plugin = new ApplicationPlugin();
 
 	// Init the animator
-	p.setup = function()
+	plugin.setup = function()
 	{
 		/**
 		 * Handles the page visiblity changes automatically
@@ -3037,9 +3013,9 @@
 	};
 
 	/**
-	 *  Private listener for when the page is hidden.
-	 *  @method onHidden
-	 *  @private
+	 * Private listener for when the page is hidden.
+	 * @method onHidden
+	 * @private
 	 */
 	var onHidden = function()
 	{
@@ -3047,9 +3023,9 @@
 	};
 
 	/**
-	 *  Private listener for when the page is shown.
-	 *  @method onVisible
-	 *  @private
+	 * Private listener for when the page is shown.
+	 * @method onVisible
+	 * @private
 	 */
 	var onVisible = function()
 	{
@@ -3057,14 +3033,11 @@
 	};
 
 	// Destroy the animator
-	p.teardown = function()
+	plugin.teardown = function()
 	{
 		if (this._visibility) this._visibility.destroy();
 		this._visibility = null;
 	};
-
-	// register plugin
-	ApplicationPlugin.register(PageVisibilityPlugin);
 
 }());
 /**
@@ -3175,7 +3148,6 @@
  */
 (function()
 {
-	// Include classes
 	var ApplicationPlugin = include('springroll.ApplicationPlugin');
 
 	/**
@@ -3184,18 +3156,10 @@
 	 * @class StringFiltersPlugin
 	 * @extends springroll.ApplicationPlugin
 	 */
-	var StringFiltersPlugin = function()
-	{
-		ApplicationPlugin.call(this);
-
-		this.priority = 110;
-	};
-
-	// Reference to the prototype
-	var p = extend(StringFiltersPlugin, ApplicationPlugin);
+	var plugin = new ApplicationPlugin(110);
 
 	// Init the animator
-	p.setup = function()
+	plugin.setup = function()
 	{
 		/**
 		 * The StringFilters instance
@@ -3206,95 +3170,83 @@
 	};
 
 	// Destroy the animator
-	p.teardown = function()
+	plugin.teardown = function()
 	{
 		if (this.filters) this.filters.destroy();
 		this.filters = null;
 	};
 
-	// register plugin
-	ApplicationPlugin.register(StringFiltersPlugin);
-
 }());
 /**
- *	@module Core
- *	@namespace springroll
+ * @module Core
+ * @namespace springroll
  */
 (function()
 {
-	// Include classes
 	var ApplicationPlugin = include('springroll.ApplicationPlugin');
-
+	
 	/**
-	 *	Create an app plugin for resizing application, all properties and methods documented
-	 *	in this class are mixed-in to the main Application
-	 *	@class ResizePlugin
-	 *	@extends springroll.ApplicationPlugin
+	 * Create an app plugin for resizing application, all properties and methods documented
+	 * in this class are mixed-in to the main Application
+	 * @class ResizePlugin
+	 * @extends springroll.ApplicationPlugin
 	 */
-	var ResizePlugin = function()
-	{
-		ApplicationPlugin.call(this);
-
-		this.priority = 100;
-	};
+	var plugin = new ApplicationPlugin(100);
 
 	/**
-	*  Dom element (or the window) to attach resize listeners and read the size from
-	*  @property {DOMElement|Window|null} _resizeElement
-	*  @private
-	*  @default null
-	*/
+	 * Dom element (or the window) to attach resize listeners and read the size from
+	 * @property {DOMElement|Window|null} _resizeElement
+	 * @private
+	 * @default null
+	 */
 	var _resizeElement = null;
 
 	/**
-	*  The maximum width of the primary display, compared to the original height.
-	*  @property {Number} _maxWidth
-	*  @private
-	*/
+	 * The maximum width of the primary display, compared to the original height.
+	 * @property {Number} _maxWidth
+	 * @private
+	 */
 	var _maxWidth = 0;
 	
 	/**
-	*  The maximum height of the primary display, compared to the original width.
-	*  @property {Number} _maxHeight
-	*  @private
-	*/
+	 * The maximum height of the primary display, compared to the original width.
+	 * @property {Number} _maxHeight
+	 * @private
+	 */
 	var _maxHeight = 0;
 	
 	/**
-	*  The original width of the primary display, used to calculate the aspect ratio.
-	*  @property {int} _originalWidth
-	*  @private
-	*/
+	 * The original width of the primary display, used to calculate the aspect ratio.
+	 * @property {int} _originalWidth
+	 * @private
+	 */
 	var _originalWidth = 0;
 	
 	/**
-	*  The original height of the primary display, used to calculate the aspect ratio.
-	*  @property {int} _originalHeight
-	*  @private
-	*/
+	 * The original height of the primary display, used to calculate the aspect ratio.
+	 * @property {int} _originalHeight
+	 * @private
+	 */
 	var _originalHeight = 0;
 
 	/**
-	 *  A helper object to avoid object creation each resize event.
-	 *  @property {Object} _resizeHelper
-	 *  @private
+	 * A helper object to avoid object creation each resize event.
+	 * @property {Object} _resizeHelper
+	 * @private
 	 */
 	var _resizeHelper = {
 		width: 0,
 		height: 0
 	};
 
-	// Reference to the prototype
-	var p = extend(ResizePlugin, ApplicationPlugin);
-
 	// Init the animator
-	p.setup = function()
+	plugin.setup = function()
 	{
 		/**
-		 *  Fired when a resize is called
-		 *  @event resize
-		 *  @param {int} width The width of the resize element
-		 *  @param {int} height The height of the resize element
+		 * Fired when a resize is called
+		 * @event resize
+		 * @param {int} width The width of the resize element
+		 * @param {int} height The height of the resize element
 		 */
 		
 		/**
@@ -3352,8 +3304,8 @@
 		});
 
 		/**
-		 *  Fire a resize event with the current width and height of the display
-		 *  @method triggerResize
+		 * Fire a resize event with the current width and height of the display
+		 * @method triggerResize
 		 */
 		this.triggerResize = function()
 		{
@@ -3388,16 +3340,16 @@
 		};
 
 		/**
-		 *  Calculates the resizing of displays. By default, this limits the new size
-		 *  to the initial aspect ratio of the primary display. Override this function
-		 *  if you need variable aspect ratios.
-		 *  @method calculateDisplaySize
-		 *  @protected
-		 *  @param {Object} size A size object containing the width and height of the resized container.
-		 *                       The size parameter is also the output of the function, so the size
-		 *                       properties are edited in place.
-		 *  @param {int} size.width The width of the resized container.
-		 *  @param {int} size.height The height of the resized container.
+		 * Calculates the resizing of displays. By default, this limits the new size
+		 * to the initial aspect ratio of the primary display. Override this function
+		 * if you need variable aspect ratios.
+		 * @method calculateDisplaySize
+		 * @protected
+		 * @param {Object} size A size object containing the width and height of the resized container.
+		 *                     The size parameter is also the output of the function, so the size
+		 *                     properties are edited in place.
+		 * @param {int} size.width The width of the resized container.
+		 * @param {int} size.height The height of the resized container.
 		 */
 		this.calculateDisplaySize = function(size)
 		{
@@ -3424,7 +3376,7 @@
 	};
 
 	// Add common filteres interaction
-	p.preload = function(done)
+	plugin.preload = function(done)
 	{
 		var options = this.options;
 
@@ -3440,7 +3392,7 @@
 		done();
 	};
 
-	p.teardown = function()
+	plugin.teardown = function()
 	{
 		if (_resizeElement)
 		{
@@ -3457,60 +3409,63 @@
 
 	};
 
-	// Register plugin
-	ApplicationPlugin.register(ResizePlugin);
-
 }());
 /**
-*  @module Core
-*  @namespace springroll
-*/
+ * @module Core
+ * @namespace springroll
+ */
 (function(undefined){
 
 	// Classes to import
-	var Debug,
-		Application,
-		Loader;
+	var Debug;
 
 	/**
-	*  Used for managing the browser cache of loading external elements
-	*  can easily load version manifest and apply it to the media loader
-	*  supports cache busting all media load requests
-	*  uses the query string to bust browser versions.
-	*
-	*  @class CacheManager
-	*/
-	var CacheManager = function()
+	 * Used for managing the browser cache of loading external elements
+	 * can easily load version manifest and apply it to the media loader
+	 * supports cache busting all media load requests
+	 * uses the query string to bust browser versions.
+	 *
+	 * @class CacheManager
+	 * @constructor
+	 * @param {springroll.Application} app Reference to application
+	 */
+	var CacheManager = function(app)
 	{
-		if(!Application)
+		if (true && !Debug)
 		{
-			Application = include('springroll.Application');
-			Loader = include('springroll.Loader');
 			Debug = include('springroll.Debug', false);
 		}
 
-		this._applySpecificVersion = this._applySpecificVersion.bind(this);
-		this._applyGlobalVersion = this._applyGlobalVersion.bind(this);
+		/**
+		 * The current application
+		 * @protected
+		 * @property {springroll.Application} _app
+		 */
+		this._app = app;
 
 		/**
-		*  The collection of version numbers
-		*  @protected
-		*  @property {Dictionary} _versions
-		*/
+		 * The collection of version numbers
+		 * @protected
+		 * @property {Dictionary} _versions
+		 */
 		this._versions = {};
 
 		/**
-		*  The list of URL filtering functions.
-		*  @protected
-		*  @property {Array} _filters
-		*/
+		 * The list of URL filtering functions.
+		 * @protected
+		 * @property {Array} _filters
+		 */
 		this._filters = [];
 
 		/**
-		*  A global version or cache busting string to apply to every url.
-		*  @property {String} _globalVersion
-		*/
+		 * A global version or cache busting string to apply to every url.
+		 * @property {String} _globalVersion
+		 */
 		this._globalVersion = null;
+
+		// Function bindings
+		this._applySpecificVersion = this._applySpecificVersion.bind(this);
+		this._applyGlobalVersion = this._applyGlobalVersion.bind(this);
 
 		// Initial set
 		this.cacheBust = false;
@@ -3520,11 +3475,11 @@
 	var p = CacheManager.prototype = {};
 
 	/**
-	*  If we are suppose to cache bust every file
-	*  @property {Boolean} cacheBust
-	*  @public
-	*  @default false
-	*/
+	 * If we are suppose to cache bust every file
+	 * @property {Boolean} cacheBust
+	 * @public
+	 * @default false
+	 */
 	Object.defineProperty(p, "cacheBust",
 	{
 		get: function()
@@ -3541,7 +3496,7 @@
 			}
 			else
 			{
-				var version = Application.instance.options.version;
+				var version = this._app.options.version;
 				this._globalVersion = version ? "v=" + version : null;
 				if(this._globalVersion)
 				{
@@ -3558,12 +3513,13 @@
 	});
 
 	/**
-	*  Destroy the cache manager, don't use after this.
-	*  @public
-	*  @method destroy
-	*/
+	 * Destroy the cache manager, don't use after this.
+	 * @public
+	 * @method destroy
+	 */
 	p.destroy = function()
 	{
+		this._app = null;
 		this._versions = null;
 		this._filters = null;
 		this._applySpecificVersion = null;
@@ -3571,18 +3527,16 @@
 	};
 
 	/**
-	*  Adds a versions text file containing versions for different assets.
-	*  @public
-	*  @method addVersionsFile
-	*  @param {String} url The url of the versions file.
-	*  @param {Function} callback Callback when the versions file has been loaded.
-	*  @param {String} baseUrl A base url to prepend all lines of the file.
-	*/
+	 * Adds a versions text file containing versions for different assets.
+	 * @public
+	 * @method addVersionsFile
+	 * @param {String} url The url of the versions file.
+	 * @param {Function} callback Callback when the versions file has been loaded.
+	 * @param {String} baseUrl A base url to prepend all lines of the file.
+	 */
 	p.addVersionsFile = function(url, callback, baseUrl)
 	{
 		if (true && Debug) Debug.assert(/^.*\.txt$/.test(url), "The versions file must be a *.txt file");
-
-		var loader = Loader.instance;
 
 		// If we already cache busting, we can ignore this
 		if (this.cacheBust)
@@ -3600,44 +3554,42 @@
 		var cm = this;
 
 		// Load the version
-		loader.load(url,
-			function(result)
+		this._app.load(url, function(versions)
+		{
+			// check for a valid result content
+			if (versions)
 			{
-				// check for a valid result content
-				if (result && result.content)
+				// Remove carrage returns and split on newlines
+				var lines = versions.replace(/\r/g, '').split("\n");
+				var i, parts;
+
+				// Go line by line
+				for (i = 0, len = lines.length; i < len; i++)
 				{
-					// Remove carrage returns and split on newlines
-					var lines = result.content.replace(/\r/g, '').split("\n");
-					var i, parts;
+					// Check for a valid line
+					if (!lines[i]) continue;
 
-					// Go line by line
-					for (i = 0, len = lines.length; i < len; i++)
-					{
-						// Check for a valid line
-						if (!lines[i]) continue;
+					// Split lines
+					parts = lines[i].split(' ');
 
-						// Split lines
-						parts = lines[i].split(' ');
+					// Add the parts
+					if (parts.length != 2) continue;
 
-						// Add the parts
-						if (parts.length != 2) continue;
-
-						// Add the versioning
-						cm.addVersion((baseUrl || "") + parts[0], parts[1]);
-					}
+					// Add the versioning
+					cm.addVersion((baseUrl || "") + parts[0], parts[1]);
 				}
-				if (callback) callback();
 			}
-		);
+			if (callback) callback();
+		});
 	};
 
 	/**
-	*  Add a version number for a file
-	*  @method addVersion
-	*  @public
-	*  @param {String} url The url of the object
-	*  @param {String} version Version number or has of file
-	*/
+	 * Add a version number for a file
+	 * @method addVersion
+	 * @public
+	 * @param {String} url The url of the object
+	 * @param {String} version Version number or has of file
+	 */
 	p.addVersion = function(url, version)
 	{
 		if (!this._versions[url])
@@ -3645,13 +3597,13 @@
 	};
 
 	/**
-	*  Adds a function for running all urls through, to modify them if needed.
-	*  Functions used should accept one string parameter (the url), and return the
-	*  modified url.
-	*  @method registerURLFilter
-	*  @public
-	*  @param {Function} filter The function that will handle urls.
-	*/
+	 * Adds a function for running all urls through, to modify them if needed.
+	 * Functions used should accept one string parameter (the url), and return the
+	 * modified url.
+	 * @method registerURLFilter
+	 * @public
+	 * @param {Function} filter The function that will handle urls.
+	 */
 	p.registerURLFilter = function(filter)
 	{
 		if(this._filters.indexOf(filter) == -1)
@@ -3659,11 +3611,11 @@
 	};
 
 	/**
-	*  Removes a function from the list of filtering functions.
-	*  @method unregisterURLFilter
-	*  @public
-	*  @param {Function} filter The function to remove.
-	*/
+	 * Removes a function from the list of filtering functions.
+	 * @method unregisterURLFilter
+	 * @public
+	 * @param {Function} filter The function to remove.
+	 */
 	p.unregisterURLFilter = function(filter)
 	{
 		var index = this._filters.indexOf(filter);
@@ -3672,16 +3624,16 @@
 	};
 
 	/**
-	*  Applies a url specific version to a url from the versions file.
-	*  @method _applySpecificVersion
-	*  @private
-	*  @param {String} url The url to apply versioning to.
-	*  @return {String} The modified url.
-	*/
+	 * Applies a url specific version to a url from the versions file.
+	 * @method _applySpecificVersion
+	 * @private
+	 * @param {String} url The url to apply versioning to.
+	 * @return {String} The modified url.
+	 */
 	p._applySpecificVersion = function(url)
 	{
 		//don't apply versioning if the asset is retrieved from a php service
-		var basePath = Application.instance.options.basePath;
+		var basePath = this._app.options.basePath;
 		if(basePath && basePath.indexOf("?") > 0) return url;
 		
 		var ver = this._versions[url];
@@ -3695,17 +3647,17 @@
 	};
 
 	/**
-	*  Applies cache busting or a global version to a url.
-	*  @method _applyGlobalVersion
-	*  @private
-	*  @param {String} url The url to apply versioning to.
-	*  @return {String} The modified url.
-	*/
+	 * Applies cache busting or a global version to a url.
+	 * @method _applyGlobalVersion
+	 * @private
+	 * @param {String} url The url to apply versioning to.
+	 * @return {String} The modified url.
+	 */
 	p._applyGlobalVersion = function(url)
 	{
 		if(!this._globalVersion) return url;
 		//don't apply versioning if the asset is retrieved from a php service
-		var basePath = Application.instance.options.basePath;
+		var basePath = this._app.options.basePath;
 		if(basePath && basePath.indexOf("?") > 0) return url;
 		
 		//apply the versioning if it isn't already on the url
@@ -3719,17 +3671,17 @@
 	};
 
 	/**
-	*  Applies a base path to a relative url. This is not used in the filtering
-	*  system because PreloadJS has its own method of prepending the base path
-	*  that we use. Instead, it is used with an extra parameter to prepare().
-	*  @method _applyBasePath
-	*  @private
-	*  @param {String} url The url to prepend the base path to.
-	*  @return {String} The modified url.
-	*/
+	 * Applies a base path to a relative url. This is not used in the filtering
+	 * system because PreloadJS has its own method of prepending the base path
+	 * that we use. Instead, it is used with an extra parameter to prepare().
+	 * @method _applyBasePath
+	 * @private
+	 * @param {String} url The url to prepend the base path to.
+	 * @return {String} The modified url.
+	 */
 	p._applyBasePath = function(url)
 	{
-		var basePath = Application.instance.options.basePath;
+		var basePath = this._app.options.basePath;
 		if (basePath && /^http(s)?\:/.test(url) === false && url.search(basePath) == -1)
 		{
 			url = basePath + url;
@@ -3738,16 +3690,16 @@
 	};
 
 	/**
-	*  Prepare a URL with the necessary cache busting and/or versioning
-	*  as well as the base directory.
-	*  @public
-	*  @method prepare
-	*  @param {String} url The url to prepare
-	*  @param {Boolean} [applyBasePath=false] If the global base path should be applied to the url.
-	*		This defaults to false because it can potentially interfere with later regular
-	*		expression checks, particularly with PreloadJS
-	*  @return {String} The final url with version/cache and basePath added
-	*/
+	 * Prepare a URL with the necessary cache busting and/or versioning
+	 * as well as the base directory.
+	 * @public
+	 * @method prepare
+	 * @param {String} url The url to prepare
+	 * @param {Boolean} [applyBasePath=false] If the global base path should be applied to the url.
+	 *		This defaults to false because it can potentially interfere with later regular
+	 *		expression checks, particularly with PreloadJS
+	 * @return {String} The final url with version/cache and basePath added
+	 */
 	p.prepare = function(url, applyBasePath)
 	{
 		//apply first in case the base path is strange and makes the rest of the path a query string
@@ -3769,504 +3721,2191 @@
 }());
 
 /**
-*  @module Core
-*  @namespace springroll
-*/
+ * @module Core
+ * @namespace springroll
+ */
 (function()
 {
-	// Classes to import
-	var LoaderQueueItem,
-		CacheManager,
-		Application,
-		Sound,
-		LoadQueue,
-		LoaderResult,
-		Debug;
+	var Debug,
+		Application = include('springroll.Application');
 
 	/**
-	*  The Loader is the singleton loader for loading all assets
-	*  including images, data, code and sounds. Loader supports cache-busting
-	*  in the browser using dynamic query string parameters.
-	*
-	*  @class Loader
-	*/
-	var Loader = function()
+	 * Internal class for dealing with async load assets
+	 * @class Task
+	 * @abstract
+	 * @constructor
+	 * @private
+	 * @param {Object} asset The asset data
+	 * @param {String} [asset.id=null] The task ID
+	 * @param {Boolean} [asset.cache=false] If we should cache the result
+	 * @param {Function} [asset.complete=null] Call when complete
+	 * @param {String} fallbackId The ID to set if no ID is explicitly set
+	 *      this can be used for caching something that has no id
+	 * @param {Object} [asset.sizes=null] Define if certain sizes are not supported.
+	 */
+	var Task = function(asset, fallbackId)
 	{
-		if (!Application)
+		if (Debug === undefined)
 		{
-			LoaderQueueItem = include('springroll.LoaderQueueItem');
-			CacheManager = include('springroll.CacheManager');
-			Application = include('springroll.Application');
-			LoaderResult = include('springroll.LoaderResult');
-			LoadQueue = include('createjs.LoadQueue');
-			Sound = include('createjs.Sound', false);
+			Debug = include("springroll.Debug", false);
+		}
+		
+		/**
+		 * The current status of the task (waiting, running, etc)
+		 * @property {int} status
+		 * @default 0
+		 */
+		this.status = Task.WAITING;
+
+		/**
+		 * The user call to fire when completed, returns the arguments
+		 * result, original, and additionalAssets
+		 * @property {Function} complete
+		 * @default null
+		 * @readOnly
+		 */
+		this.complete = asset.complete || null;
+
+		/**
+		 * If we should cache the load and use later
+		 * @property {Boolean} cache
+		 * @default false
+		 * @readOnly
+		 */
+		this.cache = !!asset.cache;
+
+		/**
+		 * The task id
+		 * @property {String} id
+		 */
+		this.id = asset.id || null;
+	
+		/**
+		 * Reference to the original asset data
+		 * @property {Object} original
+		 * @readOnly
+		 */
+		this.original = asset;
+
+		// We're trying to cache but we don't have an ID
+		if (this.cache && !this.id)
+		{
+			if (fallbackId && typeof fallbackId == "string")
+			{
+				// Remove the file extension
+				var extIndex = fallbackId.lastIndexOf('.');
+				if (extIndex > -1)
+				{
+					fallbackId = fallbackId.substr(0, extIndex);
+				}
+
+				// Check for the last folder slash then remove it
+				var slashIndex = fallbackId.lastIndexOf('/');
+				if (slashIndex > -1)
+				{
+					fallbackId = fallbackId.substr(slashIndex + 1);
+				}
+
+				// Update the id
+				this.id = fallbackId;
+			}
+
+			// Check for ID if we're caching
+			if (!this.id)
+			{
+				if (true && Debug)
+				{
+					Debug.error("Caching an asset requires and id, none set", asset);
+				}
+				this.cache = false;
+			}
+		}
+	};
+
+	// Reference to prototype
+	var p = Task.prototype;
+
+	/**
+	 * Status for waiting to be run
+	 * @property {int} WAITING
+	 * @static
+	 * @readOnly
+	 * @final
+	 * @default 0
+	 */
+	Task.WAITING = 0;
+
+	/**
+	 * Task is currently being run
+	 * @property {int} RUNNING
+	 * @static
+	 * @readOnly
+	 * @final
+	 * @default 1
+	 */
+	Task.RUNNING = 1;
+
+	/**
+	 * Status for task is finished
+	 * @property {int} FINISHED
+	 * @static
+	 * @readOnly
+	 * @final
+	 * @default 2
+	 */
+	Task.FINISHED = 2;
+
+	/**
+	 * Start the task
+	 * @method  start
+	 * @param  {Function} callback Callback when finished
+	 */
+	p.start = function(callback)
+	{
+		callback();
+	};
+
+	/**
+	 * Add the sizing to each filter
+	 * @method filter
+	 * @protected
+	 * @param {String} url The url to filter
+	 */
+	p.filter = function(url)
+	{
+		var sizes = Application.instance.assetManager.sizes;
+
+		// See if we should add sizing
+		if (url && sizes.test(url))
+		{
+			// Get the current size supported byt this asset
+			var size = sizes.size(this.original.sizes);
+
+			// Update the URL size token
+			url = sizes.filter(url, size);
+
+			// Pass along the scale to the original asset data
+			this.original.scale = size.scale;
+		}
+		return url;
+	};
+
+	/**
+	 * Destroy this and discard
+	 * @method destroy
+	 */
+	p.destroy = function()
+	{
+		this.status = Task.FINISHED;
+		this.id = null;
+		this.complete = null;
+		this.original = null;
+	};
+
+	// Assign to namespace
+	namespace('springroll').Task = Task;
+
+}());
+/**
+ * @module Core
+ * @namespace springroll
+ */
+(function()
+{
+	var Task = include('springroll.Task');
+
+	/**
+	 * Internal class for dealing with async function calls with AssetManager.
+	 * @class FunctionTask
+	 * @extends springroll.Task
+	 * @constructor
+	 * @private
+	 * @param {Object} asset The data properties
+	 * @param {Boolean} [asset.cache=false] If we should cache the result
+	 * @param {Function} asset.async The required function to call
+	 * @param {Function} [asset.complete] The function to call when we're done
+	 * @param {String} [asset.id] The task id for mapping the result, if any
+	 */
+	var FunctionTask = function(asset)
+	{
+		Task.call(this, asset);
+
+		/**
+		 * The asynchronous call
+		 * @property {Function} async
+		 */
+		this.async = asset.async;
+	};
+
+	// Reference to prototype
+	var p = extend(FunctionTask, Task);
+
+	/**
+	 * Test if we should run this task
+	 * @method test
+	 * @static
+	 * @param {Object} asset The asset to check
+	 * @return {Boolean} If the asset is compatible with this asset
+	 */
+	FunctionTask.test = function(asset)
+	{
+		return !!asset.async;
+	};
+
+	/**
+	 * Start the task
+	 * @method start
+	 * @param {Function} callback Callback when done
+	 */
+	p.start = function(callback)
+	{
+		this.async(callback);
+	};
+
+	/**
+	 * Destroy this and discard
+	 * @method destroy
+	 */
+	p.destroy = function()
+	{
+		Task.prototype.destroy.call(this);
+		this.async = null;
+	};
+
+	// Assign to namespace
+	namespace('springroll').FunctionTask = FunctionTask;
+
+}());
+/**
+ * @module Core
+ * @namespace springroll
+ */
+(function()
+{
+	var Task = include('springroll.Task'),
+		Application = include('springroll.Application');
+
+	/**
+	 * Internal class for dealing with async load assets through Loader.
+	 * @class ColorAlphaTask
+	 * @extends springroll.Task
+	 * @constructor
+	 * @private
+	 * @param {Object} asset The data properties
+	 * @param {String} asset.color The source path to the color image
+	 * @param {String} asset.alpha The source path to the alpha image
+	 * @param {Boolean} [asset.cache=false] If we should cache the result
+	 * @param {String} [asset.id] Id of asset
+	 * @param {Function} [asset.complete] The event to call when done
+	 * @param {Object} [asset.sizes=null] Define if certain sizes are not supported
+	 */
+	var ColorAlphaTask = function(asset)
+	{
+		Task.call(this, asset, asset.color);
+
+		/**
+		 * The atlas color source path
+		 * @property {String} color
+		 */
+		this.color = this.filter(asset.color);
+
+		/**
+		 * The atlas alpha source path
+		 * @property {String} alpha
+		 */
+		this.alpha = this.filter(asset.alpha);
+	};
+
+	// Reference to prototype
+	var p = extend(ColorAlphaTask, Task);
+
+	/**
+	 * Test if we should run this task
+	 * @method test
+	 * @static
+	 * @param {Object} asset The asset to check
+	 * @return {Boolean} If the asset is compatible with this asset
+	 */
+	ColorAlphaTask.test = function(asset)
+	{
+		return !!asset.color && !!asset.alpha;
+	};
+
+	/**
+	 * Start the task
+	 * @method  start
+	 * @param  {Function} callback Callback when finished
+	 */
+	p.start = function(callback)
+	{
+		Application.instance.load({
+				_alpha: this.alpha,
+				_color: this.color
+			}, 
+			function(results)
+			{
+				callback(ColorAlphaTask.mergeAlpha(
+					results._color,
+					results._alpha
+				));
+			}
+		);
+	};
+
+	/**
+	 * Pulled from EaselJS's SpriteSheetUtils.
+	 * Merges the rgb channels of one image with the alpha channel of another. This can be used to
+	 * combine a compressed JPEG image containing color data with a PNG32 monochromatic image
+	 * containing alpha data. With certain types of images (those with detail that lend itself to
+	 * JPEG compression) this can provide significant file size savings versus a single RGBA PNG32.
+	 * This method is very fast (generally on the order of 1-2 ms to run).
+	 * @method mergeAlpha
+	 * @static
+	 * @param {Image} rbgImage The image (or canvas) containing the RGB channels to use.
+	 * @param {Image} alphaImage The image (or canvas) containing the alpha channel to use.
+	 * @param {Canvas} [canvas] If specified, this canvas will be used and returned. If not, a new
+	 *                      canvas will be created.
+	 * @return {Canvas} A canvas with the combined image data. This can be used as a source for a
+	 *              Texture.
+	 */
+	ColorAlphaTask.mergeAlpha = function(rgbImage, alphaImage, canvas)
+	{
+		if (!canvas)
+		{
+			canvas = document.createElement("canvas");
+		}
+		canvas.width = Math.max(alphaImage.width, rgbImage.width);
+		canvas.height = Math.max(alphaImage.height, rgbImage.height);
+		var ctx = canvas.getContext("2d");
+		ctx.save();
+		ctx.drawImage(rgbImage,0,0);
+		ctx.globalCompositeOperation = "destination-in";
+		ctx.drawImage(alphaImage,0,0);
+		ctx.restore();
+		return canvas;
+	};
+
+	// Assign to namespace
+	namespace('springroll').ColorAlphaTask = ColorAlphaTask;
+
+}());
+/**
+ * @module Core
+ * @namespace springroll
+ */
+(function()
+{
+	var Task = include('springroll.Task'),
+		Application = include('springroll.Application');
+
+	/**
+	 * Internal class for dealing with async load assets through Loader.
+	 * @class ListTask
+	 * @extends springroll.Task
+	 * @constructor
+	 * @private
+	 * @param {Object} asset The data properties
+	 * @param {Array|Object} asset.assets The collection of assets to load
+	 * @param {Boolean} [asset.cache=false] If we should cache the result
+	 * @param {String} [asset.id] Id of asset
+	 * @param {Function} [asset.complete=null] The event to call when done
+	 */
+	var ListTask = function(asset)
+	{
+		Task.call(this, asset);
+
+		/**
+		 * The collection of assets to load
+		 * @property {Array|Object} assets
+		 */
+		this.assets = asset.assets;
+	};
+
+	// Reference to prototype
+	var p = extend(ListTask, Task);
+
+	/**
+	 * Test if we should run this task
+	 * @method test
+	 * @static
+	 * @param {Object} asset The asset to check
+	 * @return {Boolean} If the asset is compatible with this asset
+	 */
+	ListTask.test = function(asset)
+	{
+		return !!asset.assets && (Array.isArray(asset.assets) || Object.isPlain(asset.assets));
+	};
+
+	/**
+	 * Start the task
+	 * @method  start
+	 * @param  {Function} callback Callback when finished
+	 */
+	p.start = function(callback)
+	{
+		Application.instance.load(this.assets, callback);
+	};
+
+	/**
+	 * Destroy this and discard
+	 * @method destroy
+	 */
+	p.destroy = function()
+	{
+		Task.prototype.destroy.call(this);
+		this.assets = null;
+	};
+
+	// Assign to namespace
+	namespace('springroll').ListTask = ListTask;
+
+}());
+/**
+ * @module Core
+ * @namespace springroll
+ */
+(function()
+{
+	var Task = include('springroll.Task'),
+		Application = include('springroll.Application');
+
+	/**
+	 * Internal class for dealing with async load assets through Loader.
+	 * @class LoadTask
+	 * @extends springroll.Task
+	 * @constructor
+	 * @private
+	 * @param {Object} asset The data properties
+	 * @param {String} asset.src The source
+	 * @param {Boolean} [asset.cache=false] If we should cache the result
+	 * @param {String} [asset.id] Id of asset
+	 * @param {Boolean} [asset.advanced=false] If we should return the LoaderResult
+	 * @param {*} [asset.data=null] Optional data
+	 * @param {Function} [asset.complete=null] The event to call when done
+	 * @param {Function} [asset.progress=null] The event to call on load progress
+	 * @param {Object} [asset.sizes=null] Define if certain sizes are not supported
+	 */
+	var LoadTask = function(asset)
+	{
+		Task.call(this, asset, asset.src);
+
+		/**
+		 * The source URL to load
+		 * @property {String} src
+		 */
+		this.src = this.filter(asset.src);
+
+		/**
+		 * Call on load progress
+		 * @property {Function} progress
+		 */
+		this.progress = asset.progress || null;
+
+		/**
+		 * Optional data to attach to load
+		 * @property {*} data
+		 */
+		this.data = asset.data || null;
+
+		/**
+		 * If turned on return a springroll.LoaderResult object
+		 * instead of the content
+		 * @property {Boolean} advanced
+		 * @default false
+		 */
+		this.advanced = !!asset.advanced;
+	};
+
+	// Reference to prototype
+	var p = extend(LoadTask, Task);
+
+	/**
+	 * Test if we should run this task
+	 * @method test
+	 * @static
+	 * @param {Object} asset The asset to check
+	 * @return {Boolean} If the asset is compatible with this asset
+	 */
+	LoadTask.test = function(asset)
+	{
+		return !!asset.src;
+	};
+
+	/**
+	 * Start the task
+	 * @method  start
+	 * @param  {Function} callback Callback when finished
+	 */
+	p.start = function(callback)
+	{
+		var advanced = this.advanced;
+
+		Application.instance.loader.load(
+			this.src,
+			function(result)
+			{
+				var content = result;
+				if (content && !advanced)
+				{
+					content = result.content;
+					result.destroy();
+				}
+				callback(content);
+			},
+			this.progress,
+			this.data
+		);
+	};
+
+	/**
+	 * Destroy this and discard
+	 * @method destroy
+	 */
+	p.destroy = function()
+	{
+		Task.prototype.destroy.call(this);
+		this.data = null;
+		this.progress = null;
+	};
+
+	// Assign to namespace
+	namespace('springroll').LoadTask = LoadTask;
+
+}());
+/**
+ * @module Core
+ * @namespace springroll
+ */
+(function(undefined)
+{
+	var LoadQueue = include('createjs.LoadQueue'),
+		Debug,
+		Sound = include('createjs.Sound', false);
+
+	/**
+	 * Represents a single item in the loader queue 
+	 * @class LoaderItem
+	 * @extends createjs.LoadQueue
+	 */
+	var LoaderItem = function()
+	{
+		LoadQueue.call(this, true); // preferXHR is always true!
+
+		if (Debug === undefined)
+		{
 			Debug = include('springroll.Debug', false);
 		}
 
 		/**
-		*  If we can load
-		*  @property {Boolean} _canLoad 
-		*  @default true
-		*  @private
-		*/
-		this._canLoad = true;
+		 * The number of times this load has been retried
+		 * @property {int} retries
+		 * @default
+		 */
+		this.retries = 0;
 
-		if (true)
+		/**
+		 * The original input url of the load
+		 * @public
+		 * @property {string} url
+		 */
+		this.url = null;
+
+		/**
+		 * The actual url of the load
+		 * @public
+		 * @property {string} preparedUrl
+		 */
+		this.preparedUrl = null;
+
+		/**
+		 * Data associate with the load
+		 * @public
+		 * @property {*} data
+		 */
+		this.data = null;
+		
+		/**
+		 * The callback function of the load, to call when 
+		 * the load as finished, takes one argument as result
+		 * @public
+		 * @property {function} onComplete
+		 */
+		this.onComplete = null;
+		
+		/**
+		 * The progress callback
+		 * @public
+		 * @proprty {function} onProgress
+		 */
+		this.onProgress = null;
+		
+		/**
+		 * The callback when a load queue item fails
+		 * @private
+		 * @proprty {function} _onFailed
+		 */
+		this._onFailed = this._onFailed.bind(this);
+
+		/**
+		 * The callback when a load queue item progresses
+		 * @private
+		 * @proprty {function} _onProgress
+		 */
+		this._onProgress = this._onProgress.bind(this);
+
+		/**
+		 * The callback when a load queue item completes
+		 * @private
+		 * @proprty {function} _onCompleted
+		 */
+		this._onCompleted = this._onCompleted.bind(this);
+
+		// Install the sound plugin if we have sound module
+		if (Sound)
 		{
-			/**
-			*  If the logging should be verbose (unminified library only)
-			*  @property {Boolean} verbose
-			*  @default  false
-			*/
-			this.verbose = false;
+			this.installPlugin(Sound);
 		}
+	};
+	
+	/** Reference to the prototype */
+	var p = extend(LoaderItem, LoadQueue);
+
+	/**
+	 * Represent this object as a string
+	 * @property {int} MAX_RETRIES
+	 * @static
+	 * @default 3
+	 */
+	LoaderItem.MAX_RETRIES = 3;
+
+	if (true)
+	{
+		/**
+		 * If the loads should be verbose
+		 * @property {Boolean} verbose
+		 * @static
+		 * @default false
+		 */
+		LoaderItem.verbose = false;
+	}
+	
+	/**
+	 * Represent this object as a string
+	 * @public
+	 * @method toString
+	 * @return {string} The string representation of this object
+	 */
+	p.toString = function()
+	{
+		return "[LoaderItem(url:'"+this.url+"')]";
+	};
+
+	/**
+	 * The base path of the load
+	 * @property {String} basePath
+	 * @default null
+	 */
+	Object.defineProperty(p, 'basePath', 
+	{
+		set: function(basePath)
+		{
+			this._basePath = basePath;
+		}
+	});
+
+	/**
+	 * If this load should be cross origin
+	 * @property {Boolean} crossOrigin
+	 * @default false
+	 */
+	Object.defineProperty(p, 'crossOrigin',
+	{
+		set: function(crossOrigin)
+		{
+			this._crossOrigin = crossOrigin;
+		}
+	});
+
+	/**
+	 * Clear all the data
+	 * @method clear
+	 */
+	p.clear = function()
+	{
+		this.basePath = "";
+		this.crossOrigin = false;
+		this.retries = 0;
+		this.onComplete = null;
+		this.onProgress = null;
+		this.data =  null;
+		this.preparedUrl =  null;
+		this.url = null;
+
+		this.removeAllEventListeners();
+		this.close();
+	};
+
+	/**
+	 * Start the loading
+	 * @method  start
+	 * @param {int} maxCurrentLoads The max number of simultaneous load
+	 */
+	p.start = function(maxCurrentLoads)
+	{
+		if (true && Debug && LoaderItem.verbose)
+		{
+			Debug.log("Attempting to load file '" + this.url + "'");
+		}
+		this.addEventListener('fileload', this._onCompleted);
+		this.addEventListener('error', this._onFailed);
+		this.addEventListener('fileprogress', this._onProgress);
+		this._internalStart();
+	};
+
+	/**
+	 * Start the loading internally
+	 * @method  _internalStart
+	 * @private
+	 */
+	p._internalStart = function()
+	{
+		var url = this.preparedUrl;
+
+		// Special loading for the Sound, requires the ID
+		if (this.data && this.data.id)
+		{
+			url = {
+				id: this.data.id, 
+				src: url, 
+				data: this.data
+			};
+		}
+
+		// Load the file
+		this.loadFile(url);
+	};
+
+	/**
+	 * The file load progress event
+	 * @method _onProgress
+	 * @private
+	 * @param {object} event The progress event
+	 */
+	p._onProgress = function(event)
+	{
+		if (this.onProgress)
+		{
+			this.onProgress(this.progress);
+		}
+	};
+
+	/**
+	 * There was an error loading the file
+	 * @private
+	 * @method _onFailed
+	 */
+	p._onFailed = function(event)
+	{
+		if (true && Debug) 
+		{
+			Debug.error("Unable to load file: " + this.url  + " - reason: " + event.error);
+		}
+		this.retry();
+	};
+
+	/**
+	 * Retry the current load
+	 * @method  retry
+	 */
+	p.retry = function()
+	{
+		this.retries++;
+		if (this.retries > LoaderItem.MAX_RETRIES)
+		{
+			this.onComplete(this, null);
+		}
+		else
+		{
+			this._internalStart();
+		}
+	};
+
+	/**
+	 * The file was loaded successfully
+	 * @private
+	 * @method _onCompleted
+	 * @param {object} ev The load event
+	 */
+	p._onCompleted = function(ev)
+	{
+		if (true && Debug && LoaderItem.verbose)
+		{
+			Debug.log("File loaded successfully from " + this.url);
+		}
+		this.onComplete(this, ev.result);
+	};
+	
+	// Assign to the name space
+	namespace('springroll').LoaderItem = LoaderItem;
+	
+}());
+/**
+ * @module Core
+ * @namespace springroll
+ */
+(function()
+{
+	/**
+	 * The return result of the Loader load
+	 * @class LoaderResult
+	 * @constructor
+	 * @param {*} content The dynamic content loaded
+	 * @param {String} url The url that was loaded
+	 * @param {*} [data] Optional data associated with object
+	 */
+	var LoaderResult = function(content, url, data)
+	{
+		/**
+		 * The contents of the load
+		 * @property {*} content
+		 */
+		this.content = content;
+
+		/**
+		 * The url of the load
+		 * @property {String} url
+		 */
+		this.url = url;
 		
 		/**
-		*  The maximum number of simulaneous loads
-		*  @public
-		*  @property {int} maxSimultaneousLoads
-		*  @default 2
-		*/
-		this.maxSimultaneousLoads = 2;
+		 * The data for the load item.
+		 * @property {*} data
+		 */
+		this.data = data;
+
+		/**
+		 * The original asset id, if any
+		 * @property {String} id
+		 */
+		this.id = null;
+	};
+	
+	/** Reference to the prototype */
+	var p = LoaderResult.prototype;
+	
+	/**
+	 * A to string method
+	 * @public
+	 * @method toString
+	 * @return {String} A string rep of the object
+	 */
+	p.toString = function()
+	{
+		return "[LoaderResult(url: '"+this.url+"')]";
+	};
+
+	/**
+	 * Reset to the original state
+	 * @method reset
+	 */
+	p.reset = function()
+	{
+		this.content = 
+		this.url = 
+		this.data =
+		this.id = null;
+	};
+	
+	/**
+	 * Destroy this result
+	 * @method destroy
+	 */
+	p.destroy = function()
+	{
+		this.reset();
+	};
+	
+	// Assign to the name space
+	namespace('springroll').LoaderResult = LoaderResult;
+	
+}());
+/**
+ * @module Core
+ * @namespace springroll
+ */
+(function(undefined)
+{
+	// Classes to import
+	var LoaderItem = include('springroll.LoaderItem'),
+		CacheManager = include('springroll.CacheManager'),
+		LoaderResult = include('springroll.LoaderResult');
+
+	/**
+	 * The Loader is the singleton loader for loading all assets
+	 * including images, data, code and sounds. Loader supports cache-busting
+	 * in the browser using dynamic query string parameters.
+	 * @class Loader
+	 */
+	var Loader = function(app)
+	{
+		/**
+		 * The current application
+		 * @property {springroll.Application} app 
+		 * @private
+		 */
+		this.app = app;
 		
 		/**
-		*  The reference to the cache manager
-		*  @public
-		*  @property {CacheManager} cacheManager
-		*/
-		this.cacheManager = null;
+		 * The maximum number of simulaneous loads
+		 * @public
+		 * @property {int} maxCurrentLoads
+		 * @default 2
+		 */
+		this.maxCurrentLoads = 2;
+		
+		/**
+		 * The reference to the cache manager
+		 * @public
+		 * @property {CacheManager} cacheManager
+		 */
+		this.cacheManager = new CacheManager(app);
+
+		/**
+		 * The collection of LoaderItems by url
+		 * @private
+		 * @property {Object} items
+		 */
+		this.items = {};
+		
+		/**
+		 * The pool of LoaderItems
+		 * @private
+		 * @property {array} itemPool
+		 */
+		this.itemPool = [];
 	};
 	
 	/** The prototype */
 	var p = Loader.prototype;
-	
-	/**
-	* Reference to the private instance object
-	* @static
-	* @protected
-	*/
-	var _instance = null;
-	
-	/**
-	*  The collection of LoaderQueueItems
-	*  @private
-	*/
-	var queue = null;
-	
-	/**
-	*  The collection of LoaderQueueItems by url
-	*  @private
-	*/
-	var queueItems = null;
-	
-	/**
-	*  The collection of loaders
-	*  @private
-	*  @property {object} loaders
-	*/
-	var loaders = null;
-	
-	/**
-	*  The pool of queue items
-	*  @private
-	*  @property {array} loaders
-	*/
-	var qiPool = null;
 
-	/**
-	*  The pool of loader items
-	*  @private
-	*  @property {array} loaders
-	*/
-	var loaderPool = null;
-
-	/**
-	*  The pool of result items
-	*  @private
-	*  @property {array} loaders
-	*/
-	var resultPool = null;
-	
-	/**
-	*  The current number of items loading
-	*  @private
-	*  @property {int} numLoads
-	*  @default 0
-	*/
-	var numLoads = 0;
-	
-	/**
-	*  The retry attempts
-	*  @private
-	*  @property {Object} retries
-	*/
-	var retries = null;
-	
-	/**
-	*  Static constructor creating the singleton
-	*  @method init
-	*  @static
-	*  @public
-	*/
-	Loader.init = function()
+	if (true)
 	{
-		if (!_instance)
+		/**
+		 * If the logging should be verbose (unminified library only)
+		 * @property {Boolean} verbose
+		 * @default  false
+		 */
+		Object.defineProperty(p, 'verbose', 
 		{
-			_instance = new Loader();
-			_instance._initialize();
-		}
-		return _instance;
-	};
-		
-	/**
-	*  Static function for getting the singleton instance
-	*  @static
-	*  @readOnly
-	*  @public
-	*  @property {Loader} instance
-	*/
-	Object.defineProperty(Loader, "instance", {
-		get:function()
-		{
-			return _instance;
-		}
-	});
+			set: function(verbose)
+			{
+				LoaderItem.verbose = verbose;
+			}
+		});
+	}
 	
 	/**
-	*  Destroy the Loader singleton, don't use after this
-	*  @public
-	*  @method destroy
-	*/
+	 * Destroy the Loader singleton, don't use after this
+	 * @public
+	 * @method destroy
+	 */
 	p.destroy = function()
 	{
-		var i, len, key, arr = this.queue;
-		if(arr)
+		this.itemPool.forEach(function(item)
 		{
-			for(i = 0, len = arr.length; i < i; ++i)
-				arr[i].destroy();
-			arr = qiPool;
-			for(i = 0, len = arr.length; i < i; ++i)
-				arr[i].destroy();
-			arr = resultPool;
-			for(i = 0, len = arr.length; i < i; ++i)
-				arr[i].destroy();
-			for(key in loaders)
-			{
-				queueItems[key].destroy();
-				loaders[key].close();
-			}
-		}
-		_instance = null;
-		if (this.cacheManager)
-			this.cacheManager.destroy();
-		this.cacheManager = null;
-		queue = null;
-		resultPool = null;
-		loaderPool = null;
-		qiPool = null;
-		queueItems = null;
-		retries = null;
-		loaders = null;
-	};
-	
-	/**
-	*  Initilize the object
-	*  @protected
-	*  @method _initialize
-	*/
-	p._initialize = function()
-	{
-		qiPool = [];
-		loaderPool = [];
-		resultPool = [];
-		queue = [];
-		queueItems = {};
-		loaders = {};
-		retries = {};
-		this.cacheManager = new CacheManager();
-	};
-	
-	/**
-	*  Load a file
-	*  @method load
-	*  @public
-	*  @param {string} url The file path to load
-	*  @param {function} callback The callback function when completed
-	*  @param {function*} updateCallback The callback for load progress update, passes 0-1 as param
-	*  @param {int*} priority The priority of the load
-	*  @param {*} data optional data
-	*/
-	p.load = function(url, callback, updateCallback, priority, data)
-	{
-		var qi = this._getQI();
-		
-		var basePath = Application.instance.options.basePath;
-		if (basePath !== undefined && /^http(s)?\:/.test(url) === false && url.search(basePath) == -1)
-		{
-			qi.basePath = basePath;
-		}
-		
-		qi.url = url;
-		qi.callback = callback;
-		qi.updateCallback = updateCallback || null;
-		qi.priority = priority || LoaderQueueItem.PRIORITY_NORMAL;
-		qi.data = data || null;
-		
-		queue.push(qi);
-		
-		// Sory by priority
-		queue.sort(function(a, b){
-			return a.priority - b.priority;
+			item.clear();
 		});
-		
-		// Try to load the next queue item
-		this._tryNextLoad();
-	};
-	
-	/**
-	*  There was an error loading the file
-	*  @private
-	*  @method _onLoadFailed
-	*  @param {LoaderQueueItem} qi The loader queue item
-	*/
-	p._onLoadFailed = function(qi, event)
-	{
-		if(!_instance)
-			return;
-		
-		if (true && Debug) 
-		{
-			Debug.error("Unable to load file: " + qi.url  + " - reason: " + event.error);
-		}
-		
-		var loader = loaders[qi.url];
-		loader.removeAllEventListeners();
-		loader.close();
-		this._poolLoader(loader);
-		
-		delete queueItems[qi.url];
-		delete loaders[qi.url];
-		
-		if(retries[qi.url])
-			retries[qi.url]++;
-		else
-			retries[qi.url] = 1;
-		if(retries[qi.url] > 3)
-			this._loadDone(qi, null);
-		else
-		{
-			numLoads--;
-			queue.push(qi);
-			this._tryNextLoad();
-		}
-	};
-	
-	/**
-	*  The file load progress event
-	*  @method _onLoadProgress
-	*  @private
-	*  @param {LoaderQueueItem} qi The loader queue item
-	*  @param {object} event The progress event
-	*/
-	p._onLoadProgress = function(qi, event)
-	{
-		qi.progress = event.progress;
-		if (qi.updateCallback){
-			qi.updateCallback(qi.progress);
-		}
-	};
-	
-	/**
-	*  The file was loaded successfully
-	*  @private
-	*  @method _onLoadCompleted
-	*  @param {LoaderQueueItem} qi The loader queue item
-	*  @param {object} ev The load event
-	*/
-	p._onLoadCompleted = function(qi, ev)
-	{
-		if(!_instance)
-			return;
+		this.itemPool = null;
 
-		if (true && Debug && this.verbose)
+		if (this.cacheManager)
 		{
-			Debug.log("File loaded successfully from " + qi.url);
+			this.cacheManager.destroy();
 		}
-		var loader = loaders[qi.url];
-		loader.removeAllEventListeners();
-		loader.close();
-		this._poolLoader(loader);
-		
-		delete queueItems[qi.url];
-		delete loaders[qi.url];
-		this._loadDone(qi, this._getResult(ev.result, qi.url, loader, qi.data));
+		this.cacheManager = null;
+		this.items = null;
 	};
-	
+
 	/**
-	*  Attempt to do the next load
-	*  @method _tryNextLoad
-	*  @private
-	*/
-	p._tryNextLoad = function()
+	 * Load a file
+	 * @method load
+	 * @public
+	 * @param {string} url The file path to load
+	 * @param {function} complete The callback function when completed
+	 * @param {function} [progress] The callback for load progress update, passes 0-1 as param
+	 * @param {*} [data] optional data
+	 * @return {createjs.LoadQueue} The load queue item
+	 */
+	p.load = function(url, complete, progress, data)
 	{
-		if (numLoads > this.maxSimultaneousLoads - 1 || queue.length === 0) return;
-		
-		numLoads++;
-		
-		var qi = queue.shift();
-		
-		if (true && Debug && this.verbose)
+		var options = this.app.options;
+
+		// Get a new loader object
+		var item = this._getItem();
+
+		var basePath = options.basePath;
+		if (basePath !== undefined && 
+			/^http(s)?\:/.test(url) === false && 
+			url.search(basePath) == -1)
 		{
-			Debug.log("Attempting to load file '" + qi.url + "'");
+			item.basePath = basePath;
 		}
-		
-		queueItems[qi.url] = qi;
-		
-		var loader = this._getLoader(qi.basePath);
-		
-		// Add to the list of loaders
-		loaders[qi.url] = loader;
-		
-		loader.addEventListener("fileload", qi._boundComplete);
-		loader.addEventListener("error", qi._boundFail);
-		loader.addEventListener("fileprogress", qi._boundProgress);
-		var url = this.cacheManager.prepare(qi.url);
-		loader.loadFile(qi.data ? {id:qi.data.id, src:url, data:qi.data} : url);
+		item.crossOrigin = options.crossOrigin;
+		item.url = url;
+		item.preparedUrl = this.cacheManager.prepare(url);
+		item.onComplete = this._onComplete.bind(this, complete);
+		item.onProgress = progress || null;
+		item.data = data || null;
+		item.setMaxConnections(this.maxCurrentLoads);
+
+		this.items[url] = item;
+
+		item.start();
+
+		return item;
 	};
-	
+
 	/**
-	*  Alert that the loading is finished
-	*  @private
-	*  @method _loadDone
-	*  @param {LoaderQueueItem} qi The loader queue item
-	*  @param {object} result The event from preloadjs or null
-	*/
-	p._loadDone = function(qi, result)
+	 * Handler for the file complete
+	 * @method _onComplete
+	 * @private
+	 * @param  {function} complete Callback function when done
+	 * @param  {springroll.LoaderItem} item The LoadQueue
+	 * @param  {null|*} result   [description]
+	 */
+	p._onComplete = function(complete, item, result)
 	{
-		numLoads--;
-		if(qi.data && result)//a way to keep track of load results without excessive function binding
-			result.id = qi.data.id;
-		qi.callback(result);
-		//qi.destroy();
-		this._poolQI(qi);
-		this._tryNextLoad();
+		if (result)
+		{
+			result = new LoaderResult(
+				result,
+				item.url,
+				item.data
+			);
+		}
+		complete(result);
+		this._putItem(item);
 	};
 	
 	/**
-	*  Cancel a load that's currently in progress
-	*  @public
-	*  @method cancel
-	*  @param {string} url The url
-	*  @return {bool} If canceled returns true, false if not canceled
-	*/
+	 * Cancel a load that's currently in progress
+	 * @public
+	 * @method cancel
+	 * @param {string} url The url
+	 * @return {bool} If canceled returns true, false if not canceled
+	 */
 	p.cancel = function(url)
 	{
-		var qi = queueItems[url];
-		var loader = loaders[url];
+		var item = this.items[url];
 		
-		if (qi && loader)
+		if (item)
 		{
-			loader.close();
-			delete loaders[url];
-			delete queueItems[qi.url];
-			numLoads--;
-			this._poolLoader(loader);
-			this._poolQI(qi);
+			item.clear();
+			this._putItem(item);
 			return true;
-		}
-		
-		for(var i = 0, len = queue.length; i < len; i++)
-		{
-			qi = queue[i];
-			if (qi.url == url){
-				queue.splice(i, 1);
-				this._poolQI(qi);
-				return true;
-			}
 		}
 		return false;
 	};
 	
-	p._getQI = function()
+	/**
+	 * Get a Queue item from the pool or new
+	 * @method  _getItem
+	 * @private
+	 * @return  {springroll.LoaderItem} The Queue item to use
+	 */
+	p._getItem = function()
 	{
-		var rtn;
-		if(qiPool.length)
-			rtn = qiPool.pop();
-		else
-		{
-			rtn = new LoaderQueueItem();
-			rtn._boundFail = this._onLoadFailed.bind(this, rtn);
-			rtn._boundProgress = this._onLoadProgress.bind(this, rtn);
-			rtn._boundComplete = this._onLoadCompleted.bind(this, rtn);
-		}
-		return rtn;
+		var itemPool = this.itemPool;
+		return itemPool.length ? itemPool.pop(): new LoaderItem();
 	};
 	
-	p._poolQI = function(qi)
+	/**
+	 * Pool the loader queue item
+	 * @method  _putItem
+	 * @private
+	 * @param  {springroll.LoaderItem} item Loader item that's done
+	 */
+	p._putItem = function(item)
 	{
-		qiPool.push(qi);
-		qi.callback = qi.updateCallback = qi.data = qi.url = null;
-		qi.progress = 0;
+		delete this.items[item.url];
+		item.clear();
+		this.itemPool.push(item);
 	};
 	
-	p._getLoader = function(basePath)
-	{
-		var rtn;
-		if(loaderPool.length)
-		{
-			rtn = loaderPool.pop();
-			rtn._basePath = basePath;//apparently they neglected to make this public
-		}
-		else
-			rtn = new LoadQueue(true, basePath, Application.instance.options.crossOrigin);
-		//allow the loader to handle sound as well
-		if(Sound)
-		{
-			rtn.installPlugin(Sound);
-		}
-		return rtn;
-	};
-	
-	p._poolLoader = function(loader)
-	{
-		loader.removeAll();//clear the loader for reuse
-		loaderPool.push(loader);
-	};
-	
-	p._getResult = function(result, url, loader, manifestData)
-	{
-		var rtn;
-		if(resultPool.length)
-		{
-			rtn = resultPool.pop();
-			rtn.content = result;
-			rtn.url = url;
-			rtn.loader = loader;
-			rtn.manifestData = manifestData;
-		}
-		else
-			rtn = new LoaderResult(result, url, loader, manifestData);
-		return rtn;
-	};
-	
-	p._poolResult = function(result)
-	{
-		result.content = result.url = result.loader = result.id = null;
-		resultPool.push(result);
-	};
-	
-	// MediaLoader name is deprecated
-	namespace('springroll').MediaLoader = Loader;
 	namespace('springroll').Loader = Loader;
+	
 }());
 /**
-*  @module Core
-*  @namespace springroll
-*/
+ * @module Core
+ * @namespace springroll
+ */
+(function(undefined)
+{
+	var Debug;
+
+	/**
+	 * Remember the assets loaded by the AssetManager
+	 * @class AssetCache
+	 * @private
+	 */
+	var AssetCache = function()
+	{
+		if (Debug === undefined)
+		{
+			Debug = include('springroll.Debug', false);
+		}
+
+		/**
+		 * The cache containing assets
+		 * @property {Object} _cache
+		 * @private
+		 */
+		this._cache = {};
+	};
+
+	// Reference to the prototype
+	var p = AssetCache.prototype;
+
+	/**
+	 * Remove a single asset from the cache
+	 * @method read
+	 * @param {String} id The asset to remove
+	 */
+	p.read = function(id)
+	{
+		if (true && Debug && !this._cache[id])
+		{
+			Debug.warn("AssetCache: no asset matching id: '" + id + "'");
+		}
+		return this._cache[id] || null;
+	};
+
+	/**
+	 * Remove a single asset from the cache
+	 * @method write
+	 * @param {String} id The asset to remove
+	 * @param {*} content The asset content to save
+	 */
+	p.write = function(id, content)
+	{
+		if (this._cache[id])
+		{
+			if (true && Debug)
+			{
+				Debug.warn("AssetCache: overwriting existing asset: '" + id + "'");
+			}
+			// Remove it first
+			this.delete(id);
+		}
+		this._cache[id] = content;
+	};
+
+	/**
+	 * Remove a single asset from the cache
+	 * @method delete
+	 * @param {Object|String} asset The asset to remove
+	 */
+	p.delete = function(asset)
+	{
+		var id = typeof asset == "string" ? asset : asset.id;
+
+		// If we don't have an ID, stop
+		if (!id) return;
+
+		var result = this._cache[id];
+		if (result)
+		{
+			// Destroy mapped result
+			if (Object.isPlain(result))
+			{
+				for (var key in result)
+				{
+					destroyResult(result[key]);
+				}
+			}
+			// Destroy list of results
+			else if (Array.isArray(result))
+			{
+				result.forEach(destroyResult);
+			}
+			// Destory single
+			else
+			{
+				destroyResult(result);
+			}
+			delete this._cache[id];
+		}
+	};
+
+	/**
+	 * Destroy a result object
+	 * @method destroyResult
+	 * @private
+	 * @param  {*} result The object to destroy
+	 */
+	function destroyResult(result)
+	{
+		// Ignore null results or empty objects
+		if (!result) return;
+
+		// Destroy any objects with a destroy function 
+		if (result.destroy)
+		{
+			result.destroy();
+		}
+
+		// Clear images if we have an HTML node
+		if (result.tagName == "IMG")
+		{
+			result.src = "";
+		}
+	}
+
+	/**
+	 * Remove all assets from the cache
+	 * @method empty
+	 */
+	p.empty = function()
+	{
+		for(var id in this._cache)
+		{
+			this.delete(id);
+		}
+	};
+
+	/**
+	 * Destroy and don't use after this
+	 * @method destroy
+	 */
+	p.destroy = function()
+	{
+		this.empty();
+		this._cache = null;
+	};
+
+	// Assign to namespace
+	namespace('springroll').AssetCache = AssetCache;
+
+}());
+/**
+ * @module Core
+ * @namespace springroll
+ */
 (function()
 {
-	// Include classes
-	var ApplicationPlugin = include('springroll.ApplicationPlugin');
+	var Debug;
+
+	/**
+	 * Remember the assets loaded by the AssetManager
+	 * @class AssetSizes
+	 * @private
+	 */
+	var AssetSizes = function()
+	{
+		if (Debug === undefined)
+		{
+			Debug = include('springroll.Debug', false);
+		}
+
+		/**
+		 * The collection of size objects
+		 * @property {Array} _sizes
+		 * @private
+		 */
+		this._sizes = [];
+
+		/**
+		 * The map of size objects
+		 * @property {_sizesMap} _sizesMap
+		 * @private
+		 */
+		this._sizesMap = {};
+
+		/**
+		 * The preferred size
+		 * @property {Object} _preferredSize
+		 * @readOnly
+		 */
+		this._preferredSize = null;
+	};
+
+	// Reference to the prototype
+	var p = AssetSizes.prototype;
+
+	/**
+	 * The name of the URL substitution variable
+	 * @property {String} SIZE_TOKEN
+	 * @static
+	 * @default  "%SIZE%"
+	 */
+	AssetSizes.SIZE_TOKEN = "%SIZE%";
+
+	/**
+	 * Remove the pre-defined sizes
+	 * @method  reset
+	 */
+	p.reset = function()
+	{
+		this._sizes.length = 0;
+		this._sizesMap = {};
+	};
+
+	/**
+	 * Add a new size definition
+	 * @method define
+	 * @param {String} id The name of the folder which contains size
+	 * @param {int} maxSize The maximum size capable of using this
+	 * @param {Number} scale The scale of assets
+	 * @param {Array} fallback The size fallbacks if this size isn't available
+	 *      for the current asset request.
+	 */
+	p.define = function(id, maxSize, scale, fallback)
+	{
+		var size = {
+			id: id,
+			maxSize: maxSize,
+			scale: scale,
+			fallback: fallback
+		};
+
+		this._sizesMap[id] = size;
+		this._sizes.push(size);
+
+		// Sor from smallest to largest maxSize
+		this._sizes.sort(function(a, b)
+		{
+			return a.maxSize - b.maxSize;
+		});
+	};
+
+	/**
+	 * Update a URL by size
+	 * @method  filter
+	 * @param  {String} url The asset to load
+	 * @param {Object} [size] The currrent size object
+	 * @param {Object} [size.id] The name of the current size
+	 * @return {String} The formatted url
+	 */
+	p.filter = function(url, size)
+	{
+		size = size || this._preferredSize;
+		return url.replace(AssetSizes.SIZE_TOKEN, size.id);
+	};
+
+	/**
+	 * Make sure we have a token
+	 * @method  test
+	 * @param  {String}  url The URL to test
+	 * @return {Boolean} If we have the token
+	 */
+	p.test = function(url)
+	{
+		return url.indexOf(AssetSizes.SIZE_TOKEN) > -1;
+	};
+
+	/**
+	 * Get a size based on the current asset sizes supported
+	 * @method size
+	 * @param  {Object} [supported] Return the preferred size if nothing is set
+	 * @return {Object} Return the size object with id, scale, maxSize and fallback keys
+	 */
+	p.size = function(supported)
+	{
+		var size = this._preferredSize;
+		var fallback = size.fallback;
+
+		// There's custom support and it says we don't support
+		// the default size.
+		if (supported && !supported[size.id])
+		{
+			for (var i = 0, len = fallback.length; i < len; i++)
+			{
+				var alt = fallback[i];
+
+				// Undefined means we support it, or true
+				if (supported[alt] !== false)
+				{
+					size = this._sizesMap[alt];
+					break;
+				}
+			}
+		}
+		// Umm something's wrong, the asset doesn't support
+		// either the current size or any of the fallbacks
+		if (!size)
+		{
+			throw "Asset does not support any valid size";
+		}
+		return size;
+	};
+
+	/**
+	 * Refresh the current preferred size based on width and height
+	 * @method refresh
+	 * @param  {Number} width  The width of the stage
+	 * @param  {Number} height The height of the stage
+	 * @return {Object} The size
+	 */
+	p.refresh = function(width, height)
+	{
+		var minSize = Math.min(width, height);
+		var size = null;
+		var sizes = this._sizes;
+
+		// Check the largest first
+		for(var i = sizes.length - 1; i >= 0; --i)
+		{
+			if (sizes[i].maxSize > minSize)
+			{
+				size = sizes[i];
+			}
+			else
+			{
+				break;
+			}	
+		}
+		this._preferredSize = size;
+	};
+
+	/**
+	 * Destroy and don't use after this
+	 * @method destroy
+	 */
+	p.destroy = function()
+	{
+		this._preferredSize = null;
+		this._sizes = null;
+		this._sizesMap = null;
+	};
+
+	// Assign to namespace
+	namespace('springroll').AssetSizes = AssetSizes;
+
+}());
+/**
+ * @module Core
+ * @namespace springroll
+ */
+(function(undefined)
+{
+	var Debug,
+		Task = include('springroll.Task');
+
+	/**
+	 * Class that represents a single multi load
+	 * @class AssetLoad
+	 * @constructor
+	 * @private
+	 * @param {springroll.AssetManager} manager Reference to the manager
+	 */
+	var AssetLoad = function(manager)
+	{
+		if (true)
+		{
+			Debug = include('springroll.Debug', false);
+		}
+
+		/**
+		 * Reference to the Task Manager
+		 * @property {springroll.AssetManager} manager
+		 */
+		this.manager = manager;
+
+		if (true)
+		{
+			this.id = AssetLoad.ID++;
+		}
+
+		/**
+		 * Handler when completed with all tasks
+		 * @property {function} complete
+		 * @default  null
+		 */
+		this.complete = null;
+
+		/**
+		 * How to display the results, either as single (0), map (1) or list (2)
+		 * @property {int} mode
+		 * @default 1
+		 */
+		this.mode = MAP_MODE;
+
+		/**
+		 * If we should run the tasks in parallel (true) or serial (false)
+		 * @property {Boolean} startAll
+		 * @default true
+		 */
+		this.startAll = true;
+
+		/**
+		 * If we should try to cache all items in the load
+		 * @property {Boolean} cacheAll
+		 * @default false
+		 */
+		this.cacheAll = false;
+
+		/**
+		 * The list of tasks to load
+		 * @property {Array} tasks
+		 */
+		this.tasks = [];
+
+		/**
+		 * The results to return when we're done
+		 * @property {Array|Object} results
+		 */
+		this.results = null;
+
+		/**
+		 * If the load is currently running
+		 * @property {Boolean} running
+		 * @default false
+		 */
+		this.running = false;
+	};
+
+	// Reference to prototype
+	var p = AssetLoad.prototype;
+
+	if (true)
+	{
+		/**
+		 * Debugging Keep track of how many we've created
+		 * @property {int} ID
+		 * @static
+		 * @private
+		 */
+		AssetLoad.ID = 1;
+
+		/**
+		 * Debugging purposes
+		 * @method toString
+		 */
+		p.toString = function()
+		{
+			return "[AssetLoad (index: " + this.id + ")]";
+		};		
+	}
+
+	/**
+	 * Initialize the Load 
+	 * @method start
+	 * @param {Object|Array} assets The collection of assets to load
+	 * @param {Object} [options] The loading options
+	 * @param {Function} [options.complete=null] Function call when done, returns results
+	 * @param {Function} [options.progress=null] Function call when task is done, returns result
+	 * @param {Boolean} [options.startAll=true] If we should run the tasks in order
+	 * @param {Boolean} [options.cacheAll=false] If we should run the tasks in order
+	 */
+	p.start = function(assets, options)
+	{
+		// Keep track if we're currently running
+		this.running = true;
+
+		// Save options to load
+		this.complete = options.complete;
+		this.progress = options.progress;
+		this.startAll = options.startAll;
+		this.cacheAll = options.cacheAll;
+
+		// Update the results mode and tasks
+		this.mode = this.addTasks(assets);
+
+		// Set the default container for the results
+		this.results = getAssetsContainer(this.mode);
+		
+		// Start running
+		this.nextTask();
+	};
+
+	/**
+	 * Set back to the original state
+	 * @method reset
+	 */
+	p.reset = function()
+	{
+		// Cancel any tasks
+		this.tasks.forEach(function(task)
+		{
+			task.status = Task.FINISHED;
+			task.destroy();
+		});
+		this.mode = MAP_MODE;
+		this.tasks.length = 0;
+		this.results = null;
+		this.complete = null;
+		this.progress = null;
+		this.startAll = true;
+		this.cacheAll = false;
+		this.running = false;
+	};
+
+	/**
+	 * The result is a single result
+	 * @property {int} SINGLE_MODE
+	 * @private
+	 * @final
+	 * @static
+	 * @default 0
+	 */
+	var SINGLE_MODE = 0;
+
+	/**
+	 * The result is a map of result objects
+	 * @property {int} MAP_MODE
+	 * @private
+	 * @final
+	 * @static
+	 * @default 1
+	 */
+	var MAP_MODE = 1;
+
+	/**
+	 * The result is an array of result objects
+	 * @property {int} LIST_MODE
+	 * @private
+	 * @final
+	 * @static
+	 * @default 2
+	 */
+	var LIST_MODE = 2;
+
+	/**
+	 * Create a list of tasks from assets
+	 * @method  addTasks
+	 * @private
+	 * @param  {Object|Array} assets The assets to load
+	 */
+	p.addTasks = function(assets)
+	{
+		if (!this.running)
+		{
+			if (true && Debug)
+			{
+				Debug.warn("AssetLoad is already destroyed");
+			}
+			return;
+		}
+		
+		var asset;
+		var mode = MAP_MODE;
+
+		// Apply the defaults incase this is a single 
+		// thing that we're trying to load
+		assets = applyDefaults(assets);
+
+		// Check for a task definition on the asset
+		var isSingle = this.getTaskByAsset(assets);
+
+		if (isSingle)
+		{
+			this.addTask(assets);
+			return SINGLE_MODE;
+		}
+		else
+		{
+			var task;
+			if (Array.isArray(assets))
+			{
+				for (var i = 0; i < assets.length; i++)
+				{
+					asset = applyDefaults(assets[i]);
+					task = this.addTask(asset);
+					if (!task.id)
+					{
+						// If we don't have the id to return
+						// a mapped result, we'll fallback to array results
+						mode = LIST_MODE;
+					}
+				}
+			}
+			else if (Object.isPlain(assets))
+			{
+				for(var id in assets)
+				{
+					asset = applyDefaults(assets[id]);
+					task = this.addTask(asset);
+					if (!task.id)
+					{
+						task.id = id;
+					}
+				}
+			}
+			else if (true && Debug)
+			{
+				Debug.error("Asset type unsupported", asset);
+			}
+		}
+		return mode;
+	};
+
+	/**
+	 * Convert assets into object defaults
+	 * @method applyDefaults
+	 * @private
+	 * @static
+	 * @param  {*} asset The function to convert
+	 * @return {Object} The object asset to use
+	 */
+	function applyDefaults(asset)
+	{
+		// convert to a LoadTask
+		if (isString(asset))
+		{
+			return { src: asset };
+		}
+		// convert to a FunctionTask
+		else if (isFunction(asset))
+		{
+			return { async: asset };
+		}
+		return asset;
+	}
+
+	/**
+	 * Load a single asset
+	 * @method addTask
+	 * @private
+	 * @param {Object} asset The asset to load, 
+	 *      can either be an object, URL/path, or async function.
+	 */
+	p.addTask = function(asset)
+	{
+		var TaskClass = this.getTaskByAsset(asset);
+		var task;
+		if (TaskClass)
+		{
+			if (asset.cache === undefined && this.cacheAll)
+			{
+				asset.cache = true;
+			}
+			task = new TaskClass(asset);
+			this.tasks.push(task);
+		}
+		else if (true && Debug)
+		{
+			Debug.error("Unable to find a task definitation for asset", asset);
+		}
+		return task;
+	};
+
+	/**
+	 * Get the Task definition for an asset
+	 * @method  getTaskByAsset
+	 * @private
+	 * @static
+	 * @param  {Object} asset The asset to check
+	 * @return {Function} The Task class
+	 */
+	p.getTaskByAsset = function(asset)
+	{
+		var TaskClass;
+		var taskDefs = this.manager.taskDefs;
+
+		// Loop backwards to get the registered tasks first
+		// then will default to the basic Loader task
+		for (var i = 0, len = taskDefs.length; i < len; i++)
+		{
+			TaskClass = taskDefs[i];
+			if (TaskClass.test(asset))
+			{
+				return TaskClass;
+			}
+		}
+		return null;
+	};
+
+	/**
+	 * Run the next task that's waiting
+	 * @method  nextTask
+	 * @private
+	 */
+	p.nextTask = function()
+	{
+		var tasks = this.tasks;
+		for (var i = 0; i < tasks.length; i++)
+		{
+			var task = tasks[i];
+			if (task.status === Task.WAITING)
+			{
+				task.status = Task.RUNNING;
+				task.start(this.taskDone.bind(this, task));
+				
+				// If we aren't running in parallel, then stop
+				if (!this.startAll) return;
+			}
+		}
+	};
+
+	/**
+	 * Handler when a task has completed
+	 * @method  taskDone
+	 * @private
+	 * @param  {springroll.Task} task Reference to original task
+	 * @param  {*} [result] The result of load
+	 */
+	p.taskDone = function(task, result)
+	{
+		// Ignore if we're destroyed
+		if (!this.running) return;
+
+		// Default to null
+		result = result || null;
+
+		var index = this.tasks.indexOf(task);
+
+		// Task was already removed, because a clear
+		if (index === -1)
+		{
+			return;
+		}
+
+		// Remove the completed task
+		this.tasks.splice(index, 1);
+
+		// Assets
+		var assets = [];
+
+		// Handle the file load tasks
+		if (result)
+		{
+			// Handle the result
+			switch(this.mode)
+			{
+				case SINGLE_MODE: this.results = result; break;
+				case LIST_MODE: this.results.push(result); break;
+				case MAP_MODE: this.results[task.id] = result; break;
+			}
+
+			// Should we cache the task?
+			if (task.cache)
+			{
+				this.manager.cache.write(task.id, result);
+			}
+		}
+
+		// If the task has a complete method
+		// we'll make sure that gets called
+		// with a reference to the tasks
+		// can potentially add more
+		if (task.complete)
+		{
+			task.complete(result, task.original, assets);
+		}
+		if (this.progress)
+		{
+			this.progress(result, task.original, assets);
+		}
+		task.destroy();
+
+		// Add new assets to the things to load
+		var mode = this.addTasks(assets);
+
+		// Check to make sure if we're in 
+		// map mode, we keep it that way
+		if (this.mode === MAP_MODE && mode !== this.mode)
+		{
+			if (true && Debug)
+			{
+				Debug.error("Load assets require IDs to return mapped results", assets);
+				return;
+			}
+			else
+			{
+				throw "Assets require IDs";
+			}
+		}
+
+		if (this.tasks.length)
+		{
+			// Run the next task
+			this.nextTask();
+		}
+		else
+		{
+			// We're finished!
+			if (this.complete)
+			{
+				this.complete(this.results);
+			}
+		}
+	};
+
+	/**
+	 * Get an empty assets collection
+	 * @method getAssetsContainer
+	 * @private
+	 * @param {int} mode The mode
+	 * @return {Array|Object|null} Empty container for assets 
+	 */
+	var getAssetsContainer = function(mode)
+	{
+		switch(mode)
+		{
+			case SINGLE_MODE: return null;
+			case LIST_MODE: return [];
+			case MAP_MODE: return {};
+		}
+	};
+
+	/**
+	 * Destroy this and discard
+	 * @method destroy
+	 */
+	p.destroy = function()
+	{
+		this.reset();
+		this.tasks = null;
+		this.manager = null;
+	};
+
+	/**
+	 * Check if an object is an String type
+	 * @method isString
+	 * @private
+	 * @param  {*}  obj The object
+	 * @return {Boolean} If it's an String
+	 */
+	function isString(obj)
+	{
+		return typeof obj == "string";
+	}
+
+	/**
+	 * Check if an object is an function type
+	 * @method isFunction
+	 * @private
+	 * @param  {*}  obj The object
+	 * @return {Boolean} If it's an function
+	 */
+	function isFunction(obj)
+	{
+		return typeof obj == "function";
+	}
+
+	// Assign to namespace
+	namespace('springroll').AssetLoad = AssetLoad;
+
+}());
+/**
+ * @module Core
+ * @namespace springroll
+ */
+(function(undefined)
+{
+	var AssetLoad = include('springroll.AssetLoad'),
+		AssetCache = include('springroll.AssetCache'),
+		AssetSizes = include('springroll.AssetSizes'),
+		Task = include('springroll.Task'),
+		Debug;
+	
+	/**
+	 * Handle the asynchronous loading of multiple assets.
+	 * @class AssetManager
+	 * @constructor
+	 */
+	var AssetManager = function()
+	{
+		if (true)
+		{
+			Debug = include('springroll.Debug', false);
+		}
+
+		/**
+		 * The collection of current multiloads
+		 * @property {Array} loads
+		 * @private
+		 */
+		this.loads = [];
+
+		/**
+		 * The expired loads to recycle
+		 * @property {Array} loadPool
+		 * @private
+		 */
+		this.loadPool = [];
+
+		/**
+		 * The collection of task definitions
+		 * @property {Array} taskDefs
+		 * @readOnly
+		 */
+		this.taskDefs = [];
+
+		/**
+		 * The cache of assets
+		 * @property {springroll.AssetCache} cache
+		 * @readOnly
+		 */
+		this.cache = new AssetCache();
+
+		/**
+		 * Handle multiple asset spritesheets
+		 * @property {springroll.AssetSizes} sizes
+		 * @readOnly
+		 */
+		this.sizes = new AssetSizes();
+
+		// Add the default built-in sizes for "half" and "full"
+		this.sizes.define('half', 400, 0.5, ['full']);
+		this.sizes.define('full', 10000, 1, ['half']);
+	};
+
+	// reference to prototype
+	var p = AssetManager.prototype;
+
+	/**
+	 * Register new tasks types, these tasks must extend Task
+	 * @method register
+	 * @private
+	 * @param {Function|String} TaskClass The class task reference
+	 * @param {int} [priority=0] The priority, higher prioity tasks
+	 *      are tested first. More general Tasks should be lower
+	 *      and more specific tasks should be higher.
+	 */
+	p.register = function(TaskClass, priority)
+	{
+		if (typeof TaskClass == "string")
+		{
+			TaskClass = include(TaskClass);
+		}
+
+		TaskClass.priority = priority || 0;
+
+		if (true && Debug)
+		{
+			if (!(TaskClass.prototype instanceof Task))
+			{
+				Debug.error("Registering task much extend Task", TaskClass);
+			}
+			else if (!TaskClass.test)
+			{
+				Debug.error("Registering task much have test method");
+			}
+		}
+		this.taskDefs.push(TaskClass);
+
+		// Sort definitions by priority
+		// where the higher priorities are first
+		this.taskDefs.sort(function(a, b)
+		{
+			return b.priority - a.priority;
+		});
+	};
+
+	/**
+	 * Load a bunch of assets, can only call one load at a time
+	 * @method load
+	 * @param {Object|Array} asset The assets to load
+	 * @param {Object} [options] The loading options
+	 * @param {function} [options.complete] The function when finished
+	 * @param {function} [options.progress] The function when finished a single task
+	 * @param {Boolean} [options.startAll=true] If we should run all the tasks at once, in parallel
+	 * @param {Boolean} [options.cacheAll=false] If we should cache all files
+	 * @return {springroll.AssetLoad} The reference to the current load
+	 */
+	p.load = function(assets, options)
+	{
+		// Apply defaults to options
+		options = Object.merge({
+			complete: null,
+			progress: null,
+			cacheAll: false,
+			startAll: true
+		}, options);
+
+		var load = this.getLoad();
+
+		// Add to the stack of current loads
+		this.loads.push(load);
+
+		// Override the complete callback with a bind of the 
+		// original callback with the task
+		options.complete = this._onLoaded.bind(
+			this, 
+			options.complete, 
+			load
+		);
+
+		// Start the load
+		load.start(assets, options);
+	};
+
+	/**
+	 * Stash the load for use later
+	 * @method poolLoad
+	 * @private
+	 * @param {springroll.AssetLoad} load The load to recycle
+	 */
+	p.poolLoad = function(load)
+	{
+		load.reset();
+		this.loadPool.push(load);
+	};
+
+	/**
+	 * Get either a new AssetLoad or a recycled one
+	 * @method getLoad
+	 * @private
+	 * @return {springroll.AssetLoad} The load to use
+	 */
+	p.getLoad = function()
+	{
+		if (this.loadPool.length > 0)
+		{
+			return this.loadPool.pop();
+		}
+		return new AssetLoad(this);
+	};
+
+	/**
+	 * Handler when a load is finished
+	 * @method _onLoaded
+	 * @private
+	 * @param {function} complete The function to call when done
+	 * @param {springroll.AssetLoad} load The current load
+	 * @param {*} The returned results
+	 */
+	p._onLoaded = function(complete, load, results)
+	{
+		var index = this.loads.indexOf(load);
+		if (index > -1)
+		{
+			this.loads.splice(index, 1);
+		}
+		if (complete) complete(results);
+		this.poolLoad(load);
+	};
+
+	/**
+	 * Destroy the AssetManager
+	 * @method destroy
+	 */
+	p.destroy = function()
+	{
+		this.sizes.destroy();
+		this.sizes = null;
+
+		this.cache.destroy();
+		this.cache = null;
+
+		this.loadPool = null;
+		this.loads = null;
+		this.taskDefs = null;
+	};
+
+	// Assign to namespace
+	namespace('springroll').AssetManager = AssetManager;
+
+}());
+/**
+ * @module Core
+ * @namespace springroll
+ */
+(function()
+{
+	var ApplicationPlugin = include('springroll.ApplicationPlugin'),
+		Loader = include('springroll.Loader'),
+		AssetManager = include('springroll.AssetManager');
 
 	/**
 	 * Create an app plugin for Loader, all properties and methods documented
@@ -4274,26 +5913,29 @@
 	 * @class LoaderPlugin
 	 * @extends springroll.ApplicationPlugin
 	 */
-	var LoaderPlugin = function()
-	{
-		ApplicationPlugin.call(this);
-
-		// Higher priority for loader
-		this.priority = 100;
-	};
-
-	// Reference to the prototype
-	var p = extend(LoaderPlugin, ApplicationPlugin);
+	var plugin = new ApplicationPlugin(100);
 
 	// Init the animator
-	p.setup = function()
+	plugin.setup = function()
 	{
 		/**
 		 * Reference to the loader singleton
 		 * @property {springroll.Loader} loader
 		 */
-		var Loader = include('springroll.Loader');
-		var loader = this.loader = Loader.init();
+		var loader = this.loader = new Loader(this);
+
+		/**
+		 * Reference to the multiple asset loader
+		 * @property {springroll.AssetManager} assetManager
+		 * @private
+		 */
+		var assetManager = this.assetManager = new AssetManager();
+
+		// Register the default tasks
+		assetManager.register('springroll.LoadTask');
+		assetManager.register('springroll.ListTask');
+		assetManager.register('springroll.FunctionTask', 10);
+		assetManager.register('springroll.ColorAlphaTask', 20);
 
 		/**
 		 * Override the end-user browser cache by adding
@@ -4339,16 +5981,158 @@
 		 * @property {String} options.versionsFile
 		 */
 		this.options.add('versionsFile', null, true);
+
+		/**
+		 * Simple load of a single file.
+		 * @method load
+		 * @param {String} source The file to load
+		 * @param {Function} complete The completed callback with a single
+		 *      parameters result object.
+		 * @param {Function} [progress] Update callback, return 0-1
+		 * @param {Boolean} [cache=false] Save to the asset cache after load
+		 * @param {*} [data] The data to attach to load item
+		 */
+		/**
+		 * Load a single file with options.
+		 * @method load
+		 * @param {Object} asset The file resource to load
+		 * @param {String} asset.src The file to load
+		 * @param {Boolean} [asset.cache=false] If the result should be cached for later
+		 * @param {Function} [asset.complete=null] Callback when finished
+		 * @param {Function} [asset.progress=null] Callback on load progress,
+		 *      has a parameter which is the percentage loaded from 0 to 1.
+		 * @param {*} [asset.data] Additional data to attach to load is
+		 *      accessible in the loader's result. 
+		 * @param {Function} [complete] The completed callback with a single
+		 *      parameter which is a result object. will
+		 *      only use if `asset.complete` is undefined.
+		 */
+		/**
+		 * Load a single custom asset with options.
+		 * @method load
+		 * @param {Object} asset The single asset resource to load, properties
+		 *      will depend on the type of asset loading.
+		 * @param {Function} [asset.complete=null] Callback when finished
+		 * @param {String} [asset.id=null] The ID to attach to this asset
+		 * @param {Boolean} [asset.cache=false] If the result should be cached for later
+		 * @param {Function} [complete] The completed callback with a single
+		 *      parameters which is a result object. will
+		 *      only use if `asset.complete` is undefined.
+		 */
+		/**
+		 * Load a map of multiple assets and return mapped result objects.
+		 * @method load
+		 * @param {Object} assets Load a map of assets.
+		 * @param {Function|Object} [options] Callback where the only parameter is the
+		 *      map of the results by ID, or the collection of load options.
+		 * @param {Function} [options.complete=null] The complete callback if using load options.
+		 * @param {Function} [options.progress=null] The callback when a single item is finished.
+		 * @param {Boolean} [options.cacheAll=false] If tasks should be cached
+		 * @param {Boolean} [options.startAll=true] If tasks should be run in parallel
+		 */
+		/**
+		 * Load a list of multiple assets and return array of result objects.
+		 * @method load
+		 * @param {Array} assets The list of assets.
+		 *      If each object has a `id` the result will be a mapped object.
+		 * @param {Function|Object} [options] Callback where the only parameter is the
+		 *      collection or map of the results, or the collection of load options.
+		 * @param {Function} [options.complete=null] The complete callback if using load options.
+		 * @param {Function} [options.progress=null] The callback when a single item is finished.
+		 * @param {Boolean} [options.cacheAll=false] If tasks should be cached
+		 * @param {Boolean} [options.startAll=true] If tasks should be run in parallel
+		 */
+		this.load = function(source, complete, progress, cache, data)
+		{
+			var options; 
+
+			// If the load arguments are setup like the Loader.load call
+			// then we'll convert to an object that we can use
+			if (typeof source == "string")
+			{
+				source = {
+					src: source,
+					progress: progress || null,
+					complete: complete || null,
+					cache: !!cache,
+					data: data || null,
+				};
+			}
+			else
+			{
+				// Presume complete is an options object
+				options = complete;
+
+				// Second argument is callback
+				if (typeof complete === "function")
+				{
+					options = {
+						complete: complete
+					};
+				}
+			}
+			assetManager.load(source, options);
+		};
+
+		/**
+		 * Unload an asset or list of assets.
+		 * @method unload
+		 * @param {Array|String} assets The collection of asset ids or 
+		 *      single asset id. As an array, it can be a manifest 
+		 *      with objects that contain an ID. Or multiple strings.
+		 */
+		this.unload = function(assets)
+		{
+			if (typeof assets == "string")
+			{
+				assets = Array.prototype.slice.call(arguments);
+			}
+			
+			for (var i = 0; i < assets.length; i++)
+			{
+				assetManager.cache.delete(assets[i]);
+			}
+		};
+
+		/**
+		 * Unload all assets from the assets cache
+		 * @method unloadAll
+		 */
+		this.unloadAll = function()
+		{
+			assetManager.cache.empty();
+		};
+
+		/**
+		 * Get an asset from the cache by ID
+		 * @method getCache
+		 * @param {String} id The asset to fetch
+		 * @return {*|null} The cached object or null if empty
+		 */
+		this.getCache = function(id)
+		{
+			return assetManager.cache.read(id);
+		};
+
+		// Refresh the default size as soon as the first display
+		// is added to the aplication
+		this.once('displayAdded', function(display)
+		{
+			assetManager.sizes.refresh(
+				display.width, 
+				display.height
+			);
+		});
 	};
 
 	// Preload task
-	p.preload = function(done)
+	plugin.preload = function(done)
 	{
 		var versionsFile = this.options.versionsFile;
 		if (versionsFile)
 		{
 			// Try to load the default versions file
-			Loader.instance.cacheManager.addVersionsFile(versionsFile, done);
+			this.loader.cacheManager.addVersionsFile(versionsFile, done);
 		}
 		else
 		{
@@ -4357,318 +6141,264 @@
 	};
 
 	// Destroy the animator
-	p.teardown = function()
+	plugin.teardown = function()
 	{
 		if (this.loader)
 		{
 			this.loader.destroy();
 			this.loader = null;
 		}
-	};
 
-	// register plugin
-	ApplicationPlugin.register(LoaderPlugin);
+		if (this.assetManager)
+		{
+			this.assetManager.destroy();
+			this.assetManager = null;
+		}
+	};
 
 }());
 /**
-*  @module Core
-*  @namespace springroll
-*/
+ * @module Core
+ * @namespace springroll
+ */
 (function()
 {
+	// Include classes
+	var ApplicationPlugin = include('springroll.ApplicationPlugin'),
+		Debug;
+
 	/**
-	*  Represents a single item in the loader queue 
-	*
-	*  @class LoaderQueueItem
-	*/
-	var LoaderQueueItem = function()
+	 * Create an app plugin for Hinting, all properties and methods documented
+	 * in this class are mixed-in to the main Application
+	 * @class ConfigPlugin
+	 * @extends springroll.ApplicationPlugin
+	 */
+	var plugin = new ApplicationPlugin(80);
+
+	/**
+	 * The game has finished loading
+	 * @event loaded
+	 */
+
+	/**
+	 * The config has finished loading, in case you want to
+	 * add additional tasks to the manager after this.
+	 * @event configLoaded
+	 * @param {Object} config The JSON object for config
+	 * @param {Array} assets Container to add additional assets to
+	 */
+
+	/**
+	 * The game has started loading
+	 * @event loading
+	 * @param {Array} assets The list of tasks to preload
+	 */
+
+	// Init the animator
+	plugin.setup = function()
 	{
-		/**
-		*  The url of the load
-		*  @public
-		*  @property {string} url
-		*/
-		this.url = null;
-		
-		/**
-		*  Data associate with the load
-		*  @public
-		*  @property {*} data
-		*/
-		this.data = null;
-		
-		/**
-		*  The callback function of the load, to call when 
-		*  the load as finished, takes one argument as result
-		*  @public
-		*  @property {function} callback
-		*/
-		this.callback = null;
-		
-		/**
-		*  The priority of this item
-		*  @property {int} priority
-		*  @public
-		*/
-		this.priority = 0;
-		
-		/**
-		*  The amount we've loaded so far, from 0 to 1
-		*  @public
-		*  @property {Number} progress
-		*/
-		this.progress = 0;
-		
-		/**
-		*  The progress callback
-		*  @public
-		*  @proprty {function} updateCallback
-		*/
-		this.updateCallback = null;
-		
-		/**
-		*  The callback when a load queue item fails
-		*  @private
-		*  @proprty {function} _boundFail
-		*/
-		this._boundFail = null;
+		Debug = include('springroll.Debug', false);
 
 		/**
-		*  The callback when a load queue item progresses
-		*  @private
-		*  @proprty {function} _boundProgress
-		*/
-		this._boundProgress = null;
+		 * The path to the config file to load
+		 * @property {String} options.configPath
+		 * @default null
+		 */
+		this.options.add('configPath', null, true);
 
 		/**
-		*  The callback when a load queue item completes
-		*  @private
-		*  @proprty {function} _boundComplete
-		*/
-		this._boundComplete = null;
+		 * The collection of assets to preload, can be individual
+		 * URLs or objects with keys `src`, `complete`, `progress`, etc. 
+		 * @property {String} options.preload
+		 * @default []
+		 */
+		this.options.add('preload', [], true);
+
+		/**
+		 * The game configuration loaded from and external JSON file
+		 * @property {Object} config
+		 */
+		this.config = null;
 	};
-	
-	/** Reference to the prototype */
-	var p = LoaderQueueItem.prototype;
-	
-	/** 
-	* Highest priority
-	* @static
-	* @public
-	* @final
-	* @property {int} PRIORITY_HIGH
-	*/
-	LoaderQueueItem.PRIORITY_HIGH = 1;
-	
-	/** 
-	* Normal priority, the default
-	* @static
-	* @public
-	* @final
-	* @property {int} PRIORITY_NORMAL
-	*/
-	LoaderQueueItem.PRIORITY_NORMAL = 0;
-	
-	/** 
-	* Lowest priority
-	* @static
-	* @public
-	* @final
-	* @property {int} PRIORITY_LOW
-	*/
-	LoaderQueueItem.PRIORITY_LOW = -1;
-	
-	/**
-	*  Represent this object as a string
-	*  @public
-	*  @method toString
-	*  @return {string} The string representation of this object
-	*/
-	p.toString = function()
+
+	// async
+	plugin.preload = function(done)
 	{
-		return "[LoaderQueueItem(url:'"+this.url+"', priority:"+this.priority+")]";
+		var assets = [];
+		var configPath = this.options.configPath;
+
+		// If there's a config path then add it
+		if (configPath)
+		{
+			assets.push({
+				id: 'config',
+				src: configPath,
+				cache: false,
+				complete: onConfigLoaded.bind(this)
+			});
+		}
+		else
+		{
+			addPreloadAssets(this, assets);
+		}
+
+		var callback = onLoadComplete.bind(this, done);
+
+		if (assets.length)
+		{
+			this.load(assets, {
+				complete: callback,
+				cacheAll: true
+			});
+		}
+		else
+		{
+			callback();
+		}
 	};
-	
+
 	/**
-	*  Destroy this result
-	*  @public
-	*  @method destroy
-	*/
-	p.destroy = function()
+	 * Add the preload assets to the list of assets to load
+	 * @method addPreloadAssets
+	 * @private
+	 * @param {springroll.Application} app Reference to the application
+	 * @param {Array} assets The array to add new load tasks to
+	 */
+	var addPreloadAssets = function(app, assets)
 	{
-		this.callback = null;
-		this.updateCallback = null;
-		this.data = null;
-		this._boundFail = null;
-		this._boundProgress = null;
-		this._boundComplete = null;
+		var preload = app.options.preload;
+
+		if (preload && preload.length)
+		{
+			preload.forEach(function(asset)
+			{
+				assets.push(asset);
+			});
+		}
+		
+		// Allow extending game to add additional tasks
+		app.trigger('loading', assets);
 	};
-	
-	// Assign to the name space
-	namespace('springroll').LoaderQueueItem = LoaderQueueItem;
-	
+
+	/**
+	 * Callback when the config is loaded
+	 * @method onConfigLoaded
+	 * @private
+	 * @param {Object} config The Loader result from the load
+	 * @param {Object} asset Original asset data
+	 * @param {Array} assets The array to add new load tasks to
+	 */
+	var onConfigLoaded = function(config, asset, assets)
+	{
+		this.config = config;
+		this.trigger('configLoaded', config, assets);
+		addPreloadAssets(this, assets);
+	};
+
+	/**
+	 * Callback when tasks are completed
+	 * @method onLoadComplete
+	 * @private
+	 * @param {function} done Call when we're done
+	 * @param {Array} results The collection of final LoaderResult objects
+	 */
+	var onLoadComplete = function(done, results)
+	{
+		this.trigger('loaded', results);
+		done();
+	};
+
+	// Destroy the animator
+	plugin.teardown = function()
+	{
+		this.config = null;
+	};
+
 }());
 /**
-*  @module Core
-*  @namespace springroll
-*/
-(function()
-{
-	/**
-	*  The return result of the Loader load
-	*  @class LoaderResult
-	*  @constructor
-	*  @param {*} content The dynamic content loaded
-	*  @param {String} url The url that was loaded
-	*  @param {createjs.LoadQueue} loader The LoadQueue that performed the load
-	*/
-	var LoaderResult = function(content, url, loader, manifestData)
-	{
-		/**
-		*  The contents of the load
-		*  @public
-		*  @property {*} content
-		*/
-		this.content = content;
-
-		/**
-		*  The url of the load
-		*  @public
-		*  @property {String} url
-		*/
-		this.url = url;
-
-		/**
-		*  Reference to the preloader object
-		*  @public
-		*  @property {createjs.LoaderQueue} loader
-		*/
-		this.loader = loader;
-		
-		/**
-		*  The full manifest data for the load item.
-		*  @public
-		*  @property {String} manifestData
-		*/
-		this.manifestData = manifestData;
-	};
-	
-	/** Reference to the prototype */
-	var p = LoaderResult.prototype;
-	
-	/**
-	* A to string method
-	* @public
-	* @method toString
-	* @return {String} A string rep of the object
-	*/
-	p.toString = function()
-	{
-		return "[LoaderResult('"+this.url+"')]";
-	};
-	
-	/**
-	* Destroy this result
-	* @public
-	* @method destroy
-	*/
-	p.destroy = function()
-	{
-		this.callback = null;
-		this.url = null;
-		this.content = null;
-		this.manifestData = null;
-	};
-	
-	// Assign to the name space
-	// MediaLoadeResult is deprecated
-	namespace('springroll').MediaLoaderResult = LoaderResult;
-	namespace('springroll').LoaderResult = LoaderResult;
-	
-}());
-/**
-*  @module Core
-*  @namespace springroll
-*/
+ * @module Core
+ * @namespace springroll
+ */
 (function(undefined){
 
 	/**
-	*   The display provides the base properties for all custom display. A display
-	*   is a specialized view for the application. As the name suggests, this class
-	*   should not be instanciated directly.
-	*
-	*   @class AbstractDisplay
-	*	@constructor
-	*	@param {String} id The id of the canvas element on the page to draw to.
-	*	@param {Object} options The setup data for the display.
-	*   @param {String} [options.contextId="2d"] Valid options are "2d" and "webgl"
-	*/
+	 * The display provides the base properties for all custom display. A display
+	 * is a specialized view for the application. As the name suggests, this class
+	 * should not be instanciated directly.
+	 *
+	 * @class AbstractDisplay
+	 * @constructor
+	 * @private
+	 * @param {String} id The id of the canvas element on the page to draw to.
+	 * @param {Object} options The setup data for the display.
+	 * @param {String} [options.contextId="2d"] Valid options are "2d" and "webgl"
+	 */
 	var AbstractDisplay = function(id, options)
 	{
 		options = options || {};
 
 		/**
-		*  the canvas managed by this display
-		*  @property {DOMElement} canvas
-		*  @readOnly
-		*  @public
-		*/
+		 * the canvas managed by this display
+		 * @property {DOMElement} canvas
+		 * @readOnly
+		 * @public
+		 */
 		this.canvas = document.getElementById(id);
 
 		/**
-		*  The DOM id for the canvas
-		*  @property {String} id
-		*  @readOnly
-		*  @public
-		*/
+		 * The DOM id for the canvas
+		 * @property {String} id
+		 * @readOnly
+		 * @public
+		 */
 		this.id = id;
 
 		/**
-		*  Convenience method for getting the width of the canvas element
-		*  would be the same thing as canvas.width
-		*  @property {int} width
-		*  @readOnly
-		*  @public
-		*/
+		 * Convenience method for getting the width of the canvas element
+		 * would be the same thing as canvas.width
+		 * @property {int} width
+		 * @readOnly
+		 * @public
+		 */
 		this.width = this.canvas.width;
 
 		/**
-		*  Convenience method for getting the height of the canvas element
-		*  would be the same thing as canvas.height
-		*  @property {int} height
-		*  @readOnly
-		*  @public
-		*/
+		 * Convenience method for getting the height of the canvas element
+		 * would be the same thing as canvas.height
+		 * @property {int} height
+		 * @readOnly
+		 * @public
+		 */
 		this.height = this.canvas.height;
 
 		/**
-		*  The main rendering context or the root display object or stage.
-		*  @property {mixed} stage
-		*  @readOnly
-		*  @public
-		*/
+		 * The main rendering context or the root display object or stage.
+		 * @property {mixed} stage
+		 * @readOnly
+		 * @public
+		 */
 		this.stage = null;
 
 		/**
-		*  If rendering is paused on this display only. Pausing all displays can be done
-		*  using Application.paused setter.
-		*  @property {Boolean} paused
-		*  @public
-		*/
+		 * If rendering is paused on this display only. Pausing all displays can be done
+		 * using Application.paused setter.
+		 * @property {Boolean} paused
+		 * @public
+		 */
 		this.paused = false;
 
 		/**
-		*  If input is enabled on the stage.
-		*  @property {Boolean} _enabled
-		*  @private
-		*/
+		 * If input is enabled on the stage.
+		 * @property {Boolean} _enabled
+		 * @private
+		 */
 		this._enabled = false;
 
 		/**
-		*  If the display is visible.
-		*  @property {Boolean} _visible
-		*  @private
-		*/
+		 * If the display is visible.
+		 * @property {Boolean} _visible
+		 * @private
+		 */
 		this._visible = this.canvas.style.display != "none";
 
 		// prevent mouse down turning into text cursor
@@ -4678,35 +6408,35 @@
 		};
 
 		/**
-		*  The Animator class to use when using this display. Other modules
-		*  uses this to determine what Animator to use, for instance states
-		*  uses Animator when playing transition animations.
-		*  @property {Animator} animator
-		*  @readOnly
-		*  @public
-		*  @default null
-		*/
+		 * The Animator class to use when using this display. Other modules
+		 * uses this to determine what Animator to use, for instance states
+		 * uses Animator when playing transition animations.
+		 * @property {Animator} animator
+		 * @readOnly
+		 * @public
+		 * @default null
+		 */
 		this.animator = null;
 
 		/**
-		*  Some of the modules require a special display adapter to provide
-		*  common methods for managing display objects.
-		*  @property {DisplayAdapter} adapter
-		*  @readOnly
-		*  @public
-		*  @default null
-		*/
+		 * Some of the modules require a special display adapter to provide
+		 * common methods for managing display objects.
+		 * @property {DisplayAdapter} adapter
+		 * @readOnly
+		 * @public
+		 * @default null
+		 */
 		this.adapter = null;
 	};
 
 	var p = AbstractDisplay.prototype;
 
 	/**
-	*  If input is enabled on the stage for this display. The default is true.
-	*  Without a rendering library, this does not actually have an effect.
-	*  @property {Boolean} enabled
-	*  @public
-	*/
+	 * If input is enabled on the stage for this display. The default is true.
+	 * Without a rendering library, this does not actually have an effect.
+	 * @property {Boolean} enabled
+	 * @public
+	 */
 	Object.defineProperty(p, "enabled", {
 		get: function(){ return this._enabled; },
 		set: function(value)
@@ -4716,10 +6446,10 @@
 	});
 
 	/**
-	*  If the display is visible, using "display: none" css on the canvas. Invisible displays won't render.
-	*  @property {Boolean} visible
-	*  @public
-	*/
+	 * If the display is visible, using "display: none" css on the canvas. Invisible displays won't render.
+	 * @property {Boolean} visible
+	 * @public
+	 */
 	Object.defineProperty(p, "visible", {
 		get: function(){ return this._visible; },
 		set: function(value)
@@ -4730,12 +6460,12 @@
 	});
 
 	/**
-	* Resizes the canvas. This is only called by the Application.
-	* @method resize
-	* @internal
-	* @param {int} width The width that the display should be
-	* @param {int} height The height that the display should be
-	*/
+	 * Resizes the canvas. This is only called by the Application.
+	 * @method resize
+	 * @internal
+	 * @param {int} width The width that the display should be
+	 * @param {int} height The height that the display should be
+	 */
 	p.resize = function(width, height)
 	{
 		this.width = this.canvas.width = width;
@@ -4743,25 +6473,25 @@
 	};
 
 	/** 
-	* Updates the stage and draws it. This is only called by the Application. 
-	* This method does nothing if paused is true or visible is false.
-	* @method render
-	* @internal
-	* @param {int} elapsed The time elapsed since the previous frame.
-	* @param {Boolean} [force=false] For the re-render
-	*/
+	 * Updates the stage and draws it. This is only called by the Application. 
+	 * This method does nothing if paused is true or visible is false.
+	 * @method render
+	 * @internal
+	 * @param {int} elapsed The time elapsed since the previous frame.
+	 * @param {Boolean} [force=false] For the re-render
+	 */
 	p.render = function(elapsed, force)
 	{
 		// implement specific
 	};
 
 	/**
-	*  Destroys the display. This method is called by the Application and should 
-	*  not be called directly, use Application.removeDisplay(id). 
-	*  The stage recursively removes all display objects here.
-	*  @method destroy
-	*  @internal
-	*/
+	 * Destroys the display. This method is called by the Application and should 
+	 * not be called directly, use Application.removeDisplay(id). 
+	 * The stage recursively removes all display objects here.
+	 * @method destroy
+	 * @internal
+	 */
 	p.destroy = function()
 	{
 		this.enabled = false;
@@ -4778,5 +6508,58 @@
 
 	// Assign to the global namespace
 	namespace('springroll').AbstractDisplay = AbstractDisplay;
+
+}());
+(function(){
+	
+	var Application = include('springroll.Application'),
+		Loader = include('springroll.Loader'),
+		EventDispatcher = include('springroll.EventDispatcher');
+
+	/**
+	 * @method
+	 * @name springroll.Application#getDisplays
+	 * @see {@link springroll.Application#displays}
+	 * @deprecated since version 0.3.5
+	 */
+	Application.prototype.getDisplays = function(each)
+	{
+		console.warn('getDisplays is now deprecated, please use displays property, e.g.: app.displays.forEach(function(display){});');
+
+		if (typeof each == "function")
+		{
+			_displays.forEach(each);
+		}
+		return _displays;
+	};
+
+	/**
+	 * @method
+	 * @static
+	 * @name springroll.EventDispatcher#mixIn
+	 * @see {@link window.mixin}
+	 * @deprecated since version 0.4.0
+	 */
+	EventDispatcher.mixIn = function(object, callConstructor)
+	{
+		console.warn('mixIn is now deprecated, please use window.mixin, e.g.: mixin(object, EventDispatcher);');
+		return mixin(object, EventDispatcher);
+	};
+
+	/**
+	 * @property
+	 * @static
+	 * @name springroll.Loader#instance
+	 * @see {@link springroll.Application#loader}
+	 * @deprecated since version 0.4.0
+	 */
+	Object.defineProperty(Loader, "instance",
+	{
+		get: function()
+		{
+			console.warn('Loader.instance is now deprecated, please use Application\'s loader property, e.g.: app.loader.load(url, callback);');
+			return Application.instance.loader;
+		}
+	});
 
 }());

@@ -16,26 +16,19 @@
 	 * @class LearningPlugin
 	 * @extends springroll.ApplicationPlugin
 	 */
-	var LearningPlugin = function()
-	{
-		ApplicationPlugin.call(this);
-		this.priority = 10;
-	};
-
-	// Reference to the prototype
-	var p = extend(LearningPlugin, ApplicationPlugin);
+	var plugin = new ApplicationPlugin(10);
 
 	// Init the animator
-	p.setup = function()
+	plugin.setup = function()
 	{		
 		/**
-		 *  An learning event is dispatched
-		 *  @event learningEvent
-		 *  @param {object} data The event data
-		 *  @param {string} data.game_id The unique game id
-		 *  @param {string} data.event_id The unique event id
-		 *  @param {object} data.event_data The data attached to event
-		 *  @param {int} data.event_data.event_code The code of the event
+		 * An learning event is dispatched
+		 * @event learningEvent
+		 * @param {object} data The event data
+		 * @param {string} data.game_id The unique game id
+		 * @param {string} data.event_id The unique event id
+		 * @param {object} data.event_data The data attached to event
+		 * @param {int} data.event_data.event_code The code of the event
 		 */
 
 		/**
@@ -74,7 +67,7 @@
 	};
 
 	// Destroy the animator
-	p.teardown = function()
+	plugin.teardown = function()
 	{
 		if (this.learning)
 		{
@@ -82,8 +75,5 @@
 			this.learning = null;
 		}
 	};
-
-	// register plugin
-	ApplicationPlugin.register(LearningPlugin);
 
 }());

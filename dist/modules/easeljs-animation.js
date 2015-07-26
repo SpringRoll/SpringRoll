@@ -1,4 +1,4 @@
-/*! SpringRoll 0.3.7 */
+/*! SpringRoll 0.4.0 */
 /**
  * @module EaselJS Animation
  * @namespace springroll.easeljs
@@ -7,33 +7,33 @@
 (function()
 {
 	/**
-	*   Animator Timeline is a class designed to provide
-	*   base animation functionality
-	*
-	*   @class AnimatorTimeline
-	*   @constructor
-	*/
+	 * Animator Timeline is a class designed to provide
+	 * base animation functionality
+	 *
+	 * @class AnimatorTimeline
+	 * @private
+	 */
 	var AnimatorTimeline = function()
 	{
 		/**
-		* The function to call when we're done
-		*
-		* @property {Function} onComplete
-		*/
+		 * The function to call when we're done
+		 *
+		 * @property {Function} onComplete
+		 */
 		this.onComplete = null;
 		
 		/**
-		* The function to call when stopped early.
-		*
-		* @property {Function} onCancelled
-		*/
+		 * The function to call when stopped early.
+		 *
+		 * @property {Function} onCancelled
+		 */
 		this.onCancelled = null;
 		
 		/**
-		* An array of animations and pauses.
-		*
-		* @property {Array} eventList
-		*/
+		 * An array of animations and pauses.
+		 *
+		 * @property {Array} eventList
+		 */
 		this.eventList = null;
 		
 		/**
@@ -43,128 +43,128 @@
 		this.listIndex = -1;
 		
 		/**
-		* The instance of the timeline to animate
-		*
-		* @property {AnimatorTimeline} instance
-		*/
+		 * The instance of the timeline to animate
+		 *
+		 * @property {AnimatorTimeline} instance
+		 */
 		this.instance = null;
 		
 		/**
-		* The frame number of the first frame of the current animation. If this is -1, then the
-		* animation is currently a pause instead of an animation.
-		*
-		* @property {int} firstFrame
-		*/
+		 * The frame number of the first frame of the current animation. If this is -1, then the
+		 * animation is currently a pause instead of an animation.
+		 *
+		 * @property {int} firstFrame
+		 */
 		this.firstFrame = -1;
 		
 		/**
-		* The frame number of the last frame of the current animation.
-		*
-		* @property {int} lastFrame
-		*/
+		 * The frame number of the last frame of the current animation.
+		 *
+		 * @property {int} lastFrame
+		 */
 		this.lastFrame = -1;
 		
 		/**
-		* If the current animation loops - determined by looking to see if it ends
+		 * If the current animation loops - determined by looking to see if it ends
 		in "_stop" or "_loop"
-		*
-		* @property {Boolean} isLooping
-		*/
+		 *
+		 * @property {Boolean} isLooping
+		 */
 		this.isLooping = false;
 		
 		/**
-		* Length of current animation in frames.
-		*
-		* @property {int} length
-		*/
+		 * Length of current animation in frames.
+		 *
+		 * @property {int} length
+		 */
 		this.length = 0;
 
 		/**
-		*  If this timeline plays captions for the current sound.
-		*
-		*  @property {Boolean} useCaptions
-		*  @readOnly
-		*/
+		 * If this timeline plays captions for the current sound.
+		 *
+		 * @property {Boolean} useCaptions
+		 * @readOnly
+		 */
 		this.useCaptions = false;
 		
 		/**
-		* If the timeline is paused.
-		*
-		* @property {Boolean} _paused
-		* @private
-		*/
+		 * If the timeline is paused.
+		 *
+		 * @property {Boolean} _paused
+		 * @private
+		 */
 		this._paused = false;
 		
 		/**
-		* The start time of the current animation on the movieclip's timeline.
-		* @property {Number} startTime
-		* @public
-		*/
+		 * The start time of the current animation on the movieclip's timeline.
+		 * @property {Number} startTime
+		 * @public
+		 */
 		this.startTime = 0;
 		
 		/**
-		* The current animation duration in seconds.
-		* @property {Number} duration
-		* @public
-		*/
+		 * The current animation duration in seconds.
+		 * @property {Number} duration
+		 * @public
+		 */
 		this.duration = 0;
 
 		/**
-		* The animation speed for the current animation. Default is 1.
-		* @property {Number} speed
-		* @public
-		*/
+		 * The animation speed for the current animation. Default is 1.
+		 * @property {Number} speed
+		 * @public
+		 */
 		this.speed = 1;
 
 		/**
-		* The position of the current animation in seconds, or the current pause timer.
-		* @property {Number} _time_sec
-		* @private
-		*/
+		 * The position of the current animation in seconds, or the current pause timer.
+		 * @property {Number} _time_sec
+		 * @private
+		 */
 		this._time_sec = 0;
 
 		/**
-		* Sound alias to sync to during the current animation.
-		* @property {String} soundAlias
-		* @public
-		*/
+		 * Sound alias to sync to during the current animation.
+		 * @property {String} soundAlias
+		 * @public
+		 */
 		this.soundAlias = null;
 
 		/**
-		* A sound instance object from springroll.Sound, used for tracking sound position for the
-		* current animation.
-		* @property {Object} soundInst
-		* @public
-		*/
+		 * A sound instance object from springroll.Sound, used for tracking sound position for the
+		 * current animation.
+		 * @property {Object} soundInst
+		 * @public
+		 */
 		this.soundInst = null;
 
 		/**
-		* If the timeline will, but has yet to play a sound for the current animation.
-		* @property {Boolean} playSound
-		* @public
-		*/
+		 * If the timeline will, but has yet to play a sound for the current animation.
+		 * @property {Boolean} playSound
+		 * @public
+		 */
 		this.playSound = false;
 
 		/**
-		* The time (seconds) into the current animation that the sound starts.
-		* @property {Number} soundStart
-		* @public
-		*/
+		 * The time (seconds) into the current animation that the sound starts.
+		 * @property {Number} soundStart
+		 * @public
+		 */
 		this.soundStart = 0;
 
 		/**
-		* The time (seconds) into the animation that the sound ends
-		* @property {Number} soundEnd
-		* @public
-		*/
+		 * The time (seconds) into the animation that the sound ends
+		 * @property {Number} soundEnd
+		 * @public
+		 */
 		this.soundEnd = 0;
 		
 		/**
-		* If the timeline is complete. Looping timelines will never complete.
-		* @property {Boolean} complete
-		* @public
-		* @readOnly
-		*/
+		 * If the timeline is complete. Looping timelines will never complete.
+		 * @property {Boolean} complete
+		 * @public
+		 * @readOnly
+		 */
 		this.complete = false;
 	};
 	
@@ -247,21 +247,21 @@
 	};
 	
 	/**
-	* The position of the current animation, or the current pause timer, in milliseconds.
-	* @property {Number} time
-	* @public
-	*/
+	 * The position of the current animation, or the current pause timer, in milliseconds.
+	 * @property {Number} time
+	 * @public
+	 */
 	Object.defineProperty(p, "time", {
 		get: function() { return this._time_sec * 1000; },
 		set: function(value) { this._time_sec = value * 0.001; }
 	});
 	
 	/**
-	* Sets and gets the animation's paused status.
-	*
-	* @property {Boolean} paused
-	* @public
-	*/
+	 * Sets and gets the animation's paused status.
+	 *
+	 * @property {Boolean} paused
+	 * @public
+	 */
 	Object.defineProperty(p, "paused", {
 		get: function() { return this._paused; },
 		set: function(value) {
@@ -392,31 +392,31 @@
 	 *
 	 * @method play
 	 * @param {createjs.DisplayObject} instance The MovieClip or display object with the same API
-	 *                                         to animate.
+	 *                                       to animate.
 	 * @param {String|Object|Array} eventList One of or an array of the following
 	 * * objects in the format:
 	 *
-	 *        {
-	 *            anim:"myAnim",
-	 *            start:0,
-	 *            speed:1,
-	 *            audio:{alias:"MyAlias", start:300}
-	 *        }
+	 *      {
+	 *          anim:"myAnim",
+	 *          start:0,
+	 *          speed:1,
+	 *          audio:{alias:"MyAlias", start:300}
+	 *      }
 	 *
-	 *    * anim is the frame label of the animation to play, e.g. "onClose" to "onClose_stop".
-	 *    * start is milliseconds into the animation to start (0 if omitted). A value of -1
-	 *        starts from a random time in the animation.
-	 *    * speed is a multiplier for the animation speed (1 if omitted).
-	 *    * audio is audio to sync the animation to using springroll.Sound. audio can be a String
-	 *        if you want the audio to start 0 milliseconds into the animation.
+	 *  * anim is the frame label of the animation to play, e.g. "onClose" to "onClose_stop".
+	 *  * start is milliseconds into the animation to start (0 if omitted). A value of -1
+	 *      starts from a random time in the animation.
+	 *  * speed is a multiplier for the animation speed (1 if omitted).
+	 *  * audio is audio to sync the animation to using springroll.Sound. audio can be a String
+	 *      if you want the audio to start 0 milliseconds into the animation.
 	 * * strings - frame labels, e.g. "onClose" to "onClose_stop".
 	 * * numbers - milliseconds to wait.
 	 * * functions - called upon reaching, followed immediately by the next item.
 	 * @param {Function} [onComplete] The callback function for when the animation is done.
 	 * @param {Function|Boolean} [onCancelled] A callback function for when an animation is
-	 *                                         stopped with Animator.stop() or to play another
-	 *                                         animation. A value of 'true' uses onComplete for
-	 *                                         onCancelled.
+	 *                                       stopped with Animator.stop() or to play another
+	 *                                       animation. A value of 'true' uses onComplete for
+	 *                                       onCancelled.
 	 * @return {springroll.easeljs.AnimatorTimeline} The Timeline object that represents this play() call.
 	 * @static
 	 */
@@ -635,7 +635,7 @@
 				}
 				if (Sound.instance.exists(alias))
 				{
-					Sound.instance.preloadSound(alias);
+					Sound.instance.preload(alias);
 					animData.alias = alias;
 					animData.audioStart = start;
 
@@ -788,7 +788,7 @@
 	 * @method stop
 	 * @param {createjs.MovieClip} instance The MovieClip to stop the action on
 	 * @param {Boolean} [removeCallbacks=false] Completely disregard the on complete or
-	 *                                          on cancelled callback of this animation.
+	 *                                        on cancelled callback of this animation.
 	 * @static
 	 */
 	Animator.stop = function(instance, removeCallbacks)
@@ -813,9 +813,9 @@
 	 *
 	 * @method stopAll
 	 * @param {createjs.Container} [container] Specify a container to stop timelines
-	 *                                         contained within. This only checks one layer deep.
+	 *                                       contained within. This only checks one layer deep.
 	 * @param {Boolean} [removeCallbacks=false] Completely disregard the on complete or
-	 *                                          on cancelled callback of the current animations.
+	 *                                        on cancelled callback of the current animations.
 	 * @static
 	 */
 	Animator.stopAll = function(container, removeCallbacks)
@@ -1187,7 +1187,11 @@
 				instance.advance();
 			}
 		}
-		for (i = 0; i < _removedTimelines.length; i++)
+		if (!_removedTimelines) return;
+		//we need to save the length before iterating because we have seen _removedTimelines get
+		//destroyed out from under us when this gets called at the end of an activity
+		var len = _removedTimelines.length;
+		for (i = 0; i < len; i++)
 		{
 			t = _removedTimelines[i];
 			Animator._remove(t);
@@ -1257,6 +1261,7 @@
 	namespace('springroll.easeljs').Animator = Animator;
 
 }());
+
 /**
  * @module EaselJS Animation
  * @namespace springroll.easeljs
@@ -1265,338 +1270,100 @@
 (function()
 {
 	// Include classes
-	var ApplicationPlugin = include('springroll.ApplicationPlugin');
-	var Animator = include('springroll.easeljs.Animator');
+	var ApplicationPlugin = include('springroll.ApplicationPlugin'),
+		Animator = include('springroll.easeljs.Animator');
 
 	/**
 	 * Create an app plugin for Animator, all properties and methods documented
 	 * in this class are mixed-in to the main Application
-	 * @class AnimatorPlugin
+	 * @class AnimationPlugin
 	 * @extends springroll.ApplicationPlugin
 	 */
-	var AnimatorPlugin = function()
-	{
-		ApplicationPlugin.call(this);
-	};
-
-	// Reference to the prototype
-	var p = extend(AnimatorPlugin, ApplicationPlugin);
+	var plugin = new ApplicationPlugin();
 
 	// Init the animator
-	p.setup = function()
+	plugin.setup = function()
 	{
+		// Register the tasks
+		this.assetManager.register('springroll.easeljs.BitmapMovieClipTask', 40);
+
+		// Init the animation
 		Animator.init();
 		Animator.captions = this.captions || null;
 	};
 
 	// Destroy the animator
-	p.teardown = function()
+	plugin.teardown = function()
 	{
 		if (Animator) Animator.destroy();
 	};
 
-	// register plugin
-	ApplicationPlugin.register(AnimatorPlugin);
-
 }());
 /**
  * @module EaselJS Animation
  * @namespace springroll.easeljs
  * @requires Core, EaselJS Display
  */
-(function(undefined) {
-
-	"use strict";
-
-	/**
-	* Handles a spritesheet. File extensions and folder paths are dropped from frame names upon
-	* loading.
-	*
-	* @class TextureAtlas
-	* @constructor
-	* @param {Image|HTMLCanvasElement|Array} image The image that all textures pull from. This can
-	*                                              also be an array of images, if the TextureAtlas
-	*                                              should be built from several spritesheets.
-	* @param {Object|Array} spritesheetData The JSON object describing the frames in the atlas. This
-	*                                       is expected to fit the JSON Hash format as exported from
-	*                                       TexturePacker. This can also be an array of data
-	*                                       objects, if the TextureAtlas should be built from
-	*                                       several spritesheets.
-	*/
-	var TextureAtlas = function(image, spritesheetData)
-	{
-		/**
-		* The an array of image elements (Image|HTMLCanvasElement) that frames in texture atlas use.
-		* @property {Array} _image
-		* @private
-		*/
-		if(Array.isArray(image))
-		{
-			this._images = image;
-		}
-		else
-		{
-			this._images = [image];
-			spritesheetData = [spritesheetData];
-		}
-
-		/**
-		* The dictionary of Textures that this atlas consists of.
-		* @property {Object} frames
-		*/
-		this.frames = {};
-		
-		/**
-		* The scale of the texture atlas, if available in spritesheet metadata. Defaults to 1,
-		* otherwise
-		* @property {Number} scale
-		*/
-		if(spritesheetData[0].meta && parseFloat(spritesheetData[0].meta.scale))
-		{
-			this.scale = parseFloat(spritesheetData[0].meta.scale);
-		}
-		else
-			this.scale = 1;
-
-		for(var i = 0; i < this._images.length; ++i)
-		{
-			image = this._images[i];
-			
-			//TexturePacker outputs frames with (not) swapped width & height when rotated, so we need to
-			//swap them ourselves
-			var swapFrameSize = spritesheetData[i].meta &&
-					spritesheetData[i].meta.app == "http://www.codeandweb.com/texturepacker";
-
-			var dataFrames = spritesheetData[i].frames;
-			for(var name in dataFrames)
-			{
-				var data = dataFrames[name];
-				var index = name.lastIndexOf(".");
-				if(index > 0)
-					name = name.substring(0, index);//strip off any ".png" or ".jpg" at the end
-				index = name.lastIndexOf("/");
-				if(index >= 0)
-					name = name.substring(index + 1);//strip off any folder structure included in the name
-				this.frames[name] = new Texture(image, data, swapFrameSize);
-			}
-		}
-	};
-	
-	// Extend Object
-	var p = TextureAtlas.prototype = {};
-
-	/**
-	* Gets a frame by name.
-	* @method getFrame
-	* @param {String} name The frame name to get.
-	* @return {createjs.TextureAtlas.Texture} The texture by that name, or null if it doesn't exist.
-	*/
-	p.getFrame = function(name)
-	{
-		return this.frames[name] || null;
-	};
-
-	/**
-	* Get an array of Textures that match a specific name. If a frame in a sequence is not in the
-	* atlas, the previous frame in the sequence is used in place of it.
-	* @method getFrames
-	* @param {String} name The base name of all frames to look for, like "anim_#" to search for an
-	*                      animation exported as anim_0001.png (the ".png" is dropped when the
-	*                      TextureAtlas is loaded).
-	* @param {int} numberMin The number to start on while looking for frames. Flash PNG sequences
-	*                        generally start at 1.
-	* @param {int} numberMax The number to go until while looking for frames. If your animation runs
-	*                        from frame 0001 to frame 0014, numberMax would be 14.
-	* @param {int} [maxDigits=4] Maximum number of digits, like 4 for an animation exported as
-	*                            anim_0001.png
-	* @param {Array} [outArray] If already using an array, this can fill it instead of creating a
-	*                           new one.
-	* @return {Array} The collection of createjs.TextureAtlas.Textures.
-	*/
-	p.getFrames = function(name, numberMin, numberMax, maxDigits, outArray)
-	{
-		if(maxDigits === undefined)
-			maxDigits = 4;
-		if(maxDigits < 0)
-			maxDigits = 0;
-		if(!outArray)
-			outArray = [];
-		//set up strings to add the correct number of zeros ahead of time to avoid creating even more strings.
-		var zeros = [];//preceding zeroes array
-		var compares = [];//powers of 10 array for determining how many preceding zeroes to use
-		var i, c;
-		for(i = 1; i < maxDigits; ++i)
-		{
-			var s = "";
-			c = 1;
-			for(var j = 0; j < i; ++j)
-			{
-				s += "0";
-				c *= 10;
-			}
-			zeros.unshift(s);
-			compares.push(c);
-		}
-		var compareLength = compares.length;//the length of the compar
-
-		var prevTex;//the previous Texture, so we can place the same object in multiple times to control animation rate
-		var len;
-		for(i = numberMin, len = numberMax; i <= len; ++i)
-		{
-			var num = null;
-			//calculate the number of preceding zeroes needed, then create the full number string.
-			for(c = 0; c < compareLength; ++c)
-			{
-				if(i < compares[c])
-				{
-					num = zeros[c] + i;
-					break;
-				}
-			}
-			if(!num)
-				num = i.toString();
-			
-			//If the texture doesn't exist, use the previous texture - this should allow us to use fewer textures
-			//that are in fact the same, if those textures were removed before making the spritesheet
-			var texName = name.replace("#", num);
-			var tex = this.frames[texName];
-			if(tex)
-				prevTex = tex;
-			if(prevTex)
-				outArray.push(prevTex);
-		}
-
-		return outArray;
-	};
-
-	/**
-	* Destroys the TextureAtlas by nulling the image and frame dictionary references.
-	* @method destroy
-	*/
-	p.destroy = function()
-	{
-		this.image = null;
-		this.frames = null;
-	};
-
-	namespace("createjs").TextureAtlas = TextureAtlas;
-	namespace("springroll.easeljs").TextureAtlas = TextureAtlas;
-
-	/**
-	* A Texture - a specific portion of an image that can then be drawn by a Bitmap.
-	* This class is hidden within TextureAtlas, and can't be manually created.
-	* @class Texture
-	*/
-	var Texture = function(image, data, swapRotatedSize)
-	{
-		/**
-		* The image element that this texture references.
-		* @property {Image|HTMLCanvasElement} image
-		*/
-		this.image = image;
-		/**
-		* If this texture has been rotated (90 degrees clockwise).
-		* @property {Boolean} rotated
-		*/
-		this.rotated = data.rotated;
-		
-		var f = data.frame;
-		/**
-		* The frame rectangle within the image.
-		* @property {createjs.Rectangle} frame
-		*/
-		this.frame = new createjs.Rectangle(f.x, f.y,
-			(data.rotated && swapRotatedSize) ? f.h : f.w,
-			(data.rotated && swapRotatedSize) ? f.w : f.h);
-		/**
-		* If this texture has been trimmed.
-		* @property {Boolean} trimmed
-		*/
-		this.trimmed = data.trimmed;
-		/**
-		* The offset that the trimmed sprite should be placed at to restore it to the untrimmed position.
-		* @property {createjs.Point} offset
-		*/
-		this.offset = new createjs.Point(data.spriteSourceSize.x, data.spriteSourceSize.y);
-		/**
-		* The width of the untrimmed texture.
-		* @property {Number} width
-		*/
-		this.width = data.sourceSize.w;
-		/**
-		* The height of the untrimmed texture.
-		* @property {Number} height
-		*/
-		this.height = data.sourceSize.h;
-	};
-}());
-/**
- * @module EaselJS Animation
- * @namespace springroll.easeljs
- * @requires Core, EaselJS Display
- */
-(function(undefined) {
-
-	"use strict";
-	
+(function(undefined)
+{
 	var Container = include("createjs.Container"),
 		Point = include("createjs.Point"),
 		Rectangle = include('createjs.Rectangle'),
 		Bitmap = include('createjs.Bitmap');
 
 	/**
-	*  A class similar to createjs.MovieClip, but made to play animations from a
-	*  springroll.easeljs.TextureAtlas. The EaselJS Sprite class requires a spritesheet with equal
-	*  sized and spaced frames. By using TextureAtlas, you can use a much smaller spritesheet,
-	*  sprites on screen with fewer extra transparent pixels, and use the same API as MovieClip.
-	*
-	*  Format for BitmapMovieClip data:
-	*
-	*	{
-	*		fps:30,
-	*		labels:
-	*		{
-	*			animStart:0,
-	*			animStart_loop:15
-	*		},
-	*		origin:{ x: 20, y:30 },
-	*		frames:
-	*		[
-	*			{
-	*				name:"myAnim#",
-	*				min:1,
-	*				max:20,
-	*				digits:4
-	*			}
-	*		],
-	*		scale:1
-	*	}
-	*
-	*  The example object describes a 30 fps animation that is 20 frames long, and was originally
-	*  myAnim0001.png->myAnim0020.png, with frame labels on the first and 16th frames. 'digits' is
-	*  optional, and defaults to 4.
-	*
-	*  @class BitmapMovieClip
-	*  @extends createjs.Container
-	*  @constructor
-	*  @param {TextureAtlas} [atlas] The texture atlas to pull frames from.
-	*  @param {Object} [data] Initialization data
-	*  @param {int} [data.fps] Framerate to play the movieclip at. Omitting this will use the
-	*                          current framerate.
-	*  @param {Object} [data.labels] A dictionary of the labels in the movieclip to assist in
-	*                                playing animations.
-	*  @param {Object} [data.origin={x:0,y:0}] The origin of the movieclip.
-	*  @param {Array} [data.frames] An array of frame sequences to pull from the texture atlas.
-	*  @param {String} [data.frames.name] The name to use for the frame sequence. This should
-	*                                     include a "#" to be replaced with the image number.
-	*  @param {int} [data.frames.min] The first frame number in the frame sequence.
-	*  @param {int} [data.frames.max] The last frame number in the frame sequence.
-	*  @param {int} [data.frames.digits=4] The maximum number of digits in the names of the frames,
-	*                                      e.g. myAnim0001 has 4 digits.
-	*  @param {Number} [data.scale=1] The scale at which the art was exported, e.g. a scale of 1.4
-	*                                 means the art was increased in size to 140% before exporting
-	*                                 and should be scaled back down before drawing to the screen.
-	*/
+	 * A class similar to createjs.MovieClip, but made to play animations from a
+	 * springroll.easeljs.TextureAtlas. The EaselJS Sprite class requires a spritesheet with equal
+	 * sized and spaced frames. By using TextureAtlas, you can use a much smaller spritesheet,
+	 * sprites on screen with fewer extra transparent pixels, and use the same API as MovieClip.
+	 *
+	 * Format for BitmapMovieClip data:
+	 *
+	 *	{
+	 *		fps:30,
+	 *		labels:
+	 *		{
+	 *			animStart:0,
+	 *			animStart_loop:15
+	 *		},
+	 *		origin:{ x: 20, y:30 },
+	 *		frames:
+	 *		[
+	 *			{
+	 *				name:"myAnim#",
+	 *				min:1,
+	 *				max:20,
+	 *				digits:4
+	 *			}
+	 *		],
+	 *		scale:1
+	 *	}
+	 *
+	 * The example object describes a 30 fps animation that is 20 frames long, and was originally
+	 * myAnim0001.png->myAnim0020.png, with frame labels on the first and 16th frames. 'digits' is
+	 * optional, and defaults to 4.
+	 *
+	 * @class BitmapMovieClip
+	 * @extends createjs.Container
+	 * @constructor
+	 * @param {springroll.easeljs.TextureAtlas} [atlas] The texture atlas to pull frames from.
+	 * @param {Object} [data] Initialization data
+	 * @param {int} [data.fps] Framerate to play the movieclip at. Omitting this will use the
+	 *                      current framerate.
+	 * @param {Object} [data.labels] A dictionary of the labels in the movieclip to assist in
+	 *                            playing animations.
+	 * @param {Object} [data.origin={x:0,y:0}] The origin of the movieclip.
+	 * @param {Array} [data.frames] An array of frame sequences to pull from the texture atlas.
+	 * @param {String} [data.frames.name] The name to use for the frame sequence. This should
+	 *                                 include a "#" to be replaced with the image number.
+	 * @param {int} [data.frames.min] The first frame number in the frame sequence.
+	 * @param {int} [data.frames.max] The last frame number in the frame sequence.
+	 * @param {int} [data.frames.digits=4] The maximum number of digits in the names of the frames,
+	 *                                  e.g. myAnim0001 has 4 digits.
+	 * @param {Number} [data.scale=1] The scale at which the art was exported, e.g. a scale of 1.4
+	 *                             means the art was increased in size to 140% before exporting
+	 *                             and should be scaled back down before drawing to the screen.
+	 */
 	var BitmapMovieClip = function(atlas, data)
 	{
 		Container.call(this);
@@ -1856,8 +1623,8 @@
 	 * @method draw
 	 * @param {CanvasRenderingContext2D} ctx The canvas 2D context object to draw into.
 	 * @param {Boolean} ignoreCache Indicates whether the draw operation should ignore any current
-	 *                              cache. For example, used for drawing the cache (to prevent it
-	 *                              from simply drawing an existing cache back into itself).
+	 *                            cache. For example, used for drawing the cache (to prevent it
+	 *                            from simply drawing an existing cache back into itself).
 	 */
 	p.draw = function(ctx, ignoreCache)
 	{
@@ -1919,9 +1686,9 @@
 	/**
 	 * Advances the playhead. This occurs automatically each tick by default.
 	 * @param [time] {Number} The amount of time in ms to advance by. If 0 or null, time is not
-	 *                        advanced but the timeline is still updated.
+	 *                      advanced but the timeline is still updated.
 	 * @method advance
-	*/
+	 */
 	p.advance = function(time)
 	{
 		if(!this.paused)
@@ -1948,7 +1715,7 @@
 	 * Timeline.getLabels();
 	 * @method getLabels
 	 * @return {Array[Object]} A sorted array of objects with label and position (aka frame)
-	 *                         properties.
+	 *                       properties.
 	 */
 	p.getLabels = function()
 	{
@@ -1959,7 +1726,7 @@
 	 * Returns a sorted list of the labels which can be played with Animator.
 	 * @method getEvents
 	 * @return {Array} A sorted array of objects with label, length and position (aka frame)
-	 *     properties.
+	 *   properties.
 	 */
 	p.getEvents = function()
 	{
@@ -1987,25 +1754,25 @@
 	};
 
 	/**
-	 *  Initializes or re-initializes the BitmapMovieClip.
-	 *  @method init
-	 *  @param {TextureAtlas} atlas The texture atlas to pull frames from.
-	 *  @param {Object} data Initialization data
-	 *  @param {int} [data.fps] Framerate to play the movieclip at. Omitting this will use the
-	 *                          current framerate.
-	 *  @param {Object} [data.labels] A dictionary of the labels in the movieclip to assist in
-	 *                                playing animations.
-	 *  @param {Object} [data.origin={x:0,y:0}] The origin of the movieclip.
-	 *  @param {Array} [data.frames] An array of frame sequences to pull from the texture atlas.
-	 *  @param {String} [data.frames.name] The name to use for the frame sequence. This should
-	 *                                     include a "#" to be replaced with the image number.
-	 *  @param {int} [data.frames.min] The first frame number in the frame sequence.
-	 *  @param {int} [data.frames.max] The last frame number in the frame sequence.
-	 *  @param {int} [data.frames.digits=4] The maximum number of digits in the names of the frames,
-	 *                                      e.g. myAnim0001 has 4 digits.
-	 *  @param {Number} [data.scale=1] The scale at which the art was exported, e.g. a scale of 1.4
-	 *                                 means the art was increased in size to 140% before exporting
-	 *                                 and should be scaled back down before drawing to the screen.
+	 * Initializes or re-initializes the BitmapMovieClip.
+	 * @method init
+	 * @param {springroll.easeljs.TextureAtlas} atlas The texture atlas to pull frames from.
+	 * @param {Object} data Initialization data
+	 * @param {int} [data.fps] Framerate to play the movieclip at. Omitting this will use the
+	 *                        current framerate.
+	 * @param {Object} [data.labels] A dictionary of the labels in the movieclip to assist in
+	 *                              playing animations.
+	 * @param {Object} [data.origin={x:0,y:0}] The origin of the movieclip.
+	 * @param {Array} [data.frames] An array of frame sequences to pull from the texture atlas.
+	 * @param {String} [data.frames.name] The name to use for the frame sequence. This should
+	 *                                   include a "#" to be replaced with the image number.
+	 * @param {int} [data.frames.min] The first frame number in the frame sequence.
+	 * @param {int} [data.frames.max] The last frame number in the frame sequence.
+	 * @param {int} [data.frames.digits=4] The maximum number of digits in the names of the frames,
+	 *                                    e.g. myAnim0001 has 4 digits.
+	 * @param {Number} [data.scale=1] The scale at which the art was exported, e.g. a scale of 1.4
+	 *                               means the art was increased in size to 140% before exporting
+	 *                               and should be scaled back down before drawing to the screen.
 	 */
 	p.init = function(atlas, data)
 	{
@@ -2104,11 +1871,11 @@
 	}
 
 	/**
-	*	Copies the labels, textures, origin, and framerate from another BitmapMovieClip.
-	*	The labels and textures are copied by reference, instead of a deep copy.
-	*	@method copyFrom
-	*	@param {BitmapMovieClip} other The movieclip to copy data from.
-	*/
+	 *	Copies the labels, textures, origin, and framerate from another BitmapMovieClip.
+	 *	The labels and textures are copied by reference, instead of a deep copy.
+	 *	@method copyFrom
+	 *	@param {BitmapMovieClip} other The movieclip to copy data from.
+	 */
 	p.copyFrom = function(other)
 	{
 		this._frames = other._frames;
@@ -2121,13 +1888,13 @@
 	};
 
 	/**
-	 *  Clone a sprite. Creates a shallow copy of loaded element
-	 *  @method clone
-	 *  @static
-	 *  @param {springroll.easeljs.BitmapMovieClip} sprite The sprite to clone
-	 *  @param {Number} [x=0] The initial x position
-	 *  @param {Number} [y=0] The initial y position
-	 *  @return {springroll.easeljs.BitmapMovieClip}
+	 * Clone a sprite. Creates a shallow copy of loaded element
+	 * @method clone
+	 * @static
+	 * @param {springroll.easeljs.BitmapMovieClip} sprite The sprite to clone
+	 * @param {Number} [x=0] The initial x position
+	 * @param {Number} [y=0] The initial y position
+	 * @return {springroll.easeljs.BitmapMovieClip}
 	 */
 	BitmapMovieClip.clone = function(sprite, x, y)
 	{
@@ -2139,9 +1906,9 @@
 	};
 
 	/**
-	*	Destroys the BitmapMovieClip, removing all children and nulling all reference variables.
-	*	@method destroy
-	*/
+	 *	Destroys the BitmapMovieClip, removing all children and nulling all reference variables.
+	 *	@method destroy
+	 */
 	p.destroy = function()
 	{
 		this.removeAllChildren();
@@ -2256,11 +2023,11 @@
 	 * system as the springroll.Animator system.
 	 * 	i.e. each animation must have a corresponding ending frame
 	 * 	marked with	a '_stop' and '_loop' suffixes,
-	 *	for instance: "walk" requires "walk_loop"
+	 * for instance: "walk" requires "walk_loop"
 	 * @class ReversePlayback
 	 * @static
 	 * @param {createjs.MovieClip} clip
-	 *	The MovieClip containing the timeline and animation
+	 * The MovieClip containing the timeline and animation
 	 */
 	var ReversePlayback = function(clip)
 	{
@@ -2389,4 +2156,78 @@
 
 	//Assign to namespace
 	namespace('springroll.easeljs').ReversePlayback = ReversePlayback;
+}());
+/**
+ * @module EaselJS Animation
+ * @namespace springroll.easeljs
+ * @requires Core, EaselJS Display
+ */
+(function()
+{
+	var TextureAtlasTask = include('springroll.easeljs.TextureAtlasTask'),
+		BitmapMovieClip = include('springroll.easeljs.BitmapMovieClip'),
+		Application = include('springroll.Application');
+
+	/**
+	 * Internal class for dealing with async load assets through Loader.
+	 * @class BitmapMovieClipTask
+	 * @extends springroll.TextureAtlasTask
+	 * @constructor
+	 * @private
+	 * @param {Object} asset The data properties
+	 * @param {String} asset.anim Path to the JSON configuration for BitmapMovieClip
+	 * @param {String} asset.atlas The TextureAtlas source data
+	 * @param {Boolean} [asset.cache=false] If we should cache the result
+	 * @param {String} [asset.image] The atlas image path
+	 * @param {String} [asset.color] The color image path, if not using image property
+	 * @param {String} [asset.alpha] The alpha image path, if not using image property
+	 * @param {String} [asset.id] Id of asset
+	 * @param {Function} [asset.complete] The event to call when done
+	 * @param {Object} [asset.sizes=null] Define if certain sizes are not supported
+	 */
+	var BitmapMovieClipTask = function(asset)
+	{
+		TextureAtlasTask.call(this, asset);
+
+		/**
+		 * The BitmapMovieclip data source path
+		 * @property {String} anim
+		 */
+		this.anim = this.filter(asset.anim);
+	};
+
+	// Reference to prototype
+	var p = extend(BitmapMovieClipTask, TextureAtlasTask);
+
+	/**
+	 * Test if we should run this task
+	 * @method test
+	 * @static
+	 * @param {Object} asset The asset to check
+	 * @return {Boolean} If the asset is compatible with this asset
+	 */
+	BitmapMovieClipTask.test = function(asset)
+	{
+		return !!asset.anim && TextureAtlasTask.test(asset);
+	};
+
+	/**
+	 * Start the task
+	 * @method  start
+	 * @param  {Function} callback Callback when finished
+	 */
+	p.start = function(callback)
+	{
+		this.loadAtlas({ _anim: this.anim }, function(textureAtlas, results)
+		{
+			callback(new BitmapMovieClip(
+				textureAtlas, 
+				results._anim
+			), results);
+		});
+	};
+
+	// Assign to namespace
+	namespace('springroll.easeljs').BitmapMovieClipTask = BitmapMovieClipTask;
+
 }());

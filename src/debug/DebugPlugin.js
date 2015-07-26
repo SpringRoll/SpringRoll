@@ -1,7 +1,7 @@
 /**
-*  @module Core
-*  @namespace springroll
-*/
+ * @module Core
+ * @namespace springroll
+ */
 (function()
 {
 	// Include classes
@@ -14,16 +14,10 @@
 	 * @class DebugPlugin
 	 * @extends springroll.ApplicationPlugin
 	 */
-	var DebugPlugin = function()
-	{
-		ApplicationPlugin.call(this);
-	};
-
-	// Reference to the prototype
-	var p = extend(DebugPlugin, ApplicationPlugin);
+	var plugin = new ApplicationPlugin();
 
 	// Init the animator
-	p.setup = function()
+	plugin.setup = function()
 	{
 		/**
 		 * Enable the Debug class. After initialization, this
@@ -95,7 +89,7 @@
 		});
 	};
 
-	p.preload = function(done)
+	plugin.preload = function(done)
 	{
 		this.options.asDOMElement('framerate');
 		var framerate = this.options.framerate;
@@ -144,7 +138,7 @@
 	};
 
 	// Destroy the animator
-	p.teardown = function()
+	plugin.teardown = function()
 	{
 		if (DEBUG)
 		{
@@ -159,8 +153,5 @@
 		}
 		Debug.disconnect();
 	};
-
-	// register plugin
-	ApplicationPlugin.register(DebugPlugin);
 
 }());

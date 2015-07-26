@@ -41,72 +41,65 @@
 var Application = include('springroll.Application'),
 	Button = include('springroll.easeljs.Button'),
 	EaselJSDisplay = include('springroll.EaselJSDisplay'),
+	Shape = include('createjs.Shape'),
 	Captions = include('springroll.Captions');
 
-// Create the new application
 var app = new Application({
 	canvasId: "stage",
 	captionsPath: 'assets/config/captions.json',
 	display: EaselJSDisplay,
 	displayOptions: {
 		clearView: true
-	}
+	},
+	preload: ['assets/images/button.png']
 });
 
-// Wait until the app is ready
-app.on('init', function(){
+app.once('init', function()
+{
+	// Setup the UI
+	this.makeButtons();
 
-	var width = app.display.width;
-
-	var shape = new createjs.Shape();
-	shape.graphics.beginFill("#933")
-		.drawCircle(200, 150, 20);
-	shape.visible = false;
-
-	this.on('update', function(){
-		shape.visible = app.captions.playing;
+	// Start playing the caption on click
+	this.playButton.on('buttonPress', function()
+	{
+		app.captions.play("ExampleAlias");
 	});
 
-	// Lets setup the interface for playing the captions
-	// but we need a button image to create buttons
-	this.loader.load('assets/images/button.png', function(result){
-
-		// Create a play button
-		var playButton = new Button(result.content, {
-			text: 'Play',
-			font: "16px Arial",
-			color: "#ffffff"
-		});
-		playButton.x = (width - playButton.width) / 2;
-		playButton.y = 100;
-
-		// Handle
-		playButton.on('buttonPress', function(){
-
-			// Play the caption example here!
-			app.captions.play("ExampleAlias");
-		});
-
-		// Create a stop button
-		var stopButton = new Button(result.content, {
-			text: 'Stop',
-			font: "16px Arial",
-			color: "#ffffff"
-		});
-
-		stopButton.x = (width - stopButton.width) / 2;
-		stopButton.y = 170;
-
-		// Handle clicks on the stop button
-		stopButton.on('buttonPress', function(){
-			app.captions.stop();
-		});
-
-		// Add the button to the stage
-		app.display.stage.addChild(playButton, stopButton, shape);
+	// Stop the captions on click
+	this.stopButton.on('buttonPress', function()
+	{
+		app.captions.stop();
 	});
-
 });
+
+// Create the UI elements
+app.makeButtons = function()
+{
+	// Create a play button
+	this.playButton = new Button(this.getCache('button'), {
+		text: 'Play',
+		font: "16px Arial",
+		color: "#ffffff"
+	});
+	this.playButton.x = 335;
+	this.playButton.y = 100;
+
+	// Create a stop button
+	this.stopButton = new Button(this.getCache('button'), {
+		text: 'Stop',
+		font: "16px Arial",
+		color: "#ffffff"
+	});
+
+	this.stopButton.x = 335;
+	this.stopButton.y = 170;
+
+	// Add the button to the stage
+	this.display.stage.addChild(
+		this.playButton,
+		this.stopButton
+	);
+};
 </script>
 		</div>
 	</body>

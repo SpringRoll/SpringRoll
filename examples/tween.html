@@ -41,22 +41,20 @@ var Application = include('springroll.Application'),
 	Shape = include('createjs.Shape'),
 	Tween = include('createjs.Tween');
 
-// Create the new application
 var app = new Application({
 	canvasId: "stage",
 	display: EaselJSDisplay,
 	displayOptions: {
-		clearView: true // clear the stage on render
+		clearView: true
 	}
 });
 
-// Wait until the app is ready
-app.on('init', function(){
-
+app.once('init', function()
+{
 	// Create a new shape
 	var shape = new Shape();
-	shape.graphics.beginFill("#69a1df")
-		.drawCircle(-100, 500 / 2, 100);
+	shape.graphics.beginFill("#69a1df");
+	shape.graphics.drawCircle(-100, 500 / 2, 100);
 
 	// Add it to the EaselJS stage
 	this.display.stage.addChild(shape);

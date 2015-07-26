@@ -40,47 +40,35 @@
 <script>
 
 var Application = include('springroll.Application'),
+	Bitmap = include('createjs.Bitmap'),
 	EaselJSDisplay = include('springroll.EaselJSDisplay');
 
-// Create the new application
 var app = new Application({
-	
-	// The maximum width of the game
-	maxWidth : 1000, 
-	
-	// Resize to this element id
-	resizeElement : "stageContainer",
-
+	maxWidth : 1000,
 	framerate: "framerate",
+	resizeElement : "stageContainer",
 	canvasId: "stage",
 	display: EaselJSDisplay,
 	displayOptions: {
-		clearView: true // clear the stage on render
-	}
+		clearView: true
+	},
+	preload: ['assets/images/background.jpg']
 });
 
-// Wait until the app is ready
-app.on('init', function(){
-
-	// Load the background image which can accomodate the max aspect ratio
-	// in this example: 1000 (w) x 500 (h) = 2.0 aspect ratio
-	// title-safe: 800 (w) x 500 (h) = 1.6 aspect ratio
-	app.loader.load('assets/images/background.jpg', function(result){
-
-		// Add the background to the stage
-		var background = new createjs.Bitmap(result.content);
-		app.display.stage.addChild(background);
-
-		// Resize handler
-		app.on('resize', function(w, h){
-			var overallScale = h / 500;
-			background.scaleX = background.scaleY = overallScale;
-			background.x = (w - background.image.width * overallScale) / 2;
-		});
-
-		// Manually call resize
-		app.triggerResize();
+app.once('init', function()
+{
+	var background = new Bitmap(this.getCache('background'));
+	this.display.stage.addChild(background);
+	
+	this.on('resize', function(w, h)
+	{
+		var overallScale = h / 500;
+		background.scaleX = background.scaleY = overallScale;
+		background.x = (w - background.image.width * overallScale) / 2;
 	});
+
+	// Manually call resize
+	this.triggerResize();
 });
 
 </script>

@@ -33,103 +33,103 @@
 		this._syncCaptionToSound = this._syncCaptionToSound.bind(this);
 
 		/**
-		*	An Array used when play() is called to avoid creating lots of Array objects.
-		*	@property {Array} _listHelper
-		*	@private
-		*/
+		 *	An Array used when play() is called to avoid creating lots of Array objects.
+		 *	@property {Array} _listHelper
+		 *	@private
+		 */
 		this._listHelper = [];
 
 		/**
-		*	If the VOPlayer should keep a list of all audio it plays for unloading later. Default is false.
-		*	@property {Boolean} trackSound
-		*	@public
-		*/
+		 *	If the VOPlayer should keep a list of all audio it plays for unloading later. Default is false.
+		 *	@property {Boolean} trackSound
+		 *	@public
+		 */
 		this.trackSound = false;
 
 		/**
-		*	The current list of audio/silence times/functions. Generally you will not need to modify this.
-		*	@property {Array} soundList
-		*	@public
-		*/
+		 *	The current list of audio/silence times/functions. Generally you will not need to modify this.
+		 *	@property {Array} soundList
+		 *	@public
+		 */
 		this.soundList = null;
 
 		/**
-		*	The current position in soundList.
-		*	@property {int} _listCounter
-		*	@private
-		*/
+		 *	The current position in soundList.
+		 *	@property {int} _listCounter
+		 *	@private
+		 */
 		this._listCounter = 0;
 
 		/**
-		*	The current audio alias being played.
-		*	@property {String} _currentSound
-		*	@private
-		*/
+		 *	The current audio alias being played.
+		 *	@property {String} _currentSound
+		 *	@private
+		 */
 		this._currentSound = null;
 
 		/**
-		*	The current audio instance being played.
-		*	@property {SoundInstance} _soundInstance
-		*	@private
-		*/
+		 *	The current audio instance being played.
+		 *	@property {SoundInstance} _soundInstance
+		 *	@private
+		 */
 		this._soundInstance = null;
 
 		/**
-		*	The callback for when the list is finished.
-		*	@property {Function} _callback
-		*	@private
-		*/
+		 *	The callback for when the list is finished.
+		 *	@property {Function} _callback
+		 *	@private
+		 */
 		this._callback = null;
 
 		/**
-		*	The callback for when the list is interrupted for any reason.
-		*	@property {Function} _cancelledCallback
-		*	@private
-		*/
+		 *	The callback for when the list is interrupted for any reason.
+		 *	@property {Function} _cancelledCallback
+		 *	@private
+		 */
 		this._cancelledCallback = null;
 
 		/**
-		*	A list of audio file played by this, so that they can be unloaded later.
-		*	@property {Array} _playedSound
-		*	@private
-		*/
+		 *	A list of audio file played by this, so that they can be unloaded later.
+		 *	@property {Array} _playedSound
+		 *	@private
+		 */
 		this._playedSound = null;
 
 		/**
-		*	A timer for silence entries in the list, in milliseconds.
-		*	@property {int} _timer
-		*	@private
-		*/
+		 *	A timer for silence entries in the list, in milliseconds.
+		 *	@property {int} _timer
+		 *	@private
+		 */
 		this._timer = 0;
 
 		/**
-		*	The captions object
-		*	@property {springroll.Captions} _captions
-		*	@private
-		*/
+		 *	The captions object
+		 *	@property {springroll.Captions} _captions
+		 *	@private
+		 */
 		this._captions = null;
 	};
 
 	var p = VOPlayer.prototype = {};
 
 	/**
-	*	If VOPlayer is currently playing (audio or silence).
-	*	@property {Boolean} playing
-	*	@public
-	*	@readOnly
-	*/
+	 *	If VOPlayer is currently playing (audio or silence).
+	 *	@property {Boolean} playing
+	 *	@public
+	 *	@readOnly
+	 */
 	Object.defineProperty(p, "playing",
 	{
 		get: function(){ return this._currentSound !== null || this._timer > 0; }
 	});
 
 	/**
-	*	The springroll.Captions object used for captions. The developer is responsible for
-	*	initializing this with a captions
-	*	dictionary config file and a reference to a text field.
-	*	@property {Captions} captions
-	*	@public
-	*/
+	 *	The springroll.Captions object used for captions. The developer is responsible for
+	 *	initializing this with a captions
+	 *	dictionary config file and a reference to a text field.
+	 *	@property {Captions} captions
+	 *	@public
+	 */
 	Object.defineProperty(p, "captions",
 	{
 		set: function(captions)
@@ -176,15 +176,18 @@
 	};
 
 	/**
-	*	Plays a single audio alias, interrupting any current playback.
-	*	Alternatively, plays a list of audio files, timers, and/or functions.
-	*	Audio in the list will be preloaded to minimize pauses for loading.
-	*	@method play
-	*	@public
-	*	@param {String|Array} idOrList The alias of the audio file to play or the array of items to play/call in order.
-	*	@param {Function} [callback] The function to call when playback is complete.
-	*	@param {Function} [cancelledCallback] The function to call when playback is interrupted with a stop() or play() call.
-	*/
+	 *	Plays a single audio alias, interrupting any current playback.
+	 *	Alternatively, plays a list of audio files, timers, and/or functions.
+	 *	Audio in the list will be preloaded to minimize pauses for loading.
+	 *	@method play
+	 *	@public
+	 *	@param {String|Array} idOrList The alias of the audio file to play or the array of items to
+	 *	                               play/call in order.
+	 *	@param {Function} [callback] The function to call when playback is complete.
+	 *	@param {Function} [cancelledCallback] The function to call when playback is interrupted with
+	 *	                                      a stop() or play() call. If this value is a boolean
+	 *	                                      <code>true</code> then callback will be used instead.
+	 */
 	p.play = function(idOrList, callback, cancelledCallback)
 	{
 		this.stop();
@@ -192,21 +195,22 @@
 		this._listCounter = -1;
 		if (typeof idOrList == "string")
 		{
+			this._listHelper.length = 0;
 			this._listHelper[0] = idOrList;
 			this.soundList = this._listHelper;
 		}
 		else
 			this.soundList = idOrList;
 		this._callback = callback;
-		this._cancelledCallback = cancelledCallback;
+		this._cancelledCallback = cancelledCallback === true ? callback : cancelledCallback;
 		this._onSoundFinished();
 	};
 
 	/**
-	*	Callback for when audio/timer is finished to advance to the next item in the list.
-	*	@method _onSoundFinished
-	*	@private
-	*/
+	 *	Callback for when audio/timer is finished to advance to the next item in the list.
+	 *	@method _onSoundFinished
+	 *	@private
+	 */
 	p._onSoundFinished = function()
 	{
 		//remove any update callback
@@ -259,12 +263,12 @@
 	};
 
 	/**
-	*	The update callback used for silence timers.
-	*	This method is bound to the VOPlayer instance.
-	*	@method _updateSilence
-	*	@private
-	*	@param {int} elapsed The time elapsed since the previous frame, in milliseconds.
-	*/
+	 *	The update callback used for silence timers.
+	 *	This method is bound to the VOPlayer instance.
+	 *	@method _updateSilence
+	 *	@private
+	 *	@param {int} elapsed The time elapsed since the previous frame, in milliseconds.
+	 */
 	p._updateSilence = function(elapsed)
 	{
 		this._timer -= elapsed;
@@ -276,12 +280,12 @@
 	};
 
 	/**
-	*	The update callback used for updating captions without active audio.
-	*	This method is bound to the VOPlayer instance.
-	*	@method _updateSoloCaption
-	*	@private
-	*	@param {int} elapsed The time elapsed since the previous frame, in milliseconds.
-	*/
+	 *	The update callback used for updating captions without active audio.
+	 *	This method is bound to the VOPlayer instance.
+	 *	@method _updateSoloCaption
+	 *	@private
+	 *	@param {int} elapsed The time elapsed since the previous frame, in milliseconds.
+	 */
 	p._updateSoloCaption = function(elapsed)
 	{
 		this._timer += elapsed;
@@ -294,12 +298,12 @@
 	};
 
 	/**
-	*	The update callback used for updating captions with active audio.
-	*	This method is bound to the VOPlayer instance.
-	*	@method _syncCaptionToSound
-	*	@private
-	*	@param {int} elapsed The time elapsed since the previous frame, in milliseconds.
-	*/
+	 *	The update callback used for updating captions with active audio.
+	 *	This method is bound to the VOPlayer instance.
+	 *	@method _syncCaptionToSound
+	 *	@private
+	 *	@param {int} elapsed The time elapsed since the previous frame, in milliseconds.
+	 */
 	p._syncCaptionToSound = function(elapsed)
 	{
 		if (!this._soundInstance) return;
@@ -308,10 +312,10 @@
 	};
 
 	/**
-	*	Plays the current audio item and begins preloading the next item.
-	*	@method _playSound
-	*	@private
-	*/
+	 *	Plays the current audio item and begins preloading the next item.
+	 *	@method _playSound
+	 *	@private
+	 */
 	p._playSound = function()
 	{
 		if (this.trackSound)
@@ -352,7 +356,7 @@
 			{
 				if (!s.isLoaded(next))
 				{
-					s.preloadSound(next);
+					s.preload(next);
 				}
 				break;
 			}
@@ -360,10 +364,10 @@
 	};
 
 	/**
-	*	Stops playback of any audio/timer.
-	*	@method stop
-	*	@public
-	*/
+	 *	Stops playback of any audio/timer.
+	 *	@method stop
+	 *	@public
+	 */
 	p.stop = function()
 	{
 		if (this._currentSound)
@@ -389,10 +393,10 @@
 	};
 
 	/**
-	*	Unloads all audio this VOPlayer has played. If trackSound is false, this won't do anything.
-	*	@method unloadSound
-	*	@public
-	*/
+	 *	Unloads all audio this VOPlayer has played. If trackSound is false, this won't do anything.
+	 *	@method unloadSound
+	 *	@public
+	 */
 	p.unloadSound = function()
 	{
 		Sound.instance.unload(this._playedSound);
@@ -400,10 +404,10 @@
 	};
 
 	/**
-	*	Cleans up this VOPlayer.
-	*	@method destroy
-	*	@public
-	*/
+	 *	Cleans up this VOPlayer.
+	 *	@method destroy
+	 *	@public
+	 */
 	p.destroy = function()
 	{
 		this.stop();

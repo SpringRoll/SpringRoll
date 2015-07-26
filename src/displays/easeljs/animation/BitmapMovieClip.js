@@ -3,68 +3,66 @@
  * @namespace springroll.easeljs
  * @requires Core, EaselJS Display
  */
-(function(undefined) {
-
-	"use strict";
-	
+(function(undefined)
+{
 	var Container = include("createjs.Container"),
 		Point = include("createjs.Point"),
 		Rectangle = include('createjs.Rectangle'),
 		Bitmap = include('createjs.Bitmap');
 
 	/**
-	*  A class similar to createjs.MovieClip, but made to play animations from a
-	*  springroll.easeljs.TextureAtlas. The EaselJS Sprite class requires a spritesheet with equal
-	*  sized and spaced frames. By using TextureAtlas, you can use a much smaller spritesheet,
-	*  sprites on screen with fewer extra transparent pixels, and use the same API as MovieClip.
-	*
-	*  Format for BitmapMovieClip data:
-	*
-	*	{
-	*		fps:30,
-	*		labels:
-	*		{
-	*			animStart:0,
-	*			animStart_loop:15
-	*		},
-	*		origin:{ x: 20, y:30 },
-	*		frames:
-	*		[
-	*			{
-	*				name:"myAnim#",
-	*				min:1,
-	*				max:20,
-	*				digits:4
-	*			}
-	*		],
-	*		scale:1
-	*	}
-	*
-	*  The example object describes a 30 fps animation that is 20 frames long, and was originally
-	*  myAnim0001.png->myAnim0020.png, with frame labels on the first and 16th frames. 'digits' is
-	*  optional, and defaults to 4.
-	*
-	*  @class BitmapMovieClip
-	*  @extends createjs.Container
-	*  @constructor
-	*  @param {TextureAtlas} [atlas] The texture atlas to pull frames from.
-	*  @param {Object} [data] Initialization data
-	*  @param {int} [data.fps] Framerate to play the movieclip at. Omitting this will use the
-	*                          current framerate.
-	*  @param {Object} [data.labels] A dictionary of the labels in the movieclip to assist in
-	*                                playing animations.
-	*  @param {Object} [data.origin={x:0,y:0}] The origin of the movieclip.
-	*  @param {Array} [data.frames] An array of frame sequences to pull from the texture atlas.
-	*  @param {String} [data.frames.name] The name to use for the frame sequence. This should
-	*                                     include a "#" to be replaced with the image number.
-	*  @param {int} [data.frames.min] The first frame number in the frame sequence.
-	*  @param {int} [data.frames.max] The last frame number in the frame sequence.
-	*  @param {int} [data.frames.digits=4] The maximum number of digits in the names of the frames,
-	*                                      e.g. myAnim0001 has 4 digits.
-	*  @param {Number} [data.scale=1] The scale at which the art was exported, e.g. a scale of 1.4
-	*                                 means the art was increased in size to 140% before exporting
-	*                                 and should be scaled back down before drawing to the screen.
-	*/
+	 * A class similar to createjs.MovieClip, but made to play animations from a
+	 * springroll.easeljs.TextureAtlas. The EaselJS Sprite class requires a spritesheet with equal
+	 * sized and spaced frames. By using TextureAtlas, you can use a much smaller spritesheet,
+	 * sprites on screen with fewer extra transparent pixels, and use the same API as MovieClip.
+	 *
+	 * Format for BitmapMovieClip data:
+	 *
+	 *	{
+	 *		fps:30,
+	 *		labels:
+	 *		{
+	 *			animStart:0,
+	 *			animStart_loop:15
+	 *		},
+	 *		origin:{ x: 20, y:30 },
+	 *		frames:
+	 *		[
+	 *			{
+	 *				name:"myAnim#",
+	 *				min:1,
+	 *				max:20,
+	 *				digits:4
+	 *			}
+	 *		],
+	 *		scale:1
+	 *	}
+	 *
+	 * The example object describes a 30 fps animation that is 20 frames long, and was originally
+	 * myAnim0001.png->myAnim0020.png, with frame labels on the first and 16th frames. 'digits' is
+	 * optional, and defaults to 4.
+	 *
+	 * @class BitmapMovieClip
+	 * @extends createjs.Container
+	 * @constructor
+	 * @param {springroll.easeljs.TextureAtlas} [atlas] The texture atlas to pull frames from.
+	 * @param {Object} [data] Initialization data
+	 * @param {int} [data.fps] Framerate to play the movieclip at. Omitting this will use the
+	 *                      current framerate.
+	 * @param {Object} [data.labels] A dictionary of the labels in the movieclip to assist in
+	 *                            playing animations.
+	 * @param {Object} [data.origin={x:0,y:0}] The origin of the movieclip.
+	 * @param {Array} [data.frames] An array of frame sequences to pull from the texture atlas.
+	 * @param {String} [data.frames.name] The name to use for the frame sequence. This should
+	 *                                 include a "#" to be replaced with the image number.
+	 * @param {int} [data.frames.min] The first frame number in the frame sequence.
+	 * @param {int} [data.frames.max] The last frame number in the frame sequence.
+	 * @param {int} [data.frames.digits=4] The maximum number of digits in the names of the frames,
+	 *                                  e.g. myAnim0001 has 4 digits.
+	 * @param {Number} [data.scale=1] The scale at which the art was exported, e.g. a scale of 1.4
+	 *                             means the art was increased in size to 140% before exporting
+	 *                             and should be scaled back down before drawing to the screen.
+	 */
 	var BitmapMovieClip = function(atlas, data)
 	{
 		Container.call(this);
@@ -324,8 +322,8 @@
 	 * @method draw
 	 * @param {CanvasRenderingContext2D} ctx The canvas 2D context object to draw into.
 	 * @param {Boolean} ignoreCache Indicates whether the draw operation should ignore any current
-	 *                              cache. For example, used for drawing the cache (to prevent it
-	 *                              from simply drawing an existing cache back into itself).
+	 *                            cache. For example, used for drawing the cache (to prevent it
+	 *                            from simply drawing an existing cache back into itself).
 	 */
 	p.draw = function(ctx, ignoreCache)
 	{
@@ -387,9 +385,9 @@
 	/**
 	 * Advances the playhead. This occurs automatically each tick by default.
 	 * @param [time] {Number} The amount of time in ms to advance by. If 0 or null, time is not
-	 *                        advanced but the timeline is still updated.
+	 *                      advanced but the timeline is still updated.
 	 * @method advance
-	*/
+	 */
 	p.advance = function(time)
 	{
 		if(!this.paused)
@@ -415,7 +413,7 @@
 	 * Returns a sorted list of the labels defined on this BitmapMovieClip.
 	 * @method getLabels
 	 * @return {Array[Object]} A sorted array of objects with label and position (aka frame)
-	 *                         properties.
+	 *                       properties.
 	 */
 	p.getLabels = function()
 	{
@@ -426,7 +424,7 @@
 	 * Returns a sorted list of the labels which can be played with Animator.
 	 * @method getEvents
 	 * @return {Array} A sorted array of objects with label, length and position (aka frame)
-	 *     properties.
+	 *   properties.
 	 */
 	p.getEvents = function()
 	{
@@ -453,25 +451,25 @@
 	};
 
 	/**
-	 *  Initializes or re-initializes the BitmapMovieClip.
-	 *  @method init
-	 *  @param {TextureAtlas} atlas The texture atlas to pull frames from.
-	 *  @param {Object} data Initialization data
-	 *  @param {int} [data.fps] Framerate to play the movieclip at. Omitting this will use the
-	 *                          current framerate.
-	 *  @param {Object} [data.labels] A dictionary of the labels in the movieclip to assist in
-	 *                                playing animations.
-	 *  @param {Object} [data.origin={x:0,y:0}] The origin of the movieclip.
-	 *  @param {Array} [data.frames] An array of frame sequences to pull from the texture atlas.
-	 *  @param {String} [data.frames.name] The name to use for the frame sequence. This should
-	 *                                     include a "#" to be replaced with the image number.
-	 *  @param {int} [data.frames.min] The first frame number in the frame sequence.
-	 *  @param {int} [data.frames.max] The last frame number in the frame sequence.
-	 *  @param {int} [data.frames.digits=4] The maximum number of digits in the names of the frames,
-	 *                                      e.g. myAnim0001 has 4 digits.
-	 *  @param {Number} [data.scale=1] The scale at which the art was exported, e.g. a scale of 1.4
-	 *                                 means the art was increased in size to 140% before exporting
-	 *                                 and should be scaled back down before drawing to the screen.
+	 * Initializes or re-initializes the BitmapMovieClip.
+	 * @method init
+	 * @param {springroll.easeljs.TextureAtlas} atlas The texture atlas to pull frames from.
+	 * @param {Object} data Initialization data
+	 * @param {int} [data.fps] Framerate to play the movieclip at. Omitting this will use the
+	 *                        current framerate.
+	 * @param {Object} [data.labels] A dictionary of the labels in the movieclip to assist in
+	 *                              playing animations.
+	 * @param {Object} [data.origin={x:0,y:0}] The origin of the movieclip.
+	 * @param {Array} [data.frames] An array of frame sequences to pull from the texture atlas.
+	 * @param {String} [data.frames.name] The name to use for the frame sequence. This should
+	 *                                   include a "#" to be replaced with the image number.
+	 * @param {int} [data.frames.min] The first frame number in the frame sequence.
+	 * @param {int} [data.frames.max] The last frame number in the frame sequence.
+	 * @param {int} [data.frames.digits=4] The maximum number of digits in the names of the frames,
+	 *                                    e.g. myAnim0001 has 4 digits.
+	 * @param {Number} [data.scale=1] The scale at which the art was exported, e.g. a scale of 1.4
+	 *                               means the art was increased in size to 140% before exporting
+	 *                               and should be scaled back down before drawing to the screen.
 	 */
 	p.init = function(atlas, data)
 	{
@@ -570,11 +568,11 @@
 	}
 
 	/**
-	*	Copies the labels, textures, origin, and framerate from another BitmapMovieClip.
-	*	The labels and textures are copied by reference, instead of a deep copy.
-	*	@method copyFrom
-	*	@param {BitmapMovieClip} other The movieclip to copy data from.
-	*/
+	 *	Copies the labels, textures, origin, and framerate from another BitmapMovieClip.
+	 *	The labels and textures are copied by reference, instead of a deep copy.
+	 *	@method copyFrom
+	 *	@param {BitmapMovieClip} other The movieclip to copy data from.
+	 */
 	p.copyFrom = function(other)
 	{
 		this._frames = other._frames;
@@ -588,13 +586,13 @@
 	};
 
 	/**
-	 *  Clone a sprite. Creates a shallow copy of loaded element
-	 *  @method clone
-	 *  @static
-	 *  @param {springroll.easeljs.BitmapMovieClip} sprite The sprite to clone
-	 *  @param {Number} [x=0] The initial x position
-	 *  @param {Number} [y=0] The initial y position
-	 *  @return {springroll.easeljs.BitmapMovieClip}
+	 * Clone a sprite. Creates a shallow copy of loaded element
+	 * @method clone
+	 * @static
+	 * @param {springroll.easeljs.BitmapMovieClip} sprite The sprite to clone
+	 * @param {Number} [x=0] The initial x position
+	 * @param {Number} [y=0] The initial y position
+	 * @return {springroll.easeljs.BitmapMovieClip}
 	 */
 	BitmapMovieClip.clone = function(sprite, x, y)
 	{
@@ -606,9 +604,9 @@
 	};
 
 	/**
-	*	Destroys the BitmapMovieClip, removing all children and nulling all reference variables.
-	*	@method destroy
-	*/
+	 *	Destroys the BitmapMovieClip, removing all children and nulling all reference variables.
+	 *	@method destroy
+	 */
 	p.destroy = function()
 	{
 		this.removeAllChildren();

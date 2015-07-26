@@ -1,4 +1,4 @@
-/*! SpringRoll 0.3.7 */
+/*! SpringRoll 0.4.0 */
 /**
  * @module UI
  * @namespace springroll
@@ -10,14 +10,15 @@
 	var ScaleManager;
 
 	/**
-	 *	A single UI item that needs to be resized,
-	 *	this is an internal class that you would not need to interact with.
+	 * A single UI item that needs to be resized,
+	 * this is an internal class that you would not need to interact with.
 	 *
-	 *	@class ScaleItem
-	 *	@param {PIXI.DisplayObject|createjs.DisplayObject} display The item to affect
-	 *	@param {String} align The vertical-horizontal alignment shorthand
-	 *	@param {springroll.ScreenSettings} designedScreen The original screen the item was designed for
-	 *	@param {DisplayAdapter} adapter The display adapter
+	 * @class ScaleItem
+	 * @private
+	 * @param {PIXI.DisplayObject|createjs.DisplayObject} display The item to affect
+	 * @param {String} align The vertical-horizontal alignment shorthand
+	 * @param {springroll.ScreenSettings} designedScreen The original screen the item was designed for
+	 * @param {DisplayAdapter} adapter The display adapter
 	 */
 	var ScaleItem = function(display, align, designedScreen, adapter)
 	{
@@ -30,65 +31,65 @@
 		align = align.split('-');
 
 		/**
-		 *	What vertical screen location the item should be aligned to: "top", "center", "bottom"
-		 *	@property {String} vertAlign
+		 * What vertical screen location the item should be aligned to: "top", "center", "bottom"
+		 * @property {String} vertAlign
 		 */
 		this.vertAlign = align[0];
 
 		/**
-		 *	What horizontal screen location the item should be aligned to: "left", "center", "right"
-		 *	@property {String} horiAlign
+		 * What horizontal screen location the item should be aligned to: "left", "center", "right"
+		 * @property {String} horiAlign
 		 */
 		this.horiAlign = align[1];
 
 		/**
-		 *	If this element should be aligned to the title safe area, not the actual screen.
-		 *	Values of "horizontal" and "vertical" make the title safe calculations take place only
-		 *	for one direction.
-		 *	@property {Boolean|String} titleSafe
-		 *	@default false
+		 * If this element should be aligned to the title safe area, not the actual screen.
+		 * Values of "horizontal" and "vertical" make the title safe calculations take place only
+		 * for one direction.
+		 * @property {Boolean|String} titleSafe
+		 * @default false
 		 */
 		this.titleSafe = false;
 
 		/**
-		 *	Maximum scale allowed in physical size
-		 *	@property {Number} maxScale
-		 *	@default 1
+		 * Maximum scale allowed in physical size
+		 * @property {Number} maxScale
+		 * @default 1
 		 */
 		this.maxScale = 1;
 
 		/**
-		 *	Minimum scale allowed in physical size
-		 *	@property {Number} minScale
-		 *	@default 1
+		 * Minimum scale allowed in physical size
+		 * @property {Number} minScale
+		 * @default 1
 		 */
 		this.minScale = 1;
 
 		/**
-		 *	If the UI element is centered horizontally
-		 *	@property {Boolean} centeredHorizontally
-		 *	@default false
+		 * If the UI element is centered horizontally
+		 * @property {Boolean} centeredHorizontally
+		 * @default false
 		 */
 		this.centeredHorizontally = false;
 
 		/**
-		 *  The reference to the interface item we're scaling
-		 *  @private
-		 *  @property {PIXI.DisplayObject|createjs.DisplayObject} _display
+		 * The reference to the interface item we're scaling
+		 * @private
+		 * @property {PIXI.DisplayObject|createjs.DisplayObject} _display
 		 */
 		this._display = display;
 
 		/**
-		 *  The original screen the item was designed for
-		 *  @private
-		 *  @property {ScreenSettings} _designedScreen
+		 * The original screen the item was designed for
+		 * @private
+		 * @property {ScreenSettings} _designedScreen
 		 */
 		this._designedScreen = designedScreen;
 
 		/**
-		 *  The adapter for universal scale, rotation size access
-		 *  @property {Object} _adapter
-		 *  @private
+		 * The adapter for universal scale, rotation size access
+		 * @property {Object} _adapter
+		 * @private
 		 */
 		this._adapter = adapter;
 
@@ -96,45 +97,45 @@
 		var position = adapter.getPosition(display);
 
 		/**
-		 *  Original X scale of the item
-		 *  @property {Number} origScaleX
-		 *  @default 0
+		 * Original X scale of the item
+		 * @property {Number} origScaleX
+		 * @default 0
 		 */
 		this.origScaleX = scale.x || 1;
 
 		/**
-		 *  The original Y scale of the item
-		 *  @property {Number} origScaleY
-		 *  @default 0
+		 * The original Y scale of the item
+		 * @property {Number} origScaleY
+		 * @default 0
 		 */
 		this.origScaleY = scale.y || 1;
 
 		/**
-		 *  Original width in pixels
-		 *  @property {Number} origWidth
-		 *  @default 0
+		 * Original width in pixels
+		 * @property {Number} origWidth
+		 * @default 0
 		 */
 		this.origWidth = display.width || 0;
 
 		/**
-		 *  The original bounds of the item with x, y, right, bottom, width, 
-		 *	height properties. Used to determine the distance to each edge of
-		 *	the item from its origin
-		 *  @property {Object} origBounds
+		 * The original bounds of the item with x, y, right, bottom, width, 
+		 * height properties. Used to determine the distance to each edge of
+		 * the item from its origin
+		 * @property {Object} origBounds
 		 */
 		this.origBounds = adapter.getLocalBounds(display);
 
 		/**
-		 *  Original horizontal margin in pixels
-		 *  @property {Number} origMarginHori
-		 *  @default 0
+		 * Original horizontal margin in pixels
+		 * @property {Number} origMarginHori
+		 * @default 0
 		 */
 		this.origMarginHori = 0;
 
 		/**
-		 *  Original vertical margin in pixels
-		 *  @property {Number} origMarginVert
-		 *  @default 0
+		 * Original vertical margin in pixels
+		 * @property {Number} origMarginVert
+		 * @default 0
 		 */
 		this.origMarginVert = 0;
 
@@ -202,10 +203,10 @@
 	});
 
 	/**
-	 *  Adjust the item scale and position, to reflect new screen
-	 *  @method resize
-	 *  @param {Number} displayWidth The current screen width
-	 *  @param {Number} displayHeight The current screen height
+	 * Adjust the item scale and position, to reflect new screen
+	 * @method resize
+	 * @param {Number} displayWidth The current screen width
+	 * @param {Number} displayHeight The current screen height
 	 */
 	p.resize = function(displayWidth, displayHeight)
 	{
@@ -353,8 +354,8 @@
 	};
 
 	/**
-	 *	Destroy this item, don't use after this
-	 *	@method destroy
+	 * Destroy this item, don't use after this
+	 * @method destroy
 	 */
 	p.destroy = function()
 	{
@@ -379,6 +380,7 @@
 	 * Initially layouts all interface elements
 	 * @class Positioner
 	 * @static
+	 * @private
 	 */
 	var Positioner = {};
 
@@ -401,12 +403,12 @@
 	 * @param {Number} [settings.pivot.y] The pivot point Y location
 	 * @param {Number} [settings.rotation] The initial rotation in degrees
 	 * @param {Object|Array} [settings.hitArea] An object which describes the hit area
-	 *                                          of the item or an array of points. See
-	 *                                          generateHitArea().
+	 *                                        of the item or an array of points. See
+	 *                                        generateHitArea().
 	 * @param {String} [settings.hitArea.type] If the hitArea is an object, the type
-	 *                                         of hit area, "rect", "ellipse", "circle", etc
+	 *                                       of hit area, "rect", "ellipse", "circle", etc
 	 * @param {DisplayAdapter} [adapter] The adapter for the display being positioned
-	 *                                   in. If omitted, uses the Application's default display.
+	 *                                 in. If omitted, uses the Application's default display.
 	 */
 	Positioner.init = function(displayObject, settings, adapter)
 	{
@@ -465,28 +467,28 @@
 	 * @method generateHitArea
 	 * @param {Object|Array} hitArea One of the following:
 	 *
-	 *     // An array of points for a polygon.
-	 *     [{x:0, y:0}, {x:0, y:20}, {x:20, y:0}]
+	 *   // An array of points for a polygon.
+	 *   [{x:0, y:0}, {x:0, y:20}, {x:20, y:0}]
 	 *
-	 *     // An object describing a rectangle.
-	 *     {type:"rect", x:0, y:0, w:10, h:30}
+	 *   // An object describing a rectangle.
+	 *   {type:"rect", x:0, y:0, w:10, h:30}
 	 *
-	 *     // An object describing an ellipse, where x and y are the center.
-	 *     {type:"ellipse", x:0, y:0, w:10, h:30}
+	 *   // An object describing an ellipse, where x and y are the center.
+	 *   {type:"ellipse", x:0, y:0, w:10, h:30}
 	 *
-	 *     // An object describing a circle, where x and y are the center.
-	 *     {type:"circle", x:0, y:0, r:20}
+	 *   // An object describing a circle, where x and y are the center.
+	 *   {type:"circle", x:0, y:0, r:20}
 	 *
-	 *     // An object describing a sector, where x and y are the center of a circle
-	 *     // and start/end are the start and end angles of the sector in degrees.
-	 *     {type:"sector", x:0, y:0, r:20, start:0, end:90}
+	 *   // An object describing a sector, where x and y are the center of a circle
+	 *   // and start/end are the start and end angles of the sector in degrees.
+	 *   {type:"sector", x:0, y:0, r:20, start:0, end:90}
 	 *
 	 * @param {Number} scale The size to scale hitArea by
 	 * @param {DisplayAdapter} [adapter] The adapter for the display being positioned
-	 *                                   in. If omitted, uses the Application's default display.
+	 *                                 in. If omitted, uses the Application's default display.
 	 * @return {Object} A geometric shape object for hit testing, either a Polygon,
-	 *                  Rectangle, Ellipse, Circle, or Sector, depending on the hitArea object.
-	 *                  The shape will have a contains() function for hit testing.
+	 *                Rectangle, Ellipse, Circle, or Sector, depending on the hitArea object.
+	 *                The shape will have a contains() function for hit testing.
 	 */
 	Positioner.generateHitArea = function(hitArea, scale, adapter)
 	{
@@ -585,7 +587,7 @@
 	 * @param {Number} [options.size.maxheight=size.height] The designed max height
 	 * @param {Object} [options.items] The items to load
 	 * @param {PIXI.DisplayObjectContainer|createjs.Container} [options.container] The container if
-	 *                                                                             adding items
+	 *                                                                           adding items
 	 * @param {Object} [options.display] The current display
 	 * @param {Boolean} [options.enabled=false] If the scaler is enabled
 	 */
@@ -644,6 +646,16 @@
 		 * @private
 		 */
 		this._enabled = options.enabled;
+
+		if (true)
+		{
+			/**
+			 * If we should log verbose messages (unminified module only!)
+			 * @property {Boolean} verbose
+			 * @default false
+			 */
+			this.verbose = false;
+		}
 
 		// Set the designed size
 		this.size = options.size;
@@ -902,11 +914,11 @@
 	 * Register a dictionary of items to the ScaleManager to control.
 	 * @method addItems
 	 * @param {PIXI.DisplayObjectContainer|createjs.Container} container The container where the
-	 *                                                                   items live as variables.
+	 *                                                                 items live as variables.
 	 * @param {object} items The items object where the keys are the name of the property on the
-	 *                       parent and the value is an object with keys of "titleSafe", "minScale",
-	 *                       "maxScale", "centerHorizontally", "align", see ScaleManager.addItem for a
-	 *                       description of the different keys.
+	 *                     parent and the value is an object with keys of "titleSafe", "minScale",
+	 *                     "maxScale", "centerHorizontally", "align", see ScaleManager.addItem for a
+	 *                     description of the different keys.
 	 * @return {springroll.ScaleManager} The instance of this ScaleManager for chaining
 	 */
 	p.addItems = function(container, items)
@@ -923,7 +935,7 @@
 
 			if (!container[name])
 			{
-				if (true && Debug)
+				if (true && Debug && this.verbose)
 				{
 					Debug.info("ScaleManager: could not find object '" + name + "'");
 				}
@@ -941,19 +953,19 @@
 	 * @param {createjs.DisplayObject|PIXI.DisplayObject} displayObject The display object item
 	 * @param {object|String} [settings="center"] The collection of settings or the align property
 	 * @param {String} [settings.align="center"] The vertical alignment ("top", "bottom", "center")
-	 *        then horizontal alignment ("left", "right" and "center"). Or you can use the short-
-	 *        handed versions: "center" = "center-center", "top" = "top-center", 
-	 *        "bottom" = "bottom-center", "left" = "center-left", "right" = "center-right".
+	 *      then horizontal alignment ("left", "right" and "center"). Or you can use the short-
+	 *      handed versions: "center" = "center-center", "top" = "top-center", 
+	 *      "bottom" = "bottom-center", "left" = "center-left", "right" = "center-right".
 	 * @param {Boolean|String} [settings.titleSafe=false] If the item needs to be in the title safe
-	 *        area. Acceptable values are false, "horizontal", "vertical", "all", and true.
-	 *        The default is false, and true is the same as "all".
+	 *      area. Acceptable values are false, "horizontal", "vertical", "all", and true.
+	 *      The default is false, and true is the same as "all".
 	 * @param {Number} [settings.minScale=NaN] The minimum scale amount (default, scales the same
-	 *        size as the stage)
+	 *      size as the stage)
 	 * @param {Number} [settings.maxScale=NaN] The maximum scale amount (default, scales the same
-	 *        size as the stage)
+	 *      size as the stage)
 	 * @param {Boolean} [settings.centeredHorizontally=false] Makes sure that the center of the
-	 *        object is directly in the center of the stage assuming origin point is in
-	 *        the upper-left corner.
+	 *      object is directly in the center of the stage assuming origin point is in
+	 *      the upper-left corner.
 	 * @param {Number} [settings.x] The initial X position of the item
 	 * @param {Number} [settings.y] The initial Y position of the item
 	 * @param {Object} [settings.scale] The initial scale
@@ -964,9 +976,9 @@
 	 * @param {Number} [settings.pivot.y] The pivot point Y location
 	 * @param {Number} [settings.rotation] The initial rotation in degrees
 	 * @param {Object|Array} [settings.hitArea] An object which describes the hit area of the item
-	 *        or an array of points.
+	 *      or an array of points.
 	 * @param {String} [settings.hitArea.type] If the hitArea is an object, the type of hit area,
-	 *        "rect", "ellipse", "circle", etc
+	 *      "rect", "ellipse", "circle", etc
 	 * @return {springroll.ScaleManager} The instance of this ScaleManager for chaining
 	 */
 	p.addItem = function(displayObject, settings, doResize)
@@ -1038,12 +1050,12 @@
 	};
 
 	/**
-	 *  Add background bitmaps to scale full screen, this will attempt to
-	 *  scale the background to the height of the display and crop on
-	 *  the left and right.
-	 *  @method addBackground
-	 *  @param {Bitmap} The bitmap to scale or collection of bitmaps
-	 *  @return {springroll.ScaleManager} The ScaleManager for chaining
+	 * Add background bitmaps to scale full screen, this will attempt to
+	 * scale the background to the height of the display and crop on
+	 * the left and right.
+	 * @method addBackground
+	 * @param {Bitmap} The bitmap to scale or collection of bitmaps
+	 * @return {springroll.ScaleManager} The ScaleManager for chaining
 	 */
 	p.addBackground = function(bitmap)
 	{
@@ -1057,10 +1069,10 @@
 	};
 
 	/**
-	 *  Remove background
-	 *  @method removeBackground
-	 *  @param {Bitmap} bitmap The bitmap added
-	 *  @return {springroll.ScaleManager} The ScaleManager for chaining
+	 * Remove background
+	 * @method removeBackground
+	 * @param {Bitmap} bitmap The bitmap added
+	 * @return {springroll.ScaleManager} The ScaleManager for chaining
 	 */
 	p.removeBackground = function(bitmap)
 	{
@@ -1181,9 +1193,9 @@
 
 }());
 /**
- *	@module UI
- *	@namespace springroll
- *	@requires Core
+ * @module UI
+ * @namespace springroll
+ * @requires Core
  */
 (function()
 {
@@ -1193,33 +1205,27 @@
 		Debug;
 
 	/**
-	 *	Create an app plugin for touch detecting, all properties and methods documented
-	 *	in this class are mixed-in to the main Application
-	 *	@class ScalingPlugin
-	 *	@extends springroll.ApplicationPlugin
+	 * Create an app plugin for touch detecting, all properties and methods documented
+	 * in this class are mixed-in to the main Application
+	 * @class ScalingPlugin
+	 * @extends springroll.ApplicationPlugin
 	 */
-	var ScalingPlugin = function()
-	{
-		ApplicationPlugin.call(this);
-	};
-
-	//Reference to the prototype
-	var p = extend(ScalingPlugin, ApplicationPlugin);
+	var plugin = new ApplicationPlugin();
 
 	//Init the scaling
-	p.setup = function()
+	plugin.setup = function()
 	{
 		Debug = include('springroll.Debug', false);
 
 		/**
-		 *	The main ScaleManager for any display object references
-		 *	in the main game.
-		 *	@property {springroll.ScaleManager} scaling
+		 * The main ScaleManager for any display object references
+		 * in the main game.
+		 * @property {springroll.ScaleManager} scaling
 		 */
 		this.scaling = new ScaleManager();
 
 		//Add the scaling size
-		this.on('configLoaded', function(config)
+		this.once('configLoaded', function(config)
 		{
 			var scalingSize = config.scalingSize;
 			if (scalingSize)
@@ -1247,7 +1253,7 @@
 	};
 
 	//Setup the display
-	p.preload = function(done)
+	plugin.preload = function(done)
 	{
 		this.scaling.display = this.display;
 		this.scaling.enabled = true;
@@ -1255,61 +1261,48 @@
 	};
 
 	//Clean up
-	p.teardown = function()
+	plugin.teardown = function()
 	{
 		if (this.scaling) this.scaling.destroy();
 		this.scaling = null;
 	};
 
-	//Register plugin
-	ApplicationPlugin.register(ScalingPlugin);
-
 }());
 /**
- *	@module UI
- *	@namespace springroll
- *	@requires Core
+ * @module UI
+ * @namespace springroll
+ * @requires Core
  */
 (function()
 {
-	// Include classes
 	var ApplicationPlugin = include('springroll.ApplicationPlugin');
-
+	
 	/**
-	 *	Create an app plugin for touch detecting, all properties and methods documented
-	 *	in this class are mixed-in to the main Application
-	 *	@class TouchPlugin
-	 *	@extends springroll.ApplicationPlugin
+	 * Create an app plugin for touch detecting, all properties and methods documented
+	 * in this class are mixed-in to the main Application
+	 * @class TouchPlugin
+	 * @extends springroll.ApplicationPlugin
 	 */
-	var TouchPlugin = function()
-	{
-		ApplicationPlugin.call(this);
-		
-		//Touch detecting should happen early, in case asset loading depends on it
-		this.priority = 100;
-	};
-
-	// Reference to the prototype
-	var p = extend(TouchPlugin, ApplicationPlugin);
+	var plugin = new ApplicationPlugin(100);
 
 	// Init the animator
-	p.setup = function()
+	plugin.setup = function()
 	{
 		/**
-		 *	If the current brower is iOS
-		 *	@property {Boolean} isIOS
+		 * If the current brower is iOS
+		 * @property {Boolean} isIOS
 		 */
 		this.isIOS = navigator.userAgent.search(/iPhone|iPad|iPod/) > -1;
 
 		/**
-		 *	If the current brower is Android
-		 *	@property {Boolean} isAndroid
+		 * If the current brower is Android
+		 * @property {Boolean} isAndroid
 		 */
 		this.isAndroid = navigator.userAgent.search(/Android/) > -1;
 
 		/**
-		 *	If the current brower has touch input available
-		 *	@property {Boolean} hasTouch
+		 * If the current brower has touch input available
+		 * @property {Boolean} hasTouch
 		 */
 		this.hasTouch = !!(('ontouchstart' in window) || // iOS & Android
 			(window.navigator.msPointerEnabled && window.navigator.msMaxTouchPoints > 0) || // IE10
@@ -1318,9 +1311,9 @@
 		if (true)
 		{
 			/**
-			 *	Manually override the check for hasTouch (unminifed library version only)
-			 *	@property {Boolean} options.forceTouch
-			 *	@default false
+			 * Manually override the check for hasTouch (unminifed library version only)
+			 * @property {Boolean} options.forceTouch
+			 * @default false
 			 */
 			this.options.add('forceTouch', false)
 				.on('forceTouch', function(value)
@@ -1339,7 +1332,7 @@
 	};
 
 	// Add common filteres interaction
-	p.preload = function(done)
+	plugin.preload = function(done)
 	{
 		if (true)
 		{
@@ -1357,8 +1350,5 @@
 		}
 		done();
 	};
-
-	// Register plugin
-	ApplicationPlugin.register(TouchPlugin);
 
 }());

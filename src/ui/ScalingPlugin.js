@@ -1,7 +1,7 @@
 /**
- *	@module UI
- *	@namespace springroll
- *	@requires Core
+ * @module UI
+ * @namespace springroll
+ * @requires Core
  */
 (function()
 {
@@ -11,33 +11,27 @@
 		Debug;
 
 	/**
-	 *	Create an app plugin for touch detecting, all properties and methods documented
-	 *	in this class are mixed-in to the main Application
-	 *	@class ScalingPlugin
-	 *	@extends springroll.ApplicationPlugin
+	 * Create an app plugin for touch detecting, all properties and methods documented
+	 * in this class are mixed-in to the main Application
+	 * @class ScalingPlugin
+	 * @extends springroll.ApplicationPlugin
 	 */
-	var ScalingPlugin = function()
-	{
-		ApplicationPlugin.call(this);
-	};
-
-	//Reference to the prototype
-	var p = extend(ScalingPlugin, ApplicationPlugin);
+	var plugin = new ApplicationPlugin();
 
 	//Init the scaling
-	p.setup = function()
+	plugin.setup = function()
 	{
 		Debug = include('springroll.Debug', false);
 
 		/**
-		 *	The main ScaleManager for any display object references
-		 *	in the main game.
-		 *	@property {springroll.ScaleManager} scaling
+		 * The main ScaleManager for any display object references
+		 * in the main game.
+		 * @property {springroll.ScaleManager} scaling
 		 */
 		this.scaling = new ScaleManager();
 
 		//Add the scaling size
-		this.on('configLoaded', function(config)
+		this.once('configLoaded', function(config)
 		{
 			var scalingSize = config.scalingSize;
 			if (scalingSize)
@@ -65,7 +59,7 @@
 	};
 
 	//Setup the display
-	p.preload = function(done)
+	plugin.preload = function(done)
 	{
 		this.scaling.display = this.display;
 		this.scaling.enabled = true;
@@ -73,13 +67,10 @@
 	};
 
 	//Clean up
-	p.teardown = function()
+	plugin.teardown = function()
 	{
 		if (this.scaling) this.scaling.destroy();
 		this.scaling = null;
 	};
-
-	//Register plugin
-	ApplicationPlugin.register(ScalingPlugin);
 
 }());

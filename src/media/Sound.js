@@ -7,70 +7,62 @@
 {
 	var Application = include('springroll.Application'),
 		Debug,
-		Loader,
-		LoadTask,
-		TaskManager,
 		SoundContext,
 		SoundInstance,
-		SoundListTask,
 		WebAudioPlugin = include('createjs.WebAudioPlugin'),
 		FlashAudioPlugin = include('createjs.FlashAudioPlugin', false),
 		SoundJS = include('createjs.Sound'),
 		Enum = include('springroll.Enum');
 
 	/**
-	*  Acts as a wrapper for SoundJS as well as adding lots of other functionality
-	*  for managing sounds.
-	*
-	*  @class Sound
-	*/
+	 * Acts as a wrapper for SoundJS as well as adding lots of other functionality
+	 * for managing sounds.
+	 *
+	 * @class Sound
+ 	 */
 	var Sound = function()
 	{
 		// Import classes
-		if (!Loader)
+		if (!SoundInstance)
 		{
 			Debug = include('springroll.Debug', false);
-			Loader = include('springroll.Loader');
-			LoadTask = include('springroll.LoadTask', false);
-			TaskManager = include('springroll.TaskManager', false);
 			SoundContext = include('springroll.SoundContext');
 			SoundInstance = include('springroll.SoundInstance');
-			SoundListTask = include('springroll.SoundListTask', false);
 		}
 
 		/**
-		*  Dictionary of sound objects, containing configuration info and playback objects.
-		*  @property {Object} _sounds
-		*  @private
-		*/
+		 * Dictionary of sound objects, containing configuration info and playback objects.
+		 * @property {Object} _sounds
+		 * @private
+	 	 */
 		this._sounds = {};
 
 		/**
-		*  Array of SoundInstance objects that are being faded in or out.
-		*  @property {Array} _fades
-		*  @private
-		*/
+		 * Array of SoundInstance objects that are being faded in or out.
+		 * @property {Array} _fades
+		 * @private
+	 	 */
 		this._fades = [];
 
 		/**
-		*  Array of SoundInstance objects waiting to be used.
-		*  @property {Array} _pool
-		*  @private
-		*/
+		 * Array of SoundInstance objects waiting to be used.
+		 * @property {Array} _pool
+		 * @private
+	 	 */
 		this._pool = [];
 
 		/**
-		*  The extension of the supported sound type that will be used.
-		*  @property {string} supportedSound
-		*  @public
-		*/
+		 * The extension of the supported sound type that will be used.
+		 * @property {string} supportedSound
+		 * @public
+	 	 */
 		this.supportedSound = null;
 
 		/**
-		*  Dictionary of SoundContexts.
-		*  @property {Object} _contexts
-		*  @private
-		*/
+		 * Dictionary of SoundContexts.
+		 * @property {Object} _contexts
+		 * @private
+	 	 */
 		this._contexts = {};
 
 		// Bindings
@@ -79,11 +71,11 @@
 		this._playAfterLoad = this._playAfterLoad.bind(this);
 
 		/**
-		*  If sound is enabled. This will only be false if Sound was unable to initialize
-		*  a SoundJS plugin.
-		*  @property {Boolean} soundEnabled
-		*  @readOnly
-		*/
+		 * If sound is enabled. This will only be false if Sound was unable to initialize
+		 * a SoundJS plugin.
+		 * @property {Boolean} soundEnabled
+		 * @readOnly
+	 	 */
 		this.soundEnabled = true;
 	};
 
@@ -95,21 +87,21 @@
 	var LoadStates = new Enum("unloaded", "loading", "loaded");
 
 	/**
-	*  Initializes the Sound singleton. If using createjs.FlashAudioPlugin, you will be responsible for
-	*  setting createjs.FlashAudioPlugin.BASE_PATH.
-	*  @method init
-	*  @static
-	*  @param {Object|Function} options Either the options object or the ready function
-	*  @param {Array} [options.plugins=createjs.WebAudioPlugin,createjs.FlashAudioPlugin] The SoundJS
-	*                                         plugins to pass to createjs.Sound.registerPlugins().
-	*  @param {Array} [options.types=['ogg','mp3']] The order in which file types are preferred,
-	*                                               where "ogg" becomes a ".ogg" extension on all
-	*                                               sound file urls.
-	*  @param {String} [options.swfPath='assets/swfs/'] The required path to the
-	*                                                   createjs.FlashAudioPlugin SWF
-	*  @param {Function} [options.ready] A function to call when initialization is complete.
-	*  @return {Sound} The new instance of the sound object
-	*/
+	 * Initializes the Sound singleton. If using createjs.FlashAudioPlugin, you will be responsible for
+	 * setting createjs.FlashAudioPlugin.BASE_PATH.
+	 * @method init
+	 * @static
+	 * @param {Object|Function} options Either the options object or the ready function
+	 * @param {Array} [options.plugins=createjs.WebAudioPlugin,createjs.FlashAudioPlugin] The SoundJS
+	 *                                      plugins to pass to createjs.Sound.registerPlugins().
+	 * @param {Array} [options.types=['ogg','mp3']] The order in which file types are preferred,
+	 *                                            where "ogg" becomes a ".ogg" extension on all
+	 *                                            sound file urls.
+	 * @param {String} [options.swfPath='assets/swfs/'] The required path to the
+	 *                                                createjs.FlashAudioPlugin SWF
+	 * @param {Function} [options.ready] A function to call when initialization is complete.
+	 * @return {Sound} The new instance of the sound object
+ 	 */
 	Sound.init = function(options, readyCallback)
 	{
 		var appOptions = Application.instance.options;
@@ -195,10 +187,10 @@
 	};
 
 	/**
-	*  Statisfies the iOS event needed to initialize the audio
-	*  @private
-	*  @method _playEmpty
-	*/
+	 * Statisfies the iOS event needed to initialize the audio
+	 * @private
+	 * @method _playEmpty
+ 	 */
 	function _playEmpty()
 	{
 		document.removeEventListener("touchstart", _playEmpty);
@@ -206,12 +198,12 @@
 	}
 
 	/**
-	*  When the initialization as completed
-	*  @method
-	*  @private
-	*  @param {Array} filetypeOrder The list of files types
-	*  @param {Function} callback The callback function
-	*/
+	 * When the initialization as completed
+	 * @method
+	 * @private
+	 * @param {Array} filetypeOrder The list of files types
+	 * @param {Function} callback The callback function
+ 	 */
 	p._initComplete = function(filetypeOrder, callback)
 	{
 		if (FlashAudioPlugin && SoundJS.activePlugin instanceof FlashAudioPlugin)
@@ -239,46 +231,46 @@
 	};
 
 	/**
-	*  The singleton instance of Sound.
-	*  @property {Sound} instance
-	*  @public
-	*  @static
-	*/
+	 * The singleton instance of Sound.
+	 * @property {Sound} instance
+	 * @public
+	 * @static
+ 	 */
 	Object.defineProperty(Sound, "instance",
 	{
 		get: function() { return _instance; }
 	});
 
 	/**
-	*  Loads a context config object. This should not be called until after Sound.init() is complete.
-	*  @method addContext
-	*  @public
-	*  @param {Object} config The config to load.
-	*  @param {String} [config.context] The optional sound context to load sounds into unless
-	*                                   otherwise specified by the individual sound. Sounds do not
-	*                                   require a context.
-	*  @param {String} [config.path=""] The path to prepend to all sound source urls in this config.
-	*  @param {Array} config.sounds The list of sounds, either as String ids or Objects with
-	*                                      settings.
-	*  @param {Object|String} config.sounds.listItem Not actually a property called listItem,
-	*                                                       but an entry in the array. If this is a
-	*                                                       string, then it is the same as
-	*                                                       {'id':'<yourString>'}.
-	*  @param {String} config.sounds.listItem.id The id to reference the sound by.
-	*  @param {String} [config.sounds.listItem.src] The src path to the file, without an
-	*                                                      extension. If omitted, defaults to id.
-	*  @param {Number} [config.sounds.listItem.volume=1] The default volume for the sound,
-	*                                                           from 0 to 1.
-	*  @param {Boolean} [config.sounds.listItem.loop=false] If the sound should loop by
-	*                                                              default whenever the loop
-	*                                                              parameter in play() is not
-	*                                                              specified.
-	*  @param {String} [config.sounds.listItem.context] A context name to override
-	*                                                          config.context with.
-	*  @param {Boolean} [config.sounds.listItem.preload] If the sound should be preloaded
-	*                                                           immediately.
-	*  @return {Sound} The sound object for chaining
-	*/
+	 * Loads a context config object. This should not be called until after Sound.init() is complete.
+	 * @method addContext
+	 * @public
+	 * @param {Object} config The config to load.
+	 * @param {String} [config.context] The optional sound context to load sounds into unless
+	 *                                otherwise specified by the individual sound. Sounds do not
+	 *                                require a context.
+	 * @param {String} [config.path=""] The path to prepend to all sound source urls in this config.
+	 * @param {Array} config.sounds The list of sounds, either as String ids or Objects with
+	 *                                   settings.
+	 * @param {Object|String} config.sounds.listItem Not actually a property called listItem,
+	 *                                                    but an entry in the array. If this is a
+	 *                                                    string, then it is the same as
+	 *                                                    {'id':'<yourString>'}.
+	 * @param {String} config.sounds.listItem.id The id to reference the sound by.
+	 * @param {String} [config.sounds.listItem.src] The src path to the file, without an
+	 *                                                   extension. If omitted, defaults to id.
+	 * @param {Number} [config.sounds.listItem.volume=1] The default volume for the sound,
+	 *                                                        from 0 to 1.
+	 * @param {Boolean} [config.sounds.listItem.loop=false] If the sound should loop by
+	 *                                                           default whenever the loop
+	 *                                                           parameter in play() is not
+	 *                                                           specified.
+	 * @param {String} [config.sounds.listItem.context] A context name to override
+	 *                                                       config.context with.
+	 * @param {Boolean} [config.sounds.listItem.preload] If the sound should be preloaded
+	 *                                                        immediately.
+	 * @return {Sound} The sound object for chaining
+ 	 */
 	p.addContext = function(config)
 	{
 		if (!config)
@@ -321,7 +313,7 @@
 			//preload the sound for immediate-ish use
 			if(s.preload === true)
 			{
-				this.preloadSound(temp.id);
+				this.preload(temp.id);
 			}
 		}
 		//return the Sound instance for chaining
@@ -329,82 +321,74 @@
 	};
 
 	/**
-	*  Old method for loading a context config object.
-	*  @method loadConfig
-	*  @param {Object} config The config to load.
-	*  @deprecated Use `addContext(config)` instead.
-	*/
-	p.loadConfig = p.addContext;
-
-	/**
-	*	If a sound exists in the list of recognized sounds.
-	*	@method exists
-	*	@public
-	*	@param {String} alias The alias of the sound to look for.
-	*	@return {Boolean} true if the sound exists, false otherwise.
-	*/
+	 * If a sound exists in the list of recognized sounds.
+	 * @method exists
+	 * @public
+	 * @param {String} alias The alias of the sound to look for.
+	 * @return {Boolean} true if the sound exists, false otherwise.
+ 	 */
 	p.exists = function(alias)
 	{
 		return !!this._sounds[alias];
 	};
 
 	/**
-	*	If a context exists
-	*	@method contextExists
-	*	@public
-	*	@param {String} context The name of context to look for.
-	*	@return {Boolean} true if the context exists, false otherwise.
-	*/
+	 * If a context exists
+	 * @method contextExists
+	 * @public
+	 * @param {String} context The name of context to look for.
+	 * @return {Boolean} true if the context exists, false otherwise.
+ 	 */
 	p.contextExists = function(context)
 	{
 		return !!this._contexts[context];
 	};
 
 	/**
-	*	If a sound is unloaded.
-	*	@method isUnloaded
-	*	@public
-	*	@param {String} alias The alias of the sound to look for.
-	*	@return {Boolean} true if the sound is unloaded, false if it is loaded, loading or does not exist.
-	*/
+	 * If a sound is unloaded.
+	 * @method isUnloaded
+	 * @public
+	 * @param {String} alias The alias of the sound to look for.
+	 * @return {Boolean} true if the sound is unloaded, false if it is loaded, loading or does not exist.
+ 	 */
 	p.isUnloaded = function(alias)
 	{
 		return this._sounds[alias] ? this._sounds[alias].loadState == LoadStates.unloaded : false;
 	};
 
 	/**
-	*	If a sound is loaded.
-	*	@method isLoaded
-	*	@public
-	*	@param {String} alias The alias of the sound to look for.
-	*	@return {Boolean} true if the sound is loaded, false if it is not loaded or does not exist.
-	*/
+	 * If a sound is loaded.
+	 * @method isLoaded
+	 * @public
+	 * @param {String} alias The alias of the sound to look for.
+	 * @return {Boolean} true if the sound is loaded, false if it is not loaded or does not exist.
+ 	 */
 	p.isLoaded = function(alias)
 	{
 		return this._sounds[alias] ? this._sounds[alias].loadState == LoadStates.loaded : false;
 	};
 
 	/**
-	*  If a sound is in the process of being loaded
-	*  @method isLoading
-	*  @public
-	*  @param {String} alias The alias of the sound to look for.
-	*  @return {Boolean} A value of true if the sound is currently loading, false if it is loaded,
-	*                    unloaded, or does not exist.
-	*/
+	 * If a sound is in the process of being loaded
+	 * @method isLoading
+	 * @public
+	 * @param {String} alias The alias of the sound to look for.
+	 * @return {Boolean} A value of true if the sound is currently loading, false if it is loaded,
+	 *                 unloaded, or does not exist.
+ 	 */
 	p.isLoading = function(alias)
 	{
 		return this._sounds[alias] ? this._sounds[alias].loadState == LoadStates.loading : false;
 	};
 
 	/**
-	*  If a sound is playing.
-	*  @method isPlaying
-	*  @public
-	*  @param {String} alias The alias of the sound to look for.
-	*  @return {Boolean} A value of true if the sound is currently playing or loading with an intent
-	*                    to play, false if it is not playing or does not exist.
-	*/
+	 * If a sound is playing.
+	 * @method isPlaying
+	 * @public
+	 * @param {String} alias The alias of the sound to look for.
+	 * @return {Boolean} A value of true if the sound is currently playing or loading with an intent
+	 *                 to play, false if it is not playing or does not exist.
+ 	 */
 	p.isPlaying = function(alias)
 	{
 		var sound = this._sounds[alias];
@@ -412,13 +396,13 @@
 	};
 	
 	/**
-	*  Gets the duration of a sound in milliseconds, if it has been loaded.
-	*  @method getDuration
-	*  @public
-	*  @param {String} alias The alias of the sound to look for.
-	*  @return {int|null} The duration of the sound in milliseconds. If the sound has not been
-	*                     loaded, 0 is returned. If no sound exists by that alias, null is returned.
-	*/
+	 * Gets the duration of a sound in milliseconds, if it has been loaded.
+	 * @method getDuration
+	 * @public
+	 * @param {String} alias The alias of the sound to look for.
+	 * @return {int|null} The duration of the sound in milliseconds. If the sound has not been
+	 *                  loaded, 0 is returned. If no sound exists by that alias, null is returned.
+ 	 */
 	p.getDuration = function(alias)
 	{
 		var sound = this._sounds[alias];
@@ -441,16 +425,16 @@
 	};
 
 	/**
-	*  Fades a sound from 0 to a specified volume.
-	*  @method fadeIn
-	*  @public
-	*  @param {String|SoundInstance} aliasOrInst The alias of the sound to fade the last played
-	*                                            instance of, or an instance returned from play().
-	*  @param {Number} [duration=500] The duration in milliseconds to fade for. The default is
-	*                                 500ms.
-	*  @param {Number} [targetVol] The volume to fade to. The default is the sound's default volume.
-	*  @param {Number} [startVol=0] The volume to start from. The default is 0.
-	*/
+	 * Fades a sound from 0 to a specified volume.
+	 * @method fadeIn
+	 * @public
+	 * @param {String|SoundInstance} aliasOrInst The alias of the sound to fade the last played
+	 *                                         instance of, or an instance returned from play().
+	 * @param {Number} [duration=500] The duration in milliseconds to fade for. The default is
+	 *                              500ms.
+	 * @param {Number} [targetVol] The volume to fade to. The default is the sound's default volume.
+	 * @param {Number} [startVol=0] The volume to start from. The default is 0.
+ 	 */
 	p.fadeIn = function(aliasOrInst, duration, targetVol, startVol)
 	{
 		var sound, inst;
@@ -483,17 +467,17 @@
 	};
 
 	/**
-	*  Fades a sound from the current volume to a specified volume. A sound that ends at 0 volume
-	*  is stopped after the fade.
-	*  @method fadeOut
-	*  @public
-	*  @param {String|SoundInstance} aliasOrInst The alias of the sound to fade the last played
-	*                                            instance of, or an instance returned from play().
-	*  @param {Number} [duration=500] The duration in milliseconds to fade for. The default is
-	*                                 500ms.
-	*  @param {Number} [targetVol=0] The volume to fade to. The default is 0.
-	*  @param {Number} [startVol] The volume to fade from. The default is the current volume.
-	*/
+	 * Fades a sound from the current volume to a specified volume. A sound that ends at 0 volume
+	 * is stopped after the fade.
+	 * @method fadeOut
+	 * @public
+	 * @param {String|SoundInstance} aliasOrInst The alias of the sound to fade the last played
+	 *                                         instance of, or an instance returned from play().
+	 * @param {Number} [duration=500] The duration in milliseconds to fade for. The default is
+	 *                              500ms.
+	 * @param {Number} [targetVol=0] The volume to fade to. The default is 0.
+	 * @param {Number} [startVol] The volume to fade from. The default is the current volume.
+ 	 */
 	p.fadeOut = function(aliasOrInst, duration, targetVol, startVol)
 	{
 		var sound, inst;
@@ -531,11 +515,11 @@
 	};
 
 	/**
-	*	The update call, used for fading sounds. This is bound to the instance of Sound
-	*	@method _update
-	*	@private
-	*	@param {int} elapsed The time elapsed since the previous frame, in milliseconds.
-	*/
+	 * The update call, used for fading sounds. This is bound to the instance of Sound
+	 * @method _update
+	 * @private
+	 * @param {int} elapsed The time elapsed since the previous frame, in milliseconds.
+ 	 */
 	p._update = function(elapsed)
 	{
 		var fades = this._fades;
@@ -586,32 +570,32 @@
 	};
 
 	/**
-	*  Plays a sound.
-	*  @method play
-	*  @public
-	*  @param {String} alias The alias of the sound to play.
-	*  @param {Object|function} [options] The object of optional parameters or complete callback
-	*                                     function.
-	*  @param {Function} [options.complete] An optional function to call when the sound is finished.
-	*  @param {Function} [options.start] An optional function to call when the sound starts
-	*                                    playback. If the sound is loaded, this is called
-	*                                    immediately, if not, it calls when the sound is finished
-	*                                    loading.
-	*  @param {Boolean} [options.interrupt=false] If the sound should interrupt previous sounds
-	*                                             (SoundJS parameter). Default is false.
-	*  @param {Number} [options.delay=0] The delay to play the sound at in milliseconds (SoundJS
-	*                                    parameter). Default is 0.
-	*  @param {Number} [options.offset=0] The offset into the sound to play in milliseconds
-	*                                     (SoundJS parameter). Default is 0.
-	*  @param {int} [options.loop=0] How many times the sound should loop. Use -1 (or true) for
-	*                                infinite loops (SoundJS parameter). Default is no looping.
-	*  @param {Number} [options.volume] The volume to play the sound at (0 to 1). Omit to use the
-	*                                   default for the sound.
-	*  @param {Number} [options.pan=0] The panning to start the sound at (-1 to 1). Default is
-	*                                  centered (0).
-	*  @return {SoundInstance} An internal SoundInstance object that can be used for fading in/out
-	*                             as well as pausing and getting the sound's current position.
-	*/
+	 * Plays a sound.
+	 * @method play
+	 * @public
+	 * @param {String} alias The alias of the sound to play.
+	 * @param {Object|function} [options] The object of optional parameters or complete callback
+	 *                                  function.
+	 * @param {Function} [options.complete] An optional function to call when the sound is finished.
+	 * @param {Function} [options.start] An optional function to call when the sound starts
+	 *                                 playback. If the sound is loaded, this is called
+	 *                                 immediately, if not, it calls when the sound is finished
+	 *                                 loading.
+	 * @param {Boolean} [options.interrupt=false] If the sound should interrupt previous sounds
+	 *                                          (SoundJS parameter). Default is false.
+	 * @param {Number} [options.delay=0] The delay to play the sound at in milliseconds (SoundJS
+	 *                                 parameter). Default is 0.
+	 * @param {Number} [options.offset=0] The offset into the sound to play in milliseconds
+	 *                                  (SoundJS parameter). Default is 0.
+	 * @param {int} [options.loop=0] How many times the sound should loop. Use -1 (or true) for
+	 *                             infinite loops (SoundJS parameter). Default is no looping.
+	 * @param {Number} [options.volume] The volume to play the sound at (0 to 1). Omit to use the
+	 *                                default for the sound.
+	 * @param {Number} [options.pan=0] The panning to start the sound at (-1 to 1). Default is
+	 *                               centered (0).
+	 * @return {SoundInstance} An internal SoundInstance object that can be used for fading in/out
+	 *                          as well as pausing and getting the sound's current position.
+ 	 */
 	p.play = function (alias, options, startCallback, interrupt, delay, offset, loop, volume, pan)
 	{
 		if (!this.soundEnabled) return;
@@ -701,7 +685,7 @@
 			}
 			else
 				inst._startParams = [interrupt, delay, offset, loop];
-			this.preloadSound(sound.id);
+			this.preload(sound.id);
 			return inst;
 		}
 		else if (loadState == LoadStates.loading)
@@ -729,14 +713,14 @@
 	};
 
 	/**
-	*  Gets a SoundInstance, from the pool if available or maks a new one if not.
-	*  @method _getSoundInst
-	*  @private
-	*  @param {createjs.SoundInstance} channel A createjs SoundInstance to initialize the object
-	*                                          with.
-	*  @param {String} id The alias of the sound that is going to be used.
-	*  @return {SoundInstance} The SoundInstance that is ready to use.
-	*/
+	 * Gets a SoundInstance, from the pool if available or maks a new one if not.
+	 * @method _getSoundInst
+	 * @private
+	 * @param {createjs.SoundInstance} channel A createjs SoundInstance to initialize the object
+	 *                                       with.
+	 * @param {String} id The alias of the sound that is going to be used.
+	 * @return {SoundInstance} The SoundInstance that is ready to use.
+ 	 */
 	p._getSoundInst = function(channel, id)
 	{
 		var rtn;
@@ -755,14 +739,14 @@
 	};
 
 	/**
-	*	Plays a sound after it finishes loading.
-	*	@method _playAfterload
-	*	@private
-	*	@param {String|Object} result The sound to play as an alias or load manifest.
-	*/
+	 * Plays a sound after it finishes loading.
+	 * @method _playAfterload
+	 * @private
+	 * @param {String|Object} result The sound to play as an alias or load manifest.
+ 	 */
 	p._playAfterLoad = function(result)
 	{
-		var alias = isString(result) ? result : result.id;
+		var alias = isString(result) ? result : result.data.id;
 		var sound = this._sounds[alias];
 		sound.loadState = LoadStates.loaded;
 
@@ -779,15 +763,22 @@
 			startParams = inst._startParams;
 			volume = inst.curVol;
 			pan = inst._pan;
-			//startParams[0] is interrupt;
-			//startParams[1] is delay;
-			//startParams[2] is offset;
-			//startParams[3] is loop;
-			channel = SoundJS.play(alias, startParams[0], startParams[1], startParams[2],
-									startParams[3], volume, pan);
+			channel = SoundJS.play(
+				alias, 
+				startParams[0], // interrupt
+				startParams[1], // delay
+				startParams[2], // offset
+				startParams[3], // loop
+				volume, 
+				pan
+			);
 
 			if (!channel || channel.playState == SoundJS.PLAY_FAILED)
 			{
+				if (DEBUG && Debug)
+				{
+					Debug.error("Play failed for sound '%s'", alias);
+				}
 				if (inst._endCallback)
 					inst._endCallback();
 				this._poolInst(inst);
@@ -813,11 +804,11 @@
 	};
 
 	/**
-	*	The callback used for when a sound instance is complete.
-	*	@method _onSoundComplete
-	*	@private
-	*	@param {SoundInstance} inst The SoundInstance that is complete.s
-	*/
+	 * The callback used for when a sound instance is complete.
+	 * @method _onSoundComplete
+	 * @private
+	 * @param {SoundInstance} inst The SoundInstance that is complete.s
+ 	 */
 	p._onSoundComplete = function(inst)
 	{
 		if (inst._channel)
@@ -835,11 +826,11 @@
 	};
 
 	/**
-	*	Stops all playing or loading instances of a given sound.
-	*	@method stop
-	*	@public
-	*	@param {String} alias The alias of the sound to stop.
-	*/
+	 * Stops all playing or loading instances of a given sound.
+	 * @method stop
+	 * @public
+	 * @param {String} alias The alias of the sound to stop.
+ 	 */
 	p.stop = function(alias)
 	{
 		var s = this._sounds[alias];
@@ -861,11 +852,11 @@
 	};
 
 	/**
-	*	Stops all playing SoundInstances for a sound.
-	*	@method _stopSound
-	*	@private
-	*	@param {Object} s The sound (from the _sounds dictionary) to stop.
-	*/
+	 * Stops all playing SoundInstances for a sound.
+	 * @method _stopSound
+	 * @private
+	 * @param {Object} s The sound (from the _sounds dictionary) to stop.
+ 	 */
 	p._stopSound = function(s)
 	{
 		var arr = s.playing;
@@ -877,11 +868,11 @@
 	};
 
 	/**
-	*	Stops and repools a specific SoundInstance.
-	*	@method _stopInst
-	*	@private
-	*	@param {SoundInstance} inst The SoundInstance to stop.
-	*/
+	 * Stops and repools a specific SoundInstance.
+	 * @method _stopInst
+	 * @private
+	 * @param {SoundInstance} inst The SoundInstance to stop.
+ 	 */
 	p._stopInst = function(inst)
 	{
 		if (inst._channel)
@@ -893,11 +884,11 @@
 	};
 
 	/**
-	*	Stops all sounds in a given context.
-	*	@method stopContext
-	*	@public
-	*	@param {String} context The name of the context to stop.
-	*/
+	 * Stops all sounds in a given context.
+	 * @method stopContext
+	 * @public
+	 * @param {String} context The name of the context to stop.
+ 	 */
 	p.stopContext = function(context)
 	{
 		context = this._contexts[context];
@@ -929,12 +920,12 @@
 	};
 
 	/**
-	*	Pauses a specific sound.
-	*	@method pauseSound
-	*	@public
-	*	@param {String} alias The alias of the sound to pause.
-	*		Internally, this can also be the object from the _sounds dictionary directly.
-	*/
+	 * Pauses a specific sound.
+	 * @method pauseSound
+	 * @public
+	 * @param {String} alias The alias of the sound to pause.
+	 * 	Internally, this can also be the object from the _sounds dictionary directly.
+ 	 */
 	p.pauseSound = function(sound)
 	{
 		if (isString(sound))
@@ -949,12 +940,12 @@
 	};
 
 	/**
-	*	Unpauses a specific sound.
-	*	@method unpauseSound
-	*	@public
-	*	@param {String} alias The alias of the sound to pause.
-	*		Internally, this can also be the object from the _sounds dictionary directly.
-	*/
+	 * Unpauses a specific sound.
+	 * @method unpauseSound
+	 * @public
+	 * @param {String} alias The alias of the sound to pause.
+	 * 	Internally, this can also be the object from the _sounds dictionary directly.
+ 	 */
 	p.unpauseSound = function(sound)
 	{
 		if (isString(sound))
@@ -969,10 +960,10 @@
 	};
 
 	/**
-	*	Pauses all sounds.
-	*	@method pauseAll
-	*	@public
-	*/
+	 * Pauses all sounds.
+	 * @method pauseAll
+	 * @public
+ 	 */
 	p.pauseAll = function()
 	{
 		var arr = this._sounds;
@@ -981,10 +972,10 @@
 	};
 
 	/**
-	*	Unpauses all sounds.
-	*	@method unpauseAll
-	*	@public
-	*/
+	 * Unpauses all sounds.
+	 * @method unpauseAll
+	 * @public
+ 	 */
 	p.unpauseAll = function()
 	{
 		var arr = this._sounds;
@@ -993,12 +984,12 @@
 	};
 
 	/**
-	*	Sets mute status of all sounds in a context
-	*	@method setContextMute
-	*	@public
-	*	@param {String} context The name of the context to modify.
-	*	@param {Boolean} muted If the context should be muted.
-	*/
+	 * Sets mute status of all sounds in a context
+	 * @method setContextMute
+	 * @public
+	 * @param {String} context The name of the context to modify.
+	 * @param {Boolean} muted If the context should be muted.
+ 	 */
 	p.setContextMute = function(context, muted)
 	{
 		context = this._contexts[context];
@@ -1025,9 +1016,9 @@
 	};
 
 	/**
-	*  Set the mute status of all sounds
-	*  @property {Boolean} muteAll
-	*/
+	 * Set the mute status of all sounds
+	 * @property {Boolean} muteAll
+ 	 */
 	Object.defineProperty(p, 'muteAll', {
 		set: function(muted)
 		{
@@ -1036,12 +1027,12 @@
 	});
 
 	/**
-	*	Sets volume of a context. Individual sound volumes are multiplied by this value.
-	*	@method setContextVolume
-	*	@public
-	*	@param {String} context The name of the context to modify.
-	*	@param {Number} volume The volume for the context (0 to 1).
-	*/
+	 * Sets volume of a context. Individual sound volumes are multiplied by this value.
+	 * @method setContextVolume
+	 * @public
+	 * @param {String} context The name of the context to modify.
+	 * @param {Number} volume The volume for the context (0 to 1).
+ 	 */
 	p.setContextVolume = function(context, volume)
 	{
 		context = this._contexts[context];
@@ -1067,54 +1058,27 @@
 	};
 
 	/**
-	*	Preloads a specific sound.
-	*	@method preloadSound
-	*	@public
-	*	@param {String} alias The alias of the sound to load.
-	*	@param {function} callback The function to call when the sound is finished loading.
-	*/
-	p.preloadSound = function(alias, callback)
-	{
-		var sound = this._sounds[alias];
-		if (!sound)
-		{
-			if (DEBUG && Debug) Debug.error("Sound does not exist: " + alias + " - can't preload!");
-			return;
-		}
-		if (sound.loadState != LoadStates.unloaded) return;
-		sound.loadState = LoadStates.loading;
-		sound.preloadCallback = callback || null;
-		Loader.instance.load(
-			sound.src, //url to load
-			this._markLoaded,//complete callback
-			null,//progress callback
-			0,//priority
-			sound//the sound object (contains properties for PreloadJS/SoundJS)
-		);
-	};
-
-	/**
-	*	Preloads a list of sounds.
-	*	@method preload
-	*	@public
-	*	@param {Array} list An array of sound aliases to load.
-	*	@param {function} callback The function to call when all sounds have been loaded.
-	*/
+	 * Preloads a list of sounds.
+	 * @method preload
+	 * @public
+	 * @param {Array|String} list An alias or list of aliases to load.
+	 * @param {function} [callback] The function to call when all 
+	    *      sounds have been loaded.
+	 */
 	p.preload = function(list, callback)
 	{
-		if (!LoadTask || !TaskManager)
+		if (isString(list))
 		{
-			throw "The Task Module is needed to preload audio!";
+			list = [list];
 		}
 
 		if (!list || list.length === 0)
 		{
-			if (callback)
-				callback();
+			if (callback) callback();
 			return;
 		}
 
-		var tasks = [];
+		var assets = [];
 		var sound;
 		for (var i = 0, len = list.length; i < len; ++i)
 		{
@@ -1124,22 +1088,25 @@
 				if (sound.loadState == LoadStates.unloaded)
 				{
 					sound.loadState = LoadStates.loading;
+
 					//sound is passed last so that SoundJS gets the sound ID
-					tasks.push(new LoadTask(sound.id, sound.src, this._markLoaded, null, 0, sound));
+					assets.push({
+						id: sound.id, 
+						src: sound.src,
+						complete: this._markLoaded,
+						data: sound,
+						advanced: true
+					});
 				}
 			}
-			else
+			else if (DEBUG && Debug)
 			{
-				if (DEBUG && Debug) Debug.error("springroll.Sound was asked to preload " + list[i] + " but it is not a registered sound!");
+				Debug.error("springroll.Sound was asked to preload " + list[i] + " but it is not a registered sound!");
 			}
 		}
-		if (tasks.length > 0)
+		if (assets.length > 0)
 		{
-			TaskManager.process(tasks, function()
-			{
-				if (callback)
-					callback();
-			});
+			Application.instance.load(assets, callback);
 		}
 		else if (callback)
 		{
@@ -1148,19 +1115,18 @@
 	};
 
 	/**
-	*	Marks a sound as loaded. If it needs to play after the load, then it is played.
-	*	@method _markLoaded
-	*	@private
-	*	@param {String} alias The alias of the sound to mark.
-	*	@param {function} callback A function to call to show that the sound is loaded.
-	*/
+	 * Marks a sound as loaded. If it needs to play after the load, then it is played.
+	 * @method _markLoaded
+	 * @private
+	 * @param {String} alias The alias of the sound to mark.
+	 * @param {function} callback A function to call to show that the sound is loaded.
+ 	 */
 	p._markLoaded = function(result)
 	{
-		var alias = result.id;
+		var alias = result.data.id;
 		var sound = this._sounds[alias];
 		if (sound)
 		{
-			
 			sound.loadState = LoadStates.loaded;
 			if (sound.playAfterLoad)
 				this._playAfterLoad(alias);
@@ -1174,28 +1140,12 @@
 	};
 
 	/**
-	*	Creates a Task for the springroll Task library for preloading a list of sounds.
-	*	This function will not work if the Task library was not loaded before the Sound library.
-	*	@method createPreloadTask
-	*	@public
-	*	@param {String} id The id of the task.
-	*	@param {Array} list An array of sound aliases to load.
-	*	@param {function} callback The function to call when the task is complete.
-	*	@return {springroll.Task} A task to load up all of the sounds in the list.
-	*/
-	p.createPreloadTask = function(id, list, callback)
-	{
-		if (!SoundListTask) return null;
-		return new SoundListTask(id, list, callback);
-	};
-
-	/**
-	*	Unloads a list of sounds to reclaim memory if possible.
-	*	If the sounds are playing, they are stopped.
-	*	@method unload
-	*	@public
-	*	@param {Array} list An array of sound aliases to unload.
-	*/
+	 * Unloads a list of sounds to reclaim memory if possible.
+	 * If the sounds are playing, they are stopped.
+	 * @method unload
+	 * @public
+	 * @param {Array} list An array of sound aliases to unload.
+ 	 */
 	p.unload = function(list)
 	{
 		if (!list) return;
@@ -1214,11 +1164,11 @@
 	};
 
 	/**
-	*	Unloads all sounds. If any sounds are playing, they are stopped.
-	*	Internally this calls `unload`.
-	*	@method unloadAll
-	*	@public
-	*/
+	 * Unloads all sounds. If any sounds are playing, they are stopped.
+	 * Internally this calls `unload`.
+	 * @method unloadAll
+	 * @public
+ 	 */
 	p.unloadAll = function()
 	{
 		var arr = [];
@@ -1230,11 +1180,11 @@
 	};
 
 	/**
-	*	Places a SoundInstance back in the pool for reuse.
-	*	@method _poolinst
-	*	@private
-	*	@param {SoundInstance} inst The instance to repool.
-	*/
+	 * Places a SoundInstance back in the pool for reuse.
+	 * @method _poolinst
+	 * @private
+	 * @param {SoundInstance} inst The instance to repool.
+ 	 */
 	p._poolInst = function(inst)
 	{
 		if (this._pool.indexOf(inst) == -1)
@@ -1251,10 +1201,10 @@
 	};
 
 	/**
-	*	Destroys springroll.Sound. This unloads loaded sounds in SoundJS.
-	*	@method destroy
-	*	@public
-	*/
+	 * Destroys springroll.Sound. This unloads loaded sounds in SoundJS.
+	 * @method destroy
+	 * @public
+ 	 */
 	p.destroy = function()
 	{
 		// Stop all sounds
@@ -1283,15 +1233,16 @@
 	};
 
 	// Convenience methods for type checking
-	var isString = function(obj)
+	function isString(obj)
 	{
 		return typeof obj == "string";
-	};
+	}
 
-	var isFunction = function(obj)
+	function isFunction(obj)
 	{
 		return typeof obj == "function";
-	};
+	}
 
 	namespace('springroll').Sound = Sound;
+
 }());

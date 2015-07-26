@@ -16,17 +16,10 @@
 	 * @class LanguagesPlugin
 	 * @extends springroll.ApplicationPlugin
 	 */
-	var LanguagesPlugin = function()
-	{
-		ApplicationPlugin.call(this);
-		this.priority = 95; 
-	};
-
-	// Reference to the prototype
-	var p = extend(LanguagesPlugin, ApplicationPlugin);
+	var plugin = new ApplicationPlugin(95);
 
 	// Init the animator
-	p.setup = function()
+	plugin.setup = function()
 	{
 		/**
 		 * The StringFilters instance
@@ -50,14 +43,14 @@
 	};
 
 	// preload the language configuration
-	p.preload = function(done)
+	plugin.preload = function(done)
 	{
-		var config = this.options.languagesPath;
-		if (config)
+		var languagesConfig = this.options.languagesPath;
+		if (languagesConfig)
 		{
-			this.loader.load(config, function(result)
+			this.load(languagesConfig, function(config)
 			{
-				this.languages.setConfig(result.content);
+				this.languages.setConfig(config);
 				var lang = this.options.language;
 				if (lang)
 				{
@@ -79,13 +72,10 @@
 	};
 
 	// Destroy the animator
-	p.teardown = function()
+	plugin.teardown = function()
 	{
 		if (this.languages) this.languages.destroy();
 		this.languages = null;
 	};
-
-	// register plugin
-	ApplicationPlugin.register(LanguagesPlugin);
 
 }());

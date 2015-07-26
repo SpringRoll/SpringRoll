@@ -1,37 +1,32 @@
 /**
- *	@module EaselJS States
- *	@namespace springroll.easeljs
- *	@requires Core, States, Tasks, UI, Sound, EaselJS Display, EaselJS UI
+ * @module EaselJS States
+ * @namespace springroll.easeljs
+ * @requires Core, States, UI, Sound, EaselJS Display, EaselJS UI
  */
 (function(undefined)
 {
 	var State = include('springroll.State'),
 		Debug,
 		Application,
-		ListTask,
-		BasePanel,
-		TaskManager,
-		AssetManager;
+		BasePanel;
 
 	/**
-	 *	Abstract app state class to do some preloading of assets
-	 *	also plays well with the app audio loading.
-	 *	@class BaseState
-	 *	@extends springroll.State
-	 *	@constructor
-	 *	@param {createjs.Container} panel The panel
-	 *	@param {Object} [options] The options
-	 *	@param {String|Function} [options.next=null] The next state alias or call to next state
-	 *	@param {String|Function} [options.previous=null] The previous state alias or call to
-	 *                                                   previous state
-	 *  @param {Boolean} [options.useManifest=true] Automatically load and unload assets with the
-	 *                                              AssetManager which are found in the manifest
-	 *                                              option or property.
-	 *  @param {Array} [options.manifest=[]] The list of object to load and unload with the
-	 *                                       AssetManager.
-	 *  @param {Object} [options.scaling=null] The scaling items to use with the UIScaler. See
-	 *                                         `UIScaler.addItems` for more information about the
-	 *                                         format of the scaling objects.
+	 * Abstract app state class to do some preloading of assets
+	 * also plays well with the app audio loading.
+	 * @class BaseState
+	 * @extends springroll.State
+	 * @constructor
+	 * @param {createjs.Container} panel The panel
+	 * @param {Object} [options] The options
+	 * @param {String|Function} [options.next=null] The next state alias or call to next state
+	 * @param {String|Function} [options.previous=null] The previous state alias or call to
+	 *       previous state
+	 * @param {Boolean} [options.useManifest=true] Automatically load and unload assets
+	 *       which are found in the manifest option or property.
+	 * @param {Array} [options.manifest=[]] The list of object to load and unload.
+	 * @param {Object} [options.scaling=null] The scaling items to use with the ScaleManager.
+	 *       See `ScaleManager.addItems` for more information about the
+	 *       format of the scaling objects.
 	 */
 	var BaseState = function(panel, options)
 	{
@@ -39,10 +34,7 @@
 		{
 			Application = include('springroll.Application');
 			BasePanel = include('springroll.easeljs.BasePanel');
-			ListTask = include('springroll.ListTask');
-			TaskManager = include('springroll.TaskManager');
 			Debug = include('springroll.Debug', false);
-			AssetManager = include('springroll.easeljs.AssetManager');
 		}
 
 		if (!(panel instanceof BasePanel))
@@ -60,89 +52,87 @@
 		State.call(this, panel, options);
 
 		/**
-		 *	Reference to the main app
-		 *	@property {Application} app
-		 *	@protected
-		 *	@readOnly
+		 * Reference to the main app
+		 * @property {Application} app
+		 * @protected
+		 * @readOnly
 		 */
 		this.app = Application.instance;
 
 		/**
-		 *	Reference to the main app
-		 *	@property {Application} app
-		 *	@protected
-		 *	@deprecated Use the property 'app' instead
-		 *	@readOnly
-		 */
-		this.game = this.app;
-
-		/**
-		 *	The instance of the VOPlayer
-		 *	@property {springroll.VOPlayer} voPlayer
-		 *	@protected
-		 *	@readOnly
+		 * The instance of the VOPlayer
+		 * @property {springroll.VOPlayer} voPlayer
+		 * @protected
+		 * @readOnly
 		 */
 		this.voPlayer = this.app.voPlayer;
 
 		/**
-		 *	The instance of the Sound
-		 *	@property {springroll.Sound} sound
-		 *	@protected
-		 *	@readOnly
+		 * The instance of the Sound
+		 * @property {springroll.Sound} sound
+		 * @protected
+		 * @readOnly
 		 */
 		this.sound = this.app.sound;
 
 		/**
-		 *	Reference to the main config object
-		 *	@property {Object} config
-		 *	@protected
-		 *	@readOnly
+		 * Reference to the main config object
+		 * @property {Object} config
+		 * @protected
+		 * @readOnly
 		 */
 		this.config = this.app.config;
 
 		/**
-		 *	Reference to the scaling object
-		 *	@property {springroll.UIScaler} scaling
-		 *	@protected
-		 *	@readOnly
+		 * Reference to the scaling object
+		 * @property {springroll.UIScaler} scaling
+		 * @protected
+		 * @readOnly
 		 */
 		this.scaling = this.app.scaling;
 
 		/**
-		 *	The items to scale on the panel, see `UIScaler.addItems` for
-		 *	more information. If no options are set in the State's constructor
-		 *	then it will try to find an object on the app config on `scaling` property
-		 *	matching the same state alias. For instance `config.scaling.title` if
-		 *	`title` is the state alias. If no scalingItems are set, will scale
-		 *	and position the panal itself.
-		 *	@property {Object} scalingItems
-		 *	@protected
-		 *	@readOnly
-		 *	@default null
+		 * The items to scale on the panel, see `UIScaler.addItems` for
+		 * more information. If no options are set in the State's constructor
+		 * then it will try to find an object on the app config on `scaling` property
+		 * matching the same state alias. For instance `config.scaling.title` if
+		 * `title` is the state alias. If no scalingItems are set, will scale
+		 * and position the panal itself.
+		 * @property {Object} scalingItems
+		 * @protected
+		 * @readOnly
+		 * @default null
 		 */
 		this.scalingItems = options.scaling || null;
 
 		/**
-		 *	The assets to load each time
-		 *	@property {Object} manifest
-		 *	@protected
+		 * The assets to load each time
+		 * @property {Object} manifest
+		 * @protected
 		 */
 		this.manifest = options.manifest;
 
 		/**
-		 *	Check to see if the assets have finished loading
-		 *	@property {Boolean} assetsLoaded
-		 *	@protected
-		 *	@readOnly
+		 * Check to see if the assets have finished loading
+		 * @property {Boolean} assetsLoaded
+		 * @protected
+		 * @readOnly
 		 */
 		this.assetsLoaded = false;
 
 		/**
-		 *	If a manifest specific to this state should be automatically loaded by default.
-		 *	@property {Boolean} useManifest
-		 *	@protected
+		 * If a manifest specific to this state should be automatically loaded by default.
+		 * @property {Boolean} useManifest
+		 * @protected
 		 */
 		this.useManifest = options.useManifest;
+
+		/**
+		 * The global images loaded
+		 * @property {Array} _images
+		 * @protected
+		 */
+		this._images = [];
 	};
 
 	// Reference to the parent prototype
@@ -152,40 +142,42 @@
 	var p = extend(BaseState, State);
 
 	/**
-	 *	Enter the state, when the panel is fully hidden
-	 *	by the transition
-	 *	@method enter
+	 * Enter the state, when the panel is fully hidden
+	 * by the transition
+	 * @method enter
 	 */
 	p._internalEntering = function()
 	{
 		// Default entering
 		s._internalEntering.call(this);
-		
+
 		// Start prealoading assets
 		this.loadingStart();
 
 		// Boolean to see if we've preloaded assests
 		this.assetsLoaded = false;
 
-		var tasks = [];
+		var assets = [];
 
-		// Preload the manifest files
+		this.addTasks(assets);
+
 		if (this.useManifest && this.manifest.length)
 		{
-			AssetManager.load(this.manifest, tasks);
+			assets = this.manifest.concat(assets);
 		}
 
-		this.addTasks(tasks);
-
 		// Start loading assets if we have some
-		if (tasks.length)
+		if (assets.length)
 		{
-			TaskManager.process(tasks, this._onLoaded.bind(this));
+			this.app.load(assets, {
+				complete: this._onLoaded.bind(this),
+				cacheAll: true
+			});
 		}
 		// No files to load, just continue
 		else
 		{
-			this._onLoaded();
+			this._onLoaded(null);
 		}
 	};
 
@@ -211,17 +203,23 @@
 		// Clean any assets loaded by the manifest
 		if (this.useManifest && this.manifest.length)
 		{
-			AssetManager.unload(this.manifest);
+			this.app.unload(this.manifest);
 		}
+
+		// Remove global images reference
+		this._images.forEach(function(id)
+		{
+			delete images[id];
+		});
 		this.assetsLoaded = false;
 	};
 
 	/**
-	 *	Implementation specific for override. When you need to add additional preload
-	 *	tasks to your state, override this function.
-	 *	@method addTasks
-	 *	@protected
-	 *	@param {Array} tasks The list of preload tasks
+	 * Implementation specific for override. When you need to add additional preload
+	 * tasks to your state, override this function.
+	 * @method addTasks
+	 * @protected
+	 * @param {Array} tasks The list of preload tasks
 	 */
 	p.addTasks = function(tasks)
 	{
@@ -229,11 +227,10 @@
 	};
 
 	/**
-	 *	Implementation specific for override. When all the assets have been loaded
-	 *	can possible add options for loading assets.
-	 *	from the TaskManager.
-	 *	@method onAssetsLoaded
-	 *	@protected
+	 * Implementation specific for override. When all the assets have been loaded
+	 * can possible add options for loading assets.
+	 * @method onAssetsLoaded
+	 * @protected
 	 */
 	p.onAssetsLoaded = function()
 	{
@@ -241,14 +238,26 @@
 	};
 
 	/**
-	 *	The internal call for on assets loaded
-	 *	@method _onLoaded
-	 *	@protected
+	 * The internal call for on assets loaded
+	 * @method _onLoaded
+	 * @protected
+	 * @param {Object|null} results The result of the manifest load
 	 */
-	p._onLoaded = function()
+	p._onLoaded = function(results)
 	{
+		if (results)
+		{
+			// save all images to the window images object
+			for (var id in results)
+			{
+				if (results[id].tagName == "IMG")
+				{
+					images[id] = results[id];
+					this._images.push(id);
+				}
+			}
+		}
 		this.assetsLoaded = true;
-
 		this.panel.setup();
 
 		if (this.scaling)
@@ -259,7 +268,7 @@
 			if (items)
 			{
 				this.scaling.addItems(this.panel, items);
-				
+
 				// Background is optional, so we'll check
 				// before adding to the scaling
 				var background = this.panel.background;
@@ -290,13 +299,12 @@
 	};
 
 	/**
-	 *	Don't use after calling this
-	 *	@method destroy
+	 * Don't use after calling this
+	 * @method destroy
 	 */
 	p.destroy = function()
 	{
 		this.manifest = null;
-		this.game = null;
 		this.config = null;
 		this.voPlayer = null;
 		this.scaling = null;
@@ -310,5 +318,5 @@
 
 	// Assign to the namespace
 	namespace('springroll.easeljs').BaseState = BaseState;
-	
+
 }());

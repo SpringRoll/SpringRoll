@@ -9,18 +9,19 @@
 	var AbstractHint = include('springroll.AbstractHint');
 
 	/**
-	 *  Handle the hinting played with the Animator, usually
-	 *  a lip-synced animation.
-	 *  @class AnimatorHint
-	 *  @extends springroll.AbstractHint
-	 *  @constructor
-	 *  @param {springroll.HintsPlayer} hints The instance of the hints
-	 *  @param {Function} done called on hint complete
-	 *  @param {createjs.MovieClip|*} instance The media instance to play
-	 *  @param {String|object|Array} events The event or events to play
-	 *  @param {function} onComplete Callback when finished
-	 *  @param {function|boolean} onCancel If the call is cancelled, true set onComplete
-	 *         to also be the cancelled callback
+	 * Handle the hinting played with the Animator, usually
+	 * a lip-synced animation.
+	 * @class AnimatorHint
+	 * @extends springroll.AbstractHint
+	 * @constructor
+	 * @private
+	 * @param {springroll.HintsPlayer} hints The instance of the hints
+	 * @param {Function} done called on hint complete
+	 * @param {createjs.MovieClip|*} instance The media instance to play
+	 * @param {String|object|Array} events The event or events to play
+	 * @param {function} onComplete Callback when finished
+	 * @param {function|boolean} onCancel If the call is cancelled, true set onComplete
+	 *      to also be the cancelled callback
 	 */
 	var AnimatorHint = function(hints, done, instance, events, onComplete, onCancel)
 	{
@@ -37,8 +38,8 @@
 	var p = extend(AnimatorHint, AbstractHint);
 
 	/**
-	 *  Run the hint
-	 *  @method play
+	 * Run the hint
+	 * @method play
 	 */
 	p.play = function()
 	{
@@ -52,8 +53,8 @@
 	};
 
 	/**
-	 *  Clean-up the hint, don't use after this
-	 *  @method destroy
+	 * Clean-up the hint, don't use after this
+	 * @method destroy
 	 */
 	p.destroy = function()
 	{
