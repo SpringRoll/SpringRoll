@@ -18,6 +18,8 @@
 	 * @constructor
 	 * @private
 	 * @param {Object} asset The data properties
+	 * @param {Boolean} asset.forPixi Signifies that this asset should be parsed as a TextureAtlas
+	 *                                for Pixi.
 	 * @param {String} asset.atlas The TextureAtlas source data
 	 * @param {Boolean} [asset.cache=false] If we should cache the result
 	 * @param {String} [asset.image] The atlas image path
@@ -29,7 +31,7 @@
 	 */
 	var TextureAtlasTask = function(asset, fallbackId)
 	{
-		TextureTask.call(this, asset, asset.atlas);
+		TextureTask.call(this, asset, fallbackId || asset.atlas);
 
 		/**
 		 * The TextureAtlas data source path

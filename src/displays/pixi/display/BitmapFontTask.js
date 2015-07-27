@@ -21,7 +21,8 @@
 	 * @constructor
 	 * @private
 	 * @param {Object} asset The data properties
-	 * @param {String} asset.atlas The BitmapFont source data
+	 * @param {Boolean} asset.forPixi Signifies that this asset should be handled for Pixi only.
+	 * @param {String} asset.font The BitmapFont source data
 	 * @param {Boolean} [asset.cache=false] If we should cache the result
 	 * @param {String} [asset.image] The atlas image path
 	 * @param {String} [asset.color] The color image path, if not using image property
@@ -30,15 +31,15 @@
 	 * @param {Function} [asset.complete] The event to call when done
 	 * @param {Object} [asset.sizes=null] Define if certain sizes are not supported
 	 */
-	var BitmapFontTask = function(asset, fallbackId)
+	var BitmapFontTask = function(asset)
 	{
-		TextureTask.call(this, asset, asset.atlas);
+		TextureTask.call(this, asset, asset.font);
 
 		/**
 		 * The BitmapFont data source path
-		 * @property {String} atlas
+		 * @property {String} font
 		 */
-		this.atlas = this.filter(asset.atlas);
+		this.font = this.filter(asset.font);
 	};
 
 	// Reference to prototype

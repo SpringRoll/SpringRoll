@@ -17,7 +17,7 @@
 	 * @class TextureTask
 	 * @constructor
 	 * @private
-	 * @param {Array} asset.forPixi Signifies that this asset should be parsed as a Pixi Texture.
+	 * @param {Boolean} asset.forPixi Signifies that this asset should be parsed as a Pixi Texture.
 	 * @param {String} [asset.image] The texture image path.
 	 * @param {String} [asset.color] The color image path, if not using image property.
 	 * @param {String} [asset.alpha] The alpha image path, if not using image property.
