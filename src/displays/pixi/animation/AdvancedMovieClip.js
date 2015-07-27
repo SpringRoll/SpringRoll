@@ -59,8 +59,11 @@
 	*  @param {Number} [data.scale=1] The scale at which the art was exported, e.g. a scale of 1.4
 	*                                 means the art was increased in size to 140% before exporting
 	*                                 and should be scaled back down before drawing to the screen.
+	*  @param {springroll.pixi.TextureAtlas} [atlas] A TextureAtlas to pull frames from. If omitted,
+	*                                                frames are pulled from Pixi's global texture
+	*                                                cache.
 	*/
-	var AdvancedMovieClip = function(data)
+	var AdvancedMovieClip = function(data, atlas)
 	{
 		Sprite.call(this);
 
@@ -131,7 +134,7 @@
 		
 		if (data)
 		{
-			this.init(data);
+			this.init(data, atlas);
 		}
 	};
 
@@ -320,8 +323,11 @@
 	 * @param {Number} [data.scale=1] The scale at which the art was exported, e.g. a scale of 1.4
 	 *                                means the art was increased in size to 140% before exporting
 	 *                                and should be scaled back down before drawing to the screen.
+	 * @param {springroll.pixi.TextureAtlas} [atlas] A TextureAtlas to pull frames from. If omitted,
+ 	 *                                               frames are pulled from Pixi's global texture
+ 	 *                                               cache.
 	 */
-	p.init = function(data)
+	p.init = function(data, atlas)
 	{
 		//collect the frame labels
 		var labels = this._labels = [];
@@ -377,14 +383,27 @@
 			//strip off any folder structure included in the name
 			if(index >= 0)
 				name = name.substring(index + 1);
-
-			getFrames(
-				name,
-				frameSet.min,
-				frameSet.max,
-				frameSet.digits,
-				this._textures
-			);
+			
+			if(atlas)
+			{
+				atlas.getFrames(
+					name,
+					frameSet.min,
+					frameSet.max,
+					frameSet.digits,
+					this._textures
+				);
+			}
+			else
+			{
+				getFrames(
+					name,
+					frameSet.min,
+					frameSet.max,
+					frameSet.digits,
+					this._textures
+				);
+			}
 		}
 
 		//set up the framerate

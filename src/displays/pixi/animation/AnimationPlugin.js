@@ -15,11 +15,13 @@
 	 * @class AnimationPlugin
 	 * @extends springroll.ApplicationPlugin
 	 */
-	var plugin = new ApplicationPlugin();	
+	var plugin = new ApplicationPlugin();
 
 	// Init the animator
 	plugin.setup = function()
 	{
+		this.assetManager.register('springroll.pixi.AdvancedMovieClipTask', 80);
+		
 		Animator.init();
 		Animator.captions = this.captions || null;
 	};
