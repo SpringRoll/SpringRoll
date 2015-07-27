@@ -51,8 +51,10 @@
 		"pixidisplay": {
 			"output": "pixi-display",
 			"main": [
-				"src/displays/pixi/display/PixiAssets.js",
-				"src/displays/pixi/display/PixiLoadTask.js",
+				"src/displays/pixi/display/TextureTask.js",
+				"src/displays/pixi/display/TextureAtlas.js",
+				"src/displays/pixi/display/TextureAtlasTask.js",
+				"src/displays/pixi/display/BitmapFontTask.js",
 				"src/displays/pixi/display/PixiDisplayPlugin.js",
 				"src/displays/pixi/DisplayAdapter.js",
 				"src/displays/pixi/PixiDisplay.js",
@@ -64,6 +66,7 @@
 			"output": "pixi-animation",
 			"main": [
 				"src/displays/pixi/animation/AdvancedMovieClip.js",
+				"src/displays/pixi/animation/AdvancedMovieClipTask.js",
 				"src/displays/pixi/animation/ParallelSpineData.js",
 				"src/displays/pixi/animation/AnimatorTimeline.js",
 				"src/displays/pixi/animation/Animator.js",
