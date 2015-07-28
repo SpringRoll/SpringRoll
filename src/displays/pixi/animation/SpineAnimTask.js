@@ -7,9 +7,13 @@
 {
 	var Application = include('springroll.Application'),
 		Task = include('springroll.Task'),
-		Texture = include('PIXI.Texture'),
-		BaseTexture = include('PIXI.BaseTexture'),
-		PixiUtils = include('PIXI.utils');
+		TextureAtlasTask = include('springroll.pixi.TextureAtlasTask'),
+		atlasParser = include('PIXI.spine.loaders.atlasParser', false),
+		SkeletonJsonParser = include('PIXI.spine.SpineRuntime.SkeletonJsonParser', false),
+		AtlasAttachmentParser = include('PIXI.spine.SpineRuntime.AtlasAttachmentParser', false),
+		SpineAtlasTask = include('springroll.pixi.SpineAtlasTask', false);
+	
+	if(!atlasParser) return;
 	
 	//TODO:
 	// atlasParser - primary entry point : https://github.com/pixijs/pixi-spine/blob/master/src/loaders/atlasParser.js
@@ -23,8 +27,20 @@
 	 * @constructor
 	 * @private
 	 * @param {String} asset.spineAnim The Spine skeleton data image path.
-	 * @param {String} asset.spineAtlas The Spine atlas data path. TODO - detect JSON vs .atlas here?
-	 * @param {Object} asset.images A set of image asset objects to use for the Spine atlas.
+	 * @param {Object} asset.atlas The atlas for the skeleton. This can be a Pixi TextureAtlas
+	 *                                  asset or a Spine specific atlas.
+	 * @param {Boolean} asset.atlas.forPixi Must be true to ensure that the atlas is loaded for Pixi
+	 * @param {String} [asset.atlas.atlas] (TextureAtlas) The source data path for a TextureAtlas.
+	 * @param {String} [asset.atlas.image] (TextureAtlas) A image path for a TextureAtlas
+	 * @param {String} [asset.atlas.color] (TextureAtlas) The color image path, if not using image
+	 *                                     property
+	 * @param {String} [asset.atlas.alpha] (TextureAtlas) The alpha image path, if not using image
+	 *                                     property
+	 * @param {String} [asset.atlas.spineAtlas] (Spine Atlas) The source data path for an atlas
+	 *                                          exported from Spine, with a .txt or .atlas
+	 *                                          extension.
+	 * @param {Array} [asset.atlas.images] (Spine Atlas) A set of image paths for the spineAtlas
+	 *                                     data file to pull from.
 	 * @param {Boolean} [asset.cache=false] If we should cache the result - caching results in
 	 *                                      caching in the global Pixi texture cache as well as
 	 *                                      Application's asset cache.
@@ -45,13 +61,7 @@
 		 * The spine atlas data source path
 		 * @property {String} spineAtlas
 		 */
-		this.spineAtlas = this.filter(asset.spineAtlas);
-
-		/**
-		 * A collection of image assets to use as Textures supporting the spine atlas.
-		 * @property {Object} images
-		 */
-		this.images = asset.images;
+		this.atlas = asset.spineAtlas;
 	};
 
 	// Extend the base Task
@@ -66,7 +76,10 @@
 	 */
 	SpineAnimTask.test = function(asset)
 	{
-		return asset.forPixi && (!!asset.image || (!!asset.alpha && !!asset.color));
+		//TODO: Use TextureAtlasTask and SpineAtlasTask to ensure asset.atlas is formatted correctly
+		return !!asset.spineAnim &&
+				!!asset.atlas &&
+				(TextureAtlasTask.test(asset.atlas) || SpineAtlasTask.test(asset.atlas));
 	};
 
 	/**
@@ -76,88 +89,38 @@
 	 */
 	p.start = function(callback)
 	{
-		this.loadImage({}, callback);
-	};
+		Application.instance.load({_anim: this.spineAnim, _atlas: this.atlas}, function(results)
+		{
+			var spineAtlas = results._atlas;
 
-	/**
-	 * Load the texture from the properties
-	 * @method loadImage
-	 * @param {Object} assets The assets object to load
-	 * @param {Function} done Callback when complete, returns new TextureAtlas
-	 * @param {Boolean} [ignoreCacheSetting] If the setting to cache results should be ignored
-	 *                                       because this task is still returning stuff to another
-	 *                                       task.
-	 */
-	p.loadImage = function(assets, done, ignoreCacheSetting)
-	{
-		if (this.image)
-		{
-			assets._image = this.image;
-		}
-		else
-		{
-			assets._color = this.color;
-			assets._alpha = this.alpha;
-		}
-
-		// Do the load
-		Application.instance.load(assets, function(results)
-		{
-			var image;
-			if (results._image)
-			{
-				image = results._image;
-			}
-			else
-			{
-				image = ColorAlphaTask.mergeAlpha(
-					results._color,
-					results._alpha
-				);
-			}
+			// spine animation
+			var spineJsonParser = new SkeletonJsonParser(new AtlasAttachmentParser(spineAtlas));
+			var skeletonData = spineJsonParser.readSkeletonData(results._anim);
 			
-			//determine scale using SpringRoll's scale management
-			var scale = this.original.scale;
-			//if the scale doesn't exist, or is 1, then see if the devs are trying to use Pixi's
-			//built in scale recognition
-			if(!scale || scale === 1)
-			{
-				scale = PixiUtils.getResolutionOfUrl(this.image || this.color);
-			}
-			//create the Texture and BaseTexture
-			var texture = new Texture(new BaseTexture(image, null, scale));
-			texture.baseTexture.imageUrl = this.image;
+			//store both the atlas and the skeleton data for later cleanup
+			var asset = {
+				id: this.id,
+				spineData: skeletonData,
+				spineAtlas: spineAtlas
+			};
+			//store the skeletonData in the external cache, for standardization
+			if (atlasParser.enableCaching && this.cache)
+				atlasParser.AnimCache[this.id] = skeletonData;
 			
-			if(this.cache && !ignoreCacheSetting)
+			//set up a destroy function for cleanly unloading the asset (in particular the atlas)
+			asset.destroy = function()
 			{
-				//for cache id, prefer task id, but if Pixi global texture cache is using urls, then
-				//use that
-				var id = this.id;
-				//if pixi is expecting URLs, then use the URL
-				if(!PixiUtils.useFilenamesForTextures)
-				{
-					//use color image if regular image is not available
-					id = this.image || this.color;
-				}
-				//also add the frame to Pixi's global cache for fromFrame and fromImage functions
-				PixiUtils.TextureCache[id] = texture;
-				PixiUtils.BaseTextureCache[id] = texture.baseTexture;
-				
-				//set up a special destroy wrapper for this texture so that Application.instance.unload
-				//works properly to completely unload it
-				texture.__T_destroy = texture.destroy;
-				texture.destroy = function()
-				{
-					//destroy the base texture as well
-					this.__T_destroy(true);
-					
-					//remove it from the global texture cache, if relevant
-					if(PixiUtils.TextureCache[id] == this)
-						delete PixiUtils.TextureCache[id];
-				};
-			}
+				//remove from external cache
+				delete atlasParser.AnimCache[this.id];
+				//destroy atlas
+				this.spineAtlas.destroy();
+				//destroy skeleton data - skeleton data is just a bunch of organized arrays
+				//of spine runtime objects, no display objects or anything
+				this.spineData = this.spineAtlas = null;
+			};
 			
-			done(texture, results);
+			//return the asset object
+			callback(asset, results);
 		}.bind(this));
 	};
 
