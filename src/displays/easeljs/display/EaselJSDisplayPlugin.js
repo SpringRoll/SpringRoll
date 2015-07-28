@@ -25,6 +25,7 @@
 		assetManager.register('springroll.easeljs.FlashArtTask', 50);
 		assetManager.register('springroll.easeljs.FlashArtAtlasTask', 60);
 		assetManager.register('springroll.easeljs.SpriteSheetTask', 70);
+		assetManager.register('springroll.easeljs.FlashSpriteSheetTask', 80);
 	};
 
 }());

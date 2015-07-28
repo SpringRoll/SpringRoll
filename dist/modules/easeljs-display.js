@@ -1224,14 +1224,14 @@
 		Application = include('springroll.Application');
 
 	/**
-	 * Created a createjs Spritesheet from the Flash export
+	 * Create a createjs.SpriteSheet object, see SpriteSheet for more information
 	 * @class SpriteSheetTask
 	 * @extends springroll.Task
 	 * @constructor
 	 * @private
 	 * @param {Object} asset The data properties
-	 * @param {String} asset.images The source
-	 * @param {String} asset.frames The TextureAtlas source data
+	 * @param {String} asset.images The source images
+	 * @param {String} asset.frames The SpriteSheet source frame data
 	 * @param {Boolean} [asset.cache=false] If we should cache the result
 	 * @param {String} [asset.id] Id of asset
 	 * @param {Function} [asset.complete] The event to call when done
@@ -1319,6 +1319,79 @@
  */
 (function()
 {
+	var LoadTask = include('springroll.LoadTask'),
+		Application = include('springroll.Application');
+
+	/**
+	 * Created a createjs Spritesheet from the Flash export
+	 * @class FlashSpriteSheetTask
+	 * @extends springroll.LoadTask
+	 * @constructor
+	 * @private
+	 * @param {Object} asset The data properties
+	 * @param {String} asset.src The path to the spritesheet
+	 * @param {String} [asset.globalProperty='ss'] The name of the global property
+	 * @param {Boolean} [asset.cache=false] If we should cache the result
+	 * @param {String} [asset.id] Id of asset
+	 * @param {Function} [asset.complete] The event to call when done
+	 * @param {String} [asset.globalProperty='ss'] The global window object for spritesheets
+	 */
+	var FlashSpriteSheetTask = function(asset)
+	{
+		LoadTask.call(this, asset);
+
+		/**
+		 * The name of the window object library items hang on
+		 * @property {String} globalProperty
+		 * @default 'ss'
+		 */
+		this.globalProperty = asset.globalProperty || 'ss';
+	};
+
+	// Reference to prototype
+	var s = LoadTask.prototype;
+	var p = extend(FlashSpriteSheetTask, LoadTask);
+
+	/**
+	 * Test if we should run this task
+	 * @method test
+	 * @static
+	 * @param {Object} asset The asset to check
+	 * @return {Boolean} If the asset is compatible with this asset
+	 */
+	FlashSpriteSheetTask.test = function(asset)
+	{
+		return asset.src && (/_atlas_\.json$/.test(asset.src) || asset.type == "createjs.SpriteSheet");
+	};
+
+	/**
+	 * Start the task
+	 * @method  start
+	 * @param  {Function} callback Callback when finished
+	 */
+	p.start = function(callback)
+	{
+		var prop = this.globalProperty;
+		var id = this.id;
+		s.start.call(this, function(data)
+		{
+			data.id = id;
+			data.globalProperty = prop;
+			Application.instance.load(data, callback);
+		});
+	};
+
+	// Assign to namespace
+	namespace('springroll.easeljs').FlashSpriteSheetTask = FlashSpriteSheetTask;
+
+}());
+/**
+ * @module EaselJS Display
+ * @namespace springroll.easeljs
+ * @requires Core
+ */
+(function()
+{
 	// Include classes
 	var ApplicationPlugin = include('springroll.ApplicationPlugin');
 
@@ -1339,6 +1412,7 @@
 		assetManager.register('springroll.easeljs.FlashArtTask', 50);
 		assetManager.register('springroll.easeljs.FlashArtAtlasTask', 60);
 		assetManager.register('springroll.easeljs.SpriteSheetTask', 70);
+		assetManager.register('springroll.easeljs.FlashSpriteSheetTask', 80);
 	};
 
 }());
