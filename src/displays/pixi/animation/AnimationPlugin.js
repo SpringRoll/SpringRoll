@@ -21,6 +21,8 @@
 	plugin.setup = function()
 	{
 		this.assetManager.register('springroll.pixi.AdvancedMovieClipTask', 80);
+		this.assetManager.register('springroll.pixi.SpineAtlasTask', 40);
+		this.assetManager.register('springroll.pixi.SpineAnimTask', 40);
 		
 		Animator.init();
 		Animator.captions = this.captions || null;
