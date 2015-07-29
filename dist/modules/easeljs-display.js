@@ -17,20 +17,34 @@
 	var p = Container.prototype;
 
 	/**
-	 * Does a cache by the nominalBounds set from flash
+	 * Does a cache by the nominalBounds set from Flash
 	 * @method cacheByBounds
-	 * @param {int} [buffer=15] The space around the nominal bounds to include in cache image
+	 * @param {int} [buffer=0] The space around the nominal bounds to include in cache image
+	 * @param {Number} [scale=1] The scale to cache the container by.
 	 */
-	p.cacheByBounds = function(buffer)
+	p.cacheByBounds = function(buffer, scale)
 	{
-		buffer = (buffer === undefined) ? 15 : buffer;
+		this.cacheByRect(this.nominalBounds, buffer, scale);
+	};
+	
+	/**
+	 * Does a cache by a given rectangle
+	 * @method cacheByRect
+	 * @param {createjs.Rectangle} rect The rectangle to cache with.
+	 * @param {int} [buffer=0] Additional space around the rectangle to include in cache image
+	 * @param {Number} [scale=1] The scale to cache the container by.
+	 */
+	p.cacheByRect = function(rect, buffer, scale)
+	{
+		buffer = (buffer === undefined || buffer === null) ? 0 : buffer;
+		scale = scale > 0 ? scale : 1;
 		var bounds = this.nominalBounds;
 		this.cache(
 			bounds.x - buffer,
 			bounds.y - buffer,
 			bounds.width + (buffer * 2),
 			bounds.height + (buffer * 2),
-			1
+			scale
 		);
 	};
 
@@ -42,8 +56,8 @@
  */
 (function(undefined)
 {
-	// Try to include MovieClip, movieclip with CreateJS is 
-	// an optional library from easeljs. We should try to 
+	// Try to include MovieClip, movieclip with CreateJS is
+	// an optional library from easeljs. We should try to
 	// include it and silently fail if we don't have it
 	var MovieClip = include('createjs.MovieClip', false);
 
@@ -56,16 +70,21 @@
 	var p = MovieClip.prototype;
 
 	/**
-	 * Combines gotoAndStop and cache in createjs to cache right away
+	 * Combines gotoAndStop and cache in createjs to cache right away. This caches by the bounds
+	 * exported from Flash, preferring frameBounds and falling back to nominalBounds.
 	 * @method gotoAndCacheByBounds
 	 * @param {String|int} [frame=0] The 0-index frame number or frame label
-	 * @param {int} [buffer=15] The space around the nominal bounds to include in cache image
+	 * @param {int} [buffer=0] The space around the bounds to include in cache image
+	 * @param {Number} [scale=1] The scale to cache the container by.
 	 */
-	p.gotoAndCacheByBounds = function(frame, buffer)
+	p.gotoAndCacheByBounds = function(frame, buffer, scale)
 	{
 		frame = (frame === undefined) ? 0 : frame;
 		this.gotoAndStop(frame);
-		this.cacheByBounds(buffer);
+		this.cacheByRect(
+			this.frameBounds ? this.frameBounds[this.currentFrame] : this.nominalBounds,
+			buffer,
+			scale);
 	};
 
 }());
