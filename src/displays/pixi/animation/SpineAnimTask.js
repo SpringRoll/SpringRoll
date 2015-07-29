@@ -29,7 +29,7 @@
 	 * @param {String} asset.spineAnim The Spine skeleton data image path.
 	 * @param {Object} asset.atlas The atlas for the skeleton. This can be a Pixi TextureAtlas
 	 *                                  asset or a Spine specific atlas.
-	 * @param {Boolean} asset.atlas.forPixi Must be true to ensure that the atlas is loaded for Pixi
+	 * @param {String} asset.atlas.type Must be "pixi" to ensure that the atlas is loaded for Pixi.
 	 * @param {String} [asset.atlas.atlas] (TextureAtlas) The source data path for a TextureAtlas.
 	 * @param {String} [asset.atlas.image] (TextureAtlas) A image path for a TextureAtlas
 	 * @param {String} [asset.atlas.color] (TextureAtlas) The color image path, if not using image

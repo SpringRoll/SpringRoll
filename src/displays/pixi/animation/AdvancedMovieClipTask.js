@@ -16,9 +16,9 @@
 	 * @constructor
 	 * @private
 	 * @param {Object} asset The data properties
-	 * @param {Boolean} asset.forPixi Signifies that this asset should be handled as an
-	 *                                AdvancedMovieClip, instead of the otherwise identical
-	 *                                BitmapMovieClip.
+	 * @param {String} asset.type This must be "pixi" to signify that this asset should be
+	 *                            handled as an AdvancedMovieClip, instead of the otherwise
+	 *                            identical BitmapMovieClip.
 	 * @param {String} asset.anim Path to the JSON configuration for AdvancedMovieClip
 	 * @param {String} asset.atlas The TextureAtlas source data
 	 * @param {Boolean} [asset.cache=false] If we should cache the result

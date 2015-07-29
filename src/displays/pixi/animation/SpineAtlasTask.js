@@ -19,8 +19,8 @@
 	 * @constructor
 	 * @private
 	 * @param {Object} asset The data properties
-	 * @param {Boolean} asset.forPixi Signifies that this asset should be parsed specifically
-	 *                                for Pixi.
+	 * @param {String} asset.type Must be "pixi" to signify that this asset should be parsed
+	 *                            specifically for Pixi.
 	 * @param {String} asset.spineAtlas The Spine Atlas source data url - a .txt or .atlas file.
 	 * @param {Object} asset.images A number of Texture assets, as referenced by the Atlas data.
 	 *                              The property used to index each asset in asset.images should be

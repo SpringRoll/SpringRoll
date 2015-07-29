@@ -21,7 +21,8 @@
 	 * @constructor
 	 * @private
 	 * @param {Object} asset The data properties
-	 * @param {Boolean} asset.forPixi Signifies that this asset should be handled for Pixi only.
+	 * @param {String} asset.type Must be "pixi" to signify that this asset should be parsed
+	 *                            specifically for Pixi.
 	 * @param {String} asset.font The BitmapFont source data
 	 * @param {Boolean} [asset.cache=false] If we should cache the result
 	 * @param {String} [asset.image] The atlas image path
