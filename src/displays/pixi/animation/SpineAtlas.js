@@ -27,6 +27,8 @@
 		this.pages = [];
 		this.regions = [];
 		
+		if(!atlasText) return;
+		
 		var reader = new AtlasReader(atlasText);
 		var tuple = [];
 		tuple.length = 4;
@@ -171,6 +173,117 @@
 				region.u2 = (region.x + region.width) / page.width;
 				region.v2 = (region.y + region.height) / page.height;
 			}
+		}
+	};
+	
+	/**
+	 * Adds a standalone image as a page and region
+	 * @method addImage
+	 * @param  {String} name The name of the texture, so it can get recognized by the Spine
+	 *                       skeleton data.
+	 * @param  {PIXI.Texture} texture The loaded texture for the image to add.
+	 */
+	p.addImage = function(name, texture)
+	{
+		var page = new AtlasPage();
+		page.name = name;
+		page.width = texture.width;
+		page.height = texture.height;
+		//shouldn't really be relevant in Pixi
+		page.format = "RGBA8888";
+		//also shouldn't be relevant in Pixi
+		page.minFilter = page.magFilter = "Nearest";
+		//use the clamping defaults
+		page.uWrap = Atlas.TextureWrap.clampToEdge;
+		page.vWrap = Atlas.TextureWrap.clampToEdge;
+		//set the texture
+		page.rendererObject = texture.baseTexture;
+		//keep page
+		this.pages.push(page);
+		
+		//set up the region
+		var region = new AtlasRegion();
+		region.name = name;
+		region.page = page;
+		region.rotate = false;
+		//region takes up the full image
+		region.u = region.v = 0;
+		region.u2 = region.v2 = 1;
+		region.x = region.y = 0;
+		region.originalWidth = region.width = page.width;
+		region.originalHeight = region.height = page.height;
+		region.offsetX = region.offsetY = 0;
+		//no index
+		region.index = -1;
+		//keep region
+		this.regions.push(region);
+	};
+	
+	/**
+	 * Sets up this SpineAtlas from an instance of our TextureAtlas class to allow for
+	 * the use of atlases exported from TexturePacker.
+	 * @method fromTextureAtlas
+	 * @param  {springroll.pixi.TextureAtlas} atlas The atlas to generate from
+	 * @param {String} [name] The name to use for the name of the singular AtlasPage.
+	 */
+	p.fromTextureAtlas = function(atlas, name)
+	{
+		var page = new AtlasPage();
+		page.name = name;
+		page.width = texture.width;
+		page.height = texture.height;
+		//shouldn't really be relevant in Pixi
+		page.format = "RGBA8888";
+		//also shouldn't be relevant in Pixi
+		page.minFilter = page.magFilter = "Nearest";
+		//use the clamping defaults
+		page.uWrap = Atlas.TextureWrap.clampToEdge;
+		page.vWrap = Atlas.TextureWrap.clampToEdge;
+		//set the texture
+		page.rendererObject = atlas.baseTexture;
+		//keep page
+		this.pages.push(page);
+		
+		for(name in atlas.frames)
+		{
+			var frame = atlas.frames[name];
+			var region = new AtlasRegion();
+			region.name = name;
+			region.page = page;
+			region.rotate = frame.rotate;
+			//figure out region coordinates
+			var x = frame.crop.x;
+			var y = frame.crop.x;
+	
+			var width = frame.crop.width;
+			var height = frame.crop.height;
+	
+			region.u = x / page.width;
+			region.v = y / page.height;
+			if (region.rotate)
+			{
+				region.u2 = (x + height) / page.width;
+				region.v2 = (y + width) / page.height;
+			}
+			else
+			{
+				region.u2 = (x + width) / page.width;
+				region.v2 = (y + height) / page.height;
+			}
+			region.x = x;
+			region.y = y;
+			region.width = Math.abs(width);
+			region.height = Math.abs(height);
+	
+			region.originalWidth = frame.width;
+			region.originalHeight = frame.height;
+	
+			region.offsetX = frame.trim.x;
+			region.offsetY = frame.trim.y;
+			//no index
+			region.index = -1;
+			//keep region
+			this.regions.push(region);
 		}
 	};
 

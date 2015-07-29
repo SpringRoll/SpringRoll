@@ -11,15 +11,10 @@
 		atlasParser = include('PIXI.spine.loaders.atlasParser', false),
 		SkeletonJsonParser = include('PIXI.spine.SpineRuntime.SkeletonJsonParser', false),
 		AtlasAttachmentParser = include('PIXI.spine.SpineRuntime.AtlasAttachmentParser', false),
-		SpineAtlasTask = include('springroll.pixi.SpineAtlasTask', false);
+		SpineAtlasTask = include('springroll.pixi.SpineAtlasTask', false),
+		SpineAtlas = include('springroll.pixi.SpineAtlas', false);
 	
 	if(!atlasParser) return;
-	
-	//TODO:
-	// atlasParser - primary entry point : https://github.com/pixijs/pixi-spine/blob/master/src/loaders/atlasParser.js
-	// Atlas - needs TextureTasks to load : https://github.com/pixijs/pixi-spine/blob/master/src/SpineRuntime/Atlas.js
-	// AtlasAttachmentParser - provides regions to skeleton parser : https://github.com/pixijs/pixi-spine/blob/master/src/SpineRuntime/AtlasAttachmentParser.js
-	// SkeletonJsonParser - final step : https://github.com/pixijs/pixi-spine/blob/master/src/SpineRuntime/SkeletonJsonParser.js
 
 	/**
 	 * SpineAnimTask loads an image and sets it up for Pixi to use as a PIXI.Texture.
@@ -41,6 +36,9 @@
 	 *                                          extension.
 	 * @param {Array} [asset.atlas.images] (Spine Atlas) A set of image paths for the spineAtlas
 	 *                                     data file to pull from.
+	 * @param {Object} [asset.extraImages] A dictionary of extra Texture assets to add to the atlas.
+	 *                                     This should be useful if you have individual images not
+	 *                                     added to a TextureAtlas.
 	 * @param {Boolean} [asset.cache=false] If we should cache the result - caching results in
 	 *                                      caching in the global Pixi texture cache as well as
 	 *                                      Application's asset cache.
@@ -62,6 +60,12 @@
 		 * @property {String} spineAtlas
 		 */
 		this.atlas = asset.spineAtlas;
+		
+		/**
+		 * Extra images to be added to the atlas
+		 * @property {String} extraImages
+		 */
+		this.extraImages = asset.extraImages;
 	};
 
 	// Extend the base Task
@@ -89,9 +93,28 @@
 	 */
 	p.start = function(callback)
 	{
-		Application.instance.load({_anim: this.spineAnim, _atlas: this.atlas}, function(results)
+		var asset = {_anim: this.spineAnim, _atlas: this.atlas};
+		if(this.extraImages)
+			asset._images = this.extraImages;
+		
+		Application.instance.load(asset, function(results)
 		{
 			var spineAtlas = results._atlas;
+			//if a TextureAtlas was loaded, make a SpineAtlas out of it
+			if(!(spineAtlas instanceof SpineAtlas))
+			{
+				var textureAtlas = spineAtlas;
+				spineAtlas = new SpineAtlas();
+				spineAtlas.fromTextureAtlas(textureAtlas);
+			}
+			//see if we need to add in any individual images
+			if(results._images)
+			{
+				for(var name in results._images)
+				{
+					spineAtlas.addImage(name, results_images[name]);
+				}
+			}
 
 			// spine animation
 			var spineJsonParser = new SkeletonJsonParser(new AtlasAttachmentParser(spineAtlas));
