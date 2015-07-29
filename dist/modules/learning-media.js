@@ -338,6 +338,17 @@
 
 		if (onCancel === true)
 			onCancel = onComplete;
+		
+		if(Array.isArray(alias))
+		{
+			for(var i = 0; i < alias.length; ++i)
+			{
+				if(typeof alias[i] == "string")
+					alias[i] = this.filters.filter(alias[i]);
+			}
+		}
+		else
+			alias = this.filters.filter(alias);
 
 		//Play the audio
 		this.voPlayer.play(
