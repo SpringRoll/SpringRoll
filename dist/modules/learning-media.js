@@ -63,6 +63,8 @@
 			return this.filters.filter(events);
 		else
 		{
+			if(!Array.isArray(events))
+				events = [events];
 			for(var i = 0; i < events.length; ++i)
 			{
 				var eventInfo = events[i];
