@@ -37,12 +37,11 @@
 	{
 		buffer = (buffer === undefined || buffer === null) ? 0 : buffer;
 		scale = scale > 0 ? scale : 1;
-		var bounds = this.nominalBounds;
 		this.cache(
-			bounds.x - buffer,
-			bounds.y - buffer,
-			bounds.width + (buffer * 2),
-			bounds.height + (buffer * 2),
+			rect.x - buffer,
+			rect.y - buffer,
+			rect.width + (buffer * 2),
+			rect.height + (buffer * 2),
 			scale
 		);
 	};
