@@ -98,7 +98,6 @@ Modules are components which contain common code classes, documentation and/or r
 	* **[EaselJS Learning Module](https://github.com/SpringRoll/SpringRoll/wiki/EaselJS-Learning-Module)** _easeljs-learning_
 	* **[EaselJS States Module](https://github.com/SpringRoll/SpringRoll/wiki/EaselJS-States-Module)** _easeljs-states_
 	* **[EaselJS UI Module](https://github.com/SpringRoll/SpringRoll/wiki/EaselJS-UI-Module)** _easeljs-ui_
-	* **[EaselJS Utilities Module](https://github.com/SpringRoll/SpringRoll/wiki/EaselJS-Utilities-Module)** _easeljs-utils_
 * **[Hints Module](https://github.com/SpringRoll/SpringRoll/wiki/Hints-Module)** _easeljs-hints_
 * **[Languages Module](https://github.com/SpringRoll/SpringRoll/wiki/Languages-Module)** _languages_
 * **[Learning Module](https://github.com/SpringRoll/SpringRoll/wiki/Learning-Module)** _learning_
