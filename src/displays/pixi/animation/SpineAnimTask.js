@@ -80,10 +80,13 @@
 	 */
 	SpineAnimTask.test = function(asset)
 	{
-		//TODO: Use TextureAtlasTask and SpineAtlasTask to ensure asset.atlas is formatted correctly
-		return !!asset.spineAnim &&
-				!!asset.atlas &&
-				(TextureAtlasTask.test(asset.atlas) || SpineAtlasTask.test(asset.atlas));
+		if(!asset.spineAnim)
+			return false;
+		if(asset.atlas &&
+			!(TextureAtlasTask.test(asset.atlas) || SpineAtlasTask.test(asset.atlas)))
+			return false;
+		if(!asset.atlas)
+			return !!asset.extraImages;
 	};
 
 	/**
@@ -93,13 +96,19 @@
 	 */
 	p.start = function(callback)
 	{
-		var asset = {_anim: this.spineAnim, _atlas: this.atlas};
+		var asset = {_anim: this.spineAnim};
+		if(this.atlas)
+			asset._atlas = this.atlas;
 		if(this.extraImages)
 			asset._images = this.extraImages;
 		
 		Application.instance.load(asset, function(results)
 		{
 			var spineAtlas = results._atlas;
+			//if we didn't load an atlas, then should make an atlas because we were probably
+			//loading individual images
+			if(!spineAtlas)
+				spineAtlas = new SpineAtlas();
 			//if a TextureAtlas was loaded, make a SpineAtlas out of it
 			if(!(spineAtlas instanceof SpineAtlas))
 			{
