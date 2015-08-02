@@ -166,7 +166,7 @@
 			// Map the images to the global images object
 			if (results._images)
 			{
-				var images = namespace('images');
+				var images = namespace(this.imagesName);
 				for (var id in results._images)
 				{
 					images[id] = results._images[id];
@@ -200,7 +200,7 @@
 				// Destroy the images
 				if (results._images)
 				{
-					var images = window.images;
+					var images = namespace(this.imagesName);
 					for (var id in results._images)
 					{
 						images[id].src = "";
