@@ -89,9 +89,9 @@
 	 */
 	FlashArtAtlasTask.test = function(asset)
 	{
-		return asset.src && 
-			asset.src.search(/\.js$/i) > -1 && 
-			asset.atlas && 
+		return asset.src &&
+			asset.src.search(/\.js$/i) > -1 &&
+			asset.atlas &&
 			(asset.image || (asset.color && asset.alpha));
 	};
 
@@ -133,14 +133,16 @@
 					results._alpha
 				);
 			}
+			
+			var art = new FlashArt(
+				this.id,
+				results._flash,
+				this.libName
+			);
 
 			BitmapUtils.loadSpriteSheet(results._atlas, image, this.original.scale);
 
-			callback(new FlashArt(
-				this.id,
-				results._flash,
-				this.libName 
-			));
+			callback(art);
 		}
 		.bind(this));
 	};
