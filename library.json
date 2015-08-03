@@ -51,6 +51,7 @@
 		"pixidisplay": {
 			"output": "pixi-display",
 			"main": [
+				"src/displays/pixi/mixins/*.js",
 				"src/displays/pixi/display/TextureTask.js",
 				"src/displays/pixi/display/TextureAtlas.js",
 				"src/displays/pixi/display/TextureAtlasTask.js",
@@ -58,8 +59,7 @@
 				"src/displays/pixi/display/PixiDisplayPlugin.js",
 				"src/displays/pixi/DisplayAdapter.js",
 				"src/displays/pixi/PixiDisplay.js",
-				"src/displays/pixi/TickerPlugin.js",
-				"src/displays/pixi/mixins/*.js"
+				"src/displays/pixi/TickerPlugin.js"
 			]
 		},
 		"pixianimation": {
