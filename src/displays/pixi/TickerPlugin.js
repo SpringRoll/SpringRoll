@@ -42,7 +42,4 @@
 		ticker.update(_time);
 	}
 
-	// Register plugin
-	ApplicationPlugin.register(TickerPlugin);
-
 }());
