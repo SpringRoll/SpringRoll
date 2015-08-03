@@ -22,71 +22,76 @@
 	 * use getLocalBounds();
 	 * @property useBoundsForSize
 	 * @type {Boolean}
-	 * @default false
+	 * @default true
 	 */
-	p.useBoundsForSize = false;
+	p.useBoundsForSize = true;
 	
 	p._width = 0;
 	p._height = 0;
 	
-	Object.defineProperty(PIXI.DisplayObjectContainer.prototype, 'width',
+	if(Object.getOwnPropertyDescriptor(p, 'width').configurable)
 	{
-		get: function()
+		Object.defineProperty(p, 'width',
 		{
-			if(this.useBoundsForSize)
-				return this.scale.x * this.getLocalBounds().width;
-			else
-				return this.scale.x * this._width;
-		},
-		set: function(value)
-		{
-			if(this.useBoundsForSize)
+			configurable: true,
+			get: function()
 			{
-				var width = this.getLocalBounds().width;
-				if(width !== 0)
-					this.scale.x = value / width;
+				if(this.useBoundsForSize)
+					return this.scale.x * this.getLocalBounds().width;
 				else
-					this.scale.x = 1;
-				this._width = value;
-			}
-			else
+					return this.scale.x * this._width;
+			},
+			set: function(value)
 			{
-				if(this._width === 0)
-					this._width = value / this.scale.x;
+				if(this.useBoundsForSize)
+				{
+					var width = this.getLocalBounds().width;
+					if(width !== 0)
+						this.scale.x = value / width;
+					else
+						this.scale.x = 1;
+					this._width = value;
+				}
 				else
-					this.scale.x = value / this._width;
+				{
+					if(this._width === 0)
+						this._width = value / this.scale.x;
+					else
+						this.scale.x = value / this._width;
+				}
 			}
-		}
-	});
+		});
 
-	Object.defineProperty(PIXI.DisplayObjectContainer.prototype, 'height',
-	{
-		get: function()
+		Object.defineProperty(p, 'height',
 		{
-			if(this.useBoundsForSize)
-				return this.scale.y * this.getLocalBounds().height;
-			else
-				return this.scale.y * this._height;
-		},
-		set: function(value)
-		{
-			if(this.useBoundsForSize)
+			configurable: true,
+			get: function()
 			{
-				var height = this.getLocalBounds().height;
-				if(height !== 0)
-					this.scale.y = value / height;
+				if(this.useBoundsForSize)
+					return this.scale.y * this.getLocalBounds().height;
 				else
-					this.scale.y = 1;
-				this._height = value;
-			}
-			else
+					return this.scale.y * this._height;
+			},
+			set: function(value)
 			{
-				if(this._height === 0)
-					this._height = value / this.scale.y;
+				if(this.useBoundsForSize)
+				{
+					var height = this.getLocalBounds().height;
+					if(height !== 0)
+						this.scale.y = value / height;
+					else
+						this.scale.y = 1;
+					this._height = value;
+				}
 				else
-					this.scale.y = value / this._height;
+				{
+					if(this._height === 0)
+						this._height = value / this.scale.y;
+					else
+						this.scale.y = value / this._height;
+				}
 			}
-		}
-	});
+		});
+	}
 	
 }());
