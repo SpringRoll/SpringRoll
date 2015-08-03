@@ -5,7 +5,8 @@
 (function()
 {
 	// Include classes
-	var ticker = include('PIXI.ticker.shared', false);
+	var ticker = include('PIXI.ticker.shared', false),
+		ApplicationPlugin = include('springroll.ApplicationPlugin');
 	
 	if(!ticker) return;
 
