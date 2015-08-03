@@ -127,7 +127,7 @@
 		this._timer -= this._useFrames ? 1 : elapsed;
 		if(this._timer <= 0)
 		{
-			this._callback();
+			this._callback(this);
 			if(this._repeat)
 				this._timer += this._delay;
 			else if(this._autoDestroy)

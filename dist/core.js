@@ -849,7 +849,7 @@
 		this._timer -= this._useFrames ? 1 : elapsed;
 		if(this._timer <= 0)
 		{
-			this._callback();
+			this._callback(this);
 			if(this._repeat)
 				this._timer += this._delay;
 			else if(this._autoDestroy)
@@ -2261,7 +2261,8 @@
 	// classes to import
 	var TimeUtils = include('springroll.TimeUtils'),
 		EventDispatcher = include('springroll.EventDispatcher'),
-		ApplicationOptions = include('springroll.ApplicationOptions');
+		ApplicationOptions = include('springroll.ApplicationOptions'),
+		DelayedCall = include('springroll.DelayedCall');
 
 	/**
 	 * Creates a new application, for example (HappyCamel extends Application)
@@ -2758,6 +2759,35 @@
 				requestAnimFrame(_tickCallback) :
 				setTargetedTimeout(_tickCallback, TimeUtils.now() - _lastFrameTime);
 		}
+	};
+
+	/**
+	 * Works just like `window.setTimeout` but respects the pause
+	 * state of the Application.
+	 * @method  setTimeout
+	 * @param {Function} callback    The callback function, passes one argument which is the DelayedCall instance
+	 * @param {int}   delay       The time in milliseconds or the number of frames (useFrames must be true)
+	 * @param {Boolean}   [useFrames=false]   If the delay is frames (true) or millseconds (false)
+	 * @param {[type]}   [autoDestroy=true] If the DelayedCall object should be destroyed after completing
+	 * @return {springroll.DelayedCall} The object for pausing, restarting, destroying etc.
+	 */
+	p.setTimeout = function(callback, delay, useFrames, autoDestroy)
+	{
+		return new DelayedCall(callback, delay, false, autoDestroy, useFrames);
+	};
+
+	/**
+	 * Works just like `window.setInterval` but respects the pause
+	 * state of the Application.
+	 * @method  setInterval
+	 * @param {Function} callback    The callback function, passes one argument which is the DelayedCall instance
+	 * @param {int}   delay       The time in milliseconds or the number of frames (useFrames must be true)
+	 * @param {Boolean}   [useFrames=false]   If the delay is frames (true) or millseconds (false)
+	 * @return {springroll.DelayedCall} The object for pausing, restarting, destroying etc.
+	 */
+	p.setInterval = function(callback, delay, useFrames)
+	{
+		return new DelayedCall(callback, delay, true, false, useFrames);
 	};
 
 	/**
