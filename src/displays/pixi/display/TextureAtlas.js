@@ -41,9 +41,9 @@
 		var frames = data.frames;
 		
 		//parse the spritesheet
-		for (var i in frames)
+		for (var name in frames)
 		{
-			var frame = frames[i];
+			var frame = frames[name];
 			
 			var index = name.lastIndexOf(".");
 			//strip off any ".png" or ".jpg" at the end
@@ -86,14 +86,14 @@
 				size.width /= resolution;
 				size.height /= resolution;*/
 				
-				this.frames[i] = new Texture(this.baseTexture, size, size.clone(), trim,
+				this.frames[name] = new Texture(this.baseTexture, size, size.clone(), trim,
 													frame.rotated);
 				
 				if(useGlobalCache)
 				{
 					// lets also add the frame to pixi's global cache for fromFrame and fromImage
 					// functions
-					PixiUtils.TextureCache[id] = this.frames[i];
+					PixiUtils.TextureCache[name] = this.frames[name];
 				}
 			}
 		}
