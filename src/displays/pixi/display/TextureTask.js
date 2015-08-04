@@ -64,7 +64,7 @@
 	 */
 	TextureTask.test = function(asset)
 	{
-		return asset.forPixi && (!!asset.image || (!!asset.alpha && !!asset.color));
+		return asset.type == "pixi" && (!!asset.image || (!!asset.alpha && !!asset.color));
 	};
 
 	/**
