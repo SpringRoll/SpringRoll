@@ -57,9 +57,9 @@
 
 		/**
 		 * The spine atlas data source path
-		 * @property {String} spineAtlas
+		 * @property {String} atlas
 		 */
-		this.atlas = asset.spineAtlas;
+		this.atlas = asset.atlas;
 		
 		/**
 		 * Extra images to be added to the atlas
