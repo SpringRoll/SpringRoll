@@ -38,7 +38,7 @@
 		var swapFrameSize = data.meta &&
 				data.meta.app == "http://www.codeandweb.com/texturepacker";
 		
-		var frames = resource.data.frames;
+		var frames = data.frames;
 		
 		//parse the spritesheet
 		for (var i in frames)
