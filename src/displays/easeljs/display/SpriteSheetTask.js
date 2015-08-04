@@ -59,7 +59,10 @@
 	 */
 	SpriteSheetTask.test = function(asset)
 	{
-		return asset.images && Array.isArray(asset.images) && asset.frames;
+		return asset.images && 
+			asset.type == "easeljs" && 
+			Array.isArray(asset.images) && 
+			asset.frames;
 	};
 
 	/**

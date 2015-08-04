@@ -49,7 +49,7 @@
 	 */
 	BitmapMovieClipTask.test = function(asset)
 	{
-		return !!asset.anim && TextureAtlasTask.test(asset);
+		return asset.anim && TextureAtlasTask.test(asset);
 	};
 
 	/**

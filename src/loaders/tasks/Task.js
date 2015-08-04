@@ -57,6 +57,12 @@
 		 * @property {String} id
 		 */
 		this.id = asset.id || null;
+
+		/**
+		 * The task type for display filter
+		 * @property {String} type
+		 */
+		this.type = asset.type || null;
 	
 		/**
 		 * Reference to the original asset data
@@ -176,6 +182,7 @@
 	{
 		this.status = Task.FINISHED;
 		this.id = null;
+		this.type = null;
 		this.complete = null;
 		this.original = null;
 	};

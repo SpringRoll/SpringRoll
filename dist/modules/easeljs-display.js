@@ -698,7 +698,9 @@
 	FlashArtTask.test = function(asset)
 	{
 		// loading a JS file from Flash
-		return !!asset.src && asset.src.search(/\.js$/i) > -1;
+		return asset.src && 
+			asset.src.search(/\.js$/i) > -1 &&
+			asset.type == "easeljs";
 	};
 
 	/**
@@ -1022,7 +1024,9 @@
 	TextureAtlasTask.test = function(asset)
 	{
 		// animation data and atlas data and an image or color/alpha split
-		return !!asset.atlas && (!!asset.image || (!!asset.alpha && !!asset.color));
+		return asset.type == "easeljs" && 
+			asset.atlas && 
+			(asset.image || (asset.alpha && asset.color));
 	};
 
 	/**
@@ -1172,6 +1176,7 @@
 	{
 		return asset.src && 
 			asset.src.search(/\.js$/i) > -1 && 
+			asset.type == "easeljs" &&
 			asset.atlas && 
 			(asset.image || (asset.color && asset.alpha));
 	};
@@ -1291,7 +1296,10 @@
 	 */
 	SpriteSheetTask.test = function(asset)
 	{
-		return asset.images && Array.isArray(asset.images) && asset.frames;
+		return asset.images && 
+			asset.type == "easeljs" && 
+			Array.isArray(asset.images) && 
+			asset.frames;
 	};
 
 	/**
@@ -1379,7 +1387,9 @@
 	 */
 	FlashSpriteSheetTask.test = function(asset)
 	{
-		return asset.src && (/_atlas_\.json$/.test(asset.src) || asset.type == "createjs.SpriteSheet");
+		return asset.src && 
+			asset.type == "easeljs" && 
+			asset.format == "createjs.SpriteSheet";
 	};
 
 	/**
@@ -1431,6 +1441,15 @@
 		assetManager.register('springroll.easeljs.FlashArtAtlasTask', 60);
 		assetManager.register('springroll.easeljs.SpriteSheetTask', 70);
 		assetManager.register('springroll.easeljs.FlashSpriteSheetTask', 80);
+
+		this.once('displayAdded', function(display)
+		{
+			var options = this.options;
+			if (!options.defaultAssetType && display instanceof include('springroll.EaselJSDisplay'))
+			{
+				options.defaultAssetType = 'easeljs';
+			}
+		});
 	};
 
 }());

@@ -47,7 +47,9 @@
 	 */
 	FlashSpriteSheetTask.test = function(asset)
 	{
-		return asset.src && (/_atlas_\.json$/.test(asset.src) || asset.type == "createjs.SpriteSheet");
+		return asset.src && 
+			asset.type == "easeljs" && 
+			asset.format == "createjs.SpriteSheet";
 	};
 
 	/**

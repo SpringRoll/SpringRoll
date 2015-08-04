@@ -50,7 +50,9 @@
 	FlashArtTask.test = function(asset)
 	{
 		// loading a JS file from Flash
-		return !!asset.src && asset.src.search(/\.js$/i) > -1;
+		return asset.src && 
+			asset.src.search(/\.js$/i) > -1 &&
+			asset.type == "easeljs";
 	};
 
 	/**

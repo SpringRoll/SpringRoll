@@ -3811,6 +3811,12 @@
 		 * @property {String} id
 		 */
 		this.id = asset.id || null;
+
+		/**
+		 * The task type for display filter
+		 * @property {String} type
+		 */
+		this.type = asset.type || null;
 	
 		/**
 		 * Reference to the original asset data
@@ -3930,6 +3936,7 @@
 	{
 		this.status = Task.FINISHED;
 		this.id = null;
+		this.type = null;
 		this.complete = null;
 		this.original = null;
 	};
@@ -5293,6 +5300,13 @@
 		 * @default false
 		 */
 		this.running = false;
+
+		/**
+		 * The default asset type if not defined
+		 * @property {String} type
+		 * @default null
+		 */
+		this.type = null;
 	};
 
 	// Reference to prototype
@@ -5327,6 +5341,7 @@
 	 * @param {Function} [options.progress=null] Function call when task is done, returns result
 	 * @param {Boolean} [options.startAll=true] If we should run the tasks in order
 	 * @param {Boolean} [options.cacheAll=false] If we should run the tasks in order
+	 * @param {String} [options.type] The default asset type of load, gets attached to each asset
 	 */
 	p.start = function(assets, options)
 	{
@@ -5338,6 +5353,7 @@
 		this.progress = options.progress;
 		this.startAll = options.startAll;
 		this.cacheAll = options.cacheAll;
+		this.type = options.type;
 
 		// Update the results mode and tasks
 		this.mode = this.addTasks(assets);
@@ -5366,6 +5382,7 @@
 		this.results = null;
 		this.complete = null;
 		this.progress = null;
+		this.type = null;
 		this.startAll = true;
 		this.cacheAll = false;
 		this.running = false;
@@ -5502,6 +5519,10 @@
 	 */
 	p.addTask = function(asset)
 	{
+		if (asset.type === undefined && this.type)
+		{
+			asset.type = this.type;
+		}
 		var TaskClass = this.getTaskByAsset(asset);
 		var task;
 		if (TaskClass)
@@ -5777,6 +5798,13 @@
 		 */
 		this.sizes = new AssetSizes();
 
+		/**
+		 * The default asset type
+		 * @property {String} defaultType
+		 * @readOnly
+		 */
+		this.defaultType = null;
+
 		// Add the default built-in sizes for "half" and "full"
 		this.sizes.define('half', 400, 0.5, ['full']);
 		this.sizes.define('full', 10000, 1, ['half']);
@@ -5833,6 +5861,7 @@
 	 * @param {function} [options.progress] The function when finished a single task
 	 * @param {Boolean} [options.startAll=true] If we should run all the tasks at once, in parallel
 	 * @param {Boolean} [options.cacheAll=false] If we should cache all files
+	 * @param {String} [options.type] The type of assets to load, defaults to AssetManager.prototype.defaultType
 	 * @return {springroll.AssetLoad} The reference to the current load
 	 */
 	p.load = function(assets, options)
@@ -5842,7 +5871,8 @@
 			complete: null,
 			progress: null,
 			cacheAll: false,
-			startAll: true
+			startAll: true,
+			type: this.defaultType
 		}, options);
 
 		var load = this.getLoad();
@@ -5992,7 +6022,7 @@
 		 * with a CDN path.
 		 * @property {String} options.basePath
 		 */
-		this.options.add('basePath', null);
+		this.options.add('basePath');
 
 		/**
 		 * The current version number for your application. This
@@ -6013,6 +6043,20 @@
 		 * @property {String} options.versionsFile
 		 */
 		this.options.add('versionsFile', null, true);
+
+		/**
+		 * Different displays offer flavors of the same asset definition.
+		 * Instead of repeatedly defining the asset type property,
+		 * it's possible to define a global default. If PIXI
+		 * is your default display "pixi" is recommended as a value
+		 * if EaselJS is your default display "easeljs" is recommended.
+		 * @property {String} options.defaultAssetType
+		 */
+		this.options.add('defaultAssetType')
+			.on('defaultAssetType', function(value)
+			{
+				assetManager.defaultType = value;
+			});
 
 		/**
 		 * Simple load of a single file.
@@ -6061,6 +6105,7 @@
 		 * @param {Function} [options.progress=null] The callback when a single item is finished.
 		 * @param {Boolean} [options.cacheAll=false] If tasks should be cached
 		 * @param {Boolean} [options.startAll=true] If tasks should be run in parallel
+		 * @param {String} [options.type] The default asset type of load, gets attached to each asset
 		 */
 		/**
 		 * Load a list of multiple assets and return array of result objects.
@@ -6073,6 +6118,7 @@
 		 * @param {Function} [options.progress=null] The callback when a single item is finished.
 		 * @param {Boolean} [options.cacheAll=false] If tasks should be cached
 		 * @param {Boolean} [options.startAll=true] If tasks should be run in parallel
+		 * @param {String} [options.type] The default asset type of load, gets attached to each asset
 		 */
 		this.load = function(source, complete, progress, cache, data)
 		{
@@ -6087,7 +6133,7 @@
 					progress: progress || null,
 					complete: complete || null,
 					cache: !!cache,
-					data: data || null,
+					data: data || null
 				};
 			}
 			else
