@@ -73,7 +73,7 @@
 				//  Check to see if the sprite is trimmed
 				if (frame.trimmed)
 				{
-					trim = new core.Rectangle(
+					trim = new Rectangle(
 						frame.spriteSourceSize.x,// / resolution,
 						frame.spriteSourceSize.y,// / resolution,
 						frame.sourceSize.w,// / resolution,
