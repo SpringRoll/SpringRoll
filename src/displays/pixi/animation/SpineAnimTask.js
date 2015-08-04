@@ -80,13 +80,18 @@
 	 */
 	SpineAnimTask.test = function(asset)
 	{
+		//anim data is required
 		if(!asset.spineAnim)
 			return false;
+		//if atlas exists, make sure it is a valid atlas
 		if(asset.atlas &&
 			!(TextureAtlasTask.test(asset.atlas) || SpineAtlasTask.test(asset.atlas)))
 			return false;
+		//if atlas does not exist, extraImages is required
 		if(!asset.atlas)
 			return !!asset.extraImages;
+		//if it made it this far, it checks out
+		return true;
 	};
 
 	/**

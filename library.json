@@ -69,7 +69,7 @@
 				"src/displays/pixi/animation/AdvancedMovieClipTask.js",
 				"src/displays/pixi/animation/SpineAtlas.js",
 				"src/displays/pixi/animation/SpineAtlasTask.js",
-				"src/displays/pixi/animation/SpineAnimAtlas.js",
+				"src/displays/pixi/animation/SpineAnimTask.js",
 				"src/displays/pixi/animation/ParallelSpineData.js",
 				"src/displays/pixi/animation/AnimatorTimeline.js",
 				"src/displays/pixi/animation/Animator.js",
