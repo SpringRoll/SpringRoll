@@ -20,21 +20,21 @@
 	 * @constructor
 	 * @param {String} id The id of the canvas element on the page to draw to.
 	 * @param {Object} options The setup data for the Pixi stage.
-	 * @param {String} [options.forceContext=null] If a specific renderer should be used instead of
-	 *                                         WebGL falling back to Canvas. Use "webgl" or
-	 *                                         "canvas2d" to specify a renderer.
-	* @param {Boolean} [options.clearView=false] If the canvas should be wiped between renders.
-	 * @param {uint} [options.backgroundColor=0x000000] The background color of the stage (if it is
-	 *                                              not transparent).
+	 * @param {String} [options.forceContext=null] If a specific renderer should be used instead
+	 *                                             of WebGL falling back to Canvas. Use "webgl" or
+	 *                                             "canvas2d" to specify a renderer.
+	 * @param {Boolean} [options.clearView=false] If the canvas should be wiped between renders.
+	 * @param {uint} [options.backgroundColor=0x000000] The background color of the stage (if
+	 *                                                  it is not transparent).
 	 * @param {Boolean} [options.transparent=false] If the stage should be transparent.
 	 * @param {Boolean} [options.antiAlias=false] If the WebGL renderer should use anti-aliasing.
 	 * @param {Boolean} [options.preMultAlpha=false] If the WebGL renderer should draw with all
-	 *                                           images as pre-multiplied alpha. In most cases,
-	 *                                           you probably do not want to set this option to
-	 *                                           true.
+	 *                                               images as pre-multiplied alpha. In most
+	 *                                               cases, you probably do not want to set this
+	 *                                               option to true.
 	 * @param {Boolean} [options.preserveDrawingBuffer=false] Set this to true if you want to call
-	 *                                                    toDataUrl on the WebGL rendering
-	 *                                                    context.
+	 *                                                        toDataUrl on the WebGL rendering
+	 *                                                        context.
 	 */
 	var PixiDisplay = function(id, options)
 	{
@@ -134,7 +134,7 @@
 			if(value)
 			{
 				//add events to the interaction manager's target
-				interactionManager.setTargetDomElement(this.canvas);
+				interactionManager.setTargetElement(this.canvas);
 			}
 			else
 			{
