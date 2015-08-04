@@ -230,8 +230,8 @@
 	{
 		var page = new AtlasPage();
 		page.name = name;
-		page.width = texture.width;
-		page.height = texture.height;
+		page.width = atlas.baseTexture.width;
+		page.height = atlas.baseTexture.height;
 		//shouldn't really be relevant in Pixi
 		page.format = "RGBA8888";
 		//also shouldn't be relevant in Pixi
@@ -278,8 +278,13 @@
 			region.originalWidth = frame.width;
 			region.originalHeight = frame.height;
 	
-			region.offsetX = frame.trim.x;
-			region.offsetY = frame.trim.y;
+			if(frame.trim)
+			{
+				region.offsetX = frame.trim.x;
+				region.offsetY = frame.trim.y;
+			}
+			else
+				region.offsetX = region.offsetY = 0;
 			//no index
 			region.index = -1;
 			//keep region
