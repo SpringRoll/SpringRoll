@@ -125,8 +125,14 @@
 	 * @property {Boolean} enabled
 	 * @public
 	 */
-	Object.defineProperty(p, "enabled", {
-		get: function(){ return this._enabled; },
+	Object.defineProperty(p, "enabled",
+	{
+		// enabled getter
+		get: function()
+		{ 
+			return this._enabled; 
+		},
+		// enabled setter
 		set: function(value)
 		{
 			var oldEnabled = this._enabled;
@@ -160,8 +166,14 @@
 	 * @property {Boolean} visible
 	 * @public
 	 */
-	Object.defineProperty(p, "visible", {
-		get: function(){ return this._visible; },
+	Object.defineProperty(p, "visible", 
+	{
+		// visible getter
+		get: function()
+		{ 
+			return this._visible; 
+		},
+		// visible setter
 		set: function(value)
 		{
 			var oldVisible = this._visible; 
