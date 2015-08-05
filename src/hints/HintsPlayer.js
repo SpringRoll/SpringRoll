@@ -308,11 +308,13 @@
 	/**
 	 * Call this when a FunctionHint is done playing to reset HintsPlayer
 	 * @method funcDone
+	 * @param {Boolean} [cancelled=false] If the function was interrupted by the user or something else.
 	 */
 	/**
 	 * Internal callback when a hint is done playing
 	 * @method _done
 	 * @private
+	 * @param {Boolean} [cancelled=false] If the function was interrupted by the user or something else.
 	 */
 	p.funcDone = p._done = function(cancelled)
 	{
