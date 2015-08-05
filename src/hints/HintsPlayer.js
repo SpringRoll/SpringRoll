@@ -154,7 +154,9 @@
 	 * NEED to re-enable the hinting when it's done. Whereas the VO and ANIM methods
 	 * with automatically re-enable the hinting button.
 	 * @method func
-	 * @param {Function} onStart The instance of the clip to play with Animator
+	 * @param {Function} onStart The function to call when hint is played.
+	 *                           Should accept 2 arguments (callbacks): onComplete, onCancelled
+	 *                           and call them when complete or cancelled
 	 * @return {springroll.FunctionHint} The newly added hint
 	 */
 	p.func = function(onStart)
@@ -303,13 +305,16 @@
 			}
 		}
 	};
-
+	/**
+	 * Call this when a FunctionHint is done playing to reset HintsPlayer
+	 * @method funcDone
+	 */
 	/**
 	 * Internal callback when a hint is done playing
 	 * @method _done
 	 * @private
 	 */
-	p._done = function(cancelled)
+	p.funcDone = p._done = function(cancelled)
 	{
 		this._playing = false;
 		this.resetTimer();
