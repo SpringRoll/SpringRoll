@@ -1809,8 +1809,7 @@
 
 		AbstractDisplay.call(this, id, options);
 
-		options = options ||
-		{};
+		options = options || {};
 
 		/**
 		 * The rate at which EaselJS calculates mouseover events, in times/second.
