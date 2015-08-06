@@ -87,6 +87,7 @@
 				"src/displays/easeljs/display/FlashArtAtlasTask.js",
 				"src/displays/easeljs/display/SpriteSheetTask.js",
 				"src/displays/easeljs/display/FlashSpriteSheetTask.js",
+				"src/displays/easeljs/display/BitmapTask.js",
 				"src/displays/easeljs/display/EaselJSDisplayPlugin.js",
 				"src/displays/easeljs/DisplayAdapter.js",
 				"src/displays/easeljs/EaselJSDisplay.js"
