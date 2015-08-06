@@ -247,28 +247,20 @@
 	 * @public
 	 * @param {Object} config The config to load.
 	 * @param {String} [config.context] The optional sound context to load sounds into unless
-	 *                                otherwise specified by the individual sound. Sounds do not
-	 *                                require a context.
+	 * otherwise specified by the individual sound. Sounds do not require a context.
 	 * @param {String} [config.path=""] The path to prepend to all sound source urls in this config.
-	 * @param {Array} config.sounds The list of sounds, either as String ids or Objects with
-	 *                                   settings.
+	 * @param {boolean} [config.preload=false] Option to preload all sound files in this context..
+	 * @param {Array} config.sounds The list of sounds, either as String ids or Objects with settings.
 	 * @param {Object|String} config.sounds.listItem Not actually a property called listItem,
-	 *                                                    but an entry in the array. If this is a
-	 *                                                    string, then it is the same as
-	 *                                                    {'id':'<yourString>'}.
+	 * but an entry in the array. If this is a string, then it is the same as {'id':'<yourString>'}.
 	 * @param {String} config.sounds.listItem.id The id to reference the sound by.
 	 * @param {String} [config.sounds.listItem.src] The src path to the file, without an
-	 *                                                   extension. If omitted, defaults to id.
-	 * @param {Number} [config.sounds.listItem.volume=1] The default volume for the sound,
-	 *                                                        from 0 to 1.
-	 * @param {Boolean} [config.sounds.listItem.loop=false] If the sound should loop by
-	 *                                                           default whenever the loop
-	 *                                                           parameter in play() is not
-	 *                                                           specified.
-	 * @param {String} [config.sounds.listItem.context] A context name to override
-	 *                                                       config.context with.
-	 * @param {Boolean} [config.sounds.listItem.preload] If the sound should be preloaded
-	 *                                                        immediately.
+	 * extension. If omitted, defaults to id.
+	 * @param {Number} [config.sounds.listItem.volume=1] The default volume for the sound, from 0 to 1.
+	 * @param {Boolean} [config.sounds.listItem.loop=false] If the sound should loop by default whenever
+	 * the loop parameter in play() is not specified.
+	 * @param {String} [config.sounds.listItem.context] A context name to override config.context with.
+	 * @param {Boolean} [config.sounds.listItem.preload] If the sound should be preloaded immediately.
 	 * @return {Sound} The sound object for chaining
  	 */
 	p.addContext = function(config)
@@ -280,6 +272,7 @@
 		}
 		var list = config.soundManifest || config.sounds || [];
 		var path = config.path || "";
+		var preloadAll = config.preload === true || false; 
 		var defaultContext = config.context;
 
 		var s;
@@ -311,7 +304,7 @@
 				this._contexts[temp.context].sounds.push(temp);
 			}
 			//preload the sound for immediate-ish use
-			if(s.preload === true)
+			if (preloadAll || s.preload === true)
 			{
 				this.preload(temp.id);
 			}
