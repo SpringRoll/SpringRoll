@@ -1405,6 +1405,7 @@
 		{
 			data.id = id;
 			data.globalProperty = prop;
+			data.type = "easeljs";
 			Application.instance.load(data, callback);
 		});
 	};
