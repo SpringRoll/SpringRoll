@@ -80,10 +80,9 @@
 	{
 		frame = (frame === undefined) ? 0 : frame;
 		this.gotoAndStop(frame);
-		this.cacheByRect(
-			this.frameBounds ? this.frameBounds[this.currentFrame] : this.nominalBounds,
-			buffer,
-			scale);
+		var rect = this.frameBounds ? this.frameBounds[this.currentFrame] : this.nominalBounds;
+		if(rect)//only cache if there is content on this frame
+			this.cacheByRect(rect, buffer, scale);
 	};
 
 }());
