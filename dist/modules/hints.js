@@ -339,7 +339,7 @@
 
 	/**
 	 * Add a VO hint to the player.
-	 * @method setVO
+	 * @method vo
 	 * @param {string|array} [idOrList] The list of VO element, see VOPlayer.play
 	 * @param {function} onComplete Call when the VO is done playing
 	 * @param {function|boolean} [onCancel] Call when the VO is cancelled playing,
@@ -360,7 +360,7 @@
 
 	/**
 	 * Add an animator hint to the player
-	 * @method setAnim
+	 * @method anim
 	 * @param {createjs.MovieClip|*} instance The instance of the clip to play with Animator
 	 * @param {String|Array|Object} events The event aliases to play, see Animator.play
 	 * @param {function} onComplete Call when the VO is done playing
@@ -385,7 +385,7 @@
 	 * Add an animator hint to the player. If you use this hinting method, you
 	 * NEED to re-enable the hinting when it's done. Whereas the VO and ANIM methods
 	 * with automatically re-enable the hinting button.
-	 * @method setFunc
+	 * @method func
 	 * @param {function} onStart The instance of the clip to play with Animator
 	 * @return {springroll.FunctionHint} The newly added hint
 	 */
