@@ -306,7 +306,7 @@
 	*/
 	AssetManager.load = function(assetOrAssets, callback, taskList)
 	{
-		var i, length, urls = [], asset, j, jLength, assetCollection, madeCopy = false, splits;
+		var i, length, urls = [], asset, j, jLength, assetCollection, madeCopy = false, splits, url;
 		if(!Array.isArray(assetOrAssets))
 		{
 			assetOrAssets = [assetOrAssets];
@@ -346,7 +346,7 @@
 				}
 				else if(!asset._isLoaded)
 				{
-					var url = AssetManager.getUrl(assetOrAssets[i]);
+					url = AssetManager.getUrl(assetOrAssets[i]);
 					if(asset.split)
 					{
 						if(!splits)
@@ -404,6 +404,7 @@
 		{
 			//load immediately
 			var cm = Loader.instance.cacheManager;
+			var filters = Application.instance.filters;
 			for(i = 0, length = assetOrAssets.length; i < length; ++i)
 			{
 				asset = assets[assetOrAssets[i]];
@@ -426,11 +427,17 @@
 					{
 						asset = assets[assetCollection[j]];
 						if(asset && !asset._isLoaded)
-							urls.push(cm.prepare(AssetManager.getUrl(assetCollection[j]), true));
+						{
+							url = AssetManager.getUrl(assetCollection[j]);
+							urls.push(cm.prepare(filters.filter(url), true));
+						}
 					}
 				}
 				else if(!asset._isLoaded)
-					urls.push(cm.prepare(AssetManager.getUrl(assetOrAssets[i]), true));
+				{
+					url = AssetManager.getUrl(assetOrAssets[i]);
+					urls.push(cm.prepare(filters.filter(url), true));
+				}
 			}
 			if(urls.length)
 			{
