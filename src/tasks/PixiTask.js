@@ -18,7 +18,7 @@
 	 *	@param {String} id The id of the task
 	 *	@param {Array} urls The urls to load using PIXI.AssetLoader
 	 *	@param {Function} callback The callback to call when the load is completed
-	 *	@param {Function} updateCallback The optional callback to call each time 
+	 *	@param {Function} updateCallback The optional callback to call each time
 	 *	an itemfinishes loading
 	 */
 	var PixiTask = function(id, urls, callback, updateCallback)
@@ -47,9 +47,11 @@
 		this._assetLoader = null;
 
 		var cm = Loader.instance.cacheManager;
-
+		var filters = Application.instance.filters;
+		
 		for (var i = 0, len = urls.length; i < len; ++i)
 		{
+			urls[i] = filters.filter(urls[i]);
 			urls[i] = cm.prepare(urls[i], true);
 		}
 
