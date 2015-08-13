@@ -405,6 +405,7 @@
 (function()
 {
 	var Application = include('springroll.Application'),
+		EventDispatcher = include('springroll.EventDispatcher'),
 		Debug,
 		SoundContext,
 		SoundInstance,
@@ -418,6 +419,7 @@
 	 * for managing sounds.
 	 *
 	 * @class Sound
+	 * @extend EventDispatcher
  	 */
 	var Sound = function()
 	{
@@ -428,6 +430,8 @@
 			SoundContext = include('springroll.SoundContext');
 			SoundInstance = include('springroll.SoundInstance');
 		}
+		
+		EventDispatcher.call(this);
 
 		/**
 		 * Dictionary of sound objects, containing configuration info and playback objects.
@@ -476,9 +480,26 @@
 		 * @readOnly
 	 	 */
 		this.soundEnabled = true;
+		
+		/**
+		 * If sound is currently muted by the system. This will only be true on iOS until
+		 * audio has been unmuted during a touch event. Listen for the 'systemUnmuted' event
+		 * on Sound to be notified when the audio is unmuted on iOS.
+		 * @property {Boolean} systemMuted
+		 * @readOnly
+	 	 */
+		this.systemMuted = createjs.BrowserDetect.isIOS;
 	};
+	
+	/**
+	 * Fired when audio is unmuted on iOS. If systemMuted is false, this will not be fired
+	 * (or already has been fired).
+	 * @event systemUnmuted
+	 */
 
-	var p = Sound.prototype = {};
+	// Reference to the prototype
+	var s = EventDispatcher.prototype;
+	var p = extend(Sound, EventDispatcher);
 
 	var _instance = null;
 	
@@ -594,6 +615,7 @@
 	{
 		document.removeEventListener("touchstart", _playEmpty);
 		WebAudioPlugin.playEmptySound();
+		_instance.trigger("systemUnmuted");
 	}
 
 	/**
@@ -671,7 +693,7 @@
 		}
 		var list = config.soundManifest || config.sounds || [];
 		var path = config.path || "";
-		var preloadAll = config.preload === true || false; 
+		var preloadAll = config.preload === true || false;
 		var defaultContext = config.context;
 
 		var s;
@@ -1156,12 +1178,12 @@
 			volume = inst.curVol;
 			pan = inst._pan;
 			channel = SoundJS.play(
-				alias, 
+				alias,
 				startParams[0], // interrupt
 				startParams[1], // delay
 				startParams[2], // offset
 				startParams[3], // loop
-				volume, 
+				volume,
 				pan
 			);
 
@@ -1454,7 +1476,7 @@
 	 * @method preload
 	 * @public
 	 * @param {Array|String} list An alias or list of aliases to load.
-	 * @param {function} [callback] The function to call when all 
+	 * @param {function} [callback] The function to call when all
 	    *      sounds have been loaded.
 	 */
 	p.preload = function(list, callback)
@@ -1483,7 +1505,7 @@
 
 					//sound is passed last so that SoundJS gets the sound ID
 					assets.push({
-						id: sound.id, 
+						id: sound.id,
 						src: sound.src,
 						complete: this._markLoaded,
 						data: sound,
