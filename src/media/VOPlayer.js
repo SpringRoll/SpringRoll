@@ -154,6 +154,12 @@
 	p.getElapsed = function()
 	{
 		var total = 0, item, i;
+        
+        if(!this.playing)
+        {
+            return 0;
+        }
+        
 		for(i = 0; i < this._listCounter; ++i)
 		{
 			item = this.soundList[i];
