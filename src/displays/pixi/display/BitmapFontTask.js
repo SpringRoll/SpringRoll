@@ -8,11 +8,11 @@
 	var TextureTask = include('springroll.pixi.TextureTask'),
 		Texture = include('PIXI.Texture'),
 		Rectangle = include('PIXI.Rectangle'),
-		BitmapFont = include('PIXI.extras.BitmapFont', false),
+		BitmapText = include('PIXI.extras.BitmapText', false),
 		PixiUtils = include('PIXI.utils'),
 		Application = include('springroll.Application');
 	
-	if(!BitmapFont) return;
+	if(!BitmapText) return;
 
 	/**
 	 * Internal class for dealing with async load assets through Loader.
