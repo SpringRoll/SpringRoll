@@ -91,6 +91,7 @@
 	{
 		return asset.src && 
 			asset.src.search(/\.js$/i) > -1 && 
+			asset.type == "easeljs" &&
 			asset.atlas && 
 			(asset.image || (asset.color && asset.alpha));
 	};

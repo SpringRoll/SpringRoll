@@ -2,7 +2,7 @@
 /**
  * @module EaselJS UI
  * @namespace springroll.easeljs
- * @requires Core, EaselJS Display, Tasks
+ * @requires Core, EaselJS Display
  */
 (function(undefined)
 {
@@ -262,11 +262,11 @@
 		 * @property {createjs.Point} _offset
 		 */
 		this._offset = new Point();
-		
+
 		//====
 		//Actual constructor stuff from here on out, not just property definitions
 		//====
-		
+
 		//input events should have this button as a target, not the child Bitmap.
 		this.mouseChildren = false;
 
@@ -792,7 +792,6 @@
 		}
 		if (highlightSettings)
 		{
-			if (true && Debug) Debug.log(highlightSettings.rgba);
 			width += highlightSettings.size * 2;
 			height += buttonHeight + highlightSettings.size * 2;
 			if (highlightSettings.rgba)
@@ -926,7 +925,7 @@
 		}
 		return output;
 	};
-	
+
 	/**
 	 * Generates an 'imageSettings' from a TextureAtlas, a base name for all frames, and a list
 	 * of state priorities.
@@ -970,7 +969,7 @@
 /**
  * @module EaselJS UI
  * @namespace springroll.easeljs
- * @requires Core, EaselJS Display, Tasks
+ * @requires Core, EaselJS Display
  */
 (function()
 {
@@ -1103,7 +1102,7 @@
 /**
  * @module EaselJS UI
  * @namespace springroll.easeljs
- * @requires Core, EaselJS Display, Tasks
+ * @requires Core, EaselJS Display
  */
 (function()
 {
@@ -1122,7 +1121,7 @@
 /**
  * @module EaselJS UI
  * @namespace springroll.easeljs
- * @requires Core, EaselJS Display, Tasks
+ * @requires Core, EaselJS Display
  */
 (function()
 {

@@ -678,45 +678,47 @@
 {
 	
 	/**
-	 * A function that is used as a normal callback, but checks an object for a property in order to combine two
-	 * callbacks into one. For example usage:
+	 * CombinedCallback is a utility class that creates a function to be passed to multiple
+	 * asynchronous functions as a callback, and will call your callback on the last time it
+	 * is called.
 	 *
-	 * var voPlayer = new springroll.VOPlayer();
-	 * var callback = springroll.CombinedCallback.create(myFunc.bind(this), voPlayer, "playing", "_callback");
-	 * Animator.play(myClip, "myAnim", callback);
-	 * 
-	 * In this example, when Animator calls 'callback', if voPlayer["playing"] is false, 'myFunc' is called immediately.
-	 * If voPlayer["playing"] is true, then voPlayer["_callback"] is set to 'myFunc' so that it will be called when voPlayer completes.
-	 * 
 	 * @class CombinedCallback
-	 * @constructor
-	 * @param {function} call The callback to call when everything is complete.
-	 * @param {*} obj The object to check as an additional completion dependency.
-	 * @param {String} prop The property to check on obj. If obj[prop] is false, then it is considered complete.
-	 * @param {String} callProp The property to set on obj if obj[prop] is true when the CombinedCallback is called.
 	 */
-	var CombinedCallback = function(call, obj, prop, callProp)
-	{
-		if(!obj[prop])//accept anything that resolves to false: eg voPlayer.playing == false
-			call();
-		else
-			obj[callProp] = call;
-	};
+	var CombinedCallback = {};
 
 	/**
-	 * Creates a CombinedCallback for use.
-	 * 
+	 * Creates a callback function for use.
+	 *
 	 * @method create
 	 * @static
-	 * @param {function} call The callback to call when everything is complete.
-	 * @param {*} obj The object to check as an additional completion dependency.
-	 * @param {String} prop The property to check on obj. If obj[prop] is false, then it is considered complete.
-	 * @param {String} callProp The property to set on obj if obj[prop] is true when the CombinedCallback is called.
+	 * @param {Function} call The callback to call when everything is complete.
+	 * @param {int} [callCount=2] The number of times this function should expect to be called.
+	 * @return {Function} The callback to pass to your asynchronous actions. For reuse,
+	 *                    this function has a reset() function.
 	 */
-	CombinedCallback.create = function(call, obj, prop, callProp)
+	CombinedCallback.create = function(call, callCount)
 	{
-		return CombinedCallback.bind(this, call, obj, prop, callProp);
+		if(!call) return null;
+		
+		if(typeof callCount != "number" || callCount < 1)
+			callCount = 2;
+		//create a function that can be called multiple times
+		var rtn = function()
+		{
+			if(++this.currentCallCount >= callCount)
+				call();
+		};
+		//set some properties on said function to make it reusable
+		rtn.currentCallCount = 0;
+		rtn.reset = reset;
+		
+		return rtn;
 	};
+	
+	function reset()
+	{
+		this.currentCount = 0;
+	}
 
 	namespace('springroll').CombinedCallback = CombinedCallback;
 }());
@@ -849,7 +851,7 @@
 		this._timer -= this._useFrames ? 1 : elapsed;
 		if(this._timer <= 0)
 		{
-			this._callback();
+			this._callback(this);
 			if(this._repeat)
 				this._timer += this._delay;
 			else if(this._autoDestroy)
@@ -2261,7 +2263,8 @@
 	// classes to import
 	var TimeUtils = include('springroll.TimeUtils'),
 		EventDispatcher = include('springroll.EventDispatcher'),
-		ApplicationOptions = include('springroll.ApplicationOptions');
+		ApplicationOptions = include('springroll.ApplicationOptions'),
+		DelayedCall = include('springroll.DelayedCall');
 
 	/**
 	 * Creates a new application, for example (HappyCamel extends Application)
@@ -2758,6 +2761,35 @@
 				requestAnimFrame(_tickCallback) :
 				setTargetedTimeout(_tickCallback, TimeUtils.now() - _lastFrameTime);
 		}
+	};
+
+	/**
+	 * Works just like `window.setTimeout` but respects the pause
+	 * state of the Application.
+	 * @method  setTimeout
+	 * @param {Function} callback    The callback function, passes one argument which is the DelayedCall instance
+	 * @param {int}   delay       The time in milliseconds or the number of frames (useFrames must be true)
+	 * @param {Boolean}   [useFrames=false]   If the delay is frames (true) or millseconds (false)
+	 * @param {[type]}   [autoDestroy=true] If the DelayedCall object should be destroyed after completing
+	 * @return {springroll.DelayedCall} The object for pausing, restarting, destroying etc.
+	 */
+	p.setTimeout = function(callback, delay, useFrames, autoDestroy)
+	{
+		return new DelayedCall(callback, delay, false, autoDestroy, useFrames);
+	};
+
+	/**
+	 * Works just like `window.setInterval` but respects the pause
+	 * state of the Application.
+	 * @method  setInterval
+	 * @param {Function} callback    The callback function, passes one argument which is the DelayedCall instance
+	 * @param {int}   delay       The time in milliseconds or the number of frames (useFrames must be true)
+	 * @param {Boolean}   [useFrames=false]   If the delay is frames (true) or millseconds (false)
+	 * @return {springroll.DelayedCall} The object for pausing, restarting, destroying etc.
+	 */
+	p.setInterval = function(callback, delay, useFrames)
+	{
+		return new DelayedCall(callback, delay, true, false, useFrames);
 	};
 
 	/**
@@ -3779,6 +3811,12 @@
 		 * @property {String} id
 		 */
 		this.id = asset.id || null;
+
+		/**
+		 * The task type for display filter
+		 * @property {String} type
+		 */
+		this.type = asset.type || null;
 	
 		/**
 		 * Reference to the original asset data
@@ -3898,6 +3936,7 @@
 	{
 		this.status = Task.FINISHED;
 		this.id = null;
+		this.type = null;
 		this.complete = null;
 		this.original = null;
 	};
@@ -5261,6 +5300,13 @@
 		 * @default false
 		 */
 		this.running = false;
+
+		/**
+		 * The default asset type if not defined
+		 * @property {String} type
+		 * @default null
+		 */
+		this.type = null;
 	};
 
 	// Reference to prototype
@@ -5295,6 +5341,7 @@
 	 * @param {Function} [options.progress=null] Function call when task is done, returns result
 	 * @param {Boolean} [options.startAll=true] If we should run the tasks in order
 	 * @param {Boolean} [options.cacheAll=false] If we should run the tasks in order
+	 * @param {String} [options.type] The default asset type of load, gets attached to each asset
 	 */
 	p.start = function(assets, options)
 	{
@@ -5306,6 +5353,7 @@
 		this.progress = options.progress;
 		this.startAll = options.startAll;
 		this.cacheAll = options.cacheAll;
+		this.type = options.type;
 
 		// Update the results mode and tasks
 		this.mode = this.addTasks(assets);
@@ -5334,6 +5382,7 @@
 		this.results = null;
 		this.complete = null;
 		this.progress = null;
+		this.type = null;
 		this.startAll = true;
 		this.cacheAll = false;
 		this.running = false;
@@ -5470,6 +5519,10 @@
 	 */
 	p.addTask = function(asset)
 	{
+		if (asset.type === undefined && this.type)
+		{
+			asset.type = this.type;
+		}
 		var TaskClass = this.getTaskByAsset(asset);
 		var task;
 		if (TaskClass)
@@ -5745,6 +5798,13 @@
 		 */
 		this.sizes = new AssetSizes();
 
+		/**
+		 * The default asset type
+		 * @property {String} defaultType
+		 * @readOnly
+		 */
+		this.defaultType = null;
+
 		// Add the default built-in sizes for "half" and "full"
 		this.sizes.define('half', 400, 0.5, ['full']);
 		this.sizes.define('full', 10000, 1, ['half']);
@@ -5801,6 +5861,7 @@
 	 * @param {function} [options.progress] The function when finished a single task
 	 * @param {Boolean} [options.startAll=true] If we should run all the tasks at once, in parallel
 	 * @param {Boolean} [options.cacheAll=false] If we should cache all files
+	 * @param {String} [options.type] The type of assets to load, defaults to AssetManager.prototype.defaultType
 	 * @return {springroll.AssetLoad} The reference to the current load
 	 */
 	p.load = function(assets, options)
@@ -5810,7 +5871,8 @@
 			complete: null,
 			progress: null,
 			cacheAll: false,
-			startAll: true
+			startAll: true,
+			type: this.defaultType
 		}, options);
 
 		var load = this.getLoad();
@@ -5960,7 +6022,7 @@
 		 * with a CDN path.
 		 * @property {String} options.basePath
 		 */
-		this.options.add('basePath', null);
+		this.options.add('basePath');
 
 		/**
 		 * The current version number for your application. This
@@ -5981,6 +6043,20 @@
 		 * @property {String} options.versionsFile
 		 */
 		this.options.add('versionsFile', null, true);
+
+		/**
+		 * Different displays offer flavors of the same asset definition.
+		 * Instead of repeatedly defining the asset type property,
+		 * it's possible to define a global default. If PIXI
+		 * is your default display "pixi" is recommended as a value
+		 * if EaselJS is your default display "easeljs" is recommended.
+		 * @property {String} options.defaultAssetType
+		 */
+		this.options.add('defaultAssetType')
+			.on('defaultAssetType', function(value)
+			{
+				assetManager.defaultType = value;
+			});
 
 		/**
 		 * Simple load of a single file.
@@ -6029,6 +6105,7 @@
 		 * @param {Function} [options.progress=null] The callback when a single item is finished.
 		 * @param {Boolean} [options.cacheAll=false] If tasks should be cached
 		 * @param {Boolean} [options.startAll=true] If tasks should be run in parallel
+		 * @param {String} [options.type] The default asset type of load, gets attached to each asset
 		 */
 		/**
 		 * Load a list of multiple assets and return array of result objects.
@@ -6041,6 +6118,7 @@
 		 * @param {Function} [options.progress=null] The callback when a single item is finished.
 		 * @param {Boolean} [options.cacheAll=false] If tasks should be cached
 		 * @param {Boolean} [options.startAll=true] If tasks should be run in parallel
+		 * @param {String} [options.type] The default asset type of load, gets attached to each asset
 		 */
 		this.load = function(source, complete, progress, cache, data)
 		{
@@ -6055,7 +6133,7 @@
 					progress: progress || null,
 					complete: complete || null,
 					cache: !!cache,
-					data: data || null,
+					data: data || null
 				};
 			}
 			else
@@ -6319,7 +6397,9 @@
  * @module Core
  * @namespace springroll
  */
-(function(undefined){
+(function(undefined)
+{
+	var EventDispatcher = include('springroll.EventDispatcher');
 
 	/**
 	 * The display provides the base properties for all custom display. A display
@@ -6327,6 +6407,7 @@
 	 * should not be instanciated directly.
 	 *
 	 * @class AbstractDisplay
+	 * @extends springroll.EventDispatcher
 	 * @constructor
 	 * @private
 	 * @param {String} id The id of the canvas element on the page to draw to.
@@ -6335,6 +6416,8 @@
 	 */
 	var AbstractDisplay = function(id, options)
 	{
+		EventDispatcher.call(this);
+
 		options = options || {};
 
 		/**
@@ -6429,7 +6512,7 @@
 		this.adapter = null;
 	};
 
-	var p = AbstractDisplay.prototype;
+	var p = extend(AbstractDisplay, EventDispatcher);
 
 	/**
 	 * If input is enabled on the stage for this display. The default is true.
@@ -6437,11 +6520,39 @@
 	 * @property {Boolean} enabled
 	 * @public
 	 */
-	Object.defineProperty(p, "enabled", {
-		get: function(){ return this._enabled; },
+	Object.defineProperty(p, "enabled",
+	{
+		// enabled getter
+		get: function()
+		{ 
+			return this._enabled; 
+		},
+		// enabled setter
 		set: function(value)
 		{
+			var oldEnabled = this._enabled;
 			this._enabled = value;
+
+			if (oldEnabled != value)
+			{
+				/**
+				 * If the display becomes enabled
+				 * @event enabled
+				 */
+
+				/**
+				 * If the display becomes disabled
+				 * @event disabled
+				 */
+				this.trigger(value ? 'enabled' : 'disabled');
+
+				/**
+				 * Enabled state changed on the display
+				 * @event enable
+				 * @param {Boolean} enabled Current state of enabled
+				 */
+				this.trigger('enable', value);
+			}
 		}
 	});
 
@@ -6450,12 +6561,40 @@
 	 * @property {Boolean} visible
 	 * @public
 	 */
-	Object.defineProperty(p, "visible", {
-		get: function(){ return this._visible; },
+	Object.defineProperty(p, "visible", 
+	{
+		// visible getter
+		get: function()
+		{ 
+			return this._visible; 
+		},
+		// visible setter
 		set: function(value)
 		{
+			var oldVisible = this._visible; 
 			this._visible = value;
 			this.canvas.style.display = value ? "block" : "none";
+
+			if (oldVisible != value)
+			{
+				/**
+				 * If the display becomes visible
+				 * @event visible
+				 */
+
+				/**
+				 * If the display becomes hidden
+				 * @event hidden
+				 */
+				this.trigger(value ? 'visible' : 'hidden');
+
+				/**
+				 * Visibility changed on the display
+				 * @event visibility
+				 * @param {Boolean} visible Current state of the visibility
+				 */
+				this.trigger('visibility', value);
+			}
 		}
 	});
 

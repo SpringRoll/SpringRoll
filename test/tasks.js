@@ -108,11 +108,15 @@ test('Mapped Assets', function(assert)
 
 test('Cached Assets', function(assert)
 {
-	expect(3);
+	expect(4);
 	var assets = [
 		{
 			src: 'data/file.json',
-			id: '_FILE_'
+			id: '_FILE_',
+			complete: function(obj, asset, assets)
+			{
+				assets.push('data/captions.json');
+			}
 		},
 		{
 			src: 'data/config.json',
@@ -128,6 +132,7 @@ test('Cached Assets', function(assert)
 			assert.ok(!!app.getCache('image'), "Cache Image is returned");
 			assert.ok(!app.getCache('config'), "Override cache all");
 			assert.ok(!!app.getCache('_FILE_'), "Custom ID specified");
+			assert.ok(!!app.getCache('captions'), "Sub task is cached");
 		},
 		cacheAll: true
 	});

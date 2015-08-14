@@ -22,13 +22,13 @@
 	 * @param {createjs.Container} options.clip The movieclip animation
 	 * @param {int} options.width The width of the animation
 	 * @param {int} options.height The height of the animation
-	 * @param {String|springroll.AbstractDisplay} options.display The display or display 
+	 * @param {String|springroll.AbstractDisplay} options.display The display or display
 	 *       id of the EaselJSDisplay to draw on.
 	 * @param {Array} options.audio The audio being played
 	 * @param {Number} [options.imageScale=1] Scaling to apply to all images loaded for the
 	 *     Cutscene.
 	 * @param {springroll.Captions} [options.captions] A Captions instance to display captions text on.
-	 */ 
+	 */
 	var Cutscene = function(options)
 	{
 		if (!Application)
@@ -50,35 +50,35 @@
 		 * Reference to the display we are drawing on
 		 * @property {Display} display
 		 * @private
-		 */ 
+		 */
 		var display = this._display = options.display;
 
 		/**
 		 * The scaling value for all images.
 		 * @property {Number} _imageScale
 		 * @private
-		 */ 
+		 */
 		this._imageScale = options.imageScale;
 
 		/**
 		 * The designed width of the animation
 		 * @property {Number} width
 		 * @private
-		 */ 
+		 */
 		this.width = options.width;
 
 		/**
 		 * The designed height of the animation
 		 * @property {Number} height
 		 * @private
-		 */ 
+		 */
 		this.height = options.height;
 
 		/**
 		 * The time elapsed in seconds.
 		 * @property {Number} _elapsedTime
 		 * @private
-		 */ 
+		 */
 		this._elapsedTime = 0;
 
 		/**
@@ -86,22 +86,22 @@
 		 * should be synced or not.
 		 * @property {Array} _audio
 		 * @private
-		 */ 
-		this._audio = options.audio.slice();
+		 */
+		this._audio = options.audio ? options.audio.slice() : [];
 		this._audio.sort(audioSorter);
 
 		/**
 		 * Index of the sound that is next up in _audio.
 		 * @property {int} _audioIndex
 		 * @private
-		 */ 
+		 */
 		this._audioIndex = 0;
 
 		/**
 		 * The clip that is being animated.
 		 * @property {createjs.MovieClip} _clip
 		 * @private
-		 */ 
+		 */
 		var clip = this._clip = options.clip;
 
 		/**
@@ -109,42 +109,42 @@
 		 * Only the most recent active one will be synced to.
 		 * @property {Array} _activeSyncAudio
 		 * @private
-		 */ 
+		 */
 		this._activeSyncAudio = [];
 
 		/**
 		 * The time in seconds into the animation that the current synced audio started.
 		 * @property {Number} _soundStartTime
 		 * @private
-		 */ 
+		 */
 		this._soundStartTime = -1;
 
 		/**
 		 * Array of active SoundInstances that are not the currently synced one.
 		 * @property {Array} _activeAudio
 		 * @private
-		 */ 
+		 */
 		this._activeAudio = [];
 
 		/**
 		 * If the audio has finished playing.
 		 * @property {Boolean} _audioFinished
 		 * @private
-		 */ 
+		 */
 		this._audioFinished = false;
 
 		/**
 		 * The function to call when playback is complete.
 		 * @property {Function} _endCallback
 		 * @private
-		 */ 
+		 */
 		this._endCallback = null;
 
 		/**
 		 * The Captions object to use to manage captions.
 		 * @property {Captions} _captions
 		 * @private
-		 */ 
+		 */
 		var captions = this._captions = options.captions;
 
 		// Make sure the captions don't update themselves
@@ -179,7 +179,7 @@
 	 * Audio sort based on the start time
 	 * @method audioSorter
 	 * @private
-	 */ 
+	 */
 	function audioSorter(a, b)
 	{
 		return a.start - b.start;
@@ -191,7 +191,7 @@
 	 * @param {int} width The new width of the display.
 	 * @param {int} height The new height of the display.
 	 * @private
-	 */ 
+	 */
 	p.resize = function(width, height)
 	{
 		if (!this._clip) return;
@@ -220,14 +220,14 @@
 	 * Starts playing the cutscene.
 	 * @method start
 	 * @param {Function} callback The function to call when playback is complete.
-	 */ 
+	 */
 	p.start = function(callback)
 	{
 		this._endCallback = callback;
 
 		this._elapsedTime = 0;
 		this._animFinished = false;
-		this._audioFinished = false;
+		this._audioFinished = !this._audio.length;
 
 		for (var i = 0; i < this._audio.length; ++i)
 		{
@@ -275,7 +275,7 @@
 	 * Callback for when the audio has finished playing.
 	 * @method _audioCallback
 	 * @private
-	 */ 
+	 */
 	p._audioCallback = function(instanceRef)
 	{
 		var index = this._activeSyncAudio.indexOf(instanceRef.instance);
@@ -330,7 +330,7 @@
 	 * @method update
 	 * @param {int} elapsed Time in milliseconds
 	 * @private
-	 */ 
+	 */
 	p.update = function(elapsed)
 	{
 		if (this._animFinished) return;
@@ -432,7 +432,7 @@
 	 * Stops playback of the cutscene.
 	 * @method stop
 	 * @param {Boolean} [doCallback=false] If the end callback should be performed.
-	 */ 
+	 */
 	p.stop = function(doCallback)
 	{
 		Application.instance.off("update", this.update);
@@ -467,7 +467,7 @@
 	/**
 	 * Destroys the cutscene.
 	 * @method destroy
-	 */ 
+	 */
 	p.destroy = function()
 	{
 		this.dispatchEvent('destroy');
@@ -476,12 +476,12 @@
 
 		this.removeAllChildren(true);
 
-		this._activeSyncAudio = 
-		this._activeAudio = 
+		this._activeSyncAudio =
+		this._activeAudio =
 		this._audio =
 		this._display =
-		this._endCallback = 
-		this._clip = 
+		this._endCallback =
+		this._clip =
 		this._captions = null;
 
 		if (this.parent)

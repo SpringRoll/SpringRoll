@@ -72,7 +72,9 @@
 	 */
 	PixiLoadTask.test = function(asset)
 	{
-		return !!asset.urls && Array.isArray(asset.urls);
+		return asset.urls && 
+			asset.type == "pixi" && 
+			Array.isArray(asset.urls);
 	};
 
 	/**

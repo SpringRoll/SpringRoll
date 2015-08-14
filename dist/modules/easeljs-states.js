@@ -156,10 +156,10 @@
 	 * @param {String|Function} [options.next=null] The next state alias or call to next state
 	 * @param {String|Function} [options.previous=null] The previous state alias or call to
 	 *       previous state
-	 * @param {Boolean} [options.useManifest=true] Automatically load and unload assets 
+	 * @param {Boolean} [options.useManifest=true] Automatically load and unload assets
 	 *       which are found in the manifest option or property.
 	 * @param {Array} [options.manifest=[]] The list of object to load and unload.
-	 * @param {Object} [options.scaling=null] The scaling items to use with the ScaleManager. 
+	 * @param {Object} [options.scaling=null] The scaling items to use with the ScaleManager.
 	 *       See `ScaleManager.addItems` for more information about the
 	 *       format of the scaling objects.
 	 */
@@ -261,6 +261,13 @@
 		 * @protected
 		 */
 		this.useManifest = options.useManifest;
+
+		/**
+		 * The global images loaded
+		 * @property {Array} _images
+		 * @protected
+		 */
+		this._images = [];
 	};
 
 	// Reference to the parent prototype
@@ -278,7 +285,7 @@
 	{
 		// Default entering
 		s._internalEntering.call(this);
-		
+
 		// Start prealoading assets
 		this.loadingStart();
 
@@ -293,7 +300,7 @@
 		{
 			assets = this.manifest.concat(assets);
 		}
-		
+
 		// Start loading assets if we have some
 		if (assets.length)
 		{
@@ -305,7 +312,7 @@
 		// No files to load, just continue
 		else
 		{
-			this._onLoaded();
+			this._onLoaded(null);
 		}
 	};
 
@@ -333,6 +340,12 @@
 		{
 			this.app.unload(this.manifest);
 		}
+
+		// Remove global images reference
+		this._images.forEach(function(id)
+		{
+			delete images[id];
+		});
 		this.assetsLoaded = false;
 	};
 
@@ -363,9 +376,22 @@
 	 * The internal call for on assets loaded
 	 * @method _onLoaded
 	 * @protected
+	 * @param {Object|null} results The result of the manifest load
 	 */
-	p._onLoaded = function()
+	p._onLoaded = function(results)
 	{
+		if (results)
+		{
+			// save all images to the window images object
+			for (var id in results)
+			{
+				if (results[id].tagName == "IMG")
+				{
+					images[id] = results[id];
+					this._images.push(id);
+				}
+			}
+		}
 		this.assetsLoaded = true;
 		this.panel.setup();
 
@@ -377,7 +403,7 @@
 			if (items)
 			{
 				this.scaling.addItems(this.panel, items);
-				
+
 				// Background is optional, so we'll check
 				// before adding to the scaling
 				var background = this.panel.background;
@@ -427,7 +453,7 @@
 
 	// Assign to the namespace
 	namespace('springroll.easeljs').BaseState = BaseState;
-	
+
 }());
 /**
  * @module EaselJS States
@@ -459,7 +485,7 @@
 		/**
 		 * Event when the manifest is finished loading
 		 * @event manifestLoaded
-		 * @param {springroll.TaskManager} manager The task manager
+		 * @param {Array} assets The object of additional assets to load
 		 */
 
 		/**
@@ -529,10 +555,10 @@
 	 * @private
 	 * @param {array} tasks The collection of preload tasks
 	 */
-	var onManifestsLoaded = function(manifests, task, manager)
+	var onManifestsLoaded = function(manifests, asset, assets)
 	{
 		Object.merge(this._manifests, manifests);
-		this.trigger('manifestLoaded', manager);
+		this.trigger('manifestLoaded', assets);
 	};
 
 	// clean up

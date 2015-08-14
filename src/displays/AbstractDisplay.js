@@ -2,7 +2,9 @@
  * @module Core
  * @namespace springroll
  */
-(function(undefined){
+(function(undefined)
+{
+	var EventDispatcher = include('springroll.EventDispatcher');
 
 	/**
 	 * The display provides the base properties for all custom display. A display
@@ -10,6 +12,7 @@
 	 * should not be instanciated directly.
 	 *
 	 * @class AbstractDisplay
+	 * @extends springroll.EventDispatcher
 	 * @constructor
 	 * @private
 	 * @param {String} id The id of the canvas element on the page to draw to.
@@ -18,6 +21,8 @@
 	 */
 	var AbstractDisplay = function(id, options)
 	{
+		EventDispatcher.call(this);
+
 		options = options || {};
 
 		/**
@@ -112,7 +117,7 @@
 		this.adapter = null;
 	};
 
-	var p = AbstractDisplay.prototype;
+	var p = extend(AbstractDisplay, EventDispatcher);
 
 	/**
 	 * If input is enabled on the stage for this display. The default is true.
@@ -120,11 +125,39 @@
 	 * @property {Boolean} enabled
 	 * @public
 	 */
-	Object.defineProperty(p, "enabled", {
-		get: function(){ return this._enabled; },
+	Object.defineProperty(p, "enabled",
+	{
+		// enabled getter
+		get: function()
+		{ 
+			return this._enabled; 
+		},
+		// enabled setter
 		set: function(value)
 		{
+			var oldEnabled = this._enabled;
 			this._enabled = value;
+
+			if (oldEnabled != value)
+			{
+				/**
+				 * If the display becomes enabled
+				 * @event enabled
+				 */
+
+				/**
+				 * If the display becomes disabled
+				 * @event disabled
+				 */
+				this.trigger(value ? 'enabled' : 'disabled');
+
+				/**
+				 * Enabled state changed on the display
+				 * @event enable
+				 * @param {Boolean} enabled Current state of enabled
+				 */
+				this.trigger('enable', value);
+			}
 		}
 	});
 
@@ -133,12 +166,40 @@
 	 * @property {Boolean} visible
 	 * @public
 	 */
-	Object.defineProperty(p, "visible", {
-		get: function(){ return this._visible; },
+	Object.defineProperty(p, "visible", 
+	{
+		// visible getter
+		get: function()
+		{ 
+			return this._visible; 
+		},
+		// visible setter
 		set: function(value)
 		{
+			var oldVisible = this._visible; 
 			this._visible = value;
 			this.canvas.style.display = value ? "block" : "none";
+
+			if (oldVisible != value)
+			{
+				/**
+				 * If the display becomes visible
+				 * @event visible
+				 */
+
+				/**
+				 * If the display becomes hidden
+				 * @event hidden
+				 */
+				this.trigger(value ? 'visible' : 'hidden');
+
+				/**
+				 * Visibility changed on the display
+				 * @event visibility
+				 * @param {Boolean} visible Current state of the visibility
+				 */
+				this.trigger('visibility', value);
+			}
 		}
 	});
 

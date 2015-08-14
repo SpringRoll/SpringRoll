@@ -6,6 +6,7 @@
 (function()
 {
 	var Application = include('springroll.Application'),
+		EventDispatcher = include('springroll.EventDispatcher'),
 		Debug,
 		SoundContext,
 		SoundInstance,
@@ -19,6 +20,7 @@
 	 * for managing sounds.
 	 *
 	 * @class Sound
+	 * @extend EventDispatcher
  	 */
 	var Sound = function()
 	{
@@ -29,6 +31,8 @@
 			SoundContext = include('springroll.SoundContext');
 			SoundInstance = include('springroll.SoundInstance');
 		}
+		
+		EventDispatcher.call(this);
 
 		/**
 		 * Dictionary of sound objects, containing configuration info and playback objects.
@@ -77,9 +81,26 @@
 		 * @readOnly
 	 	 */
 		this.soundEnabled = true;
+		
+		/**
+		 * If sound is currently muted by the system. This will only be true on iOS until
+		 * audio has been unmuted during a touch event. Listen for the 'systemUnmuted' event
+		 * on Sound to be notified when the audio is unmuted on iOS.
+		 * @property {Boolean} systemMuted
+		 * @readOnly
+	 	 */
+		this.systemMuted = createjs.BrowserDetect.isIOS;
 	};
+	
+	/**
+	 * Fired when audio is unmuted on iOS. If systemMuted is false, this will not be fired
+	 * (or already has been fired).
+	 * @event systemUnmuted
+	 */
 
-	var p = Sound.prototype = {};
+	// Reference to the prototype
+	var s = EventDispatcher.prototype;
+	var p = extend(Sound, EventDispatcher);
 
 	var _instance = null;
 	
@@ -195,6 +216,7 @@
 	{
 		document.removeEventListener("touchstart", _playEmpty);
 		WebAudioPlugin.playEmptySound();
+		_instance.trigger("systemUnmuted");
 	}
 
 	/**
@@ -247,28 +269,20 @@
 	 * @public
 	 * @param {Object} config The config to load.
 	 * @param {String} [config.context] The optional sound context to load sounds into unless
-	 *                                otherwise specified by the individual sound. Sounds do not
-	 *                                require a context.
+	 * otherwise specified by the individual sound. Sounds do not require a context.
 	 * @param {String} [config.path=""] The path to prepend to all sound source urls in this config.
-	 * @param {Array} config.sounds The list of sounds, either as String ids or Objects with
-	 *                                   settings.
+	 * @param {boolean} [config.preload=false] Option to preload all sound files in this context..
+	 * @param {Array} config.sounds The list of sounds, either as String ids or Objects with settings.
 	 * @param {Object|String} config.sounds.listItem Not actually a property called listItem,
-	 *                                                    but an entry in the array. If this is a
-	 *                                                    string, then it is the same as
-	 *                                                    {'id':'<yourString>'}.
+	 * but an entry in the array. If this is a string, then it is the same as {'id':'<yourString>'}.
 	 * @param {String} config.sounds.listItem.id The id to reference the sound by.
 	 * @param {String} [config.sounds.listItem.src] The src path to the file, without an
-	 *                                                   extension. If omitted, defaults to id.
-	 * @param {Number} [config.sounds.listItem.volume=1] The default volume for the sound,
-	 *                                                        from 0 to 1.
-	 * @param {Boolean} [config.sounds.listItem.loop=false] If the sound should loop by
-	 *                                                           default whenever the loop
-	 *                                                           parameter in play() is not
-	 *                                                           specified.
-	 * @param {String} [config.sounds.listItem.context] A context name to override
-	 *                                                       config.context with.
-	 * @param {Boolean} [config.sounds.listItem.preload] If the sound should be preloaded
-	 *                                                        immediately.
+	 * extension. If omitted, defaults to id.
+	 * @param {Number} [config.sounds.listItem.volume=1] The default volume for the sound, from 0 to 1.
+	 * @param {Boolean} [config.sounds.listItem.loop=false] If the sound should loop by default whenever
+	 * the loop parameter in play() is not specified.
+	 * @param {String} [config.sounds.listItem.context] A context name to override config.context with.
+	 * @param {Boolean} [config.sounds.listItem.preload] If the sound should be preloaded immediately.
 	 * @return {Sound} The sound object for chaining
  	 */
 	p.addContext = function(config)
@@ -280,6 +294,7 @@
 		}
 		var list = config.soundManifest || config.sounds || [];
 		var path = config.path || "";
+		var preloadAll = config.preload === true || false;
 		var defaultContext = config.context;
 
 		var s;
@@ -311,7 +326,7 @@
 				this._contexts[temp.context].sounds.push(temp);
 			}
 			//preload the sound for immediate-ish use
-			if(s.preload === true)
+			if (preloadAll || s.preload === true)
 			{
 				this.preload(temp.id);
 			}
@@ -613,7 +628,7 @@
 		offset = (options ? options.offset : offset) || 0;
 		loop = (options ? options.loop : loop);
 		volume = (options ? options.volume : volume);
-		pan = (options ? options.pan : pan) || 0;
+		pan = (options ? options.pan : pan) || 0.0001; // Chrome 44 bug requires not 0
 
 		//Replace with correct infinite looping.
 		if (loop === true)
@@ -764,12 +779,12 @@
 			volume = inst.curVol;
 			pan = inst._pan;
 			channel = SoundJS.play(
-				alias, 
+				alias,
 				startParams[0], // interrupt
 				startParams[1], // delay
 				startParams[2], // offset
 				startParams[3], // loop
-				volume, 
+				volume,
 				pan
 			);
 
@@ -1062,7 +1077,7 @@
 	 * @method preload
 	 * @public
 	 * @param {Array|String} list An alias or list of aliases to load.
-	 * @param {function} [callback] The function to call when all 
+	 * @param {function} [callback] The function to call when all
 	    *      sounds have been loaded.
 	 */
 	p.preload = function(list, callback)
@@ -1091,7 +1106,7 @@
 
 					//sound is passed last so that SoundJS gets the sound ID
 					assets.push({
-						id: sound.id, 
+						id: sound.id,
 						src: sound.src,
 						complete: this._markLoaded,
 						data: sound,

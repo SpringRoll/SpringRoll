@@ -10,14 +10,14 @@
 		Application = include('springroll.Application');
 
 	/**
-	 * Created a createjs Spritesheet from the Flash export
+	 * Create a createjs.SpriteSheet object, see SpriteSheet for more information
 	 * @class SpriteSheetTask
 	 * @extends springroll.Task
 	 * @constructor
 	 * @private
 	 * @param {Object} asset The data properties
-	 * @param {String} asset.images The source
-	 * @param {String} asset.frames The TextureAtlas source data
+	 * @param {String} asset.images The source images
+	 * @param {String} asset.frames The SpriteSheet source frame data
 	 * @param {Boolean} [asset.cache=false] If we should cache the result
 	 * @param {String} [asset.id] Id of asset
 	 * @param {Function} [asset.complete] The event to call when done
@@ -59,7 +59,10 @@
 	 */
 	SpriteSheetTask.test = function(asset)
 	{
-		return asset.images && Array.isArray(asset.images) && asset.frames;
+		return asset.images && 
+			asset.type == "easeljs" && 
+			Array.isArray(asset.images) && 
+			asset.frames;
 	};
 
 	/**

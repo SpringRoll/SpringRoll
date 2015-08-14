@@ -181,9 +181,12 @@
 	 *	Audio in the list will be preloaded to minimize pauses for loading.
 	 *	@method play
 	 *	@public
-	 *	@param {String|Array} idOrList The alias of the audio file to play or the array of items to play/call in order.
+	 *	@param {String|Array} idOrList The alias of the audio file to play or the array of items to
+	 *	                               play/call in order.
 	 *	@param {Function} [callback] The function to call when playback is complete.
-	 *	@param {Function} [cancelledCallback] The function to call when playback is interrupted with a stop() or play() call.
+	 *	@param {Function} [cancelledCallback] The function to call when playback is interrupted with
+	 *	                                      a stop() or play() call. If this value is a boolean
+	 *	                                      <code>true</code> then callback will be used instead.
 	 */
 	p.play = function(idOrList, callback, cancelledCallback)
 	{
@@ -192,13 +195,14 @@
 		this._listCounter = -1;
 		if (typeof idOrList == "string")
 		{
+			this._listHelper.length = 0;
 			this._listHelper[0] = idOrList;
 			this.soundList = this._listHelper;
 		}
 		else
 			this.soundList = idOrList;
 		this._callback = callback;
-		this._cancelledCallback = cancelledCallback;
+		this._cancelledCallback = cancelledCallback === true ? callback : cancelledCallback;
 		this._onSoundFinished();
 	};
 

@@ -118,7 +118,9 @@
 	 */
 	PixiLoadTask.test = function(asset)
 	{
-		return !!asset.urls && Array.isArray(asset.urls);
+		return asset.urls && 
+			asset.type == "pixi" && 
+			Array.isArray(asset.urls);
 	};
 
 	/**
@@ -181,7 +183,7 @@
 	var ApplicationPlugin = include('springroll.ApplicationPlugin');
 
 	/**
-	 * Create an app plugin for EaselJSDisplay, all properties and methods documented
+	 * Create an app plugin for PixiDisplay, all properties and methods documented
 	 * in this class are mixed-in to the main Application
 	 * @class PixiDisplayPlugin
 	 * @extends springroll.ApplicationPlugin
@@ -192,6 +194,15 @@
 	plugin.setup = function()
 	{
 		this.assetManager.register('springroll.pixi.PixiLoadTask', 60);
+
+		this.once('displayAdded', function(display)
+		{
+			var options = this.options;
+			if (!options.defaultAssetType && display instanceof include('springroll.PixiDisplay'))
+			{
+				options.defaultAssetType = 'easeljs';
+			}
+		});
 	};
 
 }());

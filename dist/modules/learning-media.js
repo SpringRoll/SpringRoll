@@ -56,6 +56,45 @@
 		this.voPlayer = app.voPlayer;
 		this.display = app.display;
 	};
+	
+	p._filterEvents = function(events)
+	{
+		if(typeof events == "string")
+			return this.filters.filter(events);
+		else
+		{
+			if(!Array.isArray(events))
+				events = [events];
+			for(var i = 0; i < events.length; ++i)
+			{
+				var eventInfo = events[i];
+				switch (typeof eventInfo)
+				{
+					case "string":
+						eventInfo = this.filters.filter(eventInfo);
+						break;
+					case "object":
+						//we passed an object
+						eventInfo.anim = this.filters.filter(eventInfo.anim);
+
+						if (eventInfo.audio)
+						{
+							if (typeof eventInfo.audio == 'object')
+							{
+								eventInfo.audio.alias =	this.filters.filter(eventInfo.audio.alias);
+							}
+							else
+							{
+								eventInfo.audio = this.filters.filter(eventInfo.audio);
+							}
+						}
+						break;
+				}
+				events[i] = eventInfo;
+			}
+			return events;
+		}
+	};
 
 	/**
 	 * Plays animation or list of animations using springroll.Animator,
@@ -72,6 +111,8 @@
 	 */
 	p.playMovie = function(instance, events, onComplete, onCancel)
 	{
+		events = this._filterEvents(events);
+	
 		if (!this.learning.spec)
 		{
 			if (true && Debug)
@@ -119,6 +160,8 @@
 
 		if (animator.canAnimate(instance)) //use Animator
 		{
+			events = this._filterEvents(events);
+			
 			if (!learning.spec)
 			{
 				if (true && Debug)
@@ -127,6 +170,7 @@
 				}
 				return animator.play(instance, events, onComplete, onCancel);
 			}
+			
 			return this.triggerMoviePlay(
 				instance,
 				events,
@@ -140,6 +184,8 @@
 			onCancel = onComplete;
 			onComplete = events;
 			events = instance;
+			
+			events = this._filterEvents(events);
 
 			if (!learning.spec)
 			{
@@ -189,6 +235,8 @@
 
 		if (animator.canAnimate(instance)) //use Animator
 		{
+			events = this._filterEvents(events);
+			
 			if (!learning.spec)
 			{
 				if (true && Debug)
@@ -211,6 +259,8 @@
 			onCancel = onComplete;
 			onComplete = events;
 			events = instance;
+			
+			events = this._filterEvents(events);
 
 			if (!learning.spec)
 			{
@@ -260,6 +310,8 @@
 
 		if (animator.canAnimate(instance)) //use Animator
 		{
+			events = this._filterEvents(events);
+			
 			if (!learning.spec)
 			{
 				if (true && Debug)
@@ -282,6 +334,8 @@
 			onCancel = onComplete;
 			onComplete = events;
 			events = instance;
+			
+			events = this._filterEvents(events);
 
 			if (!learning.spec)
 			{
@@ -413,8 +467,6 @@
 					}
 				case "string":
 					{
-						eventInfo = this.filters.filter(eventInfo);
-
 						//we passed in a string - the audio alias should be assumed
 						//to be the same as the animation alias
 						duration += animator.getDuration(instance, eventInfo);
@@ -433,19 +485,21 @@
 				case "object":
 					{
 						//we passed an object
-						eventInfo.anim = anim = this.filters.filter(eventInfo.anim);
+						anim = eventInfo.anim;
 
 						if (eventInfo.audio)
 						{
 							if (typeof eventInfo.audio == 'object')
 							{
-								eventInfo.audio.alias =	audio = this.filters.filter(eventInfo.audio.alias);
+								audio = eventInfo.audio.alias;
 							}
 							else
 							{
-								eventInfo.audio = audio = this.filters.filter(eventInfo.audio);
+								audio = eventInfo.audio;
 							}
 						}
+						else
+							audio = null;
 
 						duration += animator.getDuration(instance, anim);
 

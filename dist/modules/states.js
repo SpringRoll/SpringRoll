@@ -559,7 +559,7 @@
 	 *     is displayed.
 	 * @param {Object} [transitionSounds] Data object with aliases and start times (seconds) for
 	 *     transition in, loop and out sounds. Example: `{in:{alias:"myAlias", start:0.2}}`.
-	 *     These objects are in the format for Animator from EaselJSDisplay or PixiDisplay, 
+	 *     These objects are in the format for Animator from EaselJSDisplay or PixiDisplay,
 	 *     so they can be just the sound alias instead of an object.
 	 * @param {Object|String} [transitionSounds.in] The sound to play for transition in
 	 * @param {Object|String} [transitionSounds.out] The sound to play for transition out
@@ -677,7 +677,7 @@
 
 	/**
 	 * The name of the Animator label and event for loading between state change.
-	 * this event is only dispatched if there is a loading sequence to show in the 
+	 * this event is only dispatched if there is a loading sequence to show in the
 	 * transition. Recommended to use 'loadingStart' instead for checking.
 	 *
 	 * @event onTransitionLoading
@@ -755,7 +755,7 @@
 	 * @property {springroll.State} currentState
 	 * @readOnly
 	 */
-	Object.defineProperty(p, 'currentState', 
+	Object.defineProperty(p, 'currentState',
 	{
 		get: function()
 		{
@@ -1022,10 +1022,10 @@
 		if (sounds)
 		{
 			// @deprecate the use of 'loop' sound property in favor of 'loading'
-			audio = sounds.loading || sounds.loop; 
+			audio = sounds.loading || sounds.loop;
 		}
 		var animator = this._display.animator;
-		if (animator.instanceHasAnimation(TRANSITION_LOADING))
+		if (animator.instanceHasAnimation(this.transition, TRANSITION_LOADING))
 		{
 			this.trigger(TRANSITION_LOADING);
 			animator.play(
@@ -1036,7 +1036,7 @@
 			);
 		}
 		// @deprecate the use of 'transitionLoop' in favor of 'onTransitionLoading'
-		else if (animator.instanceHasAnimation('transitionLoop'))
+		else if (animator.instanceHasAnimation(this.transition, 'transitionLoop'))
 		{
 			this.trigger(TRANSITION_LOADING);
 			animator.play(
@@ -1097,7 +1097,7 @@
 		var sounds = this._transitionSounds;
 		
 		// Ignore with no transition
-		if (!transition) 
+		if (!transition)
 		{
 			return callback();
 		}
@@ -1110,8 +1110,8 @@
 			audio = (event == TRANSITION_IN) ? sounds.in : sounds.out;
 		}
 		this._display.animator.play(
-			transition, 
-			{anim:event, audio:audio}, 
+			transition,
+			{anim:event, audio:audio},
 			callback
 		);
 	};

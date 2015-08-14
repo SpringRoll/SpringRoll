@@ -1,6 +1,6 @@
 ![SpringRoll Logo](http://springroll.io/assets/images/logo.png)
 
-#SpringRoll [![Build Status](https://travis-ci.org/SpringRoll/SpringRoll.svg?branch=master)](https://travis-ci.org/SpringRoll/SpringRoll) [![Dependency Status](https://david-dm.org/SpringRoll/SpringRoll.svg?style=flat)](https://david-dm.org/SpringRoll/SpringRoll) [![GitHub version](https://badge.fury.io/gh/SpringRoll%2FSpringRoll.svg)](https://github.com/SpringRoll/SpringRoll/releases/latest)
+#SpringRoll [![Build Status](https://travis-ci.org/SpringRoll/SpringRoll.svg?branch=master)](https://travis-ci.org/SpringRoll/SpringRoll) [![Dependency Status](https://david-dm.org/SpringRoll/SpringRoll.svg?style=flat)](https://david-dm.org/SpringRoll/SpringRoll) [![GitHub version](https://badge.fury.io/gh/SpringRoll%2FSpringRoll.svg)](https://github.com/SpringRoll/SpringRoll/releases/latest) [![Inline docs](http://inch-ci.org/github/springroll/springroll.svg?branch=master)](http://inch-ci.org/github/springroll/springroll)
 
 A light-weight, extensible, future-forward framework for building HTML5 canvas-based games and applications. The framework is built on a display plugin architecture to work with [PixiJS](http://pixijs.org), [EaselJS](http://www.createjs.com/EaselJS) and native canvas rendering. The framework comes with several modules for doing common multimedia development tasks, such as:
 
@@ -98,8 +98,7 @@ Modules are components which contain common code classes, documentation and/or r
 	* **[EaselJS Learning Module](https://github.com/SpringRoll/SpringRoll/wiki/EaselJS-Learning-Module)** _easeljs-learning_
 	* **[EaselJS States Module](https://github.com/SpringRoll/SpringRoll/wiki/EaselJS-States-Module)** _easeljs-states_
 	* **[EaselJS UI Module](https://github.com/SpringRoll/SpringRoll/wiki/EaselJS-UI-Module)** _easeljs-ui_
-	* **[EaselJS Utilities Module](https://github.com/SpringRoll/SpringRoll/wiki/EaselJS-Utilities-Module)** _easeljs-utils_
-* **[Hints Module](https://github.com/SpringRoll/SpringRoll/wiki/Hints-Module)** _easeljs-hints_
+* **[Hints Module](https://github.com/SpringRoll/SpringRoll/wiki/Hints-Module)** _hints_
 * **[Languages Module](https://github.com/SpringRoll/SpringRoll/wiki/Languages-Module)** _languages_
 * **[Learning Module](https://github.com/SpringRoll/SpringRoll/wiki/Learning-Module)** _learning_
 * **[Learning Media Module](https://github.com/SpringRoll/SpringRoll/wiki/Learning-Media-Module)** _learning-media_
