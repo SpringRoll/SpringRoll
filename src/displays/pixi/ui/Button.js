@@ -584,7 +584,7 @@
 		//if no state is active, use the up state
 		if (!data)
 			data = this._stateData.up;
-		this.back.setTexture(data.tex);
+		this.back.texture = data.tex;
 		//if we have a label, update that too
 		if (this.label)
 		{
