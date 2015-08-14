@@ -253,7 +253,7 @@
 			region.rotate = frame.rotate;
 			//figure out region coordinates
 			var x = frame.crop.x;
-			var y = frame.crop.x;
+			var y = frame.crop.y;
 	
 			var width = frame.crop.width;
 			var height = frame.crop.height;

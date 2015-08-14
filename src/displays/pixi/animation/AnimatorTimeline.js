@@ -239,13 +239,20 @@
 				var anim = listItem.anim, clip = this.clip;
 				this.isLooping = !!listItem.loop;
 				this.speed = listItem.speed > 0 ? listItem.speed : 1;
+				var spineState;
+				if(Spine && clip instanceof Spine)
+				{
+					spineState = clip.state;
+					spineState.clearTracks();
+				}
 				if(typeof anim == "string")
 				{
 					if(Spine && clip instanceof Spine)
 					{
 						//single spine anim
 						this.duration = clip.stateData.skeletonData.findAnimation(anim).duration;
-						clip.state.setAnimationByName(anim, this.isLooping);
+						spineState.clearTracks();
+						spineState.setAnimationByName(0, anim, this.isLooping);
 					}
 					else
 					{
@@ -273,7 +280,7 @@
 							var s = new AnimationState(clip.stateData);
 							this.spineStates[i] = s;
 							var animLoop = anim[i].loop;
-							s.setAnimationByName(anim[i].anim, animLoop);
+							s.setAnimationByName(i, anim[i].anim, animLoop);
 							duration = skeletonData.findAnimation(anim[i].anim).duration;
 							if(animLoop)
 							{
@@ -297,19 +304,18 @@
 					//list of sequential spine anims
 					else
 					{
-						var state = clip.state;
 						skeletonData = clip.stateData.skeletonData;
 						this.duration = skeletonData.findAnimation(anim[0]).duration;
 						if(anim.length == 1)
 						{
-							state.setAnimationByName(anim[0], this.isLooping);
+							state.setAnimationByName(0, anim[0], this.isLooping);
 						}
 						else
 						{
-							state.setAnimationByName(anim[0], false);
+							state.setAnimationByName(0, anim[0], false);
 							for(i = 1; i < anim.length; ++i)
 							{
-								state.addAnimationByName(anim[i],
+								state.addAnimationByName(0, anim[i],
 									this.isLooping && i == anim.length - 1);
 								this.duration += skeletonData.findAnimation(anim[i]).duration;
 							}

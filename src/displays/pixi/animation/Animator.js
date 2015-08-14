@@ -9,7 +9,7 @@
 		AnimatorTimeline = include('springroll.pixi.AnimatorTimeline'),
 		ParallelSpineData = include('springroll.pixi.ParallelSpineData'),
 		Application = include('springroll.Application'),
-		MovieClip = include('springroll.pixi.AdvancedMovieClip'),
+		AdvancedMovieClip = include('springroll.pixi.AdvancedMovieClip'),
 		Sound;
 
 	/**
