@@ -63,7 +63,7 @@
 	 */
 	p.start = function(callback)
 	{
-		this.loadAtlas({}, callback, true);
+		this.loadAtlas({}, callback);
 	};
 
 	/**
@@ -86,7 +86,7 @@
 			var atlas = new TextureAtlas(texture, data, this.cache && !ignoreCacheSetting);
 			
 			done(atlas, results);
-		}.bind(this));
+		}.bind(this), true);
 	};
 
 	// Assign to namespace
