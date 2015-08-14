@@ -155,7 +155,7 @@
 	{
 		var total = 0, item, i;
         
-        if(!this.playing)
+        if(!this.soundList)
         {
             return 0;
         }
