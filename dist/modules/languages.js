@@ -295,10 +295,7 @@
 		Debug;
 
 	/**
-	 * Create an app plugin for Language, all properties and methods documented
-	 * in this class are mixed-in to the main Application
-	 * @class LanguagesPlugin
-	 * @extends springroll.ApplicationPlugin
+	 * @class Application
 	 */
 	var plugin = new ApplicationPlugin(95);
 

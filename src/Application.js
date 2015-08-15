@@ -11,8 +11,12 @@
 		DelayedCall = include('springroll.DelayedCall');
 
 	/**
-	 * Creates a new application, for example (HappyCamel extends Application)
-	 * manages displays, update loop controlling, handles resizing
+	 * Application is the main entry point for using SpringRoll, creating
+	 * an application allows the creation of displays and adding of module
+	 * functionality (e.g. sound, captions, etc). All timing and asynchronous
+	 * events should be handled by the Application to control the play
+	 * and pause. Any update, Ticker-type functions, should use the Applications
+	 * update event.
 	 *
 	 *	var app = new Application();
 	 *

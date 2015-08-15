@@ -11,11 +11,7 @@
 		Debug;
 
 	/**
-	 * Create an app plugin EaselJS off click reporting to learning dispatcher
-	 * automatically, all properties and methods documented
-	 * in this class are mixed-in to the main Application
-	 * @class OffClickPlugin
-	 * @extends springroll.ApplicationPlugin
+	 * @class Application
 	 */
 	var plugin = new ApplicationPlugin();
 

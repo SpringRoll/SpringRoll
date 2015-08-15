@@ -183,16 +183,22 @@
 	var ApplicationPlugin = include('springroll.ApplicationPlugin');
 
 	/**
-	 * Create an app plugin for PixiDisplay, all properties and methods documented
-	 * in this class are mixed-in to the main Application
-	 * @class PixiDisplayPlugin
-	 * @extends springroll.ApplicationPlugin
+	 * @class Application
 	 */
 	var plugin = new ApplicationPlugin();
 
 	// Register the tasks
 	plugin.setup = function()
 	{
+
+		/**
+		 * Used by loading Pixi Assets, default behavior
+		 * is to load assets from the same domain.
+		 * @property {Boolean} options.crossOrigin
+		 * @default false
+		 */
+		this.options.add('crossOrigin', false);
+
 		this.assetManager.register('springroll.pixi.PixiLoadTask', 60);
 
 		this.once('displayAdded', function(display)

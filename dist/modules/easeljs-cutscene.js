@@ -742,9 +742,7 @@
 	var ApplicationPlugin = include('springroll.ApplicationPlugin');
 
 	/**
-	 * Create an app plugin for Cutscene, mainly to load the task.
-	 * @class CutscenePlugin
-	 * @extends springroll.ApplicationPlugin
+	 * @class Application
 	 */
 	var plugin = new ApplicationPlugin();
 

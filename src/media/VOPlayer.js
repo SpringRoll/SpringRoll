@@ -190,13 +190,21 @@
 	 *	@param {String|Array} idOrList The alias of the audio file to play or the array of items to
 	 *	                               play/call in order.
 	 *	@param {Function} [callback] The function to call when playback is complete.
-	 *	@param {Function} [cancelledCallback] The function to call when playback is interrupted with
+	 *	@param {Function|Boolean} [cancelledCallback] The function to call when playback is interrupted with
 	 *	                                      a stop() or play() call. If this value is a boolean
 	 *	                                      <code>true</code> then callback will be used instead.
 	 */
 	p.play = function(idOrList, callback, cancelledCallback)
 	{
 		this.stop();
+
+		// Handle the case where a cancel callback starts
+		// A new VO play. Inline VO call should take priority 
+		// over the cancelled callback VO play.
+		if (this.playing)
+		{
+			this.stop();
+		}
 
 		this._listCounter = -1;
 		if (typeof idOrList == "string")

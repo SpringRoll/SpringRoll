@@ -9,7 +9,17 @@
 	/**
 	 * Responsible for creating properties, methods to 
 	 * the SpringRoll Application when it's created.
+	 *
+	 *	var plugin = new ApplicationPlugin();
+	 *	plugin.setup = function()
+	 *	{
+	 *		this.options.add('customOption', null);
+	 *	};
+	 *
 	 * @class ApplicationPlugin
+	 * @constructor
+	 * @param {int} [priority=0] The priority, higher priority
+	 *        plugins are setup, preloaded and destroyed first.
 	 */
 	var ApplicationPlugin = function(priority)
 	{
@@ -23,32 +33,31 @@
 		 * in the constructor of the extending ApplicationPlugin.
 		 * @property {int} priority
 		 * @default 0
+		 * @private
 		 */
 		this.priority = priority || 0;
 
 		/**
 		 * When the application is being initialized. This function 
-		 * is bound to the application. This should be overridden.
-		 * @property {function} setup
-		 * @protected
+		 * is bound to the Application. This should be overridden.
+		 * @method setup
 		 */
 		this.setup = function(){};
 
 		/**
-		 * The function to call right before the app is initailized. 
-		 * This function is bound to the application. `preload` takes
+		 * The function to call right before the application is initailized. 
+		 * This function is bound to the Application. `preload` takes
 		 * a single parameter which is a call back to call when
 		 * the asyncronous event is completed.
-		 * @property {function} preload 
-		 * @protected
+		 * @method preload 
+		 * @param {function} done The event to call when complete
 		 */
 		this.preload = null;
 
 		/**
 		 * When the application is being destroyed. This function 
-		 * is bound to the application. This should be overridden.
-		 * @property {function} teardown
-		 * @protected
+		 * is bound to the Application. This should be overridden.
+		 * @method teardown
 		 */
 		this.teardown = function(){};
 
