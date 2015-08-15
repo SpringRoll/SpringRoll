@@ -9,10 +9,7 @@
 	var ApplicationPlugin = include('springroll.ApplicationPlugin');
 
 	/**
-	 * Create an app plugin for EaselJSDisplay, all properties and methods documented
-	 * in this class are mixed-in to the main Application
-	 * @class EaselJSDisplayPlugin
-	 * @extends springroll.ApplicationPlugin
+	 * @class Application
 	 */
 	var plugin = new ApplicationPlugin();
 

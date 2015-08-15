@@ -7,10 +7,7 @@
 	var ApplicationPlugin = include('springroll.ApplicationPlugin');
 	
 	/**
-	 * Create an app plugin for resizing application, all properties and methods documented
-	 * in this class are mixed-in to the main Application
-	 * @class ResizePlugin
-	 * @extends springroll.ApplicationPlugin
+	 * @class Application
 	 */
 	var plugin = new ApplicationPlugin(100);
 

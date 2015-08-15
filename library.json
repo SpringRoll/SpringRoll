@@ -16,6 +16,7 @@
 		"src/core/ApplicationPlugin.js",
 		"src/Application.js",
 		"src/Application.less",
+		"src/core/ApplicationOptionsPlugin.js",
 		"src/core/PageVisibility.js",
 		"src/core/PageVisibilityPlugin.js",
 		"src/core/StringFilters.js",

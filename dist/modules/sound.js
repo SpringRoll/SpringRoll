@@ -1816,6 +1816,12 @@
 	p.getElapsed = function()
 	{
 		var total = 0, item, i;
+        	
+		if (!this.soundList)
+		{
+			return 0;
+		}
+        	
 		for(i = 0; i < this._listCounter; ++i)
 		{
 			item = this.soundList[i];
@@ -1846,13 +1852,21 @@
 	 *	@param {String|Array} idOrList The alias of the audio file to play or the array of items to
 	 *	                               play/call in order.
 	 *	@param {Function} [callback] The function to call when playback is complete.
-	 *	@param {Function} [cancelledCallback] The function to call when playback is interrupted with
+	 *	@param {Function|Boolean} [cancelledCallback] The function to call when playback is interrupted with
 	 *	                                      a stop() or play() call. If this value is a boolean
 	 *	                                      <code>true</code> then callback will be used instead.
 	 */
 	p.play = function(idOrList, callback, cancelledCallback)
 	{
 		this.stop();
+
+		// Handle the case where a cancel callback starts
+		// A new VO play. Inline VO call should take priority 
+		// over the cancelled callback VO play.
+		if (this.playing)
+		{
+			this.stop();
+		}
 
 		this._listCounter = -1;
 		if (typeof idOrList == "string")
@@ -2101,10 +2115,7 @@
 		VOPlayer = include('springroll.VOPlayer');
 
 	/**
-	 * Plugin for the Sound class, all properties and methods documented
-	 * in this class are mixed-in to the main Application
-	 * @class SoundPlugin
-	 * @extends springroll.ApplicationPlugin
+	 * @class Application
 	 */
 	var plugin = new ApplicationPlugin(90);
 

@@ -9,10 +9,7 @@
 		AssetManager = include('springroll.AssetManager');
 
 	/**
-	 * Create an app plugin for Loader, all properties and methods documented
-	 * in this class are mixed-in to the main Application
-	 * @class LoaderPlugin
-	 * @extends springroll.ApplicationPlugin
+	 * @class Application
 	 */
 	var plugin = new ApplicationPlugin(100);
 

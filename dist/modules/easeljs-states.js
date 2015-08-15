@@ -468,14 +468,7 @@
 		BaseState;
 
 	/**
-	 * A createjs-based Game to load manifests
-	 * @class ManifestsPlugin
-	 * @extends springroll.ApplicationPlugin
-	 * @param {int} [options.fps=30] The framerate to use for the main display
-	 * @param {Function} [options.display=springroll.easeljsDisplay] The
-	 * display class to use as the default display.
-	 * @param {Boolean} [options.displayOptions.clearView=true] If the stage view
-	 * should be cleared everytime in CreateJS stage.
+	 * @class Application
 	 */
 	var plugin = new ApplicationPlugin();
 

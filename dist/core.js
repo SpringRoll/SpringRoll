@@ -1954,9 +1954,7 @@
  */
 (function(undefined)
 {
-	var Tween = include('createjs.Tween', false),
-		Ticker = include('createjs.Ticker', false),
-		PropertyDispatcher = include('springroll.PropertyDispatcher'),
+	var PropertyDispatcher = include('springroll.PropertyDispatcher'),
 		Debug;
 
 	/**
@@ -2000,7 +1998,7 @@
 		var app = this._app;
 
 		// Create the options overrides
-		options = Object.merge({}, defaultOptions, options);
+		options = Object.merge({}, options);
 
 		// If parse querystring is turned on, we'll
 		// override with any of the query string parameters
@@ -2015,32 +2013,6 @@
 		{
 			this.add(name, options[name]);
 		}
-
-		// Cannot change these properties after setup
-		this.readOnly(
-			'name',
-			'useQueryString',
-			'canvasId',
-			'display',
-			'displayOptions',
-			'uniformResize'
-		);
-		
-		this.on('updateTween', function(value)
-		{
-			if (Tween)
-			{
-				if (Ticker)
-				{
-					Ticker.setPaused(!!value);
-				}
-				app.off('update', Tween.tick);
-				if (value)
-				{
-					app.on('update', Tween.tick);
-				}
-			}
-		});
 		
 		//trigger all of the initial values, because otherwise they don't take effect.
 		var _properties = this._properties;
@@ -2104,84 +2076,24 @@
 	 * @private override
 	 * @param {String} name The property name to fetch
 	 * @param {*} value The value
+	 * @return {springroll.ApplicationOptions} Instance of this options for chaining
 	 */
 	p.override = function(name, value)
 	{
-		if (defaultOptions[name] === undefined)
+		var prop = this._properties[name];
+		if (prop === undefined)
 		{
-			throw "ApplicationOptions doesn't have default name '" + name + "'";
+			if (true)
+			{
+				throw "Unable to override a property that doesn't exist '" + name + "'";
+			}
+			else
+			{
+				throw "Invalid override " + name;
+			}
 		}
-		defaultOptions[name] = value;
-	};
-
-	/**
-	 * The default Application options
-	 * @property {Object} defaultOptions
-	 * @private
-	 */
-	var defaultOptions = {
-
-		/**
-		 * Use Request Animation Frame API
-		 * @property {Boolean} raf
-		 * @default true
-		 */
-		raf: true,
-
-		/**
-		 * The framerate to use for rendering the stage
-		 * @property {int} fps
-		 * @default 60
-		 */
-		fps: 60,
-
-		/**
-		 * Use the query string parameters for options overrides
-		 * @property {Boolean} useQueryString
-		 * @default false
-		 */
-		useQueryString: true,
-
-		/**
-		 * The default display DOM ID name
-		 * @property {String} canvasId
-		 */
-		canvasId: null,
-
-		/**
-		 * The name of the class to automatically instantiate as the
-		 * display (e.g. `springroll.PixiDisplay`)
-		 * @property {Function} display
-		 */
-		display: null,
-
-		/**
-		 * Display specific setup options
-		 * @property {Object} displayOptions
-		 */
-		displayOptions: null,
-
-		/**
-		 * If using TweenJS, the Application will update the Tween itself.
-		 * @property {Boolean} updateTween
-		 * @default true
-		 */
-		updateTween: true,
-
-		/**
-		 * Used by `springroll.PixiTask`, default behavior
-		 * is to load assets from the same domain.
-		 * @property {Boolean} crossOrigin
-		 * @default false
-		 */
-		crossOrigin: false,
-
-		/**
-		 * The name of the application
-		 * @property {String} name
-		 * @default ''
-		 */
-		name: ''
+		prop.setValue(value);
+		return this;
 	};
 
 	// Assign to namespace
@@ -2199,7 +2111,17 @@
 	/**
 	 * Responsible for creating properties, methods to 
 	 * the SpringRoll Application when it's created.
+	 *
+	 *	var plugin = new ApplicationPlugin();
+	 *	plugin.setup = function()
+	 *	{
+	 *		this.options.add('customOption', null);
+	 *	};
+	 *
 	 * @class ApplicationPlugin
+	 * @constructor
+	 * @param {int} [priority=0] The priority, higher priority
+	 *        plugins are setup, preloaded and destroyed first.
 	 */
 	var ApplicationPlugin = function(priority)
 	{
@@ -2213,32 +2135,31 @@
 		 * in the constructor of the extending ApplicationPlugin.
 		 * @property {int} priority
 		 * @default 0
+		 * @private
 		 */
 		this.priority = priority || 0;
 
 		/**
 		 * When the application is being initialized. This function 
-		 * is bound to the application. This should be overridden.
-		 * @property {function} setup
-		 * @protected
+		 * is bound to the Application. This should be overridden.
+		 * @method setup
 		 */
 		this.setup = function(){};
 
 		/**
-		 * The function to call right before the app is initailized. 
-		 * This function is bound to the application. `preload` takes
+		 * The function to call right before the application is initailized. 
+		 * This function is bound to the Application. `preload` takes
 		 * a single parameter which is a call back to call when
 		 * the asyncronous event is completed.
-		 * @property {function} preload 
-		 * @protected
+		 * @method preload 
+		 * @param {function} done The event to call when complete
 		 */
 		this.preload = null;
 
 		/**
 		 * When the application is being destroyed. This function 
-		 * is bound to the application. This should be overridden.
-		 * @property {function} teardown
-		 * @protected
+		 * is bound to the Application. This should be overridden.
+		 * @method teardown
 		 */
 		this.teardown = function(){};
 
@@ -2267,8 +2188,12 @@
 		DelayedCall = include('springroll.DelayedCall');
 
 	/**
-	 * Creates a new application, for example (HappyCamel extends Application)
-	 * manages displays, update loop controlling, handles resizing
+	 * Application is the main entry point for using SpringRoll, creating
+	 * an application allows the creation of displays and adding of module
+	 * functionality (e.g. sound, captions, etc). All timing and asynchronous
+	 * events should be handled by the Application to control the play
+	 * and pause. Any update, Ticker-type functions, should use the Applications
+	 * update event.
 	 *
 	 *	var app = new Application();
 	 *
@@ -2843,6 +2768,92 @@
 	namespace('springroll').Application = Application;
 
 }());
+(function()
+{
+	var ApplicationPlugin = include('springroll.ApplicationPlugin');
+	var Tween = include('createjs.Tween', false);
+	var Ticker = include('createjs.Ticker', false);
+	
+	/**
+	 * @class Application
+	 */
+	var plugin = new ApplicationPlugin(120);
+
+	plugin.setup = function()
+	{
+		var options = this.options;
+		/**
+		 * Use Request Animation Frame API
+		 * @property {Boolean} options.raf
+		 * @default true
+		 */
+		options.add('raf', true, true);
+
+		/**
+		 * The framerate to use for rendering the stage
+		 * @property {int} options.fps
+		 * @default 60
+		 */
+		options.add('fps', 60, true);
+
+		/**
+		 * Use the query string parameters for options overrides
+		 * @property {Boolean} options.useQueryString
+		 * @default false
+		 */
+		options.add('useQueryString', true, true);
+
+		/**
+		 * The default display DOM ID name
+		 * @property {String} options.canvasId
+		 */
+		options.add('canvasId', null, true);
+
+		/**
+		 * The name of the class to automatically instantiate as the
+		 * display (e.g. `springroll.PixiDisplay`)
+		 * @property {Function} options.display
+		 */
+		options.add('display', null, true);
+
+		/**
+		 * Display specific setup options
+		 * @property {Object} options.displayOptions
+		 */
+		options.add('displayOptions', null, true);
+
+		/**
+		 * If using TweenJS, the Application will update the Tween itself.
+		 * @property {Boolean} options.updateTween
+		 * @default true
+		 */
+		var app = this;
+		options.add('updateTween', true, true)
+			.on('updateTween', function(value)
+			{
+				if (Tween)
+				{
+					if (Ticker)
+					{
+						Ticker.setPaused(!!value);
+					}
+					app.off('update', Tween.tick);
+					if (value)
+					{
+						app.on('update', Tween.tick);
+					}
+				}
+			});
+
+		/**
+		 * The name of the application
+		 * @property {String} options.name
+		 * @default ''
+		 */
+		options.add('name', '', true);
+	};
+
+}());
 /**
  * @module Core
  * @namespace springroll
@@ -3006,10 +3017,7 @@
 	var ApplicationPlugin = include('springroll.ApplicationPlugin');
 
 	/**
-	 * Create an app plugin for Page Visibility listener, all properties and methods documented
-	 * in this class are mixed-in to the main Application
-	 * @class PageVisibilityPlugin
-	 * @extends springroll.ApplicationPlugin
+	 * @class Application
 	 */
 	var plugin = new ApplicationPlugin();
 
@@ -3183,10 +3191,7 @@
 	var ApplicationPlugin = include('springroll.ApplicationPlugin');
 
 	/**
-	 * Create an app plugin for String Filters, all properties and methods documented
-	 * in this class are mixed-in to the main Application
-	 * @class StringFiltersPlugin
-	 * @extends springroll.ApplicationPlugin
+	 * @class Application
 	 */
 	var plugin = new ApplicationPlugin(110);
 
@@ -3218,10 +3223,7 @@
 	var ApplicationPlugin = include('springroll.ApplicationPlugin');
 	
 	/**
-	 * Create an app plugin for resizing application, all properties and methods documented
-	 * in this class are mixed-in to the main Application
-	 * @class ResizePlugin
-	 * @extends springroll.ApplicationPlugin
+	 * @class Application
 	 */
 	var plugin = new ApplicationPlugin(100);
 
@@ -5970,10 +5972,7 @@
 		AssetManager = include('springroll.AssetManager');
 
 	/**
-	 * Create an app plugin for Loader, all properties and methods documented
-	 * in this class are mixed-in to the main Application
-	 * @class LoaderPlugin
-	 * @extends springroll.ApplicationPlugin
+	 * @class Application
 	 */
 	var plugin = new ApplicationPlugin(100);
 
@@ -6246,10 +6245,7 @@
 		Debug;
 
 	/**
-	 * Create an app plugin for Hinting, all properties and methods documented
-	 * in this class are mixed-in to the main Application
-	 * @class ConfigPlugin
-	 * @extends springroll.ApplicationPlugin
+	 * @class Application
 	 */
 	var plugin = new ApplicationPlugin(80);
 

@@ -832,10 +832,7 @@
 		HintsPlayer = include('springroll.HintsPlayer');
 
 	/**
-	 * Create an app plugin for Hinting, all properties and methods documented
-	 * in this class are mixed-in to the main Application
-	 * @class HintsPlugin
-	 * @extends springroll.ApplicationPlugin
+	 * @class Application
 	 */
 	var plugin = new ApplicationPlugin();
 	
