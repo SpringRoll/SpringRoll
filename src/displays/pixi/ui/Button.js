@@ -651,7 +651,7 @@
 	 * @private
 	 * @method _onOver
 	 */
-	p._onOver = function(data)
+	p._onOver = function(event)
 	{
 		this._stateFlags.over = true;
 		this._updateState();
@@ -664,7 +664,7 @@
 	 * @private
 	 * @method _onOut
 	 */
-	p._onOut = function(data)
+	p._onOut = function(event)
 	{
 		this._stateFlags.over = false;
 		this._updateState();
@@ -677,9 +677,9 @@
 	 * @private
 	 * @method _onDown
 	 */
-	p._onDown = function(data)
+	p._onDown = function(event)
 	{
-		data.originalEvent.preventDefault();
+		event.data.originalEvent.preventDefault();
 		this._stateFlags.down = true;
 		this._updateState();
 		
@@ -695,9 +695,9 @@
 	 * @private
 	 * @method _onUp
 	 */
-	p._onUp = function(data)
+	p._onUp = function(event)
 	{
-		data.originalEvent.preventDefault();
+		event.data.originalEvent.preventDefault();
 		this._stateFlags.down = false;
 		this.off("mouseupoutside", this._upOutCB);
 		this.off("touchendoutside", this._upOutCB);
@@ -715,7 +715,7 @@
 	 * @private
 	 * @method _onUpOutside
 	 */
-	p._onUpOutside = function(data)
+	p._onUpOutside = function(event)
 	{
 		this._stateFlags.down = false;
 		this.off("mouseupoutside", this._upOutCB);
