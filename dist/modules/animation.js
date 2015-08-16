@@ -163,6 +163,8 @@
 	/**
 	 * Reset the timeline so we can reuse
 	 * @method reset
+	 * @private
+	 * @return {springroll.AnimatorTimeline} Instance of timeline
 	 */
 	p.reset = function()
 	{
@@ -191,6 +193,7 @@
 		this.eventList = null;
 		this.onCancelled = null;
 		this.onComplete = null;
+		return this;
 	};
 	
 	/**
@@ -395,12 +398,21 @@
 		 */
 		_removedTimelines = [];
 
-		/** Look up a timeline by the instance
+		/**
+		 * Look up a timeline by the instance
 		 *
 		 * @property {Dictionary} _timelinesMap
 		 * @private
 		 */
 		_timelinesMap = {};
+
+		/** 
+		 * The collection of used timeline objects
+		 *
+		 * @property {Array} _timelinePool
+		 * @private
+		 */
+		_timelinePool = [];
 
 		/** 
 		 * If there are timelines available
@@ -433,6 +445,7 @@
 		_definitions,
 		_timelinesMap,
 		_paused,
+		_timelinePool,
 		_app;
 
 	/**
@@ -594,7 +607,10 @@
 	 */
 	p._makeTimeline = function(clip, eventList, onComplete, onCancelled)
 	{
-		var timeline = new AnimatorTimeline();
+		var timeline = _timelinePool.length ? 
+			_timelinePool.pop() : 
+			new AnimatorTimeline();
+
 		var instance = this.canAnimate(clip, true);
 
 		if (!instance)
@@ -923,8 +939,9 @@
 			this.captions.stop();
 		}
 
-		// Destroy it!
-		timeline.reset();
+		// Reset the timeline and add to the pool
+		// of timeline objects
+		_timelinePool.push(timeline.reset());
 
 		// Check if we should stop the update
 		if (!_hasTimelines) this._stopUpdate();
@@ -1292,6 +1309,7 @@
 		this.captions = null;
 		_app = null;
 		_timelines = null;
+		_timelinePool = null;
 		_removedTimelines = null;
 		_timelinesMap = null;
 		_definitions = null;

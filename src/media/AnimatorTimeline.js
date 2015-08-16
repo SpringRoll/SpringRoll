@@ -162,6 +162,8 @@
 	/**
 	 * Reset the timeline so we can reuse
 	 * @method reset
+	 * @private
+	 * @return {springroll.AnimatorTimeline} Instance of timeline
 	 */
 	p.reset = function()
 	{
@@ -190,6 +192,7 @@
 		this.eventList = null;
 		this.onCancelled = null;
 		this.onComplete = null;
+		return this;
 	};
 	
 	/**
