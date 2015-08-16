@@ -188,7 +188,7 @@
 			this.currentFrame = Math.floor(this._t * this._framerate + 0.0000001);
 			if(this.currentFrame >= this._textures.length)
 				this.currentFrame = this._textures.length - 1;
-			this._texture = this._textures[this.currentFrame];
+			this.texture = this._textures[this.currentFrame] || Texture.EMPTY;
 		}
 	});
 
@@ -240,7 +240,7 @@
 		else
 			this._t = 0;
 		
-		this._texture = this._textures[pos];
+		this.texture = this._textures[pos] || Texture.EMPTY;
 	};
 
 	/**
@@ -259,7 +259,7 @@
 			this.currentFrame = Math.floor(this._t * this._framerate + 0.0000001);
 			if(this.currentFrame >= this._textures.length)
 				this.currentFrame = this._textures.length - 1;
-			this._texture = this._textures[this.currentFrame];
+			this.texture = this._textures[this.currentFrame] || Texture.EMPTY;
 		}
 	};
 	
@@ -420,6 +420,8 @@
 		{
 			this.pivot.x =  this.pivot.y = 0;
 		}
+		
+		this.gotoAndStop(0);
 	};
 
 	function labelSorter(a, b)
