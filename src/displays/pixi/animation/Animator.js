@@ -270,7 +270,7 @@
 				if (first >= 0 && last > 0)
 				{
 					data = {
-						name: anim,
+						anim: anim,
 						first: first,
 						last: last,
 						loop: loop,
