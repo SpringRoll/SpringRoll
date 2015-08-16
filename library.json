@@ -63,9 +63,7 @@
 			"output": "pixi-animation",
 			"main": [
 				"src/displays/pixi/animation/ParallelSpineData.js",
-				"src/displays/pixi/animation/AnimatorTimeline.js",
-				"src/displays/pixi/animation/Animator.js",
-				"src/displays/pixi/animation/AnimationPlugin.js"
+				"src/deprecation/pixi-animation.js"
 			]
 		},
 		"pixiui": {
@@ -97,12 +95,13 @@
 		"easeljsanimation": {
 			"output": "easeljs-animation",
 			"main": [
-				"src/displays/easeljs/animation/AnimatorTimeline.js",
-				"src/displays/easeljs/animation/Animator.js",
 				"src/displays/easeljs/animation/AnimationPlugin.js",
 				"src/displays/easeljs/animation/BitmapMovieClip.js",
+				"src/displays/easeljs/animation/MovieClipInstance.js",
+				"src/displays/easeljs/animation/BitmapMovieClipInstance.js",
 				"src/displays/easeljs/animation/ReversePlayback.js",
-				"src/displays/easeljs/animation/BitmapMovieClipTask.js"
+				"src/displays/easeljs/animation/BitmapMovieClipTask.js",
+				"src/deprecation/easeljs-animation.js"
 			]
 		},
 		"easeljsui": {
@@ -153,6 +152,12 @@
 			"src/media/VOPlayer.js",
 			"src/media/SoundPlugin.js",
 			"src/deprecation/sound.js"
+		],
+		"animation": [
+			"src/media/AnimatorTimeline.js",
+			"src/media/Animator.js",
+			"src/media/AnimatorInstance.js",
+			"src/media/AnimatorPlugin.js"
 		],
 		"ui": [
 			"src/ui/ScaleItem.js",

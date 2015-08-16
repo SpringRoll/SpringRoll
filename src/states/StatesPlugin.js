@@ -15,7 +15,6 @@
 	 */
 	var plugin = new ApplicationPlugin();
 
-	// Init the animator
 	plugin.setup = function()
 	{
 		/**
@@ -62,6 +61,18 @@
 					else
 					{
 						throw "No default display";
+					}
+				}
+
+				if (transition && !this.animator)
+				{
+					if (DEBUG)
+					{
+						throw "Use of a transition requires the animation module, please include";
+					}
+					else
+					{
+						throw "No animation module";
 					}
 				}
 
@@ -170,9 +181,18 @@
 
 				// Create the state manager
 				var manager = this.manager = new StateManager(
-					this.display,
 					this.options.transitionSounds
 				);
+
+				// Pass the animator reference
+				manager.animator = this.animator;
+
+				// Add a handler to enable to disable the display
+				manager.on('enabled', function(enabled)
+				{
+					this.display.enabled = enabled;
+				}
+				.bind(this));
 				
 				var stage = this.display.stage;
 				
@@ -255,7 +275,6 @@
 		}
 	};
 
-	// Destroy the animator
 	plugin.teardown = function()
 	{
 		if (DEBUG)

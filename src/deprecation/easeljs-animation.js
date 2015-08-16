@@ -1,48 +1,18 @@
-/*! SpringRoll 0.4.0 */
-/**
- * @module PIXI Animation
- * @namespace springroll.pixi
- * @requires  Core, Animation, PIXI Display
- */
-(function()
-{
-	/**
-	 * Class for assisting in creating an array of Spine animations to play at the same time
-	 * on one skeleton through Animator. Concurrent animations will play until one non-looping
-	 * animation ends.
-	 *
-	 * @class ParallelSpineData
-	 * @constructor
-	 * @param {String} anim The name of the animation on the skeleton.
-	 * @param {Boolean} [loop=false] If this animation should loop.
-	 * @param {Number} [speed=1] The speed at which this animation should be played.
-	 */
-	var ParallelSpineData = function(anim, loop, speed)
-	{
-		this.anim = anim;
-		this.loop = !!loop;
-		this.speed = speed > 0 ? speed : 1;
-	};
-	
-	// Assign to namespace
-	namespace("springroll.pixi").ParallelSpineData = ParallelSpineData;
-
-}());
 (function()
 {
 	var Application = include('springroll.Application');
 
 	/**
 	 * @class Animator
-	 * @namespace springroll.pixi
+	 * @namespace springroll.easeljs
 	 * @see {@link springroll.Animator}
 	 * @deprecated since version 0.4.0
 	 */
-	var Animator = namespace('springroll.pixi').Animator = {};
+	var Animator = namespace('springroll.easeljs').Animator = {};
 
 	/**
 	 * @method
-	 * @name springroll.pixi.Animator#canAnimate
+	 * @name springroll.easeljs.Animator#canAnimate
 	 * @see {@link springroll.Animator#canAnimate}
 	 * @deprecated since version 0.4.0
 	 */
@@ -54,7 +24,7 @@
 
 	/**
 	 * @method
-	 * @name springroll.pixi.Animator#getDuration
+	 * @name springroll.easeljs.Animator#getDuration
 	 * @see {@link springroll.Animator#getDuration}
 	 * @deprecated since version 0.4.0
 	 */
@@ -66,7 +36,7 @@
 
 	/**
 	 * @method
-	 * @name springroll.pixi.Animator#getTimeline
+	 * @name springroll.easeljs.Animator#getTimeline
 	 * @see {@link springroll.Animator#getTimeline}
 	 * @deprecated since version 0.4.0
 	 */
@@ -78,19 +48,19 @@
 
 	/**
 	 * @method
-	 * @name springroll.pixi.Animator#instanceHasAnimation
+	 * @name springroll.easeljs.Animator#instanceHasAnimation
 	 * @see {@link springroll.Animator#instanceHasAnimation}
 	 * @deprecated since version 0.4.0
 	 */
 	Animator.instanceHasAnimation = function(instance, event)
 	{
-		console.warn('Animator.instanceHasAnimation() is now deprecated, please use the app.animator.instanceHasAnimation()');
+		console.warn('Animator.instanceHasAnimation() is now deprecated, please use the app.animator.hasAnimation()');
 		return Application.instance.animator.hasAnimation(instance, event);
 	};
 
 	/**
 	 * @method
-	 * @name springroll.pixi.Animator#pauseInGroup
+	 * @name springroll.easeljs.Animator#pauseInGroup
 	 * @see {@link springroll.Animator#pauseInGroup}
 	 * @deprecated since version 0.4.0
 	 */
@@ -102,7 +72,7 @@
 
 	/**
 	 * @method
-	 * @name springroll.pixi.Animator#resume
+	 * @name springroll.easeljs.Animator#resume
 	 * @see {@link springroll.Animator#resume}
 	 * @deprecated since version 0.4.0
 	 */
@@ -114,7 +84,7 @@
 
 	/**
 	 * @method
-	 * @name springroll.pixi.Animator#stopAll
+	 * @name springroll.easeljs.Animator#stopAll
 	 * @see {@link springroll.Animator#stopAll}
 	 * @deprecated since version 0.4.0
 	 */
@@ -126,7 +96,7 @@
 
 	/**
 	 * @method
-	 * @name springroll.pixi.Animator#destroy
+	 * @name springroll.easeljs.Animator#destroy
 	 * @see {@link springroll.Animator#destroy}
 	 * @deprecated since version 0.4.0
 	 */
@@ -138,7 +108,7 @@
 
 	/**
 	 * @method
-	 * @name springroll.pixi.Animator#getPaused
+	 * @name springroll.easeljs.Animator#getPaused
 	 * @see {@link springroll.Animator#paused}
 	 * @deprecated since version 0.4.0
 	 */
@@ -150,7 +120,7 @@
 
 	/**
 	 * @method
-	 * @name springroll.pixi.Animator#init
+	 * @name springroll.easeljs.Animator#init
 	 * @see {@link springroll.Animator#init}
 	 * @deprecated since version 0.4.0
 	 */
@@ -162,7 +132,7 @@
 
 	/**
 	 * @method
-	 * @name springroll.pixi.Animator#pause
+	 * @name springroll.easeljs.Animator#pause
 	 * @see {@link springroll.Animator#pause}
 	 * @deprecated since version 0.4.0
 	 */
@@ -174,7 +144,7 @@
 
 	/**
 	 * @method
-	 * @name springroll.pixi.Animator#play
+	 * @name springroll.easeljs.Animator#play
 	 * @see {@link springroll.Animator#play}
 	 * @deprecated since version 0.4.0
 	 */
@@ -186,7 +156,7 @@
 
 	/**
 	 * @method
-	 * @name springroll.pixi.Animator#stop
+	 * @name springroll.easeljs.Animator#stop
 	 * @see {@link springroll.Animator#stop}
 	 * @deprecated since version 0.4.0
 	 */
@@ -198,7 +168,7 @@
 
 	/**
 	 * @method
-	 * @name springroll.pixi.Animator#toString
+	 * @name springroll.easeljs.Animator#toString
 	 * @deprecated since version 0.4.0
 	 */
 	Animator.toString = function()
@@ -211,7 +181,7 @@
 	{
 		/**
 		 * @property
-		 * @name springroll.pixi.Animator#captions
+		 * @name springroll.easeljs.Animator#captions
 		 * @see {@link springroll.Animator#captions}
 		 * @deprecated since version 0.4.0
 		 */
@@ -225,7 +195,7 @@
 		},
 		/**
 		 * @property
-		 * @name springroll.pixi.Animator#debug
+		 * @name springroll.easeljs.Animator#debug
 		 * @see {@link springroll.Animator#debug}
 		 * @deprecated since version 0.4.0
 		 */

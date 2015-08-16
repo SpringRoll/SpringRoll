@@ -23,6 +23,7 @@
 		<!-- Library and modules -->
 		<script src="../dist/core.js"></script>
 		<script src="../dist/modules/debug.js"></script>
+		<script src="../dist/modules/animation.js"></script>
 		<script src="../dist/modules/easeljs-display.js"></script>
 		<script src="../dist/modules/easeljs-ui.js"></script>
 		<script src="../dist/modules/easeljs-animation.js"></script>
@@ -42,8 +43,7 @@
 var Application = include('springroll.Application'),
 	Bitmap = include('createjs.Bitmap'),
 	Button = include('springroll.easeljs.Button'),
-	EaselJSDisplay = include('springroll.EaselJSDisplay'),
-	Animator = include('springroll.easeljs.Animator');
+	EaselJSDisplay = include('springroll.EaselJSDisplay');
 
 var app = new Application({
 	resizeElement : "stageContainer",
@@ -116,8 +116,8 @@ app.once('init', function()
 	);
 	
 	// Add the animation
-	Animator.play(flower, "wet");
-	Animator.play(transition, "onTransitionIn");
+	this.animator.play(flower, "wet");
+	this.animator.play(transition, "onTransitionIn");
 
 	// Handler to clear the stage
 	unloadButton.addEventListener(Button.BUTTON_PRESS, function()
@@ -127,10 +127,10 @@ app.once('init', function()
 		unloadButton = null;
 
 		// Stop the animation
-		Animator.stop(flower);
+		app.animator.stop(flower);
 		flower = null;
 
-		Animator.stop(transition);
+		app.animator.stop(transition);
 		transition = null;
 
 		// Remove all display objects

@@ -17,8 +17,6 @@
 	 * @class StateManager
 	 * @extends springroll.EventDispatcher
 	 * @constructor
-	 * @param {springroll.AbstractDisplay} display The display on which the transition animation
-	 *     is displayed.
 	 * @param {Object} [transitionSounds] Data object with aliases and start times (seconds) for
 	 *     transition in, loop and out sounds. Example: `{in:{alias:"myAlias", start:0.2}}`.
 	 *     These objects are in the format for Animator from EaselJSDisplay or PixiDisplay,
@@ -27,17 +25,17 @@
 	 * @param {Object|String} [transitionSounds.out] The sound to play for transition out
 	 * @param {Object|String} [transitionSounds.loading] The sound to play for loading
 	 */
-	var StateManager = function(display, transitionSounds)
+	var StateManager = function(transitionSounds)
 	{
 		EventDispatcher.call(this);
 
 		/**
-		 * The display that holds the states this StateManager is managing.
+		 * The animator playback.
 		 *
-		 * @property {springroll.AbstractDisplay} _display
+		 * @property {springroll.Animator} animator
 		 * @private
 		 */
-		this._display = display;
+		this.animator = null;
 		
 		/**
 		 * The click to play in between transitioning states
@@ -119,7 +117,7 @@
 		this._queueStateId = null;
 
 		// Hide the blocker
-		this.hideBlocker();
+		this.enabled = true;
 
 		// Binding
 		this._onTransitionLoading = this._onTransitionLoading.bind(this);
@@ -276,26 +274,24 @@
 		
 		this.trigger(LOADING_DONE);
 	};
-	
+
 	/**
-	 * Show, enable the blocker clip to disable mouse clicks
-	 *
-	 * @method showBlocker
+	 * Internal setter for the enabled status 
+	 * @private
+	 * @property {Boolean} enabled
 	 */
-	p.showBlocker = function()
+	Object.defineProperty(p, 'enabled',
 	{
-		this._display.enabled = false;
-	};
-	
-	/**
-	 * Re-enable interaction with the stage
-	 *
-	 * @method hideBlocker
-	 */
-	p.hideBlocker = function()
-	{
-		this._display.enabled = true;
-	};
+		set: function(enabled)
+		{
+			/**
+			 * If the state manager is enabled, used internally
+			 * @event enabled
+			 * @param {Boolean} enabled 
+			 */
+			this.trigger('enabled', enabled);
+		}
+	});
 	
 	/**
 	 * This transitions out of the current state and
@@ -329,7 +325,7 @@
 			}
 			
 			this._stateId = id;
-			this.showBlocker();
+			this.enabled = false;
 			this._oldState = this._state;
 			this._state = this._states[id];
 			
@@ -360,7 +356,7 @@
 				{
 					this._isTransitioning = true;
 					this._oldState._internalExitStart();
-					this.showBlocker();
+					this.enabled = false;
 					
 					this.trigger(TRANSITION_OUT);
 					
@@ -437,7 +433,7 @@
 		}
 		this.trigger(TRANSITION_IN_DONE);
 		this._isTransitioning = false;
-		this.hideBlocker();
+		this.enabled = true;
 		
 		if (!this._processQueue())
 		{
@@ -486,8 +482,8 @@
 			// @deprecate the use of 'loop' sound property in favor of 'loading'
 			audio = sounds.loading || sounds.loop;
 		}
-		var animator = this._display.animator;
-		if (animator.instanceHasAnimation(this.transition, TRANSITION_LOADING))
+		var animator = this.animator;
+		if (animator.hasAnimation(this.transition, TRANSITION_LOADING))
 		{
 			this.trigger(TRANSITION_LOADING);
 			animator.play(
@@ -498,7 +494,7 @@
 			);
 		}
 		// @deprecate the use of 'transitionLoop' in favor of 'onTransitionLoading'
-		else if (animator.instanceHasAnimation(this.transition, 'transitionLoop'))
+		else if (animator.hasAnimation(this.transition, 'transitionLoop'))
 		{
 			this.trigger(TRANSITION_LOADING);
 			animator.play(
@@ -519,7 +515,7 @@
 	 */
 	p.showTransitionOut = function(callback)
 	{
-		this.showBlocker();
+		this.enabled = false;
 		this._transitioning(TRANSITION_OUT, function()
 		{
 			this._onTransitionLoading();
@@ -538,7 +534,7 @@
 	{
 		this._transitioning(TRANSITION_IN, function()
 		{
-			this.hideBlocker();
+			this.enabled = true;
 			this.transition.visible = false;
 			if (callback) callback();
 		}
@@ -571,7 +567,7 @@
 		{
 			audio = (event == TRANSITION_IN) ? sounds.in : sounds.out;
 		}
-		this._display.animator.play(
+		this.animator.play(
 			transition,
 			{anim:event, audio:audio},
 			callback
@@ -590,7 +586,7 @@
 		
 		if (this.transition)
 		{
-			this._display.animator.stop(this.transition);
+			this.animator.stop(this.transition);
 		}
 		
 		if (this._state)

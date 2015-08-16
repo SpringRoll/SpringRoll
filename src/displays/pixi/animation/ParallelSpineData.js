@@ -1,7 +1,7 @@
 /**
  * @module PIXI Animation
  * @namespace springroll.pixi
- * @requires  Core, PIXI Display
+ * @requires  Core, Animation, PIXI Display
  */
 (function()
 {

@@ -65,8 +65,7 @@
 			this.stage = new Stage(id);
 		}
 		this.stage.autoClear = !!options.clearView;
-
-		this.animator = include('springroll.easeljs.Animator', false);
+		
 		this.adapter = include('springroll.easeljs.DisplayAdapter');
 	};
 
