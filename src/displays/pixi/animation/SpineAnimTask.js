@@ -105,7 +105,7 @@
 		if(this.atlas)
 			asset._atlas = this.atlas;
 		if(this.extraImages)
-			asset._images = this.extraImages;
+			asset._images = {assets:this.extraImages};
 		
 		Application.instance.load(asset, function(results)
 		{
@@ -126,7 +126,7 @@
 			{
 				for(var name in results._images)
 				{
-					spineAtlas.addImage(name, results_images[name]);
+					spineAtlas.addImage(name, results._images[name]);
 				}
 			}
 
