@@ -36,7 +36,7 @@
 		{
 			//have the entire text area be positioned based on the alignment, to make it easy to
 			//center or right-align text with other elements
-			switch(this._font.align)
+			switch(this.align)
 			{
 				case 'center':
 					this.pivot.x = this.textWidth / 2;
