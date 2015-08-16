@@ -656,7 +656,7 @@
 		this._stateFlags.over = true;
 		this._updateState();
 		
-		this.emit(Button.BUTTON_OVER);
+		this.emit(Button.BUTTON_OVER, this);
 	};
 	
 	/**
@@ -669,7 +669,7 @@
 		this._stateFlags.over = false;
 		this._updateState();
 		
-		this.emit(Button.BUTTON_OUT);
+		this.emit(Button.BUTTON_OUT, this);
 	};
 	
 	/**
@@ -706,7 +706,7 @@
 		
 		this._updateState();
 		
-		this.emit(Button.BUTTON_PRESS);
+		this.emit(Button.BUTTON_PRESS, this);
 	};
 	
 	/**
