@@ -155,8 +155,8 @@
 	{
 		if(!outPoint)
 			outPoint = new PIXI.Point();
-		outPoint.x = globalX;
-		outPoint.y = globalY;
+		outPoint.x = x;
+		outPoint.y = y;
 		return targetDisplayObject.toLocal(outPoint, sourceDisplayObject, outPoint);
 	};
 
