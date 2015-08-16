@@ -61,6 +61,10 @@
 		 *	@public
 		 */
 		this.isSpine = Spine && clip instanceof Spine;
+		
+		//we don't want Spine animations to advance every render, only when Animator tells them to
+		if(this.isSpine)
+			clip.autoUpdate = false;
 
 		/**
 		 *	The function to call when the clip is finished playing
