@@ -297,7 +297,7 @@
 			field.innerHTML = text;
 		}
 		// The EaselJS/PIXI v3 style text setting
-		else if (field.prototype.hasOwnProperty("text") || field.hasOwnProperty("text"))
+		else if (field.constructor.prototype.hasOwnProperty("text") || field.hasOwnProperty("text"))
 		{
 			field.text = text;
 		}
