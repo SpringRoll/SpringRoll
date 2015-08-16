@@ -413,12 +413,12 @@
 			this.framerate = this._framerate;
 		if(data.origin)
 		{
-			this._pivot.x = data.origin.x;
-			this._pivot.y = data.origin.y;
+			this.pivot.x = data.origin.x;
+			this.pivot.y = data.origin.y;
 		}
 		else
 		{
-			this._pivot.x =  this._pivot.y = 0;
+			this.pivot.x =  this.pivot.y = 0;
 		}
 	};
 
@@ -497,8 +497,8 @@
 		this._textures = other._textures;
 		this._labels = other._labels;
 		this._events = other._events;
-		this._pivot.x = other._pivot.x;
-		this._pivot.y = other._pivot.y;
+		this.pivot.x = other.pivot.x;
+		this.pivot.y = other.pivot.y;
 		this._framerate = other._framerate;
 		this._duration = other._duration;
 	};
