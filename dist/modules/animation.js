@@ -1531,6 +1531,12 @@
 		}
 	};
 
+	/**
+	 * Get the duration of an event label
+	 * @method getDuration
+	 * @param {String|Array} event The event or events
+	 * @return {int} Duration of sequence in milliseconds
+	 */
 	p.getDuration = function(event)
 	{
 		if (Array.isArray(event))
