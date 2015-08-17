@@ -50,9 +50,10 @@
 	FlashArtTask.test = function(asset)
 	{
 		// loading a JS file from Flash
-		return asset.src && 
+		return asset.src &&
 			asset.src.search(/\.js$/i) > -1 &&
-			asset.type == "easeljs";
+			asset.type == "easeljs" &&
+			asset.format == "springroll.easeljs.FlashArt";
 	};
 
 	/**
@@ -67,7 +68,7 @@
 			callback(new FlashArt(
 				this.id,
 				domElement,
-				this.libName 
+				this.libName
 			));
 		}
 		.bind(this));

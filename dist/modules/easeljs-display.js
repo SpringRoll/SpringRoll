@@ -699,9 +699,10 @@
 	FlashArtTask.test = function(asset)
 	{
 		// loading a JS file from Flash
-		return asset.src && 
+		return asset.src &&
 			asset.src.search(/\.js$/i) > -1 &&
-			asset.type == "easeljs";
+			asset.type == "easeljs" &&
+			asset.format == "springroll.easeljs.FlashArt";
 	};
 
 	/**
@@ -716,7 +717,7 @@
 			callback(new FlashArt(
 				this.id,
 				domElement,
-				this.libName 
+				this.libName
 			));
 		}
 		.bind(this));
@@ -1175,10 +1176,10 @@
 	 */
 	FlashArtAtlasTask.test = function(asset)
 	{
-		return asset.src && 
-			asset.src.search(/\.js$/i) > -1 && 
+		return asset.src &&
+			asset.src.search(/\.js$/i) > -1 &&
 			asset.type == "easeljs" &&
-			asset.atlas && 
+			asset.atlas &&
 			(asset.image || (asset.color && asset.alpha));
 	};
 
@@ -1220,14 +1221,21 @@
 					results._alpha
 				);
 			}
-
-			BitmapUtils.loadSpriteSheet(results._atlas, image, this.original.scale);
-
-			callback(new FlashArt(
+			
+			var art = new FlashArt(
 				this.id,
 				results._flash,
-				this.libName 
-			));
+				this.libName
+			);
+			
+			//prefer the spritesheet's exported scale
+			var scale = results._atlas.meta ? 1 / parseFloat(results._atlas.meta.scale) : 0;
+			//if it doesn't have one, then use the asset scale specified by the AssetManager.
+			if(!scale)
+				scale = this.original.scale;
+			BitmapUtils.loadSpriteSheet(results._atlas, image, scale);
+
+			callback(art);
 		}
 		.bind(this));
 	};
