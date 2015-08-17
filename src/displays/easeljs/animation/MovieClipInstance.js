@@ -36,7 +36,41 @@
 		return clip instanceof MovieClip;
 	};
 
-	extend(MovieClipInstance, AnimatorInstance);
+	// Inherit the AnimatorInstance
+	var p = extend(MovieClipInstance, AnimatorInstance);
+
+	/**
+	 * Get and set the elapsedTime override
+	 * @property {Number} elapsedTime
+	 */
+	Object.defineProperty(p, 'elapsedTime',
+	{
+		get: function()
+		{
+			return this.clip.elapsedTime; 
+		},
+		set: function(elapsedTime)
+		{
+			this.clip.elapsedTime = elapsedTime;
+
+			// because the movieclip only checks the elapsed time here (tickEnabled is false),
+			// calling advance() with no parameters is fine - it won't advance the time
+			this.clip.advance();
+		}
+	});
+
+	/**
+	 * Play the clip override
+	 * @method play
+	 */
+	p.play = function()
+	{
+		this.clip.play();
+
+		// update the movieclip to make sure it is redrawn 
+		// correctly at the next opportunity
+		this.clip.advance();
+	};
 
 	// Assign to namespace
 	namespace('springroll.easeljs').MovieClipInstance = MovieClipInstance;

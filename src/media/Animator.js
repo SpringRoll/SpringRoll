@@ -216,10 +216,6 @@
 			// have it set its 'paused' variable to false
 			instance.play();
 
-			// update the movieclip to make sure it is redrawn 
-			// correctly at the next opportunity
-			instance.advance();
-
 			// Before we add the timeline, we should check to see
 			// if there are no timelines, then start the enter frame
 			// updating
@@ -908,9 +904,6 @@
 			if (t.firstFrame >= 0)
 			{
 				instance.elapsedTime = t.startTime + t.position;
-				//because the movieclip only checks the elapsed time here (tickEnabled is false),
-				//calling advance() with no parameters is fine - it won't advance the time
-				instance.advance();
 			}
 		}
 		if (!_removedTimelines) return;

@@ -48,8 +48,7 @@
 			clip.gotoAndStop !== undefined &&
 			clip.gotoAndPlay !== undefined &&
 			clip.stop !== undefined &&
-			clip.play !== undefined &&
-			clip.advance !== undefined;
+			clip.play !== undefined;
 	};
 
 	/**
@@ -58,8 +57,14 @@
 	 */
 	Object.defineProperty(p, 'framerate',
 	{
-		get: function() { return this.clip.framerate; },
-		set: function(framerate) { this.clip.framerate = framerate; }
+		get: function()
+		{
+			return this.clip.framerate;
+		},
+		set: function(framerate)
+		{
+			this.clip.framerate = framerate; 
+		}
 	});
 
 	/**
@@ -68,8 +73,14 @@
 	 */
 	Object.defineProperty(p, 'elapsedTime',
 	{
-		get: function() { return this.clip.elapsedTime; },
-		set: function(elapsedTime) { this.clip.elapsedTime = elapsedTime; }
+		get: function()
+		{
+			return this.clip.elapsedTime;
+		},
+		set: function(elapsedTime)
+		{
+			this.clip.elapsedTime = elapsedTime; 
+		}
 	});
 
 	/**
@@ -79,7 +90,10 @@
 	 */
 	Object.defineProperty(p, 'id',
 	{
-		get: function() { return this.clip.__animatorId; }
+		get: function()
+		{
+			return this.clip.__animatorId;
+		}
 	});
 
 	/**
@@ -128,15 +142,6 @@
 	p.stop = function()
 	{
 		this.clip.stop();
-	};
-
-	/**
-	 * Advance to the next frame as soon as possible to draw
-	 * @method advance
-	 */
-	p.advance = function()
-	{
-		this.clip.advance();
 	};
 
 	/**
