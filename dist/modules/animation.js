@@ -607,7 +607,7 @@
 			_timelinePool.pop() : 
 			new AnimatorTimeline();
 
-		var instance = this.canAnimate(clip, true);
+		var instance = createInstance(clip);
 
 		if (!instance)
 		{
@@ -757,32 +757,64 @@
 	 *
 	 * @method canAnimate
 	 * @param {*} clip The object to check for animation properties.
-	 * @param {Boolean} [makeInstance=false] (private) If we should construct an AnimatorInstance from clip
-	 * @return {Boolean|springroll.AnimatorInstance} If the instance can be animated or boolean
-	 *         if `makeInstance` param is false.
+	 * @return {Boolean} If the instance can be animated or not.
 	 */
-	p.canAnimate = function(clip, makeInstance)
+	p.canAnimate = function(clip)
 	{
-		// Check if the clip is already part of a timeline
-		var timeline = getTimelineByClip(clip);
+		if (!clip) return false;
+		return !!getTimelineByClip(clip) || !!getDefinitionByClip(clip);
+	};
 
-		if (clip)
+	/**
+	 * Create an instance by clip
+	 * @method  createInstance
+	 * @private
+	 * @param  {*} clip The animation object to animate
+	 * @return {springroll.AnimatorInstance} The animator instance
+	 */
+	var createInstance = function(clip)
+	{
+		if (!clip) return null;
+		
+		var timeline = getTimelineByClip(clip);
+		if (timeline)
 		{
-			// We have a timeline instance, we'll just return that
-			if (timeline)
+			return timeline.instance;
+		}
+		var Definition = getDefinitionByClip(clip);
+		return Definition ? Definition.create(clip) : null;
+	};
+
+	/**
+	 * Destroy an instance
+	 * @method  poolInstance
+	 * @private
+	 * @param  {springroll.AnimatorInstance} instance The instance to destroy
+	 */
+	var poolInstance = function(instance)
+	{
+		var Definition = getDefinitionByClip(instance.clip);
+		Definition.pool(instance);
+	};
+
+	/**
+	 * Get a definition by clip
+	 * @private
+	 * @method  getDefinitionByClip
+	 * @param  {*} clip The animation clip
+	 * @return {function|null} The new definition
+	 */
+	var getDefinitionByClip = function(clip)
+	{
+		for(var Definition, i = 0, len = _definitions.length; i < len; i++)
+		{
+			Definition = _definitions[i];
+			if (Definition.test(clip))
 			{
-				return !!makeInstance ? timeline.instance : true;
-			}
-			for(var Def, i = 0, len = _definitions.length; i < len; i++)
-			{
-				Definition = _definitions[i];
-				if (Definition.test(clip))
-				{
-					return !!makeInstance ? new Definition(clip) : true;
-				}
+				return Definition;
 			}
 		}
-		return !!makeInstance ? null : false;
+		return null;
 	};
 
 	/**
@@ -803,9 +835,9 @@
 		}
 		else
 		{
-			var instance = this.canAnimate(clip, true);
+			var instance = createInstance(clip);
 			var hasAnim = instance.hasAnimation(event);
-			instance.destroy();
+			poolInstance(instance);
 			return hasAnim;
 		}
 	};
@@ -833,9 +865,9 @@
 		else
 		{
 			// Have to create a new instance
-			instance = this.canAnimate(clip, true);
+			instance = createInstance(clip);
 			duration = instance.getDuration(event);
-			instance.destroy();
+			poolInstance(instance);
 		}
 		return duration;		
 	};
@@ -1370,23 +1402,31 @@
 	 * files. They need to extend some basic methods.
 	 *
 	 * @class AnimatorTimeline
-	 * @constructor
-	 * @param {*} clip The animation to play
 	 */
-	var AnimatorInstance = function(clip)
+	var AnimatorInstance = function()
 	{
 		/**
 		 * The animation clip to play
 		 * @param {*} clip 
 		 */
+		this.clip = null;
+	};
+
+	// Reference to the prototype
+	var p = AnimatorInstance.prototype;
+
+	/**
+	 * The initialization method
+	 * @method init
+	 * @param  {*} clip The movieclip
+	 */
+	p.init = function(clip)
+	{
 		this.clip = clip;
 
 		// Add a unique id to the clip
 		clip.__animatorId = ++ANIMATOR_ID;
 	};
-
-	// Reference to the prototype
-	var p = AnimatorInstance.prototype;
 
 	/**
 	 * Check to see if a clip is compatible with this
@@ -1403,6 +1443,56 @@
 			clip.gotoAndPlay !== undefined &&
 			clip.stop !== undefined &&
 			clip.play !== undefined;
+	};
+
+	/**
+	 * Create pool and add create and remove functions
+	 * @method extend
+	 * @param {function} InstanceClass The instance class
+	 * @param {function} [ParentClass=springroll.AnimatorTimeline] The class to extend
+	 * @return {object} The prototype for new class
+	 */
+	AnimatorInstance.extend = function(InstanceClass, ParentClass)
+	{
+		/**
+		 * The pool of used up instances
+		 * @property {Array} _pool
+		 * @static
+		 * @protected
+		 */
+		InstanceClass._pool = [];
+
+		/**
+		 * Get an instance either from a recycled pool or new
+		 * @method create
+		 * @static
+		 * @param  {*} clip The animation clip or display object
+		 * @return {springroll.AnimatorInstance} The new instance
+		 */
+		InstanceClass.create = function(clip)
+		{
+			var instance = InstanceClass._pool.length > 0 ? 
+				InstanceClass._pool.pop() : 
+				new InstanceClass();
+
+			instance.init(clip);
+			return instance;
+		};
+
+		/**
+		 * Recycle an instance to the class's pool
+		 * @method pool
+		 * @static
+		 * @param  {springroll.AnimatorInstance} instance The instance to pool
+		 */
+		InstanceClass.pool = function(instance)
+		{
+			instance.destroy();
+			InstanceClass._pool.push(instance);
+		};
+
+		// Extend the parent class
+		return extend(InstanceClass, ParentClass || AnimatorInstance);
 	};
 
 	/**

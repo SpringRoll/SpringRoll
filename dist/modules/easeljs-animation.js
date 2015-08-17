@@ -748,15 +748,10 @@
 	 * @class MovieClipInstance
 	 * @extends springroll.AnimatorInstance
 	 * @private
-	 * @constructor
-	 * @param {createjs.MovieClip} clip
 	 */
-	var MovieClipInstance = function(clip)
+	var MovieClipInstance = function()
 	{
-		AnimatorInstance.call(this, clip);
-
-		// Make sure the clip is disabled
-		clip.tickEnabled = false;
+		AnimatorInstance.call(this);
 	};
 
 	/**
@@ -772,7 +767,21 @@
 	};
 
 	// Inherit the AnimatorInstance
-	var p = extend(MovieClipInstance, AnimatorInstance);
+	var s = AnimatorInstance.prototype;
+	var p = AnimatorInstance.extend(MovieClipInstance);
+
+	/**
+	 * Initialize the instance
+	 * @method  init
+	 * @param  {createjs.MovieClip} clip Display object
+	 */
+	p.init = function(clip)
+	{
+		s.init.call(this, clip);
+
+		// Make sure the clip is disabled
+		clip.tickEnabled = false;
+	};
 
 	/**
 	 * Get and set the elapsedTime override
@@ -818,6 +827,7 @@
  */
 (function(undefined)
 {
+	var AnimatorInstance = include('springroll.AnimatorInstance');
 	var BitmapMovieClip = include('springroll.easeljs.BitmapMovieClip');
 	var MovieClipInstance = include('springroll.easeljs.MovieClipInstance');
 
@@ -826,12 +836,10 @@
 	 * @class BitmapMovieClipInstance
 	 * @extends springroll.easeljs.MovieClipInstance
 	 * @private
-	 * @constructor
-	 * @param {springroll.easeljs.BitmapMovieClip} clip
 	 */
-	var BitmapMovieClipInstance = function(clip)
+	var BitmapMovieClipInstance = function()
 	{
-		MovieClipInstance.call(this, clip);
+		MovieClipInstance.call(this);
 	};
 
 	/**
@@ -847,7 +855,7 @@
 	};
 
 	// Extend class
-	extend(BitmapMovieClipInstance, MovieClipInstance);
+	AnimatorInstance.extend(BitmapMovieClipInstance, MovieClipInstance);
 
 	// Assign to namespace
 	namespace('springroll.easeljs').BitmapMovieClipInstance = BitmapMovieClipInstance;

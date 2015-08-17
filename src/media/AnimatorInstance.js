@@ -16,23 +16,31 @@
 	 * files. They need to extend some basic methods.
 	 *
 	 * @class AnimatorTimeline
-	 * @constructor
-	 * @param {*} clip The animation to play
 	 */
-	var AnimatorInstance = function(clip)
+	var AnimatorInstance = function()
 	{
 		/**
 		 * The animation clip to play
 		 * @param {*} clip 
 		 */
+		this.clip = null;
+	};
+
+	// Reference to the prototype
+	var p = AnimatorInstance.prototype;
+
+	/**
+	 * The initialization method
+	 * @method init
+	 * @param  {*} clip The movieclip
+	 */
+	p.init = function(clip)
+	{
 		this.clip = clip;
 
 		// Add a unique id to the clip
 		clip.__animatorId = ++ANIMATOR_ID;
 	};
-
-	// Reference to the prototype
-	var p = AnimatorInstance.prototype;
 
 	/**
 	 * Check to see if a clip is compatible with this
@@ -49,6 +57,56 @@
 			clip.gotoAndPlay !== undefined &&
 			clip.stop !== undefined &&
 			clip.play !== undefined;
+	};
+
+	/**
+	 * Create pool and add create and remove functions
+	 * @method extend
+	 * @param {function} InstanceClass The instance class
+	 * @param {function} [ParentClass=springroll.AnimatorTimeline] The class to extend
+	 * @return {object} The prototype for new class
+	 */
+	AnimatorInstance.extend = function(InstanceClass, ParentClass)
+	{
+		/**
+		 * The pool of used up instances
+		 * @property {Array} _pool
+		 * @static
+		 * @protected
+		 */
+		InstanceClass._pool = [];
+
+		/**
+		 * Get an instance either from a recycled pool or new
+		 * @method create
+		 * @static
+		 * @param  {*} clip The animation clip or display object
+		 * @return {springroll.AnimatorInstance} The new instance
+		 */
+		InstanceClass.create = function(clip)
+		{
+			var instance = InstanceClass._pool.length > 0 ? 
+				InstanceClass._pool.pop() : 
+				new InstanceClass();
+
+			instance.init(clip);
+			return instance;
+		};
+
+		/**
+		 * Recycle an instance to the class's pool
+		 * @method pool
+		 * @static
+		 * @param  {springroll.AnimatorInstance} instance The instance to pool
+		 */
+		InstanceClass.pool = function(instance)
+		{
+			instance.destroy();
+			InstanceClass._pool.push(instance);
+		};
+
+		// Extend the parent class
+		return extend(InstanceClass, ParentClass || AnimatorInstance);
 	};
 
 	/**
