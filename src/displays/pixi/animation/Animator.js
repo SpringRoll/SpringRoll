@@ -736,7 +736,7 @@
 					}
 					else
 					{
-						c.elapsedTime = t._time_sec;
+						c.elapsedTime = t.startTime + t._time_sec;
 					}
 				}
 			}
@@ -824,7 +824,7 @@
 		}
 		else
 		{
-			c.elapsedTime = time;
+			c.elapsedTime = t.startTime + time;
 		}
 		return complete;
 	};

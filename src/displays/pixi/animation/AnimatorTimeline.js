@@ -127,6 +127,13 @@
 		 *	@private
 		 */
 		this._time_sec = 0;
+		
+		/**
+		 * The start time of the current animation on the movieclip's timeline.
+		 * @property {Number} startTime
+		 * @public
+		 */
+		this.startTime = 0;
 
 		/**
 		 *	Sound alias to sync to during the animation.
@@ -263,7 +270,7 @@
 						//AdvancedMovieClip
 						var length = listItem.last - listItem.first;
 						var fps = clip.framerate;
-						animStart = listItem.first / fps;
+						this.startTime = listItem.first / fps;
 						this.duration = length / fps;
 						this.speed = listItem.speed;
 						this.isLooping = listItem.loop;
@@ -327,14 +334,14 @@
 					}
 				}
 				
-				this._time_sec = animStart;
+				this._time_sec = 0;
 				if(!repeat)
 				{
 					var startTime = typeof listItem.start == "number" ? listItem.start * 0.001 : 0;
 					this._time_sec = startTime < 0 ? Math.random() * this.duration : startTime;
 				}
 				if(clip instanceof AdvancedMovieClip)
-					clip.elapsedTime = this._time_sec;
+					clip.elapsedTime = this.startTime + this._time_sec;
 				//audio
 				if(listItem.alias)
 				{
