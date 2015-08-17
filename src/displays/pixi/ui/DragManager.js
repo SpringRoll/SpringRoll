@@ -18,7 +18,7 @@
 	 * @class DragManager
 	 * @constructor
 	*  @param {PixiDisplay} display The display that this DragManager is handling objects on.
-	*                               Optionally, this parameter can be omitted and the Application's 
+	*                               Optionally, this parameter can be omitted and the Application's
 	*                               default display will be used.
 	*  @param {Function} startCallback The callback when when starting
 	*  @param {Function} endCallback The callback when ending
@@ -418,19 +418,23 @@
 	 */
 	p._stopDrag = function(interactionData, doCallback)
 	{
-		//get the InteractionData we want from the Pixi v3 events
-		if(interactionData.data && interactionData.data.global)
-			interactionData = interactionData.data;
-		var obj, id;
+		var obj, id = null;
+		//if touch id was passed directly
+		if(typeof interactionData == "number")
+			id = interactionData;
+		else if(interactionData)
+		{
+			//get the InteractionData we want from the Pixi v3 events
+			if(interactionData.data && interactionData.data.global)
+				id = interactionData.data.identifier;
+			else if(interactionData instanceof PIXI.interaction.InteractionData)
+				id = interactionData.identifier;
+		}
 		if(this._multitouch)
 		{
-			if(interactionData)
+			if(id !== null)
 			{
 				//stop a specific drag
-				id = interactionData;
-				if(interactionData instanceof PIXI.interaction.InteractionData)
-					id = interactionData.identifier;
-				
 				var data = this.draggedObj[id];
 				if(!data) return;
 				obj = data.obj;
