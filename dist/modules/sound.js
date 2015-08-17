@@ -1,4 +1,4 @@
-/*! SpringRoll 0.3.8 */
+/*! SpringRoll 0.3.9 */
 /**
  * @module Sound
  * @namespace springroll
@@ -1004,7 +1004,7 @@
 		offset = (options ? options.offset : offset) || 0;
 		loop = (options ? options.loop : loop);
 		volume = (options ? options.volume : volume);
-		pan = (options ? options.pan : pan) || 0;
+		pan = (options ? options.pan : pan) || 0.0001; // Chrome 44 bug requires not 0
 
 		//Replace with correct infinite looping.
 		if (loop === true)
