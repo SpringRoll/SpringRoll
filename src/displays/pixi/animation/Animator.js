@@ -721,7 +721,7 @@
 						else
 						{
 							extraTime = t._time_sec - t.duration;
-							c.gotoAndStop(c.totalFrames - 1);
+							c.gotoAndStop(t.lastFrame);
 							t._nextItem();
 							if(t.complete)
 							{

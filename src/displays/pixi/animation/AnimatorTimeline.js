@@ -129,6 +129,13 @@
 		this._time_sec = 0;
 		
 		/**
+		 * The frame number of the last frame of the current animation.
+		 *
+		 * @property {int} lastFrame
+		 */
+		this.lastFrame = -1;
+		
+		/**
 		 * The start time of the current animation on the movieclip's timeline.
 		 * @property {Number} startTime
 		 * @public
@@ -268,6 +275,7 @@
 					else
 					{
 						//AdvancedMovieClip
+						this.lastFrame = listItem.last;
 						var length = listItem.last - listItem.first;
 						var fps = clip.framerate;
 						this.startTime = listItem.first / fps;
