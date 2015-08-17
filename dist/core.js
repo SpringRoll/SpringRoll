@@ -705,7 +705,7 @@
 		//create a function that can be called multiple times
 		var rtn = function()
 		{
-			if(++this.currentCallCount >= callCount)
+			if(++rtn.currentCallCount >= callCount)
 				call();
 		};
 		//set some properties on said function to make it reusable
@@ -717,7 +717,7 @@
 	
 	function reset()
 	{
-		this.currentCount = 0;
+		this.currentCallCount = 0;
 	}
 
 	namespace('springroll').CombinedCallback = CombinedCallback;
