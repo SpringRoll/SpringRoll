@@ -181,42 +181,6 @@
 		 */
 		this._offset = new Point();
 		
-		//===callbacks for mouse/touch events
-		/**
-		 * Callback for mouse over, bound to this button.
-		 * @private
-		 * @property {Function} _overCB
-		 */
-		this._overCB = null;
-
-		/**
-		 * Callback for mouse out, bound to this button.
-		 * @private
-		 * @property {Function} _outCB
-		 */
-		this._outCB = null;
-
-		/**
-		 * Callback for mouse down, bound to this button.
-		 * @private
-		 * @property {Function} _downCB
-		 */
-		this._downCB = null;
-
-		/**
-		 * Callback for mouse up, bound to this button.
-		 * @private
-		 * @property {Function} _upCB
-		 */
-		this._upCB = null;
-
-		/**
-		 * Callback for mouse up outside, bound to this button.
-		 * @private
-		 * @property {Function} _upOutCB
-		 */
-		this._upOutCB = null;
-		
 		/**
 		 * The width of the button art, independent of the scaling of the button itself.
 		 * @private
@@ -233,11 +197,12 @@
 
 		this.addChild(this.back);
 		
-		this._overCB = this._onOver.bind(this);
-		this._outCB = this._onOut.bind(this);
-		this._downCB = this._onDown.bind(this);
-		this._upCB = this._onUp.bind(this);
-		this._upOutCB = this._onUpOutside.bind(this);
+		this._onOver = this._onOver.bind(this);
+		this._onOut = this._onOut.bind(this);
+		this._onDown = this._onDown.bind(this);
+		this._onUp = this._onUp.bind(this);
+		this._onUpOutside = this._onUpOutside.bind(this);
+		this._emitPress = this._emitPress.bind(this);
 
 		var _stateData = this._stateData = {};
 		
@@ -505,25 +470,25 @@
 			this.buttonMode = value;
 			this.interactive = value;
 			
-			this.off("mousedown", this._downCB);
-			this.off("touchstart", this._downCB);
-			this.off("mouseover", this._overCB);
-			this.off("mouseout", this._outCB);
+			this.off("mousedown", this._onDown);
+			this.off("touchstart", this._onDown);
+			this.off("mouseover", this._onOver);
+			this.off("mouseout", this._onOut);
 			
 			//make sure interaction callbacks are properly set
 			if (value)
 			{
-				this.on("mousedown", this._downCB);
-				this.on("touchstart", this._downCB);
-				this.on("mouseover", this._overCB);
-				this.on("mouseout", this._outCB);
+				this.on("mousedown", this._onDown);
+				this.on("touchstart", this._onDown);
+				this.on("mouseover", this._onOver);
+				this.on("mouseout", this._onOut);
 			}
 			else
 			{
-				this.off("mouseupoutside", this._upOutCB);
-				this.off("touchendoutside", this._upOutCB);
-				this.off("mouseup", this._upCB);
-				this.off("touchend", this._upCB);
+				this.off("mouseupoutside", this._onUpOutside);
+				this.off("touchendoutside", this._onUpOutside);
+				this.off("mouseup", this._onUp);
+				this.off("touchend", this._onUp);
 				this._stateFlags.down = this._stateFlags.over = false;
 				//also turn off pixi values so that re-enabling button works properly
 				this._over = false;
@@ -683,10 +648,10 @@
 		this._stateFlags.down = true;
 		this._updateState();
 		
-		this.on("mouseupoutside", this._upOutCB);
-		this.on("touchendoutside", this._upOutCB);
-		this.on("mouseup", this._upCB);
-		this.on("touchend", this._upCB);
+		this.on("mouseupoutside", this._onUpOutside);
+		this.on("touchendoutside", this._onUpOutside);
+		this.on("mouseup", this._onUp);
+		this.on("touchend", this._onUp);
 	};
 	
 	/**
@@ -699,13 +664,20 @@
 	{
 		event.data.originalEvent.preventDefault();
 		this._stateFlags.down = false;
-		this.off("mouseupoutside", this._upOutCB);
-		this.off("touchendoutside", this._upOutCB);
-		this.off("mouseup", this._upCB);
-		this.off("touchend", this._upCB);
+		this.off("mouseupoutside", this._onUpOutside);
+		this.off("touchendoutside", this._onUpOutside);
+		this.off("mouseup", this._onUp);
+		this.off("touchend", this._onUp);
 		
 		this._updateState();
 		
+		//because of the way PIXI handles interaction, it is safer to emit this event outside
+		//the interaction check, in case the user's callback modifies the display list
+		setTimeout(this._emitPress, 0);
+	};
+	
+	p._emitPress = function()
+	{
 		this.emit(Button.BUTTON_PRESS, this);
 	};
 	
@@ -718,10 +690,10 @@
 	p._onUpOutside = function(event)
 	{
 		this._stateFlags.down = false;
-		this.off("mouseupoutside", this._upOutCB);
-		this.off("touchendoutside", this._upOutCB);
-		this.off("mouseup", this._upCB);
-		this.off("touchend", this._upCB);
+		this.off("mouseupoutside", this._onUpOutside);
+		this.off("touchendoutside", this._onUpOutside);
+		this.off("mouseup", this._onUp);
+		this.off("touchend", this._onUp);
 		
 		this._updateState();
 	};
@@ -740,11 +712,6 @@
 		this._stateData = null;
 		this._stateFlags = null;
 		this._statePriority = null;
-		this._downCB = null;
-		this._upCB = null;
-		this._overCB = null;
-		this._outCB = null;
-		this._upOutCB = null;
 	};
 	
 	namespace('springroll').Button = Button;
