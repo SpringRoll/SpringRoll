@@ -2,7 +2,7 @@
     "project": {
         "name": "SpringRoll",
         "description": "An application framework for building HTML5 Canvas games and applications",
-        "version": "0.3.8",
+        "version": "0.3.9",
         "url": "https://github.com/SpringRoll/SpringRoll"
     },
     "files": {
@@ -4978,7 +4978,7 @@
                 },
                 {
                     "name": "transitionSounds",
-                    "description": "Data object with aliases and start times (seconds) for\n      transition in, loop and out sounds. Example: `{in:{alias:\"myAlias\", start:0.2}}`.\n      These objects are in the format for Animator from EaselJSDisplay or PixiDisplay, \n      so they can be just the sound alias instead of an object.",
+                    "description": "Data object with aliases and start times (seconds) for\n      transition in, loop and out sounds. Example: `{in:{alias:\"myAlias\", start:0.2}}`.\n      These objects are in the format for Animator from EaselJSDisplay or PixiDisplay,\n      so they can be just the sound alias instead of an object.",
                     "type": "Object",
                     "optional": true,
                     "props": [
@@ -5185,7 +5185,7 @@
                 },
                 {
                     "name": "updateCallback",
-                    "description": "The optional callback to call each time \nan itemfinishes loading",
+                    "description": "The optional callback to call each time\nan itemfinishes loading",
                     "type": "Function"
                 }
             ]
@@ -10326,7 +10326,7 @@
         },
         {
             "file": "src/displays/easeljs/animation/Animator.js",
-            "line": 917,
+            "line": 913,
             "description": "The sound has been started",
             "itemtype": "method",
             "name": "onSoundStarted",
@@ -10345,7 +10345,7 @@
         },
         {
             "file": "src/displays/easeljs/animation/Animator.js",
-            "line": 931,
+            "line": 927,
             "description": "The sound is done",
             "itemtype": "method",
             "name": "onSoundDone",
@@ -10364,7 +10364,7 @@
         },
         {
             "file": "src/displays/easeljs/animation/Animator.js",
-            "line": 949,
+            "line": 945,
             "description": "Check to see if we have timeline",
             "itemtype": "method",
             "name": "_hasTimelines",
@@ -10381,7 +10381,7 @@
         },
         {
             "file": "src/displays/easeljs/animation/Animator.js",
-            "line": 963,
+            "line": 959,
             "description": "String representation of this class",
             "itemtype": "method",
             "name": "toString",
@@ -12666,7 +12666,7 @@
             "line": 70,
             "description": "Reference to the main app",
             "itemtype": "property",
-            "name": "game",
+            "name": "app",
             "type": "Application",
             "access": "protected",
             "tagname": "",
@@ -13864,19 +13864,6 @@
         {
             "file": "src/displays/easeljs/ui/DragManager.js",
             "line": 137,
-            "description": "The pointer id that triggered the drag. This is only used when multitouch is false\n- the DragData is indexed by pointer id when multitouch is true.",
-            "access": "private",
-            "tagname": "",
-            "itemtype": "property",
-            "name": "_dragPointerID",
-            "type": "Number",
-            "class": "springroll.easeljs.DragManager",
-            "module": "EaselJS UI",
-            "namespace": "springroll.easeljs"
-        },
-        {
-            "file": "src/displays/easeljs/ui/DragManager.js",
-            "line": 145,
             "description": "Callback when we start dragging",
             "access": "private",
             "tagname": "",
@@ -13889,7 +13876,7 @@
         },
         {
             "file": "src/displays/easeljs/ui/DragManager.js",
-            "line": 152,
+            "line": 144,
             "description": "Callback when we are done dragging",
             "access": "private",
             "tagname": "",
@@ -13902,7 +13889,7 @@
         },
         {
             "file": "src/displays/easeljs/ui/DragManager.js",
-            "line": 164,
+            "line": 156,
             "description": "The collection of draggable objects",
             "access": "private",
             "tagname": "",
@@ -13915,7 +13902,7 @@
         },
         {
             "file": "src/displays/easeljs/ui/DragManager.js",
-            "line": 171,
+            "line": 163,
             "description": "A point for reuse instead of lots of object creation.",
             "access": "private",
             "tagname": "",
@@ -13928,7 +13915,7 @@
         },
         {
             "file": "src/displays/easeljs/ui/DragManager.js",
-            "line": 178,
+            "line": 170,
             "description": "If this DragManager is using multitouch for dragging.",
             "access": "private",
             "tagname": "",
@@ -13941,14 +13928,14 @@
         },
         {
             "file": "src/displays/easeljs/ui/DragManager.js",
-            "line": 186,
+            "line": 178,
             "class": "springroll.easeljs.DragManager",
             "module": "EaselJS UI",
             "namespace": "springroll.easeljs"
         },
         {
             "file": "src/displays/easeljs/ui/DragManager.js",
-            "line": 189,
+            "line": 181,
             "description": "If the DragManager allows multitouch dragging. Setting this stops any current\ndrags.",
             "itemtype": "property",
             "name": "multitouch",
@@ -13959,7 +13946,7 @@
         },
         {
             "file": "src/displays/easeljs/ui/DragManager.js",
-            "line": 220,
+            "line": 212,
             "description": "Manually starts dragging an object. If a mouse down event is not\nsupplied as the second argument, it defaults to a held drag, that ends as\nsoon as the mouse is released. When using multitouch, passing a mouse event is\nrequired.",
             "itemtype": "method",
             "name": "startDrag",
@@ -13983,7 +13970,7 @@
         },
         {
             "file": "src/displays/easeljs/ui/DragManager.js",
-            "line": 237,
+            "line": 229,
             "description": "Mouse down on an obmect",
             "itemtype": "method",
             "name": "_objMouseDown",
@@ -14007,7 +13994,7 @@
         },
         {
             "file": "src/displays/easeljs/ui/DragManager.js",
-            "line": 317,
+            "line": 307,
             "description": "Start the sticky click",
             "itemtype": "method",
             "name": "_triggerStickyClick",
@@ -14026,7 +14013,7 @@
         },
         {
             "file": "src/displays/easeljs/ui/DragManager.js",
-            "line": 332,
+            "line": 322,
             "description": "Start hold dragging",
             "itemtype": "method",
             "name": "_triggerHeldDrag",
@@ -14045,7 +14032,7 @@
         },
         {
             "file": "src/displays/easeljs/ui/DragManager.js",
-            "line": 363,
+            "line": 353,
             "description": "Internal start dragging on the stage",
             "itemtype": "method",
             "name": "_startDrag",
@@ -14057,7 +14044,7 @@
         },
         {
             "file": "src/displays/easeljs/ui/DragManager.js",
-            "line": 380,
+            "line": 370,
             "description": "Stops dragging the currently dragged object.",
             "access": "public",
             "tagname": "",
@@ -14084,7 +14071,7 @@
         },
         {
             "file": "src/displays/easeljs/ui/DragManager.js",
-            "line": 406,
+            "line": 396,
             "description": "Internal stop dragging on the stage",
             "itemtype": "method",
             "name": "_stopDrag",
@@ -14108,7 +14095,7 @@
         },
         {
             "file": "src/displays/easeljs/ui/DragManager.js",
-            "line": 482,
+            "line": 469,
             "description": "Update the object position based on the mouse",
             "itemtype": "method",
             "name": "_updateObjPosition",
@@ -14127,7 +14114,7 @@
         },
         {
             "file": "src/displays/easeljs/ui/DragManager.js",
-            "line": 537,
+            "line": 520,
             "description": "Handles snapping the dragged object to the nearest among a list of points",
             "itemtype": "method",
             "name": "_handlePointSnap",
@@ -14156,7 +14143,7 @@
         },
         {
             "file": "src/displays/easeljs/ui/DragManager.js",
-            "line": 617,
+            "line": 600,
             "description": "Adds properties and functions to the object - use enableDrag() and disableDrag() on\nobjects to enable/disable them (they start out disabled). Properties added to objects:\n_dragBounds (Rectangle), _onMouseDownListener (Function),\n_dragMan (springroll.DragManager) reference to the DragManager\nthese will override any existing properties of the same name",
             "itemtype": "method",
             "name": "addObject",
@@ -14181,7 +14168,7 @@
         },
         {
             "file": "src/displays/easeljs/ui/DragManager.js",
-            "line": 649,
+            "line": 632,
             "description": "Removes properties and functions added by addObject().",
             "access": "public",
             "tagname": "",
@@ -14200,7 +14187,7 @@
         },
         {
             "file": "src/displays/easeljs/ui/DragManager.js",
-            "line": 668,
+            "line": 651,
             "description": "Destroy the manager",
             "access": "public",
             "tagname": "",
@@ -14212,7 +14199,7 @@
         },
         {
             "file": "src/displays/easeljs/ui/DragManager.js",
-            "line": 700,
+            "line": 683,
             "class": "springroll.easeljs.DragManager",
             "module": "EaselJS UI",
             "namespace": "springroll.easeljs"
@@ -16652,7 +16639,7 @@
         },
         {
             "file": "src/displays/pixi/ui/AssetManager.js",
-            "line": 447,
+            "line": 454,
             "description": "Callback for when a pair of split images are loaded to be reassembled.",
             "itemtype": "method",
             "name": "onSplitLoaded",
@@ -16677,7 +16664,7 @@
         },
         {
             "file": "src/displays/pixi/ui/AssetManager.js",
-            "line": 464,
+            "line": 471,
             "description": "Callback for when all split textures have been loaded and recombined. This starts the loading\nof assets within PixiJS.",
             "itemtype": "method",
             "name": "onAllSplitsLoaded",
@@ -16712,7 +16699,7 @@
         },
         {
             "file": "src/displays/pixi/ui/AssetManager.js",
-            "line": 480,
+            "line": 487,
             "description": "Callback for when assets are loaded, to automatically apply the resolution of textures.",
             "itemtype": "method",
             "name": "onLoaded",
@@ -16737,7 +16724,7 @@
         },
         {
             "file": "src/displays/pixi/ui/AssetManager.js",
-            "line": 507,
+            "line": 514,
             "description": "Unload an asset or list of assets.",
             "itemtype": "method",
             "name": "unload",
@@ -16755,7 +16742,7 @@
         },
         {
             "file": "src/displays/pixi/ui/AssetManager.js",
-            "line": 529,
+            "line": 536,
             "description": "Unload an asset",
             "itemtype": "method",
             "name": "unloadAsset",
@@ -16775,7 +16762,7 @@
         },
         {
             "file": "src/displays/pixi/ui/AssetManager.js",
-            "line": 565,
+            "line": 572,
             "description": "Assemble a dictionary of Texture arrays representing animations from the PixiJS\ntexture cache.\nExample of a getAnims() call:\n\n\t\t\tvar animationDictionary = AssetManager.getAnims(\n\t\t\t\t{\n\t\t\t\t\t\"bobIdleHappy\":{\"name\":\"bob_idle_happy#\", \"numberMin\":1, \"numberMax\":139},\n\t\t\t\t\t\"bobIdleNeutral\":{\"name\":\"bob_idle_neutral#\", \"numberMin\":1, \"numberMax\":140},\n\t\t\t\t\t\"bobIdleMad\":{\"name\":\"bob_idle_mad#\", \"numberMin\":1, \"numberMax\":140},\n\t\t\t\t\t\"bobPos\":{\"name\":\"bob_react_pos#\", \"numberMin\":1, \"numberMax\":23},\n\t\t\t\t\t\"bobNeg\":{\"name\":\"bob_react_neg#\", \"numberMin\":1, \"numberMax\":31},\n\t\t\t\t},\n\t\t\t\t4);",
             "itemtype": "method",
             "name": "getAnims",
@@ -16810,7 +16797,7 @@
         },
         {
             "file": "src/displays/pixi/ui/AssetManager.js",
-            "line": 647,
+            "line": 654,
             "description": "Pulled from EaselJS's SpriteSheetUtils.\nMerges the rgb channels of one image with the alpha channel of another. This can be used to\ncombine a compressed JPEG image containing color data with a PNG32 monochromatic image\ncontaining alpha data. With certain types of images (those with detail that lend itself to\nJPEG compression) this can provide significant file size savings versus a single RGBA PNG32.\nThis method is very fast (generally on the order of 1-2 ms to run).",
             "itemtype": "method",
             "name": "mergeAlpha",
@@ -25047,6 +25034,7 @@
             "description": "Get a random item from an array",
             "itemtype": "method",
             "name": "random",
+            "static": 1,
             "params": [
                 {
                     "name": "array",
@@ -25064,10 +25052,11 @@
         },
         {
             "file": "src/mixins/Array.js",
-            "line": 50,
+            "line": 51,
             "description": "Get the last item in the array",
             "itemtype": "method",
             "name": "last",
+            "static": 1,
             "params": [
                 {
                     "name": "array",
@@ -25457,7 +25446,7 @@
             "line": 45,
             "description": "Returns a reversed copy of the string.",
             "itemtype": "method",
-            "name": "reverse",
+            "name": "format",
             "return": {
                 "description": "The reversed string.",
                 "type": "String"
@@ -26082,7 +26071,7 @@
         {
             "file": "src/states/StateManager.js",
             "line": 140,
-            "description": "The name of the Animator label and event for loading between state change.\nthis event is only dispatched if there is a loading sequence to show in the \ntransition. Recommended to use 'loadingStart' instead for checking.",
+            "description": "The name of the Animator label and event for loading between state change.\nthis event is only dispatched if there is a loading sequence to show in the\ntransition. Recommended to use 'loadingStart' instead for checking.",
             "itemtype": "event",
             "name": "onTransitionLoading",
             "class": "springroll.StateManager",
@@ -27062,7 +27051,7 @@
         },
         {
             "file": "src/tasks/PixiTask.js",
-            "line": 56,
+            "line": 58,
             "description": "The urls of the files to load",
             "itemtype": "property",
             "name": "urls",
@@ -27075,7 +27064,7 @@
         },
         {
             "file": "src/tasks/PixiTask.js",
-            "line": 68,
+            "line": 70,
             "description": "Start the load",
             "itemtype": "method",
             "name": "start",
@@ -27091,7 +27080,7 @@
         },
         {
             "file": "src/tasks/PixiTask.js",
-            "line": 83,
+            "line": 85,
             "description": "A callback for when an individual item has been loaded.",
             "itemtype": "method",
             "name": "onProgress",
@@ -27103,7 +27092,7 @@
         },
         {
             "file": "src/tasks/PixiTask.js",
-            "line": 93,
+            "line": 95,
             "description": "Cancel the task",
             "itemtype": "method",
             "name": "cancel",
@@ -27116,7 +27105,7 @@
         },
         {
             "file": "src/tasks/PixiTask.js",
-            "line": 106,
+            "line": 108,
             "description": "Get a string representation of this task",
             "itemtype": "method",
             "name": "toString",
@@ -27129,7 +27118,7 @@
         },
         {
             "file": "src/tasks/PixiTask.js",
-            "line": 116,
+            "line": 118,
             "description": "Destroy this load task and don't use after this.",
             "itemtype": "method",
             "name": "destroy",
@@ -29409,11 +29398,11 @@
         },
         {
             "message": "Missing item type",
-            "line": " src/displays/easeljs/ui/DragManager.js:186"
+            "line": " src/displays/easeljs/ui/DragManager.js:178"
         },
         {
             "message": "Missing item type",
-            "line": " src/displays/easeljs/ui/DragManager.js:700"
+            "line": " src/displays/easeljs/ui/DragManager.js:683"
         },
         {
             "message": "Missing item type\nIf a container contains a child",
