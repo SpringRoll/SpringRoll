@@ -1848,7 +1848,7 @@
 					last = -1,
 					loop = false,
 					labels = clip.getLabels();
-				for (j = 0, len = labels.length; j < len; ++j)
+				for (j = 0, length = labels.length; j < length; ++j)
 				{
 					l = labels[j];
 					if (l.label == anim)
