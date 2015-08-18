@@ -603,7 +603,7 @@
 		 * The display to use, defaults to main App's main display
 		 * @property {springroll.AbstractDisplay} display
 		 */
-		this.display = typeof asset.display == "string" ? 
+		this.display = typeof asset.display == "string" ?
 			app.getDisplay(asset.display) : app.display;
 	};
 
@@ -664,9 +664,10 @@
 			// Map the images to the global images object
 			if (results._images)
 			{
+				var images = namespace(this.imagesName);
 				for (var id in results._images)
 				{
-					namespace('images')[id] = results._images[id];
+					images[id] = results._images[id];
 				}
 			}
 
@@ -697,10 +698,11 @@
 				// Destroy the images
 				if (results._images)
 				{
+					var images = namespace(this.imagesName);
 					for (var id in results._images)
 					{
-						window.images[id].src = "";
-						delete window.images[id];
+						images[id].src = "";
+						delete images[id];
 					}
 				}
 				// Destroy the audio
