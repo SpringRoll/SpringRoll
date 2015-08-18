@@ -16,6 +16,7 @@
 		"src/core/ApplicationPlugin.js",
 		"src/Application.js",
 		"src/Application.less",
+		"src/core/ApplicationOptionsPlugin.js",
 		"src/core/PageVisibility.js",
 		"src/core/PageVisibilityPlugin.js",
 		"src/core/StringFilters.js",
@@ -95,6 +96,8 @@
 				"src/displays/easeljs/display/TextureAtlasTask.js",
 				"src/displays/easeljs/display/FlashArtAtlasTask.js",
 				"src/displays/easeljs/display/SpriteSheetTask.js",
+				"src/displays/easeljs/display/FlashSpriteSheetTask.js",
+				"src/displays/easeljs/display/BitmapTask.js",
 				"src/displays/easeljs/display/EaselJSDisplayPlugin.js",
 				"src/displays/easeljs/DisplayAdapter.js",
 				"src/displays/easeljs/EaselJSDisplay.js"

@@ -9,10 +9,7 @@
 		AssetManager = include('springroll.AssetManager');
 
 	/**
-	 * Create an app plugin for Loader, all properties and methods documented
-	 * in this class are mixed-in to the main Application
-	 * @class LoaderPlugin
-	 * @extends springroll.ApplicationPlugin
+	 * @class Application
 	 */
 	var plugin = new ApplicationPlugin(100);
 
@@ -61,7 +58,7 @@
 		 * with a CDN path.
 		 * @property {String} options.basePath
 		 */
-		this.options.add('basePath', null);
+		this.options.add('basePath');
 
 		/**
 		 * The current version number for your application. This
@@ -82,6 +79,20 @@
 		 * @property {String} options.versionsFile
 		 */
 		this.options.add('versionsFile', null, true);
+
+		/**
+		 * Different displays offer flavors of the same asset definition.
+		 * Instead of repeatedly defining the asset type property,
+		 * it's possible to define a global default. If PIXI
+		 * is your default display "pixi" is recommended as a value
+		 * if EaselJS is your default display "easeljs" is recommended.
+		 * @property {String} options.defaultAssetType
+		 */
+		this.options.add('defaultAssetType')
+			.on('defaultAssetType', function(value)
+			{
+				assetManager.defaultType = value;
+			});
 
 		/**
 		 * Simple load of a single file.
@@ -130,6 +141,7 @@
 		 * @param {Function} [options.progress=null] The callback when a single item is finished.
 		 * @param {Boolean} [options.cacheAll=false] If tasks should be cached
 		 * @param {Boolean} [options.startAll=true] If tasks should be run in parallel
+		 * @param {String} [options.type] The default asset type of load, gets attached to each asset
 		 */
 		/**
 		 * Load a list of multiple assets and return array of result objects.
@@ -142,6 +154,7 @@
 		 * @param {Function} [options.progress=null] The callback when a single item is finished.
 		 * @param {Boolean} [options.cacheAll=false] If tasks should be cached
 		 * @param {Boolean} [options.startAll=true] If tasks should be run in parallel
+		 * @param {String} [options.type] The default asset type of load, gets attached to each asset
 		 */
 		this.load = function(source, complete, progress, cache, data)
 		{
@@ -156,7 +169,7 @@
 					progress: progress || null,
 					complete: complete || null,
 					cache: !!cache,
-					data: data || null,
+					data: data || null
 				};
 			}
 			else

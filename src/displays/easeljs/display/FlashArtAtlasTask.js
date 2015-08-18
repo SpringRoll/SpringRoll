@@ -91,6 +91,7 @@
 	{
 		return asset.src &&
 			asset.src.search(/\.js$/i) > -1 &&
+			asset.type == "easeljs" &&
 			asset.atlas &&
 			(asset.image || (asset.color && asset.alpha));
 	};
@@ -139,8 +140,13 @@
 				results._flash,
 				this.libName
 			);
-
-			BitmapUtils.loadSpriteSheet(results._atlas, image, this.original.scale);
+			
+			//prefer the spritesheet's exported scale
+			var scale = results._atlas.meta ? 1 / parseFloat(results._atlas.meta.scale) : 0;
+			//if it doesn't have one, then use the asset scale specified by the AssetManager.
+			if(!scale)
+				scale = this.original.scale;
+			BitmapUtils.loadSpriteSheet(results._atlas, image, scale);
 
 			callback(art);
 		}

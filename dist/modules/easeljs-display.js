@@ -17,20 +17,33 @@
 	var p = Container.prototype;
 
 	/**
-	 * Does a cache by the nominalBounds set from flash
+	 * Does a cache by the nominalBounds set from Flash
 	 * @method cacheByBounds
-	 * @param {int} [buffer=15] The space around the nominal bounds to include in cache image
+	 * @param {int} [buffer=0] The space around the nominal bounds to include in cache image
+	 * @param {Number} [scale=1] The scale to cache the container by.
 	 */
-	p.cacheByBounds = function(buffer)
+	p.cacheByBounds = function(buffer, scale)
 	{
-		buffer = (buffer === undefined) ? 15 : buffer;
-		var bounds = this.nominalBounds;
+		this.cacheByRect(this.nominalBounds, buffer, scale);
+	};
+	
+	/**
+	 * Does a cache by a given rectangle
+	 * @method cacheByRect
+	 * @param {createjs.Rectangle} rect The rectangle to cache with.
+	 * @param {int} [buffer=0] Additional space around the rectangle to include in cache image
+	 * @param {Number} [scale=1] The scale to cache the container by.
+	 */
+	p.cacheByRect = function(rect, buffer, scale)
+	{
+		buffer = (buffer === undefined || buffer === null) ? 0 : buffer;
+		scale = scale > 0 ? scale : 1;
 		this.cache(
-			bounds.x - buffer,
-			bounds.y - buffer,
-			bounds.width + (buffer * 2),
-			bounds.height + (buffer * 2),
-			1
+			rect.x - buffer,
+			rect.y - buffer,
+			rect.width + (buffer * 2),
+			rect.height + (buffer * 2),
+			scale
 		);
 	};
 
@@ -42,8 +55,8 @@
  */
 (function(undefined)
 {
-	// Try to include MovieClip, movieclip with CreateJS is 
-	// an optional library from easeljs. We should try to 
+	// Try to include MovieClip, movieclip with CreateJS is
+	// an optional library from easeljs. We should try to
 	// include it and silently fail if we don't have it
 	var MovieClip = include('createjs.MovieClip', false);
 
@@ -56,16 +69,22 @@
 	var p = MovieClip.prototype;
 
 	/**
-	 * Combines gotoAndStop and cache in createjs to cache right away
+	 * Combines gotoAndStop and cache in createjs to cache right away. This caches by the bounds
+	 * exported from Flash, preferring frameBounds and falling back to nominalBounds.
 	 * @method gotoAndCacheByBounds
 	 * @param {String|int} [frame=0] The 0-index frame number or frame label
-	 * @param {int} [buffer=15] The space around the nominal bounds to include in cache image
+	 * @param {int} [buffer=0] The space around the bounds to include in cache image
+	 * @param {Number} [scale=1] The scale to cache the container by.
 	 */
-	p.gotoAndCacheByBounds = function(frame, buffer)
+	p.gotoAndCacheByBounds = function(frame, buffer, scale)
 	{
 		frame = (frame === undefined) ? 0 : frame;
 		this.gotoAndStop(frame);
-		this.cacheByBounds(buffer);
+		var rect = this.frameBounds ? this.frameBounds[this.currentFrame] : this.nominalBounds;
+		if(rect)//only cache if there is content on this frame
+			this.cacheByRect(rect, buffer, scale);
+		else
+			this.uncache();//prevent leftover cached data from showing up on empty frames
 	};
 
 }());
@@ -680,7 +699,10 @@
 	FlashArtTask.test = function(asset)
 	{
 		// loading a JS file from Flash
-		return !!asset.src && asset.src.search(/\.js$/i) > -1;
+		return asset.src &&
+			asset.src.search(/\.js$/i) > -1 &&
+			asset.type == "easeljs" &&
+			asset.format == "springroll.easeljs.FlashArt";
 	};
 
 	/**
@@ -695,7 +717,7 @@
 			callback(new FlashArt(
 				this.id,
 				domElement,
-				this.libName 
+				this.libName
 			));
 		}
 		.bind(this));
@@ -1004,7 +1026,9 @@
 	TextureAtlasTask.test = function(asset)
 	{
 		// animation data and atlas data and an image or color/alpha split
-		return !!asset.atlas && (!!asset.image || (!!asset.alpha && !!asset.color));
+		return asset.type == "easeljs" && 
+			asset.atlas && 
+			(asset.image || (asset.alpha && asset.color));
 	};
 
 	/**
@@ -1152,9 +1176,10 @@
 	 */
 	FlashArtAtlasTask.test = function(asset)
 	{
-		return asset.src && 
-			asset.src.search(/\.js$/i) > -1 && 
-			asset.atlas && 
+		return asset.src &&
+			asset.src.search(/\.js$/i) > -1 &&
+			asset.type == "easeljs" &&
+			asset.atlas &&
 			(asset.image || (asset.color && asset.alpha));
 	};
 
@@ -1196,14 +1221,21 @@
 					results._alpha
 				);
 			}
-
-			BitmapUtils.loadSpriteSheet(results._atlas, image, this.original.scale);
-
-			callback(new FlashArt(
+			
+			var art = new FlashArt(
 				this.id,
 				results._flash,
-				this.libName 
-			));
+				this.libName
+			);
+			
+			//prefer the spritesheet's exported scale
+			var scale = results._atlas.meta ? 1 / parseFloat(results._atlas.meta.scale) : 0;
+			//if it doesn't have one, then use the asset scale specified by the AssetManager.
+			if(!scale)
+				scale = this.original.scale;
+			BitmapUtils.loadSpriteSheet(results._atlas, image, scale);
+
+			callback(art);
 		}
 		.bind(this));
 	};
@@ -1224,14 +1256,14 @@
 		Application = include('springroll.Application');
 
 	/**
-	 * Created a createjs Spritesheet from the Flash export
+	 * Create a createjs.SpriteSheet object, see SpriteSheet for more information
 	 * @class SpriteSheetTask
 	 * @extends springroll.Task
 	 * @constructor
 	 * @private
 	 * @param {Object} asset The data properties
-	 * @param {String} asset.images The source
-	 * @param {String} asset.frames The TextureAtlas source data
+	 * @param {String} asset.images The source images
+	 * @param {String} asset.frames The SpriteSheet source frame data
 	 * @param {Boolean} [asset.cache=false] If we should cache the result
 	 * @param {String} [asset.id] Id of asset
 	 * @param {Function} [asset.complete] The event to call when done
@@ -1273,7 +1305,10 @@
 	 */
 	SpriteSheetTask.test = function(asset)
 	{
-		return asset.images && Array.isArray(asset.images) && asset.frames;
+		return asset.images && 
+			asset.type == "easeljs" && 
+			Array.isArray(asset.images) && 
+			asset.frames;
 	};
 
 	/**
@@ -1319,14 +1354,156 @@
  */
 (function()
 {
+	var LoadTask = include('springroll.LoadTask'),
+		Application = include('springroll.Application');
+
+	/**
+	 * Created a createjs Spritesheet from the Flash export
+	 * @class FlashSpriteSheetTask
+	 * @extends springroll.LoadTask
+	 * @constructor
+	 * @private
+	 * @param {Object} asset The data properties
+	 * @param {String} asset.src The path to the spritesheet
+	 * @param {String} [asset.globalProperty='ss'] The name of the global property
+	 * @param {Boolean} [asset.cache=false] If we should cache the result
+	 * @param {String} [asset.id] Id of asset
+	 * @param {Function} [asset.complete] The event to call when done
+	 * @param {String} [asset.globalProperty='ss'] The global window object for spritesheets
+	 */
+	var FlashSpriteSheetTask = function(asset)
+	{
+		LoadTask.call(this, asset);
+
+		/**
+		 * The name of the window object library items hang on
+		 * @property {String} globalProperty
+		 * @default 'ss'
+		 */
+		this.globalProperty = asset.globalProperty || 'ss';
+	};
+
+	// Reference to prototype
+	var s = LoadTask.prototype;
+	var p = extend(FlashSpriteSheetTask, LoadTask);
+
+	/**
+	 * Test if we should run this task
+	 * @method test
+	 * @static
+	 * @param {Object} asset The asset to check
+	 * @return {Boolean} If the asset is compatible with this asset
+	 */
+	FlashSpriteSheetTask.test = function(asset)
+	{
+		return asset.src && 
+			asset.type == "easeljs" && 
+			asset.format == "createjs.SpriteSheet";
+	};
+
+	/**
+	 * Start the task
+	 * @method  start
+	 * @param  {Function} callback Callback when finished
+	 */
+	p.start = function(callback)
+	{
+		var prop = this.globalProperty;
+		var id = this.id;
+		s.start.call(this, function(data)
+		{
+			data.id = id;
+			data.globalProperty = prop;
+			data.type = "easeljs";
+			Application.instance.load(data, callback);
+		});
+	};
+
+	// Assign to namespace
+	namespace('springroll.easeljs').FlashSpriteSheetTask = FlashSpriteSheetTask;
+
+}());
+/**
+ * @module EaselJS Display
+ * @namespace springroll.easeljs
+ * @requires Core
+ */
+(function()
+{
+	var LoadTask = include('springroll.LoadTask'),
+		Bitmap = include('createjs.Bitmap'),
+		Application = include('springroll.Application');
+
+	/**
+	 * Created a createjs Bitmap from a loaded image
+	 * @class BitmapTask
+	 * @extends springroll.LoadTask
+	 * @constructor
+	 * @private
+	 * @param {Object} asset The data properties
+	 * @param {String} asset.src The path to the spritesheet
+	 * @param {Boolean} [asset.cache=false] If we should cache the result
+	 * @param {String} [asset.id] Id of asset
+	 * @param {Function} [asset.complete] The event to call when done
+	 */
+	var BitmapTask = function(asset)
+	{
+		LoadTask.call(this, asset);
+	};
+
+	// Reference to prototype
+	var s = LoadTask.prototype;
+	var p = extend(BitmapTask, LoadTask);
+
+	/**
+	 * Test if we should run this task
+	 * @method test
+	 * @static
+	 * @param {Object} asset The asset to check
+	 * @return {Boolean} If the asset is compatible with this asset
+	 */
+	BitmapTask.test = function(asset)
+	{
+		return asset.src && 
+			asset.type == "easeljs" && 
+			asset.format == "createjs.Bitmap";
+	};
+
+	/**
+	 * Start the task
+	 * @method  start
+	 * @param  {Function} callback Callback when finished
+	 */
+	p.start = function(callback)
+	{
+		s.start.call(this, function(img)
+		{
+			var bitmap = new Bitmap(img);
+			bitmap.destroy = function()
+			{
+				this.removeAllEventListeners();
+				this.image.src = "";
+			};
+			callback(bitmap);
+		});
+	};
+
+	// Assign to namespace
+	namespace('springroll.easeljs').BitmapTask = BitmapTask;
+
+}());
+/**
+ * @module EaselJS Display
+ * @namespace springroll.easeljs
+ * @requires Core
+ */
+(function()
+{
 	// Include classes
 	var ApplicationPlugin = include('springroll.ApplicationPlugin');
 
 	/**
-	 * Create an app plugin for EaselJSDisplay, all properties and methods documented
-	 * in this class are mixed-in to the main Application
-	 * @class EaselJSDisplayPlugin
-	 * @extends springroll.ApplicationPlugin
+	 * @class Application
 	 */
 	var plugin = new ApplicationPlugin();
 
@@ -1339,6 +1516,17 @@
 		assetManager.register('springroll.easeljs.FlashArtTask', 50);
 		assetManager.register('springroll.easeljs.FlashArtAtlasTask', 60);
 		assetManager.register('springroll.easeljs.SpriteSheetTask', 70);
+		assetManager.register('springroll.easeljs.FlashSpriteSheetTask', 80);
+		assetManager.register('springroll.easeljs.BitmapTask', 90);
+
+		this.once('displayAdded', function(display)
+		{
+			var options = this.options;
+			if (!options.defaultAssetType && display instanceof include('springroll.EaselJSDisplay'))
+			{
+				options.defaultAssetType = 'easeljs';
+			}
+		});
 	};
 
 }());
@@ -1698,8 +1886,7 @@
 
 		AbstractDisplay.call(this, id, options);
 
-		options = options ||
-		{};
+		options = options || {};
 
 		/**
 		 * The rate at which EaselJS calculates mouseover events, in times/second.

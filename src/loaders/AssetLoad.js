@@ -78,6 +78,13 @@
 		 * @default false
 		 */
 		this.running = false;
+
+		/**
+		 * The default asset type if not defined
+		 * @property {String} type
+		 * @default null
+		 */
+		this.type = null;
 	};
 
 	// Reference to prototype
@@ -112,6 +119,7 @@
 	 * @param {Function} [options.progress=null] Function call when task is done, returns result
 	 * @param {Boolean} [options.startAll=true] If we should run the tasks in order
 	 * @param {Boolean} [options.cacheAll=false] If we should run the tasks in order
+	 * @param {String} [options.type] The default asset type of load, gets attached to each asset
 	 */
 	p.start = function(assets, options)
 	{
@@ -123,6 +131,7 @@
 		this.progress = options.progress;
 		this.startAll = options.startAll;
 		this.cacheAll = options.cacheAll;
+		this.type = options.type;
 
 		// Update the results mode and tasks
 		this.mode = this.addTasks(assets);
@@ -151,6 +160,7 @@
 		this.results = null;
 		this.complete = null;
 		this.progress = null;
+		this.type = null;
 		this.startAll = true;
 		this.cacheAll = false;
 		this.running = false;
@@ -287,6 +297,10 @@
 	 */
 	p.addTask = function(asset)
 	{
+		if (asset.type === undefined && this.type)
+		{
+			asset.type = this.type;
+		}
 		var TaskClass = this.getTaskByAsset(asset);
 		var task;
 		if (TaskClass)
@@ -298,7 +312,7 @@
 			task = new TaskClass(asset);
 			this.tasks.push(task);
 		}
-		else if (DEBUG && Debug)
+		else if (true && Debug)
 		{
 			Debug.error("Unable to find a task definitation for asset", asset);
 		}

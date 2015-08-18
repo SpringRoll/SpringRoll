@@ -6,45 +6,47 @@
 {
 	
 	/**
-	 * A function that is used as a normal callback, but checks an object for a property in order to combine two
-	 * callbacks into one. For example usage:
+	 * CombinedCallback is a utility class that creates a function to be passed to multiple
+	 * asynchronous functions as a callback, and will call your callback on the last time it
+	 * is called.
 	 *
-	 * var voPlayer = new springroll.VOPlayer();
-	 * var callback = springroll.CombinedCallback.create(myFunc.bind(this), voPlayer, "playing", "_callback");
-	 * Animator.play(myClip, "myAnim", callback);
-	 * 
-	 * In this example, when Animator calls 'callback', if voPlayer["playing"] is false, 'myFunc' is called immediately.
-	 * If voPlayer["playing"] is true, then voPlayer["_callback"] is set to 'myFunc' so that it will be called when voPlayer completes.
-	 * 
 	 * @class CombinedCallback
-	 * @constructor
-	 * @param {function} call The callback to call when everything is complete.
-	 * @param {*} obj The object to check as an additional completion dependency.
-	 * @param {String} prop The property to check on obj. If obj[prop] is false, then it is considered complete.
-	 * @param {String} callProp The property to set on obj if obj[prop] is true when the CombinedCallback is called.
 	 */
-	var CombinedCallback = function(call, obj, prop, callProp)
-	{
-		if(!obj[prop])//accept anything that resolves to false: eg voPlayer.playing == false
-			call();
-		else
-			obj[callProp] = call;
-	};
+	var CombinedCallback = {};
 
 	/**
-	 * Creates a CombinedCallback for use.
-	 * 
+	 * Creates a callback function for use.
+	 *
 	 * @method create
 	 * @static
-	 * @param {function} call The callback to call when everything is complete.
-	 * @param {*} obj The object to check as an additional completion dependency.
-	 * @param {String} prop The property to check on obj. If obj[prop] is false, then it is considered complete.
-	 * @param {String} callProp The property to set on obj if obj[prop] is true when the CombinedCallback is called.
+	 * @param {Function} call The callback to call when everything is complete.
+	 * @param {int} [callCount=2] The number of times this function should expect to be called.
+	 * @return {Function} The callback to pass to your asynchronous actions. For reuse,
+	 *                    this function has a reset() function.
 	 */
-	CombinedCallback.create = function(call, obj, prop, callProp)
+	CombinedCallback.create = function(call, callCount)
 	{
-		return CombinedCallback.bind(this, call, obj, prop, callProp);
+		if(!call) return null;
+		
+		if(typeof callCount != "number" || callCount < 1)
+			callCount = 2;
+		//create a function that can be called multiple times
+		var rtn = function()
+		{
+			if(++rtn.currentCallCount >= callCount)
+				call();
+		};
+		//set some properties on said function to make it reusable
+		rtn.currentCallCount = 0;
+		rtn.reset = reset;
+		
+		return rtn;
 	};
+	
+	function reset()
+	{
+		this.currentCallCount = 0;
+	}
 
 	namespace('springroll').CombinedCallback = CombinedCallback;
 }());

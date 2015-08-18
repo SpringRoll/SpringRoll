@@ -68,7 +68,9 @@
 	TextureAtlasTask.test = function(asset)
 	{
 		// animation data and atlas data and an image or color/alpha split
-		return !!asset.atlas && (!!asset.image || (!!asset.alpha && !!asset.color));
+		return asset.type == "easeljs" && 
+			asset.atlas && 
+			(asset.image || (asset.alpha && asset.color));
 	};
 
 	/**

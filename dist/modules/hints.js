@@ -224,6 +224,9 @@
 	 * @param {springroll.HintsPlayer} hints The instance of the hints
 	 * @param {Function} done called on hint done
 	 * @param {function} onStart Function to call
+	 *                           should accept 2 arguments (callbacks: 
+	 *                           onComplete and onCancelled
+	 *                           and call them when complete or cancelled
 	 */
 	var FunctionHint = function(hints, done, onStart)
 	{
@@ -242,7 +245,10 @@
 	p.play = function()
 	{
 		this._hints.enabled = false;
-		this.onStart();
+		this.onStart(
+			this._onPlayComplete.bind(this, null, false),
+			this._onPlayComplete.bind(this, null, true)
+			);
 	};
 
 	/**
@@ -333,7 +339,7 @@
 
 	/**
 	 * Add a VO hint to the player.
-	 * @method setVO
+	 * @method vo
 	 * @param {string|array} [idOrList] The list of VO element, see VOPlayer.play
 	 * @param {function} onComplete Call when the VO is done playing
 	 * @param {function|boolean} [onCancel] Call when the VO is cancelled playing,
@@ -354,7 +360,7 @@
 
 	/**
 	 * Add an animator hint to the player
-	 * @method setAnim
+	 * @method anim
 	 * @param {createjs.MovieClip|*} instance The instance of the clip to play with Animator
 	 * @param {String|Array|Object} events The event aliases to play, see Animator.play
 	 * @param {function} onComplete Call when the VO is done playing
@@ -379,7 +385,7 @@
 	 * Add an animator hint to the player. If you use this hinting method, you
 	 * NEED to re-enable the hinting when it's done. Whereas the VO and ANIM methods
 	 * with automatically re-enable the hinting button.
-	 * @method setFunc
+	 * @method func
 	 * @param {function} onStart The instance of the clip to play with Animator
 	 * @return {springroll.FunctionHint} The newly added hint
 	 */
@@ -607,7 +613,9 @@
 	 * NEED to re-enable the hinting when it's done. Whereas the VO and ANIM methods
 	 * with automatically re-enable the hinting button.
 	 * @method func
-	 * @param {Function} onStart The instance of the clip to play with Animator
+	 * @param {Function} onStart The function to call when hint is played.
+	 *                           Should accept 2 arguments (callbacks): onComplete, onCancelled
+	 *                           and call them when complete or cancelled
 	 * @return {springroll.FunctionHint} The newly added hint
 	 */
 	p.func = function(onStart)
@@ -756,13 +764,18 @@
 			}
 		}
 	};
-
+	/**
+	 * Call this when a FunctionHint is done playing to reset HintsPlayer
+	 * @method funcDone
+	 * @param {Boolean} [cancelled=false] If the function was interrupted by the user or something else.
+	 */
 	/**
 	 * Internal callback when a hint is done playing
 	 * @method _done
 	 * @private
+	 * @param {Boolean} [cancelled=false] If the function was interrupted by the user or something else.
 	 */
-	p._done = function(cancelled)
+	p.funcDone = p._done = function(cancelled)
 	{
 		this._playing = false;
 		this.resetTimer();
@@ -819,10 +832,7 @@
 		HintsPlayer = include('springroll.HintsPlayer');
 
 	/**
-	 * Create an app plugin for Hinting, all properties and methods documented
-	 * in this class are mixed-in to the main Application
-	 * @class HintsPlugin
-	 * @extends springroll.ApplicationPlugin
+	 * @class Application
 	 */
 	var plugin = new ApplicationPlugin();
 	

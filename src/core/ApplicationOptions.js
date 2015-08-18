@@ -4,9 +4,7 @@
  */
 (function(undefined)
 {
-	var Tween = include('createjs.Tween', false),
-		Ticker = include('createjs.Ticker', false),
-		PropertyDispatcher = include('springroll.PropertyDispatcher'),
+	var PropertyDispatcher = include('springroll.PropertyDispatcher'),
 		Debug;
 
 	/**
@@ -50,7 +48,7 @@
 		var app = this._app;
 
 		// Create the options overrides
-		options = Object.merge({}, defaultOptions, options);
+		options = Object.merge({}, options);
 
 		// If parse querystring is turned on, we'll
 		// override with any of the query string parameters
@@ -65,32 +63,6 @@
 		{
 			this.add(name, options[name]);
 		}
-
-		// Cannot change these properties after setup
-		this.readOnly(
-			'name',
-			'useQueryString',
-			'canvasId',
-			'display',
-			'displayOptions',
-			'uniformResize'
-		);
-		
-		this.on('updateTween', function(value)
-		{
-			if (Ticker)
-			{
-				Ticker.setPaused(!!value);
-			}
-			if (Tween)
-			{
-				app.off('update', Tween.tick);
-				if (value)
-				{
-					app.on('update', Tween.tick);
-				}
-			}
-		});
 		
 		//trigger all of the initial values, because otherwise they don't take effect.
 		var _properties = this._properties;
@@ -154,85 +126,24 @@
 	 * @private override
 	 * @param {String} name The property name to fetch
 	 * @param {*} value The value
+	 * @return {springroll.ApplicationOptions} Instance of this options for chaining
 	 */
 	p.override = function(name, value)
 	{
-		if (defaultOptions[name] === undefined)
+		var prop = this._properties[name];
+		if (prop === undefined)
 		{
-			throw "ApplicationOptions doesn't have default name '" + name + "'";
+			if (DEBUG)
+			{
+				throw "Unable to override a property that doesn't exist '" + name + "'";
+			}
+			else
+			{
+				throw "Invalid override " + name;
+			}
 		}
-		defaultOptions[name] = value;
-	};
-
-	/**
-	 * The default Application options
-	 * @property {Object} defaultOptions
-	 * @private
-	 */
-	var defaultOptions = {
-
-		/**
-		 * Use Request Animation Frame API
-		 * @property {Boolean} raf
-		 * @default true
-		 */
-		raf: true,
-
-		/**
-		 * The framerate to use for rendering the stage
-		 * @property {int} fps
-		 * @default 60
-		 */
-		fps: 60,
-
-		/**
-		 * Use the query string parameters for options overrides
-		 * @property {Boolean} useQueryString
-		 * @default false
-		 */
-		useQueryString: DEBUG,
-
-		/**
-		 * The default display DOM ID name
-		 * @property {String} canvasId
-		 */
-		canvasId: null,
-
-		/**
-		 * The name of the class to automatically instantiate as the
-		 * display (e.g. `springroll.PixiDisplay`)
-		 * @property {Function} display
-		 */
-		display: null,
-
-		/**
-		 * Display specific setup options
-		 * @property {Object} displayOptions
-		 */
-		displayOptions: null,
-
-		/**
-		 * If using TweenJS, the Application will update the Tween itself. Setting this to
-		 * true stops CreateJS's Ticker.
-		 * @property {Boolean} updateTween
-		 * @default true
-		 */
-		updateTween: true,
-
-		/**
-		 * Used by `springroll.PixiTask`, default behavior
-		 * is to load assets from the same domain.
-		 * @property {Boolean} crossOrigin
-		 * @default false
-		 */
-		crossOrigin: false,
-
-		/**
-		 * The name of the application
-		 * @property {String} name
-		 * @default ''
-		 */
-		name: ''
+		prop.setValue(value);
+		return this;
 	};
 
 	// Assign to namespace

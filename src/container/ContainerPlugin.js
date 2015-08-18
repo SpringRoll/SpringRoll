@@ -10,10 +10,7 @@
 		Bellhop = include('Bellhop');
 
 	/**
-	 * Create an app plugin for working with the Game Container, all properties and methods documented
-	 * in this class are mixed-in to the main Application
-	 * @class ContainerPlugin
-	 * @extends springroll.ApplicationPlugin
+	 * @class Application
 	 */
 	var plugin = new ApplicationPlugin(50);
 
