@@ -1875,9 +1875,14 @@
 	 * @constructor
 	 * @param {String} id The id of the canvas element on the page to draw to.
 	 * @param {Object} options The setup data for the EaselJS stage.
-	 * @param {String} [options.stageType="stage"] If the stage should be a normal stage or a SpriteStage (use "spriteStage").
-	 * @param {Boolean} [options.clearView=false] If the stage should wipe the canvas between renders.
-	 * @param {int} [options.mouseOverRate=30] How many times per second to check for mouseovers. To disable them, use 0 or -1.
+	 * @param {String} [options.stageType="stage"] If the stage should be a normal stage or a
+	 *                                             SpriteStage (use "spriteStage").
+	 * @param {Boolean} [options.clearView=false] If the stage should wipe the canvas between
+	 *                                            renders.
+	 * @param {int} [options.mouseOverRate=30] How many times per second to check for mouseovers. To
+	 *                                         disable them, use 0 or -1.
+	 * @param {Boolean} [options.autoPreventDefault=true] If preventDefault() should be called on
+	 *                                                    all touch events and mousedown events.
 	 */
 	var EaselJSDisplay = function(id, options)
 	{
@@ -1905,6 +1910,15 @@
 		 * @public
 		 */
 		this.keepMouseover = options.keepMouseover || false;
+		
+		/**
+		 * If preventDefault() should be called on all touch events and mousedown events. Defaults
+		 * to true.
+		 * @property {Boolean} _autoPreventDefault
+		 * @private
+		 */
+		this._autoPreventDefault = options.hasOwnProperty("autoPreventDefault") ?
+												options.autoPreventDefault : true;
 
 		if (options.stageType == "spriteStage")
 		{
@@ -1922,6 +1936,7 @@
 			this.stage = new Stage(id);
 		}
 		this.stage.autoClear = !!options.clearView;
+		this.stage.preventSelection = this._autoPreventDefault;
 
 		this.animator = include('springroll.easeljs.Animator', false);
 		this.adapter = include('springroll.easeljs.DisplayAdapter');
@@ -1960,7 +1975,7 @@
 			{
 				this.stage.enableMouseOver(this.mouseOverRate);
 				this.stage.enableDOMEvents(true);
-				Touch.enable(this.stage);
+				Touch.enable(this.stage, false, !this._autoPreventDefault);
 			}
 			else
 			{
@@ -1977,6 +1992,33 @@
 				// reset the cursor if it isn't disabled
 				if (this.canvas.style.cursor != "none")
 					this.canvas.style.cursor = "";
+			}
+		}
+	});
+	
+	/**
+	 * If preventDefault() should be called on all touch events and mousedown events. Defaults
+	 * to true.
+	 * @property {Boolean} autoPreventDefault
+	 * @public
+	 */
+	Object.defineProperty(p, "autoPreventDefault",
+	{
+		get: function()
+		{
+			return this._autoPreventDefault;
+		},
+		set: function(value)
+		{
+			this._autoPreventDefault = !!value;
+			if(this.stage)
+			{
+				if(this._enabled)
+				{
+					Touch.disable(this.stage);
+					Touch.enable(this.stage, false, !this._autoPreventDefault);
+				}
+				this.stage.preventSelection = this._autoPreventDefault;
 			}
 		}
 	});
