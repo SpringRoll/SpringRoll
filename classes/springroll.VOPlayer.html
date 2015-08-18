@@ -1,33 +1,75 @@
 <!DOCTYPE html>
 <html lang='en'>
-
 <head>
-<title>SpringRoll v0.3.9 API Documentation : springroll.VOPlayer</title>
-<meta charset='utf-8'>
-<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
-<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
-<link rel='shortcut icon' type='image/png' href='../assets/images/favicon.ico?v=0.3.9'>
-<link href='//fonts.googleapis.com/css?family=Titillium+Web:300,200,600' rel='stylesheet' type='text/css'>
-<link rel='stylesheet' type='text/css' href='../assets/css/libraries.css?v=0.3.9'>
-<link rel='stylesheet' type='text/css' href='../assets/css/main.css?v=0.3.9'>
+	<title>SpringRoll v0.3.9 API Documentation : springroll.VOPlayer</title>
+	<meta charset='utf-8'>
+	<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+	<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
+	<link rel='shortcut icon' type='image/png' href='../assets/images/favicon.ico?v=0.3.9'>
+	<link href='//fonts.googleapis.com/css?family=Titillium+Web:300,200,600' rel='stylesheet' type='text/css'>
+	<link rel='stylesheet' type='text/css' href='../assets/css/libraries.css?v=0.3.9'>
+	<link rel='stylesheet' type='text/css' href='../assets/css/main.css?v=0.3.9'>
 </head>
-
 <body>
 <header>
-<div class='container'>
-<div class='version pull-right'>
-<em>API Documentation for: 0.3.9</em>
-</div>
-<div class='logo'>
-
-<h1><a href='https://github.com/SpringRoll/SpringRoll'><img src='../assets/images/logo.png?v=0.3.9' title='SpringRoll'><span class='project-name'>SpringRoll</span></a></h1> 
-</div>
-<div class='scope-toggles pull-right'>
-<input class='scope-toggle' id='toggle-inherited' type='checkbox' data-toggle='toggle' data-on='Inherited' data-off='Inherited' data-size='mini'>
-<input class='scope-toggle' id='toggle-protected' type='checkbox' data-toggle='toggle' data-on='Protected' data-off='Protected' data-size='mini'>
-<input class='scope-toggle' id='toggle-private' type='checkbox' data-toggle='toggle' data-on='Private' data-off='Private' data-size='mini'>
-<input class='scope-toggle' id='toggle-deprecated' type='checkbox' data-toggle='toggle' data-on='Deprecated' data-off='Deprecated' data-size='mini'>
-</div></div>
+	<nav class="navbar navbar-inverse navbar-fixed-top">
+		<div class='container'>
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#docs-navbar">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href='https://github.com/SpringRoll/SpringRoll'>
+						<img src='../assets/images/logo.png?v=0.3.9' class="logo">
+					<span class='project-name'>SpringRoll</span>
+					<span class="sr-only">API Documentation for:</span>
+					<span class='version hidden-xs'>v0.3.9</span>
+				</a>
+			</div>
+			<div class="collapse navbar-collapse" id="docs-navbar">
+	      <ul class="scope-toggles text-center nav navbar-nav navbar-right">
+					<li><input class='scope-toggle' 
+						id='toggle-inherited' 
+						type='checkbox' 
+						data-toggle='toggle' 
+						data-on='Inherited' 
+						data-off='Inherited' 
+						data-size='mini'
+						data-width='80'>
+					</li>
+					<li><input class='scope-toggle' 
+						id='toggle-protected' 
+						type='checkbox' 
+						data-toggle='toggle' 
+						data-on='Protected' 
+						data-off='Protected' 
+						data-size='mini'
+						data-width='80'>
+					</li>
+					<li><input class='scope-toggle' 
+						id='toggle-private' 
+						type='checkbox' 
+						data-toggle='toggle' 
+						data-on='Private' 
+						data-off='Private' 
+						data-size='mini'
+						data-width='80'>
+					</li>
+					<li><input class='scope-toggle' 
+						id='toggle-deprecated' 
+						type='checkbox' 
+						data-toggle='toggle' 
+						data-on='Deprecated' 
+						data-off='Deprecated' 
+						data-size='mini'
+						data-width='80'>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</nav>
 </header>
 <div class='container'>
 <div class='row'>
@@ -662,7 +704,7 @@ managing captions (Captions library) at the same time.</p>
 <div role='tabpanel' id='docs-methods' class='tab-pane'>
 
 <div id='method__onSoundFinished' class='method item private'>
-<h3 class='name'><code>_onSoundFinished</code></h3>
+<h3 class='name'><a class="deeplink" href="#method__onSoundFinished"><span class="glyphicon glyphicon-link"></span></a> <code>_onSoundFinished</code></h3>
 
 <span class='paren'>()</span>
 
@@ -694,7 +736,7 @@ Defined in
 
 
 </div><div id='method__playSound' class='method item private'>
-<h3 class='name'><code>_playSound</code></h3>
+<h3 class='name'><a class="deeplink" href="#method__playSound"><span class="glyphicon glyphicon-link"></span></a> <code>_playSound</code></h3>
 
 <span class='paren'>()</span>
 
@@ -726,7 +768,7 @@ Defined in
 
 
 </div><div id='method__syncCaptionToSound' class='method item private'>
-<h3 class='name'><code>_syncCaptionToSound</code></h3>
+<h3 class='name'><a class="deeplink" href="#method__syncCaptionToSound"><span class="glyphicon glyphicon-link"></span></a> <code>_syncCaptionToSound</code></h3>
 
 <div class='args'>
 <span class='paren'>(</span>
@@ -783,7 +825,7 @@ This method is bound to the VOPlayer instance.</p>
 
 
 </div><div id='method__updateSilence' class='method item private'>
-<h3 class='name'><code>_updateSilence</code></h3>
+<h3 class='name'><a class="deeplink" href="#method__updateSilence"><span class="glyphicon glyphicon-link"></span></a> <code>_updateSilence</code></h3>
 
 <div class='args'>
 <span class='paren'>(</span>
@@ -840,7 +882,7 @@ This method is bound to the VOPlayer instance.</p>
 
 
 </div><div id='method__updateSoloCaption' class='method item private'>
-<h3 class='name'><code>_updateSoloCaption</code></h3>
+<h3 class='name'><a class="deeplink" href="#method__updateSoloCaption"><span class="glyphicon glyphicon-link"></span></a> <code>_updateSoloCaption</code></h3>
 
 <div class='args'>
 <span class='paren'>(</span>
@@ -897,7 +939,7 @@ This method is bound to the VOPlayer instance.</p>
 
 
 </div><div id='method_destroy' class='method item public'>
-<h3 class='name'><code>destroy</code></h3>
+<h3 class='name'><a class="deeplink" href="#method_destroy"><span class="glyphicon glyphicon-link"></span></a> <code>destroy</code></h3>
 
 <span class='paren'>()</span>
 
@@ -929,7 +971,7 @@ Defined in
 
 
 </div><div id='method_getElapsed' class='method item'>
-<h3 class='name'><code>getElapsed</code></h3>
+<h3 class='name'><a class="deeplink" href="#method_getElapsed"><span class="glyphicon glyphicon-link"></span></a> <code>getElapsed</code></h3>
 
 <span class='paren'>()</span>
 
@@ -972,7 +1014,7 @@ Defined in
 </div>
 
 </div><div id='method_play' class='method item public'>
-<h3 class='name'><code>play</code></h3>
+<h3 class='name'><a class="deeplink" href="#method_play"><span class="glyphicon glyphicon-link"></span></a> <code>play</code></h3>
 
 <div class='args'>
 <span class='paren'>(</span>
@@ -1060,7 +1102,7 @@ Audio in the list will be preloaded to minimize pauses for loading.</p>
 
 
 </div><div id='method_stop' class='method item public'>
-<h3 class='name'><code>stop</code></h3>
+<h3 class='name'><a class="deeplink" href="#method_stop"><span class="glyphicon glyphicon-link"></span></a> <code>stop</code></h3>
 
 <span class='paren'>()</span>
 
@@ -1092,7 +1134,7 @@ Defined in
 
 
 </div><div id='method_unloadSound' class='method item public'>
-<h3 class='name'><code>unloadSound</code></h3>
+<h3 class='name'><a class="deeplink" href="#method_unloadSound"><span class="glyphicon glyphicon-link"></span></a> <code>unloadSound</code></h3>
 
 <span class='paren'>()</span>
 
@@ -1128,7 +1170,7 @@ Defined in
 <div role='tabpanel' id='docs-properties' class='tab-pane'>
 
 <div id="property__callback" class="property item private">
-<h3 class="name"><code>_callback</code></h3>
+<h3 class="name"><a class="deeplink" href="#property__callback"><span class="glyphicon glyphicon-link"></span></a> <code>_callback</code></h3>
 <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function" class="crosslink external" target="_blank">Function</a></span>
 
 
@@ -1153,7 +1195,7 @@ Defined in
 
 
 </div><div id="property__cancelledCallback" class="property item private">
-<h3 class="name"><code>_cancelledCallback</code></h3>
+<h3 class="name"><a class="deeplink" href="#property__cancelledCallback"><span class="glyphicon glyphicon-link"></span></a> <code>_cancelledCallback</code></h3>
 <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function" class="crosslink external" target="_blank">Function</a></span>
 
 
@@ -1178,7 +1220,7 @@ Defined in
 
 
 </div><div id="property__captions" class="property item private">
-<h3 class="name"><code>_captions</code></h3>
+<h3 class="name"><a class="deeplink" href="#property__captions"><span class="glyphicon glyphicon-link"></span></a> <code>_captions</code></h3>
 <span class="type"><a href="../classes/springroll.Captions.html" class="crosslink">springroll.Captions</a></span>
 
 
@@ -1203,7 +1245,7 @@ Defined in
 
 
 </div><div id="property__currentSound" class="property item private">
-<h3 class="name"><code>_currentSound</code></h3>
+<h3 class="name"><a class="deeplink" href="#property__currentSound"><span class="glyphicon glyphicon-link"></span></a> <code>_currentSound</code></h3>
 <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
 
 
@@ -1228,7 +1270,7 @@ Defined in
 
 
 </div><div id="property__listCounter" class="property item private">
-<h3 class="name"><code>_listCounter</code></h3>
+<h3 class="name"><a class="deeplink" href="#property__listCounter"><span class="glyphicon glyphicon-link"></span></a> <code>_listCounter</code></h3>
 <span class="type">Int</span>
 
 
@@ -1253,7 +1295,7 @@ Defined in
 
 
 </div><div id="property__listHelper" class="property item private">
-<h3 class="name"><code>_listHelper</code></h3>
+<h3 class="name"><a class="deeplink" href="#property__listHelper"><span class="glyphicon glyphicon-link"></span></a> <code>_listHelper</code></h3>
 <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array" class="crosslink external" target="_blank">Array</a></span>
 
 
@@ -1278,7 +1320,7 @@ Defined in
 
 
 </div><div id="property__playedSound" class="property item private">
-<h3 class="name"><code>_playedSound</code></h3>
+<h3 class="name"><a class="deeplink" href="#property__playedSound"><span class="glyphicon glyphicon-link"></span></a> <code>_playedSound</code></h3>
 <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array" class="crosslink external" target="_blank">Array</a></span>
 
 
@@ -1303,7 +1345,7 @@ Defined in
 
 
 </div><div id="property__soundInstance" class="property item private">
-<h3 class="name"><code>_soundInstance</code></h3>
+<h3 class="name"><a class="deeplink" href="#property__soundInstance"><span class="glyphicon glyphicon-link"></span></a> <code>_soundInstance</code></h3>
 <span class="type">SoundInstance</span>
 
 
@@ -1328,7 +1370,7 @@ Defined in
 
 
 </div><div id="property__timer" class="property item private">
-<h3 class="name"><code>_timer</code></h3>
+<h3 class="name"><a class="deeplink" href="#property__timer"><span class="glyphicon glyphicon-link"></span></a> <code>_timer</code></h3>
 <span class="type">Int</span>
 
 
@@ -1353,7 +1395,7 @@ Defined in
 
 
 </div><div id="property_captions" class="property item public">
-<h3 class="name"><code>captions</code></h3>
+<h3 class="name"><a class="deeplink" href="#property_captions"><span class="glyphicon glyphicon-link"></span></a> <code>captions</code></h3>
 <span class="type">Captions</span>
 
 
@@ -1380,7 +1422,7 @@ dictionary config file and a reference to a text field.</p>
 
 
 </div><div id="property_playing" class="property item public">
-<h3 class="name"><code>playing</code></h3>
+<h3 class="name"><a class="deeplink" href="#property_playing"><span class="glyphicon glyphicon-link"></span></a> <code>playing</code></h3>
 <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
 
 
@@ -1405,7 +1447,7 @@ Defined in
 
 
 </div><div id="property_soundList" class="property item public">
-<h3 class="name"><code>soundList</code></h3>
+<h3 class="name"><a class="deeplink" href="#property_soundList"><span class="glyphicon glyphicon-link"></span></a> <code>soundList</code></h3>
 <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array" class="crosslink external" target="_blank">Array</a></span>
 
 
@@ -1430,7 +1472,7 @@ Defined in
 
 
 </div><div id="property_trackSound" class="property item public">
-<h3 class="name"><code>trackSound</code></h3>
+<h3 class="name"><a class="deeplink" href="#property_trackSound"><span class="glyphicon glyphicon-link"></span></a> <code>trackSound</code></h3>
 <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
 
 

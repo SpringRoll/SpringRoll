@@ -1,33 +1,75 @@
 <!DOCTYPE html>
 <html lang='en'>
-
 <head>
-<title>SpringRoll v0.3.9 API Documentation : springroll.SoundInstance</title>
-<meta charset='utf-8'>
-<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
-<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
-<link rel='shortcut icon' type='image/png' href='../assets/images/favicon.ico?v=0.3.9'>
-<link href='//fonts.googleapis.com/css?family=Titillium+Web:300,200,600' rel='stylesheet' type='text/css'>
-<link rel='stylesheet' type='text/css' href='../assets/css/libraries.css?v=0.3.9'>
-<link rel='stylesheet' type='text/css' href='../assets/css/main.css?v=0.3.9'>
+	<title>SpringRoll v0.3.9 API Documentation : springroll.SoundInstance</title>
+	<meta charset='utf-8'>
+	<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+	<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
+	<link rel='shortcut icon' type='image/png' href='../assets/images/favicon.ico?v=0.3.9'>
+	<link href='//fonts.googleapis.com/css?family=Titillium+Web:300,200,600' rel='stylesheet' type='text/css'>
+	<link rel='stylesheet' type='text/css' href='../assets/css/libraries.css?v=0.3.9'>
+	<link rel='stylesheet' type='text/css' href='../assets/css/main.css?v=0.3.9'>
 </head>
-
 <body>
 <header>
-<div class='container'>
-<div class='version pull-right'>
-<em>API Documentation for: 0.3.9</em>
-</div>
-<div class='logo'>
-
-<h1><a href='https://github.com/SpringRoll/SpringRoll'><img src='../assets/images/logo.png?v=0.3.9' title='SpringRoll'><span class='project-name'>SpringRoll</span></a></h1> 
-</div>
-<div class='scope-toggles pull-right'>
-<input class='scope-toggle' id='toggle-inherited' type='checkbox' data-toggle='toggle' data-on='Inherited' data-off='Inherited' data-size='mini'>
-<input class='scope-toggle' id='toggle-protected' type='checkbox' data-toggle='toggle' data-on='Protected' data-off='Protected' data-size='mini'>
-<input class='scope-toggle' id='toggle-private' type='checkbox' data-toggle='toggle' data-on='Private' data-off='Private' data-size='mini'>
-<input class='scope-toggle' id='toggle-deprecated' type='checkbox' data-toggle='toggle' data-on='Deprecated' data-off='Deprecated' data-size='mini'>
-</div></div>
+	<nav class="navbar navbar-inverse navbar-fixed-top">
+		<div class='container'>
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#docs-navbar">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href='https://github.com/SpringRoll/SpringRoll'>
+						<img src='../assets/images/logo.png?v=0.3.9' class="logo">
+					<span class='project-name'>SpringRoll</span>
+					<span class="sr-only">API Documentation for:</span>
+					<span class='version hidden-xs'>v0.3.9</span>
+				</a>
+			</div>
+			<div class="collapse navbar-collapse" id="docs-navbar">
+	      <ul class="scope-toggles text-center nav navbar-nav navbar-right">
+					<li><input class='scope-toggle' 
+						id='toggle-inherited' 
+						type='checkbox' 
+						data-toggle='toggle' 
+						data-on='Inherited' 
+						data-off='Inherited' 
+						data-size='mini'
+						data-width='80'>
+					</li>
+					<li><input class='scope-toggle' 
+						id='toggle-protected' 
+						type='checkbox' 
+						data-toggle='toggle' 
+						data-on='Protected' 
+						data-off='Protected' 
+						data-size='mini'
+						data-width='80'>
+					</li>
+					<li><input class='scope-toggle' 
+						id='toggle-private' 
+						type='checkbox' 
+						data-toggle='toggle' 
+						data-on='Private' 
+						data-off='Private' 
+						data-size='mini'
+						data-width='80'>
+					</li>
+					<li><input class='scope-toggle' 
+						id='toggle-deprecated' 
+						type='checkbox' 
+						data-toggle='toggle' 
+						data-on='Deprecated' 
+						data-off='Deprecated' 
+						data-size='mini'
+						data-width='80'>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</nav>
 </header>
 <div class='container'>
 <div class='row'>
@@ -658,7 +700,7 @@ be created through springroll.Sound.instance.play().</p>
 <div role='tabpanel' id='docs-methods' class='tab-pane'>
 
 <div id='method_pause' class='method item public'>
-<h3 class='name'><code>pause</code></h3>
+<h3 class='name'><a class="deeplink" href="#method_pause"><span class="glyphicon glyphicon-link"></span></a> <code>pause</code></h3>
 
 <span class='paren'>()</span>
 
@@ -690,7 +732,7 @@ Defined in
 
 
 </div><div id='method_stop' class='method item public'>
-<h3 class='name'><code>stop</code></h3>
+<h3 class='name'><a class="deeplink" href="#method_stop"><span class="glyphicon glyphicon-link"></span></a> <code>stop</code></h3>
 
 <span class='paren'>()</span>
 
@@ -722,7 +764,7 @@ Defined in
 
 
 </div><div id='method_unpause' class='method item public'>
-<h3 class='name'><code>unpause</code></h3>
+<h3 class='name'><a class="deeplink" href="#method_unpause"><span class="glyphicon glyphicon-link"></span></a> <code>unpause</code></h3>
 
 <span class='paren'>()</span>
 
@@ -754,7 +796,7 @@ Defined in
 
 
 </div><div id='method_updateVolume' class='method item protected'>
-<h3 class='name'><code>updateVolume</code></h3>
+<h3 class='name'><a class="deeplink" href="#method_updateVolume"><span class="glyphicon glyphicon-link"></span></a> <code>updateVolume</code></h3>
 
 <div class='args'>
 <span class='paren'>(</span>
@@ -815,7 +857,7 @@ Defined in
 <div role='tabpanel' id='docs-properties' class='tab-pane'>
 
 <div id="property__channel" class="property item private">
-<h3 class="name"><code>_channel</code></h3>
+<h3 class="name"><a class="deeplink" href="#property__channel"><span class="glyphicon glyphicon-link"></span></a> <code>_channel</code></h3>
 <span class="type">createjs.SoundInstance</span>
 
 
@@ -840,7 +882,7 @@ Defined in
 
 
 </div><div id="property__endCallback" class="property item private">
-<h3 class="name"><code>_endCallback</code></h3>
+<h3 class="name"><a class="deeplink" href="#property__endCallback"><span class="glyphicon glyphicon-link"></span></a> <code>_endCallback</code></h3>
 <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function" class="crosslink external" target="_blank">Function</a></span>
 
 
@@ -865,7 +907,7 @@ Defined in
 
 
 </div><div id="property__endFunc" class="property item private">
-<h3 class="name"><code>_endFunc</code></h3>
+<h3 class="name"><a class="deeplink" href="#property__endFunc"><span class="glyphicon glyphicon-link"></span></a> <code>_endFunc</code></h3>
 <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function" class="crosslink external" target="_blank">Function</a></span>
 
 
@@ -890,7 +932,7 @@ Defined in
 
 
 </div><div id="property__fDur" class="property item private">
-<h3 class="name"><code>_fDur</code></h3>
+<h3 class="name"><a class="deeplink" href="#property__fDur"><span class="glyphicon glyphicon-link"></span></a> <code>_fDur</code></h3>
 <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
 
 
@@ -915,7 +957,7 @@ Defined in
 
 
 </div><div id="property__fEnd" class="property item private">
-<h3 class="name"><code>_fEnd</code></h3>
+<h3 class="name"><a class="deeplink" href="#property__fEnd"><span class="glyphicon glyphicon-link"></span></a> <code>_fEnd</code></h3>
 <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
 
 
@@ -940,7 +982,7 @@ Defined in
 
 
 </div><div id="property__fEnd" class="property item private">
-<h3 class="name"><code>_fEnd</code></h3>
+<h3 class="name"><a class="deeplink" href="#property__fEnd"><span class="glyphicon glyphicon-link"></span></a> <code>_fEnd</code></h3>
 <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
 
 
@@ -965,7 +1007,7 @@ Defined in
 
 
 </div><div id="property__fTime" class="property item private">
-<h3 class="name"><code>_fTime</code></h3>
+<h3 class="name"><a class="deeplink" href="#property__fTime"><span class="glyphicon glyphicon-link"></span></a> <code>_fTime</code></h3>
 <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
 
 
@@ -990,7 +1032,7 @@ Defined in
 
 
 </div><div id="property__pan" class="property item private">
-<h3 class="name"><code>_pan</code></h3>
+<h3 class="name"><a class="deeplink" href="#property__pan"><span class="glyphicon glyphicon-link"></span></a> <code>_pan</code></h3>
 <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
 
 
@@ -1015,7 +1057,7 @@ Defined in
 
 
 </div><div id="property__startFunc" class="property item private">
-<h3 class="name"><code>_startFunc</code></h3>
+<h3 class="name"><a class="deeplink" href="#property__startFunc"><span class="glyphicon glyphicon-link"></span></a> <code>_startFunc</code></h3>
 <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function" class="crosslink external" target="_blank">Function</a></span>
 
 
@@ -1041,7 +1083,7 @@ wasn&#39;t loaded before play() was called.</p>
 
 
 </div><div id="property__startParams" class="property item private">
-<h3 class="name"><code>_startParams</code></h3>
+<h3 class="name"><a class="deeplink" href="#property__startParams"><span class="glyphicon glyphicon-link"></span></a> <code>_startParams</code></h3>
 <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array" class="crosslink external" target="_blank">Array</a></span>
 
 
@@ -1067,7 +1109,7 @@ wasn&#39;t loaded before play() was called.</p>
 
 
 </div><div id="property_alias" class="property item public">
-<h3 class="name"><code>alias</code></h3>
+<h3 class="name"><a class="deeplink" href="#property_alias"><span class="glyphicon glyphicon-link"></span></a> <code>alias</code></h3>
 <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
 
 
@@ -1092,7 +1134,7 @@ Defined in
 
 
 </div><div id="property_curVol" class="property item protected">
-<h3 class="name"><code>curVol</code></h3>
+<h3 class="name"><a class="deeplink" href="#property_curVol"><span class="glyphicon glyphicon-link"></span></a> <code>curVol</code></h3>
 <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
 
 
@@ -1118,7 +1160,7 @@ Setting this won&#39;t take effect until updateVolume() is called.</p>
 
 
 </div><div id="property_isValid" class="property item public">
-<h3 class="name"><code>isValid</code></h3>
+<h3 class="name"><a class="deeplink" href="#property_isValid"><span class="glyphicon glyphicon-link"></span></a> <code>isValid</code></h3>
 <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
 
 
@@ -1145,7 +1187,7 @@ new sound).</p>
 
 
 </div><div id="property_length" class="property item public">
-<h3 class="name"><code>length</code></h3>
+<h3 class="name"><a class="deeplink" href="#property_length"><span class="glyphicon glyphicon-link"></span></a> <code>length</code></h3>
 <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
 
 
@@ -1170,7 +1212,7 @@ Defined in
 
 
 </div><div id="property_pan" class="property item public">
-<h3 class="name"><code>pan</code></h3>
+<h3 class="name"><a class="deeplink" href="#property_pan"><span class="glyphicon glyphicon-link"></span></a> <code>pan</code></h3>
 <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
 
 
@@ -1195,7 +1237,7 @@ Defined in
 
 
 </div><div id="property_paused" class="property item public">
-<h3 class="name"><code>paused</code></h3>
+<h3 class="name"><a class="deeplink" href="#property_paused"><span class="glyphicon glyphicon-link"></span></a> <code>paused</code></h3>
 <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
 
 
@@ -1221,7 +1263,7 @@ and unpause().</p>
 
 
 </div><div id="property_position" class="property item public">
-<h3 class="name"><code>position</code></h3>
+<h3 class="name"><a class="deeplink" href="#property_position"><span class="glyphicon glyphicon-link"></span></a> <code>position</code></h3>
 <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
 
 
@@ -1246,7 +1288,7 @@ Defined in
 
 
 </div><div id="property_volume" class="property item public">
-<h3 class="name"><code>volume</code></h3>
+<h3 class="name"><a class="deeplink" href="#property_volume"><span class="glyphicon glyphicon-link"></span></a> <code>volume</code></h3>
 <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
 
 
