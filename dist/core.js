@@ -4147,6 +4147,7 @@
 	 * @private
 	 * @param {Object} asset The data properties
 	 * @param {Array|Object} asset.assets The collection of assets to load
+	 * @param {Boolean} [asset.cacheAll=false] If we should cache each item in assets.
 	 * @param {Boolean} [asset.cache=false] If we should cache the result
 	 * @param {String} [asset.id] Id of asset
 	 * @param {Function} [asset.complete=null] The event to call when done
@@ -4160,6 +4161,12 @@
 		 * @property {Array|Object} assets
 		 */
 		this.assets = asset.assets;
+		
+		/**
+		 * If each asset in the collection should be cached.
+		 * @property {Boolean} cacheAll
+		 */
+		this.cacheAll = asset.cacheAll;
 	};
 
 	// Reference to prototype
@@ -4184,7 +4191,7 @@
 	 */
 	p.start = function(callback)
 	{
-		Application.instance.load(this.assets, callback);
+		Application.instance.load(this.assets, {complete:callback, cacheAll: this.cacheAll});
 	};
 
 	/**
