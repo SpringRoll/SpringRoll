@@ -5,8 +5,8 @@
 	"url": "https://github.com/SpringRoll/SpringRoll",
 	"output": "core",
 	"main": [
-		"src/mixins/*.js",
 		"src/utils/*.js",
+		"src/mixins/*.js",
 		"src/core/async/*.js",
 		"src/core/utils/*.js",
 		"src/polyfills/*.js",

@@ -3,6 +3,234 @@
  * @module Core
  * @namespace window
  */
+/**
+ * Use to do class inheritence
+ * @class extend
+ * @static
+ */
+(function(window){
+	
+	// The extend function already exists
+	if ("extend" in window) return;
+
+	/**
+	 * Extend prototype
+	 *
+	 * @example
+		var p = extend(MyClass, ParentClass);
+	 *
+	 * @constructor
+	 * @method extend
+	 * @param {function} subClass The reference to the class
+	 * @param {function|String} superClass The parent reference or full classname
+	 * @return {object} Reference to the subClass's prototype
+	 */
+	window.extend = function(subClass, superClass)
+	{
+		if (typeof superClass == "string")
+		{
+			superClass = window.include(superClass);
+		}
+		subClass.prototype = Object.create(
+			superClass.prototype
+		);
+		return subClass.prototype;
+	};
+
+}(window));
+/**
+ * @module Core
+ * @namespace window
+ */
+/**
+ * Used to include required classes by name
+ * @class include
+ * @static
+ */
+(function(window, undefined){
+	
+	// The include function already exists
+	if ("include" in window) return;
+	
+	/**
+	 * Import a class
+	 *
+	 * @example
+		var Application = include('springroll.Application');
+	 *
+	 * @constructor
+	 * @method include
+	 * @param {string} namespaceString Name space, for instance 'springroll.Application'
+	 * @param {Boolean} [required=true] If the class we're trying to include is required.
+	 * 		For classes that aren't found and are required, an error is thrown.
+	 * @return {object|function} The object attached at the given namespace
+	 */
+	var include = function(namespaceString, required)
+	{
+		var parts = namespaceString.split('.'),
+			parent = window,
+			currentPart = '';
+		
+		required = required !== undefined ? !!required : true;
+
+		for(var i = 0, length = parts.length; i < length; i++)
+		{
+			currentPart = parts[i];
+			if (!parent[currentPart])
+			{
+				if (!required)
+				{
+					return null;
+				}
+				if (true)
+				{
+					throw "Unable to include '" + namespaceString + "' because the code is not included or the class needs to loaded sooner.";
+				}
+				else
+				{
+					throw "Unable to include '" + namespaceString + "'";
+				}
+			}
+			parent = parent[currentPart];
+		}
+		return parent;
+	};
+	
+	// Assign to the window namespace
+	window.include = include;
+	
+}(window));
+/**
+ * @module Core
+ * @namespace window
+ */
+/**
+ * Static class for mixing in functionality into objects.
+ * @class mixin
+ * @static
+ */
+(function(window, Object)
+{
+	// The mixin function already exists
+	if ("mixin" in window) return;
+
+	/**
+	 * Mixin functionality to an object
+	 *
+	 * @example
+		mixin(instance, MyClass);
+	 *
+	 * @constructor
+	 * @method mixin
+	 * @param {*} target The instance object to add functionality to
+	 * @param {function|String} superClass The parent reference or full classname
+	 * @param {*} [args] Any additional arguments to pass to the constructor of the superClass
+	 * @return {*} Return reference to target
+	 */
+	var mixin = function(target, superClass)
+	{
+		if (true && !superClass)
+		{
+			throw 'Did not supply a valid mixin class';
+		}
+
+		// Include using string
+		if (typeof superClass === "string")
+		{
+			superClass = window.include(superClass);
+		}
+
+		// Check for existence of prototype
+		if (!superClass.prototype)
+		{
+			if (true)
+			{
+				throw 'The mixin class does not have a valid protoype';
+			}
+			else
+			{
+				throw 'no mixin prototype';
+			}
+		}
+		//loop over mixin prototype to add functions
+		var p = superClass.prototype;
+
+		for(var prop in p)
+		{
+			// For things that we set using Object.defineProperty
+			// very important that enumerable:true for the 
+			// defineProperty options
+			var propDesc = Object.getOwnPropertyDescriptor(p, prop);
+			if(propDesc)
+			{
+				Object.defineProperty(target, prop, propDesc);
+			}
+			else
+			{
+				// Should cover all other prototype methods/properties
+				target[prop] = p[prop];
+			}
+		}
+		// call mixin on target and apply any arguments
+		superClass.apply(target, Array.prototype.slice.call(arguments, 2));
+		return target;
+	};
+
+	// Assign to the window namespace
+	window.mixin = mixin;
+	
+}(window, Object));
+/**
+ * @module Core
+ * @namespace window
+ */
+/**
+ * Static class for namespacing objects and adding
+ * classes to it.
+ * @class namespace
+ * @static
+ */
+(function(window){
+	
+	// The namespace function already exists
+	if ("namespace" in window) return;
+	
+	/**
+	 * Create the namespace and assing to the window
+	 *
+	 * @example
+		var SpriteUtils = function(){};
+		namespace('springroll').SpriteUtils = SpriteUtils;
+	 *
+	 * @constructor
+	 * @method namespace
+	 * @param {string} namespaceString Name space, for instance 'springroll.utils'
+	 * @return {object} The namespace object attached to the current window
+	 */
+	var namespace = function(namespaceString) {
+		var parts = namespaceString.split('.'),
+			parent = window,
+			currentPart = '';
+
+		for(var i = 0, length = parts.length; i < length; i++)
+		{
+			currentPart = parts[i];
+			parent[currentPart] = parent[currentPart] || {};
+			parent = parent[currentPart];
+		}
+		return parent;
+	};
+	
+	// Assign to the window namespace
+	window.namespace = namespace;
+	
+}(window));
+
+
+/**
+ * @module Core
+ * @namespace window
+ */
 (function(Array, Math, Object)
 {
 	/**
@@ -477,234 +705,6 @@
 	}
 
 }(String, Object));
-
-/**
- * @module Core
- * @namespace window
- */
-/**
- * Use to do class inheritence
- * @class extend
- * @static
- */
-(function(window){
-	
-	// The extend function already exists
-	if ("extend" in window) return;
-
-	/**
-	 * Extend prototype
-	 *
-	 * @example
-		var p = extend(MyClass, ParentClass);
-	 *
-	 * @constructor
-	 * @method extend
-	 * @param {function} subClass The reference to the class
-	 * @param {function|String} superClass The parent reference or full classname
-	 * @return {object} Reference to the subClass's prototype
-	 */
-	window.extend = function(subClass, superClass)
-	{
-		if (typeof superClass == "string")
-		{
-			superClass = window.include(superClass);
-		}
-		subClass.prototype = Object.create(
-			superClass.prototype
-		);
-		return subClass.prototype;
-	};
-
-}(window));
-/**
- * @module Core
- * @namespace window
- */
-/**
- * Used to include required classes by name
- * @class include
- * @static
- */
-(function(window, undefined){
-	
-	// The include function already exists
-	if ("include" in window) return;
-	
-	/**
-	 * Import a class
-	 *
-	 * @example
-		var Application = include('springroll.Application');
-	 *
-	 * @constructor
-	 * @method include
-	 * @param {string} namespaceString Name space, for instance 'springroll.Application'
-	 * @param {Boolean} [required=true] If the class we're trying to include is required.
-	 * 		For classes that aren't found and are required, an error is thrown.
-	 * @return {object|function} The object attached at the given namespace
-	 */
-	var include = function(namespaceString, required)
-	{
-		var parts = namespaceString.split('.'),
-			parent = window,
-			currentPart = '';
-		
-		required = required !== undefined ? !!required : true;
-
-		for(var i = 0, length = parts.length; i < length; i++)
-		{
-			currentPart = parts[i];
-			if (!parent[currentPart])
-			{
-				if (!required)
-				{
-					return null;
-				}
-				if (true)
-				{
-					throw "Unable to include '" + namespaceString + "' because the code is not included or the class needs to loaded sooner.";
-				}
-				else
-				{
-					throw "Unable to include '" + namespaceString + "'";
-				}
-			}
-			parent = parent[currentPart];
-		}
-		return parent;
-	};
-	
-	// Assign to the window namespace
-	window.include = include;
-	
-}(window));
-/**
- * @module Core
- * @namespace window
- */
-/**
- * Static class for mixing in functionality into objects.
- * @class mixin
- * @static
- */
-(function(window, Object)
-{
-	// The mixin function already exists
-	if ("mixin" in window) return;
-
-	/**
-	 * Mixin functionality to an object
-	 *
-	 * @example
-		mixin(instance, MyClass);
-	 *
-	 * @constructor
-	 * @method mixin
-	 * @param {*} target The instance object to add functionality to
-	 * @param {function|String} superClass The parent reference or full classname
-	 * @param {*} [args] Any additional arguments to pass to the constructor of the superClass
-	 * @return {*} Return reference to target
-	 */
-	var mixin = function(target, superClass)
-	{
-		if (true && !superClass)
-		{
-			throw 'Did not supply a valid mixin class';
-		}
-
-		// Include using string
-		if (typeof superClass === "string")
-		{
-			superClass = window.include(superClass);
-		}
-
-		// Check for existence of prototype
-		if (!superClass.prototype)
-		{
-			if (true)
-			{
-				throw 'The mixin class does not have a valid protoype';
-			}
-			else
-			{
-				throw 'no mixin prototype';
-			}
-		}
-		//loop over mixin prototype to add functions
-		var p = superClass.prototype;
-
-		for(var prop in p)
-		{
-			// For things that we set using Object.defineProperty
-			// very important that enumerable:true for the 
-			// defineProperty options
-			var propDesc = Object.getOwnPropertyDescriptor(p, prop);
-			if(propDesc)
-			{
-				Object.defineProperty(target, prop, propDesc);
-			}
-			else
-			{
-				// Should cover all other prototype methods/properties
-				target[prop] = p[prop];
-			}
-		}
-		// call mixin on target and apply any arguments
-		superClass.apply(target, Array.prototype.slice.call(arguments, 2));
-		return target;
-	};
-
-	// Assign to the window namespace
-	window.mixin = mixin;
-	
-}(window, Object));
-/**
- * @module Core
- * @namespace window
- */
-/**
- * Static class for namespacing objects and adding
- * classes to it.
- * @class namespace
- * @static
- */
-(function(window){
-	
-	// The namespace function already exists
-	if ("namespace" in window) return;
-	
-	/**
-	 * Create the namespace and assing to the window
-	 *
-	 * @example
-		var SpriteUtils = function(){};
-		namespace('springroll').SpriteUtils = SpriteUtils;
-	 *
-	 * @constructor
-	 * @method namespace
-	 * @param {string} namespaceString Name space, for instance 'springroll.utils'
-	 * @return {object} The namespace object attached to the current window
-	 */
-	var namespace = function(namespaceString) {
-		var parts = namespaceString.split('.'),
-			parent = window,
-			currentPart = '';
-
-		for(var i = 0, length = parts.length; i < length; i++)
-		{
-			currentPart = parts[i];
-			parent[currentPart] = parent[currentPart] || {};
-			parent = parent[currentPart];
-		}
-		return parent;
-	};
-	
-	// Assign to the window namespace
-	window.namespace = namespace;
-	
-}(window));
-
 
 /**
  * @module Core
