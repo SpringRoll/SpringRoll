@@ -1,0 +1,1225 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+	<title>SpringRoll v0.3.9 API Documentation : src/displays/easeljs/ui/AssetManager.js</title>
+	<meta charset='utf-8'>
+	<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+	<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
+	<link rel='shortcut icon' type='image/png' href='../assets/images/favicon.ico?v=0.3.9'>
+	<link href='//fonts.googleapis.com/css?family=Titillium+Web:300,200,600' rel='stylesheet' type='text/css'>
+	<link rel='stylesheet' type='text/css' href='../assets/css/libraries.css?v=0.3.9'>
+	<link rel='stylesheet' type='text/css' href='../assets/css/main.css?v=0.3.9'>
+</head>
+<body>
+<header>
+	<nav class="navbar navbar-inverse navbar-fixed-top">
+		<div class='container'>
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#docs-navbar">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href='https://github.com/SpringRoll/SpringRoll'>
+						<img src='../assets/images/logo.png?v=0.3.9' class="logo">
+					<span class='project-name'>SpringRoll</span>
+					<span class="sr-only">API Documentation for:</span>
+					<span class='version hidden-xs'>v0.3.9</span>
+				</a>
+			</div>
+			<div class="collapse navbar-collapse" id="docs-navbar">
+	      <ul class="scope-toggles text-center nav navbar-nav navbar-right">
+					<li><input class='scope-toggle' 
+						id='toggle-inherited' 
+						type='checkbox' 
+						data-toggle='toggle' 
+						data-on='Inherited' 
+						data-off='Inherited' 
+						data-size='mini'
+						data-width='80'>
+					</li>
+					<li><input class='scope-toggle' 
+						id='toggle-protected' 
+						type='checkbox' 
+						data-toggle='toggle' 
+						data-on='Protected' 
+						data-off='Protected' 
+						data-size='mini'
+						data-width='80'>
+					</li>
+					<li><input class='scope-toggle' 
+						id='toggle-private' 
+						type='checkbox' 
+						data-toggle='toggle' 
+						data-on='Private' 
+						data-off='Private' 
+						data-size='mini'
+						data-width='80'>
+					</li>
+					<li><input class='scope-toggle' 
+						id='toggle-deprecated' 
+						type='checkbox' 
+						data-toggle='toggle' 
+						data-on='Deprecated' 
+						data-off='Deprecated' 
+						data-size='mini'
+						data-width='80'>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+</header>
+<div class='container'>
+<div class='row'>
+<nav id='sidebar' class='col-sm-4 col-md-3'>
+<h2>APIs</h2>
+<div class='input-group'>
+  <div class='input-group-addon'>
+    <span class='glyphicon glyphicon-search'></span>
+  </div>
+  <input type='search' class='form-control' id='api-filter' placeholder='Type to filter APIs'>
+  <span class='collapsed btn-close glyphicon glyphicon-remove-sign hidden'></span>
+</div>
+<nav class='navbar navbar-default'>
+  <!-- Brand and toggle get grouped for better mobile display -->
+  <div class="btn-group" role="group" aria-label="...">
+    <button type="button" class="sidebar-toggle collapsed btn btn-default" id='toggle-classes' data-target='#classes-collapse'>
+      Classes
+      <span class='collapsed glyphicon glyphicon-chevron-up'></span>
+      <span class='expanded glyphicon glyphicon-chevron-down'></span>
+    </button>
+    <button type="button" class="sidebar-toggle collapsed btn btn-default" id='toggle-modules' data-target='#modules-collapse'>
+      Modules
+      <span class='collapsed glyphicon glyphicon-chevron-up'></span>
+      <span class='expanded glyphicon glyphicon-chevron-down'></span>
+    </button>
+  </div>
+
+  <!-- Collect the nav links, forms, and other content for toggling -->
+  <div class='collapse' id='classes-collapse'>
+    <ul class='nav navbar-nav'>
+        <li class='public'>
+          <a href='../classes/createjs.Container.html'>createjs.Container</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/createjs.MovieClip.html'>createjs.MovieClip</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/createjs.Point.html'>createjs.Point</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.AbstractDisplay.html'>springroll.AbstractDisplay</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.AbstractHint.html'>springroll.AbstractHint</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.AnimatorHint.html'>springroll.AnimatorHint</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.Application.html'>springroll.Application</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.ApplicationOptions.html'>springroll.ApplicationOptions</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.ApplicationPlugin.html'>springroll.ApplicationPlugin</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.CacheManager.html'>springroll.CacheManager</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.Captions.html'>springroll.Captions</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.CombinedCallback.html'>springroll.CombinedCallback</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.Container.html'>springroll.Container</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.Debug.html'>springroll.Debug</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.DebugOptions.html'>springroll.DebugOptions</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.DelayedCall.html'>springroll.DelayedCall</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.easeljs.Animator.html'>springroll.easeljs.Animator</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.easeljs.AnimatorTimeline.html'>springroll.easeljs.AnimatorTimeline</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.easeljs.AssetManager.html'>springroll.easeljs.AssetManager</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.easeljs.BasePanel.html'>springroll.easeljs.BasePanel</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.easeljs.BaseState.html'>springroll.easeljs.BaseState</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.easeljs.BitmapMovieClip.html'>springroll.easeljs.BitmapMovieClip</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.easeljs.BitmapUtils.html'>springroll.easeljs.BitmapUtils</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.easeljs.Button.html'>springroll.easeljs.Button</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.easeljs.Cutscene.html'>springroll.easeljs.Cutscene</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.easeljs.DisplayAdapter.html'>springroll.easeljs.DisplayAdapter</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.easeljs.DragManager.html'>springroll.easeljs.DragManager</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.easeljs.DwellTimer.html'>springroll.easeljs.DwellTimer</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.easeljs.EaselJSDisplay.html'>springroll.easeljs.EaselJSDisplay</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.easeljs.ReversePlayback.html'>springroll.easeljs.ReversePlayback</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.easeljs.SoundButton.html'>springroll.easeljs.SoundButton</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.easeljs.Texture.html'>springroll.easeljs.Texture</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.easeljs.TextureAtlas.html'>springroll.easeljs.TextureAtlas</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.Enum.html'>springroll.Enum</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.EnumValue.html'>springroll.EnumValue</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.EventCatalog.html'>springroll.EventCatalog</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.EventDispatcher.html'>springroll.EventDispatcher</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.EventError.html'>springroll.EventError</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.EventSignature.html'>springroll.EventSignature</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.EventUtils.html'>springroll.EventUtils</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.Features.html'>springroll.Features</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.FunctionHint.html'>springroll.FunctionHint</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.FunctionTask.html'>springroll.FunctionTask</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.GroupHint.html'>springroll.GroupHint</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.HintsPlayer.html'>springroll.HintsPlayer</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.Languages.html'>springroll.Languages</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.Learning.html'>springroll.Learning</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.LearningError.html'>springroll.LearningError</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.LearningMedia.html'>springroll.LearningMedia</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.ListTask.html'>springroll.ListTask</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.Loader.html'>springroll.Loader</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.LoaderQueueItem.html'>springroll.LoaderQueueItem</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.LoaderResult.html'>springroll.LoaderResult</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.LoadTask.html'>springroll.LoadTask</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.native.Circle.html'>springroll.native.Circle</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.native.DisplayAdapter.html'>springroll.native.DisplayAdapter</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.native.Ellipse.html'>springroll.native.Ellipse</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.native.NativeDisplay.html'>springroll.native.NativeDisplay</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.native.Point.html'>springroll.native.Point</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.native.Polygon.html'>springroll.native.Polygon</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.native.Rectangle.html'>springroll.native.Rectangle</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.PageVisibility.html'>springroll.PageVisibility</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.pixi.Animator.html'>springroll.pixi.Animator</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.pixi.AnimatorTimeline.html'>springroll.pixi.AnimatorTimeline</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.pixi.AssetManager.html'>springroll.pixi.AssetManager</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.pixi.Button.html'>springroll.pixi.Button</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.pixi.DisplayAdapter.html'>springroll.pixi.DisplayAdapter</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.pixi.DragManager.html'>springroll.pixi.DragManager</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.pixi.ParallelSpineData.html'>springroll.pixi.ParallelSpineData</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.pixi.PixiDisplay.html'>springroll.pixi.PixiDisplay</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.PixiTask.html'>springroll.PixiTask</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.Positioner.html'>springroll.Positioner</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.PropertyDispatcher.html'>springroll.PropertyDispatcher</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.ResizePlugin.html'>springroll.ResizePlugin</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.SavedData.html'>springroll.SavedData</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.ScaleItem.html'>springroll.ScaleItem</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.ScaleManager.html'>springroll.ScaleManager</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.Sound.html'>springroll.Sound</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.SoundContext.html'>springroll.SoundContext</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.SoundInstance.html'>springroll.SoundInstance</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.SoundListTask.html'>springroll.SoundListTask</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.State.html'>springroll.State</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.StateEvent.html'>springroll.StateEvent</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.StateManager.html'>springroll.StateManager</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.StringFilters.html'>springroll.StringFilters</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.Task.html'>springroll.Task</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.TaskEvent.html'>springroll.TaskEvent</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.TaskManager.html'>springroll.TaskManager</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.TimeUtils.html'>springroll.TimeUtils</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.ValidationError.html'>springroll.ValidationError</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.VOHint.html'>springroll.VOHint</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.VOPlayer.html'>springroll.VOPlayer</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.WeightedRandom.html'>springroll.WeightedRandom</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/window.Array.html'>window.Array</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/window.async.html'>window.async</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/window.extend.html'>window.extend</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/window.include.html'>window.include</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/window.Math.html'>window.Math</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/window.mixin.html'>window.mixin</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/window.namespace.html'>window.namespace</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/window.Number.html'>window.Number</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/window.Object.html'>window.Object</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/window.String.html'>window.String</a>
+        </li>
+    </ul>
+  </div>
+
+  <!-- Collect the nav links, forms, and other content for toggling -->
+  <div class='collapse' id='modules-collapse'>
+    <ul class='nav navbar-nav'>
+        <li class=''>
+          <a href='../modules/Captions.html'>Captions</a>
+        </li>
+        <li class=''>
+          <a href='../modules/Container.html'>Container</a>
+        </li>
+        <li class=''>
+          <a href='../modules/Container Client.html'>Container Client</a>
+        </li>
+        <li class=''>
+          <a href='../modules/Core.html'>Core</a>
+        </li>
+        <li class=''>
+          <a href='../modules/Debug.html'>Debug</a>
+        </li>
+        <li class=''>
+          <a href='../modules/EaselJS Animation.html'>EaselJS Animation</a>
+        </li>
+        <li class=''>
+          <a href='../modules/EaselJS Cutscene.html'>EaselJS Cutscene</a>
+        </li>
+        <li class=''>
+          <a href='../modules/EaselJS Display.html'>EaselJS Display</a>
+        </li>
+        <li class=''>
+          <a href='../modules/EaselJS Learning.html'>EaselJS Learning</a>
+        </li>
+        <li class=''>
+          <a href='../modules/EaselJS States.html'>EaselJS States</a>
+        </li>
+        <li class=''>
+          <a href='../modules/EaselJS UI.html'>EaselJS UI</a>
+        </li>
+        <li class=''>
+          <a href='../modules/EaselJS Utilities.html'>EaselJS Utilities</a>
+        </li>
+        <li class=''>
+          <a href='../modules/Hints.html'>Hints</a>
+        </li>
+        <li class=''>
+          <a href='../modules/Languages.html'>Languages</a>
+        </li>
+        <li class=''>
+          <a href='../modules/Learning.html'>Learning</a>
+        </li>
+        <li class=''>
+          <a href='../modules/Learning Media.html'>Learning Media</a>
+        </li>
+        <li class=''>
+          <a href='../modules/Native Display.html'>Native Display</a>
+        </li>
+        <li class=''>
+          <a href='../modules/PIXI Animation.html'>PIXI Animation</a>
+        </li>
+        <li class=''>
+          <a href='../modules/PIXI Display.html'>PIXI Display</a>
+        </li>
+        <li class=''>
+          <a href='../modules/PIXI UI.html'>PIXI UI</a>
+        </li>
+        <li class=''>
+          <a href='../modules/Sound.html'>Sound</a>
+        </li>
+        <li class=''>
+          <a href='../modules/States.html'>States</a>
+        </li>
+        <li class=''>
+          <a href='../modules/Tasks.html'>Tasks</a>
+        </li>
+        <li class=''>
+          <a href='../modules/UI.html'>UI</a>
+        </li>
+    </ul>
+  </div>
+  <!-- /.container-fluid -->
+</nav></nav>
+<div class='col-sm-8 col-md-9'>
+<div id='docs-main' class='apidocs'>
+<h1 class="file-heading">File:AssetManager.js</h1>
+
+<div class="file">
+<pre class="code prettyprint linenums">/**
+ * @module EaselJS UI
+ * @namespace springroll.easeljs
+ * @requires Core, EaselJS Display, Tasks
+ */
+(function()
+{
+	var BitmapUtils,
+		TextureAtlas,
+		Loader,
+		Debug,
+		Application,
+		TaskManager,
+		ListTask;
+
+	/**
+	 * Class for managing the loading and unloading of assets.
+	 * @class AssetManager
+	 * @static
+	 */
+	var AssetManager = {};
+	
+	/**
+	*  If asset collisions (lib.X is used by multiple assets) should have a warning logged.
+	*  @property {Boolean} warnOnCollisions
+	*  @static
+	*  @default false
+	*/
+	AssetManager.warnOnCollisions = false;
+
+	if (DEBUG)
+	{
+		/**
+		*  For unminifed library only, add verbose console logs for loading/loaded assets
+		*  @property {Boolean} verbose
+		*  @static
+		*  @default false
+		*/
+		AssetManager.verbose = false;
+	}
+	
+	/**
+	*  Array of asset ids that have been loaded by AssetManager.
+	*  @property {Array} loadedAssets
+	*  @private
+	*  @static
+	*/
+	var loadedAssets = null;
+
+	/**
+	*  Dictionary of object definitions in the &#x27;lib&#x27; dictionary. Each key is the name of a
+	*  definition, with the value being the id of the asset that loaded it.
+	*  @property {Object} loadedLibAssets
+	*  @private
+	*  @static
+	*/
+	var loadedLibAssets = null;
+
+	/**
+	*  There dynamic loaded code asset.
+	*  @property {Object} loadedLibs
+	*  @private
+	*  @static
+	*/
+	var loadedLibs = null;
+
+	/**
+	*  Dictionary of TextureAtlas objects, stored by asset id.
+	*  @property {Object} textureAtlases
+	*  @private
+	*  @static
+	*/
+	var textureAtlases = null;
+
+	/**
+	*  Dictionary of BitmapMovieClip configuration objects, stored by asset id.
+	*  @property {Object} BMCConfigs
+	*  @private
+	*  @static
+	*/
+	var BMCConfigs = null;
+
+	/**
+	 * Intializes AssetManager.
+	 * @method init
+	 * @static
+	 */
+	AssetManager.init = function()
+	{
+		if (!Application)
+		{
+			BitmapUtils = include(&#x27;springroll.easeljs.BitmapUtils&#x27;, false);
+			TextureAtlas = include(&#x27;springroll.easeljs.TextureAtlas&#x27;, false);
+			Loader = include(&#x27;springroll.Loader&#x27;);
+			Debug = include(&#x27;springroll.Debug&#x27;, false);
+			Application = include(&#x27;springroll.Application&#x27;);
+			TaskManager = include(&quot;springroll.TaskManager&quot;);
+			ListTask = include(&quot;springroll.ListTask&quot;);
+		}
+
+		loadedAssets = [];
+		loadedLibs = {};
+		loadedLibAssets = {};
+		textureAtlases = {};
+		BMCConfigs = {};
+	};
+
+	/**
+	*  Loads all files need to make a BitmapMovieClip, given that the files are in the same
+	*  location with a specific naming convention:
+	*
+	*  BitmapMovieClip config file: &amp;lt;assetId&amp;gt;.json &lt;br /&gt;
+	*  BitmapMovieClip textureAtlas json: &amp;lt;assetId&amp;gt;Sprite.json &lt;br /&gt;
+	*  BitmapMovieClip textureAtlas image: &amp;lt;assetId&amp;gt;Sprite.png
+	*
+	*  @method loadBitmapMovieClip
+	*  @static
+	*  @param {String} label The asset id for the BitmapMovieClip
+	*  @param {String} [path=&#x27;assets/sprites/&#x27;] The path for all 3 required files.
+	*  @param {Function} [callback] A callback for when the BitmapMovieClip assets have finished
+	*                               loading.
+	*  @param {Array|TaskManager} [taskList] An array or TaskManager to add a ListTask to for
+	*                                        loading. If omitted, loads immediately with an internal
+	*                                        TaskManager.
+	*/
+	AssetManager.loadBitmapMovieClip = function(label, path, callback, taskList)
+	{
+		if (path === undefined || path === null)
+		{
+			path = &quot;assets/sprites/&quot;;
+		}
+		var manifest = [
+			{
+				&quot;id&quot;: &quot;bmcConfig_&quot; + label,
+				&quot;src&quot;: path + label + &quot;.json&quot;
+			},
+			{
+				&quot;id&quot;: &quot;atlasData_&quot; + label,
+				&quot;src&quot;: path + label + &quot;Sprite.json&quot;
+			},
+			{
+				&quot;id&quot;: &quot;atlasImage_&quot; + label,
+				&quot;src&quot;: path + label + &quot;Sprite.png&quot;
+			}
+		];
+		AssetManager.load(manifest, callback, taskList);
+	};
+
+	/**
+	*  Unload an asset or list of assets.
+	*  @method extractAssetName
+	*  @static
+	*  @private
+	*  @param {String} assetId The asset id from the manifest, which might include an identifier
+	*                          marking it as belonging to a spritesheet.
+	*  @return {String} The proper asset id
+	*/
+	function extractAssetName(assetId)
+	{
+		if (assetId.indexOf(&quot;colorSplit-alpha_&quot;) === 0)
+			assetId = assetId.substr(17);
+		else if (assetId.indexOf(&quot;colorSplit-color_&quot;) === 0)
+			assetId = assetId.substr(17);
+
+		if (assetId.indexOf(&quot;atlasData_&quot;) === 0)
+			return assetId.substr(10);
+		else if (assetId.indexOf(&quot;atlasImage_&quot;) === 0)
+			return assetId.substr(11);
+		if (assetId.indexOf(&quot;spriteData_&quot;) === 0)
+			return assetId.substr(11);
+		else if (assetId.indexOf(&quot;spriteImage_&quot;) === 0)
+			return assetId.substr(12);
+		else if (assetId.indexOf(&quot;bmcConfig_&quot;) === 0)
+			return assetId.substr(10);
+		return assetId;
+	}
+
+	/**
+	*  Loads a list of assets. All javascript files will be parsed so that they can be unloaded
+	*  later. Additionally, AssetManager will handle spritesheets automatically. AssetManager looks
+	*  for special manifest items that would otherwise be invalid to handle spritesheets or images
+	*  that have been split into alpha and color images.
+	*  A manifest item for a TextureAtlas - this will create a TextureAtlas instance, accessible via
+	*  AssetManager.getAtlas(&quot;myAssetId&quot;):
+	*
+	*      {
+	*          &quot;id&quot;:&quot;myAssetId&quot;,
+	*          &quot;atlasData&quot;:&quot;path/asset.json&quot;,
+	*          &quot;atlasImage&quot;:&quot;path/asset.png&quot;
+	*      }
+	*
+	*  A manifest item for a spritesheet that should be run through BitmapUtils.loadSpriteSheet()
+	*  so that the individual sprites can be accessed via the global &#x27;lib&#x27; dictionary:
+	*
+	*      {
+	*          &quot;id&quot;:&quot;myAssetId&quot;,
+	*          &quot;atlasData&quot;:&quot;path/asset.json&quot;,
+	*          &quot;atlasImage&quot;:&quot;path/asset.png&quot;,
+	*          &quot;splitForEaselJS&quot;:true
+	*      }
+	*
+	*  A manifest item for a single image that has been split into color and alpha images that
+	*  should be recombined upon loading:
+	*
+	*      {
+	*          &quot;id&quot;:&quot;myAssetId&quot;,
+	*          &quot;color&quot;:&quot;path/asset-color.jpg&quot;,
+	*          &quot;alpha&quot;:&quot;path/asset-alpha.png&quot;
+	*      }
+	*
+	*  A manifest item for a TextureAtlas or spritesheet that has been split into color and
+	*  alpha images:
+	*
+	*      {
+	*          &quot;id&quot;:&quot;myAssetId&quot;,
+	*          &quot;atlasData&quot;:&quot;path/asset.json&quot;,
+	*          &quot;color&quot;:&quot;path/asset-color.jpg&quot;,
+	*          &quot;alpha&quot;:&quot;path/asset-alpha.png&quot;
+	*      }
+	*
+	*  A manifest item for a JSON that is configuration data for a BitmapMovieClip - it can be
+	*  retrieved via AssetManager.getBitmapMovieClipConfig(&quot;myAssetId&quot;):
+	*
+	*      {
+	*          &quot;id&quot;:&quot;myAssetId&quot;,
+	*          &quot;src&quot;:&quot;path/asset.json&quot;,
+	*          &quot;bmcConfig&quot;:true
+	*      }
+	*
+	*  @method load
+	*  @static
+	*  @param {Array} manifest The collection of asset manifests
+	*  @param {Function|Array|TaskManager} callbackOrTaskList A function to call when load is complete
+	*  @param {Array|TaskManager} [taskList] An array or TaskManager to add a ListTask to for
+	*                                        loading. If omitted, loads immediately with an internal
+	*                                        TaskManager.
+	*/
+	AssetManager.load = function(manifest, callback, taskList)
+	{
+		if (!loadedAssets)
+		{
+			if (Debug &amp;&amp; DEBUG)
+			{
+				Debug.error(&quot;Attempting to load assets via AssetManager without calling AssetManager.init()&quot;);
+			}
+			return;
+		}
+
+		// 2nd argument support the array or taskmanager
+		if (Array.isArray(callback) || (callback instanceof TaskManager))
+		{
+			taskList = callback;
+			callback = null;
+		}
+
+		var checkedManifest = [];
+		for(var i = 0; i &lt; manifest.length; ++i)
+		{
+			var manifestData = manifest[i];
+			var id = manifestData.id;
+			if (loadedAssets.indexOf(extractAssetName(id)) == -1)
+			{
+				if (DEBUG &amp;&amp; Debug &amp;&amp; AssetManager.verbose)
+				{
+					Debug.info(&quot;AssetManager is loading &quot; + extractAssetName(id));
+				}
+				//look for expected manifest shorthands for atlases
+				if (manifestData.atlasData)
+				{
+					//add several items instead of just the one
+					checkedManifest.push({
+						id: (manifestData.splitForEaselJS ? &quot;spriteData_&quot; : &quot;atlasData_&quot;) + id,
+						src: manifestData.atlasData
+					});
+					//look for color/alpha split spritesheets
+					if (manifestData.alpha)
+					{
+						checkedManifest.push({
+							id: &quot;colorSplit-alpha_&quot; + (manifestData.splitForEaselJS ? &quot;spriteImage_&quot; : &quot;atlasImage_&quot;) + id,
+							src: manifestData.alpha,
+							alpha: true
+						});
+						checkedManifest.push({
+							id: &quot;colorSplit-color_&quot; + (manifestData.splitForEaselJS ? &quot;spriteImage_&quot; : &quot;atlasImage_&quot;) + id,
+							src: manifestData.color,
+							color: true
+						});
+					}
+					//otherwise, use the expectd atlasImage url
+					else
+					{
+						checkedManifest.push({
+							id: (manifestData.splitForEaselJS ? &quot;spriteImage_&quot; : &quot;atlasImage_&quot;) + id,
+							src: manifestData.atlasImage
+						});
+					}
+				}
+				//look for individual iamges with color/alpha split shorthands
+				else if (typeof manifestData.color == &quot;string&quot; &amp;&amp;
+					typeof manifestData.alpha == &quot;string&quot;)
+				{
+					checkedManifest.push({
+						id: &quot;colorSplit-alpha_&quot; + id,
+						src: manifestData.alpha,
+						alpha: true
+					});
+					checkedManifest.push({
+						id: &quot;colorSplit-color_&quot; + id,
+						src: manifestData.color,
+						color: true
+					});
+				}
+				//look for JSON marked as BitmapMovieClip configs
+				else if (manifestData.bmcConfig === true)
+				{
+					checkedManifest.push({
+						id: &quot;bmcConfig_&quot; + id,
+						src: manifestData.src
+					});
+				}
+				//add the manifest as normal, as we have checked it for any
+				//changes needed
+				else
+				{
+					//do the (deprecated) less easy to use behavior of the
+					//developer making separate manifest items for alpha/color
+					if (manifestData.alpha === true)
+					{
+						checkedManifest.push({
+							id: &quot;colorSplit-alpha_&quot; + id,
+							src: manifestData.src,
+							alpha: true
+						});
+					}
+					else if (manifestData.color === true)
+					{
+						checkedManifest.push({
+							id: &quot;colorSplit-color_&quot; + id,
+							src: manifestData.src,
+							color: true
+						});
+					}
+					//add manifest as normal, as it is a standard manifest item
+					else
+					{
+						checkedManifest.push(manifestData);
+					}
+				}
+			}
+			else
+			{
+				if (DEBUG &amp;&amp; Debug &amp;&amp; AssetManager.verbose)
+				{
+					Debug.info(&quot;AssetManager skipping &quot; + extractAssetName(id) + &quot;, it is already loaded&quot;);
+				}
+			}
+		}
+		if (checkedManifest.length)
+		{
+			var task = new ListTask(&quot;assets&quot;, checkedManifest, onLoaded.bind(AssetManager, callback));
+			if (taskList)
+			{
+				if (Array.isArray(taskList))
+					taskList.push(task);
+				else if (taskList instanceof TaskManager)
+					taskList.addTask(task);
+			}
+			else
+				TaskManager.process([task]);
+		}
+		else if (callback)
+			setTimeout(callback, 0);
+	};
+
+	var onLoaded = function(callback, results)
+	{
+		var atlasImage = {},
+			atlasData = {},
+			spriteImage = {},
+			spriteData = {},
+			id;
+
+		for(id in results)
+		{
+			var result = results[id];
+			var content = result.content,
+				manifestData = result.manifestData;
+			//grab any spritesheet images or JSON and keep that separate
+			if (id.indexOf(&quot;atlasData_&quot;) === 0)
+			{
+				id = extractAssetName(id);
+				atlasData[id] = content;
+			}
+			else if (id.indexOf(&quot;atlasImage_&quot;) &gt; -1)
+			{
+				id = extractAssetName(id);
+				if (manifestData)
+				{
+					if (manifestData.alpha === true)
+					{
+						if (atlasImage[id])
+							atlasImage[id].alpha = content;
+						else
+							atlasImage[id] = {alpha: content};
+					}
+					else if (manifestData.color === true)
+					{
+						if (atlasImage[id])
+							atlasImage[id].color = content;
+						else
+							atlasImage[id] = {color: content};
+					}
+					else
+						atlasImage[id] = content;
+				}
+				else
+					atlasImage[id] = content;
+			}
+			else if (id.indexOf(&quot;spriteData_&quot;) === 0)
+			{
+				id = extractAssetName(id);
+				spriteData[id] = content;
+			}
+			else if (id.indexOf(&quot;spriteImage_&quot;) &gt; -1)
+			{
+				id = extractAssetName(id);
+				if (manifestData)
+				{
+					if (manifestData.alpha === true)
+					{
+						if (spriteImage[id])
+							spriteImage[id].alpha = content;
+						else
+							spriteImage[id] = {alpha: content};
+					}
+					else if (manifestData.color === true)
+					{
+						if (spriteImage[id])
+							spriteImage[id].color = content;
+						else
+							spriteImage[id] = {color: content};
+					}
+					else
+						spriteImage[id] = content;
+				}
+				else
+					spriteImage[id] = content;
+			}
+			else if (id.indexOf(&quot;bmcConfig_&quot;) === 0)
+			{
+				id = extractAssetName(id);
+				BMCConfigs[id] = content;
+			}
+			//parse javascript files to find out what they are adding to the global
+			//libs dictionary
+			else if (result.url.indexOf(&quot;.js&quot;) != -1)
+			{
+				loadedLibs[id] = content;
+				//get javascript text
+				var text = content.text;
+				if (!text) continue;
+				//split into the initialization functions, that take &#x27;lib&#x27; as a parameter
+				var textArray = text.split(/[\(!]function\s*\(/);
+				//go through each initialization function
+				for(var i = 0; i &lt; textArray.length; ++i)
+				{
+					text = textArray[i];
+					if (!text) continue;
+					//determine what the &#x27;lib&#x27; parameter has been minified into
+					var libName = text.substring(0, text.indexOf(&quot;,&quot;));
+					if (!libName) continue;
+					//get all the things that are &#x27;lib.X = &lt;stuff&gt;&#x27;
+					var varFinder = new RegExp(&quot;\\(&quot; + libName + &quot;.(\\w+)\\s*=&quot;, &quot;g&quot;);
+					var foundName = varFinder.exec(text);
+					while (foundName)
+					{
+						if (Debug &amp;&amp; AssetManager.warnOnCollisions)
+						{
+							if (loadedLibAssets[foundName[1]])
+							{
+								Debug.warn(&quot;Asset Collision: asset &#x27;&quot; + id +
+									&quot;&#x27; wants to create lib.&#x27;&quot; + foundName[1] +
+									&quot;&#x27; which is already created by asset &#x27;&quot; +
+									loadedLibAssets[foundName[1]] + &quot;&#x27;&quot;);
+							}
+						}
+						//keep track of the asset id responsible
+						loadedLibAssets[foundName[1]] = id;
+						foundName = varFinder.exec(text);
+					}
+				}
+			}
+			else
+			{
+				id = extractAssetName(id);
+				//store images normally, after checking for a alpha/color merge
+				if (manifestData)
+				{
+					if (manifestData.alpha === true)
+					{
+						if (images[id] &amp;&amp; images[id].color)
+						{
+							images[id] = mergeAlpha(images[id].color, content);
+						}
+						else
+							images[id] = {alpha: content};
+					}
+					else if (manifestData.color === true)
+					{
+						if (images[id] &amp;&amp; images[id].alpha)
+							images[id] = mergeAlpha(content, images[id].alpha);
+						else
+							images[id] = {color: content};
+					}
+					else
+						images[id] = content;
+				}
+				else
+					images[id] = content;
+			}
+			if (loadedAssets.indexOf(id) == -1)
+				loadedAssets.push(id);
+		}
+		//go through the TextureAtlases we should create
+		for(id in atlasData)
+		{
+			if (atlasImage[id])
+			{
+				//if the image needs to be merged from color and alpha data, take care of that
+				if (atlasImage[id].alpha &amp;&amp; atlasImage[id].color)
+					atlasImage[id] = mergeAlpha(atlasImage[id].color, atlasImage[id].alpha);
+				//create the TextureAtlas
+				textureAtlases[id] = new TextureAtlas(atlasImage[id], atlasData[id]);
+			}
+		}
+		//go through the spritesheets we need to use BitmapUtils.loadSpriteSheet() on
+		for(id in spriteData)
+		{
+			if (spriteImage[id])
+			{
+				//if the image needs to be merged from color and alpha data, take care of that
+				if (spriteImage[id].alpha &amp;&amp; spriteImage[id].color)
+					spriteImage[id] = mergeAlpha(spriteImage[id].color, spriteImage[id].alpha);
+				var frames = spriteData[id].frames;
+				//diseminate the spritesheet into individual &#x27;Bitmap&#x27;
+				BitmapUtils.loadSpriteSheet(spriteData[id], spriteImage[id]);
+				//keep track of the things that it loaded so we can remove them properly
+				for(var frame in frames)
+				{
+					loadedLibAssets[frame] = id;
+				}
+			}
+		}
+		//perform the callback
+		if (callback)
+			callback();
+	};
+
+	/**
+	* Pulled from EaselJS&#x27;s SpriteSheetUtils.
+	* Merges the rgb channels of one image with the alpha channel of another. This can be used to
+	* combine a compressed JPEG image containing color data with a PNG32 monochromatic image
+	* containing alpha data. With certain types of images (those with detail that lend itself to
+	* JPEG compression) this can provide significant file size savings versus a single RGBA PNG32.
+	* This method is very fast (generally on the order of 1-2 ms to run).
+	* @method mergeAlpha
+	* @static
+	* @private
+	* @param {Image} rbgImage The image (or canvas) containing the RGB channels to use.
+	* @param {Image} alphaImage The image (or canvas) containing the alpha channel to use.
+	* @param {Canvas} [canvas] If specified, this canvas will be used and returned. If not, a new
+	*                          canvas will be created.
+	* @return {Canvas} A canvas with the combined image data. This can be used as a source for a
+	*                  Texture.
+	*/
+	var mergeAlpha = function(rgbImage, alphaImage, canvas) {
+		if (!canvas)
+			canvas = document.createElement(&quot;canvas&quot;);
+		canvas.width = Math.max(alphaImage.width, rgbImage.width);
+		canvas.height = Math.max(alphaImage.height, rgbImage.height);
+		var ctx = canvas.getContext(&quot;2d&quot;);
+		ctx.save();
+		ctx.drawImage(rgbImage,0,0);
+		ctx.globalCompositeOperation = &quot;destination-in&quot;;
+		ctx.drawImage(alphaImage,0,0);
+		ctx.restore();
+		return canvas;
+	};
+
+	/**
+	*  Returns a TextureAtlas that was loaded by the specified asset id.
+	*  @method getAtlas
+	*  @static
+	*  @param {String} asset The id of the TextureAtlas to get.
+	*  @return {TextureAtlas} The TextureAtlas that was loaded under the specified asset id.
+	*/
+	AssetManager.getAtlas = function(asset)
+	{
+		return textureAtlases[asset];
+	};
+
+	/**
+	*  Returns a configuration object for a BitmapMovieClip.
+	*  @method getBitmapMovieClipConfig
+	*  @static
+	*  @param {String} asset The id of the config object to get.
+	*  @return {TextureAtlas} The TextureAtlas that was loaded under the specified asset id.
+	*/
+	AssetManager.getBitmapMovieClipConfig = function(asset)
+	{
+		return BMCConfigs[asset];
+	};
+
+	/**
+	*  Unload an asset or list of assets.
+	*  @method unload
+	*  @static
+	*  @param {Array|String} assetOrAssets The collection of asset ids or single asset id. As an
+	*                                      array, it can be a manifest with {id:&quot;&quot;, src:&quot;&quot;} objects.
+	*/
+	AssetManager.unload = function(assetOrAssets)
+	{
+		var assets = [], i, length, asset;
+		//figure out the exact list of things we need to unload
+		if (Array.isArray(assetOrAssets))
+		{
+			for(i = 0, length = assetOrAssets.length; i &lt; length; ++i)
+			{
+				if (typeof assetOrAssets[i] == &quot;string&quot;)
+					assets.push(extractAssetName(assetOrAssets[i]));
+				else
+					assets.push(extractAssetName(assetOrAssets[i].id));
+			}
+		}
+		else
+			assets.push(extractAssetName(assetOrAssets));
+
+		//unload each asset
+		for(i = 0, length = assets.length; i &lt; length; ++i)
+		{
+			asset = assets[i];
+			//destroy it if it is a texture atlas
+			if (textureAtlases[asset])
+			{
+				textureAtlases[asset].destroy();
+				delete textureAtlases[asset];
+			}
+			//remove any BitmapMovieClip configuration data
+			if (BMCConfigs[asset])
+				delete BMCConfigs[asset];
+			//if it is a regular image, unload it
+			if (images[asset])
+			{
+				images[asset].src = &quot;&quot;;
+				delete images[asset];
+			}
+
+			// Remove javascript dom element
+			if (loadedLibs[asset])
+			{
+				var d = loadedLibs[asset];
+				d.parentNode.removeChild(d);
+				delete loadedLibs[asset];
+			}
+
+			var index = loadedAssets.indexOf(asset);
+			if (index &gt;= 0)
+				loadedAssets.splice(index, 1);
+		}
+		//go through everything we&#x27;ve put in the &#x27;lib&#x27; dictionary, and unload it
+		//if it belongs to something in the list of assets to unload
+		for(asset in loadedLibAssets)
+		{
+			if (assets.indexOf(loadedLibAssets[asset]) &gt; -1)
+			{
+				delete lib[asset];
+				delete loadedLibAssets[asset];
+			}
+		}
+	};
+
+	/**
+	*  Unloads all assets loaded by AssetManager.
+	*  @method unloadAll
+	*  @static
+	*/
+	AssetManager.unloadAll = function()
+	{
+		var i, length;
+		for(i = 0, length = loadedAssets.length; i &lt; length; ++i)
+		{
+			if (images[asset])
+			{
+				images[asset].src = &quot;&quot;;
+				delete images[asset];
+			}
+		}
+		for (i in loadedLibs)
+		{
+			var d = loadedLibs[i];
+			d.parentNode.removeChild(d);
+		}
+		loadedLibs = {};
+		for(i in loadedLibAssets)
+		{
+			delete lib[i];
+		}
+		loadedLibAssets = {};
+		for(i in textureAtlases)
+		{
+			textureAtlases[i].destroy();
+			delete textureAtlases[i];
+		}
+		loadedAssets.length = 0;
+	};
+
+	//Assign to namespace
+	namespace(&quot;springroll.easeljs&quot;).AssetManager = AssetManager;
+}());</pre>
+</div></div>
+</div>
+</div>
+</div>
+<script src='../assets/js/libraries.js?v=0.3.9'></script>
+<script src='../assets/js/main.js?v=0.3.9'></script>
+</body>
+</html>
