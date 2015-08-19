@@ -12,10 +12,7 @@
 		Debug;
 
 	/**
-	 *	Create an app plugin for Hinting, all properties and methods documented
-	 *	in this class are mixed-in to the main Application
-	 *	@class ConfigPlugin
-	 *	@extends springroll.ApplicationPlugin
+	 * @class Application
 	 */
 	var plugin = new ApplicationPlugin(80);
 

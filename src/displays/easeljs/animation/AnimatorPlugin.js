@@ -1,6 +1,6 @@
 /**
  * @module EaselJS Animation
- * @namespace springroll.easeljs
+ * @namespace springroll
  * @requires Core, EaselJS Display
  */
 (function()
@@ -10,10 +10,7 @@
 		Animator = include('springroll.easeljs.Animator');
 
 	/**
-	 * Create an app plugin for Animator, all properties and methods documented
-	 * in this class are mixed-in to the main Application
-	 * @class AnimatorPlugin
-	 * @extends springroll.ApplicationPlugin
+	 * @class Application
 	 */
 	var plugin = new ApplicationPlugin();
 
