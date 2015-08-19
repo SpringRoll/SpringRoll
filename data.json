@@ -22,9 +22,7 @@
             "modules": {
                 "Container Client": 1
             },
-            "classes": {
-                "springroll.ContainerPlugin": 1
-            },
+            "classes": {},
             "fors": {},
             "namespaces": {
                 "springroll": 1
@@ -155,9 +153,7 @@
         "src/core/PageVisibilityPlugin.js": {
             "name": "src/core/PageVisibilityPlugin.js",
             "modules": {},
-            "classes": {
-                "springroll.PageVisibilityPlugin": 1
-            },
+            "classes": {},
             "fors": {},
             "namespaces": {
                 "springroll": 1
@@ -188,9 +184,7 @@
         "src/core/StringFiltersPlugin.js": {
             "name": "src/core/StringFiltersPlugin.js",
             "modules": {},
-            "classes": {
-                "springroll.StringFiltersPlugin": 1
-            },
+            "classes": {},
             "fors": {},
             "namespaces": {
                 "springroll": 1
@@ -223,9 +217,7 @@
         "src/debug/DebugPlugin.js": {
             "name": "src/debug/DebugPlugin.js",
             "modules": {},
-            "classes": {
-                "springroll.DebugPlugin": 1
-            },
+            "classes": {},
             "fors": {},
             "namespaces": {
                 "springroll": 1
@@ -247,12 +239,10 @@
         "src/displays/easeljs/animation/AnimatorPlugin.js": {
             "name": "src/displays/easeljs/animation/AnimatorPlugin.js",
             "modules": {},
-            "classes": {
-                "springroll.easeljs.AnimatorPlugin": 1
-            },
+            "classes": {},
             "fors": {},
             "namespaces": {
-                "springroll.easeljs": 1
+                "springroll": 1
             }
         },
         "src/displays/easeljs/animation/AnimatorTimeline.js": {
@@ -329,12 +319,10 @@
         "src/displays/easeljs/learning/OffClickPlugin.js": {
             "name": "src/displays/easeljs/learning/OffClickPlugin.js",
             "modules": {},
-            "classes": {
-                "springroll.easeljs.OffClickPlugin": 1
-            },
+            "classes": {},
             "fors": {},
             "namespaces": {
-                "springroll.easeljs": 1
+                "springroll": 1
             }
         },
         "src/displays/easeljs/mixins/Container.js": {
@@ -397,12 +385,10 @@
         "src/displays/easeljs/states/ManifestsPlugin.js": {
             "name": "src/displays/easeljs/states/ManifestsPlugin.js",
             "modules": {},
-            "classes": {
-                "springroll.easeljs.ManifestsPlugin": 1
-            },
+            "classes": {},
             "fors": {},
             "namespaces": {
-                "springroll.easeljs": 1
+                "springroll": 1
             }
         },
         "src/displays/easeljs/ui/AssetManager.js": {
@@ -421,12 +407,10 @@
         "src/displays/easeljs/ui/AssetManagerPlugin.js": {
             "name": "src/displays/easeljs/ui/AssetManagerPlugin.js",
             "modules": {},
-            "classes": {
-                "springroll.easeljs.AssetManagerPlugin": 1
-            },
+            "classes": {},
             "fors": {},
             "namespaces": {
-                "springroll.easeljs": 1
+                "springroll": 1
             }
         },
         "src/displays/easeljs/ui/Button.js": {
@@ -603,12 +587,10 @@
         "src/displays/pixi/animation/AnimatorPlugin.js": {
             "name": "src/displays/pixi/animation/AnimatorPlugin.js",
             "modules": {},
-            "classes": {
-                "springroll.pixi.AnimatorPlugin": 1
-            },
+            "classes": {},
             "fors": {},
             "namespaces": {
-                "springroll.pixi": 1
+                "springroll": 1
             }
         },
         "src/displays/pixi/animation/AnimatorTimeline.js": {
@@ -794,9 +776,7 @@
         "src/hints/HintsPlugin.js": {
             "name": "src/hints/HintsPlugin.js",
             "modules": {},
-            "classes": {
-                "springroll.HintsPlugin": 1
-            },
+            "classes": {},
             "fors": {},
             "namespaces": {
                 "springroll": 1
@@ -829,9 +809,7 @@
         "src/languages/LanguagesPlugin.js": {
             "name": "src/languages/LanguagesPlugin.js",
             "modules": {},
-            "classes": {
-                "springroll.LanguagesPlugin": 1
-            },
+            "classes": {},
             "fors": {},
             "namespaces": {
                 "springroll": 1
@@ -919,9 +897,7 @@
         "src/learning/LearningMediaPlugin.js": {
             "name": "src/learning/LearningMediaPlugin.js",
             "modules": {},
-            "classes": {
-                "springroll.LearningMediaPlugin": 1
-            },
+            "classes": {},
             "fors": {},
             "namespaces": {
                 "springroll": 1
@@ -932,9 +908,7 @@
             "modules": {
                 "Learning": 1
             },
-            "classes": {
-                "springroll.LearningPlugin": 1
-            },
+            "classes": {},
             "fors": {},
             "namespaces": {
                 "springroll": 1
@@ -976,9 +950,7 @@
         "src/loaders/LoaderPlugin.js": {
             "name": "src/loaders/LoaderPlugin.js",
             "modules": {},
-            "classes": {
-                "springroll.LoaderPlugin": 1
-            },
+            "classes": {},
             "fors": {},
             "namespaces": {
                 "springroll": 1
@@ -1024,9 +996,7 @@
             "modules": {
                 "Sound": 1
             },
-            "classes": {
-                "springroll.CaptionsPlugin": 1
-            },
+            "classes": {},
             "fors": {},
             "namespaces": {
                 "springroll": 1
@@ -1079,9 +1049,7 @@
         "src/media/SoundPlugin.js": {
             "name": "src/media/SoundPlugin.js",
             "modules": {},
-            "classes": {
-                "springroll.SoundPlugin": 1
-            },
+            "classes": {},
             "fors": {},
             "namespaces": {
                 "springroll": 1
@@ -1191,9 +1159,7 @@
         "src/states/StatesPlugin.js": {
             "name": "src/states/StatesPlugin.js",
             "modules": {},
-            "classes": {
-                "springroll.StatesPlugin": 1
-            },
+            "classes": {},
             "fors": {},
             "namespaces": {
                 "springroll": 1
@@ -1204,9 +1170,7 @@
             "modules": {
                 "Tasks": 1
             },
-            "classes": {
-                "springroll.ConfigPlugin": 1
-            },
+            "classes": {},
             "fors": {},
             "namespaces": {
                 "springroll": 1
@@ -1327,9 +1291,7 @@
         "src/ui/ScalingPlugin.js": {
             "name": "src/ui/ScalingPlugin.js",
             "modules": {},
-            "classes": {
-                "springroll.ScalingPlugin": 1
-            },
+            "classes": {},
             "fors": {},
             "namespaces": {
                 "springroll": 1
@@ -1338,9 +1300,7 @@
         "src/ui/TouchPlugin.js": {
             "name": "src/ui/TouchPlugin.js",
             "modules": {},
-            "classes": {
-                "springroll.TouchPlugin": 1
-            },
+            "classes": {},
             "fors": {},
             "namespaces": {
                 "springroll": 1
@@ -1423,21 +1383,20 @@
         "Container Client": {
             "name": "Container Client",
             "submodules": {},
-            "classes": {
-                "springroll.ContainerPlugin": 1
-            },
+            "classes": {},
             "fors": {},
             "namespaces": {
                 "springroll": 1
             },
             "tag": "module",
             "file": "src/container/ContainerPlugin.js",
-            "line": 12
+            "line": 1
         },
         "Core": {
             "name": "Core",
             "submodules": {},
             "classes": {
+                "springroll.Application": 1,
                 "springroll.CombinedCallback": 1,
                 "springroll.DelayedCall": 1,
                 "window.async": 1,
@@ -1449,17 +1408,13 @@
                 "springroll.ApplicationOptions": 1,
                 "springroll.ApplicationPlugin": 1,
                 "springroll.PageVisibility": 1,
-                "springroll.PageVisibilityPlugin": 1,
                 "springroll.ResizePlugin": 1,
                 "springroll.StringFilters": 1,
-                "springroll.StringFiltersPlugin": 1,
-                "springroll.DebugPlugin": 1,
                 "springroll.AbstractDisplay": 1,
                 "springroll.EventDispatcher": 1,
                 "springroll.PropertyDispatcher": 1,
                 "springroll.CacheManager": 1,
                 "springroll.Loader": 1,
-                "springroll.LoaderPlugin": 1,
                 "springroll.LoaderQueueItem": 1,
                 "springroll.LoaderResult": 1,
                 "window.Array": 1,
@@ -1470,8 +1425,7 @@
                 "window.extend": 1,
                 "window.include": 1,
                 "window.mixin": 1,
-                "window.namespace": 1,
-                "springroll.Application": 1
+                "window.namespace": 1
             },
             "fors": {},
             "namespaces": {
@@ -1479,8 +1433,8 @@
                 "window": 1
             },
             "tag": "module",
-            "file": "src/Application.js",
-            "line": 13
+            "file": "src/utils/namespace.js",
+            "line": 5
         },
         "Debug": {
             "name": "Debug",
@@ -1502,7 +1456,6 @@
             "submodules": {},
             "classes": {
                 "springroll.easeljs.Animator": 1,
-                "springroll.easeljs.AnimatorPlugin": 1,
                 "springroll.easeljs.AnimatorTimeline": 1,
                 "springroll.easeljs.BitmapMovieClip": 1,
                 "springroll.easeljs.ReversePlayback": 1,
@@ -1511,7 +1464,8 @@
             },
             "fors": {},
             "namespaces": {
-                "springroll.easeljs": 1
+                "springroll.easeljs": 1,
+                "springroll": 1
             },
             "tag": "module",
             "file": "src/displays/easeljs/animation/TextureAtlas.js",
@@ -1545,16 +1499,16 @@
             "name": "EaselJS Learning",
             "submodules": {},
             "classes": {
-                "springroll.easeljs.DwellTimer": 1,
-                "springroll.easeljs.OffClickPlugin": 1
+                "springroll.easeljs.DwellTimer": 1
             },
             "fors": {},
             "namespaces": {
-                "springroll.easeljs": 1
+                "springroll.easeljs": 1,
+                "springroll": 1
             },
             "tag": "module",
-            "file": "src/displays/easeljs/learning/OffClickPlugin.js",
-            "line": 13,
+            "file": "src/displays/easeljs/learning/DwellTimer.js",
+            "line": 10,
             "requires": [
                 "Core",
                 "Learning"
@@ -1587,16 +1541,16 @@
             "submodules": {},
             "classes": {
                 "springroll.easeljs.BasePanel": 1,
-                "springroll.easeljs.BaseState": 1,
-                "springroll.easeljs.ManifestsPlugin": 1
+                "springroll.easeljs.BaseState": 1
             },
             "fors": {},
             "namespaces": {
-                "springroll.easeljs": 1
+                "springroll.easeljs": 1,
+                "springroll": 1
             },
             "tag": "module",
-            "file": "src/displays/easeljs/states/ManifestsPlugin.js",
-            "line": 14,
+            "file": "src/displays/easeljs/states/BaseState.js",
+            "line": 16,
             "requires": [
                 "Core",
                 "States",
@@ -1612,14 +1566,14 @@
             "submodules": {},
             "classes": {
                 "springroll.easeljs.AssetManager": 1,
-                "springroll.easeljs.AssetManagerPlugin": 1,
                 "springroll.easeljs.Button": 1,
                 "springroll.easeljs.DragManager": 1,
                 "springroll.easeljs.SoundButton": 1
             },
             "fors": {},
             "namespaces": {
-                "springroll.easeljs": 1
+                "springroll.easeljs": 1,
+                "springroll": 1
             },
             "tag": "module",
             "file": "src/displays/easeljs/ui/SoundButton.js",
@@ -1676,13 +1630,13 @@
             "submodules": {},
             "classes": {
                 "springroll.pixi.Animator": 1,
-                "springroll.pixi.AnimatorPlugin": 1,
                 "springroll.pixi.AnimatorTimeline": 1,
                 "springroll.pixi.ParallelSpineData": 1
             },
             "fors": {},
             "namespaces": {
-                "springroll.pixi": 1
+                "springroll.pixi": 1,
+                "springroll": 1
             },
             "tag": "module",
             "file": "src/displays/pixi/animation/ParallelSpineData.js",
@@ -1739,7 +1693,6 @@
                 "springroll.FunctionHint": 1,
                 "springroll.GroupHint": 1,
                 "springroll.HintsPlayer": 1,
-                "springroll.HintsPlugin": 1,
                 "springroll.VOHint": 1
             },
             "fors": {},
@@ -1759,16 +1712,15 @@
             "name": "Languages",
             "submodules": {},
             "classes": {
-                "springroll.Languages": 1,
-                "springroll.LanguagesPlugin": 1
+                "springroll.Languages": 1
             },
             "fors": {},
             "namespaces": {
                 "springroll": 1
             },
             "tag": "module",
-            "file": "src/languages/LanguagesPlugin.js",
-            "line": 13,
+            "file": "src/languages/Languages.js",
+            "line": 11,
             "requires": [
                 "Core"
             ]
@@ -1783,7 +1735,6 @@
                 "springroll.EventUtils": 1,
                 "springroll.Learning": 1,
                 "springroll.LearningError": 1,
-                "springroll.LearningPlugin": 1,
                 "springroll.ValidationError": 1
             },
             "fors": {},
@@ -1801,16 +1752,15 @@
             "name": "Learning Media",
             "submodules": {},
             "classes": {
-                "springroll.LearningMedia": 1,
-                "springroll.LearningMediaPlugin": 1
+                "springroll.LearningMedia": 1
             },
             "fors": {},
             "namespaces": {
                 "springroll": 1
             },
             "tag": "module",
-            "file": "src/learning/LearningMediaPlugin.js",
-            "line": 12,
+            "file": "src/learning/LearningMedia.js",
+            "line": 11,
             "requires": [
                 "Core",
                 "Learning",
@@ -1839,12 +1789,10 @@
             "name": "Sound",
             "submodules": {},
             "classes": {
-                "springroll.CaptionsPlugin": 1,
                 "springroll.Sound": 1,
                 "springroll.SoundContext": 1,
                 "springroll.SoundInstance": 1,
                 "springroll.SoundListTask": 1,
-                "springroll.SoundPlugin": 1,
                 "springroll.VOPlayer": 1
             },
             "fors": {},
@@ -1864,16 +1812,15 @@
             "classes": {
                 "springroll.State": 1,
                 "springroll.StateEvent": 1,
-                "springroll.StateManager": 1,
-                "springroll.StatesPlugin": 1
+                "springroll.StateManager": 1
             },
             "fors": {},
             "namespaces": {
                 "springroll": 1
             },
             "tag": "module",
-            "file": "src/states/StatesPlugin.js",
-            "line": 13,
+            "file": "src/states/StateManager.js",
+            "line": 14,
             "requires": [
                 "Core"
             ]
@@ -1882,7 +1829,6 @@
             "name": "Tasks",
             "submodules": {},
             "classes": {
-                "springroll.ConfigPlugin": 1,
                 "springroll.FunctionTask": 1,
                 "springroll.ListTask": 1,
                 "springroll.LoadTask": 1,
@@ -1908,17 +1854,15 @@
             "classes": {
                 "springroll.Positioner": 1,
                 "springroll.ScaleItem": 1,
-                "springroll.ScaleManager": 1,
-                "springroll.ScalingPlugin": 1,
-                "springroll.TouchPlugin": 1
+                "springroll.ScaleManager": 1
             },
             "fors": {},
             "namespaces": {
                 "springroll": 1
             },
             "tag": "module",
-            "file": "src/ui/TouchPlugin.js",
-            "line": 10,
+            "file": "src/ui/ScaleManager.js",
+            "line": 14,
             "requires": [
                 "Core"
             ]
@@ -1997,20 +1941,29 @@
                 }
             ]
         },
-        "springroll.ContainerPlugin": {
-            "name": "springroll.ContainerPlugin",
-            "shortname": "ContainerPlugin",
+        "springroll.Application": {
+            "name": "springroll.Application",
+            "shortname": "Application",
             "classitems": [],
             "plugins": [],
             "extensions": [],
             "plugin_for": [],
             "extension_for": [],
-            "module": "Container Client",
+            "module": "Core",
             "namespace": "springroll",
-            "file": "src/container/ContainerPlugin.js",
-            "line": 12,
-            "description": "Create an app plugin for working with the Game Container, all properties and methods documented\nin this class are mixed-in to the main Application",
-            "extends": "springroll.ApplicationPlugin"
+            "file": "src/Application.js",
+            "line": 13,
+            "description": "Creates a new application, for example (HappyCamel extends Application)\nmanages displays, update loop controlling, handles resizing\n\n\tvar app = new Application();",
+            "extends": "springroll.EventDispatcher",
+            "is_constructor": 1,
+            "params": [
+                {
+                    "name": "options",
+                    "description": "The options for creating the application,\n \t\tsee `springroll.ApplicationOptions` for the specific options\n\t\tthat can be overridden and set.",
+                    "type": "Object",
+                    "optional": true
+                }
+            ]
         },
         "springroll.Features": {
             "name": "springroll.Features",
@@ -2311,21 +2264,6 @@
                 }
             ]
         },
-        "springroll.PageVisibilityPlugin": {
-            "name": "springroll.PageVisibilityPlugin",
-            "shortname": "PageVisibilityPlugin",
-            "classitems": [],
-            "plugins": [],
-            "extensions": [],
-            "plugin_for": [],
-            "extension_for": [],
-            "module": "Core",
-            "namespace": "springroll",
-            "file": "src/core/PageVisibilityPlugin.js",
-            "line": 9,
-            "description": "Create an app plugin for Page Visibility listener, all properties and methods documented\nin this class are mixed-in to the main Application",
-            "extends": "springroll.ApplicationPlugin"
-        },
         "springroll.ResizePlugin": {
             "name": "springroll.ResizePlugin",
             "shortname": "ResizePlugin",
@@ -2356,21 +2294,6 @@
             "description": "Class for filtering strings",
             "is_constructor": 1
         },
-        "springroll.StringFiltersPlugin": {
-            "name": "springroll.StringFiltersPlugin",
-            "shortname": "StringFiltersPlugin",
-            "classitems": [],
-            "plugins": [],
-            "extensions": [],
-            "plugin_for": [],
-            "extension_for": [],
-            "module": "Core",
-            "namespace": "springroll",
-            "file": "src/core/StringFiltersPlugin.js",
-            "line": 9,
-            "description": "Create an app plugin for String Filters, all properties and methods documented\nin this class are mixed-in to the main Application",
-            "extends": "springroll.ApplicationPlugin"
-        },
         "springroll.Debug": {
             "name": "springroll.Debug",
             "shortname": "Debug",
@@ -2400,21 +2323,6 @@
             "line": 7,
             "description": "Class for display a list of query string options\nnicely in the console."
         },
-        "springroll.DebugPlugin": {
-            "name": "springroll.DebugPlugin",
-            "shortname": "DebugPlugin",
-            "classitems": [],
-            "plugins": [],
-            "extensions": [],
-            "plugin_for": [],
-            "extension_for": [],
-            "module": "Core",
-            "namespace": "springroll",
-            "file": "src/debug/DebugPlugin.js",
-            "line": 11,
-            "description": "Create an app plugin for Debug, all properties and methods documented\nin this class are mixed-in to the main Application",
-            "extends": "springroll.ApplicationPlugin"
-        },
         "springroll.easeljs.Animator": {
             "name": "springroll.easeljs.Animator",
             "shortname": "Animator",
@@ -2429,21 +2337,6 @@
             "line": 14,
             "description": "Animator is a static class designed to provided\nbase animation functionality, using frame labels of MovieClips",
             "static": 1
-        },
-        "springroll.easeljs.AnimatorPlugin": {
-            "name": "springroll.easeljs.AnimatorPlugin",
-            "shortname": "AnimatorPlugin",
-            "classitems": [],
-            "plugins": [],
-            "extensions": [],
-            "plugin_for": [],
-            "extension_for": [],
-            "module": "EaselJS Animation",
-            "namespace": "springroll.easeljs",
-            "file": "src/displays/easeljs/animation/AnimatorPlugin.js",
-            "line": 12,
-            "description": "Create an app plugin for Animator, all properties and methods documented\nin this class are mixed-in to the main Application",
-            "extends": "springroll.ApplicationPlugin"
         },
         "springroll.easeljs.AnimatorTimeline": {
             "name": "springroll.easeljs.AnimatorTimeline",
@@ -2707,21 +2600,6 @@
                 }
             ]
         },
-        "springroll.easeljs.OffClickPlugin": {
-            "name": "springroll.easeljs.OffClickPlugin",
-            "shortname": "OffClickPlugin",
-            "classitems": [],
-            "plugins": [],
-            "extensions": [],
-            "plugin_for": [],
-            "extension_for": [],
-            "module": "EaselJS Learning",
-            "namespace": "springroll.easeljs",
-            "file": "src/displays/easeljs/learning/OffClickPlugin.js",
-            "line": 13,
-            "description": "Create an app plugin EaselJS off click reporting to learning dispatcher\nautomatically, all properties and methods documented\nin this class are mixed-in to the main Application",
-            "extends": "springroll.ApplicationPlugin"
-        },
         "createjs.Container": {
             "name": "createjs.Container",
             "shortname": "Container",
@@ -2846,44 +2724,6 @@
                 }
             ]
         },
-        "springroll.easeljs.ManifestsPlugin": {
-            "name": "springroll.easeljs.ManifestsPlugin",
-            "shortname": "ManifestsPlugin",
-            "classitems": [],
-            "plugins": [],
-            "extensions": [],
-            "plugin_for": [],
-            "extension_for": [],
-            "module": "EaselJS States",
-            "namespace": "springroll.easeljs",
-            "file": "src/displays/easeljs/states/ManifestsPlugin.js",
-            "line": 14,
-            "description": "A createjs-based Game to load manifests",
-            "extends": "springroll.ApplicationPlugin",
-            "params": [
-                {
-                    "name": "options.fps",
-                    "description": "The framerate to use for the main display",
-                    "type": "Int",
-                    "optional": true,
-                    "optdefault": "30"
-                },
-                {
-                    "name": "options.display",
-                    "description": "The\ndisplay class to use as the default display.",
-                    "type": "Function",
-                    "optional": true,
-                    "optdefault": "springroll.easeljsDisplay"
-                },
-                {
-                    "name": "options.displayOptions.clearView",
-                    "description": "If the stage view\nshould be cleared everytime in CreateJS stage.",
-                    "type": "Boolean",
-                    "optional": true,
-                    "optdefault": "true"
-                }
-            ]
-        },
         "springroll.easeljs.AssetManager": {
             "name": "springroll.easeljs.AssetManager",
             "shortname": "AssetManager",
@@ -2898,21 +2738,6 @@
             "line": 16,
             "description": "Class for managing the loading and unloading of assets.",
             "static": 1
-        },
-        "springroll.easeljs.AssetManagerPlugin": {
-            "name": "springroll.easeljs.AssetManagerPlugin",
-            "shortname": "AssetManagerPlugin",
-            "classitems": [],
-            "plugins": [],
-            "extensions": [],
-            "plugin_for": [],
-            "extension_for": [],
-            "module": "EaselJS UI",
-            "namespace": "springroll.easeljs",
-            "file": "src/displays/easeljs/ui/AssetManagerPlugin.js",
-            "line": 12,
-            "description": "Initialize the AssetManager",
-            "extends": "springroll.ApplicationPlugin"
         },
         "springroll.easeljs.Button": {
             "name": "springroll.easeljs.Button",
@@ -3556,21 +3381,6 @@
             "description": "Animator for interacting with Spine animations",
             "static": 1
         },
-        "springroll.pixi.AnimatorPlugin": {
-            "name": "springroll.pixi.AnimatorPlugin",
-            "shortname": "AnimatorPlugin",
-            "classitems": [],
-            "plugins": [],
-            "extensions": [],
-            "plugin_for": [],
-            "extension_for": [],
-            "module": "PIXI Animation",
-            "namespace": "springroll.pixi",
-            "file": "src/displays/pixi/animation/AnimatorPlugin.js",
-            "line": 12,
-            "description": "Create an app plugin for Animator, all properties and methods documented\nin this class are mixed-in to the main Application",
-            "extends": "springroll.ApplicationPlugin"
-        },
         "springroll.pixi.AnimatorTimeline": {
             "name": "springroll.pixi.AnimatorTimeline",
             "shortname": "AnimatorTimeline",
@@ -4209,21 +4019,6 @@
                 }
             ]
         },
-        "springroll.HintsPlugin": {
-            "name": "springroll.HintsPlugin",
-            "shortname": "HintsPlugin",
-            "classitems": [],
-            "plugins": [],
-            "extensions": [],
-            "plugin_for": [],
-            "extension_for": [],
-            "module": "Hints",
-            "namespace": "springroll",
-            "file": "src/hints/HintsPlugin.js",
-            "line": 12,
-            "description": "Create an app plugin for Hinting, all properties and methods documented\nin this class are mixed-in to the main Application",
-            "extends": "springroll.ApplicationPlugin"
-        },
         "springroll.VOHint": {
             "name": "springroll.VOHint",
             "shortname": "VOHint",
@@ -4308,21 +4103,6 @@
                     ]
                 }
             ]
-        },
-        "springroll.LanguagesPlugin": {
-            "name": "springroll.LanguagesPlugin",
-            "shortname": "LanguagesPlugin",
-            "classitems": [],
-            "plugins": [],
-            "extensions": [],
-            "plugin_for": [],
-            "extension_for": [],
-            "module": "Languages",
-            "namespace": "springroll",
-            "file": "src/languages/LanguagesPlugin.js",
-            "line": 13,
-            "description": "Create an app plugin for Language, all properties and methods documented\nin this class are mixed-in to the main Application",
-            "extends": "springroll.ApplicationPlugin"
         },
         "springroll.EventCatalog": {
             "name": "springroll.EventCatalog",
@@ -4487,36 +4267,6 @@
             "line": 11,
             "description": "This class contains a bunch of media playing class\nto provide convenience around using the Learning Dispatcher"
         },
-        "springroll.LearningMediaPlugin": {
-            "name": "springroll.LearningMediaPlugin",
-            "shortname": "LearningMediaPlugin",
-            "classitems": [],
-            "plugins": [],
-            "extensions": [],
-            "plugin_for": [],
-            "extension_for": [],
-            "module": "Learning Media",
-            "namespace": "springroll",
-            "file": "src/learning/LearningMediaPlugin.js",
-            "line": 12,
-            "description": "Create an app plugin for Learning Media, all properties and methods documented\nin this class are mixed-in to the main Application",
-            "extends": "springroll.ApplicationPlugin"
-        },
-        "springroll.LearningPlugin": {
-            "name": "springroll.LearningPlugin",
-            "shortname": "LearningPlugin",
-            "classitems": [],
-            "plugins": [],
-            "extensions": [],
-            "plugin_for": [],
-            "extension_for": [],
-            "module": "Learning",
-            "namespace": "springroll",
-            "file": "src/learning/LearningPlugin.js",
-            "line": 13,
-            "description": "Create an app plugin for Learning Dispatcher, all properties and methods documented\nin this class are mixed-in to the main Application",
-            "extends": "springroll.ApplicationPlugin"
-        },
         "springroll.ValidationError": {
             "name": "springroll.ValidationError",
             "shortname": "ValidationError",
@@ -4572,21 +4322,6 @@
             "file": "src/loaders/Loader.js",
             "line": 16,
             "description": "The Loader is the singleton loader for loading all assets\nincluding images, data, code and sounds. Loader supports cache-busting\nin the browser using dynamic query string parameters."
-        },
-        "springroll.LoaderPlugin": {
-            "name": "springroll.LoaderPlugin",
-            "shortname": "LoaderPlugin",
-            "classitems": [],
-            "plugins": [],
-            "extensions": [],
-            "plugin_for": [],
-            "extension_for": [],
-            "module": "Core",
-            "namespace": "springroll",
-            "file": "src/loaders/LoaderPlugin.js",
-            "line": 9,
-            "description": "Create an app plugin for Loader, all properties and methods documented\nin this class are mixed-in to the main Application",
-            "extends": "springroll.ApplicationPlugin"
         },
         "springroll.LoaderQueueItem": {
             "name": "springroll.LoaderQueueItem",
@@ -4675,21 +4410,6 @@
                 }
             ]
         },
-        "springroll.CaptionsPlugin": {
-            "name": "springroll.CaptionsPlugin",
-            "shortname": "CaptionsPlugin",
-            "classitems": [],
-            "plugins": [],
-            "extensions": [],
-            "plugin_for": [],
-            "extension_for": [],
-            "module": "Sound",
-            "namespace": "springroll",
-            "file": "src/media/CaptionsPlugin.js",
-            "line": 13,
-            "description": "Plugin for the Captions class, all properties and methods documented\nin this class are mixed-in to the main Application",
-            "extends": "springroll.ApplicationPlugin"
-        },
         "springroll.Sound": {
             "name": "springroll.Sound",
             "shortname": "Sound",
@@ -4772,21 +4492,6 @@
                     "type": "Function"
                 }
             ]
-        },
-        "springroll.SoundPlugin": {
-            "name": "springroll.SoundPlugin",
-            "shortname": "SoundPlugin",
-            "classitems": [],
-            "plugins": [],
-            "extensions": [],
-            "plugin_for": [],
-            "extension_for": [],
-            "module": "Sound",
-            "namespace": "springroll",
-            "file": "src/media/SoundPlugin.js",
-            "line": 13,
-            "description": "Plugin for the Sound class, all properties and methods documented\nin this class are mixed-in to the main Application",
-            "extends": "springroll.ApplicationPlugin"
         },
         "springroll.VOPlayer": {
             "name": "springroll.VOPlayer",
@@ -5003,36 +4708,6 @@
                     ]
                 }
             ]
-        },
-        "springroll.StatesPlugin": {
-            "name": "springroll.StatesPlugin",
-            "shortname": "StatesPlugin",
-            "classitems": [],
-            "plugins": [],
-            "extensions": [],
-            "plugin_for": [],
-            "extension_for": [],
-            "module": "States",
-            "namespace": "springroll",
-            "file": "src/states/StatesPlugin.js",
-            "line": 13,
-            "description": "Create an app plugin for Loader, all properties and methods documented\nin this class are mixed-in to the main Application",
-            "extends": "springroll.ApplicationPlugin"
-        },
-        "springroll.ConfigPlugin": {
-            "name": "springroll.ConfigPlugin",
-            "shortname": "ConfigPlugin",
-            "classitems": [],
-            "plugins": [],
-            "extensions": [],
-            "plugin_for": [],
-            "extension_for": [],
-            "module": "Tasks",
-            "namespace": "springroll",
-            "file": "src/tasks/ConfigPlugin.js",
-            "line": 14,
-            "description": "Create an app plugin for Hinting, all properties and methods documented\nin this class are mixed-in to the main Application",
-            "extends": "springroll.ApplicationPlugin"
         },
         "springroll.FunctionTask": {
             "name": "springroll.FunctionTask",
@@ -5406,36 +5081,6 @@
                 }
             ]
         },
-        "springroll.ScalingPlugin": {
-            "name": "springroll.ScalingPlugin",
-            "shortname": "ScalingPlugin",
-            "classitems": [],
-            "plugins": [],
-            "extensions": [],
-            "plugin_for": [],
-            "extension_for": [],
-            "module": "UI",
-            "namespace": "springroll",
-            "file": "src/ui/ScalingPlugin.js",
-            "line": 13,
-            "description": "Create an app plugin for touch detecting, all properties and methods documented\nin this class are mixed-in to the main Application",
-            "extends": "springroll.ApplicationPlugin"
-        },
-        "springroll.TouchPlugin": {
-            "name": "springroll.TouchPlugin",
-            "shortname": "TouchPlugin",
-            "classitems": [],
-            "plugins": [],
-            "extensions": [],
-            "plugin_for": [],
-            "extension_for": [],
-            "module": "UI",
-            "namespace": "springroll",
-            "file": "src/ui/TouchPlugin.js",
-            "line": 10,
-            "description": "Create an app plugin for touch detecting, all properties and methods documented\nin this class are mixed-in to the main Application",
-            "extends": "springroll.ApplicationPlugin"
-        },
         "window.extend": {
             "name": "window.extend",
             "shortname": "extend",
@@ -5495,30 +5140,6 @@
             "line": 5,
             "description": "Static class for namespacing objects and adding\nclasses to it.",
             "static": 1
-        },
-        "springroll.Application": {
-            "name": "springroll.Application",
-            "shortname": "Application",
-            "classitems": [],
-            "plugins": [],
-            "extensions": [],
-            "plugin_for": [],
-            "extension_for": [],
-            "module": "Core",
-            "namespace": "springroll",
-            "file": "src/Application.js",
-            "line": 13,
-            "description": "Creates a new application, for example (HappyCamel extends Application)\nmanages displays, update loop controlling, handles resizing\n\n\tvar app = new Application();",
-            "extends": "EventDispatcher",
-            "is_constructor": 1,
-            "params": [
-                {
-                    "name": "options",
-                    "description": "The options for creating the application,\n \t\tsee `springroll.ApplicationOptions` for the specific options\n\t\tthat can be overridden and set.",
-                    "type": "Object",
-                    "optional": true
-                }
-            ]
         }
     },
     "classitems": [
@@ -6740,78 +6361,78 @@
         },
         {
             "file": "src/container/ContainerPlugin.js",
-            "line": 23,
+            "line": 20,
             "description": "The default play-mode for the application is continuous, if the application is\nrunning as part of a sequence is it considered in \"single play\" mode\nand the application will therefore close itself.",
             "itemtype": "property",
             "name": "options.singlePlay",
             "type": "Boolean",
             "readonly": "",
             "default": "false",
-            "class": "springroll.ContainerPlugin",
+            "class": "springroll.Application",
             "module": "Container Client",
             "namespace": "springroll"
         },
         {
             "file": "src/container/ContainerPlugin.js",
-            "line": 33,
+            "line": 30,
             "description": "The optional play options to use if the application is played in \"single play\"\nmode. These options are passed from the application container to specify\noptions that are used for this single play session. For instance,\nif you want the single play to focus on a certain level or curriculum\nsuch as `{ \"shape\": \"square\" }`",
             "itemtype": "property",
             "name": "options.playOptions",
             "type": "Object",
             "readonly": "",
-            "class": "springroll.ContainerPlugin",
+            "class": "springroll.Application",
             "module": "Container Client",
             "namespace": "springroll"
         },
         {
             "file": "src/container/ContainerPlugin.js",
-            "line": 44,
+            "line": 41,
             "description": "Send a message to let the site know that this has\nbeen loaded, if the site is there",
             "itemtype": "property",
             "name": "container",
             "type": "Bellhop",
-            "class": "springroll.ContainerPlugin",
+            "class": "springroll.Application",
             "module": "Container Client",
             "namespace": "springroll"
         },
         {
             "file": "src/container/ContainerPlugin.js",
-            "line": 70,
+            "line": 67,
             "description": "The default play-mode for the application is continuous, if the application is\nrunning as part of a sequence is it considered in \"single play\" mode\nand the application will therefore close itself.",
             "itemtype": "property",
             "name": "singlePlay",
             "type": "Boolean",
             "readonly": "",
             "default": "false",
-            "class": "springroll.ContainerPlugin",
+            "class": "springroll.Application",
             "module": "Container Client",
             "namespace": "springroll"
         },
         {
             "file": "src/container/ContainerPlugin.js",
-            "line": 80,
+            "line": 77,
             "description": "The optional play options to use if the application is played in \"single play\"\nmode. These options are passed from the application container to specify\noptions that are used for this single play session. For instance,\nif you want the single play to focus on a certain level or curriculum\nsuch as `{ \"shape\": \"square\" }`",
             "itemtype": "property",
             "name": "playOptions",
             "type": "Object",
             "readonly": "",
-            "class": "springroll.ContainerPlugin",
+            "class": "springroll.Application",
             "module": "Container Client",
             "namespace": "springroll"
         },
         {
             "file": "src/container/ContainerPlugin.js",
-            "line": 91,
+            "line": 88,
             "description": "When a application is in singlePlay mode it will end.\nIt's unnecessary to check `if (this.singlePlay)` just\ncall the method and it will end the application if it can.",
             "itemtype": "method",
             "name": "singlePlayEnd",
-            "class": "springroll.ContainerPlugin",
+            "class": "springroll.Application",
             "module": "Container Client",
             "namespace": "springroll"
         },
         {
             "file": "src/container/ContainerPlugin.js",
-            "line": 105,
+            "line": 102,
             "description": "Manually close the application, this can happen when playing through once",
             "itemtype": "method",
             "name": "endGame",
@@ -6824,13 +6445,13 @@
                     "optdefault": "'game_completed'"
                 }
             ],
-            "class": "springroll.ContainerPlugin",
+            "class": "springroll.Application",
             "module": "Container Client",
             "namespace": "springroll"
         },
         {
             "file": "src/container/ContainerPlugin.js",
-            "line": 116,
+            "line": 113,
             "description": "Track a Google Analytics event",
             "itemtype": "method",
             "name": "analyticEvent",
@@ -6853,13 +6474,13 @@
                     "optional": true
                 }
             ],
-            "class": "springroll.ContainerPlugin",
+            "class": "springroll.Application",
             "module": "Container Client",
             "namespace": "springroll"
         },
         {
             "file": "src/container/ContainerPlugin.js",
-            "line": 211,
+            "line": 208,
             "description": "When the container pauses the application",
             "itemtype": "method",
             "name": "onPause",
@@ -6872,13 +6493,13 @@
                     "type": "Event"
                 }
             ],
-            "class": "springroll.ContainerPlugin",
+            "class": "springroll.Application",
             "module": "Container Client",
             "namespace": "springroll"
         },
         {
             "file": "src/container/ContainerPlugin.js",
-            "line": 223,
+            "line": 220,
             "description": "Handler when the sound is muted",
             "itemtype": "method",
             "name": "onSoundMuted",
@@ -6891,13 +6512,13 @@
                     "type": "Event"
                 }
             ],
-            "class": "springroll.ContainerPlugin",
+            "class": "springroll.Application",
             "module": "Container Client",
             "namespace": "springroll"
         },
         {
             "file": "src/container/ContainerPlugin.js",
-            "line": 234,
+            "line": 231,
             "description": "Handler when the captions are muted",
             "itemtype": "method",
             "name": "onCaptionsMuted",
@@ -6910,13 +6531,13 @@
                     "type": "Event"
                 }
             ],
-            "class": "springroll.ContainerPlugin",
+            "class": "springroll.Application",
             "module": "Container Client",
             "namespace": "springroll"
         },
         {
             "file": "src/container/ContainerPlugin.js",
-            "line": 245,
+            "line": 242,
             "description": "Handler when the context is muted",
             "itemtype": "method",
             "name": "onContextMuted",
@@ -6934,13 +6555,13 @@
                     "type": "Event"
                 }
             ],
-            "class": "springroll.ContainerPlugin",
+            "class": "springroll.Application",
             "module": "Container Client",
             "namespace": "springroll"
         },
         {
             "file": "src/container/ContainerPlugin.js",
-            "line": 257,
+            "line": 254,
             "description": "The captions style is being set",
             "itemtype": "method",
             "name": "onCaptionsStyles",
@@ -6953,13 +6574,13 @@
                     "type": "Event"
                 }
             ],
-            "class": "springroll.ContainerPlugin",
+            "class": "springroll.Application",
             "module": "Container Client",
             "namespace": "springroll"
         },
         {
             "file": "src/container/ContainerPlugin.js",
-            "line": 281,
+            "line": 278,
             "description": "Handler when a application enters single play mode",
             "itemtype": "method",
             "name": "onPlayOptions",
@@ -6972,31 +6593,31 @@
                     "type": "Event"
                 }
             ],
-            "class": "springroll.ContainerPlugin",
+            "class": "springroll.Application",
             "module": "Container Client",
             "namespace": "springroll"
         },
         {
             "file": "src/container/ContainerPlugin.js",
-            "line": 292,
+            "line": 289,
             "description": "Handler when a application enters single play mode",
             "itemtype": "method",
             "name": "onSinglePlay",
             "access": "private",
             "tagname": "",
-            "class": "springroll.ContainerPlugin",
+            "class": "springroll.Application",
             "module": "Container Client",
             "namespace": "springroll"
         },
         {
             "file": "src/container/ContainerPlugin.js",
-            "line": 302,
+            "line": 299,
             "description": "Game container requests closing the application",
             "itemtype": "method",
             "name": "onClose",
             "access": "private",
             "tagname": "",
-            "class": "springroll.ContainerPlugin",
+            "class": "springroll.Application",
             "module": "Container Client",
             "namespace": "springroll"
         },
@@ -8109,50 +7730,50 @@
         },
         {
             "file": "src/core/PageVisibilityPlugin.js",
-            "line": 20,
+            "line": 17,
             "description": "Handles the page visiblity changes automatically\nto pause and unpause the application",
             "itemtype": "property",
             "name": "_visibility",
             "type": "springroll.PageVisibility",
             "access": "private",
             "tagname": "",
-            "class": "springroll.PageVisibilityPlugin",
+            "class": "springroll.Application",
             "module": "Core",
             "namespace": "springroll"
         },
         {
             "file": "src/core/PageVisibilityPlugin.js",
-            "line": 32,
+            "line": 29,
             "description": "The application pauses automatically when the window loses focus.",
             "itemtype": "property",
             "name": "options.autoPause",
             "type": "Boolean",
             "default": "true",
-            "class": "springroll.PageVisibilityPlugin",
+            "class": "springroll.Application",
             "module": "Core",
             "namespace": "springroll"
         },
         {
             "file": "src/core/PageVisibilityPlugin.js",
-            "line": 48,
+            "line": 45,
             "description": "Private listener for when the page is hidden.",
             "itemtype": "method",
             "name": "onHidden",
             "access": "private",
             "tagname": "",
-            "class": "springroll.PageVisibilityPlugin",
+            "class": "springroll.Application",
             "module": "Core",
             "namespace": "springroll"
         },
         {
             "file": "src/core/PageVisibilityPlugin.js",
-            "line": 58,
+            "line": 55,
             "description": "Private listener for when the page is shown.",
             "itemtype": "method",
             "name": "onVisible",
             "access": "private",
             "tagname": "",
-            "class": "springroll.PageVisibilityPlugin",
+            "class": "springroll.Application",
             "module": "Core",
             "namespace": "springroll"
         },
@@ -8410,12 +8031,12 @@
         },
         {
             "file": "src/core/StringFiltersPlugin.js",
-            "line": 20,
+            "line": 17,
             "description": "The StringFilters instance",
             "itemtype": "property",
             "name": "filters",
             "type": "springroll.StringFilters",
-            "class": "springroll.StringFiltersPlugin",
+            "class": "springroll.Application",
             "module": "Core",
             "namespace": "springroll"
         },
@@ -9805,60 +9426,60 @@
         },
         {
             "file": "src/debug/DebugPlugin.js",
-            "line": 22,
+            "line": 19,
             "description": "Enable the Debug class. After initialization, this\nis a pass-through to Debug.enabled.",
             "itemtype": "property",
             "name": "options.debug",
             "type": "Boolean",
             "default": "true",
-            "class": "springroll.DebugPlugin",
+            "class": "springroll.Application",
             "module": "Core",
             "namespace": "springroll"
         },
         {
             "file": "src/debug/DebugPlugin.js",
-            "line": 30,
+            "line": 27,
             "description": "Minimum log level from 0 to 4",
             "itemtype": "property",
             "name": "options.minLogLevel",
             "type": "Int",
             "default": "0",
-            "class": "springroll.DebugPlugin",
+            "class": "springroll.Application",
             "module": "Core",
             "namespace": "springroll"
         },
         {
             "file": "src/debug/DebugPlugin.js",
-            "line": 37,
+            "line": 34,
             "description": "The framerate container",
             "itemtype": "property",
             "name": "options.framerate",
             "type": "String|DOMElement",
-            "class": "springroll.DebugPlugin",
+            "class": "springroll.Application",
             "module": "Core",
             "namespace": "springroll"
         },
         {
             "file": "src/debug/DebugPlugin.js",
-            "line": 43,
+            "line": 40,
             "description": "The framerate container",
             "itemtype": "property",
             "name": "_framerate",
             "type": "DOMElement",
             "access": "private",
             "tagname": "",
-            "class": "springroll.DebugPlugin",
+            "class": "springroll.Application",
             "module": "Core",
             "namespace": "springroll"
         },
         {
             "file": "src/debug/DebugPlugin.js",
-            "line": 50,
+            "line": 47,
             "description": "The host computer for remote debugging, the debug\nmodule must be included to use this feature. Can be an\nIP address or host name. After initialization, setting\nthis will still connect or disconect Debug for remote\ndebugging. This is a write-only property.",
             "itemtype": "property",
             "name": "options.debugRemote",
             "type": "String",
-            "class": "springroll.DebugPlugin",
+            "class": "springroll.Application",
             "module": "Core",
             "namespace": "springroll"
         },
@@ -12203,57 +11824,57 @@
         },
         {
             "file": "src/displays/easeljs/learning/OffClickPlugin.js",
-            "line": 22,
+            "line": 18,
             "description": "The last interactive position",
             "itemtype": "property",
             "name": "_currentPosition",
             "type": "createjs.Point",
             "access": "private",
             "tagname": "",
-            "class": "springroll.easeljs.OffClickPlugin",
+            "class": "springroll.Application",
             "module": "EaselJS Learning",
-            "namespace": "springroll.easeljs"
+            "namespace": "springroll"
         },
         {
             "file": "src/displays/easeljs/learning/OffClickPlugin.js",
-            "line": 29,
+            "line": 25,
             "description": "Helper point for normalizing position",
             "itemtype": "property",
             "name": "_helperPoint",
             "type": "createjs.Point",
             "access": "private",
             "tagname": "",
-            "class": "springroll.easeljs.OffClickPlugin",
+            "class": "springroll.Application",
             "module": "EaselJS Learning",
-            "namespace": "springroll.easeljs"
+            "namespace": "springroll"
         },
         {
             "file": "src/displays/easeljs/learning/OffClickPlugin.js",
-            "line": 44,
+            "line": 40,
             "description": "Some games need to send additional parameters to the tracker's\noffClick event. They may set them here as needed. These parameters are appended\nto the normal offClick data.",
             "itemtype": "property",
             "name": "offClickParams",
             "type": "Array",
-            "class": "springroll.easeljs.OffClickPlugin",
+            "class": "springroll.Application",
             "module": "EaselJS Learning",
-            "namespace": "springroll.easeljs"
+            "namespace": "springroll"
         },
         {
             "file": "src/displays/easeljs/learning/OffClickPlugin.js",
-            "line": 52,
+            "line": 48,
             "description": "Keep track of the last Pointer ID",
             "itemtype": "property",
             "name": "_lastPointerID",
             "type": "Int",
             "access": "private",
             "tagname": "",
-            "class": "springroll.easeljs.OffClickPlugin",
+            "class": "springroll.Application",
             "module": "EaselJS Learning",
-            "namespace": "springroll.easeljs"
+            "namespace": "springroll"
         },
         {
             "file": "src/displays/easeljs/learning/OffClickPlugin.js",
-            "line": 59,
+            "line": 55,
             "description": "For learning events, we want to send consistent data when sending\npositions. This helper method generates that data.\nIn the future, we may return an object with known properties,\nbut for now we are returning an object of {x:int, y:int,\nstage_width:int, stage_height:int} in unscaled numbers.",
             "itemtype": "method",
             "name": "normalizePosition",
@@ -12274,13 +11895,13 @@
                 "description": "{x:int, y:int, stage_width:int, stage_height:int}",
                 "type": "Object"
             },
-            "class": "springroll.easeljs.OffClickPlugin",
+            "class": "springroll.Application",
             "module": "EaselJS Learning",
-            "namespace": "springroll.easeljs"
+            "namespace": "springroll"
         },
         {
             "file": "src/displays/easeljs/learning/OffClickPlugin.js",
-            "line": 76,
+            "line": 72,
             "description": "For learning events, we want to send consistent data when sending\npositions. This helper method generates that data.\nIn the future, we may return an object with known properties,\nbut for now we are returning an object of {x:int, y:int,\nstage_width:int, stage_height:int} in unscaled numbers.",
             "itemtype": "method",
             "name": "normalizePosition",
@@ -12306,13 +11927,13 @@
                 "description": "{x:int, y:int, stage_width:int, stage_height:int}",
                 "type": "Object"
             },
-            "class": "springroll.easeljs.OffClickPlugin",
+            "class": "springroll.Application",
             "module": "EaselJS Learning",
-            "namespace": "springroll.easeljs"
+            "namespace": "springroll"
         },
         {
             "file": "src/displays/easeljs/learning/OffClickPlugin.js",
-            "line": 116,
+            "line": 112,
             "description": "For learning events, we want to send consistent data when sending\nPosition. This helper method generates that data for the\ncurrent stage position of mouse or touch. We are returning an object of\n`{x:int, y:int, stage_width:int, stage_height:int}` in unscaled numbers.",
             "itemtype": "method",
             "name": "currentPosition",
@@ -12320,25 +11941,25 @@
                 "description": "`{x:int, y:int, stage_width:int, stage_height:int}`",
                 "type": "Object"
             },
-            "class": "springroll.easeljs.OffClickPlugin",
+            "class": "springroll.Application",
             "module": "EaselJS Learning",
-            "namespace": "springroll.easeljs"
+            "namespace": "springroll"
         },
         {
             "file": "src/displays/easeljs/learning/OffClickPlugin.js",
-            "line": 162,
+            "line": 158,
             "description": "Fires event whenever the mouse is moved",
-            "class": "springroll.easeljs.OffClickPlugin",
+            "class": "springroll.Application",
             "module": "EaselJS Learning",
-            "namespace": "springroll.easeljs"
+            "namespace": "springroll"
         },
         {
             "file": "src/displays/easeljs/learning/OffClickPlugin.js",
-            "line": 174,
+            "line": 170,
             "description": "Fires OffClick event if click on unhandled object",
-            "class": "springroll.easeljs.OffClickPlugin",
+            "class": "springroll.Application",
             "module": "EaselJS Learning",
-            "namespace": "springroll.easeljs"
+            "namespace": "springroll"
         },
         {
             "file": "src/displays/easeljs/mixins/Container.js",
@@ -12865,7 +12486,7 @@
         },
         {
             "file": "src/displays/easeljs/states/ManifestsPlugin.js",
-            "line": 29,
+            "line": 22,
             "description": "Event when the manifest is finished loading",
             "itemtype": "event",
             "name": "manifestLoaded",
@@ -12876,51 +12497,51 @@
                     "type": "springroll.TaskManager"
                 }
             ],
-            "class": "springroll.easeljs.ManifestsPlugin",
+            "class": "springroll.Application",
             "module": "EaselJS States",
-            "namespace": "springroll.easeljs"
+            "namespace": "springroll"
         },
         {
             "file": "src/displays/easeljs/states/ManifestsPlugin.js",
-            "line": 35,
+            "line": 28,
             "description": "The path to the concatinated FLA exported manifests. It's useful\nto load all the manifests at once. This JSON object contains a\ndictionary of state alias and contains an array of manifest assets\n(e.g. `{\"id\": \"PlayButton\", \"src\": \"assets/images/button.png\"}`.\nSet to null and no manifest will be auto-loaded.",
             "itemtype": "property",
             "name": "options.manifestsPath",
             "type": "String",
             "readonly": "",
             "default": "null",
-            "class": "springroll.easeljs.ManifestsPlugin",
+            "class": "springroll.Application",
             "module": "EaselJS States",
-            "namespace": "springroll.easeljs"
+            "namespace": "springroll"
         },
         {
             "file": "src/displays/easeljs/states/ManifestsPlugin.js",
-            "line": 57,
+            "line": 50,
             "description": "The collection of loading assets by state",
             "itemtype": "property",
             "name": "_manifests",
             "type": "Object",
             "access": "private",
             "tagname": "",
-            "class": "springroll.easeljs.ManifestsPlugin",
+            "class": "springroll.Application",
             "module": "EaselJS States",
-            "namespace": "springroll.easeljs"
+            "namespace": "springroll"
         },
         {
             "file": "src/displays/easeljs/states/ManifestsPlugin.js",
-            "line": 64,
+            "line": 57,
             "description": "Read-only getter to return _manifests",
             "itemtype": "property",
             "name": "manifests",
             "type": "Object",
             "readonly": "",
-            "class": "springroll.easeljs.ManifestsPlugin",
+            "class": "springroll.Application",
             "module": "EaselJS States",
-            "namespace": "springroll.easeljs"
+            "namespace": "springroll"
         },
         {
             "file": "src/displays/easeljs/states/ManifestsPlugin.js",
-            "line": 97,
+            "line": 90,
             "description": "Callback to when manifests have been loaded",
             "itemtype": "method",
             "name": "onManifestsLoaded",
@@ -12933,9 +12554,9 @@
                     "type": "Array"
                 }
             ],
-            "class": "springroll.easeljs.ManifestsPlugin",
+            "class": "springroll.Application",
             "module": "EaselJS States",
-            "namespace": "springroll.easeljs"
+            "namespace": "springroll"
         },
         {
             "file": "src/displays/easeljs/ui/AssetManager.js",
@@ -19439,18 +19060,18 @@
         },
         {
             "file": "src/hints/HintsPlugin.js",
-            "line": 23,
+            "line": 20,
             "description": "The hint player API",
             "itemtype": "property",
             "name": "hints",
             "type": "springroll.HintsPlayer",
-            "class": "springroll.HintsPlugin",
+            "class": "springroll.Application",
             "module": "Hints",
             "namespace": "springroll"
         },
         {
             "file": "src/hints/HintsPlugin.js",
-            "line": 79,
+            "line": 76,
             "description": "Handle the VO event",
             "itemtype": "method",
             "name": "onVOHint",
@@ -19463,13 +19084,13 @@
                     "type": "Object"
                 }
             ],
-            "class": "springroll.HintsPlugin",
+            "class": "springroll.Application",
             "module": "Hints",
             "namespace": "springroll"
         },
         {
             "file": "src/hints/HintsPlugin.js",
-            "line": 105,
+            "line": 102,
             "description": "Handle the animator event",
             "itemtype": "method",
             "name": "onAnimatorHint",
@@ -19482,7 +19103,7 @@
                     "type": "Object"
                 }
             ],
-            "class": "springroll.HintsPlugin",
+            "class": "springroll.Application",
             "module": "Hints",
             "namespace": "springroll"
         },
@@ -19777,36 +19398,36 @@
         },
         {
             "file": "src/languages/LanguagesPlugin.js",
-            "line": 24,
+            "line": 21,
             "description": "The StringFilters instance",
             "itemtype": "property",
             "name": "languages",
             "type": "springroll.Languages",
-            "class": "springroll.LanguagesPlugin",
+            "class": "springroll.Application",
             "module": "Languages",
             "namespace": "springroll"
         },
         {
             "file": "src/languages/LanguagesPlugin.js",
-            "line": 30,
+            "line": 27,
             "description": "Force a specific language",
             "itemtype": "property",
             "name": "options.language",
             "type": "String",
             "default": "null",
-            "class": "springroll.LanguagesPlugin",
+            "class": "springroll.Application",
             "module": "Languages",
             "namespace": "springroll"
         },
         {
             "file": "src/languages/LanguagesPlugin.js",
-            "line": 37,
+            "line": 34,
             "description": "The path to the languages configuration file",
             "itemtype": "property",
             "name": "options.languagesPath",
             "type": "String",
             "default": "null",
-            "class": "springroll.LanguagesPlugin",
+            "class": "springroll.Application",
             "module": "Languages",
             "namespace": "springroll"
         },
@@ -21435,18 +21056,18 @@
         },
         {
             "file": "src/learning/LearningMediaPlugin.js",
-            "line": 23,
+            "line": 20,
             "description": "For media conveninece methods tracking media events, such as \nplayFeedback, playMovie, etc",
             "itemtype": "property",
             "name": "media",
             "type": "springroll.LearningMedia",
-            "class": "springroll.LearningMediaPlugin",
+            "class": "springroll.Application",
             "module": "Learning Media",
             "namespace": "springroll"
         },
         {
             "file": "src/learning/LearningPlugin.js",
-            "line": 24,
+            "line": 21,
             "description": "An learning event is dispatched",
             "itemtype": "event",
             "name": "learningEvent",
@@ -21481,18 +21102,18 @@
                     ]
                 }
             ],
-            "class": "springroll.LearningPlugin",
+            "class": "springroll.Application",
             "module": "Learning",
             "namespace": "springroll"
         },
         {
             "file": "src/learning/LearningPlugin.js",
-            "line": 34,
+            "line": 31,
             "description": "The Learning Dispatcher instance",
             "itemtype": "property",
             "name": "learning",
             "type": "springroll.Learning",
-            "class": "springroll.LearningPlugin",
+            "class": "springroll.Application",
             "module": "Learning",
             "namespace": "springroll"
         },
@@ -22174,57 +21795,57 @@
         },
         {
             "file": "src/loaders/LoaderPlugin.js",
-            "line": 20,
+            "line": 17,
             "description": "Reference to the loader singleton",
             "itemtype": "property",
             "name": "loader",
             "type": "springroll.Loader",
-            "class": "springroll.LoaderPlugin",
+            "class": "springroll.Application",
             "module": "Core",
             "namespace": "springroll"
         },
         {
             "file": "src/loaders/LoaderPlugin.js",
-            "line": 27,
+            "line": 24,
             "description": "Override the end-user browser cache by adding\n\"?v=\" to the end of each file path requested. Use\nfor developmently, debugging only!",
             "itemtype": "property",
             "name": "options.cacheBust",
             "type": "Boolean",
             "default": "DEBUG",
-            "class": "springroll.LoaderPlugin",
+            "class": "springroll.Application",
             "module": "Core",
             "namespace": "springroll"
         },
         {
             "file": "src/loaders/LoaderPlugin.js",
-            "line": 44,
+            "line": 41,
             "description": "The optional file path to prefix to any relative file\nrequests this is a great way to load all load requests\nwith a CDN path.",
             "itemtype": "property",
             "name": "options.basePath",
             "type": "String",
-            "class": "springroll.LoaderPlugin",
+            "class": "springroll.Application",
             "module": "Core",
             "namespace": "springroll"
         },
         {
             "file": "src/loaders/LoaderPlugin.js",
-            "line": 52,
+            "line": 49,
             "description": "The current version number for your application. This\nnumber will automatically be appended to all file\nrequests. For instance, if the version is \"0.0.1\" all\nfile requests will be appended with \"?v=0.0.1\"",
             "itemtype": "property",
             "name": "options.version",
             "type": "String",
-            "class": "springroll.LoaderPlugin",
+            "class": "springroll.Application",
             "module": "Core",
             "namespace": "springroll"
         },
         {
             "file": "src/loaders/LoaderPlugin.js",
-            "line": 61,
+            "line": 58,
             "description": "Path to a text file which contains explicit version\nnumbers for each asset. This is useful for controlling\nthe live browser cache. For instance, this text file\nwould have an asset on each line followed by a number:\n`assets/config/config.json 2` would load\n`assets/config/config.json?v=2`",
             "itemtype": "property",
             "name": "options.versionsFile",
             "type": "String",
-            "class": "springroll.LoaderPlugin",
+            "class": "springroll.Application",
             "module": "Core",
             "namespace": "springroll"
         },
@@ -23067,38 +22688,38 @@
         },
         {
             "file": "src/media/CaptionsPlugin.js",
-            "line": 24,
+            "line": 21,
             "description": "The captions text field object to use for the \nVOPlayer captions object.",
             "itemtype": "property",
             "name": "options.captions",
             "type": "DOMElement|String|createjs.Text|PIXI.Text|PIXI.BitmapText",
             "default": "'captions'",
             "readonly": "",
-            "class": "springroll.CaptionsPlugin",
+            "class": "springroll.Application",
             "module": "Sound",
             "namespace": "springroll"
         },
         {
             "file": "src/media/CaptionsPlugin.js",
-            "line": 33,
+            "line": 30,
             "description": "The path to the captions file to preload.",
             "itemtype": "property",
             "name": "options.captionsPath",
             "type": "String",
             "default": "null",
             "readonly": "",
-            "class": "springroll.CaptionsPlugin",
+            "class": "springroll.Application",
             "module": "Sound",
             "namespace": "springroll"
         },
         {
             "file": "src/media/CaptionsPlugin.js",
-            "line": 41,
+            "line": 38,
             "description": "The global captions object",
             "itemtype": "property",
             "name": "captions",
             "type": "springroll.Captions",
-            "class": "springroll.CaptionsPlugin",
+            "class": "springroll.Application",
             "module": "Sound",
             "namespace": "springroll"
         },
@@ -24555,134 +24176,134 @@
         },
         {
             "file": "src/media/SoundPlugin.js",
-            "line": 24,
+            "line": 21,
             "description": "The relative location to the FlashPlugin swf for SoundJS",
             "itemtype": "property",
             "name": "options.swfPath",
             "type": "String",
             "default": "'assets/swfs/'",
             "readonly": "",
-            "class": "springroll.SoundPlugin",
+            "class": "springroll.Application",
             "module": "Sound",
             "namespace": "springroll"
         },
         {
             "file": "src/media/SoundPlugin.js",
-            "line": 32,
+            "line": 29,
             "description": "For the Sound class to use the Flash plugin shim",
             "itemtype": "property",
             "name": "options.forceFlashAudio",
             "type": "Boolean",
             "default": "false",
             "readonly": "",
-            "class": "springroll.SoundPlugin",
+            "class": "springroll.Application",
             "module": "Sound",
             "namespace": "springroll"
         },
         {
             "file": "src/media/SoundPlugin.js",
-            "line": 40,
+            "line": 37,
             "description": "The order in which file types are\npreferred, where \"ogg\" becomes a \".ogg\"\nextension on all sound file urls.",
             "itemtype": "property",
             "name": "options.audioTypes",
             "type": "Array",
             "default": "['ogg','mp3']",
             "readonly": "",
-            "class": "springroll.SoundPlugin",
+            "class": "springroll.Application",
             "module": "Sound",
             "namespace": "springroll"
         },
         {
             "file": "src/media/SoundPlugin.js",
-            "line": 52,
+            "line": 49,
             "description": "Set the initial mute state of the all the audio \n(unminifed library version only)",
             "itemtype": "property",
             "name": "options.mute",
             "type": "Boolean",
             "default": "false",
             "readonly": "",
-            "class": "springroll.SoundPlugin",
+            "class": "springroll.Application",
             "module": "Sound",
             "namespace": "springroll"
         },
         {
             "file": "src/media/SoundPlugin.js",
-            "line": 62,
+            "line": 59,
             "description": "The current music alias playing",
             "itemtype": "property",
             "name": "_music",
             "type": "String",
             "access": "private",
             "tagname": "",
-            "class": "springroll.SoundPlugin",
+            "class": "springroll.Application",
             "module": "Sound",
             "namespace": "springroll"
         },
         {
             "file": "src/media/SoundPlugin.js",
-            "line": 69,
+            "line": 66,
             "description": "The current music SoundInstance playing",
             "itemtype": "property",
             "name": "_musicInstance",
             "type": "SoundInstance",
             "access": "private",
             "tagname": "",
-            "class": "springroll.SoundPlugin",
+            "class": "springroll.Application",
             "module": "Sound",
             "namespace": "springroll"
         },
         {
             "file": "src/media/SoundPlugin.js",
-            "line": 76,
+            "line": 73,
             "description": "The global player for playing voice over",
             "itemtype": "property",
             "name": "voPlayer",
             "type": "springroll.VOPlayer",
-            "class": "springroll.SoundPlugin",
+            "class": "springroll.Application",
             "module": "Sound",
             "namespace": "springroll"
         },
         {
             "file": "src/media/SoundPlugin.js",
-            "line": 82,
+            "line": 79,
             "description": "The global player for all audio, also accessible through singleton",
             "itemtype": "property",
             "name": "sound",
             "type": "springroll.Sound",
-            "class": "springroll.SoundPlugin",
+            "class": "springroll.Application",
             "module": "Sound",
             "namespace": "springroll"
         },
         {
             "file": "src/media/SoundPlugin.js",
-            "line": 88,
+            "line": 85,
             "description": "Get or set the current music alias to play",
             "itemtype": "property",
             "name": "music",
             "type": "String",
             "default": "null",
-            "class": "springroll.SoundPlugin",
+            "class": "springroll.Application",
             "module": "Sound",
             "namespace": "springroll"
         },
         {
             "file": "src/media/SoundPlugin.js",
-            "line": 127,
+            "line": 124,
             "description": "The SoundInstance for the current music, for adjusting volume.",
             "itemtype": "property",
             "name": "musicInstance",
             "type": "SoundInstance",
-            "class": "springroll.SoundPlugin",
+            "class": "springroll.Application",
             "module": "Sound",
             "namespace": "springroll"
         },
         {
             "file": "src/media/SoundPlugin.js",
-            "line": 163,
+            "line": 160,
             "description": "The sound is ready to use",
             "itemtype": "event",
             "name": "soundReady",
-            "class": "springroll.SoundPlugin",
+            "class": "springroll.Application",
             "module": "Sound",
             "namespace": "springroll"
         },
@@ -26479,7 +26100,7 @@
         },
         {
             "file": "src/states/StatesPlugin.js",
-            "line": 24,
+            "line": 21,
             "description": "Fired when an event has been added",
             "itemtype": "event",
             "name": "stateAdded",
@@ -26495,153 +26116,153 @@
                     "type": "springroll.State"
                 }
             ],
-            "class": "springroll.StatesPlugin",
+            "class": "springroll.Application",
             "module": "States",
             "namespace": "springroll"
         },
         {
             "file": "src/states/StatesPlugin.js",
-            "line": 31,
+            "line": 28,
             "description": "The collection of states",
             "itemtype": "property",
             "name": "_states",
             "type": "Object",
             "access": "private",
             "tagname": "",
-            "class": "springroll.StatesPlugin",
+            "class": "springroll.Application",
             "module": "States",
             "namespace": "springroll"
         },
         {
             "file": "src/states/StatesPlugin.js",
-            "line": 38,
+            "line": 35,
             "description": "The state manager",
             "itemtype": "property",
             "name": "manager",
             "type": "springroll.StateManager",
-            "class": "springroll.StatesPlugin",
+            "class": "springroll.Application",
             "module": "States",
             "namespace": "springroll"
         },
         {
             "file": "src/states/StatesPlugin.js",
-            "line": 44,
+            "line": 41,
             "description": "The transition animation to use between the StateManager state changes",
             "itemtype": "property",
             "name": "_transition",
             "type": "createjs.MovieClip|springroll.easeljs.BitmapMovieClip|PIXI.Spine",
             "access": "private",
             "tagname": "",
-            "class": "springroll.StatesPlugin",
+            "class": "springroll.Application",
             "module": "States",
             "namespace": "springroll"
         },
         {
             "file": "src/states/StatesPlugin.js",
-            "line": 51,
+            "line": 48,
             "description": "The transition animation to use between the StateManager state changes",
             "itemtype": "property",
             "name": "transition",
             "type": "createjs.MovieClip|springroll.easeljs.BitmapMovieClip|PIXI.Spine",
-            "class": "springroll.StatesPlugin",
+            "class": "springroll.Application",
             "module": "States",
             "namespace": "springroll"
         },
         {
             "file": "src/states/StatesPlugin.js",
-            "line": 104,
+            "line": 101,
             "description": "The initial state to go to when everything is finished",
             "itemtype": "property",
             "name": "options.state",
             "type": "Boolean",
             "default": "null",
             "readonly": "",
-            "class": "springroll.StatesPlugin",
+            "class": "springroll.Application",
             "module": "States",
             "namespace": "springroll"
         },
         {
             "file": "src/states/StatesPlugin.js",
-            "line": 112,
+            "line": 109,
             "description": "The animation to use for the StateManager",
             "itemtype": "property",
             "name": "options.transition",
             "type": "createjs.MovieClip|PIXI.Spine",
-            "class": "springroll.StatesPlugin",
+            "class": "springroll.Application",
             "module": "States",
             "namespace": "springroll"
         },
         {
             "file": "src/states/StatesPlugin.js",
-            "line": 118,
+            "line": 115,
             "description": "The transition sounds to use for the state transition",
             "itemtype": "property",
             "name": "options.transitionSounds",
             "type": "Object",
             "readonly": "",
-            "class": "springroll.StatesPlugin",
+            "class": "springroll.Application",
             "module": "States",
             "namespace": "springroll"
         },
         {
             "file": "src/states/StatesPlugin.js",
-            "line": 123,
+            "line": 120,
             "description": "The transition in sound alias or sound object",
             "itemtype": "property",
             "name": "options.transitionSounds.in",
             "type": "Object",
             "default": "null",
             "readonly": "",
-            "class": "springroll.StatesPlugin",
+            "class": "springroll.Application",
             "module": "States",
             "namespace": "springroll"
         },
         {
             "file": "src/states/StatesPlugin.js",
-            "line": 129,
+            "line": 126,
             "description": "The transition out sound alias or sound object",
             "itemtype": "property",
             "name": "options.transitionSounds.out",
             "type": "Object",
             "default": "null",
             "readonly": "",
-            "class": "springroll.StatesPlugin",
+            "class": "springroll.Application",
             "module": "States",
             "namespace": "springroll"
         },
         {
             "file": "src/states/StatesPlugin.js",
-            "line": 141,
+            "line": 138,
             "description": "The collection of states where the key is the state alias and value is the state display object",
             "itemtype": "property",
             "name": "states",
             "type": "Object",
             "default": "null",
-            "class": "springroll.StatesPlugin",
+            "class": "springroll.Application",
             "module": "States",
             "namespace": "springroll"
         },
         {
             "file": "src/states/StatesPlugin.js",
-            "line": 228,
+            "line": 225,
             "description": "Debug key strokes\n→ = trigger a skip to the next state for testing\n← = trigger a skip to the previous state for testing",
-            "class": "springroll.StatesPlugin",
+            "class": "springroll.Application",
             "module": "States",
             "namespace": "springroll"
         },
         {
             "file": "src/tasks/ConfigPlugin.js",
-            "line": 22,
+            "line": 19,
             "description": "The game has finished loading",
             "itemtype": "event",
             "name": "loaded",
-            "class": "springroll.ConfigPlugin",
+            "class": "springroll.Application",
             "module": "Tasks",
             "namespace": "springroll"
         },
         {
             "file": "src/tasks/ConfigPlugin.js",
-            "line": 27,
+            "line": 24,
             "description": "The config has finished loading, in case you want to\nadd additional tasks to the manager after this.",
             "itemtype": "event",
             "name": "configLoaded",
@@ -26657,13 +26278,13 @@
                     "type": "TaskManager"
                 }
             ],
-            "class": "springroll.ConfigPlugin",
+            "class": "springroll.Application",
             "module": "Tasks",
             "namespace": "springroll"
         },
         {
             "file": "src/tasks/ConfigPlugin.js",
-            "line": 35,
+            "line": 32,
             "description": "The game has started loading",
             "itemtype": "event",
             "name": "loading",
@@ -26674,36 +26295,36 @@
                     "type": "Array"
                 }
             ],
-            "class": "springroll.ConfigPlugin",
+            "class": "springroll.Application",
             "module": "Tasks",
             "namespace": "springroll"
         },
         {
             "file": "src/tasks/ConfigPlugin.js",
-            "line": 46,
+            "line": 43,
             "description": "The path to the config file to load",
             "itemtype": "property",
             "name": "options.configPath",
             "type": "String",
             "default": "null",
-            "class": "springroll.ConfigPlugin",
+            "class": "springroll.Application",
             "module": "Tasks",
             "namespace": "springroll"
         },
         {
             "file": "src/tasks/ConfigPlugin.js",
-            "line": 53,
+            "line": 50,
             "description": "The game configuration loaded from and external JSON file",
             "itemtype": "property",
             "name": "config",
             "type": "Object",
-            "class": "springroll.ConfigPlugin",
+            "class": "springroll.Application",
             "module": "Tasks",
             "namespace": "springroll"
         },
         {
             "file": "src/tasks/ConfigPlugin.js",
-            "line": 94,
+            "line": 91,
             "description": "Callback when the config is loaded",
             "itemtype": "method",
             "name": "onConfigLoaded",
@@ -26716,19 +26337,19 @@
                     "type": "springroll.LoaderResult"
                 }
             ],
-            "class": "springroll.ConfigPlugin",
+            "class": "springroll.Application",
             "module": "Tasks",
             "namespace": "springroll"
         },
         {
             "file": "src/tasks/ConfigPlugin.js",
-            "line": 106,
+            "line": 103,
             "description": "Callback when tasks are completed",
             "itemtype": "method",
             "name": "onTasksComplete",
             "access": "private",
             "tagname": "",
-            "class": "springroll.ConfigPlugin",
+            "class": "springroll.Application",
             "module": "Tasks",
             "namespace": "springroll"
         },
@@ -28437,57 +28058,57 @@
         },
         {
             "file": "src/ui/ScalingPlugin.js",
-            "line": 26,
+            "line": 23,
             "description": "The main ScaleManager for any display object references\nin the main game.",
             "itemtype": "property",
             "name": "scaling",
             "type": "springroll.ScaleManager",
-            "class": "springroll.ScalingPlugin",
+            "class": "springroll.Application",
             "module": "UI",
             "namespace": "springroll"
         },
         {
             "file": "src/ui/TouchPlugin.js",
-            "line": 21,
+            "line": 18,
             "description": "If the current brower is iOS",
             "itemtype": "property",
             "name": "isIOS",
             "type": "Boolean",
-            "class": "springroll.TouchPlugin",
+            "class": "springroll.Application",
             "module": "UI",
             "namespace": "springroll"
         },
         {
             "file": "src/ui/TouchPlugin.js",
-            "line": 27,
+            "line": 24,
             "description": "If the current brower is Android",
             "itemtype": "property",
             "name": "isAndroid",
             "type": "Boolean",
-            "class": "springroll.TouchPlugin",
+            "class": "springroll.Application",
             "module": "UI",
             "namespace": "springroll"
         },
         {
             "file": "src/ui/TouchPlugin.js",
-            "line": 33,
+            "line": 30,
             "description": "If the current brower has touch input available",
             "itemtype": "property",
             "name": "hasTouch",
             "type": "Boolean",
-            "class": "springroll.TouchPlugin",
+            "class": "springroll.Application",
             "module": "UI",
             "namespace": "springroll"
         },
         {
             "file": "src/ui/TouchPlugin.js",
-            "line": 43,
+            "line": 40,
             "description": "Manually override the check for hasTouch (unminifed library version only)",
             "itemtype": "property",
             "name": "options.forceTouch",
             "type": "Boolean",
             "default": "false",
-            "class": "springroll.TouchPlugin",
+            "class": "springroll.Application",
             "module": "UI",
             "namespace": "springroll"
         },
@@ -29386,11 +29007,11 @@
         },
         {
             "message": "Missing item type\nFires event whenever the mouse is moved",
-            "line": " src/displays/easeljs/learning/OffClickPlugin.js:162"
+            "line": " src/displays/easeljs/learning/OffClickPlugin.js:158"
         },
         {
             "message": "Missing item type\nFires OffClick event if click on unhandled object",
-            "line": " src/displays/easeljs/learning/OffClickPlugin.js:174"
+            "line": " src/displays/easeljs/learning/OffClickPlugin.js:170"
         },
         {
             "message": "Missing item type",
@@ -29478,7 +29099,7 @@
         },
         {
             "message": "Missing item type\nDebug key strokes\n→ = trigger a skip to the next state for testing\n← = trigger a skip to the previous state for testing",
-            "line": " src/states/StatesPlugin.js:228"
+            "line": " src/states/StatesPlugin.js:225"
         },
         {
             "message": "Missing item type",
