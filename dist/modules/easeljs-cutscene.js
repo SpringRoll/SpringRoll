@@ -634,7 +634,8 @@
 		var assets = {
 			_anim : {
 				src: this.anim,
-				libName: this.libName
+				libName: this.libName,
+				format: "springroll.easeljs.FlashArt"
 			}
 		};
 
