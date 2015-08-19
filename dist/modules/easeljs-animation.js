@@ -1264,7 +1264,7 @@
 
 /**
  * @module EaselJS Animation
- * @namespace springroll.easeljs
+ * @namespace springroll
  * @requires Core, EaselJS Display
  */
 (function()

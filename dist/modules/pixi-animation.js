@@ -2492,7 +2492,7 @@
 }());
 /**
  * @module PIXI Animation
- * @namespace springroll.pixi
+ * @namespace springroll
  * @requires  Core, PIXI Display
  */
 (function()

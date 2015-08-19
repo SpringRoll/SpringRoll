@@ -457,7 +457,7 @@
 }());
 /**
  * @module EaselJS States
- * @namespace springroll.easeljs
+ * @namespace springroll
  * @requires Core, States, UI, Sound, EaselJS Display, EaselJS UI
  */
 (function(undefined)
