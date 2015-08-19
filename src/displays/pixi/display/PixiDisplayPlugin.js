@@ -1,6 +1,6 @@
 /**
  * @module PIXI Display
- * @namespace springroll.pixi
+ * @namespace springroll
  * @requires Core
  */
 (function()

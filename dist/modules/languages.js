@@ -15,7 +15,7 @@
 	 * selection, and automatically modifying any url that runs through the CacheManager.
 	 *
 	 * @class Languages
-	 * @extend EventDispatcher
+	 * @extend springroll.EventDispatcher
 	 * @constructor
 	 * @param {Object} config The language settings to be used.
 	 * @param {String} config.default The default language name to use if asked for one that is

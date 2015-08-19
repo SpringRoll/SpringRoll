@@ -1,6 +1,6 @@
 /**
  * @module EaselJS Cutscene
- * @namespace springroll.easeljs
+ * @namespace springroll
  * @requires Core, EaselJS Display
  */
 (function()
