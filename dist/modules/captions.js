@@ -735,10 +735,7 @@
 		Debug = include('springroll.Debug', false);
 
 	/**
-	 * Plugin for the Captions class, all properties and methods documented
-	 * in this class are mixed-in to the main Application
-	 * @class CaptionsPlugin
-	 * @extends springroll.ApplicationPlugin
+	 * @class Application
 	 */
 	var plugin = new ApplicationPlugin(60);
 

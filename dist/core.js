@@ -233,6 +233,7 @@
 				if(!totalDigits)
 					totalDigits = 2;
 				var leader;
+				var num = this;
 				if(num < 0)
 				{
 					num *= -1;
@@ -2413,7 +2414,7 @@
 	*	var app = new Application();
 	*
 	*  @class Application
-	*  @extend EventDispatcher
+	*  @extend springroll.EventDispatcher
 	*  @constructor
 	*  @param {Object} [options] The options for creating the application,
 	* 		see `springroll.ApplicationOptions` for the specific options
@@ -3135,10 +3136,7 @@
 	var ApplicationPlugin = include('springroll.ApplicationPlugin');
 
 	/**
-	 * Create an app plugin for Page Visibility listener, all properties and methods documented
-	 * in this class are mixed-in to the main Application
-	 * @class PageVisibilityPlugin
-	 * @extends springroll.ApplicationPlugin
+	 * @class Application
 	 */
 	var plugin = new ApplicationPlugin();
 
@@ -3312,10 +3310,7 @@
 	var ApplicationPlugin = include('springroll.ApplicationPlugin');
 
 	/**
-	 * Create an app plugin for String Filters, all properties and methods documented
-	 * in this class are mixed-in to the main Application
-	 * @class StringFiltersPlugin
-	 * @extends springroll.ApplicationPlugin
+	 * @class Application
 	 */
 	var plugin = new ApplicationPlugin(110);
 
@@ -4378,10 +4373,7 @@
 	var ApplicationPlugin = include('springroll.ApplicationPlugin');
 
 	/**
-	 * Create an app plugin for Loader, all properties and methods documented
-	 * in this class are mixed-in to the main Application
-	 * @class LoaderPlugin
-	 * @extends springroll.ApplicationPlugin
+	 * @class Application
 	 */
 	var plugin = new ApplicationPlugin(100);
 

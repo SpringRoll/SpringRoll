@@ -1745,10 +1745,7 @@
 	 	Learning = include('springroll.Learning');
 
 	/**
-	 * Create an app plugin for Learning Dispatcher, all properties and methods documented
-	 * in this class are mixed-in to the main Application
-	 * @class LearningPlugin
-	 * @extends springroll.ApplicationPlugin
+	 * @class Application
 	 */
 	var plugin = new ApplicationPlugin(10);
 

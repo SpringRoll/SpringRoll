@@ -1445,10 +1445,7 @@
 		Debug = include('springroll.Debug');
 
 	/**
-	 * Create an app plugin for Debug, all properties and methods documented
-	 * in this class are mixed-in to the main Application
-	 * @class DebugPlugin
-	 * @extends springroll.ApplicationPlugin
+	 * @class Application
 	 */
 	var plugin = new ApplicationPlugin();
 

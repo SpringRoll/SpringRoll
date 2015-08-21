@@ -1222,10 +1222,7 @@
 		Debug = include('springroll.Debug', false);
 
 	/**
-	 * Create an app plugin for Loader, all properties and methods documented
-	 * in this class are mixed-in to the main Application
-	 * @class StatesPlugin
-	 * @extends springroll.ApplicationPlugin
+	 * @class Application
 	 */
 	var plugin = new ApplicationPlugin();
 

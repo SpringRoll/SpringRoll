@@ -1193,10 +1193,7 @@
 		Debug;
 
 	/**
-	 *	Create an app plugin for touch detecting, all properties and methods documented
-	 *	in this class are mixed-in to the main Application
-	 *	@class ScalingPlugin
-	 *	@extends springroll.ApplicationPlugin
+	 * @class Application
 	 */
 	var plugin = new ApplicationPlugin();
 
@@ -1266,10 +1263,7 @@
 	var ApplicationPlugin = include('springroll.ApplicationPlugin');
 	
 	/**
-	 *	Create an app plugin for touch detecting, all properties and methods documented
-	 *	in this class are mixed-in to the main Application
-	 *	@class TouchPlugin
-	 *	@extends springroll.ApplicationPlugin
+	 * @class Application
 	 */
 	var plugin = new ApplicationPlugin(100);
 

@@ -628,10 +628,7 @@
 		LearningMedia = include('springroll.LearningMedia');
 
 	/**
-	 * Create an app plugin for Learning Media, all properties and methods documented
-	 * in this class are mixed-in to the main Application
-	 * @class LearningMediaPlugin
-	 * @extends springroll.ApplicationPlugin
+	 * @class Application
 	 */
 	var plugin = new ApplicationPlugin();
 

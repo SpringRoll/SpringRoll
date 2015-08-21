@@ -26,6 +26,7 @@
 				if(!totalDigits)
 					totalDigits = 2;
 				var leader;
+				var num = this;
 				if(num < 0)
 				{
 					num *= -1;
