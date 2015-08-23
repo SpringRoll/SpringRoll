@@ -250,7 +250,7 @@
 			// save all images to the window images object
 			for (var id in results)
 			{
-				if (results[id].tagName == "IMG")
+				if (results[id].tagName == "IMG" || results[id].tagName == "CANVAS")
 				{
 					images[id] = results[id];
 					this._images.push(id);

@@ -288,14 +288,15 @@
 	 * @method loadSpriteSheet
 	 * @static
 	 * @param {Object} spritesheetData The JSON object describing the frames in the atlas. This is
-	 *    expected to fit the JSON Hash format as exported from
-	 *    TexturePacker.
+	 *                                 expected to fit the JSON Hash format as exported from
+	 *                                 TexturePacker.
 	 * @param {Image|HTMLCanvasElement} spritesheetImage The spritesheet image that contains all of
-	 *    the frames.
-	 * @param {Number} [scale=1] The scale to apply to all sprites from the spritesheet. For example,
-	 *    a half sized spritesheet should have a scale of 2.
+	 *                                                   the frames.
+	 * @param {Number} [scale=1] The scale to apply to all sprites from the spritesheet. For
+	 *                           example, a half sized spritesheet should have a scale of 2.
+	 * @param {String} [libName='lib'] The global dictionary to add items to.
 	 */
-	BitmapUtils.loadSpriteSheet = function(spritesheetData, spritesheetImage, scale)
+	BitmapUtils.loadSpriteSheet = function(spritesheetData, spritesheetImage, scale, libName)
 	{
 		if (scale > 0)
 		{
@@ -311,12 +312,16 @@
 			// scale should default to 1
 			scale = 1;
 		}
+		if(!libName)
+			libName = "lib";
 		
 		var frameDict = spritesheetData.frames || spritesheetData;
 		// TexturePacker outputs frames with (not) swapped width & height when rotated, so we need to
 		// swap them ourselves
 		var swapFrameSize = spritesheetData.meta &&
 				spritesheetData.meta.app == "http://www.codeandweb.com/texturepacker";
+		
+		var lib = window[libName];
 		for (var key in frameDict)
 		{
 			var frame = frameDict[key];
@@ -420,9 +425,9 @@
 		output.addChild(bitmap);
 		bitmap.sourceRect = texture.frame;
 		bitmap.setTransform(
-			texture.offset.x * scale, 
-			texture.offset.y * scale, 
-			scale, 
+			texture.offset.x * scale,
+			texture.offset.y * scale,
+			scale,
 			scale
 		);
 
@@ -432,8 +437,8 @@
 			bitmap.regX = bitmap.sourceRect.width;
 		}
 		//set up a nominal bounds to be kind
-		output.nominalBounds = new Rectangle(0, 0, 
-			texture.width * scale, 
+		output.nominalBounds = new Rectangle(0, 0,
+			texture.width * scale,
 			texture.height * scale
 		);
 		return output;
@@ -449,8 +454,9 @@
 	 * @static
 	 * @param {String|Object} idOrDict A dictionary of Bitmap ids to replace, or a single id.
 	 * @param {Number} [scale=1] The scale to apply to the image(s).
+	 * @param {String} [libName='lib'] The global dictionary to add items to.
 	 */
-	BitmapUtils.replaceWithScaledBitmap = function(idOrDict, scale)
+	BitmapUtils.replaceWithScaledBitmap = function(idOrDict, scale, libName)
 	{
 		//scale is required, but it doesn't hurt to check - also, don't bother for a scale of 1
 		if(scale != 1 && scale > 0)
@@ -461,8 +467,11 @@
 		{
 			return;
 		}
+		if(!libName)
+			libName = "lib";
 
 		var key, bitmap, newBitmap, p;
+		var lib = window[libName];
 		if (typeof idOrDict == "string")
 		{
 			key = idOrDict;
@@ -586,7 +595,8 @@
 	{
 		// split into the initialization functions, that take 'lib' as a parameter
 		var textArray = text.split(/[\(!]function\s*\(/);
-
+		
+		var globalSymbols = FlashArt.globalSymbols;
 		// go through each initialization function
 		for (var i = 0; i < textArray.length; ++i)
 		{
@@ -607,7 +617,7 @@
 				assetId = foundName[1];
 
 				// Warn about collisions with assets that already exist
-				if (true && Debug && FlashArt.globalSymbols[assetId])
+				if (true && Debug && globalSymbols[assetId])
 				{
 					Debug.warn(
 						"Flash Asset Collision: asset '" + this.id +
@@ -619,7 +629,7 @@
 
 				// keep track of the asset id responsible
 				this.symbols.push(assetId);
-				FlashArt.globalSymbols[assetId] = this.id;
+				globalSymbols[assetId] = this.id;
 				foundName = varFinder.exec(text);
 			}
 		}
@@ -637,11 +647,11 @@
 
 		// Delete the elements
 		var globalSymbols = FlashArt.globalSymbols;
-		var libName = this.libName;
+		var lib = window[this.libName];
 		this.symbols.forEach(function(id)
 		{
 			delete globalSymbols[id];
-			delete window[libName][id];
+			delete lib[id];
 		});
 		this.symbols = null;
 	};
@@ -657,29 +667,75 @@
  */
 (function()
 {
-	var LoadTask = include('springroll.LoadTask'),
+	var Task = include('springroll.Task'),
 		FlashArt = include('springroll.easeljs.FlashArt'),
-		Application = include('springroll.Application');
+		Application = include('springroll.Application'),
+		ColorAlphaTask = include('springroll.ColorAlphaTask'),
+		BitmapUtils = include('springroll.easeljs.BitmapUtils');
 
 	/**
-	 * Internal class for dealing with async load assets through Loader.
+	 * Replaces Bitmaps in the global lib dictionary with a faux Bitmap
+	 * that pulls the image from a spritesheet.
 	 * @class FlashArtTask
-	 * @extends springroll.LoadTask
+	 * @extends springroll.Task
 	 * @constructor
 	 * @private
 	 * @param {Object} asset The data properties
+	 * @param {String} asset.type Asset type must be "easeljs"
+	 * @param {String} asset.format Asset format must be "springroll.easeljs.FlashArt"
 	 * @param {String} asset.src The source
+	 * @param {Array} [asset.images] An array of Image, TextureAtlas, or SpriteSheet assets to load
 	 * @param {Boolean} [asset.cache=false] If we should cache the result
 	 * @param {String} [asset.id] Id of asset
-	 * @param {*} [asset.data] Optional data
 	 * @param {Function} [asset.complete] The event to call when done
-	 * @param {Function} [asset.progress] The event to call on load progress
-	 * @param {String} [asset.libItem='lib'] The global window object for symbols
+	 * @param {String} [asset.libName='lib'] The global window object for symbols
+	 * @param {String} [asset.imagesName='images'] The global window object for images
 	 * @param {Object} [asset.sizes=null] Define if certain sizes are not supported
 	 */
 	var FlashArtTask = function(asset)
 	{
-		LoadTask.call(this, asset);
+		Task.call(this, asset, asset.src);
+
+		if (!BitmapUtils)
+		{
+			BitmapUtils = include('springroll.easeljs.BitmapUtils');
+		}
+
+		/**
+		 * The path to the flash asset
+		 * @property {String} src
+		 */
+		this.src = this.filter(asset.src);
+		
+		/**
+		 * The path to the flash asset
+		 * @property {String} src
+		 */
+		this.images = asset.images;
+
+		/**
+		 * The spritesheet data source path
+		 * @property {String} atlas
+		 */
+		this.atlas = this.filter(asset.atlas);
+
+		/**
+		 * The spritesheet source path
+		 * @property {String} image
+		 */
+		this.image = this.filter(asset.image);
+
+		/**
+		 * The spritesheet color source path
+		 * @property {String} color
+		 */
+		this.color = this.filter(asset.color);
+
+		/**
+		 * The spritesheet alpha source path
+		 * @property {String} alpha
+		 */
+		this.alpha = this.filter(asset.alpha);
 
 		/**
 		 * The name of the window object library items hang on
@@ -687,10 +743,17 @@
 		 * @default 'lib'
 		 */
 		this.libName = asset.libName || 'lib';
+		
+		/**
+		 * The name of the window object images hang on
+		 * @property {String} imagesName
+		 * @default 'images'
+		 */
+		this.imagesName = asset.imagesName || 'images';
 	};
 
 	// Reference to prototype
-	var p = extend(FlashArtTask, LoadTask);
+	var p = extend(FlashArtTask, Task);
 
 	/**
 	 * Test if we should run this task
@@ -701,7 +764,6 @@
 	 */
 	FlashArtTask.test = function(asset)
 	{
-		// loading a JS file from Flash
 		return asset.src &&
 			asset.src.search(/\.js$/i) > -1 &&
 			asset.type == "easeljs" &&
@@ -715,15 +777,162 @@
 	 */
 	p.start = function(callback)
 	{
-		LoadTask.prototype.start.call(this, function(domElement)
+		var images = [];
+		var atlas, assetCount = 0;
+		//handle the deprecated format
+		if(this.atlas)
 		{
-			callback(new FlashArt(
-				this.id,
-				domElement,
-				this.libName
-			));
+			atlas = {
+				atlas:this.atlas,
+				id: "asset_" + (assetCount++),
+				type: "easeljs",
+				format: "FlashAtlas",
+				libName: this.libName
+			};
+			if(this.image)
+				atlas.image = this.image;
+			else
+			{
+				atlas.alpha = this.alpha;
+				atlas.color = this.color;
+			}
+			images.push(atlas);
 		}
-		.bind(this));
+		else if(this.images)
+		{
+			var asset;
+			for(var i = 0; i < this.images.length; ++i)
+			{
+				//check for texture atlases from TexturePacker or similar things
+				if(this.images[i].atlas)
+				{
+					asset = this.images[i];
+					atlas = {
+						atlas:this.filter(asset.atlas),
+						id: "asset_" + (assetCount++),
+						type:"easeljs",
+						format: "FlashAtlas",
+						libName: this.libName
+					};
+					if(asset.image)
+						atlas.image = this.filter(asset.image);
+					else
+					{
+						atlas.alpha = this.filter(asset.alpha);
+						atlas.color = this.filter(asset.color);
+					}
+					images.push(atlas);
+				}
+				//Check for EaselJS SpriteSheets
+				else if(this.images[i].format == "createjs.SpriteSheet")
+				{
+					asset = this.images[i].clone();
+					images.push(asset);
+					if(!asset.type)
+						asset.type = "easeljs";
+					if(!asset.id)
+						asset.id = "asset_" + (assetCount++);
+				}
+				//standard images
+				else
+				{
+					//check for urls
+					if(typeof this.images[i] == "string")
+						asset = {src:this.filter(this.images[i])};
+					//and full tasks
+					else
+						asset = this.images[i].clone();
+					//ensure an ID for these
+					if(!asset.id)
+					{
+						var fallbackId = asset.src || asset.color;
+						// Remove the file extension
+						var extIndex = fallbackId.lastIndexOf('.');
+						if (extIndex > -1)
+						{
+							fallbackId = fallbackId.substr(0, extIndex);
+						}
+						// Check for the last folder slash then remove it
+						var slashIndex = fallbackId.lastIndexOf('/');
+						if (slashIndex > -1)
+						{
+							fallbackId = fallbackId.substr(slashIndex + 1);
+						}
+						asset.id = fallbackId;
+					}
+					//also ensure that they are EaselJS Image assets
+					asset.type = "easeljs";
+					asset.format = "FlashImage";
+					asset.imagesName = this.imagesName;
+					images.push(asset);
+				}
+			}
+		}
+		
+		var assets = {
+			_flash : this.src
+		};
+		if(images.length)
+			assets._images = {assets:images};
+
+		// Load all the assets
+		Application.instance.load(assets, function(results)
+		{
+			var art = new FlashArt(
+				this.id,
+				results._flash,
+				this.libName
+			);
+			
+			console.log(results._images);
+			
+			var images = results._images;
+			if(images)
+			{
+				var image;
+				var objectsToDestroy = [];
+				var globalImages = window[this.imagesName];
+				
+				for(var id in images)
+				{
+					var result = images[id];
+					//save the item for cleanup
+					objectsToDestroy.push(result);
+					//look for individual images
+					if(result.image && result.scale)
+					{
+						//scale asset if needed
+						if(result.scale != 1)
+							Bitmap.replaceWithScaledBitmap(id, 1 / result.scale, this.libName);
+						objectsToDestroy.push(result);
+					}
+					//otherwise the result is a SpriteSheet or the result of a FlashArtAtlasTask
+					else if(result.create)
+					{
+						//FlashArtAtlasTasks have delayed asset generation to ensure that it doesn't
+						//interfere with the loading of the javascript that it overrides
+						result.create();
+					}
+				}
+				
+				art._orig_destroy = art.destroy;
+				art.destroy = function()
+				{
+					var i;
+					for(i = objectsToDestroy.length - 1; i >= 0; --i)
+					{
+						if(objectsToDestroy[i].destroy)
+							objectsToDestroy[i].destroy();
+						else
+							objectsToDestroy[i].dispatchEvent("destroy");
+					}
+					art._orig_destroy();
+				};
+			}
+			
+			callback(art);
+			
+		}.bind(this));
 	};
 
 	// Assign to namespace
@@ -978,6 +1187,7 @@
 	 * @constructor
 	 * @private
 	 * @param {Object} asset The data properties
+	 * @param {String} asset.type The asset type must be "easeljs".
 	 * @param {String} asset.atlas The TextureAtlas source data
 	 * @param {Boolean} [asset.cache=false] If we should cache the result
 	 * @param {String} [asset.image] The atlas image path
@@ -1029,8 +1239,8 @@
 	TextureAtlasTask.test = function(asset)
 	{
 		// animation data and atlas data and an image or color/alpha split
-		return asset.type == "easeljs" && 
-			asset.atlas && 
+		return asset.type == "easeljs" &&
+			asset.atlas &&
 			(asset.image || (asset.alpha && asset.color));
 	};
 
@@ -1058,7 +1268,7 @@
 		{
 			assets._image = this.image;
 		}
-		else 
+		else
 		{
 			assets._color = this.color;
 			assets._alpha = this.alpha;
@@ -1089,6 +1299,112 @@
 
 }());
 /**
+ * @module Core
+ * @namespace springroll
+ */
+(function()
+{
+	var Task = include('springroll.Task'),
+		Application = include('springroll.Application');
+
+	/**
+	 * Internal class for dealing with async load assets through Loader.
+	 * @class FlashArtImageTask
+	 * @extends springroll.Task
+	 * @constructor
+	 * @private
+	 * @param {Object} asset The data properties
+	 * @param {String} asset.type The asset type must be "easeljs".
+	 * @param {String} asset.format The asset format must be "FlashImage".
+	 * @param {String} [asset.src] The source path to the image
+	 * @param {String} [asset.color] The source path to the color image, if not using src
+	 * @param {String} [asset.alpha] The source path to the alpha image, if not using src
+	 * @param {String} [asset.imagesName='images'] The global window object for images
+	 * @param {Boolean} [asset.cache=false] If we should cache the result
+	 * @param {String} [asset.id] Id of asset
+	 * @param {Function} [asset.complete] The event to call when done
+	 * @param {Object} [asset.sizes=null] Define if certain sizes are not supported
+	 */
+	var FlashArtImageTask = function(asset)
+	{
+		Task.call(this, asset, asset.color);
+		
+		this.src = this.filter(asset.src);
+
+		/**
+		 * The atlas color source path
+		 * @property {String} color
+		 */
+		this.color = this.filter(asset.color);
+
+		/**
+		 * The atlas alpha source path
+		 * @property {String} alpha
+		 */
+		this.alpha = this.filter(asset.alpha);
+		
+		this.imagesName = asset.imagesName;
+	};
+
+	// Reference to prototype
+	var p = extend(FlashArtImageTask, Task);
+
+	/**
+	 * Test if we should run this task
+	 * @method test
+	 * @static
+	 * @param {Object} asset The asset to check
+	 * @return {Boolean} If the asset is compatible with this asset
+	 */
+	FlashArtImageTask.test = function(asset)
+	{
+		return asset.type == "easeljs" &&
+			asset.format == "FlashImage" &&
+			!!(asset.src || (asset.alpha && asset.color));
+	};
+
+	/**
+	 * Start the task
+	 * @method  start
+	 * @param  {Function} callback Callback when finished
+	 */
+	p.start = function(callback)
+	{
+		var load = this.src;
+		if(!load)
+		{
+			//load a standard ColorAlphaTask
+			load = {
+				alpha: this.alpha,
+				color: this.color
+			};
+		}
+		Application.instance.load(load,
+			function(result)
+			{
+				var img = result;
+				
+				var images = window[this.imagesName];
+				images[this.id] = img;
+				
+				var asset = {image: img, scale: this.scale, id: this.id};
+				asset.destroy = function()
+				{
+					img.src = "";
+					delete images[this.id];
+				};
+				
+				callback(asset);
+				
+			}.bind(this)
+		);
+	};
+
+	// Assign to namespace
+	namespace('springroll.easeljs').FlashArtImageTask = FlashArtImageTask;
+
+}());
+/**
  * @module EaselJS Display
  * @namespace springroll.easeljs
  * @requires Core
@@ -1096,75 +1412,56 @@
 (function()
 {
 	var Task = include('springroll.Task'),
-		FlashArt = include('springroll.easeljs.FlashArt'),
-		Application = include('springroll.Application'),
+		TextureAtlas = include('springroll.easeljs.TextureAtlas'),
 		ColorAlphaTask = include('springroll.ColorAlphaTask'),
-		BitmapUtils = include('springroll.easeljs.BitmapUtils');
+		Application = include('springroll.Application');
 
 	/**
-	 * Replaces Bitmaps in the global lib dictionary with a faux Bitmap
-	 * that pulls the image from a spritesheet.
+	 * Internal class for dealing with async load assets through Loader.
 	 * @class FlashArtAtlasTask
 	 * @extends springroll.Task
 	 * @constructor
 	 * @private
 	 * @param {Object} asset The data properties
-	 * @param {String} asset.src The source
+	 * @param {String} asset.type The asset type must be "easeljs".
+	 * @param {String} asset.format The asset format must be "FlashAtlas".
 	 * @param {String} asset.atlas The TextureAtlas source data
-	 * @param {Boolean} [asset.cache=false] If we should cache the result
-	 * @param {String} [asset.image] The spritesheet image path
-	 * @param {String} [asset.color] The spritesheet color image path, if not using image property
-	 * @param {String} [asset.alpha] The spritesheet alpha image path, if not using image property
+	 * @param {String} [asset.image] The atlas image path
+	 * @param {String} [asset.color] The color image path, if not using image property
+	 * @param {String} [asset.alpha] The alpha image path, if not using image property
+	 * @param {String} [asset.libName='lib'] The global window object for symbols
 	 * @param {String} [asset.id] Id of asset
+	 * @param {Boolean} [asset.cache=false] If we should cache the result
 	 * @param {Function} [asset.complete] The event to call when done
-	 * @param {String} [asset.libItem='lib'] The global window object for symbols
 	 * @param {Object} [asset.sizes=null] Define if certain sizes are not supported
 	 */
 	var FlashArtAtlasTask = function(asset)
 	{
-		Task.call(this, asset, asset.src);
-
-		if (!BitmapUtils)
-		{
-			BitmapUtils = include('springroll.easeljs.BitmapUtils');
-		}
+		Task.call(this, asset, asset.atlas);
 
 		/**
-		 * The path to the flash asset
-		 * @property {String} src
-		 */
-		this.src = this.filter(asset.src);
-
-		/**
-		 * The spritesheet data source path
+		 * The TextureAtlas data source path
 		 * @property {String} atlas
 		 */
 		this.atlas = this.filter(asset.atlas);
 
 		/**
-		 * The spritesheet source path
+		 * The atlas source path
 		 * @property {String} image
 		 */
 		this.image = this.filter(asset.image);
 
 		/**
-		 * The spritesheet color source path
+		 * The atlas color source path
 		 * @property {String} color
 		 */
 		this.color = this.filter(asset.color);
 
 		/**
-		 * The spritesheet alpha source path
+		 * The atlas alpha source path
 		 * @property {String} alpha
 		 */
 		this.alpha = this.filter(asset.alpha);
-
-		/**
-		 * The name of the window object library items hang on
-		 * @property {String} libName
-		 * @default 'lib'
-		 */
-		this.libName = asset.libName || 'lib';
 	};
 
 	// Reference to prototype
@@ -1179,11 +1476,11 @@
 	 */
 	FlashArtAtlasTask.test = function(asset)
 	{
-		return asset.src &&
-			asset.src.search(/\.js$/i) > -1 &&
-			asset.type == "easeljs" &&
+		// animation data and atlas data and an image or color/alpha split
+		return asset.type == "easeljs" &&
+			asset.format == "FlashAtlas" &&
 			asset.atlas &&
-			(asset.image || (asset.color && asset.alpha));
+			(asset.image || (asset.alpha && asset.color));
 	};
 
 	/**
@@ -1193,10 +1490,18 @@
 	 */
 	p.start = function(callback)
 	{
-		var assets = {
-			_flash : this.src,
-			_atlas: this.atlas
-		};
+		this.loadAtlas({}, callback);
+	};
+
+	/**
+	 * Load a texture atlas from the properties
+	 * @method loadAtlas
+	 * @param {Object} assets The assets object to load
+	 * @param {Function} done Callback when complete, returns new TextureAtlas
+	 */
+	p.loadAtlas = function(assets, done)
+	{
+		assets._atlas = this.atlas;
 
 		if (this.image)
 		{
@@ -1208,11 +1513,10 @@
 			assets._alpha = this.alpha;
 		}
 
-		// Load all the assets
+		// Do the load
 		Application.instance.load(assets, function(results)
 		{
 			var image;
-
 			if (results._image)
 			{
 				image = results._image;
@@ -1225,22 +1529,35 @@
 				);
 			}
 			
-			var art = new FlashArt(
-				this.id,
-				results._flash,
-				this.libName
-			);
-			
 			//prefer the spritesheet's exported scale
-			var scale = results._atlas.meta ? 1 / parseFloat(results._atlas.meta.scale) : 0;
-			//if it doesn't have one, then use the asset scale specified by the AssetManager.
+			var scale = result._atlas.meta ? 1 / parseFloat(result._atlas.meta.scale) : 0;
+			//if it doesn't have one, then use the asset scale specified by the
+			//AssetManager.
 			if(!scale)
-				scale = this.original.scale;
-			BitmapUtils.loadSpriteSheet(results._atlas, image, scale);
-
-			callback(art);
-		}
-		.bind(this));
+				scale = 1/ this.original.scale;
+			
+			
+			var asset = {};
+			
+			var libName = this.libName;
+			asset.create = function()
+			{
+				BitmapUtils.loadSpriteSheet(result._atlas, image, scale, libName);
+			};
+			
+			var lib = window[this.libName];
+			var frames = result._atlas.frames;
+			asset.destroy = function()
+			{
+				for(var id in frames)
+				{
+					delete lib[id];
+				}
+				image.src = null;
+			};
+			
+			done(asset, results);
+		}.bind(this));
 	};
 
 	// Assign to namespace
@@ -1265,8 +1582,9 @@
 	 * @constructor
 	 * @private
 	 * @param {Object} asset The data properties
-	 * @param {String} asset.images The source images
-	 * @param {String} asset.frames The SpriteSheet source frame data
+	 * @param {Array} asset.images The source images
+	 * @param {Array} asset.frames The SpriteSheet source frame data
+	 * @param {String} asset.type Asset type must be "easeljs"
 	 * @param {Boolean} [asset.cache=false] If we should cache the result
 	 * @param {String} [asset.id] Id of asset
 	 * @param {Function} [asset.complete] The event to call when done
@@ -1308,9 +1626,9 @@
 	 */
 	SpriteSheetTask.test = function(asset)
 	{
-		return asset.images && 
-			asset.type == "easeljs" && 
-			Array.isArray(asset.images) && 
+		return asset.images &&
+			asset.type == "easeljs" &&
+			Array.isArray(asset.images) &&
 			asset.frames;
 	};
 
@@ -1339,6 +1657,8 @@
 			spriteSheet.addEventListener('destroy', function()
 			{
 				delete window[globalProperty][id];
+				for(var i = results.length - 1; i >= 0; --i)
+					results[i].src = "";
 			});
 
 			// Return spritesheet
@@ -1368,6 +1688,8 @@
 	 * @private
 	 * @param {Object} asset The data properties
 	 * @param {String} asset.src The path to the spritesheet
+	 * @param {String} asset.type Asset type must be "easeljs"
+	 * @param {String} asset.format Asset format must be "createjs.SpriteSheet"
 	 * @param {String} [asset.globalProperty='ss'] The name of the global property
 	 * @param {Boolean} [asset.cache=false] If we should cache the result
 	 * @param {String} [asset.id] Id of asset
@@ -1399,8 +1721,8 @@
 	 */
 	FlashSpriteSheetTask.test = function(asset)
 	{
-		return asset.src && 
-			asset.type == "easeljs" && 
+		return asset.src &&
+			asset.type == "easeljs" &&
 			asset.format == "createjs.SpriteSheet";
 	};
 
@@ -1516,8 +1838,9 @@
 		var assetManager = this.assetManager;
 		
 		assetManager.register('springroll.easeljs.TextureAtlasTask', 30);
+		assetManager.register('springroll.easeljs.FlashArtImageTask', 40);
+		assetManager.register('springroll.easeljs.FlashArtAtlasTask', 40);
 		assetManager.register('springroll.easeljs.FlashArtTask', 50);
-		assetManager.register('springroll.easeljs.FlashArtAtlasTask', 60);
 		assetManager.register('springroll.easeljs.SpriteSheetTask', 70);
 		assetManager.register('springroll.easeljs.FlashSpriteSheetTask', 80);
 		assetManager.register('springroll.easeljs.BitmapTask', 90);

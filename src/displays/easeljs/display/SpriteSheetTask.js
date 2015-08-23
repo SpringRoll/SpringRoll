@@ -16,8 +16,9 @@
 	 * @constructor
 	 * @private
 	 * @param {Object} asset The data properties
-	 * @param {String} asset.images The source images
-	 * @param {String} asset.frames The SpriteSheet source frame data
+	 * @param {Array} asset.images The source images
+	 * @param {Array} asset.frames The SpriteSheet source frame data
+	 * @param {String} asset.type Asset type must be "easeljs"
 	 * @param {Boolean} [asset.cache=false] If we should cache the result
 	 * @param {String} [asset.id] Id of asset
 	 * @param {Function} [asset.complete] The event to call when done
@@ -59,9 +60,9 @@
 	 */
 	SpriteSheetTask.test = function(asset)
 	{
-		return asset.images && 
-			asset.type == "easeljs" && 
-			Array.isArray(asset.images) && 
+		return asset.images &&
+			asset.type == "easeljs" &&
+			Array.isArray(asset.images) &&
 			asset.frames;
 	};
 
@@ -90,6 +91,8 @@
 			spriteSheet.addEventListener('destroy', function()
 			{
 				delete window[globalProperty][id];
+				for(var i = results.length - 1; i >= 0; --i)
+					results[i].src = "";
 			});
 
 			// Return spritesheet

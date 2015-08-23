@@ -24,14 +24,15 @@
 	 * @method loadSpriteSheet
 	 * @static
 	 * @param {Object} spritesheetData The JSON object describing the frames in the atlas. This is
-	 *    expected to fit the JSON Hash format as exported from
-	 *    TexturePacker.
+	 *                                 expected to fit the JSON Hash format as exported from
+	 *                                 TexturePacker.
 	 * @param {Image|HTMLCanvasElement} spritesheetImage The spritesheet image that contains all of
-	 *    the frames.
-	 * @param {Number} [scale=1] The scale to apply to all sprites from the spritesheet. For example,
-	 *    a half sized spritesheet should have a scale of 2.
+	 *                                                   the frames.
+	 * @param {Number} [scale=1] The scale to apply to all sprites from the spritesheet. For
+	 *                           example, a half sized spritesheet should have a scale of 2.
+	 * @param {String} [libName='lib'] The global dictionary to add items to.
 	 */
-	BitmapUtils.loadSpriteSheet = function(spritesheetData, spritesheetImage, scale)
+	BitmapUtils.loadSpriteSheet = function(spritesheetData, spritesheetImage, scale, libName)
 	{
 		if (scale > 0)
 		{
@@ -47,12 +48,16 @@
 			// scale should default to 1
 			scale = 1;
 		}
+		if(!libName)
+			libName = "lib";
 		
 		var frameDict = spritesheetData.frames || spritesheetData;
 		// TexturePacker outputs frames with (not) swapped width & height when rotated, so we need to
 		// swap them ourselves
 		var swapFrameSize = spritesheetData.meta &&
 				spritesheetData.meta.app == "http://www.codeandweb.com/texturepacker";
+		
+		var lib = window[libName];
 		for (var key in frameDict)
 		{
 			var frame = frameDict[key];
@@ -156,9 +161,9 @@
 		output.addChild(bitmap);
 		bitmap.sourceRect = texture.frame;
 		bitmap.setTransform(
-			texture.offset.x * scale, 
-			texture.offset.y * scale, 
-			scale, 
+			texture.offset.x * scale,
+			texture.offset.y * scale,
+			scale,
 			scale
 		);
 
@@ -168,8 +173,8 @@
 			bitmap.regX = bitmap.sourceRect.width;
 		}
 		//set up a nominal bounds to be kind
-		output.nominalBounds = new Rectangle(0, 0, 
-			texture.width * scale, 
+		output.nominalBounds = new Rectangle(0, 0,
+			texture.width * scale,
 			texture.height * scale
 		);
 		return output;
@@ -185,8 +190,9 @@
 	 * @static
 	 * @param {String|Object} idOrDict A dictionary of Bitmap ids to replace, or a single id.
 	 * @param {Number} [scale=1] The scale to apply to the image(s).
+	 * @param {String} [libName='lib'] The global dictionary to add items to.
 	 */
-	BitmapUtils.replaceWithScaledBitmap = function(idOrDict, scale)
+	BitmapUtils.replaceWithScaledBitmap = function(idOrDict, scale, libName)
 	{
 		//scale is required, but it doesn't hurt to check - also, don't bother for a scale of 1
 		if(scale != 1 && scale > 0)
@@ -197,8 +203,11 @@
 		{
 			return;
 		}
+		if(!libName)
+			libName = "lib";
 
 		var key, bitmap, newBitmap, p;
+		var lib = window[libName];
 		if (typeof idOrDict == "string")
 		{
 			key = idOrDict;

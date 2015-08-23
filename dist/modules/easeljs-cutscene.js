@@ -55,13 +55,6 @@
 		var display = this._display = options.display;
 
 		/**
-		 * The scaling value for all images.
-		 * @property {Number} _imageScale
-		 * @private
-		 */
-		this._imageScale = options.imageScale;
-
-		/**
 		 * The designed width of the animation
 		 * @property {Number} width
 		 * @private
@@ -471,6 +464,8 @@
 	 */
 	p.destroy = function()
 	{
+		this.stop();
+		
 		this.dispatchEvent('destroy');
 
 		Application.instance.off("resize", this.resize);
@@ -520,14 +515,13 @@
 	 * @param {int} asset.width The width of the animation
 	 * @param {int} asset.height The height of the animation
 	 * @param {Array} [asset.audio] The collection of audio files
-	 * @param {Object} [asset.images] The map of the images to load
+	 * @param {Array} [asset.images] The map of the images to load
 	 * @param {String} [asset.fps] The animation framerate, defaults to Application framerate
 	 * @param {Boolean} [asset.cache=false] If we should cache the result
 	 * @param {String} [asset.id] Id of asset
 	 * @param {Function} [asset.complete] The event to call when done
 	 * @param {String} [asset.libItem='lib'] The global window object for symbols
 	 * @param {String} [asset.imagesName='images'] The global window object for images
-	 * @param {Number} [asset.imageScale=1] The default scale of the images
 	 */
 	var CutsceneTask = function(asset)
 	{
@@ -593,13 +587,6 @@
 		this.imagesName = asset.imagesName || 'images';
 
 		/**
-		 * The scale of the images
-		 * @property {Number} imageScale
-		 * @default 1
-		 */
-		this.imageScale = asset.imageScale || 1;
-
-		/**
 		 * The display to use, defaults to main App's main display
 		 * @property {springroll.AbstractDisplay} display
 		 */
@@ -635,15 +622,12 @@
 			_anim : {
 				src: this.anim,
 				libName: this.libName,
+				images: this.images,
+				imagesName: this.imagesName,
+				type: "easeljs",
 				format: "springroll.easeljs.FlashArt"
 			}
 		};
-
-		if (this.images)
-		{
-			// ListTask to load the images
-			assets._images = { assets: this.images };
-		}
 
 		if (this.audio)
 		{
@@ -662,16 +646,6 @@
 		// Preload all the assets for the cutscene
 		app.load(assets, function(results)
 		{
-			// Map the images to the global images object
-			if (results._images)
-			{
-				var images = namespace(this.imagesName);
-				for (var id in results._images)
-				{
-					images[id] = results._images[id];
-				}
-			}
-
 			// Include the clip class
 			var ClipClass = include(this.libName + "." + this.animClass);
 			var clip = new ClipClass();
@@ -684,7 +658,6 @@
 				height: this.height,
 				display: this.display,
 				captions: app.captions || null,
-				imageScale: this.imageScale,
 				audio: this.audio
 			});
 
@@ -696,16 +669,6 @@
 				// Destroy the FlashArt object
 				results._anim.destroy();
 
-				// Destroy the images
-				if (results._images)
-				{
-					var images = namespace(this.imagesName);
-					for (var id in results._images)
-					{
-						images[id].src = "";
-						delete images[id];
-					}
-				}
 				// Destroy the audio
 				if (results._audio)
 				{

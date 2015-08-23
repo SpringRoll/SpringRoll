@@ -63,13 +63,14 @@
 		Application.instance.load({
 				_alpha: this.alpha,
 				_color: this.color
-			}, 
+			},
 			function(results)
 			{
 				callback(ColorAlphaTask.mergeAlpha(
 					results._color,
 					results._alpha
 				));
+				results._color.src = results._alpha.src = "";
 			}
 		);
 	};

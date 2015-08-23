@@ -94,6 +94,7 @@
 				"src/displays/easeljs/display/FlashArtTask.js",
 				"src/displays/easeljs/display/TextureAtlas.js",
 				"src/displays/easeljs/display/TextureAtlasTask.js",
+				"src/displays/easeljs/display/FlashArtImageTask.js",
 				"src/displays/easeljs/display/FlashArtAtlasTask.js",
 				"src/displays/easeljs/display/SpriteSheetTask.js",
 				"src/displays/easeljs/display/FlashSpriteSheetTask.js",
