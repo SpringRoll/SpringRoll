@@ -1530,7 +1530,7 @@
 			}
 			
 			//prefer the spritesheet's exported scale
-			var scale = result._atlas.meta ? 1 / parseFloat(result._atlas.meta.scale) : 0;
+			var scale = results._atlas.meta ? 1 / parseFloat(results._atlas.meta.scale) : 0;
 			//if it doesn't have one, then use the asset scale specified by the
 			//AssetManager.
 			if(!scale)
@@ -1542,11 +1542,11 @@
 			var libName = this.libName;
 			asset.create = function()
 			{
-				BitmapUtils.loadSpriteSheet(result._atlas, image, scale, libName);
+				BitmapUtils.loadSpriteSheet(results._atlas, image, scale, libName);
 			};
 			
 			var lib = namcespace(this.libName);
-			var frames = result._atlas.frames;
+			var frames = results._atlas.frames;
 			asset.destroy = function()
 			{
 				for(var id in frames)
