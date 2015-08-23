@@ -891,7 +891,7 @@
 			{
 				var image;
 				var objectsToDestroy = [];
-				var globalImages = window[this.imagesName];
+				var globalImages = namespace(this.imagesName);
 				
 				for(var id in images)
 				{
@@ -1384,7 +1384,7 @@
 			{
 				var img = result;
 				
-				var images = window[this.imagesName];
+				var images = namespace(this.imagesName);
 				images[this.id] = img;
 				
 				var asset = {image: img, scale: this.scale, id: this.id};
@@ -1545,7 +1545,7 @@
 				BitmapUtils.loadSpriteSheet(result._atlas, image, scale, libName);
 			};
 			
-			var lib = window[this.libName];
+			var lib = namcespace(this.libName);
 			var frames = result._atlas.frames;
 			asset.destroy = function()
 			{

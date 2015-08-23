@@ -84,7 +84,7 @@
 			{
 				var img = result;
 				
-				var images = window[this.imagesName];
+				var images = namespace(this.imagesName);
 				images[this.id] = img;
 				
 				var asset = {image: img, scale: this.scale, id: this.id};

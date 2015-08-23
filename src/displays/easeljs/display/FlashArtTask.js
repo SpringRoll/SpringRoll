@@ -229,7 +229,7 @@
 			{
 				var image;
 				var objectsToDestroy = [];
-				var globalImages = window[this.imagesName];
+				var globalImages = namespace(this.imagesName);
 				
 				for(var id in images)
 				{

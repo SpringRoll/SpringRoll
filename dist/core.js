@@ -3891,7 +3891,7 @@
 			{
 				if (true && Debug)
 				{
-					Debug.error("Caching an asset requires and id, none set", asset);
+					Debug.error("Caching an asset requires an id, none set", asset);
 				}
 				this.cache = false;
 			}

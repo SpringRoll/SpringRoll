@@ -139,7 +139,7 @@
 				BitmapUtils.loadSpriteSheet(result._atlas, image, scale, libName);
 			};
 			
-			var lib = window[this.libName];
+			var lib = namcespace(this.libName);
 			var frames = result._atlas.frames;
 			asset.destroy = function()
 			{
