@@ -222,8 +222,6 @@
 				this.libName
 			);
 			
-			console.log(results._images);
-			
 			var images = results._images;
 			if(images)
 			{
