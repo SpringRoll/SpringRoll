@@ -8,7 +8,8 @@
 	var Task = include('springroll.Task'),
 		TextureAtlas = include('springroll.easeljs.TextureAtlas'),
 		ColorAlphaTask = include('springroll.ColorAlphaTask'),
-		Application = include('springroll.Application');
+		Application = include('springroll.Application'),
+		BitmapUtils = include('springroll.easeljs.BitmapUtils');
 
 	/**
 	 * Internal class for dealing with async load assets through Loader.
@@ -56,6 +57,8 @@
 		 * @property {String} alpha
 		 */
 		this.alpha = this.filter(asset.alpha);
+		
+		this.libName = asset.libName || "lib";
 	};
 
 	// Reference to prototype
@@ -139,7 +142,7 @@
 				BitmapUtils.loadSpriteSheet(results._atlas, image, scale, libName);
 			};
 			
-			var lib = namcespace(this.libName);
+			var lib = namespace(this.libName);
 			var frames = results._atlas.frames;
 			asset.destroy = function()
 			{
