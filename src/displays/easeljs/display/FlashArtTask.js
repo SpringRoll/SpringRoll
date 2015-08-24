@@ -46,33 +46,18 @@
 		this.src = this.filter(asset.src);
 		
 		/**
-		 * The path to the flash asset
-		 * @property {String} src
+		 * Any image, atlas, or SpriteSheet assets that should be loaded along with this piece
+		 * of flash art.
+		 * @property {Array} images
 		 */
 		this.images = asset.images;
 
-		/**
-		 * The spritesheet data source path
-		 * @property {String} atlas
-		 */
 		this.atlas = this.filter(asset.atlas);
 
-		/**
-		 * The spritesheet source path
-		 * @property {String} image
-		 */
 		this.image = this.filter(asset.image);
 
-		/**
-		 * The spritesheet color source path
-		 * @property {String} color
-		 */
 		this.color = this.filter(asset.color);
 
-		/**
-		 * The spritesheet alpha source path
-		 * @property {String} alpha
-		 */
 		this.alpha = this.filter(asset.alpha);
 
 		/**
