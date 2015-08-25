@@ -184,12 +184,12 @@
 	 */
 	p.destroy = function()
 	{
+		s.destroy.call(this);
+		
 		this.stage.removeChildren();
 		this.stage.destroy();
 		this.renderer.destroy();
 		this.renderer = null;
-		
-		s.destroy.call(this);
 	};
 
 	// Assign to the global namespace
