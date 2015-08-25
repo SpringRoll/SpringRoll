@@ -184,10 +184,10 @@
 	 */
 	p.destroy = function()
 	{
+		this.stage.destroy();
+		
 		s.destroy.call(this);
 		
-		this.stage.removeChildren();
-		this.stage.destroy();
 		this.renderer.destroy();
 		this.renderer = null;
 	};
