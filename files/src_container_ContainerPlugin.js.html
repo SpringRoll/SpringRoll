@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html lang='en'>
 <head>
-	<title>SpringRoll v0.3.9 API Documentation : src/container/ContainerPlugin.js</title>
+	<title>SpringRoll v0.3.10 API Documentation : src/container/ContainerPlugin.js</title>
 	<meta charset='utf-8'>
 	<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 	<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
-	<link rel='shortcut icon' type='image/png' href='../assets/images/favicon.ico?v=0.3.9'>
+	<link rel='shortcut icon' type='image/png' href='../assets/images/favicon.ico?v=0.3.10'>
 	<link href='//fonts.googleapis.com/css?family=Titillium+Web:300,200,600' rel='stylesheet' type='text/css'>
-	<link rel='stylesheet' type='text/css' href='../assets/css/libraries.css?v=0.3.9'>
-	<link rel='stylesheet' type='text/css' href='../assets/css/main.css?v=0.3.9'>
+	<link rel='stylesheet' type='text/css' href='../assets/css/libraries.css?v=0.3.10'>
+	<link rel='stylesheet' type='text/css' href='../assets/css/main.css?v=0.3.10'>
 </head>
 <body>
 <header>
@@ -22,10 +22,10 @@
 					<span class="icon-bar"></span>
 				</button>
 				<a class="navbar-brand" href='https://github.com/SpringRoll/SpringRoll'>
-						<img src='../assets/images/logo.png?v=0.3.9' class="logo">
+						<img src='../assets/images/logo.png?v=0.3.10' class="logo">
 					<span class='project-name'>SpringRoll</span>
 					<span class="sr-only">API Documentation for:</span>
-					<span class='version hidden-xs'>v0.3.9</span>
+					<span class='version hidden-xs'>v0.3.10</span>
 				</a>
 			</div>
 			<div class="collapse navbar-collapse" id="docs-navbar">
@@ -515,6 +515,8 @@
 	// Init the animator
 	plugin.setup = function()
 	{
+		var options = this.options;
+
 		/**
 		 * The default play-mode for the application is continuous, if the application is
 		 * running as part of a sequence is it considered in &quot;single play&quot; mode
@@ -523,7 +525,7 @@
 		 * @readOnly
 		 * @default false
 		 */
-		this.options.add(&#x27;singlePlay&#x27;, false, true);
+		options.add(&#x27;singlePlay&#x27;, false, true);
 
 		/**
 		 * The optional play options to use if the application is played in &quot;single play&quot;
@@ -534,32 +536,44 @@
 		 * @property {Object} options.playOptions
 		 * @readOnly
 		 */
-		this.options.add(&#x27;playOptions&#x27;, null, true);
+		options.add(&#x27;playOptions&#x27;, null, true);
 
 		/**
 		 * Send a message to let the site know that this has
 		 * been loaded, if the site is there
 		 * @property {Bellhop} container
 		 */
-		this.container = new Bellhop();
-		this.container.connect();
+		var container = this.container = new Bellhop();
+		container.connect();
+
+		/**
+		 * This option tells the container to always keep focus on the iframe even
+		 * when the focus is lost. This is useful mostly if your Application
+		 * requires keyboard input.
+		 * @property {Boolean} options.keepFocus
+		 */
+		options.add(&#x27;keepFocus&#x27;, false)
+			.on(&#x27;keepFocus&#x27;, function(data)
+			{
+				container.send(&#x27;keepFocus&#x27;, data);
+			});
 
 		// Handle the learning event
 		this.on(&#x27;learningEvent&#x27;, function(data)
 		{
-			this.container.send(&#x27;learningEvent&#x27;, data);
+			container.send(&#x27;learningEvent&#x27;, data);
 		});
 
 		// Handle google analtyics event
 		this.on(&#x27;analyticEvent&#x27;, function(data)
 		{
-			this.container.send(&#x27;analyticEvent&#x27;, data);
+			container.send(&#x27;analyticEvent&#x27;, data);
 		});
 
 		// When the preloading is done
 		this.once(&#x27;beforeInit&#x27;, function()
 		{
-			this.container.send(&#x27;loadDone&#x27;);
+			container.send(&#x27;loadDone&#x27;);
 		});
 
 		/**
@@ -723,7 +737,10 @@
 	 */
 	var onSoundMuted = function(e)
 	{
-		this.sound.muteAll = !!e.data;
+		if (this.sound)
+		{
+			this.sound.muteAll = !!e.data;
+		}
 	};
 
 	/**
@@ -734,7 +751,10 @@
 	 */
 	var onCaptionsMuted = function(e)
 	{
-		this.captions.mute = !!e.data;
+		if (this.captions)
+		{
+			this.captions.mute = !!e.data;
+		}
 	};
 
 	/**
@@ -746,7 +766,10 @@
 	 */
 	var onContextMuted = function(context, e)
 	{
-		this.sound.setContextMute(context, !!e.data);
+		if (this.sound)
+		{
+			this.sound.setContextMute(context, !!e.data);
+		}
 	};
 
 	/**
@@ -827,7 +850,7 @@
 </div>
 </div>
 </div>
-<script src='../assets/js/libraries.js?v=0.3.9'></script>
-<script src='../assets/js/main.js?v=0.3.9'></script>
+<script src='../assets/js/libraries.js?v=0.3.10'></script>
+<script src='../assets/js/main.js?v=0.3.10'></script>
 </body>
 </html>
