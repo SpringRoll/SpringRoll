@@ -1430,40 +1430,6 @@
 				return this._states;
 			}
 		});
-
-		if (true)
-		{
-			/**
-			 * Debug key strokes
-			 * → = trigger a skip to the next state for testing
-			 * ← = trigger a skip to the previous state for testing
-			 */
-			window.onkeyup = function(e)
-			{
-				if (!this.manager || !this.manager.currentState) return;
-
-				var key = e.keyCode ? e.keyCode : e.which;
-				var currentState = this.manager.currentState;
-				switch (key)
-				{
-					//right arrow
-					case 39:
-					{
-						if (Debug) Debug.info("Going to next state via keyboard");
-						currentState.nextState();
-						break;
-					}
-					//left arrow
-					case 37:
-					{
-						if (Debug) Debug.info("Going to previous state via keyboard");
-						currentState.previousState();
-						break;
-					}
-				}
-			}
-			.bind(this);
-		}
 	};
 
 	// Destroy the animator
