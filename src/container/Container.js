@@ -25,12 +25,17 @@
 	 * @param {string} [options.sfxButton] jQuery selector for sounf effects button
 	 * @param {string} [options.musicButton] jQuery selector for music button
 	 * @param {string} [options.pauseButton] jQuery selector for pause button
+	 * @param {string} [options.pauseFocusSelector='.pause-on-focus'] The class to pause
+	 *        the application when focused on. This is useful for form elements which
+	 *        require focus and play better with Application's keepFocus option.
 	 */
 	var Container = function(iframeSelector, options)
 	{
 		EventDispatcher.call(this);
 
-		options = options || {};
+		options = $.extend({
+			pauseFocusSelector: '.pause-on-focus'
+		}, options || {});
 
 		/**
 		 * The name of this class
@@ -138,20 +143,32 @@
 
 		/**
 		 * Whether the Game is currently "blurred" (not focused) - for pausing/unpausing
-		 * @type {Boolean}
+		 * @property {Boolean} _appBlurred
+		 * @private
+		 * @default  false
 		 */
 		this._appBlurred = false;
 
 		/**
+		 * Always keep the focus on the application iframe
+		 * @property {Boolean} _keepFocus
+		 * @private
+		 * @default  false
+		 */
+		this._keepFocus = false;
+
+		/**
 		 * Whether the Container is currently "blurred" (not focused) - for pausing/unpausing
-		 * @type {Boolean}
+		 * @property {Boolean} _containerBlurred
+		 * @private
+		 * @default  false
 		 */
 		this._containerBlurred = false;
 
 		/**
 		 * Delays pausing of application to mitigate issues with asynchronous communication
 		 * between Game and Container
-		 * @type {Timeout}
+		 * @property {int} _pauseTimer
 		 */
 		this._pauseTimer = null;
 
@@ -192,6 +209,28 @@
 			onContainerFocus.bind(this),
 			onContainerBlur.bind(this)
 		);
+
+		// Focus on the window on focusing on anything else
+		// without the .pause-on-focus class
+		$(document).on(
+			'focus click', 
+			':not('+options.pauseFocusSelector+')',
+			this.focus.bind(this)
+		);
+
+		// On elements with the class name pause-on-focus
+		// we will pause the game until a blur event to that item
+		// has been sent
+		var self = this;
+		$(options.pauseFocusSelector).on('focus', function()
+		{
+			self._isManualPause = self.paused = true;
+			$(this).one('blur', function()
+			{
+				self._isManualPause = self.paused = false;
+				self.focus();
+			});
+		});
 	};
 
 	//Reference to the prototype
@@ -217,6 +256,7 @@
 	/**
 	 * Fired when the application is unsupported
 	 * @event unsupported
+	 * @param {String} err The error message
 	 */
 
 	/**
@@ -303,9 +343,10 @@
 
 		// Dispatch event for unsupported browsers
 		// and then bail, don't continue with loading the application
-		if (!Features.canvas || !(Features.webaudio || Features.flash))
+		var err = Features.basic();
+		if (err)
 		{
-			return this.trigger('unsupported');
+			return this.trigger('unsupported', err);
 		}
 
 		this.loading = true;
@@ -394,7 +435,7 @@
 
 			if (err)
 			{
-				return this.trigger('unsupported');
+				return this.trigger('unsupported', err); 
 			}
 
 			this.release = release;
@@ -433,10 +474,10 @@
 			progressEvent: onLearningEvent.bind(this),
 			learningEvent: onLearningEvent.bind(this),
 			helpEnabled: onHelpEnabled.bind(this),
-			features: onFeatures.bind(this)
+			features: onFeatures.bind(this),
+			keepFocus: onKeepFocus.bind(this)
 		});
 	};
-
 
 	/**
 	 * Removes the Bellhop communication layer altogether.
@@ -481,6 +522,9 @@
 		// Loading is done
 		this.trigger('opened');
 
+		// Focus on the content
+		this.focus();
+
 		// Reset the paused state
 		this.paused = this._paused;
 	};
@@ -523,28 +567,64 @@
 	};
 
 	/**
+	 * Focus on the iframe's contentWindow
+	 * @method focus
+	 */
+	p.focus = function()
+	{
+		this.dom.contentWindow.focus();
+	};
+
+	/**
+	 * Unfocus on the iframe's contentWindow
+	 * @method blur
+	 */
+	p.blur = function()
+	{
+		this.dom.contentWindow.blur();
+	};
+
+	/**
 	 * Manage the focus change events sent from window and iFrame
 	 * @method manageFocus
 	 * @protected
 	 */
 	p.manageFocus = function()
 	{
-		if (this._pauseTimer)//we only need one delayed call, at the end of any sequence of rapidly-fired blur/focus events
-			clearTimeout(this._pauseTimer);
+		// Unfocus on the iframe
+		if (this._keepFocus)
+		{
+			this.blur();
+		}
 
-		//Delay setting of 'paused' in case we get another focus event soon.
-		//Focus events are sent to the container asynchronously, and this was
-		//causing rapid toggling of the pause state and related issues,
-		//especially in Internet Explorer
+		// we only need one delayed call, at the end of any 
+		// sequence of rapidly-fired blur/focus events
+		if (this._pauseTimer)
+		{
+			clearTimeout(this._pauseTimer);
+		}
+
+		// Delay setting of 'paused' in case we get another focus event soon.
+		// Focus events are sent to the container asynchronously, and this was
+		// causing rapid toggling of the pause state and related issues,
+		// especially in Internet Explorer
 		this._pauseTimer = setTimeout(
 			function()
 			{
 				this._pauseTimer = null;
 				// A manual pause cannot be overriden by focus events.
 				// User must click the resume button.
-				if (this._isManualPause === true) return;
+				if (this._isManualPause) return;
 
 				this.paused = this._containerBlurred && this._appBlurred;
+
+				// Focus on the content window when blurring the app
+				// but selecting the container
+				if (this._keepFocus && !this._containerBlurred && this._appBlurred)
+				{
+					this.focus();
+				}
+
 			}.bind(this),
 			100
 		);
@@ -584,6 +664,17 @@
 		if (features.hints) this.helpButton.show();
 
 		this.trigger('features', features);
+	};
+
+	/**
+	 * Handle the keep focus event for the window
+	 * @method onKeepFocus
+	 * @private
+	 */
+	var onKeepFocus = function(event)
+	{
+		this._keepFocus = !!event.data;
+		this.manageFocus();
 	};
 
 	/**
@@ -680,6 +771,7 @@
 		set: function(paused)
 		{
 			this._paused = paused;
+
 			if (this.client)
 			{
 				this.client.send('pause', paused);

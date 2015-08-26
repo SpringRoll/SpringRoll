@@ -17,6 +17,8 @@
 	// Init the animator
 	plugin.setup = function()
 	{
+		var options = this.options;
+
 		/**
 		 * The default play-mode for the application is continuous, if the application is
 		 * running as part of a sequence is it considered in "single play" mode
@@ -25,7 +27,7 @@
 		 * @readOnly
 		 * @default false
 		 */
-		this.options.add('singlePlay', false, true);
+		options.add('singlePlay', false, true);
 
 		/**
 		 * The optional play options to use if the application is played in "single play"
@@ -36,32 +38,44 @@
 		 * @property {Object} options.playOptions
 		 * @readOnly
 		 */
-		this.options.add('playOptions', null, true);
+		options.add('playOptions', null, true);
 
 		/**
 		 * Send a message to let the site know that this has
 		 * been loaded, if the site is there
 		 * @property {Bellhop} container
 		 */
-		this.container = new Bellhop();
-		this.container.connect();
+		var container = this.container = new Bellhop();
+		container.connect();
+
+		/**
+		 * This option tells the container to always keep focus on the iframe even
+		 * when the focus is lost. This is useful mostly if your Application
+		 * requires keyboard input.
+		 * @property {Boolean} options.keepFocus
+		 */
+		options.add('keepFocus', false)
+			.on('keepFocus', function(data)
+			{
+				container.send('keepFocus', data);
+			});
 
 		// Handle the learning event
 		this.on('learningEvent', function(data)
 		{
-			this.container.send('learningEvent', data);
+			container.send('learningEvent', data);
 		});
 
 		// Handle google analtyics event
 		this.on('analyticEvent', function(data)
 		{
-			this.container.send('analyticEvent', data);
+			container.send('analyticEvent', data);
 		});
 
 		// When the preloading is done
 		this.once('beforeInit', function()
 		{
-			this.container.send('loadDone');
+			container.send('loadDone');
 		});
 
 		/**
@@ -225,7 +239,10 @@
 	 */
 	var onSoundMuted = function(e)
 	{
-		this.sound.muteAll = !!e.data;
+		if (this.sound)
+		{
+			this.sound.muteAll = !!e.data;
+		}
 	};
 
 	/**
@@ -236,7 +253,10 @@
 	 */
 	var onCaptionsMuted = function(e)
 	{
-		this.captions.mute = !!e.data;
+		if (this.captions)
+		{
+			this.captions.mute = !!e.data;
+		}
 	};
 
 	/**
@@ -248,7 +268,10 @@
 	 */
 	var onContextMuted = function(context, e)
 	{
-		this.sound.setContextMute(context, !!e.data);
+		if (this.sound)
+		{
+			this.sound.setContextMute(context, !!e.data);
+		}
 	};
 
 	/**

@@ -112,6 +112,25 @@
 	}();
 
 	/**
+	 * Test for basic browser compatiliblity 
+	 * @method basic
+	 * @static
+	 * @return {String} The error message, if fails
+	 */
+	Features.basic = function()
+	{
+		if (!Features.canvas)
+		{
+			return 'Browser does not support canvas';
+		}
+		else if (!Features.webaudio && !Features.flash)
+		{
+			return 'Browser does not support WebAudio or Flash audio';
+		}
+		return null;
+	};
+
+	/**
 	 * See if the current bowser has the correct features
 	 * @method test
 	 * @static
@@ -135,6 +154,12 @@
 	 */
 	Features.test = function(capabilities)
 	{
+		// check for basic compatibility
+		var err = Features.basic();
+		if (err)
+		{
+			return err;
+		}
 		var features = capabilities.features;
 		var ui = capabilities.ui;
 		var sizes = capabilities.sizes;		
