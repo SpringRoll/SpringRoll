@@ -213,9 +213,14 @@
 		// Focus on the window on focusing on anything else
 		// without the .pause-on-focus class
 		$(document).on(
-			'focus click', 
-			':not('+options.pauseFocusSelector+')',
-			this.focus.bind(this)
+			'focus click',
+			function(e)
+			{
+				if (!$(e.target).filter(options.pauseFocusSelector).length)
+				{
+					this.focus();
+				}
+			}.bind(this)
 		);
 
 		// On elements with the class name pause-on-focus
