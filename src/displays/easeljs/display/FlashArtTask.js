@@ -7,9 +7,7 @@
 {
 	var Task = include('springroll.Task'),
 		FlashArt = include('springroll.easeljs.FlashArt'),
-		Application = include('springroll.Application'),
-		ColorAlphaTask = include('springroll.ColorAlphaTask'),
-		BitmapUtils = include('springroll.easeljs.BitmapUtils');
+		Application = include('springroll.Application');
 
 	/**
 	 * Replaces Bitmaps in the global lib dictionary with a faux Bitmap
@@ -33,11 +31,6 @@
 	var FlashArtTask = function(asset)
 	{
 		Task.call(this, asset, asset.src);
-
-		if (!BitmapUtils)
-		{
-			BitmapUtils = include('springroll.easeljs.BitmapUtils');
-		}
 
 		/**
 		 * The path to the flash asset
@@ -225,7 +218,6 @@
 						//scale asset if needed
 						if(result.scale != 1)
 							Bitmap.replaceWithScaledBitmap(id, 1 / result.scale, this.libName);
-						objectsToDestroy.push(result);
 					}
 					//otherwise the result is a SpriteSheet or the result of a FlashArtAtlasTask
 					else if(result.create)
