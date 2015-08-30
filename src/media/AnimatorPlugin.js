@@ -23,7 +23,7 @@
 		 */
 		this.animator = new Animator(this);
 		this.animator.captions = this.captions || null;
-		this.animator.register('springroll.AnimatorInstance', 0);
+		this.animator.register('springroll.GenericMovieClipInstance', 0);
 	};
 
 	// Destroy the animator
@@ -32,7 +32,7 @@
 		if (this.animator)
 		{
 			this.animator.destroy();
-			this.animator = null;	
+			this.animator = null;
 		}
 	};
 

@@ -48,34 +48,12 @@
 		this.instance = null;
 		
 		/**
-		 * The frame number of the first frame of the current animation. If this is -1, then the
-		 * animation is currently a pause instead of an animation.
-		 *
-		 * @property {int} firstFrame
-		 */
-		this.firstFrame = -1;
-		
-		/**
-		 * The frame number of the last frame of the current animation.
-		 *
-		 * @property {int} lastFrame
-		 */
-		this.lastFrame = -1;
-		
-		/**
 		 * If the current animation loops - determined by looking to see if it ends
 		in "_stop" or "_loop"
 		 *
 		 * @property {Boolean} isLooping
 		 */
 		this.isLooping = false;
-		
-		/**
-		 * Length of current animation in frames.
-		 *
-		 * @property {int} length
-		 */
-		this.length = 0;
 
 		/**
 		 * If this timeline plays captions for the current sound.
@@ -94,12 +72,6 @@
 		this._paused = false;
 		
 		/**
-		 * The start time of the current animation on the movieclip's timeline.
-		 * @property {Number} startTime
-		 */
-		this.startTime = 0;
-		
-		/**
 		 * The current animation duration in seconds.
 		 * @property {Number} duration
 		 */
@@ -110,13 +82,6 @@
 		 * @property {Number} speed
 		 */
 		this.speed = 1;
-
-		/**
-		 * The position of the current animation in seconds, or the current pause timer.
-		 * @property {Number} position
-		 * @protected
-		 */
-		this.position = 0;
 
 		/**
 		 * Sound alias to sync to during the current animation.
@@ -155,6 +120,10 @@
 		 * @readOnly
 		 */
 		this.complete = false;
+		
+		this._position = 0;
+		
+		this.isTimer = false;
 	};
 	
 	var p = AnimatorTimeline.prototype;
@@ -178,22 +147,30 @@
 		this.playSound = false;
 		this.soundInst = null;
 		this.soundAlias = null;
-		this.position = 0;
 		this.speed = 1;
+		this._position = 0;
 		this.duration = 0;
-		this.startTime = 0;
 		this._paused = false;
 		this.useCaptions = false;
-		this.length = 0;
 		this.isLooping = false;
-		this.firstFrame = -1;
-		this.lastFrame = -1;
+		this.isTimer = false;
 		this.listIndex = -1;
 		this.eventList = null;
 		this.onCancelled = null;
 		this.onComplete = null;
 		return this;
 	};
+	
+	Object.defineProperty(p, "position",
+	{
+		get: function() { return this._position; },
+		set: function(value)
+		{
+			this._position = value;
+			if(!this.isTimer)
+				this.instance.setPosition(value);
+		}
+	});
 	
 	/**
 	 * Advances to the next item in the list of things to play.
@@ -221,12 +198,12 @@
 		}
 		else
 		{
+			if(!this.isTimer)
+				this.instance.endAnim();
 			//reset variables
 			this.soundEnd = this.soundStart = 0;
 			this.isLooping = this.playSound = this.useCaptions = false;
 			this.soundInst = this.soundAlias = null;
-			this.startTime = this.length = 0;
-			this.firstFrame = this.lastFrame = -1;
 			
 			//see if the animation list is complete
 			if (++this.listIndex >= this.eventList.length)
@@ -242,24 +219,14 @@
 		{
 			case "object":
 			{
-				this.firstFrame = listItem.first;
-				this.lastFrame = listItem.last;
-				this.length = this.lastFrame - this.firstFrame;
-				var fps = this.instance.framerate;
-				this.startTime = this.firstFrame / fps;
-				this.duration = this.length / fps;
+				this.isTimer = false;
+				var instance = this.instance;
+				instance.startAnim(listItem, repeat);
+				this.duration = instance.duration;
 				this.speed = listItem.speed;
-				this.isLooping = listItem.loop;
-				var animStart = listItem.animStart;
-
-				if (repeat)
-				{
-					this.position = 0;
-				}
-				else
-				{
-					this.position = animStart < 0 ? Math.random() * this.duration : animStart;
-				}
+				this.isLooping = instance.isLooping || listItem.loop;
+				this._position = instance.position;
+				
 				if (listItem.alias)
 				{
 					this.soundAlias = listItem.alias;
@@ -271,8 +238,9 @@
 			}
 			case "number":
 			{
+				this.isTimer = true;
 				this.duration = listItem;
-				this.position = 0;
+				this._position = 0;
 				break;
 			}
 			case "function":
@@ -288,7 +256,7 @@
 	 * The position of the current animation, or the current pause timer, in milliseconds.
 	 * @property {Number} time
 	 */
-	Object.defineProperty(p, "time", 
+	Object.defineProperty(p, "time",
 	{
 		get: function()
 		{
@@ -304,11 +272,11 @@
 	 * Sets and gets the animation's paused status.
 	 * @property {Boolean} paused
 	 */
-	Object.defineProperty(p, "paused", 
+	Object.defineProperty(p, "paused",
 	{
 		get: function()
 		{
-			return this._paused; 
+			return this._paused;
 		},
 		set: function(value)
 		{

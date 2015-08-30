@@ -7,7 +7,7 @@
 {
 	var AnimatorInstance = include('springroll.AnimatorInstance');
 	var BitmapMovieClip = include('springroll.easeljs.BitmapMovieClip');
-	var MovieClipInstance = include('springroll.easeljs.MovieClipInstance');
+	var GenericMovieClipInstance = include('springroll.GenericMovieClipInstance');
 
 	/**
 	 * The plugin for working with movieclip and animator
@@ -17,7 +17,7 @@
 	 */
 	var BitmapMovieClipInstance = function()
 	{
-		MovieClipInstance.call(this);
+		GenericMovieClipInstance.call(this);
 	};
 
 	/**
@@ -31,9 +31,12 @@
 	{
 		return clip instanceof BitmapMovieClip;
 	};
+	
+	BitmapMovieClipInstance.hasAnimation = GenericMovieClipInstance.hasAnimation;
+	BitmapMovieClipInstance.getDuration = GenericMovieClipInstance.getDuration;
 
 	// Extend class
-	AnimatorInstance.extend(BitmapMovieClipInstance, MovieClipInstance);
+	AnimatorInstance.extend(BitmapMovieClipInstance, GenericMovieClipInstance);
 
 	// Assign to namespace
 	namespace('springroll.easeljs').BitmapMovieClipInstance = BitmapMovieClipInstance;

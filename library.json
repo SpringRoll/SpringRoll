@@ -157,6 +157,7 @@
 			"src/media/AnimatorTimeline.js",
 			"src/media/Animator.js",
 			"src/media/AnimatorInstance.js",
+			"src/media/GenericMovieClipInstance.js",
 			"src/media/AnimatorPlugin.js"
 		],
 		"ui": [

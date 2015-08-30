@@ -7,6 +7,7 @@
 {
 	var MovieClip = include('createjs.MovieClip');
 	var AnimatorInstance = include('springroll.AnimatorInstance');
+	var GenericMovieClipInstance = include('springroll.GenericMovieClipInstance');
 
 	/**
 	 * The plugin for working with movieclip and animator
@@ -16,7 +17,7 @@
 	 */
 	var MovieClipInstance = function()
 	{
-		AnimatorInstance.call(this);
+		GenericMovieClipInstance.call(this);
 	};
 
 	/**
@@ -30,56 +31,13 @@
 	{
 		return clip instanceof MovieClip;
 	};
+	
+	MovieClipInstance.hasAnimation = GenericMovieClipInstance.hasAnimation;
+	MovieClipInstance.getDuration = GenericMovieClipInstance.getDuration;
 
 	// Inherit the AnimatorInstance
 	var s = AnimatorInstance.prototype;
-	var p = AnimatorInstance.extend(MovieClipInstance);
-
-	/**
-	 * Initialize the instance
-	 * @method  init
-	 * @param  {createjs.MovieClip} clip Display object
-	 */
-	p.init = function(clip)
-	{
-		s.init.call(this, clip);
-
-		// Make sure the clip is disabled
-		clip.tickEnabled = false;
-	};
-
-	/**
-	 * Get and set the elapsedTime override
-	 * @property {Number} elapsedTime
-	 */
-	Object.defineProperty(p, 'elapsedTime',
-	{
-		get: function()
-		{
-			return this.clip.elapsedTime; 
-		},
-		set: function(elapsedTime)
-		{
-			this.clip.elapsedTime = elapsedTime;
-
-			// because the movieclip only checks the elapsed time here (tickEnabled is false),
-			// calling advance() with no parameters is fine - it won't advance the time
-			this.clip.advance();
-		}
-	});
-
-	/**
-	 * Play the clip override
-	 * @method play
-	 */
-	p.play = function()
-	{
-		this.clip.play();
-
-		// update the movieclip to make sure it is redrawn 
-		// correctly at the next opportunity
-		this.clip.advance();
-	};
+	var p = AnimatorInstance.extend(MovieClipInstance, GenericMovieClipInstance);
 
 	// Assign to namespace
 	namespace('springroll.easeljs').MovieClipInstance = MovieClipInstance;
