@@ -3883,7 +3883,7 @@
 				}
 
 				// Update the id
-				this.id = fallbackId;
+				asset.id = this.id = fallbackId;
 			}
 
 			// Check for ID if we're caching

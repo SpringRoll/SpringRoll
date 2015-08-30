@@ -45,7 +45,7 @@
 	/**
 	 * @method
 	 * @name springroll.StateManager#next
-	 * @see {@link springroll.BaseState#nextState}
+	 * @see {@link springroll.State#nextState}
 	 * @deprecated since version 0.3.0
 	 */
 	p.next = function()
@@ -57,7 +57,7 @@
 	/**
 	 * @method
 	 * @name springroll.StateManager#previous
-	 * @see {@link springroll.BaseState#previousState}
+	 * @see {@link springroll.State#previousState}
 	 * @deprecated since version 0.3.0
 	 */
 	p.previous = function()
@@ -65,5 +65,20 @@
 		console.warn("previous is now deprecated, please use the previousState method on BaseState: e.g.: app.manager.currentState.previousState();");
 		this._state.previousState();
 	};
+
+	/**
+	 * @class
+	 * @name springroll.BaseState
+	 * @see {@link springroll.State}
+	 * @deprecated since version 0.3.0
+	 */
+	Object.defineProperty(include('springroll'), 'BaseState', 
+	{
+		get: function()
+		{
+			console.warn("springroll.BaseState is now deprecated, please use springroll.State instead");
+			return include('springroll.State');
+		}
+	});
 
 }());
