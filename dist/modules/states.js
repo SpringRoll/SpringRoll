@@ -212,48 +212,6 @@
 		 */
 		this.delayLoad = options.delayLoad;
 
-		// create empty function to avoid a lot of if checks
-		var empty = function(){};
-
-		/**
-		 * When the state is exited. Override this to provide state cleanup.
-		 * @property {function} exit
-		 * @default null
-		 */
-		this.exit = empty;
-		
-		/**
-		 * When the state has requested to be exit, pre-transition. Override this to ensure
-		 * that animation/audio is stopped when leaving the state.
-		 * @property {function} exitStart
-		 * @default null
-		 */
-		this.exitStart = empty;
-
-		/**
-		 * Cancel the load, implementation-specific.
-		 * This is where any async actions should be removed.
-		 * @property {function} cancel
-		 * @default null
-		 */
-		this.cancel = empty;
-		
-		/**
-		 * When the state is entered. Override this to start loading assets - call loadingStart()
-		 * to tell the StateManager that that is going on.
-		 * @property {function} enter
-		 * @default null
-		 */
-		this.enter = empty;
-		
-		/**
-		 * When the state is visually entered fully - after the transition is done.
-		 * Override this to begin your state's activities.
-		 * @property {function} enterDone
-		 * @default null
-		 */
-		this.enterDone = empty;
-
 		// Hide the panel by default
 		this.panel.visible = false;
 	};
@@ -305,6 +263,48 @@
 	 * @event enabled
 	 * @param {Boolean} enable The enabled status of the state
 	 */
+
+	// create empty function to avoid a lot of if checks
+	var empty = function(){};
+
+	/**
+	 * When the state is exited. Override this to provide state cleanup.
+	 * @property {function} exit
+	 * @default null
+	 */
+	p.exit = empty;
+	
+	/**
+	 * When the state has requested to be exit, pre-transition. Override this to ensure
+	 * that animation/audio is stopped when leaving the state.
+	 * @property {function} exitStart
+	 * @default null
+	 */
+	p.exitStart = empty;
+
+	/**
+	 * Cancel the load, implementation-specific.
+	 * This is where any async actions should be removed.
+	 * @property {function} cancel
+	 * @default null
+	 */
+	p.cancel = empty;
+	
+	/**
+	 * When the state is entered. Override this to start loading assets - call loadingStart()
+	 * to tell the StateManager that that is going on.
+	 * @property {function} enter
+	 * @default null
+	 */
+	p.enter = empty;
+	
+	/**
+	 * When the state is visually entered fully - after the transition is done.
+	 * Override this to begin your state's activities.
+	 * @property {function} enterDone
+	 * @default null
+	 */
+	p.enterDone = empty;
 
 	/**
 	 * Goto the next state

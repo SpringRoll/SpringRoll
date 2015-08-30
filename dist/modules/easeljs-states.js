@@ -161,9 +161,8 @@
 	 */
 	var BaseState = function(panel, options)
 	{
-		if (!Application)
+		if (!BasePanel)
 		{
-			Application = include('springroll.Application');
 			BasePanel = include('springroll.easeljs.BasePanel');
 			Debug = include('springroll.Debug', false);
 		}
@@ -194,18 +193,18 @@
 		 */
 		this._images = [];
 
-		// @deprecated Method to handle on assets loaded
-		this.on('loaded', this.onAssetsLoaded)
-
 		// @deprecated method for adding assets dynamically to task
-		.on('preloading', function(assets)
+		this.on('loading', function(assets)
 		{
-			console.warn('addTasks has been deprecated, use assetsLoading event instead: e.g., state.on(\'assetsLoading\', function(assets){})');
-			this.addTasks(assets);
+			if (this.addTasks)
+			{
+				console.warn('addTasks has been deprecated, use loading event instead: e.g., state.on(\'loading\', function(assets){})');
+				this.addTasks(assets);
+			}
 		})
 
 		// Handle when assets are preloaded
-		.on('preloaded', function(assets)
+		.on('loaded', function(assets)
 		{
 			if (assets)
 			{
@@ -223,6 +222,9 @@
 				}
 			}
 			this.panel.setup();
+
+			// @deprecated Method to handle on assets loaded
+			this.onAssetsLoaded();
 		})
 		// Handle the panel exit
 		.on('exit', function()
@@ -253,10 +255,7 @@
 	 * @protected
 	 * @param {Array} tasks The list of preload tasks
 	 */
-	p.addTasks = function()
-	{
-		// Implementation specific
-	};
+	p.addTasks = null;
 
 	/**
 	 * Implementation specific for override. When all the assets, scaling and panel
