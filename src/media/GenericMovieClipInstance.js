@@ -59,8 +59,7 @@
 		//make sure the movieclip is framerate independent
 		if (!clip.framerate)
 		{
-			fps = Application.instance.options.fps || 15;
-			clip.framerate = fps;
+			clip.framerate = Application.instance.options.fps || 15;
 		}
 		clip.tickEnabled = false;
 		
@@ -228,8 +227,7 @@
 		//make sure the movieclip has a framerate
 		if (!clip.framerate)
 		{
-			var fps = Application.instance.options.fps || 15;
-			clip.framerate = fps;
+			clip.framerate = Application.instance.options.fps || 15;
 		}
 		
 		//the wildcard event plays the entire timeline
