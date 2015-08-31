@@ -9,7 +9,6 @@
 	//Import classes
 	var Container = include('createjs.Container'),
 		DwellTimer,
-		Animator,
 		Application;
 
 	/**
@@ -24,7 +23,6 @@
 		{
 			Application = include('springroll.Application');
 			DwellTimer = include('springroll.easeljs.DwellTimer', false);
-			Animator = include('springroll.Animator', false);
 		}
 
 		Container.call(this);
@@ -101,7 +99,7 @@
 			if (DwellTimer) DwellTimer.destroy(child);
 
 			// If there's an animation playing stop it
-			if (Animator) Animator.stop(child, true);
+			if (this.app.animator) this.app.animator.stop(child, true);
 
 			// Stop movie clips
 			if (child.stop) child.stop();
@@ -193,6 +191,8 @@
 		 */
 		this._images = [];
 
+		var priority = 100;
+
 		// @deprecated method for adding assets dynamically to task
 		this.on('loading', function(assets)
 		{
@@ -201,7 +201,7 @@
 				console.warn('addTasks has been deprecated, use loading event instead: e.g., state.on(\'loading\', function(assets){})');
 				this.addTasks(assets);
 			}
-		})
+		}, priority)
 
 		// Handle when assets are preloaded
 		.on('loaded', function(assets)
@@ -225,7 +225,7 @@
 
 			// @deprecated Method to handle on assets loaded
 			this.onAssetsLoaded();
-		})
+		}, priority)
 		// Handle the panel exit
 		.on('exit', function()
 		{
@@ -237,7 +237,7 @@
 				delete images[id];
 			});
 			this._images.length = 0;
-		});
+		}, priority);
 	};
 
 	// Reference to the parent prototype

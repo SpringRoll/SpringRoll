@@ -58,6 +58,8 @@
 		 */
 		this._images = [];
 
+		var priority = 100;
+
 		// @deprecated method for adding assets dynamically to task
 		this.on('loading', function(assets)
 		{
@@ -66,7 +68,7 @@
 				console.warn('addTasks has been deprecated, use loading event instead: e.g., state.on(\'loading\', function(assets){})');
 				this.addTasks(assets);
 			}
-		})
+		}, priority)
 
 		// Handle when assets are preloaded
 		.on('loaded', function(assets)
@@ -90,7 +92,7 @@
 
 			// @deprecated Method to handle on assets loaded
 			this.onAssetsLoaded();
-		})
+		}, priority)
 		// Handle the panel exit
 		.on('exit', function()
 		{
@@ -102,7 +104,7 @@
 				delete images[id];
 			});
 			this._images.length = 0;
-		});
+		}, priority);
 	};
 
 	// Reference to the parent prototype

@@ -39,6 +39,12 @@
 		 * @property {createjs.Display} display
 		 */
 		this.display = null;
+
+		/**
+		 * Reference to the animator instance
+		 * @property {springroll.Animator} animator
+		 */
+		this.animator = null;
 	};
 
 	//Reference to the prototype
@@ -55,6 +61,7 @@
 		this.learning = app.learning;
 		this.voPlayer = app.voPlayer;
 		this.display = app.display;
+		this.animator = app.animator;
 	};
 	
 	p._filterEvents = function(events)

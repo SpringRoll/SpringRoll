@@ -8,7 +8,6 @@
 	//Import classes
 	var Container = include('createjs.Container'),
 		DwellTimer,
-		Animator,
 		Application;
 
 	/**
@@ -23,7 +22,6 @@
 		{
 			Application = include('springroll.Application');
 			DwellTimer = include('springroll.easeljs.DwellTimer', false);
-			Animator = include('springroll.Animator', false);
 		}
 
 		Container.call(this);
@@ -100,7 +98,7 @@
 			if (DwellTimer) DwellTimer.destroy(child);
 
 			// If there's an animation playing stop it
-			if (Animator) Animator.stop(child, true);
+			if (this.app.animator) this.app.animator.stop(child, true);
 
 			// Stop movie clips
 			if (child.stop) child.stop();
