@@ -23,8 +23,9 @@
 	 * @param {int} [options.delayLoad=0] The number of frames to delay the loading for cases where
 	 *  heavy object instaniation slow the game dramatically.
 	 * @param {Array} [options.preload=[]] The assets to preload before the state loads
-	 * @param {Object} [options.scaling=null] The scaling items to use with the ScaleManager.
-	 *       See `ScaleManager.addItems` for more information about the
+	 * @param {Object|String} [options.scaling=null] The scaling items to use with the ScaleManager.
+	 *       If options.scaling is `"panel"` then the entire panel will be scaled as a title-safe
+	 *       item. See `ScaleManager.addItems` for more information about the
 	 *       format of the scaling objects. (UI Module only)
 	 */
 	var State = function(panel, options)
@@ -488,6 +489,12 @@
 	p._internalExit = function()
 	{
 		this.preloaded = false;
+		
+		//remove scaling objects that we added
+		if(this.scaling && this.scalingItems)
+		{
+			this.scaling.removeItems(this.panel);
+		}
 
 		// Clean any assets loaded by the manifest
 		if (this.preload.length)
@@ -504,7 +511,6 @@
 		this.panel.visible = false;
 		this._active = false;
 		this.exit();
-
 		
 		this.trigger('exit');
 	};
@@ -567,26 +573,25 @@
 		if (this.scaling)
 		{
 			var items = this.scalingItems;
-
+			
 			if (items)
 			{
-				this.scaling.addItems(this.panel, items);
-			}
-			// If there is no scaling config for the state,
-			// then scale the entire panel
-			else
-			{
-				// Reset the panel scale & position, to ensure
-				// that the panel is scaled properly
-				// upon state re-entry
-				this.panel.x = this.panel.y = 0;
-				this.panel.scaleX = this.panel.scaleY = 1;
-
-				this.scaling.addItem(this.panel,
+				if(items == "panel")
 				{
-					align: "top-left",
-					titleSafe: true
-				});
+					// Reset the panel scale & position, to ensure
+					// that the panel is scaled properly
+					// upon state re-entry
+					this.panel.x = this.panel.y = 0;
+					this.panel.scaleX = this.panel.scaleY = 1;
+
+					this.scaling.addItem(this.panel,
+					{
+						align: "top-left",
+						titleSafe: true
+					});
+				}
+				else
+					this.scaling.addItems(this.panel, items);
 			}
 		}
 		this.loadingDone();
