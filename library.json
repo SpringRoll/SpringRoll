@@ -176,11 +176,13 @@
 			"src/media/AnimatorPlugin.js"
 		],
 		"ui": [
+			"src/ui/ScaleImage.js",
 			"src/ui/ScaleItem.js",
 			"src/ui/Positioner.js",
 			"src/ui/ScaleManager.js",
 			"src/ui/ScalingPlugin.js",
-			"src/ui/TouchPlugin.js"
+			"src/ui/TouchPlugin.js",
+			"src/deprecation/ui.js"
 		],
 		"captions": [
 			"src/media/Captions.less",

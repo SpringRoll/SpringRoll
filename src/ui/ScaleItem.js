@@ -16,10 +16,10 @@
 	 * @private
 	 * @param {PIXI.DisplayObject|createjs.DisplayObject} display The item to affect
 	 * @param {String} align The vertical-horizontal alignment shorthand
-	 * @param {springroll.ScreenSettings} designedScreen The original screen the item was designed for
+	 * @param {Object} size The original screen the item was designed for
 	 * @param {DisplayAdapter} adapter The display adapter
 	 */
-	var ScaleItem = function(display, align, designedScreen, adapter)
+	var ScaleItem = function(display, align, size, adapter)
 	{
 		if (!ScaleManager)
 		{
@@ -81,9 +81,9 @@
 		/**
 		 * The original screen the item was designed for
 		 * @private
-		 * @property {ScreenSettings} _designedScreen
+		 * @property {Object} _size
 		 */
-		this._designedScreen = designedScreen;
+		this._size = size;
 
 		/**
 		 * The adapter for universal scale, rotation size access
@@ -147,12 +147,12 @@
 			}
 			case ScaleManager.ALIGN_CENTER:
 			{
-				this.origMarginVert = designedScreen.height * 0.5 - position.y;
+				this.origMarginVert = size.height * 0.5 - position.y;
 				break;
 			}
 			case ScaleManager.ALIGN_BOTTOM:
 			{
-				this.origMarginVert = designedScreen.height - (position.y + this.origBounds.bottom * scale.y);
+				this.origMarginVert = size.height - (position.y + this.origBounds.bottom * scale.y);
 				break;
 			}
 		}
@@ -166,12 +166,12 @@
 			}
 			case ScaleManager.ALIGN_CENTER:
 			{
-				this.origMarginHori = designedScreen.width * 0.5 - position.x;
+				this.origMarginHori = size.width * 0.5 - position.x;
 				break;
 			}
 			case ScaleManager.ALIGN_RIGHT:
 			{
-				this.origMarginHori = designedScreen.width - (position.x + this.origBounds.right * scale.x);
+				this.origMarginHori = size.width - (position.x + this.origBounds.right * scale.x);
 				break;
 			}
 		}
@@ -211,26 +211,26 @@
 	{
 		var adapter = this._adapter;
 		var _display = this._display;
-		var _designedScreen = this._designedScreen;
+		var _size = this._size;
 		var origBounds = this.origBounds;
 		var origScaleX = this.origScaleX;
 		var origScaleY = this.origScaleY;
-		var defaultRatio = _designedScreen.width / _designedScreen.height;
+		var defaultRatio = _size.width / _size.height;
 		var currentRatio = displayWidth / displayHeight;
 		var overallScale = currentRatio >= defaultRatio ?
-			displayHeight / _designedScreen.height :
-			displayWidth / _designedScreen.width;
+			displayHeight / _size.height :
+			displayWidth / _size.width;
 		var scaleToHeight = currentRatio >= defaultRatio;
 		var letterBoxWidth = 0;
 		var letterBoxHeight = 0;
 
 		if (scaleToHeight)
 		{
-			letterBoxWidth = (displayWidth - _designedScreen.width * overallScale) / 2;
+			letterBoxWidth = (displayWidth - _size.width * overallScale) / 2;
 		}
 		else
 		{
-			letterBoxHeight = (displayHeight - _designedScreen.height * overallScale) / 2;
+			letterBoxHeight = (displayHeight - _size.height * overallScale) / 2;
 		}
 
 		// Optional clamps on the min and max scale of the item
@@ -361,7 +361,7 @@
 		this._adapter = null;
 		this.origBounds = null;
 		this._display = null;
-		this._designedScreen = null;
+		this._size = null;
 	};
 
 	// Assign to namespace

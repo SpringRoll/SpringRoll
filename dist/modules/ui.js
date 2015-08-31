@@ -6,6 +6,148 @@
  */
 (function()
 {
+	var Bitmap = include('createjs.Bitmap', false);
+	var Sprite = include('PIXI.Sprite', false);
+
+	/**
+	 * A bitmap to scale with the ScaleManager
+	 *
+	 * @class ScaleImage
+	 * @private
+	 * @param {PIXI.Sprite|createjs.Bitmap} image The image to resize
+	 * @param {Object} size The original screen the item was designed for
+	 * @param {DisplayAdapter} adapter The display adapter
+	 */
+	var ScaleImage = function(image, size, adapter)
+	{
+		var valid = false;
+
+		if (!image)
+		{
+			valid = false;
+		}
+		else if (Bitmap && image instanceof Bitmap)
+		{
+			valid = true;
+		}
+		else if (Sprite && image instanceof Sprite)
+		{
+			valid = true;
+		}
+
+		if (!valid)
+		{
+			if (true)
+			{
+				throw 'The image is an invalid cover image, must be a PIXI.Sprite or createjs.Bitmap';
+			}
+			else
+			{
+				throw 'Invalid image';
+			}
+		}
+
+		/**
+		 * The image to resize
+		 * @property {PIXI.Sprite|createjs.Bitmap} image
+		 * @private
+		 */
+		this._image = image;
+		
+		/**
+		 * The original screen the item was designed for
+		 * @private
+		 * @property {Object} _size
+		 */
+		this._size = size;
+
+		/**
+		 * The adapter for universal scale, rotation size access
+		 * @property {Object} _adapter
+		 * @private
+		 */
+		this._adapter = adapter;
+	};
+
+	var p = ScaleImage.prototype;
+
+	/**
+	 * Resize the current image
+	 * @method resize
+	 * @param  {Number} w  The stage height
+	 * @param  {Number} h The stage width
+	 */
+	p.resize = function(w, h)
+	{
+		var _size = this._size;
+		var _adapter = this._adapter;
+		var _image = this._image;
+
+		var defaultRatio = _size.width / _size.height;
+		var currentRatio = w / h;
+		this._scale = currentRatio > defaultRatio ?
+			h / _size.height :
+			w / _size.width;
+			
+		var scaleToHeight = currentRatio >= defaultRatio;
+
+		var size = _adapter.getBitmapSize(_image);
+		var expectedBGWidth = _size.maxWidth || _size.width;
+
+		// A double resolution image would have a bgScale of 2
+		var bgScale = size.w / expectedBGWidth;
+
+		// Determine the size of the active dimension, width or height
+		var activeBGSize = bgScale * (scaleToHeight ? _size.height : _size.width);
+
+		// Determine scale the bg should be used at to fill the display properly
+		var scale = (scaleToHeight ? h : w) / activeBGSize;
+
+		// Scale the background
+		_adapter.setScale(this._image, scale);
+
+		// Center the background
+		_adapter.setPosition(this._image, {
+			x: (w - size.w * scale) * 0.5,
+			y: (h - size.h * scale) * 0.5
+		});
+	};
+
+	/**
+	 * Get the current display item
+	 * @property {PIXI.Sprite|createjs.Bitmap} display
+	 * @readOnly
+	 */
+	Object.defineProperty(p, 'display',
+	{
+		get: function()
+		{
+			return this._image;
+		}
+	});
+
+	/**
+	 * Destroy and don't use after this
+	 * @method destroy
+	 */
+	p.destroy = function()
+	{
+		this._adapter = null;
+		this._size = null;
+		this._image = null;
+	};
+
+	// Assign to namespace
+	namespace('springroll').ScaleImage = ScaleImage;
+
+}()); 
+/**
+ * @module UI
+ * @namespace springroll
+ * @requires Core
+ */
+(function()
+{
 	// Class imports
 	var ScaleManager;
 
@@ -17,10 +159,10 @@
 	 * @private
 	 * @param {PIXI.DisplayObject|createjs.DisplayObject} display The item to affect
 	 * @param {String} align The vertical-horizontal alignment shorthand
-	 * @param {springroll.ScreenSettings} designedScreen The original screen the item was designed for
+	 * @param {Object} size The original screen the item was designed for
 	 * @param {DisplayAdapter} adapter The display adapter
 	 */
-	var ScaleItem = function(display, align, designedScreen, adapter)
+	var ScaleItem = function(display, align, size, adapter)
 	{
 		if (!ScaleManager)
 		{
@@ -82,9 +224,9 @@
 		/**
 		 * The original screen the item was designed for
 		 * @private
-		 * @property {ScreenSettings} _designedScreen
+		 * @property {Object} _size
 		 */
-		this._designedScreen = designedScreen;
+		this._size = size;
 
 		/**
 		 * The adapter for universal scale, rotation size access
@@ -148,12 +290,12 @@
 			}
 			case ScaleManager.ALIGN_CENTER:
 			{
-				this.origMarginVert = designedScreen.height * 0.5 - position.y;
+				this.origMarginVert = size.height * 0.5 - position.y;
 				break;
 			}
 			case ScaleManager.ALIGN_BOTTOM:
 			{
-				this.origMarginVert = designedScreen.height - (position.y + this.origBounds.bottom * scale.y);
+				this.origMarginVert = size.height - (position.y + this.origBounds.bottom * scale.y);
 				break;
 			}
 		}
@@ -167,12 +309,12 @@
 			}
 			case ScaleManager.ALIGN_CENTER:
 			{
-				this.origMarginHori = designedScreen.width * 0.5 - position.x;
+				this.origMarginHori = size.width * 0.5 - position.x;
 				break;
 			}
 			case ScaleManager.ALIGN_RIGHT:
 			{
-				this.origMarginHori = designedScreen.width - (position.x + this.origBounds.right * scale.x);
+				this.origMarginHori = size.width - (position.x + this.origBounds.right * scale.x);
 				break;
 			}
 		}
@@ -212,26 +354,26 @@
 	{
 		var adapter = this._adapter;
 		var _display = this._display;
-		var _designedScreen = this._designedScreen;
+		var _size = this._size;
 		var origBounds = this.origBounds;
 		var origScaleX = this.origScaleX;
 		var origScaleY = this.origScaleY;
-		var defaultRatio = _designedScreen.width / _designedScreen.height;
+		var defaultRatio = _size.width / _size.height;
 		var currentRatio = displayWidth / displayHeight;
 		var overallScale = currentRatio >= defaultRatio ?
-			displayHeight / _designedScreen.height :
-			displayWidth / _designedScreen.width;
+			displayHeight / _size.height :
+			displayWidth / _size.width;
 		var scaleToHeight = currentRatio >= defaultRatio;
 		var letterBoxWidth = 0;
 		var letterBoxHeight = 0;
 
 		if (scaleToHeight)
 		{
-			letterBoxWidth = (displayWidth - _designedScreen.width * overallScale) / 2;
+			letterBoxWidth = (displayWidth - _size.width * overallScale) / 2;
 		}
 		else
 		{
-			letterBoxHeight = (displayHeight - _designedScreen.height * overallScale) / 2;
+			letterBoxHeight = (displayHeight - _size.height * overallScale) / 2;
 		}
 
 		// Optional clamps on the min and max scale of the item
@@ -362,7 +504,7 @@
 		this._adapter = null;
 		this.origBounds = null;
 		this._display = null;
-		this._designedScreen = null;
+		this._size = null;
 	};
 
 	// Assign to namespace
@@ -568,6 +710,7 @@
 {
 	// Class imports
 	var ScaleItem = include('springroll.ScaleItem'),
+		ScaleImage = include('springroll.ScaleImage'),
 		Positioner = include('springroll.Positioner'),
 		Application = include('springroll.Application'),
 		Debug;
@@ -632,13 +775,6 @@
 		 * @private
 		 */
 		this._adapter = null;
-
-		/**
-		 * The collection of bitmaps to full screen scale
-		 * @property {Array} _backgrounds
-		 * @private
-		 */
-		this._backgrounds = [];
 
 		/**
 		 * The internal enabled
@@ -892,14 +1028,13 @@
 	});
 
 	/**
-	 * Remove all ScaleItem where the item display is a the container or it contains items
+	 * Remove all items where the item display is a the container or it contains items
 	 * @method removeItems
-	 * @param  {createjs.Container|PIXI.DisplayObjectContainer} container
+	 * @param  {createjs.Container|PIXI.DisplayObjectContainer} container The container to remove items from
+	 * @return {springroll.ScaleManager} The ScaleManager for chaining
 	 */
 	p.removeItems = function(container)
 	{
-		if(!this._items) return;
-		
 		var adapter = this._adapter;
 		this._items.forEach(function(item, i, items)
 		{
@@ -908,6 +1043,27 @@
 				items.splice(i, 1);
 			}
 		});
+		return this;
+	};
+
+	/**
+	 * Remove a single item from the scaler
+	 * @method removeItem
+	 * @param  {createjs.Bitmap|PIXI.Sprite|createjs.Container|PIXI.DisplayObjectContainer} display The object to remove
+	 * @return {springroll.ScaleManager} The ScaleManager for chaining
+	 */
+	p.removeItem = function(display)
+	{
+		var items = this._items;
+		for(var i = 0, len = items.length; i < len; i++)
+		{
+			if (items[i].display === display)
+			{
+				items.splice(i, 1);
+				break;
+			}
+		}
+		return this;
 	};
 
 	/**
@@ -981,6 +1137,13 @@
 	 *      "rect", "ellipse", "circle", etc
 	 * @return {springroll.ScaleManager} The instance of this ScaleManager for chaining
 	 */
+	/**
+	 * Add a bitmap to make be fullscreen
+	 * @method  addItem
+	 * @param {PIXI.Sprite|createjs.Bitmap} bitmap The bitmap to scale
+	 * @param {String} settings      Must be 'cover-image'
+	 * @return {springroll.ScaleManager} The instance of this ScaleManager for chaining
+	 */
 	p.addItem = function(displayObject, settings, doResize)
 	{
 		if (doResize === undefined)
@@ -993,98 +1156,65 @@
 				align: ALIGN_CENTER
 			};
 		}
-		if (typeof settings === "string")
+
+		if (settings === "cover-image")
 		{
-			settings = {
-				align: settings
-			};
+			this._items.push(new ScaleImage(displayObject, this._size, this._adapter));
 		}
-		var align = settings.align || ALIGN_CENTER;
-
-		// Interpret short handed versions
-		switch (align)
+		else
 		{
-			case ALIGN_CENTER:
+			if (typeof settings === "string")
 			{
-				align = align + "-" + align;
-				break;
+				settings = {
+					align: settings
+				};
 			}
-			case ALIGN_LEFT:
-			case ALIGN_RIGHT:
+			var align = settings.align || ALIGN_CENTER;
+
+			// Interpret short handed versions
+			switch (align)
 			{
-				align = ALIGN_CENTER + "-" + align;
-				break;
+				case ALIGN_CENTER:
+				{
+					align = align + "-" + align;
+					break;
+				}
+				case ALIGN_LEFT:
+				case ALIGN_RIGHT:
+				{
+					align = ALIGN_CENTER + "-" + align;
+					break;
+				}
+				case ALIGN_TOP:
+				case ALIGN_BOTTOM:
+				{
+					align = align + "-" + ALIGN_CENTER;
+					break;
+				}
 			}
-			case ALIGN_TOP:
-			case ALIGN_BOTTOM:
+
+			// Error check the alignment value input
+			if (!/^(center|top|bottom)\-(left|right|center)$/.test(align))
 			{
-				align = align + "-" + ALIGN_CENTER;
-				break;
+				throw "Item align '" + align + "' is invalid for " + displayObject;
 			}
+
+			// Do the intial positioning of the display object
+			Positioner.init(displayObject, settings, this._adapter);
+
+			// Create the item settings
+			var item = new ScaleItem(displayObject, align, this._size, this._adapter);
+
+			item.titleSafe = settings.titleSafe == "all" ? true : settings.titleSafe;
+			item.maxScale = settings.maxScale || NaN;
+			item.minScale = settings.minScale || NaN;
+			item.centeredHorizontally = !!settings.centeredHorizontally;
+
+			this._items.push(item);
 		}
-
-		// Error check the alignment value input
-		if (!/^(center|top|bottom)\-(left|right|center)$/.test(align))
-		{
-			throw "Item align '" + align + "' is invalid for " + displayObject;
-		}
-
-		// Do the intial positioning of the display object
-		Positioner.init(displayObject, settings, this._adapter);
-
-		// Create the item settings
-		var item = new ScaleItem(displayObject, align, this._size, this._adapter);
-
-		item.titleSafe = settings.titleSafe == "all" ? true : settings.titleSafe;
-		item.maxScale = settings.maxScale || NaN;
-		item.minScale = settings.minScale || NaN;
-		item.centeredHorizontally = !!settings.centeredHorizontally;
-
-		this._items.push(item);
-
 		if (doResize)
 		{
 			Application.instance.triggerResize();
-		}
-		return this;
-	};
-
-	/**
-	 * Add background bitmaps to scale full screen, this will attempt to
-	 * scale the background to the height of the display and crop on
-	 * the left and right.
-	 * @method addBackground
-	 * @param {Bitmap} The bitmap to scale or collection of bitmaps
-	 * @return {springroll.ScaleManager} The ScaleManager for chaining
-	 */
-	p.addBackground = function(bitmap)
-	{
-		if (this._backgrounds.indexOf(bitmap) > -1)
-		{
-			throw "Background already added to ScaleManager";
-		}
-		this._backgrounds.push(bitmap);
-		Application.instance.triggerResize();
-		return this;
-	};
-
-	/**
-	 * Remove background
-	 * @method removeBackground
-	 * @param {Bitmap} bitmap The bitmap added
-	 * @return {springroll.ScaleManager} The ScaleManager for chaining
-	 */
-	p.removeBackground = function(bitmap)
-	{
-		if(!this._backgrounds) return;
-		
-		for (var i = 0, len = this._backgrounds.length; i < len; i++)
-		{
-			if (bitmap === this._backgrounds[i])
-			{
-				this._backgrounds.splice(i, 1);
-				return this;
-			}
 		}
 		return this;
 	};
@@ -1098,10 +1228,8 @@
 	 */
 	p._resize = function(w, h)
 	{
-		var _size = this._size;
-
 		// Size hasn't been setup yet
-		if (!_size)
+		if (!this._size)
 		{
 			if (true && Debug)
 			{
@@ -1110,62 +1238,11 @@
 			return;
 		}
 
-		var defaultRatio = _size.width / _size.height;
-		var currentRatio = w / h;
-		this._scale = currentRatio > defaultRatio ?
-			h / _size.height :
-			w / _size.width;
-		var scaleToHeight = currentRatio >= defaultRatio;
-
-		var _items = this._items;
-		var i;
-		var len = _items.length;
-
-		if (len > 0)
+		// Resize all the items
+		this._items.forEach(function(item)
 		{
-			for (i = 0; i < len; ++i)
-			{
-				_items[i].resize(w, h);
-			}
-		}
-
-		var _backgrounds = this._backgrounds;
-		var _adapter = this._adapter;
-		len = _backgrounds.length;
-
-		if (len > 0)
-		{
-			var expectedBGWidth = _size.maxWidth || _size.width;
-			var bitmap;
-			var size;
-			var scale;
-			var positionHelper = {
-				x: 0,
-				y: 0
-			};
-			var bgScale;
-			var activeBGSize;
-			for (i = 0; i < len; i++)
-			{
-				bitmap = _backgrounds[i];
-				size = _adapter.getBitmapSize(bitmap);
-				// A double resolution image would have a bgScale of 2
-				bgScale = size.w / expectedBGWidth;
-				// Determine the size of the active dimension, width or height
-				activeBGSize = bgScale * (scaleToHeight ? _size.height : _size.width);
-				// Determine scale the bg should be used at to fill the display properly
-				scale = (scaleToHeight ? h : w) / activeBGSize;
-				// Scale the background
-				_adapter.setScale(bitmap, scale);
-				// Center the background
-				positionHelper.x = (w - size.w * scale) * 0.5;
-				positionHelper.y = (h - size.h * scale) * 0.5;
-				_adapter.setPosition(
-					bitmap,
-					positionHelper
-				);
-			}
-		}
+			item.resize(w, h);
+		});
 	};
 
 	/**
@@ -1181,7 +1258,6 @@
 			item.destroy();
 		});
 
-		this._backgrounds = null;
 		this._adapter = null;
 		this._size = null;
 		this._items = null;
@@ -1343,6 +1419,38 @@
 			this.filters.add('%UI%', ui);
 		}
 		done();
+	};
+
+}());
+(function()
+{
+	var ScaleManager = include('springroll.ScaleManager');
+	var p = ScaleManager.prototype;
+
+	/**
+	 * @method
+	 * @name springroll.ScaleManager#addBackground
+	 * @see {@link springroll.ScaleManager#addItem}
+	 * @deprecated since version 0.4.0
+	 */
+	p.addBackground = function(bitmap)
+	{
+		console.warn("addBackground is now deprecated, please use addItem: e.g.: app.scaling.addItem(bitmap, 'cover-image'); ");
+		this.addItem(bitmap, 'cover-image', true);
+		return this;
+	};
+
+	/**
+	 * @method
+	 * @name springroll.ScaleManager#removeBackground
+	 * @see {@link springroll.ScaleManager#removeItem}
+	 * @deprecated since version 0.4.0
+	 */
+	p.removeBackground = function(bitmap)
+	{
+		console.warn("removeBackground is now deprecated, please use removeItem: e.g.: app.scaling.removeItem(bitmap); ");
+		this.removeItem(bitmap);
+		return this;
 	};
 
 }());

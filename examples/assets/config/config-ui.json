@@ -12,7 +12,8 @@
 			"y" : 10,
 			"align": "top-right",
 			"titleSafe": true
-		}
+		},
+		"background": "cover-image"
 	},
 	"scalingSize": {
 		"width": 800,

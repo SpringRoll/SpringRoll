@@ -58,7 +58,8 @@ var app = new Application({
 	preload: [
 		{
 			id: 'Background',
-			src: 'assets/images/background.jpg'
+			src: 'assets/images/background.jpg',
+			format: 'createjs.Bitmap'
 		},
 		{
 			id: 'Button',
@@ -69,7 +70,7 @@ var app = new Application({
 
 app.once('init', function()
 {
-	var background = new Bitmap(this.getCache('Background'));
+	this.background = this.getCache('Background');
 
 	this.playButton = new Button(this.getCache('Button'), {
 		text: 'Play',
@@ -84,13 +85,10 @@ app.once('init', function()
 	});
 
 	this.display.stage.addChild(
-		background,
+		this.background,
 		this.playButton,
 		this.closeButton
 	);
-
-	// Add the background to the scaling
-	this.scaling.addBackground(background);
 });
 
 </script>
