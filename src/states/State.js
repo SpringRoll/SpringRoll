@@ -505,7 +505,10 @@
 		if (this._isTransitioning)
 		{
 			this._isTransitioning = false;
-			this.manager._display.animator.stop(this.panel);
+			if (this.manager.animator)
+			{
+				this.manager.animator.stop(this.panel);
+			}
 		}
 		this._enabled = false;
 		this.panel.visible = false;
@@ -619,7 +622,10 @@
 		if (this._isTransitioning)
 		{
 			this._isTransitioning = false;
-			this.manager._display.animator.stop(this.panel);
+			if (this.manager.animator)
+			{
+				this.manager.animator.stop(this.panel);
+			}
 		}
 		this._enabled = false;
 		this._active = true;
