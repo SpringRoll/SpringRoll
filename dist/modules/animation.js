@@ -604,7 +604,7 @@
 				if(!Definition.hasAnimation(clip, listItem.anim))
 					continue;
 				
-				animData = {
+				var animData = {
 					anim: listItem.anim,
 					//convert into seconds, as that is what the time uses internally
 					start: isNumber(listItem.start) ? listItem.start * 0.001 : 0,
