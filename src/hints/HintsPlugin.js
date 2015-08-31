@@ -27,11 +27,11 @@
 	// Check for dependencies
 	plugin.preload = function(done)
 	{
-		if (!this.display.animator)
+		if (!this.animator)
 		{
 			if (DEBUG)
 			{
-				throw "Hints requires the CreateJS or PIXI Animator to run";
+				throw "Hints requires the Animator to run";
 			}
 			else
 			{
@@ -118,7 +118,7 @@
 		}
 		else
 		{
-			this.display.animator.play(
+			this.animator.play(
 				data.instance,
 				data.events,
 				data.complete,

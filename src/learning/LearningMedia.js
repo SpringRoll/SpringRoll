@@ -118,7 +118,7 @@
 			{
 				Debug.warn("Learning is not available and will not trigger Movie events");
 			}
-			return this.display.animator.play(instance, events, options);
+			return this.animator.play(instance, events, options);
 		}
 
 		return this.triggerMoviePlay(
@@ -155,7 +155,7 @@
 	p.playInstruction = function(instance, events, onComplete, onCancel)
 	{
 		var learning = this.learning;
-		var animator = this.display.animator;
+		var animator = this.animator;
 
 		if (animator.canAnimate(instance)) //use Animator
 		{
@@ -230,7 +230,7 @@
 	p.playIncorrectFeedback = function(instance, events, onComplete, onCancel)
 	{
 		var learning = this.learning;
-		var animator = this.display.animator;
+		var animator = this.animator;
 
 		if (animator.canAnimate(instance)) //use Animator
 		{
@@ -305,7 +305,7 @@
 	p.playCorrectFeedback = function(instance, events, onComplete, onCancel)
 	{
 		var learning = this.learning,
-			animator = this.display.animator;
+			animator = this.animator;
 
 		if (animator.canAnimate(instance)) //use Animator
 		{
@@ -367,7 +367,7 @@
 	 */
 	p.triggerVOPlay = function(alias, learningStart, learningEnd, onComplete, onCancel)
 	{
-		var animator = this.display.animator;
+		var animator = this.animator;
 
 		//stop any previously playing stuff
 		this.voPlayer.stop();
@@ -426,7 +426,7 @@
 	{
 		//Localized instance of learning
 		var learning = this.learning;
-		var animator = this.display.animator;
+		var animator = this.animator;
 
 		//stop any previously playing stuff
 		this.voPlayer.stop();
@@ -636,7 +636,7 @@
 	{
 		if (this._learningAnimatorInstance)
 		{
-			this.display.animator.stop(this._learningAnimatorInstance);
+			this.animator.stop(this._learningAnimatorInstance);
 		}
 		else
 		{
