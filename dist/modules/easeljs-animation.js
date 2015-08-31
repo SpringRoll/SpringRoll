@@ -1054,7 +1054,7 @@
 	 * @see {@link springroll.Animator}
 	 * @deprecated since version 0.4.0
 	 */
-	var Animator = namespace('springroll.easeljs').Animator = {};
+	var Animator = namespace('springroll').Animator = namespace('springroll.easeljs').Animator = {};
 
 	/**
 	 * @method
