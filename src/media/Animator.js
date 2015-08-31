@@ -112,6 +112,7 @@
 	var _timelines,
 		_timelineMap,
 		_definitions,
+		_hasTimelines,
 		_paused,
 		_timelinePool,
 		_app;
