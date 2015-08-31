@@ -53,7 +53,8 @@ var app = new Application({
 	preload: [
 		{
 			id: "PixiAssets",
-			urls: ['assets/images/button.json'],
+			image: 'assets/images/button.png',
+			atlas: 'assets/images/button.json',
 			type: 'pixi'
 		},
 		{
@@ -79,12 +80,13 @@ app.initPixi = function()
 	});
 	
 	// Setup the toggle button
+	var texture = this.getCache('PixiAssets');
 	var button = new PixiButton(
 		{
-			up : Texture.fromFrame("button_up.png"),
-			over : Texture.fromFrame("button_over.png"),
-			down : Texture.fromFrame("button_down.png"),
-			disabled : Texture.fromFrame("button_disabled.png")
+			up : texture.getFrame('button_up'),
+			over : texture.getFrame('button_over'),
+			down : texture.getFrame('button_down'),
+			disabled : texture.getFrame('button_disabled')
 		},
 		{
 			text : 'EaselJS',
@@ -97,7 +99,7 @@ app.initPixi = function()
 
 	button.position.x = (display.width - button.width) / 2;
 	button.position.y = (display.height - button.height) / 2;
-	button.releaseCallback = this.toggleDisplay.bind(this, false);
+	button.on('buttonPress', this.toggleDisplay.bind(this, false));
 
 	display.stage.addChild(button);
 };
