@@ -60,7 +60,8 @@
 				"src/displays/pixi/display/PixiDisplayPlugin.js",
 				"src/displays/pixi/DisplayAdapter.js",
 				"src/displays/pixi/PixiDisplay.js",
-				"src/displays/pixi/TickerPlugin.js"
+				"src/displays/pixi/TickerPlugin.js",
+				"src/deprecation/pixi-display.js"
 			]
 		},
 		"pixianimation": {
@@ -102,7 +103,8 @@
 				"src/displays/easeljs/display/BitmapTask.js",
 				"src/displays/easeljs/display/EaselJSDisplayPlugin.js",
 				"src/displays/easeljs/DisplayAdapter.js",
-				"src/displays/easeljs/EaselJSDisplay.js"
+				"src/displays/easeljs/EaselJSDisplay.js",
+				"src/deprecation/easeljs-display.js"
 			]
 		},
 		"easeljsanimation": {
