@@ -91,7 +91,7 @@
 				}
 
 				// Update the id
-				this.id = fallbackId;
+				asset.id = this.id = fallbackId;
 			}
 
 			// Check for ID if we're caching
@@ -99,7 +99,7 @@
 			{
 				if (DEBUG && Debug)
 				{
-					Debug.error("Caching an asset requires and id, none set", asset);
+					Debug.error("Caching an asset requires an id, none set", asset);
 				}
 				this.cache = false;
 			}
@@ -162,7 +162,7 @@
 		// See if we should add sizing
 		if (url && sizes.test(url))
 		{
-			// Get the current size supported byt this asset
+			// Get the current size supported by this asset
 			var size = sizes.size(this.original.sizes);
 
 			// Update the URL size token

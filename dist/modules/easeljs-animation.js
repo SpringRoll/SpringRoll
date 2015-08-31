@@ -1,7 +1,7 @@
 /*! SpringRoll 0.4.0 */
 /**
  * @module EaselJS Animation
- * @namespace springroll.easeljs
+ * @namespace springroll
  * @requires Core, Animation, EaselJS Display
  */
 (function()
@@ -436,8 +436,7 @@
 	};
 	
 	/**
-	 * Returns a sorted list of the labels defined on this BitmapMovieClip. Shortcut to TweenJS:
-	 * Timeline.getLabels();
+	 * Returns a sorted list of the labels defined on this BitmapMovieClip.
 	 * @method getLabels
 	 * @return {Array[Object]} A sorted array of objects with label and position (aka frame)
 	 *                       properties.
@@ -459,8 +458,7 @@
 	};
 	
 	/**
-	 * Returns the name of the label on or immediately before the current frame. See TweenJS:
-	 * Timeline.getCurrentLabel() for more information.
+	 * Returns the name of the label on or immediately before the current frame.
 	 * @method getCurrentLabel
 	 * @return {String} The name of the current label or null if there is no label.
 	 */
@@ -605,6 +603,7 @@
 	{
 		this._frames = other._frames;
 		this._labels = other._labels;
+		this._events = other._events;
 		this._origin = other._origin;
 		this._framerate = other._framerate;
 		this._duration = other._duration;
@@ -742,6 +741,7 @@
 {
 	var MovieClip = include('createjs.MovieClip');
 	var AnimatorInstance = include('springroll.AnimatorInstance');
+	var GenericMovieClipInstance = include('springroll.GenericMovieClipInstance');
 
 	/**
 	 * The plugin for working with movieclip and animator
@@ -751,7 +751,7 @@
 	 */
 	var MovieClipInstance = function()
 	{
-		AnimatorInstance.call(this);
+		GenericMovieClipInstance.call(this);
 	};
 
 	/**
@@ -765,56 +765,13 @@
 	{
 		return clip instanceof MovieClip;
 	};
+	
+	MovieClipInstance.hasAnimation = GenericMovieClipInstance.hasAnimation;
+	MovieClipInstance.getDuration = GenericMovieClipInstance.getDuration;
 
 	// Inherit the AnimatorInstance
 	var s = AnimatorInstance.prototype;
-	var p = AnimatorInstance.extend(MovieClipInstance);
-
-	/**
-	 * Initialize the instance
-	 * @method  init
-	 * @param  {createjs.MovieClip} clip Display object
-	 */
-	p.init = function(clip)
-	{
-		s.init.call(this, clip);
-
-		// Make sure the clip is disabled
-		clip.tickEnabled = false;
-	};
-
-	/**
-	 * Get and set the elapsedTime override
-	 * @property {Number} elapsedTime
-	 */
-	Object.defineProperty(p, 'elapsedTime',
-	{
-		get: function()
-		{
-			return this.clip.elapsedTime; 
-		},
-		set: function(elapsedTime)
-		{
-			this.clip.elapsedTime = elapsedTime;
-
-			// because the movieclip only checks the elapsed time here (tickEnabled is false),
-			// calling advance() with no parameters is fine - it won't advance the time
-			this.clip.advance();
-		}
-	});
-
-	/**
-	 * Play the clip override
-	 * @method play
-	 */
-	p.play = function()
-	{
-		this.clip.play();
-
-		// update the movieclip to make sure it is redrawn 
-		// correctly at the next opportunity
-		this.clip.advance();
-	};
+	var p = AnimatorInstance.extend(MovieClipInstance, GenericMovieClipInstance);
 
 	// Assign to namespace
 	namespace('springroll.easeljs').MovieClipInstance = MovieClipInstance;
@@ -829,7 +786,7 @@
 {
 	var AnimatorInstance = include('springroll.AnimatorInstance');
 	var BitmapMovieClip = include('springroll.easeljs.BitmapMovieClip');
-	var MovieClipInstance = include('springroll.easeljs.MovieClipInstance');
+	var GenericMovieClipInstance = include('springroll.GenericMovieClipInstance');
 
 	/**
 	 * The plugin for working with movieclip and animator
@@ -839,7 +796,7 @@
 	 */
 	var BitmapMovieClipInstance = function()
 	{
-		MovieClipInstance.call(this);
+		GenericMovieClipInstance.call(this);
 	};
 
 	/**
@@ -853,9 +810,12 @@
 	{
 		return clip instanceof BitmapMovieClip;
 	};
+	
+	BitmapMovieClipInstance.hasAnimation = GenericMovieClipInstance.hasAnimation;
+	BitmapMovieClipInstance.getDuration = GenericMovieClipInstance.getDuration;
 
 	// Extend class
-	AnimatorInstance.extend(BitmapMovieClipInstance, MovieClipInstance);
+	AnimatorInstance.extend(BitmapMovieClipInstance, GenericMovieClipInstance);
 
 	// Assign to namespace
 	namespace('springroll.easeljs').BitmapMovieClipInstance = BitmapMovieClipInstance;

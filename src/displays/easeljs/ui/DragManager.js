@@ -6,7 +6,9 @@
 (function()
 {
 	var Tween,
-		DragData = include("springroll.easeljs.DragData");
+		Stage,
+		DragData = include("springroll.easeljs.DragData"),
+		Application = include("springroll.Application");
 
 	/**
 	 * Drag manager is responsible for handling the dragging of stage elements.
@@ -14,15 +16,25 @@
 	 *
 	 * @class DragManager
 	 * @constructor
-	 * @param {createjs.Stage} stage The stage that this DragManager is monitoring.
+	 * @param {PixiDisplay} display The display that this DragManager is handling objects on.
+	 *                               Optionally, this parameter an be omitted and the
+	 *                               Application's default display will be used.
 	 * @param {function} startCallback The callback when when starting
 	 * @param {function} endCallback The callback when ending
 	 */
-	var DragManager = function(stage, startCallback, endCallback)
+	var DragManager = function(display, startCallback, endCallback)
 	{
-		if (!Tween)
+		if (!Stage)
 		{
 			Tween = include('createjs.Tween', false);
+			Stage = include("createjs.Stage");
+		}
+		
+		if(typeof display == "function" && !endCallback)
+		{
+			endCallback = startCallback;
+			startCallback = display;
+			display = Application.instance.display;
 		}
 
 		/**
@@ -121,10 +133,13 @@
 		/**
 		 * Reference to the stage
 		 * @private
-		 * @property {createjsStage} _theStage
+		 * @property {createjs.Stage} _theStage
 		 */
-		this._theStage = stage;
-
+		//passing stage is deprecated - we should be using the display
+		if(stage instanceof Stage)
+			this._theStage = display;
+		else
+			this._theStage = display.stage;
 		/**
 		 * The offset from the dragged object's position that the initial mouse event
 		 * was at. This is only used when multitouch is false - the DragData has

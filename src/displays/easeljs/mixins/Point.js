@@ -10,9 +10,12 @@
 	 * for calculating the dot product, length, distance, normalize, etc.
 	 * @class Point
 	 */
-	
-	var p = include("createjs.Point").prototype;
-	
+
+	var p = include("createjs.Point", false);
+	if(!p) return;
+
+	p = p.prototype;
+
 	/**
 	 * Returns the dot product between this point and another one.
 	 * @method dotProd
@@ -129,5 +132,5 @@
 		var yDiff = this.y - other.y;
 		return xDiff * xDiff + yDiff * yDiff;
 	};
-	
+
 }());

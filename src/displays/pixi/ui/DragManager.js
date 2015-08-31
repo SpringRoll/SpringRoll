@@ -17,17 +17,26 @@
 	 *
 	 * @class DragManager
 	 * @constructor
-	 * @param {PIXI.Stage} stage The stage that this DragManager is monitoring.
-	 * @param {function} startCallback The callback when when starting
-	 * @param {function} endCallback The callback when ending
+	*  @param {PixiDisplay} display The display that this DragManager is handling objects on.
+	*                               Optionally, this parameter can be omitted and the Application's
+	*                               default display will be used.
+	*  @param {Function} startCallback The callback when when starting
+	*  @param {Function} endCallback The callback when ending
 	 */
-	var DragManager = function(stage, startCallback, endCallback)
+	var DragManager = function(display, startCallback, endCallback)
 	{
 		if(!Application)
 		{
 			Application = include('springroll.Application');
 			Tween = include('createjs.Tween', false);
 			Point = include('PIXI.Point');
+		}
+		
+		if(typeof display == "function" && !endCallback)
+		{
+			endCallback = startCallback;
+			startCallback = display;
+			display = Application.instance.display;
 		}
 
 		/**
@@ -118,11 +127,11 @@
 		this.snapSettings = null;
 		
 		/**
-		 * Reference to the stage
+		 * Reference to the Pixi InteractionManager.
 		 * @private
-		 * @property {PIXI.Stage} _theStage
+		 * @property {PIXI.interaction.InteractionManager} _interaction
 		 */
-		this._theStage = stage;
+		this._interaction = display.renderer.plugins.interaction;
 		
 		/**
 		 * The offset from the dragged object's position that the initial mouse event
@@ -165,6 +174,13 @@
 		 * @property {Boolean} _multitouch
 		 */
 		this._multitouch = false;
+		
+		/**
+		* If this DragManager has added drag listeners to the InteractionManager
+		* @private
+		* @property {Boolean} _addedDragListeners
+		*/
+		this._addedDragListeners = false;
 
 		this.helperPoint = new Point(0, 0);
 	};
@@ -214,7 +230,7 @@
 	};
 	
 	/**
-	 * Mouse down on an obmect
+	 * Mouse down on an object
 	 * @method _objMouseDown
 	 * @private
 	 * @param {PIXI.DisplayObject} object The object that should be dragged.
@@ -223,6 +239,9 @@
 	 */
 	p._objMouseDown = function(obj, interactionData)
 	{
+		//get the InteractionData we want from the Pixi v3 events
+		if(interactionData.data && interactionData.data.global)
+			interactionData = interactionData.data;
 		// if we are dragging something, then ignore any mouse downs
 		// until we release the currently dragged stuff
 		if((!this._multitouch && this.draggedObj) ||
@@ -232,7 +251,7 @@
 		if(this._multitouch)
 		{
 			dragData = new DragData(obj);
-			this.draggedObj[interactionData.id] = dragData;
+			this.draggedObj[interactionData.identifier] = dragData;
 			mouseDownObjPos = dragData.mouseDownObjPos;
 			mouseDownStagePos = dragData.mouseDownStagePos;
 			dragOffset = dragData.dragOffset;
@@ -282,8 +301,8 @@
 			//held drag or a sticky click drag
 			else
 			{
-				obj.mousemove = this._triggerHeldDrag;
-				this._theStage.interactionManager.stageUp = this._triggerStickyClick;
+				this._interaction.on("stagemove", this._triggerHeldDrag);
+				this._interaction.on("stageup", this._triggerStickyClick);
 			}
 		}
 	};
@@ -297,12 +316,14 @@
 	 */
 	p._triggerStickyClick = function(interactionData)
 	{
+		//get the InteractionData we want from the Pixi v3 events
+		interactionData = interactionData.data;
 		this.isStickyClick = true;
 		var draggedObj = this._multitouch ?
-							this.draggedObj[interactionData.id].obj :
+							this.draggedObj[interactionData.identifier].obj :
 							this.draggedObj;
-		draggedObj.mousemove = null;
-		this._theStage.interactionManager.stageUp = null;
+		this._interaction.off("stagemove", this._triggerHeldDrag);
+		this._interaction.off("stageup", this._triggerStickyClick);
 		this._startDrag(interactionData);
 	};
 
@@ -314,11 +335,13 @@
 	 */
 	p._triggerHeldDrag = function(interactionData)
 	{
+		//get the InteractionData we want from the Pixi v3 events
+		interactionData = interactionData.data;
 		var mouseDownStagePos, draggedObj;
 		if(this._multitouch)
 		{
-			draggedObj = this.draggedObj[interactionData.id].obj;
-			mouseDownStagePos = this.draggedObj[interactionData.id].mouseDownStagePos;
+			draggedObj = this.draggedObj[interactionData.identifier].obj;
+			mouseDownStagePos = this.draggedObj[interactionData.identifier].mouseDownStagePos;
 		}
 		else
 		{
@@ -330,8 +353,8 @@
 		if(xDiff * xDiff + yDiff * yDiff >= this.dragStartThreshold * this.dragStartThreshold)
 		{
 			this.isHeldDrag = true;
-			draggedObj.mousemove = null;
-			this._theStage.interactionManager.stageUp = null;
+			this._interaction.off("stagemove", this._triggerHeldDrag);
+			this._interaction.off("stageup", this._triggerStickyClick);
 			this._startDrag(interactionData);
 		}
 	};
@@ -344,17 +367,18 @@
 	 */
 	p._startDrag = function(interactionData)
 	{
-		var im = this._theStage.interactionManager;
-		im.stageUp = this._stopDrag;
-		im.stageMove = this._updateObjPosition;
-		
 		var draggedObj;
 		if(this._multitouch)
-			draggedObj = this.draggedObj[interactionData.id].obj;
+			draggedObj = this.draggedObj[interactionData.identifier].obj;
 		else
 			draggedObj = this.draggedObj;
 		
-		draggedObj.mousemove = draggedObj.touchmove = this._updateObjPosition;
+		if(!this._addedDragListeners)
+		{
+			this._addedDragListeners = true;
+			this._interaction.on("stagemove", this._updateObjPosition);
+			this._interaction.on("stageup", this._stopDrag);
+		}
 		
 		this._dragStartCallback(draggedObj);
 	};
@@ -394,16 +418,23 @@
 	 */
 	p._stopDrag = function(interactionData, doCallback)
 	{
-		var obj, id;
+		var obj, id = null;
+		//if touch id was passed directly
+		if(typeof interactionData == "number")
+			id = interactionData;
+		else if(interactionData)
+		{
+			//get the InteractionData we want from the Pixi v3 events
+			if(interactionData.data && interactionData.data.global)
+				id = interactionData.data.identifier;
+			else if(interactionData instanceof PIXI.interaction.InteractionData)
+				id = interactionData.identifier;
+		}
 		if(this._multitouch)
 		{
-			if(interactionData)
+			if(id !== null)
 			{
 				//stop a specific drag
-				id = interactionData;
-				if(interactionData instanceof PIXI.InteractionData)
-					id = interactionData.id;
-				
 				var data = this.draggedObj[id];
 				if(!data) return;
 				obj = data.obj;
@@ -431,8 +462,6 @@
 		
 		if(!obj) return;
 		
-		obj.touchmove = obj.mousemove = null;
-		
 		var removeGlobalListeners = !this._multitouch;
 		if(this._multitouch)
 		{
@@ -445,8 +474,12 @@
 			}
 			removeGlobalListeners = !found;
 		}
-		if(removeGlobalListeners)
-			this._theStage.interactionManager.stageUp = null;
+		if(removeGlobalListeners && this._addedDragListeners)
+		{
+			this._addedDragListeners = false;
+			this._interaction.off("stagemove", this._updateObjPosition);
+			this._interaction.off("stageup", this._stopDrag);
+		}
 		
 		this.isTouchMove = false;
 		this.isStickyClick = false;
@@ -464,12 +497,15 @@
 	 */
 	p._updateObjPosition = function(interactionData)
 	{
-		if(!this.isTouchMove && !this._theStage.interactionManager.mouseInStage) return;
+		//get the InteractionData we want from the Pixi v3 events
+		interactionData = interactionData.data;
+		
+		//if(!this.isTouchMove && !this._theStage.interactionManager.mouseInStage) return;
 		
 		var draggedObj, dragOffset;
 		if(this._multitouch)
 		{
-			var data = this.draggedObj[interactionData.id];
+			var data = this.draggedObj[interactionData.identifier];
 			draggedObj = data.obj;
 			dragOffset = data.dragOffset;
 		}
@@ -569,13 +605,15 @@
 	//=== Giving functions and properties to draggable objects objects
 	var enableDrag = function()
 	{
-		this.touchstart = this.mousedown = this._onMouseDownListener;
+		this.on("touchstart", this._onMouseDownListener);
+		this.on("mousedown", this._onMouseDownListener);
 		this.buttonMode = this.interactive = true;
 	};
 	
 	var disableDrag = function()
 	{
-		this.mousedown = this.touchstart = null;
+		this.off("touchstart", this._onMouseDownListener);
+		this.off("mousedown", this._onMouseDownListener);
 		this.buttonMode = this.interactive = false;
 	};
 	
@@ -652,7 +690,7 @@
 		this._triggerHeldDrag = null;
 		this._triggerStickyClick = null;
 		this._stopDrag = null;
-		this._theStage = null;
+		this._interaction = null;
 		for(var i = this._draggableObjects.length - 1; i >= 0; --i)
 		{
 			var obj = this._draggableObjects[i];

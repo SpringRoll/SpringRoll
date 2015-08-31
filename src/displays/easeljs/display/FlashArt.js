@@ -72,7 +72,8 @@
 	{
 		// split into the initialization functions, that take 'lib' as a parameter
 		var textArray = text.split(/[\(!]function\s*\(/);
-
+		
+		var globalSymbols = FlashArt.globalSymbols;
 		// go through each initialization function
 		for (var i = 0; i < textArray.length; ++i)
 		{
@@ -93,7 +94,7 @@
 				assetId = foundName[1];
 
 				// Warn about collisions with assets that already exist
-				if (DEBUG && Debug && FlashArt.globalSymbols[assetId])
+				if (DEBUG && Debug && globalSymbols[assetId])
 				{
 					Debug.warn(
 						"Flash Asset Collision: asset '" + this.id +
@@ -105,7 +106,7 @@
 
 				// keep track of the asset id responsible
 				this.symbols.push(assetId);
-				FlashArt.globalSymbols[assetId] = this.id;
+				globalSymbols[assetId] = this.id;
 				foundName = varFinder.exec(text);
 			}
 		}
@@ -123,11 +124,11 @@
 
 		// Delete the elements
 		var globalSymbols = FlashArt.globalSymbols;
-		var libName = this.libName;
+		var lib = window[this.libName];
 		this.symbols.forEach(function(id)
 		{
 			delete globalSymbols[id];
-			delete window[libName][id];
+			delete lib[id];
 		});
 		this.symbols = null;
 	};

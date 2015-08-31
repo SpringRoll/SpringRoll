@@ -51,7 +51,7 @@ var Application = include('springroll.Application'),
 	Button = include('springroll.easeljs.Button'),
 	Bitmap = include('createjs.Bitmap'),
 	Container = include('createjs.Container'),
-	State = include('springroll.BaseState'),
+	State = include('springroll.State'),
 	Loader = include('springroll.Loader'),
 	Transition = include('lib.Transition');
 
@@ -90,21 +90,22 @@ function getTitleState()
 	);
 
 	// When the transition starts transitining into to state
-	state.enter = function()
+	state.on('enter', function()
 	{
 		var button = addButton("Play");
 		this.panel.addChild(button);
 		button.on('buttonPress', this.nextState.bind(this));
 		this.nextButton = button;
-	};
+	});
 
 	// When the transition is done transitioning out of state
-	state.exit = function()
+	state.on('exit', function()
 	{
 		this.nextButton.destroy();
 		this.nextButton = null;
 		this.panel.removeAllChildren();
-	};
+	});
+
 	return state;
 }
 
@@ -115,43 +116,35 @@ function getGameState()
 	var state = new State(
 		new Container(), {
 			previous: 'title',
-			next: 'title'
+			next: 'title',
+			preload: [{
+				src: 'assets/images/background2.jpg',
+				format: 'createjs.Bitmap',
+				complete: function(background)
+				{
+					state.panel.addChildAt(background, 0);
+				}
+			}]
 		}
 	);
 
 	// When the transition starts transitining into to state
-	state.enter = function()
+	state.on('enter', function()
 	{
 		var button = addButton("Back");
 		this.panel.addChild(button);
 		button.on('buttonPress', this.previousState.bind(this));
 		this.backButton = button;
-
-		// Start async loading
-		this.loadingStart();
-
-		// Load the background
-		app.load(
-			'assets/images/background2.jpg', 
-			onLoadingDone.bind(this)
-		);
-	};
-
-	var onLoadingDone = function(background)
-	{
-		this.panel.addChildAt(new Bitmap(background), 0);
-
-		// Resume the load
-		this.loadingDone();
-	};
+	});
 
 	// When the transition is done transitioning out of state
-	state.exit = function()
+	state.on('exit', function()
 	{
 		this.backButton.destroy();
 		this.backButton = null;
 		this.panel.removeAllChildren();
-	};
+	});
+
 	return state;
 }
 

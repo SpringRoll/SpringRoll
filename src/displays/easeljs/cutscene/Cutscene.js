@@ -54,13 +54,6 @@
 		var display = this._display = options.display;
 
 		/**
-		 * The scaling value for all images.
-		 * @property {Number} _imageScale
-		 * @private
-		 */
-		this._imageScale = options.imageScale;
-
-		/**
 		 * The designed width of the animation
 		 * @property {Number} width
 		 * @private
@@ -470,6 +463,8 @@
 	 */
 	p.destroy = function()
 	{
+		this.stop();
+		
 		this.dispatchEvent('destroy');
 
 		Application.instance.off("resize", this.resize);

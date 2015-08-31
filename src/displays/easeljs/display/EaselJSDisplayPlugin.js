@@ -1,6 +1,6 @@
 /**
  * @module EaselJS Display
- * @namespace springroll.easeljs
+ * @namespace springroll
  * @requires Core
  */
 (function()
@@ -19,8 +19,9 @@
 		var assetManager = this.assetManager;
 		
 		assetManager.register('springroll.easeljs.TextureAtlasTask', 30);
+		assetManager.register('springroll.easeljs.FlashArtImageTask', 40);
+		assetManager.register('springroll.easeljs.FlashArtAtlasTask', 40);
 		assetManager.register('springroll.easeljs.FlashArtTask', 50);
-		assetManager.register('springroll.easeljs.FlashArtAtlasTask', 60);
 		assetManager.register('springroll.easeljs.SpriteSheetTask', 70);
 		assetManager.register('springroll.easeljs.FlashSpriteSheetTask', 80);
 		assetManager.register('springroll.easeljs.BitmapTask', 90);

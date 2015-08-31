@@ -5,8 +5,8 @@
 	"url": "https://github.com/SpringRoll/SpringRoll",
 	"output": "core",
 	"main": [
-		"src/mixins/*.js",
 		"src/utils/*.js",
+		"src/mixins/*.js",
 		"src/core/async/*.js",
 		"src/core/utils/*.js",
 		"src/polyfills/*.js",
@@ -52,16 +52,25 @@
 		"pixidisplay": {
 			"output": "pixi-display",
 			"main": [
-				"src/displays/pixi/display/PixiAssets.js",
-				"src/displays/pixi/display/PixiLoadTask.js",
+				"src/displays/pixi/mixins/*.js",
+				"src/displays/pixi/display/TextureTask.js",
+				"src/displays/pixi/display/TextureAtlas.js",
+				"src/displays/pixi/display/TextureAtlasTask.js",
+				"src/displays/pixi/display/BitmapFontTask.js",
 				"src/displays/pixi/display/PixiDisplayPlugin.js",
 				"src/displays/pixi/DisplayAdapter.js",
-				"src/displays/pixi/PixiDisplay.js"
+				"src/displays/pixi/PixiDisplay.js",
+				"src/displays/pixi/TickerPlugin.js"
 			]
 		},
 		"pixianimation": {
 			"output": "pixi-animation",
 			"main": [
+				"src/displays/pixi/animation/AdvancedMovieClip.js",
+				"src/displays/pixi/animation/AdvancedMovieClipTask.js",
+				"src/displays/pixi/animation/SpineAtlas.js",
+				"src/displays/pixi/animation/SpineAtlasTask.js",
+				"src/displays/pixi/animation/SpineAnimTask.js",
 				"src/displays/pixi/animation/ParallelSpineData.js",
 				"src/deprecation/pixi-animation.js"
 			]
@@ -83,6 +92,7 @@
 				"src/displays/easeljs/display/FlashArtTask.js",
 				"src/displays/easeljs/display/TextureAtlas.js",
 				"src/displays/easeljs/display/TextureAtlasTask.js",
+				"src/displays/easeljs/display/FlashArtImageTask.js",
 				"src/displays/easeljs/display/FlashArtAtlasTask.js",
 				"src/displays/easeljs/display/SpriteSheetTask.js",
 				"src/displays/easeljs/display/FlashSpriteSheetTask.js",

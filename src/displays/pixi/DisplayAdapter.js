@@ -46,7 +46,7 @@
 	 * @static
 	 * @default PIXI.Sector
 	 */
-	DisplayAdapter.Sector = include('PIXI.Sector', false);
+	DisplayAdapter.Sector = include('PIXI.Sector');
 
 	/**
 	 * The geometry class for point

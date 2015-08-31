@@ -1,6 +1,6 @@
 /**
  * @module PIXI Display
- * @namespace springroll.pixi
+ * @namespace springroll
  * @requires Core
  */
 (function()
@@ -16,23 +16,17 @@
 	// Register the tasks
 	plugin.setup = function()
 	{
+		this.assetManager.register('springroll.pixi.TextureTask', 60);
+		this.assetManager.register('springroll.pixi.TextureAtlasTask', 70);
+		this.assetManager.register('springroll.pixi.BitmapFontTask', 80);
 
-		/**
-		 * Used by loading Pixi Assets, default behavior
-		 * is to load assets from the same domain.
-		 * @property {Boolean} options.crossOrigin
-		 * @default false
-		 */
-		this.options.add('crossOrigin', false);
-
-		this.assetManager.register('springroll.pixi.PixiLoadTask', 60);
 
 		this.once('displayAdded', function(display)
 		{
 			var options = this.options;
 			if (!options.defaultAssetType && display instanceof include('springroll.PixiDisplay'))
 			{
-				options.defaultAssetType = 'easeljs';
+				options.defaultAssetType = 'pixi';
 			}
 		});
 	};

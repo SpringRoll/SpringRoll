@@ -154,7 +154,7 @@
 }());
 /**
  * @module EaselJS Learning
- * @namespace springroll.easeljs
+ * @namespace springroll
  * @requires Core, Learning
  */
 (function()

@@ -8,8 +8,8 @@
 {
 	// Imports
 	var Debug,
-		StateManager,
-		DelayedCall;
+		Application,
+		EventDispatcher = include('springroll.EventDispatcher');
 	
 	/**
 	 * Defines the base functionality for a state used by the state manager
@@ -23,13 +23,18 @@
 	 * @param {String|Function} [options.previous=null] The previous state alias to call when going to the previous state.
 	 * @param {int} [options.delayLoad=0] The number of frames to delay the loading for cases where
 	 *  heavy object instaniation slow the game dramatically.
+	 * @param {Array} [options.preload=[]] The assets to preload before the state loads
+	 * @param {Object} [options.scaling=null] The scaling items to use with the ScaleManager.
+	 *       See `ScaleManager.addItems` for more information about the
+	 *       format of the scaling objects. (UI Module only)
 	 */
 	var State = function(panel, options)
 	{
-		if(!StateManager)
+		EventDispatcher.call(this);
+
+		if(!Application)
 		{
-			StateManager = include('springroll.StateManager');
-			DelayedCall = include('springroll.DelayedCall');
+			Application = include('springroll.Application');
 			Debug = include('springroll.Debug', false);
 		}
 
@@ -42,8 +47,58 @@
 		options = Object.merge({
 			next: null,
 			previous: null,
-			delayLoad: 0
+			delayLoad: 0,
+			preload: [],
+			scaling: null
 		}, options || {});
+
+		/**
+		 * Reference to the main app
+		 * @property {Application} app
+		 * @readOnly
+		 */
+		var app = this.app = Application.instance;
+
+		/**
+		 * The instance of the VOPlayer, Sound module required
+		 * @property {springroll.VOPlayer} voPlayer
+		 * @readOnly
+		 */
+		this.voPlayer = app.voPlayer || null;
+
+		/**
+		 * The instance of the Sound, Sound module required
+		 * @property {springroll.Sound} sound
+		 * @readOnly
+		 */
+		this.sound = app.sound || null;
+
+		/**
+		 * Reference to the main config object
+		 * @property {Object} config
+		 * @readOnly
+		 */
+		this.config = app.config || null;
+
+		/**
+		 * Reference to the scaling object, UI module required
+		 * @property {springroll.ScaleManager} scaling
+		 * @readOnly
+		 */
+		this.scaling = app.scaling || null;
+
+		/**
+		 * The items to scale on the panel, see `ScaleManager.addItems` for
+		 * more information. If no options are set in the State's constructor
+		 * then it will try to find an object on the app config on `scaling` property
+		 * matching the same state alias. For instance `config.scaling.title` if
+		 * `title` is the state alias. If no scalingItems are set, will scale
+		 * and position the panal itself.
+		 * @property {Object} scalingItems
+		 * @readOnly
+		 * @default null
+		 */
+		this.scalingItems = options.scaling || null;
 
 		/**
 		 * The id reference
@@ -53,7 +108,7 @@
 		
 		/**
 		 * A reference to the state manager
-		 * @property {StateManager} manager
+		 * @property {springroll.StateManager} manager
 		 */
 		this.manager = null;
 		
@@ -62,6 +117,27 @@
 		 * @property {createjs.Container|PIXI.DisplayObjectContainer} panel
 		 */
 		this.panel = panel;
+
+		/**
+		 * The assets to load each time
+		 * @property {Array} preload
+		 */
+		this.preload = options.preload;
+
+		/**
+		 * Check to see if the assets have finished loading
+		 * @property {Boolean} preloaded
+		 * @protected
+		 * @readOnly
+		 */
+		this.preloaded = false;
+
+		/**
+		 * The collection of assets loaded
+		 * @property {Array|Object} assets
+		 * @protected
+		 */
+		this.assets = null;
 		
 		/**
 		 * If the state has been destroyed.
@@ -140,56 +216,95 @@
 		this.panel.visible = false;
 	};
 	
-	var p = State.prototype;
+	// Reference to the prototype
+	var s = EventDispatcher.prototype;
+	var p = extend(State, EventDispatcher);
+
+	/**
+	 * Event when the state finishes exiting. Nothing is showing at this point.
+	 * @event exit
+	 */
 	
 	/**
-	 * When the state is exited. Override this to provide state cleanup.
-	 * @method exit
+	 * Event when the state is being destroyed.
+	 * @event destroy
 	 */
-	p.exit = function()
-	{
-		// Implementation specific
-	};
+	
+	/**
+	 * Event when the transition is finished the state is fully entered.
+	 * @event enterDone
+	 */
+	
+	/**
+	 * Event when the loading of a state was canceled.
+	 * @event cancel
+	 */
+	
+	/**
+	 * Event when the state starts exiting, everything is showing at this point.
+	 * @event exitStart
+	 */
+	
+	/**
+	 * Event when the preload of assets is finished. If no assets are loaded, the `assets` parameter is null.
+	 * @event loaded
+	 * @param {Object|Array|null} asset The collection of assets loaded
+	 */
+	
+	/**
+	 * Event when the assets are starting to load.
+	 * @event loading
+	 * @param {Array} asset An empty array that additional assets can be added to, if needed. Any dynamic
+	 *                      assets that are added need to be manually unloaded when the state exits.
+	 */
+	
+	/**
+	 * Event when the state is enabled status changes. Enable is when the state is mouse enabled or not.
+	 * @event enabled
+	 * @param {Boolean} enable The enabled status of the state
+	 */
+
+	// create empty function to avoid a lot of if checks
+	var empty = function(){};
+
+	/**
+	 * When the state is exited. Override this to provide state cleanup.
+	 * @property {function} exit
+	 * @default null
+	 */
+	p.exit = empty;
 	
 	/**
 	 * When the state has requested to be exit, pre-transition. Override this to ensure
 	 * that animation/audio is stopped when leaving the state.
-	 * @method exitStart
+	 * @property {function} exitStart
+	 * @default null
 	 */
-	p.exitStart = function()
-	{
-		// Implementation specific
-	};
+	p.exitStart = empty;
 
 	/**
 	 * Cancel the load, implementation-specific.
 	 * This is where any async actions should be removed.
-	 * @method cancel
+	 * @property {function} cancel
+	 * @default null
 	 */
-	p.cancel = function()
-	{
-		// Implementation specific
-	};
+	p.cancel = empty;
 	
 	/**
 	 * When the state is entered. Override this to start loading assets - call loadingStart()
 	 * to tell the StateManager that that is going on.
-	 * @method enter
+	 * @property {function} enter
+	 * @default null
 	 */
-	p.enter = function()
-	{
-		// Implementation specific
-	};
+	p.enter = empty;
 	
 	/**
 	 * When the state is visually entered fully - after the transition is done.
 	 * Override this to begin your state's activities.
-	 * @method enterDone
+	 * @property {function} enterDone
+	 * @default null
 	 */
-	p.enterDone = function()
-	{
-		// Implementation specific
-	};
+	p.enterDone = empty;
 
 	/**
 	 * Goto the next state
@@ -260,7 +375,7 @@
 		
 		this._isLoading = true;
 		this.manager.loadingStart();
-		
+
 		// Starting a load is optional and
 		// need to be called from the enter function
 		// We'll override the existing behavior
@@ -290,15 +405,15 @@
 			return;
 		}
 		
-		if(delay && typeof delay == "number")
+		if (delay && typeof delay == "number")
 		{
-			new DelayedCall(this.loadingDone.bind(this, 0), delay, {useFrames: true});
+			this.app.setTimeout(this.loadingDone.bind(this, 0), delay, true);
 			return;
 		}
-		
+
 		this._isLoading = false;
 		this.manager.loadingDone();
-		
+
 		if (this._onLoadingComplete)
 		{
 			this._onLoadingComplete();
@@ -344,7 +459,12 @@
 		},
 		set: function(value)
 		{
+			var oldEnabled = this._enabled;
 			this._enabled = value;
+			if (oldEnabled != value)
+			{
+				this.trigger('enabled', value);
+			}
 		}
 	});
 	
@@ -368,16 +488,26 @@
 	 */
 	p._internalExit = function()
 	{
+		this.preloaded = false;
+
+		// Clean any assets loaded by the manifest
+		if (this.preload.length)
+		{
+			this.app.unload(this.preload);
+		}
+
 		if (this._isTransitioning)
 		{
 			this._isTransitioning = false;
-			
 			this.manager._display.animator.stop(this.panel);
 		}
 		this._enabled = false;
 		this.panel.visible = false;
 		this._active = false;
 		this.exit();
+
+		
+		this.trigger('exit');
 	};
 
 	/**
@@ -389,6 +519,78 @@
 	p._internalEntering = function()
 	{
 		this.enter();
+
+		this.trigger('enter');
+
+		// Start prealoading assets
+		this.loadingStart();
+
+		// Boolean to see if we've preloaded assests
+		this.preloaded = false;
+
+		var assets = [];
+
+		this.trigger('loading', assets);
+
+		if (this.preload.length)
+		{
+			assets = this.preload.concat(assets);
+		}
+
+		// Start loading assets if we have some
+		if (assets.length)
+		{
+			this.app.load(assets, {
+				complete: this._onLoaded.bind(this),
+				cacheAll: true
+			});
+		}
+		// No files to load, just continue
+		else
+		{
+			this._onLoaded(null);
+		}
+	};
+
+	/**
+	 * The internal call for on assets loaded
+	 * @method _onLoaded
+	 * @private
+	 * @param {Object|null} assets The assets result of the load
+	 */
+	p._onLoaded = function(assets)
+	{
+		this.assets = assets;
+		this.preloaded = true;
+
+		this.trigger('loaded', assets);
+
+		if (this.scaling)
+		{
+			var items = this.scalingItems;
+
+			if (items)
+			{
+				this.scaling.addItems(this.panel, items);
+			}
+			// If there is no scaling config for the state,
+			// then scale the entire panel
+			else
+			{
+				// Reset the panel scale & position, to ensure
+				// that the panel is scaled properly
+				// upon state re-entry
+				this.panel.x = this.panel.y = 0;
+				this.panel.scaleX = this.panel.scaleY = 1;
+
+				this.scaling.addItem(this.panel,
+				{
+					align: "top-left",
+					titleSafe: true
+				});
+			}
+		}
+		this.loadingDone();
 	};
 	
 	/**
@@ -399,6 +601,7 @@
 	p._internalExitStart = function()
 	{
 		this.exitStart();
+		this.trigger('exitStart');
 	};
 	
 	/**
@@ -412,15 +615,13 @@
 		if (this._isTransitioning)
 		{
 			this._isTransitioning = false;
-			
 			this.manager._display.animator.stop(this.panel);
 		}
 		this._enabled = false;
 		this._active = true;
 		this._canceled = false;
-		
+
 		this._onEnterProceed = proceed;
-		
 		this._internalEntering();
 		
 		if (this._onEnterProceed)
@@ -443,6 +644,7 @@
 		
 		this._internalExit();
 		this.cancel();
+		this.trigger('cancel');
 	};
 	
 	/**
@@ -456,6 +658,7 @@
 		
 		this.enabled = true;
 		this.enterDone();
+		this.trigger('enterDone');
 	};
 	
 	/**
@@ -464,16 +667,30 @@
 	 */
 	p.destroy = function()
 	{
+		// Only destroy once!
+		if (this._destroyed) return;
+
+		this.trigger('destroy');
+
+		this.app = null;
+		this.scaling = null;
+		this.sound = null;
+		this.voPlayer = null;
+		this.config = null;
+		this.scalingItems = null;
+		this.assets = null;
+		this.preload = null;
 		this.panel = null;
 		this.manager = null;
 		this._destroyed = true;
 		this._onEnterProceed = null;
 		this._onLoadingComplete = null;
+
+		s.destroy.call(this);
 	};
 	
-	// Add to the name space
+	// Add to the namespace
 	namespace('springroll').State = State;
-	namespace('springroll').BaseState = State;
 
 }());
 /**
@@ -1391,40 +1608,6 @@
 				return this._states;
 			}
 		});
-
-		if (true)
-		{
-			/**
-			 * Debug key strokes
-			 * → = trigger a skip to the next state for testing
-			 * ← = trigger a skip to the previous state for testing
-			 */
-			window.onkeyup = function(e)
-			{
-				if (!this.manager || !this.manager.currentState) return;
-
-				var key = e.keyCode ? e.keyCode : e.which;
-				var currentState = this.manager.currentState;
-				switch (key)
-				{
-					//right arrow
-					case 39:
-					{
-						if (Debug) Debug.info("Going to next state via keyboard");
-						currentState.nextState();
-						break;
-					}
-					//left arrow
-					case 37:
-					{
-						if (Debug) Debug.info("Going to previous state via keyboard");
-						currentState.previousState();
-						break;
-					}
-				}
-			}
-			.bind(this);
-		}
 	};
 
 	plugin.teardown = function()
@@ -1497,7 +1680,7 @@
 	/**
 	 * @method
 	 * @name springroll.StateManager#next
-	 * @see {@link springroll.BaseState#nextState}
+	 * @see {@link springroll.State#nextState}
 	 * @deprecated since version 0.3.0
 	 */
 	p.next = function()
@@ -1509,7 +1692,7 @@
 	/**
 	 * @method
 	 * @name springroll.StateManager#previous
-	 * @see {@link springroll.BaseState#previousState}
+	 * @see {@link springroll.State#previousState}
 	 * @deprecated since version 0.3.0
 	 */
 	p.previous = function()
@@ -1517,5 +1700,20 @@
 		console.warn("previous is now deprecated, please use the previousState method on BaseState: e.g.: app.manager.currentState.previousState();");
 		this._state.previousState();
 	};
+
+	/**
+	 * @class
+	 * @name springroll.BaseState
+	 * @see {@link springroll.State}
+	 * @deprecated since version 0.3.0
+	 */
+	Object.defineProperty(include('springroll'), 'BaseState', 
+	{
+		get: function()
+		{
+			console.warn("springroll.BaseState is now deprecated, please use springroll.State instead");
+			return include('springroll.State');
+		}
+	});
 
 }());

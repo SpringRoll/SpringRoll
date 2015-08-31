@@ -16,6 +16,8 @@
 	 * @private
 	 * @param {Object} asset The data properties
 	 * @param {String} asset.src The path to the spritesheet
+	 * @param {String} asset.type Asset type must be "easeljs"
+	 * @param {String} asset.format Asset format must be "createjs.SpriteSheet"
 	 * @param {String} [asset.globalProperty='ss'] The name of the global property
 	 * @param {Boolean} [asset.cache=false] If we should cache the result
 	 * @param {String} [asset.id] Id of asset
@@ -47,8 +49,8 @@
 	 */
 	FlashSpriteSheetTask.test = function(asset)
 	{
-		return asset.src && 
-			asset.type == "easeljs" && 
+		return asset.src &&
+			asset.type == "easeljs" &&
 			asset.format == "createjs.SpriteSheet";
 	};
 

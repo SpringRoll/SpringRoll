@@ -17,6 +17,7 @@
 	 * @constructor
 	 * @private
 	 * @param {Object} asset The data properties
+	 * @param {String} asset.type The asset type must be "easeljs".
 	 * @param {String} asset.atlas The TextureAtlas source data
 	 * @param {Boolean} [asset.cache=false] If we should cache the result
 	 * @param {String} [asset.image] The atlas image path
@@ -68,8 +69,8 @@
 	TextureAtlasTask.test = function(asset)
 	{
 		// animation data and atlas data and an image or color/alpha split
-		return asset.type == "easeljs" && 
-			asset.atlas && 
+		return asset.type == "easeljs" &&
+			asset.atlas &&
 			(asset.image || (asset.alpha && asset.color));
 	};
 
@@ -97,7 +98,7 @@
 		{
 			assets._image = this.image;
 		}
-		else 
+		else
 		{
 			assets._color = this.color;
 			assets._alpha = this.alpha;

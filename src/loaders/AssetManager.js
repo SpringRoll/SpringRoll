@@ -85,8 +85,10 @@
 	{
 		if (typeof TaskClass == "string")
 		{
-			TaskClass = include(TaskClass);
+			TaskClass = include(TaskClass, false);
 		}
+		
+		if(!TaskClass) return;
 
 		TaskClass.priority = priority || 0;
 
@@ -139,11 +141,11 @@
 		// Add to the stack of current loads
 		this.loads.push(load);
 
-		// Override the complete callback with a bind of the 
+		// Override the complete callback with a bind of the
 		// original callback with the task
 		options.complete = this._onLoaded.bind(
-			this, 
-			options.complete, 
+			this,
+			options.complete,
 			load
 		);
 

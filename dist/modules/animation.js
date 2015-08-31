@@ -49,34 +49,12 @@
 		this.instance = null;
 		
 		/**
-		 * The frame number of the first frame of the current animation. If this is -1, then the
-		 * animation is currently a pause instead of an animation.
-		 *
-		 * @property {int} firstFrame
-		 */
-		this.firstFrame = -1;
-		
-		/**
-		 * The frame number of the last frame of the current animation.
-		 *
-		 * @property {int} lastFrame
-		 */
-		this.lastFrame = -1;
-		
-		/**
 		 * If the current animation loops - determined by looking to see if it ends
 		in "_stop" or "_loop"
 		 *
 		 * @property {Boolean} isLooping
 		 */
 		this.isLooping = false;
-		
-		/**
-		 * Length of current animation in frames.
-		 *
-		 * @property {int} length
-		 */
-		this.length = 0;
 
 		/**
 		 * If this timeline plays captions for the current sound.
@@ -95,12 +73,6 @@
 		this._paused = false;
 		
 		/**
-		 * The start time of the current animation on the movieclip's timeline.
-		 * @property {Number} startTime
-		 */
-		this.startTime = 0;
-		
-		/**
 		 * The current animation duration in seconds.
 		 * @property {Number} duration
 		 */
@@ -111,13 +83,6 @@
 		 * @property {Number} speed
 		 */
 		this.speed = 1;
-
-		/**
-		 * The position of the current animation in seconds, or the current pause timer.
-		 * @property {Number} position
-		 * @protected
-		 */
-		this.position = 0;
 
 		/**
 		 * Sound alias to sync to during the current animation.
@@ -156,6 +121,10 @@
 		 * @readOnly
 		 */
 		this.complete = false;
+		
+		this._position = 0;
+		
+		this.isTimer = false;
 	};
 	
 	var p = AnimatorTimeline.prototype;
@@ -179,22 +148,30 @@
 		this.playSound = false;
 		this.soundInst = null;
 		this.soundAlias = null;
-		this.position = 0;
 		this.speed = 1;
+		this._position = 0;
 		this.duration = 0;
-		this.startTime = 0;
 		this._paused = false;
 		this.useCaptions = false;
-		this.length = 0;
 		this.isLooping = false;
-		this.firstFrame = -1;
-		this.lastFrame = -1;
+		this.isTimer = false;
 		this.listIndex = -1;
 		this.eventList = null;
 		this.onCancelled = null;
 		this.onComplete = null;
 		return this;
 	};
+	
+	Object.defineProperty(p, "position",
+	{
+		get: function() { return this._position; },
+		set: function(value)
+		{
+			this._position = value;
+			if(!this.isTimer)
+				this.instance.setPosition(value);
+		}
+	});
 	
 	/**
 	 * Advances to the next item in the list of things to play.
@@ -222,12 +199,12 @@
 		}
 		else
 		{
+			if(!this.isTimer)
+				this.instance.endAnim();
 			//reset variables
 			this.soundEnd = this.soundStart = 0;
 			this.isLooping = this.playSound = this.useCaptions = false;
 			this.soundInst = this.soundAlias = null;
-			this.startTime = this.length = 0;
-			this.firstFrame = this.lastFrame = -1;
 			
 			//see if the animation list is complete
 			if (++this.listIndex >= this.eventList.length)
@@ -243,24 +220,14 @@
 		{
 			case "object":
 			{
-				this.firstFrame = listItem.first;
-				this.lastFrame = listItem.last;
-				this.length = this.lastFrame - this.firstFrame;
-				var fps = this.instance.framerate;
-				this.startTime = this.firstFrame / fps;
-				this.duration = this.length / fps;
+				this.isTimer = false;
+				var instance = this.instance;
+				instance.startAnim(listItem, repeat);
+				this.duration = instance.duration;
 				this.speed = listItem.speed;
-				this.isLooping = listItem.loop;
-				var animStart = listItem.animStart;
-
-				if (repeat)
-				{
-					this.position = 0;
-				}
-				else
-				{
-					this.position = animStart < 0 ? Math.random() * this.duration : animStart;
-				}
+				this.isLooping = instance.isLooping || listItem.loop;
+				this._position = instance.position;
+				
 				if (listItem.alias)
 				{
 					this.soundAlias = listItem.alias;
@@ -272,8 +239,9 @@
 			}
 			case "number":
 			{
+				this.isTimer = true;
 				this.duration = listItem;
-				this.position = 0;
+				this._position = 0;
 				break;
 			}
 			case "function":
@@ -289,7 +257,7 @@
 	 * The position of the current animation, or the current pause timer, in milliseconds.
 	 * @property {Number} time
 	 */
-	Object.defineProperty(p, "time", 
+	Object.defineProperty(p, "time",
 	{
 		get: function()
 		{
@@ -305,11 +273,11 @@
 	 * Sets and gets the animation's paused status.
 	 * @property {Boolean} paused
 	 */
-	Object.defineProperty(p, "paused", 
+	Object.defineProperty(p, "paused",
 	{
 		get: function()
 		{
-			return this._paused; 
+			return this._paused;
 		},
 		set: function(value)
 		{
@@ -388,25 +356,30 @@
 		 * @private
 		 */
 		_timelines = [];
-
+		
 		/**
-		 * A collection of timelines for removal - kept out here so it doesn't need to be
-		 * reallocated every frame
-		 *
-		 * @property {Array} _removedTimelines
+		 * The collection of active timelines, indexed by MovieClip/instance. This will be
+		 * null in browsers where Map is not supported.
+		 * @property {Map} _timelineMap
 		 * @private
 		 */
-		_removedTimelines = [];
+		try
+		{
+			_timelineMap = new Map();
+			//ensure that all the Map features we need are supported
+			if(typeof _timelineMap.delete != "function" ||
+				typeof _timelineMap.has != "function" ||
+				typeof _timelineMap.set != "function" ||
+				typeof _timelineMap.get != "function")
+			{
+				_timelineMap = null;
+			}
+		}
+		catch(e)
+		{
+		}
 
 		/**
-		 * Look up a timeline by the instance
-		 *
-		 * @property {Dictionary} _timelinesMap
-		 * @private
-		 */
-		_timelinesMap = {};
-
-		/** 
 		 * The collection of used timeline objects
 		 *
 		 * @property {Array} _timelinePool
@@ -414,7 +387,7 @@
 		 */
 		_timelinePool = [];
 
-		/** 
+		/**
 		 * If there are timelines available
 		 *
 		 * @property {Boolean} _hasTimelines
@@ -440,10 +413,9 @@
 	var p = Animator.prototype;
 
 	// Private local vars
-	var _removedTimelines,
-		_timelines,
+	var _timelines,
+		_timelineMap,
 		_definitions,
-		_timelinesMap,
 		_paused,
 		_timelinePool,
 		_app;
@@ -504,29 +476,16 @@
 	{
 		var audio, options;
 
-		if (onComplete && !isFunction(onComplete))
-		{
-			options = onComplete;
-			onComplete = options.onComplete;
-			onCancelled = options.onCancelled;
-		}
-		else if (onCancelled === true)
+		if (onCancelled === true)
 		{
 			onCancelled = onComplete;
-		}
-		//deprecation fallback
-		if (isString(eventList) && options)
-		{
-			audio = options.audio || options.soundData || null;
-			eventList = {
-				anim: eventList,
-				audio: audio
-			};
 		}
 		if (!Array.isArray(eventList))
 		{
 			eventList = [eventList];
 		}
+		
+		this.stop(clip);
 		
 		var timeline = this._makeTimeline(
 			clip,
@@ -535,30 +494,19 @@
 			onCancelled
 		);
 
-		var instance = timeline.instance;
-
-		if (_timelinesMap[instance.id] !== undefined)
-		{
-			this.stop(clip);
-		}
-
 		//if the animation is present and complete
 		if (timeline.eventList && timeline.eventList.length >= 1)
 		{
 			timeline._nextItem(); //advance the timeline to the first item
 
-			instance.elapsedTime = timeline.startTime + timeline.position;
-
-			// have it set its 'paused' variable to false
-			instance.play();
-
 			// Before we add the timeline, we should check to see
 			// if there are no timelines, then start the enter frame
 			// updating
 			if (!_hasTimelines) this._startUpdate();
-
+			
+			if(_timelineMap)
+				_timelineMap.set(instance, timeline);
 			_timelines.push(timeline);
-			_timelinesMap[instance.id] = timeline;
 			_hasTimelines = true;
 
 			return timeline;
@@ -582,6 +530,10 @@
 			Debug.trace("Animator.play");
 			Debug.groupEnd();
 		}
+		
+		// Reset the timeline and add to the pool
+		// of timeline objects
+		_timelinePool.push(timeline.reset());
 
 		if (onComplete)
 		{
@@ -603,11 +555,13 @@
 	 */
 	p._makeTimeline = function(clip, eventList, onComplete, onCancelled)
 	{
-		var timeline = _timelinePool.length ? 
-			_timelinePool.pop() : 
+		var timeline = _timelinePool.length ?
+			_timelinePool.pop() :
 			new AnimatorTimeline();
-
-		var instance = createInstance(clip);
+		
+		var Definition = getDefinitionByClip(clip);
+		if(!Definition) return null;
+		var instance = Definition.create(clip);
 
 		if (!instance)
 		{
@@ -620,26 +574,11 @@
 
 		var fps;
 
-		//make sure the movieclip is framerate independent
-		if (!instance.framerate)
-		{
-			fps = _app.options.fps || 15;
-			if (!fps)
-				fps = 15;
-			instance.framerate = fps;
-		}
-		else
-		{
-			// we'll want this for some math later
-			fps = instance.framerate; 
-		}
-
 		timeline.instance = instance;
 		timeline.eventList = []; // we'll create a duplicate event list with specific info
 		timeline.onComplete = onComplete;
 		timeline.onCancelled = onCancelled;
 		timeline.speed = speed;
-		var labels = instance.getLabels();
 		var anim, audio, start, speed, alias;
 
 		for (var j = 0, jLen = eventList.length; j < jLen; ++j)
@@ -648,103 +587,60 @@
 			
 			if (isString(listItem))
 			{
-				anim = listItem;
-				audio = null;
-				start = 0;
-				speed = 1;
+				if(!Definition.hasAnimation(clip, listItem))
+					continue;
+				
+				timeline.eventList.push({
+					anim: listItem,
+					audio: null,
+					start: 0,
+					speed: 1
+				});
 			}
 			else if (typeof listItem == "object")
 			{
+				if(!Definition.hasAnimation(clip, listItem.anim))
+					continue;
+				
 				anim = listItem.anim;
 				audio = listItem.audio;
 				//convert into seconds, as that is what the time uses internally
 				start = isNumber(listItem.start) ? listItem.start * 0.001 : 0;
 				speed = listItem.speed > 0 ? listItem.speed : 1;
+				//figure out audio stuff if it is okay to use
+				if (audio && _app.sound)
+				{
+					if (isString(audio))
+					{
+						start = 0;
+						alias = audio;
+					}
+					else
+					{
+						start = audio.start > 0 ? audio.start * 0.001 : 0; //seconds
+						alias = audio.alias;
+					}
+					if (_app.sound.exists(alias))
+					{
+						_app.sound.preload(alias);
+						animData.alias = alias;
+						animData.audioStart = start;
+	
+						animData.useCaptions = this.captions && this.captions.hasCaption(alias);
+					}
+				}
+				timeline.eventList.push(animData);
 			}
 			else if (isNumber(listItem))
 			{
 				//convert to seconds
 				timeline.eventList.push(listItem * 0.001);
-				continue;
 			}
 			else if (isFunction(listItem))
 			{
 				//add functions directly
 				timeline.eventList.push(listItem);
-				continue;
 			}
-			else
-			{
-				continue;
-			}
-
-			//go through the list of labels (they are sorted by frame number)
-			var stopLabel = anim + "_stop";
-			var loopLabel = anim + "_loop";
-
-			var l, first = -1,
-				last = -1,
-				loop = false;
-
-			for (var i = 0, len = labels.length; i < len; ++i)
-			{
-				l = labels[i];
-				if (l.label == anim)
-				{
-					first = l.position;
-				}
-				else if (l.label == stopLabel)
-				{
-					last = l.position;
-					break;
-				}
-				else if (l.label == loopLabel)
-				{
-					last = l.position;
-					loop = true;
-					break;
-				}
-			}
-			var animData;
-			if (first >= 0 && last > 0)
-			{
-				animData = {
-					name: anim,
-					first: first,
-					last: last,
-					loop: loop,
-					speed: speed,
-					animStart: start
-				};
-			}
-			else
-			{
-				//if the animation doesn't exist, skip it
-				continue;
-			}
-			//figure out audio stuff if it is okay to use
-			if (audio && _app.sound)
-			{
-				if (isString(audio))
-				{
-					start = 0;
-					alias = audio;
-				}
-				else
-				{
-					start = audio.start > 0 ? audio.start * 0.001 : 0; //seconds
-					alias = audio.alias;
-				}
-				if (_app.sound.exists(alias))
-				{
-					_app.sound.preload(alias);
-					animData.alias = alias;
-					animData.audioStart = start;
-
-					animData.useCaptions = this.captions && this.captions.hasCaption(alias);
-				}
-			}
-			timeline.eventList.push(animData);
 		}
 		return timeline;
 	};
@@ -762,7 +658,7 @@
 	p.canAnimate = function(clip)
 	{
 		if (!clip) return false;
-		return !!getTimelineByClip(clip) || !!getDefinitionByClip(clip);
+		return !!getDefinitionByClip(clip);
 	};
 
 	/**
@@ -776,11 +672,6 @@
 	{
 		if (!clip) return null;
 		
-		var timeline = getTimelineByClip(clip);
-		if (timeline)
-		{
-			return timeline.instance;
-		}
 		var Definition = getDefinitionByClip(clip);
 		return Definition ? Definition.create(clip) : null;
 	};
@@ -828,18 +719,9 @@
 	 */
 	p.hasAnimation = function(clip, event)
 	{
-		var timeline = getTimelineByClip(clip);
-		if (timeline)
-		{
-			return timeline.instance.hasAnimation(event);
-		}
-		else
-		{
-			var instance = createInstance(clip);
-			var hasAnim = instance.hasAnimation(event);
-			poolInstance(instance);
-			return hasAnim;
-		}
+		var Definition = getDefinitionByClip(clip);
+		if(!Definition) return false;
+		return Definition.hasAnimation(clip, event);
 	};
 
 	/**
@@ -853,23 +735,23 @@
 	 */
 	p.getDuration = function(clip, event)
 	{
-		var timeline = getTimelineByClip(clip);
-		var instance, duration;
-
-		// Animation is already playing
-		// don't create a new instance
-		if (timeline)
+		var Definition = getDefinitionByClip(clip);
+		if(!Definition) return 0;
+		if(!Array.isArray(event))
+			return Definition.getDuration(clip, event.anim || event);
+		
+		var duration = 0;
+		for(var i = 0; i < event.length; ++i)
 		{
-			duration = timeline.instance.getDuration(event);
+			var item = event[i];
+			if(typeof item == "number")
+				duration += item;
+			else if(typeof item == "string")
+				duration += Definition.getDuration(clip, item);
+			else if(typeof item == "object" && item.anim)
+				duration += Definition.getDuration(clip, item.anim);
 		}
-		else
-		{
-			// Have to create a new instance
-			instance = createInstance(clip);
-			duration = instance.getDuration(event);
-			poolInstance(instance);
-		}
-		return duration;		
+		return duration;
 	};
 
 	/**
@@ -909,11 +791,9 @@
 		if (!_hasTimelines) return;
 
 		var timeline;
-		var removedTimelines = _timelines.slice();
-
-		for (var i = 0, len = removedTimelines.length; i < len; i++)
+		for (var i = _timelines.length - 1; i >= 0; --i)
 		{
-			timeline = removedTimelines[i];
+			timeline = _timelines[i];
 
 			if (!container || container.contains(timeline.instance.clip))
 			{
@@ -924,7 +804,6 @@
 				this._remove(timeline, true);
 			}
 		}
-		_hasTimelines = false;
 	};
 
 	/**
@@ -937,13 +816,7 @@
 	 */
 	p._remove = function(timeline, doCancelled)
 	{
-		var index = _removedTimelines.indexOf(timeline);
-		if (index >= 0)
-		{
-			_removedTimelines.splice(index, 1);
-		}
-
-		index = _timelines.indexOf(timeline);
+		var index = _timelines.indexOf(timeline);
 
 		// We can't remove an animation twice
 		if (index < 0) return;
@@ -955,11 +828,18 @@
 		//be allowed to continue
 		if (doCancelled && timeline.soundInst)
 			timeline.soundInst.stop(); //stop the sound from playing
+		
+		if(_timelineMap)
+		{
+			_timelineMap.delete(timeline.instance.clip);
+		}
 
 		// Remove from the stack
-		_timelines.splice(index, 1);
+		if(index == _timelines.length - 1)
+			_timelines.pop();
+		else
+			_timelines.splice(index, 1);
 		_hasTimelines = _timelines.length > 0;
-		delete _timelinesMap[timeline.instance.id];
 
 		//stop the captions, if relevant
 		if (timeline.useCaptions)
@@ -999,7 +879,7 @@
 
 		_paused = true;
 
-		for (var i = 0, len = _timelines.length; i < len; i++)
+		for (var i = _timelines.length - 1; i >= 0; --i)
 		{
 			_timelines[i].paused = true;
 		}
@@ -1018,7 +898,7 @@
 		_paused = false;
 
 		// Resume playing of all the instances
-		for (var i = 0, len = _timelines.length; i < len; i++)
+		for (var i = _timelines.length - 1; i >= 0; --i)
 		{
 			_timelines[i].paused = false;
 		}
@@ -1034,9 +914,9 @@
 	 */
 	p.pauseInGroup = function(paused, container)
 	{
-		if (!hasTimelines() || !container) return;
+		if (!_hasTimelines || !container) return;
 
-		for (var i = 0, len = _timelines.length; i < len; i++)
+		for (var i = _timelines.length - 1; i >= 0; --i)
 		{
 			if (container.contains(_timelines[i].instance.clip))
 			{
@@ -1067,9 +947,17 @@
 	 */
 	var getTimelineByClip = function(clip)
 	{
-		if (clip.__animatorId)
+		if(_timelineMap)
 		{
-			return _timelinesMap[clip.__animatorId] || null;
+			return _timelineMap.has(clip) ? _timelineMap.get(clip) : null;
+		}
+		else
+		{
+			for (var i = _timelines.length - 1; i >= 0; --i)
+			{
+				if(_timelines[i].instance.clip === clip)
+					return _timelines[i];
+			}
 		}
 		return null;
 	};
@@ -1121,18 +1009,18 @@
 	{
 		var delta = elapsed * 0.001; //ms -> sec
 
-		var t, instance, audioPos, extraTime, onNext;
+		var t, instance, audioPos, position;
 
 		for (var i = _timelines.length - 1; i >= 0; --i)
 		{
 			t = _timelines[i];
+			if(!t) return;//error checking or stopping of all timelines during update
 			instance = t.instance;
 			if (t.paused) continue;
 
 			//we'll use this to figure out if the timeline is on the next item
 			//to avoid code repetition
-			onNext = false;
-			extraTime = 0;
+			position = 0;
 
 			if (t.soundInst)
 			{
@@ -1142,146 +1030,64 @@
 					audioPos = t.soundInst.position * 0.001;
 					if (audioPos < 0)
 						audioPos = 0;
-					t.position = t.soundStart + audioPos;
+					position = t.soundStart + audioPos;
 
 					if (t.useCaptions)
 					{
 						this.captions.seek(t.soundInst.position);
 					}
-					//if the sound goes beyond the animation, then stop the animation
-					//audio animations shouldn't loop, because doing that properly is difficult
-					//letting the audio continue should be okay though
-					if (t.position >= t.duration)
-					{
-						instance.gotoAndStop(t.lastFrame);
-						extraTime = t.position - t.duration;
-						t._nextItem();
-						if (t.complete)
-						{
-							_removedTimelines.push(t);
-							continue;
-						}
-						else
-						{
-							onNext = true;
-						}
-					}
 				}
 				//if sound is no longer valid, stop animation playback immediately
 				else
 				{
-					t._nextItem();
-					if (t.complete)
-					{
-						_removedTimelines.push(t);
-						continue;
-					}
-					else
-					{
-						onNext = true;
-					}
+					position = t.duration;
 				}
 			}
 			else
 			{
-				t.position += delta * t.speed;
-				if (t.position >= t.duration)
+				position = t.position + delta * t.speed;
+			}
+			
+			if (position >= t.duration)
+			{
+				while(position >= t.duration)
 				{
+					position -= t.duration;
 					if (t.isLooping)
 					{
-						extraTime = t.position - t.duration;
-						t._nextItem();
-						onNext = true;
 						//call the on complete function each time
 						if (t.onComplete)
 							t.onComplete();
 					}
-					else
-					{
-						extraTime = t.position - t.duration;
-						if (t.firstFrame >= 0)
-						{
-							instance.gotoAndStop(t.lastFrame);
-						}
-						t._nextItem();
-						if (t.complete)
-						{
-							_removedTimelines.push(t);
-							continue;
-						}
-						else
-						{
-							onNext = true;
-						}
-					}
-				}
-				if (!onNext && t.playSound && t.position >= t.soundStart)
-				{
-					t.position = t.soundStart;
-					t.playSound = false;
-					t.soundInst = _app.sound.play(
-						t.soundAlias,
-						this._onSoundDone.bind(this, t, t.listIndex, t.soundAlias),
-						onSoundStarted.bind(null, t, t.listIndex)
-					);
-					if (t.useCaptions)
-					{
-						this.captions.play(t.soundAlias);
-					}
-				}
-			}
-			if (onNext)
-			{
-				t.position += extraTime;
-				while(t.position >= t.duration)
-				{
-					extraTime = t.position - t.duration;
 					t._nextItem();
 					if (t.complete)
-					{
-						if (t.firstFrame >= 0)
-						{
-							instance.gotoAndStop(t.lastFrame);
-						}
-						_removedTimelines.push(t);
-						continue;
-					}
-					t.position += extraTime;
+						break;
 				}
-				
-				if (t.firstFrame >= 0)
+				if(t.complete)
 				{
-					instance.gotoAndPlay(t.firstFrame);
-				}
-				if (t.playSound && t.position >= t.soundStart)
-				{
-					t.position = t.soundStart;
-					t.playSound = false;
-					t.soundInst = _app.sound.play(
-						t.soundAlias,
-						this._onSoundDone.bind(this, t, t.listIndex, t.soundAlias),
-						onSoundStarted.bind(null, t, t.listIndex)
-					);
-					if (t.useCaptions)
-					{
-						this.captions.play(t.soundAlias);
-					}
+					this._remove(t);
+					continue;
 				}
 			}
-			//if on an animation, not a pause
-			if (t.firstFrame >= 0)
+			
+			if (t.playSound && position >= t.soundStart)
 			{
-				instance.elapsedTime = t.startTime + t.position;
+				t.position = t.soundStart;
+				t.playSound = false;
+				t.soundInst = _app.sound.play(
+					t.soundAlias,
+					this._onSoundDone.bind(this, t, t.listIndex, t.soundAlias),
+					onSoundStarted.bind(null, t, t.listIndex)
+				);
+				if (t.useCaptions)
+				{
+					this.captions.play(t.soundAlias);
+				}
 			}
-		}
-		if (!_removedTimelines) return;
-		//we need to save the length before iterating because we have seen _removedTimelines get
-		//destroyed out from under us when this gets called at the end of an activity
-		var len = _removedTimelines.length;
-		for (i = 0; i < len; i++)
-		{
-			t = _removedTimelines[i];
-			this._remove(t);
+			else
+			{
+				t.position = position;
+			}
 		}
 	};
 
@@ -1317,7 +1123,7 @@
 
 		if (timeline.listIndex != playIndex) return;
 
-		if (timeline.soundEnd > 0 && timeline.soundEnd > timeline.position)
+		if (timeline.soundEnd > timeline.position)
 		{
 			timeline.position = timeline.soundEnd;
 		}
@@ -1335,10 +1141,8 @@
 		_app = null;
 		_timelines = null;
 		_timelinePool = null;
-		_removedTimelines = null;
-		_timelinesMap = null;
+		_timelineMap = null;
 		_definitions = null;
-		_hasTimelines = false;
 	};
 
 
@@ -1391,12 +1195,7 @@
  */
 (function(undefined)
 {
-	/**
-	 * The auto-incrementing id for the clip
-	 * @method
-	 */
-	var ANIMATOR_ID = 0;
-
+	var Application = include("springroll.Application");
 	/**
 	 * Animator Instance is a wrapper for different types of media
 	 * files. They need to extend some basic methods.
@@ -1407,9 +1206,33 @@
 	{
 		/**
 		 * The animation clip to play
-		 * @param {*} clip 
+		 * @property {*} clip
 		 */
 		this.clip = null;
+		
+		/**
+		 * Time, in seconds, of the current animation playback, from 0 -> duration.
+		 * @property {Number} position
+		 */
+		this.position = 0;
+		
+		/**
+		 * Duration, in seconds, of the current animation.
+		 * @property {Number} duration
+		 */
+		this.duration = 0;
+		
+		/**
+		 * If the current animation is a looping animation.
+		 * @property {Boolean} isLooping
+		 */
+		this.isLooping = false;
+		
+		/**
+		 * The name of the current animation.
+		 * @property {String} currentName
+		 */
+		this.currentName = null;
 	};
 
 	// Reference to the prototype
@@ -1423,9 +1246,34 @@
 	p.init = function(clip)
 	{
 		this.clip = clip;
-
-		// Add a unique id to the clip
-		clip.__animatorId = ++ANIMATOR_ID;
+	};
+	
+	/**
+	 * Sets up variables that are needed (including duration), and does any other setup else needed.
+	 * @method beginAnim
+	 * @param {Object} animObj The animation data object.
+	 * @param {Boolean} isRepeat If this animation is restarting a loop.
+	 */
+	p.beginAnim = function(animObj, isRepeat)
+	{
+	};
+	
+	/**
+	 * Ends animation playback.
+	 * @method endAnim
+	 */
+	p.endAnim = function()
+	{
+	};
+	
+	/**
+	 * Updates position to a new value, and does anything that the clip needs, like updating
+	 * timelines.
+	 * @method setPosition
+	 * @param  {Number} newPos The new position in the animation.
+	 */
+	p.setPosition = function(newPos)
+	{
 	};
 
 	/**
@@ -1436,13 +1284,33 @@
 	 */
 	AnimatorInstance.test = function(clip)
 	{
-		return clip.framerate !== undefined &&
-			clip.getLabels !== undefined &&
-			clip.elapsedTime !== undefined && 
-			clip.gotoAndStop !== undefined &&
-			clip.gotoAndPlay !== undefined &&
-			clip.stop !== undefined &&
-			clip.play !== undefined;
+		return false;
+	};
+	
+	/**
+	 * Determines if a clip has an animation.
+	 * @method hasAnimation
+	 * @static
+	 * @param  {*} clip The clip to check for an animation.
+	 * @param  {String|Object} event The animation.
+	 * @return {Boolean} If the clip has the animation.
+	 */
+	AnimatorInstance.hasAnimation = function(clip, event)
+	{
+		return false;
+	};
+	
+	/**
+	 * Calculates the duration of an animation or list of animations.
+	 * @method getDuration
+	 * @static
+	 * @param  {*} clip The clip to check.
+	 * @param  {String|Object|Array} event The animation or animation list.
+	 * @return {Number} Animation duration in milliseconds.
+	 */
+	AnimatorInstance.getDuration = function(clip, event)
+	{
+		return 0;
 	};
 
 	/**
@@ -1471,8 +1339,8 @@
 		 */
 		InstanceClass.create = function(clip)
 		{
-			var instance = InstanceClass._pool.length > 0 ? 
-				InstanceClass._pool.pop() : 
+			var instance = InstanceClass._pool.length > 0 ?
+				InstanceClass._pool.pop() :
 				new InstanceClass();
 
 			instance.init(clip);
@@ -1496,109 +1364,196 @@
 	};
 
 	/**
-	 * Get and set the framerate
-	 * @property {int} framerate
+	 * Reset this animator instance
+	 * so it can be re-used.
+	 * @method destroy
 	 */
-	Object.defineProperty(p, 'framerate',
+	p.destroy = function()
 	{
-		get: function()
-		{
-			return this.clip.framerate;
-		},
-		set: function(framerate)
-		{
-			this.clip.framerate = framerate; 
-		}
-	});
-
-	/**
-	 * Get and set the elapsedTime
-	 * @property {Number} elapsedTime
-	 */
-	Object.defineProperty(p, 'elapsedTime',
-	{
-		get: function()
-		{
-			return this.clip.elapsedTime;
-		},
-		set: function(elapsedTime)
-		{
-			this.clip.elapsedTime = elapsedTime; 
-		}
-	});
-
-	/**
-	 * The unique id for this animation
-	 * @property {Number} id
-	 * @readOnly
-	 */
-	Object.defineProperty(p, 'id',
-	{
-		get: function()
-		{
-			return this.clip.__animatorId;
-		}
-	});
-
-	/**
-	 * Get the collection of labels
-	 * @method getLabels
-	 * @return {Array} The collection of label, object with a label key
-	 */
-	p.getLabels = function()
-	{
-		return this.clip.getLabels();
+		this.clip = null;
 	};
 
+	// Assign to namespace
+	namespace('springroll').AnimatorInstance = AnimatorInstance;
+
+}());
+/**
+ * @module Animation
+ * @namespace springroll
+ * @requires Core
+ */
+(function(undefined)
+{
+	var Application = include("springroll.Application");
+	var AnimatorInstance = include('springroll.AnimatorInstance');
 	/**
-	 * Goto and stop on a frame
-	 * @method gotoAndStop
-	 * @param {String|int} frame The frame to goto
+	 * Animator Instance is a wrapper for different types of media
+	 * files. They need to extend some basic methods.
+	 *
+	 * @class AnimatorTimeline
 	 */
-	p.gotoAndStop = function(frame)
+	var GenericMovieClipInstance = function()
 	{
-		this.clip.gotoAndStop(frame);
+		AnimatorInstance.call(this);
+		
+		/**
+		 * The start time of the current animation on the movieclip's timeline.
+		 * @property {Number} startTime
+		 */
+		this.startTime = 0;
+		
+		/**
+		 * Length of current animation in frames.
+		 *
+		 * @property {int} length
+		 */
+		this.length = 0;
+		
+		/**
+		 * The frame number of the first frame of the current animation. If this is -1, then the
+		 * animation is currently a pause instead of an animation.
+		 *
+		 * @property {int} firstFrame
+		 */
+		this.firstFrame = -1;
+		
+		/**
+		 * The frame number of the last frame of the current animation.
+		 *
+		 * @property {int} lastFrame
+		 */
+		this.lastFrame = -1;
 	};
 
-	/**
-	 * Goto and play on a frame
-	 * @method gotoAndPlay
-	 * @param {String|int} frame The frame to goto
-	 */
-	p.gotoAndPlay = function(frame)
-	{
-		this.clip.gotoAndPlay(frame);
-	};
+	// Reference to the prototype
+	var p = AnimatorInstance.extend(GenericMovieClipInstance, AnimatorInstance);
 
 	/**
-	 * Play the animation
-	 * @method play
+	 * The initialization method
+	 * @method init
+	 * @param  {*} clip The movieclip
 	 */
-	p.play = function()
+	p.init = function(clip)
 	{
+		//make sure the movieclip is framerate independent
+		if (!clip.framerate)
+		{
+			fps = Application.instance.options.fps || 15;
+			clip.framerate = fps;
+		}
+		clip.tickEnabled = false;
+		
+		this.clip = clip;
+		this.isLooping = false;
+		this.currentName = null;
+		this.position = this.duration = 0;
+	};
+	
+	p.beginAnim = function(animObj, isRepeat)
+	{
+		//calculate frames, duration, etc
+		//then gotoAndPlay on the first frame
+		var anim = this.currentName = animObj.anim;
+		var labels = this.clip.getLabels();
+		//go through the list of labels (they are sorted by frame number)
+		var stopLabel = anim + "_stop";
+		var loopLabel = anim + "_loop";
+
+		var l, first = -1,
+			last = -1,
+			loop = false;
+
+		for (var i = 0, len = labels.length; i < len; ++i)
+		{
+			l = labels[i];
+			if (l.label == anim)
+			{
+				first = l.position;
+			}
+			else if (l.label == stopLabel)
+			{
+				last = l.position;
+				break;
+			}
+			else if (l.label == loopLabel)
+			{
+				last = l.position;
+				loop = true;
+				break;
+			}
+		}
+		this.firstFrame = first;
+		this.lastFrame = last;
+		this.isLooping = loop;
+		var fps = this.instance.framerate;
+		this.startTime = this.firstFrame / fps;
+		this.duration = this.length / fps;
+		if(isRepeat)
+			this.position = 0;
+		else
+		{
+			var animStart = animObj.start || 0;
+			this.position = animStart < 0 ? Math.random() * this.duration : animStart;
+		}
+		
 		this.clip.play();
+		this.clip.elapsedTime = this.startTime + this.position;
+		this.clip.advance();
+	};
+	
+	/**
+	 * Ends animation playback.
+	 * @method endAnim
+	 */
+	p.endAnim = function()
+	{
+		this.clip.gotoAndStop(this.lastFrame);
+	};
+	
+	/**
+	 * Updates position to a new value, and does anything that the clip needs, like updating
+	 * timelines.
+	 * @method setPosition
+	 * @param  {Number} newPos The new position in the animation.
+	 */
+	p.setPosition = function(newPos)
+	{
+		this.position = newPos;
+		this.clip.elapsedTime = this.startTime + newPos;
+		//because the movieclip only checks the elapsed time here (tickEnabled is false),
+		//calling advance() with no parameters is fine - it won't advance the time
+		this.clip.advance();
 	};
 
 	/**
-	 * Stop the animation
-	 * @method stop
+	 * Check to see if a clip is compatible with this
+	 * @method test
+	 * @static
+	 * @return {Boolean} if the clip is supported by this instance
 	 */
-	p.stop = function()
+	GenericMovieClipInstance.test = function(clip)
 	{
-		this.clip.stop();
+		return clip.framerate !== undefined &&
+			clip.getLabels !== undefined &&
+			clip.elapsedTime !== undefined &&
+			clip.gotoAndStop !== undefined &&
+			clip.gotoAndPlay !== undefined &&
+			clip.stop !== undefined &&
+			clip.play !== undefined;
 	};
 
 	/**
 	 * Checks if animation exists
 	 *
 	 * @method hasAnimation
+	 * @static
+	 * @param {*} clip The clip to check for an animation.
 	 * @param {String} event The frame label event (e.g. "onClose" to "onClose_stop")
-	 * @public
 	 * @return {Boolean} does this animation exist?
 	 */
-	p.hasAnimation = function(event)
+	GenericMovieClipInstance.hasAnimation = function(clip, event)
 	{
-		var labels = this.getLabels();
+		var labels = clip.getLabels();
 		var startFrame = -1,
 			stopFrame = -1;
 		var stopLabel = event + "_stop";
@@ -1620,73 +1575,48 @@
 	};
 
 	/**
-	 * Get the duration of an event label
+	 * Calculates the duration of an animation or list of animations.
 	 * @method getDuration
-	 * @param {String|Array} event The event or events
-	 * @return {int} Duration of sequence in milliseconds
+	 * @static
+	 * @param  {*} clip The clip to check.
+	 * @param  {String} event The animation or animation list.
+	 * @return {Number} Animation duration in milliseconds.
 	 */
-	p.getDuration = function(event)
+	GenericMovieClipInstance.getDuration = function(clip, event)
 	{
-		if (Array.isArray(event))
+		var labels = clip.getLabels();
+		var startFrame = -1,
+			stopFrame = -1;
+		var stopLabel = event + "_stop";
+		var loopLabel = event + "_loop";
+		var l;
+		for (var i = 0, labelsLength = labels.length; i < labelsLength; ++i)
 		{
-			var duration = 0;
-			for (var j = 0, eventLength = event.length; j < eventLength; j++)
+			l = labels[i];
+			if (l.label == event)
 			{
-				duration += this.getDuration(event[j]);
+				startFrame = l.position;
 			}
-			return duration;
+			else if (l.label == stopLabel || l.label == loopLabel)
+			{
+				stopFrame = l.position;
+				break;
+			}
+		}
+		if (startFrame >= 0 && stopFrame > 0)
+		{
+			//make sure the movieclip has a framerate
+			if (!clip.framerate)
+			{
+				var fps = Application.instance.options.fps || 15;
+				clip.framerate = fps;
+			}
+
+			return (stopFrame - startFrame) / clip.framerate * 1000;
 		}
 		else
 		{
-			if (typeof event == "number")
-			{
-				return event;	
-			}
-			else if (typeof event == "object" && event.anim)
-			{
-				event = event.anim;
-			}
-			else if (typeof event != "string")
-			{
-				return 0;
-			}
-
-			var labels = this.getLabels();
-			var startFrame = -1,
-				stopFrame = -1;
-			var stopLabel = event + "_stop";
-			var loopLabel = event + "_loop";
-			var l;
-			for (var i = 0, labelsLength = labels.length; i < labelsLength; ++i)
-			{
-				l = labels[i];
-				if (l.label == event)
-				{
-					startFrame = l.position;
-				}
-				else if (l.label == stopLabel || l.label == loopLabel)
-				{
-					stopFrame = l.position;
-					break;
-				}
-			}
-			if (startFrame >= 0 && stopFrame > 0)
-			{
-				//make sure the movieclip has a framerate
-				if (!this.framerate)
-				{
-					var fps = _app.options.fps;
-					if (!fps)
-						fps = 15;
-					this.framerate = fps;
-				}
-
-				return (stopFrame - startFrame) / this.framerate * 1000;
-			}
-			else
-			{
-				return 0;
-			}
+			return 0;
 		}
 	};
 
@@ -1697,13 +1627,11 @@
 	 */
 	p.destroy = function()
 	{
-		this.stop();
-		delete this.clip.__animatorId;
 		this.clip = null;
 	};
 
 	// Assign to namespace
-	namespace('springroll').AnimatorInstance = AnimatorInstance;
+	namespace('springroll').GenericMovieClipInstance = GenericMovieClipInstance;
 
 }());
 /**
@@ -1731,7 +1659,7 @@
 		 */
 		this.animator = new Animator(this);
 		this.animator.captions = this.captions || null;
-		this.animator.register('springroll.AnimatorInstance', 0);
+		this.animator.register('springroll.GenericMovieClipInstance', 0);
 	};
 
 	// Destroy the animator
@@ -1740,7 +1668,7 @@
 		if (this.animator)
 		{
 			this.animator.destroy();
-			this.animator = null;	
+			this.animator = null;
 		}
 	};
 
