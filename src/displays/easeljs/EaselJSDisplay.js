@@ -80,8 +80,7 @@
 		}
 		this.stage.autoClear = !!options.clearView;
 		this.stage.preventSelection = this._autoPreventDefault;
-
-		this.animator = include('springroll.easeljs.Animator', false);
+		
 		this.adapter = include('springroll.easeljs.DisplayAdapter');
 	};
 

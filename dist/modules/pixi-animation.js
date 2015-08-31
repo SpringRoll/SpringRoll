@@ -1,5 +1,32 @@
 /*! SpringRoll 0.4.0 */
 /**
+ * @module PIXI Animation
+ * @namespace springroll
+ * @requires  Core, PIXI Display
+ */
+(function()
+{
+	// Include classes
+	var ApplicationPlugin = include('springroll.ApplicationPlugin');
+
+	/**
+	 * @class Application
+	 */
+	var plugin = new ApplicationPlugin();
+
+	// Init the animator
+	plugin.setup = function()
+	{
+		this.assetManager.register('springroll.pixi.AdvancedMovieClipTask', 80);
+		this.assetManager.register('springroll.pixi.SpineAtlasTask', 40);
+		this.assetManager.register('springroll.pixi.SpineAnimTask', 40);
+		
+		this.animator.register('springroll.pixi.AdvancedMovieClipInstance', 10);
+		this.animator.register('springroll.pixi.SpineInstance', 10);
+	};
+
+}());
+/**
  * @module Pixi Animation
  * @namespace springroll.pixi
  * @requires Core, Pixi Display
@@ -519,6 +546,256 @@
 	namespace("springroll.pixi").AdvancedMovieClip = AdvancedMovieClip;
 }());
 /**
+ * @module Animation
+ * @namespace springroll
+ * @requires Core
+ */
+(function(undefined)
+{
+	var Application = include("springroll.Application");
+	var AnimatorInstance = include('springroll.AnimatorInstance');
+	var AdvancedMovieClip = include('springroll.pixi.AdvancedMovieClip');
+	
+	/**
+	 * The plugin for working with AdvancedMovieClips and animator
+	 * @class AdvancedMovieClipInstance
+	 * @extends springroll.AnimatorInstance
+	 * @private
+	 */
+	var AdvancedMovieClipInstance = function()
+	{
+		AnimatorInstance.call(this);
+		
+		/**
+		 * The start time of the current animation on the movieclip's timeline.
+		 * @property {Number} startTime
+		 */
+		this.startTime = 0;
+		
+		/**
+		 * Length of current animation in frames.
+		 *
+		 * @property {int} length
+		 */
+		this.length = 0;
+		
+		/**
+		 * The frame number of the first frame of the current animation. If this is -1, then the
+		 * animation is currently a pause instead of an animation.
+		 *
+		 * @property {int} firstFrame
+		 */
+		this.firstFrame = -1;
+		
+		/**
+		 * The frame number of the last frame of the current animation.
+		 *
+		 * @property {int} lastFrame
+		 */
+		this.lastFrame = -1;
+	};
+
+	// Reference to the prototype
+	var p = AnimatorInstance.extend(AdvancedMovieClipInstance, AnimatorInstance);
+
+	/**
+	 * The initialization method
+	 * @method init
+	 * @param  {*} clip The movieclip
+	 */
+	p.init = function(clip)
+	{
+		//make sure the movieclip is framerate independent
+		if (!clip.framerate)
+		{
+			fps = Application.instance.options.fps || 15;
+			clip.framerate = fps;
+		}
+		clip.tickEnabled = false;
+		
+		this.clip = clip;
+		this.isLooping = false;
+		this.currentName = null;
+		this.position = this.duration = 0;
+	};
+	
+	p.beginAnim = function(animObj, isRepeat)
+	{
+		//calculate frames, duration, etc
+		//then gotoAndPlay on the first frame
+		var anim = this.currentName = animObj.anim;
+		var labels = this.clip.getLabels();
+		//go through the list of labels (they are sorted by frame number)
+		var stopLabel = anim + "_stop";
+		var loopLabel = anim + "_loop";
+
+		var l, first = -1,
+			last = -1,
+			loop = false;
+
+		for (var i = 0, len = labels.length; i < len; ++i)
+		{
+			l = labels[i];
+			if (l.label == anim)
+			{
+				first = l.position;
+			}
+			else if (l.label == stopLabel)
+			{
+				last = l.position;
+				break;
+			}
+			else if (l.label == loopLabel)
+			{
+				last = l.position;
+				loop = true;
+				break;
+			}
+		}
+		this.firstFrame = first;
+		this.lastFrame = last;
+		this.length = last - first;
+		this.isLooping = loop;
+		var fps = this.clip.framerate;
+		this.startTime = this.firstFrame / fps;
+		this.duration = this.length / fps;
+		if(isRepeat)
+			this.position = 0;
+		else
+		{
+			var animStart = animObj.start || 0;
+			this.position = animStart < 0 ? Math.random() * this.duration : animStart;
+		}
+		
+		this.clip.elapsedTime = this.startTime + this.position;
+	};
+	
+	/**
+	 * Ends animation playback.
+	 * @method endAnim
+	 */
+	p.endAnim = function()
+	{
+		this.clip.gotoAndStop(this.lastFrame);
+	};
+	
+	/**
+	 * Updates position to a new value, and does anything that the clip needs, like updating
+	 * timelines.
+	 * @method setPosition
+	 * @param  {Number} newPos The new position in the animation.
+	 */
+	p.setPosition = function(newPos)
+	{
+		this.position = newPos;
+		this.clip.elapsedTime = this.startTime + newPos;
+	};
+
+	/**
+	 * Check to see if a clip is compatible with this
+	 * @method test
+	 * @static
+	 * @return {Boolean} if the clip is supported by this instance
+	 */
+	AdvancedMovieClipInstance.test = function(clip)
+	{
+		return clip instanceof AdvancedMovieClip;
+	};
+
+	/**
+	 * Checks if animation exists
+	 *
+	 * @method hasAnimation
+	 * @static
+	 * @param {*} clip The clip to check for an animation.
+	 * @param {String} event The frame label event (e.g. "onClose" to "onClose_stop")
+	 * @return {Boolean} does this animation exist?
+	 */
+	AdvancedMovieClipInstance.hasAnimation = function(clip, event)
+	{
+		var labels = clip.getLabels();
+		var startFrame = -1,
+			stopFrame = -1;
+		var stopLabel = event + "_stop";
+		var loopLabel = event + "_loop";
+		var l;
+		for (var i = 0, len = labels.length; i < len; ++i)
+		{
+			l = labels[i];
+			if (l.label == event)
+			{
+				startFrame = l.position;
+			}
+			else if (l.label == stopLabel || l.label == loopLabel)
+			{
+				stopFrame = l.position;
+				break;
+			}
+		}
+		return startFrame >= 0 && stopFrame > 0;
+	};
+
+	/**
+	 * Calculates the duration of an animation or list of animations.
+	 * @method getDuration
+	 * @static
+	 * @param  {*} clip The clip to check.
+	 * @param  {String} event The animation or animation list.
+	 * @return {Number} Animation duration in milliseconds.
+	 */
+	AdvancedMovieClipInstance.getDuration = function(clip, event)
+	{
+		var labels = clip.getLabels();
+		var startFrame = -1,
+			stopFrame = -1;
+		var stopLabel = event + "_stop";
+		var loopLabel = event + "_loop";
+		var l;
+		for (var i = 0, labelsLength = labels.length; i < labelsLength; ++i)
+		{
+			l = labels[i];
+			if (l.label == event)
+			{
+				startFrame = l.position;
+			}
+			else if (l.label == stopLabel || l.label == loopLabel)
+			{
+				stopFrame = l.position;
+				break;
+			}
+		}
+		if (startFrame >= 0 && stopFrame > 0)
+		{
+			//make sure the movieclip has a framerate
+			if (!clip.framerate)
+			{
+				var fps = Application.instance.options.fps || 15;
+				clip.framerate = fps;
+			}
+
+			return (stopFrame - startFrame) / clip.framerate * 1000;
+		}
+		else
+		{
+			return 0;
+		}
+	};
+
+	/**
+	 * Reset this animator instance
+	 * so it can be re-used.
+	 * @method destroy
+	 */
+	p.destroy = function()
+	{
+		this.clip = null;
+	};
+
+	// Assign to namespace
+	namespace('springroll.pixi').AdvancedMovieClipInstance = AdvancedMovieClipInstance;
+
+}());
+/**
  * @module Pixi Animation
  * @namespace springroll.pixi
  * @requires Core, Pixi Display
@@ -598,6 +875,315 @@
 
 	// Assign to namespace
 	namespace('springroll.pixi').AdvancedMovieClipTask = AdvancedMovieClipTask;
+
+}());
+/**
+ * @module PIXI Animation
+ * @namespace springroll.pixi
+ * @requires  Core, Animation, PIXI Display
+ */
+(function()
+{
+	/**
+	 * Class for assisting in creating an array of Spine animations to play at the same time
+	 * on one skeleton through Animator. Concurrent animations will play until one non-looping
+	 * animation ends.
+	 *
+	 * @class ParallelSpineData
+	 * @constructor
+	 * @param {String} anim The name of the animation on the skeleton.
+	 * @param {Boolean} [loop=false] If this animation should loop.
+	 * @param {Number} [speed=1] The speed at which this animation should be played.
+	 */
+	var ParallelSpineData = function(anim, loop, speed)
+	{
+		this.anim = anim;
+		this.loop = !!loop;
+		this.speed = speed > 0 ? speed : 1;
+	};
+	
+	// Assign to namespace
+	namespace("springroll.pixi").ParallelSpineData = ParallelSpineData;
+
+}());
+/**
+ * @module Animation
+ * @namespace springroll
+ * @requires Core
+ */
+(function(undefined)
+{
+	var Application = include("springroll.Application");
+	var AnimatorInstance = include('springroll.AnimatorInstance');
+	var Spine = include('PIXI.spine.Spine', false);
+	var ParallelSpineData = include('springroll.pixi.ParallelSpineData');
+	
+	if(!Spine) return;
+	
+	/**
+	 * The plugin for working with Spine skeletons and animator
+	 * @class SpineInstance
+	 * @extends springroll.AnimatorInstance
+	 * @private
+	 */
+	var SpineInstance = function()
+	{
+		AnimatorInstance.call(this);
+		
+		this.prevPosition = 0;
+	};
+
+	// Reference to the prototype
+	var p = AnimatorInstance.extend(SpineInstance, AnimatorInstance);
+
+	/**
+	 * The initialization method
+	 * @method init
+	 * @param  {*} clip The movieclip
+	 */
+	p.init = function(clip)
+	{
+		//we don't want Spine animations to advance every render, only when Animator tells them to
+		clip.autoUpdate = false;
+		
+		this.clip = clip;
+		this.isLooping = false;
+		this.currentName = null;
+		this.position = this.duration = 0;
+	};
+	
+	p.beginAnim = function(animObj, isRepeat)
+	{
+		var spineState = this.clip.state;
+		spineState.clearTracks();
+		skeletonData = this.clip.stateData.skeletonData;
+
+		this.isLooping = !!animObj.loop;
+		
+		var anim = this.currentName = animObj.anim;
+		if(typeof anim == "string")
+		{
+			//single anim
+			this.duration = skeletonData.findAnimation(anim).duration;
+			spineState.setAnimationByName(0, anim, this.isLooping);
+		}
+		else //if(Array.isArray(anim))
+		{
+			var i;
+			//concurrent spine anims
+			if(anim[0] instanceof ParallelSpineData)
+			{
+				//this.spineSpeeds = new Array(anim.length);
+				this.duration = 0;
+				var maxDuration = 0, maxLoopDuration = 0, duration;
+				for(i = 0; i < anim.length; ++i)
+				{
+					var animLoop = anim[i].loop;
+					spineState.setAnimationByName(i, anim[i].anim, animLoop);
+					duration = skeletonData.findAnimation(anim[i].anim).duration;
+					if(animLoop)
+					{
+						if(duration > maxLoopDuration)
+							maxLoopDuration = duration;
+					}
+					else
+					{
+						if(duration > maxDuration)
+							maxDuration = duration;
+					}
+					/*if (anim[i].speed > 0)
+						this.spineSpeeds[i] = anim[i].speed;
+					else
+						this.spineSpeeds[i] = 1;*/
+				}
+				//set the duration to be the longest of the non looping animations
+				//or the longest loop if they all loop
+				this.duration = maxDuration || maxLoopDuration;
+			}
+			//list of sequential spine anims
+			else
+			{
+				this.duration = skeletonData.findAnimation(anim[0]).duration;
+				if(anim.length == 1)
+				{
+					spineState.setAnimationByName(0, anim[0], this.isLooping);
+				}
+				else
+				{
+					spineState.setAnimationByName(0, anim[0], false);
+					for(i = 1; i < anim.length; ++i)
+					{
+						spineState.addAnimationByName(0, anim[i],
+							this.isLooping && i == anim.length - 1);
+						this.duration += skeletonData.findAnimation(anim[i]).duration;
+					}
+				}
+			}
+		}
+		
+		if(isRepeat)
+			this.position = 0;
+		else
+		{
+			var animStart = animObj.start || 0;
+			this.position = animStart < 0 ? Math.random() * this.duration : animStart;
+		}
+		
+		this.clip.update(this.position);
+	};
+	
+	/**
+	 * Ends animation playback.
+	 * @method endAnim
+	 */
+	p.endAnim = function()
+	{
+		this.clip.update(this.duration - this.position);
+	};
+	
+	/**
+	 * Updates position to a new value, and does anything that the clip needs, like updating
+	 * timelines.
+	 * @method setPosition
+	 * @param  {Number} newPos The new position in the animation.
+	 */
+	p.setPosition = function(newPos)
+	{
+		if(newPos < this.position)
+			this.clip.update(this.duration - this.position + newPos);
+		else
+			this.clip.update(newPos - this.position);
+		this.position = newPos;
+	};
+
+	/**
+	 * Check to see if a clip is compatible with this
+	 * @method test
+	 * @static
+	 * @return {Boolean} if the clip is supported by this instance
+	 */
+	SpineInstance.test = function(clip)
+	{
+		return clip instanceof Spine;
+	};
+
+	/**
+	 * Checks if animation exists
+	 *
+	 * @method hasAnimation
+	 * @static
+	 * @param {*} clip The clip to check for an animation.
+	 * @param {String} event The frame label event (e.g. "onClose" to "onClose_stop")
+	 * @return {Boolean} does this animation exist?
+	 */
+	SpineInstance.hasAnimation = function(clip, event)
+	{
+		var i;
+		skeletonData = this.clip.stateData.skeletonData;
+		if(typeof anim == "string")
+		{
+			//single anim
+			return !!skeletonData.findAnimation(anim);
+		}
+		else if(Array.isArray(anim))
+		{
+			//concurrent spine anims
+			if(anim[0] instanceof ParallelSpineData)
+			{
+				for(i = 0; i < anim.length; ++i)
+				{
+					//ensure all animations exist
+					if(!skeletonData.findAnimation(anim[i].anim))
+						return false;
+				}
+			}
+			//list of sequential spine anims
+			else
+			{
+				for(i = 0; i < anim.length; ++i)
+				{
+					//ensure all animations exist
+					if(!skeletonData.findAnimation(anim[i]))
+						return false;
+				}
+			}
+			return true;
+		}
+		return false;
+	};
+
+	/**
+	 * Calculates the duration of an animation or list of animations.
+	 * @method getDuration
+	 * @static
+	 * @param  {*} clip The clip to check.
+	 * @param  {String} event The animation or animation list.
+	 * @return {Number} Animation duration in milliseconds.
+	 */
+	SpineInstance.getDuration = function(clip, event)
+	{
+		var i;
+		skeletonData = this.clip.stateData.skeletonData;
+		if(typeof anim == "string")
+		{
+			//single anim
+			return skeletonData.findAnimation(anim).duration;
+		}
+		else if(Array.isArray(anim))
+		{
+			var duration = 0;
+			//concurrent spine anims
+			if(anim[0] instanceof ParallelSpineData)
+			{
+				var maxDuration = 0, maxLoopDuration = 0, tempDur;
+				for(i = 0; i < anim.length; ++i)
+				{
+					var animLoop = anim[i].loop;
+					tempDur = skeletonData.findAnimation(anim[i].anim).duration;
+					if(animLoop)
+					{
+						if(tempDur > maxLoopDuration)
+							maxLoopDuration = tempDur;
+					}
+					else
+					{
+						if(tempDur > maxDuration)
+							maxDuration = tempDur;
+					}
+				}
+				//set the duration to be the longest of the non looping animations
+				//or the longest loop if they all loop
+				duration = maxDuration || maxLoopDuration;
+			}
+			//list of sequential spine anims
+			else
+			{
+				duration = skeletonData.findAnimation(anim[0]).duration;
+				if(anim.length > 1)
+				{
+					for(i = 1; i < anim.length; ++i)
+					{
+						duration += skeletonData.findAnimation(anim[i]).duration;
+					}
+				}
+			}
+			return duration;
+		}
+		return 0;
+	};
+
+	/**
+	 * Reset this animator instance
+	 * so it can be re-used.
+	 * @method destroy
+	 */
+	p.destroy = function()
+	{
+		this.clip = null;
+	};
+
+	// Assign to namespace
+	namespace('springroll.pixi').SpineInstance = SpineInstance;
 
 }());
 /**
@@ -1162,1365 +1748,215 @@
 	namespace('springroll.pixi').SpineAnimTask = SpineAnimTask;
 
 }());
-/**
- * @module PIXI Animation
- * @namespace springroll.pixi
- * @requires  Core, PIXI Display
- */
 (function()
 {
-	/**
-	 * Class for assisting in creating an array of Spine animations to play at the same time
-	 * on one skeleton through Animator. Concurrent animations will play until one non-looping
-	 * animation ends.
-	 *
-	 * @class ParallelSpineData
-	 * @constructor
-	 * @param {String} anim The name of the animation on the skeleton.
-	 * @param {Boolean} [loop=false] If this animation should loop.
-	 * @param {Number} [speed=1] The speed at which this animation should be played.
-	 */
-	var ParallelSpineData = function(anim, loop, speed)
-	{
-		this.anim = anim;
-		this.loop = !!loop;
-		this.speed = speed > 0 ? speed : 1;
-	};
-	
-	// Assign to namespace
-	namespace("springroll.pixi").ParallelSpineData = ParallelSpineData;
-
-}());
-/**
- * @module PIXI Animation
- * @namespace springroll.pixi
- * @requires  Core, PIXI Display
- */
-(function()
-{
-	var Spine = include('PIXI.spine.Spine', false),
-		AnimationState = include('PIXI.spine.AnimationState', false),
-		ParallelSpineData = include('springroll.pixi.ParallelSpineData'),
-		AdvancedMovieClip = include('springroll.pixi.AdvancedMovieClip');
-	
-	/**
-	 * Internal Animator class for keeping track of animations. AnimatorTimelines are pooled
-	 * internally, so please only keep references to them while they are actively playing an
-	 * animation.
-	 *
-	 * @class AnimatorTimeline
-	 * @constructor
-	 * @private
-	 * @param {PIXI.MovieClip|Pixi.Spine} clip The AnimatorTimeline's clip
-	 * @param {Function} callback The function to call when the clip is finished playing
-	 * @param {Number} speed The speed at which the clip should be played
-	 * @param {Function} cancelledCallback The function to call if the clip's playback is
-	 *                                   interrupted.
-	 */
-	var AnimatorTimeline = function(clip, callback, speed, cancelledCallback)
-	{
-		this.eventList = [];
-		this.init(clip, callback, speed, cancelledCallback);
-	};
-	
-	AnimatorTimeline.constructor = AnimatorTimeline;
-
-	// Reference to the prototype
-	var p = AnimatorTimeline.prototype;
+	var Application = include('springroll.Application');
 
 	/**
-	 * Initialize the AnimatorTimeline
-	 *
-	 * @function init
-	 * @param {PIXI.MovieClip|Pixi.Spine} clip The AnimatorTimeline's clip
-	 * @param {Function} callback The function to call when the clip is finished playing
-	 * @param {Number} speed The speed at which the clip should be played
-	 * @param {Function} cancelledCallback The function to call if the clip's playback is
-	 *                                   interrupted.
-	 * @returns {Animator.AnimatorTimeline}
-	 */
-	p.init = function(clip, callback, speed, cancelledCallback)
-	{
-		/**
-		 *	The clip for this AnimTimeLine
-		 *	@property {PIXI.MovieClip|PIXI.Spine} clip
-		 *	@public
-		 */
-		this.clip = clip;
-
-		/**
-		 *	Whether the clip is a PIXI.Spine
-		 *	@property {Boolean} isSpine
-		 *	@public
-		 */
-		this.isSpine = Spine && clip instanceof Spine;
-		
-		//we don't want Spine animations to advance every render, only when Animator tells them to
-		if(this.isSpine)
-			clip.autoUpdate = false;
-
-		/**
-		 *	The function to call when the clip is finished playing
-		 *	@property {Function} callback
-		 *	@public
-		 */
-		this.callback = callback;
-		
-		/**
-		 *	The function to call if the clip's playback is interrupted.
-		 *	@property {Function} cancelledCallback
-		 *	@public
-		 */
-		this.cancelledCallback = cancelledCallback;
-		
-		/**
-		 * The current animation duration in seconds.
-		 * @property {Number} duration
-		 * @public
-		 */
-		this.duration = 0;
-
-		/**
-		 *	A speed multiplier for the current animation. Concurrent Spine animations use
-		 *	spineSpeeds instead.
-		 *	@property {Number} speed
-		 *	@public
-		 */
-		this.speed = speed;
-		
-		/**
-		 *	A list of animation, audio, functions, and/or pauses to play.
-		 *	@property {Array} eventList
-		 *	@public
-		 */
-		this.eventList.length = 0;
-		
-		/**
-		 * The index of the active animation in eventList.
-		 * @property {int} listIndex
-		 */
-		this.listIndex = -1;
-
-		/**
-		 *	@property {Array} spineStates
-		 *	@public
-		 */
-		this.spineStates = null;
-
-		/**
-		 *	If the current animation loops
-		 *	@property {Boolean} isLooping
-		 *	@public
-		 */
-		this.isLooping = null;
-
-		/**
-		 *	The position of the animation in seconds
-		 *	@property {Number} _time_sec
-		 *	@private
-		 */
-		this._time_sec = 0;
-		
-		/**
-		 * The frame number of the last frame of the current animation.
-		 *
-		 * @property {int} lastFrame
-		 */
-		this.lastFrame = -1;
-		
-		/**
-		 * The start time of the current animation on the movieclip's timeline.
-		 * @property {Number} startTime
-		 * @public
-		 */
-		this.startTime = 0;
-
-		/**
-		 *	Sound alias to sync to during the animation.
-		 *	@property {String} soundAlias
-		 *	@public
-		 */
-		this.soundAlias = null;
-
-		/**
-		 *	A sound instance object from Sound, used for tracking sound position.
-		 *	@property {Object} soundInst
-		 *	@public
-		 */
-		this.soundInst = null;
-
-		/**
-		 *	If the timeline will, but has yet to, play a sound
-		 *	@property {Boolean} playSound
-		 *	@public
-		 */
-		this.playSound = false;
-
-		/**
-		 *	The time (seconds) into the animation that the sound starts.
-		 *	@property {Number} soundStart
-		 *	@public
-		 */
-		this.soundStart = 0;
-
-		/**
-		 *	The time (seconds) into the animation that the sound ends
-		 *	@property {Number} soundEnd
-		 *	@public
-		 */
-		this.soundEnd = 0;
-
-		/**
-		 * If this timeline plays captions
-		 *
-		 * @property {Boolean} useCaptions
-		 * @readOnly
-		 */
-		this.useCaptions = false;
-
-		/**
-		 *	If this animation is paused.
-		 *	@property {Boolean} _paused
-		 *	@private
-		 */
-		this._paused = false;
-		
-		/**
-		 *	If the timeline is actively playing an animation, instead of a pause timer.
-		 *
-		 *	@property {Boolean} isAnim
-		 *	@public
-		 */
-		this.isAnim = false;
-		
-		/**
-		 * If the timeline is complete. Looping timelines will never complete.
-		 * @property {Boolean} complete
-		 * @public
-		 * @readOnly
-		 */
-		this.complete = false;
-
-		return this;
-	};
-	
-	/**
-	 * Advances to the next item in the list of things to play.
-	 * @method _nextItem
-	 * @private
-	 */
-	p._nextItem = function()
-	{
-		var repeat = false;
-		//if on a looping animation, set up the animation to be replayed
-		// - this will only happen on looping animations with audio
-		if(this.isLooping)
-		{
-			//if sound is playing, we need to stop it immediately
-			//otherwise it can interfere with replaying the audio
-			if(this.soundInst)
-				this.soundInst.stop();
-			//say that we are repeating, so that we start at the beginning of the loop
-			//in case it started part way in
-			repeat = true;
-		}
-		else
-		{
-			//reset variables
-			this.soundEnd = this.soundStart = 0;
-			this.isAnim = this.playSound = this.useCaptions = false;
-			this.soundInst = this.soundAlias = null;
-			this.spineStates = this.spineSpeeds = null;
-			this.isLooping = false;
-			//see if the animation list is complete
-			if(++this.listIndex >= this.eventList.length)
-			{
-				this.complete = true;
-				return;
-			}
-		}
-		var i, skeletonData;
-		//take action based on the type of item in the list
-		var listItem = this.eventList[this.listIndex];
-		switch(typeof listItem)
-		{
-			case "object":
-				var animStart = 0;
-				this.isAnim = true;
-				var anim = listItem.anim, clip = this.clip;
-				this.isLooping = !!listItem.loop;
-				this.speed = listItem.speed > 0 ? listItem.speed : 1;
-				var spineState;
-				if(Spine && clip instanceof Spine)
-				{
-					spineState = clip.state;
-					spineState.clearTracks();
-				}
-				if(typeof anim == "string")
-				{
-					if(Spine && clip instanceof Spine)
-					{
-						//single spine anim
-						this.duration = clip.stateData.skeletonData.findAnimation(anim).duration;
-						spineState.clearTracks();
-						spineState.setAnimationByName(0, anim, this.isLooping);
-					}
-					else
-					{
-						//AdvancedMovieClip
-						this.lastFrame = listItem.last;
-						var length = listItem.last - listItem.first;
-						var fps = clip.framerate;
-						this.startTime = listItem.first / fps;
-						this.duration = length / fps;
-						this.speed = listItem.speed;
-						this.isLooping = listItem.loop;
-					}
-				}
-				else //if(Array.isArray(anim))
-				{
-					//concurrent spine anims
-					if(anim[0] instanceof ParallelSpineData)
-					{
-						this.spineStates = new Array(anim.length);
-						this.spineSpeeds = new Array(anim.length);
-						this.duration = 0;
-						var maxDuration = 0, maxLoopDuration = 0, duration;
-						skeletonData = clip.stateData.skeletonData;
-						for(i = 0; i < anim.length; ++i)
-						{
-							var s = new AnimationState(clip.stateData);
-							this.spineStates[i] = s;
-							var animLoop = anim[i].loop;
-							s.setAnimationByName(i, anim[i].anim, animLoop);
-							duration = skeletonData.findAnimation(anim[i].anim).duration;
-							if(animLoop)
-							{
-								if(duration > maxLoopDuration)
-									maxLoopDuration = duration;
-							}
-							else
-							{
-								if(duration > maxDuration)
-									maxDuration = duration;
-							}
-							if (anim[i].speed > 0)
-								t.spineSpeeds[i] = anim[i].speed;
-							else
-								t.spineSpeeds[i] = 1;
-						}
-						//set the duration to be the longest of the non looping animations
-						//or the longest loop if they all loop
-						this.duration = maxDuration || maxLoopDuration;
-					}
-					//list of sequential spine anims
-					else
-					{
-						skeletonData = clip.stateData.skeletonData;
-						this.duration = skeletonData.findAnimation(anim[0]).duration;
-						if(anim.length == 1)
-						{
-							state.setAnimationByName(0, anim[0], this.isLooping);
-						}
-						else
-						{
-							state.setAnimationByName(0, anim[0], false);
-							for(i = 1; i < anim.length; ++i)
-							{
-								state.addAnimationByName(0, anim[i],
-									this.isLooping && i == anim.length - 1);
-								this.duration += skeletonData.findAnimation(anim[i]).duration;
-							}
-						}
-					}
-				}
-				
-				this._time_sec = 0;
-				if(!repeat)
-				{
-					var startTime = typeof listItem.start == "number" ? listItem.start * 0.001 : 0;
-					this._time_sec = startTime < 0 ? Math.random() * this.duration : startTime;
-				}
-				if(clip instanceof AdvancedMovieClip)
-					clip.elapsedTime = this.startTime + this._time_sec;
-				//audio
-				if(listItem.alias)
-				{
-					this.soundAlias = listItem.alias;
-					this.soundStart = listItem.audioStart;
-					this.playSound = true;
-					this.useCaptions = listItem.useCaptions;
-				}
-				break;
-			case "number":
-				this.duration = listItem;
-				this._time_sec = 0;
-				break;
-			case "function":
-				listItem();
-				this._nextItem();
-				break;
-		}
-	};
-	
-	/**
-	 * The position of the current animation, or the current pause timer, in milliseconds.
-	 * @property {Number} time
-	 * @public
-	 */
-	Object.defineProperty(p, "time", {
-		get: function() { return this._time_sec * 1000; },
-		set: function(value) { this._time_sec = value * 0.001; }
-	});
-	
-	/**
-	 * Sets and gets the animation's paused status.
-	 *
-	 * @property {Boolean} paused
-	 * @public
-	 */
-	Object.defineProperty(p, "paused", {
-		get: function() { return this._paused; },
-		set: function(value) {
-			if(value == this._paused) return;
-			this._paused = !!value;
-			if(this.soundInst)
-			{
-				if(this.paused)
-					this.soundInst.pause();
-				else
-					this.soundInst.unpause();
-			}
-		}
-	});
-
-	// Assign to namespace
-	namespace("springroll.pixi").AnimatorTimeline = AnimatorTimeline;
-
-}());
-/**
- * @module PIXI Animation
- * @namespace springroll.pixi
- * @requires  Core, PIXI Display
- */
-(function(undefined)
-{
-	var Spine = include('PIXI.spine.Spine', false),
-		AnimatorTimeline = include('springroll.pixi.AnimatorTimeline'),
-		ParallelSpineData = include('springroll.pixi.ParallelSpineData'),
-		Application = include('springroll.Application'),
-		AdvancedMovieClip = include('springroll.pixi.AdvancedMovieClip'),
-		Sound;
-
-	/**
-	 * Animator for interacting with Spine animations
 	 * @class Animator
-	 * @static
+	 * @namespace springroll.pixi
+	 * @see {@link springroll.Animator}
+	 * @deprecated since version 0.4.0
 	 */
-	var Animator = {};
-	
-	/**
-	 * The collection of AnimatorTimelines that are playing
-	 * @property {Array} _timelines
-	 * @private
-	 */
-	var _timelines = null,
-	
-	/**
-	 * The number of animations
-	 * @property {int} _numAnims
-	 * @private
-	 * @static
-	 */
-	_numAnims = 0,
-	
-	/**
-	 * Stored collection of AnimatorTimelines. This is internal to Animator and can't be accessed externally.
-	 * @property {Array} _animPool
-	 * @private
-	 * @static
-	 */
-	_animPool = null;
-	
-	/**
-	 * The global captions object to use with animator
-	 * @property {springroll.Captions} captions
-	 * @public
-	 */
-	Animator.captions = null;
+	var Animator = namespace('springroll.pixi').Animator = {};
 
 	/**
-	 * Initializes the singleton instance of Animator.
-	 * @method init
-	 * @static
-	 */
-	Animator.init = function()
-	{
-		_animPool = [];
-		_timelines = [];
-
-		Sound = include('springroll.Sound', false);
-	};
-	
-	/**
-	 * Play a specified animation
-	 *
-	 * @method play
-	 * @param {springroll.pixi.AdvancedMovieClip|PIXI.spine.Spine} clip The clip to play. Animation
-	 *                                                                  options vary depending on
-	 *                                                                  object type.
-	 * @param {String|Array} animData One of or an array of the following
-	 * * objects in the format:
-	 *
-	 *   {
-	 *       anim:<string|array of strings|array of ParallelSpineData>,
-	 *       start:0,
-	 *       speed:1,
-	 *       loop:false,
-	 *       audio:{alias:"MyAlias", start:300}
-	 *   }
-	 *
-	 *   * anim is the data about the animation to play. See below for more info
-	 *   * start is milliseconds into the animation to start (0 if omitted). A value of -1
-	 *       starts from a random time in the animation.
-	 *   * speed is a multiplier for the animation speed (1 if omitted).
-	 *   * loop is if the animation should loop (false if omitted).
-	 *   * audio is audio to sync the animation to using springroll.Sound. audio can be a String
-	 *       if you want the audio to start 0 milliseconds into the animation.
-	 *   * strings - A single animation to play on a Spine skeleton or AdvancedMovieClip.
-	 *   * arrays of strings - An array of animations to play sequentially on a Spine skeleton or
-	 *       AdvancedMovieClip.
-	 * * arrays of ParallelSpineData - An array of animations to play at the same time on a
-	 *   Spine skeleton.
-	 * * numbers - milliseconds to wait.
-	 * * functions - called upon reaching, followed immediately by the next item.
-	 * @param {Function} [onComplete] The function to call once the animation has finished.
-	 * @param {Function} [onCancelled] A callback function for when an animation is stopped with
-	 *                             Animator.stop() or to play another animation.
-	 * @return {springroll.pixi.AnimatorTimeline} The timeline object
-	 */
-	Animator.play = function(clip, animData, onComplete, onCancelled)
-	{
-		if(onCancelled === true)
-			onCancelled = onComplete;
-		
-		//ensure that we can play the clip
-		if (!Animator.canAnimate(clip))
-		{
-			if (onComplete) onComplete();
-			return;
-		}
-		
-		Animator.stop(clip);
-		
-		//convert individual items into arrays of properly formatted items
-		if(typeof animData == "string")
-		{
-			animData = [{anim: animData}];
-		}
-		else if(Array.isArray(animData))
-		{
-			var firstItem = animData[0];
-			if(typeof firstItem == "string" && Spine && clip instanceof Spine)
-			{
-				animData = [{anim: animData}];
-			}
-			else if(firstItem instanceof ParallelSpineData)
-			{
-				animData = [{anim: animData}];
-			}
-		}
-		else
-			animData = [animData];
-		
-		var t = Animator._makeTimeline(clip, animData, onComplete, onCancelled);
-		
-		if(t.eventList.length < 1)
-		{
-			_repool(t);
-			if (onComplete)
-				onComplete();
-			return null;
-		}
-		//update the art to the proper bit of the animation
-		t._nextItem();
-		updateClip(t, t._time_sec, 0);
-		
-		_timelines.push(t);
-		if (++_numAnims == 1)
-			Application.instance.on("update", _update);
-		return t;
-	};
-	
-	/**
-	 * Creates the AnimatorTimeline for a given animation
-	 *
-	 * @method _makeTimeline
-	 * @param {springroll.pixi.AdvancedMovieClip|PIXI.spine.Spine} clip The instance to animate
-	 * @param {Array} animData List of animation events.
-	 * @param {Function} callback The function to callback when we're done
-	 * @param {Function} cancelledCallback The function to callback when cancelled
-	 * @return {springroll.pixi.AnimatorTimeline} The Timeline object
-	 * @private
-	 * @static
-	 */
-	Animator._makeTimeline = function(clip, animData, callback, cancelledCallback)
-	{
-		var t = _animPool.length ?
-			_animPool.pop().init(clip, callback, cancelledCallback) :
-			new AnimatorTimeline(clip, callback, cancelledCallback);
-		
-		var i, length, j, jLength, anim, audio;
-		for(i = 0; i < animData.length; ++i)
-		{
-			var data = animData[i];
-			if(typeof data == "number")
-			{
-				t.eventList.push(data * 0.001);
-				continue;
-			}
-			if(typeof data == "function")
-			{
-				t.eventList.push(data);
-				continue;
-			}
-			//convert strings into object to attach more data to
-			if(typeof data == "string")
-			{
-				anim = data;
-				audio = null;
-			}
-			else
-			{
-				anim = data.anim;
-				audio = data.audio;
-			}
-			if (t.isSpine)
-			{
-				//allow the animations to be a string, or an array of strings
-				if (typeof anim == "string")
-				{
-					if (checkSpineForAnimation(clip, anim))
-					{
-						t.eventList.push(data);
-					}
-				}
-				//Array - either animations in order or animations at the same time
-				else
-				{
-					//array of Strings, play animations by name in order
-					if (typeof anim[0] == "string")
-					{
-						for(j = anim.length; j >= 0; --j)
-						{
-							if(!checkSpineForAnimation(clip, anim[j]))
-							{
-								anim.splice(j, 1);
-							}
-						}
-						if(anim.length)
-							t.eventList.push(data);
-					}
-					//array of objects - play different animations at the same time
-					else
-					{
-						for(j = anim.length; j >= 0; --j)
-						{
-							if(!checkSpineForAnimation(clip, anim[j].anim))
-							{
-								anim.splice(j, 1);
-							}
-						}
-						if(anim.length)
-							t.eventList.push(data);
-					}
-				}
-			}
-			//AdvancedMovieClip
-			else if (typeof anim == "string")
-			{
-				//go through the list of labels (they are sorted by frame number)
-				var stopLabel = anim + "_stop";
-				var loopLabel = anim + "_loop";
-	
-				var l,
-					first = -1,
-					last = -1,
-					loop = false,
-					labels = clip.getLabels();
-				for (j = 0, length = labels.length; j < length; ++j)
-				{
-					l = labels[j];
-					if (l.label == anim)
-					{
-						first = l.position;
-					}
-					else if (l.label == stopLabel)
-					{
-						last = l.position;
-						break;
-					}
-					else if (l.label == loopLabel)
-					{
-						last = l.position;
-						loop = true;
-						break;
-					}
-				}
-				if (first >= 0 && last > 0)
-				{
-					data = {
-						anim: anim,
-						first: first,
-						last: last,
-						loop: loop,
-						speed: data.speed || 1,
-						start: data.start || 0
-					};
-				}
-				t.eventList.push(data);
-			}
-			//bad data, nothing we can animate with
-			else
-			{
-				continue;
-			}
-			//only do sound if the Sound library is in use
-			if (audio && Sound)
-			{
-				var alias, start;
-				if (typeof audio == "string")
-				{
-					start = 0;
-					alias = audio;
-				}
-				else
-				{
-					start = audio.start > 0 ? audio.start * 0.001 : 0;//seconds
-					alias = audio.alias;
-				}
-				if(Sound.instance.exists(alias))
-				{
-					Sound.instance.preload(alias);
-					data.alias = alias;
-					data.audioStart = start;
-				
-					data.useCaptions = Animator.captions && Animator.captions.hasCaption(alias);
-				}
-			}
-		}
-		
-		return t;
-	};
-	
-	/**
-	 * Determines if a given instance can be animated by Animator.
-	 * @method canAnimate
-	 * @param {PIXI.DisplayObject} instance The object to check for animation properties.
-	 * @return {Boolean} If the instance can be animated or not.
-	 * @static
+	 * @method
+	 * @name springroll.pixi.Animator#canAnimate
+	 * @see {@link springroll.Animator#canAnimate}
+	 * @deprecated since version 0.4.0
 	 */
 	Animator.canAnimate = function(instance)
 	{
-		if(!instance)
-			return false;
-		//check for instance of Spine, MovieClip
-		if((Spine && instance instanceof Spine) || instance instanceof AdvancedMovieClip)
-			return true;
-		return false;
-	};
-	
-	/**
-	 * Get duration of animation (or sequence of animations) in seconds
-	 *
-	 * @method getDuration
-	 * @param {springroll.pixi.AdvancedMovieClip|PIXI.spine.Spine} clip The display object that
-	 *                                                                  the animation matches.
-	 * @param {String|Array} animData The animation data or array, in the format that play() uses.
-	 * @public
-	 * @static
-	 *	@return {Number} Duration of animation event in milliseconds
-	 */
-	Animator.getDuration = function(clip, animData)
-	{
-		//calculated in seconds
-		var duration = 0;
-		
-		var j, events;
-		//ensure that everything is an array in a useful manner
-		if(typeof animData == "string")
-		{
-			animData = [{anim: animData}];
-		}
-		else if(Array.isArray(animData))
-		{
-			var firstItem = animData[0];
-			if(typeof firstItem == "string" && Spine && clip instanceof Spine)
-			{
-				animData = [{anim: animData}];
-			}
-			else if(firstItem instanceof ParallelSpineData)
-			{
-				animData = [{anim: animData}];
-			}
-		}
-		else
-			animData = [animData];
-		
-		for(var i = 0; i < animData.length; ++i)
-		{
-			var listItem = animData[i];
-			switch(typeof listItem)
-			{
-				case "object":
-					var anim = listItem.anim;
-					if(typeof anim == "string")
-					{
-						//single spine anim
-						if(Spine && clip instanceof Spine)
-							duration += clip.stateData.skeletonData.findAnimation(anim).duration;
-						//animation for an AdvancedMovieClip
-						else
-						{
-							events = clip.getEvents();
-							for(j = 0; j < events.length; ++j)
-							{
-								if(events[j].name == anim)
-								{
-									duration += events[j].length * clip.framerate;
-									break;
-								}
-							}
-						}
-					}
-					else //if(Array.isArray(anim))
-					{
-						//concurrent spine anims
-						if(anim[0] instanceof ParallelSpineData)
-						{
-							this.spineStates = new Array(anim.length);
-							this.spineSpeeds = new Array(anim.length);
-							var maxDuration = 0, maxLoopDuration = 0, tempDuration;
-							skeletonData = clip.stateData.skeletonData;
-							for(i = 0; i < anim.length; ++i)
-							{
-								var animLoop = anim[i].loop;
-								tempDuration = skeletonData.findAnimation(anim[i].anim).duration;
-								if(animLoop)
-								{
-									if(duration > maxLoopDuration)
-										maxLoopDuration = tempDuration;
-								}
-								else
-								{
-									if(duration > maxDuration)
-										maxDuration = tempDuration;
-								}
-							}
-							//set the duration to be the longest of the non looping animations
-							//or the longest loop if they all loop
-							if(maxDuration)
-								duration += maxDuration;
-							else
-								duration += maxLoopDuration;
-						}
-						//list of sequential spine anims
-						else
-						{
-							skeletonData = clip.stateData.skeletonData;
-							for(i = 0; i < anim.length; ++i)
-							{
-								duration += skeletonData.findAnimation(anim[i]).duration;
-							}
-						}
-					}
-					break;
-				case "string":
-					//animation for an AdvancedMovieClip
-					events = clip.getEvents();
-					for(j = 0; j < events.length; ++j)
-					{
-						if(events[j].name == anim)
-						{
-							duration += events[j].length * clip.framerate;
-							break;
-						}
-					}
-					break;
-				case "number":
-					duration += listItem * 0.001;
-					break;
-			}
-		}
-		
-		return duration * 1000;//convert into milliseconds
+		console.warn('Animator.canAnimate() is now deprecated, please use the app.animator.canAnimate()');
+		return Application.instance.animator.canAnimate(instance);
 	};
 
 	/**
-	 * Checks to see if a Spine animation includes a given animation alias
-	 *
-	 * @method instanceHasAnimation
-	 * @param {springroll.pixi.AdvancedMovieClip|PIXI.spine.Spine} instance The animation to
-	 *                                                                      search.
-	 * @param {String} anim The animation alias to search for
-	 * @returns {Boolean} Returns true if the animation is found
+	 * @method
+	 * @name springroll.pixi.Animator#getDuration
+	 * @see {@link springroll.Animator#getDuration}
+	 * @deprecated since version 0.4.0
 	 */
-	Animator.instanceHasAnimation = function(instance, anim)
+	Animator.getDuration = function(instance, event)
 	{
-		if (Spine && instance instanceof Spine)
-			return checkSpineForAnimation(instance, anim);
-		else if(instance instanceof AdvancedMovieClip)
-		{
-			var events = clip.getEvents();
-			for(var j = 0; j < events.length; ++j)
-			{
-				if(events[j].name == anim)
-				{
-					return true;
-				}
-			}
-		}
-		return false;
+		console.warn('Animator.getDuration() is now deprecated, please use the app.animator.getDuration()');
+		return Application.instance.animator.getDuration(instance, event);
 	};
-	
-	/**
-	 * Checks to see if a Spine animation includes a given animation alias
-	 *
-	 * @method checkSpineForAnimation
-	 * @param {PIXI.Spine} clip The spine to search
-	 * @param {String} anim The animation alias to search for
-	 * @returns {Boolean} Returns true if the animation is found
-	 */
-	var checkSpineForAnimation = function(clip, anim)
-	{
-		return clip.stateData.skeletonData.findAnimation(anim) !== null;
-	};
-	
-	/**
-	 * Stop a clip
-	 *
-	 * @method stop
-	 * @param {PIXI.MovieClip|PIXI.Spine} clip The clip to stop
-	 */
-	Animator.stop = function(clip, doCallback)
-	{
-		for(var i = 0; i < _numAnims; ++i)
-		{
-			if (_timelines[i].clip === clip)
-			{
-				var t = _timelines[i];
-				_timelines.splice(i, 1);
-				if (--_numAnims === 0)
-					Application.instance.off("update", _update);
-				if (t.cancelledCallback)
-					t.cancelledCallback();
-				if (t.soundInst)
-					t.soundInst.stop();
-				_repool(t);
-				break;
-			}
-		}
-	};
-	
-	/**
-	 * Stops all current animations
-	 *
-	 * @method stop
-	 * @static
-	 * @param {boolean} [doCancelled=true] We if should do the cancelled callback, if available.
-	 */
-	Animator.stopAll = function(doCancelled)
-	{
-		doCancelled = doCancelled !== undefined ? true : !!doCancelled;
 
-		for(var i = 0; i < _numAnims; ++i)
-		{
-				var t = _timelines[i];
-				if (doCancelled && t.cancelledCallback)
-					t.cancelledCallback();
-				if (t.soundInst)
-					t.soundInst.stop();
-				_repool(t);
-				break;
-		}
-		Application.instance.off("update", _update);
-		_timelines.length = _numAnims = 0;
-	};
-	
 	/**
-	 * Put an AnimatorTimeline back into the general pool after it's done playing
-	 * or has been manually stopped.
-	 *
-	 * @method _repool
-	 * @param {springroll.pixi.AnimatorTimeline} timeline
-	 * @private
+	 * @method
+	 * @name springroll.pixi.Animator#getTimeline
+	 * @see {@link springroll.Animator#getTimeline}
+	 * @deprecated since version 0.4.0
 	 */
-	var _repool = function(timeline)
+	Animator.getTimeline = function(instance)
 	{
-		timeline.clip = null;
-		timeline.callback = null;
-		timeline.cancelledCallback = null;
-		timeline.isLooping = false;
-		timeline.spineStates = null;
-		timeline.speed = null;
-		timeline.soundInst = null;
-		_animPool.push(timeline);
+		console.warn('Animator.getTimeline() is now deprecated, please use the app.animator.getTimeline()');
+		return Application.instance.animator.getTimeline(instance);
 	};
-	
+
 	/**
-	 * Update each frame
-	 *
-	 * @method _update
-	 * @param {int} elapsed The time since the last frame
-	 * @private
+	 * @method
+	 * @name springroll.pixi.Animator#instanceHasAnimation
+	 * @see {@link springroll.Animator#instanceHasAnimation}
+	 * @deprecated since version 0.4.0
 	 */
-	var _update = function(elapsed)
+	Animator.instanceHasAnimation = function(instance, event)
 	{
-		var delta = elapsed * 0.001;//ms -> sec
-		
-		for(var i = _numAnims - 1; i >= 0; --i)
-		{
-			var t = _timelines[i];
-			if (t.paused) continue;
-			var prevTime = t._time_sec;
-			//we'll use this to figure out if the timeline is on the next item
-			//to avoid code repetition
-			var onNext = false, extraTime = 0;
-			
-			//if the timeline is on an active animation
-			if(t.isAnim)
-			{
-				//update time to audio
-				if (t.soundInst)
-				{
-					if (t.soundInst.isValid)
-					{
-						//convert sound position ms -> sec
-						var audioPos = t.soundInst.position * 0.001;
-						if (audioPos < 0)
-							audioPos = 0;
-						t._time_sec = t.soundStart + audioPos;
-						if (t.useCaptions)
-						{
-							Animator.captions.seek(t.soundInst.position);
-						}
-						//if the sound goes beyond the animation, then stop the animation
-						//audio animations shouldn't loop, because doing that properly is difficult
-						//letting the audio continue should be okay though
-						if (t._time_sec >= t.duration)
-						{
-							updateClip(t, t.duration, prevTime);
-							extraTime = t._time_sec - t.duration;
-							t._nextItem();
-							if(t.complete)
-							{
-								_onMovieClipDone(t);
-								continue;
-							}
-							else
-							{
-								onNext = true;
-							}
-						}
-					}
-					else//if sound is no longer valid, stop animation immediately
-					{
-						t._nextItem();
-						if(t.complete)
-						{
-							_onMovieClipDone(t);
-							continue;
-						}
-						else
-						{
-							onNext = true;
-						}
-					}
-				}
-				//update time normally
-				else
-				{
-					t._time_sec += delta * t.speed;
-					//see if we should start playing audio
-					if (t.playSound && t._time_sec >= t.soundStart)
-					{
-						t._time_sec = t.soundStart;
-						t.playSound = false;
-						t.soundInst = Sound.instance.play(
-							t.soundAlias,
-							onSoundDone.bind(this, t, t.listIndex, t.soundAlias),
-							onSoundStarted.bind(this, t, t.listIndex)
-						);
-						if (t.useCaptions)
-						{
-							Animator.captions.play(t.soundAlias);
-						}
-					}
-				}
-				//update the clip
-				var c = t.clip;
-				if (t.isSpine)
-				{
-					if (t.spineStates)
-					{
-						var complete = updateClip(t, t._time_sec, prevTime);
-						if (complete)
-						{
-							extraTime = t._time_sec - t.duration;
-							t._nextItem();
-							if(t.complete)
-							{
-								_onMovieClipDone(t);
-								continue;
-							}
-							else
-							{
-								onNext = true;
-							}
-						}
-						else if(t._time_sec > t.duration)
-						{
-							extraTime = t._time_sec - t.duration;
-							t._nextItem();
-							onNext = true;
-						}
-					}
-					else
-					{
-						updateClip(t, t._time_sec, prevTime);
-						if (t._time_sec >= t.duration)
-						{
-							extraTime = t._time_sec - t.duration;
-							
-							t._nextItem();
-							if(t.complete)
-							{
-								_onMovieClipDone(t);
-								continue;
-							}
-							else
-							{
-								onNext = true;
-							}
-						}
-					}
-				}
-				else//AdvancedMovieClip
-				{
-					if (t._time_sec >= t.duration)
-					{
-						if (t.isLooping && t.listIndex == t.eventList.length - 1)
-						{
-							extraTime = t._time_sec - t.duration;
-							t._nextItem();//reset any audio and such
-							//call the on complete function each time
-							if (t.onComplete)
-								t.onComplete();
-							onNext = true;
-						}
-						else
-						{
-							extraTime = t._time_sec - t.duration;
-							c.gotoAndStop(t.lastFrame);
-							t._nextItem();
-							if(t.complete)
-							{
-								_onMovieClipDone(t);
-								continue;
-							}
-							else
-							{
-								onNext = true;
-							}
-						}
-					}
-					else
-					{
-						c.elapsedTime = t.startTime + t._time_sec;
-					}
-				}
-			}
-			//a timed pause
-			else
-			{
-				t._time_sec += delta * t.speed;
-				if (t._time_sec >= t.duration)
-				{
-					extraTime = t._time_sec - t.duration;
-					t._nextItem();
-					if(t.complete)
-					{
-						_onMovieClipDone(t);
-						continue;
-					}
-					else
-					{
-						onNext = true;
-					}
-				}
-			}
-			if(onNext)
-			{
-				prevTime = 0;
-				t._time_sec += extraTime;
-				while(t._time_sec >= t.duration)
-				{
-					extraTime = t._time_sec - t.duration;
-					t._nextItem();
-					if (t.complete)
-					{
-						if(t.isAnim)
-							updateClip(t, t._time_sec, prevTime);
-						_onMovieClipDone(t);
-						continue;
-					}
-					t._time_sec += extraTime;
-				}
-				
-				if(t.playSound && t._time_sec >= t.soundStart)
-				{
-					t._time_sec = t.soundStart;
-					t.playSound = false;
-					t.soundInst = Sound.instance.play(
-						t.soundAlias,
-						onSoundDone.bind(this, t, t.listIndex, t.soundAlias),
-						onSoundStarted.bind(this, t, t.listIndex)
-					);
-					if (t.useCaptions)
-					{
-						Animator.captions.play(t.soundAlias);
-					}
-				}
-				//update after the change to the new step
-				if(t.isAnim)
-					updateClip(t, t._time_sec, prevTime);
-			}
-		}
-		if (_numAnims === 0)
-			Application.instance.off("update", _update);
+		console.warn('Animator.instanceHasAnimation() is now deprecated, please use the app.animator.instanceHasAnimation()');
+		return Application.instance.animator.hasAnimation(instance, event);
 	};
-	
-	var updateClip = function(t, time, prevTime)
-	{
-		var complete = false;
-		var c = t.clip;
-		if (t.isSpine)
-		{
-			if (t.spineStates)
-			{
-				for(var j = 0, len = t.spineStates.length; j < len; ++j)
-				{
-					var s = t.spineStates[j];
-					s.update((time - prevTime) * t.spineSpeeds[j]);
-					s.apply(c.skeleton);
-					if (!s.currentLoop && s.isComplete())
-						complete = true;
-				}
-			}
-			else
-			{
-				c.update(time - prevTime);
-			}
-		}
-		else
-		{
-			c.elapsedTime = t.startTime + time;
-		}
-		return complete;
-	};
-	
-	var onSoundStarted = function(timeline, playIndex)
-	{
-		if(timeline.listIndex != playIndex) return;
-		
-		//convert sound length to seconds
-		timeline.soundEnd = timeline.soundStart + timeline.soundInst.length * 0.001;
-	};
-	
-	var onSoundDone = function(timeline, playIndex, soundAlias)
-	{
-		if (Animator.captions && Animator.captions.currentAlias == soundAlias)
-			Animator.captions.stop();
-		
-		if(timeline.listIndex != playIndex) return;
-		
-		if (timeline.soundEnd > 0 && timeline._time_sec < timeline.soundEnd)
-			timeline._time_sec = timeline.soundEnd;
-		timeline.soundInst = null;
-	};
-	
+
 	/**
-	 * Called when a movie clip is done playing, calls the AnimatorTimeline's
-	 * callback if it has one
-	 *
-	 * @method _onMovieClipDone
-	 * @param {pixi.AnimatorTimeline} timeline
-	 * @private
+	 * @method
+	 * @name springroll.pixi.Animator#pauseInGroup
+	 * @see {@link springroll.Animator#pauseInGroup}
+	 * @deprecated since version 0.4.0
 	 */
-	var _onMovieClipDone = function(timeline)
+	Animator.pauseInGroup = function(paused, container)
 	{
-		var i = _timelines.indexOf(timeline);
-		if(i >= 0)
-		{
-			if (timeline.useCaptions)
-				Animator.captions.stop();
-			_timelines.splice(i, 1);
-			if (--_numAnims === 0)
-				Application.instance.off("update", _update);
-			if (timeline.callback)
-				timeline.callback();
-			_repool(timeline);
-		}
+		console.warn('Animator.pauseInGroup() is now deprecated, please use the app.animator.pauseInGroup()');
+		Application.instance.animator.pauseInGroup(paused, container);
 	};
-	
+
 	/**
-	 * Destroy this
-	 *
-	 * @method destroy
+	 * @method
+	 * @name springroll.pixi.Animator#resume
+	 * @see {@link springroll.Animator#resume}
+	 * @deprecated since version 0.4.0
+	 */
+	Animator.resume = function()
+	{
+		console.warn('Animator.resume() is now deprecated, please use the app.animator.resume()');
+		Application.instance.animator.resume();
+	};
+
+	/**
+	 * @method
+	 * @name springroll.pixi.Animator#stopAll
+	 * @see {@link springroll.Animator#stopAll}
+	 * @deprecated since version 0.4.0
+	 */
+	Animator.stopAll = function(container, removeCallbacks)
+	{
+		console.warn('Animator.stopAll() is now deprecated, please use the app.animator.stopAll()');
+		Application.instance.animator.stopAll(container, removeCallbacks);
+	};
+
+	/**
+	 * @method
+	 * @name springroll.pixi.Animator#destroy
+	 * @see {@link springroll.Animator#destroy}
+	 * @deprecated since version 0.4.0
 	 */
 	Animator.destroy = function()
 	{
-		Animator.stopAll(false);
-		Animator.captions = null;
-		_animPool = null;
-		_timelines = null;
-		Application.instance.off("update", _update);
+		console.warn('Animator.destroy() is now deprecated, please use the app.animator.destroy()');
+		Application.instance.animator.destroy();
 	};
-	
-	namespace('springroll').Animator = Animator;
-	namespace('springroll.pixi').Animator = Animator;
-}());
-/**
- * @module PIXI Animation
- * @namespace springroll
- * @requires  Core, PIXI Display
- */
-(function()
-{
-	// Include classes
-	var ApplicationPlugin = include('springroll.ApplicationPlugin'),
-		Animator = include('springroll.pixi.Animator');
 
 	/**
-	 * @class Application
+	 * @method
+	 * @name springroll.pixi.Animator#getPaused
+	 * @see {@link springroll.Animator#paused}
+	 * @deprecated since version 0.4.0
 	 */
-	var plugin = new ApplicationPlugin();
-
-	// Init the animator
-	plugin.setup = function()
+	Animator.getPaused = function(instance)
 	{
-		this.assetManager.register('springroll.pixi.AdvancedMovieClipTask', 80);
-		this.assetManager.register('springroll.pixi.SpineAtlasTask', 40);
-		this.assetManager.register('springroll.pixi.SpineAnimTask', 40);
-		
-		Animator.init();
-		Animator.captions = this.captions || null;
+		console.warn('Animator.getPaused() is now deprecated, please use the app.animator.paused');
+		return Application.instance.animator.paused;
 	};
 
-	// Destroy the animator
-	plugin.teardown = function()
+	/**
+	 * @method
+	 * @name springroll.pixi.Animator#init
+	 * @see {@link springroll.Animator#init}
+	 * @deprecated since version 0.4.0
+	 */
+	Animator.init = function()
 	{
-		if (Animator) Animator.destroy();
+		console.warn('Animator.init() is now deprecated, please use the app.animator property');
+		return Application.intance.animator;
 	};
+
+	/**
+	 * @method
+	 * @name springroll.pixi.Animator#pause
+	 * @see {@link springroll.Animator#pause}
+	 * @deprecated since version 0.4.0
+	 */
+	Animator.pause = function()
+	{
+		console.warn('Animator.pause() is now deprecated, please use the app.animator.pause()');
+		Application.instance.animator.pause();
+	};
+
+	/**
+	 * @method
+	 * @name springroll.pixi.Animator#play
+	 * @see {@link springroll.Animator#play}
+	 * @deprecated since version 0.4.0
+	 */
+	Animator.play = function(instance, eventList, onComplete, onCancelled)
+	{
+		console.warn('Animator.play() is now deprecated, please use the app.animator.play');
+		return Application.instance.animator.play(instance, eventList, onComplete, onCancelled);
+	};
+
+	/**
+	 * @method
+	 * @name springroll.pixi.Animator#stop
+	 * @see {@link springroll.Animator#stop}
+	 * @deprecated since version 0.4.0
+	 */
+	Animator.stop = function(instance, removeCallbacks)
+	{
+		console.warn('Animator.stop() is now deprecated, please use the app.animator.stop()');
+		Application.instance.animator.stop(instance, removeCallbacks);
+	};
+
+	/**
+	 * @method
+	 * @name springroll.pixi.Animator#toString
+	 * @deprecated since version 0.4.0
+	 */
+	Animator.toString = function()
+	{
+		console.warn('Animator.toString is now deprecated');
+		return '[Animator]';
+	};
+
+	Object.defineProperties(Animator, 
+	{
+		/**
+		 * @property
+		 * @name springroll.pixi.Animator#captions
+		 * @see {@link springroll.Animator#captions}
+		 * @deprecated since version 0.4.0
+		 */
+		captions: 
+		{
+			get: function()
+			{
+				console.warn('Animator.captions is now deprecated, please use the app.animator.captions');
+				return Application.instance.animator.captions;
+			}
+		},
+		/**
+		 * @property
+		 * @name springroll.pixi.Animator#debug
+		 * @see {@link springroll.Animator#debug}
+		 * @deprecated since version 0.4.0
+		 */
+		debug: 
+		{
+			get: function()
+			{
+				console.warn('Animator.debug is now deprecated, please use the app.animator.debug');
+				return Application.instance.animator.debug;
+			}
+		}
+	});
 
 }());

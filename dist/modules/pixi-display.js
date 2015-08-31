@@ -1602,8 +1602,7 @@
 		 */
 		this.isWebGL = this.renderer instanceof WebGLRenderer;
 		
-		// Set the animator and display adapter classes
-		this.animator = include('springroll.pixi.Animator', false);
+		// Set display adapter classes
 		this.adapter = include('springroll.pixi.DisplayAdapter');
 	};
 

@@ -6,8 +6,7 @@
 (function()
 {
 	// Include classes
-	var ApplicationPlugin = include('springroll.ApplicationPlugin'),
-		Animator = include('springroll.pixi.Animator');
+	var ApplicationPlugin = include('springroll.ApplicationPlugin');
 
 	/**
 	 * @class Application
@@ -21,14 +20,8 @@
 		this.assetManager.register('springroll.pixi.SpineAtlasTask', 40);
 		this.assetManager.register('springroll.pixi.SpineAnimTask', 40);
 		
-		Animator.init();
-		Animator.captions = this.captions || null;
-	};
-
-	// Destroy the animator
-	plugin.teardown = function()
-	{
-		if (Animator) Animator.destroy();
+		this.animator.register('springroll.pixi.AdvancedMovieClipInstance', 10);
+		this.animator.register('springroll.pixi.SpineInstance', 10);
 	};
 
 }());

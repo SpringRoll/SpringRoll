@@ -1,13 +1,12 @@
 /**
  * @module EaselJS Animation
  * @namespace springroll
- * @requires Core, EaselJS Display
+ * @requires Core, Animation, EaselJS Display
  */
 (function()
 {
 	// Include classes
-	var ApplicationPlugin = include('springroll.ApplicationPlugin'),
-		Animator = include('springroll.easeljs.Animator');
+	var ApplicationPlugin = include('springroll.ApplicationPlugin');
 
 	/**
 	 * @class Application
@@ -19,16 +18,8 @@
 	{
 		// Register the tasks
 		this.assetManager.register('springroll.easeljs.BitmapMovieClipTask', 40);
-
-		// Init the animation
-		Animator.init();
-		Animator.captions = this.captions || null;
-	};
-
-	// Destroy the animator
-	plugin.teardown = function()
-	{
-		if (Animator) Animator.destroy();
+		this.animator.register('springroll.easeljs.BitmapMovieClipInstance', 20);
+		this.animator.register('springroll.easeljs.MovieClipInstance', 10);
 	};
 
 }());
