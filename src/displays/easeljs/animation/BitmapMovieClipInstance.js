@@ -12,7 +12,7 @@
 	/**
 	 * The plugin for working with movieclip and animator
 	 * @class BitmapMovieClipInstance
-	 * @extends springroll.easeljs.MovieClipInstance
+	 * @extends springroll.GenericMovieClipInstance
 	 * @private
 	 */
 	var BitmapMovieClipInstance = function()

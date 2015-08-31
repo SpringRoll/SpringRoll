@@ -66,12 +66,15 @@
 		"pixianimation": {
 			"output": "pixi-animation",
 			"main": [
+				"src/displays/pixi/animation/AnimationPlugin.js",
 				"src/displays/pixi/animation/AdvancedMovieClip.js",
+				"src/displays/pixi/animation/AdvancedMovieClipInstance.js",
 				"src/displays/pixi/animation/AdvancedMovieClipTask.js",
+				"src/displays/pixi/animation/ParallelSpineData.js",
+				"src/displays/pixi/animation/SpineInstance.js",
 				"src/displays/pixi/animation/SpineAtlas.js",
 				"src/displays/pixi/animation/SpineAtlasTask.js",
 				"src/displays/pixi/animation/SpineAnimTask.js",
-				"src/displays/pixi/animation/ParallelSpineData.js",
 				"src/deprecation/pixi-animation.js"
 			]
 		},

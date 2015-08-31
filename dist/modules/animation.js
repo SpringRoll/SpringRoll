@@ -428,7 +428,8 @@
 	 */
 	p.register = function(qualifiedClassName, priority)
 	{
-		var plugin = include(qualifiedClassName);
+		var plugin = include(qualifiedClassName, false);
+		if(!plugin) return;
 		plugin.priority = priority;
 		_definitions.push(plugin);
 		_definitions.sort(function(a, b)
@@ -602,11 +603,14 @@
 				if(!Definition.hasAnimation(clip, listItem.anim))
 					continue;
 				
-				anim = listItem.anim;
+				animData = {
+					anim: listItem.anim,
+					//convert into seconds, as that is what the time uses internally
+					start: isNumber(listItem.start) ? listItem.start * 0.001 : 0,
+					speed: listItem.speed > 0 ? listItem.speed : 1,
+					loop: listItem.loop
+				};
 				audio = listItem.audio;
-				//convert into seconds, as that is what the time uses internally
-				start = isNumber(listItem.start) ? listItem.start * 0.001 : 0;
-				speed = listItem.speed > 0 ? listItem.speed : 1;
 				//figure out audio stuff if it is okay to use
 				if (audio && _app.sound)
 				{

@@ -1,5 +1,32 @@
 /*! SpringRoll 0.4.0 */
 /**
+ * @module PIXI Animation
+ * @namespace springroll
+ * @requires  Core, PIXI Display
+ */
+(function()
+{
+	// Include classes
+	var ApplicationPlugin = include('springroll.ApplicationPlugin');
+
+	/**
+	 * @class Application
+	 */
+	var plugin = new ApplicationPlugin();
+
+	// Init the animator
+	plugin.setup = function()
+	{
+		this.assetManager.register('springroll.pixi.AdvancedMovieClipTask', 80);
+		this.assetManager.register('springroll.pixi.SpineAtlasTask', 40);
+		this.assetManager.register('springroll.pixi.SpineAnimTask', 40);
+		
+		this.animator.register('springroll.pixi.AdvancedMovieClipInstance', 10);
+		this.animator.register('springroll.pixi.SpineInstance', 10);
+	};
+
+}());
+/**
  * @module Pixi Animation
  * @namespace springroll.pixi
  * @requires Core, Pixi Display
@@ -519,6 +546,256 @@
 	namespace("springroll.pixi").AdvancedMovieClip = AdvancedMovieClip;
 }());
 /**
+ * @module Animation
+ * @namespace springroll
+ * @requires Core
+ */
+(function(undefined)
+{
+	var Application = include("springroll.Application");
+	var AnimatorInstance = include('springroll.AnimatorInstance');
+	var AdvancedMovieClip = include('springroll.pixi.AdvancedMovieClip');
+	
+	/**
+	 * The plugin for working with AdvancedMovieClips and animator
+	 * @class AdvancedMovieClipInstance
+	 * @extends springroll.AnimatorInstance
+	 * @private
+	 */
+	var AdvancedMovieClipInstance = function()
+	{
+		AnimatorInstance.call(this);
+		
+		/**
+		 * The start time of the current animation on the movieclip's timeline.
+		 * @property {Number} startTime
+		 */
+		this.startTime = 0;
+		
+		/**
+		 * Length of current animation in frames.
+		 *
+		 * @property {int} length
+		 */
+		this.length = 0;
+		
+		/**
+		 * The frame number of the first frame of the current animation. If this is -1, then the
+		 * animation is currently a pause instead of an animation.
+		 *
+		 * @property {int} firstFrame
+		 */
+		this.firstFrame = -1;
+		
+		/**
+		 * The frame number of the last frame of the current animation.
+		 *
+		 * @property {int} lastFrame
+		 */
+		this.lastFrame = -1;
+	};
+
+	// Reference to the prototype
+	var p = AnimatorInstance.extend(AdvancedMovieClipInstance, AnimatorInstance);
+
+	/**
+	 * The initialization method
+	 * @method init
+	 * @param  {*} clip The movieclip
+	 */
+	p.init = function(clip)
+	{
+		//make sure the movieclip is framerate independent
+		if (!clip.framerate)
+		{
+			fps = Application.instance.options.fps || 15;
+			clip.framerate = fps;
+		}
+		clip.tickEnabled = false;
+		
+		this.clip = clip;
+		this.isLooping = false;
+		this.currentName = null;
+		this.position = this.duration = 0;
+	};
+	
+	p.beginAnim = function(animObj, isRepeat)
+	{
+		//calculate frames, duration, etc
+		//then gotoAndPlay on the first frame
+		var anim = this.currentName = animObj.anim;
+		var labels = this.clip.getLabels();
+		//go through the list of labels (they are sorted by frame number)
+		var stopLabel = anim + "_stop";
+		var loopLabel = anim + "_loop";
+
+		var l, first = -1,
+			last = -1,
+			loop = false;
+
+		for (var i = 0, len = labels.length; i < len; ++i)
+		{
+			l = labels[i];
+			if (l.label == anim)
+			{
+				first = l.position;
+			}
+			else if (l.label == stopLabel)
+			{
+				last = l.position;
+				break;
+			}
+			else if (l.label == loopLabel)
+			{
+				last = l.position;
+				loop = true;
+				break;
+			}
+		}
+		this.firstFrame = first;
+		this.lastFrame = last;
+		this.length = last - first;
+		this.isLooping = loop;
+		var fps = this.clip.framerate;
+		this.startTime = this.firstFrame / fps;
+		this.duration = this.length / fps;
+		if(isRepeat)
+			this.position = 0;
+		else
+		{
+			var animStart = animObj.start || 0;
+			this.position = animStart < 0 ? Math.random() * this.duration : animStart;
+		}
+		
+		this.clip.elapsedTime = this.startTime + this.position;
+	};
+	
+	/**
+	 * Ends animation playback.
+	 * @method endAnim
+	 */
+	p.endAnim = function()
+	{
+		this.clip.gotoAndStop(this.lastFrame);
+	};
+	
+	/**
+	 * Updates position to a new value, and does anything that the clip needs, like updating
+	 * timelines.
+	 * @method setPosition
+	 * @param  {Number} newPos The new position in the animation.
+	 */
+	p.setPosition = function(newPos)
+	{
+		this.position = newPos;
+		this.clip.elapsedTime = this.startTime + newPos;
+	};
+
+	/**
+	 * Check to see if a clip is compatible with this
+	 * @method test
+	 * @static
+	 * @return {Boolean} if the clip is supported by this instance
+	 */
+	AdvancedMovieClipInstance.test = function(clip)
+	{
+		return clip instanceof AdvancedMovieClip;
+	};
+
+	/**
+	 * Checks if animation exists
+	 *
+	 * @method hasAnimation
+	 * @static
+	 * @param {*} clip The clip to check for an animation.
+	 * @param {String} event The frame label event (e.g. "onClose" to "onClose_stop")
+	 * @return {Boolean} does this animation exist?
+	 */
+	AdvancedMovieClipInstance.hasAnimation = function(clip, event)
+	{
+		var labels = clip.getLabels();
+		var startFrame = -1,
+			stopFrame = -1;
+		var stopLabel = event + "_stop";
+		var loopLabel = event + "_loop";
+		var l;
+		for (var i = 0, len = labels.length; i < len; ++i)
+		{
+			l = labels[i];
+			if (l.label == event)
+			{
+				startFrame = l.position;
+			}
+			else if (l.label == stopLabel || l.label == loopLabel)
+			{
+				stopFrame = l.position;
+				break;
+			}
+		}
+		return startFrame >= 0 && stopFrame > 0;
+	};
+
+	/**
+	 * Calculates the duration of an animation or list of animations.
+	 * @method getDuration
+	 * @static
+	 * @param  {*} clip The clip to check.
+	 * @param  {String} event The animation or animation list.
+	 * @return {Number} Animation duration in milliseconds.
+	 */
+	AdvancedMovieClipInstance.getDuration = function(clip, event)
+	{
+		var labels = clip.getLabels();
+		var startFrame = -1,
+			stopFrame = -1;
+		var stopLabel = event + "_stop";
+		var loopLabel = event + "_loop";
+		var l;
+		for (var i = 0, labelsLength = labels.length; i < labelsLength; ++i)
+		{
+			l = labels[i];
+			if (l.label == event)
+			{
+				startFrame = l.position;
+			}
+			else if (l.label == stopLabel || l.label == loopLabel)
+			{
+				stopFrame = l.position;
+				break;
+			}
+		}
+		if (startFrame >= 0 && stopFrame > 0)
+		{
+			//make sure the movieclip has a framerate
+			if (!clip.framerate)
+			{
+				var fps = Application.instance.options.fps || 15;
+				clip.framerate = fps;
+			}
+
+			return (stopFrame - startFrame) / clip.framerate * 1000;
+		}
+		else
+		{
+			return 0;
+		}
+	};
+
+	/**
+	 * Reset this animator instance
+	 * so it can be re-used.
+	 * @method destroy
+	 */
+	p.destroy = function()
+	{
+		this.clip = null;
+	};
+
+	// Assign to namespace
+	namespace('springroll.pixi').AdvancedMovieClipInstance = AdvancedMovieClipInstance;
+
+}());
+/**
  * @module Pixi Animation
  * @namespace springroll.pixi
  * @requires Core, Pixi Display
@@ -598,6 +875,315 @@
 
 	// Assign to namespace
 	namespace('springroll.pixi').AdvancedMovieClipTask = AdvancedMovieClipTask;
+
+}());
+/**
+ * @module PIXI Animation
+ * @namespace springroll.pixi
+ * @requires  Core, Animation, PIXI Display
+ */
+(function()
+{
+	/**
+	 * Class for assisting in creating an array of Spine animations to play at the same time
+	 * on one skeleton through Animator. Concurrent animations will play until one non-looping
+	 * animation ends.
+	 *
+	 * @class ParallelSpineData
+	 * @constructor
+	 * @param {String} anim The name of the animation on the skeleton.
+	 * @param {Boolean} [loop=false] If this animation should loop.
+	 * @param {Number} [speed=1] The speed at which this animation should be played.
+	 */
+	var ParallelSpineData = function(anim, loop, speed)
+	{
+		this.anim = anim;
+		this.loop = !!loop;
+		this.speed = speed > 0 ? speed : 1;
+	};
+	
+	// Assign to namespace
+	namespace("springroll.pixi").ParallelSpineData = ParallelSpineData;
+
+}());
+/**
+ * @module Animation
+ * @namespace springroll
+ * @requires Core
+ */
+(function(undefined)
+{
+	var Application = include("springroll.Application");
+	var AnimatorInstance = include('springroll.AnimatorInstance');
+	var Spine = include('PIXI.spine.Spine', false);
+	var ParallelSpineData = include('springroll.pixi.ParallelSpineData');
+	
+	if(!Spine) return;
+	
+	/**
+	 * The plugin for working with Spine skeletons and animator
+	 * @class SpineInstance
+	 * @extends springroll.AnimatorInstance
+	 * @private
+	 */
+	var SpineInstance = function()
+	{
+		AnimatorInstance.call(this);
+		
+		this.prevPosition = 0;
+	};
+
+	// Reference to the prototype
+	var p = AnimatorInstance.extend(SpineInstance, AnimatorInstance);
+
+	/**
+	 * The initialization method
+	 * @method init
+	 * @param  {*} clip The movieclip
+	 */
+	p.init = function(clip)
+	{
+		//we don't want Spine animations to advance every render, only when Animator tells them to
+		clip.autoUpdate = false;
+		
+		this.clip = clip;
+		this.isLooping = false;
+		this.currentName = null;
+		this.position = this.duration = 0;
+	};
+	
+	p.beginAnim = function(animObj, isRepeat)
+	{
+		var spineState = this.clip.state;
+		spineState.clearTracks();
+		skeletonData = this.clip.stateData.skeletonData;
+
+		this.isLooping = !!animObj.loop;
+		
+		var anim = this.currentName = animObj.anim;
+		if(typeof anim == "string")
+		{
+			//single anim
+			this.duration = skeletonData.findAnimation(anim).duration;
+			spineState.setAnimationByName(0, anim, this.isLooping);
+		}
+		else //if(Array.isArray(anim))
+		{
+			var i;
+			//concurrent spine anims
+			if(anim[0] instanceof ParallelSpineData)
+			{
+				//this.spineSpeeds = new Array(anim.length);
+				this.duration = 0;
+				var maxDuration = 0, maxLoopDuration = 0, duration;
+				for(i = 0; i < anim.length; ++i)
+				{
+					var animLoop = anim[i].loop;
+					spineState.setAnimationByName(i, anim[i].anim, animLoop);
+					duration = skeletonData.findAnimation(anim[i].anim).duration;
+					if(animLoop)
+					{
+						if(duration > maxLoopDuration)
+							maxLoopDuration = duration;
+					}
+					else
+					{
+						if(duration > maxDuration)
+							maxDuration = duration;
+					}
+					/*if (anim[i].speed > 0)
+						this.spineSpeeds[i] = anim[i].speed;
+					else
+						this.spineSpeeds[i] = 1;*/
+				}
+				//set the duration to be the longest of the non looping animations
+				//or the longest loop if they all loop
+				this.duration = maxDuration || maxLoopDuration;
+			}
+			//list of sequential spine anims
+			else
+			{
+				this.duration = skeletonData.findAnimation(anim[0]).duration;
+				if(anim.length == 1)
+				{
+					spineState.setAnimationByName(0, anim[0], this.isLooping);
+				}
+				else
+				{
+					spineState.setAnimationByName(0, anim[0], false);
+					for(i = 1; i < anim.length; ++i)
+					{
+						spineState.addAnimationByName(0, anim[i],
+							this.isLooping && i == anim.length - 1);
+						this.duration += skeletonData.findAnimation(anim[i]).duration;
+					}
+				}
+			}
+		}
+		
+		if(isRepeat)
+			this.position = 0;
+		else
+		{
+			var animStart = animObj.start || 0;
+			this.position = animStart < 0 ? Math.random() * this.duration : animStart;
+		}
+		
+		this.clip.update(this.position);
+	};
+	
+	/**
+	 * Ends animation playback.
+	 * @method endAnim
+	 */
+	p.endAnim = function()
+	{
+		this.clip.update(this.duration - this.position);
+	};
+	
+	/**
+	 * Updates position to a new value, and does anything that the clip needs, like updating
+	 * timelines.
+	 * @method setPosition
+	 * @param  {Number} newPos The new position in the animation.
+	 */
+	p.setPosition = function(newPos)
+	{
+		if(newPos < this.position)
+			this.clip.update(this.duration - this.position + newPos);
+		else
+			this.clip.update(newPos - this.position);
+		this.position = newPos;
+	};
+
+	/**
+	 * Check to see if a clip is compatible with this
+	 * @method test
+	 * @static
+	 * @return {Boolean} if the clip is supported by this instance
+	 */
+	SpineInstance.test = function(clip)
+	{
+		return clip instanceof Spine;
+	};
+
+	/**
+	 * Checks if animation exists
+	 *
+	 * @method hasAnimation
+	 * @static
+	 * @param {*} clip The clip to check for an animation.
+	 * @param {String} event The frame label event (e.g. "onClose" to "onClose_stop")
+	 * @return {Boolean} does this animation exist?
+	 */
+	SpineInstance.hasAnimation = function(clip, event)
+	{
+		var i;
+		skeletonData = this.clip.stateData.skeletonData;
+		if(typeof anim == "string")
+		{
+			//single anim
+			return !!skeletonData.findAnimation(anim);
+		}
+		else if(Array.isArray(anim))
+		{
+			//concurrent spine anims
+			if(anim[0] instanceof ParallelSpineData)
+			{
+				for(i = 0; i < anim.length; ++i)
+				{
+					//ensure all animations exist
+					if(!skeletonData.findAnimation(anim[i].anim))
+						return false;
+				}
+			}
+			//list of sequential spine anims
+			else
+			{
+				for(i = 0; i < anim.length; ++i)
+				{
+					//ensure all animations exist
+					if(!skeletonData.findAnimation(anim[i]))
+						return false;
+				}
+			}
+			return true;
+		}
+		return false;
+	};
+
+	/**
+	 * Calculates the duration of an animation or list of animations.
+	 * @method getDuration
+	 * @static
+	 * @param  {*} clip The clip to check.
+	 * @param  {String} event The animation or animation list.
+	 * @return {Number} Animation duration in milliseconds.
+	 */
+	SpineInstance.getDuration = function(clip, event)
+	{
+		var i;
+		skeletonData = this.clip.stateData.skeletonData;
+		if(typeof anim == "string")
+		{
+			//single anim
+			return skeletonData.findAnimation(anim).duration;
+		}
+		else if(Array.isArray(anim))
+		{
+			var duration = 0;
+			//concurrent spine anims
+			if(anim[0] instanceof ParallelSpineData)
+			{
+				var maxDuration = 0, maxLoopDuration = 0, tempDur;
+				for(i = 0; i < anim.length; ++i)
+				{
+					var animLoop = anim[i].loop;
+					tempDur = skeletonData.findAnimation(anim[i].anim).duration;
+					if(animLoop)
+					{
+						if(tempDur > maxLoopDuration)
+							maxLoopDuration = tempDur;
+					}
+					else
+					{
+						if(tempDur > maxDuration)
+							maxDuration = tempDur;
+					}
+				}
+				//set the duration to be the longest of the non looping animations
+				//or the longest loop if they all loop
+				duration = maxDuration || maxLoopDuration;
+			}
+			//list of sequential spine anims
+			else
+			{
+				duration = skeletonData.findAnimation(anim[0]).duration;
+				if(anim.length > 1)
+				{
+					for(i = 1; i < anim.length; ++i)
+					{
+						duration += skeletonData.findAnimation(anim[i]).duration;
+					}
+				}
+			}
+			return duration;
+		}
+		return 0;
+	};
+
+	/**
+	 * Reset this animator instance
+	 * so it can be re-used.
+	 * @method destroy
+	 */
+	p.destroy = function()
+	{
+		this.clip = null;
+	};
+
+	// Assign to namespace
+	namespace('springroll.pixi').SpineInstance = SpineInstance;
 
 }());
 /**
@@ -1160,35 +1746,6 @@
 
 	// Assign to the namespace
 	namespace('springroll.pixi').SpineAnimTask = SpineAnimTask;
-
-}());
-/**
- * @module PIXI Animation
- * @namespace springroll.pixi
- * @requires  Core, Animation, PIXI Display
- */
-(function()
-{
-	/**
-	 * Class for assisting in creating an array of Spine animations to play at the same time
-	 * on one skeleton through Animator. Concurrent animations will play until one non-looping
-	 * animation ends.
-	 *
-	 * @class ParallelSpineData
-	 * @constructor
-	 * @param {String} anim The name of the animation on the skeleton.
-	 * @param {Boolean} [loop=false] If this animation should loop.
-	 * @param {Number} [speed=1] The speed at which this animation should be played.
-	 */
-	var ParallelSpineData = function(anim, loop, speed)
-	{
-		this.anim = anim;
-		this.loop = !!loop;
-		this.speed = speed > 0 ? speed : 1;
-	};
-	
-	// Assign to namespace
-	namespace("springroll.pixi").ParallelSpineData = ParallelSpineData;
 
 }());
 (function()
