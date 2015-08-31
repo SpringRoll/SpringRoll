@@ -624,32 +624,42 @@
 		//calculate frames, duration, etc
 		//then gotoAndPlay on the first frame
 		var anim = this.currentName = animObj.anim;
-		var labels = this.clip.getLabels();
-		//go through the list of labels (they are sorted by frame number)
-		var stopLabel = anim + "_stop";
-		var loopLabel = anim + "_loop";
-
+		
 		var l, first = -1,
 			last = -1,
 			loop = false;
-
-		for (var i = 0, len = labels.length; i < len; ++i)
+		
+		if(anim == "*")
 		{
-			l = labels[i];
-			if (l.label == anim)
+			first = 0;
+			last = this.clip.totalFrames - 1;
+			loop = !!animObj.loop;
+		}
+		else
+		{
+			var labels = this.clip.getLabels();
+			//go through the list of labels (they are sorted by frame number)
+			var stopLabel = anim + "_stop";
+			var loopLabel = anim + "_loop";
+
+			for (var i = 0, len = labels.length; i < len; ++i)
 			{
-				first = l.position;
-			}
-			else if (l.label == stopLabel)
-			{
-				last = l.position;
-				break;
-			}
-			else if (l.label == loopLabel)
-			{
-				last = l.position;
-				loop = true;
-				break;
+				l = labels[i];
+				if (l.label == anim)
+				{
+					first = l.position;
+				}
+				else if (l.label == stopLabel)
+				{
+					last = l.position;
+					break;
+				}
+				else if (l.label == loopLabel)
+				{
+					last = l.position;
+					loop = true;
+					break;
+				}
 			}
 		}
 		this.firstFrame = first;
@@ -713,6 +723,12 @@
 	 */
 	AdvancedMovieClipInstance.hasAnimation = function(clip, event)
 	{
+		//the wildcard event plays the entire timeline
+		if(event == "*")
+		{
+			return true;
+		}
+		
 		var labels = clip.getLabels();
 		var startFrame = -1,
 			stopFrame = -1;
@@ -745,6 +761,19 @@
 	 */
 	AdvancedMovieClipInstance.getDuration = function(clip, event)
 	{
+		//make sure the movieclip has a framerate
+		if (!clip.framerate)
+		{
+			var fps = Application.instance.options.fps || 15;
+			clip.framerate = fps;
+		}
+		
+		//the wildcard event plays the entire timeline
+		if(event == "*")
+		{
+			return clip.totalFrames / clip.framerate;
+		}
+		
 		var labels = clip.getLabels();
 		var startFrame = -1,
 			stopFrame = -1;
@@ -766,13 +795,6 @@
 		}
 		if (startFrame >= 0 && stopFrame > 0)
 		{
-			//make sure the movieclip has a framerate
-			if (!clip.framerate)
-			{
-				var fps = Application.instance.options.fps || 15;
-				clip.framerate = fps;
-			}
-
 			return (stopFrame - startFrame) / clip.framerate * 1000;
 		}
 		else
