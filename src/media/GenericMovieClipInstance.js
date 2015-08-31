@@ -105,8 +105,9 @@
 		}
 		this.firstFrame = first;
 		this.lastFrame = last;
+		this.length = last - first;
 		this.isLooping = loop;
-		var fps = this.instance.framerate;
+		var fps = this.clip.framerate;
 		this.startTime = this.firstFrame / fps;
 		this.duration = this.length / fps;
 		if(isRepeat)
@@ -193,6 +194,7 @@
 				break;
 			}
 		}
+		return startFrame >= 0 && stopFrame > 0;
 	};
 
 	/**

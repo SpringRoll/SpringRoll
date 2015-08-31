@@ -221,7 +221,7 @@
 			{
 				this.isTimer = false;
 				var instance = this.instance;
-				instance.startAnim(listItem, repeat);
+				instance.beginAnim(listItem, repeat);
 				this.duration = instance.duration;
 				this.speed = listItem.speed;
 				this.isLooping = instance.isLooping || listItem.loop;

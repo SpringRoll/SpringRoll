@@ -222,7 +222,7 @@
 			{
 				this.isTimer = false;
 				var instance = this.instance;
-				instance.startAnim(listItem, repeat);
+				instance.beginAnim(listItem, repeat);
 				this.duration = instance.duration;
 				this.speed = listItem.speed;
 				this.isLooping = instance.isLooping || listItem.loop;
@@ -505,7 +505,7 @@
 			if (!_hasTimelines) this._startUpdate();
 			
 			if(_timelineMap)
-				_timelineMap.set(instance, timeline);
+				_timelineMap.set(clip, timeline);
 			_timelines.push(timeline);
 			_hasTimelines = true;
 
@@ -560,7 +560,7 @@
 			new AnimatorTimeline();
 		
 		var Definition = getDefinitionByClip(clip);
-		if(!Definition) return null;
+		if(!Definition) return timeline;
 		var instance = Definition.create(clip);
 
 		if (!instance)
@@ -1055,6 +1055,12 @@
 					position -= t.duration;
 					if (t.isLooping)
 					{
+						//error checking
+						if(!t.duration)
+						{
+							t.complete = true;
+							break;
+						}
 						//call the on complete function each time
 						if (t.onComplete)
 							t.onComplete();
@@ -1484,8 +1490,9 @@
 		}
 		this.firstFrame = first;
 		this.lastFrame = last;
+		this.length = last - first;
 		this.isLooping = loop;
-		var fps = this.instance.framerate;
+		var fps = this.clip.framerate;
 		this.startTime = this.firstFrame / fps;
 		this.duration = this.length / fps;
 		if(isRepeat)
@@ -1572,6 +1579,7 @@
 				break;
 			}
 		}
+		return startFrame >= 0 && stopFrame > 0;
 	};
 
 	/**
