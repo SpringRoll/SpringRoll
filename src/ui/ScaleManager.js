@@ -562,6 +562,5 @@
 
 	// Assign to namespace
 	namespace('springroll').ScaleManager = ScaleManager;
-	namespace('springroll').UIScaler = ScaleManager;
 
 }());

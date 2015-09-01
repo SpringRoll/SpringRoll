@@ -1265,7 +1265,6 @@
 
 	// Assign to namespace
 	namespace('springroll').ScaleManager = ScaleManager;
-	namespace('springroll').UIScaler = ScaleManager;
 
 }());
 /**
@@ -1452,5 +1451,20 @@
 		this.removeItem(bitmap);
 		return this;
 	};
+
+	/**
+	 * @class
+	 * @name springroll.UIScaler
+	 * @see {@link springroll.ScaleManager}
+	 * @deprecated since version 0.4.0
+	 */
+	Object.defineProperty(springroll, 'UIScaler', 
+	{
+		get: function()
+		{
+			console.warn("springroll.UIScaler now deprecated, please use ScaleManager: e.g.: springroll.ScaleManager");
+			return ScaleManager;
+		}
+	});
 
 }());
