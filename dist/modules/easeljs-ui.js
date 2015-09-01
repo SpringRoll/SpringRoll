@@ -1,4 +1,4 @@
-/*! SpringRoll 0.3.10 */
+/*! SpringRoll 0.3.11 */
 /**
  * @module EaselJS UI
  * @namespace springroll.easeljs
@@ -2493,9 +2493,10 @@
 	*/
 	AssetManager.unloadAll = function()
 	{
-		var i, length;
+		var i, length, asset;
 		for(i = 0, length = loadedAssets.length; i < length; ++i)
 		{
+			asset = loadedAssets[i];
 			if (images[asset])
 			{
 				images[asset].src = "";

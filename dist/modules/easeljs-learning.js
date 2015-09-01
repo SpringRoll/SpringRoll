@@ -1,4 +1,4 @@
-/*! SpringRoll 0.3.10 */
+/*! SpringRoll 0.3.11 */
 /**
  * @module EaselJS Learning
  * @namespace springroll.easeljs
