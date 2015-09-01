@@ -525,8 +525,10 @@
 	 */
 	p._resize = function(w, h)
 	{
+		var _size = this._size;
+
 		// Size hasn't been setup yet
-		if (!this._size)
+		if (!_size)
 		{
 			if (DEBUG && Debug)
 			{
@@ -534,6 +536,12 @@
 			}
 			return;
 		}
+
+		var defaultRatio = _size.width / _size.height;
+		var currentRatio = w / h;
+		this._scale = currentRatio > defaultRatio ?
+			h / _size.height :
+			w / _size.width;
 
 		// Resize all the items
 		this._items.forEach(function(item)

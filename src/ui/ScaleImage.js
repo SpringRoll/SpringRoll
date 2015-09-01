@@ -84,10 +84,6 @@
 
 		var defaultRatio = _size.width / _size.height;
 		var currentRatio = w / h;
-		this._scale = currentRatio > defaultRatio ?
-			h / _size.height :
-			w / _size.width;
-			
 		var scaleToHeight = currentRatio >= defaultRatio;
 
 		var size = _adapter.getBitmapSize(_image);
