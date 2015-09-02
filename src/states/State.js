@@ -490,10 +490,22 @@
 	{
 		this.preloaded = false;
 		
+		// local variables
+		var panel = this.panel;
+		var items = this.scalingItems;
+		var scaling = this.scaling;
+		
 		//remove scaling objects that we added
-		if (this.scaling && this.scalingItems)
+		if (scaling && items)
 		{
-			this.scaling.removeItems(this.panel, this.scalingItems);
+			if (items == "panel")
+			{
+				scaling.removeItem(panel);
+			}
+			else
+			{
+				scaling.removeItems(panel, items);
+			}
 		}
 
 		// Clean any assets loaded by the manifest
@@ -507,11 +519,11 @@
 			this._isTransitioning = false;
 			if (this.manager.animator)
 			{
-				this.manager.animator.stop(this.panel);
+				this.manager.animator.stop(panel);
 			}
 		}
 		this._enabled = false;
-		this.panel.visible = false;
+		panel.visible = false;
 		this._active = false;
 		this.exit();
 		
@@ -579,7 +591,7 @@
 			
 			if (items)
 			{
-				if(items == "panel")
+				if (items == "panel")
 				{
 					// Reset the panel scale & position, to ensure
 					// that the panel is scaled properly
@@ -594,7 +606,9 @@
 					});
 				}
 				else
+				{
 					this.scaling.addItems(this.panel, items);
+				}
 			}
 		}
 		this.loadingDone();
