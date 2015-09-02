@@ -976,7 +976,7 @@
 	{
 		var spineState = this.clip.state;
 		spineState.clearTracks();
-		skeletonData = this.clip.stateData.skeletonData;
+		var skeletonData = this.clip.stateData.skeletonData;
 
 		this.isLooping = !!animObj.loop;
 		
@@ -1099,7 +1099,7 @@
 	SpineInstance.hasAnimation = function(clip, anim)
 	{
 		var i;
-		skeletonData = clip.stateData.skeletonData;
+		var skeletonData = clip.stateData.skeletonData;
 		if(typeof anim == "string")
 		{
 			//single anim
@@ -1143,7 +1143,7 @@
 	SpineInstance.getDuration = function(clip, event)
 	{
 		var i;
-		skeletonData = this.clip.stateData.skeletonData;
+		var skeletonData = this.clip.stateData.skeletonData;
 		if(typeof anim == "string")
 		{
 			//single anim
