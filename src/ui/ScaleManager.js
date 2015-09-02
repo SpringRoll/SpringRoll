@@ -348,7 +348,7 @@
 		else
 		{
 			// @deprecated implementation
-			if (true)
+			if (DEBUG)
 			{
 				console.warn("ScaleManager.removeItems should have a second parameter which is the items dictionary e.g., removeItems(panel, items)");
 			}

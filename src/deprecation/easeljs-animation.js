@@ -18,7 +18,7 @@
 	 */
 	Animator.canAnimate = function(instance)
 	{
-		console.warn('Animator.canAnimate() is now deprecated, please use the app.animator.canAnimate()');
+		if (DEBUG) console.warn('Animator.canAnimate() is now deprecated, please use the app.animator.canAnimate()');
 		return Application.instance.animator.canAnimate(instance);
 	};
 
@@ -30,7 +30,7 @@
 	 */
 	Animator.getDuration = function(instance, event)
 	{
-		console.warn('Animator.getDuration() is now deprecated, please use the app.animator.getDuration()');
+		if (DEBUG) console.warn('Animator.getDuration() is now deprecated, please use the app.animator.getDuration()');
 		return Application.instance.animator.getDuration(instance, event);
 	};
 
@@ -42,7 +42,7 @@
 	 */
 	Animator.getTimeline = function(instance)
 	{
-		console.warn('Animator.getTimeline() is now deprecated, please use the app.animator.getTimeline()');
+		if (DEBUG) console.warn('Animator.getTimeline() is now deprecated, please use the app.animator.getTimeline()');
 		return Application.instance.animator.getTimeline(instance);
 	};
 
@@ -54,7 +54,7 @@
 	 */
 	Animator.instanceHasAnimation = function(instance, event)
 	{
-		console.warn('Animator.instanceHasAnimation() is now deprecated, please use the app.animator.hasAnimation()');
+		if (DEBUG) console.warn('Animator.instanceHasAnimation() is now deprecated, please use the app.animator.hasAnimation()');
 		return Application.instance.animator.hasAnimation(instance, event);
 	};
 
@@ -66,7 +66,7 @@
 	 */
 	Animator.pauseInGroup = function(paused, container)
 	{
-		console.warn('Animator.pauseInGroup() is now deprecated, please use the app.animator.pauseInGroup()');
+		if (DEBUG) console.warn('Animator.pauseInGroup() is now deprecated, please use the app.animator.pauseInGroup()');
 		Application.instance.animator.pauseInGroup(paused, container);
 	};
 
@@ -78,7 +78,7 @@
 	 */
 	Animator.resume = function()
 	{
-		console.warn('Animator.resume() is now deprecated, please use the app.animator.resume()');
+		if (DEBUG) console.warn('Animator.resume() is now deprecated, please use the app.animator.resume()');
 		Application.instance.animator.resume();
 	};
 
@@ -90,7 +90,7 @@
 	 */
 	Animator.stopAll = function(container, removeCallbacks)
 	{
-		console.warn('Animator.stopAll() is now deprecated, please use the app.animator.stopAll()');
+		if (DEBUG) console.warn('Animator.stopAll() is now deprecated, please use the app.animator.stopAll()');
 		Application.instance.animator.stopAll(container, removeCallbacks);
 	};
 
@@ -102,7 +102,7 @@
 	 */
 	Animator.destroy = function()
 	{
-		console.warn('Animator.destroy() is now deprecated, please use the app.animator.destroy()');
+		if (DEBUG) console.warn('Animator.destroy() is now deprecated, please use the app.animator.destroy()');
 		Application.instance.animator.destroy();
 	};
 
@@ -114,7 +114,7 @@
 	 */
 	Animator.getPaused = function(instance)
 	{
-		console.warn('Animator.getPaused() is now deprecated, please use the app.animator.paused');
+		if (DEBUG) console.warn('Animator.getPaused() is now deprecated, please use the app.animator.paused');
 		return Application.instance.animator.paused;
 	};
 
@@ -126,7 +126,7 @@
 	 */
 	Animator.init = function()
 	{
-		console.warn('Animator.init() is now deprecated, please use the app.animator property');
+		if (DEBUG) console.warn('Animator.init() is now deprecated, please use the app.animator property');
 		return Application.intance.animator;
 	};
 
@@ -138,7 +138,7 @@
 	 */
 	Animator.pause = function()
 	{
-		console.warn('Animator.pause() is now deprecated, please use the app.animator.pause()');
+		if (DEBUG) console.warn('Animator.pause() is now deprecated, please use the app.animator.pause()');
 		Application.instance.animator.pause();
 	};
 
@@ -150,7 +150,7 @@
 	 */
 	Animator.play = function(instance, eventList, onComplete, onCancelled)
 	{
-		console.warn('Animator.play() is now deprecated, please use the app.animator.play');
+		if (DEBUG) console.warn('Animator.play() is now deprecated, please use the app.animator.play');
 		return Application.instance.animator.play(instance, eventList, onComplete, onCancelled);
 	};
 
@@ -162,7 +162,7 @@
 	 */
 	Animator.stop = function(instance, removeCallbacks)
 	{
-		console.warn('Animator.stop() is now deprecated, please use the app.animator.stop()');
+		if (DEBUG) console.warn('Animator.stop() is now deprecated, please use the app.animator.stop()');
 		Application.instance.animator.stop(instance, removeCallbacks);
 	};
 
@@ -173,7 +173,7 @@
 	 */
 	Animator.toString = function()
 	{
-		console.warn('Animator.toString is now deprecated');
+		if (DEBUG) console.warn('Animator.toString is now deprecated');
 		return '[Animator]';
 	};
 
@@ -189,7 +189,7 @@
 		{
 			get: function()
 			{
-				console.warn('Animator.captions is now deprecated, please use the app.animator.captions');
+				if (DEBUG) console.warn('Animator.captions is now deprecated, please use the app.animator.captions');
 				return Application.instance.animator.captions;
 			}
 		},
@@ -203,7 +203,7 @@
 		{
 			get: function()
 			{
-				console.warn('Animator.debug is now deprecated, please use the app.animator.debug');
+				if (DEBUG) console.warn('Animator.debug is now deprecated, please use the app.animator.debug');
 				return Application.instance.animator.debug;
 			}
 		}

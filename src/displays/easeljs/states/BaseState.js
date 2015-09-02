@@ -42,7 +42,7 @@
 		if (options.manifest)
 		{
 			options.preload = options.manifest;
-			if (DEBUG && Debug)
+			if (DEBUG)
 			{
 				console.warn("The BaseState option 'manifest' is deprecated, use 'preload' instead");
 			}
@@ -65,7 +65,7 @@
 		{
 			if (this.addTasks)
 			{
-				console.warn('addTasks has been deprecated, use loading event instead: e.g., state.on(\'loading\', function(assets){})');
+				if (DEBUG) console.warn('addTasks has been deprecated, use loading event instead: e.g., state.on(\'loading\', function(assets){})');
 				this.addTasks(assets);
 			}
 		}, priority)

@@ -6705,7 +6705,7 @@
 	 */
 	Application.prototype.getDisplays = function(each)
 	{
-		console.warn('getDisplays is now deprecated, please use displays property, e.g.: app.displays.forEach(function(display){});');
+		if (true) console.warn('getDisplays is now deprecated, please use displays property, e.g.: app.displays.forEach(function(display){});');
 
 		if (typeof each == "function")
 		{
@@ -6723,7 +6723,7 @@
 	 */
 	EventDispatcher.mixIn = function(object, callConstructor)
 	{
-		console.warn('mixIn is now deprecated, please use window.mixin, e.g.: mixin(object, EventDispatcher);');
+		if (true) console.warn('mixIn is now deprecated, please use window.mixin, e.g.: mixin(object, EventDispatcher);');
 		return mixin(object, EventDispatcher);
 	};
 
@@ -6738,7 +6738,7 @@
 	{
 		get: function()
 		{
-			console.warn('Loader.instance is now deprecated, please use Application\'s loader property, e.g.: app.loader.load(url, callback);');
+			if (true) console.warn('Loader.instance is now deprecated, please use Application\'s loader property, e.g.: app.loader.load(url, callback);');
 			return Application.instance.loader;
 		}
 	});

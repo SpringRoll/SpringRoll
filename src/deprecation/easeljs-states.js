@@ -14,7 +14,7 @@
 	{
 		get: function()
 		{
-			console.warn('BasePanel\'s game property is now deprecated, please use the app property, e.g. : panel.app');
+			if (DEBUG) console.warn('BasePanel\'s game property is now deprecated, please use the app property, e.g. : panel.app');
 			return this.app;
 		}
 	});
@@ -29,7 +29,7 @@
 	{
 		get: function()
 		{
-			console.warn('BaseState\'s game property is now deprecated, please use the app property, e.g. : state.app');
+			if (DEBUG) console.warn('BaseState\'s game property is now deprecated, please use the app property, e.g. : state.app');
 			return this.app;
 		}
 	});
@@ -44,7 +44,7 @@
 	{
 		get: function()
 		{
-			console.log("BaseState's manifest property is now deprecated, please use preload property, e.g. : state.preload");
+			if (DEBUG) console.warn("BaseState's manifest property is now deprecated, please use preload property, e.g. : state.preload");
 			return this.preload;
 		}
 	});
@@ -60,7 +60,7 @@
 	{
 		get: function()
 		{
-			console.log("BaseState's assetsLoaded property is now deprecated, please use preloaded property, e.g. : state.preloaded");
+			if (DEBUG) console.warn("BaseState's assetsLoaded property is now deprecated, please use preloaded property, e.g. : state.preloaded");
 			return this.preloaded;
 		}
 	});

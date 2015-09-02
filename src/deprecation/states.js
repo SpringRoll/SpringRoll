@@ -14,7 +14,7 @@
 	 */
 	p.changeTransition = function(transition)
 	{
-		console.warn("changeTransition is now deprecated, please use the property transition: e.g.: app.manager.transition = myTransition; ");
+		if (DEBUG) console.warn("changeTransition is now deprecated, please use the property transition: e.g.: app.manager.transition = myTransition; ");
 		this.transition = transition;
 	};
 
@@ -26,7 +26,7 @@
 	 */
 	p.getCurrentState = function()
 	{
-		console.warn("getCurrentState is now deprecated, please use the property currentState: e.g.: app.manager.currentState;");
+		if (DEBUG) console.warn("getCurrentState is now deprecated, please use the property currentState: e.g.: app.manager.currentState;");
 		return this.currentState;
 	};
 
@@ -38,7 +38,7 @@
 	 */
 	p.setState = function(id)
 	{
-		console.warn("setState is now deprecated, please use the property state: e.g.: app.manager.state = 'title';");
+		if (DEBUG) console.warn("setState is now deprecated, please use the property state: e.g.: app.manager.state = 'title';");
 		this.state = id;
 	};
 
@@ -50,7 +50,7 @@
 	 */
 	p.next = function()
 	{
-		console.warn("next is now deprecated, please use the nextState method on BaseState: e.g.: app.manager.currentState.nextState();");
+		if (DEBUG) console.warn("next is now deprecated, please use the nextState method on BaseState: e.g.: app.manager.currentState.nextState();");
 		this._state.nextState();
 	};
 
@@ -62,7 +62,7 @@
 	 */
 	p.previous = function()
 	{
-		console.warn("previous is now deprecated, please use the previousState method on BaseState: e.g.: app.manager.currentState.previousState();");
+		if (DEBUG) console.warn("previous is now deprecated, please use the previousState method on BaseState: e.g.: app.manager.currentState.previousState();");
 		this._state.previousState();
 	};
 
@@ -76,7 +76,7 @@
 	{
 		get: function()
 		{
-			console.warn("springroll.BaseState is now deprecated, please use springroll.State instead");
+			if (DEBUG) console.warn("springroll.BaseState is now deprecated, please use springroll.State instead");
 			return include('springroll.State');
 		}
 	});

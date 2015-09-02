@@ -11,7 +11,7 @@
 	 */
 	p.addBackground = function(bitmap)
 	{
-		console.warn("addBackground is now deprecated, please use addItem: e.g.: app.scaling.addItem(bitmap, 'cover-image'); ");
+		if (DEBUG) console.warn("addBackground is now deprecated, please use addItem: e.g.: app.scaling.addItem(bitmap, 'cover-image'); ");
 		this.addItem(bitmap, 'cover-image', true);
 		return this;
 	};
@@ -24,7 +24,7 @@
 	 */
 	p.removeBackground = function(bitmap)
 	{
-		console.warn("removeBackground is now deprecated, please use removeItem: e.g.: app.scaling.removeItem(bitmap); ");
+		if (DEBUG) console.warn("removeBackground is now deprecated, please use removeItem: e.g.: app.scaling.removeItem(bitmap); ");
 		this.removeItem(bitmap);
 		return this;
 	};
@@ -39,7 +39,7 @@
 	{
 		get: function()
 		{
-			console.warn("springroll.UIScaler now deprecated, please use ScaleManager: e.g.: springroll.ScaleManager");
+			if (DEBUG) console.warn("springroll.UIScaler now deprecated, please use ScaleManager: e.g.: springroll.ScaleManager");
 			return ScaleManager;
 		}
 	});

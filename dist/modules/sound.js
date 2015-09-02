@@ -2337,7 +2337,7 @@
 	 */
 	p.loadConfig = function(config)
 	{
-		console.warn("loadConfig is now deprecated, please use addContext method, e.g. : app.sound.addContext(config);");
+		if (true) console.warn("loadConfig is now deprecated, please use addContext method, e.g. : app.sound.addContext(config);");
 		return this.addContext(config);
 	};
 
@@ -2349,7 +2349,7 @@
 	 */
 	p.preloadSound = function(alias, callback)
 	{
-		console.warn("preloadSound is now deprecated, please use preload method, e.g. : app.sound.preload(alias, callback);");
+		if (true) console.warn("preloadSound is now deprecated, please use preload method, e.g. : app.sound.preload(alias, callback);");
 		this.preload(alias, callback);
 	};
 

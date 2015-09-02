@@ -1749,7 +1749,7 @@
 	{
 		get: function()
 		{
-			console.warn('PixiDisplay\'s animator property is now deprecated, please use the app property, e.g. : app.animator');
+			if (true) console.warn('PixiDisplay\'s animator property is now deprecated, please use the app property, e.g. : app.animator');
 			return Application.instance.animator;
 		}
 	});

@@ -2375,7 +2375,7 @@
 	{
 		get: function()
 		{
-			console.warn('EaselJSDisplay\'s animator property is now deprecated, please use the app property, e.g. : app.animator');
+			if (true) console.warn('EaselJSDisplay\'s animator property is now deprecated, please use the app property, e.g. : app.animator');
 			return Application.instance.animator;
 		}
 	});

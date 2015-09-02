@@ -175,7 +175,7 @@
 		if (options.manifest)
 		{
 			options.preload = options.manifest;
-			if (true && Debug)
+			if (true)
 			{
 				console.warn("The BaseState option 'manifest' is deprecated, use 'preload' instead");
 			}
@@ -198,7 +198,7 @@
 		{
 			if (this.addTasks)
 			{
-				console.warn('addTasks has been deprecated, use loading event instead: e.g., state.on(\'loading\', function(assets){})');
+				if (true) console.warn('addTasks has been deprecated, use loading event instead: e.g., state.on(\'loading\', function(assets){})');
 				this.addTasks(assets);
 			}
 		}, priority)
@@ -403,7 +403,7 @@
 	{
 		get: function()
 		{
-			console.warn('BasePanel\'s game property is now deprecated, please use the app property, e.g. : panel.app');
+			if (true) console.warn('BasePanel\'s game property is now deprecated, please use the app property, e.g. : panel.app');
 			return this.app;
 		}
 	});
@@ -418,7 +418,7 @@
 	{
 		get: function()
 		{
-			console.warn('BaseState\'s game property is now deprecated, please use the app property, e.g. : state.app');
+			if (true) console.warn('BaseState\'s game property is now deprecated, please use the app property, e.g. : state.app');
 			return this.app;
 		}
 	});
@@ -433,7 +433,7 @@
 	{
 		get: function()
 		{
-			console.log("BaseState's manifest property is now deprecated, please use preload property, e.g. : state.preload");
+			if (true) console.warn("BaseState's manifest property is now deprecated, please use preload property, e.g. : state.preload");
 			return this.preload;
 		}
 	});
@@ -449,7 +449,7 @@
 	{
 		get: function()
 		{
-			console.log("BaseState's assetsLoaded property is now deprecated, please use preloaded property, e.g. : state.preloaded");
+			if (true) console.warn("BaseState's assetsLoaded property is now deprecated, please use preloaded property, e.g. : state.preloaded");
 			return this.preloaded;
 		}
 	});
