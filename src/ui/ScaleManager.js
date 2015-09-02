@@ -327,10 +327,57 @@
 	/**
 	 * Remove all items where the item display is a the container or it contains items
 	 * @method removeItems
+	 * @param  {*} parent The object which contains the items as live variables.
+	 * @param {Object} items The items that was passed to `addItems`
+	 * @return {springroll.ScaleManager} The ScaleManager for chaining
+	 */
+	p.removeItems = function(parent, items)
+	{
+		var children = [];
+		if (items)
+		{
+			// Get the list of children to remove
+			for (var name in items)
+			{
+				if (parent[name])
+				{
+					children.push(parent[name]);
+				}
+			}
+		}
+		else
+		{
+			// @deprecated implementation
+			if (true)
+			{
+				console.warn("ScaleManager.removeItems should have a second parameter which is the items dictionary e.g., removeItems(panel, items)");
+			}
+			return this.removeItemsByContainer(parent);
+		}
+		
+		// Remove the items by children's list
+		if (children.length)
+		{
+			var _itemsCopy = this._items.slice();
+			var _items = this._items;
+			_itemsCopy.forEach(function(item)
+			{
+				if (children.indexOf(item.display) > -1)
+				{
+					_items.splice(_items.indexOf(item), 1);
+				}
+			});
+		}
+		return this;
+	};
+
+	/**
+	 * Remove all items where the item display is a child of the container display
+	 * @method removeItemsByParent
 	 * @param  {createjs.Container|PIXI.DisplayObjectContainer} container The container to remove items from
 	 * @return {springroll.ScaleManager} The ScaleManager for chaining
 	 */
-	p.removeItems = function(container)
+	p.removeItemsByContainer = function(container)
 	{
 		var adapter = this._adapter;
 		this._items.forEach(function(item, i, items)
@@ -366,15 +413,14 @@
 	/**
 	 * Register a dictionary of items to the ScaleManager to control.
 	 * @method addItems
-	 * @param {PIXI.DisplayObjectContainer|createjs.Container} container The container where the
-	 *                                                                 items live as variables.
+	 * @param {*} parent The parent object that contains the items as variables.
 	 * @param {object} items The items object where the keys are the name of the property on the
 	 *                     parent and the value is an object with keys of "titleSafe", "minScale",
 	 *                     "maxScale", "centerHorizontally", "align", see ScaleManager.addItem for a
 	 *                     description of the different keys.
 	 * @return {springroll.ScaleManager} The instance of this ScaleManager for chaining
 	 */
-	p.addItems = function(container, items)
+	p.addItems = function(parent, items)
 	{
 		// Temp variables
 		var settings;
@@ -386,7 +432,7 @@
 		{
 			settings = items[name];
 
-			if (!container[name])
+			if (!parent[name])
 			{
 				if (DEBUG && Debug && this.verbose)
 				{
@@ -394,7 +440,7 @@
 				}
 				continue;
 			}
-			this.addItem(container[name], settings, false);
+			this.addItem(parent[name], settings, false);
 		}
 		Application.instance.triggerResize();
 		return this;

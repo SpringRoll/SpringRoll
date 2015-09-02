@@ -491,9 +491,9 @@
 		this.preloaded = false;
 		
 		//remove scaling objects that we added
-		if(this.scaling && this.scalingItems)
+		if (this.scaling && this.scalingItems)
 		{
-			this.scaling.removeItems(this.panel);
+			this.scaling.removeItems(this.panel, this.scalingItems);
 		}
 
 		// Clean any assets loaded by the manifest
