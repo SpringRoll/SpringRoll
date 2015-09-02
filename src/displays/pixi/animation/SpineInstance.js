@@ -168,10 +168,10 @@
 	 * @param {String} event The frame label event (e.g. "onClose" to "onClose_stop")
 	 * @return {Boolean} does this animation exist?
 	 */
-	SpineInstance.hasAnimation = function(clip, event)
+	SpineInstance.hasAnimation = function(clip, anim)
 	{
 		var i;
-		skeletonData = this.clip.stateData.skeletonData;
+		skeletonData = clip.stateData.skeletonData;
 		if(typeof anim == "string")
 		{
 			//single anim
