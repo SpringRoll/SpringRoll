@@ -13,7 +13,9 @@
 	/**
 	 * @class Application
 	 */
-	var plugin = new ApplicationPlugin();
+	//ScalingPlugin needs to be destroyed after StatesPlugin from the States module,
+	//so it gets a slightly higher priority
+	var plugin = new ApplicationPlugin(1);
 
 	//Init the scaling
 	plugin.setup = function()
