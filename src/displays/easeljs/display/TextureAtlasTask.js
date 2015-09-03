@@ -7,8 +7,7 @@
 {
 	var Task = include('springroll.Task'),
 		TextureAtlas = include('springroll.easeljs.TextureAtlas'),
-		ColorAlphaTask = include('springroll.ColorAlphaTask'),
-		Application = include('springroll.Application');
+		ColorAlphaTask = include('springroll.ColorAlphaTask');
 
 	/**
 	 * Internal class for dealing with async load assets through Loader.
@@ -105,7 +104,7 @@
 		}
 
 		// Do the load
-		Application.instance.load(assets, function(results)
+		this.load(assets, function(results)
 		{
 			var image;
 			if (results._image)

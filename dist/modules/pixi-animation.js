@@ -1521,8 +1521,7 @@
 {
 	var TextureTask = include('springroll.pixi.TextureTask'),
 		SpineAtlas = include('springroll.pixi.SpineAtlas', false),
-		PixiUtils = include('PIXI.utils'),
-		Application = include('springroll.Application');
+		PixiUtils = include('PIXI.utils');
 	
 	if(!SpineAtlas) return;
 
@@ -1582,7 +1581,7 @@
 	 */
 	p.start = function(callback)
 	{
-		Application.instance.load({_atlas: this.spineAtlas, _images: this.images}, function(results)
+		this.load({_atlas: this.spineAtlas, _images: this.images}, function(results)
 		{
 			callback(new SpineAtlas(results._atlas, results._images), results);
 		});
@@ -1599,8 +1598,7 @@
  */
 (function()
 {
-	var Application = include('springroll.Application'),
-		Task = include('springroll.Task'),
+	var Task = include('springroll.Task'),
 		TextureAtlasTask = include('springroll.pixi.TextureAtlasTask'),
 		atlasParser = include('PIXI.spine.loaders.atlasParser', false),
 		SkeletonJsonParser = include('PIXI.spine.SpineRuntime.SkeletonJsonParser', false),
@@ -1701,7 +1699,7 @@
 		if(this.extraImages)
 			asset._images = {assets:this.extraImages};
 		
-		Application.instance.load(asset, function(results)
+		this.load(asset, function(results)
 		{
 			var spineAtlas = results._atlas;
 			//if we didn't load an atlas, then should make an atlas because we were probably

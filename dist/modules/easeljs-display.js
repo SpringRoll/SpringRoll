@@ -1152,8 +1152,7 @@
 {
 	var Task = include('springroll.Task'),
 		TextureAtlas = include('springroll.easeljs.TextureAtlas'),
-		ColorAlphaTask = include('springroll.ColorAlphaTask'),
-		Application = include('springroll.Application');
+		ColorAlphaTask = include('springroll.ColorAlphaTask');
 
 	/**
 	 * Internal class for dealing with async load assets through Loader.
@@ -1250,7 +1249,7 @@
 		}
 
 		// Do the load
-		Application.instance.load(assets, function(results)
+		this.load(assets, function(results)
 		{
 			var image;
 			if (results._image)
@@ -1279,8 +1278,7 @@
  */
 (function()
 {
-	var Task = include('springroll.Task'),
-		Application = include('springroll.Application');
+	var Task = include('springroll.Task');
 
 	/**
 	 * Internal class for dealing with async load assets through Loader.
@@ -1354,7 +1352,7 @@
 				color: this.color
 			};
 		}
-		Application.instance.load(load,
+		this.load(load,
 			function(result)
 			{
 				var img = result;
@@ -1389,7 +1387,6 @@
 	var Task = include('springroll.Task'),
 		TextureAtlas = include('springroll.easeljs.TextureAtlas'),
 		ColorAlphaTask = include('springroll.ColorAlphaTask'),
-		Application = include('springroll.Application'),
 		BitmapUtils = include('springroll.easeljs.BitmapUtils');
 
 	/**
@@ -1492,7 +1489,7 @@
 		}
 
 		// Do the load
-		Application.instance.load(assets, function(results)
+		this.load(assets, function(results)
 		{
 			var image;
 			if (results._image)
@@ -1550,8 +1547,7 @@
 (function()
 {
 	var Task = include('springroll.Task'),
-		SpriteSheet = include('createjs.SpriteSheet'),
-		Application = include('springroll.Application');
+		SpriteSheet = include('createjs.SpriteSheet');
 
 	/**
 	 * Create a createjs.SpriteSheet object, see SpriteSheet for more information
@@ -1621,7 +1617,7 @@
 		var id = this.id;
 		var frames = this.frames;
 
-		Application.instance.load(this.images, function(results)
+		this.load(this.images, function(results)
 		{
 			var spriteSheet = new SpriteSheet({
 				images: results,
@@ -1655,8 +1651,7 @@
  */
 (function()
 {
-	var LoadTask = include('springroll.LoadTask'),
-		Application = include('springroll.Application');
+	var LoadTask = include('springroll.LoadTask');
 
 	/**
 	 * Created a createjs Spritesheet from the Flash export
@@ -1718,7 +1713,7 @@
 			data.id = id;
 			data.globalProperty = prop;
 			data.type = "easeljs";
-			Application.instance.load(data, callback);
+			this.load(data, callback);
 		});
 	};
 

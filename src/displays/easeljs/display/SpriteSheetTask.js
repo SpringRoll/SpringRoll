@@ -6,8 +6,7 @@
 (function()
 {
 	var Task = include('springroll.Task'),
-		SpriteSheet = include('createjs.SpriteSheet'),
-		Application = include('springroll.Application');
+		SpriteSheet = include('createjs.SpriteSheet');
 
 	/**
 	 * Create a createjs.SpriteSheet object, see SpriteSheet for more information
@@ -77,7 +76,7 @@
 		var id = this.id;
 		var frames = this.frames;
 
-		Application.instance.load(this.images, function(results)
+		this.load(this.images, function(results)
 		{
 			var spriteSheet = new SpriteSheet({
 				images: results,

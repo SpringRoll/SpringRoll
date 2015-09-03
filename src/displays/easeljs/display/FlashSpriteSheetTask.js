@@ -5,8 +5,7 @@
  */
 (function()
 {
-	var LoadTask = include('springroll.LoadTask'),
-		Application = include('springroll.Application');
+	var LoadTask = include('springroll.LoadTask');
 
 	/**
 	 * Created a createjs Spritesheet from the Flash export
@@ -68,7 +67,7 @@
 			data.id = id;
 			data.globalProperty = prop;
 			data.type = "easeljs";
-			Application.instance.load(data, callback);
+			this.load(data, callback);
 		});
 	};
 

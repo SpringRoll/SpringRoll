@@ -4,8 +4,7 @@
  */
 (function()
 {
-	var Task = include('springroll.Task'),
-		Application = include('springroll.Application');
+	var Task = include('springroll.Task');
 
 	/**
 	 * Internal class for dealing with async load assets through Loader.
@@ -79,7 +78,7 @@
 				color: this.color
 			};
 		}
-		Application.instance.load(load,
+		this.load(load,
 			function(result)
 			{
 				var img = result;

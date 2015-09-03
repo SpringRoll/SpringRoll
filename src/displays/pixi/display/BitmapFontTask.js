@@ -9,8 +9,7 @@
 		Texture = include('PIXI.Texture'),
 		Rectangle = include('PIXI.Rectangle'),
 		BitmapText = include('PIXI.extras.BitmapText', false),
-		PixiUtils = include('PIXI.utils'),
-		Application = include('springroll.Application');
+		PixiUtils = include('PIXI.utils');
 	
 	if(!BitmapText) return;
 

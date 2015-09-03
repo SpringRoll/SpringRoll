@@ -3967,6 +3967,32 @@
 	};
 
 	/**
+	 * Pass-through to the Application load method
+	 * @method load
+	 * @protected
+	 * @param {String|Array|Object} source The source to load
+	 * @param {Object|Function} [options] The load options or callback function
+	 */
+	p.load = function(source, options)
+	{
+		return Application.instance.load(source, options);
+	};
+
+	/**
+	 * Pass-through to the Application Loader.load
+	 * @method simpleLoad
+	 * @protected
+	 * @param {String} url Path to file to load
+	 * @param {Function} complete The callback
+	 * @param {Function} [progress] The load progress
+	 * @param {Object} [data] Additiona data
+	 */
+	p.simpleLoad = function(url, complete, progress, data)
+	{
+		return Application.instance.loader.load(url, complete, progress, data);
+	};
+
+	/**
 	 * Destroy this and discard
 	 * @method destroy
 	 */
@@ -4059,8 +4085,7 @@
  */
 (function()
 {
-	var Task = include('springroll.Task'),
-		Application = include('springroll.Application');
+	var Task = include('springroll.Task');
 
 	/**
 	 * Internal class for dealing with async load assets through Loader.
@@ -4115,7 +4140,7 @@
 	 */
 	p.start = function(callback)
 	{
-		Application.instance.load({
+		this.load({
 				_alpha: this.alpha,
 				_color: this.color
 			},
@@ -4173,8 +4198,7 @@
  */
 (function()
 {
-	var Task = include('springroll.Task'),
-		Application = include('springroll.Application');
+	var Task = include('springroll.Task');
 
 	/**
 	 * Internal class for dealing with async load assets through Loader.
@@ -4228,7 +4252,10 @@
 	 */
 	p.start = function(callback)
 	{
-		Application.instance.load(this.assets, {complete:callback, cacheAll: this.cacheAll});
+		this.load(this.assets, {
+			complete:callback, 
+			cacheAll: this.cacheAll
+		});
 	};
 
 	/**
@@ -4251,8 +4278,7 @@
  */
 (function()
 {
-	var Task = include('springroll.Task'),
-		Application = include('springroll.Application');
+	var Task = include('springroll.Task');
 
 	/**
 	 * Internal class for dealing with async load assets through Loader.
@@ -4324,8 +4350,7 @@
 	p.start = function(callback)
 	{
 		var advanced = this.advanced;
-
-		Application.instance.loader.load(
+		this.simpleLoad(
 			this.src,
 			function(result)
 			{

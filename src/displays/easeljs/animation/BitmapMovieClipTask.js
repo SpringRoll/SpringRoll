@@ -6,8 +6,7 @@
 (function()
 {
 	var TextureAtlasTask = include('springroll.easeljs.TextureAtlasTask'),
-		BitmapMovieClip = include('springroll.easeljs.BitmapMovieClip'),
-		Application = include('springroll.Application');
+		BitmapMovieClip = include('springroll.easeljs.BitmapMovieClip');
 
 	/**
 	 * Internal class for dealing with async load assets through Loader.

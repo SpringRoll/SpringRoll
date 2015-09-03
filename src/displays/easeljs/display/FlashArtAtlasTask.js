@@ -8,7 +8,6 @@
 	var Task = include('springroll.Task'),
 		TextureAtlas = include('springroll.easeljs.TextureAtlas'),
 		ColorAlphaTask = include('springroll.ColorAlphaTask'),
-		Application = include('springroll.Application'),
 		BitmapUtils = include('springroll.easeljs.BitmapUtils');
 
 	/**
@@ -111,7 +110,7 @@
 		}
 
 		// Do the load
-		Application.instance.load(assets, function(results)
+		this.load(assets, function(results)
 		{
 			var image;
 			if (results._image)

@@ -5,8 +5,7 @@
  */
 (function()
 {
-	var Application = include('springroll.Application'),
-		ColorAlphaTask = include('springroll.ColorAlphaTask'),
+	var ColorAlphaTask = include('springroll.ColorAlphaTask'),
 		Task = include('springroll.Task'),
 		Texture = include('PIXI.Texture'),
 		BaseTexture = include('PIXI.BaseTexture'),
@@ -99,7 +98,7 @@
 		}
 
 		// Do the load
-		Application.instance.load(assets, function(results)
+		this.load(assets, function(results)
 		{
 			var image;
 			if (results._image)
@@ -154,7 +153,6 @@
 						delete PixiUtils.TextureCache[id];
 				};
 			}
-			
 			done(texture, results);
 		}.bind(this));
 	};

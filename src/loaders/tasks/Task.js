@@ -175,6 +175,32 @@
 	};
 
 	/**
+	 * Pass-through to the Application load method
+	 * @method load
+	 * @protected
+	 * @param {String|Array|Object} source The source to load
+	 * @param {Object|Function} [options] The load options or callback function
+	 */
+	p.load = function(source, options)
+	{
+		return Application.instance.load(source, options);
+	};
+
+	/**
+	 * Pass-through to the Application Loader.load
+	 * @method simpleLoad
+	 * @protected
+	 * @param {String} url Path to file to load
+	 * @param {Function} complete The callback
+	 * @param {Function} [progress] The load progress
+	 * @param {Object} [data] Additiona data
+	 */
+	p.simpleLoad = function(url, complete, progress, data)
+	{
+		return Application.instance.loader.load(url, complete, progress, data);
+	};
+
+	/**
 	 * Destroy this and discard
 	 * @method destroy
 	 */

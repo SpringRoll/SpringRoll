@@ -8,8 +8,7 @@
 	var TextureTask = include('springroll.pixi.TextureTask'),
 		Texture = include('PIXI.Texture'),
 		TextureAtlas = include('springroll.pixi.TextureAtlas'),
-		PixiUtils = include('PIXI.utils'),
-		Application = include('springroll.Application');
+		PixiUtils = include('PIXI.utils');
 
 	/**
 	 * Internal class for dealing with async load assets through Loader.
@@ -82,9 +81,11 @@
 		this.loadImage(assets, function(texture, results)
 		{
 			var data = results._atlas;
-			
-			var atlas = new TextureAtlas(texture, data, this.cache && !ignoreCacheSetting);
-			
+			var atlas = new TextureAtlas(
+				texture, 
+				data, 
+				this.cache && !ignoreCacheSetting
+			);
 			done(atlas, results);
 		}.bind(this), true);
 	};

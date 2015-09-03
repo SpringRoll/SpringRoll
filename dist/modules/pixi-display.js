@@ -551,8 +551,7 @@
  */
 (function()
 {
-	var Application = include('springroll.Application'),
-		ColorAlphaTask = include('springroll.ColorAlphaTask'),
+	var ColorAlphaTask = include('springroll.ColorAlphaTask'),
 		Task = include('springroll.Task'),
 		Texture = include('PIXI.Texture'),
 		BaseTexture = include('PIXI.BaseTexture'),
@@ -645,7 +644,7 @@
 		}
 
 		// Do the load
-		Application.instance.load(assets, function(results)
+		this.load(assets, function(results)
 		{
 			var image;
 			if (results._image)
@@ -935,8 +934,7 @@
 	var TextureTask = include('springroll.pixi.TextureTask'),
 		Texture = include('PIXI.Texture'),
 		TextureAtlas = include('springroll.pixi.TextureAtlas'),
-		PixiUtils = include('PIXI.utils'),
-		Application = include('springroll.Application');
+		PixiUtils = include('PIXI.utils');
 
 	/**
 	 * Internal class for dealing with async load assets through Loader.
@@ -1031,8 +1029,7 @@
 		Texture = include('PIXI.Texture'),
 		Rectangle = include('PIXI.Rectangle'),
 		BitmapText = include('PIXI.extras.BitmapText', false),
-		PixiUtils = include('PIXI.utils'),
-		Application = include('springroll.Application');
+		PixiUtils = include('PIXI.utils');
 	
 	if(!BitmapText) return;
 

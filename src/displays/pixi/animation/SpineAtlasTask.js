@@ -7,8 +7,7 @@
 {
 	var TextureTask = include('springroll.pixi.TextureTask'),
 		SpineAtlas = include('springroll.pixi.SpineAtlas', false),
-		PixiUtils = include('PIXI.utils'),
-		Application = include('springroll.Application');
+		PixiUtils = include('PIXI.utils');
 	
 	if(!SpineAtlas) return;
 
@@ -68,7 +67,7 @@
 	 */
 	p.start = function(callback)
 	{
-		Application.instance.load({_atlas: this.spineAtlas, _images: this.images}, function(results)
+		this.load({_atlas: this.spineAtlas, _images: this.images}, function(results)
 		{
 			callback(new SpineAtlas(results._atlas, results._images), results);
 		});
