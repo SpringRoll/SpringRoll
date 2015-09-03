@@ -699,7 +699,6 @@
 						delete PixiUtils.TextureCache[id];
 				};
 			}
-			
 			done(texture, results);
 		}.bind(this));
 	};
@@ -1007,9 +1006,11 @@
 		this.loadImage(assets, function(texture, results)
 		{
 			var data = results._atlas;
-			
-			var atlas = new TextureAtlas(texture, data, this.cache && !ignoreCacheSetting);
-			
+			var atlas = new TextureAtlas(
+				texture, 
+				data, 
+				this.cache && !ignoreCacheSetting
+			);
 			done(atlas, results);
 		}.bind(this), true);
 	};

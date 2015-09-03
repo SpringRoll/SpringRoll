@@ -823,8 +823,7 @@
 (function()
 {
 	var TextureAtlasTask = include('springroll.pixi.TextureAtlasTask'),
-		AdvancedMovieClip = include('springroll.pixi.AdvancedMovieClip'),
-		Application = include('springroll.Application');
+		AdvancedMovieClip = include('springroll.pixi.AdvancedMovieClip');
 
 	/**
 	 * Internal class for dealing with async load assets through Loader.
