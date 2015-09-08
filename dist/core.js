@@ -1,4 +1,4 @@
-/*! SpringRoll 0.3.11 */
+/*! SpringRoll 0.3.12 */
 /**
  * @module Core
  * @namespace window
@@ -2000,7 +2000,7 @@
 	p.readOnly = function(properties)
 	{
 		var prop, name;
-		for(var i in arguments)
+		for(var i = 0; i < arguments.length; i++)
 		{
 			name = arguments[i];
 			prop = this._properties[name];
