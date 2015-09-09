@@ -27,6 +27,25 @@
 		}
 		return Math.floor(Math.random() * (max - min + 1)) + min;
 	};
+	
+	/**
+	 * Return a random float between minimum and maximum values.
+	 * If a single value is supplied, it will return a number between 0 and the supplied value.
+	 * @method randomFloat
+	 * @static
+	 * @param {Number} min Lowest number. If max is omitted, then this becomes max.
+	 * @param {Number} max Highest number.
+	 * @return {Number} The random value
+	 */
+	Math.randomFloat = function (min, max)
+	{
+		if (max === undefined)
+		{
+			max = min;
+			min = 0;
+		}
+		return Math.random() * (max - min) + min;
+	};
 
 	/**
 	 * Return distance between two points
