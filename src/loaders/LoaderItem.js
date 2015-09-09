@@ -61,28 +61,28 @@
 		/**
 		 * The progress callback
 		 * @public
-		 * @proprty {function} onProgress
+		 * @property {function} onProgress
 		 */
 		this.onProgress = null;
 		
 		/**
 		 * The callback when a load queue item fails
 		 * @private
-		 * @proprty {function} _onFailed
+		 * @property {function} _onFailed
 		 */
 		this._onFailed = this._onFailed.bind(this);
 
 		/**
 		 * The callback when a load queue item progresses
 		 * @private
-		 * @proprty {function} _onProgress
+		 * @property {function} _onProgress
 		 */
 		this._onProgress = this._onProgress.bind(this);
 
 		/**
 		 * The callback when a load queue item completes
 		 * @private
-		 * @proprty {function} _onCompleted
+		 * @property {function} _onCompleted
 		 */
 		this._onCompleted = this._onCompleted.bind(this);
 
@@ -93,7 +93,7 @@
 		}
 	};
 	
-	/** Reference to the prototype */
+	// Reference to the prototype
 	var p = extend(LoaderItem, LoadQueue);
 
 	/**

@@ -5,12 +5,7 @@
  */
 (function(undefined)
 {
-
 	var RAD_TO_DEGREES = 180 / Math.PI;
-
-	/**
-	 * @author Andrew Start <andrew@cloudkid.com>
-	 */
 
 	/**
 	 * The Sector object can be used to specify a hit area for display objects.

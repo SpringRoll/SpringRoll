@@ -169,7 +169,6 @@
 	 * Updates the stage and draws it. This is only called by the Application.
 	 * This method does nothing if paused is true or visible is false.
 	 * @method render
-	 * @internal
 	 * @param {int} elapsed The time elapsed since the previous frame.
 	 * @param {Boolean} [force=false] Will re-render even if the game is paused or not visible
 	 */
@@ -187,7 +186,6 @@
 	 * not be called directly, use Application.removeDisplay(id).
 	 * The stage recursively removes all display objects here.
 	 * @method destroy
-	 * @internal
 	 */
 	p.destroy = function()
 	{

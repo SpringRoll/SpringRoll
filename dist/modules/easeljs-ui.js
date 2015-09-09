@@ -1123,6 +1123,13 @@
  */
 (function()
 {
+	/**
+	 * Data class for the Dragmanager
+	 * @class DragData
+	 * @private
+	 * @constructor
+	 * @param {*} obj The object to drag
+	 */
 	var DragData = function(obj)
 	{
 		this.obj = obj;
@@ -1131,7 +1138,7 @@
 		this.mouseDownStagePos = {x:0, y:0};
 	};
 	
-	/** Assign to the global namespace */
+	// Assign to the global namespace
 	namespace('springroll').DragData = DragData;
 	namespace('springroll.easeljs').DragData = DragData;
 }());
@@ -1335,7 +1342,7 @@
 		this._multitouch = false;
 	};
 
-	/** Reference to the drag manager */
+	// Reference to the drag manager
 	var p = DragManager.prototype = {};
 
 	/**
@@ -1661,8 +1668,8 @@
 		var bounds = draggedObj._dragBounds;
 		if (bounds)
 		{
-			draggedObj.x = clamp(mousePos.x - dragOffset.x, bounds.x, bounds.right);
-			draggedObj.y = clamp(mousePos.y - dragOffset.y, bounds.y, bounds.bottom);
+			draggedObj.x = Math.clamp(mousePos.x - dragOffset.x, bounds.x, bounds.right);
+			draggedObj.y = Math.clamp(mousePos.y - dragOffset.y, bounds.y, bounds.bottom);
 		}
 		else
 		{
@@ -1709,7 +1716,7 @@
 		for (var i = points.length - 1; i >= 0; --i)
 		{
 			p = points[i];
-			distSq = distSquared(objX, objY, p.x, p.y);
+			distSq = Math.distSq(objX, objY, p.x, p.y);
 			if (distSq <= minDistSq && (distSq < leastDist || leastDist == -1))
 			{
 				leastDist = distSq;
@@ -1721,24 +1728,6 @@
 			obj.x = closestPoint.x;
 			obj.y = closestPoint.y;
 		}
-	};
-
-	/*
-	 * Small distance squared function
-	 */
-	var distSquared = function(x1, y1, x2, y2)
-	{
-		var xDiff = x1 - x2;
-		var yDiff = y1 - y2;
-		return xDiff * xDiff + yDiff * yDiff;
-	};
-
-	/*
-	 * Simple clamp function
-	 */
-	var clamp = function(x, a, b)
-	{
-		return (x < a ? a : (x > b ? b : x));
 	};
 
 	//=== Giving functions and properties to draggable objects objects
@@ -1849,7 +1838,7 @@
 		this._helperPoint = null;
 	};
 
-	/** Assign to the global namespace */
+	// Assign to the global namespace
 	namespace('springroll').DragManager = DragManager;
 	namespace('springroll.easeljs').DragManager = DragManager;
 }());

@@ -307,6 +307,8 @@
 
 	/**
 	 * If a container contains a child
+	 * @method contains
+	 * @static
 	 * @param  {createjs.Container} container The container
 	 * @param  {createjs.DisplayObject} child  The object to test
 	 * @return {Boolean} If the child contained within the container

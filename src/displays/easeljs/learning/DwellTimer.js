@@ -58,6 +58,7 @@
 
 	/**
 	 * start timer on mouseover
+	 * @method mouseOver
 	 * @param {createjs.MouseEvent} ev Mouse Event
 	 */
 	p.mouseOver = function(ev)
@@ -82,6 +83,7 @@
 
 	/**
 	 * Dwell ended - fire event if dwelled long enough
+	 * @method mouseOut
 	 * @param {createjs.MouseEvent} ev Mouse Event
 	 */
 	p.mouseOut = function(ev)

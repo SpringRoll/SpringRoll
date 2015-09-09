@@ -1765,23 +1765,29 @@
 	namespace('springroll.pixi').SpineAnimTask = SpineAnimTask;
 
 }());
+/**
+ * @module Pixi Animation
+ * @namespace springroll.pixi
+ * @requires Core, Pixi Display
+ */
 (function()
 {
 	var Application = include('springroll.Application');
 
 	/**
+	 * See {{#crossLink "springroll.Animator"}}{{/crossLink}}
 	 * @class Animator
-	 * @namespace springroll.pixi
-	 * @see {@link springroll.Animator}
 	 * @deprecated since version 0.4.0
 	 */
 	var Animator = namespace('springroll').Animator = namespace('springroll.pixi').Animator = {};
 
 	/**
-	 * @method
-	 * @name springroll.pixi.Animator#canAnimate
-	 * @see {@link springroll.Animator#canAnimate}
+	 * If an instance can be animated, See {{#crossLink "springroll.Animator/canAnimate:method"}}{{/crossLink}}
+	 * @static
+	 * @method canAnimate
 	 * @deprecated since version 0.4.0
+	 * @param {*} instance The instance to check
+	 * @return {Boolean} If the instance is animate-able
 	 */
 	Animator.canAnimate = function(instance)
 	{
@@ -1790,10 +1796,13 @@
 	};
 
 	/**
-	 * @method
-	 * @name springroll.pixi.Animator#getDuration
-	 * @see {@link springroll.Animator#getDuration}
+	 * Get the duration for an instance by event, see {{#crossLink "springroll.Animator/getDuration:method"}}{{/crossLink}}
+	 * @method getDuration
+	 * @static
 	 * @deprecated since version 0.4.0
+	 * @param {*} instance The clip instance
+	 * @param {string} event The event name
+	 * @return {int} The length in milliseconds
 	 */
 	Animator.getDuration = function(instance, event)
 	{
@@ -1802,10 +1811,12 @@
 	};
 
 	/**
-	 * @method
-	 * @name springroll.pixi.Animator#getTimeline
-	 * @see {@link springroll.Animator#getTimeline}
+	 * Get a timeline by instance, see {{#crossLink "springroll.Animator/getTimeline:method"}}{{/crossLink}}
+	 * @static
+	 * @method getTimeline
 	 * @deprecated since version 0.4.0
+	 * @param {*} instance The clip instance
+	 * @return {springroll.AnimatorTimeline} The timeline instance
 	 */
 	Animator.getTimeline = function(instance)
 	{
@@ -1814,10 +1825,13 @@
 	};
 
 	/**
-	 * @method
-	 * @name springroll.pixi.Animator#instanceHasAnimation
-	 * @see {@link springroll.Animator#instanceHasAnimation}
+	 * If an instance has an animation event label, see {{#crossLink "springroll.Animator/hasAnimation:method"}}{{/crossLink}}
+	 * @static
+	 * @method instanceHasAnimation
 	 * @deprecated since version 0.4.0
+	 * @param {*} instance The clip instance
+	 * @param {String} event The event label to check
+	 * @return {Boolean} If the instance has the event
 	 */
 	Animator.instanceHasAnimation = function(instance, event)
 	{
@@ -1826,10 +1840,12 @@
 	};
 
 	/**
-	 * @method
-	 * @name springroll.pixi.Animator#pauseInGroup
-	 * @see {@link springroll.Animator#pauseInGroup}
+	 * Pause all animations in a group, see {{#crossLink "springroll.Animator/pauseInGroup:method"}}{{/crossLink}}
+	 * @method pauseInGroup
+	 * @static
 	 * @deprecated since version 0.4.0
+	 * @param {Boolean} paused The paused state
+	 * @param {PIXI.Container} container The container of instances
 	 */
 	Animator.pauseInGroup = function(paused, container)
 	{
@@ -1838,9 +1854,9 @@
 	};
 
 	/**
-	 * @method
-	 * @name springroll.pixi.Animator#resume
-	 * @see {@link springroll.Animator#resume}
+	 * Resume all animations, see {{#crossLink "springroll.Animator/resume:method"}}{{/crossLink}}
+	 * @static
+	 * @method resume
 	 * @deprecated since version 0.4.0
 	 */
 	Animator.resume = function()
@@ -1850,9 +1866,9 @@
 	};
 
 	/**
-	 * @method
-	 * @name springroll.pixi.Animator#stopAll
-	 * @see {@link springroll.Animator#stopAll}
+	 * Stop all animations, see {{#crossLink "springroll.Animator/stopAll:method"}}{{/crossLink}}
+	 * @method stopAll
+	 * @static
 	 * @deprecated since version 0.4.0
 	 */
 	Animator.stopAll = function(container, removeCallbacks)
@@ -1862,9 +1878,9 @@
 	};
 
 	/**
-	 * @method
-	 * @name springroll.pixi.Animator#destroy
-	 * @see {@link springroll.Animator#destroy}
+	 * Destroy the animator, see {{#crossLink "springroll.Animator/destroy:method"}}{{/crossLink}}
+	 * @method destroy
+	 * @static
 	 * @deprecated since version 0.4.0
 	 */
 	Animator.destroy = function()
@@ -1874,10 +1890,12 @@
 	};
 
 	/**
-	 * @method
-	 * @name springroll.pixi.Animator#getPaused
-	 * @see {@link springroll.Animator#paused}
+	 * Get the paused state of instance, see {{#crossLink "springroll.Animator/paused:property"}}{{/crossLink}}
+	 * @method getPaused
+	 * @static
 	 * @deprecated since version 0.4.0
+	 * @param {*} instance The instance to get
+	 * @return {Boolean} Is paused
 	 */
 	Animator.getPaused = function(instance)
 	{
@@ -1886,10 +1904,11 @@
 	};
 
 	/**
-	 * @method
-	 * @name springroll.pixi.Animator#init
-	 * @see {@link springroll.Animator#init}
+	 * Initialize the animator, see {{#crossLink "springroll.Application/animator:property"}}{{/crossLink}}
+	 * @method init
+	 * @static
 	 * @deprecated since version 0.4.0
+	 * @return {springroll.Animator} The animator instance
 	 */
 	Animator.init = function()
 	{
@@ -1898,9 +1917,9 @@
 	};
 
 	/**
-	 * @method
-	 * @name springroll.pixi.Animator#pause
-	 * @see {@link springroll.Animator#pause}
+	 * Pause all animations, see {{#crossLink "springroll.Animator/pause:method"}}{{/crossLink}}
+	 * @method pause
+	 * @static
 	 * @deprecated since version 0.4.0
 	 */
 	Animator.pause = function()
@@ -1910,10 +1929,14 @@
 	};
 
 	/**
-	 * @method
-	 * @name springroll.pixi.Animator#play
-	 * @see {@link springroll.Animator#play}
+	 * Play an instance event, see {{#crossLink "springroll.Animator/play:method"}}{{/crossLink}}
+	 * @method play
+	 * @static
 	 * @deprecated since version 0.4.0
+	 * @param {*} instance The clip instance
+	 * @param {Object|String} eventList The event information to play
+	 * @param {Function} onComplete The completed function
+	 * @param {Function} [onCancelled] The cancelled function
 	 */
 	Animator.play = function(instance, eventList, onComplete, onCancelled)
 	{
@@ -1922,10 +1945,12 @@
 	};
 
 	/**
-	 * @method
-	 * @name springroll.pixi.Animator#stop
-	 * @see {@link springroll.Animator#stop}
+	 * See {{#crossLink "springroll.Animator/stop:method"}}{{/crossLink}}
+	 * @method stop
+	 * @static
 	 * @deprecated since version 0.4.0
+	 * @param {*} instance The clip to play
+	 * @param {Boolean} [removeCallbacks=false] If we should remove callbacks
 	 */
 	Animator.stop = function(instance, removeCallbacks)
 	{
@@ -1934,8 +1959,8 @@
 	};
 
 	/**
-	 * @method
-	 * @name springroll.pixi.Animator#toString
+	 * @method toString
+	 * @static
 	 * @deprecated since version 0.4.0
 	 */
 	Animator.toString = function()
@@ -1947,9 +1972,9 @@
 	Object.defineProperties(Animator, 
 	{
 		/**
-		 * @property
-		 * @name springroll.pixi.Animator#captions
-		 * @see {@link springroll.Animator#captions}
+		 * See {{#crossLink "springroll.Animator/captions:property"}}{{/crossLink}}
+		 * @property {springroll.Captions} captions
+		 * @static
 		 * @deprecated since version 0.4.0
 		 */
 		captions: 
@@ -1961,9 +1986,9 @@
 			}
 		},
 		/**
-		 * @property
-		 * @name springroll.pixi.Animator#debug
-		 * @see {@link springroll.Animator#debug}
+		 * See {{#crossLink "springroll.Animator/debug:property"}}{{/crossLink}}
+		 * @property {Boolean} debug
+		 * @static
 		 * @deprecated since version 0.4.0
 		 */
 		debug: 

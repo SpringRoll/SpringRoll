@@ -249,6 +249,8 @@
 
 	/**
 	 * If a container contains a child
+	 * @method contains
+	 * @static
 	 * @param  {PIXI.DisplayObjectContainer} container The container
 	 * @param  {PIXI.DisplayObject} child  The object to test
 	 * @return {Boolean} If the child contained within the container

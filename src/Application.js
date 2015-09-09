@@ -21,7 +21,7 @@
 	 *	var app = new Application();
 	 *
 	 * @class Application
-	 * @extend springroll.EventDispatcher
+	 * @extends springroll.EventDispatcher
 	 * @constructor
 	 * @param {Object} [options] The options for creating the application,
 	 * 		see `springroll.ApplicationOptions` for the specific options

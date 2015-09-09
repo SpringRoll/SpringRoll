@@ -976,7 +976,7 @@
 	 * (https://github.com/mrmrs/colors)
 	 *
 	 * @private
-	 * @param {Object} _palette
+	 * @property {Object} _palette
 	 */
 	var _palette = {
 
@@ -1115,11 +1115,9 @@
 		gray: '#aaa'
 	};
 
-	/**
-	 * Loop through each item in the _palette object and create
-	 * a static function in Debug via the key (the color name) that
-	 * outputs a message to the console in key's value (a hex color).
-	 */
+	// Loop through each item in the _palette object and create
+	// a static function in Debug via the key (the color name) that
+	// outputs a message to the console in key's value (a hex color).
 	for (var key in _palette)
 	{
 		if (_consoleSupportsColors)

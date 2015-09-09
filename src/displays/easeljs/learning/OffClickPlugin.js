@@ -157,6 +157,9 @@
 
 	/**
 	 * Fires event whenever the mouse is moved
+	 * @method onStateMouseMove
+	 * @private
+	 * @param {createjs.MouseEvent} ev The mouse event
 	 */
 	var onStageMouseMove = function(ev)
 	{
@@ -169,6 +172,9 @@
 
 	/**
 	 * Fires OffClick event if click on unhandled object
+	 * @method onStageMouseDown
+	 * @private
+	 * @param {createjs.MouseEvent} ev The mouse event
 	 */
 	var onStageMouseDown = function(ev)
 	{

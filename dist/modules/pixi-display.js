@@ -379,12 +379,7 @@
  */
 (function(undefined)
 {
-
 	var RAD_TO_DEGREES = 180 / Math.PI;
-
-	/**
-	 * @author Andrew Start <andrew@cloudkid.com>
-	 */
 
 	/**
 	 * The Sector object can be used to specify a hit area for display objects.
@@ -1470,6 +1465,8 @@
 
 	/**
 	 * If a container contains a child
+	 * @method contains
+	 * @static
 	 * @param  {PIXI.DisplayObjectContainer} container The container
 	 * @param  {PIXI.DisplayObject} child  The object to test
 	 * @return {Boolean} If the child contained within the container
@@ -1639,7 +1636,6 @@
 	/**
 	 * Resizes the canvas and the renderer. This is only called by the Application.
 	 * @method resize
-	 * @internal
 	 * @param {int} width The width that the display should be
 	 * @param {int} height The height that the display should be
 	 */
@@ -1653,7 +1649,6 @@
 	 * Updates the stage and draws it. This is only called by the Application.
 	 * This method does nothing if paused is true or visible is false.
 	 * @method render
-	 * @internal
 	 * @param {int} elapsed
 	 * @param {Boolean} [force=false] Will re-render even if the game is paused or not visible
 	 */
@@ -1669,7 +1664,6 @@
 	 * Destroys the display. This method is called by the Application and should
 	 * not be called directly, use Application.removeDisplay(id).
 	 * @method destroy
-	 * @internal
 	 */
 	p.destroy = function()
 	{
@@ -1731,6 +1725,11 @@
 	}
 
 }());
+/**
+ * @module PIXI Display
+ * @namespace springroll.pixi
+ * @requires Core
+ */
 (function(Object)
 {
 	// Include classes
@@ -1738,9 +1737,11 @@
 		Application = include('springroll.Application');
 	
 	/**
-	 * @property
-	 * @name springroll.pixi.PixiDisplay#animator
-	 * @see {@link springroll.Application#animator}
+	 * @class PixiDisplay
+	 */
+	/**
+	 * See {{#crossLink "springroll.Application/animator:property"}}{{/crossLink}}
+	 * @property {springroll.Animator} animator
 	 * @deprecated since version 0.4.0
 	 */
 	Object.defineProperty(PixiDisplay.prototype, 'animator', 

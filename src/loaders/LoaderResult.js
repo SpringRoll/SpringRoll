@@ -39,7 +39,7 @@
 		this.id = null;
 	};
 	
-	/** Reference to the prototype */
+	// Reference to the prototype
 	var p = LoaderResult.prototype;
 	
 	/**

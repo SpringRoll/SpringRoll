@@ -1658,6 +1658,11 @@
 	};
 
 }());
+/**
+ * @module States
+ * @namespace springroll
+ * @requires Core
+ */
 (function()
 {
 	// Include classes
@@ -1667,10 +1672,14 @@
 	var p = StateManager.prototype;
 
 	/**
-	 * @method
-	 * @name springroll.StateManager#changeTransition
-	 * @see {@link springroll.StateManager#transition}
+	 * @class StateManager
+	 * @namespace springroll
+	 */
+	/**
+	 * See see {{#crossLink "springroll.StateManager/transition:property"}}{{/crossLink}}
+	 * @method changeTransition
 	 * @deprecated since version 0.3.0
+	 * @param {*} transition The transition clip
 	 */
 	p.changeTransition = function(transition)
 	{
@@ -1679,10 +1688,10 @@
 	};
 
 	/**
-	 * @method
-	 * @name springroll.StateManager#getCurrentState
-	 * @see {@link springroll.StateManager#currentState}
+	 * Get the current state, see see {{#crossLink "springroll.StateManager/currentState:property"}}{{/crossLink}}
+	 * @method getCurrentState
 	 * @deprecated since version 0.3.0
+	 * @return {springroll.State} The current state
 	 */
 	p.getCurrentState = function()
 	{
@@ -1691,10 +1700,10 @@
 	};
 
 	/**
-	 * @method
-	 * @name springroll.StateManager#setState
-	 * @see {@link springroll.StateManager#state}
+	 * Set the current state, see {{#crossLink "springroll.StateManager/state:property"}}{{/crossLink}}
+	 * @method setState
 	 * @deprecated since version 0.3.0
+	 * @param {String} id The state id
 	 */
 	p.setState = function(id)
 	{
@@ -1703,9 +1712,8 @@
 	};
 
 	/**
-	 * @method
-	 * @name springroll.StateManager#next
-	 * @see {@link springroll.State#nextState}
+	 * Goto the next state, see {{#crossLink "springroll.State/nextState:method"}}{{/crossLink}}
+	 * @method next
 	 * @deprecated since version 0.3.0
 	 */
 	p.next = function()
@@ -1715,9 +1723,8 @@
 	};
 
 	/**
-	 * @method
-	 * @name springroll.StateManager#previous
-	 * @see {@link springroll.State#previousState}
+	 * Goto the previous state, see {{#crossLink "springroll.State/previousState:method"}}{{/crossLink}}
+	 * @method previous
 	 * @deprecated since version 0.3.0
 	 */
 	p.previous = function()
@@ -1727,9 +1734,8 @@
 	};
 
 	/**
-	 * @class
-	 * @name springroll.BaseState
-	 * @see {@link springroll.State}
+	 * A state for use with the StateManager, see see {{#crossLink "springroll.State"}}{{/crossLink}}
+	 * @class springroll.BaseState
 	 * @deprecated since version 0.3.0
 	 */
 	Object.defineProperty(include('springroll'), 'BaseState', 

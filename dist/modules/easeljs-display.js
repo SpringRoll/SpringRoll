@@ -231,6 +231,44 @@
  */
 (function()
 {
+	var RequestUtils = include('createjs.RequestUtils', false);
+	var AbstractLoader = include('createjs.AbstractLoader', false);
+
+	if (!RequestUtils) return;
+	
+	/**
+	 * Mixins for the CreateJS RequestUtils static class
+	 * @class RequestUtils
+	 */
+	var orig_getTypeByExtension = RequestUtils.getTypeByExtension;
+
+	/**
+	 * Overrides getTypeByExtension to add additional types that we want, like .fnt as XML.
+	 * @static
+	 * @method getTypeByExtension
+	 * @param {String} extension The file extension.
+	 * @return {String} The load type.
+	 */
+	RequestUtils.getTypeByExtension = function(extension)
+	{
+		if(extension)
+		{
+			switch(extension.toLowerCase())
+			{
+				case "fnt": return AbstractLoader.XML;
+			}
+		}
+		return orig_getTypeByExtension(extension);
+	};
+
+}());
+/**
+ * @module EaselJS Display
+ * @namespace createjs
+ * @requires Core
+ */
+(function()
+{
 	var SpriteSheet = include('createjs.SpriteSheet', false);
 
 	if (!SpriteSheet) return;
@@ -2138,6 +2176,8 @@
 
 	/**
 	 * If a container contains a child
+	 * @method contains
+	 * @static
 	 * @param  {createjs.Container} container The container
 	 * @param  {createjs.DisplayObject} child  The object to test
 	 * @return {Boolean} If the child contained within the container
@@ -2322,7 +2362,6 @@
 	 * Updates the stage and draws it. This is only called by the Application.
 	 * This method does nothing if paused is true or visible is false.
 	 * @method render
-	 * @internal
 	 * @param {int} elapsed The time elapsed since the previous frame.
 	 * @param {Boolean} [force=false] Will re-render even if the game is paused or not visible
 	 */
@@ -2340,7 +2379,6 @@
 	 * not be called directly, use Application.removeDisplay(id).
 	 * The stage recursively removes all display objects here.
 	 * @method destroy
-	 * @internal
 	 */
 	p.destroy = function()
 	{
@@ -2354,6 +2392,11 @@
 	namespace('springroll.easeljs').EaselJSDisplay = EaselJSDisplay;
 
 }());
+/**
+ * @module EaselJS Display
+ * @namespace springroll.easeljs
+ * @requires Core
+ */
 (function(Object)
 {
 	// Include classes
@@ -2361,9 +2404,11 @@
 		Application = include('springroll.Application');
 	
 	/**
-	 * @property
-	 * @name springroll.easeljs.EaselJSDisplay#animator
-	 * @see {@link springroll.Application#animator}
+	 * @class EaselJSDisplay
+	 */
+	/**
+	 * See {{#crossLink "springroll.Application/animator:property"}}{{/crossLink}}
+	 * @property {springroll.Animator} animator
 	 * @deprecated since version 0.4.0
 	 */
 	Object.defineProperty(EaselJSDisplay.prototype, 'animator', 

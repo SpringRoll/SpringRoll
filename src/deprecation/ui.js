@@ -1,12 +1,19 @@
+/**
+ * @module UI
+ * @namespace springroll
+ * @requires Core
+ */
 (function()
 {
 	var ScaleManager = include('springroll.ScaleManager');
 	var p = ScaleManager.prototype;
 
 	/**
-	 * @method
-	 * @name springroll.ScaleManager#addBackground
-	 * @see {@link springroll.ScaleManager#addItem}
+	 * @class ScaleManager
+	 */
+	/**
+	 * See {{#crossLink "springroll.ScaleManager/addItem:method"}}{{/crossLink}}
+	 * @method addBackground
 	 * @deprecated since version 0.4.0
 	 */
 	p.addBackground = function(bitmap)
@@ -17,9 +24,8 @@
 	};
 
 	/**
-	 * @method
-	 * @name springroll.ScaleManager#removeBackground
-	 * @see {@link springroll.ScaleManager#removeItem}
+	 * See {{#crossLink "springroll.ScaleManager/removeItem:method"}}{{/crossLink}}
+	 * @method removeBackground
 	 * @deprecated since version 0.4.0
 	 */
 	p.removeBackground = function(bitmap)
@@ -30,9 +36,8 @@
 	};
 
 	/**
-	 * @class
-	 * @name springroll.UIScaler
-	 * @see {@link springroll.ScaleManager}
+	 * See {{#crossLink "springroll.UIScaler"}}{{/crossLink}}
+	 * @class UIScaler
 	 * @deprecated since version 0.4.0
 	 */
 	Object.defineProperty(springroll, 'UIScaler', 

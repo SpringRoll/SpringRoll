@@ -797,10 +797,24 @@
 	 */
 	var SavedData = {},
 
-	/** A constant to determine if we can use localStorage and sessionStorage */
+	/** 
+	 * A constant to determine if we can use localStorage and 
+	 * sessionStorage 
+	 * @static
+	 * @property {Boolean} WEB_STORAGE_SUPPORT
+	 * @private
+	 * @readOnly
+	 */
 	WEB_STORAGE_SUPPORT = window.Storage !== undefined,
 
-	/** A constant for cookie fallback for SavedData.clear() */
+	/**
+	 * A constant for cookie fallback for `SavedData.clear()` 
+	 * @static
+	 * @property {int} ERASE_COOKIE
+	 * @private
+	 * @readOnly
+	 * @default -1
+	 */
 	ERASE_COOKIE = -1;
 
 	//in iOS, if the user is in Private Browsing, writing to localStorage throws an error.
@@ -906,6 +920,8 @@
 	 * In our case, this will check if the object has a specially-named property (`__classname`).
 	 * If it does, we will attempt to construct a new instance of that class, rather than using a
 	 * plain old Object. Note that this recurses through the object.
+	 * @method reviver
+	 * @static
 	 * @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/parse
 	 * @param  {String} key   each key name
 	 * @param  {Object} value Object that we wish to restore

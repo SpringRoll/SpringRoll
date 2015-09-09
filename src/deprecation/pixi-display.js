@@ -1,3 +1,8 @@
+/**
+ * @module PIXI Display
+ * @namespace springroll.pixi
+ * @requires Core
+ */
 (function(Object)
 {
 	// Include classes
@@ -5,9 +10,11 @@
 		Application = include('springroll.Application');
 	
 	/**
-	 * @property
-	 * @name springroll.pixi.PixiDisplay#animator
-	 * @see {@link springroll.Application#animator}
+	 * @class PixiDisplay
+	 */
+	/**
+	 * See {{#crossLink "springroll.Application/animator:property"}}{{/crossLink}}
+	 * @property {springroll.Animator} animator
 	 * @deprecated since version 0.4.0
 	 */
 	Object.defineProperty(PixiDisplay.prototype, 'animator', 

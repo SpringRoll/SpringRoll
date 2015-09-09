@@ -59,6 +59,7 @@
 
 	/**
 	 * start timer on mouseover
+	 * @method mouseOver
 	 * @param {createjs.MouseEvent} ev Mouse Event
 	 */
 	p.mouseOver = function(ev)
@@ -83,6 +84,7 @@
 
 	/**
 	 * Dwell ended - fire event if dwelled long enough
+	 * @method mouseOut
 	 * @param {createjs.MouseEvent} ev Mouse Event
 	 */
 	p.mouseOut = function(ev)
@@ -311,6 +313,9 @@
 
 	/**
 	 * Fires event whenever the mouse is moved
+	 * @method onStateMouseMove
+	 * @private
+	 * @param {createjs.MouseEvent} ev The mouse event
 	 */
 	var onStageMouseMove = function(ev)
 	{
@@ -323,6 +328,9 @@
 
 	/**
 	 * Fires OffClick event if click on unhandled object
+	 * @method onStageMouseDown
+	 * @private
+	 * @param {createjs.MouseEvent} ev The mouse event
 	 */
 	var onStageMouseDown = function(ev)
 	{

@@ -13,7 +13,7 @@
 	/**
 	 * Panel with convenience properties to the config, background and app.
 	 * @class BasePanel
-	 * @extend createjs.Container
+	 * @extends createjs.Container
 	 * @constructor
 	 */
 	var BasePanel = function()

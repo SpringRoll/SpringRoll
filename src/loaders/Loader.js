@@ -54,7 +54,7 @@
 		this.itemPool = [];
 	};
 	
-	/** The prototype */
+	// The prototype
 	var p = Loader.prototype;
 
 	if (DEBUG)

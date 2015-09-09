@@ -105,27 +105,6 @@
 	};
 
 	/**
-	 * Turn on read-only for properties
-	 * @method readOnly
-	 * @param {String} prop* The property or properties to make readonly
-	 * @return {PropertyDispatcher} The instance for chaining
-	 */
-	p.readOnly = function(properties)
-	{
-		var prop, name;
-		for(var i = 0; i < arguments.length; i++)
-		{
-			name = arguments[i];
-			prop = this._properties[name];
-			if (prop === undefined)
-			{
-				throw "Property " + name + " does not exist";
-			}
-			prop.readOnly = true;
-		}
-	};
-
-	/**
 	 * Whenever a property is get a responder is called
 	 * @method respond
 	 * @param {String} name The property name
@@ -151,27 +130,6 @@
 	};
 
 	/**
-	 * Internal class for managing the property
-	 */
-	var Property = function(name, value, readOnly)
-	{
-		this.name = name;
-		this.setValue(value);
-		this.setReadOnly(readOnly);
-		this.responder = null;
-	};
-
-	Property.prototype.setValue = function(value)
-	{
-		this.value = value === undefined ? null : value;
-	};
-
-	Property.prototype.setReadOnly = function(readOnly)
-	{
-		this.readOnly = readOnly === undefined ? false : !!readOnly;
-	};
-
-	/**
 	 * Clean-up all references, don't use after this
 	 * @method destroy
 	 */
@@ -186,6 +144,43 @@
 		}
 		this._properties = null;
 		s.destroy.call(this);
+	};
+
+	/**
+	 * Internal class for managing the property
+	 * @class Property
+	 * @private
+	 * @constructor
+	 * @param {String} name The name of the property
+	 * @param {*} [value=null] The initial value
+	 * @param {Boolean} [readOnly=false] If property is read-only
+	 */
+	var Property = function(name, value, readOnly)
+	{
+		this.name = name;
+		this.setValue(value);
+		this.setReadOnly(readOnly);
+		this.responder = null;
+	};
+
+	/**
+	 * Set the value of the property
+	 * @method setValue
+	 * @param {*} [value=null] The value to set
+	 */
+	Property.prototype.setValue = function(value)
+	{
+		this.value = value === undefined ? null : value;
+	};
+
+	/**
+	 * Set the value of the property
+	 * @method setReadOnly
+	 * @param {Boolean} [readOnly=false] The readOnly status
+	 */
+	Property.prototype.setReadOnly = function(readOnly)
+	{
+		this.readOnly = readOnly === undefined ? false : !!readOnly;
 	};
 
 	// Assign to namespace

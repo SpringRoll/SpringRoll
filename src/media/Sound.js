@@ -20,7 +20,7 @@
 	 * for managing sounds.
 	 *
 	 * @class Sound
-	 * @extend springroll.EventDispatcher
+	 * @extends springroll.EventDispatcher
  	 */
 	var Sound = function()
 	{

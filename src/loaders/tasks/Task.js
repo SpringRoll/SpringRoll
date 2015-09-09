@@ -10,7 +10,6 @@
 	/**
 	 * Internal class for dealing with async load assets
 	 * @class Task
-	 * @abstract
 	 * @constructor
 	 * @private
 	 * @param {Object} asset The asset data

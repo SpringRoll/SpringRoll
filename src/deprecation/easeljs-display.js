@@ -1,3 +1,8 @@
+/**
+ * @module EaselJS Display
+ * @namespace springroll.easeljs
+ * @requires Core
+ */
 (function(Object)
 {
 	// Include classes
@@ -5,9 +10,11 @@
 		Application = include('springroll.Application');
 	
 	/**
-	 * @property
-	 * @name springroll.easeljs.EaselJSDisplay#animator
-	 * @see {@link springroll.Application#animator}
+	 * @class EaselJSDisplay
+	 */
+	/**
+	 * See {{#crossLink "springroll.Application/animator:property"}}{{/crossLink}}
+	 * @property {springroll.Animator} animator
 	 * @deprecated since version 0.4.0
 	 */
 	Object.defineProperty(EaselJSDisplay.prototype, 'animator', 

@@ -185,7 +185,7 @@
 		this.helperPoint = new Point(0, 0);
 	};
 	
-	/** Reference to the drag manager */
+	// Reference to the drag manager
 	var p = DragManager.prototype = {};
 	
 	/**
@@ -525,8 +525,8 @@
 		var bounds = draggedObj._dragBounds;
 		if(bounds)
 		{
-			draggedObj.position.x = clamp(mousePos.x - dragOffset.x, bounds.x, bounds.right);
-			draggedObj.position.y = clamp(mousePos.y - dragOffset.y, bounds.y, bounds.bottom);
+			draggedObj.position.x = Math.clamp(mousePos.x - dragOffset.x, bounds.x, bounds.right);
+			draggedObj.position.y = Math.clamp(mousePos.y - dragOffset.y, bounds.y, bounds.bottom);
 		}
 		else
 		{
@@ -570,7 +570,7 @@
 		for(var i = points.length - 1; i >= 0; --i)
 		{
 			var p = points[i];
-			var distSq = distSquared(objX, objY, p.x, p.y);
+			var distSq = Math.distSq(objX, objY, p.x, p.y);
 			if(distSq <= minDistSq && (distSq < leastDist || leastDist == -1))
 			{
 				leastDist = distSq;
@@ -582,24 +582,6 @@
 			draggedObj.position.x = closestPoint.x;
 			draggedObj.position.y = closestPoint.y;
 		}
-	};
-
-	/*
-	 * Small distance squared function
-	 */
-	var distSquared = function(x1, y1, x2, y2)
-	{
-		var xDiff = x1 - x2;
-		var yDiff = y1 - y2;
-		return xDiff * xDiff + yDiff * yDiff;
-	};
-	
-	/**
-	 * Simple clamp function
-	 */
-	var clamp = function(x,a,b)
-	{
-		return (x < a ? a : (x > b ? b : x));
 	};
 	
 	//=== Giving functions and properties to draggable objects objects
@@ -704,7 +686,7 @@
 		this._draggableObjects = null;
 	};
 	
-	/** Assign to the global namespace */
+	// Assign to the global namespace
 	namespace('springroll').DragManager = DragManager;
 	namespace('springroll.pixi').DragManager = DragManager;
 }());

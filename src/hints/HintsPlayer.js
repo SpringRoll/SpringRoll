@@ -332,7 +332,9 @@
 	};
 
 	/**
-	 * destroys old hints
+	 * Destroys old hints
+	 * @method _clearOldHints
+	 * @private
 	 */
 	p._clearOldHints = function()
 	{

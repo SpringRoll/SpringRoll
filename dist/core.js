@@ -606,42 +606,6 @@
 }(Object, {}));
 /**
  * @module Core
- * @namespace createjs
- */
-(function(undefined)
-{
-	var RequestUtils = include('createjs.RequestUtils', false);
-	var AbstractLoader = include('createjs.AbstractLoader', false);
-
-	if (!RequestUtils) return;
-	
-	/**
-	 * Mixins for the CreateJS RequestUtils static class
-	 * @class RequestUtils
-	 */
-	
-	var orig_getTypeByExtension = RequestUtils.getTypeByExtension;
-	/**
-	 * Overrides getTypeByExtension to add additional types that we want, like .fnt as XML.
-	 * @param {String} extension The file extension.
-	 * @return {String} The load type.
-	 */
-	RequestUtils.getTypeByExtension = function(extension)
-	{
-		if(extension)
-		{
-			switch(extension.toLowerCase())
-			{
-				case "fnt":
-					return createjs.AbstractLoader.XML;
-			}
-		}
-		return orig_getTypeByExtension(extension);
-	};
-
-}());
-/**
- * @module Core
  * @namespace window
  */
 (function(String, Object)
@@ -1235,10 +1199,24 @@
 	 */
 	var SavedData = {},
 
-	/** A constant to determine if we can use localStorage and sessionStorage */
+	/** 
+	 * A constant to determine if we can use localStorage and 
+	 * sessionStorage 
+	 * @static
+	 * @property {Boolean} WEB_STORAGE_SUPPORT
+	 * @private
+	 * @readOnly
+	 */
 	WEB_STORAGE_SUPPORT = window.Storage !== undefined,
 
-	/** A constant for cookie fallback for SavedData.clear() */
+	/**
+	 * A constant for cookie fallback for `SavedData.clear()` 
+	 * @static
+	 * @property {int} ERASE_COOKIE
+	 * @private
+	 * @readOnly
+	 * @default -1
+	 */
 	ERASE_COOKIE = -1;
 
 	//in iOS, if the user is in Private Browsing, writing to localStorage throws an error.
@@ -1344,6 +1322,8 @@
 	 * In our case, this will check if the object has a specially-named property (`__classname`).
 	 * If it does, we will attempt to construct a new instance of that class, rather than using a
 	 * plain old Object. Note that this recurses through the object.
+	 * @method reviver
+	 * @static
 	 * @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/parse
 	 * @param  {String} key   each key name
 	 * @param  {Object} value Object that we wish to restore
@@ -1897,27 +1877,6 @@
 	};
 
 	/**
-	 * Turn on read-only for properties
-	 * @method readOnly
-	 * @param {String} prop* The property or properties to make readonly
-	 * @return {PropertyDispatcher} The instance for chaining
-	 */
-	p.readOnly = function(properties)
-	{
-		var prop, name;
-		for(var i = 0; i < arguments.length; i++)
-		{
-			name = arguments[i];
-			prop = this._properties[name];
-			if (prop === undefined)
-			{
-				throw "Property " + name + " does not exist";
-			}
-			prop.readOnly = true;
-		}
-	};
-
-	/**
 	 * Whenever a property is get a responder is called
 	 * @method respond
 	 * @param {String} name The property name
@@ -1943,27 +1902,6 @@
 	};
 
 	/**
-	 * Internal class for managing the property
-	 */
-	var Property = function(name, value, readOnly)
-	{
-		this.name = name;
-		this.setValue(value);
-		this.setReadOnly(readOnly);
-		this.responder = null;
-	};
-
-	Property.prototype.setValue = function(value)
-	{
-		this.value = value === undefined ? null : value;
-	};
-
-	Property.prototype.setReadOnly = function(readOnly)
-	{
-		this.readOnly = readOnly === undefined ? false : !!readOnly;
-	};
-
-	/**
 	 * Clean-up all references, don't use after this
 	 * @method destroy
 	 */
@@ -1978,6 +1916,43 @@
 		}
 		this._properties = null;
 		s.destroy.call(this);
+	};
+
+	/**
+	 * Internal class for managing the property
+	 * @class Property
+	 * @private
+	 * @constructor
+	 * @param {String} name The name of the property
+	 * @param {*} [value=null] The initial value
+	 * @param {Boolean} [readOnly=false] If property is read-only
+	 */
+	var Property = function(name, value, readOnly)
+	{
+		this.name = name;
+		this.setValue(value);
+		this.setReadOnly(readOnly);
+		this.responder = null;
+	};
+
+	/**
+	 * Set the value of the property
+	 * @method setValue
+	 * @param {*} [value=null] The value to set
+	 */
+	Property.prototype.setValue = function(value)
+	{
+		this.value = value === undefined ? null : value;
+	};
+
+	/**
+	 * Set the value of the property
+	 * @method setReadOnly
+	 * @param {Boolean} [readOnly=false] The readOnly status
+	 */
+	Property.prototype.setReadOnly = function(readOnly)
+	{
+		this.readOnly = readOnly === undefined ? false : !!readOnly;
 	};
 
 	// Assign to namespace
@@ -2095,7 +2070,7 @@
 
 	/**
 	 * Convert a string into a DOM Element
-	 * @private asDOMElement
+	 * @method asDOMElement
 	 * @param {String} name The property name to fetch
 	 */
 	p.asDOMElement = function(name)
@@ -2109,7 +2084,7 @@
 
 	/**
 	 * Override a default value
-	 * @private override
+	 * @method override
 	 * @param {String} name The property name to fetch
 	 * @param {*} value The value
 	 * @return {springroll.ApplicationOptions} Instance of this options for chaining
@@ -2234,7 +2209,7 @@
 	 *	var app = new Application();
 	 *
 	 * @class Application
-	 * @extend springroll.EventDispatcher
+	 * @extends springroll.EventDispatcher
 	 * @constructor
 	 * @param {Object} [options] The options for creating the application,
 	 * 		see `springroll.ApplicationOptions` for the specific options
@@ -3802,7 +3777,6 @@
 	/**
 	 * Internal class for dealing with async load assets
 	 * @class Task
-	 * @abstract
 	 * @constructor
 	 * @private
 	 * @param {Object} asset The asset data
@@ -4445,28 +4419,28 @@
 		/**
 		 * The progress callback
 		 * @public
-		 * @proprty {function} onProgress
+		 * @property {function} onProgress
 		 */
 		this.onProgress = null;
 		
 		/**
 		 * The callback when a load queue item fails
 		 * @private
-		 * @proprty {function} _onFailed
+		 * @property {function} _onFailed
 		 */
 		this._onFailed = this._onFailed.bind(this);
 
 		/**
 		 * The callback when a load queue item progresses
 		 * @private
-		 * @proprty {function} _onProgress
+		 * @property {function} _onProgress
 		 */
 		this._onProgress = this._onProgress.bind(this);
 
 		/**
 		 * The callback when a load queue item completes
 		 * @private
-		 * @proprty {function} _onCompleted
+		 * @property {function} _onCompleted
 		 */
 		this._onCompleted = this._onCompleted.bind(this);
 
@@ -4477,7 +4451,7 @@
 		}
 	};
 	
-	/** Reference to the prototype */
+	// Reference to the prototype
 	var p = extend(LoaderItem, LoadQueue);
 
 	/**
@@ -4700,7 +4674,7 @@
 		this.id = null;
 	};
 	
-	/** Reference to the prototype */
+	// Reference to the prototype
 	var p = LoaderResult.prototype;
 	
 	/**
@@ -4795,7 +4769,7 @@
 		this.itemPool = [];
 	};
 	
-	/** The prototype */
+	// The prototype
 	var p = Loader.prototype;
 
 	if (true)
@@ -6668,7 +6642,6 @@
 	/**
 	 * Resizes the canvas. This is only called by the Application.
 	 * @method resize
-	 * @internal
 	 * @param {int} width The width that the display should be
 	 * @param {int} height The height that the display should be
 	 */
@@ -6682,7 +6655,6 @@
 	 * Updates the stage and draws it. This is only called by the Application.
 	 * This method does nothing if paused is true or visible is false.
 	 * @method render
-	 * @internal
 	 * @param {int} elapsed The time elapsed since the previous frame.
 	 * @param {Boolean} [force=false] For the re-render
 	 */
@@ -6696,7 +6668,6 @@
 	 * not be called directly, use Application.removeDisplay(id).
 	 * The stage recursively removes all display objects here.
 	 * @method destroy
-	 * @internal
 	 */
 	p.destroy = function()
 	{
@@ -6716,17 +6687,26 @@
 	namespace('springroll').AbstractDisplay = AbstractDisplay;
 
 }());
+/**
+ * @module Core
+ * @namespace springroll
+ */
 (function(){
 	
 	var Application = include('springroll.Application'),
 		Loader = include('springroll.Loader'),
+		PropertyDispatcher = include('springroll.PropertyDispatcher'),
 		EventDispatcher = include('springroll.EventDispatcher');
 
 	/**
-	 * @method
-	 * @name springroll.Application#getDisplays
-	 * @see {@link springroll.Application#displays}
+	 * @class Application
+	 */
+	/**
+	 * See {{#crossLink "springroll.Application/displays:property"}}{{/crossLink}}
+	 * @method getDisplays
 	 * @deprecated since version 0.3.5
+	 * @param {function} [each] Iterator function, param is each method
+	 * @return {Array} The collection of displays
 	 */
 	Application.prototype.getDisplays = function(each)
 	{
@@ -6740,10 +6720,13 @@
 	};
 
 	/**
+	 * @class EventDispatcher
+	 */
+	/**
+	 * See {{#crossLink "window.mixin"}}{{/crossLink}}
 	 * @method
 	 * @static
-	 * @name springroll.EventDispatcher#mixIn
-	 * @see {@link window.mixin}
+	 * @method mixIn
 	 * @deprecated since version 0.4.0
 	 */
 	EventDispatcher.mixIn = function(object, callConstructor)
@@ -6753,10 +6736,12 @@
 	};
 
 	/**
-	 * @property
+	 * @class Loader
+	 */
+	/**
+	 * See {{#crossLink "springroll.Application/loader:property"}}{{/crossLink}}
 	 * @static
-	 * @name springroll.Loader#instance
-	 * @see {@link springroll.Application#loader}
+	 * @property {springroll.Loader#instance} instance
 	 * @deprecated since version 0.4.0
 	 */
 	Object.defineProperty(Loader, "instance",
@@ -6767,5 +6752,33 @@
 			return Application.instance.loader;
 		}
 	});
+
+	/**
+	 * @class PropertyDispatcher
+	 */
+	/**
+	 * Turn on read-only for properties
+	 * @method readOnly
+	 * @deprecated since version 0.4.0
+	 * @param {String} prop* The property or properties to make readonly
+	 * @return {springroll.PropertyDispatcher} The instance for chaining
+	 */
+	PropertyDispatcher.prototype.readOnly = function(properties)
+	{
+		if (true) console.warn('readOnly method is now deprecated, please use add(name, prop, readOnly), e.g.: app.options.add("myVar", null, true);');
+
+		var prop, name;
+		for(var i = 0; i < arguments.length; i++)
+		{
+			name = arguments[i];
+			prop = this._properties[name];
+			if (prop === undefined)
+			{
+				throw "Property " + name + " does not exist";
+			}
+			prop.readOnly = true;
+		}
+		return this;
+	};
 
 }());

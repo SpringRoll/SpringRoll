@@ -419,7 +419,7 @@
 	 * for managing sounds.
 	 *
 	 * @class Sound
-	 * @extend springroll.EventDispatcher
+	 * @extends springroll.EventDispatcher
  	 */
 	var Sound = function()
 	{
@@ -2322,6 +2322,11 @@
 	};
 
 }());
+/**
+ * @module Sound
+ * @namespace springroll
+ * @requires Core
+ */
 (function()
 {
 	var Sound = include('springroll.Sound');
@@ -2329,11 +2334,15 @@
 	// Reference to prototype
 	var p = Sound.prototype;
 
+	/**
+	 * @class Sound
+	 */
  	/**
-	 * @method
-	 * @name springroll.Sound#loadConfig
-	 * @see {@link springroll.Sound#addContext}
+ 	 * Add a configuration to the load, see {{#crossLink "springroll.Sound/addContext:method"}}{{/crossLink}}
+	 * @method loadConfig
 	 * @deprecated since version 0.3.0
+	 * @param {Object} config The configuration
+	 * @return {springroll.Sound} Sound object for chaining
 	 */
 	p.loadConfig = function(config)
 	{
@@ -2342,10 +2351,11 @@
 	};
 
 	/**
-	 * @method
-	 * @name springroll.Sound#preloadSound
-	 * @see {@link springroll.Sound#preload}
+	 * Preload a single sound, see {{#crossLink "springroll.Sound/preload:method"}}{{/crossLink}}
+	 * @method preloadSound
 	 * @deprecated since version 0.4.0
+	 * @param {String} alias The sound to preload
+	 * @param {Function} callback Callback when complete
 	 */
 	p.preloadSound = function(alias, callback)
 	{

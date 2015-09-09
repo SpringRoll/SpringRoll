@@ -14,7 +14,7 @@
 	/**
 	 * Panel with convenience properties to the config, background and app.
 	 * @class BasePanel
-	 * @extend createjs.Container
+	 * @extends createjs.Container
 	 * @constructor
 	 */
 	var BasePanel = function()
@@ -387,6 +387,11 @@
 	};
 
 }());
+/**
+ * @module EaselJS States
+ * @namespace springroll.easeljs
+ * @requires Core, States, UI, Sound, EaselJS Display, EaselJS UI
+ */
 (function(Object)
 {
 	// Include classes
@@ -394,9 +399,11 @@
 		BaseState = include('springroll.easeljs.BaseState');
 	
 	/**
-	 * @property
-	 * @name springroll.BasePanel#game
-	 * @see {@link springroll.BasePanel#app}
+	 * @class BasePanel
+	 */
+	/**
+	 * See {{#crossLink "springroll.BasePanel/app:property"}}{{/crossLink}}
+	 * @property {springroll.Application} game
 	 * @deprecated since version 0.3.0
 	 */
 	Object.defineProperty(BasePanel.prototype, 'game', 
@@ -409,9 +416,11 @@
 	});
 
 	/**
-	 * @property
-	 * @name springroll.easeljs.BaseState#game
-	 * @see {@link springroll.BaseState#app}
+	 * @class BaseState
+	 */
+	/**
+	 * See {{#crossLink "springroll.BaseState/app:property"}}{{/crossLink}}
+	 * @property {springroll.Application} game
 	 * @deprecated since version 0.3.0
 	 */
 	Object.defineProperty(BaseState.prototype, 'game', 
@@ -424,9 +433,8 @@
 	});
 
 	/**
-	 * @property
-	 * @name springroll.easeljs.BaseState#manifest
-	 * @see {@link springroll.State#preload}
+	 * See {{#crossLink "springroll.State/preload:property"}}{{/crossLink}}
+	 * @property {Array} manifest
 	 * @deprecated since version 0.4.0
 	 */
 	Object.defineProperty(BaseState.prototype, 'manifest', 
@@ -439,9 +447,8 @@
 	});
 
 	/**
-	 * @property
-	 * @name springroll.easeljs.BaseState#assetsLoaded
-	 * @see {@link springroll.State#preloaded}
+	 * See {{#crossLink "springroll.State/preloaded:property"}}{{/crossLink}}
+	 * @property {Boolean} assetsLoaded
 	 * @deprecated since version 0.4.0
 	 * @readOnly
 	 */

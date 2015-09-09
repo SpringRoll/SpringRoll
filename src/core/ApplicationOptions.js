@@ -109,7 +109,7 @@
 
 	/**
 	 * Convert a string into a DOM Element
-	 * @private asDOMElement
+	 * @method asDOMElement
 	 * @param {String} name The property name to fetch
 	 */
 	p.asDOMElement = function(name)
@@ -123,7 +123,7 @@
 
 	/**
 	 * Override a default value
-	 * @private override
+	 * @method override
 	 * @param {String} name The property name to fetch
 	 * @param {*} value The value
 	 * @return {springroll.ApplicationOptions} Instance of this options for chaining
