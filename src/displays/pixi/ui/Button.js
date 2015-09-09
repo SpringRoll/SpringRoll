@@ -131,7 +131,7 @@
 		 * @property {PIXI.Sprite} back
 		 * @readOnly
 		 */
-		this.back = new Sprite(imageSettings.up);
+		this.back = new Sprite();
 
 		/**
 		 * The text field of the button. The label is centered by both width and height on the
