@@ -106,7 +106,8 @@ Modules are components which contain common code classes, documentation and/or r
 * Pixi.js
 	* **[Pixi.js Animation Module](https://github.com/SpringRoll/SpringRoll/wiki/Pixi.js-Animation-Module)** _pixi-animation_
 	* **[Pixi.js Display Module](https://github.com/SpringRoll/SpringRoll/wiki/Pixi.js-Display-Module)** _pixi-display_
-	* **[Pixi.js UI Module](https://github.com/SpringRoll/SpringRoll/wiki/Pixi.js-UI-Module)** _pixi-ui_
+	* **[Pixi.js Spine Module](https://github.com/SpringRoll/SpringRoll/wiki/Pixi.js-Spine-Module)** _pixi-spine_
+	* **[Pixi.js UI Module](https://github.com/SpringRoll/SpringRoll/wiki/Pixi.js-UI-Module)**  _pixi-ui_
 * **[Sound Module](https://github.com/SpringRoll/SpringRoll/wiki/Sound-Module)** _sound_
 * **[States Module](https://github.com/SpringRoll/SpringRoll/wiki/States-Module)** _states_
 * **[UI Module](https://github.com/SpringRoll/SpringRoll/wiki/UI-Module)** _ui_
