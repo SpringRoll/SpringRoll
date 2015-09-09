@@ -442,7 +442,7 @@
 						this.label.position.x = bW * 0.5;
 						break;
 					case "right":
-						this.label.position.x = (bW - lW) * 0.5 + lW;
+						this.label.position.x = bw - (bW - lW) * 0.5;
 						break;
 					default://left or null (defaults to left)
 						this.label.position.x = (bW - lW) * 0.5;
@@ -575,7 +575,7 @@
 				switch(this._currentLabelStyle.align)
 				{
 					case "center":
-						//do nothing
+						this.label.position.x = bW * 0.5;
 						break;
 					case "right":
 						this.label.position.x = bW - (bW - lW) * 0.5;
