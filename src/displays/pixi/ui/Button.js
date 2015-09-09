@@ -131,7 +131,7 @@
 		 * @property {PIXI.Sprite} back
 		 * @readOnly
 		 */
-		this.back = new Sprite(imageSettings.up);
+		this.back = new Sprite();
 
 		/**
 		 * The text field of the button. The label is centered by both width and height on the
@@ -415,8 +415,10 @@
 		{
 			this.label.text = text;
 			//make the text update so we can figure out the size for positioning
-			this.label.updateText();
-			this.label.dirty = false;
+			if (this.label instanceof Text)
+				this.label.updateText();
+			else
+				this.label.validate();
 			//position the text
 			var data;
 			for(var i = 0; i < this._statePriority.length; ++i)
@@ -439,7 +441,7 @@
 						this.label.position.x = bW * 0.5;
 						break;
 					case "right":
-						this.label.position.x = (bW - lW) * 0.5 + lW;
+						this.label.position.x = bw - (bW - lW) * 0.5;
 						break;
 					default://left or null (defaults to left)
 						this.label.position.x = (bW - lW) * 0.5;
@@ -557,16 +559,14 @@
 			//update the text style
 			if (!this._currentLabelStyle || !doObjectsMatch(this._currentLabelStyle, data.style))
 			{
-				this.label.style = data.style;
+				this.label.font = data.style.font;
+				this.label.align = data.style.align;
 				this._currentLabelStyle = data.style;
 				//make the text update so we can figure out the size for positioning
 				if (this.label instanceof Text)
-				{
 					this.label.updateText();
-					this.label.dirty = false;
-				}
 				else
-					this.label.forceUpdateText();
+					this.label.validate();
 			}
 			//position the text
 			if (data.x == "center")
@@ -578,7 +578,7 @@
 						this.label.position.x = bW * 0.5;
 						break;
 					case "right":
-						this.label.position.x = (bW - lW) * 0.5 + lW;
+						this.label.position.x = bW - (bW - lW) * 0.5;
 						break;
 					default://left or null (defaults to left)
 						this.label.position.x = (bW - lW) * 0.5;
