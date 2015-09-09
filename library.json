@@ -77,12 +77,12 @@
 		"pixispine": {
 			"output": "pixi-spine",
 			"main": [
-				"src/displays/pixi/animation/SpinePlugin.js",
-				"src/displays/pixi/animation/ParallelSpineData.js",
-				"src/displays/pixi/animation/SpineInstance.js",
-				"src/displays/pixi/animation/SpineAtlas.js",
-				"src/displays/pixi/animation/SpineAtlasTask.js",
-				"src/displays/pixi/animation/SpineAnimTask.js"
+				"src/displays/pixi/spine/SpinePlugin.js",
+				"src/displays/pixi/spine/ParallelSpineData.js",
+				"src/displays/pixi/spine/SpineInstance.js",
+				"src/displays/pixi/spine/SpineAtlas.js",
+				"src/displays/pixi/spine/SpineAtlasTask.js",
+				"src/displays/pixi/spine/SpineAnimTask.js"
 			]
 		},
 		"pixiui": {
