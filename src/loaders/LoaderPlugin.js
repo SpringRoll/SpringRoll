@@ -228,14 +228,10 @@
 			return assetManager.cache.read(id);
 		};
 
-		// Refresh the default size as soon as the first display
-		// is added to the aplication
-		this.once('displayAdded', function(display)
+		// Refresh the default size whenever the app resizes
+		this.on('resize', function(w, h)
 		{
-			assetManager.sizes.refresh(
-				display.width, 
-				display.height
-			);
+			assetManager.sizes.refresh(w, h);
 		});
 	};
 

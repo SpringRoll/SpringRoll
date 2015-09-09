@@ -1,7 +1,6 @@
 /**
- * @module EaselJS Display
- * @namespace createjs
- * @requires Core
+ * @module Core
+ * @namespace window
  */
 (function()
 {
