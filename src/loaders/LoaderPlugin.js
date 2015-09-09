@@ -42,7 +42,8 @@
 		 * @property {Boolean} options.cacheBust
 		 * @default DEBUG
 		 */
-		this.options.add('cacheBust', DEBUG)
+		var options = this.options;
+		options.add('cacheBust', DEBUG)
 		.respond('cacheBust', function()
 		{
 			return loader.cacheManager.cacheBust;
@@ -58,7 +59,7 @@
 		 * with a CDN path.
 		 * @property {String} options.basePath
 		 */
-		this.options.add('basePath');
+		options.add('basePath');
 
 		/**
 		 * The current version number for your application. This
@@ -67,7 +68,7 @@
 		 * file requests will be appended with "?v=0.0.1"
 		 * @property {String} options.version
 		 */
-		this.options.add('version', null, true);
+		options.add('version', null, true);
 
 		/**
 		 * Path to a text file which contains explicit version
@@ -78,7 +79,7 @@
 		 * `assets/config/config.json?v=2`
 		 * @property {String} options.versionsFile
 		 */
-		this.options.add('versionsFile', null, true);
+		options.add('versionsFile', null, true);
 
 		/**
 		 * Different displays offer flavors of the same asset definition.
@@ -88,7 +89,7 @@
 		 * if EaselJS is your default display "easeljs" is recommended.
 		 * @property {String} options.defaultAssetType
 		 */
-		this.options.add('defaultAssetType')
+		options.add('defaultAssetType')
 			.on('defaultAssetType', function(value)
 			{
 				assetManager.defaultType = value;
@@ -238,6 +239,10 @@
 	// Preload task
 	plugin.preload = function(done)
 	{
+		// This is to make sure that sizes are set before anything
+		// gets preloaded by the ConfigPlugin
+		this.triggerResize();
+
 		var versionsFile = this.options.versionsFile;
 		if (versionsFile)
 		{

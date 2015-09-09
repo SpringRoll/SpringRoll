@@ -37,12 +37,14 @@
 	{
 		Debug = include('springroll.Debug', false);
 
+		var options = this.options; 
+
 		/**
 		 * The path to the config file to load
 		 * @property {String} options.configPath
 		 * @default null
 		 */
-		this.options.add('configPath', null, true);
+		options.add('configPath', null, true);
 
 		/**
 		 * The collection of assets to preload, can be individual
@@ -50,7 +52,7 @@
 		 * @property {String} options.preload
 		 * @default []
 		 */
-		this.options.add('preload', [], true);
+		options.add('preload', [], true);
 
 		/**
 		 * The game configuration loaded from and external JSON file
