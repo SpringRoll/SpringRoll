@@ -181,6 +181,7 @@
 	p._nextItem = function()
 	{
 		var repeat = false;
+		if (this.soundInst) this.soundInst._endCallback = null;
 		//if on a looping animation, set up the animation to be replayed
 		// - this will only happen on looping animations with audio
 		if (this.isLooping)
