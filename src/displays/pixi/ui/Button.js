@@ -559,7 +559,8 @@
 			//update the text style
 			if (!this._currentLabelStyle || !doObjectsMatch(this._currentLabelStyle, data.style))
 			{
-				this.label.style = data.style;
+				this.label.font = data.style.font;
+				this.label.align = data.style.align;
 				this._currentLabelStyle = data.style;
 				//make the text update so we can figure out the size for positioning
 				if (this.label instanceof Text)
