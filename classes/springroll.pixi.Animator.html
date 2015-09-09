@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html lang='en'>
 <head>
-	<title>SpringRoll v0.3.10 API Documentation : springroll.pixi.Animator</title>
+	<title>SpringRoll v0.3.12 API Documentation : springroll.pixi.Animator</title>
 	<meta charset='utf-8'>
 	<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 	<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
-	<link rel='shortcut icon' type='image/png' href='../assets/images/favicon.ico?v=0.3.10'>
+	<link rel='shortcut icon' type='image/png' href='../assets/images/favicon.ico?v=0.3.12'>
 	<link href='//fonts.googleapis.com/css?family=Titillium+Web:300,200,600' rel='stylesheet' type='text/css'>
-	<link rel='stylesheet' type='text/css' href='../assets/css/libraries.css?v=0.3.10'>
-	<link rel='stylesheet' type='text/css' href='../assets/css/main.css?v=0.3.10'>
+	<link rel='stylesheet' type='text/css' href='../assets/css/libraries.css?v=0.3.12'>
+	<link rel='stylesheet' type='text/css' href='../assets/css/main.css?v=0.3.12'>
 </head>
 <body>
 <header>
@@ -22,10 +22,10 @@
 					<span class="icon-bar"></span>
 				</button>
 				<a class="navbar-brand" href='https://github.com/SpringRoll/SpringRoll'>
-						<img src='../assets/images/logo.png?v=0.3.10' class="logo">
+						<img src='../assets/images/logo.png?v=0.3.12' class="logo">
 					<span class='project-name'>SpringRoll</span>
 					<span class="sr-only">API Documentation for:</span>
-					<span class='version hidden-xs'>v0.3.10</span>
+					<span class='version hidden-xs'>v0.3.12</span>
 				</a>
 			</div>
 			<div class="collapse navbar-collapse" id="docs-navbar">
@@ -707,7 +707,7 @@ Defined in
 
 
 <div class='param-description'>
-<p>The function to callback when we&#39;re done</p>
+<p>The function to callback when we're done</p>
 
 </div>
 
@@ -769,7 +769,7 @@ Defined in
 </div>
 
 <div class='description'>
-<p>Called when a movie clip is done playing, calls the AnimatorTimeline&#39;s
+<p>Called when a movie clip is done playing, calls the AnimatorTimeline's
 callback if it has one</p>
 
 </div>
@@ -825,7 +825,7 @@ Defined in
 </div>
 
 <div class='description'>
-<p>Put an AnimatorTimeline back into the general pool after it&#39;s done playing
+<p>Put an AnimatorTimeline back into the general pool after it's done playing
 or has been manually stopped.</p>
 
 </div>
@@ -1339,7 +1339,7 @@ Defined in
 
 <div class='param-description'>
 <p>The clip to play. Animation options vary depending on
-                                        object type.</p>
+object type.</p>
 
 </div>
 
@@ -1352,31 +1352,44 @@ Defined in
 <div class='param-description'>
 <p>One of or an array of the following</p>
 <ul>
-<li><p>objects in the format:</p>
-<p>  {</p>
-<pre><code>  anim:&lt;string|array of strings|array of ParallelSpineData|array of Textures&gt;,
-  start:0,
-  speed:1,
-  loop:false,
-  audio:{alias:"MyAlias", start:300}
-</code></pre><p>  }</p>
+<li>
+<p>objects in the format:</p>
+<p>{
+anim:&lt;string|array of strings|array of ParallelSpineData|array of Textures&gt;,
+start:0,
+speed:1,
+loop:false,
+audio:{alias:"MyAlias", start:300}
+}</p>
 <ul>
 <li>anim is the data about the animation to play. See below for more info</li>
 <li>start is milliseconds into the animation to start (0 if omitted). A value of -1
-  starts from a random time in the animation.</li>
+starts from a random time in the animation.</li>
 <li>speed is a multiplier for the animation speed (1 if omitted).</li>
 <li>loop is if the animation should loop (false if omitted).</li>
 <li>audio is audio to sync the animation to using springroll.Sound. audio can be a String
-  if you want the audio to start 0 milliseconds into the animation.</li>
+if you want the audio to start 0 milliseconds into the animation.</li>
 </ul>
 </li>
-<li>strings - A single animation to play on a Spine skeleton.</li>
-<li>arrays of strings - An array of animations to play sequentially on a Spine skeleton.</li>
-<li>arrays of ParallelSpineData - An array of animations to play at the same time on a
-  Spine skeleton.</li>
-<li>arrays of Textures - An array of textures to play on a MovieClip.</li>
-<li>numbers - milliseconds to wait.</li>
-<li>functions - called upon reaching, followed immediately by the next item.</li>
+<li>
+<p>strings - A single animation to play on a Spine skeleton.</p>
+</li>
+<li>
+<p>arrays of strings - An array of animations to play sequentially on a Spine skeleton.</p>
+</li>
+<li>
+<p>arrays of ParallelSpineData - An array of animations to play at the same time on a
+Spine skeleton.</p>
+</li>
+<li>
+<p>arrays of Textures - An array of textures to play on a MovieClip.</p>
+</li>
+<li>
+<p>numbers - milliseconds to wait.</p>
+</li>
+<li>
+<p>functions - called upon reaching, followed immediately by the next item.</p>
+</li>
 </ul>
 
 </div>
@@ -1402,7 +1415,7 @@ Defined in
 
 <div class='param-description'>
 <p>A callback function for when an animation is stopped with
-                                Animator.stop() or to play another animation.</p>
+Animator.stop() or to play another animation.</p>
 
 </div>
 
@@ -1556,7 +1569,7 @@ Defined in
 </div>
 
 <div class="description">
-<p>Stored collection of AnimatorTimelines. This is internal to Animator and can&#39;t be accessed externally.</p>
+<p>Stored collection of AnimatorTimelines. This is internal to Animator and can't be accessed externally.</p>
 
 </div>
 
@@ -1646,7 +1659,7 @@ Defined in
 </div>
 </div>
 </div>
-<script src='../assets/js/libraries.js?v=0.3.10'></script>
-<script src='../assets/js/main.js?v=0.3.10'></script>
+<script src='../assets/js/libraries.js?v=0.3.12'></script>
+<script src='../assets/js/main.js?v=0.3.12'></script>
 </body>
 </html>

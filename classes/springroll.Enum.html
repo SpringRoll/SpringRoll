@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html lang='en'>
 <head>
-	<title>SpringRoll v0.3.10 API Documentation : springroll.Enum</title>
+	<title>SpringRoll v0.3.12 API Documentation : springroll.Enum</title>
 	<meta charset='utf-8'>
 	<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 	<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
-	<link rel='shortcut icon' type='image/png' href='../assets/images/favicon.ico?v=0.3.10'>
+	<link rel='shortcut icon' type='image/png' href='../assets/images/favicon.ico?v=0.3.12'>
 	<link href='//fonts.googleapis.com/css?family=Titillium+Web:300,200,600' rel='stylesheet' type='text/css'>
-	<link rel='stylesheet' type='text/css' href='../assets/css/libraries.css?v=0.3.10'>
-	<link rel='stylesheet' type='text/css' href='../assets/css/main.css?v=0.3.10'>
+	<link rel='stylesheet' type='text/css' href='../assets/css/libraries.css?v=0.3.12'>
+	<link rel='stylesheet' type='text/css' href='../assets/css/main.css?v=0.3.12'>
 </head>
 <body>
 <header>
@@ -22,10 +22,10 @@
 					<span class="icon-bar"></span>
 				</button>
 				<a class="navbar-brand" href='https://github.com/SpringRoll/SpringRoll'>
-						<img src='../assets/images/logo.png?v=0.3.10' class="logo">
+						<img src='../assets/images/logo.png?v=0.3.12' class="logo">
 					<span class='project-name'>SpringRoll</span>
 					<span class="sr-only">API Documentation for:</span>
-					<span class='version hidden-xs'>v0.3.10</span>
+					<span class='version hidden-xs'>v0.3.12</span>
 				</a>
 			</div>
 			<div class="collapse navbar-collapse" id="docs-navbar">
@@ -519,15 +519,15 @@ referenced as a property with the same name as the EnumValue. Examples:</p>
         {name: "one", value:"1", toString:"I am the One!"},
         "two",
         {name:"screwSequentialNumbers", value:42});
-
+        
     myEnum.valueOf0 != 0;//enum values are not integers
     myEnum.valueOf1 != myOtherEnum.one;//enum values are not the same as other enums
     myEnum.valueOf2.asInt == 2;//enum values can be explicitly compared to integers
     myOtherEnum.screwSequentialNumbers == myOtherEnum.valueFromInt(42);//can use ints to get values
     console.log(myOtherEnum.one.toString());//outputs "I am the One!"
 
-    for (var i in myEnum) console.log(i); //outputs "valueOf0","valueOf1","valueOf2"
-</code></pre>
+    for (var i in myEnum) console.log(i); //outputs "valueOf0","valueOf1","valueOf2"</code></pre>
+
 </div>
 
 <div class='constructor'>
@@ -576,11 +576,11 @@ Defined in
 
 
 <div class='param-description'>
-<p> The list of enumeration values. You can pass either an
- array or a list of parameters. Each string will be
- the previous value plus one, while objects with
- &#39;name&#39; and &#39;value&#39; properties will have the specified
- numeric value.</p>
+<p>The list of enumeration values. You can pass either an
+array or a list of parameters. Each string will be
+the previous value plus one, while objects with
+'name' and 'value' properties will have the specified
+numeric value.</p>
 
 </div>
 
@@ -935,7 +935,7 @@ that we can potentially pass this via Bellhop and re-initialize.</p>
 </div>
 </div>
 </div>
-<script src='../assets/js/libraries.js?v=0.3.10'></script>
-<script src='../assets/js/main.js?v=0.3.10'></script>
+<script src='../assets/js/libraries.js?v=0.3.12'></script>
+<script src='../assets/js/main.js?v=0.3.12'></script>
 </body>
 </html>

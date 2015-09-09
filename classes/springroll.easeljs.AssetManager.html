@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html lang='en'>
 <head>
-	<title>SpringRoll v0.3.10 API Documentation : springroll.easeljs.AssetManager</title>
+	<title>SpringRoll v0.3.12 API Documentation : springroll.easeljs.AssetManager</title>
 	<meta charset='utf-8'>
 	<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 	<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
-	<link rel='shortcut icon' type='image/png' href='../assets/images/favicon.ico?v=0.3.10'>
+	<link rel='shortcut icon' type='image/png' href='../assets/images/favicon.ico?v=0.3.12'>
 	<link href='//fonts.googleapis.com/css?family=Titillium+Web:300,200,600' rel='stylesheet' type='text/css'>
-	<link rel='stylesheet' type='text/css' href='../assets/css/libraries.css?v=0.3.10'>
-	<link rel='stylesheet' type='text/css' href='../assets/css/main.css?v=0.3.10'>
+	<link rel='stylesheet' type='text/css' href='../assets/css/libraries.css?v=0.3.12'>
+	<link rel='stylesheet' type='text/css' href='../assets/css/main.css?v=0.3.12'>
 </head>
 <body>
 <header>
@@ -22,10 +22,10 @@
 					<span class="icon-bar"></span>
 				</button>
 				<a class="navbar-brand" href='https://github.com/SpringRoll/SpringRoll'>
-						<img src='../assets/images/logo.png?v=0.3.10' class="logo">
+						<img src='../assets/images/logo.png?v=0.3.12' class="logo">
 					<span class='project-name'>SpringRoll</span>
 					<span class="sr-only">API Documentation for:</span>
-					<span class='version hidden-xs'>v0.3.10</span>
+					<span class='version hidden-xs'>v0.3.12</span>
 				</a>
 			</div>
 			<div class="collapse navbar-collapse" id="docs-navbar">
@@ -682,7 +682,7 @@ Defined in
 
 <div class='param-description'>
 <p>The asset id from the manifest, which might include an identifier
-                        marking it as belonging to a spritesheet.</p>
+marking it as belonging to a spritesheet.</p>
 
 </div>
 
@@ -918,22 +918,25 @@ AssetManager.getAtlas("myAssetId"):</p>
     "atlasData":"path/asset.json",
     "atlasImage":"path/asset.png"
 }
-</code></pre><p>A manifest item for a spritesheet that should be run through BitmapUtils.loadSpriteSheet()
-so that the individual sprites can be accessed via the global &#39;lib&#39; dictionary:</p>
+</code></pre>
+<p>A manifest item for a spritesheet that should be run through BitmapUtils.loadSpriteSheet()
+so that the individual sprites can be accessed via the global 'lib' dictionary:</p>
 <pre class="code prettyprint"><code>{
     "id":"myAssetId",
     "atlasData":"path/asset.json",
     "atlasImage":"path/asset.png",
     "splitForEaselJS":true
 }
-</code></pre><p>A manifest item for a single image that has been split into color and alpha images that
+</code></pre>
+<p>A manifest item for a single image that has been split into color and alpha images that
 should be recombined upon loading:</p>
 <pre class="code prettyprint"><code>{
     "id":"myAssetId",
     "color":"path/asset-color.jpg",
     "alpha":"path/asset-alpha.png"
 }
-</code></pre><p>A manifest item for a TextureAtlas or spritesheet that has been split into color and
+</code></pre>
+<p>A manifest item for a TextureAtlas or spritesheet that has been split into color and
 alpha images:</p>
 <pre class="code prettyprint"><code>{
     "id":"myAssetId",
@@ -941,14 +944,15 @@ alpha images:</p>
     "color":"path/asset-color.jpg",
     "alpha":"path/asset-alpha.png"
 }
-</code></pre><p>A manifest item for a JSON that is configuration data for a BitmapMovieClip - it can be
+</code></pre>
+<p>A manifest item for a JSON that is configuration data for a BitmapMovieClip - it can be
 retrieved via AssetManager.getBitmapMovieClipConfig("myAssetId"):</p>
 <pre class="code prettyprint"><code>{
     "id":"myAssetId",
     "src":"path/asset.json",
     "bmcConfig":true
-}
-</code></pre>
+}</code></pre>
+
 </div>
 
 <div class='params'>
@@ -985,8 +989,8 @@ retrieved via AssetManager.getBitmapMovieClipConfig("myAssetId"):</p>
 
 <div class='param-description'>
 <p>An array or TaskManager to add a ListTask to for
-                                      loading. If omitted, loads immediately with an internal
-                                      TaskManager.</p>
+loading. If omitted, loads immediately with an internal
+TaskManager.</p>
 
 </div>
 
@@ -1080,7 +1084,7 @@ BitmapMovieClip textureAtlas image: &lt;assetId&gt;Sprite.png</p>
 
 <div class='param-description'>
 <p>A callback for when the BitmapMovieClip assets have finished
-                             loading.</p>
+loading.</p>
 
 </div>
 
@@ -1093,8 +1097,8 @@ BitmapMovieClip textureAtlas image: &lt;assetId&gt;Sprite.png</p>
 
 <div class='param-description'>
 <p>An array or TaskManager to add a ListTask to for
-                                      loading. If omitted, loads immediately with an internal
-                                      TaskManager.</p>
+loading. If omitted, loads immediately with an internal
+TaskManager.</p>
 
 </div>
 
@@ -1146,7 +1150,7 @@ Defined in
 </div>
 
 <div class='description'>
-<p>Pulled from EaselJS&#39;s SpriteSheetUtils.
+<p>Pulled from EaselJS's SpriteSheetUtils.
 Merges the rgb channels of one image with the alpha channel of another. This can be used to
 combine a compressed JPEG image containing color data with a PNG32 monochromatic image
 containing alpha data. With certain types of images (those with detail that lend itself to
@@ -1189,7 +1193,7 @@ This method is very fast (generally on the order of 1-2 ms to run).</p>
 
 <div class='param-description'>
 <p>If specified, this canvas will be used and returned. If not, a new
-                         canvas will be created.</p>
+canvas will be created.</p>
 
 </div>
 
@@ -1203,7 +1207,7 @@ This method is very fast (generally on the order of 1-2 ms to run).</p>
 <div class='returns-description'>
 <span class='type'>Canvas</span>:
 <p>A canvas with the combined image data. This can be used as a source for a
-                 Texture.</p>
+Texture.</p>
 
 </div>
 </div>
@@ -1256,7 +1260,7 @@ Defined in
 
 <div class='param-description'>
 <p>The collection of asset ids or single asset id. As an
-                                    array, it can be a manifest with {id:"", src:""} objects.</p>
+array, it can be a manifest with {id:"", src:""} objects.</p>
 
 </div>
 
@@ -1373,7 +1377,7 @@ Defined in
 </div>
 
 <div class="description">
-<p>Dictionary of object definitions in the &#39;lib&#39; dictionary. Each key is the name of a
+<p>Dictionary of object definitions in the 'lib' dictionary. Each key is the name of a
 definition, with the value being the id of the asset that loaded it.</p>
 
 </div>
@@ -1492,7 +1496,7 @@ Defined in
 </div>
 </div>
 </div>
-<script src='../assets/js/libraries.js?v=0.3.10'></script>
-<script src='../assets/js/main.js?v=0.3.10'></script>
+<script src='../assets/js/libraries.js?v=0.3.12'></script>
+<script src='../assets/js/main.js?v=0.3.12'></script>
 </body>
 </html>
