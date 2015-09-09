@@ -68,7 +68,8 @@
 			data.globalProperty = prop;
 			data.type = "easeljs";
 			this.load(data, callback);
-		});
+		}
+		.bind(this));
 	};
 
 	// Assign to namespace

@@ -1,4 +1,4 @@
-/*! SpringRoll 0.4.0-beta */
+/*! SpringRoll 0.4.0-beta.2 */
 /**
  * @module EaselJS Display
  * @namespace createjs
@@ -1714,7 +1714,8 @@
 			data.globalProperty = prop;
 			data.type = "easeljs";
 			this.load(data, callback);
-		});
+		}
+		.bind(this));
 	};
 
 	// Assign to namespace
