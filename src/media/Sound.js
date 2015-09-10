@@ -6,6 +6,7 @@
 (function()
 {
 	var Application = include('springroll.Application'),
+		EventDispatcher = include('springroll.EventDispatcher'),
 		Debug,
 		Loader,
 		LoadTask,
@@ -37,6 +38,8 @@
 			SoundInstance = include('springroll.SoundInstance');
 			SoundListTask = include('springroll.SoundListTask', false);
 		}
+		
+		EventDispatcher.call(this);
 
 		/**
 		*  Dictionary of sound objects, containing configuration info and playback objects.
@@ -85,9 +88,20 @@
 		*  @readOnly
 		*/
 		this.soundEnabled = true;
+		
+		/**
+		 * If sound is currently muted by the system. This will only be true on iOS until
+		 * audio has been unmuted during a touch event. Listen for the 'systemUnmuted' event
+		 * on Sound to be notified when the audio is unmuted on iOS.
+		 * @property {Boolean} systemMuted
+		 * @readOnly
+	 	 */
+		this.systemMuted = createjs.BrowserDetect.isIOS;
 	};
 
-	var p = Sound.prototype = {};
+	// Reference to the prototype
+	var s = EventDispatcher.prototype;
+	var p = extend(Sound, EventDispatcher);
 
 	var _instance = null;
 	
@@ -203,6 +217,8 @@
 	{
 		document.removeEventListener("touchstart", _playEmpty);
 		WebAudioPlugin.playEmptySound();
+		_instance.systemMuted = false;
+		_instance.trigger("systemUnmuted");
 	}
 
 	/**
