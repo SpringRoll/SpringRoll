@@ -659,22 +659,22 @@
 		//if we have a label, update that too
 		if (label)
 		{
-			data = data.label;
+			var lData = data.label;
 			//update the text properties
-			label.textBaseline = data.textBaseline || "middle"; //Middle is easy to center
-			label.stroke = data.stroke;
-			label.shadow = data.shadow;
-			label.font = data.font;
-			label.color = data.color || "#000"; //default for createjs.Text
+			label.textBaseline = lData.textBaseline || "middle"; //Middle is easy to center
+			label.stroke = lData.stroke;
+			label.shadow = lData.shadow;
+			label.font = lData.font;
+			label.color = lData.color || "#000"; //default for createjs.Text
 			//position the text
-			if (data.x == "center")
+			if (lData.x == "center")
 				label.x = (this._width - label.getMeasuredWidth()) * 0.5 + this._offset.x;
 			else
-				label.x = data.x + this._offset.x;
-			if (data.y == "center")
+				label.x = lData.x + this._offset.x;
+			if (lData.y == "center")
 				label.y = this._height * 0.5 + this._offset.y;
 			else
-				label.y = data.y + this._offset.y;
+				label.y = lData.y + this._offset.y;
 		}
 		return data;
 	};

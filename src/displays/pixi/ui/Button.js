@@ -568,44 +568,45 @@
 		//if we have a label, update that too
 		if (this.label)
 		{
-			data = data.label;
+			var lData = data.label;
+			var label = this.label;
 			//update the text style
-			if (!this._currentLabelStyle || !doObjectsMatch(this._currentLabelStyle, data.style))
+			if (!this._currentLabelStyle || !doObjectsMatch(this._currentLabelStyle, lData.style))
 			{
-				this.label.font = data.style.font;
-				this.label.align = data.style.align;
-				this._currentLabelStyle = data.style;
+				label.font = lData.style.font;
+				label.align = lData.style.align;
+				this._currentLabelStyle = label.style;
 				//make the text update so we can figure out the size for positioning
-				if (this.label instanceof Text)
-					this.label.updateText();
+				if (label instanceof Text)
+					label.updateText();
 				else
-					this.label.validate();
+					label.validate();
 			}
 			//position the text
-			if (data.x == "center")
+			if (lData.x == "center")
 			{
-				var bW = this.back.width, lW = this.label.width;
+				var bW = this.back.width, lW = label.width;
 				switch(this._currentLabelStyle.align)
 				{
 					case "center":
-						this.label.position.x = bW * 0.5;
+						label.position.x = bW * 0.5;
 						break;
 					case "right":
-						this.label.position.x = bW - (bW - lW) * 0.5;
+						label.position.x = bW - (bW - lW) * 0.5;
 						break;
 					default://left or null (defaults to left)
-						this.label.position.x = (bW - lW) * 0.5;
+						label.position.x = (bW - lW) * 0.5;
 						break;
 				}
 			}
 			else
-				this.label.position.x = data.x + this._offset.x;
-			if (data.y == "center")
+				label.position.x = lData.x + this._offset.x;
+			if (lData.y == "center")
 			{
-				this.label.position.y = (this.back.height - this.label.height) * 0.5;
+				label.position.y = (this.back.height - label.height) * 0.5;
 			}
 			else
-				this.label.position.y = data.y + this._offset.y;
+				label.position.y = lData.y + this._offset.y;
 		}
 		return data;
 	};
