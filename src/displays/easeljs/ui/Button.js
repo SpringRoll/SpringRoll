@@ -611,6 +611,8 @@
 	 * Updates back based on the current button state.
 	 * @private
 	 * @method _updateState
+	 * @return {Object} The state data for the active button state, so that subclasses can use the
+	 *                  value picked by this function without needing to calculate it themselves.
 	 */
 	p._updateState = function()
 	{
@@ -673,6 +675,7 @@
 			else
 				label.y = data.y + this._offset.y;
 		}
+		return data;
 	};
 
 	/**
