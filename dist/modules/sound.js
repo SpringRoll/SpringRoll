@@ -1,4 +1,4 @@
-/*! SpringRoll 0.4.0-beta.2 */
+/*! SpringRoll 0.4.0-beta.3 */
 /**
  * @module Sound
  * @namespace springroll
@@ -615,6 +615,7 @@
 	{
 		document.removeEventListener("touchstart", _playEmpty);
 		WebAudioPlugin.playEmptySound();
+		_instance.systemMuted = false;
 		_instance.trigger("systemUnmuted");
 	}
 

@@ -216,6 +216,7 @@
 	{
 		document.removeEventListener("touchstart", _playEmpty);
 		WebAudioPlugin.playEmptySound();
+		_instance.systemMuted = false;
 		_instance.trigger("systemUnmuted");
 	}
 
