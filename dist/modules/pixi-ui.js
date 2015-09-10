@@ -12,7 +12,8 @@
 		Point = include('PIXI.Point'),
 		Sprite = include('PIXI.Sprite'),
 		BitmapText = include('PIXI.extras.BitmapText', false),
-		Text = include('PIXI.Text');
+		Text = include('PIXI.Text'),
+		Texture = include('PIXI.Texture');
 
 	/**
 	 * A Multipurpose button class. It is designed to have one image, and an optional text label.
@@ -35,7 +36,9 @@
 	 * @param {Object|PIXI.Texture} [imageSettings.up] The texture for the up state of the button.
 	 *                                                 This can be either the texture itself, or an
 	 *                                                 object with 'tex' and 'label' properties.
-	 * @param {PIXI.Texture} [imageSettings.up.tex] The sourceRect for the state within the image.
+	 * @param {PIXI.Texture|String} [imageSettings.up.tex] The texture to use for the up state. If
+	 *                                                     this is a string, Texture.fromImage()
+	 *                                                     will be used.
 	 * @param {Object} [imageSettings.up.label=null] Label information specific to this state.
 	 *                                               Properties on this parameter override data in
 	 *                                               the label parameter for this button state
@@ -44,8 +47,9 @@
 	 * @param {Object|PIXI.Texture} [imageSettings.over=null] The texture for the over state of the
 	 *                                                        button. If omitted, uses the up
 	 *                                                        state.
-	 * @param {PIXI.Texture} [imageSettings.over.tex] The sourceRect for the state within the
-	 *                                                image.
+	 * @param {PIXI.Texture|String} [imageSettings.over.tex] The texture to use for the over state.
+	 *                                                       If this is a string,
+	 *                                                       Texture.fromImage() will be used.
 	 * @param {Object} [imageSettings.over.label=null] Label information specific to this state.
 	 *                                                 Properties on this parameter override data
 	 *                                                 in the label parameter for this button state
@@ -54,8 +58,9 @@
 	 * @param {Object|PIXI.Texture} [imageSettings.down=null] The texture for the down state of the
 	 *                                                        button. If omitted, uses the up
 	 *                                                        state.
-	 * @param {PIXI.Texture} [imageSettings.down.tex] The sourceRect for the state within the
-	 *                                                image.
+	 * @param {PIXI.Texture|String} [imageSettings.down.tex] The texture to use for the down state.
+	 *                                                       If this is a string,
+	 *                                                       Texture.fromImage() will be used.
 	 * @param {Object} [imageSettings.down.label=null] Label information specific to this state.
 	 *                                                 Properties on this parameter override data
 	 *                                                 in the label parameter for this button state
@@ -64,8 +69,9 @@
 	 * @param {Object|PIXI.Texture} [imageSettings.disabled=null] The texture for the disabled
 	 *                                                            state of the button. If omitted,
 	 *                                                            uses the up state.
-	 * @param {PIXI.Texture} [imageSettings.disabled.tex] The sourceRect for the state within
-	 *                                                    the image.
+	 * @param {PIXI.Texture|String} [imageSettings.disabled.tex] The texture to use for the disabled
+	 *                                                           state. If this is a string,
+	 *                                                           Texture.fromImage() will be used.
 	 * @param {Object} [imageSettings.disabled.label=null] Label information specific to this
 	 *                                                     state. Properties on this parameter
 	 *                                                     override data in the label parameter for
@@ -85,8 +91,11 @@
 	 *                                                                     moved to this system are
 	 *                                                                     "selected" and
 	 *                                                                     "highlighted".
-	 * @param {PIXI.Texture} [imageSettings.<yourCustomState>.tex] The texture for the custom
-	 *                                                             state.
+	 * @param {PIXI.Texture|String} [imageSettings.<yourCustomState>.tex] The texture to use for
+	 *                                                                    your custom state. If
+	 *                                                                    this is a string,
+	 *                                                                    Texture.fromImage()
+	 *                                                                    will be used.
 	 * @param {Object} [imageSettings.<yourCustomState>.label=null] Label information specific to
 	 *                                                              this state. Properties on this
 	 *                                                              parameter override data in the
@@ -256,6 +265,8 @@
 					_stateData[state] = {tex: inputData.tex};
 				else
 					_stateData[state] = {tex: inputData};
+				if(typeof _stateData[state].tex == "string")
+					_stateData[state].tex = Texture.fromImage(_stateData[state].tex);
 			}
 			else
 			{
@@ -534,6 +545,8 @@
 	 * Updates back based on the current button state.
 	 * @private
 	 * @method _updateState
+	 * @return {Object} The state data for the active button state, so that subclasses can use the
+	 *                  value picked by this function without needing to calculate it themselves.
 	 */
 	p._updateState = function()
 	{
@@ -556,45 +569,47 @@
 		//if we have a label, update that too
 		if (this.label)
 		{
-			data = data.label;
+			var lData = data.label;
+			var label = this.label;
 			//update the text style
-			if (!this._currentLabelStyle || !doObjectsMatch(this._currentLabelStyle, data.style))
+			if (!this._currentLabelStyle || !doObjectsMatch(this._currentLabelStyle, lData.style))
 			{
-				this.label.font = data.style.font;
-				this.label.align = data.style.align;
-				this._currentLabelStyle = data.style;
+				label.font = lData.style.font;
+				label.align = lData.style.align;
+				this._currentLabelStyle = lData.style;
 				//make the text update so we can figure out the size for positioning
-				if (this.label instanceof Text)
-					this.label.updateText();
+				if (label instanceof Text)
+					label.updateText();
 				else
-					this.label.validate();
+					label.validate();
 			}
 			//position the text
-			if (data.x == "center")
+			if (lData.x == "center")
 			{
-				var bW = this.back.width, lW = this.label.width;
+				var bW = this.back.width, lW = label.width;
 				switch(this._currentLabelStyle.align)
 				{
 					case "center":
-						this.label.position.x = bW * 0.5;
+						label.position.x = bW * 0.5;
 						break;
 					case "right":
-						this.label.position.x = bW - (bW - lW) * 0.5;
+						label.position.x = bW - (bW - lW) * 0.5;
 						break;
 					default://left or null (defaults to left)
-						this.label.position.x = (bW - lW) * 0.5;
+						label.position.x = (bW - lW) * 0.5;
 						break;
 				}
 			}
 			else
-				this.label.position.x = data.x + this._offset.x;
-			if (data.y == "center")
+				label.position.x = lData.x + this._offset.x;
+			if (lData.y == "center")
 			{
-				this.label.position.y = (this.back.height - this.label.height) * 0.5;
+				label.position.y = (this.back.height - label.height) * 0.5;
 			}
 			else
-				this.label.position.y = data.y + this._offset.y;
+				label.position.y = lData.y + this._offset.y;
 		}
+		return data;
 	};
 
 	/*
