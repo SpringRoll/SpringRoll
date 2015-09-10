@@ -576,7 +576,7 @@
 			{
 				label.font = lData.style.font;
 				label.align = lData.style.align;
-				this._currentLabelStyle = label.style;
+				this._currentLabelStyle = lData.style;
 				//make the text update so we can figure out the size for positioning
 				if (label instanceof Text)
 					label.updateText();
