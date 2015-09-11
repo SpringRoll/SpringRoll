@@ -100,29 +100,49 @@
 		 * @property {Number} origScaleX
 		 * @default 0
 		 */
-		this.origScaleX = scale.x || 1;
+		var origScaleX = this.origScaleX = scale.x || 1;
 
 		/**
 		 * The original Y scale of the item
 		 * @property {Number} origScaleY
 		 * @default 0
 		 */
-		this.origScaleY = scale.y || 1;
+		var origScaleY = this.origScaleY = scale.y || 1;
 
 		/**
-		 * Original width in pixels
-		 * @property {Number} origWidth
-		 * @default 0
-		 */
-		this.origWidth = display.width || 0;
-
-		/**
-		 * The original bounds of the item with x, y, right, bottom, width, 
-		 * height properties. Used to determine the distance to each edge of
-		 * the item from its origin
+		 * The original bounds of the item with x, y, right, bottom, width,
+		 * height properties. This is converted from local bounds to scaled bounds.
 		 * @property {Object} origBounds
 		 */
 		this.origBounds = adapter.getLocalBounds(display);
+		//convert bounds to something more usable
+		var temp, bounds = this.origBounds;
+		if(this.origScaleX < 0)
+		{
+			temp = bounds.x;
+			bounds.x = bounds.right * origScaleX;
+			bounds.right = temp * origScaleX;
+			bounds.width *= Math.abs(origScaleX);
+		}
+		else
+		{
+			bounds.x *= origScaleX;
+			bounds.right *= origScaleX;
+			bounds.width *= origScaleX;
+		}
+		if(this.origScaleY < 0)
+		{
+			temp = bounds.y;
+			bounds.y = bounds.bottom * origScaleY;
+			bounds.bottom = temp * origScaleY;
+			bounds.height *= Math.abs(origScaleY);
+		}
+		else
+		{
+			bounds.y *= origScaleY;
+			bounds.bottom *= origScaleY;
+			bounds.height *= origScaleY;
+		}
 
 		/**
 		 * Original horizontal margin in pixels
@@ -142,7 +162,7 @@
 		{
 			case ScaleManager.ALIGN_TOP:
 			{
-				this.origMarginVert = position.y + this.origBounds.y * scale.y;
+				this.origMarginVert = position.y + this.origBounds.y;
 				break;
 			}
 			case ScaleManager.ALIGN_CENTER:
@@ -152,7 +172,7 @@
 			}
 			case ScaleManager.ALIGN_BOTTOM:
 			{
-				this.origMarginVert = size.height - (position.y + this.origBounds.bottom * scale.y);
+				this.origMarginVert = size.height - (position.y + this.origBounds.bottom);
 				break;
 			}
 		}
@@ -161,7 +181,7 @@
 		{
 			case ScaleManager.ALIGN_LEFT:
 			{
-				this.origMarginHori = position.x + this.origBounds.x * scale.x;
+				this.origMarginHori = position.x + this.origBounds.x;
 				break;
 			}
 			case ScaleManager.ALIGN_CENTER:
@@ -171,7 +191,7 @@
 			}
 			case ScaleManager.ALIGN_RIGHT:
 			{
-				this.origMarginHori = size.width - (position.x + this.origBounds.right * scale.x);
+				this.origMarginHori = size.width - (position.x + this.origBounds.right);
 				break;
 			}
 		}
@@ -264,11 +284,11 @@
 			{
 				if (titleSafe)
 				{
-					y = letterBoxHeight + m - origBounds.y * origScaleY * itemScale;
+					y = letterBoxHeight + m - origBounds.y * itemScale;
 				}
 				else
 				{
-					y = m - origBounds.y * origScaleY * itemScale;
+					y = m - origBounds.y * itemScale;
 				}
 				break;
 			}
@@ -281,12 +301,11 @@
 			{
 				if (titleSafe)
 				{
-					y = displayHeight - letterBoxHeight - m -
-						origBounds.bottom * origScaleY * itemScale;
+					y = displayHeight - letterBoxHeight - m - origBounds.bottom * itemScale;
 				}
 				else
 				{
-					y = displayHeight - m - origBounds.bottom * origScaleY * itemScale;
+					y = displayHeight - m - origBounds.bottom * itemScale;
 				}
 				break;
 			}
@@ -310,11 +329,11 @@
 			{
 				if (titleSafe)
 				{
-					x = letterBoxWidth + m - origBounds.x * origScaleX * itemScale;
+					x = letterBoxWidth + m - origBounds.x * itemScale;
 				}
 				else
 				{
-					x = m - origBounds.x * origScaleX * itemScale;
+					x = m - origBounds.x * itemScale;
 				}
 				break;
 			}
@@ -334,12 +353,11 @@
 			{
 				if (titleSafe)
 				{
-					x = displayWidth - letterBoxWidth - m -
-						origBounds.right * origScaleX * itemScale;
+					x = displayWidth - letterBoxWidth - m - origBounds.right * itemScale;
 				}
 				else
 				{
-					x = displayWidth - m - origBounds.right * origScaleX * itemScale;
+					x = displayWidth - m - origBounds.right * itemScale;
 				}
 				break;
 			}

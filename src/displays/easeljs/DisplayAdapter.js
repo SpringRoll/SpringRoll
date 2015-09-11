@@ -85,7 +85,7 @@
 	 */
 	DisplayAdapter.getLocalBounds = function(object)
 	{
-		var bounds;
+		var bounds, temp;
 		if (object.nominalBounds)
 		{
 			// Start by using nominal bounds, if it was exported from Flash, since it
@@ -97,8 +97,8 @@
 			// Next check for a width and height that someone might have set up,
 			// like our Button class has. This also needs to take into account
 			// the registration point, as that affects the positioning of the art
-			var actW = object.width / object.scaleX;
-			var actH = object.height / object.scaleY;
+			var actW = object.width / Math.abs(object.scaleX);
+			var actH = object.height / Math.abs(object.scaleY);
 			bounds = new createjs.Rectangle(-object.regX, -object.regY, actW, actH);
 		}
 		else
@@ -115,7 +115,7 @@
 			}
 			if (!bounds)
 			{
-				// Make sure we actually got a rectangle, if getLocalBounds 
+				// Make sure we actually got a rectangle, if getLocalBounds
 				// failed for some reason
 				bounds = new createjs.Rectangle();
 			}
@@ -179,7 +179,7 @@
 	 * @static
 	 * @param {createjs.DisplayObject} object The createjs display object
 	 * @param {String} [direction] Either "x" or "y", default is an object of both
-	 * @return {Object|Number} The position as an object with x and y keys if 
+	 * @return {Object|Number} The position as an object with x and y keys if
 	 * no direction value is set, or the value of the specific direction
 	 */
 	DisplayAdapter.getPosition = function(object, direction)
@@ -225,7 +225,7 @@
 	 * @param {object|Number} pivot The object pivot point or the value if the direction is set
 	 * @param {Number} [pivot.x] The x position of the pivot point
 	 * @param {Number} [pivot.y] The y position of the pivot point
-	 * @param {String} [direction] Either "x" or "y" the value for specific direction, 
+	 * @param {String} [direction] Either "x" or "y" the value for specific direction,
 	 * default will set using the object.
 	 * @return {createjs.DisplayObject} Return the object for chaining
 	 */
