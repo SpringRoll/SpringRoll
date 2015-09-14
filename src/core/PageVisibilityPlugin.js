@@ -16,7 +16,7 @@
 	{
 		/**
 		 * Handles the page visiblity changes automatically
-		 * to pause and unpause the application
+		 * to pause and resume the application
 		 * @property {springroll.PageVisibility} _visibility
 		 * @private
 		 */

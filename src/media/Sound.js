@@ -937,12 +937,12 @@
 
 	/**
 	 * Pauses a specific sound.
-	 * @method pauseSound
+	 * @method pause
 	 * @public
 	 * @param {String} alias The alias of the sound to pause.
 	 * 	Internally, this can also be the object from the _sounds dictionary directly.
  	 */
-	p.pauseSound = function(sound)
+	p.pause = function(sound)
 	{
 		if (isString(sound))
 			sound = this._sounds[sound];
@@ -957,22 +957,22 @@
 
 	/**
 	 * Unpauses a specific sound.
-	 * @method unpauseSound
+	 * @method resume
 	 * @public
 	 * @param {String} alias The alias of the sound to pause.
 	 * 	Internally, this can also be the object from the _sounds dictionary directly.
  	 */
-	p.unpauseSound = function(sound)
+	p.resume = function(sound)
 	{
 		if (isString(sound))
 			sound = this._sounds[sound];
 		var arr = sound.playing;
 		var i;
 		for (i = arr.length - 1; i >= 0; --i)
-			arr[i].unpause();
+			arr[i].resume();
 		arr = sound.waitingToPlay;
 		for (i = arr.length - 1; i >= 0; --i)
-			arr[i].unpause();
+			arr[i].resume();
 	};
 
 	/**
@@ -984,19 +984,19 @@
 	{
 		var arr = this._sounds;
 		for (var i in arr)
-			this.pauseSound(arr[i]);
+			this.pause(arr[i]);
 	};
 
 	/**
 	 * Unpauses all sounds.
-	 * @method unpauseAll
+	 * @method resumeAll
 	 * @public
  	 */
-	p.unpauseAll = function()
+	p.resumeAll = function()
 	{
 		var arr = this._sounds;
 		for (var i in arr)
-			this.unpauseSound(arr[i]);
+			this.resume(arr[i]);
 	};
 
 	/**

@@ -191,7 +191,7 @@
 					},
 					resumed : function()
 					{
-						sound.unpauseAll();
+						sound.resumeAll();
 					}
 				});
 

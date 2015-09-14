@@ -1,4 +1,4 @@
-/*! SpringRoll 0.4.0-beta.3 */
+/*! SpringRoll 0.4.0-beta.5 */
 /**
  * @module Sound
  * @namespace springroll
@@ -168,7 +168,7 @@
 
 		/**
 		 * If the sound is currently paused. Setting this has no effect - use pause()
-		 * and unpause().
+		 * and resume().
 		 * @property {Boolean} paused
 		 * @public
 		 * @readOnly
@@ -296,10 +296,10 @@
 
 	/**
 	 * Unpauses this SoundInstance.
-	 * @method unpause
+	 * @method resume
 	 * @public
 	 */
-	p.unpause = function()
+	p.resume = function()
 	{
 		if(!this.paused) return;
 		this.paused = false;
@@ -1336,12 +1336,12 @@
 
 	/**
 	 * Pauses a specific sound.
-	 * @method pauseSound
+	 * @method pause
 	 * @public
 	 * @param {String} alias The alias of the sound to pause.
 	 * 	Internally, this can also be the object from the _sounds dictionary directly.
  	 */
-	p.pauseSound = function(sound)
+	p.pause = function(sound)
 	{
 		if (isString(sound))
 			sound = this._sounds[sound];
@@ -1356,22 +1356,22 @@
 
 	/**
 	 * Unpauses a specific sound.
-	 * @method unpauseSound
+	 * @method resume
 	 * @public
 	 * @param {String} alias The alias of the sound to pause.
 	 * 	Internally, this can also be the object from the _sounds dictionary directly.
  	 */
-	p.unpauseSound = function(sound)
+	p.resume = function(sound)
 	{
 		if (isString(sound))
 			sound = this._sounds[sound];
 		var arr = sound.playing;
 		var i;
 		for (i = arr.length - 1; i >= 0; --i)
-			arr[i].unpause();
+			arr[i].resume();
 		arr = sound.waitingToPlay;
 		for (i = arr.length - 1; i >= 0; --i)
-			arr[i].unpause();
+			arr[i].resume();
 	};
 
 	/**
@@ -1383,19 +1383,19 @@
 	{
 		var arr = this._sounds;
 		for (var i in arr)
-			this.pauseSound(arr[i]);
+			this.pause(arr[i]);
 	};
 
 	/**
 	 * Unpauses all sounds.
-	 * @method unpauseAll
+	 * @method resumeAll
 	 * @public
  	 */
-	p.unpauseAll = function()
+	p.resumeAll = function()
 	{
 		var arr = this._sounds;
 		for (var i in arr)
-			this.unpauseSound(arr[i]);
+			this.resume(arr[i]);
 	};
 
 	/**
@@ -2296,7 +2296,7 @@
 					},
 					resumed : function()
 					{
-						sound.unpauseAll();
+						sound.resumeAll();
 					}
 				});
 
@@ -2331,6 +2331,7 @@
 (function()
 {
 	var Sound = include('springroll.Sound');
+	var SoundInstance = include('springroll.SoundInstance');
 
 	// Reference to prototype
 	var p = Sound.prototype;
@@ -2338,8 +2339,8 @@
 	/**
 	 * @class Sound
 	 */
- 	/**
- 	 * Add a configuration to the load, see {{#crossLink "springroll.Sound/addContext:method"}}{{/crossLink}}
+	/**
+	 * Add a configuration to the load, see {{#crossLink "springroll.Sound/addContext:method"}}{{/crossLink}}
 	 * @method loadConfig
 	 * @deprecated since version 0.3.0
 	 * @param {Object} config The configuration
@@ -2362,6 +2363,61 @@
 	{
 		if (true) console.warn("preloadSound is now deprecated, please use preload method, e.g. : app.sound.preload(alias, callback);");
 		this.preload(alias, callback);
+	};
+
+	/**
+	 * Unpauses all sounds, see {{#crossLink "springroll.Sound/resumeAll:method"}}{{/crossLink}}
+	 * @method unpauseAll
+	 * @deprecated since version 0.4.0
+	 * @public
+	 */
+	p.unpauseAll = function()
+	{
+		if (true) console.warn("unpauseAll is now deprecated, please use resumeAll method, e.g. : app.sound.resumeAll();");
+		this.resumeAll();
+	};
+
+	/**
+	 * Unpauses a specific sound, see {{#crossLink "springroll.Sound/resume:method"}}{{/crossLink}}
+	 * @method unpauseSound
+	 * @deprecated since version 0.4.0
+	 * @public
+	 * @param {String} alias The alias of the sound to resume.
+	 */
+	p.unpauseSound = function(alias)
+	{
+		if (true) console.warn("unpauseSound is now deprecated, please use resume method, e.g. : app.sound.resume(alias);");
+		this.resume(alias);
+	};
+
+	/**
+	 * Unpauses a specific sound, see {{#crossLink "springroll.Sound/pause:method"}}{{/crossLink}}
+	 * @method pauseSound
+	 * @deprecated since version 0.4.0
+	 * @public
+	 * @param {String} alias The alias of the sound to pause.
+	 */
+	p.pauseSound = function(alias)
+	{
+		if (true) console.warn("pauseSound is now deprecated, please use pause method, e.g. : app.sound.pause(alias);");
+		this.resume(alias);
+	};
+
+	/**
+	 * @class SoundInstance
+	 */
+	p = SoundInstance.prototype;
+
+	/**
+	 * Unpauses this SoundInstance, see {{#crossLink "springroll.SoundInstance/resume:method"}}{{/crossLink}}
+	 * @method unpause
+	 * @deprecated since version 0.4.0
+	 * @public
+	 */
+	p.unpause = function()
+	{
+		if (true) console.warn("unpause is now deprecated, please use resume method, e.g. : soundInst.resume();");
+		this.resume();
 	};
 
 }());

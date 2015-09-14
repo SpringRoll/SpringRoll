@@ -1,4 +1,4 @@
-/*! SpringRoll 0.4.0-beta.3 */
+/*! SpringRoll 0.4.0-beta.5 */
 /**
  * @module Animation
  * @namespace springroll
@@ -293,7 +293,7 @@
 				}
 				else
 				{
-					sound.unpause();
+					sound.resume();
 				}
 			}
 		}

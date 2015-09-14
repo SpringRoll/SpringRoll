@@ -118,7 +118,7 @@
 
 		/**
 		 * If the sound is currently paused. Setting this has no effect - use pause()
-		 * and unpause().
+		 * and resume().
 		 * @property {Boolean} paused
 		 * @public
 		 * @readOnly
@@ -246,10 +246,10 @@
 
 	/**
 	 * Unpauses this SoundInstance.
-	 * @method unpause
+	 * @method resume
 	 * @public
 	 */
-	p.unpause = function()
+	p.resume = function()
 	{
 		if(!this.paused) return;
 		this.paused = false;

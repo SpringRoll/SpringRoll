@@ -1,4 +1,4 @@
-/*! SpringRoll 0.4.0-beta.3 */
+/*! SpringRoll 0.4.0-beta.5 */
 /**
  * @module Core
  * @namespace window
@@ -638,8 +638,8 @@
 		
 	/**
 	 * Handle the page visiblity change, if supported. Application uses one of these to
-	 * monitor page visibility. It is suggested that you listen to "pause", "paused",
-	 * or "unpaused" events on the application instead of using one of these yourself.
+	 * monitor page visibility. It is suggested that you listen to `pause`, `paused`,
+	 * or `resumed` events on the Application instead of using one of these yourself.
 	 *
 	 * @class PageVisibility
 	 * @constructor

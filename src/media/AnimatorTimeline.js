@@ -292,7 +292,7 @@
 				}
 				else
 				{
-					sound.unpause();
+					sound.resume();
 				}
 			}
 		}
