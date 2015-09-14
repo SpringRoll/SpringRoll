@@ -75,7 +75,7 @@
 	p.pauseSound = function(alias)
 	{
 		if (DEBUG) console.warn("pauseSound is now deprecated, please use pause method, e.g. : app.sound.pause(alias);");
-		this.resume(alias);
+		this.pause(alias);
 	};
 
 	/**
