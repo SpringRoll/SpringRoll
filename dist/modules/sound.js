@@ -611,8 +611,9 @@
 	 * @private
 	 * @method _playEmpty
  	 */
-	function _playEmpty()
+	function _playEmpty(ev)
 	{
+		ev.preventDefault();
 		document.removeEventListener("touchstart", _playEmpty);
 		WebAudioPlugin.playEmptySound();
 		_instance.systemMuted = false;
