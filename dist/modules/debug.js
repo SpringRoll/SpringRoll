@@ -488,6 +488,12 @@
 			}
 			//find the line number/column in the combined file string
 			lineSearch = lineLocationFinder.exec(file);
+			//handle browsers not providing proper information (like iOS)
+			if(!lineSearch)
+			{
+				stack[i] = {"function":"", "file":"", lineLocation:""};
+				continue;
+			}
 			//split the file and line number/column from each other
 			file = file.substring(0, lineSearch.index);
 			lineLocation = lineSearch[0].substring(1);
