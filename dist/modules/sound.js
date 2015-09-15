@@ -588,8 +588,11 @@
 	*  @private
 	*  @method _playEmpty
 	*/
-	function _playEmpty()
+	function _playEmpty(ev)
 	{
+		//prevent iOS from making mouse events too
+		ev.preventDefault();
+		
 		document.removeEventListener("touchstart", _playEmpty);
 		WebAudioPlugin.playEmptySound();
 		_instance.systemMuted = false;
