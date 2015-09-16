@@ -18,6 +18,7 @@
 	 * @param {Boolean} [asset.cache=false] If we should cache the result
 	 * @param {String} [asset.id] Id of asset
 	 * @param {Function} [asset.complete=null] The event to call when done
+	 * @param {Function} [asset.progress=null] The event to call when progress is updated
 	 */
 	var ListTask = function(asset)
 	{
@@ -34,6 +35,12 @@
 		 * @property {Boolean} cacheAll
 		 */
 		this.cacheAll = asset.cacheAll;
+
+		/**
+		 * Callback when progress is updated
+		 * @property {Function} progress
+		 */
+		this.progress = asset.progress;
 	};
 
 	// Reference to prototype
@@ -59,7 +66,8 @@
 	p.start = function(callback)
 	{
 		this.load(this.assets, {
-			complete:callback, 
+			complete: callback,
+			progress: this.progress,
 			cacheAll: this.cacheAll
 		});
 	};

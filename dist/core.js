@@ -2243,8 +2243,8 @@
 
 }());
 /**
-  * @module Core
-  * @namespace springroll
+ * @module Core
+ * @namespace springroll
  */
 (function(undefined)
 {
@@ -2304,6 +2304,13 @@
 		 * @property {Function} init
 		 */
 		this.init = init || null;
+
+		/**
+		 * The preload progress
+		 * @property {springroll.AssetLoad} pluginLoad
+		 * @protected
+		 */
+		this.pluginLoad = null;
 
 		// Reset the displays
 		_displaysMap = {};
@@ -2418,6 +2425,11 @@
 	 * Fired when initialization of the application is ready
 	 * @event init
 	 */
+
+	/**
+	 * The handler for the plugin progress
+	 * @event pluginProgress
+	 */
 	
 	/**
 	 * Fired when initialization of the application is done
@@ -2529,10 +2541,26 @@
 		});
 
 		// Run the asyncronous tasks in series
-		this.load(tasks, {
+		this.pluginLoad = this.load(tasks, {
 			complete: this._doInit.bind(this), 
+			progress: onPluginProgress.bind(this),
+			autoStart: false,
 			startAll: false
 		});
+
+		// Manually start load
+		this.pluginLoad.start();
+	};
+
+	/**
+	 * Progress handler for the plugin load
+	 * @method onPluginProgress
+	 * @private
+	 * @param {Number} progress Plugins preloaded amount from 0 - 1
+	 */
+	var onPluginProgress = function(progress)
+	{
+		this.trigger('pluginProgress', progress);
 	};
 
 	/**
@@ -2543,6 +2571,8 @@
 	p._doInit = function()
 	{
 		if (this.destroyed) return;
+
+		this.pluginLoad = null;
 
 		this.trigger('beforeInit');
 
@@ -4242,6 +4272,7 @@
 	 * @param {Boolean} [asset.cache=false] If we should cache the result
 	 * @param {String} [asset.id] Id of asset
 	 * @param {Function} [asset.complete=null] The event to call when done
+	 * @param {Function} [asset.progress=null] The event to call when progress is updated
 	 */
 	var ListTask = function(asset)
 	{
@@ -4258,6 +4289,12 @@
 		 * @property {Boolean} cacheAll
 		 */
 		this.cacheAll = asset.cacheAll;
+
+		/**
+		 * Callback when progress is updated
+		 * @property {Function} progress
+		 */
+		this.progress = asset.progress;
 	};
 
 	// Reference to prototype
@@ -4283,7 +4320,8 @@
 	p.start = function(callback)
 	{
 		this.load(this.assets, {
-			complete:callback, 
+			complete: callback,
+			progress: this.progress,
 			cacheAll: this.cacheAll
 		});
 	};
@@ -5328,17 +5366,21 @@
 (function(undefined)
 {
 	var Debug,
-		Task = include('springroll.Task');
+		Task = include('springroll.Task'),
+		EventDispatcher = include('springroll.EventDispatcher');
 
 	/**
 	 * Class that represents a single multi load
 	 * @class AssetLoad
-	 * @constructor
 	 * @private
+	 * @extends springroll.EventDispatcher
+	 * @constructor
 	 * @param {springroll.AssetManager} manager Reference to the manager
 	 */
 	var AssetLoad = function(manager)
 	{
+		EventDispatcher.call(this);
+
 		if (true)
 		{
 			Debug = include('springroll.Debug', false);
@@ -5354,13 +5396,6 @@
 		{
 			this.id = AssetLoad.ID++;
 		}
-
-		/**
-		 * Handler when completed with all tasks
-		 * @property {function} complete
-		 * @default  null
-		 */
-		this.complete = null;
 
 		/**
 		 * How to display the results, either as single (0), map (1) or list (2)
@@ -5403,6 +5438,20 @@
 		this.running = false;
 
 		/**
+		 * The total number of assets loaded 
+		 * @property {int} numLoaded
+		 * @default 0
+		 */
+		this.numLoaded = 0;
+
+		/**
+		 * The total number of assets 
+		 * @property {int} total
+		 * @default 0
+		 */
+		this.total = 0;
+
+		/**
 		 * The default asset type if not defined
 		 * @property {String} type
 		 * @default null
@@ -5411,7 +5460,27 @@
 	};
 
 	// Reference to prototype
-	var p = AssetLoad.prototype;
+	var p = extend(AssetLoad, EventDispatcher);
+
+	/**
+	 * When an asset is finished
+	 * @event taskDone
+	 * @param {*} result The loader result
+	 * @param {Object} originalAsset The original load asset
+	 * @param {Array} assets Collection to add additional assets to
+	 */
+
+	/**
+	 * When all assets have been completed loaded
+	 * @event complete
+	 * @param {Array|Object} results The results of load
+	 */
+
+	/**
+	 * Check how many assets have finished loaded
+	 * @event progress
+	 * @param {Number} percentage The amount loaded from 0 to 1
+	 */
 
 	if (true)
 	{
@@ -5435,23 +5504,17 @@
 
 	/**
 	 * Initialize the Load 
-	 * @method start
+	 * @method setup
 	 * @param {Object|Array} assets The collection of assets to load
 	 * @param {Object} [options] The loading options
-	 * @param {Function} [options.complete=null] Function call when done, returns results
-	 * @param {Function} [options.progress=null] Function call when task is done, returns result
 	 * @param {Boolean} [options.startAll=true] If we should run the tasks in order
+	 * @param {Boolean} [options.autoStart=true] Automatically start running
 	 * @param {Boolean} [options.cacheAll=false] If we should run the tasks in order
 	 * @param {String} [options.type] The default asset type of load, gets attached to each asset
 	 */
-	p.start = function(assets, options)
+	p.setup = function(assets, options)
 	{
-		// Keep track if we're currently running
-		this.running = true;
-
 		// Save options to load
-		this.complete = options.complete;
-		this.progress = options.progress;
 		this.startAll = options.startAll;
 		this.cacheAll = options.cacheAll;
 		this.type = options.type;
@@ -5463,6 +5526,23 @@
 		this.results = getAssetsContainer(this.mode);
 		
 		// Start running
+		if (options.autoStart)
+		{
+			this.start();
+		}
+	};
+
+	/**
+	 * Start the load process
+	 * @method start
+	 */
+	p.start = function()
+	{
+		// Empty load percentage
+		this.trigger('progress', 0);
+
+		// Keep track if we're currently running
+		this.running = true;
 		this.nextTask();
 	};
 
@@ -5478,11 +5558,11 @@
 			task.status = Task.FINISHED;
 			task.destroy();
 		});
+		this.total = 0;
+		this.numLoaded = 0;
 		this.mode = MAP_MODE;
 		this.tasks.length = 0;
 		this.results = null;
-		this.complete = null;
-		this.progress = null;
 		this.type = null;
 		this.startAll = true;
 		this.cacheAll = false;
@@ -5526,16 +5606,7 @@
 	 * @param  {Object|Array} assets The assets to load
 	 */
 	p.addTasks = function(assets)
-	{
-		if (!this.running)
-		{
-			if (true && Debug)
-			{
-				Debug.warn("AssetLoad is already destroyed");
-			}
-			return;
-		}
-		
+	{		
 		var asset;
 		var mode = MAP_MODE;
 
@@ -5634,6 +5705,7 @@
 			}
 			task = new TaskClass(asset);
 			this.tasks.push(task);
+			++this.total;
 		}
 		else if (true && Debug)
 		{
@@ -5745,14 +5817,17 @@
 		{
 			task.complete(result, task.original, assets);
 		}
-		if (this.progress)
-		{
-			this.progress(result, task.original, assets);
-		}
+
+		// Asset is finished
+		this.trigger('taskDone', result, task.original, assets);
+
 		task.destroy();
 
 		// Add new assets to the things to load
 		var mode = this.addTasks(assets);
+
+		// Update the progress total
+		this.trigger('progress', ++this.numLoaded / this.total);
 
 		// Check to make sure if we're in 
 		// map mode, we keep it that way
@@ -5777,10 +5852,7 @@
 		else
 		{
 			// We're finished!
-			if (this.complete)
-			{
-				this.complete(this.results);
-			}
+			this.trigger('complete', this.results);
 		}
 	};
 
@@ -5807,6 +5879,7 @@
 	 */
 	p.destroy = function()
 	{
+		EventDispatcher.prototype.destroy.call(this);
 		this.reset();
 		this.tasks = null;
 		this.manager = null;
@@ -5961,7 +6034,9 @@
 	 * @param {Object|Array} asset The assets to load
 	 * @param {Object} [options] The loading options
 	 * @param {function} [options.complete] The function when finished
-	 * @param {function} [options.progress] The function when finished a single task
+	 * @param {function} [options.progress] The function when loading percentage is updated
+	 * @param {function} [options.taskDone] The function when finished a single task
+	 * @param {Boolean} [options.autoStart=true] If we should start running right away
 	 * @param {Boolean} [options.startAll=true] If we should run all the tasks at once, in parallel
 	 * @param {Boolean} [options.cacheAll=false] If we should cache all files
 	 * @param {String} [options.type] The type of assets to load, defaults to AssetManager.prototype.defaultType
@@ -5973,8 +6048,10 @@
 		options = Object.merge({
 			complete: null,
 			progress: null,
+			taskDone: null,
 			cacheAll: false,
 			startAll: true,
+			autoStart: true,
 			type: this.defaultType
 		}, options);
 
@@ -5991,8 +6068,21 @@
 			load
 		);
 
+		// Handle the finish
+		load.once('complete', options.complete);
+		
+		// Optional loaded amount event
+		if (options.progress)
+			load.on('progress', options.progress);
+
+		// Called when a task is complete
+		if (options.taskDone)
+			load.on('taskDone', options.taskDone);
+		
 		// Start the load
-		load.start(assets, options);
+		load.setup(assets, options);
+
+		return load;
 	};
 
 	/**
@@ -6003,6 +6093,7 @@
 	 */
 	p.poolLoad = function(load)
 	{
+		load.off('complete progress taskDone');
 		load.reset();
 		this.loadPool.push(load);
 	};
@@ -6203,7 +6294,8 @@
 		 * @param {Function|Object} [options] Callback where the only parameter is the
 		 *      map of the results by ID, or the collection of load options.
 		 * @param {Function} [options.complete=null] The complete callback if using load options.
-		 * @param {Function} [options.progress=null] The callback when a single item is finished.
+		 * @param {Function} [options.taskDone=null] The callback when a single item is finished.
+		 * @param {Function} [options.progress=null] Callback percentage updates
 		 * @param {Boolean} [options.cacheAll=false] If tasks should be cached
 		 * @param {Boolean} [options.startAll=true] If tasks should be run in parallel
 		 * @param {String} [options.type] The default asset type of load, gets attached to each asset
@@ -6216,7 +6308,8 @@
 		 * @param {Function|Object} [options] Callback where the only parameter is the
 		 *      collection or map of the results, or the collection of load options.
 		 * @param {Function} [options.complete=null] The complete callback if using load options.
-		 * @param {Function} [options.progress=null] The callback when a single item is finished.
+		 * @param {Function} [options.taskDone=null] The callback when a single item is finished.
+		 * @param {Function} [options.progress=null] Callback percentage updates
 		 * @param {Boolean} [options.cacheAll=false] If tasks should be cached
 		 * @param {Boolean} [options.startAll=true] If tasks should be run in parallel
 		 * @param {String} [options.type] The default asset type of load, gets attached to each asset
@@ -6250,7 +6343,7 @@
 					};
 				}
 			}
-			assetManager.load(source, options);
+			return assetManager.load(source, options);
 		};
 
 		/**
@@ -6357,6 +6450,12 @@
 	 */
 
 	/**
+	 * The amount of progress of the preload from 0 to 1
+	 * @event progress
+	 * @param {Number} percentage The amount preloaded
+	 */
+
+	/**
 	 * The config has finished loading, in case you want to
 	 * add additional tasks to the manager after this.
 	 * @event configLoaded
@@ -6397,6 +6496,38 @@
 		 * @property {Object} config
 		 */
 		this.config = null;
+
+		/**
+		 * The asset load for preloading
+		 * @property {springroll.AssetLoad} _assetLoad
+		 * @private
+		 */
+		this._assetLoad = null;
+
+		/**
+		 * The total number of assets loaded
+		 * @property {int} _numLoaded
+		 * @private
+		 */
+		this._numLoaded = 0;
+
+		/**
+		 * The total assets to preload
+		 * @property {int} _total
+		 * @private
+		 */
+		this._total = 0;
+
+		/**
+		 * The current combined progress with plugin and asset load
+		 * @property {Number} _progress
+		 * @private
+		 * @default -1
+		 */
+		this._progress = -1;
+
+		// Listen for changes to the plugin progress
+		this.on('pluginProgress', onProgress.bind(this)); 
 	};
 
 	// async
@@ -6424,14 +6555,38 @@
 
 		if (assets.length)
 		{
-			this.load(assets, {
+			this._assetLoad = this.load(assets, {
 				complete: callback,
+				progress: onProgress.bind(this),
 				cacheAll: true
 			});
 		}
 		else
 		{
 			callback();
+		}
+	};
+
+	/**
+	 * Callback when progress is finished
+	 * @method onProgress
+	 * @private
+	 * @param {Number} progress The amount loaded from 0 to 1
+	 */
+	var onProgress = function()
+	{
+		if (this._assetLoad)
+		{
+			this._numLoaded = this._assetLoad.numLoaded;
+			this._total = this._assetLoad.total;
+		}
+		var numLoaded = (this._numLoaded + this.pluginLoad.numLoaded);
+		var total = (this._total + this.pluginLoad.total);
+		var progress = numLoaded / total;
+		if (progress > this._progress)
+		{
+			this._progress = progress;
+			this.trigger('progress', progress);
 		}
 	};
 
@@ -6482,6 +6637,7 @@
 	 */
 	var onLoadComplete = function(done, results)
 	{
+		this._assetLoad = null;
 		this.trigger('loaded', results);
 		done();
 	};

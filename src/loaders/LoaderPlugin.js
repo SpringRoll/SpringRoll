@@ -139,7 +139,8 @@
 		 * @param {Function|Object} [options] Callback where the only parameter is the
 		 *      map of the results by ID, or the collection of load options.
 		 * @param {Function} [options.complete=null] The complete callback if using load options.
-		 * @param {Function} [options.progress=null] The callback when a single item is finished.
+		 * @param {Function} [options.taskDone=null] The callback when a single item is finished.
+		 * @param {Function} [options.progress=null] Callback percentage updates
 		 * @param {Boolean} [options.cacheAll=false] If tasks should be cached
 		 * @param {Boolean} [options.startAll=true] If tasks should be run in parallel
 		 * @param {String} [options.type] The default asset type of load, gets attached to each asset
@@ -152,7 +153,8 @@
 		 * @param {Function|Object} [options] Callback where the only parameter is the
 		 *      collection or map of the results, or the collection of load options.
 		 * @param {Function} [options.complete=null] The complete callback if using load options.
-		 * @param {Function} [options.progress=null] The callback when a single item is finished.
+		 * @param {Function} [options.taskDone=null] The callback when a single item is finished.
+		 * @param {Function} [options.progress=null] Callback percentage updates
 		 * @param {Boolean} [options.cacheAll=false] If tasks should be cached
 		 * @param {Boolean} [options.startAll=true] If tasks should be run in parallel
 		 * @param {String} [options.type] The default asset type of load, gets attached to each asset
@@ -186,7 +188,7 @@
 					};
 				}
 			}
-			assetManager.load(source, options);
+			return assetManager.load(source, options);
 		};
 
 		/**

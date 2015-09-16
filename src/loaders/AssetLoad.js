@@ -5,17 +5,21 @@
 (function(undefined)
 {
 	var Debug,
-		Task = include('springroll.Task');
+		Task = include('springroll.Task'),
+		EventDispatcher = include('springroll.EventDispatcher');
 
 	/**
 	 * Class that represents a single multi load
 	 * @class AssetLoad
-	 * @constructor
 	 * @private
+	 * @extends springroll.EventDispatcher
+	 * @constructor
 	 * @param {springroll.AssetManager} manager Reference to the manager
 	 */
 	var AssetLoad = function(manager)
 	{
+		EventDispatcher.call(this);
+
 		if (DEBUG)
 		{
 			Debug = include('springroll.Debug', false);
@@ -31,13 +35,6 @@
 		{
 			this.id = AssetLoad.ID++;
 		}
-
-		/**
-		 * Handler when completed with all tasks
-		 * @property {function} complete
-		 * @default  null
-		 */
-		this.complete = null;
 
 		/**
 		 * How to display the results, either as single (0), map (1) or list (2)
@@ -80,6 +77,20 @@
 		this.running = false;
 
 		/**
+		 * The total number of assets loaded 
+		 * @property {int} numLoaded
+		 * @default 0
+		 */
+		this.numLoaded = 0;
+
+		/**
+		 * The total number of assets 
+		 * @property {int} total
+		 * @default 0
+		 */
+		this.total = 0;
+
+		/**
 		 * The default asset type if not defined
 		 * @property {String} type
 		 * @default null
@@ -88,7 +99,27 @@
 	};
 
 	// Reference to prototype
-	var p = AssetLoad.prototype;
+	var p = extend(AssetLoad, EventDispatcher);
+
+	/**
+	 * When an asset is finished
+	 * @event taskDone
+	 * @param {*} result The loader result
+	 * @param {Object} originalAsset The original load asset
+	 * @param {Array} assets Collection to add additional assets to
+	 */
+
+	/**
+	 * When all assets have been completed loaded
+	 * @event complete
+	 * @param {Array|Object} results The results of load
+	 */
+
+	/**
+	 * Check how many assets have finished loaded
+	 * @event progress
+	 * @param {Number} percentage The amount loaded from 0 to 1
+	 */
 
 	if (DEBUG)
 	{
@@ -112,23 +143,17 @@
 
 	/**
 	 * Initialize the Load 
-	 * @method start
+	 * @method setup
 	 * @param {Object|Array} assets The collection of assets to load
 	 * @param {Object} [options] The loading options
-	 * @param {Function} [options.complete=null] Function call when done, returns results
-	 * @param {Function} [options.progress=null] Function call when task is done, returns result
 	 * @param {Boolean} [options.startAll=true] If we should run the tasks in order
+	 * @param {Boolean} [options.autoStart=true] Automatically start running
 	 * @param {Boolean} [options.cacheAll=false] If we should run the tasks in order
 	 * @param {String} [options.type] The default asset type of load, gets attached to each asset
 	 */
-	p.start = function(assets, options)
+	p.setup = function(assets, options)
 	{
-		// Keep track if we're currently running
-		this.running = true;
-
 		// Save options to load
-		this.complete = options.complete;
-		this.progress = options.progress;
 		this.startAll = options.startAll;
 		this.cacheAll = options.cacheAll;
 		this.type = options.type;
@@ -140,6 +165,23 @@
 		this.results = getAssetsContainer(this.mode);
 		
 		// Start running
+		if (options.autoStart)
+		{
+			this.start();
+		}
+	};
+
+	/**
+	 * Start the load process
+	 * @method start
+	 */
+	p.start = function()
+	{
+		// Empty load percentage
+		this.trigger('progress', 0);
+
+		// Keep track if we're currently running
+		this.running = true;
 		this.nextTask();
 	};
 
@@ -155,11 +197,11 @@
 			task.status = Task.FINISHED;
 			task.destroy();
 		});
+		this.total = 0;
+		this.numLoaded = 0;
 		this.mode = MAP_MODE;
 		this.tasks.length = 0;
 		this.results = null;
-		this.complete = null;
-		this.progress = null;
 		this.type = null;
 		this.startAll = true;
 		this.cacheAll = false;
@@ -203,16 +245,7 @@
 	 * @param  {Object|Array} assets The assets to load
 	 */
 	p.addTasks = function(assets)
-	{
-		if (!this.running)
-		{
-			if (DEBUG && Debug)
-			{
-				Debug.warn("AssetLoad is already destroyed");
-			}
-			return;
-		}
-		
+	{		
 		var asset;
 		var mode = MAP_MODE;
 
@@ -311,6 +344,7 @@
 			}
 			task = new TaskClass(asset);
 			this.tasks.push(task);
+			++this.total;
 		}
 		else if (true && Debug)
 		{
@@ -422,14 +456,17 @@
 		{
 			task.complete(result, task.original, assets);
 		}
-		if (this.progress)
-		{
-			this.progress(result, task.original, assets);
-		}
+
+		// Asset is finished
+		this.trigger('taskDone', result, task.original, assets);
+
 		task.destroy();
 
 		// Add new assets to the things to load
 		var mode = this.addTasks(assets);
+
+		// Update the progress total
+		this.trigger('progress', ++this.numLoaded / this.total);
 
 		// Check to make sure if we're in 
 		// map mode, we keep it that way
@@ -454,10 +491,7 @@
 		else
 		{
 			// We're finished!
-			if (this.complete)
-			{
-				this.complete(this.results);
-			}
+			this.trigger('complete', this.results);
 		}
 	};
 
@@ -484,6 +518,7 @@
 	 */
 	p.destroy = function()
 	{
+		EventDispatcher.prototype.destroy.call(this);
 		this.reset();
 		this.tasks = null;
 		this.manager = null;

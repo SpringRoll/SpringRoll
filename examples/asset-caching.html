@@ -80,6 +80,11 @@ var app = new Application({
 	]
 });
 
+app.on('progress', function(progress)
+{
+	console.log("Load progress: ", progress * 100, "%");
+});
+
 app.once('init', function()
 {
 	// The asset manager just loaded the JavaScript

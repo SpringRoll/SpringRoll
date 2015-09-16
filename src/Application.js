@@ -1,6 +1,6 @@
 /**
-  * @module Core
-  * @namespace springroll
+ * @module Core
+ * @namespace springroll
  */
 (function(undefined)
 {
@@ -60,6 +60,13 @@
 		 * @property {Function} init
 		 */
 		this.init = init || null;
+
+		/**
+		 * The preload progress
+		 * @property {springroll.AssetLoad} pluginLoad
+		 * @protected
+		 */
+		this.pluginLoad = null;
 
 		// Reset the displays
 		_displaysMap = {};
@@ -174,6 +181,11 @@
 	 * Fired when initialization of the application is ready
 	 * @event init
 	 */
+
+	/**
+	 * The handler for the plugin progress
+	 * @event pluginProgress
+	 */
 	
 	/**
 	 * Fired when initialization of the application is done
@@ -285,10 +297,26 @@
 		});
 
 		// Run the asyncronous tasks in series
-		this.load(tasks, {
+		this.pluginLoad = this.load(tasks, {
 			complete: this._doInit.bind(this), 
+			progress: onPluginProgress.bind(this),
+			autoStart: false,
 			startAll: false
 		});
+
+		// Manually start load
+		this.pluginLoad.start();
+	};
+
+	/**
+	 * Progress handler for the plugin load
+	 * @method onPluginProgress
+	 * @private
+	 * @param {Number} progress Plugins preloaded amount from 0 - 1
+	 */
+	var onPluginProgress = function(progress)
+	{
+		this.trigger('pluginProgress', progress);
 	};
 
 	/**
@@ -299,6 +327,8 @@
 	p._doInit = function()
 	{
 		if (this.destroyed) return;
+
+		this.pluginLoad = null;
 
 		this.trigger('beforeInit');
 

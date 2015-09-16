@@ -119,7 +119,9 @@
 	 * @param {Object|Array} asset The assets to load
 	 * @param {Object} [options] The loading options
 	 * @param {function} [options.complete] The function when finished
-	 * @param {function} [options.progress] The function when finished a single task
+	 * @param {function} [options.progress] The function when loading percentage is updated
+	 * @param {function} [options.taskDone] The function when finished a single task
+	 * @param {Boolean} [options.autoStart=true] If we should start running right away
 	 * @param {Boolean} [options.startAll=true] If we should run all the tasks at once, in parallel
 	 * @param {Boolean} [options.cacheAll=false] If we should cache all files
 	 * @param {String} [options.type] The type of assets to load, defaults to AssetManager.prototype.defaultType
@@ -131,8 +133,10 @@
 		options = Object.merge({
 			complete: null,
 			progress: null,
+			taskDone: null,
 			cacheAll: false,
 			startAll: true,
+			autoStart: true,
 			type: this.defaultType
 		}, options);
 
@@ -149,8 +153,21 @@
 			load
 		);
 
+		// Handle the finish
+		load.once('complete', options.complete);
+		
+		// Optional loaded amount event
+		if (options.progress)
+			load.on('progress', options.progress);
+
+		// Called when a task is complete
+		if (options.taskDone)
+			load.on('taskDone', options.taskDone);
+		
 		// Start the load
-		load.start(assets, options);
+		load.setup(assets, options);
+
+		return load;
 	};
 
 	/**
@@ -161,6 +178,7 @@
 	 */
 	p.poolLoad = function(load)
 	{
+		load.off('complete progress taskDone');
 		load.reset();
 		this.loadPool.push(load);
 	};
