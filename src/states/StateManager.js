@@ -137,6 +137,12 @@
 	var p = extend(StateManager, EventDispatcher);
 
 	/**
+	 * The amount of progress while state is being preloaded from zero to 1
+	 * @event progress
+	 * @param {Number} percentage The amount loaded
+	 */
+
+	/**
 	 * The name of the Animator label and event for transitioning into a state.
 	 *
 	 * @event onTransitionIn

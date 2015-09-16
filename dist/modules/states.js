@@ -251,6 +251,12 @@
 	 * @event loaded
 	 * @param {Object|Array|null} asset The collection of assets loaded
 	 */
+
+	/**
+	 * When there has been a change in how much has been preloaded
+	 * @event progress
+	 * @param {Number} percentage The amount preloaded from zero to 1
+	 */
 	
 	/**
 	 * Event when the assets are starting to load.
@@ -563,6 +569,7 @@
 		{
 			this.app.load(assets, {
 				complete: this._onLoaded.bind(this),
+				progress: onProgress.bind(this),
 				cacheAll: true
 			});
 		}
@@ -571,6 +578,18 @@
 		{
 			this._onLoaded(null);
 		}
+	};
+
+	/**
+	 * Handle the load progress and pass to the manager
+	 * @method onProgress
+	 * @private
+	 * @param {Number} progress The amount preloaded from zero to 1
+	 */
+	var onProgress = function(progress)
+	{
+		this.trigger('progress', progress);
+		this.manager.trigger('progress', progress);
 	};
 
 	/**
@@ -915,6 +934,12 @@
 	};
 
 	var p = extend(StateManager, EventDispatcher);
+
+	/**
+	 * The amount of progress while state is being preloaded from zero to 1
+	 * @event progress
+	 * @param {Number} percentage The amount loaded
+	 */
 
 	/**
 	 * The name of the Animator label and event for transitioning into a state.
