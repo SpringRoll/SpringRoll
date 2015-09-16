@@ -5,7 +5,7 @@
  */
 (function()
 {
-	// Include classes
+	//Include classes
 	var ApplicationPlugin = include('springroll.ApplicationPlugin'),
 		Sound = include('springroll.Sound'),
 		VOPlayer = include('springroll.VOPlayer');
@@ -15,7 +15,7 @@
 	 */
 	var plugin = new ApplicationPlugin(90);
 
-	// Initialize
+	//Initialize
 	plugin.setup = function()
 	{
 		/**
@@ -33,7 +33,7 @@
 		 * @readOnly
 		 */
 		this.options.add('forceFlashAudio', false, true);
-		
+
 		/**
 		 * The order in which file types are
 		 * preferred, where "ogg" becomes a ".ogg"
@@ -62,7 +62,7 @@
 		 * @private
 		 */
 		this._music = null;
-		
+
 		/**
 		 * The current music SoundInstance playing
 		 * @property {SoundInstance} _musicInstance
@@ -82,7 +82,7 @@
 		 */
 		this.sound = null;
 
-		// Add new task
+		//Add new task
 		this.assetManager.register('springroll.SoundTask');
 
 		/**
@@ -123,7 +123,7 @@
 				return this._music;
 			}
 		});
-		
+
 		/**
 		 * The SoundInstance for the current music, for adjusting volume.
 		 * @property {SoundInstance} musicInstance
@@ -136,7 +136,7 @@
 			}
 		});
 
-		// Add the listener for the config loader to autoload the sounds
+		//Add the listener for the config loader to autoload the sounds
 		this.once('configLoaded', function(config)
 		{
 			//initialize Sound and load up global sound config
@@ -166,43 +166,45 @@
 	 */
 	var SOUND_READY = 'soundReady';
 
-	// Start the initialization of the sound
+	//Start the initialization of the sound
 	plugin.preload = function(done)
 	{
-		Sound.init({
-			swfPath : this.options.swfPath,
-			types : this.options.audioTypes,
-			ready : function()
-			{
-				if (this.destroyed) return;
-
-				var sound = this.sound = Sound.instance;
-
-				if (DEBUG)
+		Sound.init(
+		{
+			swfPath: this.options.swfPath,
+			types: this.options.audioTypes,
+			ready: function()
 				{
-					// For testing, mute the game if requested
-					sound.muteAll = !!this.options.mute;
-				}
-				// Add listeners to pause and resume the sounds
-				this.on({
-					paused : function()
-					{
-						sound.pauseAll();
-					},
-					resumed : function()
-					{
-						sound.resumeAll();
-					}
-				});
+					if (this.destroyed) return;
 
-				this.trigger(SOUND_READY);
-				done();
-			}
-			.bind(this)
+					var sound = this.sound = Sound.instance;
+
+					if (DEBUG)
+					{
+						//For testing, mute the game if requested
+						sound.muteAll = !!this.options.mute;
+					}
+					//Add listeners to pause and resume the sounds
+					this.on(
+					{
+						paused: function()
+						{
+							sound.pauseAll();
+						},
+						resumed: function()
+						{
+							sound.resumeAll();
+						}
+					});
+
+					this.trigger(SOUND_READY);
+					done();
+				}
+				.bind(this)
 		});
 	};
 
-	// Destroy the animator
+	//Destroy the animator
 	plugin.teardown = function()
 	{
 		if (this.voPlayer)

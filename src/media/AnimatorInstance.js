@@ -6,10 +6,10 @@
 (function(undefined)
 {
 	var Application = include("springroll.Application");
+	
 	/**
 	 * Animator Instance is a wrapper for different types of media
 	 * files. They need to extend some basic methods.
-	 *
 	 * @class AnimatorTimeline
 	 */
 	var AnimatorInstance = function()
@@ -19,25 +19,25 @@
 		 * @property {*} clip
 		 */
 		this.clip = null;
-		
+
 		/**
 		 * Time, in seconds, of the current animation playback, from 0 -> duration.
 		 * @property {Number} position
 		 */
 		this.position = 0;
-		
+
 		/**
 		 * Duration, in seconds, of the current animation.
 		 * @property {Number} duration
 		 */
 		this.duration = 0;
-		
+
 		/**
 		 * If the current animation is a looping animation.
 		 * @property {Boolean} isLooping
 		 */
 		this.isLooping = false;
-		
+
 		/**
 		 * The name of the current animation.
 		 * @property {String} currentName
@@ -45,7 +45,7 @@
 		this.currentName = null;
 	};
 
-	// Reference to the prototype
+	//reference to the prototype
 	var p = AnimatorInstance.prototype;
 
 	/**
@@ -57,34 +57,28 @@
 	{
 		this.clip = clip;
 	};
-	
+
 	/**
 	 * Sets up variables that are needed (including duration), and does any other setup else needed.
 	 * @method beginAnim
 	 * @param {Object} animObj The animation data object.
 	 * @param {Boolean} isRepeat If this animation is restarting a loop.
 	 */
-	p.beginAnim = function(animObj, isRepeat)
-	{
-	};
-	
+	p.beginAnim = function(animObj, isRepeat) {};
+
 	/**
 	 * Ends animation playback.
 	 * @method endAnim
 	 */
-	p.endAnim = function()
-	{
-	};
-	
+	p.endAnim = function() {};
+
 	/**
 	 * Updates position to a new value, and does anything that the clip needs, like updating
 	 * timelines.
 	 * @method setPosition
 	 * @param  {Number} newPos The new position in the animation.
 	 */
-	p.setPosition = function(newPos)
-	{
-	};
+	p.setPosition = function(newPos) {};
 
 	/**
 	 * Check to see if a clip is compatible with this
@@ -96,7 +90,7 @@
 	{
 		return false;
 	};
-	
+
 	/**
 	 * Determines if a clip has an animation.
 	 * @method hasAnimation
@@ -109,7 +103,7 @@
 	{
 		return false;
 	};
-	
+
 	/**
 	 * Calculates the duration of an animation or list of animations.
 	 * @method getDuration
@@ -169,7 +163,7 @@
 			InstanceClass._pool.push(instance);
 		};
 
-		// Extend the parent class
+		//Extend the parent class
 		return extend(InstanceClass, ParentClass || AnimatorInstance);
 	};
 
@@ -183,7 +177,7 @@
 		this.clip = null;
 	};
 
-	// Assign to namespace
+	//assign to namespace
 	namespace('springroll').AnimatorInstance = AnimatorInstance;
 
 }());

@@ -7,46 +7,43 @@
 {
 	var Application = include("springroll.Application");
 	var AnimatorInstance = include('springroll.AnimatorInstance');
+	
 	/**
 	 * Animator Instance is a wrapper for different types of media
 	 * files. They need to extend some basic methods.
-	 *
 	 * @class AnimatorTimeline
 	 */
 	var GenericMovieClipInstance = function()
 	{
 		AnimatorInstance.call(this);
-		
+
 		/**
 		 * The start time of the current animation on the movieclip's timeline.
 		 * @property {Number} startTime
 		 */
 		this.startTime = 0;
-		
+
 		/**
 		 * Length of current animation in frames.
-		 *
 		 * @property {int} length
 		 */
 		this.length = 0;
-		
+
 		/**
 		 * The frame number of the first frame of the current animation. If this is -1, then the
 		 * animation is currently a pause instead of an animation.
-		 *
 		 * @property {int} firstFrame
 		 */
 		this.firstFrame = -1;
-		
+
 		/**
 		 * The frame number of the last frame of the current animation.
-		 *
 		 * @property {int} lastFrame
 		 */
 		this.lastFrame = -1;
 	};
 
-	// Reference to the prototype
+	//Reference to the prototype
 	var p = AnimatorInstance.extend(GenericMovieClipInstance, AnimatorInstance);
 
 	/**
@@ -62,24 +59,24 @@
 			clip.framerate = Application.instance.options.fps || 15;
 		}
 		clip.tickEnabled = false;
-		
+
 		this.clip = clip;
 		this.isLooping = false;
 		this.currentName = null;
 		this.position = this.duration = 0;
 	};
-	
+
 	p.beginAnim = function(animObj, isRepeat)
 	{
 		//calculate frames, duration, etc
 		//then gotoAndPlay on the first frame
 		var anim = this.currentName = animObj.anim;
-		
+
 		var l, first = -1,
 			last = -1,
 			loop = false;
 		//the wildcard event plays the entire timeline
-		if(anim == "*" && !this.clip.timeline.resolve(anim))
+		if (anim == "*" && !this.clip.timeline.resolve(anim))
 		{
 			first = 0;
 			last = this.clip.timeline.duration - 1;
@@ -112,8 +109,7 @@
 				}
 			}
 		}
-		
-		
+
 		this.firstFrame = first;
 		this.lastFrame = last;
 		this.length = last - first;
@@ -121,19 +117,21 @@
 		var fps = this.clip.framerate;
 		this.startTime = this.firstFrame / fps;
 		this.duration = this.length / fps;
-		if(isRepeat)
+		if (isRepeat)
+		{
 			this.position = 0;
+		}
 		else
 		{
 			var animStart = animObj.start || 0;
 			this.position = animStart < 0 ? Math.random() * this.duration : animStart;
 		}
-		
+
 		this.clip.play();
 		this.clip.elapsedTime = this.startTime + this.position;
 		this.clip.advance();
 	};
-	
+
 	/**
 	 * Ends animation playback.
 	 * @method endAnim
@@ -142,7 +140,7 @@
 	{
 		this.clip.gotoAndStop(this.lastFrame);
 	};
-	
+
 	/**
 	 * Updates position to a new value, and does anything that the clip needs, like updating
 	 * timelines.
@@ -177,7 +175,6 @@
 
 	/**
 	 * Checks if animation exists
-	 *
 	 * @method hasAnimation
 	 * @static
 	 * @param {*} clip The clip to check for an animation.
@@ -187,14 +184,14 @@
 	GenericMovieClipInstance.hasAnimation = function(clip, event)
 	{
 		//the wildcard event plays the entire timeline
-		if(event == "*" && !clip.timeline.resolve(event))
+		if (event == "*" && !clip.timeline.resolve(event))
 		{
 			return true;
 		}
-		
+
 		var labels = clip.getLabels();
-		var startFrame = -1,
-			stopFrame = -1;
+		var startFrame = -1;
+		var stopFrame = -1;
 		var stopLabel = event + "_stop";
 		var loopLabel = event + "_loop";
 		var l;
@@ -229,16 +226,16 @@
 		{
 			clip.framerate = Application.instance.options.fps || 15;
 		}
-		
+
 		//the wildcard event plays the entire timeline
-		if(event == "*" && !clip.timeline.resolve(event))
+		if (event == "*" && !clip.timeline.resolve(event))
 		{
 			return clip.timeline.duration / clip.framerate * 1000;
 		}
-		
+
 		var labels = clip.getLabels();
-		var startFrame = -1,
-			stopFrame = -1;
+		var startFrame = -1;
+		var stopFrame = -1;
 		var stopLabel = event + "_stop";
 		var loopLabel = event + "_loop";
 		var l;
@@ -275,7 +272,7 @@
 		this.clip = null;
 	};
 
-	// Assign to namespace
+	//Assign to namespace
 	namespace('springroll').GenericMovieClipInstance = GenericMovieClipInstance;
 
 }());

@@ -5,14 +5,13 @@
  */
 (function(undefined)
 {
-	// Imports
+	//imports
 	var AnimatorTimeline = include('springroll.AnimatorTimeline'),
 		Debug;
 
 	/**
 	 * Animator is a static class designed to provided
 	 * base animation functionality, using frame labels of MovieClips
-	 *
 	 * @class Animator
 	 * @constructor
 	 * @param {springroll.Application} app Reference to the application
@@ -47,12 +46,11 @@
 
 		/**
 		 * The collection of timelines
-		 *
 		 * @property {Array} _timelines
 		 * @private
 		 */
 		_timelines = [];
-		
+
 		/**
 		 * The collection of active timelines, indexed by MovieClip/instance. This will be
 		 * null in browsers where Map is not supported.
@@ -63,7 +61,7 @@
 		{
 			_timelineMap = new Map();
 			//ensure that all the Map features we need are supported
-			if(typeof _timelineMap.delete != "function" ||
+			if (typeof _timelineMap.delete != "function" ||
 				typeof _timelineMap.has != "function" ||
 				typeof _timelineMap.set != "function" ||
 				typeof _timelineMap.get != "function")
@@ -71,13 +69,13 @@
 				_timelineMap = null;
 			}
 		}
-		catch(e)
+		catch (e)
 		{
+			// no catch
 		}
 
 		/**
 		 * The collection of used timeline objects
-		 *
 		 * @property {Array} _timelinePool
 		 * @private
 		 */
@@ -85,7 +83,6 @@
 
 		/**
 		 * If there are timelines available
-		 *
 		 * @property {Boolean} _hasTimelines
 		 * @private
 		 */
@@ -93,22 +90,21 @@
 
 		/**
 		 * If the Animator is paused
-		 *
 		 * @property {Boolean} _paused
 		 * @private
 		 */
 		_paused = false;
 
-		// update bind
+		//update bind
 		this._update = this._update.bind(this);
 
 		Debug = include('springroll.Debug', false);
 	};
 
-	// Reference to the prototype
+	//reference to the prototype
 	var p = Animator.prototype;
 
-	// Private local vars
+	//private local vars
 	var _timelines,
 		_timelineMap,
 		_definitions,
@@ -126,7 +122,10 @@
 	p.register = function(qualifiedClassName, priority)
 	{
 		var plugin = include(qualifiedClassName, false);
-		if(!plugin) return;
+		if (!plugin)
+		{
+			return;
+		}
 		plugin.priority = priority;
 		_definitions.push(plugin);
 		_definitions.sort(function(a, b)
@@ -137,29 +136,28 @@
 
 	/**
 	 * Play an animation for a frame label event, with more verbose play options.
-	 *
 	 * @method play
 	 * @param {*} clip The display object with the same API to animate.
 	 * @param {Object} options One of or an array of the following
-	 * @param {String} options.anim the frame label of the animation to play, e.g. "onClose" to "onClose_stop".
-	 * @param {int} [options.start=0] Milliseconds into the animation to start. A value of -1
-	 *      starts from a random time in the animation.
+	 * @param {String} options.anim the frame label of the animation to play, 
+	 * e.g. "onClose" to "onClose_stop".
+	 * @param {int} [options.start=0] Milliseconds into the animation to start. 
+	 * A value of -1 starts from a random time in the animation.
 	 * @param {int} [options.speed=1] a multiplier for the animation speed.
-	 * @param {Object|String} [options.audio] Audio to sync the animation to using springroll.Sound. audio can be a String
-	 *      if you want the audio to start 0 milliseconds into the animation.
+	 * @param {Object|String} [options.audio] Audio to sync the animation to using 
+	 * springroll.Sound. audio can be a String if you want the audio to start 0 milliseconds 
+	 * into the animation.
 	 * @param {String} [options.audio.alias] The sound alias
 	 * @param {int} [options.audio.start] The sound delay
 	 * @param {Function} [onComplete] The callback function for when the animation is done.
-	 * @param {Function|Boolean} [onCancelled] A callback function for when an animation is
-	 *        stopped with Animator.stop() or to play another
-	 *        animation. A value of 'true' uses onComplete for
-	 *        onCancelled.
+	 * @param {Function|Boolean} [onCancelled] A callback function for when an animation
+	 * is stopped with Animator.stop() or to play another  animation. A value of 'true'
+	 * uses onComplete for onCancelled.
 	 * @return {springroll.AnimatorTimeline} The Timeline object that represents this play() call.
 	 */
 
 	/**
 	 * Play an animation for a frame label event or events
-	 *
 	 * @method play
 	 * @param {*} clip The display object with the same API to animate.
 	 * @param {String|Array} eventList The name of an event or collection of events
@@ -182,9 +180,9 @@
 		{
 			eventList = [eventList];
 		}
-		
+
 		this.stop(clip);
-		
+
 		var timeline = this._makeTimeline(
 			clip,
 			eventList,
@@ -197,13 +195,18 @@
 		{
 			timeline._nextItem(); //advance the timeline to the first item
 
-			// Before we add the timeline, we should check to see
-			// if there are no timelines, then start the enter frame
-			// updating
-			if (!_hasTimelines) this._startUpdate();
-			
-			if(_timelineMap)
+			//Before we add the timeline, we should check to see
+			//if there are no timelines, then start the enter frame
+			//updating
+			if (!_hasTimelines)
+			{
+				this._startUpdate();
+			}
+
+			if (_timelineMap)
+			{
 				_timelineMap.set(clip, timeline);
+			}
 			_timelines.push(timeline);
 			_hasTimelines = true;
 
@@ -228,9 +231,8 @@
 			Debug.trace("Animator.play");
 			Debug.groupEnd();
 		}
-		
-		// Reset the timeline and add to the pool
-		// of timeline objects
+
+		//reset the timeline and add to the pool of timeline objects
 		_timelinePool.push(timeline.reset());
 
 		if (onComplete)
@@ -242,7 +244,6 @@
 
 	/**
 	 * Creates the AnimatorTimeline for a given animation
-	 *
 	 * @method _makeTimeline
 	 * @param {*} clip The instance to animate
 	 * @param {Array} eventList List of animation events
@@ -256,9 +257,9 @@
 		var timeline = _timelinePool.length ?
 			_timelinePool.pop() :
 			new AnimatorTimeline();
-		
+
 		var Definition = getDefinitionByClip(clip);
-		if(!Definition) return timeline;
+		if (!Definition) return timeline;
 		var instance = Definition.create(clip);
 
 		if (!instance)
@@ -273,7 +274,7 @@
 		var fps;
 
 		timeline.instance = instance;
-		timeline.eventList = []; // we'll create a duplicate event list with specific info
+		timeline.eventList = []; //create a duplicate event list with specific info
 		timeline.onComplete = onComplete;
 		timeline.onCancelled = onCancelled;
 		timeline.speed = speed;
@@ -282,13 +283,14 @@
 		for (var j = 0, jLen = eventList.length; j < jLen; ++j)
 		{
 			var listItem = eventList[j];
-			
+
 			if (isString(listItem))
 			{
-				if(!Definition.hasAnimation(clip, listItem))
+				if (!Definition.hasAnimation(clip, listItem))
 					continue;
-				
-				timeline.eventList.push({
+
+				timeline.eventList.push(
+				{
 					anim: listItem,
 					audio: null,
 					start: 0,
@@ -297,9 +299,11 @@
 			}
 			else if (typeof listItem == "object")
 			{
-				if(!Definition.hasAnimation(clip, listItem.anim))
+				if (!Definition.hasAnimation(clip, listItem.anim))
+				{
 					continue;
-				
+				}
+
 				var animData = {
 					anim: listItem.anim,
 					//convert into seconds, as that is what the time uses internally
@@ -326,7 +330,7 @@
 						_app.sound.preload(alias);
 						animData.alias = alias;
 						animData.audioStart = start;
-	
+
 						animData.useCaptions = this.captions && this.captions.hasCaption(alias);
 					}
 				}
@@ -351,14 +355,16 @@
 	 * with a unique value for each `createjs.DisplayObject`. If a custom object is made that does
 	 * not inherit from DisplayObject, it needs to not have an id that is identical to anything
 	 * from EaselJS.
-	 *
 	 * @method canAnimate
 	 * @param {*} clip The object to check for animation properties.
 	 * @return {Boolean} If the instance can be animated or not.
 	 */
 	p.canAnimate = function(clip)
 	{
-		if (!clip) return false;
+		if (!clip)
+		{
+			return false;
+		}
 		return !!getDefinitionByClip(clip);
 	};
 
@@ -371,8 +377,10 @@
 	 */
 	var createInstance = function(clip)
 	{
-		if (!clip) return null;
-		
+		if (!clip)
+		{
+			return null;
+		}
 		var Definition = getDefinitionByClip(clip);
 		return Definition ? Definition.create(clip) : null;
 	};
@@ -398,7 +406,7 @@
 	 */
 	var getDefinitionByClip = function(clip)
 	{
-		for(var Definition, i = 0, len = _definitions.length; i < len; i++)
+		for (var Definition, i = 0, len = _definitions.length; i < len; i++)
 		{
 			Definition = _definitions[i];
 			if (Definition.test(clip))
@@ -411,7 +419,6 @@
 
 	/**
 	 * Checks if animation exists
-	 *
 	 * @method hasAnimation
 	 * @param {*} clip The instance to check
 	 * @param {String} event The frame label event (e.g. "onClose" to "onClose_stop")
@@ -421,13 +428,15 @@
 	p.hasAnimation = function(clip, event)
 	{
 		var Definition = getDefinitionByClip(clip);
-		if(!Definition) return false;
+		if (!Definition)
+		{
+			return false;
+		}
 		return Definition.hasAnimation(clip, event);
 	};
 
 	/**
 	 * Get duration of animation event (or sequence of events) in seconds
-	 *
 	 * @method getDuration
 	 * @param {*} instance The timeline to check
 	 * @param {String|Array} event The frame label event or array, in the format that play() uses.
@@ -437,31 +446,41 @@
 	p.getDuration = function(clip, event)
 	{
 		var Definition = getDefinitionByClip(clip);
-		if(!Definition) return 0;
-		if(!Array.isArray(event))
+		if (!Definition)
+		{
+			return 0;
+		}
+		if (!Array.isArray(event))
+		{
 			return Definition.getDuration(clip, event.anim || event);
-		
+		}
+
 		var duration = 0;
-		for(var i = 0; i < event.length; ++i)
+		for (var i = 0; i < event.length; ++i)
 		{
 			var item = event[i];
-			if(typeof item == "number")
+			if (typeof item == "number")
+			{
 				duration += item;
-			else if(typeof item == "string")
+			}
+			else if (typeof item == "string")
+			{
 				duration += Definition.getDuration(clip, item);
-			else if(typeof item == "object" && item.anim)
+			}
+			else if (typeof item == "object" && item.anim)
+			{
 				duration += Definition.getDuration(clip, item.anim);
+			}
 		}
 		return duration;
 	};
 
 	/**
 	 * Stop the animation.
-	 *
 	 * @method stop
 	 * @param {*} clip The instance to stop the action on
-	 * @param {Boolean} [removeCallbacks=false] Completely disregard the on complete or
-	 *                                        on cancelled callback of this animation.
+	 * @param {Boolean} [removeCallbacks=false] Completely disregard the on complete
+	 * or on cancelled callback of this animation.
 	 */
 	p.stop = function(clip, removeCallbacks)
 	{
@@ -478,18 +497,20 @@
 	};
 
 	/**
-	 * Stop all current Animator animations.
-	 * This is good for cleaning up all animation, as it doesn't do a callback on any of them.
-	 *
+	 * Stop all current Animator animations. This is good for cleaning up all 
+	 * animation, as it doesn't do a callback on any of them.
 	 * @method stopAll
 	 * @param {createjs.Container} [container] Specify a container to stop timelines
-	 *                                       contained within. This only checks one layer deep.
-	 * @param {Boolean} [removeCallbacks=false] Completely disregard the on complete or
-	 *                                        on cancelled callback of the current animations.
+	 * contained within. This only checks one layer deep.
+	 * @param {Boolean} [removeCallbacks=false] Completely disregard the on complete 
+	 * or on cancelled callback of the current animations.
 	 */
 	p.stopAll = function(container, removeCallbacks)
 	{
-		if (!_hasTimelines) return;
+		if (!_hasTimelines)
+		{
+			return;
+		}
 
 		var timeline;
 		for (var i = _timelines.length - 1; i >= 0; --i)
@@ -509,7 +530,6 @@
 
 	/**
 	 * Remove a timeline from the stack
-	 *
 	 * @method _remove
 	 * @param {springroll.AnimatorTimeline} timeline
 	 * @param {Boolean} doCancelled If we do the on complete callback
@@ -519,27 +539,36 @@
 	{
 		var index = _timelines.indexOf(timeline);
 
-		// We can't remove an animation twice
-		if (index < 0) return;
+		//We can't remove an animation twice
+		if (index < 0)
+		{
+			return;
+		}
 
 		var onComplete = timeline.onComplete,
 			onCancelled = timeline.onCancelled;
 
-		//in most cases, if doOnComplete is true, it's a natural stop and the audio can
-		//be allowed to continue
+		//in most cases, if doOnComplete is true, it's a natural stop and 
+		//the audio can be allowed to continue
 		if (doCancelled && timeline.soundInst)
+		{
 			timeline.soundInst.stop(); //stop the sound from playing
-		
-		if(_timelineMap)
+		}
+
+		if (_timelineMap)
 		{
 			_timelineMap.delete(timeline.instance.clip);
 		}
 
-		// Remove from the stack
-		if(index == _timelines.length - 1)
+		//Remove from the stack
+		if (index == _timelines.length - 1)
+		{
 			_timelines.pop();
+		}
 		else
+		{
 			_timelines.splice(index, 1);
+		}
 		_hasTimelines = _timelines.length > 0;
 
 		//stop the captions, if relevant
@@ -548,12 +577,15 @@
 			this.captions.stop();
 		}
 
-		// Reset the timeline and add to the pool
-		// of timeline objects
+		//Reset the timeline and add to the pool
+		//of timeline objects
 		_timelinePool.push(timeline.reset());
 
-		// Check if we should stop the update
-		if (!_hasTimelines) this._stopUpdate();
+		//Check if we should stop the update
+		if (!_hasTimelines)
+		{
+			this._stopUpdate();
+		}
 
 		//call the appropriate callback
 		if (doCancelled)
@@ -571,13 +603,14 @@
 
 	/**
 	 * Pause all tweens which have been excuted by `play()`
-	 *
 	 * @method pause
 	 */
 	p.pause = function()
 	{
-		if (_paused) return;
-
+		if (_paused)
+		{
+			return;
+		}
 		_paused = true;
 
 		for (var i = _timelines.length - 1; i >= 0; --i)
@@ -589,34 +622,39 @@
 
 	/**
 	 * Resumes all tweens executed by the `play()`
-	 *
 	 * @method resume
 	 */
 	p.resume = function()
 	{
-		if (!_paused) return;
-
+		if (!_paused)
+		{
+			return;
+		}
 		_paused = false;
 
-		// Resume playing of all the instances
+		//Resume playing of all the instances
 		for (var i = _timelines.length - 1; i >= 0; --i)
 		{
 			_timelines[i].paused = false;
 		}
-		if (_hasTimelines) this._startUpdate();
+		if (_hasTimelines)
+		{
+			this._startUpdate();
+		}
 	};
 
 	/**
 	 * Pauses or unpauses all timelines that are children of the specified DisplayObjectContainer.
-	 *
 	 * @method pauseInGroup
 	 * @param {Boolean} paused If this should be paused or unpaused
 	 * @param {createjs.Container} container The container to stop timelines contained within
 	 */
 	p.pauseInGroup = function(paused, container)
 	{
-		if (!_hasTimelines || !container) return;
-
+		if (!_hasTimelines || !container)
+		{
+			return;
+		}
 		for (var i = _timelines.length - 1; i >= 0; --i)
 		{
 			if (container.contains(_timelines[i].instance.clip))
@@ -628,14 +666,16 @@
 
 	/**
 	 * Get the timeline object for an instance
-	 *
 	 * @method getTimeline
 	 * @param {*} clip The animation clip
 	 * @return {springroll.AnimatorTimeline} The timeline
 	 */
 	p.getTimeline = function(clip)
 	{
-		if (!_hasTimelines) return null;
+		if (!_hasTimelines)
+		{
+			return null;
+		}
 		return getTimelineByClip(clip);
 	};
 
@@ -648,7 +688,7 @@
 	 */
 	var getTimelineByClip = function(clip)
 	{
-		if(_timelineMap)
+		if (_timelineMap)
 		{
 			return _timelineMap.has(clip) ? _timelineMap.get(clip) : null;
 		}
@@ -656,8 +696,10 @@
 		{
 			for (var i = _timelines.length - 1; i >= 0; --i)
 			{
-				if(_timelines[i].instance.clip === clip)
+				if (_timelines[i].instance.clip === clip)
+				{
 					return _timelines[i];
+				}
 			}
 		}
 		return null;
@@ -665,7 +707,6 @@
 
 	/**
 	 * Whether the Animator class is currently paused.
-	 *
 	 * @property {Boolean} paused
 	 * @readOnly
 	 */
@@ -679,7 +720,6 @@
 
 	/**
 	 * Start the updating
-	 *
 	 * @method _startUpdate
 	 * @private
 	 */
@@ -690,7 +730,6 @@
 
 	/**
 	 * Stop the updating
-	 *
 	 * @method _stopUpdate
 	 * @private
 	 */
@@ -701,7 +740,6 @@
 
 	/**
 	 * The update every frame
-	 *
 	 * @method
 	 * @param {int} elapsed The time in milliseconds since the last frame
 	 * @private
@@ -710,14 +748,22 @@
 	{
 		var delta = elapsed * 0.001; //ms -> sec
 
-		var t, instance, audioPos, position;
-
+		var t;
+		var instance;
+		var audioPos;
+		var position;
 		for (var i = _timelines.length - 1; i >= 0; --i)
 		{
 			t = _timelines[i];
-			if(!t) return;//error checking or stopping of all timelines during update
+			if (!t)
+			{
+				return; //error checking or stopping of all timelines during update
+			}
 			instance = t.instance;
-			if (t.paused) continue;
+			if (t.paused)
+			{
+				continue;
+			}
 
 			//we'll use this to figure out if the timeline is on the next item
 			//to avoid code repetition
@@ -730,7 +776,9 @@
 					//convert sound position ms -> sec
 					audioPos = t.soundInst.position * 0.001;
 					if (audioPos < 0)
+					{
 						audioPos = 0;
+					}
 					position = t.soundStart + audioPos;
 
 					if (t.useCaptions)
@@ -748,16 +796,16 @@
 			{
 				position = t.position + delta * t.speed;
 			}
-			
+
 			if (position >= t.duration)
 			{
-				while(position >= t.duration)
+				while (position >= t.duration)
 				{
 					position -= t.duration;
 					if (t.isLooping)
 					{
 						//error checking
-						if(!t.duration)
+						if (!t.duration)
 						{
 							t.complete = true;
 							break;
@@ -768,15 +816,17 @@
 					}
 					t._nextItem();
 					if (t.complete)
+					{
 						break;
+					}
 				}
-				if(t.complete)
+				if (t.complete)
 				{
 					this._remove(t);
 					continue;
 				}
 			}
-			
+
 			if (t.playSound && position >= t.soundStart)
 			{
 				t.position = t.soundStart;
@@ -807,8 +857,10 @@
 	 */
 	var onSoundStarted = function(timeline, playIndex)
 	{
-		if (timeline.listIndex != playIndex) return;
-
+		if (timeline.listIndex != playIndex)
+		{
+			return;
+		}
 		//convert sound length to seconds
 		timeline.soundEnd = timeline.soundStart + timeline.soundInst.length * 0.001;
 	};
@@ -828,7 +880,10 @@
 			this.captions.stop();
 		}
 
-		if (timeline.listIndex != playIndex) return;
+		if (timeline.listIndex != playIndex)
+		{
+			return;
+		}
 
 		if (timeline.soundEnd > timeline.position)
 		{
@@ -853,7 +908,7 @@
 	};
 
 
-	// Type checking, produces better uglify
+	//Type checking, produces better uglify
 
 	/**
 	 * Check to see if object is a String
@@ -891,7 +946,7 @@
 		return typeof func == "function";
 	}
 
-	// Assign to the global namespace
+	//Assign to the global namespace
 	namespace('springroll').Animator = Animator;
 
 }());

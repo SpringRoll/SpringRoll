@@ -20,7 +20,7 @@
 		 * @public
 		 */
 		this.id = id;
-		
+
 		/**
 		 * The current volume to apply to all sounds in the context (0 to 1).
 		 * @property {Number} volume
@@ -45,5 +45,5 @@
 
 	// Assign to name space
 	namespace('springroll').SoundContext = SoundContext;
-	
+
 }());

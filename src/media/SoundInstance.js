@@ -14,7 +14,7 @@
 	 */
 	var SoundInstance = function()
 	{
-		if(!Sound)
+		if (!Sound)
 		{
 			Sound = include('springroll.Sound');
 		}
@@ -41,16 +41,16 @@
 		this._endCallback = null;
 
 		/**
-		 * User's callback function for when the sound starts. This is only used if the sound
-		 * wasn't loaded before play() was called.
+		 * User's callback function for when the sound starts. 
+		 * This is only used if the sound wasn't loaded before play() was called.
 		 * @property {function} _startFunc
 		 * @private
 		 */
 		this._startFunc = null;
 
 		/**
-		 * An array of relevant parameters passed to play(). This is only used if the sound
-		 * wasn't loaded before play() was called.
+		 * An array of relevant parameters passed to play(). This is only used if 
+		 * the sound wasn't loaded before play() was called.
 		 * @property {Array} _startParams
 		 * @private
 		 */
@@ -100,7 +100,7 @@
 		 * @readOnly
 		 */
 		this.curVol = 0;
-		
+
 		/**
 		 * The sound pan value, from -1 (left) to 1 (right).
 		 * @property {Number} _pan
@@ -135,7 +135,7 @@
 		 */
 		this.isValid = true;
 	};
-	
+
 	// Reference to the prototype
 	var p = SoundInstance.prototype = {};
 
@@ -147,7 +147,10 @@
 	 */
 	Object.defineProperty(p, "position",
 	{
-		get: function(){ return this._channel ? this._channel.getPosition() : 0;}
+		get: function()
+		{
+			return this._channel ? this._channel.getPosition() : 0;
+		}
 	});
 
 	/**
@@ -162,14 +165,14 @@
 		{
 			var sound = s._sounds[this.alias];
 			//in case this SoundInstance is not valid any more for some reason
-			if(!sound) return;
-			
+			if (!sound) return;
+
 			var index = sound.playing.indexOf(this);
-			if(index > -1)
+			if (index > -1)
 				sound.playing.splice(index, 1);
 
 			index = sound.waitingToPlay.indexOf(this);
-			if(index > -1)
+			if (index > -1)
 				sound.waitingToPlay.splice(index, 1);
 
 			s._stopInst(this);
@@ -185,12 +188,12 @@
 	 */
 	p.updateVolume = function(contextVol)
 	{
-		if(!this._channel) return;
-		if(contextVol === undefined)
+		if (!this._channel) return;
+		if (contextVol === undefined)
 		{
 			var s = Sound.instance;
 			var sound = s._sounds[this.alias];
-			if(sound.context)
+			if (sound.context)
 			{
 				var context = s._contexts[sound.context];
 				contextVol = context.muted ? 0 : context.volume;
@@ -200,33 +203,41 @@
 		}
 		this._channel.setVolume(contextVol * this.curVol);
 	};
-	
+
 	/**
 	 * The current sound volume (0 to 1). This is multiplied by the sound context's volume to
 	 * get the actual sound volume.
 	 * @property {Number} volume
 	 * @public
 	 */
-	Object.defineProperty(p, "volume", {
-		get: function() { return this.curVol; },
+	Object.defineProperty(p, "volume",
+	{
+		get: function()
+		{
+			return this.curVol;
+		},
 		set: function(value)
 		{
 			this.curVol = value;
 			this.updateVolume();
 		}
 	});
-	
+
 	/**
 	 * The sound pan value, from -1 (left) to 1 (right).
 	 * @property {Number} pan
 	 * @public
 	 */
-	Object.defineProperty(p, "pan", {
-		get: function() { return this._pan; },
+	Object.defineProperty(p, "pan",
+	{
+		get: function()
+		{
+			return this._pan;
+		},
 		set: function(value)
 		{
 			this._pan = value;
-			if(this._channel)
+			if (this._channel)
 				this._channel.pan = value;
 		}
 	});
@@ -238,9 +249,9 @@
 	 */
 	p.pause = function()
 	{
-		if(this.paused) return;
+		if (this.paused) return;
 		this.paused = true;
-		if(!this._channel) return;
+		if (!this._channel) return;
 		this._channel.pause();
 	};
 
@@ -251,9 +262,9 @@
 	 */
 	p.resume = function()
 	{
-		if(!this.paused) return;
+		if (!this.paused) return;
 		this.paused = false;
-		if(!this._channel) return;
+		if (!this._channel) return;
 		this._channel.resume();
 	};
 
