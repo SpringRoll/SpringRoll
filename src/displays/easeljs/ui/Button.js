@@ -592,6 +592,11 @@
 	{
 		//check to make sure we don't add reserved names
 		if (RESERVED_STATES.indexOf(propertyName) >= 0) return;
+		
+		if(DEBUG && Debug && this[propertyName] !== undefined)
+		{
+			Debug.error("Adding property %s to button is dangerous, as property already exists with that name!", propertyName);
+		}
 
 		Object.defineProperty(this, propertyName,
 		{
