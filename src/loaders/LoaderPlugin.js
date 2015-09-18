@@ -236,6 +236,18 @@
 		{
 			assetManager.sizes.refresh(w, h);
 		});
+
+		// Make sure we refresh the sizes for non resizing application
+		this.once('beforeInit', function()
+		{
+			if (this.display)
+			{
+				assetManager.sizes.refresh(
+					this.display.width, 
+					this.display.height
+				);
+			}
+		});
 	};
 
 	// Preload task

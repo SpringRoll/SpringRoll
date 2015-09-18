@@ -5,6 +5,7 @@
 (function()
 {
 	var Debug;
+	var devicePixelRatio = include('devicePixelRatio', false) || 1;
 
 	/**
 	 * Remember the assets loaded by the AssetManager
@@ -65,7 +66,7 @@
 	 * Add a new size definition
 	 * @method define
 	 * @param {String} id The name of the folder which contains size
-	 * @param {int} maxSize The maximum size capable of using this
+	 * @param {int} maxSize The maximum size in points capable of using this size
 	 * @param {Number} scale The scale of assets
 	 * @param {Array} fallback The size fallbacks if this size isn't available
 	 *      for the current asset request.
@@ -166,7 +167,7 @@
 		// Check the largest first
 		for(var i = sizes.length - 1; i >= 0; --i)
 		{
-			if (sizes[i].maxSize > minSize)
+			if (sizes[i].maxSize / devicePixelRatio > minSize)
 			{
 				size = sizes[i];
 			}
