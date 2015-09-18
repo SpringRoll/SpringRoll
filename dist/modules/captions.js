@@ -1,4 +1,4 @@
-/*! SpringRoll 0.4.0-beta.5 */
+/*! SpringRoll 0.4.0-beta.6 */
 /**
  * @module Captions
  * @namespace springroll
