@@ -6388,10 +6388,8 @@
 		};
 
 		// Refresh the default size whenever the app resizes
-		console.log("Setup application resize");
 		this.on('resize', function(w, h)
 		{
-			console.log("Refresh resizes", w, h);
 			assetManager.sizes.refresh(w, h);
 		});
 
