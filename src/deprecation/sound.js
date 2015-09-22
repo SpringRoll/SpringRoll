@@ -7,6 +7,7 @@
 {
 	var Sound = include('springroll.Sound');
 	var SoundInstance = include('springroll.SoundInstance');
+	var VOPlayer = include('springroll.VOPlayer');
 
 	// Reference to prototype
 	var p = Sound.prototype;
@@ -94,5 +95,22 @@
 		if (DEBUG) console.warn("unpause is now deprecated, please use resume method, e.g. : soundInst.resume();");
 		this.resume();
 	};
+
+	p = VOPlayer.prototype;
+
+	/**
+	 * Get the current list of VO sounds, see {{#crossLink "springroll.VOPlayer/voList:property"}}{{/crossLink}}
+	 * @method soundList
+	 * @deprecated since version 0.4.0
+	 * @public
+	 */
+	Object.defineProperty(p, 'soundList', 
+	{
+		get: function()
+		{
+			if (DEBUG) console.warn("soundList is now deprecated, please use voList property, e.g. : app.voPlayer.voList");
+			return this.voList;
+		}
+	});
 
 }());

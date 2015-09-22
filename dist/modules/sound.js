@@ -1774,13 +1774,13 @@
 		/**
 		 * The current list of audio/silence times/functions. 
 		 * Generally you will not need to modify this.
-		 * @property {Array} soundList
+		 * @property {Array} voList
 		 * @public
 		 */
-		this.soundList = null;
+		this.voList = null;
 
 		/**
-		 * The current position in soundList.
+		 * The current position in voList.
 		 * @property {int} _listCounter
 		 * @private
 		 */
@@ -1788,10 +1788,10 @@
 
 		/**
 		 * The current audio alias being played.
-		 * @property {String} _currentSound
+		 * @property {String} _currentVO
 		 * @private
 		 */
-		this._currentSound = null;
+		this._currentVO = null;
 
 		/**
 		 * The current audio instance being played.
@@ -1816,10 +1816,10 @@
 
 		/**
 		 * A list of audio file played by this, so that they can be unloaded later.
-		 * @property {Array} _playedSound
+		 * @property {Array} _trackedSounds
 		 * @private
 		 */
-		this._playedSound = null;
+		this._trackedSounds = [];
 
 		/**
 		 * A timer for silence entries in the list, in milliseconds.
@@ -1848,7 +1848,7 @@
 	{
 		get: function()
 		{
-			return this._currentSound !== null || this._timer > 0;
+			return this._currentVO !== null || this._timer > 0;
 		}
 	});
 
@@ -1885,14 +1885,14 @@
 		var total = 0,
 			item, i;
 
-		if (!this.soundList)
+		if (!this.voList)
 		{
 			return 0;
 		}
 
 		for (i = 0; i < this._listCounter; ++i)
 		{
-			item = this.soundList[i];
+			item = this.voList[i];
 			if (typeof item == "string")
 			{
 				total += Sound.instance.getDuration(item);
@@ -1904,9 +1904,9 @@
 		}
 		//get the current item
 		i = this._listCounter;
-		if (i < this.soundList.length)
+		if (i < this.voList.length)
 		{
-			item = this.soundList[i];
+			item = this.voList[i];
 			if (typeof item == "string")
 			{
 				total += this._soundInstance.position;
@@ -1949,11 +1949,11 @@
 		{
 			this._listHelper.length = 0;
 			this._listHelper[0] = idOrList;
-			this.soundList = this._listHelper;
+			this.voList = this._listHelper;
 		}
 		else
 		{
-			this.soundList = idOrList;
+			this.voList = idOrList;
 		}
 		this._callback = callback;
 		this._cancelledCallback = cancelledCallback === true ? callback : cancelledCallback;
@@ -1983,13 +1983,13 @@
 		this._listCounter++; //advance list
 
 		//if the list is complete
-		if (this._listCounter >= this.soundList.length)
+		if (this._listCounter >= this.voList.length)
 		{
 			if (this._captions)
 			{
 				this._captions.stop();
 			}
-			this._currentSound = null;
+			this._currentVO = null;
 			this._cancelledCallback = null;
 
 			var c = this._callback;
@@ -2001,22 +2001,22 @@
 		}
 		else
 		{
-			this._currentSound = this.soundList[this._listCounter];
-			if (typeof this._currentSound == "string")
+			this._currentVO = this.voList[this._listCounter];
+			if (typeof this._currentVO == "string")
 			{
 				//If the sound doesn't exist, then we play it and let it fail,
 				//an error should be shown and playback will continue
 				this._playSound();
 			}
-			else if (typeof this._currentSound == "function")
+			else if (typeof this._currentVO == "function")
 			{
-				this._currentSound(); //call function
+				this._currentVO(); //call function
 				this._onSoundFinished(); //immediately continue
 			}
 			else
 			{
-				this._timer = this._currentSound; //set up a timer to wait
-				this._currentSound = null;
+				this._timer = this._currentVO; //set up a timer to wait
+				this._currentVO = null;
 				Application.instance.on("update", this._updateSilence);
 			}
 		}
@@ -2078,45 +2078,38 @@
 	 */
 	p._playSound = function()
 	{
-		if (this.trackSound)
+		// Only add a sound once
+		if (this.trackSound && this._trackedSounds.indexOf(this._currentVO) == -1)
 		{
-			if (this._playedSound)
-			{
-				if (this._playedSound.indexOf(this._currentSound) == -1)
-					this._playedSound.push(this._currentSound);
-			}
-			else
-			{
-				this._playedSound = [this._currentSound];
-			}
+			this._trackedSounds.push(this._currentVO);
 		}
 		var s = Sound.instance;
-		if (!s.exists(this._currentSound) &&
+		if (!s.exists(this._currentVO) &&
 			this._captions &&
-			this._captions.hasCaption(this._currentSound))
+			this._captions.hasCaption(this._currentVO))
 		{
-			this._captions.play(this._currentSound);
+			this._captions.play(this._currentVO);
 			this._timer = 0;
-			this._currentSound = null;
+			this._currentVO = null;
 			Application.instance.on("update", this._updateSoloCaption);
 		}
 		else
 		{
-			this._soundInstance = s.play(this._currentSound, this._onSoundFinished);
+			this._soundInstance = s.play(this._currentVO, this._onSoundFinished);
 			if (this._captions)
 			{
-				this._captions.play(this._currentSound);
+				this._captions.play(this._currentVO);
 				Application.instance.on("update", this._syncCaptionToSound);
 			}
 		}
-		var len = this.soundList.length;
+		var len = this.voList.length;
 		var next;
 		for (var i = this._listCounter + 1; i < len; ++i)
 		{
-			next = this.soundList[i];
+			next = this.voList[i];
 			if (typeof next == "string")
 			{
-				if (!s.isLoaded(next))
+				if (s.exists(next) && !s.isLoaded(next))
 				{
 					s.preload(next);
 				}
@@ -2132,10 +2125,10 @@
 	 */
 	p.stop = function()
 	{
-		if (this._currentSound)
+		if (this._currentVO)
 		{
-			Sound.instance.stop(this._currentSound);
-			this._currentSound = null;
+			Sound.instance.stop(this._currentVO);
+			this._currentVO = null;
 		}
 		if (this._captions)
 		{
@@ -2146,7 +2139,7 @@
 			this._syncCaptionToSound,
 			this._updateSilence
 		]);
-		this.soundList = null;
+		this.voList = null;
 		this._timer = 0;
 		this._callback = null;
 		
@@ -2165,8 +2158,8 @@
 	 */
 	p.unloadSound = function()
 	{
-		Sound.instance.unload(this._playedSound);
-		this._playedSound = null;
+		Sound.instance.unload(this._trackedSounds);
+		this._trackedSounds.length = 0;
 	};
 
 	/**
@@ -2177,13 +2170,13 @@
 	p.destroy = function()
 	{
 		this.stop();
-		this.soundList = null;
+		this.voList = null;
 		this._listHelper = null;
-		this._currentSound = null;
+		this._currentVO = null;
 		this._soundInstance = null;
 		this._callback = null;
 		this._cancelledCallback = null;
-		this._playedSound = null;
+		this._trackedSounds = null;
 		this._captions = null;
 	};
 
@@ -2422,6 +2415,7 @@
 {
 	var Sound = include('springroll.Sound');
 	var SoundInstance = include('springroll.SoundInstance');
+	var VOPlayer = include('springroll.VOPlayer');
 
 	// Reference to prototype
 	var p = Sound.prototype;
@@ -2509,5 +2503,22 @@
 		if (true) console.warn("unpause is now deprecated, please use resume method, e.g. : soundInst.resume();");
 		this.resume();
 	};
+
+	p = VOPlayer.prototype;
+
+	/**
+	 * Get the current list of VO sounds, see {{#crossLink "springroll.VOPlayer/voList:property"}}{{/crossLink}}
+	 * @method soundList
+	 * @deprecated since version 0.4.0
+	 * @public
+	 */
+	Object.defineProperty(p, 'soundList', 
+	{
+		get: function()
+		{
+			if (true) console.warn("soundList is now deprecated, please use voList property, e.g. : app.voPlayer.voList");
+			return this.voList;
+		}
+	});
 
 }());
