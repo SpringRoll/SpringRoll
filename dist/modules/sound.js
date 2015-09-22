@@ -2504,6 +2504,9 @@
 		this.resume();
 	};
 
+	/**
+	 * @class VOPlayer
+	 */
 	p = VOPlayer.prototype;
 
 	/**
