@@ -326,7 +326,7 @@
 		this._timer += elapsed;
 		this._captions.seek(this._timer);
 
-		if (this._timer >= this._captions.duration)
+		if (this._timer >= this._captions.currentDuration)
 		{
 			this._onSoundFinished();
 		}

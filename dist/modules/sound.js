@@ -1,4 +1,4 @@
-/*! SpringRoll 0.4.0-beta.6 */
+/*! SpringRoll 0.4.0-rc */
 /**
  * @module Sound
  * @namespace springroll
@@ -2051,7 +2051,7 @@
 		this._timer += elapsed;
 		this._captions.seek(this._timer);
 
-		if (this._timer >= this._captions.duration)
+		if (this._timer >= this._captions.currentDuration)
 		{
 			this._onSoundFinished();
 		}
