@@ -3367,7 +3367,9 @@
 	 */
 	var _resizeHelper = {
 		width: 0,
-		height: 0
+		height: 0,
+		realWidth: 0,
+		realHeight: 0
 	};
 
 	// Init the animator
@@ -3463,13 +3465,12 @@
 			// round up, as canvases require integer sizes
 			// and canvas should be slightly larger to avoid
 			// a hairline around outside of the canvas
-			var width = _resizeHelper.width = Math.ceil(_resizeHelper.width);
-			var height = _resizeHelper.height = Math.ceil(_resizeHelper.height);
+			var width = _resizeHelper.width;
+			var height = _resizeHelper.height;
+			var realWidth = _resizeHelper.realWidth;
+			var realHeight = _resizeHelper.realHeight;
 
 			var responsive = this.options.responsive;
-
-			var unscaledWidth = _originalHeight * (width / height);
-			var unscaledHeight = _originalHeight;
 
 			//resize the displays
 			this.displays.forEach(function(display)
@@ -3486,19 +3487,15 @@
 					display.canvas.style.height = height + "px";
 
 					// Update the canvas size for maxWidth and maxHeight
-					display.resize(unscaledWidth, unscaledHeight);
+					display.resize(realWidth, realHeight);
 				}
 			});
 
 			//send out the resize event
-			if (responsive)
-			{
-				this.trigger('resize', width, height);
-			}
-			else
-			{
-				this.trigger('resize', unscaledWidth, unscaledHeight);
-			}
+			this.trigger('resize', 
+				(responsive ? width : realWidth), 
+				(responsive ? height : realHeight)
+			);
 
 			//redraw all displays
 			this.displays.forEach(function(display)
@@ -3525,6 +3522,7 @@
 
 			var maxAspectRatio = _maxWidth / _originalHeight,
 				minAspectRatio = _originalWidth / _maxHeight,
+				originalAspect = _originalWidth / _originalHeight,
 				currentAspect = size.width / size.height;
 
 			if (currentAspect < minAspectRatio)
@@ -3537,6 +3535,29 @@
 				//limit to the shorter height
 				size.width = size.height * maxAspectRatio;
 			}
+
+
+			// Calculate the unscale, real-sizes
+			currentAspect = size.width / size.height;
+			size.realWidth = _originalWidth;
+			size.realHeight = _originalHeight;
+			
+			if (currentAspect > originalAspect)
+			{
+				size.realWidth = _originalHeight * currentAspect;
+			}
+			else if (currentAspect < originalAspect)
+			{
+				size.realHeight = _originalWidth / currentAspect;
+			}
+
+			// round up, as canvases require integer sizes
+			// and canvas should be slightly larger to avoid
+			// a hairline around outside of the canvas
+			size.width = Math.ceil(size.width);
+			size.height = Math.ceil(size.height);
+			size.realWidth = Math.ceil(size.realWidth);
+			size.realHeight = Math.ceil(size.realHeight);
 		};
 
 		// Do an initial resize to make sure everything is positioned correctly
