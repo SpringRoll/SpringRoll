@@ -55,8 +55,8 @@
 	var _resizeHelper = {
 		width: 0,
 		height: 0,
-		localWidth: 0,
-		localHeight: 0
+		normalWidth: 0,
+		normalHeight: 0
 	};
 
 	// Init the animator
@@ -166,8 +166,8 @@
 			// a hairline around outside of the canvas
 			var width = this.realWidth = _resizeHelper.width;
 			var height = this.realHeight = _resizeHelper.height;
-			var localWidth = _resizeHelper.localWidth;
-			var localHeight = _resizeHelper.localHeight;
+			var normalWidth = _resizeHelper.normalWidth;
+			var normalHeight = _resizeHelper.normalHeight;
 
 			var responsive = this.options.responsive;
 
@@ -186,14 +186,14 @@
 					display.canvas.style.height = height + "px";
 
 					// Update the canvas size for maxWidth and maxHeight
-					display.resize(localWidth, localHeight);
+					display.resize(normalWidth, normalHeight);
 				}
 			});
 
 			//send out the resize event
 			this.trigger('resize', 
-				(responsive ? width : localWidth), 
-				(responsive ? height : localHeight)
+				(responsive ? width : normalWidth), 
+				(responsive ? height : normalHeight)
 			);
 
 			//redraw all displays
@@ -238,16 +238,16 @@
 
 			// Calculate the unscale, real-sizes
 			currentAspect = size.width / size.height;
-			size.localWidth = _originalWidth;
-			size.localHeight = _originalHeight;
+			size.normalWidth = _originalWidth;
+			size.normalHeight = _originalHeight;
 			
 			if (currentAspect > originalAspect)
 			{
-				size.localWidth = _originalHeight * currentAspect;
+				size.normalWidth = _originalHeight * currentAspect;
 			}
 			else if (currentAspect < originalAspect)
 			{
-				size.localHeight = _originalWidth / currentAspect;
+				size.normalHeight = _originalWidth / currentAspect;
 			}
 
 			// round up, as canvases require integer sizes
@@ -255,8 +255,8 @@
 			// a hairline around outside of the canvas
 			size.width = Math.ceil(size.width);
 			size.height = Math.ceil(size.height);
-			size.localWidth = Math.ceil(size.localWidth);
-			size.localHeight = Math.ceil(size.localHeight);
+			size.normalWidth = Math.ceil(size.normalWidth);
+			size.normalHeight = Math.ceil(size.normalHeight);
 		};
 
 		// Do an initial resize to make sure everything is positioned correctly
@@ -290,8 +290,8 @@
 		
 		_resizeHelper.width =
 		_resizeHelper.height = 
-		_resizeHelper.localWidth = 
-		_resizeHelper.localHeight =
+		_resizeHelper.normalWidth = 
+		_resizeHelper.normalHeight =
 		_originalWidth =
 		_originalHeight =
 		_maxHeight = 
