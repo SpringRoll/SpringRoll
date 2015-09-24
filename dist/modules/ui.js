@@ -1,4 +1,4 @@
-/*! SpringRoll 0.4.0-rc */
+/*! SpringRoll 0.4.0-rc.2 */
 /**
  * @module UI
  * @namespace springroll
