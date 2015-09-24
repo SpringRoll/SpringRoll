@@ -686,6 +686,8 @@
 				texture.__T_destroy = texture.destroy;
 				texture.destroy = function()
 				{
+					if(this.__destroyed) return;
+					this.__destroyed = true;
 					//destroy the base texture as well
 					this.__T_destroy(true);
 					
@@ -910,7 +912,7 @@
 	 */
 	p.destroy = function()
 	{
-		this.texture.destroy();
+		this.texture.destroy(true);
 		this.texture = null;
 		this.baseTexture = null;
 		this.frames = null;

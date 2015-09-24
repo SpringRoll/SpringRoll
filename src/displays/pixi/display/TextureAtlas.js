@@ -197,7 +197,7 @@
 	 */
 	p.destroy = function()
 	{
-		this.texture.destroy();
+		this.texture.destroy(true);
 		this.texture = null;
 		this.baseTexture = null;
 		this.frames = null;
