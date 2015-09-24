@@ -30,7 +30,7 @@
 		this.loads = [];
 
 		/**
-		 * The expired loads to recycle
+		 * The expired loads to reuse.
 		 * @property {Array} loadPool
 		 * @private
 		 */
@@ -51,7 +51,8 @@
 		this.cache = new AssetCache();
 
 		/**
-		 * Handle multiple asset spritesheets
+		 * Handle multiple asset sizes. Defaults are 'full' at a scale of 1, and
+		 * 'half' at a scale of 0.5 (under 400 points).
 		 * @property {springroll.AssetSizes} sizes
 		 * @readOnly
 		 */
@@ -77,8 +78,8 @@
 	 * @method register
 	 * @private
 	 * @param {Function|String} TaskClass The class task reference
-	 * @param {int} [priority=0] The priority, higher prioity tasks
-	 *      are tested first. More general Tasks should be lower
+	 * @param {int} [priority=0] The priority. Higher priority tasks
+	 *      are tested first. More general tasks should be lower
 	 *      and more specific tasks should be higher.
 	 */
 	p.register = function(TaskClass, priority)
@@ -118,9 +119,9 @@
 	 * @method load
 	 * @param {Object|Array} asset The assets to load
 	 * @param {Object} [options] The loading options
-	 * @param {function} [options.complete] The function when finished
-	 * @param {function} [options.progress] The function when loading percentage is updated
-	 * @param {function} [options.taskDone] The function when finished a single task
+	 * @param {function} [options.complete] The callback when finished
+	 * @param {function} [options.progress] The callback when loading percentage is updated
+	 * @param {function} [options.taskDone] The callback when finished with each individual task
 	 * @param {Boolean} [options.autoStart=true] If we should start running right away
 	 * @param {Boolean} [options.startAll=true] If we should run all the tasks at once, in parallel
 	 * @param {Boolean} [options.cacheAll=false] If we should cache all files

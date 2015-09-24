@@ -10,7 +10,7 @@
 		LoaderResult = include('springroll.LoaderResult');
 
 	/**
-	 * The Loader is the singleton loader for loading all assets
+	 * The Loader is the singular loader for loading all assets
 	 * including images, data, code and sounds. Loader supports cache-busting
 	 * in the browser using dynamic query string parameters.
 	 * @class Loader
@@ -19,7 +19,7 @@
 	{
 		/**
 		 * The current application
-		 * @property {springroll.Application} app 
+		 * @property {springroll.Application} app
 		 * @private
 		 */
 		this.app = app;
@@ -64,7 +64,7 @@
 		 * @property {Boolean} verbose
 		 * @default  false
 		 */
-		Object.defineProperty(p, 'verbose', 
+		Object.defineProperty(p, 'verbose',
 		{
 			set: function(verbose)
 			{
@@ -112,8 +112,8 @@
 		var item = this._getItem();
 
 		var basePath = options.basePath;
-		if (basePath !== undefined && 
-			/^http(s)?\:/.test(url) === false && 
+		if (basePath !== undefined &&
+			/^http(s)?\:/.test(url) === false &&
 			url.search(basePath) == -1)
 		{
 			item.basePath = basePath;

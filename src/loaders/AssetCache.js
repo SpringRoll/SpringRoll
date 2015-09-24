@@ -7,7 +7,7 @@
 	var Debug;
 
 	/**
-	 * Remember the assets loaded by the AssetManager
+	 * A class that remembers the assets loaded by the AssetManager
 	 * @class AssetCache
 	 * @private
 	 */
@@ -30,9 +30,9 @@
 	var p = AssetCache.prototype;
 
 	/**
-	 * Remove a single asset from the cache
+	 * Retrieves a single asset from the cache.
 	 * @method read
-	 * @param {String} id The asset to remove
+	 * @param {String} id The asset to get.
 	 */
 	p.read = function(id)
 	{
@@ -44,10 +44,10 @@
 	};
 
 	/**
-	 * Remove a single asset from the cache
+	 * Adds a single asset to the cache.
 	 * @method write
-	 * @param {String} id The asset to remove
-	 * @param {*} content The asset content to save
+	 * @param {String} id The id to save the asset as.
+	 * @param {*} content The asset content to save.
 	 */
 	p.write = function(id, content)
 	{
@@ -64,9 +64,9 @@
 	};
 
 	/**
-	 * Remove a single asset from the cache
+	 * Removes a single asset from the cache.
 	 * @method delete
-	 * @param {Object|String} asset The asset to remove
+	 * @param {Object|String} asset The asset to remove.
 	 */
 	p.delete = function(asset)
 	{
@@ -101,17 +101,17 @@
 	};
 
 	/**
-	 * Destroy a result object
+	 * Destroy a result object.
 	 * @method destroyResult
 	 * @private
-	 * @param  {*} result The object to destroy
+	 * @param  {*} result The object to destroy.
 	 */
 	function destroyResult(result)
 	{
 		// Ignore null results or empty objects
 		if (!result) return;
 
-		// Destroy any objects with a destroy function 
+		// Destroy any objects with a destroy function
 		if (result.destroy)
 		{
 			result.destroy();
@@ -125,7 +125,7 @@
 	}
 
 	/**
-	 * Remove all assets from the cache
+	 * Removes all assets from the cache.
 	 * @method empty
 	 */
 	p.empty = function()
@@ -137,7 +137,7 @@
 	};
 
 	/**
-	 * Destroy and don't use after this
+	 * Destroy the cache. Don't use after this.
 	 * @method destroy
 	 */
 	p.destroy = function()

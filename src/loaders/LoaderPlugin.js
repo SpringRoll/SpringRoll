@@ -17,13 +17,13 @@
 	plugin.setup = function()
 	{
 		/**
-		 * Reference to the loader singleton
+		 * Reference to the loader.
 		 * @property {springroll.Loader} loader
 		 */
 		var loader = this.loader = new Loader(this);
 
 		/**
-		 * Reference to the multiple asset loader
+		 * Reference to the asset manager.
 		 * @property {springroll.AssetManager} assetManager
 		 * @private
 		 */
@@ -37,8 +37,8 @@
 
 		/**
 		 * Override the end-user browser cache by adding
-		 * "?v=" to the end of each file path requested. Use
-		 * for developmently, debugging only!
+		 * "?cb=" to the end of each file path requested. Use
+		 * for development, debugging only!
 		 * @property {Boolean} options.cacheBust
 		 * @default DEBUG
 		 */
@@ -55,7 +55,7 @@
 
 		/**
 		 * The optional file path to prefix to any relative file
-		 * requests this is a great way to load all load requests
+		 * requests. This is a great way to load all load requests
 		 * with a CDN path.
 		 * @property {String} options.basePath
 		 */
@@ -85,8 +85,8 @@
 		 * Different displays offer flavors of the same asset definition.
 		 * Instead of repeatedly defining the asset type property,
 		 * it's possible to define a global default. If PIXI
-		 * is your default display "pixi" is recommended as a value
-		 * if EaselJS is your default display "easeljs" is recommended.
+		 * is your default display "pixi" is recommended as a value.
+		 * If EaselJS is your default display "easeljs" is recommended.
 		 * @property {String} options.defaultAssetType
 		 */
 		options.add('defaultAssetType')
@@ -115,7 +115,7 @@
 		 * @param {Function} [asset.progress=null] Callback on load progress,
 		 *      has a parameter which is the percentage loaded from 0 to 1.
 		 * @param {*} [asset.data] Additional data to attach to load is
-		 *      accessible in the loader's result. 
+		 *      accessible in the loader's result.
 		 * @param {Function} [complete] The completed callback with a single
 		 *      parameter which is a result object. will
 		 *      only use if `asset.complete` is undefined.
@@ -161,7 +161,7 @@
 		 */
 		this.load = function(source, complete, progress, cache, data)
 		{
-			var options; 
+			var options;
 
 			// If the load arguments are setup like the Loader.load call
 			// then we'll convert to an object that we can use
@@ -194,9 +194,9 @@
 		/**
 		 * Unload an asset or list of assets.
 		 * @method unload
-		 * @param {Array|String} assets The collection of asset ids or 
-		 *      single asset id. As an array, it can be a manifest 
-		 *      with objects that contain an ID. Or multiple strings.
+		 * @param {Array|String} assets The collection of asset ids or
+		 *      single asset id. As an array, it can be a manifest
+		 *      with objects that contain an ID, or an array of multiple strings.
 		 */
 		this.unload = function(assets)
 		{

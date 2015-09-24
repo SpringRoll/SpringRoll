@@ -77,14 +77,14 @@
 		this.running = false;
 
 		/**
-		 * The total number of assets loaded 
+		 * The total number of assets loaded
 		 * @property {int} numLoaded
 		 * @default 0
 		 */
 		this.numLoaded = 0;
 
 		/**
-		 * The total number of assets 
+		 * The total number of assets
 		 * @property {int} total
 		 * @default 0
 		 */
@@ -138,11 +138,11 @@
 		p.toString = function()
 		{
 			return "[AssetLoad (index: " + this.id + ")]";
-		};		
+		};
 	}
 
 	/**
-	 * Initialize the Load 
+	 * Initialize the Load
 	 * @method setup
 	 * @param {Object|Array} assets The collection of assets to load
 	 * @param {Object} [options] The loading options
@@ -245,11 +245,11 @@
 	 * @param  {Object|Array} assets The assets to load
 	 */
 	p.addTasks = function(assets)
-	{		
+	{
 		var asset;
 		var mode = MAP_MODE;
 
-		// Apply the defaults incase this is a single 
+		// Apply the defaults incase this is a single
 		// thing that we're trying to load
 		assets = applyDefaults(assets);
 
@@ -325,7 +325,7 @@
 	 * Load a single asset
 	 * @method addTask
 	 * @private
-	 * @param {Object} asset The asset to load, 
+	 * @param {Object} asset The asset to load,
 	 *      can either be an object, URL/path, or async function.
 	 */
 	p.addTask = function(asset)
@@ -348,7 +348,7 @@
 		}
 		else if (true && Debug)
 		{
-			Debug.error("Unable to find a task definitation for asset", asset);
+			Debug.error("Unable to find a task definition for asset", asset);
 		}
 		return task;
 	};
@@ -468,7 +468,7 @@
 		// Update the progress total
 		this.trigger('progress', ++this.numLoaded / this.total);
 
-		// Check to make sure if we're in 
+		// Check to make sure if we're in
 		// map mode, we keep it that way
 		if (this.mode === MAP_MODE && mode !== this.mode)
 		{
@@ -500,7 +500,7 @@
 	 * @method getAssetsContainer
 	 * @private
 	 * @param {int} mode The mode
-	 * @return {Array|Object|null} Empty container for assets 
+	 * @return {Array|Object|null} Empty container for assets
 	 */
 	var getAssetsContainer = function(mode)
 	{

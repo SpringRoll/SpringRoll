@@ -99,15 +99,15 @@
 		/**
 		 * If responsive is true, the width and height properties
 		 * are adjusted on the `<canvas>` element. It's assumed that
-		 * responsive application will adjust their own elements.
-		 * If responsive is false then, the style properties are changes.
+		 * responsive applications will adjust their own elements.
+		 * If responsive is false then the style properties are changed.
 		 * @property {Boolean} options.responsive
 		 * @default false
 		 */
 		options.add('responsive', false, true);
 
 		/**
-		 * The element to resize the canvas to fit
+		 * The element that the canvas is resized to fit.
 		 * @property {DOMElement|String} options.resizeElement
 		 * @default 'frame'
 		 */
@@ -191,8 +191,8 @@
 			});
 
 			//send out the resize event
-			this.trigger('resize', 
-				(responsive ? width : normalWidth), 
+			this.trigger('resize',
+				(responsive ? width : normalWidth),
 				(responsive ? height : normalHeight)
 			);
 
@@ -263,7 +263,7 @@
 		this.once('beforeInit', this.triggerResize);
 	};
 
-	// Add common filteres interaction
+	// Add common filters interaction
 	plugin.preload = function(done)
 	{
 		var options = this.options;
@@ -289,12 +289,12 @@
 		_resizeElement = null;
 		
 		_resizeHelper.width =
-		_resizeHelper.height = 
-		_resizeHelper.normalWidth = 
+		_resizeHelper.height =
+		_resizeHelper.normalWidth =
 		_resizeHelper.normalHeight =
 		_originalWidth =
 		_originalHeight =
-		_maxHeight = 
+		_maxHeight =
 		_maxWidth = 0;
 
 	};
