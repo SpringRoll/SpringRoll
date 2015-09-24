@@ -64,6 +64,9 @@
 		this.isLooping = false;
 		this.currentName = null;
 		this.position = this.duration = 0;
+		//ensure that if we call endAnim() before any animation
+		//that it stays on the current frame
+		this.lastFrame = clip.currentFrame;
 	};
 
 	p.beginAnim = function(animObj, isRepeat)
