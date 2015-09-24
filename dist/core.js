@@ -3368,8 +3368,8 @@
 	var _resizeHelper = {
 		width: 0,
 		height: 0,
-		realWidth: 0,
-		realHeight: 0
+		localWidth: 0,
+		localHeight: 0
 	};
 
 	// Init the animator
@@ -3449,6 +3449,18 @@
 		});
 
 		/**
+		 * The current width of the application, in real point values
+		 * @property {int} realWidth
+		 */
+		this.realWidth = 0;
+
+		/**
+		 * The current height of the application, in real point values
+		 * @property {int} realHeight
+		 */
+		this.realHeight = 0;
+
+		/**
 		 * Fire a resize event with the current width and height of the display
 		 * @method triggerResize
 		 */
@@ -3465,10 +3477,10 @@
 			// round up, as canvases require integer sizes
 			// and canvas should be slightly larger to avoid
 			// a hairline around outside of the canvas
-			var width = _resizeHelper.width;
-			var height = _resizeHelper.height;
-			var realWidth = _resizeHelper.realWidth;
-			var realHeight = _resizeHelper.realHeight;
+			var width = this.realWidth = _resizeHelper.width;
+			var height = this.realHeight = _resizeHelper.height;
+			var localWidth = _resizeHelper.localWidth;
+			var localHeight = _resizeHelper.localHeight;
 
 			var responsive = this.options.responsive;
 
@@ -3487,14 +3499,14 @@
 					display.canvas.style.height = height + "px";
 
 					// Update the canvas size for maxWidth and maxHeight
-					display.resize(realWidth, realHeight);
+					display.resize(localWidth, localHeight);
 				}
 			});
 
 			//send out the resize event
 			this.trigger('resize', 
-				(responsive ? width : realWidth), 
-				(responsive ? height : realHeight)
+				(responsive ? width : localWidth), 
+				(responsive ? height : localHeight)
 			);
 
 			//redraw all displays
@@ -3539,16 +3551,16 @@
 
 			// Calculate the unscale, real-sizes
 			currentAspect = size.width / size.height;
-			size.realWidth = _originalWidth;
-			size.realHeight = _originalHeight;
+			size.localWidth = _originalWidth;
+			size.localHeight = _originalHeight;
 			
 			if (currentAspect > originalAspect)
 			{
-				size.realWidth = _originalHeight * currentAspect;
+				size.localWidth = _originalHeight * currentAspect;
 			}
 			else if (currentAspect < originalAspect)
 			{
-				size.realHeight = _originalWidth / currentAspect;
+				size.localHeight = _originalWidth / currentAspect;
 			}
 
 			// round up, as canvases require integer sizes
@@ -3556,8 +3568,8 @@
 			// a hairline around outside of the canvas
 			size.width = Math.ceil(size.width);
 			size.height = Math.ceil(size.height);
-			size.realWidth = Math.ceil(size.realWidth);
-			size.realHeight = Math.ceil(size.realHeight);
+			size.localWidth = Math.ceil(size.localWidth);
+			size.localHeight = Math.ceil(size.localHeight);
 		};
 
 		// Do an initial resize to make sure everything is positioned correctly
@@ -3591,6 +3603,8 @@
 		
 		_resizeHelper.width =
 		_resizeHelper.height = 
+		_resizeHelper.localWidth = 
+		_resizeHelper.localHeight =
 		_originalWidth =
 		_originalHeight =
 		_maxHeight = 
@@ -6446,9 +6460,13 @@
 		};
 
 		// Refresh the default size whenever the app resizes
-		this.on('resize', function(w, h)
+		this.on('resize', function()
 		{
-			assetManager.sizes.refresh(w, h);
+			// Use the actual canvas size regard
+			assetManager.sizes.refresh(
+				this.realWidth,
+				this.realHeight
+			);
 		});
 
 		// Make sure we refresh the sizes for non resizing application
@@ -6457,8 +6475,8 @@
 			if (this.display)
 			{
 				assetManager.sizes.refresh(
-					this.display.width, 
-					this.display.height
+					this.realWidth,
+					this.realHeight
 				);
 			}
 		});

@@ -232,9 +232,13 @@
 		};
 
 		// Refresh the default size whenever the app resizes
-		this.on('resize', function(w, h)
+		this.on('resize', function()
 		{
-			assetManager.sizes.refresh(w, h);
+			// Use the actual canvas size regard
+			assetManager.sizes.refresh(
+				this.realWidth,
+				this.realHeight
+			);
 		});
 
 		// Make sure we refresh the sizes for non resizing application
@@ -243,8 +247,8 @@
 			if (this.display)
 			{
 				assetManager.sizes.refresh(
-					this.display.width, 
-					this.display.height
+					this.realWidth,
+					this.realHeight
 				);
 			}
 		});
