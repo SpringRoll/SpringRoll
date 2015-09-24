@@ -3373,6 +3373,8 @@
 	// Init the animator
 	plugin.setup = function()
 	{
+		var options = this.options;
+
 		/**
 		 * Fired when a resize is called
 		 * @event resize
@@ -3387,7 +3389,7 @@
 		 * than the original width of the canvas.
 		 * @property {int} options.maxWidth
 		 */
-		this.options.add('maxWidth', 0);
+		options.add('maxWidth', 0);
 
 		/**
 		 * If doing uniform resizing, optional parameter to add
@@ -3396,28 +3398,38 @@
 		 * than the original height of the canvas.
 		 * @property {int} options.maxHeight
 		 */
-		this.options.add('maxHeight', 0);
+		options.add('maxHeight', 0);
 
 		/**
 		 * Whether to resize the displays to the original aspect ratio
 		 * @property {Boolean} options.uniformResize
 		 * @default true
 		 */
-		this.options.add('uniformResize', true);
+		options.add('uniformResize', true);
+
+		/**
+		 * If responsive is true, the width and height properties
+		 * are adjusted on the `<canvas>` element. It's assumed that
+		 * responsive application will adjust their own elements.
+		 * If responsive is false then, the style properties are changes.
+		 * @property {Boolean} options.responsive
+		 * @default false
+		 */
+		options.add('responsive', false, true);
 
 		/**
 		 * The element to resize the canvas to fit
 		 * @property {DOMElement|String} options.resizeElement
 		 * @default 'frame'
 		 */
-		this.options.add('resizeElement', 'frame', true);
+		options.add('resizeElement', 'frame', true);
 
-		this.options.on('maxWidth', function(value)
+		options.on('maxWidth', function(value)
 		{
 			_maxWidth = value;
 		});
 
-		this.options.on('maxHeight', function(value)
+		options.on('maxHeight', function(value)
 		{
 			_maxHeight = value;
 		});
@@ -3451,17 +3463,42 @@
 			// round up, as canvases require integer sizes
 			// and canvas should be slightly larger to avoid
 			// a hairline around outside of the canvas
-			_resizeHelper.width = Math.ceil(_resizeHelper.width);
-			_resizeHelper.height = Math.ceil(_resizeHelper.height);
+			var width = _resizeHelper.width = Math.ceil(_resizeHelper.width);
+			var height = _resizeHelper.height = Math.ceil(_resizeHelper.height);
+
+			var responsive = this.options.responsive;
+
+			var unscaledWidth = _originalHeight * (width / height);
+			var unscaledHeight = _originalHeight;
 
 			//resize the displays
 			this.displays.forEach(function(display)
 			{
-				display.resize(_resizeHelper.width, _resizeHelper.height);
+				if (responsive)
+				{
+					// update the dimensions of the canvas
+					display.resize(width, height);
+				}
+				else
+				{
+					// scale the canvas element
+					display.canvas.style.width = width + "px";
+					display.canvas.style.height = height + "px";
+
+					// Update the canvas size for maxWidth and maxHeight
+					display.resize(unscaledWidth, unscaledHeight);
+				}
 			});
 
 			//send out the resize event
-			this.trigger('resize', _resizeHelper.width, _resizeHelper.height);
+			if (responsive)
+			{
+				this.trigger('resize', width, height);
+			}
+			else
+			{
+				this.trigger('resize', unscaledWidth, unscaledHeight);
+			}
 
 			//redraw all displays
 			this.displays.forEach(function(display)

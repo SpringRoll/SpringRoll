@@ -29,6 +29,9 @@
 		 */
 		this.scaling = new ScaleManager();
 
+		// Application should be responsive if using the scale manager
+		this.options.override('responsive', true);
+
 		//Add the scaling size
 		this.once('configLoaded', function(config)
 		{
