@@ -1,4 +1,4 @@
-/*! SpringRoll 0.4.0-rc.2 */
+/*! SpringRoll 0.4.0 */
 /**
  * @module Core
  * @namespace window
@@ -3412,15 +3412,15 @@
 		/**
 		 * If responsive is true, the width and height properties
 		 * are adjusted on the `<canvas>` element. It's assumed that
-		 * responsive application will adjust their own elements.
-		 * If responsive is false then, the style properties are changes.
+		 * responsive applications will adjust their own elements.
+		 * If responsive is false then the style properties are changed.
 		 * @property {Boolean} options.responsive
 		 * @default false
 		 */
 		options.add('responsive', false, true);
 
 		/**
-		 * The element to resize the canvas to fit
+		 * The element that the canvas is resized to fit.
 		 * @property {DOMElement|String} options.resizeElement
 		 * @default 'frame'
 		 */
@@ -3504,8 +3504,8 @@
 			});
 
 			//send out the resize event
-			this.trigger('resize', 
-				(responsive ? width : normalWidth), 
+			this.trigger('resize',
+				(responsive ? width : normalWidth),
 				(responsive ? height : normalHeight)
 			);
 
@@ -3576,7 +3576,7 @@
 		this.once('beforeInit', this.triggerResize);
 	};
 
-	// Add common filteres interaction
+	// Add common filters interaction
 	plugin.preload = function(done)
 	{
 		var options = this.options;
@@ -3602,12 +3602,12 @@
 		_resizeElement = null;
 		
 		_resizeHelper.width =
-		_resizeHelper.height = 
-		_resizeHelper.normalWidth = 
+		_resizeHelper.height =
+		_resizeHelper.normalWidth =
 		_resizeHelper.normalHeight =
 		_originalWidth =
 		_originalHeight =
-		_maxHeight = 
+		_maxHeight =
 		_maxWidth = 0;
 
 	};
@@ -4891,7 +4891,7 @@
 		LoaderResult = include('springroll.LoaderResult');
 
 	/**
-	 * The Loader is the singleton loader for loading all assets
+	 * The Loader is the singular loader for loading all assets
 	 * including images, data, code and sounds. Loader supports cache-busting
 	 * in the browser using dynamic query string parameters.
 	 * @class Loader
@@ -4900,7 +4900,7 @@
 	{
 		/**
 		 * The current application
-		 * @property {springroll.Application} app 
+		 * @property {springroll.Application} app
 		 * @private
 		 */
 		this.app = app;
@@ -4945,7 +4945,7 @@
 		 * @property {Boolean} verbose
 		 * @default  false
 		 */
-		Object.defineProperty(p, 'verbose', 
+		Object.defineProperty(p, 'verbose',
 		{
 			set: function(verbose)
 			{
@@ -4993,8 +4993,8 @@
 		var item = this._getItem();
 
 		var basePath = options.basePath;
-		if (basePath !== undefined && 
-			/^http(s)?\:/.test(url) === false && 
+		if (basePath !== undefined &&
+			/^http(s)?\:/.test(url) === false &&
 			url.search(basePath) == -1)
 		{
 			item.basePath = basePath;
@@ -5093,7 +5093,7 @@
 	var Debug;
 
 	/**
-	 * Remember the assets loaded by the AssetManager
+	 * A class that remembers the assets loaded by the AssetManager
 	 * @class AssetCache
 	 * @private
 	 */
@@ -5116,9 +5116,9 @@
 	var p = AssetCache.prototype;
 
 	/**
-	 * Remove a single asset from the cache
+	 * Retrieves a single asset from the cache.
 	 * @method read
-	 * @param {String} id The asset to remove
+	 * @param {String} id The asset to get.
 	 */
 	p.read = function(id)
 	{
@@ -5130,10 +5130,10 @@
 	};
 
 	/**
-	 * Remove a single asset from the cache
+	 * Adds a single asset to the cache.
 	 * @method write
-	 * @param {String} id The asset to remove
-	 * @param {*} content The asset content to save
+	 * @param {String} id The id to save the asset as.
+	 * @param {*} content The asset content to save.
 	 */
 	p.write = function(id, content)
 	{
@@ -5150,9 +5150,9 @@
 	};
 
 	/**
-	 * Remove a single asset from the cache
+	 * Removes a single asset from the cache.
 	 * @method delete
-	 * @param {Object|String} asset The asset to remove
+	 * @param {Object|String} asset The asset to remove.
 	 */
 	p.delete = function(asset)
 	{
@@ -5187,17 +5187,17 @@
 	};
 
 	/**
-	 * Destroy a result object
+	 * Destroy a result object.
 	 * @method destroyResult
 	 * @private
-	 * @param  {*} result The object to destroy
+	 * @param  {*} result The object to destroy.
 	 */
 	function destroyResult(result)
 	{
 		// Ignore null results or empty objects
 		if (!result) return;
 
-		// Destroy any objects with a destroy function 
+		// Destroy any objects with a destroy function
 		if (result.destroy)
 		{
 			result.destroy();
@@ -5211,7 +5211,7 @@
 	}
 
 	/**
-	 * Remove all assets from the cache
+	 * Removes all assets from the cache.
 	 * @method empty
 	 */
 	p.empty = function()
@@ -5223,7 +5223,7 @@
 	};
 
 	/**
-	 * Destroy and don't use after this
+	 * Destroy the cache. Don't use after this.
 	 * @method destroy
 	 */
 	p.destroy = function()
@@ -5246,7 +5246,7 @@
 	var devicePixelRatio = include('devicePixelRatio', false) || 1;
 
 	/**
-	 * Remember the assets loaded by the AssetManager
+	 * Manages filtering of loads to load assets sized for the current device.
 	 * @class AssetSizes
 	 * @private
 	 */
@@ -5283,7 +5283,7 @@
 	var p = AssetSizes.prototype;
 
 	/**
-	 * The name of the URL substitution variable
+	 * The URL substitution string.
 	 * @property {String} SIZE_TOKEN
 	 * @static
 	 * @default  "%SIZE%"
@@ -5291,7 +5291,7 @@
 	AssetSizes.SIZE_TOKEN = "%SIZE%";
 
 	/**
-	 * Remove the pre-defined sizes
+	 * Removes all currently defined sizes.
 	 * @method  reset
 	 */
 	p.reset = function()
@@ -5301,10 +5301,10 @@
 	};
 
 	/**
-	 * Add a new size definition
+	 * Adds a new size definition.
 	 * @method define
-	 * @param {String} id The name of the folder which contains size
-	 * @param {int} maxSize The maximum size in points capable of using this size
+	 * @param {String} id The name of the folder which contains assets of this size.
+	 * @param {int} maxSize The maximum size in points capable of using this size.
 	 * @param {Number} scale The scale of assets
 	 * @param {Array} fallback The size fallbacks if this size isn't available
 	 *      for the current asset request.
@@ -5390,7 +5390,7 @@
 	};
 
 	/**
-	 * Refresh the current preferred size based on width and height
+	 * Recalculate the current preferred size based on width and height
 	 * @method refresh
 	 * @param  {Number} width  The width of the stage
 	 * @param  {Number} height The height of the stage
@@ -5412,7 +5412,7 @@
 			else
 			{
 				break;
-			}	
+			}
 		}
 		this._preferredSize = size;
 	};
@@ -5511,14 +5511,14 @@
 		this.running = false;
 
 		/**
-		 * The total number of assets loaded 
+		 * The total number of assets loaded
 		 * @property {int} numLoaded
 		 * @default 0
 		 */
 		this.numLoaded = 0;
 
 		/**
-		 * The total number of assets 
+		 * The total number of assets
 		 * @property {int} total
 		 * @default 0
 		 */
@@ -5572,11 +5572,11 @@
 		p.toString = function()
 		{
 			return "[AssetLoad (index: " + this.id + ")]";
-		};		
+		};
 	}
 
 	/**
-	 * Initialize the Load 
+	 * Initialize the Load
 	 * @method setup
 	 * @param {Object|Array} assets The collection of assets to load
 	 * @param {Object} [options] The loading options
@@ -5679,11 +5679,11 @@
 	 * @param  {Object|Array} assets The assets to load
 	 */
 	p.addTasks = function(assets)
-	{		
+	{
 		var asset;
 		var mode = MAP_MODE;
 
-		// Apply the defaults incase this is a single 
+		// Apply the defaults incase this is a single
 		// thing that we're trying to load
 		assets = applyDefaults(assets);
 
@@ -5759,7 +5759,7 @@
 	 * Load a single asset
 	 * @method addTask
 	 * @private
-	 * @param {Object} asset The asset to load, 
+	 * @param {Object} asset The asset to load,
 	 *      can either be an object, URL/path, or async function.
 	 */
 	p.addTask = function(asset)
@@ -5782,7 +5782,7 @@
 		}
 		else if (true && Debug)
 		{
-			Debug.error("Unable to find a task definitation for asset", asset);
+			Debug.error("Unable to find a task definition for asset", asset);
 		}
 		return task;
 	};
@@ -5902,7 +5902,7 @@
 		// Update the progress total
 		this.trigger('progress', ++this.numLoaded / this.total);
 
-		// Check to make sure if we're in 
+		// Check to make sure if we're in
 		// map mode, we keep it that way
 		if (this.mode === MAP_MODE && mode !== this.mode)
 		{
@@ -5934,7 +5934,7 @@
 	 * @method getAssetsContainer
 	 * @private
 	 * @param {int} mode The mode
-	 * @return {Array|Object|null} Empty container for assets 
+	 * @return {Array|Object|null} Empty container for assets
 	 */
 	var getAssetsContainer = function(mode)
 	{
@@ -6018,7 +6018,7 @@
 		this.loads = [];
 
 		/**
-		 * The expired loads to recycle
+		 * The expired loads to reuse.
 		 * @property {Array} loadPool
 		 * @private
 		 */
@@ -6039,7 +6039,8 @@
 		this.cache = new AssetCache();
 
 		/**
-		 * Handle multiple asset spritesheets
+		 * Handle multiple asset sizes. Defaults are 'full' at a scale of 1, and
+		 * 'half' at a scale of 0.5 (under 400 points).
 		 * @property {springroll.AssetSizes} sizes
 		 * @readOnly
 		 */
@@ -6065,8 +6066,8 @@
 	 * @method register
 	 * @private
 	 * @param {Function|String} TaskClass The class task reference
-	 * @param {int} [priority=0] The priority, higher prioity tasks
-	 *      are tested first. More general Tasks should be lower
+	 * @param {int} [priority=0] The priority. Higher priority tasks
+	 *      are tested first. More general tasks should be lower
 	 *      and more specific tasks should be higher.
 	 */
 	p.register = function(TaskClass, priority)
@@ -6106,9 +6107,9 @@
 	 * @method load
 	 * @param {Object|Array} asset The assets to load
 	 * @param {Object} [options] The loading options
-	 * @param {function} [options.complete] The function when finished
-	 * @param {function} [options.progress] The function when loading percentage is updated
-	 * @param {function} [options.taskDone] The function when finished a single task
+	 * @param {function} [options.complete] The callback when finished
+	 * @param {function} [options.progress] The callback when loading percentage is updated
+	 * @param {function} [options.taskDone] The callback when finished with each individual task
 	 * @param {Boolean} [options.autoStart=true] If we should start running right away
 	 * @param {Boolean} [options.startAll=true] If we should run all the tasks at once, in parallel
 	 * @param {Boolean} [options.cacheAll=false] If we should cache all files
@@ -6245,13 +6246,13 @@
 	plugin.setup = function()
 	{
 		/**
-		 * Reference to the loader singleton
+		 * Reference to the loader.
 		 * @property {springroll.Loader} loader
 		 */
 		var loader = this.loader = new Loader(this);
 
 		/**
-		 * Reference to the multiple asset loader
+		 * Reference to the asset manager.
 		 * @property {springroll.AssetManager} assetManager
 		 * @private
 		 */
@@ -6265,8 +6266,8 @@
 
 		/**
 		 * Override the end-user browser cache by adding
-		 * "?v=" to the end of each file path requested. Use
-		 * for developmently, debugging only!
+		 * "?cb=" to the end of each file path requested. Use
+		 * for development, debugging only!
 		 * @property {Boolean} options.cacheBust
 		 * @default true
 		 */
@@ -6283,7 +6284,7 @@
 
 		/**
 		 * The optional file path to prefix to any relative file
-		 * requests this is a great way to load all load requests
+		 * requests. This is a great way to load all load requests
 		 * with a CDN path.
 		 * @property {String} options.basePath
 		 */
@@ -6313,8 +6314,8 @@
 		 * Different displays offer flavors of the same asset definition.
 		 * Instead of repeatedly defining the asset type property,
 		 * it's possible to define a global default. If PIXI
-		 * is your default display "pixi" is recommended as a value
-		 * if EaselJS is your default display "easeljs" is recommended.
+		 * is your default display "pixi" is recommended as a value.
+		 * If EaselJS is your default display "easeljs" is recommended.
 		 * @property {String} options.defaultAssetType
 		 */
 		options.add('defaultAssetType')
@@ -6343,7 +6344,7 @@
 		 * @param {Function} [asset.progress=null] Callback on load progress,
 		 *      has a parameter which is the percentage loaded from 0 to 1.
 		 * @param {*} [asset.data] Additional data to attach to load is
-		 *      accessible in the loader's result. 
+		 *      accessible in the loader's result.
 		 * @param {Function} [complete] The completed callback with a single
 		 *      parameter which is a result object. will
 		 *      only use if `asset.complete` is undefined.
@@ -6389,7 +6390,7 @@
 		 */
 		this.load = function(source, complete, progress, cache, data)
 		{
-			var options; 
+			var options;
 
 			// If the load arguments are setup like the Loader.load call
 			// then we'll convert to an object that we can use
@@ -6422,9 +6423,9 @@
 		/**
 		 * Unload an asset or list of assets.
 		 * @method unload
-		 * @param {Array|String} assets The collection of asset ids or 
-		 *      single asset id. As an array, it can be a manifest 
-		 *      with objects that contain an ID. Or multiple strings.
+		 * @param {Array|String} assets The collection of asset ids or
+		 *      single asset id. As an array, it can be a manifest
+		 *      with objects that contain an ID, or an array of multiple strings.
 		 */
 		this.unload = function(assets)
 		{
