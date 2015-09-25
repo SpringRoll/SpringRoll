@@ -1,0 +1,2331 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+	<title>SpringRoll v0.4.0 API Documentation : springroll.Captions</title>
+	<meta charset='utf-8'>
+	<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+	<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
+	<link rel='shortcut icon' type='image/png' href='../assets/images/favicon.ico?v=0.4.0'>
+	<link href='//fonts.googleapis.com/css?family=Titillium+Web:300,200,600' rel='stylesheet' type='text/css'>
+	<link rel='stylesheet' type='text/css' href='../assets/css/libraries.css?v=0.4.0'>
+	<link rel='stylesheet' type='text/css' href='../assets/css/main.css?v=0.4.0'>
+</head>
+<body>
+<header>
+	<nav class="navbar navbar-inverse navbar-fixed-top">
+		<div class='container'>
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#docs-navbar">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href='https://github.com/SpringRoll/SpringRoll'>
+						<img src='../assets/images/logo.png?v=0.4.0' class="logo">
+					<span class='project-name'>SpringRoll</span>
+					<span class="sr-only">API Documentation for:</span>
+					<span class='version hidden-xs'>v0.4.0</span>
+				</a>
+			</div>
+			<div class="collapse navbar-collapse" id="docs-navbar">
+	      <ul class="scope-toggles text-center nav navbar-nav navbar-right">
+					<li><input class='scope-toggle' 
+						id='toggle-inherited' 
+						type='checkbox' 
+						data-toggle='toggle' 
+						data-on='Inherited' 
+						data-off='Inherited' 
+						data-size='mini'
+						data-width='80'>
+					</li>
+					<li><input class='scope-toggle' 
+						id='toggle-protected' 
+						type='checkbox' 
+						data-toggle='toggle' 
+						data-on='Protected' 
+						data-off='Protected' 
+						data-size='mini'
+						data-width='80'>
+					</li>
+					<li><input class='scope-toggle' 
+						id='toggle-private' 
+						type='checkbox' 
+						data-toggle='toggle' 
+						data-on='Private' 
+						data-off='Private' 
+						data-size='mini'
+						data-width='80'>
+					</li>
+					<li><input class='scope-toggle' 
+						id='toggle-deprecated' 
+						type='checkbox' 
+						data-toggle='toggle' 
+						data-on='Deprecated' 
+						data-off='Deprecated' 
+						data-size='mini'
+						data-width='80'>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+</header>
+<div class='container'>
+<div class='row'>
+<nav id='sidebar' class='col-sm-4 col-md-3'>
+<h2>APIs</h2>
+<div class='input-group'>
+  <div class='input-group-addon'>
+    <span class='glyphicon glyphicon-search'></span>
+  </div>
+  <input type='search' class='form-control' id='api-filter' placeholder='Type to filter APIs'>
+  <span class='collapsed btn-close glyphicon glyphicon-remove-sign hidden'></span>
+</div>
+<nav class='navbar navbar-default'>
+  <!-- Brand and toggle get grouped for better mobile display -->
+  <div class="btn-group" role="group" aria-label="...">
+    <button type="button" class="sidebar-toggle collapsed btn btn-default" id='toggle-classes' data-target='#classes-collapse'>
+      Classes
+      <span class='collapsed glyphicon glyphicon-chevron-up'></span>
+      <span class='expanded glyphicon glyphicon-chevron-down'></span>
+    </button>
+    <button type="button" class="sidebar-toggle collapsed btn btn-default" id='toggle-modules' data-target='#modules-collapse'>
+      Modules
+      <span class='collapsed glyphicon glyphicon-chevron-up'></span>
+      <span class='expanded glyphicon glyphicon-chevron-down'></span>
+    </button>
+  </div>
+
+  <!-- Collect the nav links, forms, and other content for toggling -->
+  <div class='collapse' id='classes-collapse'>
+    <ul class='nav navbar-nav'>
+        <li class='public'>
+          <a href='../classes/createjs.Container.html'>createjs.Container</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/createjs.MovieClip.html'>createjs.MovieClip</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/createjs.Point.html'>createjs.Point</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/createjs.SpriteSheet.html'>createjs.SpriteSheet</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/PIXI.BitmapText.html'>PIXI.BitmapText</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/PIXI.Container.html'>PIXI.Container</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/PIXI.InteractionManager.html'>PIXI.InteractionManager</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/PIXI.Point.html'>PIXI.Point</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/PIXI.Sector.html'>PIXI.Sector</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/PIXI.Text.html'>PIXI.Text</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.AbstractDisplay.html'>springroll.AbstractDisplay</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.AbstractHint.html'>springroll.AbstractHint</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.Animator.html'>springroll.Animator</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.AnimatorHint.html'>springroll.AnimatorHint</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.AnimatorTimeline.html'>springroll.AnimatorTimeline</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.Application.html'>springroll.Application</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.ApplicationOptions.html'>springroll.ApplicationOptions</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.ApplicationPlugin.html'>springroll.ApplicationPlugin</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.AssetCache.html'>springroll.AssetCache</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.AssetLoad.html'>springroll.AssetLoad</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.AssetManager.html'>springroll.AssetManager</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.AssetSizes.html'>springroll.AssetSizes</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.BaseState.html'>springroll.BaseState</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.CacheManager.html'>springroll.CacheManager</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.Captions.html'>springroll.Captions</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.ColorAlphaTask.html'>springroll.ColorAlphaTask</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.CombinedCallback.html'>springroll.CombinedCallback</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.Container.html'>springroll.Container</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.Debug.html'>springroll.Debug</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.DebugOptions.html'>springroll.DebugOptions</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.DelayedCall.html'>springroll.DelayedCall</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.easeljs.Animator.html'>springroll.easeljs.Animator</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.easeljs.Application.html'>springroll.easeljs.Application</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.easeljs.BasePanel.html'>springroll.easeljs.BasePanel</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.easeljs.BaseState.html'>springroll.easeljs.BaseState</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.easeljs.BitmapMovieClip.html'>springroll.easeljs.BitmapMovieClip</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.easeljs.BitmapMovieClipInstance.html'>springroll.easeljs.BitmapMovieClipInstance</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.easeljs.BitmapMovieClipTask.html'>springroll.easeljs.BitmapMovieClipTask</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.easeljs.BitmapTask.html'>springroll.easeljs.BitmapTask</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.easeljs.BitmapUtils.html'>springroll.easeljs.BitmapUtils</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.easeljs.Button.html'>springroll.easeljs.Button</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.easeljs.Cutscene.html'>springroll.easeljs.Cutscene</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.easeljs.CutsceneTask.html'>springroll.easeljs.CutsceneTask</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.easeljs.DisplayAdapter.html'>springroll.easeljs.DisplayAdapter</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.easeljs.DragData.html'>springroll.easeljs.DragData</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.easeljs.DragManager.html'>springroll.easeljs.DragManager</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.easeljs.DwellTimer.html'>springroll.easeljs.DwellTimer</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.easeljs.EaselJSDisplay.html'>springroll.easeljs.EaselJSDisplay</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.easeljs.FlashArt.html'>springroll.easeljs.FlashArt</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.easeljs.FlashArtAtlasTask.html'>springroll.easeljs.FlashArtAtlasTask</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.easeljs.FlashArtTask.html'>springroll.easeljs.FlashArtTask</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.easeljs.FlashSpriteSheetTask.html'>springroll.easeljs.FlashSpriteSheetTask</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.easeljs.MovieClipInstance.html'>springroll.easeljs.MovieClipInstance</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.easeljs.ReversePlayback.html'>springroll.easeljs.ReversePlayback</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.easeljs.SoundButton.html'>springroll.easeljs.SoundButton</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.easeljs.SoundTask.html'>springroll.easeljs.SoundTask</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.easeljs.SpriteSheetTask.html'>springroll.easeljs.SpriteSheetTask</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.easeljs.Texture.html'>springroll.easeljs.Texture</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.easeljs.TextureAtlas.html'>springroll.easeljs.TextureAtlas</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.easeljs.TextureAtlasTask.html'>springroll.easeljs.TextureAtlasTask</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.Enum.html'>springroll.Enum</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.EnumValue.html'>springroll.EnumValue</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.EventCatalog.html'>springroll.EventCatalog</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.EventDispatcher.html'>springroll.EventDispatcher</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.EventError.html'>springroll.EventError</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.EventSignature.html'>springroll.EventSignature</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.EventUtils.html'>springroll.EventUtils</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.Features.html'>springroll.Features</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.FlashArtImageTask.html'>springroll.FlashArtImageTask</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.FunctionHint.html'>springroll.FunctionHint</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.FunctionTask.html'>springroll.FunctionTask</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.GroupHint.html'>springroll.GroupHint</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.HintsPlayer.html'>springroll.HintsPlayer</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.Languages.html'>springroll.Languages</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.Learning.html'>springroll.Learning</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.LearningError.html'>springroll.LearningError</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.LearningMedia.html'>springroll.LearningMedia</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.ListTask.html'>springroll.ListTask</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.Loader.html'>springroll.Loader</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.LoaderItem.html'>springroll.LoaderItem</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.LoaderResult.html'>springroll.LoaderResult</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.LoadTask.html'>springroll.LoadTask</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.native.Circle.html'>springroll.native.Circle</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.native.DisplayAdapter.html'>springroll.native.DisplayAdapter</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.native.Ellipse.html'>springroll.native.Ellipse</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.native.NativeDisplay.html'>springroll.native.NativeDisplay</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.native.Point.html'>springroll.native.Point</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.native.Polygon.html'>springroll.native.Polygon</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.native.Rectangle.html'>springroll.native.Rectangle</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.PageVisibility.html'>springroll.PageVisibility</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.pixi.AdvancedMovieClip.html'>springroll.pixi.AdvancedMovieClip</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.pixi.AdvancedMovieClipInstance.html'>springroll.pixi.AdvancedMovieClipInstance</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.pixi.AdvancedMovieClipTask.html'>springroll.pixi.AdvancedMovieClipTask</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.pixi.Animator.html'>springroll.pixi.Animator</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.pixi.BitmapFontTask.html'>springroll.pixi.BitmapFontTask</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.pixi.Button.html'>springroll.pixi.Button</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.pixi.DisplayAdapter.html'>springroll.pixi.DisplayAdapter</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.pixi.DragData.html'>springroll.pixi.DragData</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.pixi.DragManager.html'>springroll.pixi.DragManager</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.pixi.ParallelSpineData.html'>springroll.pixi.ParallelSpineData</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.pixi.PixiDisplay.html'>springroll.pixi.PixiDisplay</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.pixi.SpineAnimTask.html'>springroll.pixi.SpineAnimTask</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.pixi.SpineAtlas.html'>springroll.pixi.SpineAtlas</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.pixi.SpineAtlasTask.html'>springroll.pixi.SpineAtlasTask</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.pixi.SpineInstance.html'>springroll.pixi.SpineInstance</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.pixi.TextureAtlas.html'>springroll.pixi.TextureAtlas</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.pixi.TextureAtlasTask.html'>springroll.pixi.TextureAtlasTask</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.pixi.TextureTask.html'>springroll.pixi.TextureTask</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.Positioner.html'>springroll.Positioner</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.Property.html'>springroll.Property</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.PropertyDispatcher.html'>springroll.PropertyDispatcher</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.SavedData.html'>springroll.SavedData</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.ScaleImage.html'>springroll.ScaleImage</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.ScaleItem.html'>springroll.ScaleItem</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.ScaleManager.html'>springroll.ScaleManager</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.Sound.html'>springroll.Sound</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.SoundContext.html'>springroll.SoundContext</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.SoundInstance.html'>springroll.SoundInstance</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.State.html'>springroll.State</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.StateEvent.html'>springroll.StateEvent</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.StateManager.html'>springroll.StateManager</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.StringFilters.html'>springroll.StringFilters</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.Task.html'>springroll.Task</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.TickerPlugin.html'>springroll.TickerPlugin</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.TimeUtils.html'>springroll.TimeUtils</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.UIScaler.html'>springroll.UIScaler</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.ValidationError.html'>springroll.ValidationError</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.VOHint.html'>springroll.VOHint</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.VOPlayer.html'>springroll.VOPlayer</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.WeightedRandom.html'>springroll.WeightedRandom</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/window.Array.html'>window.Array</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/window.extend.html'>window.extend</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/window.include.html'>window.include</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/window.Math.html'>window.Math</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/window.mixin.html'>window.mixin</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/window.namespace.html'>window.namespace</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/window.Number.html'>window.Number</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/window.Object.html'>window.Object</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/window.RequestUtils.html'>window.RequestUtils</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/window.String.html'>window.String</a>
+        </li>
+    </ul>
+  </div>
+
+  <!-- Collect the nav links, forms, and other content for toggling -->
+  <div class='collapse' id='modules-collapse'>
+    <ul class='nav navbar-nav'>
+        <li class=''>
+          <a href='../modules/Animation.html'>Animation</a>
+        </li>
+        <li class=''>
+          <a href='../modules/Captions.html'>Captions</a>
+        </li>
+        <li class=''>
+          <a href='../modules/Container.html'>Container</a>
+        </li>
+        <li class=''>
+          <a href='../modules/Container Client.html'>Container Client</a>
+        </li>
+        <li class=''>
+          <a href='../modules/Core.html'>Core</a>
+        </li>
+        <li class=''>
+          <a href='../modules/Debug.html'>Debug</a>
+        </li>
+        <li class=''>
+          <a href='../modules/EaselJS Animation.html'>EaselJS Animation</a>
+        </li>
+        <li class=''>
+          <a href='../modules/EaselJS Cutscene.html'>EaselJS Cutscene</a>
+        </li>
+        <li class=''>
+          <a href='../modules/EaselJS Display.html'>EaselJS Display</a>
+        </li>
+        <li class=''>
+          <a href='../modules/EaselJS Learning.html'>EaselJS Learning</a>
+        </li>
+        <li class=''>
+          <a href='../modules/EaselJS States.html'>EaselJS States</a>
+        </li>
+        <li class=''>
+          <a href='../modules/EaselJS UI.html'>EaselJS UI</a>
+        </li>
+        <li class=''>
+          <a href='../modules/Hints.html'>Hints</a>
+        </li>
+        <li class=''>
+          <a href='../modules/Languages.html'>Languages</a>
+        </li>
+        <li class=''>
+          <a href='../modules/Learning.html'>Learning</a>
+        </li>
+        <li class=''>
+          <a href='../modules/Learning Media.html'>Learning Media</a>
+        </li>
+        <li class=''>
+          <a href='../modules/Native Display.html'>Native Display</a>
+        </li>
+        <li class=''>
+          <a href='../modules/Pixi Animation.html'>Pixi Animation</a>
+        </li>
+        <li class=''>
+          <a href='../modules/PIXI Animation.html'>PIXI Animation</a>
+        </li>
+        <li class=''>
+          <a href='../modules/Pixi Display.html'>Pixi Display</a>
+        </li>
+        <li class=''>
+          <a href='../modules/PIXI Display.html'>PIXI Display</a>
+        </li>
+        <li class=''>
+          <a href='../modules/PIXI Spine.html'>PIXI Spine</a>
+        </li>
+        <li class=''>
+          <a href='../modules/PIXI UI.html'>PIXI UI</a>
+        </li>
+        <li class=''>
+          <a href='../modules/Sound.html'>Sound</a>
+        </li>
+        <li class=''>
+          <a href='../modules/States.html'>States</a>
+        </li>
+        <li class=''>
+          <a href='../modules/UI.html'>UI</a>
+        </li>
+    </ul>
+  </div>
+  <!-- /.container-fluid -->
+</nav></nav>
+<div class='col-sm-8 col-md-9'>
+<div id='docs-main' class='apidocs'>
+
+<h1>springroll.Captions Class</h1>
+<div class='box meta'>
+
+
+<div class='foundat'>
+Defined in: <a href='../files/src_media_Captions.js.html#l12'><code>springroll.Captions:12</code></a>
+</div>
+
+Module:
+<a href="../modules/Captions.html">Captions</a>
+
+</div>
+
+
+<div class='box intro'>
+<p>A class that creates captioning for multimedia content. Captions are
+created from a dictionary of captions and can be played by alias.</p>
+
+</div>
+
+<div class='constructor'>
+<h2>Constructor</h2> <div class='method_springroll.Captions method item'>
+<h3 class='name'><a class="deeplink" href="#method_springroll.Captions"><span class="glyphicon glyphicon-link"></span></a> <code>springroll.Captions</code></h3>
+
+<div class='args'>
+<span class='paren'>(</span>
+<ul class='args-list inline commas'>
+<li class='arg'>
+<code class='optional'>[data=null]</code>
+</li>
+<li class='arg'>
+<code class='optional'>[textField=null]</code>
+</li>
+<li class='arg'>
+<code class='optional'>[selfUpdate=true]</code>
+</li>
+</ul><span class='paren'>)</span>
+</div>
+
+
+<div class='flags'>
+
+
+
+
+
+</div> 
+
+<div class='meta'>
+<p>
+Defined in
+<a href='../files/src_media_Captions.js.html#l12'><code>springroll.Captions:12</code></a>
+</p>
+
+
+
+</div>
+
+<div class='description'>
+
+</div>
+
+<div class='params'>
+<h4>Parameters:</h4>
+
+<ul class='params-list'>
+<li class='param'>
+<code class='param-name optional'>[data=null]</code>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+<span class='flag optional' title='This parameter is optional.'>optional</span>
+
+
+<div class='param-description'>
+<p>The captions dictionary</p>
+
+</div>
+
+</li>
+<li class='param'>
+<code class='param-name optional'>[textField=null]</code>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a> | DOMElement</span>
+<span class='flag optional' title='This parameter is optional.'>optional</span>
+
+
+<div class='param-description'>
+<p>The output text field</p>
+
+</div>
+
+</li>
+<li class='param'>
+<code class='param-name optional'>[selfUpdate=true]</code>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
+<span class='flag optional' title='This parameter is optional.'>optional</span>
+
+
+<div class='param-description'>
+<p>If the captions playback should update itself</p>
+
+</div>
+
+</li>
+</ul>
+</div>
+
+
+<div class='example'>
+<h4>Example:</h4>
+
+<div class='example-content'>
+<pre class="code prettyprint"><code>    var captionsData = {
+        "Alias1": [
+            {"start":0, "end":2000, "content":"Ohh that looks awesome!"}
+        ],
+        "Alias2": [
+            {"start":0, "end":2000, "content":"Love it, absolutely love it!"}
+        ]
+    };
+
+    //initialize the captions
+    var captions = new springroll.Captions();
+    captions.data = captionsData;
+    captions.textField = document.getElementById("captions");
+    captions.play("Alias1");
+</code></pre>
+</div>
+</div>
+</div>
+</div>
+
+<div id='classdocs' class='tabview'>
+<span id='docs-highlight'></span>
+<ul class='nav nav-tabs'>
+<li id='tab-index' class='docs-toggle'>
+<a data-toggle='tab' href='#docs-index'>Index</a>
+</li>
+<li id='tab-methods' class='docs-toggle'>
+<a data-toggle='tab' href='#docs-methods'>Methods</a>
+</li>
+<li id='tab-properties' class='docs-toggle'>
+<a data-toggle='tab' href='#docs-properties'>Properties</a>
+</li>
+</ul>
+
+<div class='tab-content'>
+
+<div role='tabpanel' id='docs-index' class='tab-pane'>
+<div class='index-section tab-pane methods'>
+<h3>Methods</h3>
+
+<ul class='list-group row methods'>
+<li class='col-xs-6 col-md-4 index-item method private'>
+<a href='#method__calcUpdate'>_calcUpdate</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item method private'>
+<a href='#method__getTotalDuration'>_getTotalDuration</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item method private'>
+<a href='#method__load'>_load</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item method private'>
+<a href='#method__reset'>_reset</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item method private'>
+<a href='#method__timeCodeToMilliseconds'>_timeCodeToMilliseconds</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item method private'>
+<a href='#method__updateCaptions'>_updateCaptions</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item method private'>
+<a href='#method__updatePercent'>_updatePercent</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item method'>
+<a href='#method_destroy'>destroy</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item method'>
+<a href='#method_getFullCaption'>getFullCaption</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item method'>
+<a href='#method_getLength'>getLength</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item method'>
+<a href='#method_hasCaption'>hasCaption</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item method public'>
+<a href='#method_play'>play</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item method public'>
+<a href='#method_seek'>seek</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item method private'>
+<a href='#method_setText'>setText</a>
+
+<span class='flag static'>static</span>
+</li>
+<li class='col-xs-6 col-md-4 index-item method public'>
+<a href='#method_stop'>stop</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item method public'>
+<a href='#method_update'>update</a>
+
+</li>
+</ul>
+</div>
+
+<div class='index-section tab-pane properties'>
+<h3>Properties</h3>
+
+<ul class='list-group row properties'>
+<li class='col-xs-6 col-md-4 index-item property private'>
+<a href='#property__completeCallback'>_completeCallback</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item property private'>
+<a href='#property__currentAlias'>_currentAlias</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item property private'>
+<a href='#property__currentDuration'>_currentDuration</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item property private'>
+<a href='#property__currentLine'>_currentLine</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item property private'>
+<a href='#property__currentTime'>_currentTime</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item property private'>
+<a href='#property__data'>_data</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item property private'>
+<a href='#property__destroyed'>_destroyed</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item property private'>
+<a href='#property__lastActiveLine'>_lastActiveLine</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item property private'>
+<a href='#property__lines'>_lines</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item property private'>
+<a href='#property__mute'>_mute</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item property private'>
+<a href='#property__playing'>_playing</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item property private'>
+<a href='#property__selfUpdate'>_selfUpdate</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item property private'>
+<a href='#property__textField'>_textField</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item property'>
+<a href='#property_currentAlias'>currentAlias</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item property'>
+<a href='#property_currentDuration'>currentDuration</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item property'>
+<a href='#property_data'>data</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item property'>
+<a href='#property_mute'>mute</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item property private'>
+<a href='#property_p'>p</a>
+
+<span class='flag static'>static</span>
+</li>
+<li class='col-xs-6 col-md-4 index-item property public'>
+<a href='#property_playing'>playing</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item property'>
+<a href='#property_selfUpdate'>selfUpdate</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item property'>
+<a href='#property_textField'>textField</a>
+
+</li>
+</ul>
+</div>
+
+
+</div>
+
+<div role='tabpanel' id='docs-methods' class='tab-pane'>
+
+<div class='method__calcUpdate method item private'>
+<h3 class='name'><a class="deeplink" href="#method__calcUpdate"><span class="glyphicon glyphicon-link"></span></a> <code>_calcUpdate</code></h3>
+
+<span class='paren'>()</span>
+
+
+<div class='flags'>
+
+<span class='flag private'>private</span>
+
+
+
+
+</div> 
+
+<div class='meta'>
+<p>
+Defined in
+<a href='../files/src_media_Captions.js.html#l608'><code>_calcUpdate:608</code></a>
+</p>
+
+
+
+</div>
+
+<div class='description'>
+<p>Calculates the captions after increasing the current time.</p>
+
+</div>
+
+
+
+</div><div class='method__getTotalDuration method item private'>
+<h3 class='name'><a class="deeplink" href="#method__getTotalDuration"><span class="glyphicon glyphicon-link"></span></a> <code>_getTotalDuration</code></h3>
+
+<span class='paren'>()</span>
+
+
+<div class='flags'>
+
+<span class='flag private'>private</span>
+
+
+
+
+</div> 
+
+<div class='meta'>
+<p>
+Defined in
+<a href='../files/src_media_Captions.js.html#l456'><code>_getTotalDuration:456</code></a>
+</p>
+
+
+
+</div>
+
+<div class='description'>
+<p>Calculate the total duration of the current caption</p>
+
+</div>
+
+
+
+</div><div class='method__load method item private'>
+<h3 class='name'><a class="deeplink" href="#method__load"><span class="glyphicon glyphicon-link"></span></a> <code>_load</code></h3>
+
+<div class='args'>
+<span class='paren'>(</span>
+<ul class='args-list inline commas'>
+<li class='arg'>
+<code>data</code>
+</li>
+</ul><span class='paren'>)</span>
+</div>
+
+
+<div class='flags'>
+
+<span class='flag private'>private</span>
+
+
+
+
+</div> 
+
+<div class='meta'>
+<p>
+Defined in
+<a href='../files/src_media_Captions.js.html#l389'><code>_load:389</code></a>
+</p>
+
+
+
+</div>
+
+<div class='description'>
+<p>Sets an array of line data as the current caption data to play.</p>
+
+</div>
+
+<div class='params'>
+<h4>Parameters:</h4>
+
+<ul class='params-list'>
+<li class='param'>
+<code class='param-name'>data</code>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+
+
+<div class='param-description'>
+<p>The string</p>
+
+</div>
+
+</li>
+</ul>
+</div>
+
+
+</div><div class='method__reset method item private'>
+<h3 class='name'><a class="deeplink" href="#method__reset"><span class="glyphicon glyphicon-link"></span></a> <code>_reset</code></h3>
+
+<span class='paren'>()</span>
+
+
+<div class='flags'>
+
+<span class='flag private'>private</span>
+
+
+
+
+</div> 
+
+<div class='meta'>
+<p>
+Defined in
+<a href='../files/src_media_Captions.js.html#l411'><code>_reset:411</code></a>
+</p>
+
+
+
+</div>
+
+<div class='description'>
+<p>Reset the captions</p>
+
+</div>
+
+
+
+</div><div class='method__timeCodeToMilliseconds method item private'>
+<h3 class='name'><a class="deeplink" href="#method__timeCodeToMilliseconds"><span class="glyphicon glyphicon-link"></span></a> <code>_timeCodeToMilliseconds</code></h3>
+
+<div class='args'>
+<span class='paren'>(</span>
+<ul class='args-list inline commas'>
+<li class='arg'>
+<code>input</code>
+</li>
+</ul><span class='paren'>)</span>
+</div>
+
+<span class='returns-inline'>
+<span class='type'>Int</span>
+</span>
+
+<div class='flags'>
+
+<span class='flag private'>private</span>
+
+
+
+
+</div> 
+
+<div class='meta'>
+<p>
+Defined in
+<a href='../files/src_media_Captions.js.html#l422'><code>_timeCodeToMilliseconds:422</code></a>
+</p>
+
+
+
+</div>
+
+<div class='description'>
+<p>Take the captions timecode and convert to milliseconds
+format is in HH:MM:ss:mmm</p>
+
+</div>
+
+<div class='params'>
+<h4>Parameters:</h4>
+
+<ul class='params-list'>
+<li class='param'>
+<code class='param-name'>input</code>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+
+
+<div class='param-description'>
+<p>The input string of the format</p>
+
+</div>
+
+</li>
+</ul>
+</div>
+
+<div class='returns'>
+<h4>Returns:</h4>
+
+<div class='returns-description'>
+<span class='type'>Int</span>:
+<p>Time in milliseconds</p>
+
+</div>
+</div>
+
+</div><div class='method__updateCaptions method item private'>
+<h3 class='name'><a class="deeplink" href="#method__updateCaptions"><span class="glyphicon glyphicon-link"></span></a> <code>_updateCaptions</code></h3>
+
+<span class='paren'>()</span>
+
+
+<div class='flags'>
+
+<span class='flag private'>private</span>
+
+
+
+
+</div> 
+
+<div class='meta'>
+<p>
+Defined in
+<a href='../files/src_media_Captions.js.html#l646'><code>_updateCaptions:646</code></a>
+</p>
+
+
+
+</div>
+
+<div class='description'>
+<p>Updates the text in the managed text field.</p>
+
+</div>
+
+
+
+</div><div class='method__updatePercent method item private'>
+<h3 class='name'><a class="deeplink" href="#method__updatePercent"><span class="glyphicon glyphicon-link"></span></a> <code>_updatePercent</code></h3>
+
+<div class='args'>
+<span class='paren'>(</span>
+<ul class='args-list inline commas'>
+<li class='arg'>
+<code>progress</code>
+</li>
+</ul><span class='paren'>)</span>
+</div>
+
+
+<div class='flags'>
+
+<span class='flag private'>private</span>
+
+
+
+
+</div> 
+
+<div class='meta'>
+<p>
+Defined in
+<a href='../files/src_media_Captions.js.html#l579'><code>_updatePercent:579</code></a>
+</p>
+
+
+
+</div>
+
+<div class='description'>
+<p>Callback for when a frame is entered.</p>
+
+</div>
+
+<div class='params'>
+<h4>Parameters:</h4>
+
+<ul class='params-list'>
+<li class='param'>
+<code class='param-name'>progress</code>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
+
+
+<div class='param-description'>
+<p>The progress in the current sound as a percentage (0-1)</p>
+
+</div>
+
+</li>
+</ul>
+</div>
+
+
+</div><div class='method_destroy method item'>
+<h3 class='name'><a class="deeplink" href="#method_destroy"><span class="glyphicon glyphicon-link"></span></a> <code>destroy</code></h3>
+
+<span class='paren'>()</span>
+
+
+<div class='flags'>
+
+
+
+
+
+</div> 
+
+<div class='meta'>
+<p>
+Defined in
+<a href='../files/src_media_Captions.js.html#l695'><code>destroy:695</code></a>
+</p>
+
+
+
+</div>
+
+<div class='description'>
+<p>Destroy this load task and don&#39;t use after this</p>
+
+</div>
+
+
+
+</div><div class='method_getFullCaption method item'>
+<h3 class='name'><a class="deeplink" href="#method_getFullCaption"><span class="glyphicon glyphicon-link"></span></a> <code>getFullCaption</code></h3>
+
+<div class='args'>
+<span class='paren'>(</span>
+<ul class='args-list inline commas'>
+<li class='arg'>
+<code>alias</code>
+</li>
+<li class='arg'>
+<code class='optional'>[separator=&quot; &quot;]</code>
+</li>
+</ul><span class='paren'>)</span>
+</div>
+
+<span class='returns-inline'>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+</span>
+
+<div class='flags'>
+
+
+
+
+
+</div> 
+
+<div class='meta'>
+<p>
+Defined in
+<a href='../files/src_media_Captions.js.html#l327'><code>getFullCaption:327</code></a>
+</p>
+
+
+
+</div>
+
+<div class='description'>
+<p>A utility function for getting the full text of a caption by alias
+this can be useful for debugging or tracking purposes.</p>
+
+</div>
+
+<div class='params'>
+<h4>Parameters:</h4>
+
+<ul class='params-list'>
+<li class='param'>
+<code class='param-name'>alias</code>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a> | <a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array" class="crosslink external" target="_blank">Array</a></span>
+
+
+<div class='param-description'>
+<p>The alias or Array of aliases for which to get the text.
+                          Any non-String values in this Array are silently and
+                          harmlessly ignored.</p>
+
+</div>
+
+</li>
+<li class='param'>
+<code class='param-name optional'>[separator=&quot; &quot;]</code>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+<span class='flag optional' title='This parameter is optional.'>optional</span>
+
+
+<div class='param-description'>
+<p>The separation between each line.</p>
+
+</div>
+
+</li>
+</ul>
+</div>
+
+<div class='returns'>
+<h4>Returns:</h4>
+
+<div class='returns-description'>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>:
+<p>The entire caption, concatinated by the separator.</p>
+
+</div>
+</div>
+
+</div><div class='method_getLength method item'>
+<h3 class='name'><a class="deeplink" href="#method_getLength"><span class="glyphicon glyphicon-link"></span></a> <code>getLength</code></h3>
+
+<div class='args'>
+<span class='paren'>(</span>
+<ul class='args-list inline commas'>
+<li class='arg'>
+<code>alias</code>
+</li>
+</ul><span class='paren'>)</span>
+</div>
+
+<span class='returns-inline'>
+<span class='type'>Int</span>
+</span>
+
+<div class='flags'>
+
+
+
+
+
+</div> 
+
+<div class='meta'>
+<p>
+Defined in
+<a href='../files/src_media_Captions.js.html#l659'><code>getLength:659</code></a>
+</p>
+
+
+
+</div>
+
+<div class='description'>
+<p>Returns duration in milliseconds of given captioned sound alias or alias list.</p>
+
+</div>
+
+<div class='params'>
+<h4>Parameters:</h4>
+
+<ul class='params-list'>
+<li class='param'>
+<code class='param-name'>alias</code>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a> | <a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array" class="crosslink external" target="_blank">Array</a></span>
+
+
+<div class='param-description'>
+<p>The alias or array of aliases for which to get duration.
+ Array may contain integers (milliseconds) to account for un-captioned gaps.</p>
+
+</div>
+
+</li>
+</ul>
+</div>
+
+<div class='returns'>
+<h4>Returns:</h4>
+
+<div class='returns-description'>
+<span class='type'>Int</span>:
+<p>Length/duration of caption in milliseconds.</p>
+
+</div>
+</div>
+
+</div><div class='method_hasCaption method item'>
+<h3 class='name'><a class="deeplink" href="#method_hasCaption"><span class="glyphicon glyphicon-link"></span></a> <code>hasCaption</code></h3>
+
+<div class='args'>
+<span class='paren'>(</span>
+<ul class='args-list inline commas'>
+<li class='arg'>
+<code>alias</code>
+</li>
+</ul><span class='paren'>)</span>
+</div>
+
+<span class='returns-inline'>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
+</span>
+
+<div class='flags'>
+
+
+
+
+
+</div> 
+
+<div class='meta'>
+<p>
+Defined in
+<a href='../files/src_media_Captions.js.html#l316'><code>hasCaption:316</code></a>
+</p>
+
+
+
+</div>
+
+<div class='description'>
+<p>Returns if there is a caption under that alias or not.</p>
+
+</div>
+
+<div class='params'>
+<h4>Parameters:</h4>
+
+<ul class='params-list'>
+<li class='param'>
+<code class='param-name'>alias</code>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+
+
+<div class='param-description'>
+<p>The alias to check against</p>
+
+</div>
+
+</li>
+</ul>
+</div>
+
+<div class='returns'>
+<h4>Returns:</h4>
+
+<div class='returns-description'>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>:
+<p>Whether the caption was found or not</p>
+
+</div>
+</div>
+
+</div><div class='method_play method item public'>
+<h3 class='name'><a class="deeplink" href="#method_play"><span class="glyphicon glyphicon-link"></span></a> <code>play</code></h3>
+
+<div class='args'>
+<span class='paren'>(</span>
+<ul class='args-list inline commas'>
+<li class='arg'>
+<code>alias</code>
+</li>
+<li class='arg'>
+<code>callback</code>
+</li>
+</ul><span class='paren'>)</span>
+</div>
+
+
+<div class='flags'>
+
+<span class='flag public'>public</span>
+
+
+
+
+</div> 
+
+<div class='meta'>
+<p>
+Defined in
+<a href='../files/src_media_Captions.js.html#l493'><code>play:493</code></a>
+</p>
+
+
+
+</div>
+
+<div class='description'>
+<p>Start the caption playback.</p>
+
+</div>
+
+<div class='params'>
+<h4>Parameters:</h4>
+
+<ul class='params-list'>
+<li class='param'>
+<code class='param-name'>alias</code>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+
+
+<div class='param-description'>
+<p>The desired caption&#39;s alias</p>
+
+</div>
+
+</li>
+<li class='param'>
+<code class='param-name'>callback</code>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function" class="crosslink external" target="_blank">Function</a></span>
+
+
+<div class='param-description'>
+<p>The function to call when the caption is finished playing</p>
+
+</div>
+
+</li>
+</ul>
+</div>
+
+
+</div><div class='method_seek method item public'>
+<h3 class='name'><a class="deeplink" href="#method_seek"><span class="glyphicon glyphicon-link"></span></a> <code>seek</code></h3>
+
+<div class='args'>
+<span class='paren'>(</span>
+<ul class='args-list inline commas'>
+<li class='arg'>
+<code>time</code>
+</li>
+</ul><span class='paren'>)</span>
+</div>
+
+
+<div class='flags'>
+
+<span class='flag public'>public</span>
+
+
+
+
+</div> 
+
+<div class='meta'>
+<p>
+Defined in
+<a href='../files/src_media_Captions.js.html#l527'><code>seek:527</code></a>
+</p>
+
+
+
+</div>
+
+<div class='description'>
+<p>Goto a specific time.</p>
+
+</div>
+
+<div class='params'>
+<h4>Parameters:</h4>
+
+<ul class='params-list'>
+<li class='param'>
+<code class='param-name'>time</code>
+<span class='type'>Int</span>
+
+
+<div class='param-description'>
+<p>The time in milliseconds to seek to in the captions</p>
+
+</div>
+
+</li>
+</ul>
+</div>
+
+
+</div><div class='method_setText method item private'>
+<h3 class='name'><a class="deeplink" href="#method_setText"><span class="glyphicon glyphicon-link"></span></a> <code>setText</code></h3>
+
+<div class='args'>
+<span class='paren'>(</span>
+<ul class='args-list inline commas'>
+<li class='arg'>
+<code>field</code>
+</li>
+<li class='arg'>
+<code>text</code>
+</li>
+</ul><span class='paren'>)</span>
+</div>
+
+<span class='returns-inline'>
+<span class='type'>createjs.Text | <a href="../classes/PIXI.Text.html" class="crosslink">PIXI.Text</a> | <a href="../classes/PIXI.BitmapText.html" class="crosslink">PIXI.BitmapText</a> | DOMElement</span>
+</span>
+
+<div class='flags'>
+
+<span class='flag private'>private</span>
+
+
+<span class='flag static'>static</span>
+
+
+</div> 
+
+<div class='meta'>
+<p>
+Defined in
+<a href='../files/src_media_Captions.js.html#l284'><code>setText:284</code></a>
+</p>
+
+
+
+</div>
+
+<div class='description'>
+<p>Automatically determine how to set the text field text</p>
+
+</div>
+
+<div class='params'>
+<h4>Parameters:</h4>
+
+<ul class='params-list'>
+<li class='param'>
+<code class='param-name'>field</code>
+<span class='type'>createjs.Text | <a href="../classes/PIXI.Text.html" class="crosslink">PIXI.Text</a> | <a href="../classes/PIXI.BitmapText.html" class="crosslink">PIXI.BitmapText</a> | DOMElement</span>
+
+
+<div class='param-description'>
+<p>The text field to change</p>
+
+</div>
+
+</li>
+<li class='param'>
+<code class='param-name'>text</code>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+
+
+<div class='param-description'>
+<p>The text to set it to</p>
+
+</div>
+
+</li>
+</ul>
+</div>
+
+<div class='returns'>
+<h4>Returns:</h4>
+
+<div class='returns-description'>
+<span class='type'>createjs.Text | <a href="../classes/PIXI.Text.html" class="crosslink">PIXI.Text</a> | <a href="../classes/PIXI.BitmapText.html" class="crosslink">PIXI.BitmapText</a> | DOMElement</span>:
+<p>The text field</p>
+
+</div>
+</div>
+
+</div><div class='method_stop method item public'>
+<h3 class='name'><a class="deeplink" href="#method_stop"><span class="glyphicon glyphicon-link"></span></a> <code>stop</code></h3>
+
+<span class='paren'>()</span>
+
+
+<div class='flags'>
+
+<span class='flag public'>public</span>
+
+
+
+
+</div> 
+
+<div class='meta'>
+<p>
+Defined in
+<a href='../files/src_media_Captions.js.html#l512'><code>stop:512</code></a>
+</p>
+
+
+
+</div>
+
+<div class='description'>
+<p>Convience function for stopping captions.</p>
+
+</div>
+
+
+
+</div><div class='method_update method item public'>
+<h3 class='name'><a class="deeplink" href="#method_update"><span class="glyphicon glyphicon-link"></span></a> <code>update</code></h3>
+
+<div class='args'>
+<span class='paren'>(</span>
+<ul class='args-list inline commas'>
+<li class='arg'>
+<code>progress</code>
+</li>
+</ul><span class='paren'>)</span>
+</div>
+
+
+<div class='flags'>
+
+<span class='flag public'>public</span>
+
+
+
+
+</div> 
+
+<div class='meta'>
+<p>
+Defined in
+<a href='../files/src_media_Captions.js.html#l593'><code>update:593</code></a>
+</p>
+
+
+
+</div>
+
+<div class='description'>
+<p>Function to update the amount of time elapsed for the caption playback.
+Call this to advance the caption by a given amount of time.</p>
+
+</div>
+
+<div class='params'>
+<h4>Parameters:</h4>
+
+<ul class='params-list'>
+<li class='param'>
+<code class='param-name'>progress</code>
+<span class='type'>Int</span>
+
+
+<div class='param-description'>
+<p>The time elapsed since the last frame in milliseconds</p>
+
+</div>
+
+</li>
+</ul>
+</div>
+
+
+</div></div>
+
+<div role='tabpanel' id='docs-properties' class='tab-pane'>
+
+<div class="property__completeCallback property item private">
+<h3 class="name"><a class="deeplink" href="#property__completeCallback"><span class="glyphicon glyphicon-link"></span></a> <code>_completeCallback</code></h3>
+<span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function" class="crosslink external" target="_blank">Function</a></span>
+
+
+<span class="flag private">private</span>
+
+
+
+<div class="meta">
+<p>
+Defined in
+<a href="../files/src_media_Captions.js.html#l55"><code>_completeCallback:55</code></a>
+</p>
+
+
+</div>
+
+<div class="description">
+<p>The function to call when playback is complete.</p>
+
+</div>
+
+
+
+</div><div class="property__currentAlias property item private">
+<h3 class="name"><a class="deeplink" href="#property__currentAlias"><span class="glyphicon glyphicon-link"></span></a> <code>_currentAlias</code></h3>
+<span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+
+
+<span class="flag private">private</span>
+
+
+
+<div class="meta">
+<p>
+Defined in
+<a href="../files/src_media_Captions.js.html#l69"><code>_currentAlias:69</code></a>
+</p>
+
+
+</div>
+
+<div class="description">
+<p>The alias of the current caption.</p>
+
+</div>
+
+
+
+</div><div class="property__currentDuration property item private">
+<h3 class="name"><a class="deeplink" href="#property__currentDuration"><span class="glyphicon glyphicon-link"></span></a> <code>_currentDuration</code></h3>
+<span class="type">Int</span>
+
+
+<span class="flag private">private</span>
+
+
+
+<div class="meta">
+<p>
+Defined in
+<a href="../files/src_media_Captions.js.html#l76"><code>_currentDuration:76</code></a>
+</p>
+
+
+</div>
+
+<div class="description">
+<p>The duration in milliseconds of the current caption.</p>
+
+</div>
+
+
+
+</div><div class="property__currentLine property item private">
+<h3 class="name"><a class="deeplink" href="#property__currentLine"><span class="glyphicon glyphicon-link"></span></a> <code>_currentLine</code></h3>
+<span class="type">Int</span>
+
+
+<span class="flag private">private</span>
+
+
+
+<div class="meta">
+<p>
+Defined in
+<a href="../files/src_media_Captions.js.html#l90"><code>_currentLine:90</code></a>
+</p>
+
+
+</div>
+
+<div class="description">
+<p>The current line index.</p>
+
+</div>
+
+
+
+</div><div class="property__currentTime property item private">
+<h3 class="name"><a class="deeplink" href="#property__currentTime"><span class="glyphicon glyphicon-link"></span></a> <code>_currentTime</code></h3>
+<span class="type">Int</span>
+
+
+<span class="flag private">private</span>
+
+
+
+<div class="meta">
+<p>
+Defined in
+<a href="../files/src_media_Captions.js.html#l83"><code>_currentTime:83</code></a>
+</p>
+
+
+</div>
+
+<div class="description">
+<p>The current playback time, in milliseconds.</p>
+
+</div>
+
+
+
+</div><div class="property__data property item private">
+<h3 class="name"><a class="deeplink" href="#property__data"><span class="glyphicon glyphicon-link"></span></a> <code>_data</code></h3>
+<span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+
+
+<span class="flag private">private</span>
+
+
+
+<div class="meta">
+<p>
+Defined in
+<a href="../files/src_media_Captions.js.html#l40"><code>_data:40</code></a>
+</p>
+
+
+</div>
+
+<div class="description">
+<p>An object used as a dictionary with keys that should be the same as sound aliases</p>
+
+</div>
+
+
+
+</div><div class="property__destroyed property item private">
+<h3 class="name"><a class="deeplink" href="#property__destroyed"><span class="glyphicon glyphicon-link"></span></a> <code>_destroyed</code></h3>
+<span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
+
+
+<span class="flag private">private</span>
+
+
+
+<div class="meta">
+<p>
+Defined in
+<a href="../files/src_media_Captions.js.html#l111"><code>_destroyed:111</code></a>
+</p>
+
+
+</div>
+
+<div class="description">
+<p>If this instance has been destroyed already.</p>
+
+</div>
+
+
+
+</div><div class="property__lastActiveLine property item private">
+<h3 class="name"><a class="deeplink" href="#property__lastActiveLine"><span class="glyphicon glyphicon-link"></span></a> <code>_lastActiveLine</code></h3>
+<span class="type">Int</span>
+
+
+<span class="flag private">private</span>
+
+
+
+<div class="meta">
+<p>
+Defined in
+<a href="../files/src_media_Captions.js.html#l97"><code>_lastActiveLine:97</code></a>
+</p>
+
+
+</div>
+
+<div class="description">
+<p>The last active line index.</p>
+
+</div>
+
+
+
+</div><div class="property__lines property item private">
+<h3 class="name"><a class="deeplink" href="#property__lines"><span class="glyphicon glyphicon-link"></span></a> <code>_lines</code></h3>
+<span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array" class="crosslink external" target="_blank">Array</a></span>
+
+
+<span class="flag private">private</span>
+
+
+
+<div class="meta">
+<p>
+Defined in
+<a href="../files/src_media_Captions.js.html#l62"><code>_lines:62</code></a>
+</p>
+
+
+</div>
+
+<div class="description">
+<p>The collection of line objects - {start:0, end:0, content:""}</p>
+
+</div>
+
+
+
+</div><div class="property__mute property item private">
+<h3 class="name"><a class="deeplink" href="#property__mute"><span class="glyphicon glyphicon-link"></span></a> <code>_mute</code></h3>
+<span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
+
+
+<span class="flag private">private</span>
+
+
+
+<div class="meta">
+<p>
+Defined in
+<a href="../files/src_media_Captions.js.html#l126"><code>_mute:126</code></a>
+</p>
+
+
+</div>
+
+<div class="description">
+<p>If the captions are muted</p>
+
+</div>
+
+<p><strong>Default:</strong> false</p>
+
+
+</div><div class="property__playing property item private">
+<h3 class="name"><a class="deeplink" href="#property__playing"><span class="glyphicon glyphicon-link"></span></a> <code>_playing</code></h3>
+<span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
+
+
+<span class="flag private">private</span>
+
+
+
+<div class="meta">
+<p>
+Defined in
+<a href="../files/src_media_Captions.js.html#l104"><code>_playing:104</code></a>
+</p>
+
+
+</div>
+
+<div class="description">
+<p>If we&#39;re playing.</p>
+
+</div>
+
+
+
+</div><div class="property__selfUpdate property item private">
+<h3 class="name"><a class="deeplink" href="#property__selfUpdate"><span class="glyphicon glyphicon-link"></span></a> <code>_selfUpdate</code></h3>
+<span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
+
+
+<span class="flag private">private</span>
+
+
+
+<div class="meta">
+<p>
+Defined in
+<a href="../files/src_media_Captions.js.html#l118"><code>_selfUpdate:118</code></a>
+</p>
+
+
+</div>
+
+<div class="description">
+<p>If the captions object should do its own update.</p>
+
+</div>
+
+<p><strong>Default:</strong> true</p>
+
+
+</div><div class="property__textField property item private">
+<h3 class="name"><a class="deeplink" href="#property__textField"><span class="glyphicon glyphicon-link"></span></a> <code>_textField</code></h3>
+<span class="type">createjs.Text | <a href="../classes/PIXI.Text.html" class="crosslink">PIXI.Text</a> | <a href="../classes/PIXI.BitmapText.html" class="crosslink">PIXI.BitmapText</a> | DOMElement</span>
+
+
+<span class="flag private">private</span>
+
+
+
+<div class="meta">
+<p>
+Defined in
+<a href="../files/src_media_Captions.js.html#l47"><code>_textField:47</code></a>
+</p>
+
+
+</div>
+
+<div class="description">
+<p>A reference to the Text object that Captions should be controlling.
+Only one text field can be controlled at a time.</p>
+
+</div>
+
+
+
+</div><div class="property_currentAlias property item">
+<h3 class="name"><a class="deeplink" href="#property_currentAlias"><span class="glyphicon glyphicon-link"></span></a> <code>currentAlias</code></h3>
+<span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+
+
+
+
+
+<div class="meta">
+<p>
+Defined in
+<a href="../files/src_media_Captions.js.html#l480"><code>currentAlias:480</code></a>
+</p>
+
+
+</div>
+
+<div class="description">
+<p>Get the current caption alias.</p>
+
+</div>
+
+
+
+</div><div class="property_currentDuration property item">
+<h3 class="name"><a class="deeplink" href="#property_currentDuration"><span class="glyphicon glyphicon-link"></span></a> <code>currentDuration</code></h3>
+<span class="type">Int</span>
+
+
+
+
+
+<div class="meta">
+<p>
+Defined in
+<a href="../files/src_media_Captions.js.html#l467"><code>currentDuration:467</code></a>
+</p>
+
+
+</div>
+
+<div class="description">
+<p>Get the current duration of the current caption</p>
+
+</div>
+
+
+
+</div><div class="property_data property item">
+<h3 class="name"><a class="deeplink" href="#property_data"><span class="glyphicon glyphicon-link"></span></a> <code>data</code></h3>
+<span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+
+
+
+
+
+<div class="meta">
+<p>
+Defined in
+<a href="../files/src_media_Captions.js.html#l194"><code>data:194</code></a>
+</p>
+
+
+</div>
+
+<div class="description">
+<p>Sets the dictionary object to use for captions. This overrides the current 
+dictionary, if present.</p>
+
+</div>
+
+
+
+</div><div class="property_mute property item">
+<h3 class="name"><a class="deeplink" href="#property_mute"><span class="glyphicon glyphicon-link"></span></a> <code>mute</code></h3>
+<span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
+
+
+
+
+
+<div class="meta">
+<p>
+Defined in
+<a href="../files/src_media_Captions.js.html#l151"><code>mute:151</code></a>
+</p>
+
+
+</div>
+
+<div class="description">
+<p>Set if all captions are currently muted.</p>
+
+</div>
+
+<p><strong>Default:</strong> false</p>
+
+
+</div><div class="property_p property item private">
+<h3 class="name"><a class="deeplink" href="#property_p"><span class="glyphicon glyphicon-link"></span></a> <code>p</code></h3>
+<span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+
+
+<span class="flag private">private</span>
+
+
+<span class="flag static">static</span>
+
+<div class="meta">
+<p>
+Defined in
+<a href="../files/src_media_Captions.js.html#l143"><code>p:143</code></a>
+</p>
+
+
+</div>
+
+<div class="description">
+<p>Reference to the prototype</p>
+
+</div>
+
+
+
+</div><div class="property_playing property item public">
+<h3 class="name"><a class="deeplink" href="#property_playing"><span class="glyphicon glyphicon-link"></span></a> <code>playing</code></h3>
+<span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
+
+
+<span class="flag public">public</span>
+
+
+
+<div class="meta">
+<p>
+Defined in
+<a href="../files/src_media_Captions.js.html#l442"><code>playing:442</code></a>
+</p>
+
+
+</div>
+
+<div class="description">
+<p>The playing status.</p>
+
+</div>
+
+
+
+</div><div class="property_selfUpdate property item">
+<h3 class="name"><a class="deeplink" href="#property_selfUpdate"><span class="glyphicon glyphicon-link"></span></a> <code>selfUpdate</code></h3>
+<span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
+
+
+
+
+
+<div class="meta">
+<p>
+Defined in
+<a href="../files/src_media_Captions.js.html#l169"><code>selfUpdate:169</code></a>
+</p>
+
+
+</div>
+
+<div class="description">
+<p>If the captions object should do it&#39;s own updating unless you want to manuall
+seek. In general, self-updating should not be set to false unless the sync
+of the captions needs to be exact with something else.</p>
+
+</div>
+
+<p><strong>Default:</strong> true</p>
+
+
+</div><div class="property_textField property item">
+<h3 class="name"><a class="deeplink" href="#property_textField"><span class="glyphicon glyphicon-link"></span></a> <code>textField</code></h3>
+<span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a> | createjs.Text | <a href="../classes/PIXI.Text.html" class="crosslink">PIXI.Text</a> | <a href="../classes/PIXI.BitmapText.html" class="crosslink">PIXI.BitmapText</a> | DOMElement</span>
+
+
+
+
+
+<div class="meta">
+<p>
+Defined in
+<a href="../files/src_media_Captions.js.html#l265"><code>textField:265</code></a>
+</p>
+
+
+</div>
+
+<div class="description">
+<p>The text field that the captions uses to update.</p>
+
+</div>
+
+
+
+</div></div>
+
+
+</div>
+</div></div>
+</div>
+</div>
+</div>
+<script src='../assets/js/libraries.js?v=0.4.0'></script>
+<script src='../assets/js/main.js?v=0.4.0'></script>
+</body>
+</html>

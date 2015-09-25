@@ -1,0 +1,23 @@
+{
+	"scaling": {
+		"playButton" : {
+			"x" : 10,
+			"y" : 10,
+			"align": "top-left",
+			"minScale": 0.6,
+			"maxScale": 1.2 
+		},
+		"closeButton" : {
+			"x" : 660,
+			"y" : 10,
+			"align": "top-right",
+			"titleSafe": true
+		},
+		"background": "cover-image"
+	},
+	"scalingSize": {
+		"width": 800,
+		"height": 500,
+		"maxWidth": 1000
+	}
+}

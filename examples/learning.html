@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>Learning Dispatcher Example</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width">
+        <link rel="stylesheet" href="assets/css/main.css">
+
+        <!-- Examples dependencies, these are only necessary for examples -->
+        <link rel="stylesheet" href="../components/google-code-prettify/bin/prettify.min.css">
+		<script src="../components/google-code-prettify/bin/prettify.min.js"></script>
+		<script src="../components/google-code-prettify/bin/run_prettify.min.js"></script>
+		<script src="assets/js/examples.js"></script>
+
+        <!-- External dependencies -->
+        <script src="../components/preloadjs/lib/preloadjs.min.js"></script>
+		<script src="../components/easeljs/lib/easeljs.combined.js"></script>
+		<script src="../dist/core.js"></script>	
+		<script src="../dist/modules/debug.js"></script>
+		<script src="../dist/modules/easeljs-display.js"></script>
+		<script src="../dist/modules/easeljs-ui.js"></script>
+
+		<!-- Optional external depdencencies -->
+		<!-- jQuery is used by the Learning debugging tray -->
+		<script src="../components/jquery/dist/jquery.min.js"></script>
+
+		<!-- Library and modules -->
+		<link rel="stylesheet" href="../dist/modules/learning.css"></script>
+
+		<!-- The CSS is needed for the Learning tray -->
+		<script src="../dist/modules/learning.js"></script>
+
+    </head>
+    <body class="md">
+		<div id="content" class="canvas">
+			<nav>
+				<button id="canvas">Application</button>
+				<button id="code">Code</button>
+				<button id="back">Back</button>
+			</nav>
+			<canvas id="stage" width="800" height="500"></canvas>
+			<pre id="codeDisplay"></pre>
+<script>
+
+// Import classes
+var Application = include('springroll.Application'),
+	Button = include('springroll.easeljs.Button'),
+	Debug = include('springroll.Debug'),
+	EaselJSDisplay = include('springroll.easeljs.EaselJSDisplay');
+
+// Create the new application
+var app = new Application({
+	canvasId: "stage",
+	debug: true,
+	configPath: "assets/config/config-learning.json",
+	display: EaselJSDisplay,
+	displayOptions: {
+		clearView: true
+	},
+	preload: ['assets/images/button.png']
+});
+
+// Handle the events
+app.on('learningEvent', function(data)
+{
+	Debug.log(data);
+}); 
+
+// Wait until the app is ready
+app.once('init', function()
+{
+	var learning = this.learning;
+
+	this.addButton("startGame", 0, 0, function(){
+		learning.startGame();
+	});
+
+	this.addButton("startRound", 1, 0, function(){
+		learning.startRound(1, {size:1, type:"tub", animal:"pig"}, [1, 2], ["pig", "hog"], 1);
+	});
+
+	this.addButton("startRound", 1, 0, function(){
+		learning.startTimer('round');
+		learning.startRound(1, {size:1, type:"tub", animal:"pig"}, [1, 2], ["pig", "hog"], 1);
+	});
+
+	this.addButton("endRound", 1, 1, function(){
+		learning.requires("startRound");
+		learning.endRound(
+			1, 
+			learning.stopTimer('round'), 
+			{size:1, type:"tub", animal:"pig"}, 
+			1, 
+			0
+		);
+	});
+
+	this.addButton("startInstruction", 2, 0, function(){
+		learning.startInstruction("Audio caption or text", "SomeAudio", "audio", 1000);
+	});
+
+	this.addButton("endInstruction", 2, 1, function(){
+		learning.endInstruction();
+	});
+
+	this.addButton("startIncorrect", 2, 2, function(){
+		learning.startIncorrectFeedback("Audio caption or text", "SomeAudio", "audio", 1000);
+	});
+
+	this.addButton("endIncorrect", 2, 3, function(){
+		learning.endIncorrectFeedback();
+	});
+
+	this.addButton("startCorrect", 2, 4, function(){
+		learning.startCorrectFeedback("Audio caption or text", "SomeAudio", "audio", 1000);
+	});
+
+	this.addButton("endCorrect", 2, 5, function(){
+		learning.endCorrectFeedback();
+	});
+
+	this.addButton("endGame", 4, 0, function(){
+		learning.endGame();
+	});
+});
+
+// Generic method for adding a button to the stage
+// add a label and some positioning information
+app.addButton = function(label, row, col, handler)
+{
+	// Create a play button
+	var button = new Button(this.getCache('button'), {
+		text: label,
+		font: "16px Arial",
+		color: "#ffffff"
+	});
+	button.x = row * 140;
+	button.y = col * 60;
+
+	// Handle the press
+	if (handler)
+	{
+		button.on('buttonPress', handler);
+	}
+
+	this.display.stage.addChild(button);
+	return button;
+};
+
+</script>
+		</div>
+    </body>
+</html>

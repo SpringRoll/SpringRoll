@@ -1,0 +1,1177 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+	<title>SpringRoll v0.4.0 API Documentation : src/loaders/AssetLoad.js</title>
+	<meta charset='utf-8'>
+	<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+	<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
+	<link rel='shortcut icon' type='image/png' href='../assets/images/favicon.ico?v=0.4.0'>
+	<link href='//fonts.googleapis.com/css?family=Titillium+Web:300,200,600' rel='stylesheet' type='text/css'>
+	<link rel='stylesheet' type='text/css' href='../assets/css/libraries.css?v=0.4.0'>
+	<link rel='stylesheet' type='text/css' href='../assets/css/main.css?v=0.4.0'>
+</head>
+<body>
+<header>
+	<nav class="navbar navbar-inverse navbar-fixed-top">
+		<div class='container'>
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#docs-navbar">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href='https://github.com/SpringRoll/SpringRoll'>
+						<img src='../assets/images/logo.png?v=0.4.0' class="logo">
+					<span class='project-name'>SpringRoll</span>
+					<span class="sr-only">API Documentation for:</span>
+					<span class='version hidden-xs'>v0.4.0</span>
+				</a>
+			</div>
+			<div class="collapse navbar-collapse" id="docs-navbar">
+	      <ul class="scope-toggles text-center nav navbar-nav navbar-right">
+					<li><input class='scope-toggle' 
+						id='toggle-inherited' 
+						type='checkbox' 
+						data-toggle='toggle' 
+						data-on='Inherited' 
+						data-off='Inherited' 
+						data-size='mini'
+						data-width='80'>
+					</li>
+					<li><input class='scope-toggle' 
+						id='toggle-protected' 
+						type='checkbox' 
+						data-toggle='toggle' 
+						data-on='Protected' 
+						data-off='Protected' 
+						data-size='mini'
+						data-width='80'>
+					</li>
+					<li><input class='scope-toggle' 
+						id='toggle-private' 
+						type='checkbox' 
+						data-toggle='toggle' 
+						data-on='Private' 
+						data-off='Private' 
+						data-size='mini'
+						data-width='80'>
+					</li>
+					<li><input class='scope-toggle' 
+						id='toggle-deprecated' 
+						type='checkbox' 
+						data-toggle='toggle' 
+						data-on='Deprecated' 
+						data-off='Deprecated' 
+						data-size='mini'
+						data-width='80'>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+</header>
+<div class='container'>
+<div class='row'>
+<nav id='sidebar' class='col-sm-4 col-md-3'>
+<h2>APIs</h2>
+<div class='input-group'>
+  <div class='input-group-addon'>
+    <span class='glyphicon glyphicon-search'></span>
+  </div>
+  <input type='search' class='form-control' id='api-filter' placeholder='Type to filter APIs'>
+  <span class='collapsed btn-close glyphicon glyphicon-remove-sign hidden'></span>
+</div>
+<nav class='navbar navbar-default'>
+  <!-- Brand and toggle get grouped for better mobile display -->
+  <div class="btn-group" role="group" aria-label="...">
+    <button type="button" class="sidebar-toggle collapsed btn btn-default" id='toggle-classes' data-target='#classes-collapse'>
+      Classes
+      <span class='collapsed glyphicon glyphicon-chevron-up'></span>
+      <span class='expanded glyphicon glyphicon-chevron-down'></span>
+    </button>
+    <button type="button" class="sidebar-toggle collapsed btn btn-default" id='toggle-modules' data-target='#modules-collapse'>
+      Modules
+      <span class='collapsed glyphicon glyphicon-chevron-up'></span>
+      <span class='expanded glyphicon glyphicon-chevron-down'></span>
+    </button>
+  </div>
+
+  <!-- Collect the nav links, forms, and other content for toggling -->
+  <div class='collapse' id='classes-collapse'>
+    <ul class='nav navbar-nav'>
+        <li class='public'>
+          <a href='../classes/createjs.Container.html'>createjs.Container</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/createjs.MovieClip.html'>createjs.MovieClip</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/createjs.Point.html'>createjs.Point</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/createjs.SpriteSheet.html'>createjs.SpriteSheet</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/PIXI.BitmapText.html'>PIXI.BitmapText</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/PIXI.Container.html'>PIXI.Container</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/PIXI.InteractionManager.html'>PIXI.InteractionManager</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/PIXI.Point.html'>PIXI.Point</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/PIXI.Sector.html'>PIXI.Sector</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/PIXI.Text.html'>PIXI.Text</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.AbstractDisplay.html'>springroll.AbstractDisplay</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.AbstractHint.html'>springroll.AbstractHint</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.Animator.html'>springroll.Animator</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.AnimatorHint.html'>springroll.AnimatorHint</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.AnimatorTimeline.html'>springroll.AnimatorTimeline</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.Application.html'>springroll.Application</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.ApplicationOptions.html'>springroll.ApplicationOptions</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.ApplicationPlugin.html'>springroll.ApplicationPlugin</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.AssetCache.html'>springroll.AssetCache</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.AssetLoad.html'>springroll.AssetLoad</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.AssetManager.html'>springroll.AssetManager</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.AssetSizes.html'>springroll.AssetSizes</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.BaseState.html'>springroll.BaseState</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.CacheManager.html'>springroll.CacheManager</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.Captions.html'>springroll.Captions</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.ColorAlphaTask.html'>springroll.ColorAlphaTask</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.CombinedCallback.html'>springroll.CombinedCallback</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.Container.html'>springroll.Container</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.Debug.html'>springroll.Debug</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.DebugOptions.html'>springroll.DebugOptions</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.DelayedCall.html'>springroll.DelayedCall</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.easeljs.Animator.html'>springroll.easeljs.Animator</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.easeljs.Application.html'>springroll.easeljs.Application</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.easeljs.BasePanel.html'>springroll.easeljs.BasePanel</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.easeljs.BaseState.html'>springroll.easeljs.BaseState</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.easeljs.BitmapMovieClip.html'>springroll.easeljs.BitmapMovieClip</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.easeljs.BitmapMovieClipInstance.html'>springroll.easeljs.BitmapMovieClipInstance</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.easeljs.BitmapMovieClipTask.html'>springroll.easeljs.BitmapMovieClipTask</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.easeljs.BitmapTask.html'>springroll.easeljs.BitmapTask</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.easeljs.BitmapUtils.html'>springroll.easeljs.BitmapUtils</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.easeljs.Button.html'>springroll.easeljs.Button</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.easeljs.Cutscene.html'>springroll.easeljs.Cutscene</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.easeljs.CutsceneTask.html'>springroll.easeljs.CutsceneTask</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.easeljs.DisplayAdapter.html'>springroll.easeljs.DisplayAdapter</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.easeljs.DragData.html'>springroll.easeljs.DragData</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.easeljs.DragManager.html'>springroll.easeljs.DragManager</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.easeljs.DwellTimer.html'>springroll.easeljs.DwellTimer</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.easeljs.EaselJSDisplay.html'>springroll.easeljs.EaselJSDisplay</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.easeljs.FlashArt.html'>springroll.easeljs.FlashArt</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.easeljs.FlashArtAtlasTask.html'>springroll.easeljs.FlashArtAtlasTask</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.easeljs.FlashArtTask.html'>springroll.easeljs.FlashArtTask</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.easeljs.FlashSpriteSheetTask.html'>springroll.easeljs.FlashSpriteSheetTask</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.easeljs.MovieClipInstance.html'>springroll.easeljs.MovieClipInstance</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.easeljs.ReversePlayback.html'>springroll.easeljs.ReversePlayback</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.easeljs.SoundButton.html'>springroll.easeljs.SoundButton</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.easeljs.SoundTask.html'>springroll.easeljs.SoundTask</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.easeljs.SpriteSheetTask.html'>springroll.easeljs.SpriteSheetTask</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.easeljs.Texture.html'>springroll.easeljs.Texture</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.easeljs.TextureAtlas.html'>springroll.easeljs.TextureAtlas</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.easeljs.TextureAtlasTask.html'>springroll.easeljs.TextureAtlasTask</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.Enum.html'>springroll.Enum</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.EnumValue.html'>springroll.EnumValue</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.EventCatalog.html'>springroll.EventCatalog</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.EventDispatcher.html'>springroll.EventDispatcher</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.EventError.html'>springroll.EventError</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.EventSignature.html'>springroll.EventSignature</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.EventUtils.html'>springroll.EventUtils</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.Features.html'>springroll.Features</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.FlashArtImageTask.html'>springroll.FlashArtImageTask</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.FunctionHint.html'>springroll.FunctionHint</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.FunctionTask.html'>springroll.FunctionTask</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.GroupHint.html'>springroll.GroupHint</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.HintsPlayer.html'>springroll.HintsPlayer</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.Languages.html'>springroll.Languages</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.Learning.html'>springroll.Learning</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.LearningError.html'>springroll.LearningError</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.LearningMedia.html'>springroll.LearningMedia</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.ListTask.html'>springroll.ListTask</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.Loader.html'>springroll.Loader</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.LoaderItem.html'>springroll.LoaderItem</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.LoaderResult.html'>springroll.LoaderResult</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.LoadTask.html'>springroll.LoadTask</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.native.Circle.html'>springroll.native.Circle</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.native.DisplayAdapter.html'>springroll.native.DisplayAdapter</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.native.Ellipse.html'>springroll.native.Ellipse</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.native.NativeDisplay.html'>springroll.native.NativeDisplay</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.native.Point.html'>springroll.native.Point</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.native.Polygon.html'>springroll.native.Polygon</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.native.Rectangle.html'>springroll.native.Rectangle</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.PageVisibility.html'>springroll.PageVisibility</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.pixi.AdvancedMovieClip.html'>springroll.pixi.AdvancedMovieClip</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.pixi.AdvancedMovieClipInstance.html'>springroll.pixi.AdvancedMovieClipInstance</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.pixi.AdvancedMovieClipTask.html'>springroll.pixi.AdvancedMovieClipTask</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.pixi.Animator.html'>springroll.pixi.Animator</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.pixi.BitmapFontTask.html'>springroll.pixi.BitmapFontTask</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.pixi.Button.html'>springroll.pixi.Button</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.pixi.DisplayAdapter.html'>springroll.pixi.DisplayAdapter</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.pixi.DragData.html'>springroll.pixi.DragData</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.pixi.DragManager.html'>springroll.pixi.DragManager</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.pixi.ParallelSpineData.html'>springroll.pixi.ParallelSpineData</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.pixi.PixiDisplay.html'>springroll.pixi.PixiDisplay</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.pixi.SpineAnimTask.html'>springroll.pixi.SpineAnimTask</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.pixi.SpineAtlas.html'>springroll.pixi.SpineAtlas</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.pixi.SpineAtlasTask.html'>springroll.pixi.SpineAtlasTask</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.pixi.SpineInstance.html'>springroll.pixi.SpineInstance</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.pixi.TextureAtlas.html'>springroll.pixi.TextureAtlas</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.pixi.TextureAtlasTask.html'>springroll.pixi.TextureAtlasTask</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.pixi.TextureTask.html'>springroll.pixi.TextureTask</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.Positioner.html'>springroll.Positioner</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.Property.html'>springroll.Property</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.PropertyDispatcher.html'>springroll.PropertyDispatcher</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.SavedData.html'>springroll.SavedData</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.ScaleImage.html'>springroll.ScaleImage</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.ScaleItem.html'>springroll.ScaleItem</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.ScaleManager.html'>springroll.ScaleManager</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.Sound.html'>springroll.Sound</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.SoundContext.html'>springroll.SoundContext</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.SoundInstance.html'>springroll.SoundInstance</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.State.html'>springroll.State</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.StateEvent.html'>springroll.StateEvent</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.StateManager.html'>springroll.StateManager</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.StringFilters.html'>springroll.StringFilters</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.Task.html'>springroll.Task</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.TickerPlugin.html'>springroll.TickerPlugin</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.TimeUtils.html'>springroll.TimeUtils</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.UIScaler.html'>springroll.UIScaler</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.ValidationError.html'>springroll.ValidationError</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.VOHint.html'>springroll.VOHint</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.VOPlayer.html'>springroll.VOPlayer</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.WeightedRandom.html'>springroll.WeightedRandom</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/window.Array.html'>window.Array</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/window.extend.html'>window.extend</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/window.include.html'>window.include</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/window.Math.html'>window.Math</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/window.mixin.html'>window.mixin</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/window.namespace.html'>window.namespace</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/window.Number.html'>window.Number</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/window.Object.html'>window.Object</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/window.RequestUtils.html'>window.RequestUtils</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/window.String.html'>window.String</a>
+        </li>
+    </ul>
+  </div>
+
+  <!-- Collect the nav links, forms, and other content for toggling -->
+  <div class='collapse' id='modules-collapse'>
+    <ul class='nav navbar-nav'>
+        <li class=''>
+          <a href='../modules/Animation.html'>Animation</a>
+        </li>
+        <li class=''>
+          <a href='../modules/Captions.html'>Captions</a>
+        </li>
+        <li class=''>
+          <a href='../modules/Container.html'>Container</a>
+        </li>
+        <li class=''>
+          <a href='../modules/Container Client.html'>Container Client</a>
+        </li>
+        <li class=''>
+          <a href='../modules/Core.html'>Core</a>
+        </li>
+        <li class=''>
+          <a href='../modules/Debug.html'>Debug</a>
+        </li>
+        <li class=''>
+          <a href='../modules/EaselJS Animation.html'>EaselJS Animation</a>
+        </li>
+        <li class=''>
+          <a href='../modules/EaselJS Cutscene.html'>EaselJS Cutscene</a>
+        </li>
+        <li class=''>
+          <a href='../modules/EaselJS Display.html'>EaselJS Display</a>
+        </li>
+        <li class=''>
+          <a href='../modules/EaselJS Learning.html'>EaselJS Learning</a>
+        </li>
+        <li class=''>
+          <a href='../modules/EaselJS States.html'>EaselJS States</a>
+        </li>
+        <li class=''>
+          <a href='../modules/EaselJS UI.html'>EaselJS UI</a>
+        </li>
+        <li class=''>
+          <a href='../modules/Hints.html'>Hints</a>
+        </li>
+        <li class=''>
+          <a href='../modules/Languages.html'>Languages</a>
+        </li>
+        <li class=''>
+          <a href='../modules/Learning.html'>Learning</a>
+        </li>
+        <li class=''>
+          <a href='../modules/Learning Media.html'>Learning Media</a>
+        </li>
+        <li class=''>
+          <a href='../modules/Native Display.html'>Native Display</a>
+        </li>
+        <li class=''>
+          <a href='../modules/Pixi Animation.html'>Pixi Animation</a>
+        </li>
+        <li class=''>
+          <a href='../modules/PIXI Animation.html'>PIXI Animation</a>
+        </li>
+        <li class=''>
+          <a href='../modules/Pixi Display.html'>Pixi Display</a>
+        </li>
+        <li class=''>
+          <a href='../modules/PIXI Display.html'>PIXI Display</a>
+        </li>
+        <li class=''>
+          <a href='../modules/PIXI Spine.html'>PIXI Spine</a>
+        </li>
+        <li class=''>
+          <a href='../modules/PIXI UI.html'>PIXI UI</a>
+        </li>
+        <li class=''>
+          <a href='../modules/Sound.html'>Sound</a>
+        </li>
+        <li class=''>
+          <a href='../modules/States.html'>States</a>
+        </li>
+        <li class=''>
+          <a href='../modules/UI.html'>UI</a>
+        </li>
+    </ul>
+  </div>
+  <!-- /.container-fluid -->
+</nav></nav>
+<div class='col-sm-8 col-md-9'>
+<div id='docs-main' class='apidocs'>
+<h1 class="file-heading">File:AssetLoad.js</h1>
+
+<div class="file">
+<pre class="code prettyprint linenums">/**
+ * @module Core
+ * @namespace springroll
+ */
+(function(undefined)
+{
+	var Debug,
+		Task = include(&#x27;springroll.Task&#x27;),
+		EventDispatcher = include(&#x27;springroll.EventDispatcher&#x27;);
+
+	/**
+	 * Class that represents a single multi load
+	 * @class AssetLoad
+	 * @private
+	 * @extends springroll.EventDispatcher
+	 * @constructor
+	 * @param {springroll.AssetManager} manager Reference to the manager
+	 */
+	var AssetLoad = function(manager)
+	{
+		EventDispatcher.call(this);
+
+		if (DEBUG)
+		{
+			Debug = include(&#x27;springroll.Debug&#x27;, false);
+		}
+
+		/**
+		 * Reference to the Task Manager
+		 * @property {springroll.AssetManager} manager
+		 */
+		this.manager = manager;
+
+		if (DEBUG)
+		{
+			this.id = AssetLoad.ID++;
+		}
+
+		/**
+		 * How to display the results, either as single (0), map (1) or list (2)
+		 * @property {int} mode
+		 * @default 1
+		 */
+		this.mode = MAP_MODE;
+
+		/**
+		 * If we should run the tasks in parallel (true) or serial (false)
+		 * @property {Boolean} startAll
+		 * @default true
+		 */
+		this.startAll = true;
+
+		/**
+		 * If we should try to cache all items in the load
+		 * @property {Boolean} cacheAll
+		 * @default false
+		 */
+		this.cacheAll = false;
+
+		/**
+		 * The list of tasks to load
+		 * @property {Array} tasks
+		 */
+		this.tasks = [];
+
+		/**
+		 * The results to return when we&#x27;re done
+		 * @property {Array|Object} results
+		 */
+		this.results = null;
+
+		/**
+		 * If the load is currently running
+		 * @property {Boolean} running
+		 * @default false
+		 */
+		this.running = false;
+
+		/**
+		 * The total number of assets loaded
+		 * @property {int} numLoaded
+		 * @default 0
+		 */
+		this.numLoaded = 0;
+
+		/**
+		 * The total number of assets
+		 * @property {int} total
+		 * @default 0
+		 */
+		this.total = 0;
+
+		/**
+		 * The default asset type if not defined
+		 * @property {String} type
+		 * @default null
+		 */
+		this.type = null;
+	};
+
+	// Reference to prototype
+	var p = extend(AssetLoad, EventDispatcher);
+
+	/**
+	 * When an asset is finished
+	 * @event taskDone
+	 * @param {*} result The loader result
+	 * @param {Object} originalAsset The original load asset
+	 * @param {Array} assets Collection to add additional assets to
+	 */
+
+	/**
+	 * When all assets have been completed loaded
+	 * @event complete
+	 * @param {Array|Object} results The results of load
+	 */
+
+	/**
+	 * Check how many assets have finished loaded
+	 * @event progress
+	 * @param {Number} percentage The amount loaded from 0 to 1
+	 */
+
+	if (DEBUG)
+	{
+		/**
+		 * Debugging Keep track of how many we&#x27;ve created
+		 * @property {int} ID
+		 * @static
+		 * @private
+		 */
+		AssetLoad.ID = 1;
+
+		/**
+		 * Debugging purposes
+		 * @method toString
+		 */
+		p.toString = function()
+		{
+			return &quot;[AssetLoad (index: &quot; + this.id + &quot;)]&quot;;
+		};
+	}
+
+	/**
+	 * Initialize the Load
+	 * @method setup
+	 * @param {Object|Array} assets The collection of assets to load
+	 * @param {Object} [options] The loading options
+	 * @param {Boolean} [options.startAll=true] If we should run the tasks in order
+	 * @param {Boolean} [options.autoStart=true] Automatically start running
+	 * @param {Boolean} [options.cacheAll=false] If we should run the tasks in order
+	 * @param {String} [options.type] The default asset type of load, gets attached to each asset
+	 */
+	p.setup = function(assets, options)
+	{
+		// Save options to load
+		this.startAll = options.startAll;
+		this.cacheAll = options.cacheAll;
+		this.type = options.type;
+
+		// Update the results mode and tasks
+		this.mode = this.addTasks(assets);
+
+		// Set the default container for the results
+		this.results = getAssetsContainer(this.mode);
+		
+		// Start running
+		if (options.autoStart)
+		{
+			this.start();
+		}
+	};
+
+	/**
+	 * Start the load process
+	 * @method start
+	 */
+	p.start = function()
+	{
+		// Empty load percentage
+		this.trigger(&#x27;progress&#x27;, 0);
+
+		// Keep track if we&#x27;re currently running
+		this.running = true;
+		this.nextTask();
+	};
+
+	/**
+	 * Set back to the original state
+	 * @method reset
+	 */
+	p.reset = function()
+	{
+		// Cancel any tasks
+		this.tasks.forEach(function(task)
+		{
+			task.status = Task.FINISHED;
+			task.destroy();
+		});
+		this.total = 0;
+		this.numLoaded = 0;
+		this.mode = MAP_MODE;
+		this.tasks.length = 0;
+		this.results = null;
+		this.type = null;
+		this.startAll = true;
+		this.cacheAll = false;
+		this.running = false;
+	};
+
+	/**
+	 * The result is a single result
+	 * @property {int} SINGLE_MODE
+	 * @private
+	 * @final
+	 * @static
+	 * @default 0
+	 */
+	var SINGLE_MODE = 0;
+
+	/**
+	 * The result is a map of result objects
+	 * @property {int} MAP_MODE
+	 * @private
+	 * @final
+	 * @static
+	 * @default 1
+	 */
+	var MAP_MODE = 1;
+
+	/**
+	 * The result is an array of result objects
+	 * @property {int} LIST_MODE
+	 * @private
+	 * @final
+	 * @static
+	 * @default 2
+	 */
+	var LIST_MODE = 2;
+
+	/**
+	 * Create a list of tasks from assets
+	 * @method  addTasks
+	 * @private
+	 * @param  {Object|Array} assets The assets to load
+	 */
+	p.addTasks = function(assets)
+	{
+		var asset;
+		var mode = MAP_MODE;
+
+		// Apply the defaults incase this is a single
+		// thing that we&#x27;re trying to load
+		assets = applyDefaults(assets);
+
+		// Check for a task definition on the asset
+		var isSingle = this.getTaskByAsset(assets);
+
+		if (isSingle)
+		{
+			this.addTask(assets);
+			return SINGLE_MODE;
+		}
+		else
+		{
+			var task;
+			if (Array.isArray(assets))
+			{
+				for (var i = 0; i &lt; assets.length; i++)
+				{
+					asset = applyDefaults(assets[i]);
+					task = this.addTask(asset);
+					if (!task.id)
+					{
+						// If we don&#x27;t have the id to return
+						// a mapped result, we&#x27;ll fallback to array results
+						mode = LIST_MODE;
+					}
+				}
+			}
+			else if (Object.isPlain(assets))
+			{
+				for(var id in assets)
+				{
+					asset = applyDefaults(assets[id]);
+					task = this.addTask(asset);
+					if (!task.id)
+					{
+						task.id = id;
+					}
+				}
+			}
+			else if (DEBUG &amp;&amp; Debug)
+			{
+				Debug.error(&quot;Asset type unsupported&quot;, asset);
+			}
+		}
+		return mode;
+	};
+
+	/**
+	 * Convert assets into object defaults
+	 * @method applyDefaults
+	 * @private
+	 * @static
+	 * @param  {*} asset The function to convert
+	 * @return {Object} The object asset to use
+	 */
+	function applyDefaults(asset)
+	{
+		// convert to a LoadTask
+		if (isString(asset))
+		{
+			return { src: asset };
+		}
+		// convert to a FunctionTask
+		else if (isFunction(asset))
+		{
+			return { async: asset };
+		}
+		return asset;
+	}
+
+	/**
+	 * Load a single asset
+	 * @method addTask
+	 * @private
+	 * @param {Object} asset The asset to load,
+	 *      can either be an object, URL/path, or async function.
+	 */
+	p.addTask = function(asset)
+	{
+		if (asset.type === undefined &amp;&amp; this.type)
+		{
+			asset.type = this.type;
+		}
+		var TaskClass = this.getTaskByAsset(asset);
+		var task;
+		if (TaskClass)
+		{
+			if (asset.cache === undefined &amp;&amp; this.cacheAll)
+			{
+				asset.cache = true;
+			}
+			task = new TaskClass(asset);
+			this.tasks.push(task);
+			++this.total;
+		}
+		else if (true &amp;&amp; Debug)
+		{
+			Debug.error(&quot;Unable to find a task definition for asset&quot;, asset);
+		}
+		return task;
+	};
+
+	/**
+	 * Get the Task definition for an asset
+	 * @method  getTaskByAsset
+	 * @private
+	 * @static
+	 * @param  {Object} asset The asset to check
+	 * @return {Function} The Task class
+	 */
+	p.getTaskByAsset = function(asset)
+	{
+		var TaskClass;
+		var taskDefs = this.manager.taskDefs;
+
+		// Loop backwards to get the registered tasks first
+		// then will default to the basic Loader task
+		for (var i = 0, len = taskDefs.length; i &lt; len; i++)
+		{
+			TaskClass = taskDefs[i];
+			if (TaskClass.test(asset))
+			{
+				return TaskClass;
+			}
+		}
+		return null;
+	};
+
+	/**
+	 * Run the next task that&#x27;s waiting
+	 * @method  nextTask
+	 * @private
+	 */
+	p.nextTask = function()
+	{
+		var tasks = this.tasks;
+		for (var i = 0; i &lt; tasks.length; i++)
+		{
+			var task = tasks[i];
+			if (task.status === Task.WAITING)
+			{
+				task.status = Task.RUNNING;
+				task.start(this.taskDone.bind(this, task));
+				
+				// If we aren&#x27;t running in parallel, then stop
+				if (!this.startAll) return;
+			}
+		}
+	};
+
+	/**
+	 * Handler when a task has completed
+	 * @method  taskDone
+	 * @private
+	 * @param  {springroll.Task} task Reference to original task
+	 * @param  {*} [result] The result of load
+	 */
+	p.taskDone = function(task, result)
+	{
+		// Ignore if we&#x27;re destroyed
+		if (!this.running) return;
+
+		// Default to null
+		result = result || null;
+
+		var index = this.tasks.indexOf(task);
+
+		// Task was already removed, because a clear
+		if (index === -1)
+		{
+			return;
+		}
+
+		// Remove the completed task
+		this.tasks.splice(index, 1);
+
+		// Assets
+		var assets = [];
+
+		// Handle the file load tasks
+		if (result)
+		{
+			// Handle the result
+			switch(this.mode)
+			{
+				case SINGLE_MODE: this.results = result; break;
+				case LIST_MODE: this.results.push(result); break;
+				case MAP_MODE: this.results[task.id] = result; break;
+			}
+
+			// Should we cache the task?
+			if (task.cache)
+			{
+				this.manager.cache.write(task.id, result);
+			}
+		}
+
+		// If the task has a complete method
+		// we&#x27;ll make sure that gets called
+		// with a reference to the tasks
+		// can potentially add more
+		if (task.complete)
+		{
+			task.complete(result, task.original, assets);
+		}
+
+		// Asset is finished
+		this.trigger(&#x27;taskDone&#x27;, result, task.original, assets);
+
+		task.destroy();
+
+		// Add new assets to the things to load
+		var mode = this.addTasks(assets);
+
+		// Update the progress total
+		this.trigger(&#x27;progress&#x27;, ++this.numLoaded / this.total);
+
+		// Check to make sure if we&#x27;re in
+		// map mode, we keep it that way
+		if (this.mode === MAP_MODE &amp;&amp; mode !== this.mode)
+		{
+			if (DEBUG &amp;&amp; Debug)
+			{
+				Debug.error(&quot;Load assets require IDs to return mapped results&quot;, assets);
+				return;
+			}
+			else
+			{
+				throw &quot;Assets require IDs&quot;;
+			}
+		}
+
+		if (this.tasks.length)
+		{
+			// Run the next task
+			this.nextTask();
+		}
+		else
+		{
+			// We&#x27;re finished!
+			this.trigger(&#x27;complete&#x27;, this.results);
+		}
+	};
+
+	/**
+	 * Get an empty assets collection
+	 * @method getAssetsContainer
+	 * @private
+	 * @param {int} mode The mode
+	 * @return {Array|Object|null} Empty container for assets
+	 */
+	var getAssetsContainer = function(mode)
+	{
+		switch(mode)
+		{
+			case SINGLE_MODE: return null;
+			case LIST_MODE: return [];
+			case MAP_MODE: return {};
+		}
+	};
+
+	/**
+	 * Destroy this and discard
+	 * @method destroy
+	 */
+	p.destroy = function()
+	{
+		EventDispatcher.prototype.destroy.call(this);
+		this.reset();
+		this.tasks = null;
+		this.manager = null;
+	};
+
+	/**
+	 * Check if an object is an String type
+	 * @method isString
+	 * @private
+	 * @param  {*}  obj The object
+	 * @return {Boolean} If it&#x27;s an String
+	 */
+	function isString(obj)
+	{
+		return typeof obj == &quot;string&quot;;
+	}
+
+	/**
+	 * Check if an object is an function type
+	 * @method isFunction
+	 * @private
+	 * @param  {*}  obj The object
+	 * @return {Boolean} If it&#x27;s an function
+	 */
+	function isFunction(obj)
+	{
+		return typeof obj == &quot;function&quot;;
+	}
+
+	// Assign to namespace
+	namespace(&#x27;springroll&#x27;).AssetLoad = AssetLoad;
+
+}());</pre>
+</div></div>
+</div>
+</div>
+</div>
+<script src='../assets/js/libraries.js?v=0.4.0'></script>
+<script src='../assets/js/main.js?v=0.4.0'></script>
+</body>
+</html>

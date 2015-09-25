@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>Multiple Displays Example</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width">
+        <link rel="stylesheet" href="assets/css/main.css">
+
+        <!-- Examples dependencies, these are only necessary for examples -->
+        <link rel="stylesheet" href="../components/google-code-prettify/bin/prettify.min.css">
+		<script src="../components/google-code-prettify/bin/prettify.min.js"></script>
+		<script src="../components/google-code-prettify/bin/run_prettify.min.js"></script>
+		<script src="assets/js/examples.js"></script>
+
+        <!-- External dependencies -->
+		<script src="../components/jquery/dist/jquery.min.js"></script>
+		<script src="../components/preloadjs/lib/preloadjs.min.js"></script>
+		<script src="../components/pixi.js/bin/pixi.js"></script>
+		<script src="../components/easeljs/lib/easeljs.combined.js"></script>
+		
+		<!-- Library and modules -->
+		<script src="../dist/core.js"></script>
+		<script src="../dist/modules/debug.js"></script>
+		<script src="../dist/modules/pixi-display.js"></script>
+		<script src="../dist/modules/pixi-ui.js"></script>
+		<script src="../dist/modules/easeljs-display.js"></script>
+		<script src="../dist/modules/easeljs-ui.js"></script>
+
+    </head>
+    <body class="md">
+		<div id="content" class="canvas">
+			<nav>
+				<button id="canvas">Application</button>
+				<button id="code">Code</button>
+				<button id="back">Back</button>
+			</nav>
+			<canvas id="pixi" width="800" height="500"></canvas>
+			<canvas id="easeljs" style="display:none" width="800" height="500"></canvas>
+			<pre id="codeDisplay"></pre>
+<script>
+// Import library dependencies
+var Application = include('springroll.Application'),
+	Texture = include('PIXI.Texture'),
+	EaselJSDisplay = include('springroll.EaselJSDisplay'),
+	PixiDisplay = include('springroll.PixiDisplay'),
+	EaselJSButton = include('springroll.easeljs.Button'),
+	PixiButton = include('springroll.pixi.Button');
+
+var app = new Application({
+	debug: true,
+	preload: [
+		{
+			id: "PixiAssets",
+			image: 'assets/images/button.png',
+			atlas: 'assets/images/button.json',
+			type: 'pixi'
+		},
+		{
+			id: 'Button',
+			src: 'assets/images/button.png'
+		}
+	]
+});
+
+app.once('init', function()
+{
+	this.initPixi();
+	this.initEasel();
+	this.toggleDisplay(true);
+});
+
+// Initialize the PIXI.js Display
+app.initPixi = function()
+{
+	var display = this.addDisplay("pixi", PixiDisplay, {
+		clearView: true,
+		backgroundColor: 0xccddff
+	});
+	
+	// Setup the toggle button
+	var texture = this.getCache('PixiAssets');
+	var button = new PixiButton(
+		{
+			up : texture.getFrame('button_up'),
+			over : texture.getFrame('button_over'),
+			down : texture.getFrame('button_down'),
+			disabled : texture.getFrame('button_disabled')
+		},
+		{
+			text : 'EaselJS',
+			style : {
+				font : '20px Arial',
+				fill : "#ffffff"
+			}
+		}
+	);
+
+	button.position.x = (display.width - button.width) / 2;
+	button.position.y = (display.height - button.height) / 2;
+	button.on('buttonPress', this.toggleDisplay.bind(this, false));
+
+	display.stage.addChild(button);
+};
+
+// Initialize the EaselJS Display
+app.initEasel = function()
+{
+	var display = this.addDisplay("easeljs", EaselJSDisplay, {
+		clearView: true
+	});
+	
+	// Setup the toggle button
+	var button = new EaselJSButton(this.getCache('Button'), {
+		text: "PIXI.js",
+		font: "20px Arial",
+		color: "#ffffff"
+	});
+			
+	button.x = (display.width - button.width) / 2;
+	button.y = (display.height - button.height) / 2;
+	button.addEventListener(
+		'buttonPress',
+		this.toggleDisplay.bind(this, true)
+	);
+
+	display.stage.addChild(button);
+};
+
+// Switch the displays of which one is showing
+app.toggleDisplay = function(showPixi)
+{
+	var pixi = this.getDisplay("pixi");
+	var easeljs = this.getDisplay("easeljs");
+
+	// Enabled => is rendering, visible => canvas is showing
+	
+	easeljs.enabled = !showPixi;
+	easeljs.visible = !showPixi;
+
+	pixi.enabled = showPixi;
+	pixi.visible = showPixi;
+};
+</script>
+		</div>
+    </body>
+</html>

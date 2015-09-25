@@ -1,0 +1,1718 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+	<title>SpringRoll v0.4.0 API Documentation : springroll.pixi.AdvancedMovieClip</title>
+	<meta charset='utf-8'>
+	<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+	<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
+	<link rel='shortcut icon' type='image/png' href='../assets/images/favicon.ico?v=0.4.0'>
+	<link href='//fonts.googleapis.com/css?family=Titillium+Web:300,200,600' rel='stylesheet' type='text/css'>
+	<link rel='stylesheet' type='text/css' href='../assets/css/libraries.css?v=0.4.0'>
+	<link rel='stylesheet' type='text/css' href='../assets/css/main.css?v=0.4.0'>
+</head>
+<body>
+<header>
+	<nav class="navbar navbar-inverse navbar-fixed-top">
+		<div class='container'>
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#docs-navbar">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href='https://github.com/SpringRoll/SpringRoll'>
+						<img src='../assets/images/logo.png?v=0.4.0' class="logo">
+					<span class='project-name'>SpringRoll</span>
+					<span class="sr-only">API Documentation for:</span>
+					<span class='version hidden-xs'>v0.4.0</span>
+				</a>
+			</div>
+			<div class="collapse navbar-collapse" id="docs-navbar">
+	      <ul class="scope-toggles text-center nav navbar-nav navbar-right">
+					<li><input class='scope-toggle' 
+						id='toggle-inherited' 
+						type='checkbox' 
+						data-toggle='toggle' 
+						data-on='Inherited' 
+						data-off='Inherited' 
+						data-size='mini'
+						data-width='80'>
+					</li>
+					<li><input class='scope-toggle' 
+						id='toggle-protected' 
+						type='checkbox' 
+						data-toggle='toggle' 
+						data-on='Protected' 
+						data-off='Protected' 
+						data-size='mini'
+						data-width='80'>
+					</li>
+					<li><input class='scope-toggle' 
+						id='toggle-private' 
+						type='checkbox' 
+						data-toggle='toggle' 
+						data-on='Private' 
+						data-off='Private' 
+						data-size='mini'
+						data-width='80'>
+					</li>
+					<li><input class='scope-toggle' 
+						id='toggle-deprecated' 
+						type='checkbox' 
+						data-toggle='toggle' 
+						data-on='Deprecated' 
+						data-off='Deprecated' 
+						data-size='mini'
+						data-width='80'>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+</header>
+<div class='container'>
+<div class='row'>
+<nav id='sidebar' class='col-sm-4 col-md-3'>
+<h2>APIs</h2>
+<div class='input-group'>
+  <div class='input-group-addon'>
+    <span class='glyphicon glyphicon-search'></span>
+  </div>
+  <input type='search' class='form-control' id='api-filter' placeholder='Type to filter APIs'>
+  <span class='collapsed btn-close glyphicon glyphicon-remove-sign hidden'></span>
+</div>
+<nav class='navbar navbar-default'>
+  <!-- Brand and toggle get grouped for better mobile display -->
+  <div class="btn-group" role="group" aria-label="...">
+    <button type="button" class="sidebar-toggle collapsed btn btn-default" id='toggle-classes' data-target='#classes-collapse'>
+      Classes
+      <span class='collapsed glyphicon glyphicon-chevron-up'></span>
+      <span class='expanded glyphicon glyphicon-chevron-down'></span>
+    </button>
+    <button type="button" class="sidebar-toggle collapsed btn btn-default" id='toggle-modules' data-target='#modules-collapse'>
+      Modules
+      <span class='collapsed glyphicon glyphicon-chevron-up'></span>
+      <span class='expanded glyphicon glyphicon-chevron-down'></span>
+    </button>
+  </div>
+
+  <!-- Collect the nav links, forms, and other content for toggling -->
+  <div class='collapse' id='classes-collapse'>
+    <ul class='nav navbar-nav'>
+        <li class='public'>
+          <a href='../classes/createjs.Container.html'>createjs.Container</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/createjs.MovieClip.html'>createjs.MovieClip</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/createjs.Point.html'>createjs.Point</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/createjs.SpriteSheet.html'>createjs.SpriteSheet</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/PIXI.BitmapText.html'>PIXI.BitmapText</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/PIXI.Container.html'>PIXI.Container</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/PIXI.InteractionManager.html'>PIXI.InteractionManager</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/PIXI.Point.html'>PIXI.Point</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/PIXI.Sector.html'>PIXI.Sector</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/PIXI.Text.html'>PIXI.Text</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.AbstractDisplay.html'>springroll.AbstractDisplay</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.AbstractHint.html'>springroll.AbstractHint</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.Animator.html'>springroll.Animator</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.AnimatorHint.html'>springroll.AnimatorHint</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.AnimatorTimeline.html'>springroll.AnimatorTimeline</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.Application.html'>springroll.Application</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.ApplicationOptions.html'>springroll.ApplicationOptions</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.ApplicationPlugin.html'>springroll.ApplicationPlugin</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.AssetCache.html'>springroll.AssetCache</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.AssetLoad.html'>springroll.AssetLoad</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.AssetManager.html'>springroll.AssetManager</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.AssetSizes.html'>springroll.AssetSizes</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.BaseState.html'>springroll.BaseState</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.CacheManager.html'>springroll.CacheManager</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.Captions.html'>springroll.Captions</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.ColorAlphaTask.html'>springroll.ColorAlphaTask</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.CombinedCallback.html'>springroll.CombinedCallback</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.Container.html'>springroll.Container</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.Debug.html'>springroll.Debug</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.DebugOptions.html'>springroll.DebugOptions</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.DelayedCall.html'>springroll.DelayedCall</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.easeljs.Animator.html'>springroll.easeljs.Animator</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.easeljs.Application.html'>springroll.easeljs.Application</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.easeljs.BasePanel.html'>springroll.easeljs.BasePanel</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.easeljs.BaseState.html'>springroll.easeljs.BaseState</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.easeljs.BitmapMovieClip.html'>springroll.easeljs.BitmapMovieClip</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.easeljs.BitmapMovieClipInstance.html'>springroll.easeljs.BitmapMovieClipInstance</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.easeljs.BitmapMovieClipTask.html'>springroll.easeljs.BitmapMovieClipTask</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.easeljs.BitmapTask.html'>springroll.easeljs.BitmapTask</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.easeljs.BitmapUtils.html'>springroll.easeljs.BitmapUtils</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.easeljs.Button.html'>springroll.easeljs.Button</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.easeljs.Cutscene.html'>springroll.easeljs.Cutscene</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.easeljs.CutsceneTask.html'>springroll.easeljs.CutsceneTask</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.easeljs.DisplayAdapter.html'>springroll.easeljs.DisplayAdapter</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.easeljs.DragData.html'>springroll.easeljs.DragData</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.easeljs.DragManager.html'>springroll.easeljs.DragManager</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.easeljs.DwellTimer.html'>springroll.easeljs.DwellTimer</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.easeljs.EaselJSDisplay.html'>springroll.easeljs.EaselJSDisplay</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.easeljs.FlashArt.html'>springroll.easeljs.FlashArt</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.easeljs.FlashArtAtlasTask.html'>springroll.easeljs.FlashArtAtlasTask</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.easeljs.FlashArtTask.html'>springroll.easeljs.FlashArtTask</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.easeljs.FlashSpriteSheetTask.html'>springroll.easeljs.FlashSpriteSheetTask</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.easeljs.MovieClipInstance.html'>springroll.easeljs.MovieClipInstance</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.easeljs.ReversePlayback.html'>springroll.easeljs.ReversePlayback</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.easeljs.SoundButton.html'>springroll.easeljs.SoundButton</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.easeljs.SoundTask.html'>springroll.easeljs.SoundTask</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.easeljs.SpriteSheetTask.html'>springroll.easeljs.SpriteSheetTask</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.easeljs.Texture.html'>springroll.easeljs.Texture</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.easeljs.TextureAtlas.html'>springroll.easeljs.TextureAtlas</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.easeljs.TextureAtlasTask.html'>springroll.easeljs.TextureAtlasTask</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.Enum.html'>springroll.Enum</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.EnumValue.html'>springroll.EnumValue</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.EventCatalog.html'>springroll.EventCatalog</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.EventDispatcher.html'>springroll.EventDispatcher</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.EventError.html'>springroll.EventError</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.EventSignature.html'>springroll.EventSignature</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.EventUtils.html'>springroll.EventUtils</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.Features.html'>springroll.Features</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.FlashArtImageTask.html'>springroll.FlashArtImageTask</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.FunctionHint.html'>springroll.FunctionHint</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.FunctionTask.html'>springroll.FunctionTask</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.GroupHint.html'>springroll.GroupHint</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.HintsPlayer.html'>springroll.HintsPlayer</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.Languages.html'>springroll.Languages</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.Learning.html'>springroll.Learning</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.LearningError.html'>springroll.LearningError</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.LearningMedia.html'>springroll.LearningMedia</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.ListTask.html'>springroll.ListTask</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.Loader.html'>springroll.Loader</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.LoaderItem.html'>springroll.LoaderItem</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.LoaderResult.html'>springroll.LoaderResult</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.LoadTask.html'>springroll.LoadTask</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.native.Circle.html'>springroll.native.Circle</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.native.DisplayAdapter.html'>springroll.native.DisplayAdapter</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.native.Ellipse.html'>springroll.native.Ellipse</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.native.NativeDisplay.html'>springroll.native.NativeDisplay</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.native.Point.html'>springroll.native.Point</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.native.Polygon.html'>springroll.native.Polygon</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.native.Rectangle.html'>springroll.native.Rectangle</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.PageVisibility.html'>springroll.PageVisibility</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.pixi.AdvancedMovieClip.html'>springroll.pixi.AdvancedMovieClip</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.pixi.AdvancedMovieClipInstance.html'>springroll.pixi.AdvancedMovieClipInstance</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.pixi.AdvancedMovieClipTask.html'>springroll.pixi.AdvancedMovieClipTask</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.pixi.Animator.html'>springroll.pixi.Animator</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.pixi.BitmapFontTask.html'>springroll.pixi.BitmapFontTask</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.pixi.Button.html'>springroll.pixi.Button</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.pixi.DisplayAdapter.html'>springroll.pixi.DisplayAdapter</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.pixi.DragData.html'>springroll.pixi.DragData</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.pixi.DragManager.html'>springroll.pixi.DragManager</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.pixi.ParallelSpineData.html'>springroll.pixi.ParallelSpineData</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.pixi.PixiDisplay.html'>springroll.pixi.PixiDisplay</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.pixi.SpineAnimTask.html'>springroll.pixi.SpineAnimTask</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.pixi.SpineAtlas.html'>springroll.pixi.SpineAtlas</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.pixi.SpineAtlasTask.html'>springroll.pixi.SpineAtlasTask</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.pixi.SpineInstance.html'>springroll.pixi.SpineInstance</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.pixi.TextureAtlas.html'>springroll.pixi.TextureAtlas</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.pixi.TextureAtlasTask.html'>springroll.pixi.TextureAtlasTask</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.pixi.TextureTask.html'>springroll.pixi.TextureTask</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.Positioner.html'>springroll.Positioner</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.Property.html'>springroll.Property</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.PropertyDispatcher.html'>springroll.PropertyDispatcher</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.SavedData.html'>springroll.SavedData</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.ScaleImage.html'>springroll.ScaleImage</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.ScaleItem.html'>springroll.ScaleItem</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.ScaleManager.html'>springroll.ScaleManager</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.Sound.html'>springroll.Sound</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.SoundContext.html'>springroll.SoundContext</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.SoundInstance.html'>springroll.SoundInstance</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.State.html'>springroll.State</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.StateEvent.html'>springroll.StateEvent</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.StateManager.html'>springroll.StateManager</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.StringFilters.html'>springroll.StringFilters</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.Task.html'>springroll.Task</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.TickerPlugin.html'>springroll.TickerPlugin</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.TimeUtils.html'>springroll.TimeUtils</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.UIScaler.html'>springroll.UIScaler</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.ValidationError.html'>springroll.ValidationError</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.VOHint.html'>springroll.VOHint</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.VOPlayer.html'>springroll.VOPlayer</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.WeightedRandom.html'>springroll.WeightedRandom</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/window.Array.html'>window.Array</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/window.extend.html'>window.extend</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/window.include.html'>window.include</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/window.Math.html'>window.Math</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/window.mixin.html'>window.mixin</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/window.namespace.html'>window.namespace</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/window.Number.html'>window.Number</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/window.Object.html'>window.Object</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/window.RequestUtils.html'>window.RequestUtils</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/window.String.html'>window.String</a>
+        </li>
+    </ul>
+  </div>
+
+  <!-- Collect the nav links, forms, and other content for toggling -->
+  <div class='collapse' id='modules-collapse'>
+    <ul class='nav navbar-nav'>
+        <li class=''>
+          <a href='../modules/Animation.html'>Animation</a>
+        </li>
+        <li class=''>
+          <a href='../modules/Captions.html'>Captions</a>
+        </li>
+        <li class=''>
+          <a href='../modules/Container.html'>Container</a>
+        </li>
+        <li class=''>
+          <a href='../modules/Container Client.html'>Container Client</a>
+        </li>
+        <li class=''>
+          <a href='../modules/Core.html'>Core</a>
+        </li>
+        <li class=''>
+          <a href='../modules/Debug.html'>Debug</a>
+        </li>
+        <li class=''>
+          <a href='../modules/EaselJS Animation.html'>EaselJS Animation</a>
+        </li>
+        <li class=''>
+          <a href='../modules/EaselJS Cutscene.html'>EaselJS Cutscene</a>
+        </li>
+        <li class=''>
+          <a href='../modules/EaselJS Display.html'>EaselJS Display</a>
+        </li>
+        <li class=''>
+          <a href='../modules/EaselJS Learning.html'>EaselJS Learning</a>
+        </li>
+        <li class=''>
+          <a href='../modules/EaselJS States.html'>EaselJS States</a>
+        </li>
+        <li class=''>
+          <a href='../modules/EaselJS UI.html'>EaselJS UI</a>
+        </li>
+        <li class=''>
+          <a href='../modules/Hints.html'>Hints</a>
+        </li>
+        <li class=''>
+          <a href='../modules/Languages.html'>Languages</a>
+        </li>
+        <li class=''>
+          <a href='../modules/Learning.html'>Learning</a>
+        </li>
+        <li class=''>
+          <a href='../modules/Learning Media.html'>Learning Media</a>
+        </li>
+        <li class=''>
+          <a href='../modules/Native Display.html'>Native Display</a>
+        </li>
+        <li class=''>
+          <a href='../modules/Pixi Animation.html'>Pixi Animation</a>
+        </li>
+        <li class=''>
+          <a href='../modules/PIXI Animation.html'>PIXI Animation</a>
+        </li>
+        <li class=''>
+          <a href='../modules/Pixi Display.html'>Pixi Display</a>
+        </li>
+        <li class=''>
+          <a href='../modules/PIXI Display.html'>PIXI Display</a>
+        </li>
+        <li class=''>
+          <a href='../modules/PIXI Spine.html'>PIXI Spine</a>
+        </li>
+        <li class=''>
+          <a href='../modules/PIXI UI.html'>PIXI UI</a>
+        </li>
+        <li class=''>
+          <a href='../modules/Sound.html'>Sound</a>
+        </li>
+        <li class=''>
+          <a href='../modules/States.html'>States</a>
+        </li>
+        <li class=''>
+          <a href='../modules/UI.html'>UI</a>
+        </li>
+    </ul>
+  </div>
+  <!-- /.container-fluid -->
+</nav></nav>
+<div class='col-sm-8 col-md-9'>
+<div id='docs-main' class='apidocs'>
+
+<h1>springroll.pixi.AdvancedMovieClip Class</h1>
+<div class='box meta'>
+
+<div class='extends'>
+Extends
+PIXI.Sprite
+</div>
+
+<div class='foundat'>
+Defined in: <a href='../files/src_displays_pixi_animation_AdvancedMovieClip.js.html#l13'><code>springroll.pixi.AdvancedMovieClip:13</code></a>
+</div>
+
+Module:
+<a href="../modules/PIXI Animation.html">PIXI Animation</a>
+
+</div>
+
+
+<div class='box intro'>
+<p>A class similar to PIXI.extras.MovieClip, but made to play animations <em>exclusively</em> using
+the Animator, with data exported by the BitmapMovieClip exporter.</p>
+<p>Format for AdvancedMovieClip data (the same as BitmapMovieClip):</p>
+<pre class="code prettyprint"><code>{
+    fps:30,
+    labels:
+    {
+        animStart:0,
+        animStart_loop:15
+    },
+    origin:{ x: 20, y:30 },
+    frames:
+    [
+        {
+            name:"myAnim#",
+            min:1,
+            max:20,
+            digits:4
+        }
+    ],
+    scale:1
+}
+</code></pre><p>The example object describes a 30 fps animation that is 20 frames long, and was originally
+myAnim0001.png-&gt;myAnim0020.png, with frame labels on the first and 16th frames. &#39;digits&#39; is
+optional, and defaults to 4.</p>
+
+</div>
+
+<div class='constructor'>
+<h2>Constructor</h2> <div class='method_springroll.pixi.AdvancedMovieClip method item'>
+<h3 class='name'><a class="deeplink" href="#method_springroll.pixi.AdvancedMovieClip"><span class="glyphicon glyphicon-link"></span></a> <code>springroll.pixi.AdvancedMovieClip</code></h3>
+
+<div class='args'>
+<span class='paren'>(</span>
+<ul class='args-list inline commas'>
+<li class='arg'>
+<code class='optional'>[data]</code>
+</li>
+<li class='arg'>
+<code class='optional'>[atlas]</code>
+</li>
+</ul><span class='paren'>)</span>
+</div>
+
+
+<div class='flags'>
+
+
+
+
+
+</div> 
+
+<div class='meta'>
+<p>
+Defined in
+<a href='../files/src_displays_pixi_animation_AdvancedMovieClip.js.html#l13'><code>springroll.pixi.AdvancedMovieClip:13</code></a>
+</p>
+
+
+
+</div>
+
+<div class='description'>
+
+</div>
+
+<div class='params'>
+<h4>Parameters:</h4>
+
+<ul class='params-list'>
+<li class='param'>
+<code class='param-name optional'>[data]</code>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+<span class='flag optional' title='This parameter is optional.'>optional</span>
+
+
+<div class='param-description'>
+<p>Initialization data</p>
+
+</div>
+
+<ul class='params-list'>
+<li class='param'>
+<code class='param-name optional'>[fps]</code>
+<span class='type'>Int</span>
+<span class='flag optional' title='This parameter is optional.'>optional</span>
+
+<div class='param-description'>
+<p>Framerate to play the movieclip at. Omitting this will use the
+                        current framerate.</p>
+
+</div>
+
+</li>
+<li class='param'>
+<code class='param-name optional'>[labels]</code>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+<span class='flag optional' title='This parameter is optional.'>optional</span>
+
+<div class='param-description'>
+<p>A dictionary of the labels in the movieclip to assist in
+                              playing animations.</p>
+
+</div>
+
+</li>
+<li class='param'>
+<code class='param-name optional'>[origin={x:0,y:0}]</code>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+<span class='flag optional' title='This parameter is optional.'>optional</span>
+
+<div class='param-description'>
+<p>The origin of the movieclip.</p>
+
+</div>
+
+</li>
+<li class='param'>
+<code class='param-name optional'>[frames]</code>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array" class="crosslink external" target="_blank">Array</a></span>
+<span class='flag optional' title='This parameter is optional.'>optional</span>
+
+<div class='param-description'>
+<p>An array of frame sequences to pull from the texture atlas.</p>
+
+</div>
+
+<ul class='params-list'>
+<li class='param'>
+  <code class='param-name optional'>[name]</code>
+  <span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+  <span class='flag optional' title='This parameter is optional.'>optional</span>
+
+<div class='param-description'>
+  The name to use for the frame sequence. This should
+                                   include a "#" to be replaced with the image number.
+</div>
+</li>
+<li class='param'>
+  <code class='param-name optional'>[min]</code>
+  <span class='type'>Int</span>
+  <span class='flag optional' title='This parameter is optional.'>optional</span>
+
+<div class='param-description'>
+  The first frame number in the frame sequence.
+</div>
+</li>
+<li class='param'>
+  <code class='param-name optional'>[max]</code>
+  <span class='type'>Int</span>
+  <span class='flag optional' title='This parameter is optional.'>optional</span>
+
+<div class='param-description'>
+  The last frame number in the frame sequence.
+</div>
+</li>
+<li class='param'>
+  <code class='param-name optional'>[digits=4]</code>
+  <span class='type'>Int</span>
+  <span class='flag optional' title='This parameter is optional.'>optional</span>
+
+<div class='param-description'>
+  The maximum number of digits in the names of the frames,
+                                    e.g. myAnim0001 has 4 digits.
+</div>
+</li>
+</ul>
+</li>
+<li class='param'>
+<code class='param-name optional'>[scale=1]</code>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
+<span class='flag optional' title='This parameter is optional.'>optional</span>
+
+<div class='param-description'>
+<p>The scale at which the art was exported, e.g. a scale of 1.4
+                               means the art was increased in size to 140% before exporting
+                               and should be scaled back down before drawing to the screen.</p>
+
+</div>
+
+</li>
+</ul>
+</li>
+<li class='param'>
+<code class='param-name optional'>[atlas]</code>
+<span class='type'><a href="../classes/springroll.pixi.TextureAtlas.html" class="crosslink">springroll.pixi.TextureAtlas</a></span>
+<span class='flag optional' title='This parameter is optional.'>optional</span>
+
+
+<div class='param-description'>
+<p>A TextureAtlas to pull frames from. If omitted,
+                                              frames are pulled from Pixi&#39;s global texture
+                                              cache.</p>
+
+</div>
+
+</li>
+</ul>
+</div>
+
+
+</div>
+</div>
+
+<div id='classdocs' class='tabview'>
+<span id='docs-highlight'></span>
+<ul class='nav nav-tabs'>
+<li id='tab-index' class='docs-toggle'>
+<a data-toggle='tab' href='#docs-index'>Index</a>
+</li>
+<li id='tab-methods' class='docs-toggle'>
+<a data-toggle='tab' href='#docs-methods'>Methods</a>
+</li>
+<li id='tab-properties' class='docs-toggle'>
+<a data-toggle='tab' href='#docs-properties'>Properties</a>
+</li>
+</ul>
+
+<div class='tab-content'>
+
+<div role='tabpanel' id='docs-index' class='tab-pane'>
+<div class='index-section tab-pane methods'>
+<h3>Methods</h3>
+
+<ul class='list-group row methods extends'>
+<li class='col-xs-6 col-md-4 index-item method'>
+<a href='#method_advance'>advance</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item method'>
+<a href='#method_copyFrom'>copyFrom</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item method'>
+<a href='#method_destroy'>destroy</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item method'>
+<a href='#method_getCurrentLabel'>getCurrentLabel</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item method'>
+<a href='#method_getEvents'>getEvents</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item method'>
+<a href='#method_getLabels'>getLabels</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item method'>
+<a href='#method_gotoAndStop'>gotoAndStop</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item method'>
+<a href='#method_init'>init</a>
+
+</li>
+</ul>
+</div>
+
+<div class='index-section tab-pane properties'>
+<h3>Properties</h3>
+
+<ul class='list-group row properties extends'>
+<li class='col-xs-6 col-md-4 index-item property private'>
+<a href='#property__duration'>_duration</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item property private'>
+<a href='#property__events'>_events</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item property private'>
+<a href='#property__framerate'>_framerate</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item property private'>
+<a href='#property__labels'>_labels</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item property private'>
+<a href='#property__t'>_t</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item property private'>
+<a href='#property__textures'>_textures</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item property'>
+<a href='#property_currentFrame'>currentFrame</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item property public'>
+<a href='#property_elapsedTime'>elapsedTime</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item property'>
+<a href='#property_framerate'>framerate</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item property'>
+<a href='#property_totalFrames'>totalFrames</a>
+
+</li>
+</ul>
+</div>
+
+
+</div>
+
+<div role='tabpanel' id='docs-methods' class='tab-pane'>
+
+<div class='method_advance method item'>
+<h3 class='name'><a class="deeplink" href="#method_advance"><span class="glyphicon glyphicon-link"></span></a> <code>advance</code></h3>
+
+<div class='args'>
+<span class='paren'>(</span>
+<ul class='args-list inline commas'>
+<li class='arg'>
+<code class='optional'>[time]</code>
+</li>
+</ul><span class='paren'>)</span>
+</div>
+
+
+<div class='flags'>
+
+
+
+
+
+</div> 
+
+<div class='meta'>
+<p>
+Defined in
+<a href='../files/src_displays_pixi_animation_AdvancedMovieClip.js.html#l246'><code>advance:246</code></a>
+</p>
+
+
+
+</div>
+
+<div class='description'>
+<p>Advances the playhead. This occurs automatically each tick by default.</p>
+
+</div>
+
+<div class='params'>
+<h4>Parameters:</h4>
+
+<ul class='params-list'>
+<li class='param'>
+<code class='param-name optional'>[time]</code>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
+<span class='flag optional' title='This parameter is optional.'>optional</span>
+
+
+<div class='param-description'>
+<p>The amount of time in milliseconds to advance by.</p>
+
+</div>
+
+</li>
+</ul>
+</div>
+
+
+</div><div class='method_copyFrom method item'>
+<h3 class='name'><a class="deeplink" href="#method_copyFrom"><span class="glyphicon glyphicon-link"></span></a> <code>copyFrom</code></h3>
+
+<div class='args'>
+<span class='paren'>(</span>
+<ul class='args-list inline commas'>
+<li class='arg'>
+<code>other</code>
+</li>
+</ul><span class='paren'>)</span>
+</div>
+
+
+<div class='flags'>
+
+
+
+
+
+</div> 
+
+<div class='meta'>
+<p>
+Defined in
+<a href='../files/src_displays_pixi_animation_AdvancedMovieClip.js.html#l491'><code>copyFrom:491</code></a>
+</p>
+
+
+
+</div>
+
+<div class='description'>
+<p>Copies the labels, textures, origin, and framerate from another AdvancedMovieClip.
+The labels and textures are copied by reference, instead of a deep copy.</p>
+
+</div>
+
+<div class='params'>
+<h4>Parameters:</h4>
+
+<ul class='params-list'>
+<li class='param'>
+<code class='param-name'>other</code>
+<span class='type'>AdvancedMovieClip</span>
+
+
+<div class='param-description'>
+<p>The movieclip to copy data from.</p>
+
+</div>
+
+</li>
+</ul>
+</div>
+
+
+</div><div class='method_destroy method item'>
+<h3 class='name'><a class="deeplink" href="#method_destroy"><span class="glyphicon glyphicon-link"></span></a> <code>destroy</code></h3>
+
+<span class='paren'>()</span>
+
+
+<div class='flags'>
+
+
+
+
+
+</div> 
+
+<div class='meta'>
+<p>
+Defined in
+<a href='../files/src_displays_pixi_animation_AdvancedMovieClip.js.html#l508'><code>destroy:508</code></a>
+</p>
+
+
+
+</div>
+
+<div class='description'>
+<p>Destroys the AdvancedMovieClip.</p>
+
+</div>
+
+
+
+</div><div class='method_getCurrentLabel method item'>
+<h3 class='name'><a class="deeplink" href="#method_getCurrentLabel"><span class="glyphicon glyphicon-link"></span></a> <code>getCurrentLabel</code></h3>
+
+<span class='paren'>()</span>
+
+<span class='returns-inline'>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+</span>
+
+<div class='flags'>
+
+
+
+
+
+</div> 
+
+<div class='meta'>
+<p>
+Defined in
+<a href='../files/src_displays_pixi_animation_AdvancedMovieClip.js.html#l288'><code>getCurrentLabel:288</code></a>
+</p>
+
+
+
+</div>
+
+<div class='description'>
+<p>Returns the name of the label on or immediately before the current frame.</p>
+
+</div>
+
+
+<div class='returns'>
+<h4>Returns:</h4>
+
+<div class='returns-description'>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>:
+<p>The name of the current label or null if there is no label.</p>
+
+</div>
+</div>
+
+</div><div class='method_getEvents method item'>
+<h3 class='name'><a class="deeplink" href="#method_getEvents"><span class="glyphicon glyphicon-link"></span></a> <code>getEvents</code></h3>
+
+<span class='paren'>()</span>
+
+<span class='returns-inline'>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array" class="crosslink external" target="_blank">Array</a></span>
+</span>
+
+<div class='flags'>
+
+
+
+
+
+</div> 
+
+<div class='meta'>
+<p>
+Defined in
+<a href='../files/src_displays_pixi_animation_AdvancedMovieClip.js.html#l277'><code>getEvents:277</code></a>
+</p>
+
+
+
+</div>
+
+<div class='description'>
+<p>Returns a sorted list of the labels which can be played with Animator.</p>
+
+</div>
+
+
+<div class='returns'>
+<h4>Returns:</h4>
+
+<div class='returns-description'>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array" class="crosslink external" target="_blank">Array</a></span>:
+<p>A sorted array of objects with label, length and position (aka frame)
+   properties.</p>
+
+</div>
+</div>
+
+</div><div class='method_getLabels method item'>
+<h3 class='name'><a class="deeplink" href="#method_getLabels"><span class="glyphicon glyphicon-link"></span></a> <code>getLabels</code></h3>
+
+<span class='paren'>()</span>
+
+<span class='returns-inline'>
+<span class='type'>ArrayObject</span>
+</span>
+
+<div class='flags'>
+
+
+
+
+
+</div> 
+
+<div class='meta'>
+<p>
+Defined in
+<a href='../files/src_displays_pixi_animation_AdvancedMovieClip.js.html#l266'><code>getLabels:266</code></a>
+</p>
+
+
+
+</div>
+
+<div class='description'>
+<p>Returns a sorted list of the labels defined on this AdvancedMovieClip.</p>
+
+</div>
+
+
+<div class='returns'>
+<h4>Returns:</h4>
+
+<div class='returns-description'>
+<span class='type'>ArrayObject</span>:
+<p>A sorted array of objects with label and position (aka frame)
+                       properties.</p>
+
+</div>
+</div>
+
+</div><div class='method_gotoAndStop method item'>
+<h3 class='name'><a class="deeplink" href="#method_gotoAndStop"><span class="glyphicon glyphicon-link"></span></a> <code>gotoAndStop</code></h3>
+
+<div class='args'>
+<span class='paren'>(</span>
+<ul class='args-list inline commas'>
+<li class='arg'>
+<code>positionOrLabel</code>
+</li>
+</ul><span class='paren'>)</span>
+</div>
+
+
+<div class='flags'>
+
+
+
+
+
+</div> 
+
+<div class='meta'>
+<p>
+Defined in
+<a href='../files/src_displays_pixi_animation_AdvancedMovieClip.js.html#l212'><code>gotoAndStop:212</code></a>
+</p>
+
+
+
+</div>
+
+<div class='description'>
+<p>Advances this movie clip to the specified position or label.</p>
+
+</div>
+
+<div class='params'>
+<h4>Parameters:</h4>
+
+<ul class='params-list'>
+<li class='param'>
+<code class='param-name'>positionOrLabel</code>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a> | <a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
+
+
+<div class='param-description'>
+<p>The animation or frame name to go to.</p>
+
+</div>
+
+</li>
+</ul>
+</div>
+
+
+</div><div class='method_init method item'>
+<h3 class='name'><a class="deeplink" href="#method_init"><span class="glyphicon glyphicon-link"></span></a> <code>init</code></h3>
+
+<div class='args'>
+<span class='paren'>(</span>
+<ul class='args-list inline commas'>
+<li class='arg'>
+<code>data</code>
+</li>
+<li class='arg'>
+<code class='optional'>[atlas]</code>
+</li>
+</ul><span class='paren'>)</span>
+</div>
+
+
+<div class='flags'>
+
+
+
+
+
+</div> 
+
+<div class='meta'>
+<p>
+Defined in
+<a href='../files/src_displays_pixi_animation_AdvancedMovieClip.js.html#l307'><code>init:307</code></a>
+</p>
+
+
+
+</div>
+
+<div class='description'>
+<p>Initializes or re-initializes the AdvancedMovieClip.</p>
+
+</div>
+
+<div class='params'>
+<h4>Parameters:</h4>
+
+<ul class='params-list'>
+<li class='param'>
+<code class='param-name'>data</code>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+
+
+<div class='param-description'>
+<p>Initialization data</p>
+
+</div>
+
+<ul class='params-list'>
+<li class='param'>
+<code class='param-name optional'>[fps]</code>
+<span class='type'>Int</span>
+<span class='flag optional' title='This parameter is optional.'>optional</span>
+
+<div class='param-description'>
+<p>Framerate to play the movieclip at. Omitting this will use the
+                        current framerate.</p>
+
+</div>
+
+</li>
+<li class='param'>
+<code class='param-name optional'>[labels]</code>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+<span class='flag optional' title='This parameter is optional.'>optional</span>
+
+<div class='param-description'>
+<p>A dictionary of the labels in the movieclip to assist in
+                              playing animations.</p>
+
+</div>
+
+</li>
+<li class='param'>
+<code class='param-name optional'>[origin={x:0,y:0}]</code>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+<span class='flag optional' title='This parameter is optional.'>optional</span>
+
+<div class='param-description'>
+<p>The origin of the movieclip.</p>
+
+</div>
+
+</li>
+<li class='param'>
+<code class='param-name optional'>[frames]</code>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array" class="crosslink external" target="_blank">Array</a></span>
+<span class='flag optional' title='This parameter is optional.'>optional</span>
+
+<div class='param-description'>
+<p>An array of frame sequences to pull from the texture atlas.</p>
+
+</div>
+
+<ul class='params-list'>
+<li class='param'>
+  <code class='param-name optional'>[name]</code>
+  <span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+  <span class='flag optional' title='This parameter is optional.'>optional</span>
+
+<div class='param-description'>
+  The name to use for the frame sequence. This should
+                                   include a "#" to be replaced with the image number.
+</div>
+</li>
+<li class='param'>
+  <code class='param-name optional'>[min]</code>
+  <span class='type'>Int</span>
+  <span class='flag optional' title='This parameter is optional.'>optional</span>
+
+<div class='param-description'>
+  The first frame number in the frame sequence.
+</div>
+</li>
+<li class='param'>
+  <code class='param-name optional'>[max]</code>
+  <span class='type'>Int</span>
+  <span class='flag optional' title='This parameter is optional.'>optional</span>
+
+<div class='param-description'>
+  The last frame number in the frame sequence.
+</div>
+</li>
+<li class='param'>
+  <code class='param-name optional'>[digits=4]</code>
+  <span class='type'>Int</span>
+  <span class='flag optional' title='This parameter is optional.'>optional</span>
+
+<div class='param-description'>
+  The maximum number of digits in the names of the frames,
+                                    e.g. myAnim0001 has 4 digits.
+</div>
+</li>
+</ul>
+</li>
+<li class='param'>
+<code class='param-name optional'>[scale=1]</code>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
+<span class='flag optional' title='This parameter is optional.'>optional</span>
+
+<div class='param-description'>
+<p>The scale at which the art was exported, e.g. a scale of 1.4
+                               means the art was increased in size to 140% before exporting
+                               and should be scaled back down before drawing to the screen.</p>
+
+</div>
+
+</li>
+</ul>
+</li>
+<li class='param'>
+<code class='param-name optional'>[atlas]</code>
+<span class='type'><a href="../classes/springroll.pixi.TextureAtlas.html" class="crosslink">springroll.pixi.TextureAtlas</a></span>
+<span class='flag optional' title='This parameter is optional.'>optional</span>
+
+
+<div class='param-description'>
+<p>A TextureAtlas to pull frames from. If omitted,
+                                              frames are pulled from Pixi&#39;s global texture
+                                              cache.</p>
+
+</div>
+
+</li>
+</ul>
+</div>
+
+
+</div></div>
+
+<div role='tabpanel' id='docs-properties' class='tab-pane'>
+
+<div class="property__duration property item private">
+<h3 class="name"><a class="deeplink" href="#property__duration"><span class="glyphicon glyphicon-link"></span></a> <code>_duration</code></h3>
+<span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
+
+
+<span class="flag private">private</span>
+
+
+
+<div class="meta">
+<p>
+Defined in
+<a href="../files/src_displays_pixi_animation_AdvancedMovieClip.js.html#l92"><code>_duration:92</code></a>
+</p>
+
+
+</div>
+
+<div class="description">
+<p>The total time in seconds for the animation.</p>
+
+</div>
+
+<p><strong>Default:</strong> 0</p>
+
+
+</div><div class="property__events property item private">
+<h3 class="name"><a class="deeplink" href="#property__events"><span class="glyphicon glyphicon-link"></span></a> <code>_events</code></h3>
+<span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array" class="crosslink external" target="_blank">Array</a></span>
+
+
+<span class="flag private">private</span>
+
+
+
+<div class="meta">
+<p>
+Defined in
+<a href="../files/src_displays_pixi_animation_AdvancedMovieClip.js.html#l119"><code>_events:119</code></a>
+</p>
+
+
+</div>
+
+<div class="description">
+<p>An array of event labels.</p>
+
+</div>
+
+
+
+</div><div class="property__framerate property item private">
+<h3 class="name"><a class="deeplink" href="#property__framerate"><span class="glyphicon glyphicon-link"></span></a> <code>_framerate</code></h3>
+<span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
+
+
+<span class="flag private">private</span>
+
+
+
+<div class="meta">
+<p>
+Defined in
+<a href="../files/src_displays_pixi_animation_AdvancedMovieClip.js.html#l82"><code>_framerate:82</code></a>
+</p>
+
+
+</div>
+
+<div class="description">
+<p>The speed at which the AdvancedMovieClip should play.</p>
+
+</div>
+
+<p><strong>Default:</strong> 0</p>
+
+
+</div><div class="property__labels property item private">
+<h3 class="name"><a class="deeplink" href="#property__labels"><span class="glyphicon glyphicon-link"></span></a> <code>_labels</code></h3>
+<span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array" class="crosslink external" target="_blank">Array</a></span>
+
+
+<span class="flag private">private</span>
+
+
+
+<div class="meta">
+<p>
+Defined in
+<a href="../files/src_displays_pixi_animation_AdvancedMovieClip.js.html#l111"><code>_labels:111</code></a>
+</p>
+
+
+</div>
+
+<div class="description">
+<p>An array of frame labels.</p>
+
+</div>
+
+
+
+</div><div class="property__t property item private">
+<h3 class="name"><a class="deeplink" href="#property__t"><span class="glyphicon glyphicon-link"></span></a> <code>_t</code></h3>
+<span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
+
+
+<span class="flag private">private</span>
+
+
+
+<div class="meta">
+<p>
+Defined in
+<a href="../files/src_displays_pixi_animation_AdvancedMovieClip.js.html#l102"><code>_t:102</code></a>
+</p>
+
+
+</div>
+
+<div class="description">
+<p>The time elapsed from frame 0 in seconds.</p>
+
+</div>
+
+<p><strong>Default:</strong> 0</p>
+
+
+</div><div class="property__textures property item private">
+<h3 class="name"><a class="deeplink" href="#property__textures"><span class="glyphicon glyphicon-link"></span></a> <code>_textures</code></h3>
+<span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array" class="crosslink external" target="_blank">Array</a></span>
+
+
+<span class="flag private">private</span>
+
+
+
+<div class="meta">
+<p>
+Defined in
+<a href="../files/src_displays_pixi_animation_AdvancedMovieClip.js.html#l127"><code>_textures:127</code></a>
+</p>
+
+
+</div>
+
+<div class="description">
+<p>The array of Textures that are the MovieClip&#39;s frames.</p>
+
+</div>
+
+
+
+</div><div class="property_currentFrame property item">
+<h3 class="name"><a class="deeplink" href="#property_currentFrame"><span class="glyphicon glyphicon-link"></span></a> <code>currentFrame</code></h3>
+<span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
+
+
+
+
+
+<div class="meta">
+<p>
+Defined in
+<a href="../files/src_displays_pixi_animation_AdvancedMovieClip.js.html#l71"><code>currentFrame:71</code></a>
+</p>
+
+
+</div>
+
+<div class="description">
+<p>The current frame of the movieclip.</p>
+
+</div>
+
+<p><strong>Default:</strong> 0</p>
+
+
+</div><div class="property_elapsedTime property item public">
+<h3 class="name"><a class="deeplink" href="#property_elapsedTime"><span class="glyphicon glyphicon-link"></span></a> <code>elapsedTime</code></h3>
+<span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
+
+
+<span class="flag public">public</span>
+
+
+
+<div class="meta">
+<p>
+Defined in
+<a href="../files/src_displays_pixi_animation_AdvancedMovieClip.js.html#l168"><code>elapsedTime:168</code></a>
+</p>
+
+
+</div>
+
+<div class="description">
+<p>When the BitmapMovieClip is framerate independent, this is the time elapsed from frame 0 in
+seconds.</p>
+
+</div>
+
+<p><strong>Default:</strong> 0</p>
+
+
+</div><div class="property_framerate property item">
+<h3 class="name"><a class="deeplink" href="#property_framerate"><span class="glyphicon glyphicon-link"></span></a> <code>framerate</code></h3>
+<span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
+
+
+
+
+
+<div class="meta">
+<p>
+Defined in
+<a href="../files/src_displays_pixi_animation_AdvancedMovieClip.js.html#l144"><code>framerate:144</code></a>
+</p>
+
+
+</div>
+
+<div class="description">
+<p>The speed at which the AdvancedMovieClip should play.</p>
+
+</div>
+
+<p><strong>Default:</strong> 0</p>
+
+
+</div><div class="property_totalFrames property item">
+<h3 class="name"><a class="deeplink" href="#property_totalFrames"><span class="glyphicon glyphicon-link"></span></a> <code>totalFrames</code></h3>
+<span class="type">Int</span>
+
+
+
+
+
+<div class="meta">
+<p>
+Defined in
+<a href="../files/src_displays_pixi_animation_AdvancedMovieClip.js.html#l195"><code>totalFrames:195</code></a>
+</p>
+
+
+</div>
+
+<div class="description">
+<p>(Read-Only) The total number of frames in the timeline</p>
+
+</div>
+
+<p><strong>Default:</strong> 0</p>
+
+
+</div></div>
+
+
+</div>
+</div></div>
+</div>
+</div>
+</div>
+<script src='../assets/js/libraries.js?v=0.4.0'></script>
+<script src='../assets/js/main.js?v=0.4.0'></script>
+</body>
+</html>

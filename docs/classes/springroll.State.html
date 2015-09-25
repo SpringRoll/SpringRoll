@@ -1,0 +1,2639 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+	<title>SpringRoll v0.4.0 API Documentation : springroll.State</title>
+	<meta charset='utf-8'>
+	<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+	<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
+	<link rel='shortcut icon' type='image/png' href='../assets/images/favicon.ico?v=0.4.0'>
+	<link href='//fonts.googleapis.com/css?family=Titillium+Web:300,200,600' rel='stylesheet' type='text/css'>
+	<link rel='stylesheet' type='text/css' href='../assets/css/libraries.css?v=0.4.0'>
+	<link rel='stylesheet' type='text/css' href='../assets/css/main.css?v=0.4.0'>
+</head>
+<body>
+<header>
+	<nav class="navbar navbar-inverse navbar-fixed-top">
+		<div class='container'>
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#docs-navbar">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href='https://github.com/SpringRoll/SpringRoll'>
+						<img src='../assets/images/logo.png?v=0.4.0' class="logo">
+					<span class='project-name'>SpringRoll</span>
+					<span class="sr-only">API Documentation for:</span>
+					<span class='version hidden-xs'>v0.4.0</span>
+				</a>
+			</div>
+			<div class="collapse navbar-collapse" id="docs-navbar">
+	      <ul class="scope-toggles text-center nav navbar-nav navbar-right">
+					<li><input class='scope-toggle' 
+						id='toggle-inherited' 
+						type='checkbox' 
+						data-toggle='toggle' 
+						data-on='Inherited' 
+						data-off='Inherited' 
+						data-size='mini'
+						data-width='80'>
+					</li>
+					<li><input class='scope-toggle' 
+						id='toggle-protected' 
+						type='checkbox' 
+						data-toggle='toggle' 
+						data-on='Protected' 
+						data-off='Protected' 
+						data-size='mini'
+						data-width='80'>
+					</li>
+					<li><input class='scope-toggle' 
+						id='toggle-private' 
+						type='checkbox' 
+						data-toggle='toggle' 
+						data-on='Private' 
+						data-off='Private' 
+						data-size='mini'
+						data-width='80'>
+					</li>
+					<li><input class='scope-toggle' 
+						id='toggle-deprecated' 
+						type='checkbox' 
+						data-toggle='toggle' 
+						data-on='Deprecated' 
+						data-off='Deprecated' 
+						data-size='mini'
+						data-width='80'>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+</header>
+<div class='container'>
+<div class='row'>
+<nav id='sidebar' class='col-sm-4 col-md-3'>
+<h2>APIs</h2>
+<div class='input-group'>
+  <div class='input-group-addon'>
+    <span class='glyphicon glyphicon-search'></span>
+  </div>
+  <input type='search' class='form-control' id='api-filter' placeholder='Type to filter APIs'>
+  <span class='collapsed btn-close glyphicon glyphicon-remove-sign hidden'></span>
+</div>
+<nav class='navbar navbar-default'>
+  <!-- Brand and toggle get grouped for better mobile display -->
+  <div class="btn-group" role="group" aria-label="...">
+    <button type="button" class="sidebar-toggle collapsed btn btn-default" id='toggle-classes' data-target='#classes-collapse'>
+      Classes
+      <span class='collapsed glyphicon glyphicon-chevron-up'></span>
+      <span class='expanded glyphicon glyphicon-chevron-down'></span>
+    </button>
+    <button type="button" class="sidebar-toggle collapsed btn btn-default" id='toggle-modules' data-target='#modules-collapse'>
+      Modules
+      <span class='collapsed glyphicon glyphicon-chevron-up'></span>
+      <span class='expanded glyphicon glyphicon-chevron-down'></span>
+    </button>
+  </div>
+
+  <!-- Collect the nav links, forms, and other content for toggling -->
+  <div class='collapse' id='classes-collapse'>
+    <ul class='nav navbar-nav'>
+        <li class='public'>
+          <a href='../classes/createjs.Container.html'>createjs.Container</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/createjs.MovieClip.html'>createjs.MovieClip</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/createjs.Point.html'>createjs.Point</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/createjs.SpriteSheet.html'>createjs.SpriteSheet</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/PIXI.BitmapText.html'>PIXI.BitmapText</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/PIXI.Container.html'>PIXI.Container</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/PIXI.InteractionManager.html'>PIXI.InteractionManager</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/PIXI.Point.html'>PIXI.Point</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/PIXI.Sector.html'>PIXI.Sector</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/PIXI.Text.html'>PIXI.Text</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.AbstractDisplay.html'>springroll.AbstractDisplay</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.AbstractHint.html'>springroll.AbstractHint</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.Animator.html'>springroll.Animator</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.AnimatorHint.html'>springroll.AnimatorHint</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.AnimatorTimeline.html'>springroll.AnimatorTimeline</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.Application.html'>springroll.Application</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.ApplicationOptions.html'>springroll.ApplicationOptions</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.ApplicationPlugin.html'>springroll.ApplicationPlugin</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.AssetCache.html'>springroll.AssetCache</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.AssetLoad.html'>springroll.AssetLoad</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.AssetManager.html'>springroll.AssetManager</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.AssetSizes.html'>springroll.AssetSizes</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.BaseState.html'>springroll.BaseState</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.CacheManager.html'>springroll.CacheManager</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.Captions.html'>springroll.Captions</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.ColorAlphaTask.html'>springroll.ColorAlphaTask</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.CombinedCallback.html'>springroll.CombinedCallback</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.Container.html'>springroll.Container</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.Debug.html'>springroll.Debug</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.DebugOptions.html'>springroll.DebugOptions</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.DelayedCall.html'>springroll.DelayedCall</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.easeljs.Animator.html'>springroll.easeljs.Animator</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.easeljs.Application.html'>springroll.easeljs.Application</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.easeljs.BasePanel.html'>springroll.easeljs.BasePanel</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.easeljs.BaseState.html'>springroll.easeljs.BaseState</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.easeljs.BitmapMovieClip.html'>springroll.easeljs.BitmapMovieClip</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.easeljs.BitmapMovieClipInstance.html'>springroll.easeljs.BitmapMovieClipInstance</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.easeljs.BitmapMovieClipTask.html'>springroll.easeljs.BitmapMovieClipTask</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.easeljs.BitmapTask.html'>springroll.easeljs.BitmapTask</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.easeljs.BitmapUtils.html'>springroll.easeljs.BitmapUtils</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.easeljs.Button.html'>springroll.easeljs.Button</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.easeljs.Cutscene.html'>springroll.easeljs.Cutscene</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.easeljs.CutsceneTask.html'>springroll.easeljs.CutsceneTask</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.easeljs.DisplayAdapter.html'>springroll.easeljs.DisplayAdapter</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.easeljs.DragData.html'>springroll.easeljs.DragData</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.easeljs.DragManager.html'>springroll.easeljs.DragManager</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.easeljs.DwellTimer.html'>springroll.easeljs.DwellTimer</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.easeljs.EaselJSDisplay.html'>springroll.easeljs.EaselJSDisplay</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.easeljs.FlashArt.html'>springroll.easeljs.FlashArt</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.easeljs.FlashArtAtlasTask.html'>springroll.easeljs.FlashArtAtlasTask</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.easeljs.FlashArtTask.html'>springroll.easeljs.FlashArtTask</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.easeljs.FlashSpriteSheetTask.html'>springroll.easeljs.FlashSpriteSheetTask</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.easeljs.MovieClipInstance.html'>springroll.easeljs.MovieClipInstance</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.easeljs.ReversePlayback.html'>springroll.easeljs.ReversePlayback</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.easeljs.SoundButton.html'>springroll.easeljs.SoundButton</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.easeljs.SoundTask.html'>springroll.easeljs.SoundTask</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.easeljs.SpriteSheetTask.html'>springroll.easeljs.SpriteSheetTask</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.easeljs.Texture.html'>springroll.easeljs.Texture</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.easeljs.TextureAtlas.html'>springroll.easeljs.TextureAtlas</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.easeljs.TextureAtlasTask.html'>springroll.easeljs.TextureAtlasTask</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.Enum.html'>springroll.Enum</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.EnumValue.html'>springroll.EnumValue</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.EventCatalog.html'>springroll.EventCatalog</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.EventDispatcher.html'>springroll.EventDispatcher</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.EventError.html'>springroll.EventError</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.EventSignature.html'>springroll.EventSignature</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.EventUtils.html'>springroll.EventUtils</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.Features.html'>springroll.Features</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.FlashArtImageTask.html'>springroll.FlashArtImageTask</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.FunctionHint.html'>springroll.FunctionHint</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.FunctionTask.html'>springroll.FunctionTask</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.GroupHint.html'>springroll.GroupHint</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.HintsPlayer.html'>springroll.HintsPlayer</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.Languages.html'>springroll.Languages</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.Learning.html'>springroll.Learning</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.LearningError.html'>springroll.LearningError</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.LearningMedia.html'>springroll.LearningMedia</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.ListTask.html'>springroll.ListTask</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.Loader.html'>springroll.Loader</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.LoaderItem.html'>springroll.LoaderItem</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.LoaderResult.html'>springroll.LoaderResult</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.LoadTask.html'>springroll.LoadTask</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.native.Circle.html'>springroll.native.Circle</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.native.DisplayAdapter.html'>springroll.native.DisplayAdapter</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.native.Ellipse.html'>springroll.native.Ellipse</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.native.NativeDisplay.html'>springroll.native.NativeDisplay</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.native.Point.html'>springroll.native.Point</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.native.Polygon.html'>springroll.native.Polygon</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.native.Rectangle.html'>springroll.native.Rectangle</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.PageVisibility.html'>springroll.PageVisibility</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.pixi.AdvancedMovieClip.html'>springroll.pixi.AdvancedMovieClip</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.pixi.AdvancedMovieClipInstance.html'>springroll.pixi.AdvancedMovieClipInstance</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.pixi.AdvancedMovieClipTask.html'>springroll.pixi.AdvancedMovieClipTask</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.pixi.Animator.html'>springroll.pixi.Animator</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.pixi.BitmapFontTask.html'>springroll.pixi.BitmapFontTask</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.pixi.Button.html'>springroll.pixi.Button</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.pixi.DisplayAdapter.html'>springroll.pixi.DisplayAdapter</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.pixi.DragData.html'>springroll.pixi.DragData</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.pixi.DragManager.html'>springroll.pixi.DragManager</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.pixi.ParallelSpineData.html'>springroll.pixi.ParallelSpineData</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.pixi.PixiDisplay.html'>springroll.pixi.PixiDisplay</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.pixi.SpineAnimTask.html'>springroll.pixi.SpineAnimTask</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.pixi.SpineAtlas.html'>springroll.pixi.SpineAtlas</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.pixi.SpineAtlasTask.html'>springroll.pixi.SpineAtlasTask</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.pixi.SpineInstance.html'>springroll.pixi.SpineInstance</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.pixi.TextureAtlas.html'>springroll.pixi.TextureAtlas</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.pixi.TextureAtlasTask.html'>springroll.pixi.TextureAtlasTask</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.pixi.TextureTask.html'>springroll.pixi.TextureTask</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.Positioner.html'>springroll.Positioner</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.Property.html'>springroll.Property</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.PropertyDispatcher.html'>springroll.PropertyDispatcher</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.SavedData.html'>springroll.SavedData</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.ScaleImage.html'>springroll.ScaleImage</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.ScaleItem.html'>springroll.ScaleItem</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.ScaleManager.html'>springroll.ScaleManager</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.Sound.html'>springroll.Sound</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.SoundContext.html'>springroll.SoundContext</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.SoundInstance.html'>springroll.SoundInstance</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.State.html'>springroll.State</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.StateEvent.html'>springroll.StateEvent</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.StateManager.html'>springroll.StateManager</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.StringFilters.html'>springroll.StringFilters</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.Task.html'>springroll.Task</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.TickerPlugin.html'>springroll.TickerPlugin</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.TimeUtils.html'>springroll.TimeUtils</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.UIScaler.html'>springroll.UIScaler</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.ValidationError.html'>springroll.ValidationError</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.VOHint.html'>springroll.VOHint</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.VOPlayer.html'>springroll.VOPlayer</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.WeightedRandom.html'>springroll.WeightedRandom</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/window.Array.html'>window.Array</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/window.extend.html'>window.extend</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/window.include.html'>window.include</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/window.Math.html'>window.Math</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/window.mixin.html'>window.mixin</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/window.namespace.html'>window.namespace</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/window.Number.html'>window.Number</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/window.Object.html'>window.Object</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/window.RequestUtils.html'>window.RequestUtils</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/window.String.html'>window.String</a>
+        </li>
+    </ul>
+  </div>
+
+  <!-- Collect the nav links, forms, and other content for toggling -->
+  <div class='collapse' id='modules-collapse'>
+    <ul class='nav navbar-nav'>
+        <li class=''>
+          <a href='../modules/Animation.html'>Animation</a>
+        </li>
+        <li class=''>
+          <a href='../modules/Captions.html'>Captions</a>
+        </li>
+        <li class=''>
+          <a href='../modules/Container.html'>Container</a>
+        </li>
+        <li class=''>
+          <a href='../modules/Container Client.html'>Container Client</a>
+        </li>
+        <li class=''>
+          <a href='../modules/Core.html'>Core</a>
+        </li>
+        <li class=''>
+          <a href='../modules/Debug.html'>Debug</a>
+        </li>
+        <li class=''>
+          <a href='../modules/EaselJS Animation.html'>EaselJS Animation</a>
+        </li>
+        <li class=''>
+          <a href='../modules/EaselJS Cutscene.html'>EaselJS Cutscene</a>
+        </li>
+        <li class=''>
+          <a href='../modules/EaselJS Display.html'>EaselJS Display</a>
+        </li>
+        <li class=''>
+          <a href='../modules/EaselJS Learning.html'>EaselJS Learning</a>
+        </li>
+        <li class=''>
+          <a href='../modules/EaselJS States.html'>EaselJS States</a>
+        </li>
+        <li class=''>
+          <a href='../modules/EaselJS UI.html'>EaselJS UI</a>
+        </li>
+        <li class=''>
+          <a href='../modules/Hints.html'>Hints</a>
+        </li>
+        <li class=''>
+          <a href='../modules/Languages.html'>Languages</a>
+        </li>
+        <li class=''>
+          <a href='../modules/Learning.html'>Learning</a>
+        </li>
+        <li class=''>
+          <a href='../modules/Learning Media.html'>Learning Media</a>
+        </li>
+        <li class=''>
+          <a href='../modules/Native Display.html'>Native Display</a>
+        </li>
+        <li class=''>
+          <a href='../modules/Pixi Animation.html'>Pixi Animation</a>
+        </li>
+        <li class=''>
+          <a href='../modules/PIXI Animation.html'>PIXI Animation</a>
+        </li>
+        <li class=''>
+          <a href='../modules/Pixi Display.html'>Pixi Display</a>
+        </li>
+        <li class=''>
+          <a href='../modules/PIXI Display.html'>PIXI Display</a>
+        </li>
+        <li class=''>
+          <a href='../modules/PIXI Spine.html'>PIXI Spine</a>
+        </li>
+        <li class=''>
+          <a href='../modules/PIXI UI.html'>PIXI UI</a>
+        </li>
+        <li class=''>
+          <a href='../modules/Sound.html'>Sound</a>
+        </li>
+        <li class=''>
+          <a href='../modules/States.html'>States</a>
+        </li>
+        <li class=''>
+          <a href='../modules/UI.html'>UI</a>
+        </li>
+    </ul>
+  </div>
+  <!-- /.container-fluid -->
+</nav></nav>
+<div class='col-sm-8 col-md-9'>
+<div id='docs-main' class='apidocs'>
+
+<h1>springroll.State Class</h1>
+<div class='box meta'>
+
+
+<div class='foundat'>
+Defined in: <a href='../files/src_states_State.js.html#l13'><code>springroll.State:13</code></a>
+</div>
+
+Module:
+<a href="../modules/States.html">States</a>
+
+</div>
+
+
+<div class='box intro'>
+<p>Defines the base functionality for a state used by the state manager</p>
+
+</div>
+
+<div class='constructor'>
+<h2>Constructor</h2> <div class='method_springroll.State method item'>
+<h3 class='name'><a class="deeplink" href="#method_springroll.State"><span class="glyphicon glyphicon-link"></span></a> <code>springroll.State</code></h3>
+
+<div class='args'>
+<span class='paren'>(</span>
+<ul class='args-list inline commas'>
+<li class='arg'>
+<code>panel</code>
+</li>
+<li class='arg'>
+<code class='optional'>[options]</code>
+</li>
+</ul><span class='paren'>)</span>
+</div>
+
+
+<div class='flags'>
+
+
+
+
+
+</div> 
+
+<div class='meta'>
+<p>
+Defined in
+<a href='../files/src_states_State.js.html#l13'><code>springroll.State:13</code></a>
+</p>
+
+
+
+</div>
+
+<div class='description'>
+
+</div>
+
+<div class='params'>
+<h4>Parameters:</h4>
+
+<ul class='params-list'>
+<li class='param'>
+<code class='param-name'>panel</code>
+<span class='type'><a href="../classes/createjs.Container.html" class="crosslink">createjs.Container</a> | PIXI.DisplayObjectContainer</span>
+
+
+<div class='param-description'>
+<p>The panel to associate with
+    this state.</p>
+
+</div>
+
+</li>
+<li class='param'>
+<code class='param-name optional'>[options]</code>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+<span class='flag optional' title='This parameter is optional.'>optional</span>
+
+
+<div class='param-description'>
+<p>The list of options</p>
+
+</div>
+
+<ul class='params-list'>
+<li class='param'>
+<code class='param-name optional'>[next=null]</code>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a> | <a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function" class="crosslink external" target="_blank">Function</a></span>
+<span class='flag optional' title='This parameter is optional.'>optional</span>
+
+<div class='param-description'>
+<p>The next state alias or function to call when going to the next state.</p>
+
+</div>
+
+</li>
+<li class='param'>
+<code class='param-name optional'>[previous=null]</code>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a> | <a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function" class="crosslink external" target="_blank">Function</a></span>
+<span class='flag optional' title='This parameter is optional.'>optional</span>
+
+<div class='param-description'>
+<p>The previous state alias to call when going to the previous state.</p>
+
+</div>
+
+</li>
+<li class='param'>
+<code class='param-name optional'>[delayLoad=0]</code>
+<span class='type'>Int</span>
+<span class='flag optional' title='This parameter is optional.'>optional</span>
+
+<div class='param-description'>
+<p>The number of frames to delay the loading for cases where
+ heavy object instaniation slow the game dramatically.</p>
+
+</div>
+
+</li>
+<li class='param'>
+<code class='param-name optional'>[preload=[]]</code>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array" class="crosslink external" target="_blank">Array</a></span>
+<span class='flag optional' title='This parameter is optional.'>optional</span>
+
+<div class='param-description'>
+<p>The assets to preload before the state loads</p>
+
+</div>
+
+</li>
+<li class='param'>
+<code class='param-name optional'>[scaling=null]</code>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a> | <a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+<span class='flag optional' title='This parameter is optional.'>optional</span>
+
+<div class='param-description'>
+<p>The scaling items to use with the ScaleManager.
+      If options.scaling is <code>"panel"</code> then the entire panel will be scaled as a title-safe
+      item. See <code>ScaleManager.addItems</code> for more information about the
+      format of the scaling objects. (UI Module only)</p>
+
+</div>
+
+</li>
+</ul>
+</li>
+</ul>
+</div>
+
+
+</div>
+</div>
+
+<div id='classdocs' class='tabview'>
+<span id='docs-highlight'></span>
+<ul class='nav nav-tabs'>
+<li id='tab-index' class='docs-toggle'>
+<a data-toggle='tab' href='#docs-index'>Index</a>
+</li>
+<li id='tab-methods' class='docs-toggle'>
+<a data-toggle='tab' href='#docs-methods'>Methods</a>
+</li>
+<li id='tab-properties' class='docs-toggle'>
+<a data-toggle='tab' href='#docs-properties'>Properties</a>
+</li>
+<li id='tab-events' class='docs-toggle'>
+<a data-toggle='tab' href='#docs-events'>Events</a>
+</li>
+</ul>
+
+<div class='tab-content'>
+
+<div role='tabpanel' id='docs-index' class='tab-pane'>
+<div class='index-section tab-pane methods'>
+<h3>Methods</h3>
+
+<ul class='list-group row methods'>
+<li class='col-xs-6 col-md-4 index-item method protected'>
+<a href='#method__internalCancel'>_internalCancel</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item method protected'>
+<a href='#method__internalEnter'>_internalEnter</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item method private'>
+<a href='#method__internalEnterDone'>_internalEnterDone</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item method protected'>
+<a href='#method__internalEntering'>_internalEntering</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item method protected'>
+<a href='#method__internalExit'>_internalExit</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item method protected'>
+<a href='#method__internalExitStart'>_internalExitStart</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item method private'>
+<a href='#method__onLoaded'>_onLoaded</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item method'>
+<a href='#method_destroy'>destroy</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item method'>
+<a href='#method_loadingDone'>loadingDone</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item method'>
+<a href='#method_loadingStart'>loadingStart</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item method'>
+<a href='#method_nextState'>nextState</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item method private'>
+<a href='#method_onProgress'>onProgress</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item method'>
+<a href='#method_previousState'>previousState</a>
+
+</li>
+</ul>
+</div>
+
+<div class='index-section tab-pane properties'>
+<h3>Properties</h3>
+
+<ul class='list-group row properties'>
+<li class='col-xs-6 col-md-4 index-item property private'>
+<a href='#property__active'>_active</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item property private'>
+<a href='#property__canceled'>_canceled</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item property private'>
+<a href='#property__destroyed'>_destroyed</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item property private'>
+<a href='#property__enabled'>_enabled</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item property private'>
+<a href='#property__isLoading'>_isLoading</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item property private'>
+<a href='#property__nextState'>_nextState</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item property private'>
+<a href='#property__onEnterProceed'>_onEnterProceed</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item property private'>
+<a href='#property__onLoadingComplete'>_onLoadingComplete</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item property private'>
+<a href='#property__prevState'>_prevState</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item property'>
+<a href='#property_active'>active</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item property'>
+<a href='#property_app'>app</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item property protected'>
+<a href='#property_assets'>assets</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item property'>
+<a href='#property_cancel'>cancel</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item property'>
+<a href='#property_canceled'>canceled</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item property'>
+<a href='#property_config'>config</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item property protected'>
+<a href='#property_delayLoad'>delayLoad</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item property'>
+<a href='#property_destroyed'>destroyed</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item property'>
+<a href='#property_enabled'>enabled</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item property'>
+<a href='#property_enter'>enter</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item property'>
+<a href='#property_enterDone'>enterDone</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item property'>
+<a href='#property_exit'>exit</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item property'>
+<a href='#property_exitStart'>exitStart</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item property'>
+<a href='#property_manager'>manager</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item property'>
+<a href='#property_panel'>panel</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item property'>
+<a href='#property_preload'>preload</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item property protected'>
+<a href='#property_preloaded'>preloaded</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item property'>
+<a href='#property_scaling'>scaling</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item property'>
+<a href='#property_scalingItems'>scalingItems</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item property'>
+<a href='#property_sound'>sound</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item property'>
+<a href='#property_stateId'>stateId</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item property'>
+<a href='#property_voPlayer'>voPlayer</a>
+
+</li>
+</ul>
+</div>
+
+
+<div class='index-section tab-pane events'>
+<h3>Events</h3>
+
+<ul class='list-group row events'>
+<li class='col-xs-6 col-md-4 index-item event'>
+<a href='#event_cancel'>cancel</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item event'>
+<a href='#event_destroy'>destroy</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item event'>
+<a href='#event_enabled'>enabled</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item event'>
+<a href='#event_enterDone'>enterDone</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item event'>
+<a href='#event_exit'>exit</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item event'>
+<a href='#event_exitStart'>exitStart</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item event'>
+<a href='#event_loaded'>loaded</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item event'>
+<a href='#event_loading'>loading</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item event'>
+<a href='#event_progress'>progress</a>
+
+</li>
+</ul>
+</div>
+</div>
+
+<div role='tabpanel' id='docs-methods' class='tab-pane'>
+
+<div class='method__internalCancel method item protected'>
+<h3 class='name'><a class="deeplink" href="#method__internalCancel"><span class="glyphicon glyphicon-link"></span></a> <code>_internalCancel</code></h3>
+
+<span class='paren'>()</span>
+
+
+<div class='flags'>
+
+<span class='flag protected'>protected</span>
+
+
+
+
+</div> 
+
+<div class='meta'>
+<p>
+Defined in
+<a href='../files/src_states_State.js.html#l677'><code>_internalCancel:677</code></a>
+</p>
+
+
+
+</div>
+
+<div class='description'>
+<p>Cancel the loading of this state</p>
+
+</div>
+
+
+
+</div><div class='method__internalEnter method item protected'>
+<h3 class='name'><a class="deeplink" href="#method__internalEnter"><span class="glyphicon glyphicon-link"></span></a> <code>_internalEnter</code></h3>
+
+<div class='args'>
+<span class='paren'>(</span>
+<ul class='args-list inline commas'>
+<li class='arg'>
+<code>proceed</code>
+</li>
+</ul><span class='paren'>)</span>
+</div>
+
+
+<div class='flags'>
+
+<span class='flag protected'>protected</span>
+
+
+
+
+</div> 
+
+<div class='meta'>
+<p>
+Defined in
+<a href='../files/src_states_State.js.html#l647'><code>_internalEnter:647</code></a>
+</p>
+
+
+
+</div>
+
+<div class='description'>
+<p>Exit the state start, called by the State Manager</p>
+
+</div>
+
+<div class='params'>
+<h4>Parameters:</h4>
+
+<ul class='params-list'>
+<li class='param'>
+<code class='param-name'>proceed</code>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function" class="crosslink external" target="_blank">Function</a></span>
+
+
+<div class='param-description'>
+<p>The function to call after enter has been called</p>
+
+</div>
+
+</li>
+</ul>
+</div>
+
+
+</div><div class='method__internalEnterDone method item private'>
+<h3 class='name'><a class="deeplink" href="#method__internalEnterDone"><span class="glyphicon glyphicon-link"></span></a> <code>_internalEnterDone</code></h3>
+
+<span class='paren'>()</span>
+
+
+<div class='flags'>
+
+<span class='flag private'>private</span>
+
+
+
+
+</div> 
+
+<div class='meta'>
+<p>
+Defined in
+<a href='../files/src_states_State.js.html#l693'><code>_internalEnterDone:693</code></a>
+</p>
+
+
+
+</div>
+
+<div class='description'>
+<p>Exit the state start, called by the State Manager</p>
+
+</div>
+
+
+
+</div><div class='method__internalEntering method item protected'>
+<h3 class='name'><a class="deeplink" href="#method__internalEntering"><span class="glyphicon glyphicon-link"></span></a> <code>_internalEntering</code></h3>
+
+<div class='args'>
+<span class='paren'>(</span>
+<ul class='args-list inline commas'>
+<li class='arg'>
+<code>proceed</code>
+</li>
+</ul><span class='paren'>)</span>
+</div>
+
+
+<div class='flags'>
+
+<span class='flag protected'>protected</span>
+
+
+
+
+</div> 
+
+<div class='meta'>
+<p>
+Defined in
+<a href='../files/src_states_State.js.html#l539'><code>_internalEntering:539</code></a>
+</p>
+
+
+
+</div>
+
+<div class='description'>
+<p>When the state is entering</p>
+
+</div>
+
+<div class='params'>
+<h4>Parameters:</h4>
+
+<ul class='params-list'>
+<li class='param'>
+<code class='param-name'>proceed</code>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function" class="crosslink external" target="_blank">Function</a></span>
+
+
+<div class='param-description'>
+<p>The function to call after enter has been called</p>
+
+</div>
+
+</li>
+</ul>
+</div>
+
+
+</div><div class='method__internalExit method item protected'>
+<h3 class='name'><a class="deeplink" href="#method__internalExit"><span class="glyphicon glyphicon-link"></span></a> <code>_internalExit</code></h3>
+
+<span class='paren'>()</span>
+
+
+<div class='flags'>
+
+<span class='flag protected'>protected</span>
+
+
+
+
+</div> 
+
+<div class='meta'>
+<p>
+Defined in
+<a href='../files/src_states_State.js.html#l490'><code>_internalExit:490</code></a>
+</p>
+
+
+
+</div>
+
+<div class='description'>
+<p>This is called by the State Manager to exit the state</p>
+
+</div>
+
+
+
+</div><div class='method__internalExitStart method item protected'>
+<h3 class='name'><a class="deeplink" href="#method__internalExitStart"><span class="glyphicon glyphicon-link"></span></a> <code>_internalExitStart</code></h3>
+
+<span class='paren'>()</span>
+
+
+<div class='flags'>
+
+<span class='flag protected'>protected</span>
+
+
+
+
+</div> 
+
+<div class='meta'>
+<p>
+Defined in
+<a href='../files/src_states_State.js.html#l636'><code>_internalExitStart:636</code></a>
+</p>
+
+
+
+</div>
+
+<div class='description'>
+<p>Exit the state start, called by the State Manager</p>
+
+</div>
+
+
+
+</div><div class='method__onLoaded method item private'>
+<h3 class='name'><a class="deeplink" href="#method__onLoaded"><span class="glyphicon glyphicon-link"></span></a> <code>_onLoaded</code></h3>
+
+<div class='args'>
+<span class='paren'>(</span>
+<ul class='args-list inline commas'>
+<li class='arg'>
+<code>assets</code>
+</li>
+</ul><span class='paren'>)</span>
+</div>
+
+
+<div class='flags'>
+
+<span class='flag private'>private</span>
+
+
+
+
+</div> 
+
+<div class='meta'>
+<p>
+Defined in
+<a href='../files/src_states_State.js.html#l594'><code>_onLoaded:594</code></a>
+</p>
+
+
+
+</div>
+
+<div class='description'>
+<p>The internal call for on assets loaded</p>
+
+</div>
+
+<div class='params'>
+<h4>Parameters:</h4>
+
+<ul class='params-list'>
+<li class='param'>
+<code class='param-name'>assets</code>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a> | Null</span>
+
+
+<div class='param-description'>
+<p>The assets result of the load</p>
+
+</div>
+
+</li>
+</ul>
+</div>
+
+
+</div><div class='method_destroy method item'>
+<h3 class='name'><a class="deeplink" href="#method_destroy"><span class="glyphicon glyphicon-link"></span></a> <code>destroy</code></h3>
+
+<span class='paren'>()</span>
+
+
+<div class='flags'>
+
+
+
+
+
+</div> 
+
+<div class='meta'>
+<p>
+Defined in
+<a href='../files/src_states_State.js.html#l707'><code>destroy:707</code></a>
+</p>
+
+
+
+</div>
+
+<div class='description'>
+<p>Don&#39;t use the state object after this</p>
+
+</div>
+
+
+
+</div><div class='method_loadingDone method item'>
+<h3 class='name'><a class="deeplink" href="#method_loadingDone"><span class="glyphicon glyphicon-link"></span></a> <code>loadingDone</code></h3>
+
+<div class='args'>
+<span class='paren'>(</span>
+<ul class='args-list inline commas'>
+<li class='arg'>
+<code class='optional'>[delay]</code>
+</li>
+</ul><span class='paren'>)</span>
+</div>
+
+
+<div class='flags'>
+
+
+<span class='flag final'>final</span>
+
+
+
+</div> 
+
+<div class='meta'>
+<p>
+Defined in
+<a href='../files/src_states_State.js.html#l394'><code>loadingDone:394</code></a>
+</p>
+
+
+
+</div>
+
+<div class='description'>
+<p>Manual call to signal the end of preloading</p>
+
+</div>
+
+<div class='params'>
+<h4>Parameters:</h4>
+
+<ul class='params-list'>
+<li class='param'>
+<code class='param-name optional'>[delay]</code>
+<span class='type'>Int</span>
+<span class='flag optional' title='This parameter is optional.'>optional</span>
+
+
+<div class='param-description'>
+<p>Frames to delay the load completion to allow the framerate to
+  stabilize. If not delay is set, defaults to the <code>delayLoad</code> property.</p>
+
+</div>
+
+</li>
+</ul>
+</div>
+
+
+</div><div class='method_loadingStart method item'>
+<h3 class='name'><a class="deeplink" href="#method_loadingStart"><span class="glyphicon glyphicon-link"></span></a> <code>loadingStart</code></h3>
+
+<span class='paren'>()</span>
+
+
+<div class='flags'>
+
+
+<span class='flag final'>final</span>
+
+
+
+</div> 
+
+<div class='meta'>
+<p>
+Defined in
+<a href='../files/src_states_State.js.html#l369'><code>loadingStart:369</code></a>
+</p>
+
+
+
+</div>
+
+<div class='description'>
+<p>Manual call to signal the start of preloading</p>
+
+</div>
+
+
+
+</div><div class='method_nextState method item'>
+<h3 class='name'><a class="deeplink" href="#method_nextState"><span class="glyphicon glyphicon-link"></span></a> <code>nextState</code></h3>
+
+<span class='paren'>()</span>
+
+
+<div class='flags'>
+
+
+<span class='flag final'>final</span>
+
+
+
+</div> 
+
+<div class='meta'>
+<p>
+Defined in
+<a href='../files/src_states_State.js.html#l315'><code>nextState:315</code></a>
+</p>
+
+
+
+</div>
+
+<div class='description'>
+<p>Goto the next state</p>
+
+</div>
+
+
+
+</div><div class='method_onProgress method item private'>
+<h3 class='name'><a class="deeplink" href="#method_onProgress"><span class="glyphicon glyphicon-link"></span></a> <code>onProgress</code></h3>
+
+<div class='args'>
+<span class='paren'>(</span>
+<ul class='args-list inline commas'>
+<li class='arg'>
+<code>progress</code>
+</li>
+</ul><span class='paren'>)</span>
+</div>
+
+
+<div class='flags'>
+
+<span class='flag private'>private</span>
+
+
+
+
+</div> 
+
+<div class='meta'>
+<p>
+Defined in
+<a href='../files/src_states_State.js.html#l582'><code>onProgress:582</code></a>
+</p>
+
+
+
+</div>
+
+<div class='description'>
+<p>Handle the load progress and pass to the manager</p>
+
+</div>
+
+<div class='params'>
+<h4>Parameters:</h4>
+
+<ul class='params-list'>
+<li class='param'>
+<code class='param-name'>progress</code>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
+
+
+<div class='param-description'>
+<p>The amount preloaded from zero to 1</p>
+
+</div>
+
+</li>
+</ul>
+</div>
+
+
+</div><div class='method_previousState method item'>
+<h3 class='name'><a class="deeplink" href="#method_previousState"><span class="glyphicon glyphicon-link"></span></a> <code>previousState</code></h3>
+
+<span class='paren'>()</span>
+
+
+<div class='flags'>
+
+
+<span class='flag final'>final</span>
+
+
+
+</div> 
+
+<div class='meta'>
+<p>
+Defined in
+<a href='../files/src_states_State.js.html#l342'><code>previousState:342</code></a>
+</p>
+
+
+
+</div>
+
+<div class='description'>
+<p>Goto the previous state</p>
+
+</div>
+
+
+
+</div></div>
+
+<div role='tabpanel' id='docs-properties' class='tab-pane'>
+
+<div class="property__active property item private">
+<h3 class="name"><a class="deeplink" href="#property__active"><span class="glyphicon glyphicon-link"></span></a> <code>_active</code></h3>
+<span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
+
+
+<span class="flag private">private</span>
+
+
+
+<div class="meta">
+<p>
+Defined in
+<a href="../files/src_states_State.js.html#l149"><code>_active:149</code></a>
+</p>
+
+
+</div>
+
+<div class="description">
+<p>If the manager considers this the active panel</p>
+
+</div>
+
+
+
+</div><div class="property__canceled property item private">
+<h3 class="name"><a class="deeplink" href="#property__canceled"><span class="glyphicon glyphicon-link"></span></a> <code>_canceled</code></h3>
+<span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
+
+
+<span class="flag private">private</span>
+
+
+
+<div class="meta">
+<p>
+Defined in
+<a href="../files/src_states_State.js.html#l163"><code>_canceled:163</code></a>
+</p>
+
+
+</div>
+
+<div class="description">
+<p>If we canceled entering the state</p>
+
+</div>
+
+
+
+</div><div class="property__destroyed property item private">
+<h3 class="name"><a class="deeplink" href="#property__destroyed"><span class="glyphicon glyphicon-link"></span></a> <code>_destroyed</code></h3>
+<span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
+
+
+<span class="flag private">private</span>
+
+
+
+<div class="meta">
+<p>
+Defined in
+<a href="../files/src_states_State.js.html#l142"><code>_destroyed:142</code></a>
+</p>
+
+
+</div>
+
+<div class="description">
+<p>If the state has been destroyed.</p>
+
+</div>
+
+
+
+</div><div class="property__enabled property item private">
+<h3 class="name"><a class="deeplink" href="#property__enabled"><span class="glyphicon glyphicon-link"></span></a> <code>_enabled</code></h3>
+<span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
+
+
+<span class="flag private">private</span>
+
+
+
+<div class="meta">
+<p>
+Defined in
+<a href="../files/src_states_State.js.html#l184"><code>_enabled:184</code></a>
+</p>
+
+
+</div>
+
+<div class="description">
+<p>If the state is enabled, meaning that it is click ready</p>
+
+</div>
+
+
+
+</div><div class="property__isLoading property item private">
+<h3 class="name"><a class="deeplink" href="#property__isLoading"><span class="glyphicon glyphicon-link"></span></a> <code>_isLoading</code></h3>
+<span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
+
+
+<span class="flag private">private</span>
+
+
+
+<div class="meta">
+<p>
+Defined in
+<a href="../files/src_states_State.js.html#l156"><code>_isLoading:156</code></a>
+</p>
+
+
+</div>
+
+<div class="description">
+<p>If we are pre-loading the state</p>
+
+</div>
+
+
+
+</div><div class="property__nextState property item private">
+<h3 class="name"><a class="deeplink" href="#property__nextState"><span class="glyphicon glyphicon-link"></span></a> <code>_nextState</code></h3>
+<span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a> | <a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function" class="crosslink external" target="_blank">Function</a></span>
+
+
+<span class="flag private">private</span>
+
+
+
+<div class="meta">
+<p>
+Defined in
+<a href="../files/src_states_State.js.html#l191"><code>_nextState:191</code></a>
+</p>
+
+
+</div>
+
+<div class="description">
+<p>Either the alias of the next state or a function
+to call when going to the next state.</p>
+
+</div>
+
+
+
+</div><div class="property__onEnterProceed property item private">
+<h3 class="name"><a class="deeplink" href="#property__onEnterProceed"><span class="glyphicon glyphicon-link"></span></a> <code>_onEnterProceed</code></h3>
+<span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function" class="crosslink external" target="_blank">Function</a></span>
+
+
+<span class="flag private">private</span>
+
+
+
+<div class="meta">
+<p>
+Defined in
+<a href="../files/src_states_State.js.html#l170"><code>_onEnterProceed:170</code></a>
+</p>
+
+
+</div>
+
+<div class="description">
+<p>When we&#39;re finishing loading</p>
+
+</div>
+
+
+
+</div><div class="property__onLoadingComplete property item private">
+<h3 class="name"><a class="deeplink" href="#property__onLoadingComplete"><span class="glyphicon glyphicon-link"></span></a> <code>_onLoadingComplete</code></h3>
+<span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function" class="crosslink external" target="_blank">Function</a></span>
+
+
+<span class="flag private">private</span>
+
+
+
+<div class="meta">
+<p>
+Defined in
+<a href="../files/src_states_State.js.html#l177"><code>_onLoadingComplete:177</code></a>
+</p>
+
+
+</div>
+
+<div class="description">
+<p>If we start doing a load in enter, assign the onEnterComplete here</p>
+
+</div>
+
+
+
+</div><div class="property__prevState property item private">
+<h3 class="name"><a class="deeplink" href="#property__prevState"><span class="glyphicon glyphicon-link"></span></a> <code>_prevState</code></h3>
+<span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a> | <a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function" class="crosslink external" target="_blank">Function</a></span>
+
+
+<span class="flag private">private</span>
+
+
+
+<div class="meta">
+<p>
+Defined in
+<a href="../files/src_states_State.js.html#l199"><code>_prevState:199</code></a>
+</p>
+
+
+</div>
+
+<div class="description">
+<p>Either the alias of the previous state or a function
+to call when going to the previous state.</p>
+
+</div>
+
+
+
+</div><div class="property_active property item">
+<h3 class="name"><a class="deeplink" href="#property_active"><span class="glyphicon glyphicon-link"></span></a> <code>active</code></h3>
+<span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
+
+
+
+
+
+<div class="meta">
+<p>
+Defined in
+<a href="../files/src_states_State.js.html#l443"><code>active:443</code></a>
+</p>
+
+
+</div>
+
+<div class="description">
+<p>Get if this is the active state</p>
+
+</div>
+
+
+
+</div><div class="property_app property item">
+<h3 class="name"><a class="deeplink" href="#property_app"><span class="glyphicon glyphicon-link"></span></a> <code>app</code></h3>
+<span class="type">Application</span>
+
+
+
+
+
+<div class="meta">
+<p>
+Defined in
+<a href="../files/src_states_State.js.html#l55"><code>app:55</code></a>
+</p>
+
+
+</div>
+
+<div class="description">
+<p>Reference to the main app</p>
+
+</div>
+
+
+
+</div><div class="property_assets property item protected">
+<h3 class="name"><a class="deeplink" href="#property_assets"><span class="glyphicon glyphicon-link"></span></a> <code>assets</code></h3>
+<span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array" class="crosslink external" target="_blank">Array</a> | <a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+
+
+<span class="flag protected">protected</span>
+
+
+
+<div class="meta">
+<p>
+Defined in
+<a href="../files/src_states_State.js.html#l135"><code>assets:135</code></a>
+</p>
+
+
+</div>
+
+<div class="description">
+<p>The collection of assets loaded</p>
+
+</div>
+
+
+
+</div><div class="property_cancel property item">
+<h3 class="name"><a class="deeplink" href="#property_cancel"><span class="glyphicon glyphicon-link"></span></a> <code>cancel</code></h3>
+<span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function" class="crosslink external" target="_blank">Function</a></span>
+
+
+
+
+
+<div class="meta">
+<p>
+Defined in
+<a href="../files/src_states_State.js.html#l291"><code>cancel:291</code></a>
+</p>
+
+
+</div>
+
+<div class="description">
+<p>Cancel the load, implementation-specific.
+This is where any async actions should be removed.</p>
+
+</div>
+
+<p><strong>Default:</strong> null</p>
+
+
+</div><div class="property_canceled property item">
+<h3 class="name"><a class="deeplink" href="#property_canceled"><span class="glyphicon glyphicon-link"></span></a> <code>canceled</code></h3>
+<span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
+
+
+
+
+
+<div class="meta">
+<p>
+Defined in
+<a href="../files/src_states_State.js.html#l430"><code>canceled:430</code></a>
+</p>
+
+
+</div>
+
+<div class="description">
+<p>Status of whether the panel load was canceled</p>
+
+</div>
+
+
+
+</div><div class="property_config property item">
+<h3 class="name"><a class="deeplink" href="#property_config"><span class="glyphicon glyphicon-link"></span></a> <code>config</code></h3>
+<span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+
+
+
+
+
+<div class="meta">
+<p>
+Defined in
+<a href="../files/src_states_State.js.html#l76"><code>config:76</code></a>
+</p>
+
+
+</div>
+
+<div class="description">
+<p>Reference to the main config object</p>
+
+</div>
+
+
+
+</div><div class="property_delayLoad property item protected">
+<h3 class="name"><a class="deeplink" href="#property_delayLoad"><span class="glyphicon glyphicon-link"></span></a> <code>delayLoad</code></h3>
+<span class="type">Int</span>
+
+
+<span class="flag protected">protected</span>
+
+
+
+<div class="meta">
+<p>
+Defined in
+<a href="../files/src_states_State.js.html#l207"><code>delayLoad:207</code></a>
+</p>
+
+
+</div>
+
+<div class="description">
+<p>The number of frames to delay the transition in after loading, to allow the framerate
+to stablize after heavy art instantiation.</p>
+
+</div>
+
+
+
+</div><div class="property_destroyed property item">
+<h3 class="name"><a class="deeplink" href="#property_destroyed"><span class="glyphicon glyphicon-link"></span></a> <code>destroyed</code></h3>
+<span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
+
+
+
+
+
+<div class="meta">
+<p>
+Defined in
+<a href="../files/src_states_State.js.html#l477"><code>destroyed:477</code></a>
+</p>
+
+
+</div>
+
+<div class="description">
+<p>If the state has been destroyed.</p>
+
+</div>
+
+
+
+</div><div class="property_enabled property item">
+<h3 class="name"><a class="deeplink" href="#property_enabled"><span class="glyphicon glyphicon-link"></span></a> <code>enabled</code></h3>
+<span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
+
+
+
+
+
+<div class="meta">
+<p>
+Defined in
+<a href="../files/src_states_State.js.html#l456"><code>enabled:456</code></a>
+</p>
+
+
+</div>
+
+<div class="description">
+<p>If the state is enabled, meaning that it is click ready</p>
+
+</div>
+
+
+
+</div><div class="property_enter property item">
+<h3 class="name"><a class="deeplink" href="#property_enter"><span class="glyphicon glyphicon-link"></span></a> <code>enter</code></h3>
+<span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function" class="crosslink external" target="_blank">Function</a></span>
+
+
+
+
+
+<div class="meta">
+<p>
+Defined in
+<a href="../files/src_states_State.js.html#l299"><code>enter:299</code></a>
+</p>
+
+
+</div>
+
+<div class="description">
+<p>When the state is entered. Override this to start loading assets - call loadingStart()
+to tell the StateManager that that is going on.</p>
+
+</div>
+
+<p><strong>Default:</strong> null</p>
+
+
+</div><div class="property_enterDone property item">
+<h3 class="name"><a class="deeplink" href="#property_enterDone"><span class="glyphicon glyphicon-link"></span></a> <code>enterDone</code></h3>
+<span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function" class="crosslink external" target="_blank">Function</a></span>
+
+
+
+
+
+<div class="meta">
+<p>
+Defined in
+<a href="../files/src_states_State.js.html#l307"><code>enterDone:307</code></a>
+</p>
+
+
+</div>
+
+<div class="description">
+<p>When the state is visually entered fully - after the transition is done.
+Override this to begin your state&#39;s activities.</p>
+
+</div>
+
+<p><strong>Default:</strong> null</p>
+
+
+</div><div class="property_exit property item">
+<h3 class="name"><a class="deeplink" href="#property_exit"><span class="glyphicon glyphicon-link"></span></a> <code>exit</code></h3>
+<span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function" class="crosslink external" target="_blank">Function</a></span>
+
+
+
+
+
+<div class="meta">
+<p>
+Defined in
+<a href="../files/src_states_State.js.html#l276"><code>exit:276</code></a>
+</p>
+
+
+</div>
+
+<div class="description">
+<p>When the state is exited. Override this to provide state cleanup.</p>
+
+</div>
+
+<p><strong>Default:</strong> null</p>
+
+
+</div><div class="property_exitStart property item">
+<h3 class="name"><a class="deeplink" href="#property_exitStart"><span class="glyphicon glyphicon-link"></span></a> <code>exitStart</code></h3>
+<span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function" class="crosslink external" target="_blank">Function</a></span>
+
+
+
+
+
+<div class="meta">
+<p>
+Defined in
+<a href="../files/src_states_State.js.html#l283"><code>exitStart:283</code></a>
+</p>
+
+
+</div>
+
+<div class="description">
+<p>When the state has requested to be exit, pre-transition. Override this to ensure
+that animation/audio is stopped when leaving the state.</p>
+
+</div>
+
+<p><strong>Default:</strong> null</p>
+
+
+</div><div class="property_manager property item">
+<h3 class="name"><a class="deeplink" href="#property_manager"><span class="glyphicon glyphicon-link"></span></a> <code>manager</code></h3>
+<span class="type"><a href="../classes/springroll.StateManager.html" class="crosslink">springroll.StateManager</a></span>
+
+
+
+
+
+<div class="meta">
+<p>
+Defined in
+<a href="../files/src_states_State.js.html#l109"><code>manager:109</code></a>
+</p>
+
+
+</div>
+
+<div class="description">
+<p>A reference to the state manager</p>
+
+</div>
+
+
+
+</div><div class="property_panel property item">
+<h3 class="name"><a class="deeplink" href="#property_panel"><span class="glyphicon glyphicon-link"></span></a> <code>panel</code></h3>
+<span class="type"><a href="../classes/createjs.Container.html" class="crosslink">createjs.Container</a> | PIXI.DisplayObjectContainer</span>
+
+
+
+
+
+<div class="meta">
+<p>
+Defined in
+<a href="../files/src_states_State.js.html#l115"><code>panel:115</code></a>
+</p>
+
+
+</div>
+
+<div class="description">
+<p>The panel for the state.</p>
+
+</div>
+
+
+
+</div><div class="property_preload property item">
+<h3 class="name"><a class="deeplink" href="#property_preload"><span class="glyphicon glyphicon-link"></span></a> <code>preload</code></h3>
+<span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array" class="crosslink external" target="_blank">Array</a></span>
+
+
+
+
+
+<div class="meta">
+<p>
+Defined in
+<a href="../files/src_states_State.js.html#l121"><code>preload:121</code></a>
+</p>
+
+
+</div>
+
+<div class="description">
+<p>The assets to load each time</p>
+
+</div>
+
+
+
+</div><div class="property_preloaded property item protected">
+<h3 class="name"><a class="deeplink" href="#property_preloaded"><span class="glyphicon glyphicon-link"></span></a> <code>preloaded</code></h3>
+<span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
+
+
+<span class="flag protected">protected</span>
+
+
+
+<div class="meta">
+<p>
+Defined in
+<a href="../files/src_states_State.js.html#l127"><code>preloaded:127</code></a>
+</p>
+
+
+</div>
+
+<div class="description">
+<p>Check to see if the assets have finished loading</p>
+
+</div>
+
+
+
+</div><div class="property_scaling property item">
+<h3 class="name"><a class="deeplink" href="#property_scaling"><span class="glyphicon glyphicon-link"></span></a> <code>scaling</code></h3>
+<span class="type"><a href="../classes/springroll.ScaleManager.html" class="crosslink">springroll.ScaleManager</a></span>
+
+
+
+
+
+<div class="meta">
+<p>
+Defined in
+<a href="../files/src_states_State.js.html#l83"><code>scaling:83</code></a>
+</p>
+
+
+</div>
+
+<div class="description">
+<p>Reference to the scaling object, UI module required</p>
+
+</div>
+
+
+
+</div><div class="property_scalingItems property item">
+<h3 class="name"><a class="deeplink" href="#property_scalingItems"><span class="glyphicon glyphicon-link"></span></a> <code>scalingItems</code></h3>
+<span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+
+
+
+
+
+<div class="meta">
+<p>
+Defined in
+<a href="../files/src_states_State.js.html#l90"><code>scalingItems:90</code></a>
+</p>
+
+
+</div>
+
+<div class="description">
+<p>The items to scale on the panel, see <code>ScaleManager.addItems</code> for
+more information. If no options are set in the State&#39;s constructor
+then it will try to find an object on the app config on <code>scaling</code> property
+matching the same state alias. For instance <code>config.scaling.title</code> if
+<code>title</code> is the state alias. If no scalingItems are set, will scale
+and position the panal itself.</p>
+
+</div>
+
+<p><strong>Default:</strong> null</p>
+
+
+</div><div class="property_sound property item">
+<h3 class="name"><a class="deeplink" href="#property_sound"><span class="glyphicon glyphicon-link"></span></a> <code>sound</code></h3>
+<span class="type"><a href="../classes/springroll.Sound.html" class="crosslink">springroll.Sound</a></span>
+
+
+
+
+
+<div class="meta">
+<p>
+Defined in
+<a href="../files/src_states_State.js.html#l69"><code>sound:69</code></a>
+</p>
+
+
+</div>
+
+<div class="description">
+<p>The instance of the Sound, Sound module required</p>
+
+</div>
+
+
+
+</div><div class="property_stateId property item">
+<h3 class="name"><a class="deeplink" href="#property_stateId"><span class="glyphicon glyphicon-link"></span></a> <code>stateId</code></h3>
+<span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+
+
+
+
+
+<div class="meta">
+<p>
+Defined in
+<a href="../files/src_states_State.js.html#l103"><code>stateId:103</code></a>
+</p>
+
+
+</div>
+
+<div class="description">
+<p>The id reference</p>
+
+</div>
+
+
+
+</div><div class="property_voPlayer property item">
+<h3 class="name"><a class="deeplink" href="#property_voPlayer"><span class="glyphicon glyphicon-link"></span></a> <code>voPlayer</code></h3>
+<span class="type"><a href="../classes/springroll.VOPlayer.html" class="crosslink">springroll.VOPlayer</a></span>
+
+
+
+
+
+<div class="meta">
+<p>
+Defined in
+<a href="../files/src_states_State.js.html#l62"><code>voPlayer:62</code></a>
+</p>
+
+
+</div>
+
+<div class="description">
+<p>The instance of the VOPlayer, Sound module required</p>
+
+</div>
+
+
+
+</div></div>
+
+
+<div role='tabpanel' id='docs-events' class='tab-pane'>
+
+<div class="event_cancel events item">
+<h3 class="name"><a class="deeplink" href="#event_cancel"><span class="glyphicon glyphicon-link"></span></a> <code>cancel</code></h3>
+<span class="type"></span>
+
+
+
+
+
+<div class="meta">
+<p>
+Defined in
+<a href="../files/src_states_State.js.html#l238"><code>cancel:238</code></a>
+</p>
+
+
+</div>
+
+<div class="description">
+<p>Event when the loading of a state was canceled.</p>
+
+</div>
+
+
+
+</div><div class="event_destroy events item">
+<h3 class="name"><a class="deeplink" href="#event_destroy"><span class="glyphicon glyphicon-link"></span></a> <code>destroy</code></h3>
+<span class="type"></span>
+
+
+
+
+
+<div class="meta">
+<p>
+Defined in
+<a href="../files/src_states_State.js.html#l228"><code>destroy:228</code></a>
+</p>
+
+
+</div>
+
+<div class="description">
+<p>Event when the state is being destroyed.</p>
+
+</div>
+
+
+
+</div><div class="event_enabled events item">
+<h3 class="name"><a class="deeplink" href="#event_enabled"><span class="glyphicon glyphicon-link"></span></a> <code>enabled</code></h3>
+<span class="type"></span>
+
+
+
+
+
+<div class="meta">
+<p>
+Defined in
+<a href="../files/src_states_State.js.html#l267"><code>enabled:267</code></a>
+</p>
+
+
+</div>
+
+<div class="description">
+<p>Event when the state is enabled status changes. Enable is when the state is mouse enabled or not.</p>
+
+</div>
+
+<div class="params">
+<h4>Event Payload:</h4>
+
+<ul class="params-list">
+<li class="param">
+<code class="param-name">enable</code>
+<span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
+
+
+<div class="param-description">
+<p>The enabled status of the state</p>
+
+</div>
+
+</li>
+</ul>
+</div>
+
+
+</div><div class="event_enterDone events item">
+<h3 class="name"><a class="deeplink" href="#event_enterDone"><span class="glyphicon glyphicon-link"></span></a> <code>enterDone</code></h3>
+<span class="type"></span>
+
+
+
+
+
+<div class="meta">
+<p>
+Defined in
+<a href="../files/src_states_State.js.html#l233"><code>enterDone:233</code></a>
+</p>
+
+
+</div>
+
+<div class="description">
+<p>Event when the transition is finished the state is fully entered.</p>
+
+</div>
+
+
+
+</div><div class="event_exit events item">
+<h3 class="name"><a class="deeplink" href="#event_exit"><span class="glyphicon glyphicon-link"></span></a> <code>exit</code></h3>
+<span class="type"></span>
+
+
+
+
+
+<div class="meta">
+<p>
+Defined in
+<a href="../files/src_states_State.js.html#l223"><code>exit:223</code></a>
+</p>
+
+
+</div>
+
+<div class="description">
+<p>Event when the state finishes exiting. Nothing is showing at this point.</p>
+
+</div>
+
+
+
+</div><div class="event_exitStart events item">
+<h3 class="name"><a class="deeplink" href="#event_exitStart"><span class="glyphicon glyphicon-link"></span></a> <code>exitStart</code></h3>
+<span class="type"></span>
+
+
+
+
+
+<div class="meta">
+<p>
+Defined in
+<a href="../files/src_states_State.js.html#l243"><code>exitStart:243</code></a>
+</p>
+
+
+</div>
+
+<div class="description">
+<p>Event when the state starts exiting, everything is showing at this point.</p>
+
+</div>
+
+
+
+</div><div class="event_loaded events item">
+<h3 class="name"><a class="deeplink" href="#event_loaded"><span class="glyphicon glyphicon-link"></span></a> <code>loaded</code></h3>
+<span class="type"></span>
+
+
+
+
+
+<div class="meta">
+<p>
+Defined in
+<a href="../files/src_states_State.js.html#l248"><code>loaded:248</code></a>
+</p>
+
+
+</div>
+
+<div class="description">
+<p>Event when the preload of assets is finished. If no assets are loaded, the <code>assets</code> parameter is null.</p>
+
+</div>
+
+<div class="params">
+<h4>Event Payload:</h4>
+
+<ul class="params-list">
+<li class="param">
+<code class="param-name">asset</code>
+<span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a> | <a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array" class="crosslink external" target="_blank">Array</a> | Null</span>
+
+
+<div class="param-description">
+<p>The collection of assets loaded</p>
+
+</div>
+
+</li>
+</ul>
+</div>
+
+
+</div><div class="event_loading events item">
+<h3 class="name"><a class="deeplink" href="#event_loading"><span class="glyphicon glyphicon-link"></span></a> <code>loading</code></h3>
+<span class="type"></span>
+
+
+
+
+
+<div class="meta">
+<p>
+Defined in
+<a href="../files/src_states_State.js.html#l260"><code>loading:260</code></a>
+</p>
+
+
+</div>
+
+<div class="description">
+<p>Event when the assets are starting to load.</p>
+
+</div>
+
+<div class="params">
+<h4>Event Payload:</h4>
+
+<ul class="params-list">
+<li class="param">
+<code class="param-name">asset</code>
+<span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array" class="crosslink external" target="_blank">Array</a></span>
+
+
+<div class="param-description">
+<p>An empty array that additional assets can be added to, if needed. Any dynamic
+                     assets that are added need to be manually unloaded when the state exits.</p>
+
+</div>
+
+</li>
+</ul>
+</div>
+
+
+</div><div class="event_progress events item">
+<h3 class="name"><a class="deeplink" href="#event_progress"><span class="glyphicon glyphicon-link"></span></a> <code>progress</code></h3>
+<span class="type"></span>
+
+
+
+
+
+<div class="meta">
+<p>
+Defined in
+<a href="../files/src_states_State.js.html#l254"><code>progress:254</code></a>
+</p>
+
+
+</div>
+
+<div class="description">
+<p>When there has been a change in how much has been preloaded</p>
+
+</div>
+
+<div class="params">
+<h4>Event Payload:</h4>
+
+<ul class="params-list">
+<li class="param">
+<code class="param-name">percentage</code>
+<span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
+
+
+<div class="param-description">
+<p>The amount preloaded from zero to 1</p>
+
+</div>
+
+</li>
+</ul>
+</div>
+
+
+</div></div>
+</div>
+</div></div>
+</div>
+</div>
+</div>
+<script src='../assets/js/libraries.js?v=0.4.0'></script>
+<script src='../assets/js/main.js?v=0.4.0'></script>
+</body>
+</html>

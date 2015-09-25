@@ -1,0 +1,2621 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+	<title>SpringRoll v0.4.0 API Documentation : springroll.easeljs.Button</title>
+	<meta charset='utf-8'>
+	<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+	<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
+	<link rel='shortcut icon' type='image/png' href='../assets/images/favicon.ico?v=0.4.0'>
+	<link href='//fonts.googleapis.com/css?family=Titillium+Web:300,200,600' rel='stylesheet' type='text/css'>
+	<link rel='stylesheet' type='text/css' href='../assets/css/libraries.css?v=0.4.0'>
+	<link rel='stylesheet' type='text/css' href='../assets/css/main.css?v=0.4.0'>
+</head>
+<body>
+<header>
+	<nav class="navbar navbar-inverse navbar-fixed-top">
+		<div class='container'>
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#docs-navbar">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href='https://github.com/SpringRoll/SpringRoll'>
+						<img src='../assets/images/logo.png?v=0.4.0' class="logo">
+					<span class='project-name'>SpringRoll</span>
+					<span class="sr-only">API Documentation for:</span>
+					<span class='version hidden-xs'>v0.4.0</span>
+				</a>
+			</div>
+			<div class="collapse navbar-collapse" id="docs-navbar">
+	      <ul class="scope-toggles text-center nav navbar-nav navbar-right">
+					<li><input class='scope-toggle' 
+						id='toggle-inherited' 
+						type='checkbox' 
+						data-toggle='toggle' 
+						data-on='Inherited' 
+						data-off='Inherited' 
+						data-size='mini'
+						data-width='80'>
+					</li>
+					<li><input class='scope-toggle' 
+						id='toggle-protected' 
+						type='checkbox' 
+						data-toggle='toggle' 
+						data-on='Protected' 
+						data-off='Protected' 
+						data-size='mini'
+						data-width='80'>
+					</li>
+					<li><input class='scope-toggle' 
+						id='toggle-private' 
+						type='checkbox' 
+						data-toggle='toggle' 
+						data-on='Private' 
+						data-off='Private' 
+						data-size='mini'
+						data-width='80'>
+					</li>
+					<li><input class='scope-toggle' 
+						id='toggle-deprecated' 
+						type='checkbox' 
+						data-toggle='toggle' 
+						data-on='Deprecated' 
+						data-off='Deprecated' 
+						data-size='mini'
+						data-width='80'>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+</header>
+<div class='container'>
+<div class='row'>
+<nav id='sidebar' class='col-sm-4 col-md-3'>
+<h2>APIs</h2>
+<div class='input-group'>
+  <div class='input-group-addon'>
+    <span class='glyphicon glyphicon-search'></span>
+  </div>
+  <input type='search' class='form-control' id='api-filter' placeholder='Type to filter APIs'>
+  <span class='collapsed btn-close glyphicon glyphicon-remove-sign hidden'></span>
+</div>
+<nav class='navbar navbar-default'>
+  <!-- Brand and toggle get grouped for better mobile display -->
+  <div class="btn-group" role="group" aria-label="...">
+    <button type="button" class="sidebar-toggle collapsed btn btn-default" id='toggle-classes' data-target='#classes-collapse'>
+      Classes
+      <span class='collapsed glyphicon glyphicon-chevron-up'></span>
+      <span class='expanded glyphicon glyphicon-chevron-down'></span>
+    </button>
+    <button type="button" class="sidebar-toggle collapsed btn btn-default" id='toggle-modules' data-target='#modules-collapse'>
+      Modules
+      <span class='collapsed glyphicon glyphicon-chevron-up'></span>
+      <span class='expanded glyphicon glyphicon-chevron-down'></span>
+    </button>
+  </div>
+
+  <!-- Collect the nav links, forms, and other content for toggling -->
+  <div class='collapse' id='classes-collapse'>
+    <ul class='nav navbar-nav'>
+        <li class='public'>
+          <a href='../classes/createjs.Container.html'>createjs.Container</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/createjs.MovieClip.html'>createjs.MovieClip</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/createjs.Point.html'>createjs.Point</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/createjs.SpriteSheet.html'>createjs.SpriteSheet</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/PIXI.BitmapText.html'>PIXI.BitmapText</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/PIXI.Container.html'>PIXI.Container</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/PIXI.InteractionManager.html'>PIXI.InteractionManager</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/PIXI.Point.html'>PIXI.Point</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/PIXI.Sector.html'>PIXI.Sector</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/PIXI.Text.html'>PIXI.Text</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.AbstractDisplay.html'>springroll.AbstractDisplay</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.AbstractHint.html'>springroll.AbstractHint</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.Animator.html'>springroll.Animator</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.AnimatorHint.html'>springroll.AnimatorHint</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.AnimatorTimeline.html'>springroll.AnimatorTimeline</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.Application.html'>springroll.Application</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.ApplicationOptions.html'>springroll.ApplicationOptions</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.ApplicationPlugin.html'>springroll.ApplicationPlugin</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.AssetCache.html'>springroll.AssetCache</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.AssetLoad.html'>springroll.AssetLoad</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.AssetManager.html'>springroll.AssetManager</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.AssetSizes.html'>springroll.AssetSizes</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.BaseState.html'>springroll.BaseState</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.CacheManager.html'>springroll.CacheManager</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.Captions.html'>springroll.Captions</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.ColorAlphaTask.html'>springroll.ColorAlphaTask</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.CombinedCallback.html'>springroll.CombinedCallback</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.Container.html'>springroll.Container</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.Debug.html'>springroll.Debug</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.DebugOptions.html'>springroll.DebugOptions</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.DelayedCall.html'>springroll.DelayedCall</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.easeljs.Animator.html'>springroll.easeljs.Animator</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.easeljs.Application.html'>springroll.easeljs.Application</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.easeljs.BasePanel.html'>springroll.easeljs.BasePanel</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.easeljs.BaseState.html'>springroll.easeljs.BaseState</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.easeljs.BitmapMovieClip.html'>springroll.easeljs.BitmapMovieClip</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.easeljs.BitmapMovieClipInstance.html'>springroll.easeljs.BitmapMovieClipInstance</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.easeljs.BitmapMovieClipTask.html'>springroll.easeljs.BitmapMovieClipTask</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.easeljs.BitmapTask.html'>springroll.easeljs.BitmapTask</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.easeljs.BitmapUtils.html'>springroll.easeljs.BitmapUtils</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.easeljs.Button.html'>springroll.easeljs.Button</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.easeljs.Cutscene.html'>springroll.easeljs.Cutscene</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.easeljs.CutsceneTask.html'>springroll.easeljs.CutsceneTask</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.easeljs.DisplayAdapter.html'>springroll.easeljs.DisplayAdapter</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.easeljs.DragData.html'>springroll.easeljs.DragData</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.easeljs.DragManager.html'>springroll.easeljs.DragManager</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.easeljs.DwellTimer.html'>springroll.easeljs.DwellTimer</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.easeljs.EaselJSDisplay.html'>springroll.easeljs.EaselJSDisplay</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.easeljs.FlashArt.html'>springroll.easeljs.FlashArt</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.easeljs.FlashArtAtlasTask.html'>springroll.easeljs.FlashArtAtlasTask</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.easeljs.FlashArtTask.html'>springroll.easeljs.FlashArtTask</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.easeljs.FlashSpriteSheetTask.html'>springroll.easeljs.FlashSpriteSheetTask</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.easeljs.MovieClipInstance.html'>springroll.easeljs.MovieClipInstance</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.easeljs.ReversePlayback.html'>springroll.easeljs.ReversePlayback</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.easeljs.SoundButton.html'>springroll.easeljs.SoundButton</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.easeljs.SoundTask.html'>springroll.easeljs.SoundTask</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.easeljs.SpriteSheetTask.html'>springroll.easeljs.SpriteSheetTask</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.easeljs.Texture.html'>springroll.easeljs.Texture</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.easeljs.TextureAtlas.html'>springroll.easeljs.TextureAtlas</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.easeljs.TextureAtlasTask.html'>springroll.easeljs.TextureAtlasTask</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.Enum.html'>springroll.Enum</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.EnumValue.html'>springroll.EnumValue</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.EventCatalog.html'>springroll.EventCatalog</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.EventDispatcher.html'>springroll.EventDispatcher</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.EventError.html'>springroll.EventError</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.EventSignature.html'>springroll.EventSignature</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.EventUtils.html'>springroll.EventUtils</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.Features.html'>springroll.Features</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.FlashArtImageTask.html'>springroll.FlashArtImageTask</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.FunctionHint.html'>springroll.FunctionHint</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.FunctionTask.html'>springroll.FunctionTask</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.GroupHint.html'>springroll.GroupHint</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.HintsPlayer.html'>springroll.HintsPlayer</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.Languages.html'>springroll.Languages</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.Learning.html'>springroll.Learning</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.LearningError.html'>springroll.LearningError</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.LearningMedia.html'>springroll.LearningMedia</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.ListTask.html'>springroll.ListTask</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.Loader.html'>springroll.Loader</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.LoaderItem.html'>springroll.LoaderItem</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.LoaderResult.html'>springroll.LoaderResult</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.LoadTask.html'>springroll.LoadTask</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.native.Circle.html'>springroll.native.Circle</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.native.DisplayAdapter.html'>springroll.native.DisplayAdapter</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.native.Ellipse.html'>springroll.native.Ellipse</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.native.NativeDisplay.html'>springroll.native.NativeDisplay</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.native.Point.html'>springroll.native.Point</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.native.Polygon.html'>springroll.native.Polygon</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.native.Rectangle.html'>springroll.native.Rectangle</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.PageVisibility.html'>springroll.PageVisibility</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.pixi.AdvancedMovieClip.html'>springroll.pixi.AdvancedMovieClip</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.pixi.AdvancedMovieClipInstance.html'>springroll.pixi.AdvancedMovieClipInstance</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.pixi.AdvancedMovieClipTask.html'>springroll.pixi.AdvancedMovieClipTask</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.pixi.Animator.html'>springroll.pixi.Animator</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.pixi.BitmapFontTask.html'>springroll.pixi.BitmapFontTask</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.pixi.Button.html'>springroll.pixi.Button</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.pixi.DisplayAdapter.html'>springroll.pixi.DisplayAdapter</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.pixi.DragData.html'>springroll.pixi.DragData</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.pixi.DragManager.html'>springroll.pixi.DragManager</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.pixi.ParallelSpineData.html'>springroll.pixi.ParallelSpineData</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.pixi.PixiDisplay.html'>springroll.pixi.PixiDisplay</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.pixi.SpineAnimTask.html'>springroll.pixi.SpineAnimTask</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.pixi.SpineAtlas.html'>springroll.pixi.SpineAtlas</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.pixi.SpineAtlasTask.html'>springroll.pixi.SpineAtlasTask</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.pixi.SpineInstance.html'>springroll.pixi.SpineInstance</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.pixi.TextureAtlas.html'>springroll.pixi.TextureAtlas</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.pixi.TextureAtlasTask.html'>springroll.pixi.TextureAtlasTask</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.pixi.TextureTask.html'>springroll.pixi.TextureTask</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.Positioner.html'>springroll.Positioner</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.Property.html'>springroll.Property</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.PropertyDispatcher.html'>springroll.PropertyDispatcher</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.SavedData.html'>springroll.SavedData</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.ScaleImage.html'>springroll.ScaleImage</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.ScaleItem.html'>springroll.ScaleItem</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.ScaleManager.html'>springroll.ScaleManager</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.Sound.html'>springroll.Sound</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.SoundContext.html'>springroll.SoundContext</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.SoundInstance.html'>springroll.SoundInstance</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.State.html'>springroll.State</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.StateEvent.html'>springroll.StateEvent</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.StateManager.html'>springroll.StateManager</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.StringFilters.html'>springroll.StringFilters</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.Task.html'>springroll.Task</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.TickerPlugin.html'>springroll.TickerPlugin</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.TimeUtils.html'>springroll.TimeUtils</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.UIScaler.html'>springroll.UIScaler</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.ValidationError.html'>springroll.ValidationError</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.VOHint.html'>springroll.VOHint</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.VOPlayer.html'>springroll.VOPlayer</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.WeightedRandom.html'>springroll.WeightedRandom</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/window.Array.html'>window.Array</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/window.extend.html'>window.extend</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/window.include.html'>window.include</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/window.Math.html'>window.Math</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/window.mixin.html'>window.mixin</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/window.namespace.html'>window.namespace</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/window.Number.html'>window.Number</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/window.Object.html'>window.Object</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/window.RequestUtils.html'>window.RequestUtils</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/window.String.html'>window.String</a>
+        </li>
+    </ul>
+  </div>
+
+  <!-- Collect the nav links, forms, and other content for toggling -->
+  <div class='collapse' id='modules-collapse'>
+    <ul class='nav navbar-nav'>
+        <li class=''>
+          <a href='../modules/Animation.html'>Animation</a>
+        </li>
+        <li class=''>
+          <a href='../modules/Captions.html'>Captions</a>
+        </li>
+        <li class=''>
+          <a href='../modules/Container.html'>Container</a>
+        </li>
+        <li class=''>
+          <a href='../modules/Container Client.html'>Container Client</a>
+        </li>
+        <li class=''>
+          <a href='../modules/Core.html'>Core</a>
+        </li>
+        <li class=''>
+          <a href='../modules/Debug.html'>Debug</a>
+        </li>
+        <li class=''>
+          <a href='../modules/EaselJS Animation.html'>EaselJS Animation</a>
+        </li>
+        <li class=''>
+          <a href='../modules/EaselJS Cutscene.html'>EaselJS Cutscene</a>
+        </li>
+        <li class=''>
+          <a href='../modules/EaselJS Display.html'>EaselJS Display</a>
+        </li>
+        <li class=''>
+          <a href='../modules/EaselJS Learning.html'>EaselJS Learning</a>
+        </li>
+        <li class=''>
+          <a href='../modules/EaselJS States.html'>EaselJS States</a>
+        </li>
+        <li class=''>
+          <a href='../modules/EaselJS UI.html'>EaselJS UI</a>
+        </li>
+        <li class=''>
+          <a href='../modules/Hints.html'>Hints</a>
+        </li>
+        <li class=''>
+          <a href='../modules/Languages.html'>Languages</a>
+        </li>
+        <li class=''>
+          <a href='../modules/Learning.html'>Learning</a>
+        </li>
+        <li class=''>
+          <a href='../modules/Learning Media.html'>Learning Media</a>
+        </li>
+        <li class=''>
+          <a href='../modules/Native Display.html'>Native Display</a>
+        </li>
+        <li class=''>
+          <a href='../modules/Pixi Animation.html'>Pixi Animation</a>
+        </li>
+        <li class=''>
+          <a href='../modules/PIXI Animation.html'>PIXI Animation</a>
+        </li>
+        <li class=''>
+          <a href='../modules/Pixi Display.html'>Pixi Display</a>
+        </li>
+        <li class=''>
+          <a href='../modules/PIXI Display.html'>PIXI Display</a>
+        </li>
+        <li class=''>
+          <a href='../modules/PIXI Spine.html'>PIXI Spine</a>
+        </li>
+        <li class=''>
+          <a href='../modules/PIXI UI.html'>PIXI UI</a>
+        </li>
+        <li class=''>
+          <a href='../modules/Sound.html'>Sound</a>
+        </li>
+        <li class=''>
+          <a href='../modules/States.html'>States</a>
+        </li>
+        <li class=''>
+          <a href='../modules/UI.html'>UI</a>
+        </li>
+    </ul>
+  </div>
+  <!-- /.container-fluid -->
+</nav></nav>
+<div class='col-sm-8 col-md-9'>
+<div id='docs-main' class='apidocs'>
+
+<h1>springroll.easeljs.Button Class</h1>
+<div class='box meta'>
+
+<div class='extends'>
+Extends
+<a href="../classes/createjs.Container.html" class="crosslink">createjs.Container</a>
+</div>
+
+<div class='foundat'>
+Defined in: <a href='../files/src_displays_easeljs_ui_Button.js.html#l20'><code>springroll.easeljs.Button:20</code></a>
+</div>
+
+Module:
+<a href="../modules/EaselJS UI.html">EaselJS UI</a>
+
+</div>
+
+
+<div class='box intro'>
+<p>A Multipurpose button class. It is designed to have one image, and an optional text label.
+The button can be a normal button or a selectable button.
+The button functions similarly with both EaselJS and PIXI, but slightly differently in
+initialization and callbacks. Add event listeners for click and mouseover to know about
+button clicks and mouse overs, respectively.</p>
+
+</div>
+
+<div class='constructor'>
+<h2>Constructor</h2> <div class='method_springroll.easeljs.Button method item'>
+<h3 class='name'><a class="deeplink" href="#method_springroll.easeljs.Button"><span class="glyphicon glyphicon-link"></span></a> <code>springroll.easeljs.Button</code></h3>
+
+<div class='args'>
+<span class='paren'>(</span>
+<ul class='args-list inline commas'>
+<li class='arg'>
+<code class='optional'>[imageSettings]</code>
+</li>
+<li class='arg'>
+<code class='optional'>[label=null]</code>
+</li>
+<li class='arg'>
+<code class='optional'>[enabled=true]</code>
+</li>
+</ul><span class='paren'>)</span>
+</div>
+
+
+<div class='flags'>
+
+
+
+
+
+</div> 
+
+<div class='meta'>
+<p>
+Defined in
+<a href='../files/src_displays_easeljs_ui_Button.js.html#l20'><code>springroll.easeljs.Button:20</code></a>
+</p>
+
+
+
+</div>
+
+<div class='description'>
+
+</div>
+
+<div class='params'>
+<h4>Parameters:</h4>
+
+<ul class='params-list'>
+<li class='param'>
+<code class='param-name optional'>[imageSettings]</code>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a> | Image | HTMLCanvasElement</span>
+<span class='flag optional' title='This parameter is optional.'>optional</span>
+
+
+<div class='param-description'>
+<p>Information about the art to be used
+                                                    for button states, as well as if the
+                                                    button is selectable or not. If this
+                                                    is an Image or Canvas element, then
+                                                    the button assumes that the image is
+                                                    full width and 3 images tall, in the
+                                                    order (top to bottom) up, over, down.
+                                                    If so, then the properties of
+                                                    imageSettings are ignored.</p>
+
+</div>
+
+<ul class='params-list'>
+<li class='param'>
+<code class='param-name optional'>[image]</code>
+<span class='type'>Image | HTMLCanvasElement</span>
+<span class='flag optional' title='This parameter is optional.'>optional</span>
+
+<div class='param-description'>
+<p>The image to use for all of the button
+                                                   states.</p>
+
+</div>
+
+</li>
+<li class='param'>
+<code class='param-name optional'>[priority=null]</code>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array" class="crosslink external" target="_blank">Array</a></span>
+<span class='flag optional' title='This parameter is optional.'>optional</span>
+
+<div class='param-description'>
+<p>The state priority order. If omitted, defaults to
+                                         <code>&#91;"disabled", "down", "over",
+                                         "up"&#93;</code>. Previous versions of Button
+                                         used a hard coded order:
+                                         <code>&#91;"highlighted", "disabled", "down",
+                                         "over", "selected", "up"&#93;</code>.</p>
+
+</div>
+
+</li>
+<li class='param'>
+<code class='param-name optional'>[up]</code>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+<span class='flag optional' title='This parameter is optional.'>optional</span>
+
+<div class='param-description'>
+<p>The visual information about the up state.</p>
+
+</div>
+
+<ul class='params-list'>
+<li class='param'>
+  <code class='param-name optional'>[src]</code>
+  <span class='type'>createjs.Rectangle</span>
+  <span class='flag optional' title='This parameter is optional.'>optional</span>
+
+<div class='param-description'>
+  The sourceRect for the state within the
+                                               image.
+</div>
+</li>
+<li class='param'>
+  <code class='param-name optional'>[trim=null]</code>
+  <span class='type'>createjs.Rectangle</span>
+  <span class='flag optional' title='This parameter is optional.'>optional</span>
+
+<div class='param-description'>
+  Trim data about the state, where x &
+                                                     y are how many pixels were trimmed
+                                                     off the left and right, and height &
+                                                     width are the untrimmed size of the
+                                                     button.
+</div>
+</li>
+<li class='param'>
+  <code class='param-name optional'>[label=null]</code>
+  <span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+  <span class='flag optional' title='This parameter is optional.'>optional</span>
+
+<div class='param-description'>
+  Label information specific to this state.
+                                          Properties on this parameter override data in
+                                          the label parameter for this button state only.
+                                          All values except "text" from the label
+                                          parameter may be overridden.
+</div>
+</li>
+</ul>
+</li>
+<li class='param'>
+<code class='param-name optional'>[over=null]</code>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+<span class='flag optional' title='This parameter is optional.'>optional</span>
+
+<div class='param-description'>
+<p>The visual information about the over state. If
+                                      omitted, uses the up state.</p>
+
+</div>
+
+<ul class='params-list'>
+<li class='param'>
+  <code class='param-name optional'>[src]</code>
+  <span class='type'>createjs.Rectangle</span>
+  <span class='flag optional' title='This parameter is optional.'>optional</span>
+
+<div class='param-description'>
+  The sourceRect for the state within the
+                                                 image.
+</div>
+</li>
+<li class='param'>
+  <code class='param-name optional'>[trim=null]</code>
+  <span class='type'>createjs.Rectangle</span>
+  <span class='flag optional' title='This parameter is optional.'>optional</span>
+
+<div class='param-description'>
+  Trim data about the state, where x
+                                                       & y are how many pixels were
+                                                       trimmed off the left and right, and
+                                                       height & width are the untrimmed
+                                                       size of the button.
+</div>
+</li>
+<li class='param'>
+  <code class='param-name optional'>[label=null]</code>
+  <span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+  <span class='flag optional' title='This parameter is optional.'>optional</span>
+
+<div class='param-description'>
+  Label information specific to this state.
+                                            Properties on this parameter override data in
+                                            the label parameter for this button state
+                                            only. All values except "text" from the label
+                                            parameter may be overridden.
+</div>
+</li>
+</ul>
+</li>
+<li class='param'>
+<code class='param-name optional'>[down=null]</code>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+<span class='flag optional' title='This parameter is optional.'>optional</span>
+
+<div class='param-description'>
+<p>The visual information about the down state. If
+                                      omitted, uses the up state.</p>
+
+</div>
+
+<ul class='params-list'>
+<li class='param'>
+  <code class='param-name optional'>[src]</code>
+  <span class='type'>createjs.Rectangle</span>
+  <span class='flag optional' title='This parameter is optional.'>optional</span>
+
+<div class='param-description'>
+  The sourceRect for the state within the
+                                                 image.
+</div>
+</li>
+<li class='param'>
+  <code class='param-name optional'>[trim=null]</code>
+  <span class='type'>createjs.Rectangle</span>
+  <span class='flag optional' title='This parameter is optional.'>optional</span>
+
+<div class='param-description'>
+  Trim data about the state, where x
+                                                       & y are how many pixels were
+                                                       trimmed off the left and right, and
+                                                       height & width are the untrimmed
+                                                       size of the button.
+</div>
+</li>
+<li class='param'>
+  <code class='param-name optional'>[label=null]</code>
+  <span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+  <span class='flag optional' title='This parameter is optional.'>optional</span>
+
+<div class='param-description'>
+  Label information specific to this state.
+                                            Properties on this parameter override data in
+                                            the label parameter for this button state
+                                            only. All values except "text" from the label
+                                            parameter may be overridden.
+</div>
+</li>
+</ul>
+</li>
+<li class='param'>
+<code class='param-name optional'>[disabled=null]</code>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+<span class='flag optional' title='This parameter is optional.'>optional</span>
+
+<div class='param-description'>
+<p>The visual information about the disabled state.
+                                          If omitted, uses the up state.</p>
+
+</div>
+
+<ul class='params-list'>
+<li class='param'>
+  <code class='param-name optional'>[src]</code>
+  <span class='type'>createjs.Rectangle</span>
+  <span class='flag optional' title='This parameter is optional.'>optional</span>
+
+<div class='param-description'>
+  The sourceRect for the state within
+                                                     the image.
+</div>
+</li>
+<li class='param'>
+  <code class='param-name optional'>[trim=null]</code>
+  <span class='type'>createjs.Rectangle</span>
+  <span class='flag optional' title='This parameter is optional.'>optional</span>
+
+<div class='param-description'>
+  Trim data about the state,
+                                                           where x & y are how many pixels
+                                                           were trimmed off the left and
+                                                           right, and height & width are
+                                                           the untrimmed size of the
+                                                           button.
+</div>
+</li>
+<li class='param'>
+  <code class='param-name optional'>[label=null]</code>
+  <span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+  <span class='flag optional' title='This parameter is optional.'>optional</span>
+
+<div class='param-description'>
+  Label information specific to this state.
+                                                Properties on this parameter override data
+                                                in the label parameter for this button
+                                                state only. All values except "text" from
+                                                the label parameter may be overridden.
+</div>
+</li>
+</ul>
+</li>
+<li class='param'>
+<code class='param-name optional'>[&lt;yourCustomState&gt;=null]</code>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+<span class='flag optional' title='This parameter is optional.'>optional</span>
+
+<div class='param-description'>
+<p>The visual information about a custom
+                                                   state found in imageSettings.priority.
+                                                   Any state added this way has a property
+                                                   of the same name added to the button.
+                                                   Examples of previous states that have
+                                                   been moved to this system are
+                                                   "selected" and "highlighted".</p>
+
+</div>
+
+<ul class='params-list'>
+<li class='param'>
+  <code class='param-name optional'>[src]</code>
+  <span class='type'>createjs.Rectangle</span>
+  <span class='flag optional' title='This parameter is optional.'>optional</span>
+
+<div class='param-description'>
+  The sourceRect for the state
+                                                              within the image.
+</div>
+</li>
+<li class='param'>
+  <code class='param-name optional'>[trim=null]</code>
+  <span class='type'>createjs.Rectangle</span>
+  <span class='flag optional' title='This parameter is optional.'>optional</span>
+
+<div class='param-description'>
+  Trim data about the
+                                                                    state, where x & y are
+                                                                    how many pixels were
+                                                                    trimmed off the left
+                                                                    and right, and height
+                                                                    & width are the
+                                                                    untrimmed size of the
+                                                                    button.
+</div>
+</li>
+<li class='param'>
+  <code class='param-name optional'>[label=null]</code>
+  <span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+  <span class='flag optional' title='This parameter is optional.'>optional</span>
+
+<div class='param-description'>
+  Label information specific to
+                                                         this state. Properties on this
+                                                         parameter override data in the
+                                                         label parameter for this button
+                                                         state only. All values except
+                                                         "text" from the label parameter
+                                                         may be overridden.
+</div>
+</li>
+</ul>
+</li>
+<li class='param'>
+<code class='param-name optional'>[origin=null]</code>
+<span class='type'><a href="../classes/createjs.Point.html" class="crosslink">createjs.Point</a></span>
+<span class='flag optional' title='This parameter is optional.'>optional</span>
+
+<div class='param-description'>
+<p>An optional offset for all button
+                                                graphics, in case you want button
+                                                positioning to not include a highlight
+                                                glow, or any other reason you would want
+                                                to offset the button art and label.</p>
+
+</div>
+
+</li>
+</ul>
+</li>
+<li class='param'>
+<code class='param-name optional'>[label=null]</code>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+<span class='flag optional' title='This parameter is optional.'>optional</span>
+
+
+<div class='param-description'>
+<p>Information about the text label on the button. Omitting this
+                         makes the button not use a label.</p>
+
+</div>
+
+<ul class='params-list'>
+<li class='param'>
+<code class='param-name optional'>[text]</code>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+<span class='flag optional' title='This parameter is optional.'>optional</span>
+
+<div class='param-description'>
+<p>The text to display on the label.</p>
+
+</div>
+
+</li>
+<li class='param'>
+<code class='param-name optional'>[font]</code>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+<span class='flag optional' title='This parameter is optional.'>optional</span>
+
+<div class='param-description'>
+<p>The font name and size to use on the label, as createjs.Text
+                         expects.</p>
+
+</div>
+
+</li>
+<li class='param'>
+<code class='param-name optional'>[color]</code>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+<span class='flag optional' title='This parameter is optional.'>optional</span>
+
+<div class='param-description'>
+<p>The color of the text to use on the label, as createjs.Text
+                          expects.</p>
+
+</div>
+
+</li>
+<li class='param'>
+<code class='param-name optional'>[textBaseline=&quot;middle&quot;]</code>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+<span class='flag optional' title='This parameter is optional.'>optional</span>
+
+<div class='param-description'>
+<p>The baseline for the label text, as
+                                          createjs.Text expects.</p>
+
+</div>
+
+</li>
+<li class='param'>
+<code class='param-name optional'>[stroke=null]</code>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+<span class='flag optional' title='This parameter is optional.'>optional</span>
+
+<div class='param-description'>
+<p>The stroke to use for the label text, if desired, as
+                                createjs.Text (springroll fork only) expects.</p>
+
+</div>
+
+</li>
+<li class='param'>
+<code class='param-name optional'>[shadow=null]</code>
+<span class='type'>createjs.Shadow</span>
+<span class='flag optional' title='This parameter is optional.'>optional</span>
+
+<div class='param-description'>
+<p>A shadow object to apply to the label text.</p>
+
+</div>
+
+</li>
+<li class='param'>
+<code class='param-name optional'>[x=&quot;center&quot;]</code>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a> | <a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
+<span class='flag optional' title='This parameter is optional.'>optional</span>
+
+<div class='param-description'>
+<p>An x position to place the label text at relative to
+                                      the button. If omitted, "center" is used, which
+                                      attempts to horizontally center the label on the
+                                      button.</p>
+
+</div>
+
+</li>
+<li class='param'>
+<code class='param-name optional'>[y=&quot;center&quot;]</code>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a> | <a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
+<span class='flag optional' title='This parameter is optional.'>optional</span>
+
+<div class='param-description'>
+<p>A y position to place the label text at relative to
+                                      the button. If omitted, "center" is used, which
+                                      attempts to vertically center the label on the
+                                      button. This may be unreliable - see documentation
+                                      for createjs.Text.getMeasuredLineHeight().</p>
+
+</div>
+
+</li>
+</ul>
+</li>
+<li class='param'>
+<code class='param-name optional'>[enabled=true]</code>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
+<span class='flag optional' title='This parameter is optional.'>optional</span>
+
+
+<div class='param-description'>
+<p>Whether or not the button is initially enabled.</p>
+
+</div>
+
+</li>
+</ul>
+</div>
+
+
+</div>
+</div>
+
+<div id='classdocs' class='tabview'>
+<span id='docs-highlight'></span>
+<ul class='nav nav-tabs'>
+<li id='tab-index' class='docs-toggle'>
+<a data-toggle='tab' href='#docs-index'>Index</a>
+</li>
+<li id='tab-methods' class='docs-toggle'>
+<a data-toggle='tab' href='#docs-methods'>Methods</a>
+</li>
+<li id='tab-properties' class='docs-toggle'>
+<a data-toggle='tab' href='#docs-properties'>Properties</a>
+</li>
+</ul>
+
+<div class='tab-content'>
+
+<div role='tabpanel' id='docs-index' class='tab-pane'>
+<div class='index-section tab-pane methods'>
+<h3>Methods</h3>
+
+<ul class='list-group row methods extends'>
+<li class='col-xs-6 col-md-4 index-item method private'>
+<a href='#method__addProperty'>_addProperty</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item method private'>
+<a href='#method__onClick'>_onClick</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item method private'>
+<a href='#method__onMouseDown'>_onMouseDown</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item method private'>
+<a href='#method__onMouseOut'>_onMouseOut</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item method private'>
+<a href='#method__onMouseOver'>_onMouseOver</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item method private'>
+<a href='#method__onMouseUp'>_onMouseUp</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item method private'>
+<a href='#method__updateState'>_updateState</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item method inherited'>
+<a href='#method_cacheByBounds'>cacheByBounds</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item method inherited'>
+<a href='#method_cacheByRect'>cacheByRect</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item method public'>
+<a href='#method_destroy'>destroy</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item method'>
+<a href='#method_generateDefaultStates'>generateDefaultStates</a>
+
+<span class='flag static'>static</span>
+</li>
+<li class='col-xs-6 col-md-4 index-item method'>
+<a href='#method_generateSettingsFromAtlas'>generateSettingsFromAtlas</a>
+
+<span class='flag static'>static</span>
+</li>
+<li class='col-xs-6 col-md-4 index-item method public'>
+<a href='#method_setText'>setText</a>
+
+</li>
+</ul>
+</div>
+
+<div class='index-section tab-pane properties'>
+<h3>Properties</h3>
+
+<ul class='list-group row properties extends'>
+<li class='col-xs-6 col-md-4 index-item property private'>
+<a href='#property__clickCB'>_clickCB</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item property private'>
+<a href='#property__downCB'>_downCB</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item property private'>
+<a href='#property__height'>_height</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item property private'>
+<a href='#property__offset'>_offset</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item property private'>
+<a href='#property__outCB'>_outCB</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item property private'>
+<a href='#property__overCB'>_overCB</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item property private'>
+<a href='#property__stateData'>_stateData</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item property private'>
+<a href='#property__stateFlags'>_stateFlags</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item property private'>
+<a href='#property__statePriority'>_statePriority</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item property private'>
+<a href='#property__upCB'>_upCB</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item property private'>
+<a href='#property__width'>_width</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item property public'>
+<a href='#property_back'>back</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item property'>
+<a href='#property_BUTTON_OUT'>BUTTON_OUT</a>
+
+<span class='flag static'>static</span>
+</li>
+<li class='col-xs-6 col-md-4 index-item property'>
+<a href='#property_BUTTON_OVER'>BUTTON_OVER</a>
+
+<span class='flag static'>static</span>
+</li>
+<li class='col-xs-6 col-md-4 index-item property'>
+<a href='#property_BUTTON_PRESS'>BUTTON_PRESS</a>
+
+<span class='flag static'>static</span>
+</li>
+<li class='col-xs-6 col-md-4 index-item property'>
+<a href='#property_enabled'>enabled</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item property'>
+<a href='#property_height'>height</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item property public'>
+<a href='#property_label'>label</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item property'>
+<a href='#property_width'>width</a>
+
+</li>
+</ul>
+</div>
+
+
+</div>
+
+<div role='tabpanel' id='docs-methods' class='tab-pane'>
+
+<div class='method__addProperty method item private'>
+<h3 class='name'><a class="deeplink" href="#method__addProperty"><span class="glyphicon glyphicon-link"></span></a> <code>_addProperty</code></h3>
+
+<div class='args'>
+<span class='paren'>(</span>
+<ul class='args-list inline commas'>
+<li class='arg'>
+<code>propertyName</code>
+</li>
+</ul><span class='paren'>)</span>
+</div>
+
+
+<div class='flags'>
+
+<span class='flag private'>private</span>
+
+
+
+
+</div> 
+
+<div class='meta'>
+<p>
+Defined in
+<a href='../files/src_displays_easeljs_ui_Button.js.html#l584'><code>_addProperty:584</code></a>
+</p>
+
+
+
+</div>
+
+<div class='description'>
+<p>Adds a property to the button. Setting the property sets the value in
+_stateFlags and calls _updateState().</p>
+
+</div>
+
+<div class='params'>
+<h4>Parameters:</h4>
+
+<ul class='params-list'>
+<li class='param'>
+<code class='param-name'>propertyName</code>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+
+
+<div class='param-description'>
+<p>The property name to add to the button.</p>
+
+</div>
+
+</li>
+</ul>
+</div>
+
+
+</div><div class='method__onClick method item private'>
+<h3 class='name'><a class="deeplink" href="#method__onClick"><span class="glyphicon glyphicon-link"></span></a> <code>_onClick</code></h3>
+
+<span class='paren'>()</span>
+
+
+<div class='flags'>
+
+<span class='flag private'>private</span>
+
+
+
+
+</div> 
+
+<div class='meta'>
+<p>
+Defined in
+<a href='../files/src_displays_easeljs_ui_Button.js.html#l714'><code>_onClick:714</code></a>
+</p>
+
+
+
+</div>
+
+<div class='description'>
+<p>The callback for when the button the button is clicked or tapped on. This is
+the most reliable way of detecting mouse up/touch end events that are on this button
+while letting the pressup event handle the mouse up/touch ends on and outside the button.</p>
+
+</div>
+
+
+
+</div><div class='method__onMouseDown method item private'>
+<h3 class='name'><a class="deeplink" href="#method__onMouseDown"><span class="glyphicon glyphicon-link"></span></a> <code>_onMouseDown</code></h3>
+
+<span class='paren'>()</span>
+
+
+<div class='flags'>
+
+<span class='flag private'>private</span>
+
+
+
+
+</div> 
+
+<div class='meta'>
+<p>
+Defined in
+<a href='../files/src_displays_easeljs_ui_Button.js.html#l686'><code>_onMouseDown:686</code></a>
+</p>
+
+
+
+</div>
+
+<div class='description'>
+<p>The callback for when the button receives a mouse down event.</p>
+
+</div>
+
+
+
+</div><div class='method__onMouseOut method item private'>
+<h3 class='name'><a class="deeplink" href="#method__onMouseOut"><span class="glyphicon glyphicon-link"></span></a> <code>_onMouseOut</code></h3>
+
+<span class='paren'>()</span>
+
+
+<div class='flags'>
+
+<span class='flag private'>private</span>
+
+
+
+
+</div> 
+
+<div class='meta'>
+<p>
+Defined in
+<a href='../files/src_displays_easeljs_ui_Button.js.html#l739'><code>_onMouseOut:739</code></a>
+</p>
+
+
+
+</div>
+
+<div class='description'>
+<p>The callback for when the mouse leaves the button area.</p>
+
+</div>
+
+
+
+</div><div class='method__onMouseOver method item private'>
+<h3 class='name'><a class="deeplink" href="#method__onMouseOver"><span class="glyphicon glyphicon-link"></span></a> <code>_onMouseOver</code></h3>
+
+<span class='paren'>()</span>
+
+
+<div class='flags'>
+
+<span class='flag private'>private</span>
+
+
+
+
+</div> 
+
+<div class='meta'>
+<p>
+Defined in
+<a href='../files/src_displays_easeljs_ui_Button.js.html#l726'><code>_onMouseOver:726</code></a>
+</p>
+
+
+
+</div>
+
+<div class='description'>
+<p>The callback for when the button is moused over.</p>
+
+</div>
+
+
+
+</div><div class='method__onMouseUp method item private'>
+<h3 class='name'><a class="deeplink" href="#method__onMouseUp"><span class="glyphicon glyphicon-link"></span></a> <code>_onMouseUp</code></h3>
+
+<span class='paren'>()</span>
+
+
+<div class='flags'>
+
+<span class='flag private'>private</span>
+
+
+
+
+</div> 
+
+<div class='meta'>
+<p>
+Defined in
+<a href='../files/src_displays_easeljs_ui_Button.js.html#l699'><code>_onMouseUp:699</code></a>
+</p>
+
+
+
+</div>
+
+<div class='description'>
+<p>The callback for when the button for when the mouse/touch is released on the button</p>
+<ul>
+<li>only when the button was held down initially.</li>
+</ul>
+
+</div>
+
+
+
+</div><div class='method__updateState method item private'>
+<h3 class='name'><a class="deeplink" href="#method__updateState"><span class="glyphicon glyphicon-link"></span></a> <code>_updateState</code></h3>
+
+<span class='paren'>()</span>
+
+<span class='returns-inline'>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+</span>
+
+<div class='flags'>
+
+<span class='flag private'>private</span>
+
+
+
+
+</div> 
+
+<div class='meta'>
+<p>
+Defined in
+<a href='../files/src_displays_easeljs_ui_Button.js.html#l615'><code>_updateState:615</code></a>
+</p>
+
+
+
+</div>
+
+<div class='description'>
+<p>Updates back based on the current button state.</p>
+
+</div>
+
+
+<div class='returns'>
+<h4>Returns:</h4>
+
+<div class='returns-description'>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>:
+<p>The state data for the active button state, so that subclasses can use the
+                 value picked by this function without needing to calculate it themselves.</p>
+
+</div>
+</div>
+
+</div><div class='method_cacheByBounds method item inherited'>
+<h3 class='name'><a class="deeplink" href="#method_cacheByBounds"><span class="glyphicon glyphicon-link"></span></a> <code>cacheByBounds</code></h3>
+
+<div class='args'>
+<span class='paren'>(</span>
+<ul class='args-list inline commas'>
+<li class='arg'>
+<code class='optional'>[buffer=0]</code>
+</li>
+<li class='arg'>
+<code class='optional'>[scale=1]</code>
+</li>
+</ul><span class='paren'>)</span>
+</div>
+
+
+<div class='flags'>
+
+
+
+
+
+</div> 
+
+<div class='meta'>
+<p>Inherited from
+<a href='../classes/createjs.Container.html#method_cacheByBounds'>createjs.Container</a>:
+<a href='../files/src_displays_easeljs_mixins_Container.js.html#l18'><code>cacheByBounds:18</code></a>
+</p>
+
+
+
+</div>
+
+<div class='description'>
+<p>Does a cache by the nominalBounds set from Flash</p>
+
+</div>
+
+<div class='params'>
+<h4>Parameters:</h4>
+
+<ul class='params-list'>
+<li class='param'>
+<code class='param-name optional'>[buffer=0]</code>
+<span class='type'>Int</span>
+<span class='flag optional' title='This parameter is optional.'>optional</span>
+
+
+<div class='param-description'>
+<p>The space around the nominal bounds to include in cache image</p>
+
+</div>
+
+</li>
+<li class='param'>
+<code class='param-name optional'>[scale=1]</code>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
+<span class='flag optional' title='This parameter is optional.'>optional</span>
+
+
+<div class='param-description'>
+<p>The scale to cache the container by.</p>
+
+</div>
+
+</li>
+</ul>
+</div>
+
+
+</div><div class='method_cacheByRect method item inherited'>
+<h3 class='name'><a class="deeplink" href="#method_cacheByRect"><span class="glyphicon glyphicon-link"></span></a> <code>cacheByRect</code></h3>
+
+<div class='args'>
+<span class='paren'>(</span>
+<ul class='args-list inline commas'>
+<li class='arg'>
+<code>rect</code>
+</li>
+<li class='arg'>
+<code class='optional'>[buffer=0]</code>
+</li>
+<li class='arg'>
+<code class='optional'>[scale=1]</code>
+</li>
+</ul><span class='paren'>)</span>
+</div>
+
+
+<div class='flags'>
+
+
+
+
+
+</div> 
+
+<div class='meta'>
+<p>Inherited from
+<a href='../classes/createjs.Container.html#method_cacheByRect'>createjs.Container</a>:
+<a href='../files/src_displays_easeljs_mixins_Container.js.html#l29'><code>cacheByRect:29</code></a>
+</p>
+
+
+
+</div>
+
+<div class='description'>
+<p>Does a cache by a given rectangle</p>
+
+</div>
+
+<div class='params'>
+<h4>Parameters:</h4>
+
+<ul class='params-list'>
+<li class='param'>
+<code class='param-name'>rect</code>
+<span class='type'>createjs.Rectangle</span>
+
+
+<div class='param-description'>
+<p>The rectangle to cache with.</p>
+
+</div>
+
+</li>
+<li class='param'>
+<code class='param-name optional'>[buffer=0]</code>
+<span class='type'>Int</span>
+<span class='flag optional' title='This parameter is optional.'>optional</span>
+
+
+<div class='param-description'>
+<p>Additional space around the rectangle to include in cache image</p>
+
+</div>
+
+</li>
+<li class='param'>
+<code class='param-name optional'>[scale=1]</code>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
+<span class='flag optional' title='This parameter is optional.'>optional</span>
+
+
+<div class='param-description'>
+<p>The scale to cache the container by.</p>
+
+</div>
+
+</li>
+</ul>
+</div>
+
+
+</div><div class='method_destroy method item public'>
+<h3 class='name'><a class="deeplink" href="#method_destroy"><span class="glyphicon glyphicon-link"></span></a> <code>destroy</code></h3>
+
+<span class='paren'>()</span>
+
+
+<div class='flags'>
+
+<span class='flag public'>public</span>
+
+
+
+
+</div> 
+
+<div class='meta'>
+<p>
+Defined in
+<a href='../files/src_displays_easeljs_ui_Button.js.html#l752'><code>destroy:752</code></a>
+</p>
+
+
+
+</div>
+
+<div class='description'>
+<p>Destroys the button.</p>
+
+</div>
+
+
+
+</div><div class='method_generateDefaultStates method item'>
+<h3 class='name'><a class="deeplink" href="#method_generateDefaultStates"><span class="glyphicon glyphicon-link"></span></a> <code>generateDefaultStates</code></h3>
+
+<div class='args'>
+<span class='paren'>(</span>
+<ul class='args-list inline commas'>
+<li class='arg'>
+<code>image</code>
+</li>
+<li class='arg'>
+<code class='optional'>[disabledSettings]</code>
+</li>
+<li class='arg'>
+<code class='optional'>[highlightSettings]</code>
+</li>
+</ul><span class='paren'>)</span>
+</div>
+
+<span class='returns-inline'>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+</span>
+
+<div class='flags'>
+
+
+
+<span class='flag static'>static</span>
+
+
+</div> 
+
+<div class='meta'>
+<p>
+Defined in
+<a href='../files/src_displays_easeljs_ui_Button.js.html#l772'><code>generateDefaultStates:772</code></a>
+</p>
+
+
+
+</div>
+
+<div class='description'>
+<p>Generates a desaturated up state as a disabled state, and an update with a solid colored
+glow for a highlighted state.</p>
+
+</div>
+
+<div class='params'>
+<h4>Parameters:</h4>
+
+<ul class='params-list'>
+<li class='param'>
+<code class='param-name'>image</code>
+<span class='type'>Image | HTMLCanvasElement</span>
+
+
+<div class='param-description'>
+<p>The image to use for all of the button states, in the
+                                       standard up/over/down format.</p>
+
+</div>
+
+</li>
+<li class='param'>
+<code class='param-name optional'>[disabledSettings]</code>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+<span class='flag optional' title='This parameter is optional.'>optional</span>
+
+
+<div class='param-description'>
+<p>The settings object for the disabled state. If omitted, no
+                                   disabled state is created.</p>
+
+</div>
+
+<ul class='params-list'>
+<li class='param'>
+<code class='param-name optional'>[saturation]</code>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
+<span class='flag optional' title='This parameter is optional.'>optional</span>
+
+<div class='param-description'>
+<p>The saturation adjustment for the disabled
+                                              state. 100 is fully saturated, 0 is unchanged,
+                                              -100 is desaturated.</p>
+
+</div>
+
+</li>
+<li class='param'>
+<code class='param-name optional'>[brightness]</code>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
+<span class='flag optional' title='This parameter is optional.'>optional</span>
+
+<div class='param-description'>
+<p>The brightness adjustment for the disabled
+                                              state. 100 is fully bright, 0 is unchanged,
+                                              -100 is completely dark.</p>
+
+</div>
+
+</li>
+<li class='param'>
+<code class='param-name optional'>[contrast]</code>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
+<span class='flag optional' title='This parameter is optional.'>optional</span>
+
+<div class='param-description'>
+<p>The contrast adjustment for the disabled state.
+                                            100 is full contrast, 0 is unchanged, -100 is no
+                                            contrast.</p>
+
+</div>
+
+</li>
+</ul>
+</li>
+<li class='param'>
+<code class='param-name optional'>[highlightSettings]</code>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+<span class='flag optional' title='This parameter is optional.'>optional</span>
+
+
+<div class='param-description'>
+<p>The settings object for the highlight state. If omitted,
+                                    no state is created.</p>
+
+</div>
+
+<ul class='params-list'>
+<li class='param'>
+<code class='param-name optional'>[size]</code>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
+<span class='flag optional' title='This parameter is optional.'>optional</span>
+
+<div class='param-description'>
+<p>How many pixels to make the glow, eg 8 for an
+                                         8 pixel increase on each side.</p>
+
+</div>
+
+</li>
+<li class='param'>
+<code class='param-name optional'>[red]</code>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
+<span class='flag optional' title='This parameter is optional.'>optional</span>
+
+<div class='param-description'>
+<p>The red value for the glow, from 0 to 255.</p>
+
+</div>
+
+</li>
+<li class='param'>
+<code class='param-name optional'>[green]</code>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
+<span class='flag optional' title='This parameter is optional.'>optional</span>
+
+<div class='param-description'>
+<p>The green value for the glow, from 0 to 255.</p>
+
+</div>
+
+</li>
+<li class='param'>
+<code class='param-name optional'>[blue]</code>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
+<span class='flag optional' title='This parameter is optional.'>optional</span>
+
+<div class='param-description'>
+<p>The blue value for the glow, from 0 to 255.</p>
+
+</div>
+
+</li>
+<li class='param'>
+<code class='param-name optional'>[alpha=255]</code>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
+<span class='flag optional' title='This parameter is optional.'>optional</span>
+
+<div class='param-description'>
+<p>The alpha value for the glow, from 0 to 255,
+                                              with 0 being transparent and 255 fully opaque.</p>
+
+</div>
+
+</li>
+<li class='param'>
+<code class='param-name optional'>[rgba]</code>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array" class="crosslink external" target="_blank">Array</a></span>
+<span class='flag optional' title='This parameter is optional.'>optional</span>
+
+<div class='param-description'>
+<p>An array of values to use for red, green, blue, and
+                                        optionally alpha that can be used instead of
+                                        providing separate properties on highlightSettings.</p>
+
+</div>
+
+</li>
+</ul>
+</li>
+</ul>
+</div>
+
+<div class='returns'>
+<h4>Returns:</h4>
+
+<div class='returns-description'>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>:
+<p>An object for use as the &#39;imageSettings&#39; parameter on a new Button.</p>
+
+</div>
+</div>
+
+</div><div class='method_generateSettingsFromAtlas method item'>
+<h3 class='name'><a class="deeplink" href="#method_generateSettingsFromAtlas"><span class="glyphicon glyphicon-link"></span></a> <code>generateSettingsFromAtlas</code></h3>
+
+<div class='args'>
+<span class='paren'>(</span>
+<ul class='args-list inline commas'>
+<li class='arg'>
+<code>atlas</code>
+</li>
+<li class='arg'>
+<code>baseName</code>
+</li>
+<li class='arg'>
+<code>statePriority</code>
+</li>
+</ul><span class='paren'>)</span>
+</div>
+
+
+<div class='flags'>
+
+
+
+<span class='flag static'>static</span>
+
+
+</div> 
+
+<div class='meta'>
+<p>
+Defined in
+<a href='../files/src_displays_easeljs_ui_Button.js.html#l953'><code>generateSettingsFromAtlas:953</code></a>
+</p>
+
+
+
+</div>
+
+<div class='description'>
+<p>Generates an &#39;imageSettings&#39; from a TextureAtlas, a base name for all frames, and a list
+of state priorities.</p>
+
+</div>
+
+<div class='params'>
+<h4>Parameters:</h4>
+
+<ul class='params-list'>
+<li class='param'>
+<code class='param-name'>atlas</code>
+<span class='type'><a href="../classes/springroll.easeljs.TextureAtlas.html" class="crosslink">springroll.easeljs.TextureAtlas</a></span>
+
+
+<div class='param-description'>
+<p>The TextureAtlas to pull all frames from.</p>
+
+</div>
+
+</li>
+<li class='param'>
+<code class='param-name'>baseName</code>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+
+
+<div class='param-description'>
+<p>The base name for all frames in the atlas.</p>
+
+</div>
+
+</li>
+<li class='param'>
+<code class='param-name'>statePriority</code>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array" class="crosslink external" target="_blank">Array</a></span>
+
+
+<div class='param-description'>
+<p>The state order, as well as determining frame names in the
+                           atlas. Each state frame name in the atlas should be
+                           <code>baseName + "_" + statePriority[i]</code>.</p>
+
+</div>
+
+</li>
+</ul>
+</div>
+
+
+</div><div class='method_setText method item public'>
+<h3 class='name'><a class="deeplink" href="#method_setText"><span class="glyphicon glyphicon-link"></span></a> <code>setText</code></h3>
+
+<div class='args'>
+<span class='paren'>(</span>
+<ul class='args-list inline commas'>
+<li class='arg'>
+<code>text</code>
+</li>
+</ul><span class='paren'>)</span>
+</div>
+
+
+<div class='flags'>
+
+<span class='flag public'>public</span>
+
+
+
+
+</div> 
+
+<div class='meta'>
+<p>
+Defined in
+<a href='../files/src_displays_easeljs_ui_Button.js.html#l512'><code>setText:512</code></a>
+</p>
+
+
+
+</div>
+
+<div class='description'>
+<p>Sets the text of the label. This does nothing if the button was not initialized with a label.</p>
+
+</div>
+
+<div class='params'>
+<h4>Parameters:</h4>
+
+<ul class='params-list'>
+<li class='param'>
+<code class='param-name'>text</code>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+
+
+<div class='param-description'>
+<p>The text to set the label to.</p>
+
+</div>
+
+</li>
+</ul>
+</div>
+
+
+</div></div>
+
+<div role='tabpanel' id='docs-properties' class='tab-pane'>
+
+<div class="property__clickCB property item private">
+<h3 class="name"><a class="deeplink" href="#property__clickCB"><span class="glyphicon glyphicon-link"></span></a> <code>_clickCB</code></h3>
+<span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function" class="crosslink external" target="_blank">Function</a></span>
+
+
+<span class="flag private">private</span>
+
+
+
+<div class="meta">
+<p>
+Defined in
+<a href="../files/src_displays_easeljs_ui_Button.js.html#l211"><code>_clickCB:211</code></a>
+</p>
+
+
+</div>
+
+<div class="description">
+<p>Callback for click, bound to this button.</p>
+
+</div>
+
+
+
+</div><div class="property__downCB property item private">
+<h3 class="name"><a class="deeplink" href="#property__downCB"><span class="glyphicon glyphicon-link"></span></a> <code>_downCB</code></h3>
+<span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function" class="crosslink external" target="_blank">Function</a></span>
+
+
+<span class="flag private">private</span>
+
+
+
+<div class="meta">
+<p>
+Defined in
+<a href="../files/src_displays_easeljs_ui_Button.js.html#l197"><code>_downCB:197</code></a>
+</p>
+
+
+</div>
+
+<div class="description">
+<p>Callback for mouse down, bound to this button.</p>
+
+</div>
+
+
+
+</div><div class="property__height property item private">
+<h3 class="name"><a class="deeplink" href="#property__height"><span class="glyphicon glyphicon-link"></span></a> <code>_height</code></h3>
+<span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
+
+
+<span class="flag private">private</span>
+
+
+
+<div class="meta">
+<p>
+Defined in
+<a href="../files/src_displays_easeljs_ui_Button.js.html#l250"><code>_height:250</code></a>
+</p>
+
+
+</div>
+
+<div class="description">
+<p>The height of the button art, independent of the scaling of the button itself.</p>
+
+</div>
+
+
+
+</div><div class="property__offset property item private">
+<h3 class="name"><a class="deeplink" href="#property__offset"><span class="glyphicon glyphicon-link"></span></a> <code>_offset</code></h3>
+<span class="type"><a href="../classes/createjs.Point.html" class="crosslink">createjs.Point</a></span>
+
+
+<span class="flag private">private</span>
+
+
+
+<div class="meta">
+<p>
+Defined in
+<a href="../files/src_displays_easeljs_ui_Button.js.html#l257"><code>_offset:257</code></a>
+</p>
+
+
+</div>
+
+<div class="description">
+<p>An offset to button positioning, generally used to adjust for a highlight around the
+button.</p>
+
+</div>
+
+
+
+</div><div class="property__outCB property item private">
+<h3 class="name"><a class="deeplink" href="#property__outCB"><span class="glyphicon glyphicon-link"></span></a> <code>_outCB</code></h3>
+<span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function" class="crosslink external" target="_blank">Function</a></span>
+
+
+<span class="flag private">private</span>
+
+
+
+<div class="meta">
+<p>
+Defined in
+<a href="../files/src_displays_easeljs_ui_Button.js.html#l190"><code>_outCB:190</code></a>
+</p>
+
+
+</div>
+
+<div class="description">
+<p>Callback for mouse out, bound to this button.</p>
+
+</div>
+
+
+
+</div><div class="property__overCB property item private">
+<h3 class="name"><a class="deeplink" href="#property__overCB"><span class="glyphicon glyphicon-link"></span></a> <code>_overCB</code></h3>
+<span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function" class="crosslink external" target="_blank">Function</a></span>
+
+
+<span class="flag private">private</span>
+
+
+
+<div class="meta">
+<p>
+Defined in
+<a href="../files/src_displays_easeljs_ui_Button.js.html#l183"><code>_overCB:183</code></a>
+</p>
+
+
+</div>
+
+<div class="description">
+<p>Callback for mouse over, bound to this button.</p>
+
+</div>
+
+
+
+</div><div class="property__stateData property item private">
+<h3 class="name"><a class="deeplink" href="#property__stateData"><span class="glyphicon glyphicon-link"></span></a> <code>_stateData</code></h3>
+<span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+
+
+<span class="flag private">private</span>
+
+
+
+<div class="meta">
+<p>
+Defined in
+<a href="../files/src_displays_easeljs_ui_Button.js.html#l234"><code>_stateData:234</code></a>
+</p>
+
+
+</div>
+
+<div class="description">
+<p>A dictionary of state graphic data, keyed by state name.
+Each object contains the sourceRect (src) and optionally &#39;trim&#39;, another Rectangle.
+Additionally, each object will contain a &#39;label&#39; object if the button has a text label.</p>
+
+</div>
+
+
+
+</div><div class="property__stateFlags property item private">
+<h3 class="name"><a class="deeplink" href="#property__stateFlags"><span class="glyphicon glyphicon-link"></span></a> <code>_stateFlags</code></h3>
+<span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+
+
+<span class="flag private">private</span>
+
+
+
+<div class="meta">
+<p>
+Defined in
+<a href="../files/src_displays_easeljs_ui_Button.js.html#l218"><code>_stateFlags:218</code></a>
+</p>
+
+
+</div>
+
+<div class="description">
+<p>A dictionary of state booleans, keyed by state name.</p>
+
+</div>
+
+
+
+</div><div class="property__statePriority property item private">
+<h3 class="name"><a class="deeplink" href="#property__statePriority"><span class="glyphicon glyphicon-link"></span></a> <code>_statePriority</code></h3>
+<span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array" class="crosslink external" target="_blank">Array</a></span>
+
+
+<span class="flag private">private</span>
+
+
+
+<div class="meta">
+<p>
+Defined in
+<a href="../files/src_displays_easeljs_ui_Button.js.html#l225"><code>_statePriority:225</code></a>
+</p>
+
+
+</div>
+
+<div class="description">
+<p>An array of state names (Strings), in their order of priority.
+The standard order previously was
+["highlighted", "disabled", "down", "over", "selected", "up"].</p>
+
+</div>
+
+
+
+</div><div class="property__upCB property item private">
+<h3 class="name"><a class="deeplink" href="#property__upCB"><span class="glyphicon glyphicon-link"></span></a> <code>_upCB</code></h3>
+<span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function" class="crosslink external" target="_blank">Function</a></span>
+
+
+<span class="flag private">private</span>
+
+
+
+<div class="meta">
+<p>
+Defined in
+<a href="../files/src_displays_easeljs_ui_Button.js.html#l204"><code>_upCB:204</code></a>
+</p>
+
+
+</div>
+
+<div class="description">
+<p>Callback for press up, bound to this button.</p>
+
+</div>
+
+
+
+</div><div class="property__width property item private">
+<h3 class="name"><a class="deeplink" href="#property__width"><span class="glyphicon glyphicon-link"></span></a> <code>_width</code></h3>
+<span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
+
+
+<span class="flag private">private</span>
+
+
+
+<div class="meta">
+<p>
+Defined in
+<a href="../files/src_displays_easeljs_ui_Button.js.html#l243"><code>_width:243</code></a>
+</p>
+
+
+</div>
+
+<div class="description">
+<p>The width of the button art, independent of the scaling of the button itself.</p>
+
+</div>
+
+
+
+</div><div class="property_back property item public">
+<h3 class="name"><a class="deeplink" href="#property_back"><span class="glyphicon glyphicon-link"></span></a> <code>back</code></h3>
+<span class="type">createjs.Bitmap</span>
+
+
+<span class="flag public">public</span>
+
+
+
+<div class="meta">
+<p>
+Defined in
+<a href="../files/src_displays_easeljs_ui_Button.js.html#l165"><code>back:165</code></a>
+</p>
+
+
+</div>
+
+<div class="description">
+<p>The sprite that is the body of the button.</p>
+
+</div>
+
+
+
+</div><div class="property_BUTTON_OUT property item">
+<h3 class="name"><a class="deeplink" href="#property_BUTTON_OUT"><span class="glyphicon glyphicon-link"></span></a> <code>BUTTON_OUT</code></h3>
+<span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+
+
+
+
+<span class="flag static">static</span>
+
+<div class="meta">
+<p>
+Defined in
+<a href="../files/src_displays_easeljs_ui_Button.js.html#l439"><code>BUTTON_OUT:439</code></a>
+</p>
+
+
+</div>
+
+<div class="description">
+<p>An event for when the button is moused out (while enabled).</p>
+
+</div>
+
+
+
+</div><div class="property_BUTTON_OVER property item">
+<h3 class="name"><a class="deeplink" href="#property_BUTTON_OVER"><span class="glyphicon glyphicon-link"></span></a> <code>BUTTON_OVER</code></h3>
+<span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+
+
+
+
+<span class="flag static">static</span>
+
+<div class="meta">
+<p>
+Defined in
+<a href="../files/src_displays_easeljs_ui_Button.js.html#l432"><code>BUTTON_OVER:432</code></a>
+</p>
+
+
+</div>
+
+<div class="description">
+<p>An event for when the button is moused over (while enabled).</p>
+
+</div>
+
+
+
+</div><div class="property_BUTTON_PRESS property item">
+<h3 class="name"><a class="deeplink" href="#property_BUTTON_PRESS"><span class="glyphicon glyphicon-link"></span></a> <code>BUTTON_PRESS</code></h3>
+<span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+
+
+
+
+<span class="flag static">static</span>
+
+<div class="meta">
+<p>
+Defined in
+<a href="../files/src_displays_easeljs_ui_Button.js.html#l425"><code>BUTTON_PRESS:425</code></a>
+</p>
+
+
+</div>
+
+<div class="description">
+<p>An event for when the button is pressed (while enabled).</p>
+
+</div>
+
+
+
+</div><div class="property_enabled property item">
+<h3 class="name"><a class="deeplink" href="#property_enabled"><span class="glyphicon glyphicon-link"></span></a> <code>enabled</code></h3>
+<span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
+
+
+
+
+
+<div class="meta">
+<p>
+Defined in
+<a href="../files/src_displays_easeljs_ui_Button.js.html#l546"><code>enabled:546</code></a>
+</p>
+
+
+</div>
+
+<div class="description">
+<p>Whether or not the button is enabled.</p>
+
+</div>
+
+<p><strong>Default:</strong> true</p>
+
+
+</div><div class="property_height property item">
+<h3 class="name"><a class="deeplink" href="#property_height"><span class="glyphicon glyphicon-link"></span></a> <code>height</code></h3>
+<span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
+
+
+
+
+
+<div class="meta">
+<p>
+Defined in
+<a href="../files/src_displays_easeljs_ui_Button.js.html#l496"><code>height:496</code></a>
+</p>
+
+
+</div>
+
+<div class="description">
+<p>The height of the button, based on the height of back. This value is affected by scale.</p>
+
+</div>
+
+
+
+</div><div class="property_label property item public">
+<h3 class="name"><a class="deeplink" href="#property_label"><span class="glyphicon glyphicon-link"></span></a> <code>label</code></h3>
+<span class="type">createjs.Text</span>
+
+
+<span class="flag public">public</span>
+
+
+
+<div class="meta">
+<p>
+Defined in
+<a href="../files/src_displays_easeljs_ui_Button.js.html#l173"><code>label:173</code></a>
+</p>
+
+
+</div>
+
+<div class="description">
+<p>The text field of the button. The label is centered by both width and height on the
+button.</p>
+
+</div>
+
+
+
+</div><div class="property_width property item">
+<h3 class="name"><a class="deeplink" href="#property_width"><span class="glyphicon glyphicon-link"></span></a> <code>width</code></h3>
+<span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
+
+
+
+
+
+<div class="meta">
+<p>
+Defined in
+<a href="../files/src_displays_easeljs_ui_Button.js.html#l480"><code>width:480</code></a>
+</p>
+
+
+</div>
+
+<div class="description">
+<p>The width of the button, based on the width of back. This value is affected by scale.</p>
+
+</div>
+
+
+
+</div></div>
+
+
+</div>
+</div></div>
+</div>
+</div>
+</div>
+<script src='../assets/js/libraries.js?v=0.4.0'></script>
+<script src='../assets/js/main.js?v=0.4.0'></script>
+</body>
+</html>

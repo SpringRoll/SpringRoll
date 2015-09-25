@@ -1,0 +1,1914 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+	<title>SpringRoll v0.4.0 API Documentation : springroll.pixi.Button</title>
+	<meta charset='utf-8'>
+	<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+	<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
+	<link rel='shortcut icon' type='image/png' href='../assets/images/favicon.ico?v=0.4.0'>
+	<link href='//fonts.googleapis.com/css?family=Titillium+Web:300,200,600' rel='stylesheet' type='text/css'>
+	<link rel='stylesheet' type='text/css' href='../assets/css/libraries.css?v=0.4.0'>
+	<link rel='stylesheet' type='text/css' href='../assets/css/main.css?v=0.4.0'>
+</head>
+<body>
+<header>
+	<nav class="navbar navbar-inverse navbar-fixed-top">
+		<div class='container'>
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#docs-navbar">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href='https://github.com/SpringRoll/SpringRoll'>
+						<img src='../assets/images/logo.png?v=0.4.0' class="logo">
+					<span class='project-name'>SpringRoll</span>
+					<span class="sr-only">API Documentation for:</span>
+					<span class='version hidden-xs'>v0.4.0</span>
+				</a>
+			</div>
+			<div class="collapse navbar-collapse" id="docs-navbar">
+	      <ul class="scope-toggles text-center nav navbar-nav navbar-right">
+					<li><input class='scope-toggle' 
+						id='toggle-inherited' 
+						type='checkbox' 
+						data-toggle='toggle' 
+						data-on='Inherited' 
+						data-off='Inherited' 
+						data-size='mini'
+						data-width='80'>
+					</li>
+					<li><input class='scope-toggle' 
+						id='toggle-protected' 
+						type='checkbox' 
+						data-toggle='toggle' 
+						data-on='Protected' 
+						data-off='Protected' 
+						data-size='mini'
+						data-width='80'>
+					</li>
+					<li><input class='scope-toggle' 
+						id='toggle-private' 
+						type='checkbox' 
+						data-toggle='toggle' 
+						data-on='Private' 
+						data-off='Private' 
+						data-size='mini'
+						data-width='80'>
+					</li>
+					<li><input class='scope-toggle' 
+						id='toggle-deprecated' 
+						type='checkbox' 
+						data-toggle='toggle' 
+						data-on='Deprecated' 
+						data-off='Deprecated' 
+						data-size='mini'
+						data-width='80'>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+</header>
+<div class='container'>
+<div class='row'>
+<nav id='sidebar' class='col-sm-4 col-md-3'>
+<h2>APIs</h2>
+<div class='input-group'>
+  <div class='input-group-addon'>
+    <span class='glyphicon glyphicon-search'></span>
+  </div>
+  <input type='search' class='form-control' id='api-filter' placeholder='Type to filter APIs'>
+  <span class='collapsed btn-close glyphicon glyphicon-remove-sign hidden'></span>
+</div>
+<nav class='navbar navbar-default'>
+  <!-- Brand and toggle get grouped for better mobile display -->
+  <div class="btn-group" role="group" aria-label="...">
+    <button type="button" class="sidebar-toggle collapsed btn btn-default" id='toggle-classes' data-target='#classes-collapse'>
+      Classes
+      <span class='collapsed glyphicon glyphicon-chevron-up'></span>
+      <span class='expanded glyphicon glyphicon-chevron-down'></span>
+    </button>
+    <button type="button" class="sidebar-toggle collapsed btn btn-default" id='toggle-modules' data-target='#modules-collapse'>
+      Modules
+      <span class='collapsed glyphicon glyphicon-chevron-up'></span>
+      <span class='expanded glyphicon glyphicon-chevron-down'></span>
+    </button>
+  </div>
+
+  <!-- Collect the nav links, forms, and other content for toggling -->
+  <div class='collapse' id='classes-collapse'>
+    <ul class='nav navbar-nav'>
+        <li class='public'>
+          <a href='../classes/createjs.Container.html'>createjs.Container</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/createjs.MovieClip.html'>createjs.MovieClip</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/createjs.Point.html'>createjs.Point</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/createjs.SpriteSheet.html'>createjs.SpriteSheet</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/PIXI.BitmapText.html'>PIXI.BitmapText</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/PIXI.Container.html'>PIXI.Container</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/PIXI.InteractionManager.html'>PIXI.InteractionManager</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/PIXI.Point.html'>PIXI.Point</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/PIXI.Sector.html'>PIXI.Sector</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/PIXI.Text.html'>PIXI.Text</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.AbstractDisplay.html'>springroll.AbstractDisplay</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.AbstractHint.html'>springroll.AbstractHint</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.Animator.html'>springroll.Animator</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.AnimatorHint.html'>springroll.AnimatorHint</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.AnimatorTimeline.html'>springroll.AnimatorTimeline</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.Application.html'>springroll.Application</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.ApplicationOptions.html'>springroll.ApplicationOptions</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.ApplicationPlugin.html'>springroll.ApplicationPlugin</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.AssetCache.html'>springroll.AssetCache</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.AssetLoad.html'>springroll.AssetLoad</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.AssetManager.html'>springroll.AssetManager</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.AssetSizes.html'>springroll.AssetSizes</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.BaseState.html'>springroll.BaseState</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.CacheManager.html'>springroll.CacheManager</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.Captions.html'>springroll.Captions</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.ColorAlphaTask.html'>springroll.ColorAlphaTask</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.CombinedCallback.html'>springroll.CombinedCallback</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.Container.html'>springroll.Container</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.Debug.html'>springroll.Debug</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.DebugOptions.html'>springroll.DebugOptions</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.DelayedCall.html'>springroll.DelayedCall</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.easeljs.Animator.html'>springroll.easeljs.Animator</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.easeljs.Application.html'>springroll.easeljs.Application</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.easeljs.BasePanel.html'>springroll.easeljs.BasePanel</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.easeljs.BaseState.html'>springroll.easeljs.BaseState</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.easeljs.BitmapMovieClip.html'>springroll.easeljs.BitmapMovieClip</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.easeljs.BitmapMovieClipInstance.html'>springroll.easeljs.BitmapMovieClipInstance</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.easeljs.BitmapMovieClipTask.html'>springroll.easeljs.BitmapMovieClipTask</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.easeljs.BitmapTask.html'>springroll.easeljs.BitmapTask</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.easeljs.BitmapUtils.html'>springroll.easeljs.BitmapUtils</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.easeljs.Button.html'>springroll.easeljs.Button</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.easeljs.Cutscene.html'>springroll.easeljs.Cutscene</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.easeljs.CutsceneTask.html'>springroll.easeljs.CutsceneTask</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.easeljs.DisplayAdapter.html'>springroll.easeljs.DisplayAdapter</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.easeljs.DragData.html'>springroll.easeljs.DragData</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.easeljs.DragManager.html'>springroll.easeljs.DragManager</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.easeljs.DwellTimer.html'>springroll.easeljs.DwellTimer</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.easeljs.EaselJSDisplay.html'>springroll.easeljs.EaselJSDisplay</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.easeljs.FlashArt.html'>springroll.easeljs.FlashArt</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.easeljs.FlashArtAtlasTask.html'>springroll.easeljs.FlashArtAtlasTask</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.easeljs.FlashArtTask.html'>springroll.easeljs.FlashArtTask</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.easeljs.FlashSpriteSheetTask.html'>springroll.easeljs.FlashSpriteSheetTask</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.easeljs.MovieClipInstance.html'>springroll.easeljs.MovieClipInstance</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.easeljs.ReversePlayback.html'>springroll.easeljs.ReversePlayback</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.easeljs.SoundButton.html'>springroll.easeljs.SoundButton</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.easeljs.SoundTask.html'>springroll.easeljs.SoundTask</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.easeljs.SpriteSheetTask.html'>springroll.easeljs.SpriteSheetTask</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.easeljs.Texture.html'>springroll.easeljs.Texture</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.easeljs.TextureAtlas.html'>springroll.easeljs.TextureAtlas</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.easeljs.TextureAtlasTask.html'>springroll.easeljs.TextureAtlasTask</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.Enum.html'>springroll.Enum</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.EnumValue.html'>springroll.EnumValue</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.EventCatalog.html'>springroll.EventCatalog</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.EventDispatcher.html'>springroll.EventDispatcher</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.EventError.html'>springroll.EventError</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.EventSignature.html'>springroll.EventSignature</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.EventUtils.html'>springroll.EventUtils</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.Features.html'>springroll.Features</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.FlashArtImageTask.html'>springroll.FlashArtImageTask</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.FunctionHint.html'>springroll.FunctionHint</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.FunctionTask.html'>springroll.FunctionTask</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.GroupHint.html'>springroll.GroupHint</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.HintsPlayer.html'>springroll.HintsPlayer</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.Languages.html'>springroll.Languages</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.Learning.html'>springroll.Learning</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.LearningError.html'>springroll.LearningError</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.LearningMedia.html'>springroll.LearningMedia</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.ListTask.html'>springroll.ListTask</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.Loader.html'>springroll.Loader</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.LoaderItem.html'>springroll.LoaderItem</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.LoaderResult.html'>springroll.LoaderResult</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.LoadTask.html'>springroll.LoadTask</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.native.Circle.html'>springroll.native.Circle</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.native.DisplayAdapter.html'>springroll.native.DisplayAdapter</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.native.Ellipse.html'>springroll.native.Ellipse</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.native.NativeDisplay.html'>springroll.native.NativeDisplay</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.native.Point.html'>springroll.native.Point</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.native.Polygon.html'>springroll.native.Polygon</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.native.Rectangle.html'>springroll.native.Rectangle</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.PageVisibility.html'>springroll.PageVisibility</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.pixi.AdvancedMovieClip.html'>springroll.pixi.AdvancedMovieClip</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.pixi.AdvancedMovieClipInstance.html'>springroll.pixi.AdvancedMovieClipInstance</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.pixi.AdvancedMovieClipTask.html'>springroll.pixi.AdvancedMovieClipTask</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.pixi.Animator.html'>springroll.pixi.Animator</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.pixi.BitmapFontTask.html'>springroll.pixi.BitmapFontTask</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.pixi.Button.html'>springroll.pixi.Button</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.pixi.DisplayAdapter.html'>springroll.pixi.DisplayAdapter</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.pixi.DragData.html'>springroll.pixi.DragData</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.pixi.DragManager.html'>springroll.pixi.DragManager</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.pixi.ParallelSpineData.html'>springroll.pixi.ParallelSpineData</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.pixi.PixiDisplay.html'>springroll.pixi.PixiDisplay</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.pixi.SpineAnimTask.html'>springroll.pixi.SpineAnimTask</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.pixi.SpineAtlas.html'>springroll.pixi.SpineAtlas</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.pixi.SpineAtlasTask.html'>springroll.pixi.SpineAtlasTask</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.pixi.SpineInstance.html'>springroll.pixi.SpineInstance</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.pixi.TextureAtlas.html'>springroll.pixi.TextureAtlas</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.pixi.TextureAtlasTask.html'>springroll.pixi.TextureAtlasTask</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.pixi.TextureTask.html'>springroll.pixi.TextureTask</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.Positioner.html'>springroll.Positioner</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.Property.html'>springroll.Property</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.PropertyDispatcher.html'>springroll.PropertyDispatcher</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.SavedData.html'>springroll.SavedData</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.ScaleImage.html'>springroll.ScaleImage</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.ScaleItem.html'>springroll.ScaleItem</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.ScaleManager.html'>springroll.ScaleManager</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.Sound.html'>springroll.Sound</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.SoundContext.html'>springroll.SoundContext</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.SoundInstance.html'>springroll.SoundInstance</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.State.html'>springroll.State</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.StateEvent.html'>springroll.StateEvent</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.StateManager.html'>springroll.StateManager</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.StringFilters.html'>springroll.StringFilters</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.Task.html'>springroll.Task</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.TickerPlugin.html'>springroll.TickerPlugin</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.TimeUtils.html'>springroll.TimeUtils</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.UIScaler.html'>springroll.UIScaler</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.ValidationError.html'>springroll.ValidationError</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.VOHint.html'>springroll.VOHint</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.VOPlayer.html'>springroll.VOPlayer</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.WeightedRandom.html'>springroll.WeightedRandom</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/window.Array.html'>window.Array</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/window.extend.html'>window.extend</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/window.include.html'>window.include</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/window.Math.html'>window.Math</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/window.mixin.html'>window.mixin</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/window.namespace.html'>window.namespace</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/window.Number.html'>window.Number</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/window.Object.html'>window.Object</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/window.RequestUtils.html'>window.RequestUtils</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/window.String.html'>window.String</a>
+        </li>
+    </ul>
+  </div>
+
+  <!-- Collect the nav links, forms, and other content for toggling -->
+  <div class='collapse' id='modules-collapse'>
+    <ul class='nav navbar-nav'>
+        <li class=''>
+          <a href='../modules/Animation.html'>Animation</a>
+        </li>
+        <li class=''>
+          <a href='../modules/Captions.html'>Captions</a>
+        </li>
+        <li class=''>
+          <a href='../modules/Container.html'>Container</a>
+        </li>
+        <li class=''>
+          <a href='../modules/Container Client.html'>Container Client</a>
+        </li>
+        <li class=''>
+          <a href='../modules/Core.html'>Core</a>
+        </li>
+        <li class=''>
+          <a href='../modules/Debug.html'>Debug</a>
+        </li>
+        <li class=''>
+          <a href='../modules/EaselJS Animation.html'>EaselJS Animation</a>
+        </li>
+        <li class=''>
+          <a href='../modules/EaselJS Cutscene.html'>EaselJS Cutscene</a>
+        </li>
+        <li class=''>
+          <a href='../modules/EaselJS Display.html'>EaselJS Display</a>
+        </li>
+        <li class=''>
+          <a href='../modules/EaselJS Learning.html'>EaselJS Learning</a>
+        </li>
+        <li class=''>
+          <a href='../modules/EaselJS States.html'>EaselJS States</a>
+        </li>
+        <li class=''>
+          <a href='../modules/EaselJS UI.html'>EaselJS UI</a>
+        </li>
+        <li class=''>
+          <a href='../modules/Hints.html'>Hints</a>
+        </li>
+        <li class=''>
+          <a href='../modules/Languages.html'>Languages</a>
+        </li>
+        <li class=''>
+          <a href='../modules/Learning.html'>Learning</a>
+        </li>
+        <li class=''>
+          <a href='../modules/Learning Media.html'>Learning Media</a>
+        </li>
+        <li class=''>
+          <a href='../modules/Native Display.html'>Native Display</a>
+        </li>
+        <li class=''>
+          <a href='../modules/Pixi Animation.html'>Pixi Animation</a>
+        </li>
+        <li class=''>
+          <a href='../modules/PIXI Animation.html'>PIXI Animation</a>
+        </li>
+        <li class=''>
+          <a href='../modules/Pixi Display.html'>Pixi Display</a>
+        </li>
+        <li class=''>
+          <a href='../modules/PIXI Display.html'>PIXI Display</a>
+        </li>
+        <li class=''>
+          <a href='../modules/PIXI Spine.html'>PIXI Spine</a>
+        </li>
+        <li class=''>
+          <a href='../modules/PIXI UI.html'>PIXI UI</a>
+        </li>
+        <li class=''>
+          <a href='../modules/Sound.html'>Sound</a>
+        </li>
+        <li class=''>
+          <a href='../modules/States.html'>States</a>
+        </li>
+        <li class=''>
+          <a href='../modules/UI.html'>UI</a>
+        </li>
+    </ul>
+  </div>
+  <!-- /.container-fluid -->
+</nav></nav>
+<div class='col-sm-8 col-md-9'>
+<div id='docs-main' class='apidocs'>
+
+<h1>springroll.pixi.Button Class</h1>
+<div class='box meta'>
+
+<div class='extends'>
+Extends
+<a href="../classes/PIXI.Container.html" class="crosslink">PIXI.Container</a>
+</div>
+
+<div class='foundat'>
+Defined in: <a href='../files/src_displays_pixi_ui_Button.js.html#l17'><code>springroll.pixi.Button:17</code></a>
+</div>
+
+Module:
+<a href="../modules/PIXI UI.html">PIXI UI</a>
+
+</div>
+
+
+<div class='box intro'>
+<p>A Multipurpose button class. It is designed to have one image, and an optional text label.
+The button can be a normal button or a selectable button.
+The button functions similarly with both EaselJS and PIXI, but slightly differently in
+initialization and callbacks.
+Use the "buttonPress" and "buttonOver" events to know about button clicks and mouse overs,
+respectively.</p>
+
+</div>
+
+<div class='constructor'>
+<h2>Constructor</h2> <div class='method_springroll.pixi.Button method item'>
+<h3 class='name'><a class="deeplink" href="#method_springroll.pixi.Button"><span class="glyphicon glyphicon-link"></span></a> <code>springroll.pixi.Button</code></h3>
+
+<div class='args'>
+<span class='paren'>(</span>
+<ul class='args-list inline commas'>
+<li class='arg'>
+<code>imageSettings</code>
+</li>
+<li class='arg'>
+<code>[imageSettings.priority=null] The state priority order. If omitted, defaults
+                                             to [&quot;disabled&quot;, &quot;down&quot;, &quot;over&quot;, &quot;up&quot;]. Previous
+                                             versions of Button used a hard coded order:
+                                             [&quot;highlighted&quot;, &quot;disabled&quot;, &quot;down&quot;, &quot;over&quot;,
+                                             &quot;selected&quot;, &quot;up&quot;]</code>
+</li>
+<li class='arg'>
+<code class='optional'>[label=null]</code>
+</li>
+<li class='arg'>
+<code class='optional'>[enabled=true]</code>
+</li>
+</ul><span class='paren'>)</span>
+</div>
+
+
+<div class='flags'>
+
+
+
+
+
+</div> 
+
+<div class='meta'>
+<p>
+Defined in
+<a href='../files/src_displays_pixi_ui_Button.js.html#l17'><code>springroll.pixi.Button:17</code></a>
+</p>
+
+
+
+</div>
+
+<div class='description'>
+
+</div>
+
+<div class='params'>
+<h4>Parameters:</h4>
+
+<ul class='params-list'>
+<li class='param'>
+<code class='param-name'>imageSettings</code>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+
+
+<div class='param-description'>
+<p>Information about the art to be used for button states, as
+                              well as if the button is selectable or not.</p>
+
+</div>
+
+<ul class='params-list'>
+<li class='param'>
+<code class='param-name optional'>[up]</code>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a> | PIXI.Texture</span>
+<span class='flag optional' title='This parameter is optional.'>optional</span>
+
+<div class='param-description'>
+<p>The texture for the up state of the button.
+                                                This can be either the texture itself, or an
+                                                object with &#39;tex&#39; and &#39;label&#39; properties.</p>
+
+</div>
+
+<ul class='params-list'>
+<li class='param'>
+  <code class='param-name optional'>[tex]</code>
+  <span class='type'>PIXI.Texture | <a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+  <span class='flag optional' title='This parameter is optional.'>optional</span>
+
+<div class='param-description'>
+  The texture to use for the up state. If
+                                                    this is a string, Texture.fromImage()
+                                                    will be used.
+</div>
+</li>
+<li class='param'>
+  <code class='param-name optional'>[label=null]</code>
+  <span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+  <span class='flag optional' title='This parameter is optional.'>optional</span>
+
+<div class='param-description'>
+  Label information specific to this state.
+                                              Properties on this parameter override data in
+                                              the label parameter for this button state
+                                              only. All values except "text" and "type" from
+                                              the label parameter may be overridden.
+</div>
+</li>
+</ul>
+</li>
+<li class='param'>
+<code class='param-name optional'>[over=null]</code>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a> | PIXI.Texture</span>
+<span class='flag optional' title='This parameter is optional.'>optional</span>
+
+<div class='param-description'>
+<p>The texture for the over state of the
+                                                       button. If omitted, uses the up
+                                                       state.</p>
+
+</div>
+
+<ul class='params-list'>
+<li class='param'>
+  <code class='param-name optional'>[tex]</code>
+  <span class='type'>PIXI.Texture | <a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+  <span class='flag optional' title='This parameter is optional.'>optional</span>
+
+<div class='param-description'>
+  The texture to use for the over state.
+                                                      If this is a string,
+                                                      Texture.fromImage() will be used.
+</div>
+</li>
+<li class='param'>
+  <code class='param-name optional'>[label=null]</code>
+  <span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+  <span class='flag optional' title='This parameter is optional.'>optional</span>
+
+<div class='param-description'>
+  Label information specific to this state.
+                                                Properties on this parameter override data
+                                                in the label parameter for this button state
+                                                only. All values except "text" and "type"
+                                                from the label parameter may be overridden.
+</div>
+</li>
+</ul>
+</li>
+<li class='param'>
+<code class='param-name optional'>[down=null]</code>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a> | PIXI.Texture</span>
+<span class='flag optional' title='This parameter is optional.'>optional</span>
+
+<div class='param-description'>
+<p>The texture for the down state of the
+                                                       button. If omitted, uses the up
+                                                       state.</p>
+
+</div>
+
+<ul class='params-list'>
+<li class='param'>
+  <code class='param-name optional'>[tex]</code>
+  <span class='type'>PIXI.Texture | <a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+  <span class='flag optional' title='This parameter is optional.'>optional</span>
+
+<div class='param-description'>
+  The texture to use for the down state.
+                                                      If this is a string,
+                                                      Texture.fromImage() will be used.
+</div>
+</li>
+<li class='param'>
+  <code class='param-name optional'>[label=null]</code>
+  <span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+  <span class='flag optional' title='This parameter is optional.'>optional</span>
+
+<div class='param-description'>
+  Label information specific to this state.
+                                                Properties on this parameter override data
+                                                in the label parameter for this button state
+                                                only. All values except "text" and "type"
+                                                from the label parameter may be overridden.
+</div>
+</li>
+</ul>
+</li>
+<li class='param'>
+<code class='param-name optional'>[disabled=null]</code>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a> | PIXI.Texture</span>
+<span class='flag optional' title='This parameter is optional.'>optional</span>
+
+<div class='param-description'>
+<p>The texture for the disabled
+                                                           state of the button. If omitted,
+                                                           uses the up state.</p>
+
+</div>
+
+<ul class='params-list'>
+<li class='param'>
+  <code class='param-name optional'>[tex]</code>
+  <span class='type'>PIXI.Texture | <a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+  <span class='flag optional' title='This parameter is optional.'>optional</span>
+
+<div class='param-description'>
+  The texture to use for the disabled
+                                                          state. If this is a string,
+                                                          Texture.fromImage() will be used.
+</div>
+</li>
+<li class='param'>
+  <code class='param-name optional'>[label=null]</code>
+  <span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+  <span class='flag optional' title='This parameter is optional.'>optional</span>
+
+<div class='param-description'>
+  Label information specific to this
+                                                    state. Properties on this parameter
+                                                    override data in the label parameter for
+                                                    this button state only. All values
+                                                    except "text" and "type" from the label
+                                                    parameter may be overridden.
+</div>
+</li>
+</ul>
+</li>
+<li class='param'>
+<code class='param-name optional'>[&lt;yourCustomState&gt;=null]</code>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a> | PIXI.Texture</span>
+<span class='flag optional' title='This parameter is optional.'>optional</span>
+
+<div class='param-description'>
+<p>The visual information
+                                                                    about a custom state
+                                                                    found in
+                                                                    imageSettings.priority.
+                                                                    Any state added this way
+                                                                    has a property of the
+                                                                    same name added to the
+                                                                    button. Examples of
+                                                                    previous states that
+                                                                    have been
+                                                                    moved to this system are
+                                                                    "selected" and
+                                                                    "highlighted".</p>
+
+</div>
+
+<ul class='params-list'>
+<li class='param'>
+  <code class='param-name optional'>[tex]</code>
+  <span class='type'>PIXI.Texture | <a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+  <span class='flag optional' title='This parameter is optional.'>optional</span>
+
+<div class='param-description'>
+  The texture to use for
+                                                                   your custom state. If
+                                                                   this is a string,
+                                                                   Texture.fromImage()
+                                                                   will be used.
+</div>
+</li>
+<li class='param'>
+  <code class='param-name optional'>[label=null]</code>
+  <span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+  <span class='flag optional' title='This parameter is optional.'>optional</span>
+
+<div class='param-description'>
+  Label information specific to
+                                                             this state. Properties on this
+                                                             parameter override data in the
+                                                             label parameter for this button
+                                                             state only. All values except
+                                                             "text" from the label parameter
+                                                             may be overridden.
+</div>
+</li>
+</ul>
+</li>
+<li class='param'>
+<code class='param-name optional'>[origin=null]</code>
+<span class='type'><a href="../classes/PIXI.Point.html" class="crosslink">PIXI.Point</a></span>
+<span class='flag optional' title='This parameter is optional.'>optional</span>
+
+<div class='param-description'>
+<p>An optional offset for all button graphics,
+                                                in case you want button positioning to not
+                                                include a highlight glow, or any other
+                                                reason you would want to offset the button
+                                                art and label.</p>
+
+</div>
+
+</li>
+<li class='param'>
+<code class='param-name optional'>[scale=1]</code>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
+<span class='flag optional' title='This parameter is optional.'>optional</span>
+
+<div class='param-description'>
+<p>The scale to use for the textures. This allows
+                                        smaller art assets than the designed size to be
+                                        used.</p>
+
+</div>
+
+</li>
+</ul>
+</li>
+<li class='param'>
+<code class='param-name'>[imageSettings.priority=null] The state priority order. If omitted, defaults
+                                             to [&quot;disabled&quot;, &quot;down&quot;, &quot;over&quot;, &quot;up&quot;]. Previous
+                                             versions of Button used a hard coded order:
+                                             [&quot;highlighted&quot;, &quot;disabled&quot;, &quot;down&quot;, &quot;over&quot;,
+                                             &quot;selected&quot;, &quot;up&quot;]</code>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array" class="crosslink external" target="_blank">Array</a></span>
+
+
+<div class='param-description'>
+<p>.</p>
+
+</div>
+
+</li>
+<li class='param'>
+<code class='param-name optional'>[label=null]</code>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+<span class='flag optional' title='This parameter is optional.'>optional</span>
+
+
+<div class='param-description'>
+<p>Information about the text label on the button. Omitting this
+                             makes the button not use a label.</p>
+
+</div>
+
+<ul class='params-list'>
+<li class='param'>
+<code class='param-name optional'>[type]</code>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+<span class='flag optional' title='This parameter is optional.'>optional</span>
+
+<div class='param-description'>
+<p>If label.type is "bitmap", then a PIXI.extras.BitmapText text
+                             is created, otherwise a PIXI.Text is created for the label.</p>
+
+</div>
+
+</li>
+<li class='param'>
+<code class='param-name optional'>[text]</code>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+<span class='flag optional' title='This parameter is optional.'>optional</span>
+
+<div class='param-description'>
+<p>The text to display on the label.</p>
+
+</div>
+
+</li>
+<li class='param'>
+<code class='param-name optional'>[style]</code>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+<span class='flag optional' title='This parameter is optional.'>optional</span>
+
+<div class='param-description'>
+<p>The style of the text field, in the format that
+                              PIXI.extras.BitmapText and PIXI.Text expect.</p>
+
+</div>
+
+</li>
+<li class='param'>
+<code class='param-name optional'>[x=&quot;center&quot;]</code>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a> | <a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
+<span class='flag optional' title='This parameter is optional.'>optional</span>
+
+<div class='param-description'>
+<p>An x position to place the label text at relative
+                                          to the button.</p>
+
+</div>
+
+</li>
+<li class='param'>
+<code class='param-name optional'>[y=&quot;center&quot;]</code>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a> | <a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
+<span class='flag optional' title='This parameter is optional.'>optional</span>
+
+<div class='param-description'>
+<p>A y position to place the label text at relative
+                                          to the button. If omitted, "center" is used, which
+                                          attempts to vertically center the label on the
+                                          button.</p>
+
+</div>
+
+</li>
+</ul>
+</li>
+<li class='param'>
+<code class='param-name optional'>[enabled=true]</code>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
+<span class='flag optional' title='This parameter is optional.'>optional</span>
+
+
+<div class='param-description'>
+<p>Whether or not the button is initially enabled.</p>
+
+</div>
+
+</li>
+</ul>
+</div>
+
+
+</div>
+</div>
+
+<div id='classdocs' class='tabview'>
+<span id='docs-highlight'></span>
+<ul class='nav nav-tabs'>
+<li id='tab-index' class='docs-toggle'>
+<a data-toggle='tab' href='#docs-index'>Index</a>
+</li>
+<li id='tab-methods' class='docs-toggle'>
+<a data-toggle='tab' href='#docs-methods'>Methods</a>
+</li>
+<li id='tab-properties' class='docs-toggle'>
+<a data-toggle='tab' href='#docs-properties'>Properties</a>
+</li>
+</ul>
+
+<div class='tab-content'>
+
+<div role='tabpanel' id='docs-index' class='tab-pane'>
+<div class='index-section tab-pane methods'>
+<h3>Methods</h3>
+
+<ul class='list-group row methods extends'>
+<li class='col-xs-6 col-md-4 index-item method private'>
+<a href='#method__addProperty'>_addProperty</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item method private'>
+<a href='#method__onDown'>_onDown</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item method private'>
+<a href='#method__onOut'>_onOut</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item method private'>
+<a href='#method__onOver'>_onOver</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item method private'>
+<a href='#method__onUp'>_onUp</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item method private'>
+<a href='#method__onUpOutside'>_onUpOutside</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item method private'>
+<a href='#method__updateState'>_updateState</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item method public'>
+<a href='#method_destroy'>destroy</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item method'>
+<a href='#method_setText'>setText</a>
+
+</li>
+</ul>
+</div>
+
+<div class='index-section tab-pane properties'>
+<h3>Properties</h3>
+
+<ul class='list-group row properties extends'>
+<li class='col-xs-6 col-md-4 index-item property private'>
+<a href='#property__currentLabelStyle'>_currentLabelStyle</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item property private'>
+<a href='#property__height'>_height</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item property private'>
+<a href='#property__offset'>_offset</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item property private'>
+<a href='#property__stateData'>_stateData</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item property private'>
+<a href='#property__stateFlags'>_stateFlags</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item property private'>
+<a href='#property__statePriority'>_statePriority</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item property private'>
+<a href='#property__width'>_width</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item property'>
+<a href='#property_back'>back</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item property'>
+<a href='#property_BUTTON_OUT'>BUTTON_OUT</a>
+
+<span class='flag static'>static</span>
+</li>
+<li class='col-xs-6 col-md-4 index-item property'>
+<a href='#property_BUTTON_OVER'>BUTTON_OVER</a>
+
+<span class='flag static'>static</span>
+</li>
+<li class='col-xs-6 col-md-4 index-item property'>
+<a href='#property_BUTTON_PRESS'>BUTTON_PRESS</a>
+
+<span class='flag static'>static</span>
+</li>
+<li class='col-xs-6 col-md-4 index-item property'>
+<a href='#property_enabled'>enabled</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item property'>
+<a href='#property_label'>label</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item property inherited'>
+<a href='#property_useBoundsForSize'>useBoundsForSize</a>
+
+</li>
+</ul>
+</div>
+
+
+</div>
+
+<div role='tabpanel' id='docs-methods' class='tab-pane'>
+
+<div class='method__addProperty method item private'>
+<h3 class='name'><a class="deeplink" href="#method__addProperty"><span class="glyphicon glyphicon-link"></span></a> <code>_addProperty</code></h3>
+
+<div class='args'>
+<span class='paren'>(</span>
+<ul class='args-list inline commas'>
+<li class='arg'>
+<code>propertyName</code>
+</li>
+</ul><span class='paren'>)</span>
+</div>
+
+
+<div class='flags'>
+
+<span class='flag private'>private</span>
+
+
+
+
+</div> 
+
+<div class='meta'>
+<p>
+Defined in
+<a href='../files/src_displays_pixi_ui_Button.js.html#l515'><code>_addProperty:515</code></a>
+</p>
+
+
+
+</div>
+
+<div class='description'>
+<p>Adds a property to the button. Setting the property sets the value in
+_stateFlags and calls _updateState().</p>
+
+</div>
+
+<div class='params'>
+<h4>Parameters:</h4>
+
+<ul class='params-list'>
+<li class='param'>
+<code class='param-name'>propertyName</code>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+
+
+<div class='param-description'>
+<p>The property name to add to the button.</p>
+
+</div>
+
+</li>
+</ul>
+</div>
+
+
+</div><div class='method__onDown method item private'>
+<h3 class='name'><a class="deeplink" href="#method__onDown"><span class="glyphicon glyphicon-link"></span></a> <code>_onDown</code></h3>
+
+<span class='paren'>()</span>
+
+
+<div class='flags'>
+
+<span class='flag private'>private</span>
+
+
+
+
+</div> 
+
+<div class='meta'>
+<p>
+Defined in
+<a href='../files/src_displays_pixi_ui_Button.js.html#l654'><code>_onDown:654</code></a>
+</p>
+
+
+
+</div>
+
+<div class='description'>
+<p>The callback for when the button receives a mouse down event.</p>
+
+</div>
+
+
+
+</div><div class='method__onOut method item private'>
+<h3 class='name'><a class="deeplink" href="#method__onOut"><span class="glyphicon glyphicon-link"></span></a> <code>_onOut</code></h3>
+
+<span class='paren'>()</span>
+
+
+<div class='flags'>
+
+<span class='flag private'>private</span>
+
+
+
+
+</div> 
+
+<div class='meta'>
+<p>
+Defined in
+<a href='../files/src_displays_pixi_ui_Button.js.html#l641'><code>_onOut:641</code></a>
+</p>
+
+
+
+</div>
+
+<div class='description'>
+<p>The callback for when the mouse leaves the button area.</p>
+
+</div>
+
+
+
+</div><div class='method__onOver method item private'>
+<h3 class='name'><a class="deeplink" href="#method__onOver"><span class="glyphicon glyphicon-link"></span></a> <code>_onOver</code></h3>
+
+<span class='paren'>()</span>
+
+
+<div class='flags'>
+
+<span class='flag private'>private</span>
+
+
+
+
+</div> 
+
+<div class='meta'>
+<p>
+Defined in
+<a href='../files/src_displays_pixi_ui_Button.js.html#l628'><code>_onOver:628</code></a>
+</p>
+
+
+
+</div>
+
+<div class='description'>
+<p>The callback for when the button is moused over.</p>
+
+</div>
+
+
+
+</div><div class='method__onUp method item private'>
+<h3 class='name'><a class="deeplink" href="#method__onUp"><span class="glyphicon glyphicon-link"></span></a> <code>_onUp</code></h3>
+
+<span class='paren'>()</span>
+
+
+<div class='flags'>
+
+<span class='flag private'>private</span>
+
+
+
+
+</div> 
+
+<div class='meta'>
+<p>
+Defined in
+<a href='../files/src_displays_pixi_ui_Button.js.html#l671'><code>_onUp:671</code></a>
+</p>
+
+
+
+</div>
+
+<div class='description'>
+<p>The callback for when the button for when the mouse/touch is released on the button</p>
+<ul>
+<li>only when the button was held down initially.</li>
+</ul>
+
+</div>
+
+
+
+</div><div class='method__onUpOutside method item private'>
+<h3 class='name'><a class="deeplink" href="#method__onUpOutside"><span class="glyphicon glyphicon-link"></span></a> <code>_onUpOutside</code></h3>
+
+<span class='paren'>()</span>
+
+
+<div class='flags'>
+
+<span class='flag private'>private</span>
+
+
+
+
+</div> 
+
+<div class='meta'>
+<p>
+Defined in
+<a href='../files/src_displays_pixi_ui_Button.js.html#l698'><code>_onUpOutside:698</code></a>
+</p>
+
+
+
+</div>
+
+<div class='description'>
+<p>The callback for when the mouse/touch is released outside the button when the button was
+held down.</p>
+
+</div>
+
+
+
+</div><div class='method__updateState method item private'>
+<h3 class='name'><a class="deeplink" href="#method__updateState"><span class="glyphicon glyphicon-link"></span></a> <code>_updateState</code></h3>
+
+<span class='paren'>()</span>
+
+<span class='returns-inline'>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+</span>
+
+<div class='flags'>
+
+<span class='flag private'>private</span>
+
+
+
+
+</div> 
+
+<div class='meta'>
+<p>
+Defined in
+<a href='../files/src_displays_pixi_ui_Button.js.html#l542'><code>_updateState:542</code></a>
+</p>
+
+
+
+</div>
+
+<div class='description'>
+<p>Updates back based on the current button state.</p>
+
+</div>
+
+
+<div class='returns'>
+<h4>Returns:</h4>
+
+<div class='returns-description'>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>:
+<p>The state data for the active button state, so that subclasses can use the
+                 value picked by this function without needing to calculate it themselves.</p>
+
+</div>
+</div>
+
+</div><div class='method_destroy method item public'>
+<h3 class='name'><a class="deeplink" href="#method_destroy"><span class="glyphicon glyphicon-link"></span></a> <code>destroy</code></h3>
+
+<span class='paren'>()</span>
+
+
+<div class='flags'>
+
+<span class='flag public'>public</span>
+
+
+
+
+</div> 
+
+<div class='meta'>
+<p>
+Defined in
+<a href='../files/src_displays_pixi_ui_Button.js.html#l715'><code>destroy:715</code></a>
+</p>
+
+
+
+</div>
+
+<div class='description'>
+<p>Destroys the button.</p>
+
+</div>
+
+
+
+</div><div class='method_setText method item'>
+<h3 class='name'><a class="deeplink" href="#method_setText"><span class="glyphicon glyphicon-link"></span></a> <code>setText</code></h3>
+
+<div class='args'>
+<span class='paren'>(</span>
+<ul class='args-list inline commas'>
+<li class='arg'>
+<code>text</code>
+</li>
+</ul><span class='paren'>)</span>
+</div>
+
+
+<div class='flags'>
+
+
+
+
+
+</div> 
+
+<div class='meta'>
+<p>
+Defined in
+<a href='../files/src_displays_pixi_ui_Button.js.html#l417'><code>setText:417</code></a>
+</p>
+
+
+
+</div>
+
+<div class='description'>
+<p>Sets the text of the label. This does nothing if the button was not initialized with a
+label.</p>
+
+</div>
+
+<div class='params'>
+<h4>Parameters:</h4>
+
+<ul class='params-list'>
+<li class='param'>
+<code class='param-name'>text</code>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+
+
+<div class='param-description'>
+<p>The text to set the label to.</p>
+
+</div>
+
+</li>
+</ul>
+</div>
+
+
+</div></div>
+
+<div role='tabpanel' id='docs-properties' class='tab-pane'>
+
+<div class="property__currentLabelStyle property item private">
+<h3 class="name"><a class="deeplink" href="#property__currentLabelStyle"><span class="glyphicon glyphicon-link"></span></a> <code>_currentLabelStyle</code></h3>
+<span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+
+
+<span class="flag private">private</span>
+
+
+
+<div class="meta">
+<p>
+Defined in
+<a href="../files/src_displays_pixi_ui_Button.js.html#l178"><code>_currentLabelStyle:178</code></a>
+</p>
+
+
+</div>
+
+<div class="description">
+<p>The current style for the label, to avoid setting this if it is unchanged.</p>
+
+</div>
+
+
+
+</div><div class="property__height property item private">
+<h3 class="name"><a class="deeplink" href="#property__height"><span class="glyphicon glyphicon-link"></span></a> <code>_height</code></h3>
+<span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
+
+
+<span class="flag private">private</span>
+
+
+
+<div class="meta">
+<p>
+Defined in
+<a href="../files/src_displays_pixi_ui_Button.js.html#l200"><code>_height:200</code></a>
+</p>
+
+
+</div>
+
+<div class="description">
+<p>The height of the button art, independent of the scaling of the button itself.</p>
+
+</div>
+
+
+
+</div><div class="property__offset property item private">
+<h3 class="name"><a class="deeplink" href="#property__offset"><span class="glyphicon glyphicon-link"></span></a> <code>_offset</code></h3>
+<span class="type"><a href="../classes/PIXI.Point.html" class="crosslink">PIXI.Point</a></span>
+
+
+<span class="flag private">private</span>
+
+
+
+<div class="meta">
+<p>
+Defined in
+<a href="../files/src_displays_pixi_ui_Button.js.html#l185"><code>_offset:185</code></a>
+</p>
+
+
+</div>
+
+<div class="description">
+<p>An offset to button positioning, generally used to adjust for a highlight
+around the button.</p>
+
+</div>
+
+
+
+</div><div class="property__stateData property item private">
+<h3 class="name"><a class="deeplink" href="#property__stateData"><span class="glyphicon glyphicon-link"></span></a> <code>_stateData</code></h3>
+<span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+
+
+<span class="flag private">private</span>
+
+
+
+<div class="meta">
+<p>
+Defined in
+<a href="../files/src_displays_pixi_ui_Button.js.html#l169"><code>_stateData:169</code></a>
+</p>
+
+
+</div>
+
+<div class="description">
+<p>A dictionary of state graphic data, keyed by state name.
+Each object contains the sourceRect (src) and optionally &#39;trim&#39;, another Rectangle.
+Additionally, each object will contain a &#39;label&#39; object if the button has a text label.</p>
+
+</div>
+
+
+
+</div><div class="property__stateFlags property item private">
+<h3 class="name"><a class="deeplink" href="#property__stateFlags"><span class="glyphicon glyphicon-link"></span></a> <code>_stateFlags</code></h3>
+<span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+
+
+<span class="flag private">private</span>
+
+
+
+<div class="meta">
+<p>
+Defined in
+<a href="../files/src_displays_pixi_ui_Button.js.html#l153"><code>_stateFlags:153</code></a>
+</p>
+
+
+</div>
+
+<div class="description">
+<p>A dictionary of state booleans, keyed by state name.</p>
+
+</div>
+
+
+
+</div><div class="property__statePriority property item private">
+<h3 class="name"><a class="deeplink" href="#property__statePriority"><span class="glyphicon glyphicon-link"></span></a> <code>_statePriority</code></h3>
+<span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array" class="crosslink external" target="_blank">Array</a></span>
+
+
+<span class="flag private">private</span>
+
+
+
+<div class="meta">
+<p>
+Defined in
+<a href="../files/src_displays_pixi_ui_Button.js.html#l160"><code>_statePriority:160</code></a>
+</p>
+
+
+</div>
+
+<div class="description">
+<p>An array of state names (Strings), in their order of priority.
+The standard order previously was ["highlighted", "disabled", "down", "over",
+"selected", "up"].</p>
+
+</div>
+
+
+
+</div><div class="property__width property item private">
+<h3 class="name"><a class="deeplink" href="#property__width"><span class="glyphicon glyphicon-link"></span></a> <code>_width</code></h3>
+<span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
+
+
+<span class="flag private">private</span>
+
+
+
+<div class="meta">
+<p>
+Defined in
+<a href="../files/src_displays_pixi_ui_Button.js.html#l193"><code>_width:193</code></a>
+</p>
+
+
+</div>
+
+<div class="description">
+<p>The width of the button art, independent of the scaling of the button itself.</p>
+
+</div>
+
+
+
+</div><div class="property_back property item">
+<h3 class="name"><a class="deeplink" href="#property_back"><span class="glyphicon glyphicon-link"></span></a> <code>back</code></h3>
+<span class="type">PIXI.Sprite</span>
+
+
+
+
+
+<div class="meta">
+<p>
+Defined in
+<a href="../files/src_displays_pixi_ui_Button.js.html#l138"><code>back:138</code></a>
+</p>
+
+
+</div>
+
+<div class="description">
+<p>The sprite that is the body of the button.</p>
+
+</div>
+
+
+
+</div><div class="property_BUTTON_OUT property item">
+<h3 class="name"><a class="deeplink" href="#property_BUTTON_OUT"><span class="glyphicon glyphicon-link"></span></a> <code>BUTTON_OUT</code></h3>
+<span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+
+
+
+
+<span class="flag static">static</span>
+
+<div class="meta">
+<p>
+Defined in
+<a href="../files/src_displays_pixi_ui_Button.js.html#l360"><code>BUTTON_OUT:360</code></a>
+</p>
+
+
+</div>
+
+<div class="description">
+<p>An event for when the button is moused out (while enabled).</p>
+
+</div>
+
+
+
+</div><div class="property_BUTTON_OVER property item">
+<h3 class="name"><a class="deeplink" href="#property_BUTTON_OVER"><span class="glyphicon glyphicon-link"></span></a> <code>BUTTON_OVER</code></h3>
+<span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+
+
+
+
+<span class="flag static">static</span>
+
+<div class="meta">
+<p>
+Defined in
+<a href="../files/src_displays_pixi_ui_Button.js.html#l353"><code>BUTTON_OVER:353</code></a>
+</p>
+
+
+</div>
+
+<div class="description">
+<p>An event for when the button is moused over (while enabled).</p>
+
+</div>
+
+
+
+</div><div class="property_BUTTON_PRESS property item">
+<h3 class="name"><a class="deeplink" href="#property_BUTTON_PRESS"><span class="glyphicon glyphicon-link"></span></a> <code>BUTTON_PRESS</code></h3>
+<span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+
+
+
+
+<span class="flag static">static</span>
+
+<div class="meta">
+<p>
+Defined in
+<a href="../files/src_displays_pixi_ui_Button.js.html#l346"><code>BUTTON_PRESS:346</code></a>
+</p>
+
+
+</div>
+
+<div class="description">
+<p>An event for when the button is pressed (while enabled).</p>
+
+</div>
+
+
+
+</div><div class="property_enabled property item">
+<h3 class="name"><a class="deeplink" href="#property_enabled"><span class="glyphicon glyphicon-link"></span></a> <code>enabled</code></h3>
+<span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
+
+
+
+
+
+<div class="meta">
+<p>
+Defined in
+<a href="../files/src_displays_pixi_ui_Button.js.html#l473"><code>enabled:473</code></a>
+</p>
+
+
+</div>
+
+<div class="description">
+<p>Whether or not the button is enabled.</p>
+
+</div>
+
+<p><strong>Default:</strong> true</p>
+
+
+</div><div class="property_label property item">
+<h3 class="name"><a class="deeplink" href="#property_label"><span class="glyphicon glyphicon-link"></span></a> <code>label</code></h3>
+<span class="type"><a href="../classes/PIXI.Text.html" class="crosslink">PIXI.Text</a> | <a href="../classes/PIXI.BitmapText.html" class="crosslink">PIXI.BitmapText</a></span>
+
+
+
+
+
+<div class="meta">
+<p>
+Defined in
+<a href="../files/src_displays_pixi_ui_Button.js.html#l145"><code>label:145</code></a>
+</p>
+
+
+</div>
+
+<div class="description">
+<p>The text field of the button. The label is centered by both width and height on the
+button.</p>
+
+</div>
+
+
+
+</div><div class="property_useBoundsForSize property item inherited">
+<h3 class="name"><a class="deeplink" href="#property_useBoundsForSize"><span class="glyphicon glyphicon-link"></span></a> <code>useBoundsForSize</code></h3>
+<span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
+
+
+
+
+
+<div class="meta">
+<p>Inherited from
+<a href="../classes/PIXI.Container.html#property_useBoundsForSize">PIXI.Container</a>:
+<a href="../files/src_displays_pixi_mixins_Container.js.html#l18"><code>useBoundsForSize:18</code></a>
+</p>
+
+
+</div>
+
+<div class="description">
+<p>Determines if width and height will calculate bounds of all children using getLocalBounds(),
+or only use the internal _width or _height. This should really only be set once, when the
+display object is initialized. Note that without this property, the default would be to
+use getLocalBounds();</p>
+
+</div>
+
+<p><strong>Default:</strong> true</p>
+
+
+</div></div>
+
+
+</div>
+</div></div>
+</div>
+</div>
+</div>
+<script src='../assets/js/libraries.js?v=0.4.0'></script>
+<script src='../assets/js/main.js?v=0.4.0'></script>
+</body>
+</html>

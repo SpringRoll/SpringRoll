@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<title>Caching Example</title>
+		<meta name="description" content="">
+		<meta name="viewport" content="width=device-width">
+		<link rel="stylesheet" href="assets/css/main.css">
+
+		<!-- Examples dependencies, these are only necessary for examples -->
+		<link rel="stylesheet" href="../components/google-code-prettify/bin/prettify.min.css">
+		<script src="../components/google-code-prettify/bin/prettify.min.js"></script>
+		<script src="../components/google-code-prettify/bin/run_prettify.min.js"></script>
+		<script src="assets/js/examples.js"></script>
+
+		<!-- External dependencies -->
+		<script src="../components/tweenjs/lib/tweenjs.min.js"></script>
+		<script src="../components/easeljs/lib/easeljs.combined.js"></script>
+		<script src="../components/preloadjs/lib/preloadjs.min.js"></script>
+
+		<!-- Library and modules -->
+		<script src="../dist/core.js"></script>
+		<script src="../dist/modules/debug.js"></script>
+		<script src="../dist/modules/easeljs-display.js"></script>
+
+	</head>
+	<body class="md2">
+		<div id="content" class="canvas">
+			<nav>
+				<button id="canvas">Application</button>
+				<button id="code">Code</button>
+				<button id="back">Back</button>
+			</nav>
+			<canvas id="stage" width="800" height="533"></canvas>
+			<pre id="codeDisplay"></pre>
+<script>
+
+var Application = include('springroll.Application'),
+	Bitmap = include('createjs.Bitmap'),
+	Tween = include('createjs.Tween'),
+	EaselJSDisplay = include('springroll.EaselJSDisplay');
+
+var app = new Application({
+	canvasId: "stage",
+	display: EaselJSDisplay,
+	preload: [
+		// Preload the alpha-color image, must contain
+		// two images: color & alpha. The alpha must
+		// have an alpha channel, e.g. PNG or GIF
+		{
+			id: 'AlphaImage',
+			color:'assets/images/character-color.jpg',
+			alpha:'assets/images/character-alpha.png',
+		},
+		// Load a background image
+		{
+			id: 'Background',
+			src: 'assets/images/background1.jpg',
+		}
+	]
+});
+
+app.once('init', function()
+{
+	// Use the alpha-color image as a bitmap
+	var character = new Bitmap(this.getCache('AlphaImage'));
+	character.x = 240;
+
+	// Create a background
+	var background = new Bitmap(this.getCache('Background'));
+
+	// Add to the stage
+	this.display.stage.addChild(
+		background,
+		character
+	);
+
+	// See, the alpha works!
+	Tween.get(character, {loop: true})
+		.to({x: 300}, 1000)
+		.to({x:240}, 1000);
+});
+
+
+</script>
+		</div>
+	</body>
+</html>

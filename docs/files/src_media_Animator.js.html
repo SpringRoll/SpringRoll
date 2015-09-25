@@ -1,0 +1,1575 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+	<title>SpringRoll v0.4.0 API Documentation : src/media/Animator.js</title>
+	<meta charset='utf-8'>
+	<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+	<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
+	<link rel='shortcut icon' type='image/png' href='../assets/images/favicon.ico?v=0.4.0'>
+	<link href='//fonts.googleapis.com/css?family=Titillium+Web:300,200,600' rel='stylesheet' type='text/css'>
+	<link rel='stylesheet' type='text/css' href='../assets/css/libraries.css?v=0.4.0'>
+	<link rel='stylesheet' type='text/css' href='../assets/css/main.css?v=0.4.0'>
+</head>
+<body>
+<header>
+	<nav class="navbar navbar-inverse navbar-fixed-top">
+		<div class='container'>
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#docs-navbar">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href='https://github.com/SpringRoll/SpringRoll'>
+						<img src='../assets/images/logo.png?v=0.4.0' class="logo">
+					<span class='project-name'>SpringRoll</span>
+					<span class="sr-only">API Documentation for:</span>
+					<span class='version hidden-xs'>v0.4.0</span>
+				</a>
+			</div>
+			<div class="collapse navbar-collapse" id="docs-navbar">
+	      <ul class="scope-toggles text-center nav navbar-nav navbar-right">
+					<li><input class='scope-toggle' 
+						id='toggle-inherited' 
+						type='checkbox' 
+						data-toggle='toggle' 
+						data-on='Inherited' 
+						data-off='Inherited' 
+						data-size='mini'
+						data-width='80'>
+					</li>
+					<li><input class='scope-toggle' 
+						id='toggle-protected' 
+						type='checkbox' 
+						data-toggle='toggle' 
+						data-on='Protected' 
+						data-off='Protected' 
+						data-size='mini'
+						data-width='80'>
+					</li>
+					<li><input class='scope-toggle' 
+						id='toggle-private' 
+						type='checkbox' 
+						data-toggle='toggle' 
+						data-on='Private' 
+						data-off='Private' 
+						data-size='mini'
+						data-width='80'>
+					</li>
+					<li><input class='scope-toggle' 
+						id='toggle-deprecated' 
+						type='checkbox' 
+						data-toggle='toggle' 
+						data-on='Deprecated' 
+						data-off='Deprecated' 
+						data-size='mini'
+						data-width='80'>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+</header>
+<div class='container'>
+<div class='row'>
+<nav id='sidebar' class='col-sm-4 col-md-3'>
+<h2>APIs</h2>
+<div class='input-group'>
+  <div class='input-group-addon'>
+    <span class='glyphicon glyphicon-search'></span>
+  </div>
+  <input type='search' class='form-control' id='api-filter' placeholder='Type to filter APIs'>
+  <span class='collapsed btn-close glyphicon glyphicon-remove-sign hidden'></span>
+</div>
+<nav class='navbar navbar-default'>
+  <!-- Brand and toggle get grouped for better mobile display -->
+  <div class="btn-group" role="group" aria-label="...">
+    <button type="button" class="sidebar-toggle collapsed btn btn-default" id='toggle-classes' data-target='#classes-collapse'>
+      Classes
+      <span class='collapsed glyphicon glyphicon-chevron-up'></span>
+      <span class='expanded glyphicon glyphicon-chevron-down'></span>
+    </button>
+    <button type="button" class="sidebar-toggle collapsed btn btn-default" id='toggle-modules' data-target='#modules-collapse'>
+      Modules
+      <span class='collapsed glyphicon glyphicon-chevron-up'></span>
+      <span class='expanded glyphicon glyphicon-chevron-down'></span>
+    </button>
+  </div>
+
+  <!-- Collect the nav links, forms, and other content for toggling -->
+  <div class='collapse' id='classes-collapse'>
+    <ul class='nav navbar-nav'>
+        <li class='public'>
+          <a href='../classes/createjs.Container.html'>createjs.Container</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/createjs.MovieClip.html'>createjs.MovieClip</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/createjs.Point.html'>createjs.Point</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/createjs.SpriteSheet.html'>createjs.SpriteSheet</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/PIXI.BitmapText.html'>PIXI.BitmapText</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/PIXI.Container.html'>PIXI.Container</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/PIXI.InteractionManager.html'>PIXI.InteractionManager</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/PIXI.Point.html'>PIXI.Point</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/PIXI.Sector.html'>PIXI.Sector</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/PIXI.Text.html'>PIXI.Text</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.AbstractDisplay.html'>springroll.AbstractDisplay</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.AbstractHint.html'>springroll.AbstractHint</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.Animator.html'>springroll.Animator</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.AnimatorHint.html'>springroll.AnimatorHint</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.AnimatorTimeline.html'>springroll.AnimatorTimeline</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.Application.html'>springroll.Application</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.ApplicationOptions.html'>springroll.ApplicationOptions</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.ApplicationPlugin.html'>springroll.ApplicationPlugin</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.AssetCache.html'>springroll.AssetCache</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.AssetLoad.html'>springroll.AssetLoad</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.AssetManager.html'>springroll.AssetManager</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.AssetSizes.html'>springroll.AssetSizes</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.BaseState.html'>springroll.BaseState</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.CacheManager.html'>springroll.CacheManager</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.Captions.html'>springroll.Captions</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.ColorAlphaTask.html'>springroll.ColorAlphaTask</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.CombinedCallback.html'>springroll.CombinedCallback</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.Container.html'>springroll.Container</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.Debug.html'>springroll.Debug</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.DebugOptions.html'>springroll.DebugOptions</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.DelayedCall.html'>springroll.DelayedCall</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.easeljs.Animator.html'>springroll.easeljs.Animator</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.easeljs.Application.html'>springroll.easeljs.Application</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.easeljs.BasePanel.html'>springroll.easeljs.BasePanel</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.easeljs.BaseState.html'>springroll.easeljs.BaseState</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.easeljs.BitmapMovieClip.html'>springroll.easeljs.BitmapMovieClip</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.easeljs.BitmapMovieClipInstance.html'>springroll.easeljs.BitmapMovieClipInstance</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.easeljs.BitmapMovieClipTask.html'>springroll.easeljs.BitmapMovieClipTask</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.easeljs.BitmapTask.html'>springroll.easeljs.BitmapTask</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.easeljs.BitmapUtils.html'>springroll.easeljs.BitmapUtils</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.easeljs.Button.html'>springroll.easeljs.Button</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.easeljs.Cutscene.html'>springroll.easeljs.Cutscene</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.easeljs.CutsceneTask.html'>springroll.easeljs.CutsceneTask</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.easeljs.DisplayAdapter.html'>springroll.easeljs.DisplayAdapter</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.easeljs.DragData.html'>springroll.easeljs.DragData</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.easeljs.DragManager.html'>springroll.easeljs.DragManager</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.easeljs.DwellTimer.html'>springroll.easeljs.DwellTimer</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.easeljs.EaselJSDisplay.html'>springroll.easeljs.EaselJSDisplay</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.easeljs.FlashArt.html'>springroll.easeljs.FlashArt</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.easeljs.FlashArtAtlasTask.html'>springroll.easeljs.FlashArtAtlasTask</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.easeljs.FlashArtTask.html'>springroll.easeljs.FlashArtTask</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.easeljs.FlashSpriteSheetTask.html'>springroll.easeljs.FlashSpriteSheetTask</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.easeljs.MovieClipInstance.html'>springroll.easeljs.MovieClipInstance</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.easeljs.ReversePlayback.html'>springroll.easeljs.ReversePlayback</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.easeljs.SoundButton.html'>springroll.easeljs.SoundButton</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.easeljs.SoundTask.html'>springroll.easeljs.SoundTask</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.easeljs.SpriteSheetTask.html'>springroll.easeljs.SpriteSheetTask</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.easeljs.Texture.html'>springroll.easeljs.Texture</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.easeljs.TextureAtlas.html'>springroll.easeljs.TextureAtlas</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.easeljs.TextureAtlasTask.html'>springroll.easeljs.TextureAtlasTask</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.Enum.html'>springroll.Enum</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.EnumValue.html'>springroll.EnumValue</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.EventCatalog.html'>springroll.EventCatalog</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.EventDispatcher.html'>springroll.EventDispatcher</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.EventError.html'>springroll.EventError</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.EventSignature.html'>springroll.EventSignature</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.EventUtils.html'>springroll.EventUtils</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.Features.html'>springroll.Features</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.FlashArtImageTask.html'>springroll.FlashArtImageTask</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.FunctionHint.html'>springroll.FunctionHint</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.FunctionTask.html'>springroll.FunctionTask</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.GroupHint.html'>springroll.GroupHint</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.HintsPlayer.html'>springroll.HintsPlayer</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.Languages.html'>springroll.Languages</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.Learning.html'>springroll.Learning</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.LearningError.html'>springroll.LearningError</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.LearningMedia.html'>springroll.LearningMedia</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.ListTask.html'>springroll.ListTask</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.Loader.html'>springroll.Loader</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.LoaderItem.html'>springroll.LoaderItem</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.LoaderResult.html'>springroll.LoaderResult</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.LoadTask.html'>springroll.LoadTask</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.native.Circle.html'>springroll.native.Circle</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.native.DisplayAdapter.html'>springroll.native.DisplayAdapter</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.native.Ellipse.html'>springroll.native.Ellipse</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.native.NativeDisplay.html'>springroll.native.NativeDisplay</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.native.Point.html'>springroll.native.Point</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.native.Polygon.html'>springroll.native.Polygon</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.native.Rectangle.html'>springroll.native.Rectangle</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.PageVisibility.html'>springroll.PageVisibility</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.pixi.AdvancedMovieClip.html'>springroll.pixi.AdvancedMovieClip</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.pixi.AdvancedMovieClipInstance.html'>springroll.pixi.AdvancedMovieClipInstance</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.pixi.AdvancedMovieClipTask.html'>springroll.pixi.AdvancedMovieClipTask</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.pixi.Animator.html'>springroll.pixi.Animator</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.pixi.BitmapFontTask.html'>springroll.pixi.BitmapFontTask</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.pixi.Button.html'>springroll.pixi.Button</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.pixi.DisplayAdapter.html'>springroll.pixi.DisplayAdapter</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.pixi.DragData.html'>springroll.pixi.DragData</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.pixi.DragManager.html'>springroll.pixi.DragManager</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.pixi.ParallelSpineData.html'>springroll.pixi.ParallelSpineData</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.pixi.PixiDisplay.html'>springroll.pixi.PixiDisplay</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.pixi.SpineAnimTask.html'>springroll.pixi.SpineAnimTask</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.pixi.SpineAtlas.html'>springroll.pixi.SpineAtlas</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.pixi.SpineAtlasTask.html'>springroll.pixi.SpineAtlasTask</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.pixi.SpineInstance.html'>springroll.pixi.SpineInstance</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.pixi.TextureAtlas.html'>springroll.pixi.TextureAtlas</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.pixi.TextureAtlasTask.html'>springroll.pixi.TextureAtlasTask</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.pixi.TextureTask.html'>springroll.pixi.TextureTask</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.Positioner.html'>springroll.Positioner</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.Property.html'>springroll.Property</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.PropertyDispatcher.html'>springroll.PropertyDispatcher</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.SavedData.html'>springroll.SavedData</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.ScaleImage.html'>springroll.ScaleImage</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.ScaleItem.html'>springroll.ScaleItem</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.ScaleManager.html'>springroll.ScaleManager</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.Sound.html'>springroll.Sound</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.SoundContext.html'>springroll.SoundContext</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.SoundInstance.html'>springroll.SoundInstance</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.State.html'>springroll.State</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.StateEvent.html'>springroll.StateEvent</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.StateManager.html'>springroll.StateManager</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.StringFilters.html'>springroll.StringFilters</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.Task.html'>springroll.Task</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.TickerPlugin.html'>springroll.TickerPlugin</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.TimeUtils.html'>springroll.TimeUtils</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.UIScaler.html'>springroll.UIScaler</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.ValidationError.html'>springroll.ValidationError</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.VOHint.html'>springroll.VOHint</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.VOPlayer.html'>springroll.VOPlayer</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.WeightedRandom.html'>springroll.WeightedRandom</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/window.Array.html'>window.Array</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/window.extend.html'>window.extend</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/window.include.html'>window.include</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/window.Math.html'>window.Math</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/window.mixin.html'>window.mixin</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/window.namespace.html'>window.namespace</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/window.Number.html'>window.Number</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/window.Object.html'>window.Object</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/window.RequestUtils.html'>window.RequestUtils</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/window.String.html'>window.String</a>
+        </li>
+    </ul>
+  </div>
+
+  <!-- Collect the nav links, forms, and other content for toggling -->
+  <div class='collapse' id='modules-collapse'>
+    <ul class='nav navbar-nav'>
+        <li class=''>
+          <a href='../modules/Animation.html'>Animation</a>
+        </li>
+        <li class=''>
+          <a href='../modules/Captions.html'>Captions</a>
+        </li>
+        <li class=''>
+          <a href='../modules/Container.html'>Container</a>
+        </li>
+        <li class=''>
+          <a href='../modules/Container Client.html'>Container Client</a>
+        </li>
+        <li class=''>
+          <a href='../modules/Core.html'>Core</a>
+        </li>
+        <li class=''>
+          <a href='../modules/Debug.html'>Debug</a>
+        </li>
+        <li class=''>
+          <a href='../modules/EaselJS Animation.html'>EaselJS Animation</a>
+        </li>
+        <li class=''>
+          <a href='../modules/EaselJS Cutscene.html'>EaselJS Cutscene</a>
+        </li>
+        <li class=''>
+          <a href='../modules/EaselJS Display.html'>EaselJS Display</a>
+        </li>
+        <li class=''>
+          <a href='../modules/EaselJS Learning.html'>EaselJS Learning</a>
+        </li>
+        <li class=''>
+          <a href='../modules/EaselJS States.html'>EaselJS States</a>
+        </li>
+        <li class=''>
+          <a href='../modules/EaselJS UI.html'>EaselJS UI</a>
+        </li>
+        <li class=''>
+          <a href='../modules/Hints.html'>Hints</a>
+        </li>
+        <li class=''>
+          <a href='../modules/Languages.html'>Languages</a>
+        </li>
+        <li class=''>
+          <a href='../modules/Learning.html'>Learning</a>
+        </li>
+        <li class=''>
+          <a href='../modules/Learning Media.html'>Learning Media</a>
+        </li>
+        <li class=''>
+          <a href='../modules/Native Display.html'>Native Display</a>
+        </li>
+        <li class=''>
+          <a href='../modules/Pixi Animation.html'>Pixi Animation</a>
+        </li>
+        <li class=''>
+          <a href='../modules/PIXI Animation.html'>PIXI Animation</a>
+        </li>
+        <li class=''>
+          <a href='../modules/Pixi Display.html'>Pixi Display</a>
+        </li>
+        <li class=''>
+          <a href='../modules/PIXI Display.html'>PIXI Display</a>
+        </li>
+        <li class=''>
+          <a href='../modules/PIXI Spine.html'>PIXI Spine</a>
+        </li>
+        <li class=''>
+          <a href='../modules/PIXI UI.html'>PIXI UI</a>
+        </li>
+        <li class=''>
+          <a href='../modules/Sound.html'>Sound</a>
+        </li>
+        <li class=''>
+          <a href='../modules/States.html'>States</a>
+        </li>
+        <li class=''>
+          <a href='../modules/UI.html'>UI</a>
+        </li>
+    </ul>
+  </div>
+  <!-- /.container-fluid -->
+</nav></nav>
+<div class='col-sm-8 col-md-9'>
+<div id='docs-main' class='apidocs'>
+<h1 class="file-heading">File:Animator.js</h1>
+
+<div class="file">
+<pre class="code prettyprint linenums">/**
+ * @module Animation
+ * @namespace springroll
+ * @requires Core
+ */
+(function(undefined)
+{
+	//imports
+	var AnimatorTimeline = include(&#x27;springroll.AnimatorTimeline&#x27;),
+		Debug;
+
+	/**
+	 * Animator is a static class designed to provided
+	 * base animation functionality, using frame labels of MovieClips
+	 * @class Animator
+	 * @constructor
+	 * @param {springroll.Application} app Reference to the application
+	 */
+	var Animator = function(app)
+	{
+		/**
+		 * If we fire debug statements
+		 * @property {Boolean} debug
+		 */
+		this.debug = false;
+
+		/**
+		 * The global captions object to use with animator
+		 * @property {springroll.Captions} captions
+		 */
+		this.captions = null;
+
+		/**
+		 * Reference to the application
+		 * @property {springroll.Application} app
+		 * @private
+		 */
+		_app = app;
+
+		/**
+		 * The collection of AnimatorPlugin definitions
+		 * @property {Array} _definitions
+		 * @private
+		 */
+		_definitions = [];
+
+		/**
+		 * The collection of timelines
+		 * @property {Array} _timelines
+		 * @private
+		 */
+		_timelines = [];
+
+		/**
+		 * The collection of active timelines, indexed by MovieClip/instance. This will be
+		 * null in browsers where Map is not supported.
+		 * @property {Map} _timelineMap
+		 * @private
+		 */
+		try
+		{
+			_timelineMap = new Map();
+			//ensure that all the Map features we need are supported
+			if (typeof _timelineMap.delete != &quot;function&quot; ||
+				typeof _timelineMap.has != &quot;function&quot; ||
+				typeof _timelineMap.set != &quot;function&quot; ||
+				typeof _timelineMap.get != &quot;function&quot;)
+			{
+				_timelineMap = null;
+			}
+		}
+		catch (e)
+		{
+			// no catch
+		}
+
+		/**
+		 * The collection of used timeline objects
+		 * @property {Array} _timelinePool
+		 * @private
+		 */
+		_timelinePool = [];
+
+		/**
+		 * If there are timelines available
+		 * @property {Boolean} _hasTimelines
+		 * @private
+		 */
+		_hasTimelines = false;
+
+		/**
+		 * If the Animator is paused
+		 * @property {Boolean} _paused
+		 * @private
+		 */
+		_paused = false;
+
+		//update bind
+		this._update = this._update.bind(this);
+
+		Debug = include(&#x27;springroll.Debug&#x27;, false);
+	};
+
+	//reference to the prototype
+	var p = Animator.prototype;
+
+	//private local vars
+	var _timelines,
+		_timelineMap,
+		_definitions,
+		_hasTimelines,
+		_paused,
+		_timelinePool,
+		_app;
+
+	/**
+	 * Register an animator instance definition type
+	 * @method register
+	 * @param {String} qualifiedClassName The class name
+	 * @param {int} priority The priority order for definition
+	 */
+	p.register = function(qualifiedClassName, priority)
+	{
+		var plugin = include(qualifiedClassName, false);
+		if (!plugin)
+		{
+			return;
+		}
+		plugin.priority = priority;
+		_definitions.push(plugin);
+		_definitions.sort(function(a, b)
+		{
+			return b.priority - a.priority;
+		});
+	};
+
+	/**
+	 * Play an animation for a frame label event, with more verbose play options.
+	 * @method play
+	 * @param {*} clip The display object with the same API to animate.
+	 * @param {Object} options One of or an array of the following
+	 * @param {String} options.anim the frame label of the animation to play, 
+	 * e.g. &quot;onClose&quot; to &quot;onClose_stop&quot;.
+	 * @param {int} [options.start=0] Milliseconds into the animation to start. 
+	 * A value of -1 starts from a random time in the animation.
+	 * @param {int} [options.speed=1] a multiplier for the animation speed.
+	 * @param {Object|String} [options.audio] Audio to sync the animation to using 
+	 * springroll.Sound. audio can be a String if you want the audio to start 0 milliseconds 
+	 * into the animation.
+	 * @param {String} [options.audio.alias] The sound alias
+	 * @param {int} [options.audio.start] The sound delay
+	 * @param {Function} [onComplete] The callback function for when the animation is done.
+	 * @param {Function|Boolean} [onCancelled] A callback function for when an animation
+	 * is stopped with Animator.stop() or to play another  animation. A value of &#x27;true&#x27;
+	 * uses onComplete for onCancelled.
+	 * @return {springroll.AnimatorTimeline} The Timeline object that represents this play() call.
+	 */
+
+	/**
+	 * Play an animation for a frame label event or events
+	 * @method play
+	 * @param {*} clip The display object with the same API to animate.
+	 * @param {String|Array} eventList The name of an event or collection of events
+	 * @param {Function} [onComplete] The callback function for when the animation is done.
+	 * @param {Function|Boolean} [onCancelled] A callback function for when an animation is
+	 *        stopped with Animator.stop() or to play another
+	 *        animation. A value of &#x27;true&#x27; uses onComplete for
+	 *        onCancelled.
+	 * @return {springroll.AnimatorTimeline} The Timeline object that represents this play() call.
+	 */
+	p.play = function(clip, eventList, onComplete, onCancelled)
+	{
+		var audio, options;
+
+		if (onCancelled === true)
+		{
+			onCancelled = onComplete;
+		}
+		if (!Array.isArray(eventList))
+		{
+			eventList = [eventList];
+		}
+
+		this.stop(clip);
+
+		var timeline = this._makeTimeline(
+			clip,
+			eventList,
+			onComplete,
+			onCancelled
+		);
+
+		//if the animation is present and complete
+		if (timeline.eventList &amp;&amp; timeline.eventList.length &gt;= 1)
+		{
+			timeline._nextItem(); //advance the timeline to the first item
+
+			//Before we add the timeline, we should check to see
+			//if there are no timelines, then start the enter frame
+			//updating
+			if (!_hasTimelines)
+			{
+				this._startUpdate();
+			}
+
+			if (_timelineMap)
+			{
+				_timelineMap.set(clip, timeline);
+			}
+			_timelines.push(timeline);
+			_hasTimelines = true;
+
+			return timeline;
+		}
+
+		if (DEBUG &amp;&amp; Debug)
+		{
+			var label = eventList[0].anim ||
+				eventList[0].audio ||
+				eventList[0] ||
+				&#x27;&lt;label unknown&gt;&#x27;;
+			var readableInstance = instance.id ||
+				instance.name ||
+				instance.key ||
+				instance.label ||
+				instance.toString() ||
+				instance;
+			Debug.groupCollapsed(&quot;No valid animation label \&quot;&quot; + label + &quot;\&quot; in MovieClip &quot; + readableInstance);
+			Debug.red(&quot;eventList:&quot;, eventList);
+			Debug.red(&quot;instance:&quot;, instance);
+			Debug.trace(&quot;Animator.play&quot;);
+			Debug.groupEnd();
+		}
+
+		//reset the timeline and add to the pool of timeline objects
+		_timelinePool.push(timeline.reset());
+
+		if (onComplete)
+		{
+			onComplete();
+		}
+		return null;
+	};
+
+	/**
+	 * Creates the AnimatorTimeline for a given animation
+	 * @method _makeTimeline
+	 * @param {*} clip The instance to animate
+	 * @param {Array} eventList List of animation events
+	 * @param {Function} onComplete The function to callback when we&#x27;re done
+	 * @param {Function} onCancelled The function to callback when cancelled
+	 * @return {springroll.AnimatorTimeline} The Timeline object
+	 * @private
+	 */
+	p._makeTimeline = function(clip, eventList, onComplete, onCancelled)
+	{
+		var timeline = _timelinePool.length ?
+			_timelinePool.pop() :
+			new AnimatorTimeline();
+
+		var Definition = getDefinitionByClip(clip);
+		if (!Definition) return timeline;
+		var instance = Definition.create(clip);
+
+		if (!instance)
+		{
+			if (DEBUG &amp;&amp; Debug)
+			{
+				Debug.warn(&quot;Attempting to use Animator to play something that is not compatible: &quot;, instance);
+			}
+			return timeline;
+		}
+
+		var fps;
+
+		timeline.instance = instance;
+		timeline.eventList = []; //create a duplicate event list with specific info
+		timeline.onComplete = onComplete;
+		timeline.onCancelled = onCancelled;
+		timeline.speed = speed;
+		var anim, audio, start, speed, alias;
+
+		for (var j = 0, jLen = eventList.length; j &lt; jLen; ++j)
+		{
+			var listItem = eventList[j];
+
+			if (isString(listItem))
+			{
+				if (!Definition.hasAnimation(clip, listItem))
+					continue;
+
+				timeline.eventList.push(
+				{
+					anim: listItem,
+					audio: null,
+					start: 0,
+					speed: 1
+				});
+			}
+			else if (typeof listItem == &quot;object&quot;)
+			{
+				if (!Definition.hasAnimation(clip, listItem.anim))
+				{
+					continue;
+				}
+
+				var animData = {
+					anim: listItem.anim,
+					//convert into seconds, as that is what the time uses internally
+					start: isNumber(listItem.start) ? listItem.start * 0.001 : 0,
+					speed: listItem.speed &gt; 0 ? listItem.speed : 1,
+					loop: listItem.loop
+				};
+				audio = listItem.audio;
+				//figure out audio stuff if it is okay to use
+				if (audio &amp;&amp; _app.sound)
+				{
+					if (isString(audio))
+					{
+						start = 0;
+						alias = audio;
+					}
+					else
+					{
+						start = audio.start &gt; 0 ? audio.start * 0.001 : 0; //seconds
+						alias = audio.alias;
+					}
+					if (_app.sound.exists(alias))
+					{
+						_app.sound.preload(alias);
+						animData.alias = alias;
+						animData.audioStart = start;
+
+						animData.useCaptions = this.captions &amp;&amp; this.captions.hasCaption(alias);
+					}
+				}
+				timeline.eventList.push(animData);
+			}
+			else if (isNumber(listItem))
+			{
+				//convert to seconds
+				timeline.eventList.push(listItem * 0.001);
+			}
+			else if (isFunction(listItem))
+			{
+				//add functions directly
+				timeline.eventList.push(listItem);
+			}
+		}
+		return timeline;
+	};
+
+	/**
+	 * Determines if a given instance can be animated by Animator. Note - &#x60;id&#x60; is a property
+	 * with a unique value for each &#x60;createjs.DisplayObject&#x60;. If a custom object is made that does
+	 * not inherit from DisplayObject, it needs to not have an id that is identical to anything
+	 * from EaselJS.
+	 * @method canAnimate
+	 * @param {*} clip The object to check for animation properties.
+	 * @return {Boolean} If the instance can be animated or not.
+	 */
+	p.canAnimate = function(clip)
+	{
+		if (!clip)
+		{
+			return false;
+		}
+		return !!getDefinitionByClip(clip);
+	};
+
+	/**
+	 * Create an instance by clip
+	 * @method  createInstance
+	 * @private
+	 * @param  {*} clip The animation object to animate
+	 * @return {springroll.AnimatorInstance} The animator instance
+	 */
+	var createInstance = function(clip)
+	{
+		if (!clip)
+		{
+			return null;
+		}
+		var Definition = getDefinitionByClip(clip);
+		return Definition ? Definition.create(clip) : null;
+	};
+
+	/**
+	 * Destroy an instance
+	 * @method  poolInstance
+	 * @private
+	 * @param  {springroll.AnimatorInstance} instance The instance to destroy
+	 */
+	var poolInstance = function(instance)
+	{
+		var Definition = getDefinitionByClip(instance.clip);
+		Definition.pool(instance);
+	};
+
+	/**
+	 * Get a definition by clip
+	 * @private
+	 * @method  getDefinitionByClip
+	 * @param  {*} clip The animation clip
+	 * @return {function|null} The new definition
+	 */
+	var getDefinitionByClip = function(clip)
+	{
+		for (var Definition, i = 0, len = _definitions.length; i &lt; len; i++)
+		{
+			Definition = _definitions[i];
+			if (Definition.test(clip))
+			{
+				return Definition;
+			}
+		}
+		return null;
+	};
+
+	/**
+	 * Checks if animation exists
+	 * @method hasAnimation
+	 * @param {*} clip The instance to check
+	 * @param {String} event The frame label event (e.g. &quot;onClose&quot; to &quot;onClose_stop&quot;)
+	 * @public
+	 * @return {Boolean} does this animation exist?
+	 */
+	p.hasAnimation = function(clip, event)
+	{
+		var Definition = getDefinitionByClip(clip);
+		if (!Definition)
+		{
+			return false;
+		}
+		return Definition.hasAnimation(clip, event);
+	};
+
+	/**
+	 * Get duration of animation event (or sequence of events) in seconds
+	 * @method getDuration
+	 * @param {*} instance The timeline to check
+	 * @param {String|Array} event The frame label event or array, in the format that play() uses.
+	 * @public
+	 * @return {Number} Duration of animation event in milliseconds
+	 */
+	p.getDuration = function(clip, event)
+	{
+		var Definition = getDefinitionByClip(clip);
+		if (!Definition)
+		{
+			return 0;
+		}
+		if (!Array.isArray(event))
+		{
+			return Definition.getDuration(clip, event.anim || event);
+		}
+
+		var duration = 0;
+		for (var i = 0; i &lt; event.length; ++i)
+		{
+			var item = event[i];
+			if (typeof item == &quot;number&quot;)
+			{
+				duration += item;
+			}
+			else if (typeof item == &quot;string&quot;)
+			{
+				duration += Definition.getDuration(clip, item);
+			}
+			else if (typeof item == &quot;object&quot; &amp;&amp; item.anim)
+			{
+				duration += Definition.getDuration(clip, item.anim);
+			}
+		}
+		return duration;
+	};
+
+	/**
+	 * Stop the animation.
+	 * @method stop
+	 * @param {*} clip The instance to stop the action on
+	 * @param {Boolean} [removeCallbacks=false] Completely disregard the on complete
+	 * or on cancelled callback of this animation.
+	 */
+	p.stop = function(clip, removeCallbacks)
+	{
+		var timeline = getTimelineByClip(clip);
+		if (!timeline)
+		{
+			return;
+		}
+		if (removeCallbacks)
+		{
+			timeline.onComplete = timeline.onCancelled = null;
+		}
+		this._remove(timeline, true);
+	};
+
+	/**
+	 * Stop all current Animator animations. This is good for cleaning up all 
+	 * animation, as it doesn&#x27;t do a callback on any of them.
+	 * @method stopAll
+	 * @param {createjs.Container} [container] Specify a container to stop timelines
+	 * contained within. This only checks one layer deep.
+	 * @param {Boolean} [removeCallbacks=false] Completely disregard the on complete 
+	 * or on cancelled callback of the current animations.
+	 */
+	p.stopAll = function(container, removeCallbacks)
+	{
+		if (!_hasTimelines)
+		{
+			return;
+		}
+
+		var timeline;
+		for (var i = _timelines.length - 1; i &gt;= 0; --i)
+		{
+			timeline = _timelines[i];
+
+			if (!container || container.contains(timeline.instance.clip))
+			{
+				if (removeCallbacks)
+				{
+					timeline.onComplete = timeline.onCancelled = null;
+				}
+				this._remove(timeline, true);
+			}
+		}
+	};
+
+	/**
+	 * Remove a timeline from the stack
+	 * @method _remove
+	 * @param {springroll.AnimatorTimeline} timeline
+	 * @param {Boolean} doCancelled If we do the on complete callback
+	 * @private
+	 */
+	p._remove = function(timeline, doCancelled)
+	{
+		var index = _timelines.indexOf(timeline);
+
+		//We can&#x27;t remove an animation twice
+		if (index &lt; 0)
+		{
+			return;
+		}
+
+		var onComplete = timeline.onComplete,
+			onCancelled = timeline.onCancelled;
+
+		//in most cases, if doOnComplete is true, it&#x27;s a natural stop and 
+		//the audio can be allowed to continue
+		if (doCancelled &amp;&amp; timeline.soundInst)
+		{
+			timeline.soundInst.stop(); //stop the sound from playing
+		}
+
+		if (_timelineMap)
+		{
+			_timelineMap.delete(timeline.instance.clip);
+		}
+
+		//Remove from the stack
+		if (index == _timelines.length - 1)
+		{
+			_timelines.pop();
+		}
+		else
+		{
+			_timelines.splice(index, 1);
+		}
+		_hasTimelines = _timelines.length &gt; 0;
+
+		//stop the captions, if relevant
+		if (timeline.useCaptions)
+		{
+			this.captions.stop();
+		}
+
+		//Reset the timeline and add to the pool
+		//of timeline objects
+		_timelinePool.push(timeline.reset());
+
+		//Check if we should stop the update
+		if (!_hasTimelines)
+		{
+			this._stopUpdate();
+		}
+
+		//call the appropriate callback
+		if (doCancelled)
+		{
+			if (onCancelled)
+			{
+				onCancelled();
+			}
+		}
+		else if (onComplete)
+		{
+			onComplete();
+		}
+	};
+
+	/**
+	 * Pause all tweens which have been excuted by &#x60;play()&#x60;
+	 * @method pause
+	 */
+	p.pause = function()
+	{
+		if (_paused)
+		{
+			return;
+		}
+		_paused = true;
+
+		for (var i = _timelines.length - 1; i &gt;= 0; --i)
+		{
+			_timelines[i].paused = true;
+		}
+		this._stopUpdate();
+	};
+
+	/**
+	 * Resumes all tweens executed by the &#x60;play()&#x60;
+	 * @method resume
+	 */
+	p.resume = function()
+	{
+		if (!_paused)
+		{
+			return;
+		}
+		_paused = false;
+
+		//Resume playing of all the instances
+		for (var i = _timelines.length - 1; i &gt;= 0; --i)
+		{
+			_timelines[i].paused = false;
+		}
+		if (_hasTimelines)
+		{
+			this._startUpdate();
+		}
+	};
+
+	/**
+	 * Pauses or unpauses all timelines that are children of the specified DisplayObjectContainer.
+	 * @method pauseInGroup
+	 * @param {Boolean} paused If this should be paused or unpaused
+	 * @param {createjs.Container} container The container to stop timelines contained within
+	 */
+	p.pauseInGroup = function(paused, container)
+	{
+		if (!_hasTimelines || !container)
+		{
+			return;
+		}
+		for (var i = _timelines.length - 1; i &gt;= 0; --i)
+		{
+			if (container.contains(_timelines[i].instance.clip))
+			{
+				_timelines[i].paused = paused;
+			}
+		}
+	};
+
+	/**
+	 * Get the timeline object for an instance
+	 * @method getTimeline
+	 * @param {*} clip The animation clip
+	 * @return {springroll.AnimatorTimeline} The timeline
+	 */
+	p.getTimeline = function(clip)
+	{
+		if (!_hasTimelines)
+		{
+			return null;
+		}
+		return getTimelineByClip(clip);
+	};
+
+	/**
+	 * Loop a clip by timeline
+	 * @method getTimelineByClip
+	 * @private
+	 * @param {*} clip The clip to check
+	 * @return {springroll.AnimatorTimeline} The timeline for clip
+	 */
+	var getTimelineByClip = function(clip)
+	{
+		if (_timelineMap)
+		{
+			return _timelineMap.has(clip) ? _timelineMap.get(clip) : null;
+		}
+		else
+		{
+			for (var i = _timelines.length - 1; i &gt;= 0; --i)
+			{
+				if (_timelines[i].instance.clip === clip)
+				{
+					return _timelines[i];
+				}
+			}
+		}
+		return null;
+	};
+
+	/**
+	 * Whether the Animator class is currently paused.
+	 * @property {Boolean} paused
+	 * @readOnly
+	 */
+	Object.defineProperty(p, &#x27;paused&#x27;,
+	{
+		get: function()
+		{
+			return _paused;
+		}
+	});
+
+	/**
+	 * Start the updating
+	 * @method _startUpdate
+	 * @private
+	 */
+	p._startUpdate = function()
+	{
+		_app.on(&quot;update&quot;, this._update);
+	};
+
+	/**
+	 * Stop the updating
+	 * @method _stopUpdate
+	 * @private
+	 */
+	p._stopUpdate = function()
+	{
+		_app.off(&quot;update&quot;, this._update);
+	};
+
+	/**
+	 * The update every frame
+	 * @method
+	 * @param {int} elapsed The time in milliseconds since the last frame
+	 * @private
+	 */
+	p._update = function(elapsed)
+	{
+		var delta = elapsed * 0.001; //ms -&gt; sec
+
+		var t;
+		var instance;
+		var audioPos;
+		var position;
+		for (var i = _timelines.length - 1; i &gt;= 0; --i)
+		{
+			t = _timelines[i];
+			if (!t)
+			{
+				return; //error checking or stopping of all timelines during update
+			}
+			instance = t.instance;
+			if (t.paused)
+			{
+				continue;
+			}
+
+			//we&#x27;ll use this to figure out if the timeline is on the next item
+			//to avoid code repetition
+			position = 0;
+
+			if (t.soundInst)
+			{
+				if (t.soundInst.isValid)
+				{
+					//convert sound position ms -&gt; sec
+					audioPos = t.soundInst.position * 0.001;
+					if (audioPos &lt; 0)
+					{
+						audioPos = 0;
+					}
+					position = t.soundStart + audioPos;
+
+					if (t.useCaptions)
+					{
+						this.captions.seek(t.soundInst.position);
+					}
+				}
+				//if sound is no longer valid, stop animation playback immediately
+				else
+				{
+					position = t.duration;
+				}
+			}
+			else
+			{
+				position = t.position + delta * t.speed;
+			}
+
+			if (position &gt;= t.duration)
+			{
+				while (position &gt;= t.duration)
+				{
+					position -= t.duration;
+					if (t.isLooping)
+					{
+						//error checking
+						if (!t.duration)
+						{
+							t.complete = true;
+							break;
+						}
+						//call the on complete function each time
+						if (t.onComplete)
+							t.onComplete();
+					}
+					t._nextItem();
+					if (t.complete)
+					{
+						break;
+					}
+				}
+				if (t.complete)
+				{
+					this._remove(t);
+					continue;
+				}
+			}
+
+			if (t.playSound &amp;&amp; position &gt;= t.soundStart)
+			{
+				t.position = t.soundStart;
+				t.playSound = false;
+				t.soundInst = _app.sound.play(
+					t.soundAlias,
+					this._onSoundDone.bind(this, t, t.listIndex, t.soundAlias),
+					onSoundStarted.bind(null, t, t.listIndex)
+				);
+				if (t.useCaptions)
+				{
+					this.captions.play(t.soundAlias);
+				}
+			}
+			else
+			{
+				t.position = position;
+			}
+		}
+	};
+
+	/**
+	 * The sound has been started
+	 * @method onSoundStarted
+	 * @private
+	 * @param {springroll.AnimatorTimeline} timeline
+	 * @param {int} playIndex
+	 */
+	var onSoundStarted = function(timeline, playIndex)
+	{
+		if (timeline.listIndex != playIndex)
+		{
+			return;
+		}
+		//convert sound length to seconds
+		timeline.soundEnd = timeline.soundStart + timeline.soundInst.length * 0.001;
+	};
+
+	/**
+	 * The sound is done
+	 * @method _onSoundDone
+	 * @private
+	 * @param {springroll.AnimatorTimeline} timeline
+	 * @param {int} playIndex
+	 * @param {String} soundAlias
+	 */
+	p._onSoundDone = function(timeline, playIndex, soundAlias)
+	{
+		if (this.captions &amp;&amp; this.captions.currentAlias == soundAlias)
+		{
+			this.captions.stop();
+		}
+
+		if (timeline.listIndex != playIndex)
+		{
+			return;
+		}
+
+		if (timeline.soundEnd &gt; timeline.position)
+		{
+			timeline.position = timeline.soundEnd;
+		}
+		timeline.soundInst = null;
+	};
+
+	/**
+	 * Stops all animations and cleans up the variables used.
+	 * @method destroy
+	 */
+	p.destroy = function()
+	{
+		this.stopAll(null, true);
+		this.captions = null;
+		_app = null;
+		_timelines = null;
+		_timelinePool = null;
+		_timelineMap = null;
+		_definitions = null;
+	};
+
+
+	//Type checking, produces better uglify
+
+	/**
+	 * Check to see if object is a String
+	 * @method isString
+	 * @param {*} str The string
+	 * @return {Boolean} if object is String
+	 * @private
+	 */
+	function isString(str)
+	{
+		return typeof str == &quot;string&quot;;
+	}
+
+	/**
+	 * Check to see if object is a Number
+	 * @method isNumber
+	 * @param {*} num The object to check
+	 * @return {Boolean} if object is Number
+	 * @private
+	 */
+	function isNumber(num)
+	{
+		return typeof num == &quot;number&quot;;
+	}
+
+	/**
+	 * Check to see if object is a Function
+	 * @method isFunction
+	 * @param {*} func The object to check
+	 * @return {Boolean} if object is Function
+	 * @private
+	 */
+	function isFunction(func)
+	{
+		return typeof func == &quot;function&quot;;
+	}
+
+	//Assign to the global namespace
+	namespace(&#x27;springroll&#x27;).Animator = Animator;
+
+}());</pre>
+</div></div>
+</div>
+</div>
+</div>
+<script src='../assets/js/libraries.js?v=0.4.0'></script>
+<script src='../assets/js/main.js?v=0.4.0'></script>
+</body>
+</html>

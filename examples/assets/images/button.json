@@ -1,0 +1,44 @@
+{"frames": {
+
+"button_disabled.png":
+{
+	"frame": {"x":0,"y":0,"w":130,"h":54},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":130,"h":54},
+	"sourceSize": {"w":130,"h":54}
+},
+"button_down.png":
+{
+	"frame": {"x":0,"y":108,"w":130,"h":54},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":130,"h":54},
+	"sourceSize": {"w":130,"h":54}
+},
+"button_over.png":
+{
+	"frame": {"x":0,"y":54,"w":130,"h":54},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":130,"h":54},
+	"sourceSize": {"w":130,"h":54}
+},
+"button_up.png":
+{
+	"frame": {"x":0,"y":0,"w":130,"h":54},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":130,"h":54},
+	"sourceSize": {"w":130,"h":54}
+}},
+"meta": {
+	"app": "http://www.texturepacker.com",
+	"version": "1.0",
+	"image": "button.png",
+	"format": "RGBA8888",
+	"size": {"w":130,"h":162},
+	"scale": "1",
+	"smartupdate": "$TexturePacker:SmartUpdate:1c91ffce3ceb980039a07c859a3010fc$"
+}
+}

@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<title>Caching Example</title>
+		<meta name="description" content="">
+		<meta name="viewport" content="width=device-width">
+		<link rel="stylesheet" href="assets/css/main.css">
+
+		<!-- Examples dependencies, these are only necessary for examples -->
+		<link rel="stylesheet" href="../components/google-code-prettify/bin/prettify.min.css">
+		<script src="../components/google-code-prettify/bin/prettify.min.js"></script>
+		<script src="../components/google-code-prettify/bin/run_prettify.min.js"></script>
+		<script src="assets/js/examples.js"></script>
+
+		<!-- External dependencies -->
+		<script src="../components/tweenjs/lib/tweenjs.min.js"></script>
+		<script src="../components/easeljs/lib/easeljs.combined.js"></script>
+		<script src="../components/easeljs/lib/movieclip.combined.js"></script>
+		<script src="../components/preloadjs/lib/preloadjs.min.js"></script>
+
+		<!-- Library and modules -->
+		<script src="../dist/core.js"></script>
+		<script src="../dist/modules/debug.js"></script>
+		<script src="../dist/modules/animation.js"></script>
+		<script src="../dist/modules/easeljs-display.js"></script>
+		<script src="../dist/modules/easeljs-ui.js"></script>
+		<script src="../dist/modules/easeljs-animation.js"></script>
+
+	</head>
+	<body class="sm">
+		<div id="content" class="canvas">
+			<nav>
+				<button id="canvas">Application</button>
+				<button id="code">Code</button>
+				<button id="back">Back</button>
+			</nav>
+			<canvas id="stage" width="800" height="400"></canvas>
+			<pre id="codeDisplay"></pre>
+<script>
+
+var Application = include('springroll.Application'),
+	Bitmap = include('createjs.Bitmap'),
+	Button = include('springroll.easeljs.Button'),
+	EaselJSDisplay = include('springroll.EaselJSDisplay');
+
+var app = new Application({
+	resizeElement : "stageContainer",
+	canvasId: "stage",
+	display: EaselJSDisplay,
+	displayOptions: {
+		clearView: true
+	},
+	// Add the manifest with the loading event to make sure
+	// assets are loaded before the application is init
+	// all preload assets are automatically cached
+	preload: [
+		{
+			id: 'Background',
+			src: 'assets/images/background2.jpg',
+			format: 'createjs.Bitmap' // returns a Bitmap instead of image
+		},
+		{
+			id:'Button',
+			src:'assets/images/button.png',
+		},
+		{
+			id: 'Transition',
+			src: 'assets/js/Transition.js',
+		},
+		// Loading a BitmapMovieClip (requires anim, atlas, image)
+		// this type is in the easeljs-animation module
+		{
+			id:'Flower',
+			anim:'assets/images/FlowerData.json',
+			atlas:'assets/images/FlowerSheet.json',
+			image:'assets/images/FlowerSheet.png',
+		}
+	]
+});
+
+app.on('progress', function(progress)
+{
+	console.log("Load progress: ", progress * 100, "%");
+});
+
+app.once('init', function()
+{
+	// The asset manager just loaded the JavaScript
+	// now we can actually create a MovieClip
+	// from the JavaScript library
+	var transition = new lib.Transition();
+	
+	// Background image
+	var background = this.getCache('Background');
+
+	// Get the Bitmap movieclip
+	var flower = this.getCache('Flower');
+	
+	// Create a button that destroys the universe
+	var unloadButton = new Button(this.getCache('Button'), {
+		text: 'Unload',
+		font: "16px Arial",
+		color: "#ffffff"
+	});
+
+	// Fudge positions
+	transition.x = -140;
+	flower.x = 410;
+	flower.y = 260;
+	unloadButton.x = 340;
+	unloadButton.y = 300;
+
+	// Add items to the stage
+	this.display.stage.addChild(
+		background,
+		flower,
+		unloadButton,
+		transition
+	);
+	
+	// Add the animation
+	this.animator.play(flower, "wet");
+	this.animator.play(transition, "onTransitionIn");
+
+	// Handler to clear the stage
+	unloadButton.addEventListener(Button.BUTTON_PRESS, function()
+	{
+		// Destroy display objects
+		unloadButton.destroy();
+		unloadButton = null;
+
+		// Stop the animation
+		app.animator.stop(flower);
+		flower = null;
+
+		app.animator.stop(transition);
+		transition = null;
+
+		// Remove all display objects
+		app.display.stage.removeAllChildren();
+
+		// Unload assets that have been loaded
+		app.unload(
+			'Background',
+			'Button',
+			'Flower',
+			'Transition'
+		);
+	});
+});
+
+
+</script>
+		</div>
+	</body>
+</html>

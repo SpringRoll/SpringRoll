@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>Basic Example</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width">
+        <link rel="stylesheet" href="assets/css/main.css">
+
+        <!-- Examples dependencies, these are only necessary for examples -->
+        <link rel="stylesheet" href="../components/google-code-prettify/bin/prettify.min.css">
+		<script src="../components/google-code-prettify/bin/prettify.min.js"></script>
+		<script src="../components/google-code-prettify/bin/run_prettify.min.js"></script>
+		<script src="assets/js/examples.js"></script>
+
+        <!-- External dependencies -->
+        <script src="../components/preloadjs/lib/preloadjs.min.js"></script>
+		<script src="../components/easeljs/lib/easeljs.combined.js"></script>
+
+		<!-- Library and modules -->
+		<script src="../dist/core.js"></script>
+		<script src="../dist/modules/debug.js"></script>
+		<script src="../dist/modules/easeljs-display.js"></script>
+
+    </head>
+    <body class="md">
+		<div id="content" class="canvas">
+			<nav>
+				<button id="canvas">Application</button>
+				<button id="code">Code</button>
+				<button id="back">Back</button>
+			</nav>
+			<canvas id="stage" width="800" height="500"></canvas>
+			<pre id="codeDisplay"></pre>
+<script>
+// Include classes
+var Application = include('springroll.Application'),
+	EaselJSDisplay = include('springroll.EaselJSDisplay'),
+	Shape = include('createjs.Shape');
+
+// Create the new application
+var app = new Application({
+	canvasId: "stage",
+	debug: true,
+	display: EaselJSDisplay
+});
+
+// Wait until the app is ready
+app.once('init', function()
+{
+	var shape = new Shape();
+	shape.graphics.beginFill("#69a1df")
+		.drawCircle(400, 250, 100);
+
+	// Add it to the EaselJS stage
+	this.display.stage.addChild(shape);
+});
+</script>
+		</div>
+    </body>
+</html>

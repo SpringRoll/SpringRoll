@@ -1,0 +1,19 @@
+{
+	"sounds": {
+		"vo": {
+			"context":"vo",
+			"path":"assets/cutscene/audio/",
+			"sounds":[
+				"EDD_Intro_1",
+				"EDD_Intro_3",
+				"EDD_Intro_5",
+				"EDD_Intro_6_shorter",
+				"EDD_Intro_8",
+				"EDD_Intro_2_alt",
+				"EDD_Intro_7",
+				"EDD_Ovi_3",
+				"EDD_Ovi_6_alt"
+			]
+		}
+	}
+}

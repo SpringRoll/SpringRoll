@@ -1,0 +1,14 @@
+{
+	"ExampleAlias" : [
+		{
+			"start":0, 
+			"end":2000,
+			"content":"Ohh that looks awesome!"
+		},
+		{
+			"start":2100, 
+			"end":5000,
+			"content":"Want to try something else?"
+		}
+	]
+}

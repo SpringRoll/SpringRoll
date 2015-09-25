@@ -1,0 +1,20 @@
+{
+	"sounds": {
+		"sfx" : {
+			"context":"sfx",
+			"path":"assets/sound/sfx/",
+			"sounds": [
+				"FoodChute",
+				"TipEarned",
+				"TrashChute"
+			]
+		},
+		"music" : {
+			"context":"music",
+			"path":"assets/sound/music/",
+			"sounds": [
+				"TitleMusic"
+			]
+		}
+	}
+}

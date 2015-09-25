@@ -1,0 +1,4469 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+	<title>SpringRoll v0.4.0 API Documentation : springroll.Sound</title>
+	<meta charset='utf-8'>
+	<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+	<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
+	<link rel='shortcut icon' type='image/png' href='../assets/images/favicon.ico?v=0.4.0'>
+	<link href='//fonts.googleapis.com/css?family=Titillium+Web:300,200,600' rel='stylesheet' type='text/css'>
+	<link rel='stylesheet' type='text/css' href='../assets/css/libraries.css?v=0.4.0'>
+	<link rel='stylesheet' type='text/css' href='../assets/css/main.css?v=0.4.0'>
+</head>
+<body>
+<header>
+	<nav class="navbar navbar-inverse navbar-fixed-top">
+		<div class='container'>
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#docs-navbar">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href='https://github.com/SpringRoll/SpringRoll'>
+						<img src='../assets/images/logo.png?v=0.4.0' class="logo">
+					<span class='project-name'>SpringRoll</span>
+					<span class="sr-only">API Documentation for:</span>
+					<span class='version hidden-xs'>v0.4.0</span>
+				</a>
+			</div>
+			<div class="collapse navbar-collapse" id="docs-navbar">
+	      <ul class="scope-toggles text-center nav navbar-nav navbar-right">
+					<li><input class='scope-toggle' 
+						id='toggle-inherited' 
+						type='checkbox' 
+						data-toggle='toggle' 
+						data-on='Inherited' 
+						data-off='Inherited' 
+						data-size='mini'
+						data-width='80'>
+					</li>
+					<li><input class='scope-toggle' 
+						id='toggle-protected' 
+						type='checkbox' 
+						data-toggle='toggle' 
+						data-on='Protected' 
+						data-off='Protected' 
+						data-size='mini'
+						data-width='80'>
+					</li>
+					<li><input class='scope-toggle' 
+						id='toggle-private' 
+						type='checkbox' 
+						data-toggle='toggle' 
+						data-on='Private' 
+						data-off='Private' 
+						data-size='mini'
+						data-width='80'>
+					</li>
+					<li><input class='scope-toggle' 
+						id='toggle-deprecated' 
+						type='checkbox' 
+						data-toggle='toggle' 
+						data-on='Deprecated' 
+						data-off='Deprecated' 
+						data-size='mini'
+						data-width='80'>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+</header>
+<div class='container'>
+<div class='row'>
+<nav id='sidebar' class='col-sm-4 col-md-3'>
+<h2>APIs</h2>
+<div class='input-group'>
+  <div class='input-group-addon'>
+    <span class='glyphicon glyphicon-search'></span>
+  </div>
+  <input type='search' class='form-control' id='api-filter' placeholder='Type to filter APIs'>
+  <span class='collapsed btn-close glyphicon glyphicon-remove-sign hidden'></span>
+</div>
+<nav class='navbar navbar-default'>
+  <!-- Brand and toggle get grouped for better mobile display -->
+  <div class="btn-group" role="group" aria-label="...">
+    <button type="button" class="sidebar-toggle collapsed btn btn-default" id='toggle-classes' data-target='#classes-collapse'>
+      Classes
+      <span class='collapsed glyphicon glyphicon-chevron-up'></span>
+      <span class='expanded glyphicon glyphicon-chevron-down'></span>
+    </button>
+    <button type="button" class="sidebar-toggle collapsed btn btn-default" id='toggle-modules' data-target='#modules-collapse'>
+      Modules
+      <span class='collapsed glyphicon glyphicon-chevron-up'></span>
+      <span class='expanded glyphicon glyphicon-chevron-down'></span>
+    </button>
+  </div>
+
+  <!-- Collect the nav links, forms, and other content for toggling -->
+  <div class='collapse' id='classes-collapse'>
+    <ul class='nav navbar-nav'>
+        <li class='public'>
+          <a href='../classes/createjs.Container.html'>createjs.Container</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/createjs.MovieClip.html'>createjs.MovieClip</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/createjs.Point.html'>createjs.Point</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/createjs.SpriteSheet.html'>createjs.SpriteSheet</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/PIXI.BitmapText.html'>PIXI.BitmapText</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/PIXI.Container.html'>PIXI.Container</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/PIXI.InteractionManager.html'>PIXI.InteractionManager</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/PIXI.Point.html'>PIXI.Point</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/PIXI.Sector.html'>PIXI.Sector</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/PIXI.Text.html'>PIXI.Text</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.AbstractDisplay.html'>springroll.AbstractDisplay</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.AbstractHint.html'>springroll.AbstractHint</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.Animator.html'>springroll.Animator</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.AnimatorHint.html'>springroll.AnimatorHint</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.AnimatorTimeline.html'>springroll.AnimatorTimeline</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.Application.html'>springroll.Application</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.ApplicationOptions.html'>springroll.ApplicationOptions</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.ApplicationPlugin.html'>springroll.ApplicationPlugin</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.AssetCache.html'>springroll.AssetCache</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.AssetLoad.html'>springroll.AssetLoad</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.AssetManager.html'>springroll.AssetManager</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.AssetSizes.html'>springroll.AssetSizes</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.BaseState.html'>springroll.BaseState</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.CacheManager.html'>springroll.CacheManager</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.Captions.html'>springroll.Captions</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.ColorAlphaTask.html'>springroll.ColorAlphaTask</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.CombinedCallback.html'>springroll.CombinedCallback</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.Container.html'>springroll.Container</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.Debug.html'>springroll.Debug</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.DebugOptions.html'>springroll.DebugOptions</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.DelayedCall.html'>springroll.DelayedCall</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.easeljs.Animator.html'>springroll.easeljs.Animator</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.easeljs.Application.html'>springroll.easeljs.Application</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.easeljs.BasePanel.html'>springroll.easeljs.BasePanel</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.easeljs.BaseState.html'>springroll.easeljs.BaseState</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.easeljs.BitmapMovieClip.html'>springroll.easeljs.BitmapMovieClip</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.easeljs.BitmapMovieClipInstance.html'>springroll.easeljs.BitmapMovieClipInstance</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.easeljs.BitmapMovieClipTask.html'>springroll.easeljs.BitmapMovieClipTask</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.easeljs.BitmapTask.html'>springroll.easeljs.BitmapTask</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.easeljs.BitmapUtils.html'>springroll.easeljs.BitmapUtils</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.easeljs.Button.html'>springroll.easeljs.Button</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.easeljs.Cutscene.html'>springroll.easeljs.Cutscene</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.easeljs.CutsceneTask.html'>springroll.easeljs.CutsceneTask</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.easeljs.DisplayAdapter.html'>springroll.easeljs.DisplayAdapter</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.easeljs.DragData.html'>springroll.easeljs.DragData</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.easeljs.DragManager.html'>springroll.easeljs.DragManager</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.easeljs.DwellTimer.html'>springroll.easeljs.DwellTimer</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.easeljs.EaselJSDisplay.html'>springroll.easeljs.EaselJSDisplay</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.easeljs.FlashArt.html'>springroll.easeljs.FlashArt</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.easeljs.FlashArtAtlasTask.html'>springroll.easeljs.FlashArtAtlasTask</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.easeljs.FlashArtTask.html'>springroll.easeljs.FlashArtTask</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.easeljs.FlashSpriteSheetTask.html'>springroll.easeljs.FlashSpriteSheetTask</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.easeljs.MovieClipInstance.html'>springroll.easeljs.MovieClipInstance</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.easeljs.ReversePlayback.html'>springroll.easeljs.ReversePlayback</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.easeljs.SoundButton.html'>springroll.easeljs.SoundButton</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.easeljs.SoundTask.html'>springroll.easeljs.SoundTask</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.easeljs.SpriteSheetTask.html'>springroll.easeljs.SpriteSheetTask</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.easeljs.Texture.html'>springroll.easeljs.Texture</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.easeljs.TextureAtlas.html'>springroll.easeljs.TextureAtlas</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.easeljs.TextureAtlasTask.html'>springroll.easeljs.TextureAtlasTask</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.Enum.html'>springroll.Enum</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.EnumValue.html'>springroll.EnumValue</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.EventCatalog.html'>springroll.EventCatalog</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.EventDispatcher.html'>springroll.EventDispatcher</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.EventError.html'>springroll.EventError</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.EventSignature.html'>springroll.EventSignature</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.EventUtils.html'>springroll.EventUtils</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.Features.html'>springroll.Features</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.FlashArtImageTask.html'>springroll.FlashArtImageTask</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.FunctionHint.html'>springroll.FunctionHint</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.FunctionTask.html'>springroll.FunctionTask</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.GroupHint.html'>springroll.GroupHint</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.HintsPlayer.html'>springroll.HintsPlayer</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.Languages.html'>springroll.Languages</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.Learning.html'>springroll.Learning</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.LearningError.html'>springroll.LearningError</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.LearningMedia.html'>springroll.LearningMedia</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.ListTask.html'>springroll.ListTask</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.Loader.html'>springroll.Loader</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.LoaderItem.html'>springroll.LoaderItem</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.LoaderResult.html'>springroll.LoaderResult</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.LoadTask.html'>springroll.LoadTask</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.native.Circle.html'>springroll.native.Circle</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.native.DisplayAdapter.html'>springroll.native.DisplayAdapter</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.native.Ellipse.html'>springroll.native.Ellipse</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.native.NativeDisplay.html'>springroll.native.NativeDisplay</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.native.Point.html'>springroll.native.Point</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.native.Polygon.html'>springroll.native.Polygon</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.native.Rectangle.html'>springroll.native.Rectangle</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.PageVisibility.html'>springroll.PageVisibility</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.pixi.AdvancedMovieClip.html'>springroll.pixi.AdvancedMovieClip</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.pixi.AdvancedMovieClipInstance.html'>springroll.pixi.AdvancedMovieClipInstance</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.pixi.AdvancedMovieClipTask.html'>springroll.pixi.AdvancedMovieClipTask</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.pixi.Animator.html'>springroll.pixi.Animator</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.pixi.BitmapFontTask.html'>springroll.pixi.BitmapFontTask</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.pixi.Button.html'>springroll.pixi.Button</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.pixi.DisplayAdapter.html'>springroll.pixi.DisplayAdapter</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.pixi.DragData.html'>springroll.pixi.DragData</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.pixi.DragManager.html'>springroll.pixi.DragManager</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.pixi.ParallelSpineData.html'>springroll.pixi.ParallelSpineData</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.pixi.PixiDisplay.html'>springroll.pixi.PixiDisplay</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.pixi.SpineAnimTask.html'>springroll.pixi.SpineAnimTask</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.pixi.SpineAtlas.html'>springroll.pixi.SpineAtlas</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.pixi.SpineAtlasTask.html'>springroll.pixi.SpineAtlasTask</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.pixi.SpineInstance.html'>springroll.pixi.SpineInstance</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.pixi.TextureAtlas.html'>springroll.pixi.TextureAtlas</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.pixi.TextureAtlasTask.html'>springroll.pixi.TextureAtlasTask</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.pixi.TextureTask.html'>springroll.pixi.TextureTask</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.Positioner.html'>springroll.Positioner</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.Property.html'>springroll.Property</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.PropertyDispatcher.html'>springroll.PropertyDispatcher</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.SavedData.html'>springroll.SavedData</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.ScaleImage.html'>springroll.ScaleImage</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.ScaleItem.html'>springroll.ScaleItem</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.ScaleManager.html'>springroll.ScaleManager</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.Sound.html'>springroll.Sound</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.SoundContext.html'>springroll.SoundContext</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.SoundInstance.html'>springroll.SoundInstance</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.State.html'>springroll.State</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.StateEvent.html'>springroll.StateEvent</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.StateManager.html'>springroll.StateManager</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.StringFilters.html'>springroll.StringFilters</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.Task.html'>springroll.Task</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.TickerPlugin.html'>springroll.TickerPlugin</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.TimeUtils.html'>springroll.TimeUtils</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.UIScaler.html'>springroll.UIScaler</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.ValidationError.html'>springroll.ValidationError</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.VOHint.html'>springroll.VOHint</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.VOPlayer.html'>springroll.VOPlayer</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.WeightedRandom.html'>springroll.WeightedRandom</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/window.Array.html'>window.Array</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/window.extend.html'>window.extend</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/window.include.html'>window.include</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/window.Math.html'>window.Math</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/window.mixin.html'>window.mixin</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/window.namespace.html'>window.namespace</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/window.Number.html'>window.Number</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/window.Object.html'>window.Object</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/window.RequestUtils.html'>window.RequestUtils</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/window.String.html'>window.String</a>
+        </li>
+    </ul>
+  </div>
+
+  <!-- Collect the nav links, forms, and other content for toggling -->
+  <div class='collapse' id='modules-collapse'>
+    <ul class='nav navbar-nav'>
+        <li class=''>
+          <a href='../modules/Animation.html'>Animation</a>
+        </li>
+        <li class=''>
+          <a href='../modules/Captions.html'>Captions</a>
+        </li>
+        <li class=''>
+          <a href='../modules/Container.html'>Container</a>
+        </li>
+        <li class=''>
+          <a href='../modules/Container Client.html'>Container Client</a>
+        </li>
+        <li class=''>
+          <a href='../modules/Core.html'>Core</a>
+        </li>
+        <li class=''>
+          <a href='../modules/Debug.html'>Debug</a>
+        </li>
+        <li class=''>
+          <a href='../modules/EaselJS Animation.html'>EaselJS Animation</a>
+        </li>
+        <li class=''>
+          <a href='../modules/EaselJS Cutscene.html'>EaselJS Cutscene</a>
+        </li>
+        <li class=''>
+          <a href='../modules/EaselJS Display.html'>EaselJS Display</a>
+        </li>
+        <li class=''>
+          <a href='../modules/EaselJS Learning.html'>EaselJS Learning</a>
+        </li>
+        <li class=''>
+          <a href='../modules/EaselJS States.html'>EaselJS States</a>
+        </li>
+        <li class=''>
+          <a href='../modules/EaselJS UI.html'>EaselJS UI</a>
+        </li>
+        <li class=''>
+          <a href='../modules/Hints.html'>Hints</a>
+        </li>
+        <li class=''>
+          <a href='../modules/Languages.html'>Languages</a>
+        </li>
+        <li class=''>
+          <a href='../modules/Learning.html'>Learning</a>
+        </li>
+        <li class=''>
+          <a href='../modules/Learning Media.html'>Learning Media</a>
+        </li>
+        <li class=''>
+          <a href='../modules/Native Display.html'>Native Display</a>
+        </li>
+        <li class=''>
+          <a href='../modules/Pixi Animation.html'>Pixi Animation</a>
+        </li>
+        <li class=''>
+          <a href='../modules/PIXI Animation.html'>PIXI Animation</a>
+        </li>
+        <li class=''>
+          <a href='../modules/Pixi Display.html'>Pixi Display</a>
+        </li>
+        <li class=''>
+          <a href='../modules/PIXI Display.html'>PIXI Display</a>
+        </li>
+        <li class=''>
+          <a href='../modules/PIXI Spine.html'>PIXI Spine</a>
+        </li>
+        <li class=''>
+          <a href='../modules/PIXI UI.html'>PIXI UI</a>
+        </li>
+        <li class=''>
+          <a href='../modules/Sound.html'>Sound</a>
+        </li>
+        <li class=''>
+          <a href='../modules/States.html'>States</a>
+        </li>
+        <li class=''>
+          <a href='../modules/UI.html'>UI</a>
+        </li>
+    </ul>
+  </div>
+  <!-- /.container-fluid -->
+</nav></nav>
+<div class='col-sm-8 col-md-9'>
+<div id='docs-main' class='apidocs'>
+
+<h1>springroll.Sound Class</h1>
+<div class='box meta'>
+
+<div class='extends'>
+Extends
+<a href="../classes/springroll.EventDispatcher.html" class="crosslink">springroll.EventDispatcher</a>
+</div>
+
+<div class='foundat'>
+Defined in: <a href='../files/src_media_Sound.js.html#l18'><code>springroll.Sound:18</code></a>
+</div>
+
+Module:
+<a href="../modules/Sound.html">Sound</a>
+
+</div>
+
+
+<div class='box intro'>
+<p>Acts as a wrapper for SoundJS as well as adding lots of other functionality
+for managing sounds.</p>
+
+</div>
+
+
+<div id='classdocs' class='tabview'>
+<span id='docs-highlight'></span>
+<ul class='nav nav-tabs'>
+<li id='tab-index' class='docs-toggle'>
+<a data-toggle='tab' href='#docs-index'>Index</a>
+</li>
+<li id='tab-methods' class='docs-toggle'>
+<a data-toggle='tab' href='#docs-methods'>Methods</a>
+</li>
+<li id='tab-properties' class='docs-toggle'>
+<a data-toggle='tab' href='#docs-properties'>Properties</a>
+</li>
+<li id='tab-events' class='docs-toggle'>
+<a data-toggle='tab' href='#docs-events'>Events</a>
+</li>
+</ul>
+
+<div class='tab-content'>
+
+<div role='tabpanel' id='docs-index' class='tab-pane'>
+<div class='index-section tab-pane methods'>
+<h3>Methods</h3>
+
+<ul class='list-group row methods extends'>
+<li class='col-xs-6 col-md-4 index-item method private'>
+<a href='#method__getSoundInst'>_getSoundInst</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item method private'>
+<a href='#method__markLoaded'>_markLoaded</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item method private'>
+<a href='#method__onSoundComplete'>_onSoundComplete</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item method private'>
+<a href='#method__playAfterload'>_playAfterload</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item method private'>
+<a href='#method__playEmpty'>_playEmpty</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item method private'>
+<a href='#method__poolinst'>_poolinst</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item method private'>
+<a href='#method__stopInst'>_stopInst</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item method private'>
+<a href='#method__stopSound'>_stopSound</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item method private'>
+<a href='#method__update'>_update</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item method public'>
+<a href='#method_addContext'>addContext</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item method public'>
+<a href='#method_contextExists'>contextExists</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item method public inherited'>
+<a href='#method_destroy'>destroy</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item method public'>
+<a href='#method_exists'>exists</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item method public'>
+<a href='#method_fadeIn'>fadeIn</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item method public'>
+<a href='#method_fadeOut'>fadeOut</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item method public'>
+<a href='#method_getDuration'>getDuration</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item method inherited'>
+<a href='#method_has'>has</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item method'>
+<a href='#method_init'>init</a>
+
+<span class='flag static'>static</span>
+</li>
+<li class='col-xs-6 col-md-4 index-item method public'>
+<a href='#method_isLoaded'>isLoaded</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item method public'>
+<a href='#method_isLoading'>isLoading</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item method public'>
+<a href='#method_isPlaying'>isPlaying</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item method public'>
+<a href='#method_isUnloaded'>isUnloaded</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item method deprecated'>
+<a href='#method_loadConfig'>loadConfig</a>
+
+<span class='flag deprecated'>deprecated</span>
+</li>
+<li class='col-xs-6 col-md-4 index-item method inherited'>
+<a href='#method_off'>off</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item method inherited'>
+<a href='#method_on'>on</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item method inherited'>
+<a href='#method_once'>once</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item method public'>
+<a href='#method_pause'>pause</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item method public'>
+<a href='#method_pauseAll'>pauseAll</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item method public deprecated'>
+<a href='#method_pauseSound'>pauseSound</a>
+
+<span class='flag deprecated'>deprecated</span>
+</li>
+<li class='col-xs-6 col-md-4 index-item method public'>
+<a href='#method_play'>play</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item method public'>
+<a href='#method_preload'>preload</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item method deprecated'>
+<a href='#method_preloadSound'>preloadSound</a>
+
+<span class='flag deprecated'>deprecated</span>
+</li>
+<li class='col-xs-6 col-md-4 index-item method public'>
+<a href='#method_resume'>resume</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item method public'>
+<a href='#method_resumeAll'>resumeAll</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item method public'>
+<a href='#method_setContextMute'>setContextMute</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item method public'>
+<a href='#method_setContextVolume'>setContextVolume</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item method public'>
+<a href='#method_stop'>stop</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item method private'>
+<a href='#method_'></a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item method'>
+<a href='#method_stopAll'>stopAll</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item method public'>
+<a href='#method_stopContext'>stopContext</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item method inherited'>
+<a href='#method_trigger'>trigger</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item method private inherited'>
+<a href='#method_type'>type</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item method public'>
+<a href='#method_unload'>unload</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item method public'>
+<a href='#method_unloadAll'>unloadAll</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item method public deprecated'>
+<a href='#method_unpauseAll'>unpauseAll</a>
+
+<span class='flag deprecated'>deprecated</span>
+</li>
+<li class='col-xs-6 col-md-4 index-item method public deprecated'>
+<a href='#method_unpauseSound'>unpauseSound</a>
+
+<span class='flag deprecated'>deprecated</span>
+</li>
+</ul>
+</div>
+
+<div class='index-section tab-pane properties'>
+<h3>Properties</h3>
+
+<ul class='list-group row properties extends'>
+<li class='col-xs-6 col-md-4 index-item property private'>
+<a href='#property__contexts'>_contexts</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item property protected inherited'>
+<a href='#property__destroyed'>_destroyed</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item property private'>
+<a href='#property__fades'>_fades</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item property private inherited'>
+<a href='#property__listeners'>_listeners</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item property private'>
+<a href='#property__pool'>_pool</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item property private'>
+<a href='#property__sounds'>_sounds</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item property inherited'>
+<a href='#property_destroyed'>destroyed</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item property public'>
+<a href='#property_instance'>instance</a>
+
+<span class='flag static'>static</span>
+</li>
+<li class='col-xs-6 col-md-4 index-item property'>
+<a href='#property_muteAll'>muteAll</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item property'>
+<a href='#property_soundEnabled'>soundEnabled</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item property public'>
+<a href='#property_supportedSound'>supportedSound</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item property'>
+<a href='#property_systemMuted'>systemMuted</a>
+
+</li>
+</ul>
+</div>
+
+
+<div class='index-section tab-pane events'>
+<h3>Events</h3>
+
+<ul class='list-group row events extends'>
+<li class='col-xs-6 col-md-4 index-item event'>
+<a href='#event_systemUnmuted'>systemUnmuted</a>
+
+</li>
+</ul>
+</div>
+</div>
+
+<div role='tabpanel' id='docs-methods' class='tab-pane'>
+
+<div class='method__getSoundInst method item private'>
+<h3 class='name'><a class="deeplink" href="#method__getSoundInst"><span class="glyphicon glyphicon-link"></span></a> <code>_getSoundInst</code></h3>
+
+<div class='args'>
+<span class='paren'>(</span>
+<ul class='args-list inline commas'>
+<li class='arg'>
+<code>channel</code>
+</li>
+<li class='arg'>
+<code>id</code>
+</li>
+</ul><span class='paren'>)</span>
+</div>
+
+<span class='returns-inline'>
+<span class='type'>SoundInstance</span>
+</span>
+
+<div class='flags'>
+
+<span class='flag private'>private</span>
+
+
+
+
+</div> 
+
+<div class='meta'>
+<p>
+Defined in
+<a href='../files/src_media_Sound.js.html#l780'><code>_getSoundInst:780</code></a>
+</p>
+
+
+
+</div>
+
+<div class='description'>
+<p>Gets a SoundInstance, from the pool if available or maks a new one if not.</p>
+
+</div>
+
+<div class='params'>
+<h4>Parameters:</h4>
+
+<ul class='params-list'>
+<li class='param'>
+<code class='param-name'>channel</code>
+<span class='type'>createjs.SoundInstance</span>
+
+
+<div class='param-description'>
+<p>A createjs SoundInstance to initialize the object
+                                      with.</p>
+
+</div>
+
+</li>
+<li class='param'>
+<code class='param-name'>id</code>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+
+
+<div class='param-description'>
+<p>The alias of the sound that is going to be used.</p>
+
+</div>
+
+</li>
+</ul>
+</div>
+
+<div class='returns'>
+<h4>Returns:</h4>
+
+<div class='returns-description'>
+<span class='type'>SoundInstance</span>:
+<p>The SoundInstance that is ready to use.</p>
+
+</div>
+</div>
+
+</div><div class='method__markLoaded method item private'>
+<h3 class='name'><a class="deeplink" href="#method__markLoaded"><span class="glyphicon glyphicon-link"></span></a> <code>_markLoaded</code></h3>
+
+<div class='args'>
+<span class='paren'>(</span>
+<ul class='args-list inline commas'>
+<li class='arg'>
+<code>alias</code>
+</li>
+<li class='arg'>
+<code>callback</code>
+</li>
+</ul><span class='paren'>)</span>
+</div>
+
+
+<div class='flags'>
+
+<span class='flag private'>private</span>
+
+
+
+
+</div> 
+
+<div class='meta'>
+<p>
+Defined in
+<a href='../files/src_media_Sound.js.html#l1184'><code>_markLoaded:1184</code></a>
+</p>
+
+
+
+</div>
+
+<div class='description'>
+<p>Marks a sound as loaded. If it needs to play after the load, then it is played.</p>
+
+</div>
+
+<div class='params'>
+<h4>Parameters:</h4>
+
+<ul class='params-list'>
+<li class='param'>
+<code class='param-name'>alias</code>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+
+
+<div class='param-description'>
+<p>The alias of the sound to mark.</p>
+
+</div>
+
+</li>
+<li class='param'>
+<code class='param-name'>callback</code>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function" class="crosslink external" target="_blank">Function</a></span>
+
+
+<div class='param-description'>
+<p>A function to call to show that the sound is loaded.</p>
+
+</div>
+
+</li>
+</ul>
+</div>
+
+
+</div><div class='method__onSoundComplete method item private'>
+<h3 class='name'><a class="deeplink" href="#method__onSoundComplete"><span class="glyphicon glyphicon-link"></span></a> <code>_onSoundComplete</code></h3>
+
+<div class='args'>
+<span class='paren'>(</span>
+<ul class='args-list inline commas'>
+<li class='arg'>
+<code>inst</code>
+</li>
+</ul><span class='paren'>)</span>
+</div>
+
+
+<div class='flags'>
+
+<span class='flag private'>private</span>
+
+
+
+
+</div> 
+
+<div class='meta'>
+<p>
+Defined in
+<a href='../files/src_media_Sound.js.html#l871'><code>_onSoundComplete:871</code></a>
+</p>
+
+
+
+</div>
+
+<div class='description'>
+<p>The callback used for when a sound instance is complete.</p>
+
+</div>
+
+<div class='params'>
+<h4>Parameters:</h4>
+
+<ul class='params-list'>
+<li class='param'>
+<code class='param-name'>inst</code>
+<span class='type'>SoundInstance</span>
+
+
+<div class='param-description'>
+<p>The SoundInstance that is complete.s</p>
+
+</div>
+
+</li>
+</ul>
+</div>
+
+
+</div><div class='method__playAfterload method item private'>
+<h3 class='name'><a class="deeplink" href="#method__playAfterload"><span class="glyphicon glyphicon-link"></span></a> <code>_playAfterload</code></h3>
+
+<div class='args'>
+<span class='paren'>(</span>
+<ul class='args-list inline commas'>
+<li class='arg'>
+<code>result</code>
+</li>
+</ul><span class='paren'>)</span>
+</div>
+
+
+<div class='flags'>
+
+<span class='flag private'>private</span>
+
+
+
+
+</div> 
+
+<div class='meta'>
+<p>
+Defined in
+<a href='../files/src_media_Sound.js.html#l806'><code>_playAfterload:806</code></a>
+</p>
+
+
+
+</div>
+
+<div class='description'>
+<p>Plays a sound after it finishes loading.</p>
+
+</div>
+
+<div class='params'>
+<h4>Parameters:</h4>
+
+<ul class='params-list'>
+<li class='param'>
+<code class='param-name'>result</code>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a> | <a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+
+
+<div class='param-description'>
+<p>The sound to play as an alias or load manifest.</p>
+
+</div>
+
+</li>
+</ul>
+</div>
+
+
+</div><div class='method__playEmpty method item private'>
+<h3 class='name'><a class="deeplink" href="#method__playEmpty"><span class="glyphicon glyphicon-link"></span></a> <code>_playEmpty</code></h3>
+
+<span class='paren'>()</span>
+
+
+<div class='flags'>
+
+<span class='flag private'>private</span>
+
+
+
+
+</div> 
+
+<div class='meta'>
+<p>
+Defined in
+<a href='../files/src_media_Sound.js.html#l215'><code>_playEmpty:215</code></a>
+</p>
+
+
+
+</div>
+
+<div class='description'>
+<p>Statisfies the iOS event needed to initialize the audio</p>
+
+</div>
+
+
+
+</div><div class='method__poolinst method item private'>
+<h3 class='name'><a class="deeplink" href="#method__poolinst"><span class="glyphicon glyphicon-link"></span></a> <code>_poolinst</code></h3>
+
+<div class='args'>
+<span class='paren'>(</span>
+<ul class='args-list inline commas'>
+<li class='arg'>
+<code>inst</code>
+</li>
+</ul><span class='paren'>)</span>
+</div>
+
+
+<div class='flags'>
+
+<span class='flag private'>private</span>
+
+
+
+
+</div> 
+
+<div class='meta'>
+<p>
+Defined in
+<a href='../files/src_media_Sound.js.html#l1249'><code>_poolinst:1249</code></a>
+</p>
+
+
+
+</div>
+
+<div class='description'>
+<p>Places a SoundInstance back in the pool for reuse.</p>
+
+</div>
+
+<div class='params'>
+<h4>Parameters:</h4>
+
+<ul class='params-list'>
+<li class='param'>
+<code class='param-name'>inst</code>
+<span class='type'>SoundInstance</span>
+
+
+<div class='param-description'>
+<p>The instance to repool.</p>
+
+</div>
+
+</li>
+</ul>
+</div>
+
+
+</div><div class='method__stopInst method item private'>
+<h3 class='name'><a class="deeplink" href="#method__stopInst"><span class="glyphicon glyphicon-link"></span></a> <code>_stopInst</code></h3>
+
+<div class='args'>
+<span class='paren'>(</span>
+<ul class='args-list inline commas'>
+<li class='arg'>
+<code>inst</code>
+</li>
+</ul><span class='paren'>)</span>
+</div>
+
+
+<div class='flags'>
+
+<span class='flag private'>private</span>
+
+
+
+
+</div> 
+
+<div class='meta'>
+<p>
+Defined in
+<a href='../files/src_media_Sound.js.html#l935'><code>_stopInst:935</code></a>
+</p>
+
+
+
+</div>
+
+<div class='description'>
+<p>Stops and repools a specific SoundInstance.</p>
+
+</div>
+
+<div class='params'>
+<h4>Parameters:</h4>
+
+<ul class='params-list'>
+<li class='param'>
+<code class='param-name'>inst</code>
+<span class='type'>SoundInstance</span>
+
+
+<div class='param-description'>
+<p>The SoundInstance to stop.</p>
+
+</div>
+
+</li>
+</ul>
+</div>
+
+
+</div><div class='method__stopSound method item private'>
+<h3 class='name'><a class="deeplink" href="#method__stopSound"><span class="glyphicon glyphicon-link"></span></a> <code>_stopSound</code></h3>
+
+<div class='args'>
+<span class='paren'>(</span>
+<ul class='args-list inline commas'>
+<li class='arg'>
+<code>s</code>
+</li>
+</ul><span class='paren'>)</span>
+</div>
+
+
+<div class='flags'>
+
+<span class='flag private'>private</span>
+
+
+
+
+</div> 
+
+<div class='meta'>
+<p>
+Defined in
+<a href='../files/src_media_Sound.js.html#l919'><code>_stopSound:919</code></a>
+</p>
+
+
+
+</div>
+
+<div class='description'>
+<p>Stops all playing SoundInstances for a sound.</p>
+
+</div>
+
+<div class='params'>
+<h4>Parameters:</h4>
+
+<ul class='params-list'>
+<li class='param'>
+<code class='param-name'>s</code>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+
+
+<div class='param-description'>
+<p>The sound (from the _sounds dictionary) to stop.</p>
+
+</div>
+
+</li>
+</ul>
+</div>
+
+
+</div><div class='method__update method item private'>
+<h3 class='name'><a class="deeplink" href="#method__update"><span class="glyphicon glyphicon-link"></span></a> <code>_update</code></h3>
+
+<div class='args'>
+<span class='paren'>(</span>
+<ul class='args-list inline commas'>
+<li class='arg'>
+<code>elapsed</code>
+</li>
+</ul><span class='paren'>)</span>
+</div>
+
+
+<div class='flags'>
+
+<span class='flag private'>private</span>
+
+
+
+
+</div> 
+
+<div class='meta'>
+<p>
+Defined in
+<a href='../files/src_media_Sound.js.html#l563'><code>_update:563</code></a>
+</p>
+
+
+
+</div>
+
+<div class='description'>
+<p>The update call, used for fading sounds. This is bound to the instance of Sound</p>
+
+</div>
+
+<div class='params'>
+<h4>Parameters:</h4>
+
+<ul class='params-list'>
+<li class='param'>
+<code class='param-name'>elapsed</code>
+<span class='type'>Int</span>
+
+
+<div class='param-description'>
+<p>The time elapsed since the previous frame, in milliseconds.</p>
+
+</div>
+
+</li>
+</ul>
+</div>
+
+
+</div><div class='method_addContext method item public'>
+<h3 class='name'><a class="deeplink" href="#method_addContext"><span class="glyphicon glyphicon-link"></span></a> <code>addContext</code></h3>
+
+<div class='args'>
+<span class='paren'>(</span>
+<ul class='args-list inline commas'>
+<li class='arg'>
+<code>config</code>
+</li>
+</ul><span class='paren'>)</span>
+</div>
+
+<span class='returns-inline'>
+<span class='type'>Sound</span>
+</span>
+
+<div class='flags'>
+
+<span class='flag public'>public</span>
+
+
+
+
+</div> 
+
+<div class='meta'>
+<p>
+Defined in
+<a href='../files/src_media_Sound.js.html#l276'><code>addContext:276</code></a>
+</p>
+
+
+
+</div>
+
+<div class='description'>
+<p>Loads a context config object. This should not be called until after Sound.init() is complete.</p>
+
+</div>
+
+<div class='params'>
+<h4>Parameters:</h4>
+
+<ul class='params-list'>
+<li class='param'>
+<code class='param-name'>config</code>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+
+
+<div class='param-description'>
+<p>The config to load.</p>
+
+</div>
+
+<ul class='params-list'>
+<li class='param'>
+<code class='param-name optional'>[context]</code>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+<span class='flag optional' title='This parameter is optional.'>optional</span>
+
+<div class='param-description'>
+<p>The optional sound context to load sounds into unless
+otherwise specified by the individual sound. Sounds do not require a context.</p>
+
+</div>
+
+</li>
+<li class='param'>
+<code class='param-name optional'>[path=&quot;&quot;]</code>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+<span class='flag optional' title='This parameter is optional.'>optional</span>
+
+<div class='param-description'>
+<p>The path to prepend to all sound source urls in this config.</p>
+
+</div>
+
+</li>
+<li class='param'>
+<code class='param-name optional'>[preload=false]</code>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
+<span class='flag optional' title='This parameter is optional.'>optional</span>
+
+<div class='param-description'>
+<p>Option to preload all sound files in this context..</p>
+
+</div>
+
+</li>
+<li class='param'>
+<code class='param-name'>sounds</code>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array" class="crosslink external" target="_blank">Array</a></span>
+
+<div class='param-description'>
+<p>The list of sounds, either as String ids or Objects with settings.</p>
+
+</div>
+
+<ul class='params-list'>
+<li class='param'>
+  <code class='param-name'>listItem</code>
+  <span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a> | <a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+
+<div class='param-description'>
+  Not actually a property called listItem,
+but an entry in the array. If this is a string, then it is the same as {'id':'<yourString>'}.
+</div>
+</li>
+<li class='param'>
+  <code class='param-name'>listItem.id</code>
+  <span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+
+<div class='param-description'>
+  The id to reference the sound by.
+</div>
+</li>
+<li class='param'>
+  <code class='param-name optional'>[listItem.src]</code>
+  <span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+  <span class='flag optional' title='This parameter is optional.'>optional</span>
+
+<div class='param-description'>
+  The src path to the file, without an
+extension. If omitted, defaults to id.
+</div>
+</li>
+<li class='param'>
+  <code class='param-name optional'>[listItem.volume=1]</code>
+  <span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
+  <span class='flag optional' title='This parameter is optional.'>optional</span>
+
+<div class='param-description'>
+  The default volume for the sound, from 0 to 1.
+</div>
+</li>
+<li class='param'>
+  <code class='param-name optional'>[listItem.loop=false]</code>
+  <span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
+  <span class='flag optional' title='This parameter is optional.'>optional</span>
+
+<div class='param-description'>
+  If the sound should loop by 
+default whenever the loop parameter in play() is not specified.
+</div>
+</li>
+<li class='param'>
+  <code class='param-name optional'>[listItem.context]</code>
+  <span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+  <span class='flag optional' title='This parameter is optional.'>optional</span>
+
+<div class='param-description'>
+  A context name to override config.context with.
+</div>
+</li>
+<li class='param'>
+  <code class='param-name optional'>[listItem.preload]</code>
+  <span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
+  <span class='flag optional' title='This parameter is optional.'>optional</span>
+
+<div class='param-description'>
+  If the sound should be preloaded immediately.
+</div>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+
+<div class='returns'>
+<h4>Returns:</h4>
+
+<div class='returns-description'>
+<span class='type'>Sound</span>:
+<p>The sound object for chaining</p>
+
+</div>
+</div>
+
+</div><div class='method_contextExists method item public'>
+<h3 class='name'><a class="deeplink" href="#method_contextExists"><span class="glyphicon glyphicon-link"></span></a> <code>contextExists</code></h3>
+
+<div class='args'>
+<span class='paren'>(</span>
+<ul class='args-list inline commas'>
+<li class='arg'>
+<code>context</code>
+</li>
+</ul><span class='paren'>)</span>
+</div>
+
+<span class='returns-inline'>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
+</span>
+
+<div class='flags'>
+
+<span class='flag public'>public</span>
+
+
+
+
+</div> 
+
+<div class='meta'>
+<p>
+Defined in
+<a href='../files/src_media_Sound.js.html#l368'><code>contextExists:368</code></a>
+</p>
+
+
+
+</div>
+
+<div class='description'>
+<p>If a context exists</p>
+
+</div>
+
+<div class='params'>
+<h4>Parameters:</h4>
+
+<ul class='params-list'>
+<li class='param'>
+<code class='param-name'>context</code>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+
+
+<div class='param-description'>
+<p>The name of context to look for.</p>
+
+</div>
+
+</li>
+</ul>
+</div>
+
+<div class='returns'>
+<h4>Returns:</h4>
+
+<div class='returns-description'>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>:
+<p>true if the context exists, false otherwise.</p>
+
+</div>
+</div>
+
+</div><div class='method_destroy method item public'>
+<h3 class='name'><a class="deeplink" href="#method_destroy"><span class="glyphicon glyphicon-link"></span></a> <code>destroy</code></h3>
+
+<span class='paren'>()</span>
+
+
+<div class='flags'>
+
+<span class='flag public'>public</span>
+
+
+
+
+</div> 
+
+<div class='meta'>
+<p>Inherited from
+<a href='../classes/springroll.EventDispatcher.html#method_destroy'>
+springroll.EventDispatcher
+</a>
+but overwritten in
+<a href='../files/src_media_Sound.js.html#l1270'><code>destroy:1270</code></a>
+</p>
+
+
+
+</div>
+
+<div class='description'>
+<p>Destroys springroll.Sound. This unloads loaded sounds in SoundJS.</p>
+
+</div>
+
+
+
+</div><div class='method_exists method item public'>
+<h3 class='name'><a class="deeplink" href="#method_exists"><span class="glyphicon glyphicon-link"></span></a> <code>exists</code></h3>
+
+<div class='args'>
+<span class='paren'>(</span>
+<ul class='args-list inline commas'>
+<li class='arg'>
+<code>alias</code>
+</li>
+</ul><span class='paren'>)</span>
+</div>
+
+<span class='returns-inline'>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
+</span>
+
+<div class='flags'>
+
+<span class='flag public'>public</span>
+
+
+
+
+</div> 
+
+<div class='meta'>
+<p>
+Defined in
+<a href='../files/src_media_Sound.js.html#l356'><code>exists:356</code></a>
+</p>
+
+
+
+</div>
+
+<div class='description'>
+<p>If a sound exists in the list of recognized sounds.</p>
+
+</div>
+
+<div class='params'>
+<h4>Parameters:</h4>
+
+<ul class='params-list'>
+<li class='param'>
+<code class='param-name'>alias</code>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+
+
+<div class='param-description'>
+<p>The alias of the sound to look for.</p>
+
+</div>
+
+</li>
+</ul>
+</div>
+
+<div class='returns'>
+<h4>Returns:</h4>
+
+<div class='returns-description'>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>:
+<p>true if the sound exists, false otherwise.</p>
+
+</div>
+</div>
+
+</div><div class='method_fadeIn method item public'>
+<h3 class='name'><a class="deeplink" href="#method_fadeIn"><span class="glyphicon glyphicon-link"></span></a> <code>fadeIn</code></h3>
+
+<div class='args'>
+<span class='paren'>(</span>
+<ul class='args-list inline commas'>
+<li class='arg'>
+<code>aliasOrInst</code>
+</li>
+<li class='arg'>
+<code class='optional'>[duration=500]</code>
+</li>
+<li class='arg'>
+<code class='optional'>[targetVol]</code>
+</li>
+<li class='arg'>
+<code class='optional'>[startVol=0]</code>
+</li>
+</ul><span class='paren'>)</span>
+</div>
+
+
+<div class='flags'>
+
+<span class='flag public'>public</span>
+
+
+
+
+</div> 
+
+<div class='meta'>
+<p>
+Defined in
+<a href='../files/src_media_Sound.js.html#l462'><code>fadeIn:462</code></a>
+</p>
+
+
+
+</div>
+
+<div class='description'>
+<p>Fades a sound from 0 to a specified volume.</p>
+
+</div>
+
+<div class='params'>
+<h4>Parameters:</h4>
+
+<ul class='params-list'>
+<li class='param'>
+<code class='param-name'>aliasOrInst</code>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a> | SoundInstance</span>
+
+
+<div class='param-description'>
+<p>The alias of the sound to fade the 
+last played instance of, or an instance returned from play().</p>
+
+</div>
+
+</li>
+<li class='param'>
+<code class='param-name optional'>[duration=500]</code>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
+<span class='flag optional' title='This parameter is optional.'>optional</span>
+
+
+<div class='param-description'>
+<p>The duration in milliseconds to fade for. 
+The default is 500ms.</p>
+
+</div>
+
+</li>
+<li class='param'>
+<code class='param-name optional'>[targetVol]</code>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
+<span class='flag optional' title='This parameter is optional.'>optional</span>
+
+
+<div class='param-description'>
+<p>The volume to fade to. The default is the sound&#39;s default volume.</p>
+
+</div>
+
+</li>
+<li class='param'>
+<code class='param-name optional'>[startVol=0]</code>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
+<span class='flag optional' title='This parameter is optional.'>optional</span>
+
+
+<div class='param-description'>
+<p>The volume to start from. The default is 0.</p>
+
+</div>
+
+</li>
+</ul>
+</div>
+
+
+</div><div class='method_fadeOut method item public'>
+<h3 class='name'><a class="deeplink" href="#method_fadeOut"><span class="glyphicon glyphicon-link"></span></a> <code>fadeOut</code></h3>
+
+<div class='args'>
+<span class='paren'>(</span>
+<ul class='args-list inline commas'>
+<li class='arg'>
+<code>aliasOrInst</code>
+</li>
+<li class='arg'>
+<code class='optional'>[duration=500]</code>
+</li>
+<li class='arg'>
+<code class='optional'>[targetVol=0]</code>
+</li>
+<li class='arg'>
+<code class='optional'>[startVol]</code>
+</li>
+</ul><span class='paren'>)</span>
+</div>
+
+
+<div class='flags'>
+
+<span class='flag public'>public</span>
+
+
+
+
+</div> 
+
+<div class='meta'>
+<p>
+Defined in
+<a href='../files/src_media_Sound.js.html#l508'><code>fadeOut:508</code></a>
+</p>
+
+
+
+</div>
+
+<div class='description'>
+<p>Fades a sound from the current volume to a specified volume. A sound that ends 
+at 0 volume is stopped after the fade.</p>
+
+</div>
+
+<div class='params'>
+<h4>Parameters:</h4>
+
+<ul class='params-list'>
+<li class='param'>
+<code class='param-name'>aliasOrInst</code>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a> | SoundInstance</span>
+
+
+<div class='param-description'>
+<p>The alias of the sound to fade the 
+last played instance of, or an instance returned from play().</p>
+
+</div>
+
+</li>
+<li class='param'>
+<code class='param-name optional'>[duration=500]</code>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
+<span class='flag optional' title='This parameter is optional.'>optional</span>
+
+
+<div class='param-description'>
+<p>The duration in milliseconds to fade for. 
+The default is 500ms.</p>
+
+</div>
+
+</li>
+<li class='param'>
+<code class='param-name optional'>[targetVol=0]</code>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
+<span class='flag optional' title='This parameter is optional.'>optional</span>
+
+
+<div class='param-description'>
+<p>The volume to fade to. The default is 0.</p>
+
+</div>
+
+</li>
+<li class='param'>
+<code class='param-name optional'>[startVol]</code>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
+<span class='flag optional' title='This parameter is optional.'>optional</span>
+
+
+<div class='param-description'>
+<p>The volume to fade from. The default is the current volume.</p>
+
+</div>
+
+</li>
+</ul>
+</div>
+
+
+</div><div class='method_getDuration method item public'>
+<h3 class='name'><a class="deeplink" href="#method_getDuration"><span class="glyphicon glyphicon-link"></span></a> <code>getDuration</code></h3>
+
+<div class='args'>
+<span class='paren'>(</span>
+<ul class='args-list inline commas'>
+<li class='arg'>
+<code>alias</code>
+</li>
+</ul><span class='paren'>)</span>
+</div>
+
+<span class='returns-inline'>
+<span class='type'>Int | Null</span>
+</span>
+
+<div class='flags'>
+
+<span class='flag public'>public</span>
+
+
+
+
+</div> 
+
+<div class='meta'>
+<p>
+Defined in
+<a href='../files/src_media_Sound.js.html#l433'><code>getDuration:433</code></a>
+</p>
+
+
+
+</div>
+
+<div class='description'>
+<p>Gets the duration of a sound in milliseconds, if it has been loaded.</p>
+
+</div>
+
+<div class='params'>
+<h4>Parameters:</h4>
+
+<ul class='params-list'>
+<li class='param'>
+<code class='param-name'>alias</code>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+
+
+<div class='param-description'>
+<p>The alias of the sound to look for.</p>
+
+</div>
+
+</li>
+</ul>
+</div>
+
+<div class='returns'>
+<h4>Returns:</h4>
+
+<div class='returns-description'>
+<span class='type'>Int | Null</span>:
+<p>The duration of the sound in milliseconds. If the sound has
+not been loaded, 0 is returned. If no sound exists by that alias, null is returned.</p>
+
+</div>
+</div>
+
+</div><div class='method_has method item inherited'>
+<h3 class='name'><a class="deeplink" href="#method_has"><span class="glyphicon glyphicon-link"></span></a> <code>has</code></h3>
+
+<div class='args'>
+<span class='paren'>(</span>
+<ul class='args-list inline commas'>
+<li class='arg'>
+<code>name</code>
+</li>
+<li class='arg'>
+<code class='optional'>[callback]</code>
+</li>
+</ul><span class='paren'>)</span>
+</div>
+
+<span class='returns-inline'>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
+</span>
+
+<div class='flags'>
+
+
+
+
+
+</div> 
+
+<div class='meta'>
+<p>Inherited from
+<a href='../classes/springroll.EventDispatcher.html#method_has'>springroll.EventDispatcher</a>:
+<a href='../files/src_events_EventDispatcher.js.html#l222'><code>has:222</code></a>
+</p>
+
+
+
+</div>
+
+<div class='description'>
+<p>Checks if the EventDispatcher has a specific listener or any listener for a given event.</p>
+
+</div>
+
+<div class='params'>
+<h4>Parameters:</h4>
+
+<ul class='params-list'>
+<li class='param'>
+<code class='param-name'>name</code>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+
+
+<div class='param-description'>
+<p>The name of the single event type to check for</p>
+
+</div>
+
+</li>
+<li class='param'>
+<code class='param-name optional'>[callback]</code>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function" class="crosslink external" target="_blank">Function</a></span>
+<span class='flag optional' title='This parameter is optional.'>optional</span>
+
+
+<div class='param-description'>
+<p>The listener function to check for. If omitted, checks for any listener.</p>
+
+</div>
+
+</li>
+</ul>
+</div>
+
+<div class='returns'>
+<h4>Returns:</h4>
+
+<div class='returns-description'>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>:
+<p>If the EventDispatcher has the specified listener.</p>
+
+</div>
+</div>
+
+</div><div class='method_init method item'>
+<h3 class='name'><a class="deeplink" href="#method_init"><span class="glyphicon glyphicon-link"></span></a> <code>init</code></h3>
+
+<div class='args'>
+<span class='paren'>(</span>
+<ul class='args-list inline commas'>
+<li class='arg'>
+<code>options</code>
+</li>
+</ul><span class='paren'>)</span>
+</div>
+
+<span class='returns-inline'>
+<span class='type'>Sound</span>
+</span>
+
+<div class='flags'>
+
+
+
+<span class='flag static'>static</span>
+
+
+</div> 
+
+<div class='meta'>
+<p>
+Defined in
+<a href='../files/src_media_Sound.js.html#l110'><code>init:110</code></a>
+</p>
+
+
+
+</div>
+
+<div class='description'>
+<p>Initializes the Sound singleton. If using createjs.FlashAudioPlugin, you will 
+be responsible for setting createjs.FlashAudioPlugin.BASE_PATH.</p>
+
+</div>
+
+<div class='params'>
+<h4>Parameters:</h4>
+
+<ul class='params-list'>
+<li class='param'>
+<code class='param-name'>options</code>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a> | <a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function" class="crosslink external" target="_blank">Function</a></span>
+
+
+<div class='param-description'>
+<p>Either the options object or the ready function</p>
+
+</div>
+
+<ul class='params-list'>
+<li class='param'>
+<code class='param-name optional'>[plugins=createjs.WebAudioPlugin,createjs.FlashAudioPlugin]</code>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array" class="crosslink external" target="_blank">Array</a></span>
+<span class='flag optional' title='This parameter is optional.'>optional</span>
+
+<div class='param-description'>
+<p>The SoundJS
+plugins to pass to createjs.Sound.registerPlugins().</p>
+
+</div>
+
+</li>
+<li class='param'>
+<code class='param-name optional'>[types=[&#x27;ogg&#x27;,&#x27;mp3&#x27;]]</code>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array" class="crosslink external" target="_blank">Array</a></span>
+<span class='flag optional' title='This parameter is optional.'>optional</span>
+
+<div class='param-description'>
+<p>The order in which file types are
+preferred, where "ogg" becomes a ".ogg" extension on all sound file urls.</p>
+
+</div>
+
+</li>
+<li class='param'>
+<code class='param-name optional'>[swfPath=&#x27;assets/swfs/&#x27;]</code>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+<span class='flag optional' title='This parameter is optional.'>optional</span>
+
+<div class='param-description'>
+<p>The required path to the 
+createjs.FlashAudioPlugin SWF</p>
+
+</div>
+
+</li>
+<li class='param'>
+<code class='param-name optional'>[ready]</code>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function" class="crosslink external" target="_blank">Function</a></span>
+<span class='flag optional' title='This parameter is optional.'>optional</span>
+
+<div class='param-description'>
+<p>A function to call when initialization is complete.</p>
+
+</div>
+
+</li>
+</ul>
+</li>
+</ul>
+</div>
+
+<div class='returns'>
+<h4>Returns:</h4>
+
+<div class='returns-description'>
+<span class='type'>Sound</span>:
+<p>The new instance of the sound object</p>
+
+</div>
+</div>
+
+</div><div class='method_isLoaded method item public'>
+<h3 class='name'><a class="deeplink" href="#method_isLoaded"><span class="glyphicon glyphicon-link"></span></a> <code>isLoaded</code></h3>
+
+<div class='args'>
+<span class='paren'>(</span>
+<ul class='args-list inline commas'>
+<li class='arg'>
+<code>alias</code>
+</li>
+</ul><span class='paren'>)</span>
+</div>
+
+<span class='returns-inline'>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
+</span>
+
+<div class='flags'>
+
+<span class='flag public'>public</span>
+
+
+
+
+</div> 
+
+<div class='meta'>
+<p>
+Defined in
+<a href='../files/src_media_Sound.js.html#l392'><code>isLoaded:392</code></a>
+</p>
+
+
+
+</div>
+
+<div class='description'>
+<p>If a sound is loaded.</p>
+
+</div>
+
+<div class='params'>
+<h4>Parameters:</h4>
+
+<ul class='params-list'>
+<li class='param'>
+<code class='param-name'>alias</code>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+
+
+<div class='param-description'>
+<p>The alias of the sound to look for.</p>
+
+</div>
+
+</li>
+</ul>
+</div>
+
+<div class='returns'>
+<h4>Returns:</h4>
+
+<div class='returns-description'>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>:
+<p>true if the sound is loaded, false if it is not loaded or does not exist.</p>
+
+</div>
+</div>
+
+</div><div class='method_isLoading method item public'>
+<h3 class='name'><a class="deeplink" href="#method_isLoading"><span class="glyphicon glyphicon-link"></span></a> <code>isLoading</code></h3>
+
+<div class='args'>
+<span class='paren'>(</span>
+<ul class='args-list inline commas'>
+<li class='arg'>
+<code>alias</code>
+</li>
+</ul><span class='paren'>)</span>
+</div>
+
+<span class='returns-inline'>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
+</span>
+
+<div class='flags'>
+
+<span class='flag public'>public</span>
+
+
+
+
+</div> 
+
+<div class='meta'>
+<p>
+Defined in
+<a href='../files/src_media_Sound.js.html#l404'><code>isLoading:404</code></a>
+</p>
+
+
+
+</div>
+
+<div class='description'>
+<p>If a sound is in the process of being loaded</p>
+
+</div>
+
+<div class='params'>
+<h4>Parameters:</h4>
+
+<ul class='params-list'>
+<li class='param'>
+<code class='param-name'>alias</code>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+
+
+<div class='param-description'>
+<p>The alias of the sound to look for.</p>
+
+</div>
+
+</li>
+</ul>
+</div>
+
+<div class='returns'>
+<h4>Returns:</h4>
+
+<div class='returns-description'>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>:
+<p>A value of true if the sound is currently loading, false if
+it is loaded, unloaded, or does not exist.</p>
+
+</div>
+</div>
+
+</div><div class='method_isPlaying method item public'>
+<h3 class='name'><a class="deeplink" href="#method_isPlaying"><span class="glyphicon glyphicon-link"></span></a> <code>isPlaying</code></h3>
+
+<div class='args'>
+<span class='paren'>(</span>
+<ul class='args-list inline commas'>
+<li class='arg'>
+<code>alias</code>
+</li>
+</ul><span class='paren'>)</span>
+</div>
+
+<span class='returns-inline'>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
+</span>
+
+<div class='flags'>
+
+<span class='flag public'>public</span>
+
+
+
+
+</div> 
+
+<div class='meta'>
+<p>
+Defined in
+<a href='../files/src_media_Sound.js.html#l417'><code>isPlaying:417</code></a>
+</p>
+
+
+
+</div>
+
+<div class='description'>
+<p>If a sound is playing.</p>
+
+</div>
+
+<div class='params'>
+<h4>Parameters:</h4>
+
+<ul class='params-list'>
+<li class='param'>
+<code class='param-name'>alias</code>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+
+
+<div class='param-description'>
+<p>The alias of the sound to look for.</p>
+
+</div>
+
+</li>
+</ul>
+</div>
+
+<div class='returns'>
+<h4>Returns:</h4>
+
+<div class='returns-description'>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>:
+<p>A value of true if the sound is currently playing or loading
+with an intent to play, false if it is not playing or does not exist.</p>
+
+</div>
+</div>
+
+</div><div class='method_isUnloaded method item public'>
+<h3 class='name'><a class="deeplink" href="#method_isUnloaded"><span class="glyphicon glyphicon-link"></span></a> <code>isUnloaded</code></h3>
+
+<div class='args'>
+<span class='paren'>(</span>
+<ul class='args-list inline commas'>
+<li class='arg'>
+<code>alias</code>
+</li>
+</ul><span class='paren'>)</span>
+</div>
+
+<span class='returns-inline'>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
+</span>
+
+<div class='flags'>
+
+<span class='flag public'>public</span>
+
+
+
+
+</div> 
+
+<div class='meta'>
+<p>
+Defined in
+<a href='../files/src_media_Sound.js.html#l380'><code>isUnloaded:380</code></a>
+</p>
+
+
+
+</div>
+
+<div class='description'>
+<p>If a sound is unloaded.</p>
+
+</div>
+
+<div class='params'>
+<h4>Parameters:</h4>
+
+<ul class='params-list'>
+<li class='param'>
+<code class='param-name'>alias</code>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+
+
+<div class='param-description'>
+<p>The alias of the sound to look for.</p>
+
+</div>
+
+</li>
+</ul>
+</div>
+
+<div class='returns'>
+<h4>Returns:</h4>
+
+<div class='returns-description'>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>:
+<p>true if the sound is unloaded, false if it is loaded, loading, or does not exist.</p>
+
+</div>
+</div>
+
+</div><div class='method_loadConfig method item deprecated'>
+<h3 class='name'><a class="deeplink" href="#method_loadConfig"><span class="glyphicon glyphicon-link"></span></a> <code>loadConfig</code></h3>
+
+<div class='args'>
+<span class='paren'>(</span>
+<ul class='args-list inline commas'>
+<li class='arg'>
+<code>config</code>
+</li>
+</ul><span class='paren'>)</span>
+</div>
+
+<span class='returns-inline'>
+<span class='type'><a href="../classes/springroll.Sound.html" class="crosslink">springroll.Sound</a></span>
+</span>
+
+<div class='flags'>
+<span class='flag deprecated'  title='since version 0.3.0' >deprecated</span>
+
+
+
+
+
+</div> 
+
+<div class='meta'>
+<p>
+Defined in
+<a href='../files/src_deprecation_sound.js.html#l18'><code>loadConfig:18</code></a>
+</p>
+
+
+<p>Deprecated: since version 0.3.0</p>
+
+</div>
+
+<div class='description'>
+<p>Add a configuration to the load, see <a href="../classes/springroll.Sound.html#method_addContext" class="crosslink">addContext</a></p>
+
+</div>
+
+<div class='params'>
+<h4>Parameters:</h4>
+
+<ul class='params-list'>
+<li class='param'>
+<code class='param-name'>config</code>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+
+
+<div class='param-description'>
+<p>The configuration</p>
+
+</div>
+
+</li>
+</ul>
+</div>
+
+<div class='returns'>
+<h4>Returns:</h4>
+
+<div class='returns-description'>
+<span class='type'><a href="../classes/springroll.Sound.html" class="crosslink">springroll.Sound</a></span>:
+<p>Sound object for chaining</p>
+
+</div>
+</div>
+
+</div><div class='method_off method item inherited'>
+<h3 class='name'><a class="deeplink" href="#method_off"><span class="glyphicon glyphicon-link"></span></a> <code>off</code></h3>
+
+<div class='args'>
+<span class='paren'>(</span>
+<ul class='args-list inline commas'>
+<li class='arg'>
+<code>name</code>
+</li>
+<li class='arg'>
+<code>callback</code>
+</li>
+</ul><span class='paren'>)</span>
+</div>
+
+<span class='returns-inline'>
+<span class='type'>EventDispatcher</span>
+</span>
+
+<div class='flags'>
+
+
+
+
+
+</div> 
+
+<div class='meta'>
+<p>Inherited from
+<a href='../classes/springroll.EventDispatcher.html#method_off'>springroll.EventDispatcher</a>:
+<a href='../files/src_events_EventDispatcher.js.html#l165'><code>off:165</code></a>
+</p>
+
+
+
+</div>
+
+<div class='description'>
+<p>Remove the event listener</p>
+
+</div>
+
+<div class='params'>
+<h4>Parameters:</h4>
+
+<ul class='params-list'>
+<li class='param'>
+<code class='param-name'>name</code>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String*</a></span>
+
+
+<div class='param-description'>
+<p>The type of event string separated by spaces, if no name is specifed remove all listeners.</p>
+
+</div>
+
+</li>
+<li class='param'>
+<code class='param-name'>callback</code>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function" class="crosslink external" target="_blank">Function</a> | <a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array" class="crosslink external" target="_blank">Array*</a></span>
+
+
+<div class='param-description'>
+<p>The listener function or collection of callback functions</p>
+
+</div>
+
+</li>
+</ul>
+</div>
+
+<div class='returns'>
+<h4>Returns:</h4>
+
+<div class='returns-description'>
+<span class='type'>EventDispatcher</span>:
+<p>Return this EventDispatcher for chaining calls.</p>
+
+</div>
+</div>
+
+</div><div class='method_on method item inherited'>
+<h3 class='name'><a class="deeplink" href="#method_on"><span class="glyphicon glyphicon-link"></span></a> <code>on</code></h3>
+
+<div class='args'>
+<span class='paren'>(</span>
+<ul class='args-list inline commas'>
+<li class='arg'>
+<code>name</code>
+</li>
+<li class='arg'>
+<code>callback</code>
+</li>
+<li class='arg'>
+<code class='optional'>[priority=0]</code>
+</li>
+</ul><span class='paren'>)</span>
+</div>
+
+<span class='returns-inline'>
+<span class='type'>EventDispatcher</span>
+</span>
+
+<div class='flags'>
+
+
+
+
+
+</div> 
+
+<div class='meta'>
+<p>Inherited from
+<a href='../classes/springroll.EventDispatcher.html#method_on'>springroll.EventDispatcher</a>:
+<a href='../files/src_events_EventDispatcher.js.html#l97'><code>on:97</code></a>
+</p>
+
+
+
+</div>
+
+<div class='description'>
+<p>Add an event listener. The parameters for the listener functions depend on the event.</p>
+
+</div>
+
+<div class='params'>
+<h4>Parameters:</h4>
+
+<ul class='params-list'>
+<li class='param'>
+<code class='param-name'>name</code>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a> | <a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+
+
+<div class='param-description'>
+<p>The type of event (can be multiple events separated by spaces),
+     or a map of events to handlers</p>
+
+</div>
+
+</li>
+<li class='param'>
+<code class='param-name'>callback</code>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function" class="crosslink external" target="_blank">Function</a> | <a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array" class="crosslink external" target="_blank">Array*</a></span>
+
+
+<div class='param-description'>
+<p>The callback function when event is fired or an array of callbacks.</p>
+
+</div>
+
+</li>
+<li class='param'>
+<code class='param-name optional'>[priority=0]</code>
+<span class='type'>Int</span>
+<span class='flag optional' title='This parameter is optional.'>optional</span>
+
+
+<div class='param-description'>
+<p>The priority of the event listener. Higher numbers are handled first.</p>
+
+</div>
+
+</li>
+</ul>
+</div>
+
+<div class='returns'>
+<h4>Returns:</h4>
+
+<div class='returns-description'>
+<span class='type'>EventDispatcher</span>:
+<p>Return this EventDispatcher for chaining calls.</p>
+
+</div>
+</div>
+
+</div><div class='method_once method item inherited'>
+<h3 class='name'><a class="deeplink" href="#method_once"><span class="glyphicon glyphicon-link"></span></a> <code>once</code></h3>
+
+<div class='args'>
+<span class='paren'>(</span>
+<ul class='args-list inline commas'>
+<li class='arg'>
+<code>name</code>
+</li>
+<li class='arg'>
+<code>callback</code>
+</li>
+<li class='arg'>
+<code class='optional'>[priority=0]</code>
+</li>
+</ul><span class='paren'>)</span>
+</div>
+
+<span class='returns-inline'>
+<span class='type'>EventDispatcher</span>
+</span>
+
+<div class='flags'>
+
+
+
+
+
+</div> 
+
+<div class='meta'>
+<p>Inherited from
+<a href='../classes/springroll.EventDispatcher.html#method_once'>springroll.EventDispatcher</a>:
+<a href='../files/src_events_EventDispatcher.js.html#l82'><code>once:82</code></a>
+</p>
+
+
+
+</div>
+
+<div class='description'>
+<p>Add an event listener but only handle it one time.</p>
+
+</div>
+
+<div class='params'>
+<h4>Parameters:</h4>
+
+<ul class='params-list'>
+<li class='param'>
+<code class='param-name'>name</code>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a> | <a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+
+
+<div class='param-description'>
+<p>The type of event (can be multiple events separated by spaces),
+     or a map of events to handlers</p>
+
+</div>
+
+</li>
+<li class='param'>
+<code class='param-name'>callback</code>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function" class="crosslink external" target="_blank">Function</a> | <a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array" class="crosslink external" target="_blank">Array*</a></span>
+
+
+<div class='param-description'>
+<p>The callback function when event is fired or an array of callbacks.</p>
+
+</div>
+
+</li>
+<li class='param'>
+<code class='param-name optional'>[priority=0]</code>
+<span class='type'>Int</span>
+<span class='flag optional' title='This parameter is optional.'>optional</span>
+
+
+<div class='param-description'>
+<p>The priority of the event listener. Higher numbers are handled first.</p>
+
+</div>
+
+</li>
+</ul>
+</div>
+
+<div class='returns'>
+<h4>Returns:</h4>
+
+<div class='returns-description'>
+<span class='type'>EventDispatcher</span>:
+<p>Return this EventDispatcher for chaining calls.</p>
+
+</div>
+</div>
+
+</div><div class='method_pause method item public'>
+<h3 class='name'><a class="deeplink" href="#method_pause"><span class="glyphicon glyphicon-link"></span></a> <code>pause</code></h3>
+
+<div class='args'>
+<span class='paren'>(</span>
+<ul class='args-list inline commas'>
+<li class='arg'>
+<code>alias</code>
+</li>
+</ul><span class='paren'>)</span>
+</div>
+
+
+<div class='flags'>
+
+<span class='flag public'>public</span>
+
+
+
+
+</div> 
+
+<div class='meta'>
+<p>
+Defined in
+<a href='../files/src_media_Sound.js.html#l987'><code>pause:987</code></a>
+</p>
+
+
+
+</div>
+
+<div class='description'>
+<p>Pauses a specific sound.</p>
+
+</div>
+
+<div class='params'>
+<h4>Parameters:</h4>
+
+<ul class='params-list'>
+<li class='param'>
+<code class='param-name'>alias</code>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+
+
+<div class='param-description'>
+<p>The alias of the sound to pause.
+    Internally, this can also be the object from the _sounds dictionary directly.</p>
+
+</div>
+
+</li>
+</ul>
+</div>
+
+
+</div><div class='method_pauseAll method item public'>
+<h3 class='name'><a class="deeplink" href="#method_pauseAll"><span class="glyphicon glyphicon-link"></span></a> <code>pauseAll</code></h3>
+
+<span class='paren'>()</span>
+
+
+<div class='flags'>
+
+<span class='flag public'>public</span>
+
+
+
+
+</div> 
+
+<div class='meta'>
+<p>
+Defined in
+<a href='../files/src_media_Sound.js.html#l1027'><code>pauseAll:1027</code></a>
+</p>
+
+
+
+</div>
+
+<div class='description'>
+<p>Pauses all sounds.</p>
+
+</div>
+
+
+
+</div><div class='method_pauseSound method item public deprecated'>
+<h3 class='name'><a class="deeplink" href="#method_pauseSound"><span class="glyphicon glyphicon-link"></span></a> <code>pauseSound</code></h3>
+
+<div class='args'>
+<span class='paren'>(</span>
+<ul class='args-list inline commas'>
+<li class='arg'>
+<code>alias</code>
+</li>
+</ul><span class='paren'>)</span>
+</div>
+
+
+<div class='flags'>
+<span class='flag deprecated'  title='since version 0.4.0' >deprecated</span>
+
+<span class='flag public'>public</span>
+
+
+
+
+</div> 
+
+<div class='meta'>
+<p>
+Defined in
+<a href='../files/src_deprecation_sound.js.html#l69'><code>pauseSound:69</code></a>
+</p>
+
+
+<p>Deprecated: since version 0.4.0</p>
+
+</div>
+
+<div class='description'>
+<p>Unpauses a specific sound, see <a href="../classes/springroll.Sound.html#method_pause" class="crosslink">pause</a></p>
+
+</div>
+
+<div class='params'>
+<h4>Parameters:</h4>
+
+<ul class='params-list'>
+<li class='param'>
+<code class='param-name'>alias</code>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+
+
+<div class='param-description'>
+<p>The alias of the sound to pause.</p>
+
+</div>
+
+</li>
+</ul>
+</div>
+
+
+</div><div class='method_play method item public'>
+<h3 class='name'><a class="deeplink" href="#method_play"><span class="glyphicon glyphicon-link"></span></a> <code>play</code></h3>
+
+<div class='args'>
+<span class='paren'>(</span>
+<ul class='args-list inline commas'>
+<li class='arg'>
+<code>alias</code>
+</li>
+<li class='arg'>
+<code class='optional'>[options]</code>
+</li>
+</ul><span class='paren'>)</span>
+</div>
+
+<span class='returns-inline'>
+<span class='type'>SoundInstance</span>
+</span>
+
+<div class='flags'>
+
+<span class='flag public'>public</span>
+
+
+
+
+</div> 
+
+<div class='meta'>
+<p>
+Defined in
+<a href='../files/src_media_Sound.js.html#l623'><code>play:623</code></a>
+</p>
+
+
+
+</div>
+
+<div class='description'>
+<p>Plays a sound.</p>
+
+</div>
+
+<div class='params'>
+<h4>Parameters:</h4>
+
+<ul class='params-list'>
+<li class='param'>
+<code class='param-name'>alias</code>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+
+
+<div class='param-description'>
+<p>The alias of the sound to play.</p>
+
+</div>
+
+</li>
+<li class='param'>
+<code class='param-name optional'>[options]</code>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a> | <a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function" class="crosslink external" target="_blank">Function</a></span>
+<span class='flag optional' title='This parameter is optional.'>optional</span>
+
+
+<div class='param-description'>
+<p>The object of optional parameters or complete 
+callback function.</p>
+
+</div>
+
+<ul class='params-list'>
+<li class='param'>
+<code class='param-name optional'>[complete]</code>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function" class="crosslink external" target="_blank">Function</a></span>
+<span class='flag optional' title='This parameter is optional.'>optional</span>
+
+<div class='param-description'>
+<p>An optional function to call when the sound is finished.</p>
+
+</div>
+
+</li>
+<li class='param'>
+<code class='param-name optional'>[start]</code>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function" class="crosslink external" target="_blank">Function</a></span>
+<span class='flag optional' title='This parameter is optional.'>optional</span>
+
+<div class='param-description'>
+<p>An optional function to call when the sound starts
+playback. If the sound is loaded, this is called immediately, if not, it calls 
+when the sound is finished loading.</p>
+
+</div>
+
+</li>
+<li class='param'>
+<code class='param-name optional'>[interrupt=false]</code>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
+<span class='flag optional' title='This parameter is optional.'>optional</span>
+
+<div class='param-description'>
+<p>If the sound should interrupt previous 
+sounds (SoundJS parameter). Default is false.</p>
+
+</div>
+
+</li>
+<li class='param'>
+<code class='param-name optional'>[delay=0]</code>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
+<span class='flag optional' title='This parameter is optional.'>optional</span>
+
+<div class='param-description'>
+<p>The delay to play the sound at in milliseconds 
+(SoundJS parameter). Default is 0.</p>
+
+</div>
+
+</li>
+<li class='param'>
+<code class='param-name optional'>[offset=0]</code>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
+<span class='flag optional' title='This parameter is optional.'>optional</span>
+
+<div class='param-description'>
+<p>The offset into the sound to play in milliseconds
+(SoundJS parameter). Default is 0.</p>
+
+</div>
+
+</li>
+<li class='param'>
+<code class='param-name optional'>[loop=0]</code>
+<span class='type'>Int</span>
+<span class='flag optional' title='This parameter is optional.'>optional</span>
+
+<div class='param-description'>
+<p>How many times the sound should loop. Use -1 
+(or true) for infinite loops (SoundJS parameter). Default is no looping.</p>
+
+</div>
+
+</li>
+<li class='param'>
+<code class='param-name optional'>[volume]</code>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
+<span class='flag optional' title='This parameter is optional.'>optional</span>
+
+<div class='param-description'>
+<p>The volume to play the sound at (0 to 1). 
+Omit to use the default for the sound.</p>
+
+</div>
+
+</li>
+<li class='param'>
+<code class='param-name optional'>[pan=0]</code>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
+<span class='flag optional' title='This parameter is optional.'>optional</span>
+
+<div class='param-description'>
+<p>The panning to start the sound at (-1 to 1). 
+Default is centered (0).</p>
+
+</div>
+
+</li>
+</ul>
+</li>
+</ul>
+</div>
+
+<div class='returns'>
+<h4>Returns:</h4>
+
+<div class='returns-description'>
+<span class='type'>SoundInstance</span>:
+<p>An internal SoundInstance object that can be used for 
+fading in/out as well as pausing and getting the sound&#39;s current position.</p>
+
+</div>
+</div>
+
+</div><div class='method_preload method item public'>
+<h3 class='name'><a class="deeplink" href="#method_preload"><span class="glyphicon glyphicon-link"></span></a> <code>preload</code></h3>
+
+<div class='args'>
+<span class='paren'>(</span>
+<ul class='args-list inline commas'>
+<li class='arg'>
+<code>list</code>
+</li>
+<li class='arg'>
+<code class='optional'>[callback]</code>
+</li>
+</ul><span class='paren'>)</span>
+</div>
+
+
+<div class='flags'>
+
+<span class='flag public'>public</span>
+
+
+
+
+</div> 
+
+<div class='meta'>
+<p>
+Defined in
+<a href='../files/src_media_Sound.js.html#l1126'><code>preload:1126</code></a>
+</p>
+
+
+
+</div>
+
+<div class='description'>
+<p>Preloads a list of sounds.</p>
+
+</div>
+
+<div class='params'>
+<h4>Parameters:</h4>
+
+<ul class='params-list'>
+<li class='param'>
+<code class='param-name'>list</code>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array" class="crosslink external" target="_blank">Array</a> | <a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+
+
+<div class='param-description'>
+<p>An alias or list of aliases to load.</p>
+
+</div>
+
+</li>
+<li class='param'>
+<code class='param-name optional'>[callback]</code>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function" class="crosslink external" target="_blank">Function</a></span>
+<span class='flag optional' title='This parameter is optional.'>optional</span>
+
+
+<div class='param-description'>
+<p>The function to call when all
+     sounds have been loaded.</p>
+
+</div>
+
+</li>
+</ul>
+</div>
+
+
+</div><div class='method_preloadSound method item deprecated'>
+<h3 class='name'><a class="deeplink" href="#method_preloadSound"><span class="glyphicon glyphicon-link"></span></a> <code>preloadSound</code></h3>
+
+<div class='args'>
+<span class='paren'>(</span>
+<ul class='args-list inline commas'>
+<li class='arg'>
+<code>alias</code>
+</li>
+<li class='arg'>
+<code>callback</code>
+</li>
+</ul><span class='paren'>)</span>
+</div>
+
+
+<div class='flags'>
+<span class='flag deprecated'  title='since version 0.4.0' >deprecated</span>
+
+
+
+
+
+</div> 
+
+<div class='meta'>
+<p>
+Defined in
+<a href='../files/src_deprecation_sound.js.html#l31'><code>preloadSound:31</code></a>
+</p>
+
+
+<p>Deprecated: since version 0.4.0</p>
+
+</div>
+
+<div class='description'>
+<p>Preload a single sound, see <a href="../classes/springroll.Sound.html#method_preload" class="crosslink">preload</a></p>
+
+</div>
+
+<div class='params'>
+<h4>Parameters:</h4>
+
+<ul class='params-list'>
+<li class='param'>
+<code class='param-name'>alias</code>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+
+
+<div class='param-description'>
+<p>The sound to preload</p>
+
+</div>
+
+</li>
+<li class='param'>
+<code class='param-name'>callback</code>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function" class="crosslink external" target="_blank">Function</a></span>
+
+
+<div class='param-description'>
+<p>Callback when complete</p>
+
+</div>
+
+</li>
+</ul>
+</div>
+
+
+</div><div class='method_resume method item public'>
+<h3 class='name'><a class="deeplink" href="#method_resume"><span class="glyphicon glyphicon-link"></span></a> <code>resume</code></h3>
+
+<div class='args'>
+<span class='paren'>(</span>
+<ul class='args-list inline commas'>
+<li class='arg'>
+<code>alias</code>
+</li>
+</ul><span class='paren'>)</span>
+</div>
+
+
+<div class='flags'>
+
+<span class='flag public'>public</span>
+
+
+
+
+</div> 
+
+<div class='meta'>
+<p>
+Defined in
+<a href='../files/src_media_Sound.js.html#l1007'><code>resume:1007</code></a>
+</p>
+
+
+
+</div>
+
+<div class='description'>
+<p>Unpauses a specific sound.</p>
+
+</div>
+
+<div class='params'>
+<h4>Parameters:</h4>
+
+<ul class='params-list'>
+<li class='param'>
+<code class='param-name'>alias</code>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+
+
+<div class='param-description'>
+<p>The alias of the sound to pause.
+    Internally, this can also be the object from the _sounds dictionary directly.</p>
+
+</div>
+
+</li>
+</ul>
+</div>
+
+
+</div><div class='method_resumeAll method item public'>
+<h3 class='name'><a class="deeplink" href="#method_resumeAll"><span class="glyphicon glyphicon-link"></span></a> <code>resumeAll</code></h3>
+
+<span class='paren'>()</span>
+
+
+<div class='flags'>
+
+<span class='flag public'>public</span>
+
+
+
+
+</div> 
+
+<div class='meta'>
+<p>
+Defined in
+<a href='../files/src_media_Sound.js.html#l1039'><code>resumeAll:1039</code></a>
+</p>
+
+
+
+</div>
+
+<div class='description'>
+<p>Unpauses all sounds.</p>
+
+</div>
+
+
+
+</div><div class='method_setContextMute method item public'>
+<h3 class='name'><a class="deeplink" href="#method_setContextMute"><span class="glyphicon glyphicon-link"></span></a> <code>setContextMute</code></h3>
+
+<div class='args'>
+<span class='paren'>(</span>
+<ul class='args-list inline commas'>
+<li class='arg'>
+<code>context</code>
+</li>
+<li class='arg'>
+<code>muted</code>
+</li>
+</ul><span class='paren'>)</span>
+</div>
+
+
+<div class='flags'>
+
+<span class='flag public'>public</span>
+
+
+
+
+</div> 
+
+<div class='meta'>
+<p>
+Defined in
+<a href='../files/src_media_Sound.js.html#l1051'><code>setContextMute:1051</code></a>
+</p>
+
+
+
+</div>
+
+<div class='description'>
+<p>Sets mute status of all sounds in a context</p>
+
+</div>
+
+<div class='params'>
+<h4>Parameters:</h4>
+
+<ul class='params-list'>
+<li class='param'>
+<code class='param-name'>context</code>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+
+
+<div class='param-description'>
+<p>The name of the context to modify.</p>
+
+</div>
+
+</li>
+<li class='param'>
+<code class='param-name'>muted</code>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
+
+
+<div class='param-description'>
+<p>If the context should be muted.</p>
+
+</div>
+
+</li>
+</ul>
+</div>
+
+
+</div><div class='method_setContextVolume method item public'>
+<h3 class='name'><a class="deeplink" href="#method_setContextVolume"><span class="glyphicon glyphicon-link"></span></a> <code>setContextVolume</code></h3>
+
+<div class='args'>
+<span class='paren'>(</span>
+<ul class='args-list inline commas'>
+<li class='arg'>
+<code>context</code>
+</li>
+<li class='arg'>
+<code>volume</code>
+</li>
+</ul><span class='paren'>)</span>
+</div>
+
+
+<div class='flags'>
+
+<span class='flag public'>public</span>
+
+
+
+
+</div> 
+
+<div class='meta'>
+<p>
+Defined in
+<a href='../files/src_media_Sound.js.html#l1095'><code>setContextVolume:1095</code></a>
+</p>
+
+
+
+</div>
+
+<div class='description'>
+<p>Sets volume of a context. Individual sound volumes are multiplied by this value.</p>
+
+</div>
+
+<div class='params'>
+<h4>Parameters:</h4>
+
+<ul class='params-list'>
+<li class='param'>
+<code class='param-name'>context</code>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+
+
+<div class='param-description'>
+<p>The name of the context to modify.</p>
+
+</div>
+
+</li>
+<li class='param'>
+<code class='param-name'>volume</code>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
+
+
+<div class='param-description'>
+<p>The volume for the context (0 to 1).</p>
+
+</div>
+
+</li>
+</ul>
+</div>
+
+
+</div><div class='method_stop method item public'>
+<h3 class='name'><a class="deeplink" href="#method_stop"><span class="glyphicon glyphicon-link"></span></a> <code>stop</code></h3>
+
+<div class='args'>
+<span class='paren'>(</span>
+<ul class='args-list inline commas'>
+<li class='arg'>
+<code>alias</code>
+</li>
+</ul><span class='paren'>)</span>
+</div>
+
+
+<div class='flags'>
+
+<span class='flag public'>public</span>
+
+
+
+
+</div> 
+
+<div class='meta'>
+<p>
+Defined in
+<a href='../files/src_media_Sound.js.html#l893'><code>stop:893</code></a>
+</p>
+
+
+
+</div>
+
+<div class='description'>
+<p>Stops all playing or loading instances of a given sound.</p>
+
+</div>
+
+<div class='params'>
+<h4>Parameters:</h4>
+
+<ul class='params-list'>
+<li class='param'>
+<code class='param-name'>alias</code>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+
+
+<div class='param-description'>
+<p>The alias of the sound to stop.</p>
+
+</div>
+
+</li>
+</ul>
+</div>
+
+
+</div><div class='method_ method item private'>
+<h3 class='name'><a class="deeplink" href="#method_"><span class="glyphicon glyphicon-link"></span></a> <code></code></h3>
+
+<div class='args'>
+<span class='paren'>(</span>
+<ul class='args-list inline commas'>
+<li class='arg'>
+<code>filetypeOrder</code>
+</li>
+<li class='arg'>
+<code>callback</code>
+</li>
+</ul><span class='paren'>)</span>
+</div>
+
+
+<div class='flags'>
+
+<span class='flag private'>private</span>
+
+
+
+
+</div> 
+
+<div class='meta'>
+<p>
+Defined in
+<a href='../files/src_media_Sound.js.html#l229'><code>:229</code></a>
+</p>
+
+
+
+</div>
+
+<div class='description'>
+<p>When the initialization as completed</p>
+
+</div>
+
+<div class='params'>
+<h4>Parameters:</h4>
+
+<ul class='params-list'>
+<li class='param'>
+<code class='param-name'>filetypeOrder</code>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array" class="crosslink external" target="_blank">Array</a></span>
+
+
+<div class='param-description'>
+<p>The list of files types</p>
+
+</div>
+
+</li>
+<li class='param'>
+<code class='param-name'>callback</code>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function" class="crosslink external" target="_blank">Function</a></span>
+
+
+<div class='param-description'>
+<p>The callback function</p>
+
+</div>
+
+</li>
+</ul>
+</div>
+
+
+</div><div class='method_stopAll method item'>
+<h3 class='name'><a class="deeplink" href="#method_stopAll"><span class="glyphicon glyphicon-link"></span></a> <code>stopAll</code></h3>
+
+<span class='paren'>()</span>
+
+
+<div class='flags'>
+
+
+
+
+
+</div> 
+
+<div class='meta'>
+<p>
+Defined in
+<a href='../files/src_media_Sound.js.html#l975'><code>stopAll:975</code></a>
+</p>
+
+
+
+</div>
+
+<div class='description'>
+<p>Stop all sounds that are playing, regardless of context.</p>
+
+</div>
+
+
+
+</div><div class='method_stopContext method item public'>
+<h3 class='name'><a class="deeplink" href="#method_stopContext"><span class="glyphicon glyphicon-link"></span></a> <code>stopContext</code></h3>
+
+<div class='args'>
+<span class='paren'>(</span>
+<ul class='args-list inline commas'>
+<li class='arg'>
+<code>context</code>
+</li>
+</ul><span class='paren'>)</span>
+</div>
+
+
+<div class='flags'>
+
+<span class='flag public'>public</span>
+
+
+
+
+</div> 
+
+<div class='meta'>
+<p>
+Defined in
+<a href='../files/src_media_Sound.js.html#l951'><code>stopContext:951</code></a>
+</p>
+
+
+
+</div>
+
+<div class='description'>
+<p>Stops all sounds in a given context.</p>
+
+</div>
+
+<div class='params'>
+<h4>Parameters:</h4>
+
+<ul class='params-list'>
+<li class='param'>
+<code class='param-name'>context</code>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+
+
+<div class='param-description'>
+<p>The name of the context to stop.</p>
+
+</div>
+
+</li>
+</ul>
+</div>
+
+
+</div><div class='method_trigger method item inherited'>
+<h3 class='name'><a class="deeplink" href="#method_trigger"><span class="glyphicon glyphicon-link"></span></a> <code>trigger</code></h3>
+
+<div class='args'>
+<span class='paren'>(</span>
+<ul class='args-list inline commas'>
+<li class='arg'>
+<code>type</code>
+</li>
+<li class='arg'>
+<code>arguments</code>
+</li>
+</ul><span class='paren'>)</span>
+</div>
+
+
+<div class='flags'>
+
+
+
+
+
+</div> 
+
+<div class='meta'>
+<p>Inherited from
+<a href='../classes/springroll.EventDispatcher.html#method_trigger'>springroll.EventDispatcher</a>:
+<a href='../files/src_events_EventDispatcher.js.html#l47'><code>trigger:47</code></a>
+</p>
+
+
+
+</div>
+
+<div class='description'>
+<p>Dispatch an event</p>
+
+</div>
+
+<div class='params'>
+<h4>Parameters:</h4>
+
+<ul class='params-list'>
+<li class='param'>
+<code class='param-name'>type</code>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+
+
+<div class='param-description'>
+<p>The type of event to trigger</p>
+
+</div>
+
+</li>
+<li class='param'>
+<code class='param-name'>arguments</code>
+<span class='type'></span>
+
+
+<div class='param-description'>
+<p>Additional parameters for the listener functions.</p>
+
+</div>
+
+</li>
+</ul>
+</div>
+
+
+</div><div class='method_type method item private inherited'>
+<h3 class='name'><a class="deeplink" href="#method_type"><span class="glyphicon glyphicon-link"></span></a> <code>type</code></h3>
+
+<div class='args'>
+<span class='paren'>(</span>
+<ul class='args-list inline commas'>
+<li class='arg'>
+<code>value</code>
+</li>
+</ul><span class='paren'>)</span>
+</div>
+
+<span class='returns-inline'>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+</span>
+
+<div class='flags'>
+
+<span class='flag private'>private</span>
+
+
+
+
+</div> 
+
+<div class='meta'>
+<p>Inherited from
+<a href='../classes/springroll.EventDispatcher.html#method_type'>springroll.EventDispatcher</a>:
+<a href='../files/src_events_EventDispatcher.js.html#l251'><code>type:251</code></a>
+</p>
+
+
+
+</div>
+
+<div class='description'>
+<p>Return type of the value.</p>
+
+</div>
+
+<div class='params'>
+<h4>Parameters:</h4>
+
+<ul class='params-list'>
+<li class='param'>
+<code class='param-name'>value</code>
+<span class='type'></span>
+
+
+<div class='param-description'>
+ 
+</div>
+
+</li>
+</ul>
+</div>
+
+<div class='returns'>
+<h4>Returns:</h4>
+
+<div class='returns-description'>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>:
+<p>The type</p>
+
+</div>
+</div>
+
+</div><div class='method_unload method item public'>
+<h3 class='name'><a class="deeplink" href="#method_unload"><span class="glyphicon glyphicon-link"></span></a> <code>unload</code></h3>
+
+<div class='args'>
+<span class='paren'>(</span>
+<ul class='args-list inline commas'>
+<li class='arg'>
+<code>list</code>
+</li>
+</ul><span class='paren'>)</span>
+</div>
+
+
+<div class='flags'>
+
+<span class='flag public'>public</span>
+
+
+
+
+</div> 
+
+<div class='meta'>
+<p>
+Defined in
+<a href='../files/src_media_Sound.js.html#l1209'><code>unload:1209</code></a>
+</p>
+
+
+
+</div>
+
+<div class='description'>
+<p>Unloads a list of sounds to reclaim memory if possible.
+If the sounds are playing, they are stopped.</p>
+
+</div>
+
+<div class='params'>
+<h4>Parameters:</h4>
+
+<ul class='params-list'>
+<li class='param'>
+<code class='param-name'>list</code>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array" class="crosslink external" target="_blank">Array</a></span>
+
+
+<div class='param-description'>
+<p>An array of sound aliases to unload.</p>
+
+</div>
+
+</li>
+</ul>
+</div>
+
+
+</div><div class='method_unloadAll method item public'>
+<h3 class='name'><a class="deeplink" href="#method_unloadAll"><span class="glyphicon glyphicon-link"></span></a> <code>unloadAll</code></h3>
+
+<span class='paren'>()</span>
+
+
+<div class='flags'>
+
+<span class='flag public'>public</span>
+
+
+
+
+</div> 
+
+<div class='meta'>
+<p>
+Defined in
+<a href='../files/src_media_Sound.js.html#l1233'><code>unloadAll:1233</code></a>
+</p>
+
+
+
+</div>
+
+<div class='description'>
+<p>Unloads all sounds. If any sounds are playing, they are stopped.
+Internally this calls <code>unload</code>.</p>
+
+</div>
+
+
+
+</div><div class='method_unpauseAll method item public deprecated'>
+<h3 class='name'><a class="deeplink" href="#method_unpauseAll"><span class="glyphicon glyphicon-link"></span></a> <code>unpauseAll</code></h3>
+
+<span class='paren'>()</span>
+
+
+<div class='flags'>
+<span class='flag deprecated'  title='since version 0.4.0' >deprecated</span>
+
+<span class='flag public'>public</span>
+
+
+
+
+</div> 
+
+<div class='meta'>
+<p>
+Defined in
+<a href='../files/src_deprecation_sound.js.html#l44'><code>unpauseAll:44</code></a>
+</p>
+
+
+<p>Deprecated: since version 0.4.0</p>
+
+</div>
+
+<div class='description'>
+<p>Unpauses all sounds, see <a href="../classes/springroll.Sound.html#method_resumeAll" class="crosslink">resumeAll</a></p>
+
+</div>
+
+
+
+</div><div class='method_unpauseSound method item public deprecated'>
+<h3 class='name'><a class="deeplink" href="#method_unpauseSound"><span class="glyphicon glyphicon-link"></span></a> <code>unpauseSound</code></h3>
+
+<div class='args'>
+<span class='paren'>(</span>
+<ul class='args-list inline commas'>
+<li class='arg'>
+<code>alias</code>
+</li>
+</ul><span class='paren'>)</span>
+</div>
+
+
+<div class='flags'>
+<span class='flag deprecated'  title='since version 0.4.0' >deprecated</span>
+
+<span class='flag public'>public</span>
+
+
+
+
+</div> 
+
+<div class='meta'>
+<p>
+Defined in
+<a href='../files/src_deprecation_sound.js.html#l56'><code>unpauseSound:56</code></a>
+</p>
+
+
+<p>Deprecated: since version 0.4.0</p>
+
+</div>
+
+<div class='description'>
+<p>Unpauses a specific sound, see <a href="../classes/springroll.Sound.html#method_resume" class="crosslink">resume</a></p>
+
+</div>
+
+<div class='params'>
+<h4>Parameters:</h4>
+
+<ul class='params-list'>
+<li class='param'>
+<code class='param-name'>alias</code>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+
+
+<div class='param-description'>
+<p>The alias of the sound to resume.</p>
+
+</div>
+
+</li>
+</ul>
+</div>
+
+
+</div></div>
+
+<div role='tabpanel' id='docs-properties' class='tab-pane'>
+
+<div class="property__contexts property item private">
+<h3 class="name"><a class="deeplink" href="#property__contexts"><span class="glyphicon glyphicon-link"></span></a> <code>_contexts</code></h3>
+<span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+
+
+<span class="flag private">private</span>
+
+
+
+<div class="meta">
+<p>
+Defined in
+<a href="../files/src_media_Sound.js.html#l65"><code>_contexts:65</code></a>
+</p>
+
+
+</div>
+
+<div class="description">
+<p>Dictionary of SoundContexts.</p>
+
+</div>
+
+
+
+</div><div class="property__destroyed property item protected inherited">
+<h3 class="name"><a class="deeplink" href="#property__destroyed"><span class="glyphicon glyphicon-link"></span></a> <code>_destroyed</code></h3>
+<span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
+
+
+<span class="flag protected">protected</span>
+
+
+
+<div class="meta">
+<p>Inherited from
+<a href="../classes/springroll.EventDispatcher.html#property__destroyed">springroll.EventDispatcher</a>:
+<a href="../files/src_events_EventDispatcher.js.html#l23"><code>_destroyed:23</code></a>
+</p>
+
+
+</div>
+
+<div class="description">
+<p>If the dispatcher is destroyed</p>
+
+</div>
+
+
+
+</div><div class="property__fades property item private">
+<h3 class="name"><a class="deeplink" href="#property__fades"><span class="glyphicon glyphicon-link"></span></a> <code>_fades</code></h3>
+<span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array" class="crosslink external" target="_blank">Array</a></span>
+
+
+<span class="flag private">private</span>
+
+
+
+<div class="meta">
+<p>
+Defined in
+<a href="../files/src_media_Sound.js.html#l44"><code>_fades:44</code></a>
+</p>
+
+
+</div>
+
+<div class="description">
+<p>Array of SoundInstance objects that are being faded in or out.</p>
+
+</div>
+
+
+
+</div><div class="property__listeners property item private inherited">
+<h3 class="name"><a class="deeplink" href="#property__listeners"><span class="glyphicon glyphicon-link"></span></a> <code>_listeners</code></h3>
+<span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array" class="crosslink external" target="_blank">Array</a></span>
+
+
+<span class="flag private">private</span>
+
+
+
+<div class="meta">
+<p>Inherited from
+<a href="../classes/springroll.EventDispatcher.html#property__listeners">springroll.EventDispatcher</a>:
+<a href="../files/src_events_EventDispatcher.js.html#l16"><code>_listeners:16</code></a>
+</p>
+
+
+</div>
+
+<div class="description">
+<p>The collection of listeners</p>
+
+</div>
+
+
+
+</div><div class="property__pool property item private">
+<h3 class="name"><a class="deeplink" href="#property__pool"><span class="glyphicon glyphicon-link"></span></a> <code>_pool</code></h3>
+<span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array" class="crosslink external" target="_blank">Array</a></span>
+
+
+<span class="flag private">private</span>
+
+
+
+<div class="meta">
+<p>
+Defined in
+<a href="../files/src_media_Sound.js.html#l51"><code>_pool:51</code></a>
+</p>
+
+
+</div>
+
+<div class="description">
+<p>Array of SoundInstance objects waiting to be used.</p>
+
+</div>
+
+
+
+</div><div class="property__sounds property item private">
+<h3 class="name"><a class="deeplink" href="#property__sounds"><span class="glyphicon glyphicon-link"></span></a> <code>_sounds</code></h3>
+<span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+
+
+<span class="flag private">private</span>
+
+
+
+<div class="meta">
+<p>
+Defined in
+<a href="../files/src_media_Sound.js.html#l37"><code>_sounds:37</code></a>
+</p>
+
+
+</div>
+
+<div class="description">
+<p>Dictionary of sound objects, containing configuration info and playback objects.</p>
+
+</div>
+
+
+
+</div><div class="property_destroyed property item inherited">
+<h3 class="name"><a class="deeplink" href="#property_destroyed"><span class="glyphicon glyphicon-link"></span></a> <code>destroyed</code></h3>
+<span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
+
+
+
+
+
+<div class="meta">
+<p>Inherited from
+<a href="../classes/springroll.EventDispatcher.html#property_destroyed">springroll.EventDispatcher</a>:
+<a href="../files/src_events_EventDispatcher.js.html#l34"><code>destroyed:34</code></a>
+</p>
+
+
+</div>
+
+<div class="description">
+<p>If the dispatcher is destroyed</p>
+
+</div>
+
+
+
+</div><div class="property_instance property item public">
+<h3 class="name"><a class="deeplink" href="#property_instance"><span class="glyphicon glyphicon-link"></span></a> <code>instance</code></h3>
+<span class="type">Sound</span>
+
+
+<span class="flag public">public</span>
+
+
+<span class="flag static">static</span>
+
+<div class="meta">
+<p>
+Defined in
+<a href="../files/src_media_Sound.js.html#l262"><code>instance:262</code></a>
+</p>
+
+
+</div>
+
+<div class="description">
+<p>The singleton instance of Sound.</p>
+
+</div>
+
+
+
+</div><div class="property_muteAll property item">
+<h3 class="name"><a class="deeplink" href="#property_muteAll"><span class="glyphicon glyphicon-link"></span></a> <code>muteAll</code></h3>
+<span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
+
+
+
+
+
+<div class="meta">
+<p>
+Defined in
+<a href="../files/src_media_Sound.js.html#l1083"><code>muteAll:1083</code></a>
+</p>
+
+
+</div>
+
+<div class="description">
+<p>Set the mute status of all sounds</p>
+
+</div>
+
+
+
+</div><div class="property_soundEnabled property item">
+<h3 class="name"><a class="deeplink" href="#property_soundEnabled"><span class="glyphicon glyphicon-link"></span></a> <code>soundEnabled</code></h3>
+<span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
+
+
+
+
+
+<div class="meta">
+<p>
+Defined in
+<a href="../files/src_media_Sound.js.html#l77"><code>soundEnabled:77</code></a>
+</p>
+
+
+</div>
+
+<div class="description">
+<p>If sound is enabled. This will only be false if Sound was unable to initialize
+a SoundJS plugin.</p>
+
+</div>
+
+
+
+</div><div class="property_supportedSound property item public">
+<h3 class="name"><a class="deeplink" href="#property_supportedSound"><span class="glyphicon glyphicon-link"></span></a> <code>supportedSound</code></h3>
+<span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+
+
+<span class="flag public">public</span>
+
+
+
+<div class="meta">
+<p>
+Defined in
+<a href="../files/src_media_Sound.js.html#l58"><code>supportedSound:58</code></a>
+</p>
+
+
+</div>
+
+<div class="description">
+<p>The extension of the supported sound type that will be used.</p>
+
+</div>
+
+
+
+</div><div class="property_systemMuted property item">
+<h3 class="name"><a class="deeplink" href="#property_systemMuted"><span class="glyphicon glyphicon-link"></span></a> <code>systemMuted</code></h3>
+<span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
+
+
+
+
+
+<div class="meta">
+<p>
+Defined in
+<a href="../files/src_media_Sound.js.html#l85"><code>systemMuted:85</code></a>
+</p>
+
+
+</div>
+
+<div class="description">
+<p>If sound is currently muted by the system. This will only be true on iOS until
+audio has been unmuted during a touch event. Listen for the &#39;systemUnmuted&#39; 
+event on Sound to be notified when the audio is unmuted on iOS.</p>
+
+</div>
+
+
+
+</div></div>
+
+
+<div role='tabpanel' id='docs-events' class='tab-pane'>
+
+<div class="event_systemUnmuted events item">
+<h3 class="name"><a class="deeplink" href="#event_systemUnmuted"><span class="glyphicon glyphicon-link"></span></a> <code>systemUnmuted</code></h3>
+<span class="type"></span>
+
+
+
+
+
+<div class="meta">
+<p>
+Defined in
+<a href="../files/src_media_Sound.js.html#l95"><code>systemUnmuted:95</code></a>
+</p>
+
+
+</div>
+
+<div class="description">
+<p>Fired when audio is unmuted on iOS. If systemMuted is false, this will not be fired
+(or already has been fired).</p>
+
+</div>
+
+
+
+</div></div>
+</div>
+</div></div>
+</div>
+</div>
+</div>
+<script src='../assets/js/libraries.js?v=0.4.0'></script>
+<script src='../assets/js/main.js?v=0.4.0'></script>
+</body>
+</html>

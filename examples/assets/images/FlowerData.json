@@ -1,0 +1,25 @@
+{
+	"scale":1,
+	"fps":30,
+	"labels":
+	{
+		"dry":0,
+		"dry_stop":1,
+		"wet":2,
+		"wet_loop":39
+	},
+	"frames":
+	[
+		{
+			"name":"FlowerShort-Blue #",
+			"min":0,
+			"max":39,
+			"digits":4
+		}
+	],
+	"origin":
+	{
+		"x":36.6,
+		"y":125.95
+	}
+}

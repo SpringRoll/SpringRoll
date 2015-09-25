@@ -1,0 +1,3862 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+	<title>SpringRoll v0.4.0 API Documentation : springroll.Debug</title>
+	<meta charset='utf-8'>
+	<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+	<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
+	<link rel='shortcut icon' type='image/png' href='../assets/images/favicon.ico?v=0.4.0'>
+	<link href='//fonts.googleapis.com/css?family=Titillium+Web:300,200,600' rel='stylesheet' type='text/css'>
+	<link rel='stylesheet' type='text/css' href='../assets/css/libraries.css?v=0.4.0'>
+	<link rel='stylesheet' type='text/css' href='../assets/css/main.css?v=0.4.0'>
+</head>
+<body>
+<header>
+	<nav class="navbar navbar-inverse navbar-fixed-top">
+		<div class='container'>
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#docs-navbar">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href='https://github.com/SpringRoll/SpringRoll'>
+						<img src='../assets/images/logo.png?v=0.4.0' class="logo">
+					<span class='project-name'>SpringRoll</span>
+					<span class="sr-only">API Documentation for:</span>
+					<span class='version hidden-xs'>v0.4.0</span>
+				</a>
+			</div>
+			<div class="collapse navbar-collapse" id="docs-navbar">
+	      <ul class="scope-toggles text-center nav navbar-nav navbar-right">
+					<li><input class='scope-toggle' 
+						id='toggle-inherited' 
+						type='checkbox' 
+						data-toggle='toggle' 
+						data-on='Inherited' 
+						data-off='Inherited' 
+						data-size='mini'
+						data-width='80'>
+					</li>
+					<li><input class='scope-toggle' 
+						id='toggle-protected' 
+						type='checkbox' 
+						data-toggle='toggle' 
+						data-on='Protected' 
+						data-off='Protected' 
+						data-size='mini'
+						data-width='80'>
+					</li>
+					<li><input class='scope-toggle' 
+						id='toggle-private' 
+						type='checkbox' 
+						data-toggle='toggle' 
+						data-on='Private' 
+						data-off='Private' 
+						data-size='mini'
+						data-width='80'>
+					</li>
+					<li><input class='scope-toggle' 
+						id='toggle-deprecated' 
+						type='checkbox' 
+						data-toggle='toggle' 
+						data-on='Deprecated' 
+						data-off='Deprecated' 
+						data-size='mini'
+						data-width='80'>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+</header>
+<div class='container'>
+<div class='row'>
+<nav id='sidebar' class='col-sm-4 col-md-3'>
+<h2>APIs</h2>
+<div class='input-group'>
+  <div class='input-group-addon'>
+    <span class='glyphicon glyphicon-search'></span>
+  </div>
+  <input type='search' class='form-control' id='api-filter' placeholder='Type to filter APIs'>
+  <span class='collapsed btn-close glyphicon glyphicon-remove-sign hidden'></span>
+</div>
+<nav class='navbar navbar-default'>
+  <!-- Brand and toggle get grouped for better mobile display -->
+  <div class="btn-group" role="group" aria-label="...">
+    <button type="button" class="sidebar-toggle collapsed btn btn-default" id='toggle-classes' data-target='#classes-collapse'>
+      Classes
+      <span class='collapsed glyphicon glyphicon-chevron-up'></span>
+      <span class='expanded glyphicon glyphicon-chevron-down'></span>
+    </button>
+    <button type="button" class="sidebar-toggle collapsed btn btn-default" id='toggle-modules' data-target='#modules-collapse'>
+      Modules
+      <span class='collapsed glyphicon glyphicon-chevron-up'></span>
+      <span class='expanded glyphicon glyphicon-chevron-down'></span>
+    </button>
+  </div>
+
+  <!-- Collect the nav links, forms, and other content for toggling -->
+  <div class='collapse' id='classes-collapse'>
+    <ul class='nav navbar-nav'>
+        <li class='public'>
+          <a href='../classes/createjs.Container.html'>createjs.Container</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/createjs.MovieClip.html'>createjs.MovieClip</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/createjs.Point.html'>createjs.Point</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/createjs.SpriteSheet.html'>createjs.SpriteSheet</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/PIXI.BitmapText.html'>PIXI.BitmapText</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/PIXI.Container.html'>PIXI.Container</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/PIXI.InteractionManager.html'>PIXI.InteractionManager</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/PIXI.Point.html'>PIXI.Point</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/PIXI.Sector.html'>PIXI.Sector</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/PIXI.Text.html'>PIXI.Text</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.AbstractDisplay.html'>springroll.AbstractDisplay</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.AbstractHint.html'>springroll.AbstractHint</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.Animator.html'>springroll.Animator</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.AnimatorHint.html'>springroll.AnimatorHint</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.AnimatorTimeline.html'>springroll.AnimatorTimeline</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.Application.html'>springroll.Application</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.ApplicationOptions.html'>springroll.ApplicationOptions</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.ApplicationPlugin.html'>springroll.ApplicationPlugin</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.AssetCache.html'>springroll.AssetCache</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.AssetLoad.html'>springroll.AssetLoad</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.AssetManager.html'>springroll.AssetManager</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.AssetSizes.html'>springroll.AssetSizes</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.BaseState.html'>springroll.BaseState</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.CacheManager.html'>springroll.CacheManager</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.Captions.html'>springroll.Captions</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.ColorAlphaTask.html'>springroll.ColorAlphaTask</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.CombinedCallback.html'>springroll.CombinedCallback</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.Container.html'>springroll.Container</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.Debug.html'>springroll.Debug</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.DebugOptions.html'>springroll.DebugOptions</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.DelayedCall.html'>springroll.DelayedCall</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.easeljs.Animator.html'>springroll.easeljs.Animator</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.easeljs.Application.html'>springroll.easeljs.Application</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.easeljs.BasePanel.html'>springroll.easeljs.BasePanel</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.easeljs.BaseState.html'>springroll.easeljs.BaseState</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.easeljs.BitmapMovieClip.html'>springroll.easeljs.BitmapMovieClip</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.easeljs.BitmapMovieClipInstance.html'>springroll.easeljs.BitmapMovieClipInstance</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.easeljs.BitmapMovieClipTask.html'>springroll.easeljs.BitmapMovieClipTask</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.easeljs.BitmapTask.html'>springroll.easeljs.BitmapTask</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.easeljs.BitmapUtils.html'>springroll.easeljs.BitmapUtils</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.easeljs.Button.html'>springroll.easeljs.Button</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.easeljs.Cutscene.html'>springroll.easeljs.Cutscene</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.easeljs.CutsceneTask.html'>springroll.easeljs.CutsceneTask</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.easeljs.DisplayAdapter.html'>springroll.easeljs.DisplayAdapter</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.easeljs.DragData.html'>springroll.easeljs.DragData</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.easeljs.DragManager.html'>springroll.easeljs.DragManager</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.easeljs.DwellTimer.html'>springroll.easeljs.DwellTimer</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.easeljs.EaselJSDisplay.html'>springroll.easeljs.EaselJSDisplay</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.easeljs.FlashArt.html'>springroll.easeljs.FlashArt</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.easeljs.FlashArtAtlasTask.html'>springroll.easeljs.FlashArtAtlasTask</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.easeljs.FlashArtTask.html'>springroll.easeljs.FlashArtTask</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.easeljs.FlashSpriteSheetTask.html'>springroll.easeljs.FlashSpriteSheetTask</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.easeljs.MovieClipInstance.html'>springroll.easeljs.MovieClipInstance</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.easeljs.ReversePlayback.html'>springroll.easeljs.ReversePlayback</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.easeljs.SoundButton.html'>springroll.easeljs.SoundButton</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.easeljs.SoundTask.html'>springroll.easeljs.SoundTask</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.easeljs.SpriteSheetTask.html'>springroll.easeljs.SpriteSheetTask</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.easeljs.Texture.html'>springroll.easeljs.Texture</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.easeljs.TextureAtlas.html'>springroll.easeljs.TextureAtlas</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.easeljs.TextureAtlasTask.html'>springroll.easeljs.TextureAtlasTask</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.Enum.html'>springroll.Enum</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.EnumValue.html'>springroll.EnumValue</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.EventCatalog.html'>springroll.EventCatalog</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.EventDispatcher.html'>springroll.EventDispatcher</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.EventError.html'>springroll.EventError</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.EventSignature.html'>springroll.EventSignature</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.EventUtils.html'>springroll.EventUtils</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.Features.html'>springroll.Features</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.FlashArtImageTask.html'>springroll.FlashArtImageTask</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.FunctionHint.html'>springroll.FunctionHint</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.FunctionTask.html'>springroll.FunctionTask</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.GroupHint.html'>springroll.GroupHint</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.HintsPlayer.html'>springroll.HintsPlayer</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.Languages.html'>springroll.Languages</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.Learning.html'>springroll.Learning</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.LearningError.html'>springroll.LearningError</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.LearningMedia.html'>springroll.LearningMedia</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.ListTask.html'>springroll.ListTask</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.Loader.html'>springroll.Loader</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.LoaderItem.html'>springroll.LoaderItem</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.LoaderResult.html'>springroll.LoaderResult</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.LoadTask.html'>springroll.LoadTask</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.native.Circle.html'>springroll.native.Circle</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.native.DisplayAdapter.html'>springroll.native.DisplayAdapter</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.native.Ellipse.html'>springroll.native.Ellipse</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.native.NativeDisplay.html'>springroll.native.NativeDisplay</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.native.Point.html'>springroll.native.Point</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.native.Polygon.html'>springroll.native.Polygon</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.native.Rectangle.html'>springroll.native.Rectangle</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.PageVisibility.html'>springroll.PageVisibility</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.pixi.AdvancedMovieClip.html'>springroll.pixi.AdvancedMovieClip</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.pixi.AdvancedMovieClipInstance.html'>springroll.pixi.AdvancedMovieClipInstance</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.pixi.AdvancedMovieClipTask.html'>springroll.pixi.AdvancedMovieClipTask</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.pixi.Animator.html'>springroll.pixi.Animator</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.pixi.BitmapFontTask.html'>springroll.pixi.BitmapFontTask</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.pixi.Button.html'>springroll.pixi.Button</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.pixi.DisplayAdapter.html'>springroll.pixi.DisplayAdapter</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.pixi.DragData.html'>springroll.pixi.DragData</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.pixi.DragManager.html'>springroll.pixi.DragManager</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.pixi.ParallelSpineData.html'>springroll.pixi.ParallelSpineData</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.pixi.PixiDisplay.html'>springroll.pixi.PixiDisplay</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.pixi.SpineAnimTask.html'>springroll.pixi.SpineAnimTask</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.pixi.SpineAtlas.html'>springroll.pixi.SpineAtlas</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.pixi.SpineAtlasTask.html'>springroll.pixi.SpineAtlasTask</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.pixi.SpineInstance.html'>springroll.pixi.SpineInstance</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.pixi.TextureAtlas.html'>springroll.pixi.TextureAtlas</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.pixi.TextureAtlasTask.html'>springroll.pixi.TextureAtlasTask</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.pixi.TextureTask.html'>springroll.pixi.TextureTask</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.Positioner.html'>springroll.Positioner</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.Property.html'>springroll.Property</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.PropertyDispatcher.html'>springroll.PropertyDispatcher</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.SavedData.html'>springroll.SavedData</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.ScaleImage.html'>springroll.ScaleImage</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.ScaleItem.html'>springroll.ScaleItem</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.ScaleManager.html'>springroll.ScaleManager</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.Sound.html'>springroll.Sound</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.SoundContext.html'>springroll.SoundContext</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.SoundInstance.html'>springroll.SoundInstance</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.State.html'>springroll.State</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.StateEvent.html'>springroll.StateEvent</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.StateManager.html'>springroll.StateManager</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.StringFilters.html'>springroll.StringFilters</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.Task.html'>springroll.Task</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.TickerPlugin.html'>springroll.TickerPlugin</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.TimeUtils.html'>springroll.TimeUtils</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.UIScaler.html'>springroll.UIScaler</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.ValidationError.html'>springroll.ValidationError</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.VOHint.html'>springroll.VOHint</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.VOPlayer.html'>springroll.VOPlayer</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.WeightedRandom.html'>springroll.WeightedRandom</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/window.Array.html'>window.Array</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/window.extend.html'>window.extend</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/window.include.html'>window.include</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/window.Math.html'>window.Math</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/window.mixin.html'>window.mixin</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/window.namespace.html'>window.namespace</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/window.Number.html'>window.Number</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/window.Object.html'>window.Object</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/window.RequestUtils.html'>window.RequestUtils</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/window.String.html'>window.String</a>
+        </li>
+    </ul>
+  </div>
+
+  <!-- Collect the nav links, forms, and other content for toggling -->
+  <div class='collapse' id='modules-collapse'>
+    <ul class='nav navbar-nav'>
+        <li class=''>
+          <a href='../modules/Animation.html'>Animation</a>
+        </li>
+        <li class=''>
+          <a href='../modules/Captions.html'>Captions</a>
+        </li>
+        <li class=''>
+          <a href='../modules/Container.html'>Container</a>
+        </li>
+        <li class=''>
+          <a href='../modules/Container Client.html'>Container Client</a>
+        </li>
+        <li class=''>
+          <a href='../modules/Core.html'>Core</a>
+        </li>
+        <li class=''>
+          <a href='../modules/Debug.html'>Debug</a>
+        </li>
+        <li class=''>
+          <a href='../modules/EaselJS Animation.html'>EaselJS Animation</a>
+        </li>
+        <li class=''>
+          <a href='../modules/EaselJS Cutscene.html'>EaselJS Cutscene</a>
+        </li>
+        <li class=''>
+          <a href='../modules/EaselJS Display.html'>EaselJS Display</a>
+        </li>
+        <li class=''>
+          <a href='../modules/EaselJS Learning.html'>EaselJS Learning</a>
+        </li>
+        <li class=''>
+          <a href='../modules/EaselJS States.html'>EaselJS States</a>
+        </li>
+        <li class=''>
+          <a href='../modules/EaselJS UI.html'>EaselJS UI</a>
+        </li>
+        <li class=''>
+          <a href='../modules/Hints.html'>Hints</a>
+        </li>
+        <li class=''>
+          <a href='../modules/Languages.html'>Languages</a>
+        </li>
+        <li class=''>
+          <a href='../modules/Learning.html'>Learning</a>
+        </li>
+        <li class=''>
+          <a href='../modules/Learning Media.html'>Learning Media</a>
+        </li>
+        <li class=''>
+          <a href='../modules/Native Display.html'>Native Display</a>
+        </li>
+        <li class=''>
+          <a href='../modules/Pixi Animation.html'>Pixi Animation</a>
+        </li>
+        <li class=''>
+          <a href='../modules/PIXI Animation.html'>PIXI Animation</a>
+        </li>
+        <li class=''>
+          <a href='../modules/Pixi Display.html'>Pixi Display</a>
+        </li>
+        <li class=''>
+          <a href='../modules/PIXI Display.html'>PIXI Display</a>
+        </li>
+        <li class=''>
+          <a href='../modules/PIXI Spine.html'>PIXI Spine</a>
+        </li>
+        <li class=''>
+          <a href='../modules/PIXI UI.html'>PIXI UI</a>
+        </li>
+        <li class=''>
+          <a href='../modules/Sound.html'>Sound</a>
+        </li>
+        <li class=''>
+          <a href='../modules/States.html'>States</a>
+        </li>
+        <li class=''>
+          <a href='../modules/UI.html'>UI</a>
+        </li>
+    </ul>
+  </div>
+  <!-- /.container-fluid -->
+</nav></nav>
+<div class='col-sm-8 col-md-9'>
+<div id='docs-main' class='apidocs'>
+
+<h1>springroll.Debug Class</h1>
+<div class='box meta'>
+
+
+<div class='foundat'>
+Defined in: <a href='../files/src_debug_Debug.js.html#l11'><code>springroll.Debug:11</code></a>
+</div>
+
+Module:
+<a href="../modules/Debug.html">Debug</a>
+
+</div>
+
+
+<div class='box intro'>
+<p>A static closure to provide easy access to the console
+without having errors if the console doesn&#39;t exist
+to use call: Debug.log(&#39;Your log here&#39;)</p>
+
+</div>
+
+
+<div id='classdocs' class='tabview'>
+<span id='docs-highlight'></span>
+<ul class='nav nav-tabs'>
+<li id='tab-index' class='docs-toggle'>
+<a data-toggle='tab' href='#docs-index'>Index</a>
+</li>
+<li id='tab-methods' class='docs-toggle'>
+<a data-toggle='tab' href='#docs-methods'>Methods</a>
+</li>
+<li id='tab-properties' class='docs-toggle'>
+<a data-toggle='tab' href='#docs-properties'>Properties</a>
+</li>
+</ul>
+
+<div class='tab-content'>
+
+<div role='tabpanel' id='docs-index' class='tab-pane'>
+<div class='index-section tab-pane methods'>
+<h3>Methods</h3>
+
+<ul class='list-group row methods'>
+<li class='col-xs-6 col-md-4 index-item method private'>
+<a href='#method__colorClosure'>_colorClosure</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item method private'>
+<a href='#method__remoteLog'>_remoteLog</a>
+
+<span class='flag static'>static</span>
+</li>
+<li class='col-xs-6 col-md-4 index-item method'>
+<a href='#method_aqua'>aqua</a>
+
+<span class='flag static'>static</span>
+</li>
+<li class='col-xs-6 col-md-4 index-item method public'>
+<a href='#method_assert'>assert</a>
+
+<span class='flag static'>static</span>
+</li>
+<li class='col-xs-6 col-md-4 index-item method'>
+<a href='#method_blue'>blue</a>
+
+<span class='flag static'>static</span>
+</li>
+<li class='col-xs-6 col-md-4 index-item method public'>
+<a href='#method_clear'>clear</a>
+
+<span class='flag static'>static</span>
+</li>
+<li class='col-xs-6 col-md-4 index-item method public'>
+<a href='#method_connect'>connect</a>
+
+<span class='flag static'>static</span>
+</li>
+<li class='col-xs-6 col-md-4 index-item method public'>
+<a href='#method_debug'>debug</a>
+
+<span class='flag static'>static</span>
+</li>
+<li class='col-xs-6 col-md-4 index-item method public'>
+<a href='#method_dir'>dir</a>
+
+<span class='flag static'>static</span>
+</li>
+<li class='col-xs-6 col-md-4 index-item method public'>
+<a href='#method_disconnect'>disconnect</a>
+
+<span class='flag static'>static</span>
+</li>
+<li class='col-xs-6 col-md-4 index-item method private'>
+<a href='#method_domOutput'>domOutput</a>
+
+<span class='flag static'>static</span>
+</li>
+<li class='col-xs-6 col-md-4 index-item method public'>
+<a href='#method_error'>error</a>
+
+<span class='flag static'>static</span>
+</li>
+<li class='col-xs-6 col-md-4 index-item method private'>
+<a href='#method_globalErrorHandler'>globalErrorHandler</a>
+
+<span class='flag static'>static</span>
+</li>
+<li class='col-xs-6 col-md-4 index-item method'>
+<a href='#method_gray'>gray</a>
+
+<span class='flag static'>static</span>
+</li>
+<li class='col-xs-6 col-md-4 index-item method'>
+<a href='#method_green'>green</a>
+
+<span class='flag static'>static</span>
+</li>
+<li class='col-xs-6 col-md-4 index-item method public'>
+<a href='#method_group'>group</a>
+
+<span class='flag static'>static</span>
+</li>
+<li class='col-xs-6 col-md-4 index-item method public'>
+<a href='#method_groupCollapsed'>groupCollapsed</a>
+
+<span class='flag static'>static</span>
+</li>
+<li class='col-xs-6 col-md-4 index-item method public'>
+<a href='#method_groupEnd'>groupEnd</a>
+
+<span class='flag static'>static</span>
+</li>
+<li class='col-xs-6 col-md-4 index-item method public'>
+<a href='#method_info'>info</a>
+
+<span class='flag static'>static</span>
+</li>
+<li class='col-xs-6 col-md-4 index-item method'>
+<a href='#method_lime'>lime</a>
+
+<span class='flag static'>static</span>
+</li>
+<li class='col-xs-6 col-md-4 index-item method public'>
+<a href='#method_log'>log</a>
+
+<span class='flag static'>static</span>
+</li>
+<li class='col-xs-6 col-md-4 index-item method'>
+<a href='#method_maroon'>maroon</a>
+
+<span class='flag static'>static</span>
+</li>
+<li class='col-xs-6 col-md-4 index-item method'>
+<a href='#method_navy'>navy</a>
+
+<span class='flag static'>static</span>
+</li>
+<li class='col-xs-6 col-md-4 index-item method'>
+<a href='#method_olive'>olive</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item method private'>
+<a href='#method_onClose'>onClose</a>
+
+<span class='flag static'>static</span>
+</li>
+<li class='col-xs-6 col-md-4 index-item method private'>
+<a href='#method_onConnect'>onConnect</a>
+
+<span class='flag static'>static</span>
+</li>
+<li class='col-xs-6 col-md-4 index-item method'>
+<a href='#method_orange'>orange</a>
+
+<span class='flag static'>static</span>
+</li>
+<li class='col-xs-6 col-md-4 index-item method'>
+<a href='#method_pink'>pink</a>
+
+<span class='flag static'>static</span>
+</li>
+<li class='col-xs-6 col-md-4 index-item method'>
+<a href='#method_purple'>purple</a>
+
+<span class='flag static'>static</span>
+</li>
+<li class='col-xs-6 col-md-4 index-item method'>
+<a href='#method_red'>red</a>
+
+<span class='flag static'>static</span>
+</li>
+<li class='col-xs-6 col-md-4 index-item method private'>
+<a href='#method_removeCircular'>removeCircular</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item method'>
+<a href='#method_silver'>silver</a>
+
+<span class='flag static'>static</span>
+</li>
+<li class='col-xs-6 col-md-4 index-item method'>
+<a href='#method_teal'>teal</a>
+
+<span class='flag static'>static</span>
+</li>
+<li class='col-xs-6 col-md-4 index-item method public'>
+<a href='#method_trace'>trace</a>
+
+<span class='flag static'>static</span>
+</li>
+<li class='col-xs-6 col-md-4 index-item method public'>
+<a href='#method_warn'>warn</a>
+
+<span class='flag static'>static</span>
+</li>
+<li class='col-xs-6 col-md-4 index-item method'>
+<a href='#method_yellow'>yellow</a>
+
+<span class='flag static'>static</span>
+</li>
+</ul>
+</div>
+
+<div class='index-section tab-pane properties'>
+<h3>Properties</h3>
+
+<ul class='list-group row properties'>
+<li class='col-xs-6 col-md-4 index-item property private'>
+<a href='#property__consoleSupportsColors'>_consoleSupportsColors</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item property private'>
+<a href='#property__hasConsole'>_hasConsole</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item property private'>
+<a href='#property__palette'>_palette</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item property private'>
+<a href='#property__socket'>_socket</a>
+
+<span class='flag static'>static</span>
+</li>
+<li class='col-xs-6 col-md-4 index-item property private'>
+<a href='#property__socketMessage'>_socketMessage</a>
+
+<span class='flag static'>static</span>
+</li>
+<li class='col-xs-6 col-md-4 index-item property private'>
+<a href='#property__socketQueue'>_socketQueue</a>
+
+<span class='flag static'>static</span>
+</li>
+<li class='col-xs-6 col-md-4 index-item property private'>
+<a href='#property__useSocket'>_useSocket</a>
+
+<span class='flag static'>static</span>
+</li>
+<li class='col-xs-6 col-md-4 index-item property private'>
+<a href='#property_circularArray'>circularArray</a>
+
+<span class='flag static'>static</span>
+</li>
+<li class='col-xs-6 col-md-4 index-item property public'>
+<a href='#property_enabled'>enabled</a>
+
+<span class='flag static'>static</span>
+</li>
+<li class='col-xs-6 col-md-4 index-item property'>
+<a href='#property_Levels'>Levels</a>
+
+<span class='flag static'>static</span>
+</li>
+<li class='col-xs-6 col-md-4 index-item property'>
+<a href='#property_Levels.DEBUG'>Levels.DEBUG</a>
+
+<span class='flag static'>static</span>
+</li>
+<li class='col-xs-6 col-md-4 index-item property'>
+<a href='#property_Levels.DEBUG'>Levels.DEBUG</a>
+
+<span class='flag static'>static</span>
+</li>
+<li class='col-xs-6 col-md-4 index-item property'>
+<a href='#property_Levels.ERROR'>Levels.ERROR</a>
+
+<span class='flag static'>static</span>
+</li>
+<li class='col-xs-6 col-md-4 index-item property'>
+<a href='#property_Levels.GENERAL'>Levels.GENERAL</a>
+
+<span class='flag static'>static</span>
+</li>
+<li class='col-xs-6 col-md-4 index-item property'>
+<a href='#property_Levels.WARN'>Levels.WARN</a>
+
+<span class='flag static'>static</span>
+</li>
+<li class='col-xs-6 col-md-4 index-item property private'>
+<a href='#property_lineLocationFinder'>lineLocationFinder</a>
+
+<span class='flag static'>static</span>
+</li>
+<li class='col-xs-6 col-md-4 index-item property private'>
+<a href='#property_methodsToStrip'>methodsToStrip</a>
+
+<span class='flag static'>static</span>
+</li>
+<li class='col-xs-6 col-md-4 index-item property public'>
+<a href='#property_minLogLevel'>minLogLevel</a>
+
+<span class='flag static'>static</span>
+</li>
+<li class='col-xs-6 col-md-4 index-item property private'>
+<a href='#property_NET_PORT'>NET_PORT</a>
+
+<span class='flag static'>static</span>
+</li>
+<li class='col-xs-6 col-md-4 index-item property public'>
+<a href='#property_output'>output</a>
+
+<span class='flag static'>static</span>
+</li>
+</ul>
+</div>
+
+
+</div>
+
+<div role='tabpanel' id='docs-methods' class='tab-pane'>
+
+<div class='method__colorClosure method item private'>
+<h3 class='name'><a class="deeplink" href="#method__colorClosure"><span class="glyphicon glyphicon-link"></span></a> <code>_colorClosure</code></h3>
+
+<div class='args'>
+<span class='paren'>(</span>
+<ul class='args-list inline commas'>
+<li class='arg'>
+<code>hex</code>
+</li>
+</ul><span class='paren'>)</span>
+</div>
+
+<span class='returns-inline'>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function" class="crosslink external" target="_blank">Function</a></span>
+</span>
+
+<div class='flags'>
+
+<span class='flag private'>private</span>
+
+
+
+
+</div> 
+
+<div class='meta'>
+<p>
+Defined in
+<a href='../files/src_debug_Debug.js.html#l1135'><code>_colorClosure:1135</code></a>
+</p>
+
+
+
+</div>
+
+<div class='description'>
+<p>Due to the way closures and variables work, _colorClosure returns
+the color logging function needed for the color that you pass it.</p>
+
+</div>
+
+<div class='params'>
+<h4>Parameters:</h4>
+
+<ul class='params-list'>
+<li class='param'>
+<code class='param-name'>hex</code>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+
+
+<div class='param-description'>
+<p>Hex value to apply to CSS color</p>
+
+</div>
+
+</li>
+</ul>
+</div>
+
+<div class='returns'>
+<h4>Returns:</h4>
+
+<div class='returns-description'>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function" class="crosslink external" target="_blank">Function</a></span>:
+</div>
+</div>
+
+</div><div class='method__remoteLog method item private'>
+<h3 class='name'><a class="deeplink" href="#method__remoteLog"><span class="glyphicon glyphicon-link"></span></a> <code>_remoteLog</code></h3>
+
+<div class='args'>
+<span class='paren'>(</span>
+<ul class='args-list inline commas'>
+<li class='arg'>
+<code>message</code>
+</li>
+<li class='arg'>
+<code class='optional'>[level=0]</code>
+</li>
+<li class='arg'>
+<code class='optional'>[stack]</code>
+</li>
+</ul><span class='paren'>)</span>
+</div>
+
+<span class='returns-inline'>
+<span class='type'>Debug</span>
+</span>
+
+<div class='flags'>
+
+<span class='flag private'>private</span>
+
+
+<span class='flag static'>static</span>
+
+
+</div> 
+
+<div class='meta'>
+<p>
+Defined in
+<a href='../files/src_debug_Debug.js.html#l379'><code>_remoteLog:379</code></a>
+</p>
+
+
+
+</div>
+
+<div class='description'>
+<p>Send a remote log message using the socket connection</p>
+
+</div>
+
+<div class='params'>
+<h4>Parameters:</h4>
+
+<ul class='params-list'>
+<li class='param'>
+<code class='param-name'>message</code>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array" class="crosslink external" target="_blank">Array</a></span>
+
+
+<div class='param-description'>
+<p>The message to send</p>
+
+</div>
+
+</li>
+<li class='param'>
+<code class='param-name optional'>[level=0]</code>
+<span class='type'>Level</span>
+<span class='flag optional' title='This parameter is optional.'>optional</span>
+
+
+<div class='param-description'>
+<p>The log level to send</p>
+
+</div>
+
+</li>
+<li class='param'>
+<code class='param-name optional'>[stack]</code>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+<span class='flag optional' title='This parameter is optional.'>optional</span>
+
+
+<div class='param-description'>
+<p>A stack to use for the message. A stack will be created if stack
+                      is omitted.</p>
+
+</div>
+
+</li>
+</ul>
+</div>
+
+<div class='returns'>
+<h4>Returns:</h4>
+
+<div class='returns-description'>
+<span class='type'>Debug</span>:
+<p>The instance of debug for chaining</p>
+
+</div>
+</div>
+
+</div><div class='method_aqua method item'>
+<h3 class='name'><a class="deeplink" href="#method_aqua"><span class="glyphicon glyphicon-link"></span></a> <code>aqua</code></h3>
+
+<div class='args'>
+<span class='paren'>(</span>
+<ul class='args-list inline commas'>
+<li class='arg'>
+<code>message</code>
+</li>
+</ul><span class='paren'>)</span>
+</div>
+
+<span class='returns-inline'>
+<span class='type'>Debug</span>
+</span>
+
+<div class='flags'>
+
+
+
+<span class='flag static'>static</span>
+
+
+</div> 
+
+<div class='meta'>
+<p>
+Defined in
+<a href='../files/src_debug_Debug.js.html#l1007'><code>aqua:1007</code></a>
+</p>
+
+
+
+</div>
+
+<div class='description'>
+<p>Output a general log colored as aqua</p>
+
+</div>
+
+<div class='params'>
+<h4>Parameters:</h4>
+
+<ul class='params-list'>
+<li class='param'>
+<code class='param-name'>message</code>
+<span class='type'></span>
+
+
+<div class='param-description'>
+<p>The message to log</p>
+
+</div>
+
+</li>
+</ul>
+</div>
+
+<div class='returns'>
+<h4>Returns:</h4>
+
+<div class='returns-description'>
+<span class='type'>Debug</span>:
+<p>The instance of debug for chaining</p>
+
+</div>
+</div>
+
+</div><div class='method_assert method item public'>
+<h3 class='name'><a class="deeplink" href="#method_assert"><span class="glyphicon glyphicon-link"></span></a> <code>assert</code></h3>
+
+<div class='args'>
+<span class='paren'>(</span>
+<ul class='args-list inline commas'>
+<li class='arg'>
+<code>truth</code>
+</li>
+<li class='arg'>
+<code>params</code>
+</li>
+</ul><span class='paren'>)</span>
+</div>
+
+<span class='returns-inline'>
+<span class='type'>Debug</span>
+</span>
+
+<div class='flags'>
+
+<span class='flag public'>public</span>
+
+
+<span class='flag static'>static</span>
+
+
+</div> 
+
+<div class='meta'>
+<p>
+Defined in
+<a href='../files/src_debug_Debug.js.html#l797'><code>assert:797</code></a>
+</p>
+
+
+
+</div>
+
+<div class='description'>
+<p>Assert that something is true</p>
+
+</div>
+
+<div class='params'>
+<h4>Parameters:</h4>
+
+<ul class='params-list'>
+<li class='param'>
+<code class='param-name'>truth</code>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
+
+
+<div class='param-description'>
+<p>As statement that is assumed true</p>
+
+</div>
+
+</li>
+<li class='param'>
+<code class='param-name'>params</code>
+<span class='type'></span>
+
+
+<div class='param-description'>
+<p>The message to error if the assert is false</p>
+
+</div>
+
+</li>
+</ul>
+</div>
+
+<div class='returns'>
+<h4>Returns:</h4>
+
+<div class='returns-description'>
+<span class='type'>Debug</span>:
+<p>The instance of debug for chaining</p>
+
+</div>
+</div>
+
+</div><div class='method_blue method item'>
+<h3 class='name'><a class="deeplink" href="#method_blue"><span class="glyphicon glyphicon-link"></span></a> <code>blue</code></h3>
+
+<div class='args'>
+<span class='paren'>(</span>
+<ul class='args-list inline commas'>
+<li class='arg'>
+<code>message</code>
+</li>
+</ul><span class='paren'>)</span>
+</div>
+
+<span class='returns-inline'>
+<span class='type'>Debug</span>
+</span>
+
+<div class='flags'>
+
+
+
+<span class='flag static'>static</span>
+
+
+</div> 
+
+<div class='meta'>
+<p>
+Defined in
+<a href='../files/src_debug_Debug.js.html#l998'><code>blue:998</code></a>
+</p>
+
+
+
+</div>
+
+<div class='description'>
+<p>Output a general log colored as blue</p>
+
+</div>
+
+<div class='params'>
+<h4>Parameters:</h4>
+
+<ul class='params-list'>
+<li class='param'>
+<code class='param-name'>message</code>
+<span class='type'></span>
+
+
+<div class='param-description'>
+<p>The message to log</p>
+
+</div>
+
+</li>
+</ul>
+</div>
+
+<div class='returns'>
+<h4>Returns:</h4>
+
+<div class='returns-description'>
+<span class='type'>Debug</span>:
+<p>The instance of debug for chaining</p>
+
+</div>
+</div>
+
+</div><div class='method_clear method item public'>
+<h3 class='name'><a class="deeplink" href="#method_clear"><span class="glyphicon glyphicon-link"></span></a> <code>clear</code></h3>
+
+<span class='paren'>()</span>
+
+<span class='returns-inline'>
+<span class='type'>Debug</span>
+</span>
+
+<div class='flags'>
+
+<span class='flag public'>public</span>
+
+
+<span class='flag static'>static</span>
+
+
+</div> 
+
+<div class='meta'>
+<p>
+Defined in
+<a href='../files/src_debug_Debug.js.html#l852'><code>clear:852</code></a>
+</p>
+
+
+
+</div>
+
+<div class='description'>
+<p>Method to clear the console</p>
+
+</div>
+
+
+<div class='returns'>
+<h4>Returns:</h4>
+
+<div class='returns-description'>
+<span class='type'>Debug</span>:
+<p>The instance of debug for chaining</p>
+
+</div>
+</div>
+
+</div><div class='method_connect method item public'>
+<h3 class='name'><a class="deeplink" href="#method_connect"><span class="glyphicon glyphicon-link"></span></a> <code>connect</code></h3>
+
+<div class='args'>
+<span class='paren'>(</span>
+<ul class='args-list inline commas'>
+<li class='arg'>
+<code>host</code>
+</li>
+</ul><span class='paren'>)</span>
+</div>
+
+<span class='returns-inline'>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
+</span>
+
+<div class='flags'>
+
+<span class='flag public'>public</span>
+
+
+<span class='flag static'>static</span>
+
+
+</div> 
+
+<div class='meta'>
+<p>
+Defined in
+<a href='../files/src_debug_Debug.js.html#l250'><code>connect:250</code></a>
+</p>
+
+
+
+</div>
+
+<div class='description'>
+<p>Connect to the <code>WebSocket</code></p>
+
+</div>
+
+<div class='params'>
+<h4>Parameters:</h4>
+
+<ul class='params-list'>
+<li class='param'>
+<code class='param-name'>host</code>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+
+
+<div class='param-description'>
+<p>The remote address to connect to, IP address or host name</p>
+
+</div>
+
+</li>
+</ul>
+</div>
+
+<div class='returns'>
+<h4>Returns:</h4>
+
+<div class='returns-description'>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>:
+<p>If a connection was attempted</p>
+
+</div>
+</div>
+
+</div><div class='method_debug method item public'>
+<h3 class='name'><a class="deeplink" href="#method_debug"><span class="glyphicon glyphicon-link"></span></a> <code>debug</code></h3>
+
+<div class='args'>
+<span class='paren'>(</span>
+<ul class='args-list inline commas'>
+<li class='arg'>
+<code>params</code>
+</li>
+</ul><span class='paren'>)</span>
+</div>
+
+<span class='returns-inline'>
+<span class='type'>Debug</span>
+</span>
+
+<div class='flags'>
+
+<span class='flag public'>public</span>
+
+
+<span class='flag static'>static</span>
+
+
+</div> 
+
+<div class='meta'>
+<p>
+Defined in
+<a href='../files/src_debug_Debug.js.html#l667'><code>debug:667</code></a>
+</p>
+
+
+
+</div>
+
+<div class='description'>
+<p>Debug something in the console or remote</p>
+
+</div>
+
+<div class='params'>
+<h4>Parameters:</h4>
+
+<ul class='params-list'>
+<li class='param'>
+<code class='param-name'>params</code>
+<span class='type'></span>
+
+
+<div class='param-description'>
+<p>The statement or object to debug</p>
+
+</div>
+
+</li>
+</ul>
+</div>
+
+<div class='returns'>
+<h4>Returns:</h4>
+
+<div class='returns-description'>
+<span class='type'>Debug</span>:
+<p>The instance of debug for chaining</p>
+
+</div>
+</div>
+
+</div><div class='method_dir method item public'>
+<h3 class='name'><a class="deeplink" href="#method_dir"><span class="glyphicon glyphicon-link"></span></a> <code>dir</code></h3>
+
+<div class='args'>
+<span class='paren'>(</span>
+<ul class='args-list inline commas'>
+<li class='arg'>
+<code>params</code>
+</li>
+</ul><span class='paren'>)</span>
+</div>
+
+<span class='returns-inline'>
+<span class='type'>Debug</span>
+</span>
+
+<div class='flags'>
+
+<span class='flag public'>public</span>
+
+
+<span class='flag static'>static</span>
+
+
+</div> 
+
+<div class='meta'>
+<p>
+Defined in
+<a href='../files/src_debug_Debug.js.html#l825'><code>dir:825</code></a>
+</p>
+
+
+
+</div>
+
+<div class='description'>
+<p>Method to describe an object in the console</p>
+
+</div>
+
+<div class='params'>
+<h4>Parameters:</h4>
+
+<ul class='params-list'>
+<li class='param'>
+<code class='param-name'>params</code>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+
+
+<div class='param-description'>
+<p>The object to describe in the console</p>
+
+</div>
+
+</li>
+</ul>
+</div>
+
+<div class='returns'>
+<h4>Returns:</h4>
+
+<div class='returns-description'>
+<span class='type'>Debug</span>:
+<p>The instance of debug for chaining</p>
+
+</div>
+</div>
+
+</div><div class='method_disconnect method item public'>
+<h3 class='name'><a class="deeplink" href="#method_disconnect"><span class="glyphicon glyphicon-link"></span></a> <code>disconnect</code></h3>
+
+<span class='paren'>()</span>
+
+
+<div class='flags'>
+
+<span class='flag public'>public</span>
+
+
+<span class='flag static'>static</span>
+
+
+</div> 
+
+<div class='meta'>
+<p>
+Defined in
+<a href='../files/src_debug_Debug.js.html#l281'><code>disconnect:281</code></a>
+</p>
+
+
+
+</div>
+
+<div class='description'>
+<p>Disconnect from the <code>WebSocket</code></p>
+
+</div>
+
+
+
+</div><div class='method_domOutput method item private'>
+<h3 class='name'><a class="deeplink" href="#method_domOutput"><span class="glyphicon glyphicon-link"></span></a> <code>domOutput</code></h3>
+
+<div class='args'>
+<span class='paren'>(</span>
+<ul class='args-list inline commas'>
+<li class='arg'>
+<code>level</code>
+</li>
+<li class='arg'>
+<code>args</code>
+</li>
+</ul><span class='paren'>)</span>
+</div>
+
+
+<div class='flags'>
+
+<span class='flag private'>private</span>
+
+
+<span class='flag static'>static</span>
+
+
+</div> 
+
+<div class='meta'>
+<p>
+Defined in
+<a href='../files/src_debug_Debug.js.html#l363'><code>domOutput:363</code></a>
+</p>
+
+
+
+</div>
+
+<div class='description'>
+<p>Sent to the output</p>
+
+</div>
+
+<div class='params'>
+<h4>Parameters:</h4>
+
+<ul class='params-list'>
+<li class='param'>
+<code class='param-name'>level</code>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+
+
+<div class='param-description'>
+<p>The log level</p>
+
+</div>
+
+</li>
+<li class='param'>
+<code class='param-name'>args</code>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+
+
+<div class='param-description'>
+<p>Additional arguments</p>
+
+</div>
+
+</li>
+</ul>
+</div>
+
+
+</div><div class='method_error method item public'>
+<h3 class='name'><a class="deeplink" href="#method_error"><span class="glyphicon glyphicon-link"></span></a> <code>error</code></h3>
+
+<div class='args'>
+<span class='paren'>(</span>
+<ul class='args-list inline commas'>
+<li class='arg'>
+<code>params</code>
+</li>
+</ul><span class='paren'>)</span>
+</div>
+
+
+<div class='flags'>
+
+<span class='flag public'>public</span>
+
+
+<span class='flag static'>static</span>
+
+
+</div> 
+
+<div class='meta'>
+<p>
+Defined in
+<a href='../files/src_debug_Debug.js.html#l768'><code>error:768</code></a>
+</p>
+
+
+
+</div>
+
+<div class='description'>
+<p>Error something in the console or remote</p>
+
+</div>
+
+<div class='params'>
+<h4>Parameters:</h4>
+
+<ul class='params-list'>
+<li class='param'>
+<code class='param-name'>params</code>
+<span class='type'></span>
+
+
+<div class='param-description'>
+<p>The statement or object to error</p>
+
+</div>
+
+</li>
+</ul>
+</div>
+
+
+</div><div class='method_globalErrorHandler method item private'>
+<h3 class='name'><a class="deeplink" href="#method_globalErrorHandler"><span class="glyphicon glyphicon-link"></span></a> <code>globalErrorHandler</code></h3>
+
+<div class='args'>
+<span class='paren'>(</span>
+<ul class='args-list inline commas'>
+<li class='arg'>
+<code>message</code>
+</li>
+<li class='arg'>
+<code>file</code>
+</li>
+<li class='arg'>
+<code>line</code>
+</li>
+<li class='arg'>
+<code>column</code>
+</li>
+<li class='arg'>
+<code>error</code>
+</li>
+</ul><span class='paren'>)</span>
+</div>
+
+
+<div class='flags'>
+
+<span class='flag private'>private</span>
+
+
+<span class='flag static'>static</span>
+
+
+</div> 
+
+<div class='meta'>
+<p>
+Defined in
+<a href='../files/src_debug_Debug.js.html#l326'><code>globalErrorHandler:326</code></a>
+</p>
+
+
+
+</div>
+
+<div class='description'>
+<p>Global window error handler, used for remote connections.</p>
+
+</div>
+
+<div class='params'>
+<h4>Parameters:</h4>
+
+<ul class='params-list'>
+<li class='param'>
+<code class='param-name'>message</code>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+
+
+<div class='param-description'>
+<p>The error message</p>
+
+</div>
+
+</li>
+<li class='param'>
+<code class='param-name'>file</code>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+
+
+<div class='param-description'>
+<p>The url of the file</p>
+
+</div>
+
+</li>
+<li class='param'>
+<code class='param-name'>line</code>
+<span class='type'>Int</span>
+
+
+<div class='param-description'>
+<p>The line within the file</p>
+
+</div>
+
+</li>
+<li class='param'>
+<code class='param-name'>column</code>
+<span class='type'>Int</span>
+
+
+<div class='param-description'>
+<p>The column within the line</p>
+
+</div>
+
+</li>
+<li class='param'>
+<code class='param-name'>error</code>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Error" class="crosslink external" target="_blank">Error</a></span>
+
+
+<div class='param-description'>
+<p>The error itself</p>
+
+</div>
+
+</li>
+</ul>
+</div>
+
+
+</div><div class='method_gray method item'>
+<h3 class='name'><a class="deeplink" href="#method_gray"><span class="glyphicon glyphicon-link"></span></a> <code>gray</code></h3>
+
+<div class='args'>
+<span class='paren'>(</span>
+<ul class='args-list inline commas'>
+<li class='arg'>
+<code>message</code>
+</li>
+</ul><span class='paren'>)</span>
+</div>
+
+<span class='returns-inline'>
+<span class='type'>Debug</span>
+</span>
+
+<div class='flags'>
+
+
+
+<span class='flag static'>static</span>
+
+
+</div> 
+
+<div class='meta'>
+<p>
+Defined in
+<a href='../files/src_debug_Debug.js.html#l1114'><code>gray:1114</code></a>
+</p>
+
+
+
+</div>
+
+<div class='description'>
+<p>Output a general log colored as gray</p>
+
+</div>
+
+<div class='params'>
+<h4>Parameters:</h4>
+
+<ul class='params-list'>
+<li class='param'>
+<code class='param-name'>message</code>
+<span class='type'></span>
+
+
+<div class='param-description'>
+<p>The message to log</p>
+
+</div>
+
+</li>
+</ul>
+</div>
+
+<div class='returns'>
+<h4>Returns:</h4>
+
+<div class='returns-description'>
+<span class='type'>Debug</span>:
+<p>The instance of debug for chaining</p>
+
+</div>
+</div>
+
+</div><div class='method_green method item'>
+<h3 class='name'><a class="deeplink" href="#method_green"><span class="glyphicon glyphicon-link"></span></a> <code>green</code></h3>
+
+<div class='args'>
+<span class='paren'>(</span>
+<ul class='args-list inline commas'>
+<li class='arg'>
+<code>message</code>
+</li>
+</ul><span class='paren'>)</span>
+</div>
+
+<span class='returns-inline'>
+<span class='type'>Debug</span>
+</span>
+
+<div class='flags'>
+
+
+
+<span class='flag static'>static</span>
+
+
+</div> 
+
+<div class='meta'>
+<p>
+Defined in
+<a href='../files/src_debug_Debug.js.html#l1033'><code>green:1033</code></a>
+</p>
+
+
+
+</div>
+
+<div class='description'>
+<p>Output a general log colored as green</p>
+
+</div>
+
+<div class='params'>
+<h4>Parameters:</h4>
+
+<ul class='params-list'>
+<li class='param'>
+<code class='param-name'>message</code>
+<span class='type'></span>
+
+
+<div class='param-description'>
+<p>The message to log</p>
+
+</div>
+
+</li>
+</ul>
+</div>
+
+<div class='returns'>
+<h4>Returns:</h4>
+
+<div class='returns-description'>
+<span class='type'>Debug</span>:
+<p>The instance of debug for chaining</p>
+
+</div>
+</div>
+
+</div><div class='method_group method item public'>
+<h3 class='name'><a class="deeplink" href="#method_group"><span class="glyphicon glyphicon-link"></span></a> <code>group</code></h3>
+
+<div class='args'>
+<span class='paren'>(</span>
+<ul class='args-list inline commas'>
+<li class='arg'>
+<code>params</code>
+</li>
+</ul><span class='paren'>)</span>
+</div>
+
+<span class='returns-inline'>
+<span class='type'>Debug</span>
+</span>
+
+<div class='flags'>
+
+<span class='flag public'>public</span>
+
+
+<span class='flag static'>static</span>
+
+
+</div> 
+
+<div class='meta'>
+<p>
+Defined in
+<a href='../files/src_debug_Debug.js.html#l906'><code>group:906</code></a>
+</p>
+
+
+
+</div>
+
+<div class='description'>
+<p>Starts a new logging group with an optional title. All console output that
+occurs after calling this method and calling <code>Debug.groupEnd()</code> appears in
+the same visual group.</p>
+
+</div>
+
+<div class='params'>
+<h4>Parameters:</h4>
+
+<ul class='params-list'>
+<li class='param'>
+<code class='param-name'>params</code>
+<span class='type'></span>
+
+
+<div class='param-description'>
+<p>Optional parameters to log</p>
+
+</div>
+
+</li>
+</ul>
+</div>
+
+<div class='returns'>
+<h4>Returns:</h4>
+
+<div class='returns-description'>
+<span class='type'>Debug</span>:
+<p>The instance of debug for chaining</p>
+
+</div>
+</div>
+
+</div><div class='method_groupCollapsed method item public'>
+<h3 class='name'><a class="deeplink" href="#method_groupCollapsed"><span class="glyphicon glyphicon-link"></span></a> <code>groupCollapsed</code></h3>
+
+<div class='args'>
+<span class='paren'>(</span>
+<ul class='args-list inline commas'>
+<li class='arg'>
+<code>params</code>
+</li>
+</ul><span class='paren'>)</span>
+</div>
+
+<span class='returns-inline'>
+<span class='type'>Debug</span>
+</span>
+
+<div class='flags'>
+
+<span class='flag public'>public</span>
+
+
+<span class='flag static'>static</span>
+
+
+</div> 
+
+<div class='meta'>
+<p>
+Defined in
+<a href='../files/src_debug_Debug.js.html#l930'><code>groupCollapsed:930</code></a>
+</p>
+
+
+
+</div>
+
+<div class='description'>
+<p>Creates a new logging group that is initially collapsed instead of open,
+as with <code>Debug.group()</code>.</p>
+
+</div>
+
+<div class='params'>
+<h4>Parameters:</h4>
+
+<ul class='params-list'>
+<li class='param'>
+<code class='param-name'>params</code>
+<span class='type'></span>
+
+
+<div class='param-description'>
+<p>Optional parameters to log</p>
+
+</div>
+
+</li>
+</ul>
+</div>
+
+<div class='returns'>
+<h4>Returns:</h4>
+
+<div class='returns-description'>
+<span class='type'>Debug</span>:
+<p>The instance of debug for chaining</p>
+
+</div>
+</div>
+
+</div><div class='method_groupEnd method item public'>
+<h3 class='name'><a class="deeplink" href="#method_groupEnd"><span class="glyphicon glyphicon-link"></span></a> <code>groupEnd</code></h3>
+
+<span class='paren'>()</span>
+
+<span class='returns-inline'>
+<span class='type'>Debug</span>
+</span>
+
+<div class='flags'>
+
+<span class='flag public'>public</span>
+
+
+<span class='flag static'>static</span>
+
+
+</div> 
+
+<div class='meta'>
+<p>
+Defined in
+<a href='../files/src_debug_Debug.js.html#l953'><code>groupEnd:953</code></a>
+</p>
+
+
+
+</div>
+
+<div class='description'>
+<p>Starts a new logging group with an optional title. All console output that
+occurs after calling this method and calling console.groupEnd() appears in
+the same visual group.</p>
+
+</div>
+
+
+<div class='returns'>
+<h4>Returns:</h4>
+
+<div class='returns-description'>
+<span class='type'>Debug</span>:
+<p>The instance of debug for chaining</p>
+
+</div>
+</div>
+
+</div><div class='method_info method item public'>
+<h3 class='name'><a class="deeplink" href="#method_info"><span class="glyphicon glyphicon-link"></span></a> <code>info</code></h3>
+
+<div class='args'>
+<span class='paren'>(</span>
+<ul class='args-list inline commas'>
+<li class='arg'>
+<code>params</code>
+</li>
+</ul><span class='paren'>)</span>
+</div>
+
+<span class='returns-inline'>
+<span class='type'>Debug</span>
+</span>
+
+<div class='flags'>
+
+<span class='flag public'>public</span>
+
+
+<span class='flag static'>static</span>
+
+
+</div> 
+
+<div class='meta'>
+<p>
+Defined in
+<a href='../files/src_debug_Debug.js.html#l708'><code>info:708</code></a>
+</p>
+
+
+
+</div>
+
+<div class='description'>
+<p>Info something in the console or remote</p>
+
+</div>
+
+<div class='params'>
+<h4>Parameters:</h4>
+
+<ul class='params-list'>
+<li class='param'>
+<code class='param-name'>params</code>
+<span class='type'></span>
+
+
+<div class='param-description'>
+<p>The statement or object to info</p>
+
+</div>
+
+</li>
+</ul>
+</div>
+
+<div class='returns'>
+<h4>Returns:</h4>
+
+<div class='returns-description'>
+<span class='type'>Debug</span>:
+<p>The instance of debug for chaining</p>
+
+</div>
+</div>
+
+</div><div class='method_lime method item'>
+<h3 class='name'><a class="deeplink" href="#method_lime"><span class="glyphicon glyphicon-link"></span></a> <code>lime</code></h3>
+
+<div class='args'>
+<span class='paren'>(</span>
+<ul class='args-list inline commas'>
+<li class='arg'>
+<code>message</code>
+</li>
+</ul><span class='paren'>)</span>
+</div>
+
+<span class='returns-inline'>
+<span class='type'>Debug</span>
+</span>
+
+<div class='flags'>
+
+
+
+<span class='flag static'>static</span>
+
+
+</div> 
+
+<div class='meta'>
+<p>
+Defined in
+<a href='../files/src_debug_Debug.js.html#l1042'><code>lime:1042</code></a>
+</p>
+
+
+
+</div>
+
+<div class='description'>
+<p>Output a general log colored as lime</p>
+
+</div>
+
+<div class='params'>
+<h4>Parameters:</h4>
+
+<ul class='params-list'>
+<li class='param'>
+<code class='param-name'>message</code>
+<span class='type'></span>
+
+
+<div class='param-description'>
+<p>The message to log</p>
+
+</div>
+
+</li>
+</ul>
+</div>
+
+<div class='returns'>
+<h4>Returns:</h4>
+
+<div class='returns-description'>
+<span class='type'>Debug</span>:
+<p>The instance of debug for chaining</p>
+
+</div>
+</div>
+
+</div><div class='method_log method item public'>
+<h3 class='name'><a class="deeplink" href="#method_log"><span class="glyphicon glyphicon-link"></span></a> <code>log</code></h3>
+
+<div class='args'>
+<span class='paren'>(</span>
+<ul class='args-list inline commas'>
+<li class='arg'>
+<code>params</code>
+</li>
+</ul><span class='paren'>)</span>
+</div>
+
+<span class='returns-inline'>
+<span class='type'>Debug</span>
+</span>
+
+<div class='flags'>
+
+<span class='flag public'>public</span>
+
+
+<span class='flag static'>static</span>
+
+
+</div> 
+
+<div class='meta'>
+<p>
+Defined in
+<a href='../files/src_debug_Debug.js.html#l637'><code>log:637</code></a>
+</p>
+
+
+
+</div>
+
+<div class='description'>
+<p>Log something in the console or remote</p>
+
+</div>
+
+<div class='params'>
+<h4>Parameters:</h4>
+
+<ul class='params-list'>
+<li class='param'>
+<code class='param-name'>params</code>
+<span class='type'></span>
+
+
+<div class='param-description'>
+<p>The statement or object to log</p>
+
+</div>
+
+</li>
+</ul>
+</div>
+
+<div class='returns'>
+<h4>Returns:</h4>
+
+<div class='returns-description'>
+<span class='type'>Debug</span>:
+<p>The instance of debug for chaining</p>
+
+</div>
+</div>
+
+</div><div class='method_maroon method item'>
+<h3 class='name'><a class="deeplink" href="#method_maroon"><span class="glyphicon glyphicon-link"></span></a> <code>maroon</code></h3>
+
+<div class='args'>
+<span class='paren'>(</span>
+<ul class='args-list inline commas'>
+<li class='arg'>
+<code>message</code>
+</li>
+</ul><span class='paren'>)</span>
+</div>
+
+<span class='returns-inline'>
+<span class='type'>Debug</span>
+</span>
+
+<div class='flags'>
+
+
+
+<span class='flag static'>static</span>
+
+
+</div> 
+
+<div class='meta'>
+<p>
+Defined in
+<a href='../files/src_debug_Debug.js.html#l1096'><code>maroon:1096</code></a>
+</p>
+
+
+
+</div>
+
+<div class='description'>
+<p>Output a general log colored as maroon</p>
+
+</div>
+
+<div class='params'>
+<h4>Parameters:</h4>
+
+<ul class='params-list'>
+<li class='param'>
+<code class='param-name'>message</code>
+<span class='type'></span>
+
+
+<div class='param-description'>
+<p>The message to log</p>
+
+</div>
+
+</li>
+</ul>
+</div>
+
+<div class='returns'>
+<h4>Returns:</h4>
+
+<div class='returns-description'>
+<span class='type'>Debug</span>:
+<p>The instance of debug for chaining</p>
+
+</div>
+</div>
+
+</div><div class='method_navy method item'>
+<h3 class='name'><a class="deeplink" href="#method_navy"><span class="glyphicon glyphicon-link"></span></a> <code>navy</code></h3>
+
+<div class='args'>
+<span class='paren'>(</span>
+<ul class='args-list inline commas'>
+<li class='arg'>
+<code>message</code>
+</li>
+</ul><span class='paren'>)</span>
+</div>
+
+<span class='returns-inline'>
+<span class='type'>Debug</span>
+</span>
+
+<div class='flags'>
+
+
+
+<span class='flag static'>static</span>
+
+
+</div> 
+
+<div class='meta'>
+<p>
+Defined in
+<a href='../files/src_debug_Debug.js.html#l989'><code>navy:989</code></a>
+</p>
+
+
+
+</div>
+
+<div class='description'>
+<p>Output a general log colored as navy</p>
+
+</div>
+
+<div class='params'>
+<h4>Parameters:</h4>
+
+<ul class='params-list'>
+<li class='param'>
+<code class='param-name'>message</code>
+<span class='type'></span>
+
+
+<div class='param-description'>
+<p>The message to log</p>
+
+</div>
+
+</li>
+</ul>
+</div>
+
+<div class='returns'>
+<h4>Returns:</h4>
+
+<div class='returns-description'>
+<span class='type'>Debug</span>:
+<p>The instance of debug for chaining</p>
+
+</div>
+</div>
+
+</div><div class='method_olive method item'>
+<h3 class='name'><a class="deeplink" href="#method_olive"><span class="glyphicon glyphicon-link"></span></a> <code>olive</code></h3>
+
+<div class='args'>
+<span class='paren'>(</span>
+<ul class='args-list inline commas'>
+<li class='arg'>
+<code>message</code>
+</li>
+</ul><span class='paren'>)</span>
+</div>
+
+<span class='returns-inline'>
+<span class='type'>Debug</span>
+</span>
+
+<div class='flags'>
+
+
+
+
+
+</div> 
+
+<div class='meta'>
+<p>
+Defined in
+<a href='../files/src_debug_Debug.js.html#l1025'><code>olive:1025</code></a>
+</p>
+
+
+
+</div>
+
+<div class='description'>
+<p>Output a general log colored as olive</p>
+
+</div>
+
+<div class='params'>
+<h4>Parameters:</h4>
+
+<ul class='params-list'>
+<li class='param'>
+<code class='param-name'>message</code>
+<span class='type'></span>
+
+
+<div class='param-description'>
+<p>The message to log</p>
+
+</div>
+
+</li>
+</ul>
+</div>
+
+<div class='returns'>
+<h4>Returns:</h4>
+
+<div class='returns-description'>
+<span class='type'>Debug</span>:
+<p>The instance of debug for chaining</p>
+
+</div>
+</div>
+
+</div><div class='method_onClose method item private'>
+<h3 class='name'><a class="deeplink" href="#method_onClose"><span class="glyphicon glyphicon-link"></span></a> <code>onClose</code></h3>
+
+<span class='paren'>()</span>
+
+
+<div class='flags'>
+
+<span class='flag private'>private</span>
+
+
+<span class='flag static'>static</span>
+
+
+</div> 
+
+<div class='meta'>
+<p>
+Defined in
+<a href='../files/src_debug_Debug.js.html#l344'><code>onClose:344</code></a>
+</p>
+
+
+
+</div>
+
+<div class='description'>
+<p>Callback for when the websocket is closed</p>
+
+</div>
+
+
+
+</div><div class='method_onConnect method item private'>
+<h3 class='name'><a class="deeplink" href="#method_onConnect"><span class="glyphicon glyphicon-link"></span></a> <code>onConnect</code></h3>
+
+<span class='paren'>()</span>
+
+
+<div class='flags'>
+
+<span class='flag private'>private</span>
+
+
+<span class='flag static'>static</span>
+
+
+</div> 
+
+<div class='meta'>
+<p>
+Defined in
+<a href='../files/src_debug_Debug.js.html#l296'><code>onConnect:296</code></a>
+</p>
+
+
+
+</div>
+
+<div class='description'>
+<p>Callback when the <code>WebSocket</code> is connected</p>
+
+</div>
+
+
+
+</div><div class='method_orange method item'>
+<h3 class='name'><a class="deeplink" href="#method_orange"><span class="glyphicon glyphicon-link"></span></a> <code>orange</code></h3>
+
+<div class='args'>
+<span class='paren'>(</span>
+<ul class='args-list inline commas'>
+<li class='arg'>
+<code>message</code>
+</li>
+</ul><span class='paren'>)</span>
+</div>
+
+<span class='returns-inline'>
+<span class='type'>Debug</span>
+</span>
+
+<div class='flags'>
+
+
+
+<span class='flag static'>static</span>
+
+
+</div> 
+
+<div class='meta'>
+<p>
+Defined in
+<a href='../files/src_debug_Debug.js.html#l1060'><code>orange:1060</code></a>
+</p>
+
+
+
+</div>
+
+<div class='description'>
+<p>Output a general log colored as orange</p>
+
+</div>
+
+<div class='params'>
+<h4>Parameters:</h4>
+
+<ul class='params-list'>
+<li class='param'>
+<code class='param-name'>message</code>
+<span class='type'></span>
+
+
+<div class='param-description'>
+<p>The message to log</p>
+
+</div>
+
+</li>
+</ul>
+</div>
+
+<div class='returns'>
+<h4>Returns:</h4>
+
+<div class='returns-description'>
+<span class='type'>Debug</span>:
+<p>The instance of debug for chaining</p>
+
+</div>
+</div>
+
+</div><div class='method_pink method item'>
+<h3 class='name'><a class="deeplink" href="#method_pink"><span class="glyphicon glyphicon-link"></span></a> <code>pink</code></h3>
+
+<div class='args'>
+<span class='paren'>(</span>
+<ul class='args-list inline commas'>
+<li class='arg'>
+<code>message</code>
+</li>
+</ul><span class='paren'>)</span>
+</div>
+
+<span class='returns-inline'>
+<span class='type'>Debug</span>
+</span>
+
+<div class='flags'>
+
+
+
+<span class='flag static'>static</span>
+
+
+</div> 
+
+<div class='meta'>
+<p>
+Defined in
+<a href='../files/src_debug_Debug.js.html#l1078'><code>pink:1078</code></a>
+</p>
+
+
+
+</div>
+
+<div class='description'>
+<p>Output a general log colored as pink</p>
+
+</div>
+
+<div class='params'>
+<h4>Parameters:</h4>
+
+<ul class='params-list'>
+<li class='param'>
+<code class='param-name'>message</code>
+<span class='type'></span>
+
+
+<div class='param-description'>
+<p>The message to log</p>
+
+</div>
+
+</li>
+</ul>
+</div>
+
+<div class='returns'>
+<h4>Returns:</h4>
+
+<div class='returns-description'>
+<span class='type'>Debug</span>:
+<p>The instance of debug for chaining</p>
+
+</div>
+</div>
+
+</div><div class='method_purple method item'>
+<h3 class='name'><a class="deeplink" href="#method_purple"><span class="glyphicon glyphicon-link"></span></a> <code>purple</code></h3>
+
+<div class='args'>
+<span class='paren'>(</span>
+<ul class='args-list inline commas'>
+<li class='arg'>
+<code>message</code>
+</li>
+</ul><span class='paren'>)</span>
+</div>
+
+<span class='returns-inline'>
+<span class='type'>Debug</span>
+</span>
+
+<div class='flags'>
+
+
+
+<span class='flag static'>static</span>
+
+
+</div> 
+
+<div class='meta'>
+<p>
+Defined in
+<a href='../files/src_debug_Debug.js.html#l1087'><code>purple:1087</code></a>
+</p>
+
+
+
+</div>
+
+<div class='description'>
+<p>Output a general log colored as purple</p>
+
+</div>
+
+<div class='params'>
+<h4>Parameters:</h4>
+
+<ul class='params-list'>
+<li class='param'>
+<code class='param-name'>message</code>
+<span class='type'></span>
+
+
+<div class='param-description'>
+<p>The message to log</p>
+
+</div>
+
+</li>
+</ul>
+</div>
+
+<div class='returns'>
+<h4>Returns:</h4>
+
+<div class='returns-description'>
+<span class='type'>Debug</span>:
+<p>The instance of debug for chaining</p>
+
+</div>
+</div>
+
+</div><div class='method_red method item'>
+<h3 class='name'><a class="deeplink" href="#method_red"><span class="glyphicon glyphicon-link"></span></a> <code>red</code></h3>
+
+<div class='args'>
+<span class='paren'>(</span>
+<ul class='args-list inline commas'>
+<li class='arg'>
+<code>message</code>
+</li>
+</ul><span class='paren'>)</span>
+</div>
+
+<span class='returns-inline'>
+<span class='type'>Debug</span>
+</span>
+
+<div class='flags'>
+
+
+
+<span class='flag static'>static</span>
+
+
+</div> 
+
+<div class='meta'>
+<p>
+Defined in
+<a href='../files/src_debug_Debug.js.html#l1069'><code>red:1069</code></a>
+</p>
+
+
+
+</div>
+
+<div class='description'>
+<p>Output a general log colored as red</p>
+
+</div>
+
+<div class='params'>
+<h4>Parameters:</h4>
+
+<ul class='params-list'>
+<li class='param'>
+<code class='param-name'>message</code>
+<span class='type'></span>
+
+
+<div class='param-description'>
+<p>The message to log</p>
+
+</div>
+
+</li>
+</ul>
+</div>
+
+<div class='returns'>
+<h4>Returns:</h4>
+
+<div class='returns-description'>
+<span class='type'>Debug</span>:
+<p>The instance of debug for chaining</p>
+
+</div>
+</div>
+
+</div><div class='method_removeCircular method item private'>
+<h3 class='name'><a class="deeplink" href="#method_removeCircular"><span class="glyphicon glyphicon-link"></span></a> <code>removeCircular</code></h3>
+
+<div class='args'>
+<span class='paren'>(</span>
+<ul class='args-list inline commas'>
+<li class='arg'>
+<code>obj</code>
+</li>
+</ul><span class='paren'>)</span>
+</div>
+
+
+<div class='flags'>
+
+<span class='flag private'>private</span>
+
+
+
+
+</div> 
+
+<div class='meta'>
+<p>
+Defined in
+<a href='../files/src_debug_Debug.js.html#l553'><code>removeCircular:553</code></a>
+</p>
+
+
+
+</div>
+
+<div class='description'>
+<p>Strip out known circular references</p>
+
+</div>
+
+<div class='params'>
+<h4>Parameters:</h4>
+
+<ul class='params-list'>
+<li class='param'>
+<code class='param-name'>obj</code>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+
+
+<div class='param-description'>
+<p>The object to remove references from</p>
+
+</div>
+
+</li>
+</ul>
+</div>
+
+
+</div><div class='method_silver method item'>
+<h3 class='name'><a class="deeplink" href="#method_silver"><span class="glyphicon glyphicon-link"></span></a> <code>silver</code></h3>
+
+<div class='args'>
+<span class='paren'>(</span>
+<ul class='args-list inline commas'>
+<li class='arg'>
+<code>message</code>
+</li>
+</ul><span class='paren'>)</span>
+</div>
+
+<span class='returns-inline'>
+<span class='type'>Debug</span>
+</span>
+
+<div class='flags'>
+
+
+
+<span class='flag static'>static</span>
+
+
+</div> 
+
+<div class='meta'>
+<p>
+Defined in
+<a href='../files/src_debug_Debug.js.html#l1105'><code>silver:1105</code></a>
+</p>
+
+
+
+</div>
+
+<div class='description'>
+<p>Output a general log colored as silver</p>
+
+</div>
+
+<div class='params'>
+<h4>Parameters:</h4>
+
+<ul class='params-list'>
+<li class='param'>
+<code class='param-name'>message</code>
+<span class='type'></span>
+
+
+<div class='param-description'>
+<p>The message to log</p>
+
+</div>
+
+</li>
+</ul>
+</div>
+
+<div class='returns'>
+<h4>Returns:</h4>
+
+<div class='returns-description'>
+<span class='type'>Debug</span>:
+<p>The instance of debug for chaining</p>
+
+</div>
+</div>
+
+</div><div class='method_teal method item'>
+<h3 class='name'><a class="deeplink" href="#method_teal"><span class="glyphicon glyphicon-link"></span></a> <code>teal</code></h3>
+
+<div class='args'>
+<span class='paren'>(</span>
+<ul class='args-list inline commas'>
+<li class='arg'>
+<code>message</code>
+</li>
+</ul><span class='paren'>)</span>
+</div>
+
+<span class='returns-inline'>
+<span class='type'>Debug</span>
+</span>
+
+<div class='flags'>
+
+
+
+<span class='flag static'>static</span>
+
+
+</div> 
+
+<div class='meta'>
+<p>
+Defined in
+<a href='../files/src_debug_Debug.js.html#l1016'><code>teal:1016</code></a>
+</p>
+
+
+
+</div>
+
+<div class='description'>
+<p>Output a general log colored as teal</p>
+
+</div>
+
+<div class='params'>
+<h4>Parameters:</h4>
+
+<ul class='params-list'>
+<li class='param'>
+<code class='param-name'>message</code>
+<span class='type'></span>
+
+
+<div class='param-description'>
+<p>The message to log</p>
+
+</div>
+
+</li>
+</ul>
+</div>
+
+<div class='returns'>
+<h4>Returns:</h4>
+
+<div class='returns-description'>
+<span class='type'>Debug</span>:
+<p>The instance of debug for chaining</p>
+
+</div>
+</div>
+
+</div><div class='method_trace method item public'>
+<h3 class='name'><a class="deeplink" href="#method_trace"><span class="glyphicon glyphicon-link"></span></a> <code>trace</code></h3>
+
+<div class='args'>
+<span class='paren'>(</span>
+<ul class='args-list inline commas'>
+<li class='arg'>
+<code>params</code>
+</li>
+</ul><span class='paren'>)</span>
+</div>
+
+<span class='returns-inline'>
+<span class='type'>Debug</span>
+</span>
+
+<div class='flags'>
+
+<span class='flag public'>public</span>
+
+
+<span class='flag static'>static</span>
+
+
+</div> 
+
+<div class='meta'>
+<p>
+Defined in
+<a href='../files/src_debug_Debug.js.html#l879'><code>trace:879</code></a>
+</p>
+
+
+
+</div>
+
+<div class='description'>
+<p>Generate a stack track in the output</p>
+
+</div>
+
+<div class='params'>
+<h4>Parameters:</h4>
+
+<ul class='params-list'>
+<li class='param'>
+<code class='param-name'>params</code>
+<span class='type'></span>
+
+
+<div class='param-description'>
+<p>Optional parameters to log</p>
+
+</div>
+
+</li>
+</ul>
+</div>
+
+<div class='returns'>
+<h4>Returns:</h4>
+
+<div class='returns-description'>
+<span class='type'>Debug</span>:
+<p>The instance of debug for chaining</p>
+
+</div>
+</div>
+
+</div><div class='method_warn method item public'>
+<h3 class='name'><a class="deeplink" href="#method_warn"><span class="glyphicon glyphicon-link"></span></a> <code>warn</code></h3>
+
+<div class='args'>
+<span class='paren'>(</span>
+<ul class='args-list inline commas'>
+<li class='arg'>
+<code>params</code>
+</li>
+</ul><span class='paren'>)</span>
+</div>
+
+<span class='returns-inline'>
+<span class='type'>Debug</span>
+</span>
+
+<div class='flags'>
+
+<span class='flag public'>public</span>
+
+
+<span class='flag static'>static</span>
+
+
+</div> 
+
+<div class='meta'>
+<p>
+Defined in
+<a href='../files/src_debug_Debug.js.html#l738'><code>warn:738</code></a>
+</p>
+
+
+
+</div>
+
+<div class='description'>
+<p>Warn something in the console or remote</p>
+
+</div>
+
+<div class='params'>
+<h4>Parameters:</h4>
+
+<ul class='params-list'>
+<li class='param'>
+<code class='param-name'>params</code>
+<span class='type'></span>
+
+
+<div class='param-description'>
+<p>The statement or object to warn</p>
+
+</div>
+
+</li>
+</ul>
+</div>
+
+<div class='returns'>
+<h4>Returns:</h4>
+
+<div class='returns-description'>
+<span class='type'>Debug</span>:
+<p>The instance of debug for chaining</p>
+
+</div>
+</div>
+
+</div><div class='method_yellow method item'>
+<h3 class='name'><a class="deeplink" href="#method_yellow"><span class="glyphicon glyphicon-link"></span></a> <code>yellow</code></h3>
+
+<div class='args'>
+<span class='paren'>(</span>
+<ul class='args-list inline commas'>
+<li class='arg'>
+<code>message</code>
+</li>
+</ul><span class='paren'>)</span>
+</div>
+
+<span class='returns-inline'>
+<span class='type'>Debug</span>
+</span>
+
+<div class='flags'>
+
+
+
+<span class='flag static'>static</span>
+
+
+</div> 
+
+<div class='meta'>
+<p>
+Defined in
+<a href='../files/src_debug_Debug.js.html#l1051'><code>yellow:1051</code></a>
+</p>
+
+
+
+</div>
+
+<div class='description'>
+<p>Output a general log colored as yellow</p>
+
+</div>
+
+<div class='params'>
+<h4>Parameters:</h4>
+
+<ul class='params-list'>
+<li class='param'>
+<code class='param-name'>message</code>
+<span class='type'></span>
+
+
+<div class='param-description'>
+<p>The message to log</p>
+
+</div>
+
+</li>
+</ul>
+</div>
+
+<div class='returns'>
+<h4>Returns:</h4>
+
+<div class='returns-description'>
+<span class='type'>Debug</span>:
+<p>The instance of debug for chaining</p>
+
+</div>
+</div>
+
+</div></div>
+
+<div role='tabpanel' id='docs-properties' class='tab-pane'>
+
+<div class="property__consoleSupportsColors property item private">
+<h3 class="name"><a class="deeplink" href="#property__consoleSupportsColors"><span class="glyphicon glyphicon-link"></span></a> <code>_consoleSupportsColors</code></h3>
+<span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
+
+
+<span class="flag private">private</span>
+
+
+
+<div class="meta">
+<p>
+Defined in
+<a href="../files/src_debug_Debug.js.html#l29"><code>_consoleSupportsColors:29</code></a>
+</p>
+
+
+</div>
+
+<div class="description">
+<p>If the console supports coloring</p>
+
+</div>
+
+
+
+</div><div class="property__hasConsole property item private">
+<h3 class="name"><a class="deeplink" href="#property__hasConsole"><span class="glyphicon glyphicon-link"></span></a> <code>_hasConsole</code></h3>
+<span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
+
+
+<span class="flag private">private</span>
+
+
+
+<div class="meta">
+<p>
+Defined in
+<a href="../files/src_debug_Debug.js.html#l21"><code>_hasConsole:21</code></a>
+</p>
+
+
+</div>
+
+<div class="description">
+<p>If we have a console</p>
+
+</div>
+
+
+
+</div><div class="property__palette property item private">
+<h3 class="name"><a class="deeplink" href="#property__palette"><span class="glyphicon glyphicon-link"></span></a> <code>_palette</code></h3>
+<span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+
+
+<span class="flag private">private</span>
+
+
+
+<div class="meta">
+<p>
+Defined in
+<a href="../files/src_debug_Debug.js.html#l976"><code>_palette:976</code></a>
+</p>
+
+
+</div>
+
+<div class="description">
+<p>List of hex colors to create Debug shortcuts for.
+Each key will become a function Debug<a href="">key</a> that outputs
+the message in the specified color to the console if
+the browsers allows colored logging.
+Color Palette pulled from "Better CSS Defaults"
+(<a href="https://github.com/mrmrs/colors">https://github.com/mrmrs/colors</a>)</p>
+
+</div>
+
+
+
+</div><div class="property__socket property item private">
+<h3 class="name"><a class="deeplink" href="#property__socket"><span class="glyphicon glyphicon-link"></span></a> <code>_socket</code></h3>
+<span class="type">WebSocket</span>
+
+
+<span class="flag private">private</span>
+
+
+<span class="flag static">static</span>
+
+<div class="meta">
+<p>
+Defined in
+<a href="../files/src_debug_Debug.js.html#l170"><code>_socket:170</code></a>
+</p>
+
+
+</div>
+
+<div class="description">
+<p>The socket connection</p>
+
+</div>
+
+
+
+</div><div class="property__socketMessage property item private">
+<h3 class="name"><a class="deeplink" href="#property__socketMessage"><span class="glyphicon glyphicon-link"></span></a> <code>_socketMessage</code></h3>
+<span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+
+
+<span class="flag private">private</span>
+
+
+<span class="flag static">static</span>
+
+<div class="meta">
+<p>
+Defined in
+<a href="../files/src_debug_Debug.js.html#l178"><code>_socketMessage:178</code></a>
+</p>
+
+
+</div>
+
+<div class="description">
+<p>The current message object being sent to the <code>WebSocket</code></p>
+
+</div>
+
+
+
+</div><div class="property__socketQueue property item private">
+<h3 class="name"><a class="deeplink" href="#property__socketQueue"><span class="glyphicon glyphicon-link"></span></a> <code>_socketQueue</code></h3>
+<span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array" class="crosslink external" target="_blank">Array</a></span>
+
+
+<span class="flag private">private</span>
+
+
+<span class="flag static">static</span>
+
+<div class="meta">
+<p>
+Defined in
+<a href="../files/src_debug_Debug.js.html#l186"><code>_socketQueue:186</code></a>
+</p>
+
+
+</div>
+
+<div class="description">
+<p>The <code>WebSocket</code> message queue</p>
+
+</div>
+
+
+
+</div><div class="property__useSocket property item private">
+<h3 class="name"><a class="deeplink" href="#property__useSocket"><span class="glyphicon glyphicon-link"></span></a> <code>_useSocket</code></h3>
+<span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
+
+
+<span class="flag private">private</span>
+
+
+<span class="flag static">static</span>
+
+<div class="meta">
+<p>
+Defined in
+<a href="../files/src_debug_Debug.js.html#l161"><code>_useSocket:161</code></a>
+</p>
+
+
+</div>
+
+<div class="description">
+<p>If the WebSocket is connected</p>
+
+</div>
+
+<p><strong>Default:</strong> false</p>
+
+
+</div><div class="property_circularArray property item private">
+<h3 class="name"><a class="deeplink" href="#property_circularArray"><span class="glyphicon glyphicon-link"></span></a> <code>circularArray</code></h3>
+<span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array" class="crosslink external" target="_blank">Array</a></span>
+
+
+<span class="flag private">private</span>
+
+
+<span class="flag static">static</span>
+
+<div class="meta">
+<p>
+Defined in
+<a href="../files/src_debug_Debug.js.html#l545"><code>circularArray:545</code></a>
+</p>
+
+
+</div>
+
+<div class="description">
+<p>An array for preventing circular references</p>
+
+</div>
+
+
+
+</div><div class="property_enabled property item public">
+<h3 class="name"><a class="deeplink" href="#property_enabled"><span class="glyphicon glyphicon-link"></span></a> <code>enabled</code></h3>
+<span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
+
+
+<span class="flag public">public</span>
+
+
+<span class="flag static">static</span>
+
+<div class="meta">
+<p>
+Defined in
+<a href="../files/src_debug_Debug.js.html#l135"><code>enabled:135</code></a>
+</p>
+
+
+</div>
+
+<div class="description">
+<p>Boolean to turn on or off the debugging</p>
+
+</div>
+
+
+
+</div><div class="property_Levels property item">
+<h3 class="name"><a class="deeplink" href="#property_Levels"><span class="glyphicon glyphicon-link"></span></a> <code>Levels</code></h3>
+<span class="type"><a href="../classes/springroll.Enum.html" class="crosslink">springroll.Enum</a></span>
+
+
+
+
+<span class="flag static">static</span>
+
+<div class="meta">
+<p>
+Defined in
+<a href="../files/src_debug_Debug.js.html#l83"><code>Levels:83</code></a>
+</p>
+
+
+</div>
+
+<div class="description">
+<p>The levels of logging</p>
+
+</div>
+
+
+
+</div><div class="property_Levels.DEBUG property item">
+<h3 class="name"><a class="deeplink" href="#property_Levels.DEBUG"><span class="glyphicon glyphicon-link"></span></a> <code>Levels.DEBUG</code></h3>
+<span class="type">Int</span>
+
+
+
+
+<span class="flag static">static</span>
+
+<div class="meta">
+<p>
+Defined in
+<a href="../files/src_debug_Debug.js.html#l104"><code>Levels.DEBUG:104</code></a>
+</p>
+
+
+</div>
+
+<div class="description">
+<p>The info log level, more priority than DEBUG</p>
+
+</div>
+
+
+
+</div><div class="property_Levels.DEBUG property item">
+<h3 class="name"><a class="deeplink" href="#property_Levels.DEBUG"><span class="glyphicon glyphicon-link"></span></a> <code>Levels.DEBUG</code></h3>
+<span class="type">Int</span>
+
+
+
+
+<span class="flag static">static</span>
+
+<div class="meta">
+<p>
+Defined in
+<a href="../files/src_debug_Debug.js.html#l97"><code>Levels.DEBUG:97</code></a>
+</p>
+
+
+</div>
+
+<div class="description">
+<p>The debug log level, more priority than GENERAL</p>
+
+</div>
+
+
+
+</div><div class="property_Levels.ERROR property item">
+<h3 class="name"><a class="deeplink" href="#property_Levels.ERROR"><span class="glyphicon glyphicon-link"></span></a> <code>Levels.ERROR</code></h3>
+<span class="type">Int</span>
+
+
+
+
+<span class="flag static">static</span>
+
+<div class="meta">
+<p>
+Defined in
+<a href="../files/src_debug_Debug.js.html#l118"><code>Levels.ERROR:118</code></a>
+</p>
+
+
+</div>
+
+<div class="description">
+<p>The error log level, the most priority log level</p>
+
+</div>
+
+
+
+</div><div class="property_Levels.GENERAL property item">
+<h3 class="name"><a class="deeplink" href="#property_Levels.GENERAL"><span class="glyphicon glyphicon-link"></span></a> <code>Levels.GENERAL</code></h3>
+<span class="type">Int</span>
+
+
+
+
+<span class="flag static">static</span>
+
+<div class="meta">
+<p>
+Defined in
+<a href="../files/src_debug_Debug.js.html#l90"><code>Levels.GENERAL:90</code></a>
+</p>
+
+
+</div>
+
+<div class="description">
+<p>The most basic general log level</p>
+
+</div>
+
+
+
+</div><div class="property_Levels.WARN property item">
+<h3 class="name"><a class="deeplink" href="#property_Levels.WARN"><span class="glyphicon glyphicon-link"></span></a> <code>Levels.WARN</code></h3>
+<span class="type">Int</span>
+
+
+
+
+<span class="flag static">static</span>
+
+<div class="meta">
+<p>
+Defined in
+<a href="../files/src_debug_Debug.js.html#l111"><code>Levels.WARN:111</code></a>
+</p>
+
+
+</div>
+
+<div class="description">
+<p>The warn log level, more priority than WARN</p>
+
+</div>
+
+
+
+</div><div class="property_lineLocationFinder property item private">
+<h3 class="name"><a class="deeplink" href="#property_lineLocationFinder"><span class="glyphicon glyphicon-link"></span></a> <code>lineLocationFinder</code></h3>
+<span class="type">RegEx</span>
+
+
+<span class="flag private">private</span>
+
+
+<span class="flag static">static</span>
+
+<div class="meta">
+<p>
+Defined in
+<a href="../files/src_debug_Debug.js.html#l242"><code>lineLocationFinder:242</code></a>
+</p>
+
+
+</div>
+
+<div class="description">
+<p>Regular expression to get the line number and column from a stack trace line.</p>
+
+</div>
+
+
+
+</div><div class="property_methodsToStrip property item private">
+<h3 class="name"><a class="deeplink" href="#property_methodsToStrip"><span class="glyphicon glyphicon-link"></span></a> <code>methodsToStrip</code></h3>
+<span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array" class="crosslink external" target="_blank">Array</a></span>
+
+
+<span class="flag private">private</span>
+
+
+<span class="flag static">static</span>
+
+<div class="meta">
+<p>
+Defined in
+<a href="../files/src_debug_Debug.js.html#l201"><code>methodsToStrip:201</code></a>
+</p>
+
+
+</div>
+
+<div class="description">
+<p>Methods names to use to strip out lines from stack traces
+in remote logging.</p>
+
+</div>
+
+
+
+</div><div class="property_minLogLevel property item public">
+<h3 class="name"><a class="deeplink" href="#property_minLogLevel"><span class="glyphicon glyphicon-link"></span></a> <code>minLogLevel</code></h3>
+<span class="type">Int</span>
+
+
+<span class="flag public">public</span>
+
+
+<span class="flag static">static</span>
+
+<div class="meta">
+<p>
+Defined in
+<a href="../files/src_debug_Debug.js.html#l126"><code>minLogLevel:126</code></a>
+</p>
+
+
+</div>
+
+<div class="description">
+<p>The minimum log level to show, by default it&#39;s set to
+show all levels of logging.</p>
+
+</div>
+
+
+
+</div><div class="property_NET_PORT property item private">
+<h3 class="name"><a class="deeplink" href="#property_NET_PORT"><span class="glyphicon glyphicon-link"></span></a> <code>NET_PORT</code></h3>
+<span class="type">Int</span>
+
+
+<span class="flag private">private</span>
+
+
+<span class="flag static">static</span>
+
+<div class="meta">
+<p>
+Defined in
+<a href="../files/src_debug_Debug.js.html#l152"><code>NET_PORT:152</code></a>
+</p>
+
+
+</div>
+
+<div class="description">
+<p>Browser port for the websocket - browsers tend to block lower ports</p>
+
+</div>
+
+<p><strong>Default:</strong> 1026</p>
+
+
+</div><div class="property_output property item public">
+<h3 class="name"><a class="deeplink" href="#property_output"><span class="glyphicon glyphicon-link"></span></a> <code>output</code></h3>
+<span class="type">DOMElement</span>
+
+
+<span class="flag public">public</span>
+
+
+<span class="flag static">static</span>
+
+<div class="meta">
+<p>
+Defined in
+<a href="../files/src_debug_Debug.js.html#l143"><code>output:143</code></a>
+</p>
+
+
+</div>
+
+<div class="description">
+<p>The DOM element to output debug messages to</p>
+
+</div>
+
+
+
+</div></div>
+
+
+</div>
+</div></div>
+</div>
+</div>
+</div>
+<script src='../assets/js/libraries.js?v=0.4.0'></script>
+<script src='../assets/js/main.js?v=0.4.0'></script>
+</body>
+</html>
