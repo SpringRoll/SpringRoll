@@ -116,9 +116,13 @@ Modules are components which contain common code classes, documentation and/or r
 
 The Framework is inherently canvas-rendering agnostic. We support two different rendering display plugins for [EaselJS](http://www.createjs.com/EaselJS) and [Pixi.js](http://www.pixijs.com/). Features within the different modules require SpringRoll's forks of EaselJS and PixiJS. In addition, there is a generic display for rendering using [Context2d](http://www.w3.org/TR/2014/CR-2dcontext-20140821/) or [WebGL](http://get.webgl.org/). An Application built with the Framework can support all three displays methods simultaneously.
 
+##Examples
+
+[Examples found here](http://springroll.github.io/SpringRoll/examples/). These are the same examples in the **examples/** folder in the repository.
+
 ##Documentation
 
-[API Documentation](http://springroll.github.io/SpringRoll/) has full documentation for the core and related modules. For examples of implementing each module please consult the [wiki](https://github.com/SpringRoll/SpringRoll/wiki).
+[API Documentation](http://springroll.github.io/SpringRoll/docs/) has full documentation for the core and related modules. For examples of implementing each module please consult the [wiki](https://github.com/SpringRoll/SpringRoll/wiki).
 
 ##License
 
