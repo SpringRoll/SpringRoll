@@ -84,7 +84,7 @@
 
 		/**
 		 * If sound is currently muted by the system. This will only be true on iOS until
-		 * audio has been unmuted during a touch event. Listen for the 'systemUnmuted' 
+		 * audio has been unmuted during a touch event. Listen for the 'systemUnmuted'
 		 * event on Sound to be notified when the audio is unmuted on iOS.
 		 * @property {Boolean} systemMuted
 		 * @readOnly
@@ -108,7 +108,7 @@
 	var LoadStates = new Enum("unloaded", "loading", "loaded");
 
 	/**
-	 * Initializes the Sound singleton. If using createjs.FlashAudioPlugin, you will 
+	 * Initializes the Sound singleton. If using createjs.FlashAudioPlugin, you will
 	 * be responsible for setting createjs.FlashAudioPlugin.BASE_PATH.
 	 * @method init
 	 * @static
@@ -117,7 +117,7 @@
 	 * plugins to pass to createjs.Sound.registerPlugins().
 	 * @param {Array} [options.types=['ogg','mp3']] The order in which file types are
 	 * preferred, where "ogg" becomes a ".ogg" extension on all sound file urls.
-	 * @param {String} [options.swfPath='assets/swfs/'] The required path to the 
+	 * @param {String} [options.swfPath='assets/swfs/'] The required path to the
 	 * createjs.FlashAudioPlugin SWF
 	 * @param {Function} [options.ready] A function to call when initialization is complete.
 	 * @return {Sound} The new instance of the sound object
@@ -289,7 +289,7 @@
 	 * @param {String} [config.sounds.listItem.src] The src path to the file, without an
 	 * extension. If omitted, defaults to id.
 	 * @param {Number} [config.sounds.listItem.volume=1] The default volume for the sound, from 0 to 1.
-	 * @param {Boolean} [config.sounds.listItem.loop=false] If the sound should loop by 
+	 * @param {Boolean} [config.sounds.listItem.loop=false] If the sound should loop by
 	 * default whenever the loop parameter in play() is not specified.
 	 * @param {String} [config.sounds.listItem.context] A context name to override config.context with.
 	 * @param {Boolean} [config.sounds.listItem.preload] If the sound should be preloaded immediately.
@@ -463,9 +463,9 @@
 	 * Fades a sound from 0 to a specified volume.
 	 * @method fadeIn
 	 * @public
-	 * @param {String|SoundInstance} aliasOrInst The alias of the sound to fade the 
+	 * @param {String|SoundInstance} aliasOrInst The alias of the sound to fade the
 	 * last played instance of, or an instance returned from play().
-	 * @param {Number} [duration=500] The duration in milliseconds to fade for. 
+	 * @param {Number} [duration=500] The duration in milliseconds to fade for.
 	 * The default is 500ms.
 	 * @param {Number} [targetVol] The volume to fade to. The default is the sound's default volume.
 	 * @param {Number} [startVol=0] The volume to start from. The default is 0.
@@ -506,13 +506,13 @@
 	};
 
 	/**
-	 * Fades a sound from the current volume to a specified volume. A sound that ends 
+	 * Fades a sound from the current volume to a specified volume. A sound that ends
 	 * at 0 volume is stopped after the fade.
 	 * @method fadeOut
 	 * @public
-	 * @param {String|SoundInstance} aliasOrInst The alias of the sound to fade the 
+	 * @param {String|SoundInstance} aliasOrInst The alias of the sound to fade the
 	 * last played instance of, or an instance returned from play().
-	 * @param {Number} [duration=500] The duration in milliseconds to fade for. 
+	 * @param {Number} [duration=500] The duration in milliseconds to fade for.
 	 * The default is 500ms.
 	 * @param {Number} [targetVol=0] The volume to fade to. The default is 0.
 	 * @param {Number} [startVol] The volume to fade from. The default is the current volume.
@@ -625,25 +625,25 @@
 	 * @method play
 	 * @public
 	 * @param {String} alias The alias of the sound to play.
-	 * @param {Object|function} [options] The object of optional parameters or complete 
+	 * @param {Object|function} [options] The object of optional parameters or complete
 	 * callback function.
 	 * @param {Function} [options.complete] An optional function to call when the sound is finished.
 	 * @param {Function} [options.start] An optional function to call when the sound starts
-	 * playback. If the sound is loaded, this is called immediately, if not, it calls 
+	 * playback. If the sound is loaded, this is called immediately, if not, it calls
 	 * when the sound is finished loading.
-	 * @param {Boolean} [options.interrupt=false] If the sound should interrupt previous 
+	 * @param {Boolean} [options.interrupt=false] If the sound should interrupt previous
 	 * sounds (SoundJS parameter). Default is false.
-	 * @param {Number} [options.delay=0] The delay to play the sound at in milliseconds 
+	 * @param {Number} [options.delay=0] The delay to play the sound at in milliseconds
 	 * (SoundJS parameter). Default is 0.
 	 * @param {Number} [options.offset=0] The offset into the sound to play in milliseconds
 	 * (SoundJS parameter). Default is 0.
-	 * @param {int} [options.loop=0] How many times the sound should loop. Use -1 
+	 * @param {int} [options.loop=0] How many times the sound should loop. Use -1
 	 * (or true) for infinite loops (SoundJS parameter). Default is no looping.
-	 * @param {Number} [options.volume] The volume to play the sound at (0 to 1). 
+	 * @param {Number} [options.volume] The volume to play the sound at (0 to 1).
 	 * Omit to use the default for the sound.
-	 * @param {Number} [options.pan=0] The panning to start the sound at (-1 to 1). 
+	 * @param {Number} [options.pan=0] The panning to start the sound at (-1 to 1).
 	 * Default is centered (0).
-	 * @return {SoundInstance} An internal SoundInstance object that can be used for 
+	 * @return {SoundInstance} An internal SoundInstance object that can be used for
 	 * fading in/out as well as pausing and getting the sound's current position.
 	 */
 	p.play = function(alias, options, startCallback, interrupt, delay, offset, loop, volume, pan)
@@ -663,7 +663,7 @@
 		offset = (options ? options.offset : offset) || 0;
 		loop = (options ? options.loop : loop);
 		volume = (options ? options.volume : volume);
-		pan = (options ? options.pan : pan) || 0.0001; //Chrome 44 bug requires not 0
+		pan = (options ? options.pan : pan) || 0;
 
 		//Replace with correct infinite looping.
 		if (loop === true)
