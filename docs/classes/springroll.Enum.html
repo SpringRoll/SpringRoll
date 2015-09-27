@@ -266,9 +266,6 @@
           <a href='../classes/springroll.easeljs.SoundButton.html'>springroll.easeljs.SoundButton</a>
         </li>
         <li class='private'>
-          <a href='../classes/springroll.easeljs.SoundTask.html'>springroll.easeljs.SoundTask</a>
-        </li>
-        <li class='private'>
           <a href='../classes/springroll.easeljs.SpriteSheetTask.html'>springroll.easeljs.SpriteSheetTask</a>
         </li>
         <li class='public'>
@@ -454,6 +451,9 @@
         <li class='public'>
           <a href='../classes/springroll.SoundInstance.html'>springroll.SoundInstance</a>
         </li>
+        <li class='private'>
+          <a href='../classes/springroll.SoundTask.html'>springroll.SoundTask</a>
+        </li>
         <li class='public'>
           <a href='../classes/springroll.State.html'>springroll.State</a>
         </li>
@@ -636,15 +636,15 @@ referenced as a property with the same name as the EnumValue. Examples:</p>
         {name: "one", value:"1", toString:"I am the One!"},
         "two",
         {name:"screwSequentialNumbers", value:42});
-
+        
     myEnum.valueOf0 != 0;//enum values are not integers
     myEnum.valueOf1 != myOtherEnum.one;//enum values are not the same as other enums
     myEnum.valueOf2.asInt == 2;//enum values can be explicitly compared to integers
     myOtherEnum.screwSequentialNumbers == myOtherEnum.valueFromInt(42);//can use ints to get values
     console.log(myOtherEnum.one.toString());//outputs "I am the One!"
 
-    for (var i in myEnum) console.log(i); //outputs "valueOf0","valueOf1","valueOf2"
-</code></pre>
+    for (var i in myEnum) console.log(i); //outputs "valueOf0","valueOf1","valueOf2"</code></pre>
+
 </div>
 
 <div class='constructor'>
@@ -696,7 +696,7 @@ Defined in
 <p>The list of enumeration values. You can pass either an
 array or a list of parameters. Each string will be
 the previous value plus one, while objects with
-&#39;name&#39; and &#39;value&#39; properties will have the specified
+'name' and 'value' properties will have the specified
 numeric value.</p>
 
 </div>

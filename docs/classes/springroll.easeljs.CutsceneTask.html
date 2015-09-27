@@ -266,9 +266,6 @@
           <a href='../classes/springroll.easeljs.SoundButton.html'>springroll.easeljs.SoundButton</a>
         </li>
         <li class='private'>
-          <a href='../classes/springroll.easeljs.SoundTask.html'>springroll.easeljs.SoundTask</a>
-        </li>
-        <li class='private'>
           <a href='../classes/springroll.easeljs.SpriteSheetTask.html'>springroll.easeljs.SpriteSheetTask</a>
         </li>
         <li class='public'>
@@ -454,6 +451,9 @@
         <li class='public'>
           <a href='../classes/springroll.SoundInstance.html'>springroll.SoundInstance</a>
         </li>
+        <li class='private'>
+          <a href='../classes/springroll.SoundTask.html'>springroll.SoundTask</a>
+        </li>
         <li class='public'>
           <a href='../classes/springroll.State.html'>springroll.State</a>
         </li>
@@ -630,8 +630,7 @@ Module:
 
 
 <div class='box intro'>
-<p>Replaces Bitmaps in the global lib dictionary with a faux Bitmap
-that pulls the image from a spritesheet.</p>
+<p>Loads and instantiates a 'springroll.easeljs.Cutscene'.</p>
 
 </div>
 
@@ -969,7 +968,7 @@ Defined in
 springroll.Task
 </a>
 but overwritten in
-<a href='../files/src_displays_easeljs_cutscene_CutsceneTask.js.html#l190'><code>destroy:190</code></a>
+<a href='../files/src_displays_easeljs_cutscene_CutsceneTask.js.html#l189'><code>destroy:189</code></a>
 </p>
 
 
@@ -1016,8 +1015,7 @@ but overwritten in
 </div>
 
 <div class='description'>
-<p>Add the sizing to each filter</p>
-
+Add the sizing to each filter
 </div>
 
 <div class='params'>
@@ -1030,8 +1028,7 @@ but overwritten in
 
 
 <div class='param-description'>
-<p>The url to filter</p>
-
+The url to filter
 </div>
 
 </li>
@@ -1075,8 +1072,7 @@ but overwritten in
 </div>
 
 <div class='description'>
-<p>Pass-through to the Application load method</p>
-
+Pass-through to the Application load method
 </div>
 
 <div class='params'>
@@ -1089,8 +1085,7 @@ but overwritten in
 
 
 <div class='param-description'>
-<p>The source to load</p>
-
+The source to load
 </div>
 
 </li>
@@ -1101,8 +1096,7 @@ but overwritten in
 
 
 <div class='param-description'>
-<p>The load options or callback function</p>
-
+The load options or callback function
 </div>
 
 </li>
@@ -1152,8 +1146,7 @@ but overwritten in
 </div>
 
 <div class='description'>
-<p>Pass-through to the Application Loader.load</p>
-
+Pass-through to the Application Loader.load
 </div>
 
 <div class='params'>
@@ -1166,8 +1159,7 @@ but overwritten in
 
 
 <div class='param-description'>
-<p>Path to file to load</p>
-
+Path to file to load
 </div>
 
 </li>
@@ -1177,8 +1169,7 @@ but overwritten in
 
 
 <div class='param-description'>
-<p>The callback</p>
-
+The callback
 </div>
 
 </li>
@@ -1189,8 +1180,7 @@ but overwritten in
 
 
 <div class='param-description'>
-<p>The load progress</p>
-
+The load progress
 </div>
 
 </li>
@@ -1201,8 +1191,7 @@ but overwritten in
 
 
 <div class='param-description'>
-<p>Additiona data</p>
-
+Additiona data
 </div>
 
 </li>
@@ -1237,7 +1226,7 @@ but overwritten in
 springroll.Task
 </a>
 but overwritten in
-<a href='../files/src_displays_easeljs_cutscene_CutsceneTask.js.html#l121'><code>start:121</code></a>
+<a href='../files/src_displays_easeljs_cutscene_CutsceneTask.js.html#l120'><code>start:120</code></a>
 </p>
 
 
@@ -1296,7 +1285,7 @@ but overwritten in
 <div class='meta'>
 <p>
 Defined in
-<a href='../files/src_displays_easeljs_cutscene_CutsceneTask.js.html#l108'><code>test:108</code></a>
+<a href='../files/src_displays_easeljs_cutscene_CutsceneTask.js.html#l107'><code>test:107</code></a>
 </p>
 
 
@@ -1351,7 +1340,7 @@ Defined in
 <div class="meta">
 <p>
 Defined in
-<a href="../files/src_displays_easeljs_cutscene_CutsceneTask.js.html#l40"><code>anim:40</code></a>
+<a href="../files/src_displays_easeljs_cutscene_CutsceneTask.js.html#l39"><code>anim:39</code></a>
 </p>
 
 
@@ -1375,7 +1364,7 @@ Defined in
 <div class="meta">
 <p>
 Defined in
-<a href="../files/src_displays_easeljs_cutscene_CutsceneTask.js.html#l52"><code>animClass:52</code></a>
+<a href="../files/src_displays_easeljs_cutscene_CutsceneTask.js.html#l51"><code>animClass:51</code></a>
 </p>
 
 
@@ -1399,7 +1388,7 @@ Defined in
 <div class="meta">
 <p>
 Defined in
-<a href="../files/src_displays_easeljs_cutscene_CutsceneTask.js.html#l70"><code>audio:70</code></a>
+<a href="../files/src_displays_easeljs_cutscene_CutsceneTask.js.html#l69"><code>audio:69</code></a>
 </p>
 
 
@@ -1430,8 +1419,7 @@ Defined in
 </div>
 
 <div class="description">
-<p>If we should cache the load and use later</p>
-
+If we should cache the load and use later
 </div>
 
 <p><strong>Default:</strong> false</p>
@@ -1455,9 +1443,8 @@ Defined in
 </div>
 
 <div class="description">
-<p>The user call to fire when completed, returns the arguments
-result, original, and additionalAssets</p>
-
+The user call to fire when completed, returns the arguments
+result, original, and additionalAssets
 </div>
 
 <p><strong>Default:</strong> null</p>
@@ -1474,14 +1461,14 @@ result, original, and additionalAssets</p>
 <div class="meta">
 <p>
 Defined in
-<a href="../files/src_displays_easeljs_cutscene_CutsceneTask.js.html#l96"><code>display:96</code></a>
+<a href="../files/src_displays_easeljs_cutscene_CutsceneTask.js.html#l95"><code>display:95</code></a>
 </p>
 
 
 </div>
 
 <div class="description">
-<p>The display to use, defaults to main App&#39;s main display</p>
+<p>The display to use, defaults to main App's main display</p>
 
 </div>
 
@@ -1498,7 +1485,7 @@ Defined in
 <div class="meta">
 <p>
 Defined in
-<a href="../files/src_displays_easeljs_cutscene_CutsceneTask.js.html#l46"><code>fps:46</code></a>
+<a href="../files/src_displays_easeljs_cutscene_CutsceneTask.js.html#l45"><code>fps:45</code></a>
 </p>
 
 
@@ -1522,7 +1509,7 @@ Defined in
 <div class="meta">
 <p>
 Defined in
-<a href="../files/src_displays_easeljs_cutscene_CutsceneTask.js.html#l64"><code>height:64</code></a>
+<a href="../files/src_displays_easeljs_cutscene_CutsceneTask.js.html#l63"><code>height:63</code></a>
 </p>
 
 
@@ -1553,8 +1540,7 @@ Defined in
 </div>
 
 <div class="description">
-<p>The task id</p>
-
+The task id
 </div>
 
 
@@ -1570,7 +1556,7 @@ Defined in
 <div class="meta">
 <p>
 Defined in
-<a href="../files/src_displays_easeljs_cutscene_CutsceneTask.js.html#l76"><code>images:76</code></a>
+<a href="../files/src_displays_easeljs_cutscene_CutsceneTask.js.html#l75"><code>images:75</code></a>
 </p>
 
 
@@ -1594,7 +1580,7 @@ Defined in
 <div class="meta">
 <p>
 Defined in
-<a href="../files/src_displays_easeljs_cutscene_CutsceneTask.js.html#l89"><code>imagesName:89</code></a>
+<a href="../files/src_displays_easeljs_cutscene_CutsceneTask.js.html#l88"><code>imagesName:88</code></a>
 </p>
 
 
@@ -1619,7 +1605,7 @@ Defined in
 <div class="meta">
 <p>
 Defined in
-<a href="../files/src_displays_easeljs_cutscene_CutsceneTask.js.html#l82"><code>libName:82</code></a>
+<a href="../files/src_displays_easeljs_cutscene_CutsceneTask.js.html#l81"><code>libName:81</code></a>
 </p>
 
 
@@ -1651,8 +1637,7 @@ Defined in
 </div>
 
 <div class="description">
-<p>Reference to the original asset data</p>
-
+Reference to the original asset data
 </div>
 
 
@@ -1675,8 +1660,7 @@ Defined in
 </div>
 
 <div class="description">
-<p>The current status of the task (waiting, running, etc)</p>
-
+The current status of the task (waiting, running, etc)
 </div>
 
 <p><strong>Default:</strong> 0</p>
@@ -1700,8 +1684,7 @@ Defined in
 </div>
 
 <div class="description">
-<p>The task type for display filter</p>
-
+The task type for display filter
 </div>
 
 
@@ -1717,7 +1700,7 @@ Defined in
 <div class="meta">
 <p>
 Defined in
-<a href="../files/src_displays_easeljs_cutscene_CutsceneTask.js.html#l58"><code>width:58</code></a>
+<a href="../files/src_displays_easeljs_cutscene_CutsceneTask.js.html#l57"><code>width:57</code></a>
 </p>
 
 

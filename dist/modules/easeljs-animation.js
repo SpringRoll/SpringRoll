@@ -981,7 +981,7 @@
 		BitmapMovieClip = include('springroll.easeljs.BitmapMovieClip');
 
 	/**
-	 * Internal class for dealing with async load assets through Loader.
+	 * Internal class for loading an instantiating a BitmapMovieClip.
 	 * @class BitmapMovieClipTask
 	 * @extends springroll.TextureAtlasTask
 	 * @constructor
@@ -1002,7 +1002,7 @@
 		TextureAtlasTask.call(this, asset);
 
 		/**
-		 * The BitmapMovieclip data source path
+		 * The BitmapMovieClip data source path
 		 * @property {String} anim
 		 */
 		this.anim = this.filter(asset.anim);
@@ -1033,7 +1033,7 @@
 		this.loadAtlas({ _anim: this.anim }, function(textureAtlas, results)
 		{
 			callback(new BitmapMovieClip(
-				textureAtlas, 
+				textureAtlas,
 				results._anim
 			), results);
 		});

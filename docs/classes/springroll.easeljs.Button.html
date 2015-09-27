@@ -266,9 +266,6 @@
           <a href='../classes/springroll.easeljs.SoundButton.html'>springroll.easeljs.SoundButton</a>
         </li>
         <li class='private'>
-          <a href='../classes/springroll.easeljs.SoundTask.html'>springroll.easeljs.SoundTask</a>
-        </li>
-        <li class='private'>
           <a href='../classes/springroll.easeljs.SpriteSheetTask.html'>springroll.easeljs.SpriteSheetTask</a>
         </li>
         <li class='public'>
@@ -453,6 +450,9 @@
         </li>
         <li class='public'>
           <a href='../classes/springroll.SoundInstance.html'>springroll.SoundInstance</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.SoundTask.html'>springroll.SoundTask</a>
         </li>
         <li class='public'>
           <a href='../classes/springroll.State.html'>springroll.State</a>
@@ -692,14 +692,14 @@ Defined in
 
 <div class='param-description'>
 <p>Information about the art to be used
-                                                    for button states, as well as if the
-                                                    button is selectable or not. If this
-                                                    is an Image or Canvas element, then
-                                                    the button assumes that the image is
-                                                    full width and 3 images tall, in the
-                                                    order (top to bottom) up, over, down.
-                                                    If so, then the properties of
-                                                    imageSettings are ignored.</p>
+for button states, as well as if the
+button is selectable or not. If this
+is an Image or Canvas element, then
+the button assumes that the image is
+full width and 3 images tall, in the
+order (top to bottom) up, over, down.
+If so, then the properties of
+imageSettings are ignored.</p>
 
 </div>
 
@@ -711,7 +711,7 @@ Defined in
 
 <div class='param-description'>
 <p>The image to use for all of the button
-                                                   states.</p>
+states.</p>
 
 </div>
 
@@ -723,11 +723,11 @@ Defined in
 
 <div class='param-description'>
 <p>The state priority order. If omitted, defaults to
-                                         <code>&#91;"disabled", "down", "over",
-                                         "up"&#93;</code>. Previous versions of Button
-                                         used a hard coded order:
-                                         <code>&#91;"highlighted", "disabled", "down",
-                                         "over", "selected", "up"&#93;</code>.</p>
+<code>["disabled", "down", "over",
+"up"]</code>. Previous versions of Button
+used a hard coded order:
+<code>["highlighted", "disabled", "down",
+"over", "selected", "up"]</code>.</p>
 
 </div>
 
@@ -788,7 +788,7 @@ Defined in
 
 <div class='param-description'>
 <p>The visual information about the over state. If
-                                      omitted, uses the up state.</p>
+omitted, uses the up state.</p>
 
 </div>
 
@@ -838,7 +838,7 @@ Defined in
 
 <div class='param-description'>
 <p>The visual information about the down state. If
-                                      omitted, uses the up state.</p>
+omitted, uses the up state.</p>
 
 </div>
 
@@ -888,7 +888,7 @@ Defined in
 
 <div class='param-description'>
 <p>The visual information about the disabled state.
-                                          If omitted, uses the up state.</p>
+If omitted, uses the up state.</p>
 
 </div>
 
@@ -939,12 +939,12 @@ Defined in
 
 <div class='param-description'>
 <p>The visual information about a custom
-                                                   state found in imageSettings.priority.
-                                                   Any state added this way has a property
-                                                   of the same name added to the button.
-                                                   Examples of previous states that have
-                                                   been moved to this system are
-                                                   "selected" and "highlighted".</p>
+state found in imageSettings.priority.
+Any state added this way has a property
+of the same name added to the button.
+Examples of previous states that have
+been moved to this system are
+"selected" and "highlighted".</p>
 
 </div>
 
@@ -999,10 +999,10 @@ Defined in
 
 <div class='param-description'>
 <p>An optional offset for all button
-                                                graphics, in case you want button
-                                                positioning to not include a highlight
-                                                glow, or any other reason you would want
-                                                to offset the button art and label.</p>
+graphics, in case you want button
+positioning to not include a highlight
+glow, or any other reason you would want
+to offset the button art and label.</p>
 
 </div>
 
@@ -1017,7 +1017,7 @@ Defined in
 
 <div class='param-description'>
 <p>Information about the text label on the button. Omitting this
-                         makes the button not use a label.</p>
+makes the button not use a label.</p>
 
 </div>
 
@@ -1040,7 +1040,7 @@ Defined in
 
 <div class='param-description'>
 <p>The font name and size to use on the label, as createjs.Text
-                         expects.</p>
+expects.</p>
 
 </div>
 
@@ -1052,7 +1052,7 @@ Defined in
 
 <div class='param-description'>
 <p>The color of the text to use on the label, as createjs.Text
-                          expects.</p>
+expects.</p>
 
 </div>
 
@@ -1064,7 +1064,7 @@ Defined in
 
 <div class='param-description'>
 <p>The baseline for the label text, as
-                                          createjs.Text expects.</p>
+createjs.Text expects.</p>
 
 </div>
 
@@ -1076,7 +1076,7 @@ Defined in
 
 <div class='param-description'>
 <p>The stroke to use for the label text, if desired, as
-                                createjs.Text (springroll fork only) expects.</p>
+createjs.Text (springroll fork only) expects.</p>
 
 </div>
 
@@ -1099,9 +1099,9 @@ Defined in
 
 <div class='param-description'>
 <p>An x position to place the label text at relative to
-                                      the button. If omitted, "center" is used, which
-                                      attempts to horizontally center the label on the
-                                      button.</p>
+the button. If omitted, "center" is used, which
+attempts to horizontally center the label on the
+button.</p>
 
 </div>
 
@@ -1113,10 +1113,10 @@ Defined in
 
 <div class='param-description'>
 <p>A y position to place the label text at relative to
-                                      the button. If omitted, "center" is used, which
-                                      attempts to vertically center the label on the
-                                      button. This may be unreliable - see documentation
-                                      for createjs.Text.getMeasuredLineHeight().</p>
+the button. If omitted, "center" is used, which
+attempts to vertically center the label on the
+button. This may be unreliable - see documentation
+for createjs.Text.getMeasuredLineHeight().</p>
 
 </div>
 
@@ -1573,7 +1573,7 @@ Defined in
 <div class='returns-description'>
 <span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>:
 <p>The state data for the active button state, so that subclasses can use the
-                 value picked by this function without needing to calculate it themselves.</p>
+value picked by this function without needing to calculate it themselves.</p>
 
 </div>
 </div>
@@ -1824,7 +1824,7 @@ glow for a highlighted state.</p>
 
 <div class='param-description'>
 <p>The image to use for all of the button states, in the
-                                       standard up/over/down format.</p>
+standard up/over/down format.</p>
 
 </div>
 
@@ -1837,7 +1837,7 @@ glow for a highlighted state.</p>
 
 <div class='param-description'>
 <p>The settings object for the disabled state. If omitted, no
-                                   disabled state is created.</p>
+disabled state is created.</p>
 
 </div>
 
@@ -1849,8 +1849,8 @@ glow for a highlighted state.</p>
 
 <div class='param-description'>
 <p>The saturation adjustment for the disabled
-                                              state. 100 is fully saturated, 0 is unchanged,
-                                              -100 is desaturated.</p>
+state. 100 is fully saturated, 0 is unchanged,
+-100 is desaturated.</p>
 
 </div>
 
@@ -1862,8 +1862,8 @@ glow for a highlighted state.</p>
 
 <div class='param-description'>
 <p>The brightness adjustment for the disabled
-                                              state. 100 is fully bright, 0 is unchanged,
-                                              -100 is completely dark.</p>
+state. 100 is fully bright, 0 is unchanged,
+-100 is completely dark.</p>
 
 </div>
 
@@ -1875,8 +1875,8 @@ glow for a highlighted state.</p>
 
 <div class='param-description'>
 <p>The contrast adjustment for the disabled state.
-                                            100 is full contrast, 0 is unchanged, -100 is no
-                                            contrast.</p>
+100 is full contrast, 0 is unchanged, -100 is no
+contrast.</p>
 
 </div>
 
@@ -1891,7 +1891,7 @@ glow for a highlighted state.</p>
 
 <div class='param-description'>
 <p>The settings object for the highlight state. If omitted,
-                                    no state is created.</p>
+no state is created.</p>
 
 </div>
 
@@ -1903,7 +1903,7 @@ glow for a highlighted state.</p>
 
 <div class='param-description'>
 <p>How many pixels to make the glow, eg 8 for an
-                                         8 pixel increase on each side.</p>
+8 pixel increase on each side.</p>
 
 </div>
 
@@ -1948,7 +1948,7 @@ glow for a highlighted state.</p>
 
 <div class='param-description'>
 <p>The alpha value for the glow, from 0 to 255,
-                                              with 0 being transparent and 255 fully opaque.</p>
+with 0 being transparent and 255 fully opaque.</p>
 
 </div>
 
@@ -1960,8 +1960,8 @@ glow for a highlighted state.</p>
 
 <div class='param-description'>
 <p>An array of values to use for red, green, blue, and
-                                        optionally alpha that can be used instead of
-                                        providing separate properties on highlightSettings.</p>
+optionally alpha that can be used instead of
+providing separate properties on highlightSettings.</p>
 
 </div>
 
@@ -1976,7 +1976,7 @@ glow for a highlighted state.</p>
 
 <div class='returns-description'>
 <span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>:
-<p>An object for use as the &#39;imageSettings&#39; parameter on a new Button.</p>
+<p>An object for use as the 'imageSettings' parameter on a new Button.</p>
 
 </div>
 </div>
@@ -2020,7 +2020,7 @@ Defined in
 </div>
 
 <div class='description'>
-<p>Generates an &#39;imageSettings&#39; from a TextureAtlas, a base name for all frames, and a list
+<p>Generates an 'imageSettings' from a TextureAtlas, a base name for all frames, and a list
 of state priorities.</p>
 
 </div>
@@ -2058,8 +2058,8 @@ of state priorities.</p>
 
 <div class='param-description'>
 <p>The state order, as well as determining frame names in the
-                           atlas. Each state frame name in the atlas should be
-                           <code>baseName + "_" + statePriority[i]</code>.</p>
+atlas. Each state frame name in the atlas should be
+<code>baseName + "_" + statePriority[i]</code>.</p>
 
 </div>
 
@@ -2299,8 +2299,8 @@ Defined in
 
 <div class="description">
 <p>A dictionary of state graphic data, keyed by state name.
-Each object contains the sourceRect (src) and optionally &#39;trim&#39;, another Rectangle.
-Additionally, each object will contain a &#39;label&#39; object if the button has a text label.</p>
+Each object contains the sourceRect (src) and optionally 'trim', another Rectangle.
+Additionally, each object will contain a 'label' object if the button has a text label.</p>
 
 </div>
 

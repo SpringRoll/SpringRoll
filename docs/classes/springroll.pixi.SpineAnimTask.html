@@ -266,9 +266,6 @@
           <a href='../classes/springroll.easeljs.SoundButton.html'>springroll.easeljs.SoundButton</a>
         </li>
         <li class='private'>
-          <a href='../classes/springroll.easeljs.SoundTask.html'>springroll.easeljs.SoundTask</a>
-        </li>
-        <li class='private'>
           <a href='../classes/springroll.easeljs.SpriteSheetTask.html'>springroll.easeljs.SpriteSheetTask</a>
         </li>
         <li class='public'>
@@ -454,6 +451,9 @@
         <li class='public'>
           <a href='../classes/springroll.SoundInstance.html'>springroll.SoundInstance</a>
         </li>
+        <li class='private'>
+          <a href='../classes/springroll.SoundTask.html'>springroll.SoundTask</a>
+        </li>
         <li class='public'>
           <a href='../classes/springroll.State.html'>springroll.State</a>
         </li>
@@ -626,7 +626,7 @@ Module:
 
 
 <div class='box intro'>
-<p>SpineAnimTask loads an image and sets it up for Pixi to use as a PIXI.Texture.</p>
+<p>SpineAnimTask loads a spine animation and the texture atlas(es) that it needs.</p>
 
 </div>
 
@@ -725,7 +725,7 @@ Defined in
 
 <div class='param-description'>
 <p>The atlas for the skeleton. This can be a Pixi TextureAtlas
-                                 asset or a Spine specific atlas.</p>
+asset or a Spine specific atlas.</p>
 
 </div>
 
@@ -773,7 +773,7 @@ Defined in
 
 <div class='param-description'>
 <p>(TextureAtlas) The color image path, if not using image
-                                    property</p>
+property</p>
 
 </div>
 
@@ -786,7 +786,7 @@ Defined in
 
 <div class='param-description'>
 <p>(TextureAtlas) The alpha image path, if not using image
-                                    property</p>
+property</p>
 
 </div>
 
@@ -799,8 +799,8 @@ Defined in
 
 <div class='param-description'>
 <p>(Spine Atlas) The source data path for an atlas
-                                         exported from Spine, with a .txt or .atlas
-                                         extension.</p>
+exported from Spine, with a .txt or .atlas
+extension.</p>
 
 </div>
 
@@ -813,7 +813,7 @@ Defined in
 
 <div class='param-description'>
 <p>(Spine Atlas) A set of image paths for the spineAtlas
-                                    data file to pull from.</p>
+data file to pull from.</p>
 
 </div>
 
@@ -826,8 +826,8 @@ Defined in
 
 <div class='param-description'>
 <p>A dictionary of extra Texture assets to add to the atlas.
-                                    This should be useful if you have individual images not
-                                    added to a TextureAtlas.</p>
+This should be useful if you have individual images not
+added to a TextureAtlas.</p>
 
 </div>
 
@@ -840,8 +840,8 @@ Defined in
 
 <div class='param-description'>
 <p>If we should cache the result - caching results in
-                                     caching in the global Pixi texture cache as well as
-                                     Application&#39;s asset cache.</p>
+caching in the global Pixi texture cache as well as
+Application's asset cache.</p>
 
 </div>
 
@@ -963,7 +963,7 @@ Defined in
 </div>
 
 <div class='description'>
-<p>Destroy this load task and don&#39;t use after this.</p>
+<p>Destroy this load task and don't use after this.</p>
 
 </div>
 

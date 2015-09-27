@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang='en'>
 <head>
-	<title>SpringRoll v0.4.0 API Documentation : src/media/Animator.js</title>
+	<title>SpringRoll v0.4.0 API Documentation : src\media\Animator.js</title>
 	<meta charset='utf-8'>
 	<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 	<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
@@ -266,9 +266,6 @@
           <a href='../classes/springroll.easeljs.SoundButton.html'>springroll.easeljs.SoundButton</a>
         </li>
         <li class='private'>
-          <a href='../classes/springroll.easeljs.SoundTask.html'>springroll.easeljs.SoundTask</a>
-        </li>
-        <li class='private'>
           <a href='../classes/springroll.easeljs.SpriteSheetTask.html'>springroll.easeljs.SpriteSheetTask</a>
         </li>
         <li class='public'>
@@ -454,6 +451,9 @@
         <li class='public'>
           <a href='../classes/springroll.SoundInstance.html'>springroll.SoundInstance</a>
         </li>
+        <li class='private'>
+          <a href='../classes/springroll.SoundTask.html'>springroll.SoundTask</a>
+        </li>
         <li class='public'>
           <a href='../classes/springroll.State.html'>springroll.State</a>
         </li>
@@ -610,7 +610,7 @@
 </nav></nav>
 <div class='col-sm-8 col-md-9'>
 <div id='docs-main' class='apidocs'>
-<h1 class="file-heading">File:Animator.js</h1>
+<h1 class="file-heading">File:src\media\Animator.js</h1>
 
 <div class="file">
 <pre class="code prettyprint linenums">/**
@@ -754,13 +754,13 @@
 	 * @method play
 	 * @param {*} clip The display object with the same API to animate.
 	 * @param {Object} options One of or an array of the following
-	 * @param {String} options.anim the frame label of the animation to play, 
+	 * @param {String} options.anim the frame label of the animation to play,
 	 * e.g. &quot;onClose&quot; to &quot;onClose_stop&quot;.
-	 * @param {int} [options.start=0] Milliseconds into the animation to start. 
+	 * @param {int} [options.start=0] Milliseconds into the animation to start.
 	 * A value of -1 starts from a random time in the animation.
 	 * @param {int} [options.speed=1] a multiplier for the animation speed.
-	 * @param {Object|String} [options.audio] Audio to sync the animation to using 
-	 * springroll.Sound. audio can be a String if you want the audio to start 0 milliseconds 
+	 * @param {Object|String} [options.audio] Audio to sync the animation to using
+	 * springroll.Sound. audio can be a String if you want the audio to start 0 milliseconds
 	 * into the animation.
 	 * @param {String} [options.audio.alias] The sound alias
 	 * @param {int} [options.audio.start] The sound delay
@@ -834,15 +834,15 @@
 				eventList[0].audio ||
 				eventList[0] ||
 				&#x27;&lt;label unknown&gt;&#x27;;
-			var readableInstance = instance.id ||
-				instance.name ||
-				instance.key ||
-				instance.label ||
-				instance.toString() ||
-				instance;
+			var readableInstance = clip.name ||
+				clip.key ||
+				clip.label ||
+				clip.id ||
+				clip.toString() ||
+				clip;
 			Debug.groupCollapsed(&quot;No valid animation label \&quot;&quot; + label + &quot;\&quot; in MovieClip &quot; + readableInstance);
 			Debug.red(&quot;eventList:&quot;, eventList);
-			Debug.red(&quot;instance:&quot;, instance);
+			Debug.red(&quot;instance:&quot;, clip);
 			Debug.trace(&quot;Animator.play&quot;);
 			Debug.groupEnd();
 		}
@@ -881,7 +881,7 @@
 		{
 			if (DEBUG &amp;&amp; Debug)
 			{
-				Debug.warn(&quot;Attempting to use Animator to play something that is not compatible: &quot;, instance);
+				Debug.warn(&quot;Attempting to use Animator to play something that is not compatible: &quot;, clip);
 			}
 			return timeline;
 		}
@@ -1112,12 +1112,12 @@
 	};
 
 	/**
-	 * Stop all current Animator animations. This is good for cleaning up all 
+	 * Stop all current Animator animations. This is good for cleaning up all
 	 * animation, as it doesn&#x27;t do a callback on any of them.
 	 * @method stopAll
 	 * @param {createjs.Container} [container] Specify a container to stop timelines
 	 * contained within. This only checks one layer deep.
-	 * @param {Boolean} [removeCallbacks=false] Completely disregard the on complete 
+	 * @param {Boolean} [removeCallbacks=false] Completely disregard the on complete
 	 * or on cancelled callback of the current animations.
 	 */
 	p.stopAll = function(container, removeCallbacks)
@@ -1163,7 +1163,7 @@
 		var onComplete = timeline.onComplete,
 			onCancelled = timeline.onCancelled;
 
-		//in most cases, if doOnComplete is true, it&#x27;s a natural stop and 
+		//in most cases, if doOnComplete is true, it&#x27;s a natural stop and
 		//the audio can be allowed to continue
 		if (doCancelled &amp;&amp; timeline.soundInst)
 		{

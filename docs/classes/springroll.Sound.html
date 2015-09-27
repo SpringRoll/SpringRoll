@@ -266,9 +266,6 @@
           <a href='../classes/springroll.easeljs.SoundButton.html'>springroll.easeljs.SoundButton</a>
         </li>
         <li class='private'>
-          <a href='../classes/springroll.easeljs.SoundTask.html'>springroll.easeljs.SoundTask</a>
-        </li>
-        <li class='private'>
           <a href='../classes/springroll.easeljs.SpriteSheetTask.html'>springroll.easeljs.SpriteSheetTask</a>
         </li>
         <li class='public'>
@@ -453,6 +450,9 @@
         </li>
         <li class='public'>
           <a href='../classes/springroll.SoundInstance.html'>springroll.SoundInstance</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/springroll.SoundTask.html'>springroll.SoundTask</a>
         </li>
         <li class='public'>
           <a href='../classes/springroll.State.html'>springroll.State</a>
@@ -978,7 +978,7 @@ Defined in
 
 <div class='param-description'>
 <p>A createjs SoundInstance to initialize the object
-                                      with.</p>
+with.</p>
 
 </div>
 
@@ -1586,7 +1586,7 @@ extension. If omitted, defaults to id.
   <span class='flag optional' title='This parameter is optional.'>optional</span>
 
 <div class='param-description'>
-  If the sound should loop by 
+  If the sound should loop by
 default whenever the loop parameter in play() is not specified.
 </div>
 </li>
@@ -1852,7 +1852,7 @@ Defined in
 
 
 <div class='param-description'>
-<p>The alias of the sound to fade the 
+<p>The alias of the sound to fade the
 last played instance of, or an instance returned from play().</p>
 
 </div>
@@ -1865,7 +1865,7 @@ last played instance of, or an instance returned from play().</p>
 
 
 <div class='param-description'>
-<p>The duration in milliseconds to fade for. 
+<p>The duration in milliseconds to fade for.
 The default is 500ms.</p>
 
 </div>
@@ -1878,7 +1878,7 @@ The default is 500ms.</p>
 
 
 <div class='param-description'>
-<p>The volume to fade to. The default is the sound&#39;s default volume.</p>
+<p>The volume to fade to. The default is the sound's default volume.</p>
 
 </div>
 
@@ -1941,7 +1941,7 @@ Defined in
 </div>
 
 <div class='description'>
-<p>Fades a sound from the current volume to a specified volume. A sound that ends 
+<p>Fades a sound from the current volume to a specified volume. A sound that ends
 at 0 volume is stopped after the fade.</p>
 
 </div>
@@ -1956,7 +1956,7 @@ at 0 volume is stopped after the fade.</p>
 
 
 <div class='param-description'>
-<p>The alias of the sound to fade the 
+<p>The alias of the sound to fade the
 last played instance of, or an instance returned from play().</p>
 
 </div>
@@ -1969,7 +1969,7 @@ last played instance of, or an instance returned from play().</p>
 
 
 <div class='param-description'>
-<p>The duration in milliseconds to fade for. 
+<p>The duration in milliseconds to fade for.
 The default is 500ms.</p>
 
 </div>
@@ -2190,7 +2190,7 @@ Defined in
 </div>
 
 <div class='description'>
-<p>Initializes the Sound singleton. If using createjs.FlashAudioPlugin, you will 
+<p>Initializes the Sound singleton. If using createjs.FlashAudioPlugin, you will
 be responsible for setting createjs.FlashAudioPlugin.BASE_PATH.</p>
 
 </div>
@@ -2240,7 +2240,7 @@ preferred, where "ogg" becomes a ".ogg" extension on all sound file urls.</p>
 <span class='flag optional' title='This parameter is optional.'>optional</span>
 
 <div class='param-description'>
-<p>The required path to the 
+<p>The required path to the
 createjs.FlashAudioPlugin SWF</p>
 
 </div>
@@ -2752,7 +2752,7 @@ Defined in
 
 <div class='param-description'>
 <p>The type of event (can be multiple events separated by spaces),
-     or a map of events to handlers</p>
+or a map of events to handlers</p>
 
 </div>
 
@@ -2849,7 +2849,7 @@ Defined in
 
 <div class='param-description'>
 <p>The type of event (can be multiple events separated by spaces),
-     or a map of events to handlers</p>
+or a map of events to handlers</p>
 
 </div>
 
@@ -2938,7 +2938,7 @@ Defined in
 
 <div class='param-description'>
 <p>The alias of the sound to pause.
-    Internally, this can also be the object from the _sounds dictionary directly.</p>
+Internally, this can also be the object from the _sounds dictionary directly.</p>
 
 </div>
 
@@ -3102,7 +3102,7 @@ Defined in
 
 
 <div class='param-description'>
-<p>The object of optional parameters or complete 
+<p>The object of optional parameters or complete
 callback function.</p>
 
 </div>
@@ -3126,7 +3126,7 @@ callback function.</p>
 
 <div class='param-description'>
 <p>An optional function to call when the sound starts
-playback. If the sound is loaded, this is called immediately, if not, it calls 
+playback. If the sound is loaded, this is called immediately, if not, it calls
 when the sound is finished loading.</p>
 
 </div>
@@ -3138,7 +3138,7 @@ when the sound is finished loading.</p>
 <span class='flag optional' title='This parameter is optional.'>optional</span>
 
 <div class='param-description'>
-<p>If the sound should interrupt previous 
+<p>If the sound should interrupt previous
 sounds (SoundJS parameter). Default is false.</p>
 
 </div>
@@ -3150,7 +3150,7 @@ sounds (SoundJS parameter). Default is false.</p>
 <span class='flag optional' title='This parameter is optional.'>optional</span>
 
 <div class='param-description'>
-<p>The delay to play the sound at in milliseconds 
+<p>The delay to play the sound at in milliseconds
 (SoundJS parameter). Default is 0.</p>
 
 </div>
@@ -3174,7 +3174,7 @@ sounds (SoundJS parameter). Default is false.</p>
 <span class='flag optional' title='This parameter is optional.'>optional</span>
 
 <div class='param-description'>
-<p>How many times the sound should loop. Use -1 
+<p>How many times the sound should loop. Use -1
 (or true) for infinite loops (SoundJS parameter). Default is no looping.</p>
 
 </div>
@@ -3186,7 +3186,7 @@ sounds (SoundJS parameter). Default is false.</p>
 <span class='flag optional' title='This parameter is optional.'>optional</span>
 
 <div class='param-description'>
-<p>The volume to play the sound at (0 to 1). 
+<p>The volume to play the sound at (0 to 1).
 Omit to use the default for the sound.</p>
 
 </div>
@@ -3198,7 +3198,7 @@ Omit to use the default for the sound.</p>
 <span class='flag optional' title='This parameter is optional.'>optional</span>
 
 <div class='param-description'>
-<p>The panning to start the sound at (-1 to 1). 
+<p>The panning to start the sound at (-1 to 1).
 Default is centered (0).</p>
 
 </div>
@@ -3214,8 +3214,8 @@ Default is centered (0).</p>
 
 <div class='returns-description'>
 <span class='type'>SoundInstance</span>:
-<p>An internal SoundInstance object that can be used for 
-fading in/out as well as pausing and getting the sound&#39;s current position.</p>
+<p>An internal SoundInstance object that can be used for
+fading in/out as well as pausing and getting the sound's current position.</p>
 
 </div>
 </div>
@@ -3283,7 +3283,7 @@ Defined in
 
 <div class='param-description'>
 <p>The function to call when all
-     sounds have been loaded.</p>
+sounds have been loaded.</p>
 
 </div>
 
@@ -3411,7 +3411,7 @@ Defined in
 
 <div class='param-description'>
 <p>The alias of the sound to pause.
-    Internally, this can also be the object from the _sounds dictionary directly.</p>
+Internally, this can also be the object from the _sounds dictionary directly.</p>
 
 </div>
 
@@ -4420,7 +4420,7 @@ Defined in
 
 <div class="description">
 <p>If sound is currently muted by the system. This will only be true on iOS until
-audio has been unmuted during a touch event. Listen for the &#39;systemUnmuted&#39; 
+audio has been unmuted during a touch event. Listen for the 'systemUnmuted'
 event on Sound to be notified when the audio is unmuted on iOS.</p>
 
 </div>

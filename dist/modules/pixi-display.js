@@ -933,7 +933,7 @@
 		PixiUtils = include('PIXI.utils');
 
 	/**
-	 * Internal class for dealing with async load assets through Loader.
+	 * Internal class for loading a texture atlas for Pixi.
 	 * @class TextureAtlasTask
 	 * @extends springroll.pixi.TextureTask
 	 * @constructor
@@ -1039,7 +1039,7 @@
 	if(!BitmapText) return;
 
 	/**
-	 * Internal class for dealing with async load assets through Loader.
+	 * Internal class for loading a bitmap font for Pixi.
 	 * @class BitmapFontTask
 	 * @extends springroll.pixi.TextureTask
 	 * @constructor

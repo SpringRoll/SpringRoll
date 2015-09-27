@@ -266,9 +266,6 @@
           <a href='../classes/springroll.easeljs.SoundButton.html'>springroll.easeljs.SoundButton</a>
         </li>
         <li class='private'>
-          <a href='../classes/springroll.easeljs.SoundTask.html'>springroll.easeljs.SoundTask</a>
-        </li>
-        <li class='private'>
           <a href='../classes/springroll.easeljs.SpriteSheetTask.html'>springroll.easeljs.SpriteSheetTask</a>
         </li>
         <li class='public'>
@@ -454,6 +451,9 @@
         <li class='public'>
           <a href='../classes/springroll.SoundInstance.html'>springroll.SoundInstance</a>
         </li>
+        <li class='private'>
+          <a href='../classes/springroll.SoundTask.html'>springroll.SoundTask</a>
+        </li>
         <li class='public'>
           <a href='../classes/springroll.State.html'>springroll.State</a>
         </li>
@@ -630,7 +630,8 @@ Module:
 
 
 <div class='box intro'>
-<p>Internal class for dealing with async load assets through Loader.</p>
+<p>Internal class for loading an image that has been split into an alpha channel image and a
+RGB only color image.</p>
 
 </div>
 
@@ -882,8 +883,7 @@ Defined in
 </div>
 
 <div class='description'>
-<p>Destroy this and discard</p>
-
+Destroy this and discard
 </div>
 
 
@@ -921,8 +921,7 @@ Defined in
 </div>
 
 <div class='description'>
-<p>Add the sizing to each filter</p>
-
+Add the sizing to each filter
 </div>
 
 <div class='params'>
@@ -935,8 +934,7 @@ Defined in
 
 
 <div class='param-description'>
-<p>The url to filter</p>
-
+The url to filter
 </div>
 
 </li>
@@ -980,8 +978,7 @@ Defined in
 </div>
 
 <div class='description'>
-<p>Pass-through to the Application load method</p>
-
+Pass-through to the Application load method
 </div>
 
 <div class='params'>
@@ -994,8 +991,7 @@ Defined in
 
 
 <div class='param-description'>
-<p>The source to load</p>
-
+The source to load
 </div>
 
 </li>
@@ -1006,8 +1002,7 @@ Defined in
 
 
 <div class='param-description'>
-<p>The load options or callback function</p>
-
+The load options or callback function
 </div>
 
 </li>
@@ -1049,7 +1044,7 @@ Defined in
 <div class='meta'>
 <p>
 Defined in
-<a href='../files/src_loaders_tasks_ColorAlphaTask.js.html#l77'><code>mergeAlpha:77</code></a>
+<a href='../files/src_loaders_tasks_ColorAlphaTask.js.html#l78'><code>mergeAlpha:78</code></a>
 </p>
 
 
@@ -1057,7 +1052,7 @@ Defined in
 </div>
 
 <div class='description'>
-<p>Pulled from EaselJS&#39;s SpriteSheetUtils.
+<p>Pulled from EaselJS's SpriteSheetUtils.
 Merges the rgb channels of one image with the alpha channel of another. This can be used to
 combine a compressed JPEG image containing color data with a PNG32 monochromatic image
 containing alpha data. With certain types of images (those with detail that lend itself to
@@ -1100,7 +1095,7 @@ This method is very fast (generally on the order of 1-2 ms to run).</p>
 
 <div class='param-description'>
 <p>If specified, this canvas will be used and returned. If not, a new
-                     canvas will be created.</p>
+canvas will be created.</p>
 
 </div>
 
@@ -1114,7 +1109,7 @@ This method is very fast (generally on the order of 1-2 ms to run).</p>
 <div class='returns-description'>
 <span class='type'>Canvas</span>:
 <p>A canvas with the combined image data. This can be used as a source for a
-             Texture.</p>
+Texture.</p>
 
 </div>
 </div>
@@ -1161,8 +1156,7 @@ This method is very fast (generally on the order of 1-2 ms to run).</p>
 </div>
 
 <div class='description'>
-<p>Pass-through to the Application Loader.load</p>
-
+Pass-through to the Application Loader.load
 </div>
 
 <div class='params'>
@@ -1175,8 +1169,7 @@ This method is very fast (generally on the order of 1-2 ms to run).</p>
 
 
 <div class='param-description'>
-<p>Path to file to load</p>
-
+Path to file to load
 </div>
 
 </li>
@@ -1186,8 +1179,7 @@ This method is very fast (generally on the order of 1-2 ms to run).</p>
 
 
 <div class='param-description'>
-<p>The callback</p>
-
+The callback
 </div>
 
 </li>
@@ -1198,8 +1190,7 @@ This method is very fast (generally on the order of 1-2 ms to run).</p>
 
 
 <div class='param-description'>
-<p>The load progress</p>
-
+The load progress
 </div>
 
 </li>
@@ -1210,8 +1201,7 @@ This method is very fast (generally on the order of 1-2 ms to run).</p>
 
 
 <div class='param-description'>
-<p>Additiona data</p>
-
+Additiona data
 </div>
 
 </li>
@@ -1246,7 +1236,7 @@ This method is very fast (generally on the order of 1-2 ms to run).</p>
 springroll.Task
 </a>
 but overwritten in
-<a href='../files/src_loaders_tasks_ColorAlphaTask.js.html#l55'><code>start:55</code></a>
+<a href='../files/src_loaders_tasks_ColorAlphaTask.js.html#l56'><code>start:56</code></a>
 </p>
 
 
@@ -1305,7 +1295,7 @@ but overwritten in
 <div class='meta'>
 <p>
 Defined in
-<a href='../files/src_loaders_tasks_ColorAlphaTask.js.html#l43'><code>test:43</code></a>
+<a href='../files/src_loaders_tasks_ColorAlphaTask.js.html#l44'><code>test:44</code></a>
 </p>
 
 
@@ -1360,7 +1350,7 @@ Defined in
 <div class="meta">
 <p>
 Defined in
-<a href="../files/src_loaders_tasks_ColorAlphaTask.js.html#l33"><code>alpha:33</code></a>
+<a href="../files/src_loaders_tasks_ColorAlphaTask.js.html#l34"><code>alpha:34</code></a>
 </p>
 
 
@@ -1391,8 +1381,7 @@ Defined in
 </div>
 
 <div class="description">
-<p>If we should cache the load and use later</p>
-
+If we should cache the load and use later
 </div>
 
 <p><strong>Default:</strong> false</p>
@@ -1409,7 +1398,7 @@ Defined in
 <div class="meta">
 <p>
 Defined in
-<a href="../files/src_loaders_tasks_ColorAlphaTask.js.html#l27"><code>color:27</code></a>
+<a href="../files/src_loaders_tasks_ColorAlphaTask.js.html#l28"><code>color:28</code></a>
 </p>
 
 
@@ -1440,9 +1429,8 @@ Defined in
 </div>
 
 <div class="description">
-<p>The user call to fire when completed, returns the arguments
-result, original, and additionalAssets</p>
-
+The user call to fire when completed, returns the arguments
+result, original, and additionalAssets
 </div>
 
 <p><strong>Default:</strong> null</p>
@@ -1466,8 +1454,7 @@ result, original, and additionalAssets</p>
 </div>
 
 <div class="description">
-<p>The task id</p>
-
+The task id
 </div>
 
 
@@ -1490,8 +1477,7 @@ result, original, and additionalAssets</p>
 </div>
 
 <div class="description">
-<p>Reference to the original asset data</p>
-
+Reference to the original asset data
 </div>
 
 
@@ -1514,8 +1500,7 @@ result, original, and additionalAssets</p>
 </div>
 
 <div class="description">
-<p>The current status of the task (waiting, running, etc)</p>
-
+The current status of the task (waiting, running, etc)
 </div>
 
 <p><strong>Default:</strong> 0</p>
@@ -1539,8 +1524,7 @@ result, original, and additionalAssets</p>
 </div>
 
 <div class="description">
-<p>The task type for display filter</p>
-
+The task type for display filter
 </div>
 
 

@@ -503,8 +503,7 @@
 		Application = include('springroll.Application');
 
 	/**
-	 * Replaces Bitmaps in the global lib dictionary with a faux Bitmap
-	 * that pulls the image from a spritesheet.
+	 * Loads and instantiates a 'springroll.easeljs.Cutscene'.
 	 * @class CutsceneTask
 	 * @extends springroll.Task
 	 * @constructor
