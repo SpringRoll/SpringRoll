@@ -139,13 +139,13 @@
 	 * @method play
 	 * @param {*} clip The display object with the same API to animate.
 	 * @param {Object} options One of or an array of the following
-	 * @param {String} options.anim the frame label of the animation to play, 
+	 * @param {String} options.anim the frame label of the animation to play,
 	 * e.g. "onClose" to "onClose_stop".
-	 * @param {int} [options.start=0] Milliseconds into the animation to start. 
+	 * @param {int} [options.start=0] Milliseconds into the animation to start.
 	 * A value of -1 starts from a random time in the animation.
 	 * @param {int} [options.speed=1] a multiplier for the animation speed.
-	 * @param {Object|String} [options.audio] Audio to sync the animation to using 
-	 * springroll.Sound. audio can be a String if you want the audio to start 0 milliseconds 
+	 * @param {Object|String} [options.audio] Audio to sync the animation to using
+	 * springroll.Sound. audio can be a String if you want the audio to start 0 milliseconds
 	 * into the animation.
 	 * @param {String} [options.audio.alias] The sound alias
 	 * @param {int} [options.audio.start] The sound delay
@@ -219,15 +219,15 @@
 				eventList[0].audio ||
 				eventList[0] ||
 				'<label unknown>';
-			var readableInstance = instance.id ||
-				instance.name ||
-				instance.key ||
-				instance.label ||
-				instance.toString() ||
-				instance;
+			var readableInstance = clip.name ||
+				clip.key ||
+				clip.label ||
+				clip.id ||
+				clip.toString() ||
+				clip;
 			Debug.groupCollapsed("No valid animation label \"" + label + "\" in MovieClip " + readableInstance);
 			Debug.red("eventList:", eventList);
-			Debug.red("instance:", instance);
+			Debug.red("instance:", clip);
 			Debug.trace("Animator.play");
 			Debug.groupEnd();
 		}
@@ -266,7 +266,7 @@
 		{
 			if (DEBUG && Debug)
 			{
-				Debug.warn("Attempting to use Animator to play something that is not compatible: ", instance);
+				Debug.warn("Attempting to use Animator to play something that is not compatible: ", clip);
 			}
 			return timeline;
 		}
@@ -497,12 +497,12 @@
 	};
 
 	/**
-	 * Stop all current Animator animations. This is good for cleaning up all 
+	 * Stop all current Animator animations. This is good for cleaning up all
 	 * animation, as it doesn't do a callback on any of them.
 	 * @method stopAll
 	 * @param {createjs.Container} [container] Specify a container to stop timelines
 	 * contained within. This only checks one layer deep.
-	 * @param {Boolean} [removeCallbacks=false] Completely disregard the on complete 
+	 * @param {Boolean} [removeCallbacks=false] Completely disregard the on complete
 	 * or on cancelled callback of the current animations.
 	 */
 	p.stopAll = function(container, removeCallbacks)
@@ -548,7 +548,7 @@
 		var onComplete = timeline.onComplete,
 			onCancelled = timeline.onCancelled;
 
-		//in most cases, if doOnComplete is true, it's a natural stop and 
+		//in most cases, if doOnComplete is true, it's a natural stop and
 		//the audio can be allowed to continue
 		if (doCancelled && timeline.soundInst)
 		{
