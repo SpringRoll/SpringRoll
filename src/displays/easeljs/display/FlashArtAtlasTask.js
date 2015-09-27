@@ -11,7 +11,7 @@
 		BitmapUtils = include('springroll.easeljs.BitmapUtils');
 
 	/**
-	 * Internal class for dealing with async load assets through Loader.
+	 * Internal class for loading a texture atlas for a FlashArt load.
 	 * @class FlashArtAtlasTask
 	 * @extends springroll.Task
 	 * @constructor

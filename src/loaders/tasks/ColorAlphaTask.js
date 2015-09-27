@@ -7,7 +7,8 @@
 	var Task = include('springroll.Task');
 
 	/**
-	 * Internal class for dealing with async load assets through Loader.
+	 * Internal class for loading an image that has been split into an alpha channel image and a
+	 * RGB only color image.
 	 * @class ColorAlphaTask
 	 * @extends springroll.Task
 	 * @constructor

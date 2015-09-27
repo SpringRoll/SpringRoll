@@ -16,7 +16,7 @@
 	if(!atlasParser) return;
 
 	/**
-	 * SpineAnimTask loads an image and sets it up for Pixi to use as a PIXI.Texture.
+	 * SpineAnimTask loads a spine animation and the texture atlas(es) that it needs.
 	 * @class SpineAnimTask
 	 * @constructor
 	 * @private

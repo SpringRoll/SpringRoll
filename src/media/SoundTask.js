@@ -1,7 +1,7 @@
 /**
- * @module EaselJS Cutscene
- * @namespace springroll.easeljs
- * @requires Core, EaselJS Display
+ * @module Sound
+ * @namespace springroll
+ * @requires Core
  */
 (function()
 {
@@ -9,8 +9,8 @@
 		Application = include('springroll.Application');
 
 	/**
-	 * Replaces Bitmaps in the global lib dictionary with a faux Bitmap
-	 * that pulls the image from a spritesheet.
+	 * Internal task for preloading a list of sounds. When the result of the load is
+	 * destroyed (destroy()), then the list of sounds are unloaded.
 	 * @class SoundTask
 	 * @extends springroll.Task
 	 * @private

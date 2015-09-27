@@ -10,7 +10,7 @@
 		ColorAlphaTask = include('springroll.ColorAlphaTask');
 
 	/**
-	 * Internal class for dealing with async load assets through Loader.
+	 * Internal class for loading a texture atlas, creating a 'springroll.easeljs.TextureAtlas'.
 	 * @class TextureAtlasTask
 	 * @extends springroll.Task
 	 * @constructor

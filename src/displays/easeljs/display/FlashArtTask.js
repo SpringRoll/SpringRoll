@@ -10,8 +10,9 @@
 		Application = include('springroll.Application');
 
 	/**
-	 * Replaces Bitmaps in the global lib dictionary with a faux Bitmap
-	 * that pulls the image from a spritesheet.
+	 * Loads javascript art exported from Flash, with special care taken to allow images to be
+	 * handled properly and to attempt to avoid library definition collisions between different
+	 * pieces of art.
 	 * @class FlashArtTask
 	 * @extends springroll.Task
 	 * @constructor

@@ -7,7 +7,7 @@
 	var Task = include('springroll.Task');
 
 	/**
-	 * Internal class for dealing with async load assets through Loader.
+	 * Internal class for grouping a list of tasks into one task.
 	 * @class ListTask
 	 * @extends springroll.Task
 	 * @constructor

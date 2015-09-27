@@ -12,7 +12,7 @@
 	if(!SpineAtlas) return;
 
 	/**
-	 * Internal class for dealing with async load assets through Loader.
+	 * Internal class for loading a texture atlas in the format exported by Spine.
 	 * @class SpineAtlasTask
 	 * @extends springroll.pixi.TextureTask
 	 * @constructor

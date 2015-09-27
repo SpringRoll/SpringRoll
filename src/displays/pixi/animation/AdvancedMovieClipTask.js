@@ -9,7 +9,7 @@
 		AdvancedMovieClip = include('springroll.pixi.AdvancedMovieClip');
 
 	/**
-	 * Internal class for dealing with async load assets through Loader.
+	 * Internal class for loading and instantiating an AdvancedMovieClip.
 	 * @class AdvancedMovieClipTask
 	 * @extends springroll.TextureAtlasTask
 	 * @constructor
@@ -33,7 +33,7 @@
 		TextureAtlasTask.call(this, asset, asset.anim);
 
 		/**
-		 * The AdvancedMovieclip data source path
+		 * The AdvancedMovieClip data source path
 		 * @property {String} anim
 		 */
 		this.anim = this.filter(asset.anim);

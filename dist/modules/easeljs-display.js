@@ -672,8 +672,9 @@
 		Application = include('springroll.Application');
 
 	/**
-	 * Replaces Bitmaps in the global lib dictionary with a faux Bitmap
-	 * that pulls the image from a spritesheet.
+	 * Loads javascript art exported from Flash, with special care taken to allow images to be
+	 * handled properly and to attempt to avoid library definition collisions between different
+	 * pieces of art.
 	 * @class FlashArtTask
 	 * @extends springroll.Task
 	 * @constructor
@@ -1155,7 +1156,7 @@
 		ColorAlphaTask = include('springroll.ColorAlphaTask');
 
 	/**
-	 * Internal class for dealing with async load assets through Loader.
+	 * Internal class for loading a texture atlas, creating a 'springroll.easeljs.TextureAtlas'.
 	 * @class TextureAtlasTask
 	 * @extends springroll.Task
 	 * @constructor
@@ -1281,7 +1282,7 @@
 	var Task = include('springroll.Task');
 
 	/**
-	 * Internal class for dealing with async load assets through Loader.
+	 * Internal class for loading an image for a FlashArt load.
 	 * @class FlashArtImageTask
 	 * @extends springroll.Task
 	 * @constructor
@@ -1390,7 +1391,7 @@
 		BitmapUtils = include('springroll.easeljs.BitmapUtils');
 
 	/**
-	 * Internal class for dealing with async load assets through Loader.
+	 * Internal class for loading a texture atlas for a FlashArt load.
 	 * @class FlashArtAtlasTask
 	 * @extends springroll.Task
 	 * @constructor

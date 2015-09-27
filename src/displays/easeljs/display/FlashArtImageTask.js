@@ -7,7 +7,7 @@
 	var Task = include('springroll.Task');
 
 	/**
-	 * Internal class for dealing with async load assets through Loader.
+	 * Internal class for loading an image for a FlashArt load.
 	 * @class FlashArtImageTask
 	 * @extends springroll.Task
 	 * @constructor
