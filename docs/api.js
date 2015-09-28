@@ -71,7 +71,6 @@ YUI.add("yuidoc-meta", function(Y) {
         "springroll.StateManager",
         "springroll.StringFilters",
         "springroll.Task",
-        "springroll.TickerPlugin",
         "springroll.TimeUtils",
         "springroll.UIScaler",
         "springroll.VOHint",
@@ -164,8 +163,6 @@ YUI.add("yuidoc-meta", function(Y) {
         "PIXI Display",
         "PIXI Spine",
         "PIXI UI",
-        "Pixi Animation",
-        "Pixi Display",
         "Sound",
         "States",
         "UI"
@@ -240,16 +237,8 @@ YUI.add("yuidoc-meta", function(Y) {
             "name": "Native Display"
         },
         {
-            "displayName": "Pixi Animation",
-            "name": "Pixi Animation"
-        },
-        {
             "displayName": "PIXI Animation",
             "name": "PIXI Animation"
-        },
-        {
-            "displayName": "Pixi Display",
-            "name": "Pixi Display"
         },
         {
             "displayName": "PIXI Display",

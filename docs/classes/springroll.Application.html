@@ -470,9 +470,6 @@
           <a href='../classes/springroll.Task.html'>springroll.Task</a>
         </li>
         <li class='public'>
-          <a href='../classes/springroll.TickerPlugin.html'>springroll.TickerPlugin</a>
-        </li>
-        <li class='public'>
           <a href='../classes/springroll.TimeUtils.html'>springroll.TimeUtils</a>
         </li>
         <li class='public'>
@@ -578,13 +575,7 @@
           <a href='../modules/Native Display.html'>Native Display</a>
         </li>
         <li class=''>
-          <a href='../modules/Pixi Animation.html'>Pixi Animation</a>
-        </li>
-        <li class=''>
           <a href='../modules/PIXI Animation.html'>PIXI Animation</a>
-        </li>
-        <li class=''>
-          <a href='../modules/Pixi Display.html'>Pixi Display</a>
         </li>
         <li class=''>
           <a href='../modules/PIXI Display.html'>PIXI Display</a>
@@ -636,8 +627,8 @@ functionality (e.g. sound, captions, etc). All timing and asynchronous
 events should be handled by the Application to control the play
 and pause. Any update, Ticker-type functions, should use the Applications
 update event.</p>
-<pre class="code prettyprint"><code>var app = new Application();</code></pre>
-
+<pre class="code prettyprint"><code>var app = new Application();
+</code></pre>
 </div>
 
 <div class='constructor'>
@@ -691,8 +682,8 @@ Defined in
 
 <div class='param-description'>
 <p>The options for creating the application,
-see <code>springroll.ApplicationOptions</code> for the specific options
-that can be overridden and set.</p>
+        see <code>springroll.ApplicationOptions</code> for the specific options
+        that can be overridden and set.</p>
 
 </div>
 
@@ -1075,6 +1066,10 @@ that can be overridden and set.</p>
 </li>
 <li class='col-xs-6 col-md-4 index-item property private'>
 <a href='#property__tickId'>_tickId</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item property private'>
+<a href='#property__time'>_time</a>
 
 </li>
 <li class='col-xs-6 col-md-4 index-item property private'>
@@ -1664,9 +1659,9 @@ Defined in
 
 <div class='param-description'>
 <p>The id of the canvas element, this will be used to grab the Display later
-also the Display should be the one to called document.getElementById(id)
-and not the application sinc we don't care about the DOMElement as this
-point</p>
+                  also the Display should be the one to called document.getElementById(id)
+                  and not the application sinc we don&#39;t care about the DOMElement as this
+                  point</p>
 
 </div>
 
@@ -1913,8 +1908,8 @@ if you need variable aspect ratios.</p>
 
 <div class='param-description'>
 <p>A size object containing the width and height of the resized container.
-The size parameter is also the output of the function, so the size
-properties are edited in place.</p>
+                    The size parameter is also the output of the function, so the size
+                    properties are edited in place.</p>
 
 </div>
 
@@ -2325,7 +2320,8 @@ Defined in
 </div>
 
 <div class='description'>
-Checks if the EventDispatcher has a specific listener or any listener for a given event.
+<p>Checks if the EventDispatcher has a specific listener or any listener for a given event.</p>
+
 </div>
 
 <div class='params'>
@@ -2338,7 +2334,8 @@ Checks if the EventDispatcher has a specific listener or any listener for a give
 
 
 <div class='param-description'>
-The name of the single event type to check for
+<p>The name of the single event type to check for</p>
+
 </div>
 
 </li>
@@ -2349,7 +2346,8 @@ The name of the single event type to check for
 
 
 <div class='param-description'>
-The listener function to check for. If omitted, checks for any listener.
+<p>The listener function to check for. If omitted, checks for any listener.</p>
+
 </div>
 
 </li>
@@ -2361,7 +2359,8 @@ The listener function to check for. If omitted, checks for any listener.
 
 <div class='returns-description'>
 <span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>:
-If the EventDispatcher has the specified listener.
+<p>If the EventDispatcher has the specified listener.</p>
+
 </div>
 </div>
 
@@ -2435,7 +2434,7 @@ Defined in
 
 <div class='param-description'>
 <p>The completed callback with a single
-parameters result object.</p>
+     parameters result object.</p>
 
 </div>
 
@@ -2530,7 +2529,7 @@ Defined in
 
 <div class='param-description'>
 <p>The single asset resource to load, properties
-will depend on the type of asset loading.</p>
+     will depend on the type of asset loading.</p>
 
 </div>
 
@@ -2578,8 +2577,8 @@ will depend on the type of asset loading.</p>
 
 <div class='param-description'>
 <p>The completed callback with a single
-parameters which is a result object. will
-only use if <code>asset.complete</code> is undefined.</p>
+     parameters which is a result object. will
+     only use if <code>asset.complete</code> is undefined.</p>
 
 </div>
 
@@ -2681,7 +2680,7 @@ Defined in
 
 <div class='param-description'>
 <p>Callback on load progress,
-has a parameter which is the percentage loaded from 0 to 1.</p>
+     has a parameter which is the percentage loaded from 0 to 1.</p>
 
 </div>
 
@@ -2693,7 +2692,7 @@ has a parameter which is the percentage loaded from 0 to 1.</p>
 
 <div class='param-description'>
 <p>Additional data to attach to load is
-accessible in the loader's result.</p>
+     accessible in the loader&#39;s result.</p>
 
 </div>
 
@@ -2708,8 +2707,8 @@ accessible in the loader's result.</p>
 
 <div class='param-description'>
 <p>The completed callback with a single
-parameter which is a result object. will
-only use if <code>asset.complete</code> is undefined.</p>
+     parameter which is a result object. will
+     only use if <code>asset.complete</code> is undefined.</p>
 
 </div>
 
@@ -2780,7 +2779,7 @@ Defined in
 
 <div class='param-description'>
 <p>Callback where the only parameter is the
-map of the results by ID, or the collection of load options.</p>
+     map of the results by ID, or the collection of load options.</p>
 
 </div>
 
@@ -2907,7 +2906,7 @@ Defined in
 
 <div class='param-description'>
 <p>The list of assets.
-If each object has a <code>id</code> the result will be a mapped object.</p>
+     If each object has a <code>id</code> the result will be a mapped object.</p>
 
 </div>
 
@@ -2920,7 +2919,7 @@ If each object has a <code>id</code> the result will be a mapped object.</p>
 
 <div class='param-description'>
 <p>Callback where the only parameter is the
-collection or map of the results, or the collection of load options.</p>
+     collection or map of the results, or the collection of load options.</p>
 
 </div>
 
@@ -3081,7 +3080,7 @@ stage_width:int, stage_height:int} in unscaled numbers.</p>
 
 <div class='param-description'>
 <p>The coordinate space the position is in, so
-it can be converted to global space.</p>
+                                           it can be converted to global space.</p>
 
 </div>
 
@@ -3169,10 +3168,10 @@ stage_width:int, stage_height:int} in unscaled numbers.</p>
 
 <div class='param-description'>
 <p>The coordinate space the position is in, so
-it can be converted to global space. If
-omitted and <code>pos</code> is a
-DisplayObject, <code>pos.parent</code> will
-be used.</p>
+                                           it can be converted to global space. If
+                                           omitted and <code>pos</code> is a
+                                           DisplayObject, <code>pos.parent</code> will
+                                           be used.</p>
 
 </div>
 
@@ -3228,7 +3227,8 @@ be used.</p>
 </div>
 
 <div class='description'>
-Remove the event listener
+<p>Remove the event listener</p>
+
 </div>
 
 <div class='params'>
@@ -3241,7 +3241,8 @@ Remove the event listener
 
 
 <div class='param-description'>
-The type of event string separated by spaces, if no name is specifed remove all listeners.
+<p>The type of event string separated by spaces, if no name is specifed remove all listeners.</p>
+
 </div>
 
 </li>
@@ -3251,7 +3252,8 @@ The type of event string separated by spaces, if no name is specifed remove all 
 
 
 <div class='param-description'>
-The listener function or collection of callback functions
+<p>The listener function or collection of callback functions</p>
+
 </div>
 
 </li>
@@ -3263,7 +3265,8 @@ The listener function or collection of callback functions
 
 <div class='returns-description'>
 <span class='type'>EventDispatcher</span>:
-Return this EventDispatcher for chaining calls.
+<p>Return this EventDispatcher for chaining calls.</p>
+
 </div>
 </div>
 
@@ -3308,7 +3311,8 @@ Return this EventDispatcher for chaining calls.
 </div>
 
 <div class='description'>
-Add an event listener. The parameters for the listener functions depend on the event.
+<p>Add an event listener. The parameters for the listener functions depend on the event.</p>
+
 </div>
 
 <div class='params'>
@@ -3321,8 +3325,9 @@ Add an event listener. The parameters for the listener functions depend on the e
 
 
 <div class='param-description'>
-The type of event (can be multiple events separated by spaces),
-     or a map of events to handlers
+<p>The type of event (can be multiple events separated by spaces),
+     or a map of events to handlers</p>
+
 </div>
 
 </li>
@@ -3332,7 +3337,8 @@ The type of event (can be multiple events separated by spaces),
 
 
 <div class='param-description'>
-The callback function when event is fired or an array of callbacks.
+<p>The callback function when event is fired or an array of callbacks.</p>
+
 </div>
 
 </li>
@@ -3343,7 +3349,8 @@ The callback function when event is fired or an array of callbacks.
 
 
 <div class='param-description'>
-The priority of the event listener. Higher numbers are handled first.
+<p>The priority of the event listener. Higher numbers are handled first.</p>
+
 </div>
 
 </li>
@@ -3355,7 +3362,8 @@ The priority of the event listener. Higher numbers are handled first.
 
 <div class='returns-description'>
 <span class='type'>EventDispatcher</span>:
-Return this EventDispatcher for chaining calls.
+<p>Return this EventDispatcher for chaining calls.</p>
+
 </div>
 </div>
 
@@ -3571,7 +3579,8 @@ Defined in
 </div>
 
 <div class='description'>
-Add an event listener but only handle it one time.
+<p>Add an event listener but only handle it one time.</p>
+
 </div>
 
 <div class='params'>
@@ -3584,8 +3593,9 @@ Add an event listener but only handle it one time.
 
 
 <div class='param-description'>
-The type of event (can be multiple events separated by spaces),
-     or a map of events to handlers
+<p>The type of event (can be multiple events separated by spaces),
+     or a map of events to handlers</p>
+
 </div>
 
 </li>
@@ -3595,7 +3605,8 @@ The type of event (can be multiple events separated by spaces),
 
 
 <div class='param-description'>
-The callback function when event is fired or an array of callbacks.
+<p>The callback function when event is fired or an array of callbacks.</p>
+
 </div>
 
 </li>
@@ -3606,7 +3617,8 @@ The callback function when event is fired or an array of callbacks.
 
 
 <div class='param-description'>
-The priority of the event listener. Higher numbers are handled first.
+<p>The priority of the event listener. Higher numbers are handled first.</p>
+
 </div>
 
 </li>
@@ -3618,7 +3630,8 @@ The priority of the event listener. Higher numbers are handled first.
 
 <div class='returns-description'>
 <span class='type'>EventDispatcher</span>:
-Return this EventDispatcher for chaining calls.
+<p>Return this EventDispatcher for chaining calls.</p>
+
 </div>
 </div>
 
@@ -3892,7 +3905,7 @@ Defined in
 
 
 <div class='param-description'>
-<p>Call when we're done</p>
+<p>Call when we&#39;re done</p>
 
 </div>
 
@@ -4534,7 +4547,7 @@ Defined in
 
 
 <div class='param-description'>
-<p>The Display's id (also the canvas ID)</p>
+<p>The Display&#39;s id (also the canvas ID)</p>
 
 </div>
 
@@ -4850,7 +4863,7 @@ Defined in
 
 <div class='description'>
 <p>When a application is in singlePlay mode it will end.
-It's unnecessary to check <code>if (this.singlePlay)</code> just
+It&#39;s unnecessary to check <code>if (this.singlePlay)</code> just
 call the method and it will end the application if it can.</p>
 
 </div>
@@ -4935,7 +4948,8 @@ Defined in
 </div>
 
 <div class='description'>
-Dispatch an event
+<p>Dispatch an event</p>
+
 </div>
 
 <div class='params'>
@@ -4948,7 +4962,8 @@ Dispatch an event
 
 
 <div class='param-description'>
-The type of event to trigger
+<p>The type of event to trigger</p>
+
 </div>
 
 </li>
@@ -4958,7 +4973,8 @@ The type of event to trigger
 
 
 <div class='param-description'>
-Additional parameters for the listener functions.
+<p>Additional parameters for the listener functions.</p>
+
 </div>
 
 </li>
@@ -5033,7 +5049,8 @@ Defined in
 </div>
 
 <div class='description'>
-Return type of the value.
+<p>Return type of the value.</p>
+
 </div>
 
 <div class='params'>
@@ -5058,7 +5075,8 @@ Return type of the value.
 
 <div class='returns-description'>
 <span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>:
-The type
+<p>The type</p>
+
 </div>
 </div>
 
@@ -5109,8 +5127,8 @@ Defined in
 
 <div class='param-description'>
 <p>The collection of asset ids or
-single asset id. As an array, it can be a manifest
-with objects that contain an ID, or an array of multiple strings.</p>
+     single asset id. As an array, it can be a manifest
+     with objects that contain an ID, or an array of multiple strings.</p>
 
 </div>
 
@@ -5224,7 +5242,8 @@ Defined in
 </div>
 
 <div class="description">
-If the dispatcher is destroyed
+<p>If the dispatcher is destroyed</p>
+
 </div>
 
 
@@ -5425,7 +5444,8 @@ Defined in
 </div>
 
 <div class="description">
-The collection of listeners
+<p>The collection of listeners</p>
+
 </div>
 
 
@@ -5863,6 +5883,33 @@ Defined in
 
 
 
+</div><div class="property__time property item private">
+<h3 class="name"><a class="deeplink" href="#property__time"><span class="glyphicon glyphicon-link"></span></a> <code>_time</code></h3>
+<span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
+
+
+<span class="flag private">private</span>
+
+
+
+<div class="meta">
+<p>Provided by the <a href="../modules/PIXI Display.html">PIXI Display</a> module.</p>
+<p>
+Defined in
+<a href="../files/src_displays_pixi_TickerPlugin.js.html#l19"><code>_time:19</code></a>
+</p>
+
+
+</div>
+
+<div class="description">
+<p>Keep track of total time elapsed to feed to the Ticker</p>
+
+</div>
+
+<p><strong>Default:</strong> 0</p>
+
+
 </div><div class="property__total property item private">
 <h3 class="name"><a class="deeplink" href="#property__total"><span class="glyphicon glyphicon-link"></span></a> <code>_total</code></h3>
 <span class="type">Int</span>
@@ -6109,7 +6156,8 @@ been loaded, if the site is there</p>
 </div>
 
 <div class="description">
-If the dispatcher is destroyed
+<p>If the dispatcher is destroyed</p>
+
 </div>
 
 
@@ -6508,7 +6556,7 @@ Defined in
 </div>
 
 <div class="description">
-<p>For media conveninece methods tracking media events, such as
+<p>For media conveninece methods tracking media events, such as 
 playFeedback, playMovie, etc</p>
 
 </div>
@@ -6610,7 +6658,7 @@ Defined in
 </div>
 
 <div class="description">
-<p>Some games need to send additional parameters to the tracker's
+<p>Some games need to send additional parameters to the tracker&#39;s
 offClick event. They may set them here as needed. These parameters are appended
 to the normal offClick data.</p>
 
@@ -6637,7 +6685,7 @@ Defined in
 
 <div class="description">
 <p>Initialization options/query string parameters, these properties are read-only
-Application properties like raf, fps, don't have any affect on the options object.</p>
+Application properties like raf, fps, don&#39;t have any affect on the options object.</p>
 
 </div>
 
@@ -6792,7 +6840,7 @@ Defined in
 </div>
 
 <div class="description">
-<p>The captions text field object to use for the
+<p>The captions text field object to use for the 
 VOPlayer captions object.</p>
 
 </div>
@@ -6925,7 +6973,7 @@ Defined in
 <div class="description">
 <p>Different displays offer flavors of the same asset definition.
 Instead of repeatedly defining the asset type property,
-it's possible to define a global default. If PIXI
+it&#39;s possible to define a global default. If PIXI
 is your default display "pixi" is recommended as a value.
 If EaselJS is your default display "easeljs" is recommended.</p>
 
@@ -7181,7 +7229,7 @@ Defined in
 </div>
 
 <div class="description">
-<p>The path to the concatinated FLA exported manifests. It's useful
+<p>The path to the concatinated FLA exported manifests. It&#39;s useful
 to load all the manifests at once. This JSON object contains a
 dictionary of state alias and contains an array of manifest assets
 (e.g. <code>{"id": "PlayButton", "src": "assets/images/button.png"}</code>.
@@ -7290,7 +7338,7 @@ Defined in
 </div>
 
 <div class="description">
-<p>Set the initial mute state of the all the audio
+<p>Set the initial mute state of the all the audio 
 (unminifed library version only)</p>
 
 </div>
@@ -7447,7 +7495,7 @@ Defined in
 
 <div class="description">
 <p>If responsive is true, the width and height properties
-are adjusted on the <code>&lt;canvas&gt;</code> element. It's assumed that
+are adjusted on the <code>&lt;canvas&gt;</code> element. It&#39;s assumed that
 responsive applications will adjust their own elements.
 If responsive is false then the style properties are changed.</p>
 

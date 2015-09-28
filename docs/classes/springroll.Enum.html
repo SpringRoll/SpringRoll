@@ -470,9 +470,6 @@
           <a href='../classes/springroll.Task.html'>springroll.Task</a>
         </li>
         <li class='public'>
-          <a href='../classes/springroll.TickerPlugin.html'>springroll.TickerPlugin</a>
-        </li>
-        <li class='public'>
           <a href='../classes/springroll.TimeUtils.html'>springroll.TimeUtils</a>
         </li>
         <li class='public'>
@@ -578,13 +575,7 @@
           <a href='../modules/Native Display.html'>Native Display</a>
         </li>
         <li class=''>
-          <a href='../modules/Pixi Animation.html'>Pixi Animation</a>
-        </li>
-        <li class=''>
           <a href='../modules/PIXI Animation.html'>PIXI Animation</a>
-        </li>
-        <li class=''>
-          <a href='../modules/Pixi Display.html'>Pixi Display</a>
         </li>
         <li class=''>
           <a href='../modules/PIXI Display.html'>PIXI Display</a>
@@ -636,15 +627,15 @@ referenced as a property with the same name as the EnumValue. Examples:</p>
         {name: "one", value:"1", toString:"I am the One!"},
         "two",
         {name:"screwSequentialNumbers", value:42});
-        
+
     myEnum.valueOf0 != 0;//enum values are not integers
     myEnum.valueOf1 != myOtherEnum.one;//enum values are not the same as other enums
     myEnum.valueOf2.asInt == 2;//enum values can be explicitly compared to integers
     myOtherEnum.screwSequentialNumbers == myOtherEnum.valueFromInt(42);//can use ints to get values
     console.log(myOtherEnum.one.toString());//outputs "I am the One!"
 
-    for (var i in myEnum) console.log(i); //outputs "valueOf0","valueOf1","valueOf2"</code></pre>
-
+    for (var i in myEnum) console.log(i); //outputs "valueOf0","valueOf1","valueOf2"
+</code></pre>
 </div>
 
 <div class='constructor'>
@@ -696,7 +687,7 @@ Defined in
 <p>The list of enumeration values. You can pass either an
 array or a list of parameters. Each string will be
 the previous value plus one, while objects with
-'name' and 'value' properties will have the specified
+&#39;name&#39; and &#39;value&#39; properties will have the specified
 numeric value.</p>
 
 </div>

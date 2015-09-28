@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang='en'>
 <head>
-	<title>SpringRoll v0.4.0 API Documentation : src\displays\pixi\TickerPlugin.js</title>
+	<title>SpringRoll v0.4.0 API Documentation : src/displays/pixi/TickerPlugin.js</title>
 	<meta charset='utf-8'>
 	<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 	<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
@@ -470,9 +470,6 @@
           <a href='../classes/springroll.Task.html'>springroll.Task</a>
         </li>
         <li class='public'>
-          <a href='../classes/springroll.TickerPlugin.html'>springroll.TickerPlugin</a>
-        </li>
-        <li class='public'>
           <a href='../classes/springroll.TimeUtils.html'>springroll.TimeUtils</a>
         </li>
         <li class='public'>
@@ -578,13 +575,7 @@
           <a href='../modules/Native Display.html'>Native Display</a>
         </li>
         <li class=''>
-          <a href='../modules/Pixi Animation.html'>Pixi Animation</a>
-        </li>
-        <li class=''>
           <a href='../modules/PIXI Animation.html'>PIXI Animation</a>
-        </li>
-        <li class=''>
-          <a href='../modules/Pixi Display.html'>Pixi Display</a>
         </li>
         <li class=''>
           <a href='../modules/PIXI Display.html'>PIXI Display</a>
@@ -610,12 +601,13 @@
 </nav></nav>
 <div class='col-sm-8 col-md-9'>
 <div id='docs-main' class='apidocs'>
-<h1 class="file-heading">File:src\displays\pixi\TickerPlugin.js</h1>
+<h1 class="file-heading">File:TickerPlugin.js</h1>
 
 <div class="file">
 <pre class="code prettyprint linenums">/**
- *	@module Core
- *	@namespace springroll
+ * @module PIXI Display
+ * @namespace springroll
+ * @requires Core
  */
 (function()
 {
@@ -623,13 +615,10 @@
 	var ticker = include(&#x27;PIXI.ticker.shared&#x27;, false),
 		ApplicationPlugin = include(&#x27;springroll.ApplicationPlugin&#x27;);
 	
-	if(!ticker) return;
+	if (!ticker) return;
 
 	/**
-	 *	Create an app plugin for resizing application, all properties and methods documented
-	 *	in this class are mixed-in to the main Application
-	 *	@class TickerPlugin
-	 *	@extends springroll.ApplicationPlugin
+	 *	@class Application
 	 */
 	var plugin = new ApplicationPlugin();
 
