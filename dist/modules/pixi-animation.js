@@ -896,9 +896,9 @@
 
 }());
 /**
- * @module Pixi Animation
+ * @module PIXI Animation
  * @namespace springroll.pixi
- * @requires Core, Pixi Display
+ * @requires Core, PIXI Display
  */
 (function()
 {

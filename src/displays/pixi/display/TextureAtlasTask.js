@@ -1,5 +1,5 @@
 /**
- * @module Pixi Display
+ * @module PIXI Display
  * @namespace springroll.pixi
  * @requires Core
  */

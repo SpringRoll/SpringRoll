@@ -1,6 +1,7 @@
 /**
- *	@module Core
- *	@namespace springroll
+ * @module PIXI Display
+ * @namespace springroll
+ * @requires Core
  */
 (function()
 {
@@ -8,13 +9,10 @@
 	var ticker = include('PIXI.ticker.shared', false),
 		ApplicationPlugin = include('springroll.ApplicationPlugin');
 	
-	if(!ticker) return;
+	if (!ticker) return;
 
 	/**
-	 *	Create an app plugin for resizing application, all properties and methods documented
-	 *	in this class are mixed-in to the main Application
-	 *	@class TickerPlugin
-	 *	@extends springroll.ApplicationPlugin
+	 *	@class Application
 	 */
 	var plugin = new ApplicationPlugin();
 
