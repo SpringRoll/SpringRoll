@@ -8,7 +8,7 @@
 		"jquery": "*"
 	},
 	"devDependencies": {
-		"pixi.js": "https://github.com/SpringRoll/pixi.js.git",
+		"pixi.js": "https://github.com/SpringRoll/pixi.js.git#~2",
 		"easeljs": "https://github.com/SpringRoll/EaselJS.git",
 		"tweenjs": "https://github.com/SpringRoll/TweenJS.git",
 		"soundjs": "https://github.com/SpringRoll/SoundJS.git",
