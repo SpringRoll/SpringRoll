@@ -543,7 +543,7 @@
 		if (createjs.BrowserDetect.isIOS &&
 			SoundJS.activePlugin instanceof WebAudioPlugin)
 		{
-			document.addEventListener("touchstart", _playEmpty);
+			document.addEventListener("touchend", _playEmpty);
 		}
 
 		// New sound object
@@ -593,7 +593,7 @@
 		//prevent iOS from making mouse events too
 		ev.preventDefault();
 		
-		document.removeEventListener("touchstart", _playEmpty);
+		document.removeEventListener("touchend", _playEmpty);
 		WebAudioPlugin.playEmptySound();
 		_instance.systemMuted = false;
 		_instance.trigger("systemUnmuted");
