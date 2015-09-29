@@ -1,4 +1,4 @@
-/*! SpringRoll 0.4.0 */
+/*! SpringRoll 0.4.1 */
 /**
  * @module Learning Media
  * @namespace springroll
