@@ -574,10 +574,11 @@
 
 		//If on iOS, then we need to add a touch listener to unmute sounds.
 		//playback pretty much has to be createjs.WebAudioPlugin for iOS
+		//We cannot use touchstart in iOS 9.0 - http://www.holovaty.com/writing/ios9-web-audio/
 		if (createjs.BrowserDetect.isIOS &&
 			SoundJS.activePlugin instanceof WebAudioPlugin)
 		{
-			document.addEventListener("touchstart", _playEmpty);
+			document.addEventListener("touchend", _playEmpty);
 		}
 
 		//New sound object
@@ -623,14 +624,15 @@
 	};
 
 	/**
-	 * Statisfies the iOS event needed to initialize the audio
+	 * Satisfies the iOS event needed to initialize the audio
+	 * Note that we listen on touchend as per http://www.holovaty.com/writing/ios9-web-audio/
 	 * @private
 	 * @method _playEmpty
 	 */
 	function _playEmpty(ev)
 	{
 		ev.preventDefault();
-		document.removeEventListener("touchstart", _playEmpty);
+		document.removeEventListener("touchend", _playEmpty);
 		WebAudioPlugin.playEmptySound();
 		_instance.systemMuted = false;
 		_instance.trigger("systemUnmuted");
