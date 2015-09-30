@@ -40,7 +40,7 @@
 	 * @class UIScaler
 	 * @deprecated since version 0.4.0
 	 */
-	Object.defineProperty(springroll, 'UIScaler', 
+	Object.defineProperty(springroll, 'UIScaler',
 	{
 		get: function()
 		{

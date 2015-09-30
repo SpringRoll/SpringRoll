@@ -3,7 +3,7 @@
 	var ApplicationPlugin = include('springroll.ApplicationPlugin');
 	var Tween = include('createjs.Tween', false);
 	var Ticker = include('createjs.Ticker', false);
-	
+
 	/**
 	 * @class Application
 	 */

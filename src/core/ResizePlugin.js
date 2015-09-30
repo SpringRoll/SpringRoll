@@ -5,7 +5,7 @@
 (function()
 {
 	var ApplicationPlugin = include('springroll.ApplicationPlugin');
-	
+
 	/**
 	 * @class Application
 	 */
@@ -25,21 +25,21 @@
 	 * @private
 	 */
 	var _maxWidth = 0;
-	
+
 	/**
 	 * The maximum height of the primary display, compared to the original width.
 	 * @property {Number} _maxHeight
 	 * @private
 	 */
 	var _maxHeight = 0;
-	
+
 	/**
 	 * The original width of the primary display, used to calculate the aspect ratio.
 	 * @property {int} _originalWidth
 	 * @private
 	 */
 	var _originalWidth = 0;
-	
+
 	/**
 	 * The original height of the primary display, used to calculate the aspect ratio.
 	 * @property {int} _originalHeight
@@ -70,7 +70,7 @@
 		 * @param {int} width The width of the resize element
 		 * @param {int} height The height of the resize element
 		 */
-		
+
 		/**
 		 * If doing uniform resizing, optional parameter to add
 		 * a maximum width relative to the original height. This
@@ -129,9 +129,9 @@
 		{
 			_originalWidth = display.width;
 			_originalHeight = display.height;
-			if(!_maxWidth)
+			if (!_maxWidth)
 				_maxWidth = _originalWidth;
-			if(!_maxHeight)
+			if (!_maxHeight)
 				_maxHeight = _originalHeight;
 		});
 
@@ -191,10 +191,7 @@
 			});
 
 			//send out the resize event
-			this.trigger('resize',
-				(responsive ? width : normalWidth),
-				(responsive ? height : normalHeight)
-			);
+			this.trigger('resize', (responsive ? width : normalWidth), (responsive ? height : normalHeight));
 
 			//redraw all displays
 			this.displays.forEach(function(display)
@@ -240,7 +237,7 @@
 			currentAspect = size.width / size.height;
 			size.normalWidth = _originalWidth;
 			size.normalHeight = _originalHeight;
-			
+
 			if (currentAspect > originalAspect)
 			{
 				size.normalWidth = _originalHeight * currentAspect;
@@ -287,15 +284,15 @@
 			window.removeEventListener("resize", this.triggerResize);
 		}
 		_resizeElement = null;
-		
+
 		_resizeHelper.width =
-		_resizeHelper.height =
-		_resizeHelper.normalWidth =
-		_resizeHelper.normalHeight =
-		_originalWidth =
-		_originalHeight =
-		_maxHeight =
-		_maxWidth = 0;
+			_resizeHelper.height =
+			_resizeHelper.normalWidth =
+			_resizeHelper.normalHeight =
+			_originalWidth =
+			_originalHeight =
+			_maxHeight =
+			_maxWidth = 0;
 
 	};
 

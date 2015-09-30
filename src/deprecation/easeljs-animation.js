@@ -202,7 +202,7 @@
 		return '[Animator]';
 	};
 
-	Object.defineProperties(Animator, 
+	Object.defineProperties(Animator,
 	{
 		/**
 		 * See {{#crossLink "springroll.Animator/captions:property"}}{{/crossLink}}
@@ -210,7 +210,7 @@
 		 * @static
 		 * @deprecated since version 0.4.0
 		 */
-		captions: 
+		captions:
 		{
 			get: function()
 			{
@@ -224,7 +224,7 @@
 		 * @static
 		 * @deprecated since version 0.4.0
 		 */
-		debug: 
+		debug:
 		{
 			get: function()
 			{

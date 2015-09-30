@@ -8,7 +8,7 @@
 	// Include classes
 	var ApplicationPlugin = include('springroll.ApplicationPlugin'),
 		Point,
-	 	Learning = include('springroll.Learning');
+		Learning = include('springroll.Learning');
 
 	/**
 	 * @class Application
@@ -17,7 +17,7 @@
 
 	// Init the animator
 	plugin.setup = function()
-	{		
+	{
 		/**
 		 * An learning event is dispatched
 		 * @event learningEvent
@@ -45,10 +45,10 @@
 		});
 		// Bubble up the learning event
 		this.learning.on('learningEvent', function(data)
-		{
-			this.trigger('learningEvent', data);
-		}
-		.bind(this));
+			{
+				this.trigger('learningEvent', data);
+			}
+			.bind(this));
 
 		// Handle the end game event
 		this.once('endGame', function(exitType)

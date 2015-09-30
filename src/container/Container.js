@@ -33,9 +33,11 @@
 	{
 		EventDispatcher.call(this);
 
-		options = $.extend({
+		options = $.extend(
+		{
 			pauseFocusSelector: '.pause-on-focus'
-		}, options || {});
+		}, options ||
+		{});
 
 		/**
 		 * The name of this class
@@ -138,7 +140,8 @@
 		this._captionsStyles = Object.merge(
 			{},
 			DEFAULT_CAPTIONS_STYLES,
-			SavedData.read(CAPTIONS_STYLES) || {}
+			SavedData.read(CAPTIONS_STYLES) ||
+			{}
 		);
 
 		/**
@@ -204,7 +207,7 @@
 		{
 			this.soundMuted = false;
 		}
-		
+
 		this._pageVisibility = new PageVisibility(
 			onContainerFocus.bind(this),
 			onContainerBlur.bind(this)
@@ -293,13 +296,13 @@
 	 * Event when a application start loading
 	 * @event open
 	 */
-	
+
 	/**
 	 * Fired when the enabled status of the help button changes
 	 * @event helpEnabled
 	 * @param {boolean} enabled If the help button is enabled
 	 */
-	
+
 	/**
 	 * The features supported by the application
 	 * @event features
@@ -339,7 +342,8 @@
 	 */
 	p._internalOpen = function(path, options)
 	{
-		options = $.extend({
+		options = $.extend(
+		{
 			singlePlay: false,
 			playOptions: null
 		}, options);
@@ -388,7 +392,8 @@
 	 */
 	p.open = function(path, options, playOptions)
 	{
-		options = options || {};
+		options = options ||
+		{};
 
 		// This should be deprecated, support for old function signature
 		if (typeof options === "boolean")
@@ -420,7 +425,8 @@
 				playOptions: playOptions
 			};
 		}
-		options = $.extend({
+		options = $.extend(
+		{
 			query: '',
 			playOptions: null,
 			singlePlay: false
@@ -429,31 +435,31 @@
 		this.release = null;
 
 		$.getJSON(api, function(result)
-		{
-			if (!result.success)
-			{
-				return this.trigger('remoteError', result.error);
-			}
-			var release = result.data;
+				{
+					if (!result.success)
+					{
+						return this.trigger('remoteError', result.error);
+					}
+					var release = result.data;
 
-			var err = Features.test(release.capabilities);
+					var err = Features.test(release.capabilities);
 
-			if (err)
-			{
-				return this.trigger('unsupported', err); 
-			}
+					if (err)
+					{
+						return this.trigger('unsupported', err);
+					}
 
-			this.release = release;
+					this.release = release;
 
-			// Open the application
-			this._internalOpen(release.url + options.query, options);
-		}
-		.bind(this))
-		.fail(function()
-		{
-			return this.trigger('remoteFailed');
-		}
-		.bind(this));
+					// Open the application
+					this._internalOpen(release.url + options.query, options);
+				}
+				.bind(this))
+			.fail(function()
+				{
+					return this.trigger('remoteFailed');
+				}
+				.bind(this));
 	};
 
 	/**
@@ -1237,13 +1243,13 @@
 		this.musicButton = null;
 		this.voButton = null;
 		this.sfxButton = null;
-		
-		if(this._pageVisibility)
+
+		if (this._pageVisibility)
 		{
 			this._pageVisibility.destroy();
 			this._pageVisibility = null;
 		}
-		
+
 		this.destroyClient();
 
 		s.destroy.call(this);

@@ -4,7 +4,8 @@ var Learning = include('springroll.Learning'),
 	LearningError = include('springroll.LearningError'),
 	ValidationError = include('springroll.LearningError');
 
-$.getJSON('data/spec.json', function(spec){
+$.getJSON('data/spec.json', function(spec)
+{
 
 	// Throw errors, it will make it easier to validate
 	Learning.throwErrors = true;
@@ -15,27 +16,31 @@ $.getJSON('data/spec.json', function(spec){
 	learning.spec = spec;
 
 	// Validate the loaded API
-	test('Load API', function(assert){
+	test('Load API', function(assert)
+	{
 		expect(5);
 		assert.ok(!!spec.gameId, "Game API spec has gameId");
 		assert.strictEqual(typeof spec.gameId, "string", "API gameId is a string");
 		assert.ok(!!spec.version, "Game API spec has version");
 		assert.strictEqual(parseInt(spec.version), spec.version, "API version is an integer");
 		assert.strictEqual(typeof spec.events, "object", "Game API spec has events collection");
-	}); 
+	});
 
 	// Create the progress learning
-	test('Created Learning Dispatcher', function(assert){
+	test('Created Learning Dispatcher', function(assert)
+	{
 		expect(1);
 		learning.showTray = true;
 		assert.ok(!!learning, "Created an empty learning");
 	});
 
 	// Handle a properly triggered track event
-	test('Trigger Track Event', function(assert){
+	test('Trigger Track Event', function(assert)
+	{
 		expect(4);
 		stop();
-		app.on('learningEvent', function(data){
+		app.on('learningEvent', function(data)
+		{
 			start();
 			assert.strictEqual(data.event_data.version, 4, "Version sent through startGame");
 			assert.strictEqual(data.event_data.event_code, 2000, "Event code validation");
@@ -47,13 +52,14 @@ $.getJSON('data/spec.json', function(spec){
 	});
 
 	// Handle validation error
-	test('Validation Errors', function(assert){
+	test('Validation Errors', function(assert)
+	{
 		expect(4);
-		try 
+		try
 		{
 			learning.startInstruction(1, 1000, "description", "id");
 		}
-		catch(e)
+		catch (e)
 		{
 			assert.ok(e instanceof ValidationError, "Created validation error");
 			assert.strictEqual(e.api, "startInstruction", "API name from error");
@@ -62,7 +68,8 @@ $.getJSON('data/spec.json', function(spec){
 		}
 	});
 	// Test the handling of complex arguments
-	test('Complex Argument Types', function(assert){
+	test('Complex Argument Types', function(assert)
+	{
 		expect(4);
 		var target = {
 			size: 1,
@@ -73,16 +80,17 @@ $.getJSON('data/spec.json', function(spec){
 		var animals = ["Pig", "Hog", "Cow"];
 
 		stop();
-		learning.on('learningEvent', function(data){
+		learning.on('learningEvent', function(data)
+		{
 			start();
 			assert.deepEqual(data.event_data.options, options, "Passing array argument");
 			assert.deepEqual(data.event_data.round_target, target, "Passing object argument");
 			learning.off('learningEvent');
 
-			try 
+			try
 			{
 				target.size = "fail";
-				learning.startRound(1, target, options, animals, 1);	
+				learning.startRound(1, target, options, animals, 1);
 			}
 			catch (e)
 			{
@@ -93,11 +101,13 @@ $.getJSON('data/spec.json', function(spec){
 		learning.startRound(1, target, options, animals, 1);
 	});
 
-	test("Convenience Timers", function(assert){
+	test("Convenience Timers", function(assert)
+	{
 		expect(3);
 		learning.startTimer('example');
 		stop();
-		setTimeout(function(){
+		setTimeout(function()
+		{
 			start();
 			var poll = learning.pollTimer('example');
 			var total = learning.stopTimer('example');
@@ -107,14 +117,15 @@ $.getJSON('data/spec.json', function(spec){
 			{
 				learning.stopTimer('example');
 			}
-			catch(e)
+			catch (e)
 			{
 				assert.ok(!!e, "Cannot stop already stopped timer");
 			}
 		}, 100);
 	});
 
-	test("Convenience Feedback Methods", function(assert){
+	test("Convenience Feedback Methods", function(assert)
+	{
 
 		expect(2);
 
@@ -127,7 +138,7 @@ $.getJSON('data/spec.json', function(spec){
 		learning.startCorrectFeedback("You were correct", "Correct", "audio", 1000);
 		learning.endCorrectFeedback();
 
-		try 
+		try
 		{
 			learning.endCorrectFeedback();
 		}
@@ -138,10 +149,11 @@ $.getJSON('data/spec.json', function(spec){
 		assert.ok(true, "Feedback tests");
 	});
 
-	test("Convenience Movie Methods", function(assert){
+	test("Convenience Movie Methods", function(assert)
+	{
 		learning.startMovie("Intro", 2000, "Introduction to the game, cinematic");
 		learning.skipMovie();
-		try 
+		try
 		{
 			learning.stopMovie();
 		}
@@ -153,7 +165,8 @@ $.getJSON('data/spec.json', function(spec){
 	});
 
 	// Check for arguments length errors
-	test("Argument Length", function(assert){
+	test("Argument Length", function(assert)
+	{
 		expect(2);
 		try
 		{
@@ -174,7 +187,8 @@ $.getJSON('data/spec.json', function(spec){
 	});
 
 	// Clean up the learning
-	test('Cleanup Learning Dispatcher', function(assert){
+	test('Cleanup Learning Dispatcher', function(assert)
+	{
 		expect(1);
 		learning.destroy();
 		learning = null;

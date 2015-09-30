@@ -2144,7 +2144,7 @@
 		this.voList = null;
 		this._timer = 0;
 		this._callback = null;
-		
+
 		var c = this._cancelledCallback;
 		this._cancelledCallback = null;
 		if (c)
@@ -2517,7 +2517,7 @@
 	 * @deprecated since version 0.4.0
 	 * @public
 	 */
-	Object.defineProperty(p, 'soundList', 
+	Object.defineProperty(p, 'soundList',
 	{
 		get: function()
 		{

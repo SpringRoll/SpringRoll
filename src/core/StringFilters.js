@@ -45,7 +45,7 @@
 			else
 				throw 'invalid replacement value';
 		}
-		
+
 		if (this._filters)
 		{
 			for (var i = this._filters.length - 1; i >= 0; i--)

@@ -488,9 +488,13 @@
 			//find the line number/column in the combined file string
 			lineSearch = lineLocationFinder.exec(file);
 			//handle browsers not providing proper information (like iOS)
-			if(!lineSearch)
+			if (!lineSearch)
 			{
-				stack[i] = {"function":"", "file":"", lineLocation:""};
+				stack[i] = {
+					"function": "",
+					"file": "",
+					lineLocation: ""
+				};
 				continue;
 			}
 			//split the file and line number/column from each other
@@ -1142,32 +1146,32 @@
 	 * @return {Function}
 	 */
 	function _colorClosure(hex)
+	{
+		var colorString = 'color:' + hex;
+		return function(message)
 		{
-			var colorString = 'color:' + hex;
-			return function(message)
+			if (arguments.length > 1)
 			{
-				if (arguments.length > 1)
+				var params = slice.call(arguments);
+				if (typeof params[0] == "object")
 				{
-					var params = slice.call(arguments);
-					if (typeof params[0] == "object")
-					{
-						params.unshift(colorString);
-						params.unshift('%c%o');
-					}
-					else
-					{
-						var first = '%c' + params[0];
-						params[0] = colorString;
-						params.unshift(first);
-					}
-					return Debug.log.apply(Debug, params);
+					params.unshift(colorString);
+					params.unshift('%c%o');
 				}
-				if (typeof arguments[0] == "object")
-					return Debug.log('%c%o', colorString, message);
-				return Debug.log('%c' + message, colorString);
-			};
-		}
-		//Assign to namespace
+				else
+				{
+					var first = '%c' + params[0];
+					params[0] = colorString;
+					params.unshift(first);
+				}
+				return Debug.log.apply(Debug, params);
+			}
+			if (typeof arguments[0] == "object")
+				return Debug.log('%c%o', colorString, message);
+			return Debug.log('%c' + message, colorString);
+		};
+	}
+	//Assign to namespace
 	namespace('springroll').Debug = Debug;
 
 }());

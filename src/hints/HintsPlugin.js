@@ -13,7 +13,7 @@
 	 * @class Application
 	 */
 	var plugin = new ApplicationPlugin();
-	
+
 	// Init the animator
 	plugin.setup = function()
 	{
@@ -39,7 +39,7 @@
 			}
 		}
 
-		if (!this.voPlayer) 
+		if (!this.voPlayer)
 		{
 			if (DEBUG)
 			{
@@ -52,8 +52,9 @@
 		}
 
 		// Listen for events
-		this.hints.on({
-			vo: onVOHint.bind(this), 
+		this.hints.on(
+		{
+			vo: onVOHint.bind(this),
 			anim: onAnimatorHint.bind(this)
 		});
 
@@ -65,10 +66,10 @@
 
 			// Listen whtn the hint changes
 			this.hints.on('enabled', function(enabled)
-			{
-				this.container.send('helpEnabled', enabled);
-			}
-			.bind(this));
+				{
+					this.container.send('helpEnabled', enabled);
+				}
+				.bind(this));
 		}
 		done();
 	};
@@ -124,7 +125,7 @@
 				data.complete,
 				data.cancel
 			);
-		}	
+		}
 	};
 
 	// Destroy the animator

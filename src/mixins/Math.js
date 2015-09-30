@@ -2,7 +2,7 @@
  * @module Core
  * @namespace window
  */
-(function (Math)
+(function(Math)
 {
 	/**
 	 * Add methods to Math
@@ -18,7 +18,7 @@
 	 * @param {int} max Highest number.
 	 * @return {int} The random value
 	 */
-	Math.randomInt = function (min, max)
+	Math.randomInt = function(min, max)
 	{
 		if (max === undefined)
 		{
@@ -27,7 +27,7 @@
 		}
 		return Math.floor(Math.random() * (max - min + 1)) + min;
 	};
-	
+
 	/**
 	 * Return a random float between minimum and maximum values.
 	 * If a single value is supplied, it will return a number between 0 and the supplied value.
@@ -37,7 +37,7 @@
 	 * @param {Number} max Highest number.
 	 * @return {Number} The random value
 	 */
-	Math.randomFloat = function (min, max)
+	Math.randomFloat = function(min, max)
 	{
 		if (max === undefined)
 		{
@@ -57,7 +57,7 @@
 	 * @param {Number} y0 The y position of the second point
 	 * @return {Number} The distance
 	 */
-	
+
 	/**
 	 * Return distance between two points
 	 * @method dist
@@ -70,7 +70,7 @@
 	 * @param {Number} p2.y The y position of the second point
 	 * @return {Number} The distance
 	 */
-	Math.dist = function (x, y, x0, y0)
+	Math.dist = function(x, y, x0, y0)
 	{
 		return Math.sqrt(Math.distSq(x, y, x0, y0));
 	};
@@ -85,7 +85,7 @@
 	 * @param {Number} y0 The y position of the second point
 	 * @return {Number} The distance
 	 */
-	
+
 	/**
 	 * Return squared distance between two points
 	 * @method distSq
@@ -98,7 +98,7 @@
 	 * @param {Number} p2.y The y position of the second point
 	 * @return {Number} The distance
 	 */
-	Math.distSq = function (x, y, x0, y0)
+	Math.distSq = function(x, y, x0, y0)
 	{
 		//see if the first parameter is a point
 		if (typeof x.x == "number" && x.x == x.x) //faster !isNaN
@@ -137,7 +137,7 @@
 	 * @param {Number} max Highest number.
 	 * @return {Number} The constrained value
 	 */
-	Math.clamp = function (value, min, max)
+	Math.clamp = function(value, min, max)
 	{
 		if (max === undefined)
 		{

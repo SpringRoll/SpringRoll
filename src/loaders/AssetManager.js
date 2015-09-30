@@ -9,7 +9,7 @@
 		AssetSizes = include('springroll.AssetSizes'),
 		Task = include('springroll.Task'),
 		Debug;
-	
+
 	/**
 	 * Handle the asynchronous loading of multiple assets.
 	 * @class AssetManager
@@ -88,8 +88,8 @@
 		{
 			TaskClass = include(TaskClass, false);
 		}
-		
-		if(!TaskClass) return;
+
+		if (!TaskClass) return;
 
 		TaskClass.priority = priority || 0;
 
@@ -131,7 +131,8 @@
 	p.load = function(assets, options)
 	{
 		// Apply defaults to options
-		options = Object.merge({
+		options = Object.merge(
+		{
 			complete: null,
 			progress: null,
 			taskDone: null,
@@ -156,7 +157,7 @@
 
 		// Handle the finish
 		load.once('complete', options.complete);
-		
+
 		// Optional loaded amount event
 		if (options.progress)
 			load.on('progress', options.progress);
@@ -164,7 +165,7 @@
 		// Called when a task is complete
 		if (options.taskDone)
 			load.on('taskDone', options.taskDone);
-		
+
 		// Start the load
 		load.setup(assets, options);
 

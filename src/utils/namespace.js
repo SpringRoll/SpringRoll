@@ -8,11 +8,12 @@
  * @class namespace
  * @static
  */
-(function(window){
-	
+(function(window)
+{
+
 	// The namespace function already exists
 	if ("namespace" in window) return;
-	
+
 	/**
 	 * Create the namespace and assing to the window
 	 *
@@ -25,22 +26,23 @@
 	 * @param {string} namespaceString Name space, for instance 'springroll.utils'
 	 * @return {object} The namespace object attached to the current window
 	 */
-	var namespace = function(namespaceString) {
+	var namespace = function(namespaceString)
+	{
 		var parts = namespaceString.split('.'),
 			parent = window,
 			currentPart = '';
 
-		for(var i = 0, length = parts.length; i < length; i++)
+		for (var i = 0, length = parts.length; i < length; i++)
 		{
 			currentPart = parts[i];
-			parent[currentPart] = parent[currentPart] || {};
+			parent[currentPart] = parent[currentPart] ||
+			{};
 			parent = parent[currentPart];
 		}
 		return parent;
 	};
-	
+
 	// Assign to the window namespace
 	window.namespace = namespace;
-	
-}(window));
 
+}(window));

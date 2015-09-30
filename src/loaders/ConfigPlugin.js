@@ -43,7 +43,7 @@
 	{
 		Debug = include('springroll.Debug', false);
 
-		var options = this.options; 
+		var options = this.options;
 
 		/**
 		 * The path to the config file to load
@@ -96,7 +96,7 @@
 		this._progress = -1;
 
 		// Listen for changes to the plugin progress
-		this.on('pluginProgress', onProgress.bind(this)); 
+		this.on('pluginProgress', onProgress.bind(this));
 	};
 
 	// async
@@ -108,7 +108,8 @@
 		// If there's a config path then add it
 		if (configPath)
 		{
-			assets.push({
+			assets.push(
+			{
 				id: 'config',
 				src: configPath,
 				cache: false,
@@ -124,7 +125,8 @@
 
 		if (assets.length)
 		{
-			this._assetLoad = this.load(assets, {
+			this._assetLoad = this.load(assets,
+			{
 				complete: callback,
 				progress: onProgress.bind(this),
 				cacheAll: true
@@ -177,7 +179,7 @@
 				assets.push(asset);
 			});
 		}
-		
+
 		// Allow extending game to add additional tasks
 		app.trigger('loading', assets);
 	};

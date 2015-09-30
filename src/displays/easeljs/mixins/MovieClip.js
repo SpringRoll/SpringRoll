@@ -31,10 +31,10 @@
 		frame = (frame === undefined) ? 0 : frame;
 		this.gotoAndStop(frame);
 		var rect = this.frameBounds ? this.frameBounds[this.currentFrame] : this.nominalBounds;
-		if(rect)//only cache if there is content on this frame
+		if (rect) //only cache if there is content on this frame
 			this.cacheByRect(rect, buffer, scale);
 		else
-			this.uncache();//prevent leftover cached data from showing up on empty frames
+			this.uncache(); //prevent leftover cached data from showing up on empty frames
 	};
 
 }());

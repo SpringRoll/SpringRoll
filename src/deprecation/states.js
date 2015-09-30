@@ -78,7 +78,7 @@
 	 * @class springroll.BaseState
 	 * @deprecated since version 0.3.0
 	 */
-	Object.defineProperty(include('springroll'), 'BaseState', 
+	Object.defineProperty(include('springroll'), 'BaseState',
 	{
 		get: function()
 		{

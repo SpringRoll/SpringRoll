@@ -8,7 +8,7 @@
 	var Bitmap = include('createjs.Bitmap'),
 		Container = include('createjs.Container'),
 		Rectangle = include('createjs.Rectangle');
-	
+
 	/**
 	 * Designed to provide utility related to Bitmaps.
 	 * @class BitmapUtils
@@ -48,15 +48,15 @@
 			// scale should default to 1
 			scale = 1;
 		}
-		if(!libName)
+		if (!libName)
 			libName = "lib";
-		
+
 		var frameDict = spritesheetData.frames || spritesheetData;
 		// TexturePacker outputs frames with (not) swapped width & height when rotated, so we need to
 		// swap them ourselves
 		var swapFrameSize = spritesheetData.meta &&
-				spritesheetData.meta.app == "http://www.codeandweb.com/texturepacker";
-		
+			spritesheetData.meta.app == "http://www.codeandweb.com/texturepacker";
+
 		var lib = window[libName];
 		for (var key in frameDict)
 		{
@@ -78,7 +78,7 @@
 				child.sourceRect = this._frameRect;
 				var s = this._scale;
 				child.setTransform(this._frameOffsetX * s, this._frameOffsetY * s, s, s);
-				if(this._rotated)
+				if (this._rotated)
 				{
 					child.rotation = -90;
 					//scale should not be included with regX
@@ -96,7 +96,7 @@
 			p._scale = scale;
 
 			var rotated = frame.rotated;
-			if(rotated)
+			if (rotated)
 			{
 				p._rotated = true;
 			}
@@ -105,9 +105,7 @@
 			//save the source rectangle of the sprite
 			p._frameRect = new Rectangle(
 				frameRect.x,
-				frameRect.y,
-				(rotated && swapFrameSize) ? frameRect.h : frameRect.w,
-				(rotated && swapFrameSize) ? frameRect.w : frameRect.h
+				frameRect.y, (rotated && swapFrameSize) ? frameRect.h : frameRect.w, (rotated && swapFrameSize) ? frameRect.w : frameRect.h
 			);
 
 			//if the sprite is trimmed, then save the amount that was trimmed
@@ -136,7 +134,7 @@
 			}
 		}
 	};
-	
+
 	/**
 	 * Creates a faux Bitmap from a TextureAtlas entry.
 	 * @method bitmapFromTexture
@@ -147,7 +145,7 @@
 	 */
 	BitmapUtils.bitmapFromTexture = function(texture, scale)
 	{
-		if(scale > 0)
+		if (scale > 0)
 		{
 			// Do nothing
 		}
@@ -167,7 +165,7 @@
 			scale
 		);
 
-		if(texture.rotated)
+		if (texture.rotated)
 		{
 			bitmap.rotation = -90;
 			bitmap.regX = bitmap.sourceRect.width;
@@ -195,7 +193,7 @@
 	BitmapUtils.replaceWithScaledBitmap = function(idOrDict, scale, libName)
 	{
 		//scale is required, but it doesn't hurt to check - also, don't bother for a scale of 1
-		if(scale != 1 && scale > 0)
+		if (scale != 1 && scale > 0)
 		{
 			// Do nothing
 		}
@@ -203,7 +201,7 @@
 		{
 			return;
 		}
-		if(!libName)
+		if (!libName)
 			libName = "lib";
 
 		var key, bitmap, newBitmap, p;
@@ -212,7 +210,7 @@
 		{
 			key = idOrDict;
 			bitmap = lib[key];
-			if(bitmap)
+			if (bitmap)
 			{
 				/* jshint ignore:start */
 				newBitmap = lib[key] = function()
@@ -224,9 +222,9 @@
 				};
 				/* jshint ignore:end */
 				p = newBitmap.prototype = new Container();
-				p._oldBM = bitmap;//give it a reference to the Bitmap
-				p._scale = scale;//tell it what scale to use on the Bitmap to bring it to normal size
-				p.nominalBounds = bitmap.prototype.nominalBounds;//keep the nominal bounds
+				p._oldBM = bitmap; //give it a reference to the Bitmap
+				p._scale = scale; //tell it what scale to use on the Bitmap to bring it to normal size
+				p.nominalBounds = bitmap.prototype.nominalBounds; //keep the nominal bounds
 			}
 		}
 		else
@@ -234,7 +232,7 @@
 			for (key in idOrDict)
 			{
 				bitmap = lib[key];
-				if(bitmap)
+				if (bitmap)
 				{
 					/* jshint ignore:start */
 					newBitmap = lib[key] = function()
@@ -246,9 +244,9 @@
 					};
 					/* jshint ignore:end */
 					p = newBitmap.prototype = new Container();
-					p._oldBM = bitmap;//give it a reference to the Bitmap
-					p._scale = scale;//tell it what scale to use on the Bitmap to bring it to normal size
-					p.nominalBounds = bitmap.prototype.nominalBounds;//keep the nominal bounds
+					p._oldBM = bitmap; //give it a reference to the Bitmap
+					p._scale = scale; //tell it what scale to use on the Bitmap to bring it to normal size
+					p.nominalBounds = bitmap.prototype.nominalBounds; //keep the nominal bounds
 				}
 			}
 		}

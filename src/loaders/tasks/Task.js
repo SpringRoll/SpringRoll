@@ -26,7 +26,7 @@
 		{
 			Debug = include("springroll.Debug", false);
 		}
-		
+
 		/**
 		 * The current status of the task (waiting, running, etc)
 		 * @property {int} status
@@ -62,7 +62,7 @@
 		 * @property {String} type
 		 */
 		this.type = asset.type || null;
-	
+
 		/**
 		 * Reference to the original asset data
 		 * @property {Object} original

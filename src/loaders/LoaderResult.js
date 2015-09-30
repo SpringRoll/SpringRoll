@@ -25,7 +25,7 @@
 		 * @property {String} url
 		 */
 		this.url = url;
-		
+
 		/**
 		 * The data for the load item.
 		 * @property {*} data
@@ -38,10 +38,10 @@
 		 */
 		this.id = null;
 	};
-	
+
 	// Reference to the prototype
 	var p = LoaderResult.prototype;
-	
+
 	/**
 	 * A to string method
 	 * @public
@@ -50,7 +50,7 @@
 	 */
 	p.toString = function()
 	{
-		return "[LoaderResult(url: '"+this.url+"')]";
+		return "[LoaderResult(url: '" + this.url + "')]";
 	};
 
 	/**
@@ -59,12 +59,12 @@
 	 */
 	p.reset = function()
 	{
-		this.content = 
-		this.url = 
-		this.data =
-		this.id = null;
+		this.content =
+			this.url =
+			this.data =
+			this.id = null;
 	};
-	
+
 	/**
 	 * Destroy this result
 	 * @method destroy
@@ -73,8 +73,8 @@
 	{
 		this.reset();
 	};
-	
+
 	// Assign to the name space
 	namespace('springroll').LoaderResult = LoaderResult;
-	
+
 }());

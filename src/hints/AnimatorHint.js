@@ -44,7 +44,8 @@
 	p.play = function()
 	{
 		this._hints.enabled = false;
-		this._hints.trigger('anim', {
+		this._hints.trigger('anim',
+		{
 			instance: this.instance,
 			events: this.events,
 			complete: this._onPlayComplete.bind(this, this.onComplete, false),

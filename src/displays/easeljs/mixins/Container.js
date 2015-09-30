@@ -25,7 +25,7 @@
 	{
 		this.cacheByRect(this.nominalBounds, buffer, scale);
 	};
-	
+
 	/**
 	 * Does a cache by a given rectangle
 	 * @method cacheByRect

@@ -8,7 +8,7 @@
 	// Include classes
 	var EaselJSDisplay = include('springroll.easeljs.EaselJSDisplay'),
 		Application = include('springroll.Application');
-	
+
 	/**
 	 * @class EaselJSDisplay
 	 */
@@ -17,7 +17,7 @@
 	 * @property {springroll.Animator} animator
 	 * @deprecated since version 0.4.0
 	 */
-	Object.defineProperty(EaselJSDisplay.prototype, 'animator', 
+	Object.defineProperty(EaselJSDisplay.prototype, 'animator',
 	{
 		get: function()
 		{

@@ -7,11 +7,12 @@
  * @class include
  * @static
  */
-(function(window, undefined){
-	
+(function(window, undefined)
+{
+
 	// The include function already exists
 	if ("include" in window) return;
-	
+
 	/**
 	 * Import a class
 	 *
@@ -30,10 +31,10 @@
 		var parts = namespaceString.split('.'),
 			parent = window,
 			currentPart = '';
-		
+
 		required = required !== undefined ? !!required : true;
 
-		for(var i = 0, length = parts.length; i < length; i++)
+		for (var i = 0, length = parts.length; i < length; i++)
 		{
 			currentPart = parts[i];
 			if (!parent[currentPart])
@@ -55,8 +56,8 @@
 		}
 		return parent;
 	};
-	
+
 	// Assign to the window namespace
 	window.include = include;
-	
+
 }(window));

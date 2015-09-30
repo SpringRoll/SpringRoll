@@ -41,7 +41,7 @@
 		this.onStart(
 			this._onPlayComplete.bind(this, null, false),
 			this._onPlayComplete.bind(this, null, true)
-			);
+		);
 	};
 
 	/**

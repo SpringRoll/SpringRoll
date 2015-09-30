@@ -5,11 +5,11 @@
 	// requestAnimationFrame polyfill by Erik Möller. fixes from Paul Irish and Tino Zijdel
 	// MIT license
 	var vendors = ['ms', 'moz', 'webkit', 'o'];
-	var	len = vendors.length;
-	for(var x = 0; x < len  && !window.requestAnimationFrame; ++x)
+	var len = vendors.length;
+	for (var x = 0; x < len && !window.requestAnimationFrame; ++x)
 	{
-		window.requestAnimationFrame = window[vendors[x]+'RequestAnimationFrame'];
-		window.cancelAnimationFrame = window[vendors[x]+'CancelAnimationFrame'] || window[vendors[x]+'CancelRequestAnimationFrame'];
+		window.requestAnimationFrame = window[vendors[x] + 'RequestAnimationFrame'];
+		window.cancelAnimationFrame = window[vendors[x] + 'CancelAnimationFrame'] || window[vendors[x] + 'CancelRequestAnimationFrame'];
 	}
 
 	// create a setTimeout based fallback if there wasn't an official or prefixed version
@@ -20,16 +20,19 @@
 		// Create the polyfill
 		window.requestAnimationFrame = function(callback)
 		{
-			var currTime = TimeUtils.now();//use the now function from down below
+			var currTime = TimeUtils.now(); //use the now function from down below
 			var timeToCall = Math.max(0, 16 - (currTime - lastTime));
 			var id = window.setTimeout(function()
-{ callback(currTime + timeToCall); }, timeToCall);
+			{
+				callback(currTime + timeToCall);
+			}, timeToCall);
 			lastTime = currTime + timeToCall;
 			return id;
 		};
 
 		// Only set this up if the corresponding requestAnimationFrame was set up
-		window.cancelAnimationFrame = function(id) {
+		window.cancelAnimationFrame = function(id)
+		{
 			clearTimeout(id);
 		};
 	}

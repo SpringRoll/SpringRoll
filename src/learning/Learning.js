@@ -65,7 +65,7 @@
 			var defaultTrayPosition = SavedData.read('learning-tray-show') ?
 				'learning-tray-show' :
 				'learning-tray-hide';
-			
+
 			/**
 			 * The body dom element, development build only!
 			 * @property {Element} _body
@@ -769,7 +769,7 @@
 		//Now we have a formatted data object, pass to the track method
 		this._track(api, data);
 	};
-	
+
 	/**
 	 * Generic method to track an event based on the spec, the arguments
 	 * mirror the arguments in the event spec.

@@ -29,8 +29,8 @@
 			Tween = include('createjs.Tween', false);
 			Stage = include("createjs.Stage");
 		}
-		
-		if(typeof display == "function" && !endCallback)
+
+		if (typeof display == "function" && !endCallback)
 		{
 			endCallback = startCallback;
 			startCallback = display;
@@ -136,7 +136,7 @@
 		 * @property {createjs.Stage} _theStage
 		 */
 		//passing stage is deprecated - we should be using the display
-		if(stage instanceof Stage)
+		if (stage instanceof Stage)
 			this._theStage = display;
 		else
 			this._theStage = display.stage;
@@ -148,7 +148,7 @@
 		 * @property {createjs.Point} _dragOffset
 		 */
 		this._dragOffset = null;
-		
+
 		/**
 		 * The pointer id that triggered the drag. This is only used when multitouch is false
 		 * - the DragData is indexed by pointer id when multitouch is true.
@@ -301,7 +301,7 @@
 		if (!ev)
 		{
 			this.isHeldDrag = true;
-			this._dragPointerID = -1;//allow any touch/mouse up to stop drag
+			this._dragPointerID = -1; //allow any touch/mouse up to stop drag
 			this._startDrag();
 		}
 		else
@@ -459,8 +459,8 @@
 		else
 		{
 			//don't stop the drag if a different finger than the dragging one was released
-			if(ev && ev.pointerID != this._dragPointerID && this._dragPointerID > -1) return;
-			
+			if (ev && ev.pointerID != this._dragPointerID && this._dragPointerID > -1) return;
+
 			obj = this.draggedObj;
 			this.draggedObj = null;
 		}
@@ -508,15 +508,15 @@
 		if (this._multitouch)
 		{
 			var data = this.draggedObj[ev.pointerID];
-			if(!data) return;
-			
+			if (!data) return;
+
 			draggedObj = data.obj;
 			dragOffset = data.dragOffset;
 		}
 		else
 		{
-			if(ev.pointerID != this._dragPointerID && this._dragPointerID > -1) return;
-			
+			if (ev.pointerID != this._dragPointerID && this._dragPointerID > -1) return;
+
 			draggedObj = this.draggedObj;
 			dragOffset = this._dragOffset;
 		}

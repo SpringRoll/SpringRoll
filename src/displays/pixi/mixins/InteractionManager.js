@@ -6,15 +6,15 @@
 (function(undefined)
 {
 	/**
-	*  Mixins for the PIXI InteractionManager class
-	*  @class InteractionManager
-	*/
+	 *  Mixins for the PIXI InteractionManager class
+	 *  @class InteractionManager
+	 */
 
 	var InteractionManager = include("PIXI.interaction.InteractionManager", false);
-	if(!InteractionManager) return;
+	if (!InteractionManager) return;
 
 	var p = InteractionManager.prototype;
-	
+
 	/**
 	 * Removes mousedown, mouseup, etc. events, but leaves the mousemove events. This allows a
 	 * custom cursor to continue to update its position while disabling any real interaction.
@@ -41,14 +41,14 @@
 		//this.interactionDOMElement.removeEventListener('mouseover', this.onMouseOver, true);
 
 		this.interactionDOMElement.removeEventListener('touchstart', this.onTouchStart, true);
-		this.interactionDOMElement.removeEventListener('touchend',  this.onTouchEnd, true);
+		this.interactionDOMElement.removeEventListener('touchend', this.onTouchEnd, true);
 		this.interactionDOMElement.removeEventListener('touchmove', this.onTouchMove, true);
 
 		//this.interactionDOMElement = null;
 
-		window.removeEventListener('mouseup',  this.onMouseUp, true);
+		window.removeEventListener('mouseup', this.onMouseUp, true);
 
 		//this.eventsAdded = false;
 	};
-	
+
 }());

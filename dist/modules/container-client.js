@@ -170,10 +170,11 @@
 				throw "Application name is empty";
 			}
 		}
-		
+
 		// Add the options to properties
 		this.singlePlay = !!this.options.singlePlay;
-		this.playOptions = this.options.playOptions || {};
+		this.playOptions = this.options.playOptions ||
+		{};
 
 		// Merge the container options with the current
 		// application options
@@ -197,7 +198,8 @@
 			var hasSound = !!this.sound;
 
 			// Add the features that are enabled
-			this.container.send('features', {
+			this.container.send('features',
+			{
 				learning: !!this.learning,
 				sound: hasSound,
 				hints: !!this.hints,
@@ -284,7 +286,8 @@
 	var onCaptionsStyles = function(e)
 	{
 		var styles = e.data;
-		var captions = this.captions || {};
+		var captions = this.captions ||
+		{};
 		var textField = captions.textField || null;
 
 		// Make sure we have a text field and a DOM object
@@ -307,7 +310,8 @@
 	 */
 	var onPlayOptions = function(e)
 	{
-		Object.merge(this.playOptions, e.data || {});
+		Object.merge(this.playOptions, e.data ||
+		{});
 	};
 
 	/**

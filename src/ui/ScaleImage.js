@@ -52,7 +52,7 @@
 		 * @private
 		 */
 		this._image = image;
-		
+
 		/**
 		 * The original screen the item was designed for
 		 * @private
@@ -102,7 +102,8 @@
 		_adapter.setScale(this._image, scale);
 
 		// Center the background
-		_adapter.setPosition(this._image, {
+		_adapter.setPosition(this._image,
+		{
 			x: (w - size.w * scale) * 0.5,
 			y: (h - size.h * scale) * 0.5
 		});
@@ -135,4 +136,4 @@
 	// Assign to namespace
 	namespace('springroll').ScaleImage = ScaleImage;
 
-}()); 
+}());

@@ -417,7 +417,7 @@
 		this.voList = null;
 		this._timer = 0;
 		this._callback = null;
-		
+
 		var c = this._cancelledCallback;
 		this._cancelledCallback = null;
 		if (c)

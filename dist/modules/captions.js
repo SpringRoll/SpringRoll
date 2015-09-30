@@ -710,7 +710,7 @@
 
 	//assign to the namespacing
 	namespace('springroll').Captions = Captions;
-	
+
 }());
 /**
  * @module Sound

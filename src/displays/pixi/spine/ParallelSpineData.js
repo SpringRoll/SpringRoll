@@ -22,7 +22,7 @@
 		this.loop = !!loop;
 		this.speed = speed > 0 ? speed : 1;
 	};
-	
+
 	// Assign to namespace
 	namespace("springroll.pixi").ParallelSpineData = ParallelSpineData;
 

@@ -10,4 +10,5 @@ package.json export-ignore
 .bowerrc export-ignore
 .editorconfig export-ignore
 .travis.yml export-ignore
+.jsbeautifyrc export-ignore
 library.json export-ignore

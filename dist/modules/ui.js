@@ -53,7 +53,7 @@
 		 * @private
 		 */
 		this._image = image;
-		
+
 		/**
 		 * The original screen the item was designed for
 		 * @private
@@ -103,7 +103,8 @@
 		_adapter.setScale(this._image, scale);
 
 		// Center the background
-		_adapter.setPosition(this._image, {
+		_adapter.setPosition(this._image,
+		{
 			x: (w - size.w * scale) * 0.5,
 			y: (h - size.h * scale) * 0.5
 		});
@@ -136,7 +137,7 @@
 	// Assign to namespace
 	namespace('springroll').ScaleImage = ScaleImage;
 
-}()); 
+}());
 /**
  * @module UI
  * @namespace springroll
@@ -256,7 +257,7 @@
 		this.origBounds = adapter.getLocalBounds(display);
 		//convert bounds to something more usable
 		var temp, bounds = this.origBounds;
-		if(this.origScaleX < 0)
+		if (this.origScaleX < 0)
 		{
 			temp = bounds.x;
 			bounds.x = bounds.right * origScaleX;
@@ -269,7 +270,7 @@
 			bounds.right *= origScaleX;
 			bounds.width *= origScaleX;
 		}
-		if(this.origScaleY < 0)
+		if (this.origScaleY < 0)
 		{
 			temp = bounds.y;
 			bounds.y = bounds.bottom * origScaleY;
@@ -300,39 +301,39 @@
 		switch (this.vertAlign)
 		{
 			case ScaleManager.ALIGN_TOP:
-			{
-				this.origMarginVert = position.y + this.origBounds.y;
-				break;
-			}
+				{
+					this.origMarginVert = position.y + this.origBounds.y;
+					break;
+				}
 			case ScaleManager.ALIGN_CENTER:
-			{
-				this.origMarginVert = size.height * 0.5 - position.y;
-				break;
-			}
+				{
+					this.origMarginVert = size.height * 0.5 - position.y;
+					break;
+				}
 			case ScaleManager.ALIGN_BOTTOM:
-			{
-				this.origMarginVert = size.height - (position.y + this.origBounds.bottom);
-				break;
-			}
+				{
+					this.origMarginVert = size.height - (position.y + this.origBounds.bottom);
+					break;
+				}
 		}
 
 		switch (this.horiAlign)
 		{
 			case ScaleManager.ALIGN_LEFT:
-			{
-				this.origMarginHori = position.x + this.origBounds.x;
-				break;
-			}
+				{
+					this.origMarginHori = position.x + this.origBounds.x;
+					break;
+				}
 			case ScaleManager.ALIGN_CENTER:
-			{
-				this.origMarginHori = size.width * 0.5 - position.x;
-				break;
-			}
+				{
+					this.origMarginHori = size.width * 0.5 - position.x;
+					break;
+				}
 			case ScaleManager.ALIGN_RIGHT:
-			{
-				this.origMarginHori = size.width - (position.x + this.origBounds.right);
-				break;
-			}
+				{
+					this.origMarginHori = size.width - (position.x + this.origBounds.right);
+					break;
+				}
 		}
 	};
 
@@ -420,34 +421,34 @@
 		switch (this.vertAlign)
 		{
 			case ScaleManager.ALIGN_TOP:
-			{
-				if (titleSafe)
 				{
-					y = letterBoxHeight + m - origBounds.y * itemScale;
+					if (titleSafe)
+					{
+						y = letterBoxHeight + m - origBounds.y * itemScale;
+					}
+					else
+					{
+						y = m - origBounds.y * itemScale;
+					}
+					break;
 				}
-				else
-				{
-					y = m - origBounds.y * itemScale;
-				}
-				break;
-			}
 			case ScaleManager.ALIGN_CENTER:
-			{
-				y = displayHeight * 0.5 - m;
-				break;
-			}
+				{
+					y = displayHeight * 0.5 - m;
+					break;
+				}
 			case ScaleManager.ALIGN_BOTTOM:
-			{
-				if (titleSafe)
 				{
-					y = displayHeight - letterBoxHeight - m - origBounds.bottom * itemScale;
+					if (titleSafe)
+					{
+						y = displayHeight - letterBoxHeight - m - origBounds.bottom * itemScale;
+					}
+					else
+					{
+						y = displayHeight - m - origBounds.bottom * itemScale;
+					}
+					break;
 				}
-				else
-				{
-					y = displayHeight - m - origBounds.bottom * itemScale;
-				}
-				break;
-			}
 		}
 
 		// Set the position
@@ -465,41 +466,41 @@
 		switch (this.horiAlign)
 		{
 			case ScaleManager.ALIGN_LEFT:
-			{
-				if (titleSafe)
 				{
-					x = letterBoxWidth + m - origBounds.x * itemScale;
+					if (titleSafe)
+					{
+						x = letterBoxWidth + m - origBounds.x * itemScale;
+					}
+					else
+					{
+						x = m - origBounds.x * itemScale;
+					}
+					break;
 				}
-				else
-				{
-					x = m - origBounds.x * itemScale;
-				}
-				break;
-			}
 			case ScaleManager.ALIGN_CENTER:
-			{
-				if (this.centeredHorizontally)
 				{
-					x = (displayWidth - _display.width) * 0.5;
+					if (this.centeredHorizontally)
+					{
+						x = (displayWidth - _display.width) * 0.5;
+					}
+					else
+					{
+						x = displayWidth * 0.5 - m;
+					}
+					break;
 				}
-				else
-				{
-					x = displayWidth * 0.5 - m;
-				}
-				break;
-			}
 			case ScaleManager.ALIGN_RIGHT:
-			{
-				if (titleSafe)
 				{
-					x = displayWidth - letterBoxWidth - m - origBounds.right * itemScale;
+					if (titleSafe)
+					{
+						x = displayWidth - letterBoxWidth - m - origBounds.right * itemScale;
+					}
+					else
+					{
+						x = displayWidth - m - origBounds.right * itemScale;
+					}
+					break;
 				}
-				else
-				{
-					x = displayWidth - m - origBounds.right * itemScale;
-				}
-				break;
-			}
 		}
 
 		// Set the position
@@ -1071,7 +1072,7 @@
 			}
 			return this.removeItemsByContainer(parent);
 		}
-		
+
 		// Remove the items by children's list
 		if (children.length)
 		{
@@ -1116,7 +1117,7 @@
 	p.removeItem = function(display)
 	{
 		var items = this._items;
-		for(var i = 0, len = items.length; i < len; i++)
+		for (var i = 0, len = items.length; i < len; i++)
 		{
 			if (items[i].display === display)
 			{
@@ -1235,22 +1236,22 @@
 			switch (align)
 			{
 				case ALIGN_CENTER:
-				{
-					align = align + "-" + align;
-					break;
-				}
+					{
+						align = align + "-" + align;
+						break;
+					}
 				case ALIGN_LEFT:
 				case ALIGN_RIGHT:
-				{
-					align = ALIGN_CENTER + "-" + align;
-					break;
-				}
+					{
+						align = ALIGN_CENTER + "-" + align;
+						break;
+					}
 				case ALIGN_TOP:
 				case ALIGN_BOTTOM:
-				{
-					align = align + "-" + ALIGN_CENTER;
-					break;
-				}
+					{
+						align = align + "-" + ALIGN_CENTER;
+						break;
+					}
 			}
 
 			// Error check the alignment value input
@@ -1421,7 +1422,7 @@
 (function(window)
 {
 	var ApplicationPlugin = include('springroll.ApplicationPlugin');
-	
+
 	/**
 	 * @class Application
 	 */
@@ -1462,7 +1463,7 @@
 			this.options.add('forceTouch', false)
 				.on('forceTouch', function(value)
 					{
-						if(value === "true" || value === true)
+						if (value === "true" || value === true)
 							this.hasTouch = true;
 					}
 					.bind(this));
@@ -1481,12 +1482,12 @@
 		if (true)
 		{
 			var value = this.options.forceTouch;
-			if(value === "true" || value === true)
+			if (value === "true" || value === true)
 				this.hasTouch = true;
 		}
 
 		// Add the interaction filters, must have interface module MobilePlugin
-		if(this.filters)
+		if (this.filters)
 		{
 			var ui = !!this.hasTouch ? '_touch' : '_mouse';
 			this.filters.add('%INTERACTION%', ui);
@@ -1538,7 +1539,7 @@
 	 * @class UIScaler
 	 * @deprecated since version 0.4.0
 	 */
-	Object.defineProperty(springroll, 'UIScaler', 
+	Object.defineProperty(springroll, 'UIScaler',
 	{
 		get: function()
 		{

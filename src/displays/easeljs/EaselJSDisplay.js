@@ -37,7 +37,8 @@
 
 		AbstractDisplay.call(this, id, options);
 
-		options = options || {};
+		options = options ||
+		{};
 
 		/**
 		 * The rate at which EaselJS calculates mouseover events, in times/second.
@@ -53,7 +54,7 @@
 		 * @public
 		 */
 		this.keepMouseover = options.keepMouseover || false;
-		
+
 		/**
 		 * If preventDefault() should be called on all touch events and mousedown events. Defaults
 		 * to true.
@@ -61,7 +62,7 @@
 		 * @private
 		 */
 		this._autoPreventDefault = options.hasOwnProperty("autoPreventDefault") ?
-												options.autoPreventDefault : true;
+			options.autoPreventDefault : true;
 
 		if (options.stageType == "spriteStage")
 		{
@@ -80,7 +81,7 @@
 		}
 		this.stage.autoClear = !!options.clearView;
 		this.stage.preventSelection = this._autoPreventDefault;
-		
+
 		this.adapter = include('springroll.easeljs.DisplayAdapter');
 	};
 
@@ -137,7 +138,7 @@
 			}
 		}
 	});
-	
+
 	/**
 	 * If preventDefault() should be called on all touch events and mousedown events. Defaults
 	 * to true.
@@ -153,9 +154,9 @@
 		set: function(value)
 		{
 			this._autoPreventDefault = !!value;
-			if(this.stage)
+			if (this.stage)
 			{
-				if(this._enabled)
+				if (this._enabled)
 				{
 					Touch.disable(this.stage);
 					Touch.enable(this.stage, false, !this._autoPreventDefault);

@@ -96,7 +96,7 @@
 	p.play = function(label)
 	{
 		this.stop();
-		
+
 		var frame = this.frameDictionary[label];
 		this.startFrame = frame.last;
 		this.endFrame = frame.first;

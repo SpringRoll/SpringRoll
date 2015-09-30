@@ -49,7 +49,7 @@
 		 * @property {*} data
 		 */
 		this.data = null;
-		
+
 		/**
 		 * The callback function of the load, to call when 
 		 * the load as finished, takes one argument as result
@@ -57,14 +57,14 @@
 		 * @property {function} onComplete
 		 */
 		this.onComplete = null;
-		
+
 		/**
 		 * The progress callback
 		 * @public
 		 * @property {function} onProgress
 		 */
 		this.onProgress = null;
-		
+
 		/**
 		 * The callback when a load queue item fails
 		 * @private
@@ -92,7 +92,7 @@
 			this.installPlugin(Sound);
 		}
 	};
-	
+
 	// Reference to the prototype
 	var p = extend(LoaderItem, LoadQueue);
 
@@ -114,7 +114,7 @@
 		 */
 		LoaderItem.verbose = false;
 	}
-	
+
 	/**
 	 * Represent this object as a string
 	 * @public
@@ -123,7 +123,7 @@
 	 */
 	p.toString = function()
 	{
-		return "[LoaderItem(url:'"+this.url+"')]";
+		return "[LoaderItem(url:'" + this.url + "')]";
 	};
 
 	/**
@@ -131,7 +131,7 @@
 	 * @property {String} basePath
 	 * @default null
 	 */
-	Object.defineProperty(p, 'basePath', 
+	Object.defineProperty(p, 'basePath',
 	{
 		set: function(basePath)
 		{
@@ -163,8 +163,8 @@
 		this.retries = 0;
 		this.onComplete = null;
 		this.onProgress = null;
-		this.data =  null;
-		this.preparedUrl =  null;
+		this.data = null;
+		this.preparedUrl = null;
 		this.url = null;
 
 		this.removeAllEventListeners();
@@ -201,8 +201,8 @@
 		if (this.data && this.data.id)
 		{
 			url = {
-				id: this.data.id, 
-				src: url, 
+				id: this.data.id,
+				src: url,
 				data: this.data
 			};
 		}
@@ -232,9 +232,9 @@
 	 */
 	p._onFailed = function(event)
 	{
-		if (DEBUG && Debug) 
+		if (DEBUG && Debug)
 		{
-			Debug.error("Unable to load file: " + this.url  + " - reason: " + event.error);
+			Debug.error("Unable to load file: " + this.url + " - reason: " + event.error);
 		}
 		this.retry();
 	};
@@ -270,8 +270,8 @@
 		}
 		this.onComplete(this, ev.result);
 	};
-	
+
 	// Assign to the name space
 	namespace('springroll').LoaderItem = LoaderItem;
-	
+
 }());

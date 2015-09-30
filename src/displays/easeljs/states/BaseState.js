@@ -37,7 +37,8 @@
 			throw "springroll.State requires the panel be a springroll.easeljs.BasePanel";
 		}
 
-		options = options || {};
+		options = options ||
+		{};
 
 		if (options.manifest)
 		{
@@ -72,39 +73,39 @@
 
 		// Handle when assets are preloaded
 		.on('loaded', function(assets)
-		{
-			if (assets)
 			{
-				// save all images to the window images object
-				// this is required for CreateJS to be available
-				// on the images window object
-				for (var id in assets)
+				if (assets)
 				{
-					if (assets[id].tagName == "IMG" || 
-						assets[id].tagName == "CANVAS")
+					// save all images to the window images object
+					// this is required for CreateJS to be available
+					// on the images window object
+					for (var id in assets)
 					{
-						images[id] = assets[id];
-						this._images.push(id);
+						if (assets[id].tagName == "IMG" ||
+							assets[id].tagName == "CANVAS")
+						{
+							images[id] = assets[id];
+							this._images.push(id);
+						}
 					}
 				}
-			}
-			this.panel.setup();
+				this.panel.setup();
 
-			// @deprecated Method to handle on assets loaded
-			this.onAssetsLoaded();
-		}, priority)
-		// Handle the panel exit
-		.on('exit', function()
-		{
-			this.panel.teardown();
-
-			// Remove global images reference
-			this._images.forEach(function(id)
+				// @deprecated Method to handle on assets loaded
+				this.onAssetsLoaded();
+			}, priority)
+			// Handle the panel exit
+			.on('exit', function()
 			{
-				delete images[id];
-			});
-			this._images.length = 0;
-		}, priority);
+				this.panel.teardown();
+
+				// Remove global images reference
+				this._images.forEach(function(id)
+				{
+					delete images[id];
+				});
+				this._images.length = 0;
+			}, priority);
 	};
 
 	// Reference to the parent prototype

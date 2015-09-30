@@ -20,7 +20,7 @@
 		 * @property {springroll.StringFilters} filters
 		 */
 		this.filters = null;
-		
+
 		/**
 		 * Reference to the Learning Dispatcher
 		 * @property {springroll.Learning} learning
@@ -62,16 +62,16 @@
 		this.display = app.display;
 		this.animator = app.animator;
 	};
-	
+
 	p._filterEvents = function(events)
 	{
-		if(typeof events == "string")
+		if (typeof events == "string")
 			return this.filters.filter(events);
 		else
 		{
-			if(!Array.isArray(events))
+			if (!Array.isArray(events))
 				events = [events];
-			for(var i = 0; i < events.length; ++i)
+			for (var i = 0; i < events.length; ++i)
 			{
 				var eventInfo = events[i];
 				switch (typeof eventInfo)
@@ -87,7 +87,7 @@
 						{
 							if (typeof eventInfo.audio == 'object')
 							{
-								eventInfo.audio.alias =	this.filters.filter(eventInfo.audio.alias);
+								eventInfo.audio.alias = this.filters.filter(eventInfo.audio.alias);
 							}
 							else
 							{
@@ -118,7 +118,7 @@
 	p.playMovie = function(instance, events, onComplete, onCancel)
 	{
 		events = this._filterEvents(events);
-	
+
 		if (!this.learning.spec)
 		{
 			if (DEBUG && Debug)
@@ -167,7 +167,7 @@
 		if (animator.canAnimate(instance)) //use Animator
 		{
 			events = this._filterEvents(events);
-			
+
 			if (!learning.spec)
 			{
 				if (DEBUG && Debug)
@@ -176,7 +176,7 @@
 				}
 				return animator.play(instance, events, onComplete, onCancel);
 			}
-			
+
 			return this.triggerMoviePlay(
 				instance,
 				events,
@@ -190,7 +190,7 @@
 			onCancel = onComplete;
 			onComplete = events;
 			events = instance;
-			
+
 			events = this._filterEvents(events);
 
 			if (!learning.spec)
@@ -242,7 +242,7 @@
 		if (animator.canAnimate(instance)) //use Animator
 		{
 			events = this._filterEvents(events);
-			
+
 			if (!learning.spec)
 			{
 				if (DEBUG && Debug)
@@ -265,7 +265,7 @@
 			onCancel = onComplete;
 			onComplete = events;
 			events = instance;
-			
+
 			events = this._filterEvents(events);
 
 			if (!learning.spec)
@@ -317,7 +317,7 @@
 		if (animator.canAnimate(instance)) //use Animator
 		{
 			events = this._filterEvents(events);
-			
+
 			if (!learning.spec)
 			{
 				if (DEBUG && Debug)
@@ -340,7 +340,7 @@
 			onCancel = onComplete;
 			onComplete = events;
 			events = instance;
-			
+
 			events = this._filterEvents(events);
 
 			if (!learning.spec)
@@ -390,8 +390,8 @@
 		var callback = function(finish)
 		{
 			//quit early if LearningMedia has been destroyed.
-			if(!this.learning) return;
-			
+			if (!this.learning) return;
+
 			learningEnd.call(this.learning);
 			if (finish) finish();
 		};
@@ -576,8 +576,8 @@
 		var callback = function(learningCall, otherCall)
 		{
 			//quit early if LearningMedia has been destroyed
-			if(!this.learning) return;
-			
+			if (!this.learning) return;
+
 			this._learningAnimatorInstance = null;
 
 			if (learningCall) //learning end event

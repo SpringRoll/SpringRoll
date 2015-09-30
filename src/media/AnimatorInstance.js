@@ -6,7 +6,7 @@
 (function(undefined)
 {
 	var Application = include("springroll.Application");
-	
+
 	/**
 	 * Animator Instance is a wrapper for different types of media
 	 * files. They need to extend some basic methods.

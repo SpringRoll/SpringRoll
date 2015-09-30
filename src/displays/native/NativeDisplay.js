@@ -3,7 +3,8 @@
  * @namespace springroll.native
  * @requires Core
  */
-(function(undefined){
+(function(undefined)
+{
 
 	var AbstractDisplay = include('springroll.AbstractDisplay');
 
@@ -22,7 +23,8 @@
 	{
 		AbstractDisplay.call(this, id, options);
 
-		options = options || {};
+		options = options ||
+		{};
 
 		/**
 		 * The main rendering context, typically either `CanvasRenderingContext2d` 

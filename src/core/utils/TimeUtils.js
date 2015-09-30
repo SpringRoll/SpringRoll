@@ -2,18 +2,19 @@
  * @module Core
  * @namespace springroll
  */
-(function(window){
-		
+(function(window)
+{
+
 	// Include the window.performance object
 	var performance = include('performance', false);
 
 	// See if we have performance.now or any of
 	// the brower-specific versions
 	var now = performance && (
-		performance.now || 
-		performance.mozNow || 
-		performance.msNow || 
-		performance.oNow || 
+		performance.now ||
+		performance.mozNow ||
+		performance.msNow ||
+		performance.oNow ||
 		performance.webkitNow
 	);
 
@@ -25,7 +26,7 @@
 	 * @class TimeUtils
 	 */
 	var TimeUtils = {};
-	
+
 	/**
 	 * This method gets timestamp in micromilliseconds for doing performance
 	 * intense operations. Fallback support is to `Date.now()`. We aren't overridding
@@ -36,11 +37,11 @@
 	 * @return {int} The number of micromilliseconds of the current timestamp
 	 */
 	TimeUtils.now = !now ? Date.now : function()
-	{ 
-		return performance.now(); 
+	{
+		return performance.now();
 	};
 
 	// Assign to namespace
 	namespace('springroll').TimeUtils = TimeUtils;
-	
+
 }(window));

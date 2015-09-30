@@ -6,7 +6,7 @@
 (function(window)
 {
 	var ApplicationPlugin = include('springroll.ApplicationPlugin');
-	
+
 	/**
 	 * @class Application
 	 */
@@ -47,7 +47,7 @@
 			this.options.add('forceTouch', false)
 				.on('forceTouch', function(value)
 					{
-						if(value === "true" || value === true)
+						if (value === "true" || value === true)
 							this.hasTouch = true;
 					}
 					.bind(this));
@@ -66,12 +66,12 @@
 		if (DEBUG)
 		{
 			var value = this.options.forceTouch;
-			if(value === "true" || value === true)
+			if (value === "true" || value === true)
 				this.hasTouch = true;
 		}
 
 		// Add the interaction filters, must have interface module MobilePlugin
-		if(this.filters)
+		if (this.filters)
 		{
 			var ui = !!this.hasTouch ? '_touch' : '_mouse';
 			this.filters.add('%INTERACTION%', ui);

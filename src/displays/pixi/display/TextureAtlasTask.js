@@ -62,7 +62,8 @@
 	 */
 	p.start = function(callback)
 	{
-		this.loadAtlas({}, callback);
+		this.loadAtlas(
+		{}, callback);
 	};
 
 	/**
@@ -77,7 +78,7 @@
 	p.loadAtlas = function(assets, done, ignoreCacheSetting)
 	{
 		assets._atlas = this.atlas;
-		
+
 		this.loadImage(assets, function(texture, results)
 		{
 			var data = results._atlas;
@@ -88,7 +89,7 @@
 			);
 			//if the spritesheet JSON had a scale in it, use that to override
 			//whatever settings came from loading, as the texture atlas size is more important
-			if(data.meta && data.meta.scale && parseFloat(data.meta.scale) != 1)
+			if (data.meta && data.meta.scale && parseFloat(data.meta.scale) != 1)
 			{
 				texture.baseTexture.resolution = parseFloat(results._atlas.meta.scale);
 				texture.baseTexture.update();

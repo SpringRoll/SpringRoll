@@ -26,7 +26,7 @@
 	{
 		this.cacheByRect(this.nominalBounds, buffer, scale);
 	};
-	
+
 	/**
 	 * Does a cache by a given rectangle
 	 * @method cacheByRect
@@ -81,10 +81,10 @@
 		frame = (frame === undefined) ? 0 : frame;
 		this.gotoAndStop(frame);
 		var rect = this.frameBounds ? this.frameBounds[this.currentFrame] : this.nominalBounds;
-		if(rect)//only cache if there is content on this frame
+		if (rect) //only cache if there is content on this frame
 			this.cacheByRect(rect, buffer, scale);
 		else
-			this.uncache();//prevent leftover cached data from showing up on empty frames
+			this.uncache(); //prevent leftover cached data from showing up on empty frames
 	};
 
 }());
@@ -102,7 +102,7 @@
 	 */
 
 	var p = include("createjs.Point", false);
-	if(!p) return;
+	if (!p) return;
 
 	p = p.prototype;
 
@@ -178,7 +178,7 @@
 	p.truncate = function(maxLength)
 	{
 		var l = this.length();
-		if(l > maxLength)
+		if (l > maxLength)
 		{
 			var maxOverLen = maxLength / l;
 			this.x *= maxOverLen;
@@ -272,7 +272,7 @@
 	var Bitmap = include('createjs.Bitmap'),
 		Container = include('createjs.Container'),
 		Rectangle = include('createjs.Rectangle');
-	
+
 	/**
 	 * Designed to provide utility related to Bitmaps.
 	 * @class BitmapUtils
@@ -312,15 +312,15 @@
 			// scale should default to 1
 			scale = 1;
 		}
-		if(!libName)
+		if (!libName)
 			libName = "lib";
-		
+
 		var frameDict = spritesheetData.frames || spritesheetData;
 		// TexturePacker outputs frames with (not) swapped width & height when rotated, so we need to
 		// swap them ourselves
 		var swapFrameSize = spritesheetData.meta &&
-				spritesheetData.meta.app == "http://www.codeandweb.com/texturepacker";
-		
+			spritesheetData.meta.app == "http://www.codeandweb.com/texturepacker";
+
 		var lib = window[libName];
 		for (var key in frameDict)
 		{
@@ -342,7 +342,7 @@
 				child.sourceRect = this._frameRect;
 				var s = this._scale;
 				child.setTransform(this._frameOffsetX * s, this._frameOffsetY * s, s, s);
-				if(this._rotated)
+				if (this._rotated)
 				{
 					child.rotation = -90;
 					//scale should not be included with regX
@@ -360,7 +360,7 @@
 			p._scale = scale;
 
 			var rotated = frame.rotated;
-			if(rotated)
+			if (rotated)
 			{
 				p._rotated = true;
 			}
@@ -369,9 +369,7 @@
 			//save the source rectangle of the sprite
 			p._frameRect = new Rectangle(
 				frameRect.x,
-				frameRect.y,
-				(rotated && swapFrameSize) ? frameRect.h : frameRect.w,
-				(rotated && swapFrameSize) ? frameRect.w : frameRect.h
+				frameRect.y, (rotated && swapFrameSize) ? frameRect.h : frameRect.w, (rotated && swapFrameSize) ? frameRect.w : frameRect.h
 			);
 
 			//if the sprite is trimmed, then save the amount that was trimmed
@@ -400,7 +398,7 @@
 			}
 		}
 	};
-	
+
 	/**
 	 * Creates a faux Bitmap from a TextureAtlas entry.
 	 * @method bitmapFromTexture
@@ -411,7 +409,7 @@
 	 */
 	BitmapUtils.bitmapFromTexture = function(texture, scale)
 	{
-		if(scale > 0)
+		if (scale > 0)
 		{
 			// Do nothing
 		}
@@ -431,7 +429,7 @@
 			scale
 		);
 
-		if(texture.rotated)
+		if (texture.rotated)
 		{
 			bitmap.rotation = -90;
 			bitmap.regX = bitmap.sourceRect.width;
@@ -459,7 +457,7 @@
 	BitmapUtils.replaceWithScaledBitmap = function(idOrDict, scale, libName)
 	{
 		//scale is required, but it doesn't hurt to check - also, don't bother for a scale of 1
-		if(scale != 1 && scale > 0)
+		if (scale != 1 && scale > 0)
 		{
 			// Do nothing
 		}
@@ -467,7 +465,7 @@
 		{
 			return;
 		}
-		if(!libName)
+		if (!libName)
 			libName = "lib";
 
 		var key, bitmap, newBitmap, p;
@@ -476,7 +474,7 @@
 		{
 			key = idOrDict;
 			bitmap = lib[key];
-			if(bitmap)
+			if (bitmap)
 			{
 				/* jshint ignore:start */
 				newBitmap = lib[key] = function()
@@ -488,9 +486,9 @@
 				};
 				/* jshint ignore:end */
 				p = newBitmap.prototype = new Container();
-				p._oldBM = bitmap;//give it a reference to the Bitmap
-				p._scale = scale;//tell it what scale to use on the Bitmap to bring it to normal size
-				p.nominalBounds = bitmap.prototype.nominalBounds;//keep the nominal bounds
+				p._oldBM = bitmap; //give it a reference to the Bitmap
+				p._scale = scale; //tell it what scale to use on the Bitmap to bring it to normal size
+				p.nominalBounds = bitmap.prototype.nominalBounds; //keep the nominal bounds
 			}
 		}
 		else
@@ -498,7 +496,7 @@
 			for (key in idOrDict)
 			{
 				bitmap = lib[key];
-				if(bitmap)
+				if (bitmap)
 				{
 					/* jshint ignore:start */
 					newBitmap = lib[key] = function()
@@ -510,9 +508,9 @@
 					};
 					/* jshint ignore:end */
 					p = newBitmap.prototype = new Container();
-					p._oldBM = bitmap;//give it a reference to the Bitmap
-					p._scale = scale;//tell it what scale to use on the Bitmap to bring it to normal size
-					p.nominalBounds = bitmap.prototype.nominalBounds;//keep the nominal bounds
+					p._oldBM = bitmap; //give it a reference to the Bitmap
+					p._scale = scale; //tell it what scale to use on the Bitmap to bring it to normal size
+					p.nominalBounds = bitmap.prototype.nominalBounds; //keep the nominal bounds
 				}
 			}
 		}
@@ -595,7 +593,7 @@
 	{
 		// split into the initialization functions, that take 'lib' as a parameter
 		var textArray = text.split(/[\(!]function\s*\(/);
-		
+
 		var globalSymbols = FlashArt.globalSymbols;
 		// go through each initialization function
 		for (var i = 0; i < textArray.length; ++i)
@@ -655,7 +653,7 @@
 		});
 		this.symbols = null;
 	};
-	
+
 	// Assign to namespace
 	namespace('springroll.easeljs').FlashArt = FlashArt;
 
@@ -700,7 +698,7 @@
 		 * @property {String} src
 		 */
 		this.src = this.filter(asset.src);
-		
+
 		/**
 		 * Any image, atlas, or SpriteSheet assets that should be loaded along with this piece
 		 * of flash art.
@@ -722,7 +720,7 @@
 		 * @default 'lib'
 		 */
 		this.libName = asset.libName || 'lib';
-		
+
 		/**
 		 * The name of the window object images hang on
 		 * @property {String} imagesName
@@ -759,16 +757,16 @@
 		var images = [];
 		var atlas, assetCount = 0;
 		//handle the deprecated format
-		if(this.atlas)
+		if (this.atlas)
 		{
 			atlas = {
-				atlas:this.atlas,
+				atlas: this.atlas,
 				id: "asset_" + (assetCount++),
 				type: "easeljs",
 				format: "FlashAtlas",
 				libName: this.libName
 			};
-			if(this.image)
+			if (this.image)
 				atlas.image = this.image;
 			else
 			{
@@ -777,23 +775,23 @@
 			}
 			images.push(atlas);
 		}
-		else if(this.images)
+		else if (this.images)
 		{
 			var asset;
-			for(var i = 0; i < this.images.length; ++i)
+			for (var i = 0; i < this.images.length; ++i)
 			{
 				//check for texture atlases from TexturePacker or similar things
-				if(this.images[i].atlas)
+				if (this.images[i].atlas)
 				{
 					asset = this.images[i];
 					atlas = {
-						atlas:this.filter(asset.atlas),
+						atlas: this.filter(asset.atlas),
 						id: "asset_" + (assetCount++),
-						type:"easeljs",
+						type: "easeljs",
 						format: "FlashAtlas",
 						libName: this.libName
 					};
-					if(asset.image)
+					if (asset.image)
 						atlas.image = this.filter(asset.image);
 					else
 					{
@@ -803,26 +801,28 @@
 					images.push(atlas);
 				}
 				//Check for EaselJS SpriteSheets
-				else if(this.images[i].format == "createjs.SpriteSheet")
+				else if (this.images[i].format == "createjs.SpriteSheet")
 				{
 					asset = this.images[i].clone();
 					images.push(asset);
-					if(!asset.type)
+					if (!asset.type)
 						asset.type = "easeljs";
-					if(!asset.id)
+					if (!asset.id)
 						asset.id = "asset_" + (assetCount++);
 				}
 				//standard images
 				else
 				{
 					//check for urls
-					if(typeof this.images[i] == "string")
-						asset = {src:this.filter(this.images[i])};
+					if (typeof this.images[i] == "string")
+						asset = {
+							src: this.filter(this.images[i])
+						};
 					//and full tasks
 					else
 						asset = this.images[i].clone();
 					//ensure an ID for these
-					if(!asset.id)
+					if (!asset.id)
 					{
 						var fallbackId = asset.src || asset.color;
 						// Remove the file extension
@@ -847,12 +847,14 @@
 				}
 			}
 		}
-		
+
 		var assets = {
-			_flash : this.src
+			_flash: this.src
 		};
-		if(images.length)
-			assets._images = {assets:images};
+		if (images.length)
+			assets._images = {
+				assets: images
+			};
 
 		// Load all the assets
 		Application.instance.load(assets, function(results)
@@ -862,42 +864,42 @@
 				results._flash,
 				this.libName
 			);
-			
+
 			var images = results._images;
-			if(images)
+			if (images)
 			{
 				var image;
 				var objectsToDestroy = [];
 				var globalImages = namespace(this.imagesName);
-				
-				for(var id in images)
+
+				for (var id in images)
 				{
 					var result = images[id];
 					//save the item for cleanup
 					objectsToDestroy.push(result);
 					//look for individual images
-					if(result.image && result.scale)
+					if (result.image && result.scale)
 					{
 						//scale asset if needed
-						if(result.scale != 1)
+						if (result.scale != 1)
 							Bitmap.replaceWithScaledBitmap(id, 1 / result.scale, this.libName);
 					}
 					//otherwise the result is a SpriteSheet or the result of a FlashArtAtlasTask
-					else if(result.create)
+					else if (result.create)
 					{
 						//FlashArtAtlasTasks have delayed asset generation to ensure that it doesn't
 						//interfere with the loading of the javascript that it overrides
 						result.create();
 					}
 				}
-				
+
 				art._orig_destroy = art.destroy;
 				art.destroy = function()
 				{
 					var i;
-					for(i = objectsToDestroy.length - 1; i >= 0; --i)
+					for (i = objectsToDestroy.length - 1; i >= 0; --i)
 					{
-						if(objectsToDestroy[i].destroy)
+						if (objectsToDestroy[i].destroy)
 							objectsToDestroy[i].destroy();
 						else
 							objectsToDestroy[i].dispatchEvent("destroy");
@@ -905,9 +907,9 @@
 					art._orig_destroy();
 				};
 			}
-			
+
 			callback(art);
-			
+
 		}.bind(this));
 	};
 
@@ -944,7 +946,7 @@
 		 * @property {Array} _image
 		 * @private
 		 */
-		if(Array.isArray(image))
+		if (Array.isArray(image))
 		{
 			this._images = image;
 		}
@@ -959,43 +961,43 @@
 		 * @property {Object} frames
 		 */
 		this.frames = {};
-		
+
 		/**
 		 * The scale of the texture atlas, if available in spritesheet metadata. Defaults to 1,
 		 * otherwise
 		 * @property {Number} scale
 		 */
-		if(spritesheetData[0].meta && parseFloat(spritesheetData[0].meta.scale))
+		if (spritesheetData[0].meta && parseFloat(spritesheetData[0].meta.scale))
 		{
 			this.scale = parseFloat(spritesheetData[0].meta.scale);
 		}
 		else
 			this.scale = 1;
 
-		for(var i = 0; i < this._images.length; ++i)
+		for (var i = 0; i < this._images.length; ++i)
 		{
 			image = this._images[i];
-			
+
 			//TexturePacker outputs frames with (not) swapped width & height when rotated, so we need to
 			//swap them ourselves
 			var swapFrameSize = spritesheetData[i].meta &&
-					spritesheetData[i].meta.app == "http://www.codeandweb.com/texturepacker";
+				spritesheetData[i].meta.app == "http://www.codeandweb.com/texturepacker";
 
 			var dataFrames = spritesheetData[i].frames;
-			for(var name in dataFrames)
+			for (var name in dataFrames)
 			{
 				var data = dataFrames[name];
 				var index = name.lastIndexOf(".");
-				if(index > 0)
-					name = name.substring(0, index);//strip off any ".png" or ".jpg" at the end
+				if (index > 0)
+					name = name.substring(0, index); //strip off any ".png" or ".jpg" at the end
 				index = name.lastIndexOf("/");
-				if(index >= 0)
-					name = name.substring(index + 1);//strip off any folder structure included in the name
+				if (index >= 0)
+					name = name.substring(index + 1); //strip off any folder structure included in the name
 				this.frames[name] = new Texture(image, data, swapFrameSize);
 			}
 		}
 	};
-	
+
 	// Extend Object
 	var p = TextureAtlas.prototype = {};
 
@@ -1029,21 +1031,21 @@
 	 */
 	p.getFrames = function(name, numberMin, numberMax, maxDigits, outArray)
 	{
-		if(maxDigits === undefined)
+		if (maxDigits === undefined)
 			maxDigits = 4;
-		if(maxDigits < 0)
+		if (maxDigits < 0)
 			maxDigits = 0;
-		if(!outArray)
+		if (!outArray)
 			outArray = [];
 		//set up strings to add the correct number of zeros ahead of time to avoid creating even more strings.
-		var zeros = [];//preceding zeroes array
-		var compares = [];//powers of 10 array for determining how many preceding zeroes to use
+		var zeros = []; //preceding zeroes array
+		var compares = []; //powers of 10 array for determining how many preceding zeroes to use
 		var i, c;
-		for(i = 1; i < maxDigits; ++i)
+		for (i = 1; i < maxDigits; ++i)
 		{
 			var s = "";
 			c = 1;
-			for(var j = 0; j < i; ++j)
+			for (var j = 0; j < i; ++j)
 			{
 				s += "0";
 				c *= 10;
@@ -1051,32 +1053,32 @@
 			zeros.unshift(s);
 			compares.push(c);
 		}
-		var compareLength = compares.length;//the length of the compar
+		var compareLength = compares.length; //the length of the compar
 
-		var prevTex;//the previous Texture, so we can place the same object in multiple times to control animation rate
+		var prevTex; //the previous Texture, so we can place the same object in multiple times to control animation rate
 		var len;
-		for(i = numberMin, len = numberMax; i <= len; ++i)
+		for (i = numberMin, len = numberMax; i <= len; ++i)
 		{
 			var num = null;
 			//calculate the number of preceding zeroes needed, then create the full number string.
-			for(c = 0; c < compareLength; ++c)
+			for (c = 0; c < compareLength; ++c)
 			{
-				if(i < compares[c])
+				if (i < compares[c])
 				{
 					num = zeros[c] + i;
 					break;
 				}
 			}
-			if(!num)
+			if (!num)
 				num = i.toString();
-			
+
 			//If the texture doesn't exist, use the previous texture - this should allow us to use fewer textures
 			//that are in fact the same, if those textures were removed before making the spritesheet
 			var texName = name.replace("#", num);
 			var tex = this.frames[texName];
-			if(tex)
+			if (tex)
 				prevTex = tex;
-			if(prevTex)
+			if (prevTex)
 				outArray.push(prevTex);
 		}
 
@@ -1113,15 +1115,13 @@
 		 * @property {Boolean} rotated
 		 */
 		this.rotated = data.rotated;
-		
+
 		var f = data.frame;
 		/**
 		 * The frame rectangle within the image.
 		 * @property {createjs.Rectangle} frame
 		 */
-		this.frame = new createjs.Rectangle(f.x, f.y,
-			(data.rotated && swapRotatedSize) ? f.h : f.w,
-			(data.rotated && swapRotatedSize) ? f.w : f.h);
+		this.frame = new createjs.Rectangle(f.x, f.y, (data.rotated && swapRotatedSize) ? f.h : f.w, (data.rotated && swapRotatedSize) ? f.w : f.h);
 		/**
 		 * If this texture has been trimmed.
 		 * @property {Boolean} trimmed
@@ -1226,7 +1226,8 @@
 	 */
 	p.start = function(callback)
 	{
-		this.loadAtlas({}, callback);
+		this.loadAtlas(
+		{}, callback);
 	};
 
 	/**
@@ -1302,7 +1303,7 @@
 	var FlashArtImageTask = function(asset)
 	{
 		Task.call(this, asset, asset.color);
-		
+
 		this.src = this.filter(asset.src);
 
 		/**
@@ -1316,7 +1317,7 @@
 		 * @property {String} alpha
 		 */
 		this.alpha = this.filter(asset.alpha);
-		
+
 		this.imagesName = asset.imagesName;
 	};
 
@@ -1345,7 +1346,7 @@
 	p.start = function(callback)
 	{
 		var load = this.src;
-		if(!load)
+		if (!load)
 		{
 			//load a standard ColorAlphaTask
 			load = {
@@ -1357,19 +1358,23 @@
 			function(result)
 			{
 				var img = result;
-				
+
 				var images = namespace(this.imagesName);
 				images[this.id] = img;
-				
-				var asset = {image: img, scale: this.scale, id: this.id};
+
+				var asset = {
+					image: img,
+					scale: this.scale,
+					id: this.id
+				};
 				asset.destroy = function()
 				{
 					img.src = "";
 					delete images[this.id];
 				};
-				
+
 				callback(asset);
-				
+
 			}.bind(this)
 		);
 	};
@@ -1436,7 +1441,7 @@
 		 * @property {String} alpha
 		 */
 		this.alpha = this.filter(asset.alpha);
-		
+
 		this.libName = asset.libName || "lib";
 	};
 
@@ -1466,7 +1471,8 @@
 	 */
 	p.start = function(callback)
 	{
-		this.loadAtlas({}, callback);
+		this.loadAtlas(
+		{}, callback);
 	};
 
 	/**
@@ -1504,34 +1510,34 @@
 					results._alpha
 				);
 			}
-			
+
 			//prefer the spritesheet's exported scale
 			var scale = results._atlas.meta ? 1 / parseFloat(results._atlas.meta.scale) : 0;
 			//if it doesn't have one, then use the asset scale specified by the
 			//AssetManager.
-			if(!scale)
-				scale = 1/ this.original.scale;
-			
-			
+			if (!scale)
+				scale = 1 / this.original.scale;
+
+
 			var asset = {};
-			
+
 			var libName = this.libName;
 			asset.create = function()
 			{
 				BitmapUtils.loadSpriteSheet(results._atlas, image, scale, libName);
 			};
-			
+
 			var lib = namespace(this.libName);
 			var frames = results._atlas.frames;
 			asset.destroy = function()
 			{
-				for(var id in frames)
+				for (var id in frames)
 				{
 					delete lib[id];
 				}
 				image.src = null;
 			};
-			
+
 			done(asset, results);
 		}.bind(this));
 	};
@@ -1620,7 +1626,8 @@
 
 		this.load(this.images, function(results)
 		{
-			var spriteSheet = new SpriteSheet({
+			var spriteSheet = new SpriteSheet(
+			{
 				images: results,
 				frames: frames
 			});
@@ -1632,7 +1639,7 @@
 			spriteSheet.addEventListener('destroy', function()
 			{
 				delete window[globalProperty][id];
-				for(var i = results.length - 1; i >= 0; --i)
+				for (var i = results.length - 1; i >= 0; --i)
 					results[i].src = "";
 			});
 
@@ -1710,13 +1717,13 @@
 		var prop = this.globalProperty;
 		var id = this.id;
 		s.start.call(this, function(data)
-		{
-			data.id = id;
-			data.globalProperty = prop;
-			data.type = "easeljs";
-			this.load(data, callback);
-		}
-		.bind(this));
+			{
+				data.id = id;
+				data.globalProperty = prop;
+				data.type = "easeljs";
+				this.load(data, callback);
+			}
+			.bind(this));
 	};
 
 	// Assign to namespace
@@ -1764,8 +1771,8 @@
 	 */
 	BitmapTask.test = function(asset)
 	{
-		return asset.src && 
-			asset.type == "easeljs" && 
+		return asset.src &&
+			asset.type == "easeljs" &&
 			asset.format == "createjs.Bitmap";
 	};
 
@@ -1811,7 +1818,7 @@
 	plugin.setup = function()
 	{
 		var assetManager = this.assetManager;
-		
+
 		assetManager.register('springroll.easeljs.TextureAtlasTask', 30);
 		assetManager.register('springroll.easeljs.FlashArtImageTask', 40);
 		assetManager.register('springroll.easeljs.FlashArtAtlasTask', 40);
@@ -2194,7 +2201,8 @@
 
 		AbstractDisplay.call(this, id, options);
 
-		options = options || {};
+		options = options ||
+		{};
 
 		/**
 		 * The rate at which EaselJS calculates mouseover events, in times/second.
@@ -2210,7 +2218,7 @@
 		 * @public
 		 */
 		this.keepMouseover = options.keepMouseover || false;
-		
+
 		/**
 		 * If preventDefault() should be called on all touch events and mousedown events. Defaults
 		 * to true.
@@ -2218,7 +2226,7 @@
 		 * @private
 		 */
 		this._autoPreventDefault = options.hasOwnProperty("autoPreventDefault") ?
-												options.autoPreventDefault : true;
+			options.autoPreventDefault : true;
 
 		if (options.stageType == "spriteStage")
 		{
@@ -2237,7 +2245,7 @@
 		}
 		this.stage.autoClear = !!options.clearView;
 		this.stage.preventSelection = this._autoPreventDefault;
-		
+
 		this.adapter = include('springroll.easeljs.DisplayAdapter');
 	};
 
@@ -2294,7 +2302,7 @@
 			}
 		}
 	});
-	
+
 	/**
 	 * If preventDefault() should be called on all touch events and mousedown events. Defaults
 	 * to true.
@@ -2310,9 +2318,9 @@
 		set: function(value)
 		{
 			this._autoPreventDefault = !!value;
-			if(this.stage)
+			if (this.stage)
 			{
-				if(this._enabled)
+				if (this._enabled)
 				{
 					Touch.disable(this.stage);
 					Touch.enable(this.stage, false, !this._autoPreventDefault);
@@ -2366,7 +2374,7 @@
 	// Include classes
 	var EaselJSDisplay = include('springroll.easeljs.EaselJSDisplay'),
 		Application = include('springroll.Application');
-	
+
 	/**
 	 * @class EaselJSDisplay
 	 */
@@ -2375,7 +2383,7 @@
 	 * @property {springroll.Animator} animator
 	 * @deprecated since version 0.4.0
 	 */
-	Object.defineProperty(EaselJSDisplay.prototype, 'animator', 
+	Object.defineProperty(EaselJSDisplay.prototype, 'animator',
 	{
 		get: function()
 		{

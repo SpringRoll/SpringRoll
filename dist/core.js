@@ -8,8 +8,9 @@
  * @class extend
  * @static
  */
-(function(window){
-	
+(function(window)
+{
+
 	// The extend function already exists
 	if ("extend" in window) return;
 
@@ -47,11 +48,12 @@
  * @class include
  * @static
  */
-(function(window, undefined){
-	
+(function(window, undefined)
+{
+
 	// The include function already exists
 	if ("include" in window) return;
-	
+
 	/**
 	 * Import a class
 	 *
@@ -70,10 +72,10 @@
 		var parts = namespaceString.split('.'),
 			parent = window,
 			currentPart = '';
-		
+
 		required = required !== undefined ? !!required : true;
 
-		for(var i = 0, length = parts.length; i < length; i++)
+		for (var i = 0, length = parts.length; i < length; i++)
 		{
 			currentPart = parts[i];
 			if (!parent[currentPart])
@@ -95,10 +97,10 @@
 		}
 		return parent;
 	};
-	
+
 	// Assign to the window namespace
 	window.include = include;
-	
+
 }(window));
 /**
  * @module Core
@@ -155,13 +157,13 @@
 		//loop over mixin prototype to add functions
 		var p = superClass.prototype;
 
-		for(var prop in p)
+		for (var prop in p)
 		{
 			// For things that we set using Object.defineProperty
 			// very important that enumerable:true for the 
 			// defineProperty options
 			var propDesc = Object.getOwnPropertyDescriptor(p, prop);
-			if(propDesc)
+			if (propDesc)
 			{
 				Object.defineProperty(target, prop, propDesc);
 			}
@@ -178,7 +180,7 @@
 
 	// Assign to the window namespace
 	window.mixin = mixin;
-	
+
 }(window, Object));
 /**
  * @module Core
@@ -190,11 +192,12 @@
  * @class namespace
  * @static
  */
-(function(window){
-	
+(function(window)
+{
+
 	// The namespace function already exists
 	if ("namespace" in window) return;
-	
+
 	/**
 	 * Create the namespace and assing to the window
 	 *
@@ -207,26 +210,26 @@
 	 * @param {string} namespaceString Name space, for instance 'springroll.utils'
 	 * @return {object} The namespace object attached to the current window
 	 */
-	var namespace = function(namespaceString) {
+	var namespace = function(namespaceString)
+	{
 		var parts = namespaceString.split('.'),
 			parent = window,
 			currentPart = '';
 
-		for(var i = 0, length = parts.length; i < length; i++)
+		for (var i = 0, length = parts.length; i < length; i++)
 		{
 			currentPart = parts[i];
-			parent[currentPart] = parent[currentPart] || {};
+			parent[currentPart] = parent[currentPart] ||
+			{};
 			parent = parent[currentPart];
 		}
 		return parent;
 	};
-	
+
 	// Assign to the window namespace
 	window.namespace = namespace;
-	
+
 }(window));
-
-
 /**
  * @module Core
  * @namespace window
@@ -245,14 +248,15 @@
 	 */
 	// In EcmaScript 5 specs and browsers that support it you can use the Object.defineProperty
 	// to make it not enumerable set the enumerable property to false
-	if(!Array.prototype.shuffle)
+	if (!Array.prototype.shuffle)
 	{
 		Object.defineProperty(Array.prototype, 'shuffle',
 		{
 			enumerable: false,
-			writable:false,
-			value: function() {
-				for(var j, x, i = this.length; i; j = Math.floor(Math.random() * i), x = this[--i], this[i] = this[j], this[j] = x);
+			writable: false,
+			value: function()
+			{
+				for (var j, x, i = this.length; i; j = Math.floor(Math.random() * i), x = this[--i], this[i] = this[j], this[j] = x);
 				return this;
 			}
 		});
@@ -264,13 +268,14 @@
 	 * @param {Array} array The array
 	 * @return {*} The random item
 	 */
-	if(!Array.prototype.random)
+	if (!Array.prototype.random)
 	{
 		Object.defineProperty(Array.prototype, 'random',
 		{
 			enumerable: false,
 			writable: false,
-			value: function() {
+			value: function()
+			{
 				return this[Math.floor(Math.random() * this.length)];
 			}
 		});
@@ -282,7 +287,7 @@
 	 * @param {Array} array The array
 	 * @return {*} The last item
 	 */
-	if(!Array.prototype.last)
+	if (!Array.prototype.last)
 	{
 		Object.defineProperty(Array.prototype, 'last',
 		{
@@ -295,12 +300,11 @@
 		});
 	}
 }(Array, Math, Object));
-
 /**
  * @module Core
  * @namespace window
  */
-(function (Math)
+(function(Math)
 {
 	/**
 	 * Add methods to Math
@@ -316,7 +320,7 @@
 	 * @param {int} max Highest number.
 	 * @return {int} The random value
 	 */
-	Math.randomInt = function (min, max)
+	Math.randomInt = function(min, max)
 	{
 		if (max === undefined)
 		{
@@ -325,7 +329,7 @@
 		}
 		return Math.floor(Math.random() * (max - min + 1)) + min;
 	};
-	
+
 	/**
 	 * Return a random float between minimum and maximum values.
 	 * If a single value is supplied, it will return a number between 0 and the supplied value.
@@ -335,7 +339,7 @@
 	 * @param {Number} max Highest number.
 	 * @return {Number} The random value
 	 */
-	Math.randomFloat = function (min, max)
+	Math.randomFloat = function(min, max)
 	{
 		if (max === undefined)
 		{
@@ -355,7 +359,7 @@
 	 * @param {Number} y0 The y position of the second point
 	 * @return {Number} The distance
 	 */
-	
+
 	/**
 	 * Return distance between two points
 	 * @method dist
@@ -368,7 +372,7 @@
 	 * @param {Number} p2.y The y position of the second point
 	 * @return {Number} The distance
 	 */
-	Math.dist = function (x, y, x0, y0)
+	Math.dist = function(x, y, x0, y0)
 	{
 		return Math.sqrt(Math.distSq(x, y, x0, y0));
 	};
@@ -383,7 +387,7 @@
 	 * @param {Number} y0 The y position of the second point
 	 * @return {Number} The distance
 	 */
-	
+
 	/**
 	 * Return squared distance between two points
 	 * @method distSq
@@ -396,7 +400,7 @@
 	 * @param {Number} p2.y The y position of the second point
 	 * @return {Number} The distance
 	 */
-	Math.distSq = function (x, y, x0, y0)
+	Math.distSq = function(x, y, x0, y0)
 	{
 		//see if the first parameter is a point
 		if (typeof x.x == "number" && x.x == x.x) //faster !isNaN
@@ -435,7 +439,7 @@
 	 * @param {Number} max Highest number.
 	 * @return {Number} The constrained value
 	 */
-	Math.clamp = function (value, min, max)
+	Math.clamp = function(value, min, max)
 	{
 		if (max === undefined)
 		{
@@ -460,7 +464,7 @@
 	 * Add methods to Number
 	 * @class Number
 	 */
-	
+
 	/**
 	 * Returns a string of the number as an integer with leading zeros to fill the string out
 	 * to a certain number of digits.
@@ -468,26 +472,27 @@
 	 * @param {Number} [totalDigits=2] The total number of digits to be displayed.
 	 * @return {String} The number string.
 	 */
-	if(!Number.prototype.toPaddedString)
+	if (!Number.prototype.toPaddedString)
 	{
 		Object.defineProperty(Number.prototype, 'toPaddedString',
 		{
 			enumerable: false,
-			writable:false,
-			value: function(totalDigits) {
-				if(!totalDigits)
+			writable: false,
+			value: function(totalDigits)
+			{
+				if (!totalDigits)
 					totalDigits = 2;
 				var num = this;
 				var leader;
-				if(num < 0)
+				if (num < 0)
 				{
 					num *= -1;
 					leader = "-";
 				}
 				var s = String(Math.floor(num));
-				while(s.length < totalDigits)
+				while (s.length < totalDigits)
 					s = "0" + s;
-				if(leader)
+				if (leader)
 					s = leader + s;
 				return s;
 			}
@@ -495,12 +500,12 @@
 	}
 
 }(Number, Object));
-
 /**
  * @module Core
  * @namespace window
  */
-(function(Object, support, undefined){
+(function(Object, support, undefined)
+{
 
 	/**
 	 * Add methods to Object
@@ -524,13 +529,13 @@
 		{
 			target = {};
 		}
-		
+
 		for (var property in source)
 		{
 			if (source.hasOwnProperty(property))
 			{
 				var sourceProperty = source[property];
-				
+
 				if (typeof sourceProperty === 'object' && Object.isPlain(sourceProperty))
 				{
 					target[property] = Object.merge(target[property], sourceProperty);
@@ -539,7 +544,7 @@
 				target[property] = sourceProperty;
 			}
 		}
-		
+
 		for (var i = 2, l = arguments.length; i < l; i++)
 		{
 			Object.merge(target, arguments[i]);
@@ -567,11 +572,13 @@
 			return false;
 		}
 
-		try {
+		try
+		{
 			// Not own constructor property must be Object
-			if ( obj.constructor &&
+			if (obj.constructor &&
 				!hasOwn.call(obj, "constructor") &&
-				!hasOwn.call(obj.constructor.prototype, "isPrototypeOf") ) {
+				!hasOwn.call(obj.constructor.prototype, "isPrototypeOf"))
+			{
 				return false;
 			}
 		}
@@ -593,17 +600,18 @@
 
 		// Own properties are enumerated firstly, so to speed up,
 		// if last one is own, then all properties are own.
-		for (key in obj) {}
+		for (key in obj)
+		{}
 
 		return key === undefined || hasOwn.call(obj, key);
 	};
-	
+
 	/**
 	 * Creates a shallow copy of the object.
 	 * @method clone
 	 * @return {Object} The shallow copy.
 	 */
-	if(!Object.prototype.clone)
+	if (!Object.prototype.clone)
 	{
 		Object.defineProperty(Object.prototype, 'clone',
 		{
@@ -613,7 +621,7 @@
 			{
 				var rtn = {};
 				var thisObj = this;
-				for(var key in thisObj)
+				for (var key in thisObj)
 				{
 					rtn[key] = thisObj[key];
 				}
@@ -622,7 +630,8 @@
 		});
 	}
 
-}(Object, {}));
+}(Object,
+{}));
 /**
  * @module Core
  * @namespace window
@@ -633,7 +642,7 @@
 	var AbstractLoader = include('createjs.AbstractLoader', false);
 
 	if (!RequestUtils) return;
-	
+
 	/**
 	 * Mixins for the CreateJS RequestUtils static class
 	 * @class RequestUtils
@@ -649,11 +658,12 @@
 	 */
 	RequestUtils.getTypeByExtension = function(extension)
 	{
-		if(extension)
+		if (extension)
 		{
-			switch(extension.toLowerCase())
+			switch (extension.toLowerCase())
 			{
-				case "fnt": return AbstractLoader.XML;
+				case "fnt":
+					return AbstractLoader.XML;
 			}
 		}
 		return orig_getTypeByExtension(extension);
@@ -685,37 +695,39 @@
 	Object.defineProperty(String.prototype, 'format',
 	{
 		enumerable: false,
-		writable:false,
-		value: function() {
+		writable: false,
+		value: function()
+		{
 			if (arguments.length < 1) return this;
 			var args = Array.isArray(args) ? args : Array.prototype.slice.call(arguments);
-			
+
 			return this.replace(
 				/([^%]|^)%(?:(\d+)\$)?s/g,
 				function(p0, p, position)
 				{
 					if (position)
 					{
-						return p + args[parseInt(position)-1];
+						return p + args[parseInt(position) - 1];
 					}
 					return p + args.shift();
 				}
 			).replace(/%%s/g, '%s');
 		}
 	});
-	
+
 	/**
 	 * Returns a reversed copy of the string.
 	 * @method reverse
 	 * @return {String} The reversed string.
 	 */
-	if(!String.prototype.reverse)
+	if (!String.prototype.reverse)
 	{
 		Object.defineProperty(String.prototype, 'reverse',
 		{
 			enumerable: false,
-			writable:false,
-			value: function() {
+			writable: false,
+			value: function()
+			{
 				var o = '';
 				for (var i = this.length - 1; i >= 0; i--)
 					o += this[i];
@@ -725,14 +737,13 @@
 	}
 
 }(String, Object));
-
 /**
  * @module Core
  * @namespace springroll
  */
 (function()
 {
-	
+
 	/**
 	 * CombinedCallback is a utility class that creates a function to be passed to multiple
 	 * asynchronous functions as a callback, and will call your callback on the last time it
@@ -754,23 +765,23 @@
 	 */
 	CombinedCallback.create = function(call, callCount)
 	{
-		if(!call) return null;
-		
-		if(typeof callCount != "number" || callCount < 1)
+		if (!call) return null;
+
+		if (typeof callCount != "number" || callCount < 1)
 			callCount = 2;
 		//create a function that can be called multiple times
 		var rtn = function()
 		{
-			if(++rtn.currentCallCount >= callCount)
+			if (++rtn.currentCallCount >= callCount)
 				call();
 		};
 		//set some properties on said function to make it reusable
 		rtn.currentCallCount = 0;
 		rtn.reset = reset;
-		
+
 		return rtn;
 	};
-	
+
 	function reset()
 	{
 		this.currentCallCount = 0;
@@ -782,7 +793,8 @@
  * @module Core
  * @namespace springroll
  */
-(function(undefined) {
+(function(undefined)
+{
 
 	var Application;
 
@@ -822,13 +834,15 @@
 		}
 
 		// Set the default options
-		options = Object.merge({
+		options = Object.merge(
+		{
 			repeat: false,
 			autoDestroy: true,
 			useFrames: false
-		}, options || {});
+		}, options ||
+		{});
 
-		
+
 		/**
 		 * The function to call when the delay is completed.
 		 * @private
@@ -865,7 +879,7 @@
 		 * @default true
 		 */
 		this._autoDestroy = options.autoDestroy;
-		
+
 		/**
 		 * If the DelayedCall should use frames instead of milliseconds for the delay.
 		 * @private
@@ -898,19 +912,19 @@
 	 */
 	p._update = function(elapsed)
 	{
-		if(!this._callback)
+		if (!this._callback)
 		{
 			this.destroy();
 			return;
 		}
 
 		this._timer -= this._useFrames ? 1 : elapsed;
-		if(this._timer <= 0)
+		if (this._timer <= 0)
 		{
 			this._callback(this);
-			if(this._repeat)
+			if (this._repeat)
 				this._timer += this._delay;
-			else if(this._autoDestroy)
+			else if (this._autoDestroy)
 				this.destroy();
 			else
 				Application.instance.off("update", this._update);
@@ -924,9 +938,9 @@
 	 */
 	p.restart = function()
 	{
-		if(!this._callback) return;
+		if (!this._callback) return;
 		var app = Application.instance;
-		if(!app.has("update", this._update))
+		if (!app.has("update", this._update))
 			app.on("update", this._update);
 		this._timer = this._delay;
 		this._paused = false;
@@ -948,21 +962,25 @@
 	 * @public
 	 * @property {Boolean} paused
 	 */
-	Object.defineProperty(p, "paused", {
-		get: function() { return this._paused; },
+	Object.defineProperty(p, "paused",
+	{
+		get: function()
+		{
+			return this._paused;
+		},
 		set: function(value)
 		{
-			if(!this._callback) return;
+			if (!this._callback) return;
 			var app = Application.instance;
-			if(this._paused && !value)
+			if (this._paused && !value)
 			{
 				this._paused = false;
-				if(!app.has("update", this._update))
+				if (!app.has("update", this._update))
 					app.on("update", this._update);
 			}
-			else if(value)
+			else if (value)
 			{
-				if(app.has("update", this._update))
+				if (app.has("update", this._update))
 				{
 					this._paused = true;
 					app.off("update", this._update);
@@ -992,7 +1010,7 @@
 (function()
 {
 	var Debug;
-	
+
 	/**
 	 * An enumeration value. This class is private, and is only used by Enum.
 	 * @class EnumValue
@@ -1214,7 +1232,7 @@
 		{
 			enumerable: false,
 			writable: false,
-			value: this.valueFromInt(counter-1)
+			value: this.valueFromInt(counter - 1)
 		});
 	};
 
@@ -1246,14 +1264,15 @@
  * @module Core
  * @namespace springroll
  */
-(function(undefined){
+(function(undefined)
+{
 
 	/**
 	 * The SavedData functions use localStorage and sessionStorage, with a cookie fallback.
 	 *
 	 * @class SavedData
 	 */
-	var SavedData = {},
+	var SavedData = {};
 
 	/** 
 	 * A constant to determine if we can use localStorage and 
@@ -1263,7 +1282,7 @@
 	 * @private
 	 * @readOnly
 	 */
-	WEB_STORAGE_SUPPORT = window.Storage !== undefined,
+	var WEB_STORAGE_SUPPORT = window.Storage !== undefined;
 
 	/**
 	 * A constant for cookie fallback for `SavedData.clear()` 
@@ -1273,17 +1292,17 @@
 	 * @readOnly
 	 * @default -1
 	 */
-	ERASE_COOKIE = -1;
+	var ERASE_COOKIE = -1;
 
 	//in iOS, if the user is in Private Browsing, writing to localStorage throws an error.
-	if(WEB_STORAGE_SUPPORT)
+	if (WEB_STORAGE_SUPPORT)
 	{
 		try
 		{
 			localStorage.setItem("LS_TEST", "test");
 			localStorage.removeItem("LS_TEST");
 		}
-		catch(e)
+		catch (e)
 		{
 			WEB_STORAGE_SUPPORT = false;
 		}
@@ -1297,13 +1316,13 @@
 	 */
 	SavedData.remove = function(name)
 	{
-		if(WEB_STORAGE_SUPPORT)
+		if (WEB_STORAGE_SUPPORT)
 		{
 			localStorage.removeItem(name);
 			sessionStorage.removeItem(name);
 		}
 		else
-			SavedData.write(name,"",ERASE_COOKIE);
+			SavedData.write(name, "", ERASE_COOKIE);
 	};
 
 	/**
@@ -1316,9 +1335,9 @@
 	 */
 	SavedData.write = function(name, value, tempOnly)
 	{
-		if(WEB_STORAGE_SUPPORT)
+		if (WEB_STORAGE_SUPPORT)
 		{
-			if(tempOnly)
+			if (tempOnly)
 				sessionStorage.setItem(name, JSON.stringify(value));
 			else
 				localStorage.setItem(name, JSON.stringify(value));
@@ -1328,15 +1347,15 @@
 			var expires;
 			if (tempOnly)
 			{
-				if(tempOnly !== ERASE_COOKIE)
-					expires = "";//remove when browser is closed
+				if (tempOnly !== ERASE_COOKIE)
+					expires = ""; //remove when browser is closed
 				else
-					expires = "; expires=Thu, 01 Jan 1970 00:00:00 GMT";//save cookie in the past for immediate removal
+					expires = "; expires=Thu, 01 Jan 1970 00:00:00 GMT"; //save cookie in the past for immediate removal
 			}
 			else
-				expires = "; expires="+new Date(2147483646000).toGMTString();//THE END OF (32bit UNIX) TIME!
+				expires = "; expires=" + new Date(2147483646000).toGMTString(); //THE END OF (32bit UNIX) TIME!
 
-			document.cookie = name+"="+escape(JSON.stringify(value))+expires+"; path=/";
+			document.cookie = name + "=" + escape(JSON.stringify(value)) + expires + "; path=/";
 		}
 	};
 
@@ -1349,10 +1368,10 @@
 	 */
 	SavedData.read = function(name)
 	{
-		if(WEB_STORAGE_SUPPORT)
+		if (WEB_STORAGE_SUPPORT)
 		{
 			var value = localStorage.getItem(name) || sessionStorage.getItem(name);
-			if(value)
+			if (value)
 				return JSON.parse(value, SavedData.reviver);
 			else
 				return null;
@@ -1361,13 +1380,14 @@
 		{
 			var nameEQ = name + "=",
 				ca = document.cookie.split(';'),
-				i = 0, c, len;
+				i = 0,
+				c, len;
 
-			for(i=0, len=ca.length; i<len;i++)
+			for (i = 0, len = ca.length; i < len; i++)
 			{
 				c = ca[i];
-				while (c.charAt(0) == ' ') c = c.substring(1,c.length);
-				if (c.indexOf(nameEQ) === 0) return JSON.parse(unescape(c.substring(nameEQ.length,c.length)), SavedData.reviver);
+				while (c.charAt(0) == ' ') c = c.substring(1, c.length);
+				if (c.indexOf(nameEQ) === 0) return JSON.parse(unescape(c.substring(nameEQ.length, c.length)), SavedData.reviver);
 			}
 			return null;
 		}
@@ -1387,14 +1407,14 @@
 	 */
 	SavedData.reviver = function(key, value)
 	{
-		if(value && typeof value.__classname == "string")
+		if (value && typeof value.__classname == "string")
 		{
 			var _class = include(value.__classname, false);
-			if(_class)
+			if (_class)
 			{
 				var rtn = new _class();
 				//if we may call fromJSON, do so
-				if(rtn.fromJSON)
+				if (rtn.fromJSON)
 				{
 					rtn.fromJSON(value);
 					//return the cast Object
@@ -1410,23 +1430,23 @@
 	namespace('springroll').SavedData = SavedData;
 
 }());
-
 /**
  * @module Core
  * @namespace springroll
  */
-(function(window){
-		
+(function(window)
+{
+
 	// Include the window.performance object
 	var performance = include('performance', false);
 
 	// See if we have performance.now or any of
 	// the brower-specific versions
 	var now = performance && (
-		performance.now || 
-		performance.mozNow || 
-		performance.msNow || 
-		performance.oNow || 
+		performance.now ||
+		performance.mozNow ||
+		performance.msNow ||
+		performance.oNow ||
 		performance.webkitNow
 	);
 
@@ -1438,7 +1458,7 @@
 	 * @class TimeUtils
 	 */
 	var TimeUtils = {};
-	
+
 	/**
 	 * This method gets timestamp in micromilliseconds for doing performance
 	 * intense operations. Fallback support is to `Date.now()`. We aren't overridding
@@ -1449,16 +1469,17 @@
 	 * @return {int} The number of micromilliseconds of the current timestamp
 	 */
 	TimeUtils.now = !now ? Date.now : function()
-	{ 
-		return performance.now(); 
+	{
+		return performance.now();
 	};
 
 	// Assign to namespace
 	namespace('springroll').TimeUtils = TimeUtils;
-	
+
 }(window));
-(function(){
-	
+(function()
+{
+
 	/**
 	 * A class for generating weighted random values. Input objects are dictionary objects
 	 * where the keys are the strings to be picked from, and the values are the corresponding
@@ -1479,16 +1500,20 @@
 		this.max = -1;
 		this.options = [];
 		var total = 0;
-		for(var key in object)
+		for (var key in object)
 		{
 			total += object[key];
-			this.options.push({key:key, value:total});
+			this.options.push(
+			{
+				key: key,
+				value: total
+			});
 			this.max += object[key];
 		}
 	};
 
 	var p = WeightedRandom.prototype = {};
-	
+
 	/**
 	 * Picks an item at random.
 	 * @method random
@@ -1497,9 +1522,9 @@
 	p.random = function()
 	{
 		var rand = Math.randomInt(0, this.max);
-		for(var i = 0, options = this.options, length = options.length; i < length; ++i)
+		for (var i = 0, options = this.options, length = options.length; i < length; ++i)
 		{
-			if(rand < options[i].value)
+			if (rand < options[i].value)
 				return options[i].key;
 		}
 		//if we are somehow here, then return null
@@ -1516,11 +1541,11 @@
 	// requestAnimationFrame polyfill by Erik Möller. fixes from Paul Irish and Tino Zijdel
 	// MIT license
 	var vendors = ['ms', 'moz', 'webkit', 'o'];
-	var	len = vendors.length;
-	for(var x = 0; x < len  && !window.requestAnimationFrame; ++x)
+	var len = vendors.length;
+	for (var x = 0; x < len && !window.requestAnimationFrame; ++x)
 	{
-		window.requestAnimationFrame = window[vendors[x]+'RequestAnimationFrame'];
-		window.cancelAnimationFrame = window[vendors[x]+'CancelAnimationFrame'] || window[vendors[x]+'CancelRequestAnimationFrame'];
+		window.requestAnimationFrame = window[vendors[x] + 'RequestAnimationFrame'];
+		window.cancelAnimationFrame = window[vendors[x] + 'CancelAnimationFrame'] || window[vendors[x] + 'CancelRequestAnimationFrame'];
 	}
 
 	// create a setTimeout based fallback if there wasn't an official or prefixed version
@@ -1531,16 +1556,19 @@
 		// Create the polyfill
 		window.requestAnimationFrame = function(callback)
 		{
-			var currTime = TimeUtils.now();//use the now function from down below
+			var currTime = TimeUtils.now(); //use the now function from down below
 			var timeToCall = Math.max(0, 16 - (currTime - lastTime));
 			var id = window.setTimeout(function()
-{ callback(currTime + timeToCall); }, timeToCall);
+			{
+				callback(currTime + timeToCall);
+			}, timeToCall);
 			lastTime = currTime + timeToCall;
 			return id;
 		};
 
 		// Only set this up if the corresponding requestAnimationFrame was set up
-		window.cancelAnimationFrame = function(id) {
+		window.cancelAnimationFrame = function(id)
+		{
 			clearTimeout(id);
 		};
 	}
@@ -1549,12 +1577,12 @@
 	window.requestAnimFrame = window.requestAnimationFrame;
 
 }());
-
 /**
  * @module Core
  * @namespace springroll
  */
-(function(undefined){
+(function(undefined)
+{
 
 	/**
 	 * The EventDispatcher mirrors the functionality of AS3 and EaselJS's EventDispatcher,
@@ -1564,24 +1592,24 @@
 	 * @constructor
 	 */
 	var EventDispatcher = function()
-	{
-		/**
-		 * The collection of listeners
-		 * @property {Array} _listeners
-		 * @private
-		 */
-		this._listeners = [];
+		{
+			/**
+			 * The collection of listeners
+			 * @property {Array} _listeners
+			 * @private
+			 */
+			this._listeners = [];
 
-		/**
-		 * If the dispatcher is destroyed
-		 * @property {Boolean} _destroyed
-		 * @protected
-		 */
-		this._destroyed = false;
-	},
+			/**
+			 * If the dispatcher is destroyed
+			 * @property {Boolean} _destroyed
+			 * @protected
+			 */
+			this._destroyed = false;
+		},
 
-	// Reference to the prototype
-	p = EventDispatcher.prototype;
+		// Reference to the prototype
+		p = EventDispatcher.prototype;
 
 	/**
 	 * If the dispatcher is destroyed
@@ -1589,7 +1617,7 @@
 	 */
 	Object.defineProperty(p, 'destroyed',
 	{
-		enumerable:true,
+		enumerable: true,
 		get: function()
 		{
 			return this._destroyed;
@@ -1613,12 +1641,12 @@
 
 			var args;
 
-			if(arguments.length > 1)
+			if (arguments.length > 1)
 			{
 				args = Array.prototype.slice.call(arguments, 1);
 			}
 
-			for(var i = listeners.length - 1; i >= 0; --i)
+			for (var i = listeners.length - 1; i >= 0; --i)
 			{
 				var listener = listeners[i];
 				if (listener._eventDispatcherOnce)
@@ -1674,14 +1702,15 @@
 		// Callback
 		else if (type(callback) === 'function')
 		{
-			var names = name.split(' '), n = null;
+			var names = name.split(' '),
+				n = null;
 
 			var listener;
 			for (var i = 0, nl = names.length; i < nl; i++)
 			{
 				n = names[i];
 				listener = this._listeners[n];
-				if(!listener)
+				if (!listener)
 					listener = this._listeners[n] = [];
 
 				if (once)
@@ -1693,7 +1722,7 @@
 				if (listener.indexOf(callback) === -1)
 				{
 					listener.push(callback);
-					if(listener.length > 1)
+					if (listener.length > 1)
 						listener.sort(listenerSorter);
 				}
 			}
@@ -1741,15 +1770,15 @@
 		}
 		else
 		{
-			var names = name.split(' '); 
-			var	n = null;
-			var listener; 
-			var	index;
+			var names = name.split(' ');
+			var n = null;
+			var listener;
+			var index;
 			for (var i = 0, nl = names.length; i < nl; i++)
 			{
 				n = names[i];
 				listener = this._listeners[n];
-				if(listener)
+				if (listener)
 				{
 					// remove all listeners for that event
 					if (callback === undefined)
@@ -1781,11 +1810,11 @@
 	 */
 	p.has = function(name, callback)
 	{
-		if(!name) return false;
+		if (!name) return false;
 
 		var listeners = this._listeners[name];
-		if(!listeners) return false;
-		if(!callback)
+		if (!listeners) return false;
+		if (!callback)
 			return listeners.length > 0;
 		return listeners.indexOf(callback) >= 0;
 	};
@@ -1917,7 +1946,7 @@
 			prop.setReadOnly(readOnly === undefined ? prop.readOnly : readOnly);
 			return this;
 		}
-		
+
 		if (this.hasOwnProperty(name))
 		{
 			throw "Object already has property " + name;
@@ -1925,7 +1954,8 @@
 
 		props[name] = new Property(name, value, readOnly);
 
-		Object.defineProperty(this, name, {
+		Object.defineProperty(this, name,
+		{
 			get: get.bind(this, name),
 			set: set.bind(this, name)
 		});
@@ -1953,7 +1983,7 @@
 
 		// Update the property value
 		prop.value = responder();
-		
+
 		return this;
 	};
 
@@ -2032,9 +2062,9 @@
 	 */
 	var ApplicationOptions = function(app, options)
 	{
-		if(Debug === undefined)
+		if (Debug === undefined)
 			Debug = include('springroll.Debug', false);
-		
+
 		PropertyDispatcher.call(this);
 
 		/**
@@ -2042,7 +2072,8 @@
 		 * @property {Object} _options
 		 * @private
 		 */
-		this._options = options || {};
+		this._options = options ||
+		{};
 
 		/**
 		 * Reference to the application
@@ -2065,7 +2096,8 @@
 		var app = this._app;
 
 		// Create the options overrides
-		options = Object.merge({}, options);
+		options = Object.merge(
+		{}, options);
 
 		// If parse querystring is turned on, we'll
 		// override with any of the query string parameters
@@ -2076,14 +2108,14 @@
 
 		// Create getter and setters for all properties
 		// this is so we can dispatch events when the property changes
-		for(var name in options)
+		for (var name in options)
 		{
 			this.add(name, options[name]);
 		}
-		
+
 		//trigger all of the initial values, because otherwise they don't take effect.
 		var _properties = this._properties;
-		for(var id in _properties)
+		for (var id in _properties)
 		{
 			this.trigger(id, _properties[id].value);
 		}
@@ -2102,7 +2134,7 @@
 		{
 			return output;
 		}
-		var vars = href.substr(href.indexOf("?")+1);
+		var vars = href.substr(href.indexOf("?") + 1);
 		var pound = vars.indexOf('#');
 		vars = pound < 0 ? vars : vars.substring(0, pound);
 		var splitFlashVars = vars.split("&");
@@ -2111,9 +2143,9 @@
 		{
 			myVar = splitFlashVars[i].split("=");
 			var value = myVar[1];
-			if(value === "true" || value === undefined)
+			if (value === "true" || value === undefined)
 				value = true;
-			else if(value === "false")
+			else if (value === "false")
 				value = false;
 			if (true && Debug)
 			{
@@ -2168,8 +2200,8 @@
 
 }());
 /**
-  * @module Core
-  * @namespace springroll
+ * @module Core
+ * @namespace springroll
  */
 (function()
 {
@@ -2196,7 +2228,7 @@
 		{
 			Application = include('springroll.Application');
 		}
-		
+
 		/**
 		 * The priority of the plugin. Higher numbers handled first. This should be set
 		 * in the constructor of the extending ApplicationPlugin.
@@ -2211,7 +2243,7 @@
 		 * is bound to the Application. This should be overridden.
 		 * @method setup
 		 */
-		this.setup = function(){};
+		this.setup = function() {};
 
 		/**
 		 * The function to call right before the application is initailized. 
@@ -2228,7 +2260,7 @@
 		 * is bound to the Application. This should be overridden.
 		 * @method teardown
 		 */
-		this.teardown = function(){};
+		this.teardown = function() {};
 
 		// Add the plugin to application
 		Application._plugins.push(this);
@@ -2363,62 +2395,62 @@
 	 */
 	var _lastFrameTime = 0,
 
-	/**
-	 * The bound callback for listening to tick events
-	 * @private
-	 * @property {Function} _tickCallback
-	 */
-	_tickCallback = null,
+		/**
+		 * The bound callback for listening to tick events
+		 * @private
+		 * @property {Function} _tickCallback
+		 */
+		_tickCallback = null,
 
-	/**
-	 * If the current application is paused
-	 * @private
-	 * @property {Boolean} _paused
-	 */
-	_paused = false,
+		/**
+		 * If the current application is paused
+		 * @private
+		 * @property {Boolean} _paused
+		 */
+		_paused = false,
 
-	/**
-	 * If the current application is enabled
-	 * @private
-	 * @property {Boolean} _enabled
-	 */
-	_enabled = true,
+		/**
+		 * If the current application is enabled
+		 * @private
+		 * @property {Boolean} _enabled
+		 */
+		_enabled = true,
 
-	/**
-	 * The id of the active requestAnimationFrame or setTimeout call.
-	 * @property {Number} _tickId
-	 * @private
-	 */
-	_tickId = -1,
+		/**
+		 * The id of the active requestAnimationFrame or setTimeout call.
+		 * @property {Number} _tickId
+		 * @private
+		 */
+		_tickId = -1,
 
-	/**
-	 * If requestionAnimationFrame should be used
-	 * @private
-	 * @property {Bool} _useRAF
-	 * @default false
-	 */
-	_useRAF = false,
+		/**
+		 * If requestionAnimationFrame should be used
+		 * @private
+		 * @property {Bool} _useRAF
+		 * @default false
+		 */
+		_useRAF = false,
 
-	/**
-	 * The number of milliseconds per frame
-	 * @property {int} _msPerFrame
-	 * @private
-	 */
-	_msPerFrame = 0,
+		/**
+		 * The number of milliseconds per frame
+		 * @property {int} _msPerFrame
+		 * @private
+		 */
+		_msPerFrame = 0,
 
-	/**
-	 * The collection of displays
-	 * @property {Array} _displays
-	 * @private
-	 */
-	_displays = null,
+		/**
+		 * The collection of displays
+		 * @property {Array} _displays
+		 * @private
+		 */
+		_displays = null,
 
-	/**
-	 * The displays by canvas id
-	 * @property {Object} _displaysMap
-	 * @private
-	 */
-	_displaysMap = null;
+		/**
+		 * The displays by canvas id
+		 * @property {Object} _displaysMap
+		 * @private
+		 */
+		_displaysMap = null;
 
 
 	/**
@@ -2430,17 +2462,17 @@
 	 * The handler for the plugin progress
 	 * @event pluginProgress
 	 */
-	
+
 	/**
 	 * Fired when initialization of the application is done
 	 * @event afterInit
 	 */
-	
+
 	/**
 	 * Fired when before initialization of the application
 	 * @event beforeInit
 	 */
-	
+
 	/**
 	 * Fired when an update is called, every frame update
 	 * @event update
@@ -2458,7 +2490,7 @@
 	 * @event displayAdded
 	 * @param {springroll.AbstractDisplay} [display] The current display being added
 	 */
-	
+
 	/**
 	 * When a display is removed.
 	 * @event displayRemoved
@@ -2517,7 +2549,7 @@
 			if (typeof value != "number") return;
 			_msPerFrame = (1000 / value) | 0;
 		});
-		
+
 		//add the initial display if specified
 		if (options.canvasId && options.display)
 		{
@@ -2541,8 +2573,9 @@
 		});
 
 		// Run the asyncronous tasks in series
-		this.pluginLoad = this.load(tasks, {
-			complete: this._doInit.bind(this), 
+		this.pluginLoad = this.load(tasks,
+		{
+			complete: this._doInit.bind(this),
 			progress: onPluginProgress.bind(this),
 			autoStart: false,
 			startAll: false
@@ -2578,7 +2611,7 @@
 
 		//start update loop
 		this.paused = false;
-	
+
 		// Dispatch the init event
 		this.trigger('init');
 
@@ -2692,7 +2725,7 @@
 		// Add it to the collections
 		_displaysMap[id] = display;
 		_displays.push(display);
-		
+
 		// Inherit the enabled state from the application
 		display.enabled = _enabled;
 
@@ -2842,7 +2875,7 @@
 		_displaysMap = null;
 
 		_instance =
-		_tickCallback = null;
+			_tickCallback = null;
 
 		this.display = null;
 		this.options.destroy();
@@ -2870,7 +2903,7 @@
 	var ApplicationPlugin = include('springroll.ApplicationPlugin');
 	var Tween = include('createjs.Tween', false);
 	var Ticker = include('createjs.Ticker', false);
-	
+
 	/**
 	 * @class Application
 	 */
@@ -2955,8 +2988,9 @@
  * @module Core
  * @namespace springroll
  */
-(function(global, doc, undefined){
-		
+(function(global, doc, undefined)
+{
+
 	/**
 	 * Handle the page visiblity change, if supported. Application uses one of these to
 	 * monitor page visibility. It is suggested that you listen to `pause`, `paused`,
@@ -2975,14 +3009,14 @@
 		 * @private
 		 */
 		this._onFocus = onFocus;
-		
+
 		/**
 		 * Callback when the page loses visibility
 		 * @property {Function} _onBlur
 		 * @private
 		 */
 		this._onBlur = onBlur;
-		
+
 		/**
 		 * If this object is enabled.
 		 * @property {Function} _enabled
@@ -2992,7 +3026,7 @@
 
 		// If this browser doesn't support visibility
 		if (!_visibilityChange && doc.onfocusin === undefined) return;
-		
+
 		/**
 		 * The visibility toggle listener function
 		 * @property {Function} _onToggle
@@ -3005,21 +3039,21 @@
 			else
 				this._onFocus();
 		}.bind(this);
-		
+
 		this.enabled = true;
-	},
-	
+	};
+
 	// Reference to the prototype
-	p = PageVisibility.prototype,
-	
+	var p = PageVisibility.prototype;
+
 	/**
 	 * The name of the visibility change event for the browser
 	 *
 	 * @property {String} _visibilityChange
 	 * @private
 	 */
-	_visibilityChange = null;
-	
+	var _visibilityChange = null;
+
 	// Select the visiblity change event name
 	if (doc.hidden !== undefined)
 	{
@@ -3037,35 +3071,39 @@
 	{
 		_visibilityChange = "webkitvisibilitychange";
 	}
-	
+
 	var isIE9 = !_visibilityChange && doc.onfocusin !== undefined;
-	
+
 	/**
 	 * If this object is enabled.
 	 * @property {Function} enabled
 	 * @private
 	 */
-	Object.defineProperty(p, "enabled", {
-		get: function() { return this._enabled; },
+	Object.defineProperty(p, "enabled",
+	{
+		get: function()
+		{
+			return this._enabled;
+		},
 		set: function(value)
 		{
 			value = !!value;
-			if(this._enabled == value) return;
+			if (this._enabled == value) return;
 			this._enabled = value;
-			
+
 			global.removeEventListener("pagehide", this._onBlur);
 			global.removeEventListener("pageshow", this._onFocus);
 			global.removeEventListener("blur", this._onBlur);
 			global.removeEventListener("focus", this._onFocus);
 			global.removeEventListener("visibilitychange", this._onToggle);
 			doc.removeEventListener(_visibilityChange, this._onToggle, false);
-			if(isIE9)
+			if (isIE9)
 			{
 				doc.removeEventListener("focusin", this._onFocus);
 				doc.removeEventListener("focusout", this._onBlur);
 			}
-			
-			if(value)
+
+			if (value)
 			{
 				// Listen to visibility change
 				// see https://developer.mozilla.org/en/API/PageVisibility/Page_Visibility_API
@@ -3077,7 +3115,7 @@
 				global.addEventListener("focus", this._onFocus);
 				global.addEventListener("visibilitychange", this._onToggle, false);
 				//IE9 is old and uses its own events
-				if(isIE9)
+				if (isIE9)
 				{
 					doc.addEventListener("focusin", this._onFocus);
 					doc.addEventListener("focusout", this._onBlur);
@@ -3085,7 +3123,7 @@
 			}
 		}
 	});
-	
+
 	/**
 	 * Disable the detection
 	 * @method destroy
@@ -3094,16 +3132,16 @@
 	{
 		// If this browser doesn't support visibility
 		if (!_visibilityChange || !this._onToggle) return;
-		
+
 		this.enabled = false;
 		this._onToggle = null;
 		this._onFocus = null;
 		this._onBlur = null;
 	};
-	
+
 	// Assign to the global space
 	namespace('springroll').PageVisibility = PageVisibility;
-	
+
 }(window, document));
 /**
  * @module Core
@@ -3224,7 +3262,7 @@
 			else
 				throw 'invalid replacement value';
 		}
-		
+
 		if (this._filters)
 		{
 			for (var i = this._filters.length - 1; i >= 0; i--)
@@ -3318,7 +3356,7 @@
 (function()
 {
 	var ApplicationPlugin = include('springroll.ApplicationPlugin');
-	
+
 	/**
 	 * @class Application
 	 */
@@ -3338,21 +3376,21 @@
 	 * @private
 	 */
 	var _maxWidth = 0;
-	
+
 	/**
 	 * The maximum height of the primary display, compared to the original width.
 	 * @property {Number} _maxHeight
 	 * @private
 	 */
 	var _maxHeight = 0;
-	
+
 	/**
 	 * The original width of the primary display, used to calculate the aspect ratio.
 	 * @property {int} _originalWidth
 	 * @private
 	 */
 	var _originalWidth = 0;
-	
+
 	/**
 	 * The original height of the primary display, used to calculate the aspect ratio.
 	 * @property {int} _originalHeight
@@ -3383,7 +3421,7 @@
 		 * @param {int} width The width of the resize element
 		 * @param {int} height The height of the resize element
 		 */
-		
+
 		/**
 		 * If doing uniform resizing, optional parameter to add
 		 * a maximum width relative to the original height. This
@@ -3442,9 +3480,9 @@
 		{
 			_originalWidth = display.width;
 			_originalHeight = display.height;
-			if(!_maxWidth)
+			if (!_maxWidth)
 				_maxWidth = _originalWidth;
-			if(!_maxHeight)
+			if (!_maxHeight)
 				_maxHeight = _originalHeight;
 		});
 
@@ -3504,10 +3542,7 @@
 			});
 
 			//send out the resize event
-			this.trigger('resize',
-				(responsive ? width : normalWidth),
-				(responsive ? height : normalHeight)
-			);
+			this.trigger('resize', (responsive ? width : normalWidth), (responsive ? height : normalHeight));
 
 			//redraw all displays
 			this.displays.forEach(function(display)
@@ -3553,7 +3588,7 @@
 			currentAspect = size.width / size.height;
 			size.normalWidth = _originalWidth;
 			size.normalHeight = _originalHeight;
-			
+
 			if (currentAspect > originalAspect)
 			{
 				size.normalWidth = _originalHeight * currentAspect;
@@ -3600,15 +3635,15 @@
 			window.removeEventListener("resize", this.triggerResize);
 		}
 		_resizeElement = null;
-		
+
 		_resizeHelper.width =
-		_resizeHelper.height =
-		_resizeHelper.normalWidth =
-		_resizeHelper.normalHeight =
-		_originalWidth =
-		_originalHeight =
-		_maxHeight =
-		_maxWidth = 0;
+			_resizeHelper.height =
+			_resizeHelper.normalWidth =
+			_resizeHelper.normalHeight =
+			_originalWidth =
+			_originalHeight =
+			_maxHeight =
+			_maxWidth = 0;
 
 	};
 
@@ -3617,7 +3652,8 @@
  * @module Core
  * @namespace springroll
  */
-(function(undefined){
+(function(undefined)
+{
 
 	// Classes to import
 	var Debug;
@@ -3701,7 +3737,7 @@
 			{
 				var version = this._app.options.version;
 				this._globalVersion = version ? "v=" + version : null;
-				if(this._globalVersion)
+				if (this._globalVersion)
 				{
 					this.unregisterURLFilter(this._applySpecificVersion);
 					this.registerURLFilter(this._applyGlobalVersion);
@@ -3809,7 +3845,7 @@
 	 */
 	p.registerURLFilter = function(filter)
 	{
-		if(this._filters.indexOf(filter) == -1)
+		if (this._filters.indexOf(filter) == -1)
 			this._filters.push(filter);
 	};
 
@@ -3822,7 +3858,7 @@
 	p.unregisterURLFilter = function(filter)
 	{
 		var index = this._filters.indexOf(filter);
-		if(index > -1)
+		if (index > -1)
 			this._filters.splice(index, 1);
 	};
 
@@ -3837,12 +3873,12 @@
 	{
 		//don't apply versioning if the asset is retrieved from a php service
 		var basePath = this._app.options.basePath;
-		if(basePath && basePath.indexOf("?") > 0) return url;
-		
+		if (basePath && basePath.indexOf("?") > 0) return url;
+
 		var ver = this._versions[url];
 		//if a version exists for this url, and the url doesn't already have 'v=' in it
 		//then apply the url specific version.
-		if(ver && /(\?|\&)v\=[0-9]*/.test(url) === false)
+		if (ver && /(\?|\&)v\=[0-9]*/.test(url) === false)
 		{
 			url = url + (url.indexOf("?") < 0 ? "?" : "&") + "v=" + ver.version;
 		}
@@ -3858,15 +3894,15 @@
 	 */
 	p._applyGlobalVersion = function(url)
 	{
-		if(!this._globalVersion) return url;
+		if (!this._globalVersion) return url;
 		//don't apply versioning if the asset is retrieved from a php service
 		var basePath = this._app.options.basePath;
-		if(basePath && basePath.indexOf("?") > 0) return url;
-		
+		if (basePath && basePath.indexOf("?") > 0) return url;
+
 		//apply the versioning if it isn't already on the url
 		var test = this._globalVersion.indexOf("cb=") === 0 ?
 			(/(\?|\&)cb\=[0-9]*/) : (/(\?|\&)v\=/);
-		if(test.test(url) === false)
+		if (test.test(url) === false)
 		{
 			url = url + (url.indexOf("?") < 0 ? "?" : "&") + this._globalVersion;
 		}
@@ -3906,11 +3942,11 @@
 	p.prepare = function(url, applyBasePath)
 	{
 		//apply first in case the base path is strange and makes the rest of the path a query string
-		if(applyBasePath)
+		if (applyBasePath)
 		{
 			url = this._applyBasePath(url);
 		}
-		
+
 		for (var i = 0, len = this._filters.length; i < len; ++i)
 		{
 			url = this._filters[i](url);
@@ -3922,7 +3958,6 @@
 	namespace('springroll').CacheManager = CacheManager;
 
 }());
-
 /**
  * @module Core
  * @namespace springroll
@@ -3951,7 +3986,7 @@
 		{
 			Debug = include("springroll.Debug", false);
 		}
-		
+
 		/**
 		 * The current status of the task (waiting, running, etc)
 		 * @property {int} status
@@ -3987,7 +4022,7 @@
 		 * @property {String} type
 		 */
 		this.type = asset.type || null;
-	
+
 		/**
 		 * Reference to the original asset data
 		 * @property {Object} original
@@ -4273,7 +4308,8 @@
 	 */
 	p.start = function(callback)
 	{
-		this.load({
+		this.load(
+			{
 				_alpha: this.alpha,
 				_color: this.color
 			},
@@ -4314,9 +4350,9 @@
 		canvas.height = Math.max(alphaImage.height, rgbImage.height);
 		var ctx = canvas.getContext("2d");
 		ctx.save();
-		ctx.drawImage(rgbImage,0,0);
+		ctx.drawImage(rgbImage, 0, 0);
 		ctx.globalCompositeOperation = "destination-in";
-		ctx.drawImage(alphaImage,0,0);
+		ctx.drawImage(alphaImage, 0, 0);
 		ctx.restore();
 		return canvas;
 	};
@@ -4356,7 +4392,7 @@
 		 * @property {Array|Object} assets
 		 */
 		this.assets = asset.assets;
-		
+
 		/**
 		 * If each asset in the collection should be cached.
 		 * @property {Boolean} cacheAll
@@ -4392,7 +4428,8 @@
 	 */
 	p.start = function(callback)
 	{
-		this.load(this.assets, {
+		this.load(this.assets,
+		{
 			complete: callback,
 			progress: this.progress,
 			cacheAll: this.cacheAll
@@ -4574,7 +4611,7 @@
 		 * @property {*} data
 		 */
 		this.data = null;
-		
+
 		/**
 		 * The callback function of the load, to call when 
 		 * the load as finished, takes one argument as result
@@ -4582,14 +4619,14 @@
 		 * @property {function} onComplete
 		 */
 		this.onComplete = null;
-		
+
 		/**
 		 * The progress callback
 		 * @public
 		 * @property {function} onProgress
 		 */
 		this.onProgress = null;
-		
+
 		/**
 		 * The callback when a load queue item fails
 		 * @private
@@ -4617,7 +4654,7 @@
 			this.installPlugin(Sound);
 		}
 	};
-	
+
 	// Reference to the prototype
 	var p = extend(LoaderItem, LoadQueue);
 
@@ -4639,7 +4676,7 @@
 		 */
 		LoaderItem.verbose = false;
 	}
-	
+
 	/**
 	 * Represent this object as a string
 	 * @public
@@ -4648,7 +4685,7 @@
 	 */
 	p.toString = function()
 	{
-		return "[LoaderItem(url:'"+this.url+"')]";
+		return "[LoaderItem(url:'" + this.url + "')]";
 	};
 
 	/**
@@ -4656,7 +4693,7 @@
 	 * @property {String} basePath
 	 * @default null
 	 */
-	Object.defineProperty(p, 'basePath', 
+	Object.defineProperty(p, 'basePath',
 	{
 		set: function(basePath)
 		{
@@ -4688,8 +4725,8 @@
 		this.retries = 0;
 		this.onComplete = null;
 		this.onProgress = null;
-		this.data =  null;
-		this.preparedUrl =  null;
+		this.data = null;
+		this.preparedUrl = null;
 		this.url = null;
 
 		this.removeAllEventListeners();
@@ -4726,8 +4763,8 @@
 		if (this.data && this.data.id)
 		{
 			url = {
-				id: this.data.id, 
-				src: url, 
+				id: this.data.id,
+				src: url,
 				data: this.data
 			};
 		}
@@ -4757,9 +4794,9 @@
 	 */
 	p._onFailed = function(event)
 	{
-		if (true && Debug) 
+		if (true && Debug)
 		{
-			Debug.error("Unable to load file: " + this.url  + " - reason: " + event.error);
+			Debug.error("Unable to load file: " + this.url + " - reason: " + event.error);
 		}
 		this.retry();
 	};
@@ -4795,10 +4832,10 @@
 		}
 		this.onComplete(this, ev.result);
 	};
-	
+
 	// Assign to the name space
 	namespace('springroll').LoaderItem = LoaderItem;
-	
+
 }());
 /**
  * @module Core
@@ -4827,7 +4864,7 @@
 		 * @property {String} url
 		 */
 		this.url = url;
-		
+
 		/**
 		 * The data for the load item.
 		 * @property {*} data
@@ -4840,10 +4877,10 @@
 		 */
 		this.id = null;
 	};
-	
+
 	// Reference to the prototype
 	var p = LoaderResult.prototype;
-	
+
 	/**
 	 * A to string method
 	 * @public
@@ -4852,7 +4889,7 @@
 	 */
 	p.toString = function()
 	{
-		return "[LoaderResult(url: '"+this.url+"')]";
+		return "[LoaderResult(url: '" + this.url + "')]";
 	};
 
 	/**
@@ -4861,12 +4898,12 @@
 	 */
 	p.reset = function()
 	{
-		this.content = 
-		this.url = 
-		this.data =
-		this.id = null;
+		this.content =
+			this.url =
+			this.data =
+			this.id = null;
 	};
-	
+
 	/**
 	 * Destroy this result
 	 * @method destroy
@@ -4875,10 +4912,10 @@
 	{
 		this.reset();
 	};
-	
+
 	// Assign to the name space
 	namespace('springroll').LoaderResult = LoaderResult;
-	
+
 }());
 /**
  * @module Core
@@ -4905,7 +4942,7 @@
 		 * @private
 		 */
 		this.app = app;
-		
+
 		/**
 		 * The maximum number of simulaneous loads
 		 * @public
@@ -4913,7 +4950,7 @@
 		 * @default 2
 		 */
 		this.maxCurrentLoads = 2;
-		
+
 		/**
 		 * The reference to the cache manager
 		 * @public
@@ -4927,7 +4964,7 @@
 		 * @property {Object} items
 		 */
 		this.items = {};
-		
+
 		/**
 		 * The pool of LoaderItems
 		 * @private
@@ -4935,7 +4972,7 @@
 		 */
 		this.itemPool = [];
 	};
-	
+
 	// The prototype
 	var p = Loader.prototype;
 
@@ -4954,7 +4991,7 @@
 			}
 		});
 	}
-	
+
 	/**
 	 * Destroy the Loader singleton, don't use after this
 	 * @public
@@ -5036,7 +5073,7 @@
 		complete(result);
 		this._putItem(item);
 	};
-	
+
 	/**
 	 * Cancel a load that's currently in progress
 	 * @public
@@ -5047,7 +5084,7 @@
 	p.cancel = function(url)
 	{
 		var item = this.items[url];
-		
+
 		if (item)
 		{
 			item.clear();
@@ -5056,7 +5093,7 @@
 		}
 		return false;
 	};
-	
+
 	/**
 	 * Get a Queue item from the pool or new
 	 * @method  _getItem
@@ -5066,9 +5103,9 @@
 	p._getItem = function()
 	{
 		var itemPool = this.itemPool;
-		return itemPool.length ? itemPool.pop(): new LoaderItem();
+		return itemPool.length ? itemPool.pop() : new LoaderItem();
 	};
-	
+
 	/**
 	 * Pool the loader queue item
 	 * @method  _putItem
@@ -5081,9 +5118,9 @@
 		item.clear();
 		this.itemPool.push(item);
 	};
-	
+
 	namespace('springroll').Loader = Loader;
-	
+
 }());
 /**
  * @module Core
@@ -5217,7 +5254,7 @@
 	 */
 	p.empty = function()
 	{
-		for(var id in this._cache)
+		for (var id in this._cache)
 		{
 			this.delete(id);
 		}
@@ -5404,7 +5441,7 @@
 		var sizes = this._sizes;
 
 		// Check the largest first
-		for(var i = sizes.length - 1; i >= 0; --i)
+		for (var i = sizes.length - 1; i >= 0; --i)
 		{
 			if (sizes[i].maxSize / devicePixelRatio > minSize)
 			{
@@ -5598,7 +5635,7 @@
 
 		// Set the default container for the results
 		this.results = getAssetsContainer(this.mode);
-		
+
 		// Start running
 		if (options.autoStart)
 		{
@@ -5715,7 +5752,7 @@
 			}
 			else if (Object.isPlain(assets))
 			{
-				for(var id in assets)
+				for (var id in assets)
 				{
 					asset = applyDefaults(assets[id]);
 					task = this.addTask(asset);
@@ -5746,12 +5783,16 @@
 		// convert to a LoadTask
 		if (isString(asset))
 		{
-			return { src: asset };
+			return {
+				src: asset
+			};
 		}
 		// convert to a FunctionTask
 		else if (isFunction(asset))
 		{
-			return { async: asset };
+			return {
+				async: asset
+			};
 		}
 		return asset;
 	}
@@ -5829,7 +5870,7 @@
 			{
 				task.status = Task.RUNNING;
 				task.start(this.taskDone.bind(this, task));
-				
+
 				// If we aren't running in parallel, then stop
 				if (!this.startAll) return;
 			}
@@ -5869,11 +5910,17 @@
 		if (result)
 		{
 			// Handle the result
-			switch(this.mode)
+			switch (this.mode)
 			{
-				case SINGLE_MODE: this.results = result; break;
-				case LIST_MODE: this.results.push(result); break;
-				case MAP_MODE: this.results[task.id] = result; break;
+				case SINGLE_MODE:
+					this.results = result;
+					break;
+				case LIST_MODE:
+					this.results.push(result);
+					break;
+				case MAP_MODE:
+					this.results[task.id] = result;
+					break;
 			}
 
 			// Should we cache the task?
@@ -5939,11 +5986,14 @@
 	 */
 	var getAssetsContainer = function(mode)
 	{
-		switch(mode)
+		switch (mode)
 		{
-			case SINGLE_MODE: return null;
-			case LIST_MODE: return [];
-			case MAP_MODE: return {};
+			case SINGLE_MODE:
+				return null;
+			case LIST_MODE:
+				return [];
+			case MAP_MODE:
+				return {};
 		}
 	};
 
@@ -5998,7 +6048,7 @@
 		AssetSizes = include('springroll.AssetSizes'),
 		Task = include('springroll.Task'),
 		Debug;
-	
+
 	/**
 	 * Handle the asynchronous loading of multiple assets.
 	 * @class AssetManager
@@ -6077,8 +6127,8 @@
 		{
 			TaskClass = include(TaskClass, false);
 		}
-		
-		if(!TaskClass) return;
+
+		if (!TaskClass) return;
 
 		TaskClass.priority = priority || 0;
 
@@ -6120,7 +6170,8 @@
 	p.load = function(assets, options)
 	{
 		// Apply defaults to options
-		options = Object.merge({
+		options = Object.merge(
+		{
 			complete: null,
 			progress: null,
 			taskDone: null,
@@ -6145,7 +6196,7 @@
 
 		// Handle the finish
 		load.once('complete', options.complete);
-		
+
 		// Optional loaded amount event
 		if (options.progress)
 			load.on('progress', options.progress);
@@ -6153,7 +6204,7 @@
 		// Called when a task is complete
 		if (options.taskDone)
 			load.on('taskDone', options.taskDone);
-		
+
 		// Start the load
 		load.setup(assets, options);
 
@@ -6274,14 +6325,14 @@
 		 */
 		var options = this.options;
 		options.add('cacheBust', true)
-		.respond('cacheBust', function()
-		{
-			return loader.cacheManager.cacheBust;
-		})
-		.on('cacheBust', function(value)
-		{
-			loader.cacheManager.cacheBust = (value == "true" || !!value);
-		});
+			.respond('cacheBust', function()
+			{
+				return loader.cacheManager.cacheBust;
+			})
+			.on('cacheBust', function(value)
+			{
+				loader.cacheManager.cacheBust = (value == "true" || !!value);
+			});
 
 		/**
 		 * The optional file path to prefix to any relative file
@@ -6434,7 +6485,7 @@
 			{
 				assets = Array.prototype.slice.call(arguments);
 			}
-			
+
 			for (var i = 0; i < assets.length; i++)
 			{
 				assetManager.cache.delete(assets[i]);
@@ -6565,7 +6616,7 @@
 	{
 		Debug = include('springroll.Debug', false);
 
-		var options = this.options; 
+		var options = this.options;
 
 		/**
 		 * The path to the config file to load
@@ -6618,7 +6669,7 @@
 		this._progress = -1;
 
 		// Listen for changes to the plugin progress
-		this.on('pluginProgress', onProgress.bind(this)); 
+		this.on('pluginProgress', onProgress.bind(this));
 	};
 
 	// async
@@ -6630,7 +6681,8 @@
 		// If there's a config path then add it
 		if (configPath)
 		{
-			assets.push({
+			assets.push(
+			{
 				id: 'config',
 				src: configPath,
 				cache: false,
@@ -6646,7 +6698,8 @@
 
 		if (assets.length)
 		{
-			this._assetLoad = this.load(assets, {
+			this._assetLoad = this.load(assets,
+			{
 				complete: callback,
 				progress: onProgress.bind(this),
 				cacheAll: true
@@ -6699,7 +6752,7 @@
 				assets.push(asset);
 			});
 		}
-		
+
 		// Allow extending game to add additional tasks
 		app.trigger('loading', assets);
 	};
@@ -6765,7 +6818,8 @@
 	{
 		EventDispatcher.call(this);
 
-		options = options || {};
+		options = options ||
+		{};
 
 		/**
 		 * the canvas managed by this display
@@ -6997,8 +7051,9 @@
  * @module Core
  * @namespace springroll
  */
-(function(){
-	
+(function()
+{
+
 	var Application = include('springroll.Application'),
 		Loader = include('springroll.Loader'),
 		PropertyDispatcher = include('springroll.PropertyDispatcher'),
@@ -7074,7 +7129,7 @@
 		if (true) console.warn('readOnly method is now deprecated, please use add(name, prop, readOnly), e.g.: app.options.add("myVar", null, true);');
 
 		var prop, name;
-		for(var i = 0; i < arguments.length; i++)
+		for (var i = 0; i < arguments.length; i++)
 		{
 			name = arguments[i];
 			prop = this._properties[name];

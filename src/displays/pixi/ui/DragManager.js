@@ -5,7 +5,7 @@
  */
 (function()
 {
-	
+
 	var Application,
 		Tween,
 		Point,
@@ -17,22 +17,22 @@
 	 *
 	 * @class DragManager
 	 * @constructor
-	*  @param {PixiDisplay} display The display that this DragManager is handling objects on.
-	*                               Optionally, this parameter can be omitted and the Application's
-	*                               default display will be used.
-	*  @param {Function} startCallback The callback when when starting
-	*  @param {Function} endCallback The callback when ending
+	 *  @param {PixiDisplay} display The display that this DragManager is handling objects on.
+	 *                               Optionally, this parameter can be omitted and the Application's
+	 *                               default display will be used.
+	 *  @param {Function} startCallback The callback when when starting
+	 *  @param {Function} endCallback The callback when ending
 	 */
 	var DragManager = function(display, startCallback, endCallback)
 	{
-		if(!Application)
+		if (!Application)
 		{
 			Application = include('springroll.Application');
 			Tween = include('createjs.Tween', false);
 			Point = include('PIXI.Point');
 		}
-		
-		if(typeof display == "function" && !endCallback)
+
+		if (typeof display == "function" && !endCallback)
 		{
 			endCallback = startCallback;
 			startCallback = display;
@@ -47,7 +47,7 @@
 		 * @property {PIXI.DisplayObject|Dictionary} draggedObj
 		 */
 		this.draggedObj = null;
-		
+
 		/**
 		 * The radius in pixel to allow for dragging, or else does sticky click
 		 * @public
@@ -55,7 +55,7 @@
 		 * @default 20
 		 */
 		this.dragStartThreshold = 20;
-		
+
 		/**
 		 * The position x, y of the mouse down on the stage. This is only used
 		 * when multitouch is false - the DragData has it when multitouch is true.
@@ -71,7 +71,7 @@
 		 * @property {PIXI.Point} mouseDownObjPos
 		 */
 		this.mouseDownObjPos = new Point(0, 0);
-		
+
 		/**
 		 * If sticky click dragging is allowed.
 		 * @public
@@ -79,7 +79,7 @@
 		 * @default true
 		 */
 		this.allowStickyClick = true;
-		
+
 		/**
 		 * Is the move touch based
 		 * @public
@@ -88,7 +88,7 @@
 		 * @default false
 		 */
 		this.isTouchMove = false;
-		
+
 		/**
 		 * Is the drag being held on mouse down (not sticky clicking)
 		 * @public
@@ -97,7 +97,7 @@
 		 * @default false
 		 */
 		this.isHeldDrag = false;
-		
+
 		/**
 		 * Is the drag a sticky clicking (click on a item, then mouse the mouse)
 		 * @public
@@ -125,14 +125,14 @@
 		 * @default null
 		 */
 		this.snapSettings = null;
-		
+
 		/**
 		 * Reference to the Pixi InteractionManager.
 		 * @private
 		 * @property {PIXI.interaction.InteractionManager} _interaction
 		 */
 		this._interaction = display.renderer.plugins.interaction;
-		
+
 		/**
 		 * The offset from the dragged object's position that the initial mouse event
 		 * was at. This is only used when multitouch is false - the DragData has
@@ -141,67 +141,71 @@
 		 * @property {PIXI.Point} _dragOffset
 		 */
 		this._dragOffset = null;
-		
+
 		/**
 		 * External callback when we start dragging
 		 * @private
 		 * @property {Function} _dragStartCallback
 		 */
 		this._dragStartCallback = startCallback;
-		
+
 		/**
 		 * External callback when we are done dragging
 		 * @private
 		 * @property {Function} _dragEndCallback
 		 */
 		this._dragEndCallback = endCallback;
-		
+
 		this._triggerHeldDrag = this._triggerHeldDrag.bind(this);
 		this._triggerStickyClick = this._triggerStickyClick.bind(this);
 		this._stopDrag = this._stopDrag.bind(this);
 		this._updateObjPosition = this._updateObjPosition.bind(this);
-		
+
 		/**
 		 * The collection of draggable objects
 		 * @private
 		 * @property {Array} _draggableObjects
 		 */
 		this._draggableObjects = [];
-		
+
 		/**
 		 * If this DragManager is using multitouch for dragging.
 		 * @private
 		 * @property {Boolean} _multitouch
 		 */
 		this._multitouch = false;
-		
+
 		/**
-		* If this DragManager has added drag listeners to the InteractionManager
-		* @private
-		* @property {Boolean} _addedDragListeners
-		*/
+		 * If this DragManager has added drag listeners to the InteractionManager
+		 * @private
+		 * @property {Boolean} _addedDragListeners
+		 */
 		this._addedDragListeners = false;
 
 		this.helperPoint = new Point(0, 0);
 	};
-	
+
 	// Reference to the drag manager
 	var p = DragManager.prototype = {};
-	
+
 	/**
 	 * If the DragManager allows multitouch dragging. Setting this stops any current
 	 * drags.
 	 * @property {Boolean} multitouch
 	 */
-	Object.defineProperty(p, "multitouch", {
-		get: function(){ return this._multitouch; },
+	Object.defineProperty(p, "multitouch",
+	{
+		get: function()
+		{
+			return this._multitouch;
+		},
 		set: function(value)
 		{
-			if(this.draggedObj)
+			if (this.draggedObj)
 			{
-				if(this._multitouch)
+				if (this._multitouch)
 				{
-					for(var id in this.draggedObj)
+					for (var id in this.draggedObj)
 					{
 						this._stopDrag(id, true);
 					}
@@ -210,9 +214,11 @@
 					this._stopDrag(null, true);
 			}
 			this._multitouch = !!value;
-			this.draggedObj = value ? {} : null;
-		}});
-	
+			this.draggedObj = value ?
+			{} : null;
+		}
+	});
+
 	/**
 	 * Manually starts dragging an object. If a mouse down event is not supplied
 	 * as the second argument, it defaults to a held drag, that ends as soon as
@@ -228,7 +234,7 @@
 	{
 		this._objMouseDown(object, interactionData);
 	};
-	
+
 	/**
 	 * Mouse down on an object
 	 * @method _objMouseDown
@@ -240,15 +246,15 @@
 	p._objMouseDown = function(obj, interactionData)
 	{
 		//get the InteractionData we want from the Pixi v3 events
-		if(interactionData.data && interactionData.data.global)
+		if (interactionData.data && interactionData.data.global)
 			interactionData = interactionData.data;
 		// if we are dragging something, then ignore any mouse downs
 		// until we release the currently dragged stuff
-		if((!this._multitouch && this.draggedObj) ||
+		if ((!this._multitouch && this.draggedObj) ||
 			(this._multitouch && !interactionData)) return;
 
 		var dragData, mouseDownObjPos, mouseDownStagePos, dragOffset;
-		if(this._multitouch)
+		if (this._multitouch)
 		{
 			dragData = new DragData(obj);
 			this.draggedObj[interactionData.identifier] = dragData;
@@ -264,24 +270,24 @@
 			dragOffset = this._dragOffset = new Point();
 		}
 		//Stop any tweens on the object (mostly the position)
-		if(Tween)
+		if (Tween)
 		{
 			Tween.removeTweens(obj);
 			Tween.removeTweens(obj.position);
 		}
-		
+
 		//get the mouse position and convert it to object parent space
 		interactionData.getLocalPosition(obj.parent, dragOffset);
-		
+
 		//move the offset to respect the object's current position
 		dragOffset.x -= obj.position.x;
 		dragOffset.y -= obj.position.y;
 
 		mouseDownObjPos.x = obj.position.x;
 		mouseDownObjPos.y = obj.position.y;
-		
+
 		//if we don't get an event (manual call neglected to pass one) then default to a held drag
-		if(!interactionData)
+		if (!interactionData)
 		{
 			this.isHeldDrag = true;
 			this._startDrag();
@@ -291,7 +297,7 @@
 			mouseDownStagePos.x = interactionData.global.x;
 			mouseDownStagePos.y = interactionData.global.y;
 			//if it is a touch event, force it to be the held drag type
-			if(!this.allowStickyClick || interactionData.originalEvent.type == "touchstart")
+			if (!this.allowStickyClick || interactionData.originalEvent.type == "touchstart")
 			{
 				this.isTouchMove = interactionData.originalEvent.type == "touchstart";
 				this.isHeldDrag = true;
@@ -306,7 +312,7 @@
 			}
 		}
 	};
-	
+
 	/**
 	 * Start the sticky click
 	 * @method _triggerStickyClick
@@ -320,8 +326,8 @@
 		interactionData = interactionData.data;
 		this.isStickyClick = true;
 		var draggedObj = this._multitouch ?
-							this.draggedObj[interactionData.identifier].obj :
-							this.draggedObj;
+			this.draggedObj[interactionData.identifier].obj :
+			this.draggedObj;
 		this._interaction.off("stagemove", this._triggerHeldDrag);
 		this._interaction.off("stageup", this._triggerStickyClick);
 		this._startDrag(interactionData);
@@ -338,7 +344,7 @@
 		//get the InteractionData we want from the Pixi v3 events
 		interactionData = interactionData.data;
 		var mouseDownStagePos, draggedObj;
-		if(this._multitouch)
+		if (this._multitouch)
 		{
 			draggedObj = this.draggedObj[interactionData.identifier].obj;
 			mouseDownStagePos = this.draggedObj[interactionData.identifier].mouseDownStagePos;
@@ -350,7 +356,7 @@
 		}
 		var xDiff = interactionData.global.x - mouseDownStagePos.x;
 		var yDiff = interactionData.global.y - mouseDownStagePos.y;
-		if(xDiff * xDiff + yDiff * yDiff >= this.dragStartThreshold * this.dragStartThreshold)
+		if (xDiff * xDiff + yDiff * yDiff >= this.dragStartThreshold * this.dragStartThreshold)
 		{
 			this.isHeldDrag = true;
 			this._interaction.off("stagemove", this._triggerHeldDrag);
@@ -368,21 +374,21 @@
 	p._startDrag = function(interactionData)
 	{
 		var draggedObj;
-		if(this._multitouch)
+		if (this._multitouch)
 			draggedObj = this.draggedObj[interactionData.identifier].obj;
 		else
 			draggedObj = this.draggedObj;
-		
-		if(!this._addedDragListeners)
+
+		if (!this._addedDragListeners)
 		{
 			this._addedDragListeners = true;
 			this._interaction.on("stagemove", this._updateObjPosition);
 			this._interaction.on("stageup", this._stopDrag);
 		}
-		
+
 		this._dragStartCallback(draggedObj);
 	};
-	
+
 	/**
 	 * Stops dragging the currently dragged object.
 	 * @public
@@ -394,11 +400,11 @@
 	p.stopDrag = function(doCallback, obj)
 	{
 		var id = null;
-		if(this._multitouch && obj)
+		if (this._multitouch && obj)
 		{
-			for(var key in this.draggedObj)
+			for (var key in this.draggedObj)
 			{
-				if(this.draggedObj[key].obj == obj)
+				if (this.draggedObj[key].obj == obj)
 				{
 					id = key;
 					break;
@@ -420,23 +426,23 @@
 	{
 		var obj, id = null;
 		//if touch id was passed directly
-		if(typeof interactionData == "number")
+		if (typeof interactionData == "number")
 			id = interactionData;
-		else if(interactionData)
+		else if (interactionData)
 		{
 			//get the InteractionData we want from the Pixi v3 events
-			if(interactionData.data && interactionData.data.global)
+			if (interactionData.data && interactionData.data.global)
 				id = interactionData.data.identifier;
-			else if(interactionData instanceof PIXI.interaction.InteractionData)
+			else if (interactionData instanceof PIXI.interaction.InteractionData)
 				id = interactionData.identifier;
 		}
-		if(this._multitouch)
+		if (this._multitouch)
 		{
-			if(id !== null)
+			if (id !== null)
 			{
 				//stop a specific drag
 				var data = this.draggedObj[id];
-				if(!data) return;
+				if (!data) return;
 				obj = data.obj;
 				//save the position that it started at so the callback can make use of it
 				//if they want
@@ -447,7 +453,7 @@
 			else
 			{
 				//stop all drags
-				for(id in this.draggedObj)
+				for (id in this.draggedObj)
 				{
 					this._stopDrag(id, doCallback);
 				}
@@ -459,33 +465,33 @@
 			obj = this.draggedObj;
 			this.draggedObj = null;
 		}
-		
-		if(!obj) return;
-		
+
+		if (!obj) return;
+
 		var removeGlobalListeners = !this._multitouch;
-		if(this._multitouch)
+		if (this._multitouch)
 		{
 			//determine if this was the last drag
 			var found = false;
-			for(id in this.draggedObj)
+			for (id in this.draggedObj)
 			{
 				found = true;
 				break;
 			}
 			removeGlobalListeners = !found;
 		}
-		if(removeGlobalListeners && this._addedDragListeners)
+		if (removeGlobalListeners && this._addedDragListeners)
 		{
 			this._addedDragListeners = false;
 			this._interaction.off("stagemove", this._updateObjPosition);
 			this._interaction.off("stageup", this._stopDrag);
 		}
-		
+
 		this.isTouchMove = false;
 		this.isStickyClick = false;
 		this.isHeldMove = false;
 
-		if(doCallback !== false) // true or undefined
+		if (doCallback !== false) // true or undefined
 			this._dragEndCallback(obj);
 	};
 
@@ -499,11 +505,11 @@
 	{
 		//get the InteractionData we want from the Pixi v3 events
 		interactionData = interactionData.data;
-		
+
 		//if(!this.isTouchMove && !this._theStage.interactionManager.mouseInStage) return;
-		
+
 		var draggedObj, dragOffset;
-		if(this._multitouch)
+		if (this._multitouch)
 		{
 			var data = this.draggedObj[interactionData.identifier];
 			draggedObj = data.obj;
@@ -514,16 +520,16 @@
 			draggedObj = this.draggedObj;
 			dragOffset = this._dragOffset;
 		}
-		
-		if(!draggedObj || !draggedObj.parent)//not quite sure what chain of events would lead to this, but we'll stop dragging to be safe
+
+		if (!draggedObj || !draggedObj.parent) //not quite sure what chain of events would lead to this, but we'll stop dragging to be safe
 		{
 			this.stopDrag(false, draggedObj);
 			return;
 		}
-		
+
 		var mousePos = interactionData.getLocalPosition(draggedObj.parent, this.helperPoint);
 		var bounds = draggedObj._dragBounds;
-		if(bounds)
+		if (bounds)
 		{
 			draggedObj.position.x = Math.clamp(mousePos.x - dragOffset.x, bounds.x, bounds.right);
 			draggedObj.position.y = Math.clamp(mousePos.y - dragOffset.y, bounds.y, bounds.bottom);
@@ -533,9 +539,9 @@
 			draggedObj.position.x = mousePos.x - dragOffset.x;
 			draggedObj.position.y = mousePos.y - dragOffset.y;
 		}
-		if(this.snapSettings)
+		if (this.snapSettings)
 		{
-			switch(this.snapSettings.mode)
+			switch (this.snapSettings.mode)
 			{
 				case "points":
 					this._handlePointSnap(mousePos, dragOffset, draggedObj);
@@ -567,23 +573,23 @@
 		var objY = localMousePos.y - dragOffset.y;
 		var leastDist = -1;
 		var closestPoint = null;
-		for(var i = points.length - 1; i >= 0; --i)
+		for (var i = points.length - 1; i >= 0; --i)
 		{
 			var p = points[i];
 			var distSq = Math.distSq(objX, objY, p.x, p.y);
-			if(distSq <= minDistSq && (distSq < leastDist || leastDist == -1))
+			if (distSq <= minDistSq && (distSq < leastDist || leastDist == -1))
 			{
 				leastDist = distSq;
 				closestPoint = p;
 			}
 		}
-		if(closestPoint)
+		if (closestPoint)
 		{
 			draggedObj.position.x = closestPoint.x;
 			draggedObj.position.y = closestPoint.y;
 		}
 	};
-	
+
 	//=== Giving functions and properties to draggable objects objects
 	var enableDrag = function()
 	{
@@ -591,19 +597,19 @@
 		this.on("mousedown", this._onMouseDownListener);
 		this.buttonMode = this.interactive = true;
 	};
-	
+
 	var disableDrag = function()
 	{
 		this.off("touchstart", this._onMouseDownListener);
 		this.off("mousedown", this._onMouseDownListener);
 		this.buttonMode = this.interactive = false;
 	};
-	
+
 	var _onMouseDown = function(mouseData)
 	{
 		this._dragMan._objMouseDown(this, mouseData);
 	};
-	
+
 	/**
 	 * Adds properties and functions to the object - use enableDrag() and disableDrag() on
 	 * objects to enable/disable them (they start out disabled). Properties added to objects:
@@ -617,13 +623,13 @@
 	 */
 	p.addObject = function(obj, bounds)
 	{
-		if(bounds)
+		if (bounds)
 		{
 			bounds.right = bounds.x + bounds.width;
 			bounds.bottom = bounds.y + bounds.height;
 		}
 		obj._dragBounds = bounds;
-		if(this._draggableObjects.indexOf(obj) >= 0)
+		if (this._draggableObjects.indexOf(obj) >= 0)
 		{
 			//don't change any of the functions or anything, just quit the function after having updated the bounds
 			return;
@@ -634,7 +640,7 @@
 		obj._dragMan = this;
 		this._draggableObjects.push(obj);
 	};
-	
+
 	/**
 	 * Removes properties and functions added by addObject().
 	 * @public
@@ -644,7 +650,7 @@
 	p.removeObject = function(obj)
 	{
 		var index = this._draggableObjects.indexOf(obj);
-		if(index >= 0)
+		if (index >= 0)
 		{
 			obj.disableDrag();
 			delete obj.enableDrag;
@@ -655,7 +661,7 @@
 			this._draggableObjects.splice(index, 1);
 		}
 	};
-	
+
 	/**
 	 * Destroy the manager
 	 * @public
@@ -665,7 +671,7 @@
 	{
 		//clean up dragged obj
 		this.stopDrag(false);
-		
+
 		this._updateObjPosition = null;
 		this._dragStartCallback = null;
 		this._dragEndCallback = null;
@@ -673,7 +679,7 @@
 		this._triggerStickyClick = null;
 		this._stopDrag = null;
 		this._interaction = null;
-		for(var i = this._draggableObjects.length - 1; i >= 0; --i)
+		for (var i = this._draggableObjects.length - 1; i >= 0; --i)
 		{
 			var obj = this._draggableObjects[i];
 			obj.disableDrag();
@@ -685,7 +691,7 @@
 		}
 		this._draggableObjects = null;
 	};
-	
+
 	// Assign to the global namespace
 	namespace('springroll').DragManager = DragManager;
 	namespace('springroll.pixi').DragManager = DragManager;

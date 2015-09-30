@@ -47,7 +47,7 @@
 		this.loop = !!loop;
 		this.speed = speed > 0 ? speed : 1;
 	};
-	
+
 	// Assign to namespace
 	namespace("springroll.pixi").ParallelSpineData = ParallelSpineData;
 
@@ -63,9 +63,9 @@
 	var AnimatorInstance = include('springroll.AnimatorInstance');
 	var Spine = include('PIXI.spine.Spine', false);
 	var ParallelSpineData = include('springroll.pixi.ParallelSpineData');
-	
-	if(!Spine) return;
-	
+
+	if (!Spine) return;
+
 	/**
 	 * The plugin for working with Spine skeletons and animator
 	 * @class SpineInstance
@@ -75,7 +75,7 @@
 	var SpineInstance = function()
 	{
 		AnimatorInstance.call(this);
-		
+
 		this.prevPosition = 0;
 	};
 
@@ -91,13 +91,13 @@
 	{
 		//we don't want Spine animations to advance every render, only when Animator tells them to
 		clip.autoUpdate = false;
-		
+
 		this.clip = clip;
 		this.isLooping = false;
 		this.currentName = null;
 		this.position = this.duration = 0;
 	};
-	
+
 	p.beginAnim = function(animObj, isRepeat)
 	{
 		var spineState = this.clip.state;
@@ -105,9 +105,9 @@
 		var skeletonData = this.clip.stateData.skeletonData;
 
 		this.isLooping = !!animObj.loop;
-		
+
 		var anim = this.currentName = animObj.anim;
-		if(typeof anim == "string")
+		if (typeof anim == "string")
 		{
 			//single anim
 			this.duration = skeletonData.findAnimation(anim).duration;
@@ -117,24 +117,26 @@
 		{
 			var i;
 			//concurrent spine anims
-			if(anim[0] instanceof ParallelSpineData)
+			if (anim[0] instanceof ParallelSpineData)
 			{
 				//this.spineSpeeds = new Array(anim.length);
 				this.duration = 0;
-				var maxDuration = 0, maxLoopDuration = 0, duration;
-				for(i = 0; i < anim.length; ++i)
+				var maxDuration = 0,
+					maxLoopDuration = 0,
+					duration;
+				for (i = 0; i < anim.length; ++i)
 				{
 					var animLoop = anim[i].loop;
 					spineState.setAnimationByName(i, anim[i].anim, animLoop);
 					duration = skeletonData.findAnimation(anim[i].anim).duration;
-					if(animLoop)
+					if (animLoop)
 					{
-						if(duration > maxLoopDuration)
+						if (duration > maxLoopDuration)
 							maxLoopDuration = duration;
 					}
 					else
 					{
-						if(duration > maxDuration)
+						if (duration > maxDuration)
 							maxDuration = duration;
 					}
 					/*if (anim[i].speed > 0)
@@ -150,14 +152,14 @@
 			else
 			{
 				this.duration = skeletonData.findAnimation(anim[0]).duration;
-				if(anim.length == 1)
+				if (anim.length == 1)
 				{
 					spineState.setAnimationByName(0, anim[0], this.isLooping);
 				}
 				else
 				{
 					spineState.setAnimationByName(0, anim[0], false);
-					for(i = 1; i < anim.length; ++i)
+					for (i = 1; i < anim.length; ++i)
 					{
 						spineState.addAnimationByName(0, anim[i],
 							this.isLooping && i == anim.length - 1);
@@ -166,18 +168,18 @@
 				}
 			}
 		}
-		
-		if(isRepeat)
+
+		if (isRepeat)
 			this.position = 0;
 		else
 		{
 			var animStart = animObj.start || 0;
 			this.position = animStart < 0 ? Math.random() * this.duration : animStart;
 		}
-		
+
 		this.clip.update(this.position);
 	};
-	
+
 	/**
 	 * Ends animation playback.
 	 * @method endAnim
@@ -186,7 +188,7 @@
 	{
 		this.clip.update(this.duration - this.position);
 	};
-	
+
 	/**
 	 * Updates position to a new value, and does anything that the clip needs, like updating
 	 * timelines.
@@ -195,7 +197,7 @@
 	 */
 	p.setPosition = function(newPos)
 	{
-		if(newPos < this.position)
+		if (newPos < this.position)
 			this.clip.update(this.duration - this.position + newPos);
 		else
 			this.clip.update(newPos - this.position);
@@ -226,30 +228,30 @@
 	{
 		var i;
 		var skeletonData = clip.stateData.skeletonData;
-		if(typeof anim == "string")
+		if (typeof anim == "string")
 		{
 			//single anim
 			return !!skeletonData.findAnimation(anim);
 		}
-		else if(Array.isArray(anim))
+		else if (Array.isArray(anim))
 		{
 			//concurrent spine anims
-			if(anim[0] instanceof ParallelSpineData)
+			if (anim[0] instanceof ParallelSpineData)
 			{
-				for(i = 0; i < anim.length; ++i)
+				for (i = 0; i < anim.length; ++i)
 				{
 					//ensure all animations exist
-					if(!skeletonData.findAnimation(anim[i].anim))
+					if (!skeletonData.findAnimation(anim[i].anim))
 						return false;
 				}
 			}
 			//list of sequential spine anims
 			else
 			{
-				for(i = 0; i < anim.length; ++i)
+				for (i = 0; i < anim.length; ++i)
 				{
 					//ensure all animations exist
-					if(!skeletonData.findAnimation(anim[i]))
+					if (!skeletonData.findAnimation(anim[i]))
 						return false;
 				}
 			}
@@ -270,30 +272,32 @@
 	{
 		var i;
 		var skeletonData = this.clip.stateData.skeletonData;
-		if(typeof anim == "string")
+		if (typeof anim == "string")
 		{
 			//single anim
 			return skeletonData.findAnimation(anim).duration;
 		}
-		else if(Array.isArray(anim))
+		else if (Array.isArray(anim))
 		{
 			var duration = 0;
 			//concurrent spine anims
-			if(anim[0] instanceof ParallelSpineData)
+			if (anim[0] instanceof ParallelSpineData)
 			{
-				var maxDuration = 0, maxLoopDuration = 0, tempDur;
-				for(i = 0; i < anim.length; ++i)
+				var maxDuration = 0,
+					maxLoopDuration = 0,
+					tempDur;
+				for (i = 0; i < anim.length; ++i)
 				{
 					var animLoop = anim[i].loop;
 					tempDur = skeletonData.findAnimation(anim[i].anim).duration;
-					if(animLoop)
+					if (animLoop)
 					{
-						if(tempDur > maxLoopDuration)
+						if (tempDur > maxLoopDuration)
 							maxLoopDuration = tempDur;
 					}
 					else
 					{
-						if(tempDur > maxDuration)
+						if (tempDur > maxDuration)
 							maxDuration = tempDur;
 					}
 				}
@@ -305,9 +309,9 @@
 			else
 			{
 				duration = skeletonData.findAnimation(anim[0]).duration;
-				if(anim.length > 1)
+				if (anim.length > 1)
 				{
-					for(i = 1; i < anim.length; ++i)
+					for (i = 1; i < anim.length; ++i)
 					{
 						duration += skeletonData.findAnimation(anim[i]).duration;
 					}
@@ -343,9 +347,9 @@
 		AtlasPage = include('PIXI.spine.SpineRuntime.AtlasPage', false),
 		AtlasRegion = include('PIXI.spine.SpineRuntime.AtlasRegion', false),
 		Atlas = include('PIXI.spine.SpineRuntime.Atlas', false);
-	
-	if(!AtlasReader) return;
-	
+
+	if (!AtlasReader) return;
+
 	/**
 	 * Handles an atlas exported from Spine. This class is created during Spine loading, and
 	 * should probably never be used on its own. Code in this class is pulled from
@@ -360,9 +364,9 @@
 	{
 		this.pages = [];
 		this.regions = [];
-		
-		if(!atlasText) return;
-		
+
+		if (!atlasText) return;
+
 		var reader = new AtlasReader(atlasText);
 		var tuple = [];
 		tuple.length = 4;
@@ -380,7 +384,7 @@
 			{
 				page = new AtlasPage();
 				page.name = line;
-		
+
 				if (reader.readTuple(tuple) == 2)
 				{
 					// size is only optional for an atlas packed with an old TexturePacker.
@@ -389,11 +393,11 @@
 					reader.readTuple(tuple);
 				}
 				page.format = Atlas.Format[tuple[0]];
-		
+
 				reader.readTuple(tuple);
 				page.minFilter = Atlas.TextureFilter[tuple[0]];
 				page.magFilter = Atlas.TextureFilter[tuple[1]];
-		
+
 				var direction = reader.readValue();
 				page.uWrap = Atlas.TextureWrap.clampToEdge;
 				page.vWrap = Atlas.TextureWrap.clampToEdge;
@@ -403,28 +407,28 @@
 					page.vWrap = Atlas.TextureWrap.repeat;
 				else if (direction == "xy")
 					page.uWrap = page.vWrap = Atlas.TextureWrap.repeat;
-		
+
 				page.rendererObject = textureDictionary[line].baseTexture;
-		
+
 				this.pages.push(page);
-		
+
 			}
 			else
 			{
 				var region = new AtlasRegion();
 				region.name = line;
 				region.page = page;
-		
+
 				region.rotate = reader.readValue() == "true";
-		
+
 				reader.readTuple(tuple);
 				var x = parseInt(tuple[0]);
 				var y = parseInt(tuple[1]);
-		
+
 				reader.readTuple(tuple);
 				var width = parseInt(tuple[0]);
 				var height = parseInt(tuple[1]);
-		
+
 				region.u = x / page.width;
 				region.v = y / page.height;
 				if (region.rotate)
@@ -441,38 +445,38 @@
 				region.y = y;
 				region.width = Math.abs(width);
 				region.height = Math.abs(height);
-		
+
 				if (reader.readTuple(tuple) == 4)
 				{
 					// split is optional
 					region.splits = [parseInt(tuple[0]), parseInt(tuple[1]), parseInt(tuple[2]), parseInt(tuple[3])];
-		
+
 					if (reader.readTuple(tuple) == 4)
 					{
 						// pad is optional, but only present with splits
 						region.pads = [parseInt(tuple[0]), parseInt(tuple[1]), parseInt(tuple[2]), parseInt(tuple[3])];
-						
+
 						reader.readTuple(tuple);
 					}
 				}
-		
+
 				region.originalWidth = parseInt(tuple[0]);
 				region.originalHeight = parseInt(tuple[1]);
-		
+
 				reader.readTuple(tuple);
 				region.offsetX = parseInt(tuple[0]);
 				region.offsetY = parseInt(tuple[1]);
-		
+
 				region.index = parseInt(reader.readValue());
-		
+
 				this.regions.push(region);
 			}
 		}
 	};
-	
+
 	// Extend Object
 	var p = SpineAtlas.prototype = {};
-	
+
 	p.findRegion = function(name)
 	{
 		var regions = this.regions;
@@ -480,14 +484,14 @@
 			if (regions[i].name == name) return regions[i];
 		return null;
 	};
-	
+
 	p.dispose = function()
 	{
 		var pages = this.pages;
 		for (var i = 0, n = pages.length; i < n; i++)
 			pages[i].rendererObject.destroy(true);
 	};
-	
+
 	p.updateUVs = function(page)
 	{
 		var regions = this.regions;
@@ -509,7 +513,7 @@
 			}
 		}
 	};
-	
+
 	/**
 	 * Adds a standalone image as a page and region
 	 * @method addImage
@@ -534,7 +538,7 @@
 		page.rendererObject = texture.baseTexture;
 		//keep page
 		this.pages.push(page);
-		
+
 		//set up the region
 		var region = new AtlasRegion();
 		region.name = name;
@@ -552,7 +556,7 @@
 		//keep region
 		this.regions.push(region);
 	};
-	
+
 	/**
 	 * Sets up this SpineAtlas from an instance of our TextureAtlas class to allow for
 	 * the use of atlases exported from TexturePacker.
@@ -577,8 +581,8 @@
 		page.rendererObject = atlas.baseTexture;
 		//keep page
 		this.pages.push(page);
-		
-		for(name in atlas.frames)
+
+		for (name in atlas.frames)
 		{
 			var frame = atlas.frames[name];
 			var region = new AtlasRegion();
@@ -588,10 +592,10 @@
 			//figure out region coordinates
 			var x = frame.crop.x;
 			var y = frame.crop.y;
-	
+
 			var width = frame.crop.width;
 			var height = frame.crop.height;
-	
+
 			region.u = x / page.width;
 			region.v = y / page.height;
 			if (region.rotate)
@@ -608,11 +612,11 @@
 			region.y = y;
 			region.width = Math.abs(width);
 			region.height = Math.abs(height);
-	
+
 			region.originalWidth = frame.width;
 			region.originalHeight = frame.height;
-	
-			if(frame.trim)
+
+			if (frame.trim)
 			{
 				region.offsetX = frame.trim.x;
 				region.offsetY = frame.trim.y;
@@ -648,8 +652,8 @@
 	var TextureTask = include('springroll.pixi.TextureTask'),
 		SpineAtlas = include('springroll.pixi.SpineAtlas', false),
 		PixiUtils = include('PIXI.utils');
-	
-	if(!SpineAtlas) return;
+
+	if (!SpineAtlas) return;
 
 	/**
 	 * Internal class for loading a texture atlas in the format exported by Spine.
@@ -678,7 +682,7 @@
 		 * @property {String} spineAtlas
 		 */
 		this.spineAtlas = this.filter(asset.spineAtlas);
-		
+
 		this.images = asset.images;
 	};
 
@@ -696,8 +700,8 @@
 	{
 		// atlas data and one or more images or color/alpha splits
 		return !!asset.spineAtlas &&
-				Array.isArray(asset.images) &&
-				TextureTask.test(asset.images[0]);
+			Array.isArray(asset.images) &&
+			TextureTask.test(asset.images[0]);
 	};
 
 	/**
@@ -707,7 +711,11 @@
 	 */
 	p.start = function(callback)
 	{
-		this.load({_atlas: this.spineAtlas, _images: this.images}, function(results)
+		this.load(
+		{
+			_atlas: this.spineAtlas,
+			_images: this.images
+		}, function(results)
 		{
 			callback(new SpineAtlas(results._atlas, results._images), results);
 		});
@@ -731,8 +739,8 @@
 		AtlasAttachmentParser = include('PIXI.spine.SpineRuntime.AtlasAttachmentParser', false),
 		SpineAtlasTask = include('springroll.pixi.SpineAtlasTask', false),
 		SpineAtlas = include('springroll.pixi.SpineAtlas', false);
-	
-	if(!atlasParser) return;
+
+	if (!atlasParser) return;
 
 	/**
 	 * SpineAnimTask loads a spine animation and the texture atlas(es) that it needs.
@@ -778,7 +786,7 @@
 		 * @property {String} atlas
 		 */
 		this.atlas = asset.atlas;
-		
+
 		/**
 		 * Extra images to be added to the atlas
 		 * @property {String} extraImages
@@ -799,14 +807,14 @@
 	SpineAnimTask.test = function(asset)
 	{
 		//anim data is required
-		if(!asset.spineAnim)
+		if (!asset.spineAnim)
 			return false;
 		//if atlas exists, make sure it is a valid atlas
-		if(asset.atlas &&
+		if (asset.atlas &&
 			!(TextureAtlasTask.test(asset.atlas) || SpineAtlasTask.test(asset.atlas)))
 			return false;
 		//if atlas does not exist, extraImages is required
-		if(!asset.atlas)
+		if (!asset.atlas)
 			return !!asset.extraImages;
 		//if it made it this far, it checks out
 		return true;
@@ -819,30 +827,34 @@
 	 */
 	p.start = function(callback)
 	{
-		var asset = {_anim: this.spineAnim};
-		if(this.atlas)
+		var asset = {
+			_anim: this.spineAnim
+		};
+		if (this.atlas)
 			asset._atlas = this.atlas;
-		if(this.extraImages)
-			asset._images = {assets:this.extraImages};
-		
+		if (this.extraImages)
+			asset._images = {
+				assets: this.extraImages
+			};
+
 		this.load(asset, function(results)
 		{
 			var spineAtlas = results._atlas;
 			//if we didn't load an atlas, then should make an atlas because we were probably
 			//loading individual images
-			if(!spineAtlas)
+			if (!spineAtlas)
 				spineAtlas = new SpineAtlas();
 			//if a TextureAtlas was loaded, make a SpineAtlas out of it
-			if(!(spineAtlas instanceof SpineAtlas))
+			if (!(spineAtlas instanceof SpineAtlas))
 			{
 				var textureAtlas = spineAtlas;
 				spineAtlas = new SpineAtlas();
 				spineAtlas.fromTextureAtlas(textureAtlas);
 			}
 			//see if we need to add in any individual images
-			if(results._images)
+			if (results._images)
 			{
-				for(var name in results._images)
+				for (var name in results._images)
 				{
 					spineAtlas.addImage(name, results._images[name]);
 				}
@@ -851,7 +863,7 @@
 			// spine animation
 			var spineJsonParser = new SkeletonJsonParser(new AtlasAttachmentParser(spineAtlas));
 			var skeletonData = spineJsonParser.readSkeletonData(results._anim);
-			
+
 			//store both the atlas and the skeleton data for later cleanup
 			var asset = {
 				id: this.id,
@@ -861,7 +873,7 @@
 			//store the skeletonData in the external cache, for standardization
 			if (atlasParser.enableCaching && this.cache)
 				atlasParser.AnimCache[this.id] = skeletonData;
-			
+
 			//set up a destroy function for cleanly unloading the asset (in particular the atlas)
 			asset.destroy = function()
 			{
@@ -873,7 +885,7 @@
 				//of spine runtime objects, no display objects or anything
 				this.spineData = this.spineAtlas = null;
 			};
-			
+
 			//return the asset object
 			callback(asset, results);
 		}.bind(this));

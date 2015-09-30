@@ -165,7 +165,7 @@
 		var sizes = this._sizes;
 
 		// Check the largest first
-		for(var i = sizes.length - 1; i >= 0; --i)
+		for (var i = sizes.length - 1; i >= 0; --i)
 		{
 			if (sizes[i].maxSize / devicePixelRatio > minSize)
 			{

@@ -81,7 +81,7 @@
 	//Reference to the prototype
 	var s = EventDispatcher.prototype;
 	var p = extend(HintsPlayer, EventDispatcher);
-	
+
 	/**
 	 * Play an animation event
 	 * @event anim
@@ -91,7 +91,7 @@
 	 * @param {Function} data.complete Callback when complete
 	 * @param {Function} data.cancel Callback when canceled
 	 */
-	
+
 	/**
 	 * Play an Voice-Over event
 	 * @event vo

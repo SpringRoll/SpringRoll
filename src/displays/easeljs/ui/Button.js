@@ -428,19 +428,19 @@
 	 * @property {String} BUTTON_PRESS
 	 */
 	Button.BUTTON_PRESS = "buttonPress";
-	
+
 	/**
-	* An event for when the button is moused over (while enabled).
-	* @static
-	* @property {String} BUTTON_OVER
-	*/
+	 * An event for when the button is moused over (while enabled).
+	 * @static
+	 * @property {String} BUTTON_OVER
+	 */
 	Button.BUTTON_OVER = "buttonOver";
-	
+
 	/**
-	* An event for when the button is moused out (while enabled).
-	* @static
-	* @property {String} BUTTON_OUT
-	*/
+	 * An event for when the button is moused out (while enabled).
+	 * @static
+	 * @property {String} BUTTON_OUT
+	 */
 	Button.BUTTON_OUT = "buttonOut";
 
 	/*
@@ -578,7 +578,7 @@
 
 			this._updateState();
 		},
-		configurable:true
+		configurable: true
 	});
 
 	/**
@@ -592,8 +592,8 @@
 	{
 		//check to make sure we don't add reserved names
 		if (RESERVED_STATES.indexOf(propertyName) >= 0) return;
-		
-		if(DEBUG && Debug && this[propertyName] !== undefined)
+
+		if (DEBUG && Debug && this[propertyName] !== undefined)
 		{
 			Debug.error("Adding property %s to button is dangerous, as property already exists with that name!", propertyName);
 		}
@@ -639,7 +639,7 @@
 		//set up the source rect for just that button state
 		back.sourceRect = data.src;
 		//if the image was rotated in a TextureAtlas, account for that
-		if(data.rotated)
+		if (data.rotated)
 		{
 			back.rotation = -90;
 			back.regX = back.sourceRect.width;
@@ -732,7 +732,7 @@
 	{
 		this._stateFlags.over = true;
 		this._updateState();
-		
+
 		this.dispatchEvent(new Event(Button.BUTTON_OVER));
 	};
 
@@ -745,7 +745,7 @@
 	{
 		this._stateFlags.over = false;
 		this._updateState();
-		
+
 		this.dispatchEvent(new Event(Button.BUTTON_OUT));
 	};
 
@@ -963,22 +963,26 @@
 	 */
 	Button.generateSettingsFromAtlas = function(atlas, baseName, statePriority)
 	{
-		var output = {priority: statePriority};
+		var output = {
+			priority: statePriority
+		};
 		//start at the end to start at the up state
 		for (var i = statePriority.length - 1; i >= 0; --i)
 		{
 			var frame = atlas.getFrame(baseName + "_" + statePriority[i]);
-			if(!frame)
+			if (!frame)
 			{
 				output[statePriority[i]] = output.up;
 				continue;
 			}
-			if(!output.image)
+			if (!output.image)
 				output.image = frame.image;
-			var state = output[statePriority[i]] = {src:frame.frame};
-			if(frame.rotated)
+			var state = output[statePriority[i]] = {
+				src: frame.frame
+			};
+			if (frame.rotated)
 				state.rotated = true;
-			if(frame.trimmed)
+			if (frame.trimmed)
 			{
 				state.trim = new Rectangle(frame.offset.x, frame.offset.y, frame.width,
 					frame.height);

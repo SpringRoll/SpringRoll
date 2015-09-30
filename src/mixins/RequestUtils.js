@@ -8,7 +8,7 @@
 	var AbstractLoader = include('createjs.AbstractLoader', false);
 
 	if (!RequestUtils) return;
-	
+
 	/**
 	 * Mixins for the CreateJS RequestUtils static class
 	 * @class RequestUtils
@@ -24,11 +24,12 @@
 	 */
 	RequestUtils.getTypeByExtension = function(extension)
 	{
-		if(extension)
+		if (extension)
 		{
-			switch(extension.toLowerCase())
+			switch (extension.toLowerCase())
 			{
-				case "fnt": return AbstractLoader.XML;
+				case "fnt":
+					return AbstractLoader.XML;
 			}
 		}
 		return orig_getTypeByExtension(extension);

@@ -9,9 +9,9 @@
 	var AnimatorInstance = include('springroll.AnimatorInstance');
 	var Spine = include('PIXI.spine.Spine', false);
 	var ParallelSpineData = include('springroll.pixi.ParallelSpineData');
-	
-	if(!Spine) return;
-	
+
+	if (!Spine) return;
+
 	/**
 	 * The plugin for working with Spine skeletons and animator
 	 * @class SpineInstance
@@ -21,7 +21,7 @@
 	var SpineInstance = function()
 	{
 		AnimatorInstance.call(this);
-		
+
 		this.prevPosition = 0;
 	};
 
@@ -37,13 +37,13 @@
 	{
 		//we don't want Spine animations to advance every render, only when Animator tells them to
 		clip.autoUpdate = false;
-		
+
 		this.clip = clip;
 		this.isLooping = false;
 		this.currentName = null;
 		this.position = this.duration = 0;
 	};
-	
+
 	p.beginAnim = function(animObj, isRepeat)
 	{
 		var spineState = this.clip.state;
@@ -51,9 +51,9 @@
 		var skeletonData = this.clip.stateData.skeletonData;
 
 		this.isLooping = !!animObj.loop;
-		
+
 		var anim = this.currentName = animObj.anim;
-		if(typeof anim == "string")
+		if (typeof anim == "string")
 		{
 			//single anim
 			this.duration = skeletonData.findAnimation(anim).duration;
@@ -63,24 +63,26 @@
 		{
 			var i;
 			//concurrent spine anims
-			if(anim[0] instanceof ParallelSpineData)
+			if (anim[0] instanceof ParallelSpineData)
 			{
 				//this.spineSpeeds = new Array(anim.length);
 				this.duration = 0;
-				var maxDuration = 0, maxLoopDuration = 0, duration;
-				for(i = 0; i < anim.length; ++i)
+				var maxDuration = 0,
+					maxLoopDuration = 0,
+					duration;
+				for (i = 0; i < anim.length; ++i)
 				{
 					var animLoop = anim[i].loop;
 					spineState.setAnimationByName(i, anim[i].anim, animLoop);
 					duration = skeletonData.findAnimation(anim[i].anim).duration;
-					if(animLoop)
+					if (animLoop)
 					{
-						if(duration > maxLoopDuration)
+						if (duration > maxLoopDuration)
 							maxLoopDuration = duration;
 					}
 					else
 					{
-						if(duration > maxDuration)
+						if (duration > maxDuration)
 							maxDuration = duration;
 					}
 					/*if (anim[i].speed > 0)
@@ -96,14 +98,14 @@
 			else
 			{
 				this.duration = skeletonData.findAnimation(anim[0]).duration;
-				if(anim.length == 1)
+				if (anim.length == 1)
 				{
 					spineState.setAnimationByName(0, anim[0], this.isLooping);
 				}
 				else
 				{
 					spineState.setAnimationByName(0, anim[0], false);
-					for(i = 1; i < anim.length; ++i)
+					for (i = 1; i < anim.length; ++i)
 					{
 						spineState.addAnimationByName(0, anim[i],
 							this.isLooping && i == anim.length - 1);
@@ -112,18 +114,18 @@
 				}
 			}
 		}
-		
-		if(isRepeat)
+
+		if (isRepeat)
 			this.position = 0;
 		else
 		{
 			var animStart = animObj.start || 0;
 			this.position = animStart < 0 ? Math.random() * this.duration : animStart;
 		}
-		
+
 		this.clip.update(this.position);
 	};
-	
+
 	/**
 	 * Ends animation playback.
 	 * @method endAnim
@@ -132,7 +134,7 @@
 	{
 		this.clip.update(this.duration - this.position);
 	};
-	
+
 	/**
 	 * Updates position to a new value, and does anything that the clip needs, like updating
 	 * timelines.
@@ -141,7 +143,7 @@
 	 */
 	p.setPosition = function(newPos)
 	{
-		if(newPos < this.position)
+		if (newPos < this.position)
 			this.clip.update(this.duration - this.position + newPos);
 		else
 			this.clip.update(newPos - this.position);
@@ -172,30 +174,30 @@
 	{
 		var i;
 		var skeletonData = clip.stateData.skeletonData;
-		if(typeof anim == "string")
+		if (typeof anim == "string")
 		{
 			//single anim
 			return !!skeletonData.findAnimation(anim);
 		}
-		else if(Array.isArray(anim))
+		else if (Array.isArray(anim))
 		{
 			//concurrent spine anims
-			if(anim[0] instanceof ParallelSpineData)
+			if (anim[0] instanceof ParallelSpineData)
 			{
-				for(i = 0; i < anim.length; ++i)
+				for (i = 0; i < anim.length; ++i)
 				{
 					//ensure all animations exist
-					if(!skeletonData.findAnimation(anim[i].anim))
+					if (!skeletonData.findAnimation(anim[i].anim))
 						return false;
 				}
 			}
 			//list of sequential spine anims
 			else
 			{
-				for(i = 0; i < anim.length; ++i)
+				for (i = 0; i < anim.length; ++i)
 				{
 					//ensure all animations exist
-					if(!skeletonData.findAnimation(anim[i]))
+					if (!skeletonData.findAnimation(anim[i]))
 						return false;
 				}
 			}
@@ -216,30 +218,32 @@
 	{
 		var i;
 		var skeletonData = this.clip.stateData.skeletonData;
-		if(typeof anim == "string")
+		if (typeof anim == "string")
 		{
 			//single anim
 			return skeletonData.findAnimation(anim).duration;
 		}
-		else if(Array.isArray(anim))
+		else if (Array.isArray(anim))
 		{
 			var duration = 0;
 			//concurrent spine anims
-			if(anim[0] instanceof ParallelSpineData)
+			if (anim[0] instanceof ParallelSpineData)
 			{
-				var maxDuration = 0, maxLoopDuration = 0, tempDur;
-				for(i = 0; i < anim.length; ++i)
+				var maxDuration = 0,
+					maxLoopDuration = 0,
+					tempDur;
+				for (i = 0; i < anim.length; ++i)
 				{
 					var animLoop = anim[i].loop;
 					tempDur = skeletonData.findAnimation(anim[i].anim).duration;
-					if(animLoop)
+					if (animLoop)
 					{
-						if(tempDur > maxLoopDuration)
+						if (tempDur > maxLoopDuration)
 							maxLoopDuration = tempDur;
 					}
 					else
 					{
-						if(tempDur > maxDuration)
+						if (tempDur > maxDuration)
 							maxDuration = tempDur;
 					}
 				}
@@ -251,9 +255,9 @@
 			else
 			{
 				duration = skeletonData.findAnimation(anim[0]).duration;
-				if(anim.length > 1)
+				if (anim.length > 1)
 				{
-					for(i = 1; i < anim.length; ++i)
+					for (i = 1; i < anim.length; ++i)
 					{
 						duration += skeletonData.findAnimation(anim[i]).duration;
 					}

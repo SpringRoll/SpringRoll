@@ -8,7 +8,7 @@
 	// Include classes
 	var ticker = include('PIXI.ticker.shared', false),
 		ApplicationPlugin = include('springroll.ApplicationPlugin');
-	
+
 	if (!ticker) return;
 
 	/**
@@ -17,13 +17,13 @@
 	var plugin = new ApplicationPlugin();
 
 	/**
-	*  Keep track of total time elapsed to feed to the Ticker
-	*  @property {Number} _time
-	*  @private
-	*  @default 0
-	*/
+	 *  Keep track of total time elapsed to feed to the Ticker
+	 *  @property {Number} _time
+	 *  @private
+	 *  @default 0
+	 */
 	var _time = 0;
-	
+
 	ticker.autoStart = false;
 	ticker.stop();
 
@@ -33,7 +33,7 @@
 		//and what the user saw the previous frame
 		this.on('update', updateTicker, 300);
 	};
-	
+
 	function updateTicker(elapsed)
 	{
 		_time += elapsed;

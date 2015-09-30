@@ -3,7 +3,8 @@
  * @module Core
  * @namespace window
  */
-(function(Object, support, undefined){
+(function(Object, support, undefined)
+{
 
 	/**
 	 * Add methods to Object
@@ -27,13 +28,13 @@
 		{
 			target = {};
 		}
-		
+
 		for (var property in source)
 		{
 			if (source.hasOwnProperty(property))
 			{
 				var sourceProperty = source[property];
-				
+
 				if (typeof sourceProperty === 'object' && Object.isPlain(sourceProperty))
 				{
 					target[property] = Object.merge(target[property], sourceProperty);
@@ -42,7 +43,7 @@
 				target[property] = sourceProperty;
 			}
 		}
-		
+
 		for (var i = 2, l = arguments.length; i < l; i++)
 		{
 			Object.merge(target, arguments[i]);
@@ -70,11 +71,13 @@
 			return false;
 		}
 
-		try {
+		try
+		{
 			// Not own constructor property must be Object
-			if ( obj.constructor &&
+			if (obj.constructor &&
 				!hasOwn.call(obj, "constructor") &&
-				!hasOwn.call(obj.constructor.prototype, "isPrototypeOf") ) {
+				!hasOwn.call(obj.constructor.prototype, "isPrototypeOf"))
+			{
 				return false;
 			}
 		}
@@ -96,17 +99,18 @@
 
 		// Own properties are enumerated firstly, so to speed up,
 		// if last one is own, then all properties are own.
-		for (key in obj) {}
+		for (key in obj)
+		{}
 
 		return key === undefined || hasOwn.call(obj, key);
 	};
-	
+
 	/**
 	 * Creates a shallow copy of the object.
 	 * @method clone
 	 * @return {Object} The shallow copy.
 	 */
-	if(!Object.prototype.clone)
+	if (!Object.prototype.clone)
 	{
 		Object.defineProperty(Object.prototype, 'clone',
 		{
@@ -116,7 +120,7 @@
 			{
 				var rtn = {};
 				var thisObj = this;
-				for(var key in thisObj)
+				for (var key in thisObj)
 				{
 					rtn[key] = thisObj[key];
 				}
@@ -125,7 +129,8 @@
 		});
 	}
 
-}(Object, {}));
+}(Object,
+{}));
 /**
  * @module Core
  * @namespace window
@@ -135,8 +140,9 @@
  * @class extend
  * @static
  */
-(function(window){
-	
+(function(window)
+{
+
 	// The extend function already exists
 	if ("extend" in window) return;
 
@@ -174,11 +180,12 @@
  * @class include
  * @static
  */
-(function(window, undefined){
-	
+(function(window, undefined)
+{
+
 	// The include function already exists
 	if ("include" in window) return;
-	
+
 	/**
 	 * Import a class
 	 *
@@ -197,10 +204,10 @@
 		var parts = namespaceString.split('.'),
 			parent = window,
 			currentPart = '';
-		
+
 		required = required !== undefined ? !!required : true;
 
-		for(var i = 0, length = parts.length; i < length; i++)
+		for (var i = 0, length = parts.length; i < length; i++)
 		{
 			currentPart = parts[i];
 			if (!parent[currentPart])
@@ -222,10 +229,10 @@
 		}
 		return parent;
 	};
-	
+
 	// Assign to the window namespace
 	window.include = include;
-	
+
 }(window));
 /**
  * @module Core
@@ -282,13 +289,13 @@
 		//loop over mixin prototype to add functions
 		var p = superClass.prototype;
 
-		for(var prop in p)
+		for (var prop in p)
 		{
 			// For things that we set using Object.defineProperty
 			// very important that enumerable:true for the 
 			// defineProperty options
 			var propDesc = Object.getOwnPropertyDescriptor(p, prop);
-			if(propDesc)
+			if (propDesc)
 			{
 				Object.defineProperty(target, prop, propDesc);
 			}
@@ -305,7 +312,7 @@
 
 	// Assign to the window namespace
 	window.mixin = mixin;
-	
+
 }(window, Object));
 /**
  * @module Core
@@ -317,11 +324,12 @@
  * @class namespace
  * @static
  */
-(function(window){
-	
+(function(window)
+{
+
 	// The namespace function already exists
 	if ("namespace" in window) return;
-	
+
 	/**
 	 * Create the namespace and assing to the window
 	 *
@@ -334,31 +342,32 @@
 	 * @param {string} namespaceString Name space, for instance 'springroll.utils'
 	 * @return {object} The namespace object attached to the current window
 	 */
-	var namespace = function(namespaceString) {
+	var namespace = function(namespaceString)
+	{
 		var parts = namespaceString.split('.'),
 			parent = window,
 			currentPart = '';
 
-		for(var i = 0, length = parts.length; i < length; i++)
+		for (var i = 0, length = parts.length; i < length; i++)
 		{
 			currentPart = parts[i];
-			parent[currentPart] = parent[currentPart] || {};
+			parent[currentPart] = parent[currentPart] ||
+			{};
 			parent = parent[currentPart];
 		}
 		return parent;
 	};
-	
+
 	// Assign to the window namespace
 	window.namespace = namespace;
-	
+
 }(window));
-
-
 /**
  * @module Core
  * @namespace springroll
  */
-(function(undefined){
+(function(undefined)
+{
 
 	/**
 	 * The EventDispatcher mirrors the functionality of AS3 and EaselJS's EventDispatcher,
@@ -368,24 +377,24 @@
 	 * @constructor
 	 */
 	var EventDispatcher = function()
-	{
-		/**
-		 * The collection of listeners
-		 * @property {Array} _listeners
-		 * @private
-		 */
-		this._listeners = [];
+		{
+			/**
+			 * The collection of listeners
+			 * @property {Array} _listeners
+			 * @private
+			 */
+			this._listeners = [];
 
-		/**
-		 * If the dispatcher is destroyed
-		 * @property {Boolean} _destroyed
-		 * @protected
-		 */
-		this._destroyed = false;
-	},
+			/**
+			 * If the dispatcher is destroyed
+			 * @property {Boolean} _destroyed
+			 * @protected
+			 */
+			this._destroyed = false;
+		},
 
-	// Reference to the prototype
-	p = EventDispatcher.prototype;
+		// Reference to the prototype
+		p = EventDispatcher.prototype;
 
 	/**
 	 * If the dispatcher is destroyed
@@ -393,7 +402,7 @@
 	 */
 	Object.defineProperty(p, 'destroyed',
 	{
-		enumerable:true,
+		enumerable: true,
 		get: function()
 		{
 			return this._destroyed;
@@ -417,12 +426,12 @@
 
 			var args;
 
-			if(arguments.length > 1)
+			if (arguments.length > 1)
 			{
 				args = Array.prototype.slice.call(arguments, 1);
 			}
 
-			for(var i = listeners.length - 1; i >= 0; --i)
+			for (var i = listeners.length - 1; i >= 0; --i)
 			{
 				var listener = listeners[i];
 				if (listener._eventDispatcherOnce)
@@ -478,14 +487,15 @@
 		// Callback
 		else if (type(callback) === 'function')
 		{
-			var names = name.split(' '), n = null;
+			var names = name.split(' '),
+				n = null;
 
 			var listener;
 			for (var i = 0, nl = names.length; i < nl; i++)
 			{
 				n = names[i];
 				listener = this._listeners[n];
-				if(!listener)
+				if (!listener)
 					listener = this._listeners[n] = [];
 
 				if (once)
@@ -497,7 +507,7 @@
 				if (listener.indexOf(callback) === -1)
 				{
 					listener.push(callback);
-					if(listener.length > 1)
+					if (listener.length > 1)
 						listener.sort(listenerSorter);
 				}
 			}
@@ -545,15 +555,15 @@
 		}
 		else
 		{
-			var names = name.split(' '); 
-			var	n = null;
-			var listener; 
-			var	index;
+			var names = name.split(' ');
+			var n = null;
+			var listener;
+			var index;
 			for (var i = 0, nl = names.length; i < nl; i++)
 			{
 				n = names[i];
 				listener = this._listeners[n];
-				if(listener)
+				if (listener)
 				{
 					// remove all listeners for that event
 					if (callback === undefined)
@@ -585,11 +595,11 @@
 	 */
 	p.has = function(name, callback)
 	{
-		if(!name) return false;
+		if (!name) return false;
 
 		var listeners = this._listeners[name];
-		if(!listeners) return false;
-		if(!callback)
+		if (!listeners) return false;
+		if (!callback)
 			return listeners.length > 0;
 		return listeners.indexOf(callback) >= 0;
 	};
@@ -634,8 +644,9 @@
  * @module Core
  * @namespace springroll
  */
-(function(global, doc, undefined){
-		
+(function(global, doc, undefined)
+{
+
 	/**
 	 * Handle the page visiblity change, if supported. Application uses one of these to
 	 * monitor page visibility. It is suggested that you listen to `pause`, `paused`,
@@ -654,14 +665,14 @@
 		 * @private
 		 */
 		this._onFocus = onFocus;
-		
+
 		/**
 		 * Callback when the page loses visibility
 		 * @property {Function} _onBlur
 		 * @private
 		 */
 		this._onBlur = onBlur;
-		
+
 		/**
 		 * If this object is enabled.
 		 * @property {Function} _enabled
@@ -671,7 +682,7 @@
 
 		// If this browser doesn't support visibility
 		if (!_visibilityChange && doc.onfocusin === undefined) return;
-		
+
 		/**
 		 * The visibility toggle listener function
 		 * @property {Function} _onToggle
@@ -684,21 +695,21 @@
 			else
 				this._onFocus();
 		}.bind(this);
-		
+
 		this.enabled = true;
-	},
-	
+	};
+
 	// Reference to the prototype
-	p = PageVisibility.prototype,
-	
+	var p = PageVisibility.prototype;
+
 	/**
 	 * The name of the visibility change event for the browser
 	 *
 	 * @property {String} _visibilityChange
 	 * @private
 	 */
-	_visibilityChange = null;
-	
+	var _visibilityChange = null;
+
 	// Select the visiblity change event name
 	if (doc.hidden !== undefined)
 	{
@@ -716,35 +727,39 @@
 	{
 		_visibilityChange = "webkitvisibilitychange";
 	}
-	
+
 	var isIE9 = !_visibilityChange && doc.onfocusin !== undefined;
-	
+
 	/**
 	 * If this object is enabled.
 	 * @property {Function} enabled
 	 * @private
 	 */
-	Object.defineProperty(p, "enabled", {
-		get: function() { return this._enabled; },
+	Object.defineProperty(p, "enabled",
+	{
+		get: function()
+		{
+			return this._enabled;
+		},
 		set: function(value)
 		{
 			value = !!value;
-			if(this._enabled == value) return;
+			if (this._enabled == value) return;
 			this._enabled = value;
-			
+
 			global.removeEventListener("pagehide", this._onBlur);
 			global.removeEventListener("pageshow", this._onFocus);
 			global.removeEventListener("blur", this._onBlur);
 			global.removeEventListener("focus", this._onFocus);
 			global.removeEventListener("visibilitychange", this._onToggle);
 			doc.removeEventListener(_visibilityChange, this._onToggle, false);
-			if(isIE9)
+			if (isIE9)
 			{
 				doc.removeEventListener("focusin", this._onFocus);
 				doc.removeEventListener("focusout", this._onBlur);
 			}
-			
-			if(value)
+
+			if (value)
 			{
 				// Listen to visibility change
 				// see https://developer.mozilla.org/en/API/PageVisibility/Page_Visibility_API
@@ -756,7 +771,7 @@
 				global.addEventListener("focus", this._onFocus);
 				global.addEventListener("visibilitychange", this._onToggle, false);
 				//IE9 is old and uses its own events
-				if(isIE9)
+				if (isIE9)
 				{
 					doc.addEventListener("focusin", this._onFocus);
 					doc.addEventListener("focusout", this._onBlur);
@@ -764,7 +779,7 @@
 			}
 		}
 	});
-	
+
 	/**
 	 * Disable the detection
 	 * @method destroy
@@ -773,29 +788,30 @@
 	{
 		// If this browser doesn't support visibility
 		if (!_visibilityChange || !this._onToggle) return;
-		
+
 		this.enabled = false;
 		this._onToggle = null;
 		this._onFocus = null;
 		this._onBlur = null;
 	};
-	
+
 	// Assign to the global space
 	namespace('springroll').PageVisibility = PageVisibility;
-	
+
 }(window, document));
 /**
  * @module Core
  * @namespace springroll
  */
-(function(undefined){
+(function(undefined)
+{
 
 	/**
 	 * The SavedData functions use localStorage and sessionStorage, with a cookie fallback.
 	 *
 	 * @class SavedData
 	 */
-	var SavedData = {},
+	var SavedData = {};
 
 	/** 
 	 * A constant to determine if we can use localStorage and 
@@ -805,7 +821,7 @@
 	 * @private
 	 * @readOnly
 	 */
-	WEB_STORAGE_SUPPORT = window.Storage !== undefined,
+	var WEB_STORAGE_SUPPORT = window.Storage !== undefined;
 
 	/**
 	 * A constant for cookie fallback for `SavedData.clear()` 
@@ -815,17 +831,17 @@
 	 * @readOnly
 	 * @default -1
 	 */
-	ERASE_COOKIE = -1;
+	var ERASE_COOKIE = -1;
 
 	//in iOS, if the user is in Private Browsing, writing to localStorage throws an error.
-	if(WEB_STORAGE_SUPPORT)
+	if (WEB_STORAGE_SUPPORT)
 	{
 		try
 		{
 			localStorage.setItem("LS_TEST", "test");
 			localStorage.removeItem("LS_TEST");
 		}
-		catch(e)
+		catch (e)
 		{
 			WEB_STORAGE_SUPPORT = false;
 		}
@@ -839,13 +855,13 @@
 	 */
 	SavedData.remove = function(name)
 	{
-		if(WEB_STORAGE_SUPPORT)
+		if (WEB_STORAGE_SUPPORT)
 		{
 			localStorage.removeItem(name);
 			sessionStorage.removeItem(name);
 		}
 		else
-			SavedData.write(name,"",ERASE_COOKIE);
+			SavedData.write(name, "", ERASE_COOKIE);
 	};
 
 	/**
@@ -858,9 +874,9 @@
 	 */
 	SavedData.write = function(name, value, tempOnly)
 	{
-		if(WEB_STORAGE_SUPPORT)
+		if (WEB_STORAGE_SUPPORT)
 		{
-			if(tempOnly)
+			if (tempOnly)
 				sessionStorage.setItem(name, JSON.stringify(value));
 			else
 				localStorage.setItem(name, JSON.stringify(value));
@@ -870,15 +886,15 @@
 			var expires;
 			if (tempOnly)
 			{
-				if(tempOnly !== ERASE_COOKIE)
-					expires = "";//remove when browser is closed
+				if (tempOnly !== ERASE_COOKIE)
+					expires = ""; //remove when browser is closed
 				else
-					expires = "; expires=Thu, 01 Jan 1970 00:00:00 GMT";//save cookie in the past for immediate removal
+					expires = "; expires=Thu, 01 Jan 1970 00:00:00 GMT"; //save cookie in the past for immediate removal
 			}
 			else
-				expires = "; expires="+new Date(2147483646000).toGMTString();//THE END OF (32bit UNIX) TIME!
+				expires = "; expires=" + new Date(2147483646000).toGMTString(); //THE END OF (32bit UNIX) TIME!
 
-			document.cookie = name+"="+escape(JSON.stringify(value))+expires+"; path=/";
+			document.cookie = name + "=" + escape(JSON.stringify(value)) + expires + "; path=/";
 		}
 	};
 
@@ -891,10 +907,10 @@
 	 */
 	SavedData.read = function(name)
 	{
-		if(WEB_STORAGE_SUPPORT)
+		if (WEB_STORAGE_SUPPORT)
 		{
 			var value = localStorage.getItem(name) || sessionStorage.getItem(name);
-			if(value)
+			if (value)
 				return JSON.parse(value, SavedData.reviver);
 			else
 				return null;
@@ -903,13 +919,14 @@
 		{
 			var nameEQ = name + "=",
 				ca = document.cookie.split(';'),
-				i = 0, c, len;
+				i = 0,
+				c, len;
 
-			for(i=0, len=ca.length; i<len;i++)
+			for (i = 0, len = ca.length; i < len; i++)
 			{
 				c = ca[i];
-				while (c.charAt(0) == ' ') c = c.substring(1,c.length);
-				if (c.indexOf(nameEQ) === 0) return JSON.parse(unescape(c.substring(nameEQ.length,c.length)), SavedData.reviver);
+				while (c.charAt(0) == ' ') c = c.substring(1, c.length);
+				if (c.indexOf(nameEQ) === 0) return JSON.parse(unescape(c.substring(nameEQ.length, c.length)), SavedData.reviver);
 			}
 			return null;
 		}
@@ -929,14 +946,14 @@
 	 */
 	SavedData.reviver = function(key, value)
 	{
-		if(value && typeof value.__classname == "string")
+		if (value && typeof value.__classname == "string")
 		{
 			var _class = include(value.__classname, false);
-			if(_class)
+			if (_class)
 			{
 				var rtn = new _class();
 				//if we may call fromJSON, do so
-				if(rtn.fromJSON)
+				if (rtn.fromJSON)
 				{
 					rtn.fromJSON(value);
 					//return the cast Object
@@ -952,7 +969,6 @@
 	namespace('springroll').SavedData = SavedData;
 
 }());
-
 /**
  * @module Container
  * @namespace springroll
@@ -960,7 +976,7 @@
 (function(undefined)
 {
 	var Debug = include('springroll.Debug', false);
-	
+
 	/**
 	 * Provide feature detection
 	 * @class Features
@@ -1061,7 +1077,7 @@
 	 */
 	Features.touch = function()
 	{
-		return !!(('ontouchstart' in window) ||// iOS & Android
+		return !!(('ontouchstart' in window) || // iOS & Android
 			(navigator.msPointerEnabled && navigator.msMaxTouchPoints > 0) || // IE10
 			(navigator.pointerEnabled && navigator.maxTouchPoints > 0)); // IE11+
 	}();
@@ -1117,9 +1133,9 @@
 		}
 		var features = capabilities.features;
 		var ui = capabilities.ui;
-		var sizes = capabilities.sizes;		
-		
-		for(var name in features)
+		var sizes = capabilities.sizes;
+
+		for (var name in features)
 		{
 			if (Features[name] !== undefined)
 			{
@@ -1130,17 +1146,17 @@
 				}
 				else
 				{
-					if (true && Debug) 
-						Debug.log("Browser has "+ name);
+					if (true && Debug)
+						Debug.log("Browser has " + name);
 				}
 			}
 			else
 			{
-				if (true && Debug) 
+				if (true && Debug)
 					Debug.warn("The feature " + name + " is not supported");
 			}
 		}
-		
+
 		// Failed negative touch requirement
 		if (!ui.touch && Features.touch)
 		{
@@ -1228,9 +1244,11 @@
 	{
 		EventDispatcher.call(this);
 
-		options = $.extend({
+		options = $.extend(
+		{
 			pauseFocusSelector: '.pause-on-focus'
-		}, options || {});
+		}, options ||
+		{});
 
 		/**
 		 * The name of this class
@@ -1333,7 +1351,8 @@
 		this._captionsStyles = Object.merge(
 			{},
 			DEFAULT_CAPTIONS_STYLES,
-			SavedData.read(CAPTIONS_STYLES) || {}
+			SavedData.read(CAPTIONS_STYLES) ||
+			{}
 		);
 
 		/**
@@ -1399,7 +1418,7 @@
 		{
 			this.soundMuted = false;
 		}
-		
+
 		this._pageVisibility = new PageVisibility(
 			onContainerFocus.bind(this),
 			onContainerBlur.bind(this)
@@ -1488,13 +1507,13 @@
 	 * Event when a application start loading
 	 * @event open
 	 */
-	
+
 	/**
 	 * Fired when the enabled status of the help button changes
 	 * @event helpEnabled
 	 * @param {boolean} enabled If the help button is enabled
 	 */
-	
+
 	/**
 	 * The features supported by the application
 	 * @event features
@@ -1534,7 +1553,8 @@
 	 */
 	p._internalOpen = function(path, options)
 	{
-		options = $.extend({
+		options = $.extend(
+		{
 			singlePlay: false,
 			playOptions: null
 		}, options);
@@ -1583,7 +1603,8 @@
 	 */
 	p.open = function(path, options, playOptions)
 	{
-		options = options || {};
+		options = options ||
+		{};
 
 		// This should be deprecated, support for old function signature
 		if (typeof options === "boolean")
@@ -1615,7 +1636,8 @@
 				playOptions: playOptions
 			};
 		}
-		options = $.extend({
+		options = $.extend(
+		{
 			query: '',
 			playOptions: null,
 			singlePlay: false
@@ -1624,31 +1646,31 @@
 		this.release = null;
 
 		$.getJSON(api, function(result)
-		{
-			if (!result.success)
-			{
-				return this.trigger('remoteError', result.error);
-			}
-			var release = result.data;
+				{
+					if (!result.success)
+					{
+						return this.trigger('remoteError', result.error);
+					}
+					var release = result.data;
 
-			var err = Features.test(release.capabilities);
+					var err = Features.test(release.capabilities);
 
-			if (err)
-			{
-				return this.trigger('unsupported', err); 
-			}
+					if (err)
+					{
+						return this.trigger('unsupported', err);
+					}
 
-			this.release = release;
+					this.release = release;
 
-			// Open the application
-			this._internalOpen(release.url + options.query, options);
-		}
-		.bind(this))
-		.fail(function()
-		{
-			return this.trigger('remoteFailed');
-		}
-		.bind(this));
+					// Open the application
+					this._internalOpen(release.url + options.query, options);
+				}
+				.bind(this))
+			.fail(function()
+				{
+					return this.trigger('remoteFailed');
+				}
+				.bind(this));
 	};
 
 	/**
@@ -2432,13 +2454,13 @@
 		this.musicButton = null;
 		this.voButton = null;
 		this.sfxButton = null;
-		
-		if(this._pageVisibility)
+
+		if (this._pageVisibility)
 		{
 			this._pageVisibility.destroy();
 			this._pageVisibility = null;
 		}
-		
+
 		this.destroyClient();
 
 		s.destroy.call(this);

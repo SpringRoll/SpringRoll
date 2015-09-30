@@ -18,7 +18,8 @@
 		 * The collection of all codes map to events
 		 * @property {Object} events
 		 */
-		this.events = Object.merge({}, defaultEvents);
+		this.events = Object.merge(
+		{}, defaultEvents);
 	};
 
 	// Reference to the prototype
@@ -114,27 +115,26 @@
 
 	//Basic arguments for instructional and feedback events
 	var feedbackArgs = [
-		{
-			"name": "description",
-			"type": "string",
-			"info": "The text or description of the instruction"
-		},
-		{
-			"name": "identifier",
-			"type": "string",
-			"info": "A unique identifier for this piece of instruction"
-		},
-		{
-			"name": "media_type",
-			"type": ["audio", "animation", "other"],
-			"info": "The type of media that has just played"
-		},
-		{
-			"name": "total_duration",
-			"type": "int",
-			"info": "The estimated duration of the media playback in milliseconds (if it ran uninterrupted)"
-		}
-	];
+	{
+		"name": "description",
+		"type": "string",
+		"info": "The text or description of the instruction"
+	},
+	{
+		"name": "identifier",
+		"type": "string",
+		"info": "A unique identifier for this piece of instruction"
+	},
+	{
+		"name": "media_type",
+		"type": ["audio", "animation", "other"],
+		"info": "The type of media that has just played"
+	},
+	{
+		"name": "total_duration",
+		"type": "int",
+		"info": "The estimated duration of the media playback in milliseconds (if it ran uninterrupted)"
+	}];
 
 	/**
 	 * The built-in argument overrides, provides consistent arguments
@@ -148,22 +148,21 @@
 		"3020": feedbackArgs,
 		"3021": feedbackArgs,
 		"2080": [
-			{
-				"name": "movie_id",
-				"type": "string",
-				"info": "The identifier for the movie that was playing"
-			},
-			{
-				"name": "duration",
-				"type": "int",
-				"info": "The duration of the media playback in milliseconds"
-			},
-			{
-				"name": "description",
-				"type": "string",
-				"info": "The text or description of the instruction"
-			}
-		]
+		{
+			"name": "movie_id",
+			"type": "string",
+			"info": "The identifier for the movie that was playing"
+		},
+		{
+			"name": "duration",
+			"type": "int",
+			"info": "The duration of the media playback in milliseconds"
+		},
+		{
+			"name": "description",
+			"type": "string",
+			"info": "The text or description of the instruction"
+		}]
 	};
 
 	/**

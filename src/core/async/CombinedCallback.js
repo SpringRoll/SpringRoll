@@ -4,7 +4,7 @@
  */
 (function()
 {
-	
+
 	/**
 	 * CombinedCallback is a utility class that creates a function to be passed to multiple
 	 * asynchronous functions as a callback, and will call your callback on the last time it
@@ -26,23 +26,23 @@
 	 */
 	CombinedCallback.create = function(call, callCount)
 	{
-		if(!call) return null;
-		
-		if(typeof callCount != "number" || callCount < 1)
+		if (!call) return null;
+
+		if (typeof callCount != "number" || callCount < 1)
 			callCount = 2;
 		//create a function that can be called multiple times
 		var rtn = function()
 		{
-			if(++rtn.currentCallCount >= callCount)
+			if (++rtn.currentCallCount >= callCount)
 				call();
 		};
 		//set some properties on said function to make it reusable
 		rtn.currentCallCount = 0;
 		rtn.reset = reset;
-		
+
 		return rtn;
 	};
-	
+
 	function reset()
 	{
 		this.currentCallCount = 0;

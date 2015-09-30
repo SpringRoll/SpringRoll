@@ -3,8 +3,9 @@
  * @namespace springroll
  * @requires Core
  */
-(function(undefined){
-	
+(function(undefined)
+{
+
 	/**
 	 * A state-related event used by the State Manager
 	 *
@@ -23,38 +24,38 @@
 		 * @property {BaseState} currentState
 		 */
 		this.currentState = currentState;
-		
+
 		/**
 		 * A reference to the state who's actually being transitioned or being changed
 		 *
 		 * @property {BaseState} visibleState
 		 */
 		this.visibleState = visibleState === undefined ? currentState : visibleState;
-		
+
 		/** The type of event
 		 *
 		 * @property {String} type
 		 */
 		this.type = type;
 	};
-	
+
 	var p = StateEvent.prototype;
-	
+
 	/**
 	 * When the state besome visible
 	 *
 	 * @event {String} onVisible
 	 */
 	StateEvent.VISIBLE = "onVisible";
-	
+
 	/**
 	 * When the state becomes hidden
 	 *
 	 * @event {String} onHidden
 	 */
 	StateEvent.HIDDEN = "onHidden";
-	
+
 	// Add to the name space
 	namespace('springroll').StateEvent = StateEvent;
-	
+
 }());

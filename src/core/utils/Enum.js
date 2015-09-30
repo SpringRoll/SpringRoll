@@ -5,7 +5,7 @@
 (function()
 {
 	var Debug;
-	
+
 	/**
 	 * An enumeration value. This class is private, and is only used by Enum.
 	 * @class EnumValue
@@ -227,7 +227,7 @@
 		{
 			enumerable: false,
 			writable: false,
-			value: this.valueFromInt(counter-1)
+			value: this.valueFromInt(counter - 1)
 		});
 	};
 

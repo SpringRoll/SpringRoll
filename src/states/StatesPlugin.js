@@ -23,7 +23,7 @@
 		 * @param {String} alias The state alias
 		 * @param {springroll.State} state The State object
 		 */
-		
+
 		/**
 		 * The collection of states
 		 * @property {Object} _states
@@ -48,7 +48,7 @@
 		 * The transition animation to use between the StateManager state changes
 		 * @property {createjs.MovieClip|springroll.easeljs.BitmapMovieClip|PIXI.Spine} transition
 		 */
-		Object.defineProperty(this, "transition", 
+		Object.defineProperty(this, "transition",
 		{
 			set: function(transition)
 			{
@@ -142,8 +142,8 @@
 		 */
 		this.options.add('transitionSounds',
 		{
-			'in' : null,
-			'out' : null
+			'in': null,
+			'out': null
 		}, true);
 
 		/**
@@ -189,13 +189,13 @@
 
 				// Add a handler to enable to disable the display
 				manager.on('enabled', function(enabled)
-				{
-					this.display.enabled = enabled;
-				}
-				.bind(this));
-				
+					{
+						this.display.enabled = enabled;
+					}
+					.bind(this));
+
 				var stage = this.display.stage;
-				
+
 				//create states
 				for (var alias in states)
 				{
@@ -211,7 +211,7 @@
 				this._states = states;
 
 				// Get the transition from either the transition manual set or the options
-				var transition =  this._transition || this.options.transition;
+				var transition = this._transition || this.options.transition;
 
 				//if the transition is a EaselJS movieclip, start it out
 				//at the end of the transition out animation. If it has a

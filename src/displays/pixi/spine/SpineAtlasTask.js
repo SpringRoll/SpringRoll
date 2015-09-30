@@ -8,8 +8,8 @@
 	var TextureTask = include('springroll.pixi.TextureTask'),
 		SpineAtlas = include('springroll.pixi.SpineAtlas', false),
 		PixiUtils = include('PIXI.utils');
-	
-	if(!SpineAtlas) return;
+
+	if (!SpineAtlas) return;
 
 	/**
 	 * Internal class for loading a texture atlas in the format exported by Spine.
@@ -38,7 +38,7 @@
 		 * @property {String} spineAtlas
 		 */
 		this.spineAtlas = this.filter(asset.spineAtlas);
-		
+
 		this.images = asset.images;
 	};
 
@@ -56,8 +56,8 @@
 	{
 		// atlas data and one or more images or color/alpha splits
 		return !!asset.spineAtlas &&
-				Array.isArray(asset.images) &&
-				TextureTask.test(asset.images[0]);
+			Array.isArray(asset.images) &&
+			TextureTask.test(asset.images[0]);
 	};
 
 	/**
@@ -67,7 +67,11 @@
 	 */
 	p.start = function(callback)
 	{
-		this.load({_atlas: this.spineAtlas, _images: this.images}, function(results)
+		this.load(
+		{
+			_atlas: this.spineAtlas,
+			_images: this.images
+		}, function(results)
 		{
 			callback(new SpineAtlas(results._atlas, results._images), results);
 		});

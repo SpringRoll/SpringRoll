@@ -89,7 +89,7 @@
 			prop.setReadOnly(readOnly === undefined ? prop.readOnly : readOnly);
 			return this;
 		}
-		
+
 		if (this.hasOwnProperty(name))
 		{
 			throw "Object already has property " + name;
@@ -97,7 +97,8 @@
 
 		props[name] = new Property(name, value, readOnly);
 
-		Object.defineProperty(this, name, {
+		Object.defineProperty(this, name,
+		{
 			get: get.bind(this, name),
 			set: set.bind(this, name)
 		});
@@ -125,7 +126,7 @@
 
 		// Update the property value
 		prop.value = responder();
-		
+
 		return this;
 	};
 

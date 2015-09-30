@@ -163,7 +163,7 @@
 
 		// Set the default container for the results
 		this.results = getAssetsContainer(this.mode);
-		
+
 		// Start running
 		if (options.autoStart)
 		{
@@ -280,7 +280,7 @@
 			}
 			else if (Object.isPlain(assets))
 			{
-				for(var id in assets)
+				for (var id in assets)
 				{
 					asset = applyDefaults(assets[id]);
 					task = this.addTask(asset);
@@ -311,12 +311,16 @@
 		// convert to a LoadTask
 		if (isString(asset))
 		{
-			return { src: asset };
+			return {
+				src: asset
+			};
 		}
 		// convert to a FunctionTask
 		else if (isFunction(asset))
 		{
-			return { async: asset };
+			return {
+				async: asset
+			};
 		}
 		return asset;
 	}
@@ -394,7 +398,7 @@
 			{
 				task.status = Task.RUNNING;
 				task.start(this.taskDone.bind(this, task));
-				
+
 				// If we aren't running in parallel, then stop
 				if (!this.startAll) return;
 			}
@@ -434,11 +438,17 @@
 		if (result)
 		{
 			// Handle the result
-			switch(this.mode)
+			switch (this.mode)
 			{
-				case SINGLE_MODE: this.results = result; break;
-				case LIST_MODE: this.results.push(result); break;
-				case MAP_MODE: this.results[task.id] = result; break;
+				case SINGLE_MODE:
+					this.results = result;
+					break;
+				case LIST_MODE:
+					this.results.push(result);
+					break;
+				case MAP_MODE:
+					this.results[task.id] = result;
+					break;
 			}
 
 			// Should we cache the task?
@@ -504,11 +514,14 @@
 	 */
 	var getAssetsContainer = function(mode)
 	{
-		switch(mode)
+		switch (mode)
 		{
-			case SINGLE_MODE: return null;
-			case LIST_MODE: return [];
-			case MAP_MODE: return {};
+			case SINGLE_MODE:
+				return null;
+			case LIST_MODE:
+				return [];
+			case MAP_MODE:
+				return {};
 		}
 	};
 

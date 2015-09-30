@@ -8,7 +8,7 @@
 	var Application = include("springroll.Application");
 	var AnimatorInstance = include('springroll.AnimatorInstance');
 	var AdvancedMovieClip = include('springroll.pixi.AdvancedMovieClip');
-	
+
 	/**
 	 * The plugin for working with AdvancedMovieClips and animator
 	 * @class AdvancedMovieClipInstance
@@ -18,20 +18,20 @@
 	var AdvancedMovieClipInstance = function()
 	{
 		AnimatorInstance.call(this);
-		
+
 		/**
 		 * The start time of the current animation on the movieclip's timeline.
 		 * @property {Number} startTime
 		 */
 		this.startTime = 0;
-		
+
 		/**
 		 * Length of current animation in frames.
 		 *
 		 * @property {int} length
 		 */
 		this.length = 0;
-		
+
 		/**
 		 * The frame number of the first frame of the current animation. If this is -1, then the
 		 * animation is currently a pause instead of an animation.
@@ -39,7 +39,7 @@
 		 * @property {int} firstFrame
 		 */
 		this.firstFrame = -1;
-		
+
 		/**
 		 * The frame number of the last frame of the current animation.
 		 *
@@ -64,7 +64,7 @@
 			clip.framerate = Application.instance.options.fps || 15;
 		}
 		clip.tickEnabled = false;
-		
+
 		this.clip = clip;
 		this.isLooping = false;
 		this.currentName = null;
@@ -73,18 +73,18 @@
 		//that it stays on the current frame
 		this.lastFrame = clip.currentFrame;
 	};
-	
+
 	p.beginAnim = function(animObj, isRepeat)
 	{
 		//calculate frames, duration, etc
 		//then gotoAndPlay on the first frame
 		var anim = this.currentName = animObj.anim;
-		
+
 		var l, first = -1,
 			last = -1,
 			loop = false;
-		
-		if(anim == "*")
+
+		if (anim == "*")
 		{
 			first = 0;
 			last = this.clip.totalFrames - 1;
@@ -124,17 +124,17 @@
 		var fps = this.clip.framerate;
 		this.startTime = this.firstFrame / fps;
 		this.duration = this.length / fps;
-		if(isRepeat)
+		if (isRepeat)
 			this.position = 0;
 		else
 		{
 			var animStart = animObj.start || 0;
 			this.position = animStart < 0 ? Math.random() * this.duration : animStart;
 		}
-		
+
 		this.clip.elapsedTime = this.startTime + this.position;
 	};
-	
+
 	/**
 	 * Ends animation playback.
 	 * @method endAnim
@@ -143,7 +143,7 @@
 	{
 		this.clip.gotoAndStop(this.lastFrame);
 	};
-	
+
 	/**
 	 * Updates position to a new value, and does anything that the clip needs, like updating
 	 * timelines.
@@ -179,11 +179,11 @@
 	AdvancedMovieClipInstance.hasAnimation = function(clip, event)
 	{
 		//the wildcard event plays the entire timeline
-		if(event == "*")
+		if (event == "*")
 		{
 			return true;
 		}
-		
+
 		var labels = clip.getLabels();
 		var startFrame = -1,
 			stopFrame = -1;
@@ -221,13 +221,13 @@
 		{
 			clip.framerate = Application.instance.options.fps || 15;
 		}
-		
+
 		//the wildcard event plays the entire timeline
-		if(event == "*")
+		if (event == "*")
 		{
 			return clip.totalFrames / clip.framerate;
 		}
-		
+
 		var labels = clip.getLabels();
 		var startFrame = -1,
 			stopFrame = -1;

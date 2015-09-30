@@ -1,6 +1,6 @@
 /**
-  * @module Core
-  * @namespace springroll
+ * @module Core
+ * @namespace springroll
  */
 (function()
 {
@@ -27,7 +27,7 @@
 		{
 			Application = include('springroll.Application');
 		}
-		
+
 		/**
 		 * The priority of the plugin. Higher numbers handled first. This should be set
 		 * in the constructor of the extending ApplicationPlugin.
@@ -42,7 +42,7 @@
 		 * is bound to the Application. This should be overridden.
 		 * @method setup
 		 */
-		this.setup = function(){};
+		this.setup = function() {};
 
 		/**
 		 * The function to call right before the application is initailized. 
@@ -59,7 +59,7 @@
 		 * is bound to the Application. This should be overridden.
 		 * @method teardown
 		 */
-		this.teardown = function(){};
+		this.teardown = function() {};
 
 		// Add the plugin to application
 		Application._plugins.push(this);

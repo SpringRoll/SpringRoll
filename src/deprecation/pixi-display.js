@@ -8,7 +8,7 @@
 	// Include classes
 	var PixiDisplay = include('springroll.pixi.PixiDisplay'),
 		Application = include('springroll.Application');
-	
+
 	/**
 	 * @class PixiDisplay
 	 */
@@ -17,7 +17,7 @@
 	 * @property {springroll.Animator} animator
 	 * @deprecated since version 0.4.0
 	 */
-	Object.defineProperty(PixiDisplay.prototype, 'animator', 
+	Object.defineProperty(PixiDisplay.prototype, 'animator',
 	{
 		get: function()
 		{

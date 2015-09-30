@@ -8,7 +8,7 @@
 	// Include classes
 	var BasePanel = include('springroll.easeljs.BasePanel'),
 		BaseState = include('springroll.easeljs.BaseState');
-	
+
 	/**
 	 * @class BasePanel
 	 */
@@ -17,7 +17,7 @@
 	 * @property {springroll.Application} game
 	 * @deprecated since version 0.3.0
 	 */
-	Object.defineProperty(BasePanel.prototype, 'game', 
+	Object.defineProperty(BasePanel.prototype, 'game',
 	{
 		get: function()
 		{
@@ -34,7 +34,7 @@
 	 * @property {springroll.Application} game
 	 * @deprecated since version 0.3.0
 	 */
-	Object.defineProperty(BaseState.prototype, 'game', 
+	Object.defineProperty(BaseState.prototype, 'game',
 	{
 		get: function()
 		{
@@ -48,7 +48,7 @@
 	 * @property {Array} manifest
 	 * @deprecated since version 0.4.0
 	 */
-	Object.defineProperty(BaseState.prototype, 'manifest', 
+	Object.defineProperty(BaseState.prototype, 'manifest',
 	{
 		get: function()
 		{
@@ -63,7 +63,7 @@
 	 * @deprecated since version 0.4.0
 	 * @readOnly
 	 */
-	Object.defineProperty(BaseState.prototype, 'assetsLoaded', 
+	Object.defineProperty(BaseState.prototype, 'assetsLoaded',
 	{
 		get: function()
 		{

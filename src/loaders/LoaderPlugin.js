@@ -44,14 +44,14 @@
 		 */
 		var options = this.options;
 		options.add('cacheBust', DEBUG)
-		.respond('cacheBust', function()
-		{
-			return loader.cacheManager.cacheBust;
-		})
-		.on('cacheBust', function(value)
-		{
-			loader.cacheManager.cacheBust = (value == "true" || !!value);
-		});
+			.respond('cacheBust', function()
+			{
+				return loader.cacheManager.cacheBust;
+			})
+			.on('cacheBust', function(value)
+			{
+				loader.cacheManager.cacheBust = (value == "true" || !!value);
+			});
 
 		/**
 		 * The optional file path to prefix to any relative file
@@ -204,7 +204,7 @@
 			{
 				assets = Array.prototype.slice.call(arguments);
 			}
-			
+
 			for (var i = 0; i < assets.length; i++)
 			{
 				assetManager.cache.delete(assets[i]);

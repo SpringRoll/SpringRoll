@@ -78,7 +78,8 @@
 
 		this.load(this.images, function(results)
 		{
-			var spriteSheet = new SpriteSheet({
+			var spriteSheet = new SpriteSheet(
+			{
 				images: results,
 				frames: frames
 			});
@@ -90,7 +91,7 @@
 			spriteSheet.addEventListener('destroy', function()
 			{
 				delete window[globalProperty][id];
-				for(var i = results.length - 1; i >= 0; --i)
+				for (var i = results.length - 1; i >= 0; --i)
 					results[i].src = "";
 			});
 

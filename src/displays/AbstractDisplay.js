@@ -23,7 +23,8 @@
 	{
 		EventDispatcher.call(this);
 
-		options = options || {};
+		options = options ||
+		{};
 
 		/**
 		 * the canvas managed by this display

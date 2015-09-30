@@ -56,7 +56,7 @@
 		 * @property {String} alpha
 		 */
 		this.alpha = this.filter(asset.alpha);
-		
+
 		this.libName = asset.libName || "lib";
 	};
 
@@ -86,7 +86,8 @@
 	 */
 	p.start = function(callback)
 	{
-		this.loadAtlas({}, callback);
+		this.loadAtlas(
+		{}, callback);
 	};
 
 	/**
@@ -124,34 +125,34 @@
 					results._alpha
 				);
 			}
-			
+
 			//prefer the spritesheet's exported scale
 			var scale = results._atlas.meta ? 1 / parseFloat(results._atlas.meta.scale) : 0;
 			//if it doesn't have one, then use the asset scale specified by the
 			//AssetManager.
-			if(!scale)
-				scale = 1/ this.original.scale;
-			
-			
+			if (!scale)
+				scale = 1 / this.original.scale;
+
+
 			var asset = {};
-			
+
 			var libName = this.libName;
 			asset.create = function()
 			{
 				BitmapUtils.loadSpriteSheet(results._atlas, image, scale, libName);
 			};
-			
+
 			var lib = namespace(this.libName);
 			var frames = results._atlas.frames;
 			asset.destroy = function()
 			{
-				for(var id in frames)
+				for (var id in frames)
 				{
 					delete lib[id];
 				}
 				image.src = null;
 			};
-			
+
 			done(asset, results);
 		}.bind(this));
 	};

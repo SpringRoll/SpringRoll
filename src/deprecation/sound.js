@@ -107,7 +107,7 @@
 	 * @deprecated since version 0.4.0
 	 * @public
 	 */
-	Object.defineProperty(p, 'soundList', 
+	Object.defineProperty(p, 'soundList',
 	{
 		get: function()
 		{

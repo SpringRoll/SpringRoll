@@ -58,7 +58,10 @@
 	 */
 	p.start = function(callback)
 	{
-		this.loadAtlas({ _anim: this.anim }, function(textureAtlas, results)
+		this.loadAtlas(
+		{
+			_anim: this.anim
+		}, function(textureAtlas, results)
 		{
 			callback(new BitmapMovieClip(
 				textureAtlas,

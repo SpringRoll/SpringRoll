@@ -130,7 +130,7 @@
 	 */
 	p.empty = function()
 	{
-		for(var id in this._cache)
+		for (var id in this._cache)
 		{
 			this.delete(id);
 		}

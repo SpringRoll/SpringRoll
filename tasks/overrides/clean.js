@@ -1,3 +1,3 @@
 module.exports = {
-	"redirect": ['index.htm']	
+	"redirect": ['index.htm']
 };

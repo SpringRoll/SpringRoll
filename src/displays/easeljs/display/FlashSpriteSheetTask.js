@@ -63,13 +63,13 @@
 		var prop = this.globalProperty;
 		var id = this.id;
 		s.start.call(this, function(data)
-		{
-			data.id = id;
-			data.globalProperty = prop;
-			data.type = "easeljs";
-			this.load(data, callback);
-		}
-		.bind(this));
+			{
+				data.id = id;
+				data.globalProperty = prop;
+				data.type = "easeljs";
+				this.load(data, callback);
+			}
+			.bind(this));
 	};
 
 	// Assign to namespace

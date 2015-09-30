@@ -2,8 +2,9 @@
  * @module Core
  * @namespace springroll
  */
-(function(global, doc, undefined){
-		
+(function(global, doc, undefined)
+{
+
 	/**
 	 * Handle the page visiblity change, if supported. Application uses one of these to
 	 * monitor page visibility. It is suggested that you listen to `pause`, `paused`,
@@ -22,14 +23,14 @@
 		 * @private
 		 */
 		this._onFocus = onFocus;
-		
+
 		/**
 		 * Callback when the page loses visibility
 		 * @property {Function} _onBlur
 		 * @private
 		 */
 		this._onBlur = onBlur;
-		
+
 		/**
 		 * If this object is enabled.
 		 * @property {Function} _enabled
@@ -39,7 +40,7 @@
 
 		// If this browser doesn't support visibility
 		if (!_visibilityChange && doc.onfocusin === undefined) return;
-		
+
 		/**
 		 * The visibility toggle listener function
 		 * @property {Function} _onToggle
@@ -52,21 +53,21 @@
 			else
 				this._onFocus();
 		}.bind(this);
-		
+
 		this.enabled = true;
-	},
-	
+	};
+
 	// Reference to the prototype
-	p = PageVisibility.prototype,
-	
+	var p = PageVisibility.prototype;
+
 	/**
 	 * The name of the visibility change event for the browser
 	 *
 	 * @property {String} _visibilityChange
 	 * @private
 	 */
-	_visibilityChange = null;
-	
+	var _visibilityChange = null;
+
 	// Select the visiblity change event name
 	if (doc.hidden !== undefined)
 	{
@@ -84,35 +85,39 @@
 	{
 		_visibilityChange = "webkitvisibilitychange";
 	}
-	
+
 	var isIE9 = !_visibilityChange && doc.onfocusin !== undefined;
-	
+
 	/**
 	 * If this object is enabled.
 	 * @property {Function} enabled
 	 * @private
 	 */
-	Object.defineProperty(p, "enabled", {
-		get: function() { return this._enabled; },
+	Object.defineProperty(p, "enabled",
+	{
+		get: function()
+		{
+			return this._enabled;
+		},
 		set: function(value)
 		{
 			value = !!value;
-			if(this._enabled == value) return;
+			if (this._enabled == value) return;
 			this._enabled = value;
-			
+
 			global.removeEventListener("pagehide", this._onBlur);
 			global.removeEventListener("pageshow", this._onFocus);
 			global.removeEventListener("blur", this._onBlur);
 			global.removeEventListener("focus", this._onFocus);
 			global.removeEventListener("visibilitychange", this._onToggle);
 			doc.removeEventListener(_visibilityChange, this._onToggle, false);
-			if(isIE9)
+			if (isIE9)
 			{
 				doc.removeEventListener("focusin", this._onFocus);
 				doc.removeEventListener("focusout", this._onBlur);
 			}
-			
-			if(value)
+
+			if (value)
 			{
 				// Listen to visibility change
 				// see https://developer.mozilla.org/en/API/PageVisibility/Page_Visibility_API
@@ -124,7 +129,7 @@
 				global.addEventListener("focus", this._onFocus);
 				global.addEventListener("visibilitychange", this._onToggle, false);
 				//IE9 is old and uses its own events
-				if(isIE9)
+				if (isIE9)
 				{
 					doc.addEventListener("focusin", this._onFocus);
 					doc.addEventListener("focusout", this._onBlur);
@@ -132,7 +137,7 @@
 			}
 		}
 	});
-	
+
 	/**
 	 * Disable the detection
 	 * @method destroy
@@ -141,14 +146,14 @@
 	{
 		// If this browser doesn't support visibility
 		if (!_visibilityChange || !this._onToggle) return;
-		
+
 		this.enabled = false;
 		this._onToggle = null;
 		this._onFocus = null;
 		this._onBlur = null;
 	};
-	
+
 	// Assign to the global space
 	namespace('springroll').PageVisibility = PageVisibility;
-	
+
 }(window, document));

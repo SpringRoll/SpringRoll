@@ -170,7 +170,8 @@
 			throw "springroll.State requires the panel be a springroll.easeljs.BasePanel";
 		}
 
-		options = options || {};
+		options = options ||
+		{};
 
 		if (options.manifest)
 		{
@@ -205,39 +206,39 @@
 
 		// Handle when assets are preloaded
 		.on('loaded', function(assets)
-		{
-			if (assets)
 			{
-				// save all images to the window images object
-				// this is required for CreateJS to be available
-				// on the images window object
-				for (var id in assets)
+				if (assets)
 				{
-					if (assets[id].tagName == "IMG" || 
-						assets[id].tagName == "CANVAS")
+					// save all images to the window images object
+					// this is required for CreateJS to be available
+					// on the images window object
+					for (var id in assets)
 					{
-						images[id] = assets[id];
-						this._images.push(id);
+						if (assets[id].tagName == "IMG" ||
+							assets[id].tagName == "CANVAS")
+						{
+							images[id] = assets[id];
+							this._images.push(id);
+						}
 					}
 				}
-			}
-			this.panel.setup();
+				this.panel.setup();
 
-			// @deprecated Method to handle on assets loaded
-			this.onAssetsLoaded();
-		}, priority)
-		// Handle the panel exit
-		.on('exit', function()
-		{
-			this.panel.teardown();
-
-			// Remove global images reference
-			this._images.forEach(function(id)
+				// @deprecated Method to handle on assets loaded
+				this.onAssetsLoaded();
+			}, priority)
+			// Handle the panel exit
+			.on('exit', function()
 			{
-				delete images[id];
-			});
-			this._images.length = 0;
-		}, priority);
+				this.panel.teardown();
+
+				// Remove global images reference
+				this._images.forEach(function(id)
+				{
+					delete images[id];
+				});
+				this._images.length = 0;
+			}, priority);
 	};
 
 	// Reference to the parent prototype
@@ -322,7 +323,10 @@
 		// Change the defaults
 		this.options.override('fps', 30);
 		this.options.override('display', include('springroll.easeljs.EaselJSDisplay'));
-		this.options.override('displayOptions', { clearView: true });
+		this.options.override('displayOptions',
+		{
+			clearView: true
+		});
 		this.options.override('canvasId', 'stage');
 
 		Debug = include('springroll.Debug', false);
@@ -355,7 +359,8 @@
 
 			if (manifestsPath)
 			{
-				assets.push({
+				assets.push(
+				{
 					id: "manifests",
 					src: manifestsPath,
 					complete: onManifestsLoaded.bind(this)
@@ -397,7 +402,7 @@
 	// Include classes
 	var BasePanel = include('springroll.easeljs.BasePanel'),
 		BaseState = include('springroll.easeljs.BaseState');
-	
+
 	/**
 	 * @class BasePanel
 	 */
@@ -406,7 +411,7 @@
 	 * @property {springroll.Application} game
 	 * @deprecated since version 0.3.0
 	 */
-	Object.defineProperty(BasePanel.prototype, 'game', 
+	Object.defineProperty(BasePanel.prototype, 'game',
 	{
 		get: function()
 		{
@@ -423,7 +428,7 @@
 	 * @property {springroll.Application} game
 	 * @deprecated since version 0.3.0
 	 */
-	Object.defineProperty(BaseState.prototype, 'game', 
+	Object.defineProperty(BaseState.prototype, 'game',
 	{
 		get: function()
 		{
@@ -437,7 +442,7 @@
 	 * @property {Array} manifest
 	 * @deprecated since version 0.4.0
 	 */
-	Object.defineProperty(BaseState.prototype, 'manifest', 
+	Object.defineProperty(BaseState.prototype, 'manifest',
 	{
 		get: function()
 		{
@@ -452,7 +457,7 @@
 	 * @deprecated since version 0.4.0
 	 * @readOnly
 	 */
-	Object.defineProperty(BaseState.prototype, 'assetsLoaded', 
+	Object.defineProperty(BaseState.prototype, 'assetsLoaded',
 	{
 		get: function()
 		{

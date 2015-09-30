@@ -28,7 +28,7 @@
 	 * @private
 	 */
 	var _helperPoint = new Point();
-		
+
 	// Init the animator
 	plugin.setup = function()
 	{
@@ -68,7 +68,7 @@
 		 *                                            be used.
 		 * @return {Object} {x:int, y:int, stage_width:int, stage_height:int}
 		 */
-		
+
 		/**
 		 * For learning events, we want to send consistent data when sending
 		 * positions. This helper method generates that data.
@@ -186,8 +186,8 @@
 		var target = stage._getObjectsUnderPoint(ev.stageX, ev.stageY, null, true);
 
 		var foundListener = false;
-		
-		if(target)
+
+		if (target)
 		{
 			while (target && target != stage)
 			{

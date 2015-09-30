@@ -125,7 +125,8 @@
 	p.start = function(callback)
 	{
 		var assets = {
-			_anim : {
+			_anim:
+			{
 				src: this.anim,
 				libName: this.libName,
 				images: this.images,
@@ -144,46 +145,49 @@
 			});
 
 			// The Sound to preload audio aliases
-			assets._audio = { sounds: aliases };
+			assets._audio = {
+				sounds: aliases
+			};
 		}
 
 		var app = Application.instance;
 
 		// Preload all the assets for the cutscene
 		app.load(assets, function(results)
-		{
-			// Include the clip class
-			var ClipClass = include(this.libName + "." + this.animClass);
-			var clip = new ClipClass();
-			clip.framerate = this.fps;
-
-			// Create the cutscene object
-			var cutscene = new Cutscene({
-				clip: clip,
-				width: this.width,
-				height: this.height,
-				display: this.display,
-				captions: app.captions || null,
-				audio: this.audio
-			});
-
-			// Handle the destroying of the cutscene
-			// either through implementation or through
-			// the cache destroying the Cutscene
-			cutscene.addEventListener('destroy', function()
 			{
-				// Destroy the FlashArt object
-				results._anim.destroy();
+				// Include the clip class
+				var ClipClass = include(this.libName + "." + this.animClass);
+				var clip = new ClipClass();
+				clip.framerate = this.fps;
 
-				// Destroy the audio
-				if (results._audio)
+				// Create the cutscene object
+				var cutscene = new Cutscene(
 				{
-					results._audio.destroy();
-				}
-			});
-			callback(cutscene);
-		}
-		.bind(this));
+					clip: clip,
+					width: this.width,
+					height: this.height,
+					display: this.display,
+					captions: app.captions || null,
+					audio: this.audio
+				});
+
+				// Handle the destroying of the cutscene
+				// either through implementation or through
+				// the cache destroying the Cutscene
+				cutscene.addEventListener('destroy', function()
+				{
+					// Destroy the FlashArt object
+					results._anim.destroy();
+
+					// Destroy the audio
+					if (results._audio)
+					{
+						results._audio.destroy();
+					}
+				});
+				callback(cutscene);
+			}
+			.bind(this));
 	};
 
 	/**

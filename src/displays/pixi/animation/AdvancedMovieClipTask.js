@@ -61,7 +61,10 @@
 	 */
 	p.start = function(callback)
 	{
-		this.loadAtlas({ _anim: this.anim }, function(textureAtlas, results)
+		this.loadAtlas(
+		{
+			_anim: this.anim
+		}, function(textureAtlas, results)
 		{
 			var clip = new AdvancedMovieClip(results._anim, textureAtlas);
 			//override destroy on clip to destroy textureAtlas as well

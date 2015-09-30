@@ -2,8 +2,9 @@
  * @module Core
  * @namespace springroll
  */
-(function(){
-	
+(function()
+{
+
 	var Application = include('springroll.Application'),
 		Loader = include('springroll.Loader'),
 		PropertyDispatcher = include('springroll.PropertyDispatcher'),
@@ -79,7 +80,7 @@
 		if (DEBUG) console.warn('readOnly method is now deprecated, please use add(name, prop, readOnly), e.g.: app.options.add("myVar", null, true);');
 
 		var prop, name;
-		for(var i = 0; i < arguments.length; i++)
+		for (var i = 0; i < arguments.length; i++)
 		{
 			name = arguments[i];
 			prop = this._properties[name];

@@ -29,7 +29,7 @@
 		 * @property {Array|Object} assets
 		 */
 		this.assets = asset.assets;
-		
+
 		/**
 		 * If each asset in the collection should be cached.
 		 * @property {Boolean} cacheAll
@@ -65,7 +65,8 @@
 	 */
 	p.start = function(callback)
 	{
-		this.load(this.assets, {
+		this.load(this.assets,
+		{
 			complete: callback,
 			progress: this.progress,
 			cacheAll: this.cacheAll

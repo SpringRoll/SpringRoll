@@ -39,8 +39,8 @@
 	 */
 	BitmapTask.test = function(asset)
 	{
-		return asset.src && 
-			asset.type == "easeljs" && 
+		return asset.src &&
+			asset.type == "easeljs" &&
 			asset.format == "createjs.Bitmap";
 	};
 
