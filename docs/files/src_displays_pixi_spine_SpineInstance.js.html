@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html lang='en'>
 <head>
-	<title>SpringRoll v0.4.0 API Documentation : src/displays/pixi/spine/SpineInstance.js</title>
+	<title>SpringRoll v0.4.1 API Documentation : src/displays/pixi/spine/SpineInstance.js</title>
 	<meta charset='utf-8'>
 	<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 	<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
-	<link rel='shortcut icon' type='image/png' href='../assets/images/favicon.ico?v=0.4.0'>
+	<link rel='shortcut icon' type='image/png' href='../assets/images/favicon.ico?v=0.4.1'>
 	<link href='//fonts.googleapis.com/css?family=Titillium+Web:300,200,600' rel='stylesheet' type='text/css'>
-	<link rel='stylesheet' type='text/css' href='../assets/css/libraries.css?v=0.4.0'>
-	<link rel='stylesheet' type='text/css' href='../assets/css/main.css?v=0.4.0'>
+	<link rel='stylesheet' type='text/css' href='../assets/css/libraries.css?v=0.4.1'>
+	<link rel='stylesheet' type='text/css' href='../assets/css/main.css?v=0.4.1'>
 </head>
 <body>
 <header>
@@ -22,10 +22,10 @@
 					<span class="icon-bar"></span>
 				</button>
 				<a class="navbar-brand" href='https://github.com/SpringRoll/SpringRoll'>
-						<img src='../assets/images/logo.png?v=0.4.0' class="logo">
+						<img src='../assets/images/logo.png?v=0.4.1' class="logo">
 					<span class='project-name'>SpringRoll</span>
 					<span class="sr-only">API Documentation for:</span>
-					<span class='version hidden-xs'>v0.4.0</span>
+					<span class='version hidden-xs'>v0.4.1</span>
 				</a>
 			</div>
 			<div class="collapse navbar-collapse" id="docs-navbar">
@@ -615,9 +615,9 @@
 	var AnimatorInstance = include(&#x27;springroll.AnimatorInstance&#x27;);
 	var Spine = include(&#x27;PIXI.spine.Spine&#x27;, false);
 	var ParallelSpineData = include(&#x27;springroll.pixi.ParallelSpineData&#x27;);
-	
-	if(!Spine) return;
-	
+
+	if (!Spine) return;
+
 	/**
 	 * The plugin for working with Spine skeletons and animator
 	 * @class SpineInstance
@@ -627,7 +627,7 @@
 	var SpineInstance = function()
 	{
 		AnimatorInstance.call(this);
-		
+
 		this.prevPosition = 0;
 	};
 
@@ -643,13 +643,13 @@
 	{
 		//we don&#x27;t want Spine animations to advance every render, only when Animator tells them to
 		clip.autoUpdate = false;
-		
+
 		this.clip = clip;
 		this.isLooping = false;
 		this.currentName = null;
 		this.position = this.duration = 0;
 	};
-	
+
 	p.beginAnim = function(animObj, isRepeat)
 	{
 		var spineState = this.clip.state;
@@ -657,9 +657,9 @@
 		var skeletonData = this.clip.stateData.skeletonData;
 
 		this.isLooping = !!animObj.loop;
-		
+
 		var anim = this.currentName = animObj.anim;
-		if(typeof anim == &quot;string&quot;)
+		if (typeof anim == &quot;string&quot;)
 		{
 			//single anim
 			this.duration = skeletonData.findAnimation(anim).duration;
@@ -669,24 +669,26 @@
 		{
 			var i;
 			//concurrent spine anims
-			if(anim[0] instanceof ParallelSpineData)
+			if (anim[0] instanceof ParallelSpineData)
 			{
 				//this.spineSpeeds = new Array(anim.length);
 				this.duration = 0;
-				var maxDuration = 0, maxLoopDuration = 0, duration;
-				for(i = 0; i &lt; anim.length; ++i)
+				var maxDuration = 0,
+					maxLoopDuration = 0,
+					duration;
+				for (i = 0; i &lt; anim.length; ++i)
 				{
 					var animLoop = anim[i].loop;
 					spineState.setAnimationByName(i, anim[i].anim, animLoop);
 					duration = skeletonData.findAnimation(anim[i].anim).duration;
-					if(animLoop)
+					if (animLoop)
 					{
-						if(duration &gt; maxLoopDuration)
+						if (duration &gt; maxLoopDuration)
 							maxLoopDuration = duration;
 					}
 					else
 					{
-						if(duration &gt; maxDuration)
+						if (duration &gt; maxDuration)
 							maxDuration = duration;
 					}
 					/*if (anim[i].speed &gt; 0)
@@ -702,14 +704,14 @@
 			else
 			{
 				this.duration = skeletonData.findAnimation(anim[0]).duration;
-				if(anim.length == 1)
+				if (anim.length == 1)
 				{
 					spineState.setAnimationByName(0, anim[0], this.isLooping);
 				}
 				else
 				{
 					spineState.setAnimationByName(0, anim[0], false);
-					for(i = 1; i &lt; anim.length; ++i)
+					for (i = 1; i &lt; anim.length; ++i)
 					{
 						spineState.addAnimationByName(0, anim[i],
 							this.isLooping &amp;&amp; i == anim.length - 1);
@@ -718,18 +720,18 @@
 				}
 			}
 		}
-		
-		if(isRepeat)
+
+		if (isRepeat)
 			this.position = 0;
 		else
 		{
 			var animStart = animObj.start || 0;
 			this.position = animStart &lt; 0 ? Math.random() * this.duration : animStart;
 		}
-		
+
 		this.clip.update(this.position);
 	};
-	
+
 	/**
 	 * Ends animation playback.
 	 * @method endAnim
@@ -738,7 +740,7 @@
 	{
 		this.clip.update(this.duration - this.position);
 	};
-	
+
 	/**
 	 * Updates position to a new value, and does anything that the clip needs, like updating
 	 * timelines.
@@ -747,7 +749,7 @@
 	 */
 	p.setPosition = function(newPos)
 	{
-		if(newPos &lt; this.position)
+		if (newPos &lt; this.position)
 			this.clip.update(this.duration - this.position + newPos);
 		else
 			this.clip.update(newPos - this.position);
@@ -778,30 +780,30 @@
 	{
 		var i;
 		var skeletonData = clip.stateData.skeletonData;
-		if(typeof anim == &quot;string&quot;)
+		if (typeof anim == &quot;string&quot;)
 		{
 			//single anim
 			return !!skeletonData.findAnimation(anim);
 		}
-		else if(Array.isArray(anim))
+		else if (Array.isArray(anim))
 		{
 			//concurrent spine anims
-			if(anim[0] instanceof ParallelSpineData)
+			if (anim[0] instanceof ParallelSpineData)
 			{
-				for(i = 0; i &lt; anim.length; ++i)
+				for (i = 0; i &lt; anim.length; ++i)
 				{
 					//ensure all animations exist
-					if(!skeletonData.findAnimation(anim[i].anim))
+					if (!skeletonData.findAnimation(anim[i].anim))
 						return false;
 				}
 			}
 			//list of sequential spine anims
 			else
 			{
-				for(i = 0; i &lt; anim.length; ++i)
+				for (i = 0; i &lt; anim.length; ++i)
 				{
 					//ensure all animations exist
-					if(!skeletonData.findAnimation(anim[i]))
+					if (!skeletonData.findAnimation(anim[i]))
 						return false;
 				}
 			}
@@ -822,30 +824,32 @@
 	{
 		var i;
 		var skeletonData = this.clip.stateData.skeletonData;
-		if(typeof anim == &quot;string&quot;)
+		if (typeof anim == &quot;string&quot;)
 		{
 			//single anim
 			return skeletonData.findAnimation(anim).duration;
 		}
-		else if(Array.isArray(anim))
+		else if (Array.isArray(anim))
 		{
 			var duration = 0;
 			//concurrent spine anims
-			if(anim[0] instanceof ParallelSpineData)
+			if (anim[0] instanceof ParallelSpineData)
 			{
-				var maxDuration = 0, maxLoopDuration = 0, tempDur;
-				for(i = 0; i &lt; anim.length; ++i)
+				var maxDuration = 0,
+					maxLoopDuration = 0,
+					tempDur;
+				for (i = 0; i &lt; anim.length; ++i)
 				{
 					var animLoop = anim[i].loop;
 					tempDur = skeletonData.findAnimation(anim[i].anim).duration;
-					if(animLoop)
+					if (animLoop)
 					{
-						if(tempDur &gt; maxLoopDuration)
+						if (tempDur &gt; maxLoopDuration)
 							maxLoopDuration = tempDur;
 					}
 					else
 					{
-						if(tempDur &gt; maxDuration)
+						if (tempDur &gt; maxDuration)
 							maxDuration = tempDur;
 					}
 				}
@@ -857,9 +861,9 @@
 			else
 			{
 				duration = skeletonData.findAnimation(anim[0]).duration;
-				if(anim.length &gt; 1)
+				if (anim.length &gt; 1)
 				{
-					for(i = 1; i &lt; anim.length; ++i)
+					for (i = 1; i &lt; anim.length; ++i)
 					{
 						duration += skeletonData.findAnimation(anim[i]).duration;
 					}
@@ -888,7 +892,7 @@
 </div>
 </div>
 </div>
-<script src='../assets/js/libraries.js?v=0.4.0'></script>
-<script src='../assets/js/main.js?v=0.4.0'></script>
+<script src='../assets/js/libraries.js?v=0.4.1'></script>
+<script src='../assets/js/main.js?v=0.4.1'></script>
 </body>
 </html>

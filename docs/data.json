@@ -2,7 +2,7 @@
     "project": {
         "name": "SpringRoll",
         "description": "An application framework for building HTML5 Canvas games and applications",
-        "version": "0.4.0",
+        "version": "0.4.1",
         "url": "https://github.com/SpringRoll/SpringRoll"
     },
     "files": {
@@ -2115,7 +2115,7 @@
             },
             "tag": "module",
             "file": "src/states/StateEvent.js",
-            "line": 8,
+            "line": 9,
             "requires": [
                 "Core"
             ]
@@ -2219,7 +2219,7 @@
             },
             "tag": "module",
             "file": "src/displays/native/NativeDisplay.js",
-            "line": 10,
+            "line": 11,
             "requires": [
                 "Core"
             ]
@@ -2304,7 +2304,7 @@
             },
             "tag": "module",
             "file": "src/languages/Languages.js",
-            "line": 12,
+            "line": 13,
             "requires": [
                 "Core"
             ]
@@ -2538,7 +2538,7 @@
             "module": "Core",
             "namespace": "springroll",
             "file": "src/core/async/DelayedCall.js",
-            "line": 9,
+            "line": 10,
             "description": "A class for delaying a call through the Application, instead of relying on setInterval() or\nsetTimeout().",
             "is_constructor": 1,
             "params": [
@@ -2665,7 +2665,7 @@
             "module": "Core",
             "namespace": "springroll",
             "file": "src/core/utils/SavedData.js",
-            "line": 7,
+            "line": 8,
             "description": "The SavedData functions use localStorage and sessionStorage, with a cookie fallback."
         },
         "springroll.TimeUtils": {
@@ -2679,7 +2679,7 @@
             "module": "Core",
             "namespace": "springroll",
             "file": "src/core/utils/TimeUtils.js",
-            "line": 23,
+            "line": 24,
             "description": "A collection of Time related utility functions"
         },
         "springroll.WeightedRandom": {
@@ -2693,7 +2693,7 @@
             "module": "Core",
             "namespace": "springroll",
             "file": "src/core/utils/WeightedRandom.js",
-            "line": 3,
+            "line": 4,
             "description": "A class for generating weighted random values. Input objects are dictionary objects\nwhere the keys are the strings to be picked from, and the values are the corresponding\nodds as integers. For example:\n\n {\n     itemWith25PercentChance: 2,\n     itemWith50PercentChance: 4,\n     otherItemWith25PercentChance: 2\n }",
             "is_constructor": 1,
             "params": [
@@ -2755,7 +2755,7 @@
             "module": "Core",
             "namespace": "springroll",
             "file": "src/core/PageVisibility.js",
-            "line": 7,
+            "line": 8,
             "description": "Handle the page visiblity change, if supported. Application uses one of these to\nmonitor page visibility. It is suggested that you listen to `pause`, `paused`,\nor `resumed` events on the Application instead of using one of these yourself.",
             "is_constructor": 1,
             "params": [
@@ -2826,7 +2826,7 @@
             "module": "Core",
             "namespace": "springroll",
             "file": "src/events/EventDispatcher.js",
-            "line": 7,
+            "line": 8,
             "description": "The EventDispatcher mirrors the functionality of AS3 and EaselJS's EventDispatcher,\nbut is more robust in terms of inputs for the `on()` and `off()` methods.",
             "is_constructor": 1
         },
@@ -3029,7 +3029,7 @@
             "module": "PIXI Display",
             "namespace": "springroll.pixi",
             "file": "src/displays/pixi/PixiDisplay.js",
-            "line": 14,
+            "line": 15,
             "description": "PixiDisplay is a display plugin for the springroll Framework\nthat uses the Pixi library for rendering.",
             "extends": "springroll.AbstractDisplay",
             "is_constructor": 1,
@@ -4967,7 +4967,7 @@
             "module": "Native Display",
             "namespace": "springroll.native",
             "file": "src/displays/native/DisplayAdapter.js",
-            "line": 8,
+            "line": 9,
             "description": "Provide a normalized way to get size, position, scale values\nas well as provide reference for different geometry classes."
         },
         "springroll.native.NativeDisplay": {
@@ -4981,7 +4981,7 @@
             "module": "Native Display",
             "namespace": "springroll.native",
             "file": "src/displays/native/NativeDisplay.js",
-            "line": 10,
+            "line": 11,
             "description": "NativeDisplay is a display plugin for doing native rendering. This represents\nthe bare minimum needed by the Application to render.",
             "extends": "springroll.AbstractDisplay",
             "is_constructor": 1,
@@ -5018,7 +5018,7 @@
             "module": "PIXI Animation",
             "namespace": "springroll.pixi",
             "file": "src/displays/pixi/animation/AdvancedMovieClip.js",
-            "line": 13,
+            "line": 14,
             "description": "A class similar to PIXI.extras.MovieClip, but made to play animations _exclusively_ using\nthe Animator, with data exported by the BitmapMovieClip exporter.\n\nFormat for AdvancedMovieClip data (the same as BitmapMovieClip):\n\n\t{\n\t\tfps:30,\n\t\tlabels:\n\t\t{\n\t\t\tanimStart:0,\n\t\t\tanimStart_loop:15\n\t\t},\n\t\torigin:{ x: 20, y:30 },\n\t\tframes:\n\t\t[\n\t\t\t{\n\t\t\t\tname:\"myAnim#\",\n\t\t\t\tmin:1,\n\t\t\t\tmax:20,\n\t\t\t\tdigits:4\n\t\t\t}\n\t\t],\n\t\tscale:1\n\t}\n\nThe example object describes a 30 fps animation that is 20 frames long, and was originally\nmyAnim0001.png->myAnim0020.png, with frame labels on the first and 16th frames. 'digits' is\noptional, and defaults to 4.",
             "extends": "PIXI.Sprite",
             "is_constructor": 1,
@@ -6140,7 +6140,7 @@
             "module": "Core",
             "namespace": "springroll",
             "file": "src/events/PropertyDispatcher.js",
-            "line": 149,
+            "line": 150,
             "description": "Internal class for managing the property",
             "access": "private",
             "tagname": "",
@@ -6389,7 +6389,7 @@
             "module": "Languages",
             "namespace": "springroll",
             "file": "src/languages/Languages.js",
-            "line": 12,
+            "line": 13,
             "description": "Keeps track of the user locale, by auto-detecting the browser language, allowing a user\nselection, and automatically modifying any url that runs through the CacheManager.",
             "extends": "springroll.EventDispatcher",
             "is_constructor": 1,
@@ -7024,7 +7024,7 @@
             "module": "Core",
             "namespace": "springroll",
             "file": "src/loaders/CacheManager.js",
-            "line": 10,
+            "line": 11,
             "description": "Used for managing the browser cache of loading external elements\ncan easily load version manifest and apply it to the media loader\nsupports cache busting all media load requests\nuses the query string to bust browser versions.",
             "is_constructor": 1,
             "params": [
@@ -7288,7 +7288,7 @@
             "module": "Core",
             "namespace": "window",
             "file": "src/mixins/Object.js",
-            "line": 7,
+            "line": 8,
             "description": "Add methods to Object"
         },
         "window.RequestUtils": {
@@ -7395,7 +7395,7 @@
             "module": "States",
             "namespace": "springroll",
             "file": "src/states/StateEvent.js",
-            "line": 8,
+            "line": 9,
             "description": "A state-related event used by the State Manager",
             "is_constructor": 1,
             "params": [
@@ -7568,7 +7568,7 @@
     "classitems": [
         {
             "file": "src/container/Container.js",
-            "line": 40,
+            "line": 42,
             "description": "The name of this class",
             "itemtype": "property",
             "name": "name",
@@ -7579,7 +7579,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 46,
+            "line": 48,
             "description": "The current iframe jquery object",
             "itemtype": "property",
             "name": "iframe",
@@ -7590,7 +7590,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 52,
+            "line": 54,
             "description": "The DOM object for the iframe",
             "itemtype": "property",
             "name": "dom",
@@ -7601,7 +7601,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 58,
+            "line": 60,
             "description": "Reference to the help button",
             "itemtype": "property",
             "name": "helpButton",
@@ -7612,7 +7612,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 65,
+            "line": 67,
             "description": "Reference to the captions button",
             "itemtype": "property",
             "name": "captionsButton",
@@ -7623,7 +7623,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 72,
+            "line": 74,
             "description": "Reference to the all sound mute button",
             "itemtype": "property",
             "name": "soundButton",
@@ -7634,7 +7634,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 79,
+            "line": 81,
             "description": "Reference to the music mute button",
             "itemtype": "property",
             "name": "musicButton",
@@ -7645,7 +7645,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 86,
+            "line": 88,
             "description": "Reference to the sound effects mute button",
             "itemtype": "property",
             "name": "sfxButton",
@@ -7656,7 +7656,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 93,
+            "line": 95,
             "description": "Reference to the voice-over mute button",
             "itemtype": "property",
             "name": "voButton",
@@ -7667,7 +7667,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 100,
+            "line": 102,
             "description": "Reference to the pause application button",
             "itemtype": "property",
             "name": "pauseButton",
@@ -7678,7 +7678,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 107,
+            "line": 109,
             "description": "Communication layer between the container and application",
             "itemtype": "property",
             "name": "client",
@@ -7689,7 +7689,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 113,
+            "line": 115,
             "description": "The current release data",
             "itemtype": "property",
             "name": "release",
@@ -7700,7 +7700,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 119,
+            "line": 121,
             "description": "Check to see if a application is loaded",
             "itemtype": "property",
             "name": "loaded",
@@ -7712,7 +7712,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 126,
+            "line": 128,
             "description": "Check to see if a application is loading",
             "itemtype": "property",
             "name": "loading",
@@ -7724,7 +7724,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 133,
+            "line": 135,
             "description": "The collection of captions styles",
             "itemtype": "property",
             "name": "_captionsStyles",
@@ -7737,7 +7737,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 144,
+            "line": 147,
             "description": "Whether the Game is currently \"blurred\" (not focused) - for pausing/unpausing",
             "itemtype": "property",
             "name": "_appBlurred",
@@ -7751,7 +7751,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 152,
+            "line": 155,
             "description": "Always keep the focus on the application iframe",
             "itemtype": "property",
             "name": "_keepFocus",
@@ -7765,7 +7765,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 160,
+            "line": 163,
             "description": "Whether the Container is currently \"blurred\" (not focused) - for pausing/unpausing",
             "itemtype": "property",
             "name": "_containerBlurred",
@@ -7779,7 +7779,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 168,
+            "line": 171,
             "description": "Delays pausing of application to mitigate issues with asynchronous communication\nbetween Game and Container",
             "itemtype": "property",
             "name": "_pauseTimer",
@@ -7790,7 +7790,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 175,
+            "line": 178,
             "description": "If the application is currently paused manually",
             "itemtype": "property",
             "name": "_isManualPause",
@@ -7804,7 +7804,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 183,
+            "line": 186,
             "description": "If the current application is paused",
             "itemtype": "property",
             "name": "_paused",
@@ -7818,7 +7818,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 191,
+            "line": 194,
             "description": "Should we send bellhop messages for the mute (etc) buttons?",
             "itemtype": "property",
             "name": "sendMutes",
@@ -7830,7 +7830,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 245,
+            "line": 248,
             "description": "Fired when the pause state is toggled",
             "itemtype": "event",
             "name": "pause",
@@ -7847,7 +7847,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 251,
+            "line": 254,
             "description": "Fired when the application resumes from a paused state",
             "itemtype": "event",
             "name": "resumed",
@@ -7857,7 +7857,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 256,
+            "line": 259,
             "description": "Fired when the application becomes paused",
             "itemtype": "event",
             "name": "paused",
@@ -7867,7 +7867,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 261,
+            "line": 264,
             "description": "Fired when the application is unsupported",
             "itemtype": "event",
             "name": "unsupported",
@@ -7884,7 +7884,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 267,
+            "line": 270,
             "description": "Fired when the API cannot be called",
             "itemtype": "event",
             "name": "remoteFailed",
@@ -7894,7 +7894,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 272,
+            "line": 275,
             "description": "There was a problem with the API call",
             "itemtype": "event",
             "name": "remoteError",
@@ -7904,7 +7904,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 277,
+            "line": 280,
             "description": "Event when the application gives the load done signal",
             "itemtype": "event",
             "name": "opened",
@@ -7914,7 +7914,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 282,
+            "line": 285,
             "description": "Event when a application starts closing",
             "itemtype": "event",
             "name": "close",
@@ -7924,7 +7924,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 287,
+            "line": 290,
             "description": "Event when a application closes",
             "itemtype": "event",
             "name": "closed",
@@ -7934,7 +7934,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 292,
+            "line": 295,
             "description": "Event when a application start loading",
             "itemtype": "event",
             "name": "open",
@@ -7944,7 +7944,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 297,
+            "line": 300,
             "description": "Fired when the enabled status of the help button changes",
             "itemtype": "event",
             "name": "helpEnabled",
@@ -7961,7 +7961,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 303,
+            "line": 306,
             "description": "The features supported by the application",
             "itemtype": "event",
             "name": "features",
@@ -8008,7 +8008,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 315,
+            "line": 318,
             "description": "Event when dispatching a Learning Dispatcher event",
             "itemtype": "event",
             "name": "learningEvent",
@@ -8025,7 +8025,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 321,
+            "line": 324,
             "description": "Event when dispatching a Google Analytics event",
             "itemtype": "event",
             "name": "analyticEvent",
@@ -8066,7 +8066,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 331,
+            "line": 334,
             "description": "Open a application or path",
             "itemtype": "method",
             "name": "_internalOpen",
@@ -8107,7 +8107,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 381,
+            "line": 385,
             "description": "Open a application or path",
             "itemtype": "method",
             "name": "open",
@@ -8146,7 +8146,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 404,
+            "line": 409,
             "description": "Open application based on an API Call to SpringRoll Connect",
             "itemtype": "method",
             "name": "openRemote",
@@ -8192,7 +8192,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 459,
+            "line": 465,
             "description": "Set up communication layer between site and application.\nMay be called from subclasses if they create/destroy Bellhop instances.",
             "access": "protected",
             "tagname": "",
@@ -8204,7 +8204,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 487,
+            "line": 493,
             "description": "Removes the Bellhop communication layer altogether.",
             "access": "protected",
             "tagname": "",
@@ -8216,7 +8216,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 501,
+            "line": 507,
             "description": "Reset the mutes for audio and captions",
             "itemtype": "method",
             "name": "onLoadDone",
@@ -8228,7 +8228,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 537,
+            "line": 543,
             "description": "Handle focus events sent from iFrame children",
             "itemtype": "method",
             "name": "onFocus",
@@ -8240,7 +8240,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 548,
+            "line": 554,
             "description": "Handle focus events sent from container's window",
             "itemtype": "method",
             "name": "onContainerFocus",
@@ -8252,7 +8252,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 559,
+            "line": 565,
             "description": "Handle blur events sent from container's window",
             "itemtype": "method",
             "name": "onContainerBlur",
@@ -8264,7 +8264,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 574,
+            "line": 580,
             "description": "Focus on the iframe's contentWindow",
             "itemtype": "method",
             "name": "focus",
@@ -8274,7 +8274,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 583,
+            "line": 589,
             "description": "Unfocus on the iframe's contentWindow",
             "itemtype": "method",
             "name": "blur",
@@ -8284,7 +8284,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 592,
+            "line": 598,
             "description": "Manage the focus change events sent from window and iFrame",
             "itemtype": "method",
             "name": "manageFocus",
@@ -8296,7 +8296,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 638,
+            "line": 644,
             "description": "Track an event for springroll Learning",
             "itemtype": "method",
             "name": "onLearningEvent",
@@ -8315,7 +8315,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 649,
+            "line": 655,
             "description": "Handle the application features",
             "itemtype": "method",
             "name": "onFeatures",
@@ -8334,7 +8334,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 674,
+            "line": 680,
             "description": "Handle the keep focus event for the window",
             "itemtype": "method",
             "name": "onKeepFocus",
@@ -8346,7 +8346,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 685,
+            "line": 691,
             "description": "Reset the mutes for audio and captions",
             "itemtype": "method",
             "name": "onHelpEnabled",
@@ -8358,7 +8358,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 695,
+            "line": 701,
             "description": "Track an event for Google Analtyics",
             "itemtype": "method",
             "name": "onAnalyticEvent",
@@ -8377,7 +8377,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 734,
+            "line": 740,
             "description": "Handler when the play hint button is clicked",
             "itemtype": "method",
             "name": "onPlayHelp",
@@ -8389,7 +8389,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 747,
+            "line": 753,
             "description": "The application ended and destroyed itself",
             "itemtype": "method",
             "name": "onEndGame",
@@ -8401,7 +8401,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 759,
+            "line": 765,
             "description": "Handler when the captions mute button is clicked",
             "itemtype": "method",
             "name": "onCaptionsToggle",
@@ -8413,7 +8413,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 769,
+            "line": 775,
             "description": "If the current application is paused",
             "itemtype": "property",
             "name": "paused",
@@ -8425,7 +8425,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 809,
+            "line": 815,
             "description": "Set the captions are muted",
             "itemtype": "property",
             "name": "helpEnabled",
@@ -8436,7 +8436,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 829,
+            "line": 835,
             "description": "Handler when the sound mute button is clicked",
             "itemtype": "method",
             "name": "onSoundToggle",
@@ -8448,7 +8448,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 843,
+            "line": 849,
             "description": "Handler when the music mute button is clicked",
             "itemtype": "method",
             "name": "onMusicToggle",
@@ -8460,7 +8460,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 854,
+            "line": 860,
             "description": "Handler when the voice-over mute button is clicked",
             "itemtype": "method",
             "name": "onVOToggle",
@@ -8472,7 +8472,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 865,
+            "line": 871,
             "description": "Handler when the voice-over mute button is clicked",
             "itemtype": "method",
             "name": "onSFXToggle",
@@ -8484,7 +8484,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 876,
+            "line": 882,
             "description": "Check for when all mutes are muted or unmuted",
             "itemtype": "method",
             "name": "_checkSoundMute",
@@ -8496,7 +8496,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 886,
+            "line": 892,
             "description": "Toggle the current paused state of the application",
             "itemtype": "method",
             "name": "onPauseToggle",
@@ -8508,7 +8508,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 897,
+            "line": 903,
             "description": "The name of the saved property if the captions are muted or not",
             "itemtype": "property",
             "name": "CAPTIONS_MUTED",
@@ -8523,7 +8523,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 906,
+            "line": 912,
             "description": "The name of the saved property if the sound is muted or not",
             "itemtype": "property",
             "name": "SOUND_MUTED",
@@ -8538,7 +8538,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 915,
+            "line": 921,
             "description": "The name of the saved property if the music is muted or not",
             "itemtype": "property",
             "name": "MUSIC_MUTED",
@@ -8553,7 +8553,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 924,
+            "line": 930,
             "description": "The name of the saved property if the voice-over is muted or not",
             "itemtype": "property",
             "name": "VO_MUTED",
@@ -8568,7 +8568,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 933,
+            "line": 939,
             "description": "The name of the saved property if the effects are muted or not",
             "itemtype": "property",
             "name": "SFX_MUTED",
@@ -8583,7 +8583,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 942,
+            "line": 948,
             "description": "The name of the saved property for the captions styles",
             "itemtype": "property",
             "name": "CAPTIONS_STYLES",
@@ -8598,7 +8598,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 951,
+            "line": 957,
             "description": "The map of the default caption style settings",
             "itemtype": "property",
             "name": "DEFAULT_CAPTIONS_STYLES",
@@ -8613,7 +8613,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 967,
+            "line": 973,
             "description": "Abstract method to handle the muting",
             "itemtype": "method",
             "name": "_setMuteProp",
@@ -8640,7 +8640,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 986,
+            "line": 992,
             "description": "Set the captions styles",
             "itemtype": "method",
             "name": "setCaptionsStyles",
@@ -8708,7 +8708,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 1052,
+            "line": 1058,
             "description": "Get the captions styles",
             "itemtype": "method",
             "name": "getCaptionsStyles",
@@ -8730,7 +8730,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 1064,
+            "line": 1070,
             "description": "Reset the captions styles",
             "itemtype": "method",
             "name": "clearCaptionsStyles",
@@ -8740,7 +8740,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 1075,
+            "line": 1081,
             "description": "Set the captions are enabled or not",
             "itemtype": "property",
             "name": "captionsMuted",
@@ -8752,7 +8752,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 1093,
+            "line": 1099,
             "description": "Set the all sound is enabled or not",
             "itemtype": "property",
             "name": "soundMuted",
@@ -8764,7 +8764,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 1111,
+            "line": 1117,
             "description": "Set the voice-over audio is muted",
             "itemtype": "property",
             "name": "voMuted",
@@ -8776,7 +8776,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 1129,
+            "line": 1135,
             "description": "Set the music audio is muted",
             "itemtype": "property",
             "name": "musicMuted",
@@ -8788,7 +8788,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 1147,
+            "line": 1153,
             "description": "Set the sound effect audio is muted",
             "itemtype": "property",
             "name": "sfxMuted",
@@ -8800,7 +8800,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 1165,
+            "line": 1171,
             "description": "Reset all the buttons back to their original setting\nand clear the iframe.",
             "itemtype": "method",
             "name": "reset",
@@ -8810,7 +8810,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 1193,
+            "line": 1199,
             "description": "Tell the application to start closing",
             "itemtype": "method",
             "name": "close",
@@ -8820,7 +8820,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 1210,
+            "line": 1216,
             "description": "Disable a button",
             "itemtype": "method",
             "name": "disableButton",
@@ -8839,7 +8839,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 1222,
+            "line": 1228,
             "description": "Destroy and don't use after this",
             "itemtype": "method",
             "name": "destroy",
@@ -8979,7 +8979,7 @@
         },
         {
             "file": "src/container/ContainerPlugin.js",
-            "line": 222,
+            "line": 224,
             "description": "When the container pauses the application",
             "itemtype": "method",
             "name": "onPause",
@@ -8998,7 +8998,7 @@
         },
         {
             "file": "src/container/ContainerPlugin.js",
-            "line": 234,
+            "line": 236,
             "description": "Handler when the sound is muted",
             "itemtype": "method",
             "name": "onSoundMuted",
@@ -9017,7 +9017,7 @@
         },
         {
             "file": "src/container/ContainerPlugin.js",
-            "line": 248,
+            "line": 250,
             "description": "Handler when the captions are muted",
             "itemtype": "method",
             "name": "onCaptionsMuted",
@@ -9036,7 +9036,7 @@
         },
         {
             "file": "src/container/ContainerPlugin.js",
-            "line": 262,
+            "line": 264,
             "description": "Handler when the context is muted",
             "itemtype": "method",
             "name": "onContextMuted",
@@ -9060,7 +9060,7 @@
         },
         {
             "file": "src/container/ContainerPlugin.js",
-            "line": 277,
+            "line": 279,
             "description": "The captions style is being set",
             "itemtype": "method",
             "name": "onCaptionsStyles",
@@ -9079,7 +9079,7 @@
         },
         {
             "file": "src/container/ContainerPlugin.js",
-            "line": 301,
+            "line": 304,
             "description": "Handler when a application enters single play mode",
             "itemtype": "method",
             "name": "onPlayOptions",
@@ -9098,7 +9098,7 @@
         },
         {
             "file": "src/container/ContainerPlugin.js",
-            "line": 312,
+            "line": 316,
             "description": "Handler when a application enters single play mode",
             "itemtype": "method",
             "name": "onSinglePlay",
@@ -9110,7 +9110,7 @@
         },
         {
             "file": "src/container/ContainerPlugin.js",
-            "line": 322,
+            "line": 326,
             "description": "Game container requests closing the application",
             "itemtype": "method",
             "name": "onClose",
@@ -9359,7 +9359,7 @@
         },
         {
             "file": "src/core/async/DelayedCall.js",
-            "line": 52,
+            "line": 55,
             "description": "The function to call when the delay is completed.",
             "access": "private",
             "tagname": "",
@@ -9372,7 +9372,7 @@
         },
         {
             "file": "src/core/async/DelayedCall.js",
-            "line": 59,
+            "line": 62,
             "description": "The delay time, in milliseconds.",
             "access": "private",
             "tagname": "",
@@ -9385,7 +9385,7 @@
         },
         {
             "file": "src/core/async/DelayedCall.js",
-            "line": 66,
+            "line": 69,
             "description": "The timer counting down from _delay, in milliseconds.",
             "access": "private",
             "tagname": "",
@@ -9398,7 +9398,7 @@
         },
         {
             "file": "src/core/async/DelayedCall.js",
-            "line": 73,
+            "line": 76,
             "description": "If the DelayedCall should repeat itself automatically.",
             "access": "private",
             "tagname": "",
@@ -9412,7 +9412,7 @@
         },
         {
             "file": "src/core/async/DelayedCall.js",
-            "line": 81,
+            "line": 84,
             "description": "If the DelayedCall should destroy itself after completing",
             "access": "private",
             "tagname": "",
@@ -9426,7 +9426,7 @@
         },
         {
             "file": "src/core/async/DelayedCall.js",
-            "line": 89,
+            "line": 92,
             "description": "If the DelayedCall should use frames instead of milliseconds for the delay.",
             "access": "private",
             "tagname": "",
@@ -9440,7 +9440,7 @@
         },
         {
             "file": "src/core/async/DelayedCall.js",
-            "line": 97,
+            "line": 100,
             "description": "If the DelayedCall is currently paused (not stopped).",
             "access": "private",
             "tagname": "",
@@ -9453,7 +9453,7 @@
         },
         {
             "file": "src/core/async/DelayedCall.js",
-            "line": 113,
+            "line": 116,
             "description": "The callback supplied to the Application for an update each frame.",
             "access": "private",
             "tagname": "",
@@ -9472,7 +9472,7 @@
         },
         {
             "file": "src/core/async/DelayedCall.js",
-            "line": 140,
+            "line": 143,
             "description": "Restarts the DelayedCall, whether it is running or not.",
             "access": "public",
             "tagname": "",
@@ -9484,7 +9484,7 @@
         },
         {
             "file": "src/core/async/DelayedCall.js",
-            "line": 155,
+            "line": 158,
             "description": "Stops the DelayedCall, without destroying it.",
             "access": "public",
             "tagname": "",
@@ -9496,7 +9496,7 @@
         },
         {
             "file": "src/core/async/DelayedCall.js",
-            "line": 166,
+            "line": 169,
             "description": "If the DelayedCall is paused or not.",
             "access": "public",
             "tagname": "",
@@ -9509,7 +9509,7 @@
         },
         {
             "file": "src/core/async/DelayedCall.js",
-            "line": 194,
+            "line": 201,
             "description": "Stops and cleans up the DelayedCall. Do not use it after calling\ndestroy().",
             "access": "public",
             "tagname": "",
@@ -9675,7 +9675,7 @@
         },
         {
             "file": "src/core/utils/SavedData.js",
-            "line": 14,
+            "line": 15,
             "description": "A constant to determine if we can use localStorage and \nsessionStorage",
             "static": 1,
             "itemtype": "property",
@@ -9690,7 +9690,7 @@
         },
         {
             "file": "src/core/utils/SavedData.js",
-            "line": 24,
+            "line": 25,
             "description": "A constant for cookie fallback for `SavedData.clear()`",
             "static": 1,
             "itemtype": "property",
@@ -9706,7 +9706,7 @@
         },
         {
             "file": "src/core/utils/SavedData.js",
-            "line": 48,
+            "line": 49,
             "description": "Remove a saved variable by name.",
             "itemtype": "method",
             "name": "remove",
@@ -9724,7 +9724,7 @@
         },
         {
             "file": "src/core/utils/SavedData.js",
-            "line": 65,
+            "line": 66,
             "description": "Save a variable.",
             "itemtype": "method",
             "name": "write",
@@ -9754,7 +9754,7 @@
         },
         {
             "file": "src/core/utils/SavedData.js",
-            "line": 99,
+            "line": 100,
             "description": "Read the value of a saved variable",
             "itemtype": "method",
             "name": "read",
@@ -9776,7 +9776,7 @@
         },
         {
             "file": "src/core/utils/SavedData.js",
-            "line": 132,
+            "line": 134,
             "description": "When restoring from JSON via `JSON.parse`, we may pass a reviver function.\nIn our case, this will check if the object has a specially-named property (`__classname`).\nIf it does, we will attempt to construct a new instance of that class, rather than using a\nplain old Object. Note that this recurses through the object.",
             "itemtype": "method",
             "name": "reviver",
@@ -9806,7 +9806,7 @@
         },
         {
             "file": "src/core/utils/TimeUtils.js",
-            "line": 29,
+            "line": 30,
             "description": "This method gets timestamp in micromilliseconds for doing performance\nintense operations. Fallback support is to `Date.now()`. We aren't overridding\n`performance.now()` incase dependencies on this actually demand \nthe optimization and accuracy that performance actually provides.",
             "static": 1,
             "itemtype": "method",
@@ -9821,7 +9821,7 @@
         },
         {
             "file": "src/core/utils/WeightedRandom.js",
-            "line": 33,
+            "line": 38,
             "description": "Picks an item at random.",
             "itemtype": "method",
             "name": "random",
@@ -9848,7 +9848,7 @@
         },
         {
             "file": "src/core/ApplicationOptions.js",
-            "line": 30,
+            "line": 31,
             "description": "Reference to the application",
             "itemtype": "property",
             "name": "_app",
@@ -9861,7 +9861,7 @@
         },
         {
             "file": "src/core/ApplicationOptions.js",
-            "line": 41,
+            "line": 42,
             "description": "Initialize the values in the options",
             "itemtype": "method",
             "name": "init",
@@ -9871,7 +9871,7 @@
         },
         {
             "file": "src/core/ApplicationOptions.js",
-            "line": 75,
+            "line": 77,
             "description": "Get the query string as an object",
             "itemtype": "property",
             "name": "getQueryString",
@@ -9884,7 +9884,7 @@
         },
         {
             "file": "src/core/ApplicationOptions.js",
-            "line": 110,
+            "line": 112,
             "description": "Convert a string into a DOM Element",
             "itemtype": "method",
             "name": "asDOMElement",
@@ -9901,7 +9901,7 @@
         },
         {
             "file": "src/core/ApplicationOptions.js",
-            "line": 124,
+            "line": 126,
             "description": "Override a default value",
             "itemtype": "method",
             "name": "override",
@@ -10071,7 +10071,7 @@
         },
         {
             "file": "src/core/PageVisibility.js",
-            "line": 19,
+            "line": 20,
             "description": "Callback when the page becomes visible",
             "itemtype": "property",
             "name": "_onFocus",
@@ -10084,7 +10084,7 @@
         },
         {
             "file": "src/core/PageVisibility.js",
-            "line": 26,
+            "line": 27,
             "description": "Callback when the page loses visibility",
             "itemtype": "property",
             "name": "_onBlur",
@@ -10097,7 +10097,7 @@
         },
         {
             "file": "src/core/PageVisibility.js",
-            "line": 33,
+            "line": 34,
             "description": "If this object is enabled.",
             "itemtype": "property",
             "name": "_enabled",
@@ -10110,7 +10110,7 @@
         },
         {
             "file": "src/core/PageVisibility.js",
-            "line": 43,
+            "line": 44,
             "description": "The visibility toggle listener function",
             "itemtype": "property",
             "name": "_onToggle",
@@ -10123,7 +10123,7 @@
         },
         {
             "file": "src/core/PageVisibility.js",
-            "line": 62,
+            "line": 63,
             "description": "The name of the visibility change event for the browser",
             "itemtype": "property",
             "name": "_visibilityChange",
@@ -10136,7 +10136,7 @@
         },
         {
             "file": "src/core/PageVisibility.js",
-            "line": 90,
+            "line": 91,
             "description": "If this object is enabled.",
             "itemtype": "property",
             "name": "enabled",
@@ -10149,7 +10149,7 @@
         },
         {
             "file": "src/core/PageVisibility.js",
-            "line": 136,
+            "line": 141,
             "description": "Disable the detection",
             "itemtype": "method",
             "name": "destroy",
@@ -10399,7 +10399,7 @@
         },
         {
             "file": "src/core/ResizePlugin.js",
-            "line": 206,
+            "line": 203,
             "description": "Calculates the resizing of displays. By default, this limits the new size\nto the initial aspect ratio of the primary display. Override this function\nif you need variable aspect ratios.",
             "itemtype": "method",
             "name": "calculateDisplaySize",
@@ -10910,7 +10910,7 @@
         },
         {
             "file": "src/debug/Debug.js",
-            "line": 545,
+            "line": 549,
             "description": "An array for preventing circular references",
             "static": 1,
             "access": "private",
@@ -10924,7 +10924,7 @@
         },
         {
             "file": "src/debug/Debug.js",
-            "line": 553,
+            "line": 557,
             "description": "Strip out known circular references",
             "itemtype": "method",
             "name": "removeCircular",
@@ -10943,7 +10943,7 @@
         },
         {
             "file": "src/debug/Debug.js",
-            "line": 637,
+            "line": 641,
             "description": "Log something in the console or remote",
             "static": 1,
             "access": "public",
@@ -10967,7 +10967,7 @@
         },
         {
             "file": "src/debug/Debug.js",
-            "line": 667,
+            "line": 671,
             "description": "Debug something in the console or remote",
             "static": 1,
             "access": "public",
@@ -10991,7 +10991,7 @@
         },
         {
             "file": "src/debug/Debug.js",
-            "line": 708,
+            "line": 712,
             "description": "Info something in the console or remote",
             "static": 1,
             "access": "public",
@@ -11015,7 +11015,7 @@
         },
         {
             "file": "src/debug/Debug.js",
-            "line": 738,
+            "line": 742,
             "description": "Warn something in the console or remote",
             "static": 1,
             "access": "public",
@@ -11039,7 +11039,7 @@
         },
         {
             "file": "src/debug/Debug.js",
-            "line": 768,
+            "line": 772,
             "description": "Error something in the console or remote",
             "static": 1,
             "access": "public",
@@ -11059,7 +11059,7 @@
         },
         {
             "file": "src/debug/Debug.js",
-            "line": 797,
+            "line": 801,
             "description": "Assert that something is true",
             "static": 1,
             "access": "public",
@@ -11088,7 +11088,7 @@
         },
         {
             "file": "src/debug/Debug.js",
-            "line": 825,
+            "line": 829,
             "description": "Method to describe an object in the console",
             "static": 1,
             "itemtype": "method",
@@ -11112,7 +11112,7 @@
         },
         {
             "file": "src/debug/Debug.js",
-            "line": 852,
+            "line": 856,
             "description": "Method to clear the console",
             "static": 1,
             "access": "public",
@@ -11129,7 +11129,7 @@
         },
         {
             "file": "src/debug/Debug.js",
-            "line": 879,
+            "line": 883,
             "description": "Generate a stack track in the output",
             "static": 1,
             "access": "public",
@@ -11153,7 +11153,7 @@
         },
         {
             "file": "src/debug/Debug.js",
-            "line": 906,
+            "line": 910,
             "description": "Starts a new logging group with an optional title. All console output that\noccurs after calling this method and calling `Debug.groupEnd()` appears in\nthe same visual group.",
             "static": 1,
             "access": "public",
@@ -11177,7 +11177,7 @@
         },
         {
             "file": "src/debug/Debug.js",
-            "line": 930,
+            "line": 934,
             "description": "Creates a new logging group that is initially collapsed instead of open,\nas with `Debug.group()`.",
             "static": 1,
             "access": "public",
@@ -11201,7 +11201,7 @@
         },
         {
             "file": "src/debug/Debug.js",
-            "line": 953,
+            "line": 957,
             "description": "Starts a new logging group with an optional title. All console output that\noccurs after calling this method and calling console.groupEnd() appears in\nthe same visual group.",
             "static": 1,
             "access": "public",
@@ -11218,7 +11218,7 @@
         },
         {
             "file": "src/debug/Debug.js",
-            "line": 976,
+            "line": 980,
             "description": "List of hex colors to create Debug shortcuts for.\nEach key will become a function Debug[key]() that outputs\nthe message in the specified color to the console if\nthe browsers allows colored logging.\nColor Palette pulled from \"Better CSS Defaults\"\n(https://github.com/mrmrs/colors)",
             "access": "private",
             "tagname": "",
@@ -11231,7 +11231,7 @@
         },
         {
             "file": "src/debug/Debug.js",
-            "line": 989,
+            "line": 993,
             "description": "Output a general log colored as navy",
             "itemtype": "method",
             "name": "navy",
@@ -11253,7 +11253,7 @@
         },
         {
             "file": "src/debug/Debug.js",
-            "line": 998,
+            "line": 1002,
             "description": "Output a general log colored as blue",
             "itemtype": "method",
             "name": "blue",
@@ -11275,7 +11275,7 @@
         },
         {
             "file": "src/debug/Debug.js",
-            "line": 1007,
+            "line": 1011,
             "description": "Output a general log colored as aqua",
             "itemtype": "method",
             "name": "aqua",
@@ -11297,7 +11297,7 @@
         },
         {
             "file": "src/debug/Debug.js",
-            "line": 1016,
+            "line": 1020,
             "description": "Output a general log colored as teal",
             "itemtype": "method",
             "name": "teal",
@@ -11319,7 +11319,7 @@
         },
         {
             "file": "src/debug/Debug.js",
-            "line": 1025,
+            "line": 1029,
             "description": "Output a general log colored as olive",
             "itemtype": "method",
             "name": "olive",
@@ -11340,7 +11340,7 @@
         },
         {
             "file": "src/debug/Debug.js",
-            "line": 1033,
+            "line": 1037,
             "description": "Output a general log colored as green",
             "itemtype": "method",
             "name": "green",
@@ -11362,7 +11362,7 @@
         },
         {
             "file": "src/debug/Debug.js",
-            "line": 1042,
+            "line": 1046,
             "description": "Output a general log colored as lime",
             "itemtype": "method",
             "name": "lime",
@@ -11384,7 +11384,7 @@
         },
         {
             "file": "src/debug/Debug.js",
-            "line": 1051,
+            "line": 1055,
             "description": "Output a general log colored as yellow",
             "itemtype": "method",
             "name": "yellow",
@@ -11406,7 +11406,7 @@
         },
         {
             "file": "src/debug/Debug.js",
-            "line": 1060,
+            "line": 1064,
             "description": "Output a general log colored as orange",
             "itemtype": "method",
             "name": "orange",
@@ -11428,7 +11428,7 @@
         },
         {
             "file": "src/debug/Debug.js",
-            "line": 1069,
+            "line": 1073,
             "description": "Output a general log colored as red",
             "itemtype": "method",
             "name": "red",
@@ -11450,7 +11450,7 @@
         },
         {
             "file": "src/debug/Debug.js",
-            "line": 1078,
+            "line": 1082,
             "description": "Output a general log colored as pink",
             "itemtype": "method",
             "name": "pink",
@@ -11472,7 +11472,7 @@
         },
         {
             "file": "src/debug/Debug.js",
-            "line": 1087,
+            "line": 1091,
             "description": "Output a general log colored as purple",
             "itemtype": "method",
             "name": "purple",
@@ -11494,7 +11494,7 @@
         },
         {
             "file": "src/debug/Debug.js",
-            "line": 1096,
+            "line": 1100,
             "description": "Output a general log colored as maroon",
             "itemtype": "method",
             "name": "maroon",
@@ -11516,7 +11516,7 @@
         },
         {
             "file": "src/debug/Debug.js",
-            "line": 1105,
+            "line": 1109,
             "description": "Output a general log colored as silver",
             "itemtype": "method",
             "name": "silver",
@@ -11538,7 +11538,7 @@
         },
         {
             "file": "src/debug/Debug.js",
-            "line": 1114,
+            "line": 1118,
             "description": "Output a general log colored as gray",
             "itemtype": "method",
             "name": "gray",
@@ -11560,7 +11560,7 @@
         },
         {
             "file": "src/debug/Debug.js",
-            "line": 1135,
+            "line": 1139,
             "description": "Due to the way closures and variables work, _colorClosure returns\nthe color logging function needed for the color that you pass it.",
             "itemtype": "method",
             "name": "_colorClosure",
@@ -11936,7 +11936,7 @@
         },
         {
             "file": "src/deprecation/core.js",
-            "line": 15,
+            "line": 16,
             "description": "See {{#crossLink \"springroll.Application/displays:property\"}}{{/crossLink}}",
             "itemtype": "method",
             "name": "getDisplays",
@@ -11960,7 +11960,7 @@
         },
         {
             "file": "src/deprecation/core.js",
-            "line": 36,
+            "line": 37,
             "description": "See {{#crossLink \"window.mixin\"}}{{/crossLink}}",
             "itemtype": "method",
             "name": "mixIn",
@@ -11973,7 +11973,7 @@
         },
         {
             "file": "src/deprecation/core.js",
-            "line": 52,
+            "line": 53,
             "description": "See {{#crossLink \"springroll.Application/loader:property\"}}{{/crossLink}}",
             "static": 1,
             "itemtype": "property",
@@ -11987,7 +11987,7 @@
         },
         {
             "file": "src/deprecation/core.js",
-            "line": 70,
+            "line": 71,
             "description": "Turn on read-only for properties",
             "itemtype": "method",
             "name": "readOnly",
@@ -13258,7 +13258,7 @@
         },
         {
             "file": "src/displays/easeljs/animation/BitmapMovieClip.js",
-            "line": 337,
+            "line": 340,
             "description": "Sets paused to false.",
             "itemtype": "method",
             "name": "play",
@@ -13268,7 +13268,7 @@
         },
         {
             "file": "src/displays/easeljs/animation/BitmapMovieClip.js",
-            "line": 346,
+            "line": 349,
             "description": "Sets paused to true.",
             "itemtype": "method",
             "name": "stop",
@@ -13278,7 +13278,7 @@
         },
         {
             "file": "src/displays/easeljs/animation/BitmapMovieClip.js",
-            "line": 355,
+            "line": 358,
             "description": "Advances this movie clip to the specified position or label and sets paused to false.",
             "itemtype": "method",
             "name": "gotoAndPlay",
@@ -13295,7 +13295,7 @@
         },
         {
             "file": "src/displays/easeljs/animation/BitmapMovieClip.js",
-            "line": 366,
+            "line": 369,
             "description": "Advances this movie clip to the specified position or label and sets paused to true.",
             "itemtype": "method",
             "name": "gotoAndStop",
@@ -13312,7 +13312,7 @@
         },
         {
             "file": "src/displays/easeljs/animation/BitmapMovieClip.js",
-            "line": 377,
+            "line": 380,
             "description": "To provide feature parity with the createjs.MovieClip mixin",
             "itemtype": "method",
             "name": "gotoAndCache",
@@ -13322,7 +13322,7 @@
         },
         {
             "file": "src/displays/easeljs/animation/BitmapMovieClip.js",
-            "line": 385,
+            "line": 386,
             "description": "Advances the playhead. This occurs automatically each tick by default.",
             "params": [
                 {
@@ -13340,7 +13340,7 @@
         },
         {
             "file": "src/displays/easeljs/animation/BitmapMovieClip.js",
-            "line": 412,
+            "line": 413,
             "description": "Returns a sorted list of the labels defined on this BitmapMovieClip.",
             "itemtype": "method",
             "name": "getLabels",
@@ -13354,7 +13354,7 @@
         },
         {
             "file": "src/displays/easeljs/animation/BitmapMovieClip.js",
-            "line": 423,
+            "line": 424,
             "description": "Returns a sorted list of the labels which can be played with Animator.",
             "itemtype": "method",
             "name": "getEvents",
@@ -13368,7 +13368,7 @@
         },
         {
             "file": "src/displays/easeljs/animation/BitmapMovieClip.js",
-            "line": 434,
+            "line": 435,
             "description": "Returns the name of the label on or immediately before the current frame.",
             "itemtype": "method",
             "name": "getCurrentLabel",
@@ -13382,7 +13382,7 @@
         },
         {
             "file": "src/displays/easeljs/animation/BitmapMovieClip.js",
-            "line": 453,
+            "line": 454,
             "description": "Initializes or re-initializes the BitmapMovieClip.",
             "itemtype": "method",
             "name": "init",
@@ -13465,7 +13465,7 @@
         },
         {
             "file": "src/displays/easeljs/animation/BitmapMovieClip.js",
-            "line": 570,
+            "line": 572,
             "description": "Copies the labels, textures, origin, and framerate from another BitmapMovieClip.\nThe labels and textures are copied by reference, instead of a deep copy.",
             "itemtype": "method",
             "name": "copyFrom",
@@ -13482,7 +13482,7 @@
         },
         {
             "file": "src/displays/easeljs/animation/BitmapMovieClip.js",
-            "line": 588,
+            "line": 590,
             "description": "Clone a sprite. Creates a shallow copy of loaded element",
             "itemtype": "method",
             "name": "clone",
@@ -13518,7 +13518,7 @@
         },
         {
             "file": "src/displays/easeljs/animation/BitmapMovieClip.js",
-            "line": 606,
+            "line": 608,
             "description": "Destroys the BitmapMovieClip, removing all children and nulling all reference variables.",
             "itemtype": "method",
             "name": "destroy",
@@ -13528,7 +13528,7 @@
         },
         {
             "file": "src/displays/easeljs/animation/BitmapMovieClip.js",
-            "line": 621,
+            "line": 623,
             "itemtype": "method",
             "name": "_tick",
             "params": [
@@ -13546,7 +13546,7 @@
         },
         {
             "file": "src/displays/easeljs/animation/BitmapMovieClip.js",
-            "line": 633,
+            "line": 635,
             "itemtype": "method",
             "name": "_goto",
             "params": [
@@ -13564,7 +13564,7 @@
         },
         {
             "file": "src/displays/easeljs/animation/BitmapMovieClip.js",
-            "line": 664,
+            "line": 666,
             "itemtype": "method",
             "name": "_updateTimeline",
             "access": "protected",
@@ -13575,7 +13575,7 @@
         },
         {
             "file": "src/displays/easeljs/animation/BitmapMovieClip.js",
-            "line": 695,
+            "line": 697,
             "itemtype": "method",
             "name": "_reset",
             "access": "private",
@@ -14032,7 +14032,7 @@
         },
         {
             "file": "src/displays/easeljs/cutscene/Cutscene.js",
-            "line": 424,
+            "line": 425,
             "description": "Stops playback of the cutscene.",
             "itemtype": "method",
             "name": "stop",
@@ -14051,7 +14051,7 @@
         },
         {
             "file": "src/displays/easeljs/cutscene/Cutscene.js",
-            "line": 460,
+            "line": 461,
             "description": "Destroys the cutscene.",
             "itemtype": "method",
             "name": "destroy",
@@ -14212,7 +14212,7 @@
         },
         {
             "file": "src/displays/easeljs/cutscene/CutsceneTask.js",
-            "line": 189,
+            "line": 193,
             "description": "Destroy",
             "itemtype": "method",
             "name": "destroy",
@@ -14430,7 +14430,7 @@
         },
         {
             "file": "src/displays/easeljs/display/FlashArtAtlasTask.js",
-            "line": 92,
+            "line": 93,
             "description": "Load a texture atlas from the properties",
             "itemtype": "method",
             "name": "loadAtlas",
@@ -14865,7 +14865,7 @@
         },
         {
             "file": "src/displays/easeljs/display/TextureAtlas.js",
-            "line": 208,
+            "line": 206,
             "description": "If this texture has been trimmed.",
             "itemtype": "property",
             "name": "trimmed",
@@ -14876,7 +14876,7 @@
         },
         {
             "file": "src/displays/easeljs/display/TextureAtlas.js",
-            "line": 213,
+            "line": 211,
             "description": "The offset that the trimmed sprite should be placed at to restore it to the untrimmed position.",
             "itemtype": "property",
             "name": "offset",
@@ -14887,7 +14887,7 @@
         },
         {
             "file": "src/displays/easeljs/display/TextureAtlas.js",
-            "line": 218,
+            "line": 216,
             "description": "The width of the untrimmed texture.",
             "itemtype": "property",
             "name": "width",
@@ -14898,7 +14898,7 @@
         },
         {
             "file": "src/displays/easeljs/display/TextureAtlas.js",
-            "line": 223,
+            "line": 221,
             "description": "The height of the untrimmed texture.",
             "itemtype": "property",
             "name": "height",
@@ -14992,7 +14992,7 @@
         },
         {
             "file": "src/displays/easeljs/display/TextureAtlasTask.js",
-            "line": 86,
+            "line": 87,
             "description": "Load a texture atlas from the properties",
             "itemtype": "method",
             "name": "loadAtlas",
@@ -15648,7 +15648,7 @@
         },
         {
             "file": "src/displays/easeljs/states/BaseState.js",
-            "line": 54,
+            "line": 55,
             "description": "The global images loaded",
             "itemtype": "property",
             "name": "_images",
@@ -15661,7 +15661,7 @@
         },
         {
             "file": "src/displays/easeljs/states/BaseState.js",
-            "line": 116,
+            "line": 117,
             "description": "Implementation specific for override. When you need to add additional preload\ntasks to your state, override this function.",
             "itemtype": "method",
             "name": "addTasks",
@@ -15685,7 +15685,7 @@
         },
         {
             "file": "src/displays/easeljs/states/BaseState.js",
-            "line": 127,
+            "line": 128,
             "description": "Implementation specific for override. When all the assets, scaling and panel\nsetup have completed.",
             "itemtype": "method",
             "name": "onAssetsLoaded",
@@ -15732,7 +15732,7 @@
         },
         {
             "file": "src/displays/easeljs/states/ManifestsPlugin.js",
-            "line": 48,
+            "line": 51,
             "description": "The collection of loading assets by state",
             "itemtype": "property",
             "name": "_manifests",
@@ -15745,7 +15745,7 @@
         },
         {
             "file": "src/displays/easeljs/states/ManifestsPlugin.js",
-            "line": 55,
+            "line": 58,
             "description": "Read-only getter to return _manifests",
             "itemtype": "property",
             "name": "manifests",
@@ -15757,7 +15757,7 @@
         },
         {
             "file": "src/displays/easeljs/states/ManifestsPlugin.js",
-            "line": 88,
+            "line": 92,
             "description": "Callback to when manifests have been loaded",
             "itemtype": "method",
             "name": "onManifestsLoaded",
@@ -16826,7 +16826,7 @@
         },
         {
             "file": "src/displays/easeljs/ui/SoundButton.js",
-            "line": 117,
+            "line": 121,
             "description": "Don't use after this",
             "itemtype": "method",
             "name": "destroy",
@@ -16873,7 +16873,7 @@
         },
         {
             "file": "src/displays/easeljs/utils/BitmapUtils.js",
-            "line": 140,
+            "line": 138,
             "description": "Creates a faux Bitmap from a TextureAtlas entry.",
             "itemtype": "method",
             "name": "bitmapFromTexture",
@@ -16896,7 +16896,7 @@
         },
         {
             "file": "src/displays/easeljs/utils/BitmapUtils.js",
-            "line": 183,
+            "line": 181,
             "description": "Replaces Bitmaps in the global lib dictionary with a faux Bitmap\nthat uses a scaled bitmap, so you can load up smaller bitmaps behind\nthe scenes that are scaled back up to normal size, or high res bitmaps\nthat are scaled down.",
             "itemtype": "method",
             "name": "replaceWithScaledBitmap",
@@ -17325,7 +17325,7 @@
         },
         {
             "file": "src/displays/easeljs/EaselJSDisplay.js",
-            "line": 42,
+            "line": 43,
             "description": "The rate at which EaselJS calculates mouseover events, in times/second.",
             "itemtype": "property",
             "name": "mouseOverRate",
@@ -17339,7 +17339,7 @@
         },
         {
             "file": "src/displays/easeljs/EaselJSDisplay.js",
-            "line": 50,
+            "line": 51,
             "description": "If the display should keep mouse move events running when the display is disabled.",
             "itemtype": "property",
             "name": "keepMouseover",
@@ -17352,7 +17352,7 @@
         },
         {
             "file": "src/displays/easeljs/EaselJSDisplay.js",
-            "line": 57,
+            "line": 58,
             "description": "If preventDefault() should be called on all touch events and mousedown events. Defaults\nto true.",
             "itemtype": "property",
             "name": "_autoPreventDefault",
@@ -17365,7 +17365,7 @@
         },
         {
             "file": "src/displays/easeljs/EaselJSDisplay.js",
-            "line": 73,
+            "line": 74,
             "description": "The rendering library's stage element, the root display object",
             "itemtype": "property",
             "name": "stage",
@@ -17379,7 +17379,7 @@
         },
         {
             "file": "src/displays/easeljs/EaselJSDisplay.js",
-            "line": 90,
+            "line": 91,
             "description": "An internal helper to avoid creating an object each render\nwhile telling EaselJS the amount of time elapsed.",
             "itemtype": "property",
             "name": "DELTA_HELPER",
@@ -17392,7 +17392,7 @@
         },
         {
             "file": "src/displays/easeljs/EaselJSDisplay.js",
-            "line": 101,
+            "line": 102,
             "description": "If input is enabled on the stage for this display. The default is true.",
             "itemtype": "property",
             "name": "enabled",
@@ -17405,7 +17405,7 @@
         },
         {
             "file": "src/displays/easeljs/EaselJSDisplay.js",
-            "line": 141,
+            "line": 142,
             "description": "If preventDefault() should be called on all touch events and mousedown events. Defaults\nto true.",
             "itemtype": "property",
             "name": "autoPreventDefault",
@@ -17418,7 +17418,7 @@
         },
         {
             "file": "src/displays/easeljs/EaselJSDisplay.js",
-            "line": 168,
+            "line": 169,
             "description": "Updates the stage and draws it. This is only called by the Application.\nThis method does nothing if paused is true or visible is false.",
             "itemtype": "method",
             "name": "render",
@@ -17442,7 +17442,7 @@
         },
         {
             "file": "src/displays/easeljs/EaselJSDisplay.js",
-            "line": 184,
+            "line": 185,
             "description": "Destroys the display. This method is called by the Application and should\nnot be called directly, use Application.removeDisplay(id).\nThe stage recursively removes all display objects here.",
             "itemtype": "method",
             "name": "destroy",
@@ -17783,7 +17783,7 @@
         },
         {
             "file": "src/displays/native/geom/Point.js",
-            "line": 152,
+            "line": 153,
             "description": "Works with a reviver function to restore from a native Object \nto an instance of this type.",
             "params": [
                 {
@@ -17800,7 +17800,7 @@
         },
         {
             "file": "src/displays/native/geom/Polygon.js",
-            "line": 40,
+            "line": 42,
             "description": "Creates a clone of this polygon",
             "itemtype": "method",
             "name": "clone",
@@ -17814,7 +17814,7 @@
         },
         {
             "file": "src/displays/native/geom/Polygon.js",
-            "line": 56,
+            "line": 59,
             "description": "Checks if the x, and y coords passed to this function are contained within this polygon",
             "itemtype": "method",
             "name": "contains",
@@ -17924,7 +17924,7 @@
         },
         {
             "file": "src/displays/native/DisplayAdapter.js",
-            "line": 15,
+            "line": 16,
             "description": "The geometry class for Circle",
             "itemtype": "property",
             "name": "Circle",
@@ -17938,7 +17938,7 @@
         },
         {
             "file": "src/displays/native/DisplayAdapter.js",
-            "line": 24,
+            "line": 25,
             "description": "The geometry class for Ellipse",
             "itemtype": "property",
             "name": "Ellipse",
@@ -17952,7 +17952,7 @@
         },
         {
             "file": "src/displays/native/DisplayAdapter.js",
-            "line": 33,
+            "line": 34,
             "description": "The geometry class for Rectangle",
             "itemtype": "property",
             "name": "Rectangle",
@@ -17966,7 +17966,7 @@
         },
         {
             "file": "src/displays/native/DisplayAdapter.js",
-            "line": 42,
+            "line": 43,
             "description": "The geometry class for Sector",
             "itemtype": "property",
             "name": "Sector",
@@ -17980,7 +17980,7 @@
         },
         {
             "file": "src/displays/native/DisplayAdapter.js",
-            "line": 51,
+            "line": 52,
             "description": "The geometry class for point",
             "itemtype": "property",
             "name": "Point",
@@ -17994,7 +17994,7 @@
         },
         {
             "file": "src/displays/native/DisplayAdapter.js",
-            "line": 60,
+            "line": 61,
             "description": "The geometry class for Polygon",
             "itemtype": "property",
             "name": "Polygon",
@@ -18008,7 +18008,7 @@
         },
         {
             "file": "src/displays/native/DisplayAdapter.js",
-            "line": 69,
+            "line": 70,
             "description": "If the rotation is expressed in radians",
             "itemtype": "property",
             "name": "useRadians",
@@ -18022,7 +18022,7 @@
         },
         {
             "file": "src/displays/native/DisplayAdapter.js",
-            "line": 78,
+            "line": 79,
             "description": "Gets the object's boundaries in its local coordinate space, without any scaling or\nrotation applied.",
             "itemtype": "method",
             "name": "getLocalBounds",
@@ -18044,7 +18044,7 @@
         },
         {
             "file": "src/displays/native/DisplayAdapter.js",
-            "line": 92,
+            "line": 93,
             "description": "Normalize the object scale",
             "itemtype": "method",
             "name": "getScale",
@@ -18072,7 +18072,7 @@
         },
         {
             "file": "src/displays/native/DisplayAdapter.js",
-            "line": 106,
+            "line": 110,
             "description": "Normalize the object position setting",
             "itemtype": "method",
             "name": "setPosition",
@@ -18119,7 +18119,7 @@
         },
         {
             "file": "src/displays/native/DisplayAdapter.js",
-            "line": 124,
+            "line": 128,
             "description": "Normalize the object position getting",
             "itemtype": "method",
             "name": "getPosition",
@@ -18147,7 +18147,7 @@
         },
         {
             "file": "src/displays/native/DisplayAdapter.js",
-            "line": 138,
+            "line": 142,
             "description": "Normalize the object scale setting",
             "itemtype": "method",
             "name": "setScale",
@@ -18180,7 +18180,7 @@
         },
         {
             "file": "src/displays/native/DisplayAdapter.js",
-            "line": 153,
+            "line": 157,
             "description": "Set the pivot or registration point of an object",
             "itemtype": "method",
             "name": "setPivot",
@@ -18227,7 +18227,7 @@
         },
         {
             "file": "src/displays/native/DisplayAdapter.js",
-            "line": 170,
+            "line": 174,
             "description": "Set the hit area of the shape",
             "itemtype": "method",
             "name": "setHitArea",
@@ -18254,7 +18254,7 @@
         },
         {
             "file": "src/displays/native/DisplayAdapter.js",
-            "line": 183,
+            "line": 187,
             "description": "Get the original size of a bitmap",
             "itemtype": "method",
             "name": "getBitmapSize",
@@ -18276,7 +18276,7 @@
         },
         {
             "file": "src/displays/native/DisplayAdapter.js",
-            "line": 198,
+            "line": 202,
             "description": "Remove all children from a display object",
             "itemtype": "method",
             "name": "removeChildren",
@@ -18294,7 +18294,7 @@
         },
         {
             "file": "src/displays/native/NativeDisplay.js",
-            "line": 27,
+            "line": 29,
             "description": "The main rendering context, typically either `CanvasRenderingContext2d` \nor `WebGLRenderingContext`",
             "itemtype": "property",
             "name": "",
@@ -18308,7 +18308,7 @@
         },
         {
             "file": "src/displays/pixi/animation/AdvancedMovieClip.js",
-            "line": 71,
+            "line": 72,
             "description": "The current frame of the movieclip.",
             "itemtype": "property",
             "name": "currentFrame",
@@ -18321,7 +18321,7 @@
         },
         {
             "file": "src/displays/pixi/animation/AdvancedMovieClip.js",
-            "line": 82,
+            "line": 83,
             "description": "The speed at which the AdvancedMovieClip should play.",
             "itemtype": "property",
             "name": "_framerate",
@@ -18335,7 +18335,7 @@
         },
         {
             "file": "src/displays/pixi/animation/AdvancedMovieClip.js",
-            "line": 92,
+            "line": 93,
             "description": "The total time in seconds for the animation.",
             "itemtype": "property",
             "name": "_duration",
@@ -18349,7 +18349,7 @@
         },
         {
             "file": "src/displays/pixi/animation/AdvancedMovieClip.js",
-            "line": 102,
+            "line": 103,
             "description": "The time elapsed from frame 0 in seconds.",
             "itemtype": "property",
             "name": "_t",
@@ -18363,7 +18363,7 @@
         },
         {
             "file": "src/displays/pixi/animation/AdvancedMovieClip.js",
-            "line": 111,
+            "line": 112,
             "description": "An array of frame labels.",
             "itemtype": "property",
             "name": "_labels",
@@ -18376,7 +18376,7 @@
         },
         {
             "file": "src/displays/pixi/animation/AdvancedMovieClip.js",
-            "line": 119,
+            "line": 120,
             "description": "An array of event labels.",
             "itemtype": "property",
             "name": "_events",
@@ -18389,7 +18389,7 @@
         },
         {
             "file": "src/displays/pixi/animation/AdvancedMovieClip.js",
-            "line": 127,
+            "line": 128,
             "description": "The array of Textures that are the MovieClip's frames.",
             "itemtype": "property",
             "name": "_textures",
@@ -18402,7 +18402,7 @@
         },
         {
             "file": "src/displays/pixi/animation/AdvancedMovieClip.js",
-            "line": 144,
+            "line": 145,
             "description": "The speed at which the AdvancedMovieClip should play.",
             "itemtype": "property",
             "name": "framerate",
@@ -18414,7 +18414,7 @@
         },
         {
             "file": "src/displays/pixi/animation/AdvancedMovieClip.js",
-            "line": 168,
+            "line": 169,
             "description": "When the BitmapMovieClip is framerate independent, this is the time elapsed from frame 0 in\nseconds.",
             "itemtype": "property",
             "name": "elapsedTime",
@@ -18428,7 +18428,7 @@
         },
         {
             "file": "src/displays/pixi/animation/AdvancedMovieClip.js",
-            "line": 195,
+            "line": 196,
             "description": "(Read-Only) The total number of frames in the timeline",
             "itemtype": "property",
             "name": "totalFrames",
@@ -18441,7 +18441,7 @@
         },
         {
             "file": "src/displays/pixi/animation/AdvancedMovieClip.js",
-            "line": 212,
+            "line": 213,
             "description": "Advances this movie clip to the specified position or label.",
             "itemtype": "method",
             "name": "gotoAndStop",
@@ -18458,7 +18458,7 @@
         },
         {
             "file": "src/displays/pixi/animation/AdvancedMovieClip.js",
-            "line": 246,
+            "line": 247,
             "description": "Advances the playhead. This occurs automatically each tick by default.",
             "params": [
                 {
@@ -18476,7 +18476,7 @@
         },
         {
             "file": "src/displays/pixi/animation/AdvancedMovieClip.js",
-            "line": 266,
+            "line": 267,
             "description": "Returns a sorted list of the labels defined on this AdvancedMovieClip.",
             "itemtype": "method",
             "name": "getLabels",
@@ -18490,7 +18490,7 @@
         },
         {
             "file": "src/displays/pixi/animation/AdvancedMovieClip.js",
-            "line": 277,
+            "line": 278,
             "description": "Returns a sorted list of the labels which can be played with Animator.",
             "itemtype": "method",
             "name": "getEvents",
@@ -18504,7 +18504,7 @@
         },
         {
             "file": "src/displays/pixi/animation/AdvancedMovieClip.js",
-            "line": 288,
+            "line": 289,
             "description": "Returns the name of the label on or immediately before the current frame.",
             "itemtype": "method",
             "name": "getCurrentLabel",
@@ -18518,7 +18518,7 @@
         },
         {
             "file": "src/displays/pixi/animation/AdvancedMovieClip.js",
-            "line": 307,
+            "line": 308,
             "description": "Initializes or re-initializes the AdvancedMovieClip.",
             "itemtype": "method",
             "name": "init",
@@ -18602,7 +18602,7 @@
         },
         {
             "file": "src/displays/pixi/animation/AdvancedMovieClip.js",
-            "line": 491,
+            "line": 493,
             "description": "Copies the labels, textures, origin, and framerate from another AdvancedMovieClip.\nThe labels and textures are copied by reference, instead of a deep copy.",
             "itemtype": "method",
             "name": "copyFrom",
@@ -18619,7 +18619,7 @@
         },
         {
             "file": "src/displays/pixi/animation/AdvancedMovieClip.js",
-            "line": 508,
+            "line": 510,
             "description": "Destroys the AdvancedMovieClip.",
             "itemtype": "method",
             "name": "destroy",
@@ -19032,7 +19032,7 @@
         },
         {
             "file": "src/displays/pixi/display/TextureAtlasTask.js",
-            "line": 68,
+            "line": 69,
             "description": "Load a texture atlas from the properties",
             "itemtype": "method",
             "name": "loadAtlas",
@@ -19131,7 +19131,7 @@
         },
         {
             "file": "src/displays/pixi/display/TextureTask.js",
-            "line": 79,
+            "line": 80,
             "description": "Load the texture from the properties",
             "itemtype": "method",
             "name": "loadImage",
@@ -19159,7 +19159,7 @@
         },
         {
             "file": "src/displays/pixi/display/TextureTask.js",
-            "line": 162,
+            "line": 163,
             "description": "Destroy this load task and don't use after this.",
             "itemtype": "method",
             "name": "destroy",
@@ -19547,7 +19547,7 @@
         },
         {
             "file": "src/displays/pixi/spine/SpineAnimTask.js",
-            "line": 163,
+            "line": 167,
             "description": "Destroy this load task and don't use after this.",
             "itemtype": "method",
             "name": "destroy",
@@ -19679,7 +19679,7 @@
         },
         {
             "file": "src/displays/pixi/spine/SpineInstance.js",
-            "line": 127,
+            "line": 129,
             "description": "Ends animation playback.",
             "itemtype": "method",
             "name": "endAnim",
@@ -19689,7 +19689,7 @@
         },
         {
             "file": "src/displays/pixi/spine/SpineInstance.js",
-            "line": 136,
+            "line": 138,
             "description": "Updates position to a new value, and does anything that the clip needs, like updating\ntimelines.",
             "itemtype": "method",
             "name": "setPosition",
@@ -19706,7 +19706,7 @@
         },
         {
             "file": "src/displays/pixi/spine/SpineInstance.js",
-            "line": 151,
+            "line": 153,
             "description": "Check to see if a clip is compatible with this",
             "itemtype": "method",
             "name": "test",
@@ -19721,7 +19721,7 @@
         },
         {
             "file": "src/displays/pixi/spine/SpineInstance.js",
-            "line": 162,
+            "line": 164,
             "description": "Checks if animation exists",
             "itemtype": "method",
             "name": "hasAnimation",
@@ -19748,7 +19748,7 @@
         },
         {
             "file": "src/displays/pixi/spine/SpineInstance.js",
-            "line": 207,
+            "line": 209,
             "description": "Calculates the duration of an animation or list of animations.",
             "itemtype": "method",
             "name": "getDuration",
@@ -19775,7 +19775,7 @@
         },
         {
             "file": "src/displays/pixi/spine/SpineInstance.js",
-            "line": 267,
+            "line": 271,
             "description": "Reset this animator instance\nso it can be re-used.",
             "itemtype": "method",
             "name": "destroy",
@@ -19900,7 +19900,7 @@
         },
         {
             "file": "src/displays/pixi/ui/Button.js",
-            "line": 346,
+            "line": 350,
             "description": "An event for when the button is pressed (while enabled).",
             "static": 1,
             "itemtype": "property",
@@ -19912,7 +19912,7 @@
         },
         {
             "file": "src/displays/pixi/ui/Button.js",
-            "line": 353,
+            "line": 357,
             "description": "An event for when the button is moused over (while enabled).",
             "static": 1,
             "itemtype": "property",
@@ -19924,7 +19924,7 @@
         },
         {
             "file": "src/displays/pixi/ui/Button.js",
-            "line": 360,
+            "line": 364,
             "description": "An event for when the button is moused out (while enabled).",
             "static": 1,
             "itemtype": "property",
@@ -19936,7 +19936,7 @@
         },
         {
             "file": "src/displays/pixi/ui/Button.js",
-            "line": 417,
+            "line": 432,
             "description": "Sets the text of the label. This does nothing if the button was not initialized with a\nlabel.",
             "itemtype": "method",
             "name": "setText",
@@ -19953,7 +19953,7 @@
         },
         {
             "file": "src/displays/pixi/ui/Button.js",
-            "line": 473,
+            "line": 489,
             "description": "Whether or not the button is enabled.",
             "itemtype": "property",
             "name": "enabled",
@@ -19965,7 +19965,7 @@
         },
         {
             "file": "src/displays/pixi/ui/Button.js",
-            "line": 515,
+            "line": 535,
             "description": "Adds a property to the button. Setting the property sets the value in\n_stateFlags and calls _updateState().",
             "access": "private",
             "tagname": "",
@@ -19984,7 +19984,7 @@
         },
         {
             "file": "src/displays/pixi/ui/Button.js",
-            "line": 542,
+            "line": 566,
             "description": "Updates back based on the current button state.",
             "access": "private",
             "tagname": "",
@@ -20000,7 +20000,7 @@
         },
         {
             "file": "src/displays/pixi/ui/Button.js",
-            "line": 628,
+            "line": 653,
             "description": "The callback for when the button is moused over.",
             "access": "private",
             "tagname": "",
@@ -20012,7 +20012,7 @@
         },
         {
             "file": "src/displays/pixi/ui/Button.js",
-            "line": 641,
+            "line": 666,
             "description": "The callback for when the mouse leaves the button area.",
             "access": "private",
             "tagname": "",
@@ -20024,7 +20024,7 @@
         },
         {
             "file": "src/displays/pixi/ui/Button.js",
-            "line": 654,
+            "line": 679,
             "description": "The callback for when the button receives a mouse down event.",
             "access": "private",
             "tagname": "",
@@ -20036,7 +20036,7 @@
         },
         {
             "file": "src/displays/pixi/ui/Button.js",
-            "line": 671,
+            "line": 696,
             "description": "The callback for when the button for when the mouse/touch is released on the button\n- only when the button was held down initially.",
             "access": "private",
             "tagname": "",
@@ -20048,7 +20048,7 @@
         },
         {
             "file": "src/displays/pixi/ui/Button.js",
-            "line": 698,
+            "line": 723,
             "description": "The callback for when the mouse/touch is released outside the button when the button was\nheld down.",
             "access": "private",
             "tagname": "",
@@ -20060,7 +20060,7 @@
         },
         {
             "file": "src/displays/pixi/ui/Button.js",
-            "line": 715,
+            "line": 740,
             "description": "Destroys the button.",
             "access": "public",
             "tagname": "",
@@ -20298,7 +20298,7 @@
         },
         {
             "file": "src/displays/pixi/ui/DragManager.js",
-            "line": 216,
+            "line": 222,
             "description": "Manually starts dragging an object. If a mouse down event is not supplied\nas the second argument, it defaults to a held drag, that ends as soon as\nthe mouse is released. When using multitouch, passing a interaction data is\nrequired.",
             "itemtype": "method",
             "name": "startDrag",
@@ -20322,7 +20322,7 @@
         },
         {
             "file": "src/displays/pixi/ui/DragManager.js",
-            "line": 232,
+            "line": 238,
             "description": "Mouse down on an object",
             "itemtype": "method",
             "name": "_objMouseDown",
@@ -20346,7 +20346,7 @@
         },
         {
             "file": "src/displays/pixi/ui/DragManager.js",
-            "line": 310,
+            "line": 316,
             "description": "Start the sticky click",
             "itemtype": "method",
             "name": "_triggerStickyClick",
@@ -20365,7 +20365,7 @@
         },
         {
             "file": "src/displays/pixi/ui/DragManager.js",
-            "line": 330,
+            "line": 336,
             "description": "Start hold dragging",
             "itemtype": "method",
             "name": "_triggerHeldDrag",
@@ -20384,7 +20384,7 @@
         },
         {
             "file": "src/displays/pixi/ui/DragManager.js",
-            "line": 362,
+            "line": 368,
             "description": "Internal start dragging on the stage",
             "itemtype": "method",
             "name": "_startDrag",
@@ -20403,7 +20403,7 @@
         },
         {
             "file": "src/displays/pixi/ui/DragManager.js",
-            "line": 386,
+            "line": 392,
             "description": "Stops dragging the currently dragged object.",
             "access": "public",
             "tagname": "",
@@ -20430,7 +20430,7 @@
         },
         {
             "file": "src/displays/pixi/ui/DragManager.js",
-            "line": 412,
+            "line": 418,
             "description": "Internal stop dragging on the stage",
             "itemtype": "method",
             "name": "_stopDrag",
@@ -20454,7 +20454,7 @@
         },
         {
             "file": "src/displays/pixi/ui/DragManager.js",
-            "line": 492,
+            "line": 498,
             "description": "Update the object position based on the mouse",
             "itemtype": "method",
             "name": "_updateObjPosition",
@@ -20473,7 +20473,7 @@
         },
         {
             "file": "src/displays/pixi/ui/DragManager.js",
-            "line": 553,
+            "line": 559,
             "description": "Handles snapping the dragged object to the nearest among a list of points",
             "itemtype": "method",
             "name": "_handlePointSnap",
@@ -20502,7 +20502,7 @@
         },
         {
             "file": "src/displays/pixi/ui/DragManager.js",
-            "line": 607,
+            "line": 613,
             "description": "Adds properties and functions to the object - use enableDrag() and disableDrag() on\nobjects to enable/disable them (they start out disabled). Properties added to objects:\n_dragBounds (Rectangle), _onMouseDownListener (Function), _dragMan (springroll.DragManager) reference to the DragManager\nthese will override any existing properties of the same name",
             "itemtype": "method",
             "name": "addObject",
@@ -20527,7 +20527,7 @@
         },
         {
             "file": "src/displays/pixi/ui/DragManager.js",
-            "line": 638,
+            "line": 644,
             "description": "Removes properties and functions added by addObject().",
             "access": "public",
             "tagname": "",
@@ -20546,7 +20546,7 @@
         },
         {
             "file": "src/displays/pixi/ui/DragManager.js",
-            "line": 659,
+            "line": 665,
             "description": "Destroy the manager",
             "access": "public",
             "tagname": "",
@@ -20955,7 +20955,7 @@
         },
         {
             "file": "src/displays/pixi/PixiDisplay.js",
-            "line": 45,
+            "line": 47,
             "description": "If the display should keep mouse move events running when the display is disabled.",
             "itemtype": "property",
             "name": "keepMouseover",
@@ -20968,7 +20968,7 @@
         },
         {
             "file": "src/displays/pixi/PixiDisplay.js",
-            "line": 52,
+            "line": 54,
             "description": "The rendering library's stage element, the root display object",
             "itemtype": "property",
             "name": "stage",
@@ -20982,7 +20982,7 @@
         },
         {
             "file": "src/displays/pixi/PixiDisplay.js",
-            "line": 60,
+            "line": 62,
             "description": "The Pixi renderer.",
             "itemtype": "property",
             "name": "renderer",
@@ -20996,7 +20996,7 @@
         },
         {
             "file": "src/displays/pixi/PixiDisplay.js",
-            "line": 105,
+            "line": 106,
             "description": "If Pixi is being rendered with WebGL.",
             "itemtype": "property",
             "name": "isWebGL",
@@ -21010,7 +21010,7 @@
         },
         {
             "file": "src/displays/pixi/PixiDisplay.js",
-            "line": 120,
+            "line": 121,
             "description": "If input is enabled on the stage for this display. The default is true.",
             "itemtype": "property",
             "name": "enabled",
@@ -21023,7 +21023,7 @@
         },
         {
             "file": "src/displays/pixi/PixiDisplay.js",
-            "line": 149,
+            "line": 154,
             "description": "Resizes the canvas and the renderer. This is only called by the Application.",
             "itemtype": "method",
             "name": "resize",
@@ -21045,7 +21045,7 @@
         },
         {
             "file": "src/displays/pixi/PixiDisplay.js",
-            "line": 161,
+            "line": 166,
             "description": "Updates the stage and draws it. This is only called by the Application.\nThis method does nothing if paused is true or visible is false.",
             "itemtype": "method",
             "name": "render",
@@ -21069,7 +21069,7 @@
         },
         {
             "file": "src/displays/pixi/PixiDisplay.js",
-            "line": 176,
+            "line": 181,
             "description": "Destroys the display. This method is called by the Application and should\nnot be called directly, use Application.removeDisplay(id).",
             "itemtype": "method",
             "name": "destroy",
@@ -21093,7 +21093,7 @@
         },
         {
             "file": "src/displays/AbstractDisplay.js",
-            "line": 28,
+            "line": 29,
             "description": "the canvas managed by this display",
             "itemtype": "property",
             "name": "canvas",
@@ -21107,7 +21107,7 @@
         },
         {
             "file": "src/displays/AbstractDisplay.js",
-            "line": 36,
+            "line": 37,
             "description": "The DOM id for the canvas",
             "itemtype": "property",
             "name": "id",
@@ -21121,7 +21121,7 @@
         },
         {
             "file": "src/displays/AbstractDisplay.js",
-            "line": 44,
+            "line": 45,
             "description": "Convenience method for getting the width of the canvas element\nwould be the same thing as canvas.width",
             "itemtype": "property",
             "name": "width",
@@ -21135,7 +21135,7 @@
         },
         {
             "file": "src/displays/AbstractDisplay.js",
-            "line": 53,
+            "line": 54,
             "description": "Convenience method for getting the height of the canvas element\nwould be the same thing as canvas.height",
             "itemtype": "property",
             "name": "height",
@@ -21149,7 +21149,7 @@
         },
         {
             "file": "src/displays/AbstractDisplay.js",
-            "line": 62,
+            "line": 63,
             "description": "The main rendering context or the root display object or stage.",
             "itemtype": "property",
             "name": "stage",
@@ -21163,7 +21163,7 @@
         },
         {
             "file": "src/displays/AbstractDisplay.js",
-            "line": 70,
+            "line": 71,
             "description": "If rendering is paused on this display only. Pausing all displays can be done\nusing Application.paused setter.",
             "itemtype": "property",
             "name": "paused",
@@ -21176,7 +21176,7 @@
         },
         {
             "file": "src/displays/AbstractDisplay.js",
-            "line": 78,
+            "line": 79,
             "description": "If input is enabled on the stage.",
             "itemtype": "property",
             "name": "_enabled",
@@ -21189,7 +21189,7 @@
         },
         {
             "file": "src/displays/AbstractDisplay.js",
-            "line": 85,
+            "line": 86,
             "description": "If the display is visible.",
             "itemtype": "property",
             "name": "_visible",
@@ -21202,7 +21202,7 @@
         },
         {
             "file": "src/displays/AbstractDisplay.js",
-            "line": 98,
+            "line": 99,
             "description": "The Animator class to use when using this display. Other modules\nuses this to determine what Animator to use, for instance states\nuses Animator when playing transition animations.",
             "itemtype": "property",
             "name": "animator",
@@ -21217,7 +21217,7 @@
         },
         {
             "file": "src/displays/AbstractDisplay.js",
-            "line": 109,
+            "line": 110,
             "description": "Some of the modules require a special display adapter to provide\ncommon methods for managing display objects.",
             "itemtype": "property",
             "name": "adapter",
@@ -21232,7 +21232,7 @@
         },
         {
             "file": "src/displays/AbstractDisplay.js",
-            "line": 122,
+            "line": 123,
             "description": "If input is enabled on the stage for this display. The default is true.\nWithout a rendering library, this does not actually have an effect.",
             "itemtype": "property",
             "name": "enabled",
@@ -21245,7 +21245,7 @@
         },
         {
             "file": "src/displays/AbstractDisplay.js",
-            "line": 143,
+            "line": 144,
             "description": "If the display becomes enabled",
             "itemtype": "event",
             "name": "enabled",
@@ -21255,7 +21255,7 @@
         },
         {
             "file": "src/displays/AbstractDisplay.js",
-            "line": 148,
+            "line": 149,
             "description": "If the display becomes disabled",
             "itemtype": "event",
             "name": "disabled",
@@ -21265,7 +21265,7 @@
         },
         {
             "file": "src/displays/AbstractDisplay.js",
-            "line": 154,
+            "line": 155,
             "description": "Enabled state changed on the display",
             "itemtype": "event",
             "name": "enable",
@@ -21282,7 +21282,7 @@
         },
         {
             "file": "src/displays/AbstractDisplay.js",
-            "line": 164,
+            "line": 165,
             "description": "If the display is visible, using \"display: none\" css on the canvas. Invisible displays won't render.",
             "itemtype": "property",
             "name": "visible",
@@ -21295,7 +21295,7 @@
         },
         {
             "file": "src/displays/AbstractDisplay.js",
-            "line": 185,
+            "line": 186,
             "description": "If the display becomes visible",
             "itemtype": "event",
             "name": "visible",
@@ -21305,7 +21305,7 @@
         },
         {
             "file": "src/displays/AbstractDisplay.js",
-            "line": 190,
+            "line": 191,
             "description": "If the display becomes hidden",
             "itemtype": "event",
             "name": "hidden",
@@ -21315,7 +21315,7 @@
         },
         {
             "file": "src/displays/AbstractDisplay.js",
-            "line": 196,
+            "line": 197,
             "description": "Visibility changed on the display",
             "itemtype": "event",
             "name": "visibility",
@@ -21332,7 +21332,7 @@
         },
         {
             "file": "src/displays/AbstractDisplay.js",
-            "line": 206,
+            "line": 207,
             "description": "Resizes the canvas. This is only called by the Application.",
             "itemtype": "method",
             "name": "resize",
@@ -21354,7 +21354,7 @@
         },
         {
             "file": "src/displays/AbstractDisplay.js",
-            "line": 218,
+            "line": 219,
             "description": "Updates the stage and draws it. This is only called by the Application.\nThis method does nothing if paused is true or visible is false.",
             "itemtype": "method",
             "name": "render",
@@ -21378,7 +21378,7 @@
         },
         {
             "file": "src/displays/AbstractDisplay.js",
-            "line": 230,
+            "line": 231,
             "description": "Destroys the display. This method is called by the Application and should\nnot be called directly, use Application.removeDisplay(id).\nThe stage recursively removes all display objects here.",
             "itemtype": "method",
             "name": "destroy",
@@ -21388,7 +21388,7 @@
         },
         {
             "file": "src/events/EventDispatcher.js",
-            "line": 16,
+            "line": 17,
             "description": "The collection of listeners",
             "itemtype": "property",
             "name": "_listeners",
@@ -21401,7 +21401,7 @@
         },
         {
             "file": "src/events/EventDispatcher.js",
-            "line": 23,
+            "line": 24,
             "description": "If the dispatcher is destroyed",
             "itemtype": "property",
             "name": "_destroyed",
@@ -21414,7 +21414,7 @@
         },
         {
             "file": "src/events/EventDispatcher.js",
-            "line": 34,
+            "line": 35,
             "description": "If the dispatcher is destroyed",
             "itemtype": "property",
             "name": "destroyed",
@@ -21425,7 +21425,7 @@
         },
         {
             "file": "src/events/EventDispatcher.js",
-            "line": 47,
+            "line": 48,
             "description": "Dispatch an event",
             "itemtype": "method",
             "name": "trigger",
@@ -21447,7 +21447,7 @@
         },
         {
             "file": "src/events/EventDispatcher.js",
-            "line": 82,
+            "line": 83,
             "description": "Add an event listener but only handle it one time.",
             "itemtype": "method",
             "name": "once",
@@ -21480,7 +21480,7 @@
         },
         {
             "file": "src/events/EventDispatcher.js",
-            "line": 97,
+            "line": 98,
             "description": "Add an event listener. The parameters for the listener functions depend on the event.",
             "itemtype": "method",
             "name": "on",
@@ -21513,7 +21513,7 @@
         },
         {
             "file": "src/events/EventDispatcher.js",
-            "line": 165,
+            "line": 167,
             "description": "Remove the event listener",
             "itemtype": "method",
             "name": "off",
@@ -21539,7 +21539,7 @@
         },
         {
             "file": "src/events/EventDispatcher.js",
-            "line": 222,
+            "line": 224,
             "description": "Checks if the EventDispatcher has a specific listener or any listener for a given event.",
             "itemtype": "method",
             "name": "has",
@@ -21566,7 +21566,7 @@
         },
         {
             "file": "src/events/EventDispatcher.js",
-            "line": 241,
+            "line": 243,
             "description": "Destroy and don't use after this",
             "itemtype": "method",
             "name": "destroy",
@@ -21576,7 +21576,7 @@
         },
         {
             "file": "src/events/EventDispatcher.js",
-            "line": 251,
+            "line": 253,
             "description": "Return type of the value.",
             "access": "private",
             "tagname": "",
@@ -21694,7 +21694,7 @@
         },
         {
             "file": "src/events/PropertyDispatcher.js",
-            "line": 107,
+            "line": 108,
             "description": "Whenever a property is get a responder is called",
             "itemtype": "method",
             "name": "respond",
@@ -21720,7 +21720,7 @@
         },
         {
             "file": "src/events/PropertyDispatcher.js",
-            "line": 132,
+            "line": 133,
             "description": "Clean-up all references, don't use after this",
             "itemtype": "method",
             "name": "destroy",
@@ -21730,7 +21730,7 @@
         },
         {
             "file": "src/events/PropertyDispatcher.js",
-            "line": 166,
+            "line": 167,
             "description": "Set the value of the property",
             "itemtype": "method",
             "name": "setValue",
@@ -21749,7 +21749,7 @@
         },
         {
             "file": "src/events/PropertyDispatcher.js",
-            "line": 176,
+            "line": 177,
             "description": "Set the value of the property",
             "itemtype": "method",
             "name": "setReadOnly",
@@ -21828,7 +21828,7 @@
         },
         {
             "file": "src/hints/AnimatorHint.js",
-            "line": 55,
+            "line": 56,
             "description": "Clean-up the hint, don't use after this",
             "itemtype": "method",
             "name": "destroy",
@@ -22544,7 +22544,7 @@
         },
         {
             "file": "src/hints/HintsPlugin.js",
-            "line": 76,
+            "line": 77,
             "description": "Handle the VO event",
             "itemtype": "method",
             "name": "onVOHint",
@@ -22563,7 +22563,7 @@
         },
         {
             "file": "src/hints/HintsPlugin.js",
-            "line": 102,
+            "line": 103,
             "description": "Handle the animator event",
             "itemtype": "method",
             "name": "onAnimatorHint",
@@ -22592,7 +22592,7 @@
         },
         {
             "file": "src/hints/VOHint.js",
-            "line": 51,
+            "line": 52,
             "description": "Clean-up the hint, don't use after this",
             "itemtype": "method",
             "name": "destroy",
@@ -22602,7 +22602,7 @@
         },
         {
             "file": "src/languages/Languages.js",
-            "line": 38,
+            "line": 39,
             "description": "The value to replace with the current language in URLS.",
             "itemtype": "property",
             "name": "_replace",
@@ -22616,7 +22616,7 @@
         },
         {
             "file": "src/languages/Languages.js",
-            "line": 46,
+            "line": 47,
             "description": "The current language.",
             "itemtype": "property",
             "name": "_current",
@@ -22629,7 +22629,7 @@
         },
         {
             "file": "src/languages/Languages.js",
-            "line": 53,
+            "line": 54,
             "description": "The default language.",
             "itemtype": "property",
             "name": "_default",
@@ -22642,7 +22642,7 @@
         },
         {
             "file": "src/languages/Languages.js",
-            "line": 60,
+            "line": 61,
             "description": "Available languages.",
             "itemtype": "property",
             "name": "languages",
@@ -22655,7 +22655,7 @@
         },
         {
             "file": "src/languages/Languages.js",
-            "line": 67,
+            "line": 68,
             "description": "A dictionary of translated strings, set with setStringTable().",
             "itemtype": "property",
             "name": "_stringTable",
@@ -22668,7 +22668,7 @@
         },
         {
             "file": "src/languages/Languages.js",
-            "line": 79,
+            "line": 80,
             "description": "Fired when the chosen language has changed.",
             "itemtype": "event",
             "name": "changed",
@@ -22685,7 +22685,7 @@
         },
         {
             "file": "src/languages/Languages.js",
-            "line": 85,
+            "line": 86,
             "description": "Configure",
             "itemtype": "method",
             "name": "setConfig",
@@ -22721,7 +22721,7 @@
         },
         {
             "file": "src/languages/Languages.js",
-            "line": 116,
+            "line": 117,
             "description": "Get the singleton instance of the Languages object.",
             "itemtype": "property",
             "name": "instance",
@@ -22735,7 +22735,7 @@
         },
         {
             "file": "src/languages/Languages.js",
-            "line": 131,
+            "line": 132,
             "description": "The current language.",
             "itemtype": "property",
             "name": "current",
@@ -22749,7 +22749,7 @@
         },
         {
             "file": "src/languages/Languages.js",
-            "line": 145,
+            "line": 146,
             "description": "Gets the preferred languages from the browser.",
             "itemtype": "method",
             "name": "getPreferredLanguages",
@@ -22763,7 +22763,7 @@
         },
         {
             "file": "src/languages/Languages.js",
-            "line": 169,
+            "line": 170,
             "description": "Sets the current language, based on specified preferences and what is available.",
             "itemtype": "method",
             "name": "setLanguage",
@@ -22780,7 +22780,7 @@
         },
         {
             "file": "src/languages/Languages.js",
-            "line": 212,
+            "line": 213,
             "description": "Sets the string table for later reference.",
             "itemtype": "method",
             "name": "setStringTable",
@@ -22797,7 +22797,7 @@
         },
         {
             "file": "src/languages/Languages.js",
-            "line": 223,
+            "line": 224,
             "description": "Gets a string from the current string table.",
             "itemtype": "method",
             "name": "getString",
@@ -22818,7 +22818,7 @@
         },
         {
             "file": "src/languages/Languages.js",
-            "line": 234,
+            "line": 235,
             "description": "Gets a formatted string from the current string table. See String.format() in the Core\nmodule.",
             "itemtype": "method",
             "name": "getFormattedString",
@@ -22844,7 +22844,7 @@
         },
         {
             "file": "src/languages/Languages.js",
-            "line": 251,
+            "line": 252,
             "description": "Modifies a url, replacing a specified value with the current language.",
             "itemtype": "method",
             "name": "modifyUrl",
@@ -22861,7 +22861,7 @@
         },
         {
             "file": "src/languages/Languages.js",
-            "line": 263,
+            "line": 264,
             "description": "Destroys the Languages object.",
             "itemtype": "method",
             "name": "destroy",
@@ -22917,7 +22917,7 @@
         },
         {
             "file": "src/learning/EventCatalog.js",
-            "line": 27,
+            "line": 28,
             "description": "The map of event codes to method names",
             "itemtype": "property",
             "name": "defaultEvents",
@@ -22932,7 +22932,7 @@
         },
         {
             "file": "src/learning/EventCatalog.js",
-            "line": 64,
+            "line": 65,
             "description": "The list of global argument names common to all events. This will\nignore any event spec arguments matching these names because\nthey are automatically submitted with event calls.",
             "itemtype": "property",
             "name": "globals",
@@ -22944,7 +22944,7 @@
         },
         {
             "file": "src/learning/EventCatalog.js",
-            "line": 77,
+            "line": 78,
             "description": "Look up an event code by API name",
             "itemtype": "method",
             "name": "loopkup",
@@ -22965,7 +22965,7 @@
         },
         {
             "file": "src/learning/EventCatalog.js",
-            "line": 95,
+            "line": 96,
             "description": "Add additional apis",
             "itemtype": "method",
             "name": "add",
@@ -22995,7 +22995,7 @@
         },
         {
             "file": "src/learning/EventCatalog.js",
-            "line": 169,
+            "line": 168,
             "description": "Destroy this catalog, don't use after this",
             "itemtype": "method",
             "name": "destroy",
@@ -24700,7 +24700,7 @@
         },
         {
             "file": "src/loaders/tasks/ColorAlphaTask.js",
-            "line": 78,
+            "line": 79,
             "description": "Pulled from EaselJS's SpriteSheetUtils.\nMerges the rgb channels of one image with the alpha channel of another. This can be used to\ncombine a compressed JPEG image containing color data with a PNG32 monochromatic image\ncontaining alpha data. With certain types of images (those with detail that lend itself to\nJPEG compression) this can provide significant file size savings versus a single RGBA PNG32.\nThis method is very fast (generally on the order of 1-2 ms to run).",
             "itemtype": "method",
             "name": "mergeAlpha",
@@ -24865,7 +24865,7 @@
         },
         {
             "file": "src/loaders/tasks/ListTask.js",
-            "line": 75,
+            "line": 76,
             "description": "Destroy this and discard",
             "itemtype": "method",
             "name": "destroy",
@@ -25666,7 +25666,7 @@
         },
         {
             "file": "src/loaders/AssetLoad.js",
-            "line": 324,
+            "line": 328,
             "description": "Load a single asset",
             "itemtype": "method",
             "name": "addTask",
@@ -25685,7 +25685,7 @@
         },
         {
             "file": "src/loaders/AssetLoad.js",
-            "line": 356,
+            "line": 360,
             "description": "Get the Task definition for an asset",
             "itemtype": "method",
             "name": "getTaskByAsset",
@@ -25709,7 +25709,7 @@
         },
         {
             "file": "src/loaders/AssetLoad.js",
-            "line": 382,
+            "line": 386,
             "description": "Run the next task that's waiting",
             "itemtype": "method",
             "name": "nextTask",
@@ -25721,7 +25721,7 @@
         },
         {
             "file": "src/loaders/AssetLoad.js",
-            "line": 404,
+            "line": 408,
             "description": "Handler when a task has completed",
             "itemtype": "method",
             "name": "taskDone",
@@ -25746,7 +25746,7 @@
         },
         {
             "file": "src/loaders/AssetLoad.js",
-            "line": 498,
+            "line": 508,
             "description": "Get an empty assets collection",
             "itemtype": "method",
             "name": "getAssetsContainer",
@@ -25769,7 +25769,7 @@
         },
         {
             "file": "src/loaders/AssetLoad.js",
-            "line": 515,
+            "line": 528,
             "description": "Destroy this and discard",
             "itemtype": "method",
             "name": "destroy",
@@ -25779,7 +25779,7 @@
         },
         {
             "file": "src/loaders/AssetLoad.js",
-            "line": 527,
+            "line": 540,
             "description": "Check if an object is an String type",
             "itemtype": "method",
             "name": "isString",
@@ -25802,7 +25802,7 @@
         },
         {
             "file": "src/loaders/AssetLoad.js",
-            "line": 539,
+            "line": 552,
             "description": "Check if an object is an function type",
             "itemtype": "method",
             "name": "isFunction",
@@ -25999,7 +25999,7 @@
         },
         {
             "file": "src/loaders/AssetManager.js",
-            "line": 174,
+            "line": 175,
             "description": "Stash the load for use later",
             "itemtype": "method",
             "name": "poolLoad",
@@ -26018,7 +26018,7 @@
         },
         {
             "file": "src/loaders/AssetManager.js",
-            "line": 187,
+            "line": 188,
             "description": "Get either a new AssetLoad or a recycled one",
             "itemtype": "method",
             "name": "getLoad",
@@ -26034,7 +26034,7 @@
         },
         {
             "file": "src/loaders/AssetManager.js",
-            "line": 202,
+            "line": 203,
             "description": "Handler when a load is finished",
             "itemtype": "method",
             "name": "_onLoaded",
@@ -26063,7 +26063,7 @@
         },
         {
             "file": "src/loaders/AssetManager.js",
-            "line": 221,
+            "line": 222,
             "description": "Destroy the AssetManager",
             "itemtype": "method",
             "name": "destroy",
@@ -26280,7 +26280,7 @@
         },
         {
             "file": "src/loaders/CacheManager.js",
-            "line": 27,
+            "line": 28,
             "description": "The current application",
             "access": "protected",
             "tagname": "",
@@ -26293,7 +26293,7 @@
         },
         {
             "file": "src/loaders/CacheManager.js",
-            "line": 34,
+            "line": 35,
             "description": "The collection of version numbers",
             "access": "protected",
             "tagname": "",
@@ -26306,7 +26306,7 @@
         },
         {
             "file": "src/loaders/CacheManager.js",
-            "line": 41,
+            "line": 42,
             "description": "The list of URL filtering functions.",
             "access": "protected",
             "tagname": "",
@@ -26319,7 +26319,7 @@
         },
         {
             "file": "src/loaders/CacheManager.js",
-            "line": 48,
+            "line": 49,
             "description": "A global version or cache busting string to apply to every url.",
             "itemtype": "property",
             "name": "_globalVersion",
@@ -26330,7 +26330,7 @@
         },
         {
             "file": "src/loaders/CacheManager.js",
-            "line": 65,
+            "line": 66,
             "description": "If we are suppose to cache bust every file",
             "itemtype": "property",
             "name": "cacheBust",
@@ -26344,7 +26344,7 @@
         },
         {
             "file": "src/loaders/CacheManager.js",
-            "line": 103,
+            "line": 104,
             "description": "Destroy the cache manager, don't use after this.",
             "access": "public",
             "tagname": "",
@@ -26356,7 +26356,7 @@
         },
         {
             "file": "src/loaders/CacheManager.js",
-            "line": 117,
+            "line": 118,
             "description": "Adds a versions text file containing versions for different assets.",
             "access": "public",
             "tagname": "",
@@ -26385,7 +26385,7 @@
         },
         {
             "file": "src/loaders/CacheManager.js",
-            "line": 174,
+            "line": 175,
             "description": "Add a version number for a file",
             "itemtype": "method",
             "name": "addVersion",
@@ -26409,7 +26409,7 @@
         },
         {
             "file": "src/loaders/CacheManager.js",
-            "line": 187,
+            "line": 188,
             "description": "Adds a function for running all urls through, to modify them if needed.\nFunctions used should accept one string parameter (the url), and return the\nmodified url.",
             "itemtype": "method",
             "name": "registerURLFilter",
@@ -26428,7 +26428,7 @@
         },
         {
             "file": "src/loaders/CacheManager.js",
-            "line": 201,
+            "line": 202,
             "description": "Removes a function from the list of filtering functions.",
             "itemtype": "method",
             "name": "unregisterURLFilter",
@@ -26447,7 +26447,7 @@
         },
         {
             "file": "src/loaders/CacheManager.js",
-            "line": 214,
+            "line": 215,
             "description": "Applies a url specific version to a url from the versions file.",
             "itemtype": "method",
             "name": "_applySpecificVersion",
@@ -26470,7 +26470,7 @@
         },
         {
             "file": "src/loaders/CacheManager.js",
-            "line": 237,
+            "line": 238,
             "description": "Applies cache busting or a global version to a url.",
             "itemtype": "method",
             "name": "_applyGlobalVersion",
@@ -26493,7 +26493,7 @@
         },
         {
             "file": "src/loaders/CacheManager.js",
-            "line": 261,
+            "line": 262,
             "description": "Applies a base path to a relative url. This is not used in the filtering\nsystem because PreloadJS has its own method of prepending the base path\nthat we use. Instead, it is used with an extra parameter to prepare().",
             "itemtype": "method",
             "name": "_applyBasePath",
@@ -26516,7 +26516,7 @@
         },
         {
             "file": "src/loaders/CacheManager.js",
-            "line": 280,
+            "line": 281,
             "description": "Prepare a URL with the necessary cache busting and/or versioning\nas well as the base directory.",
             "access": "public",
             "tagname": "",
@@ -26700,7 +26700,7 @@
         },
         {
             "file": "src/loaders/ConfigPlugin.js",
-            "line": 139,
+            "line": 141,
             "description": "Callback when progress is finished",
             "itemtype": "method",
             "name": "onProgress",
@@ -26719,7 +26719,7 @@
         },
         {
             "file": "src/loaders/ConfigPlugin.js",
-            "line": 162,
+            "line": 164,
             "description": "Add the preload assets to the list of assets to load",
             "itemtype": "method",
             "name": "addPreloadAssets",
@@ -26743,7 +26743,7 @@
         },
         {
             "file": "src/loaders/ConfigPlugin.js",
-            "line": 185,
+            "line": 187,
             "description": "Callback when the config is loaded",
             "itemtype": "method",
             "name": "onConfigLoaded",
@@ -26772,7 +26772,7 @@
         },
         {
             "file": "src/loaders/ConfigPlugin.js",
-            "line": 200,
+            "line": 202,
             "description": "Callback when tasks are completed",
             "itemtype": "method",
             "name": "onLoadComplete",
@@ -31746,7 +31746,7 @@
         },
         {
             "file": "src/mixins/Array.js",
-            "line": 32,
+            "line": 33,
             "description": "Get a random item from an array",
             "itemtype": "method",
             "name": "random",
@@ -31767,7 +31767,7 @@
         },
         {
             "file": "src/mixins/Array.js",
-            "line": 50,
+            "line": 52,
             "description": "Get the last item in the array",
             "itemtype": "method",
             "name": "last",
@@ -32100,7 +32100,7 @@
         },
         {
             "file": "src/mixins/Object.js",
-            "line": 12,
+            "line": 13,
             "description": "Merges two (or more) objects, giving the last one precedence",
             "itemtype": "method",
             "name": "merge",
@@ -32127,7 +32127,7 @@
         },
         {
             "file": "src/mixins/Object.js",
-            "line": 52,
+            "line": 53,
             "description": "Check to see if an object is a plain object definition",
             "itemtype": "method",
             "name": "isPlain",
@@ -32149,7 +32149,7 @@
         },
         {
             "file": "src/mixins/Object.js",
-            "line": 103,
+            "line": 107,
             "description": "Creates a shallow copy of the object.",
             "itemtype": "method",
             "name": "clone",
@@ -32206,7 +32206,7 @@
         },
         {
             "file": "src/mixins/String.js",
-            "line": 45,
+            "line": 46,
             "description": "Returns a reversed copy of the string.",
             "itemtype": "method",
             "name": "reverse",
@@ -32220,7 +32220,7 @@
         },
         {
             "file": "src/states/State.js",
-            "line": 55,
+            "line": 57,
             "description": "Reference to the main app",
             "itemtype": "property",
             "name": "app",
@@ -32232,7 +32232,7 @@
         },
         {
             "file": "src/states/State.js",
-            "line": 62,
+            "line": 64,
             "description": "The instance of the VOPlayer, Sound module required",
             "itemtype": "property",
             "name": "voPlayer",
@@ -32244,7 +32244,7 @@
         },
         {
             "file": "src/states/State.js",
-            "line": 69,
+            "line": 71,
             "description": "The instance of the Sound, Sound module required",
             "itemtype": "property",
             "name": "sound",
@@ -32256,7 +32256,7 @@
         },
         {
             "file": "src/states/State.js",
-            "line": 76,
+            "line": 78,
             "description": "Reference to the main config object",
             "itemtype": "property",
             "name": "config",
@@ -32268,7 +32268,7 @@
         },
         {
             "file": "src/states/State.js",
-            "line": 83,
+            "line": 85,
             "description": "Reference to the scaling object, UI module required",
             "itemtype": "property",
             "name": "scaling",
@@ -32280,7 +32280,7 @@
         },
         {
             "file": "src/states/State.js",
-            "line": 90,
+            "line": 92,
             "description": "The items to scale on the panel, see `ScaleManager.addItems` for\nmore information. If no options are set in the State's constructor\nthen it will try to find an object on the app config on `scaling` property\nmatching the same state alias. For instance `config.scaling.title` if\n`title` is the state alias. If no scalingItems are set, will scale\nand position the panal itself.",
             "itemtype": "property",
             "name": "scalingItems",
@@ -32293,7 +32293,7 @@
         },
         {
             "file": "src/states/State.js",
-            "line": 103,
+            "line": 105,
             "description": "The id reference",
             "itemtype": "property",
             "name": "stateId",
@@ -32304,7 +32304,7 @@
         },
         {
             "file": "src/states/State.js",
-            "line": 109,
+            "line": 111,
             "description": "A reference to the state manager",
             "itemtype": "property",
             "name": "manager",
@@ -32315,7 +32315,7 @@
         },
         {
             "file": "src/states/State.js",
-            "line": 115,
+            "line": 117,
             "description": "The panel for the state.",
             "itemtype": "property",
             "name": "panel",
@@ -32326,7 +32326,7 @@
         },
         {
             "file": "src/states/State.js",
-            "line": 121,
+            "line": 123,
             "description": "The assets to load each time",
             "itemtype": "property",
             "name": "preload",
@@ -32337,7 +32337,7 @@
         },
         {
             "file": "src/states/State.js",
-            "line": 127,
+            "line": 129,
             "description": "Check to see if the assets have finished loading",
             "itemtype": "property",
             "name": "preloaded",
@@ -32351,7 +32351,7 @@
         },
         {
             "file": "src/states/State.js",
-            "line": 135,
+            "line": 137,
             "description": "The collection of assets loaded",
             "itemtype": "property",
             "name": "assets",
@@ -32364,7 +32364,7 @@
         },
         {
             "file": "src/states/State.js",
-            "line": 142,
+            "line": 144,
             "description": "If the state has been destroyed.",
             "itemtype": "property",
             "name": "_destroyed",
@@ -32377,7 +32377,7 @@
         },
         {
             "file": "src/states/State.js",
-            "line": 149,
+            "line": 151,
             "description": "If the manager considers this the active panel",
             "itemtype": "property",
             "name": "_active",
@@ -32390,7 +32390,7 @@
         },
         {
             "file": "src/states/State.js",
-            "line": 156,
+            "line": 158,
             "description": "If we are pre-loading the state",
             "itemtype": "property",
             "name": "_isLoading",
@@ -32403,7 +32403,7 @@
         },
         {
             "file": "src/states/State.js",
-            "line": 163,
+            "line": 165,
             "description": "If we canceled entering the state",
             "itemtype": "property",
             "name": "_canceled",
@@ -32416,7 +32416,7 @@
         },
         {
             "file": "src/states/State.js",
-            "line": 170,
+            "line": 172,
             "description": "When we're finishing loading",
             "itemtype": "property",
             "name": "_onEnterProceed",
@@ -32429,7 +32429,7 @@
         },
         {
             "file": "src/states/State.js",
-            "line": 177,
+            "line": 179,
             "description": "If we start doing a load in enter, assign the onEnterComplete here",
             "itemtype": "property",
             "name": "_onLoadingComplete",
@@ -32442,7 +32442,7 @@
         },
         {
             "file": "src/states/State.js",
-            "line": 184,
+            "line": 186,
             "description": "If the state is enabled, meaning that it is click ready",
             "itemtype": "property",
             "name": "_enabled",
@@ -32455,7 +32455,7 @@
         },
         {
             "file": "src/states/State.js",
-            "line": 191,
+            "line": 193,
             "description": "Either the alias of the next state or a function\nto call when going to the next state.",
             "itemtype": "property",
             "name": "_nextState",
@@ -32468,7 +32468,7 @@
         },
         {
             "file": "src/states/State.js",
-            "line": 199,
+            "line": 201,
             "description": "Either the alias of the previous state or a function\nto call when going to the previous state.",
             "itemtype": "property",
             "name": "_prevState",
@@ -32481,7 +32481,7 @@
         },
         {
             "file": "src/states/State.js",
-            "line": 207,
+            "line": 209,
             "description": "The number of frames to delay the transition in after loading, to allow the framerate\nto stablize after heavy art instantiation.",
             "itemtype": "property",
             "name": "delayLoad",
@@ -32494,7 +32494,7 @@
         },
         {
             "file": "src/states/State.js",
-            "line": 223,
+            "line": 225,
             "description": "Event when the state finishes exiting. Nothing is showing at this point.",
             "itemtype": "event",
             "name": "exit",
@@ -32504,7 +32504,7 @@
         },
         {
             "file": "src/states/State.js",
-            "line": 228,
+            "line": 230,
             "description": "Event when the state is being destroyed.",
             "itemtype": "event",
             "name": "destroy",
@@ -32514,7 +32514,7 @@
         },
         {
             "file": "src/states/State.js",
-            "line": 233,
+            "line": 235,
             "description": "Event when the transition is finished the state is fully entered.",
             "itemtype": "event",
             "name": "enterDone",
@@ -32524,7 +32524,7 @@
         },
         {
             "file": "src/states/State.js",
-            "line": 238,
+            "line": 240,
             "description": "Event when the loading of a state was canceled.",
             "itemtype": "event",
             "name": "cancel",
@@ -32534,7 +32534,7 @@
         },
         {
             "file": "src/states/State.js",
-            "line": 243,
+            "line": 245,
             "description": "Event when the state starts exiting, everything is showing at this point.",
             "itemtype": "event",
             "name": "exitStart",
@@ -32544,7 +32544,7 @@
         },
         {
             "file": "src/states/State.js",
-            "line": 248,
+            "line": 250,
             "description": "Event when the preload of assets is finished. If no assets are loaded, the `assets` parameter is null.",
             "itemtype": "event",
             "name": "loaded",
@@ -32561,7 +32561,7 @@
         },
         {
             "file": "src/states/State.js",
-            "line": 254,
+            "line": 256,
             "description": "When there has been a change in how much has been preloaded",
             "itemtype": "event",
             "name": "progress",
@@ -32578,7 +32578,7 @@
         },
         {
             "file": "src/states/State.js",
-            "line": 260,
+            "line": 262,
             "description": "Event when the assets are starting to load.",
             "itemtype": "event",
             "name": "loading",
@@ -32595,7 +32595,7 @@
         },
         {
             "file": "src/states/State.js",
-            "line": 267,
+            "line": 269,
             "description": "Event when the state is enabled status changes. Enable is when the state is mouse enabled or not.",
             "itemtype": "event",
             "name": "enabled",
@@ -32612,7 +32612,7 @@
         },
         {
             "file": "src/states/State.js",
-            "line": 276,
+            "line": 278,
             "description": "When the state is exited. Override this to provide state cleanup.",
             "itemtype": "property",
             "name": "exit",
@@ -32624,7 +32624,7 @@
         },
         {
             "file": "src/states/State.js",
-            "line": 283,
+            "line": 285,
             "description": "When the state has requested to be exit, pre-transition. Override this to ensure\nthat animation/audio is stopped when leaving the state.",
             "itemtype": "property",
             "name": "exitStart",
@@ -32636,7 +32636,7 @@
         },
         {
             "file": "src/states/State.js",
-            "line": 291,
+            "line": 293,
             "description": "Cancel the load, implementation-specific.\nThis is where any async actions should be removed.",
             "itemtype": "property",
             "name": "cancel",
@@ -32648,7 +32648,7 @@
         },
         {
             "file": "src/states/State.js",
-            "line": 299,
+            "line": 301,
             "description": "When the state is entered. Override this to start loading assets - call loadingStart()\nto tell the StateManager that that is going on.",
             "itemtype": "property",
             "name": "enter",
@@ -32660,7 +32660,7 @@
         },
         {
             "file": "src/states/State.js",
-            "line": 307,
+            "line": 309,
             "description": "When the state is visually entered fully - after the transition is done.\nOverride this to begin your state's activities.",
             "itemtype": "property",
             "name": "enterDone",
@@ -32672,7 +32672,7 @@
         },
         {
             "file": "src/states/State.js",
-            "line": 315,
+            "line": 317,
             "description": "Goto the next state",
             "itemtype": "method",
             "name": "nextState",
@@ -32683,7 +32683,7 @@
         },
         {
             "file": "src/states/State.js",
-            "line": 342,
+            "line": 344,
             "description": "Goto the previous state",
             "itemtype": "method",
             "name": "previousState",
@@ -32694,7 +32694,7 @@
         },
         {
             "file": "src/states/State.js",
-            "line": 369,
+            "line": 371,
             "description": "Manual call to signal the start of preloading",
             "itemtype": "method",
             "name": "loadingStart",
@@ -32705,7 +32705,7 @@
         },
         {
             "file": "src/states/State.js",
-            "line": 394,
+            "line": 396,
             "description": "Manual call to signal the end of preloading",
             "itemtype": "method",
             "name": "loadingDone",
@@ -32724,7 +32724,7 @@
         },
         {
             "file": "src/states/State.js",
-            "line": 430,
+            "line": 432,
             "description": "Status of whether the panel load was canceled",
             "itemtype": "property",
             "name": "canceled",
@@ -32736,7 +32736,7 @@
         },
         {
             "file": "src/states/State.js",
-            "line": 443,
+            "line": 445,
             "description": "Get if this is the active state",
             "itemtype": "property",
             "name": "active",
@@ -32748,7 +32748,7 @@
         },
         {
             "file": "src/states/State.js",
-            "line": 456,
+            "line": 458,
             "description": "If the state is enabled, meaning that it is click ready",
             "itemtype": "property",
             "name": "enabled",
@@ -32759,7 +32759,7 @@
         },
         {
             "file": "src/states/State.js",
-            "line": 477,
+            "line": 479,
             "description": "If the state has been destroyed.",
             "itemtype": "property",
             "name": "destroyed",
@@ -32771,7 +32771,7 @@
         },
         {
             "file": "src/states/State.js",
-            "line": 490,
+            "line": 492,
             "description": "This is called by the State Manager to exit the state",
             "itemtype": "method",
             "name": "_internalExit",
@@ -32783,7 +32783,7 @@
         },
         {
             "file": "src/states/State.js",
-            "line": 539,
+            "line": 541,
             "description": "When the state is entering",
             "itemtype": "method",
             "name": "_internalEntering",
@@ -32802,7 +32802,7 @@
         },
         {
             "file": "src/states/State.js",
-            "line": 582,
+            "line": 585,
             "description": "Handle the load progress and pass to the manager",
             "itemtype": "method",
             "name": "onProgress",
@@ -32821,7 +32821,7 @@
         },
         {
             "file": "src/states/State.js",
-            "line": 594,
+            "line": 597,
             "description": "The internal call for on assets loaded",
             "itemtype": "method",
             "name": "_onLoaded",
@@ -32840,7 +32840,7 @@
         },
         {
             "file": "src/states/State.js",
-            "line": 636,
+            "line": 639,
             "description": "Exit the state start, called by the State Manager",
             "itemtype": "method",
             "name": "_internalExitStart",
@@ -32852,7 +32852,7 @@
         },
         {
             "file": "src/states/State.js",
-            "line": 647,
+            "line": 650,
             "description": "Exit the state start, called by the State Manager",
             "itemtype": "method",
             "name": "_internalEnter",
@@ -32871,7 +32871,7 @@
         },
         {
             "file": "src/states/State.js",
-            "line": 677,
+            "line": 680,
             "description": "Cancel the loading of this state",
             "itemtype": "method",
             "name": "_internalCancel",
@@ -32883,7 +32883,7 @@
         },
         {
             "file": "src/states/State.js",
-            "line": 693,
+            "line": 696,
             "description": "Exit the state start, called by the State Manager",
             "itemtype": "method",
             "name": "_internalEnterDone",
@@ -32895,7 +32895,7 @@
         },
         {
             "file": "src/states/State.js",
-            "line": 707,
+            "line": 710,
             "description": "Don't use the state object after this",
             "itemtype": "method",
             "name": "destroy",
@@ -32905,7 +32905,7 @@
         },
         {
             "file": "src/states/StateEvent.js",
-            "line": 20,
+            "line": 21,
             "description": "A reference to the current state of the state manager",
             "itemtype": "property",
             "name": "currentState",
@@ -32916,7 +32916,7 @@
         },
         {
             "file": "src/states/StateEvent.js",
-            "line": 27,
+            "line": 28,
             "description": "A reference to the state who's actually being transitioned or being changed",
             "itemtype": "property",
             "name": "visibleState",
@@ -32927,7 +32927,7 @@
         },
         {
             "file": "src/states/StateEvent.js",
-            "line": 34,
+            "line": 35,
             "itemtype": "property",
             "name": "type",
             "type": "String",
@@ -32937,7 +32937,7 @@
         },
         {
             "file": "src/states/StateEvent.js",
-            "line": 43,
+            "line": 44,
             "description": "When the state besome visible",
             "itemtype": "event",
             "name": "onVisible",
@@ -32948,7 +32948,7 @@
         },
         {
             "file": "src/states/StateEvent.js",
-            "line": 50,
+            "line": 51,
             "description": "When the state becomes hidden",
             "itemtype": "event",
             "name": "onHidden",
@@ -33820,7 +33820,7 @@
         },
         {
             "file": "src/ui/ScaleImage.js",
-            "line": 111,
+            "line": 112,
             "description": "Get the current display item",
             "itemtype": "property",
             "name": "display",
@@ -33832,7 +33832,7 @@
         },
         {
             "file": "src/ui/ScaleImage.js",
-            "line": 124,
+            "line": 125,
             "description": "Destroy and don't use after this",
             "itemtype": "method",
             "name": "destroy",
@@ -34678,7 +34678,7 @@
         },
         {
             "file": "src/utils/extend.js",
-            "line": 15,
+            "line": 16,
             "description": "Extend prototype",
             "example": [
                 "\n\t\tvar p = extend(MyClass, ParentClass);"
@@ -34708,7 +34708,7 @@
         },
         {
             "file": "src/utils/include.js",
-            "line": 15,
+            "line": 16,
             "description": "Import a class",
             "example": [
                 "\n\t\tvar Application = include('springroll.Application');"
@@ -34776,7 +34776,7 @@
         },
         {
             "file": "src/utils/namespace.js",
-            "line": 16,
+            "line": 17,
             "description": "Create the namespace and assing to the window",
             "example": [
                 "\n\t\tvar SpriteUtils = function(){};\n\t\tnamespace('springroll').SpriteUtils = SpriteUtils;"
@@ -35160,7 +35160,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 311,
+            "line": 312,
             "description": "Progress handler for the plugin load",
             "itemtype": "method",
             "name": "onPluginProgress",
@@ -35179,7 +35179,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 322,
+            "line": 323,
             "description": "Initialize the application",
             "itemtype": "method",
             "name": "_doInit",
@@ -35191,7 +35191,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 347,
+            "line": 348,
             "description": "Enables at the application level which enables\nand disables all the displays.",
             "itemtype": "property",
             "name": "enabled",
@@ -35203,7 +35203,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 369,
+            "line": 370,
             "description": "Pause updates at the application level",
             "itemtype": "property",
             "name": "paused",
@@ -35214,7 +35214,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 411,
+            "line": 412,
             "description": "Makes a setTimeout with a time based on _msPerFrame and the amount of time spent in the\ncurrent tick.",
             "itemtype": "method",
             "name": "setTargetedTimeout",
@@ -35238,7 +35238,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 428,
+            "line": 429,
             "description": "Add a display. If this is the first display added, then it will be stored as this.display.",
             "itemtype": "method",
             "name": "addDisplay",
@@ -35270,7 +35270,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 463,
+            "line": 464,
             "description": "Get all the displays",
             "itemtype": "property",
             "name": "displays",
@@ -35282,7 +35282,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 476,
+            "line": 477,
             "description": "Gets a specific renderer by the canvas id.",
             "itemtype": "method",
             "name": "getDisplay",
@@ -35303,7 +35303,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 487,
+            "line": 488,
             "description": "Removes and destroys a display",
             "itemtype": "method",
             "name": "removeDisplay",
@@ -35320,7 +35320,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 504,
+            "line": 505,
             "description": "_tick would be bound in _tickCallback",
             "itemtype": "method",
             "name": "_tick",
@@ -35332,7 +35332,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 544,
+            "line": 545,
             "description": "Works just like `window.setTimeout` but respects the pause\nstate of the Application.",
             "itemtype": "method",
             "name": "setTimeout",
@@ -35372,7 +35372,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 559,
+            "line": 560,
             "description": "Works just like `window.setInterval` but respects the pause\nstate of the Application.",
             "itemtype": "method",
             "name": "setInterval",
@@ -35405,7 +35405,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 573,
+            "line": 574,
             "description": "Destroys the application and all active displays and plugins",
             "itemtype": "method",
             "name": "destroy",
@@ -35415,7 +35415,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 610,
+            "line": 611,
             "description": "The toString debugging method",
             "itemtype": "method",
             "name": "toString",

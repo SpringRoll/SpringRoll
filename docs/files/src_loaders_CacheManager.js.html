@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html lang='en'>
 <head>
-	<title>SpringRoll v0.4.0 API Documentation : src/loaders/CacheManager.js</title>
+	<title>SpringRoll v0.4.1 API Documentation : src/loaders/CacheManager.js</title>
 	<meta charset='utf-8'>
 	<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 	<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
-	<link rel='shortcut icon' type='image/png' href='../assets/images/favicon.ico?v=0.4.0'>
+	<link rel='shortcut icon' type='image/png' href='../assets/images/favicon.ico?v=0.4.1'>
 	<link href='//fonts.googleapis.com/css?family=Titillium+Web:300,200,600' rel='stylesheet' type='text/css'>
-	<link rel='stylesheet' type='text/css' href='../assets/css/libraries.css?v=0.4.0'>
-	<link rel='stylesheet' type='text/css' href='../assets/css/main.css?v=0.4.0'>
+	<link rel='stylesheet' type='text/css' href='../assets/css/libraries.css?v=0.4.1'>
+	<link rel='stylesheet' type='text/css' href='../assets/css/main.css?v=0.4.1'>
 </head>
 <body>
 <header>
@@ -22,10 +22,10 @@
 					<span class="icon-bar"></span>
 				</button>
 				<a class="navbar-brand" href='https://github.com/SpringRoll/SpringRoll'>
-						<img src='../assets/images/logo.png?v=0.4.0' class="logo">
+						<img src='../assets/images/logo.png?v=0.4.1' class="logo">
 					<span class='project-name'>SpringRoll</span>
 					<span class="sr-only">API Documentation for:</span>
-					<span class='version hidden-xs'>v0.4.0</span>
+					<span class='version hidden-xs'>v0.4.1</span>
 				</a>
 			</div>
 			<div class="collapse navbar-collapse" id="docs-navbar">
@@ -608,7 +608,8 @@
  * @module Core
  * @namespace springroll
  */
-(function(undefined){
+(function(undefined)
+{
 
 	// Classes to import
 	var Debug;
@@ -692,7 +693,7 @@
 			{
 				var version = this._app.options.version;
 				this._globalVersion = version ? &quot;v=&quot; + version : null;
-				if(this._globalVersion)
+				if (this._globalVersion)
 				{
 					this.unregisterURLFilter(this._applySpecificVersion);
 					this.registerURLFilter(this._applyGlobalVersion);
@@ -800,7 +801,7 @@
 	 */
 	p.registerURLFilter = function(filter)
 	{
-		if(this._filters.indexOf(filter) == -1)
+		if (this._filters.indexOf(filter) == -1)
 			this._filters.push(filter);
 	};
 
@@ -813,7 +814,7 @@
 	p.unregisterURLFilter = function(filter)
 	{
 		var index = this._filters.indexOf(filter);
-		if(index &gt; -1)
+		if (index &gt; -1)
 			this._filters.splice(index, 1);
 	};
 
@@ -828,12 +829,12 @@
 	{
 		//don&#x27;t apply versioning if the asset is retrieved from a php service
 		var basePath = this._app.options.basePath;
-		if(basePath &amp;&amp; basePath.indexOf(&quot;?&quot;) &gt; 0) return url;
-		
+		if (basePath &amp;&amp; basePath.indexOf(&quot;?&quot;) &gt; 0) return url;
+
 		var ver = this._versions[url];
 		//if a version exists for this url, and the url doesn&#x27;t already have &#x27;v=&#x27; in it
 		//then apply the url specific version.
-		if(ver &amp;&amp; /(\?|\&amp;)v\=[0-9]*/.test(url) === false)
+		if (ver &amp;&amp; /(\?|\&amp;)v\=[0-9]*/.test(url) === false)
 		{
 			url = url + (url.indexOf(&quot;?&quot;) &lt; 0 ? &quot;?&quot; : &quot;&amp;&quot;) + &quot;v=&quot; + ver.version;
 		}
@@ -849,15 +850,15 @@
 	 */
 	p._applyGlobalVersion = function(url)
 	{
-		if(!this._globalVersion) return url;
+		if (!this._globalVersion) return url;
 		//don&#x27;t apply versioning if the asset is retrieved from a php service
 		var basePath = this._app.options.basePath;
-		if(basePath &amp;&amp; basePath.indexOf(&quot;?&quot;) &gt; 0) return url;
-		
+		if (basePath &amp;&amp; basePath.indexOf(&quot;?&quot;) &gt; 0) return url;
+
 		//apply the versioning if it isn&#x27;t already on the url
 		var test = this._globalVersion.indexOf(&quot;cb=&quot;) === 0 ?
 			(/(\?|\&amp;)cb\=[0-9]*/) : (/(\?|\&amp;)v\=/);
-		if(test.test(url) === false)
+		if (test.test(url) === false)
 		{
 			url = url + (url.indexOf(&quot;?&quot;) &lt; 0 ? &quot;?&quot; : &quot;&amp;&quot;) + this._globalVersion;
 		}
@@ -897,11 +898,11 @@
 	p.prepare = function(url, applyBasePath)
 	{
 		//apply first in case the base path is strange and makes the rest of the path a query string
-		if(applyBasePath)
+		if (applyBasePath)
 		{
 			url = this._applyBasePath(url);
 		}
-		
+
 		for (var i = 0, len = this._filters.length; i &lt; len; ++i)
 		{
 			url = this._filters[i](url);
@@ -912,13 +913,12 @@
 	// Assign to namespace
 	namespace(&#x27;springroll&#x27;).CacheManager = CacheManager;
 
-}());
-</pre>
+}());</pre>
 </div></div>
 </div>
 </div>
 </div>
-<script src='../assets/js/libraries.js?v=0.4.0'></script>
-<script src='../assets/js/main.js?v=0.4.0'></script>
+<script src='../assets/js/libraries.js?v=0.4.1'></script>
+<script src='../assets/js/main.js?v=0.4.1'></script>
 </body>
 </html>

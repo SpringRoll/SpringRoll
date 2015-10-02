@@ -1,4 +1,4 @@
-/*! SpringRoll 0.4.0 */
+/*! SpringRoll 0.4.1 */
 /**
  * @module Captions
  * @namespace springroll
@@ -710,7 +710,7 @@
 
 	//assign to the namespacing
 	namespace('springroll').Captions = Captions;
-	
+
 }());
 /**
  * @module Sound

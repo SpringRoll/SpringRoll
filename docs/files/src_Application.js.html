@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html lang='en'>
 <head>
-	<title>SpringRoll v0.4.0 API Documentation : src/Application.js</title>
+	<title>SpringRoll v0.4.1 API Documentation : src/Application.js</title>
 	<meta charset='utf-8'>
 	<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 	<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
-	<link rel='shortcut icon' type='image/png' href='../assets/images/favicon.ico?v=0.4.0'>
+	<link rel='shortcut icon' type='image/png' href='../assets/images/favicon.ico?v=0.4.1'>
 	<link href='//fonts.googleapis.com/css?family=Titillium+Web:300,200,600' rel='stylesheet' type='text/css'>
-	<link rel='stylesheet' type='text/css' href='../assets/css/libraries.css?v=0.4.0'>
-	<link rel='stylesheet' type='text/css' href='../assets/css/main.css?v=0.4.0'>
+	<link rel='stylesheet' type='text/css' href='../assets/css/libraries.css?v=0.4.1'>
+	<link rel='stylesheet' type='text/css' href='../assets/css/main.css?v=0.4.1'>
 </head>
 <body>
 <header>
@@ -22,10 +22,10 @@
 					<span class="icon-bar"></span>
 				</button>
 				<a class="navbar-brand" href='https://github.com/SpringRoll/SpringRoll'>
-						<img src='../assets/images/logo.png?v=0.4.0' class="logo">
+						<img src='../assets/images/logo.png?v=0.4.1' class="logo">
 					<span class='project-name'>SpringRoll</span>
 					<span class="sr-only">API Documentation for:</span>
-					<span class='version hidden-xs'>v0.4.0</span>
+					<span class='version hidden-xs'>v0.4.1</span>
 				</a>
 			</div>
 			<div class="collapse navbar-collapse" id="docs-navbar">
@@ -725,62 +725,62 @@
 	 */
 	var _lastFrameTime = 0,
 
-	/**
-	 * The bound callback for listening to tick events
-	 * @private
-	 * @property {Function} _tickCallback
-	 */
-	_tickCallback = null,
+		/**
+		 * The bound callback for listening to tick events
+		 * @private
+		 * @property {Function} _tickCallback
+		 */
+		_tickCallback = null,
 
-	/**
-	 * If the current application is paused
-	 * @private
-	 * @property {Boolean} _paused
-	 */
-	_paused = false,
+		/**
+		 * If the current application is paused
+		 * @private
+		 * @property {Boolean} _paused
+		 */
+		_paused = false,
 
-	/**
-	 * If the current application is enabled
-	 * @private
-	 * @property {Boolean} _enabled
-	 */
-	_enabled = true,
+		/**
+		 * If the current application is enabled
+		 * @private
+		 * @property {Boolean} _enabled
+		 */
+		_enabled = true,
 
-	/**
-	 * The id of the active requestAnimationFrame or setTimeout call.
-	 * @property {Number} _tickId
-	 * @private
-	 */
-	_tickId = -1,
+		/**
+		 * The id of the active requestAnimationFrame or setTimeout call.
+		 * @property {Number} _tickId
+		 * @private
+		 */
+		_tickId = -1,
 
-	/**
-	 * If requestionAnimationFrame should be used
-	 * @private
-	 * @property {Bool} _useRAF
-	 * @default false
-	 */
-	_useRAF = false,
+		/**
+		 * If requestionAnimationFrame should be used
+		 * @private
+		 * @property {Bool} _useRAF
+		 * @default false
+		 */
+		_useRAF = false,
 
-	/**
-	 * The number of milliseconds per frame
-	 * @property {int} _msPerFrame
-	 * @private
-	 */
-	_msPerFrame = 0,
+		/**
+		 * The number of milliseconds per frame
+		 * @property {int} _msPerFrame
+		 * @private
+		 */
+		_msPerFrame = 0,
 
-	/**
-	 * The collection of displays
-	 * @property {Array} _displays
-	 * @private
-	 */
-	_displays = null,
+		/**
+		 * The collection of displays
+		 * @property {Array} _displays
+		 * @private
+		 */
+		_displays = null,
 
-	/**
-	 * The displays by canvas id
-	 * @property {Object} _displaysMap
-	 * @private
-	 */
-	_displaysMap = null;
+		/**
+		 * The displays by canvas id
+		 * @property {Object} _displaysMap
+		 * @private
+		 */
+		_displaysMap = null;
 
 
 	/**
@@ -792,17 +792,17 @@
 	 * The handler for the plugin progress
 	 * @event pluginProgress
 	 */
-	
+
 	/**
 	 * Fired when initialization of the application is done
 	 * @event afterInit
 	 */
-	
+
 	/**
 	 * Fired when before initialization of the application
 	 * @event beforeInit
 	 */
-	
+
 	/**
 	 * Fired when an update is called, every frame update
 	 * @event update
@@ -820,7 +820,7 @@
 	 * @event displayAdded
 	 * @param {springroll.AbstractDisplay} [display] The current display being added
 	 */
-	
+
 	/**
 	 * When a display is removed.
 	 * @event displayRemoved
@@ -879,7 +879,7 @@
 			if (typeof value != &quot;number&quot;) return;
 			_msPerFrame = (1000 / value) | 0;
 		});
-		
+
 		//add the initial display if specified
 		if (options.canvasId &amp;&amp; options.display)
 		{
@@ -903,8 +903,9 @@
 		});
 
 		// Run the asyncronous tasks in series
-		this.pluginLoad = this.load(tasks, {
-			complete: this._doInit.bind(this), 
+		this.pluginLoad = this.load(tasks,
+		{
+			complete: this._doInit.bind(this),
 			progress: onPluginProgress.bind(this),
 			autoStart: false,
 			startAll: false
@@ -940,7 +941,7 @@
 
 		//start update loop
 		this.paused = false;
-	
+
 		// Dispatch the init event
 		this.trigger(&#x27;init&#x27;);
 
@@ -1054,7 +1055,7 @@
 		// Add it to the collections
 		_displaysMap[id] = display;
 		_displays.push(display);
-		
+
 		// Inherit the enabled state from the application
 		display.enabled = _enabled;
 
@@ -1204,7 +1205,7 @@
 		_displaysMap = null;
 
 		_instance =
-		_tickCallback = null;
+			_tickCallback = null;
 
 		this.display = null;
 		this.options.destroy();
@@ -1231,7 +1232,7 @@
 </div>
 </div>
 </div>
-<script src='../assets/js/libraries.js?v=0.4.0'></script>
-<script src='../assets/js/main.js?v=0.4.0'></script>
+<script src='../assets/js/libraries.js?v=0.4.1'></script>
+<script src='../assets/js/main.js?v=0.4.1'></script>
 </body>
 </html>

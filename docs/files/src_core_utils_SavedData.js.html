@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html lang='en'>
 <head>
-	<title>SpringRoll v0.4.0 API Documentation : src/core/utils/SavedData.js</title>
+	<title>SpringRoll v0.4.1 API Documentation : src/core/utils/SavedData.js</title>
 	<meta charset='utf-8'>
 	<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 	<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
-	<link rel='shortcut icon' type='image/png' href='../assets/images/favicon.ico?v=0.4.0'>
+	<link rel='shortcut icon' type='image/png' href='../assets/images/favicon.ico?v=0.4.1'>
 	<link href='//fonts.googleapis.com/css?family=Titillium+Web:300,200,600' rel='stylesheet' type='text/css'>
-	<link rel='stylesheet' type='text/css' href='../assets/css/libraries.css?v=0.4.0'>
-	<link rel='stylesheet' type='text/css' href='../assets/css/main.css?v=0.4.0'>
+	<link rel='stylesheet' type='text/css' href='../assets/css/libraries.css?v=0.4.1'>
+	<link rel='stylesheet' type='text/css' href='../assets/css/main.css?v=0.4.1'>
 </head>
 <body>
 <header>
@@ -22,10 +22,10 @@
 					<span class="icon-bar"></span>
 				</button>
 				<a class="navbar-brand" href='https://github.com/SpringRoll/SpringRoll'>
-						<img src='../assets/images/logo.png?v=0.4.0' class="logo">
+						<img src='../assets/images/logo.png?v=0.4.1' class="logo">
 					<span class='project-name'>SpringRoll</span>
 					<span class="sr-only">API Documentation for:</span>
-					<span class='version hidden-xs'>v0.4.0</span>
+					<span class='version hidden-xs'>v0.4.1</span>
 				</a>
 			</div>
 			<div class="collapse navbar-collapse" id="docs-navbar">
@@ -608,14 +608,15 @@
  * @module Core
  * @namespace springroll
  */
-(function(undefined){
+(function(undefined)
+{
 
 	/**
 	 * The SavedData functions use localStorage and sessionStorage, with a cookie fallback.
 	 *
 	 * @class SavedData
 	 */
-	var SavedData = {},
+	var SavedData = {};
 
 	/** 
 	 * A constant to determine if we can use localStorage and 
@@ -625,7 +626,7 @@
 	 * @private
 	 * @readOnly
 	 */
-	WEB_STORAGE_SUPPORT = window.Storage !== undefined,
+	var WEB_STORAGE_SUPPORT = window.Storage !== undefined;
 
 	/**
 	 * A constant for cookie fallback for &#x60;SavedData.clear()&#x60; 
@@ -635,17 +636,17 @@
 	 * @readOnly
 	 * @default -1
 	 */
-	ERASE_COOKIE = -1;
+	var ERASE_COOKIE = -1;
 
 	//in iOS, if the user is in Private Browsing, writing to localStorage throws an error.
-	if(WEB_STORAGE_SUPPORT)
+	if (WEB_STORAGE_SUPPORT)
 	{
 		try
 		{
 			localStorage.setItem(&quot;LS_TEST&quot;, &quot;test&quot;);
 			localStorage.removeItem(&quot;LS_TEST&quot;);
 		}
-		catch(e)
+		catch (e)
 		{
 			WEB_STORAGE_SUPPORT = false;
 		}
@@ -659,13 +660,13 @@
 	 */
 	SavedData.remove = function(name)
 	{
-		if(WEB_STORAGE_SUPPORT)
+		if (WEB_STORAGE_SUPPORT)
 		{
 			localStorage.removeItem(name);
 			sessionStorage.removeItem(name);
 		}
 		else
-			SavedData.write(name,&quot;&quot;,ERASE_COOKIE);
+			SavedData.write(name, &quot;&quot;, ERASE_COOKIE);
 	};
 
 	/**
@@ -678,9 +679,9 @@
 	 */
 	SavedData.write = function(name, value, tempOnly)
 	{
-		if(WEB_STORAGE_SUPPORT)
+		if (WEB_STORAGE_SUPPORT)
 		{
-			if(tempOnly)
+			if (tempOnly)
 				sessionStorage.setItem(name, JSON.stringify(value));
 			else
 				localStorage.setItem(name, JSON.stringify(value));
@@ -690,15 +691,15 @@
 			var expires;
 			if (tempOnly)
 			{
-				if(tempOnly !== ERASE_COOKIE)
-					expires = &quot;&quot;;//remove when browser is closed
+				if (tempOnly !== ERASE_COOKIE)
+					expires = &quot;&quot;; //remove when browser is closed
 				else
-					expires = &quot;; expires=Thu, 01 Jan 1970 00:00:00 GMT&quot;;//save cookie in the past for immediate removal
+					expires = &quot;; expires=Thu, 01 Jan 1970 00:00:00 GMT&quot;; //save cookie in the past for immediate removal
 			}
 			else
-				expires = &quot;; expires=&quot;+new Date(2147483646000).toGMTString();//THE END OF (32bit UNIX) TIME!
+				expires = &quot;; expires=&quot; + new Date(2147483646000).toGMTString(); //THE END OF (32bit UNIX) TIME!
 
-			document.cookie = name+&quot;=&quot;+escape(JSON.stringify(value))+expires+&quot;; path=/&quot;;
+			document.cookie = name + &quot;=&quot; + escape(JSON.stringify(value)) + expires + &quot;; path=/&quot;;
 		}
 	};
 
@@ -711,10 +712,10 @@
 	 */
 	SavedData.read = function(name)
 	{
-		if(WEB_STORAGE_SUPPORT)
+		if (WEB_STORAGE_SUPPORT)
 		{
 			var value = localStorage.getItem(name) || sessionStorage.getItem(name);
-			if(value)
+			if (value)
 				return JSON.parse(value, SavedData.reviver);
 			else
 				return null;
@@ -723,13 +724,14 @@
 		{
 			var nameEQ = name + &quot;=&quot;,
 				ca = document.cookie.split(&#x27;;&#x27;),
-				i = 0, c, len;
+				i = 0,
+				c, len;
 
-			for(i=0, len=ca.length; i&lt;len;i++)
+			for (i = 0, len = ca.length; i &lt; len; i++)
 			{
 				c = ca[i];
-				while (c.charAt(0) == &#x27; &#x27;) c = c.substring(1,c.length);
-				if (c.indexOf(nameEQ) === 0) return JSON.parse(unescape(c.substring(nameEQ.length,c.length)), SavedData.reviver);
+				while (c.charAt(0) == &#x27; &#x27;) c = c.substring(1, c.length);
+				if (c.indexOf(nameEQ) === 0) return JSON.parse(unescape(c.substring(nameEQ.length, c.length)), SavedData.reviver);
 			}
 			return null;
 		}
@@ -749,14 +751,14 @@
 	 */
 	SavedData.reviver = function(key, value)
 	{
-		if(value &amp;&amp; typeof value.__classname == &quot;string&quot;)
+		if (value &amp;&amp; typeof value.__classname == &quot;string&quot;)
 		{
 			var _class = include(value.__classname, false);
-			if(_class)
+			if (_class)
 			{
 				var rtn = new _class();
 				//if we may call fromJSON, do so
-				if(rtn.fromJSON)
+				if (rtn.fromJSON)
 				{
 					rtn.fromJSON(value);
 					//return the cast Object
@@ -771,13 +773,12 @@
 	// Assign to the global space
 	namespace(&#x27;springroll&#x27;).SavedData = SavedData;
 
-}());
-</pre>
+}());</pre>
 </div></div>
 </div>
 </div>
 </div>
-<script src='../assets/js/libraries.js?v=0.4.0'></script>
-<script src='../assets/js/main.js?v=0.4.0'></script>
+<script src='../assets/js/libraries.js?v=0.4.1'></script>
+<script src='../assets/js/main.js?v=0.4.1'></script>
 </body>
 </html>

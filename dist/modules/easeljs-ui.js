@@ -1,4 +1,4 @@
-/*! SpringRoll 0.4.0 */
+/*! SpringRoll 0.4.1 */
 /**
  * @module EaselJS UI
  * @namespace springroll.easeljs
@@ -429,19 +429,19 @@
 	 * @property {String} BUTTON_PRESS
 	 */
 	Button.BUTTON_PRESS = "buttonPress";
-	
+
 	/**
-	* An event for when the button is moused over (while enabled).
-	* @static
-	* @property {String} BUTTON_OVER
-	*/
+	 * An event for when the button is moused over (while enabled).
+	 * @static
+	 * @property {String} BUTTON_OVER
+	 */
 	Button.BUTTON_OVER = "buttonOver";
-	
+
 	/**
-	* An event for when the button is moused out (while enabled).
-	* @static
-	* @property {String} BUTTON_OUT
-	*/
+	 * An event for when the button is moused out (while enabled).
+	 * @static
+	 * @property {String} BUTTON_OUT
+	 */
 	Button.BUTTON_OUT = "buttonOut";
 
 	/*
@@ -579,7 +579,7 @@
 
 			this._updateState();
 		},
-		configurable:true
+		configurable: true
 	});
 
 	/**
@@ -593,8 +593,8 @@
 	{
 		//check to make sure we don't add reserved names
 		if (RESERVED_STATES.indexOf(propertyName) >= 0) return;
-		
-		if(true && Debug && this[propertyName] !== undefined)
+
+		if (true && Debug && this[propertyName] !== undefined)
 		{
 			Debug.error("Adding property %s to button is dangerous, as property already exists with that name!", propertyName);
 		}
@@ -640,7 +640,7 @@
 		//set up the source rect for just that button state
 		back.sourceRect = data.src;
 		//if the image was rotated in a TextureAtlas, account for that
-		if(data.rotated)
+		if (data.rotated)
 		{
 			back.rotation = -90;
 			back.regX = back.sourceRect.width;
@@ -733,7 +733,7 @@
 	{
 		this._stateFlags.over = true;
 		this._updateState();
-		
+
 		this.dispatchEvent(new Event(Button.BUTTON_OVER));
 	};
 
@@ -746,7 +746,7 @@
 	{
 		this._stateFlags.over = false;
 		this._updateState();
-		
+
 		this.dispatchEvent(new Event(Button.BUTTON_OUT));
 	};
 
@@ -964,22 +964,26 @@
 	 */
 	Button.generateSettingsFromAtlas = function(atlas, baseName, statePriority)
 	{
-		var output = {priority: statePriority};
+		var output = {
+			priority: statePriority
+		};
 		//start at the end to start at the up state
 		for (var i = statePriority.length - 1; i >= 0; --i)
 		{
 			var frame = atlas.getFrame(baseName + "_" + statePriority[i]);
-			if(!frame)
+			if (!frame)
 			{
 				output[statePriority[i]] = output.up;
 				continue;
 			}
-			if(!output.image)
+			if (!output.image)
 				output.image = frame.image;
-			var state = output[statePriority[i]] = {src:frame.frame};
-			if(frame.rotated)
+			var state = output[statePriority[i]] = {
+				src: frame.frame
+			};
+			if (frame.rotated)
 				state.rotated = true;
-			if(frame.trimmed)
+			if (frame.trimmed)
 			{
 				state.trim = new Rectangle(frame.offset.x, frame.offset.y, frame.width,
 					frame.height);
@@ -1071,7 +1075,7 @@
 		if (this.overAlias && this.enabled && this._audioEnabled)
 		{
 			Sound.instance.play(this.overAlias);
-		}	
+		}
 	};
 
 	/**
@@ -1090,14 +1094,18 @@
 		}
 	});
 
-	Object.defineProperty(p, "enabled", {
-		get: function(){ return !this._stateFlags.disabled; },
+	Object.defineProperty(p, "enabled",
+	{
+		get: function()
+		{
+			return !this._stateFlags.disabled;
+		},
 		set: function(value)
 		{
 			this.removeEventListener('rollover', this._onRollover);
 			this.removeEventListener(Button.BUTTON_PRESS, this._onButtonPress);
 			// add listeners
-			if(value)
+			if (value)
 			{
 				this.addEventListener('rollover', this._onRollover);
 				this.addEventListener(Button.BUTTON_PRESS, this._onButtonPress);
@@ -1141,11 +1149,17 @@
 	var DragData = function(obj)
 	{
 		this.obj = obj;
-		this.mouseDownObjPos = {x:0, y:0};
+		this.mouseDownObjPos = {
+			x: 0,
+			y: 0
+		};
 		this.dragOffset = new createjs.Point();
-		this.mouseDownStagePos = {x:0, y:0};
+		this.mouseDownStagePos = {
+			x: 0,
+			y: 0
+		};
 	};
-	
+
 	// Assign to the global namespace
 	namespace('springroll').DragData = DragData;
 	namespace('springroll.easeljs').DragData = DragData;
@@ -1181,8 +1195,8 @@
 			Tween = include('createjs.Tween', false);
 			Stage = include("createjs.Stage");
 		}
-		
-		if(typeof display == "function" && !endCallback)
+
+		if (typeof display == "function" && !endCallback)
 		{
 			endCallback = startCallback;
 			startCallback = display;
@@ -1288,7 +1302,7 @@
 		 * @property {createjs.Stage} _theStage
 		 */
 		//passing stage is deprecated - we should be using the display
-		if(stage instanceof Stage)
+		if (stage instanceof Stage)
 			this._theStage = display;
 		else
 			this._theStage = display.stage;
@@ -1300,7 +1314,7 @@
 		 * @property {createjs.Point} _dragOffset
 		 */
 		this._dragOffset = null;
-		
+
 		/**
 		 * The pointer id that triggered the drag. This is only used when multitouch is false
 		 * - the DragData is indexed by pointer id when multitouch is true.
@@ -1453,7 +1467,7 @@
 		if (!ev)
 		{
 			this.isHeldDrag = true;
-			this._dragPointerID = -1;//allow any touch/mouse up to stop drag
+			this._dragPointerID = -1; //allow any touch/mouse up to stop drag
 			this._startDrag();
 		}
 		else
@@ -1611,8 +1625,8 @@
 		else
 		{
 			//don't stop the drag if a different finger than the dragging one was released
-			if(ev && ev.pointerID != this._dragPointerID && this._dragPointerID > -1) return;
-			
+			if (ev && ev.pointerID != this._dragPointerID && this._dragPointerID > -1) return;
+
 			obj = this.draggedObj;
 			this.draggedObj = null;
 		}
@@ -1660,15 +1674,15 @@
 		if (this._multitouch)
 		{
 			var data = this.draggedObj[ev.pointerID];
-			if(!data) return;
-			
+			if (!data) return;
+
 			draggedObj = data.obj;
 			dragOffset = data.dragOffset;
 		}
 		else
 		{
-			if(ev.pointerID != this._dragPointerID && this._dragPointerID > -1) return;
-			
+			if (ev.pointerID != this._dragPointerID && this._dragPointerID > -1) return;
+
 			draggedObj = this.draggedObj;
 			dragOffset = this._dragOffset;
 		}

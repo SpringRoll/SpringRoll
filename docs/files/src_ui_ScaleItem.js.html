@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html lang='en'>
 <head>
-	<title>SpringRoll v0.4.0 API Documentation : src/ui/ScaleItem.js</title>
+	<title>SpringRoll v0.4.1 API Documentation : src/ui/ScaleItem.js</title>
 	<meta charset='utf-8'>
 	<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 	<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
-	<link rel='shortcut icon' type='image/png' href='../assets/images/favicon.ico?v=0.4.0'>
+	<link rel='shortcut icon' type='image/png' href='../assets/images/favicon.ico?v=0.4.1'>
 	<link href='//fonts.googleapis.com/css?family=Titillium+Web:300,200,600' rel='stylesheet' type='text/css'>
-	<link rel='stylesheet' type='text/css' href='../assets/css/libraries.css?v=0.4.0'>
-	<link rel='stylesheet' type='text/css' href='../assets/css/main.css?v=0.4.0'>
+	<link rel='stylesheet' type='text/css' href='../assets/css/libraries.css?v=0.4.1'>
+	<link rel='stylesheet' type='text/css' href='../assets/css/main.css?v=0.4.1'>
 </head>
 <body>
 <header>
@@ -22,10 +22,10 @@
 					<span class="icon-bar"></span>
 				</button>
 				<a class="navbar-brand" href='https://github.com/SpringRoll/SpringRoll'>
-						<img src='../assets/images/logo.png?v=0.4.0' class="logo">
+						<img src='../assets/images/logo.png?v=0.4.1' class="logo">
 					<span class='project-name'>SpringRoll</span>
 					<span class="sr-only">API Documentation for:</span>
-					<span class='version hidden-xs'>v0.4.0</span>
+					<span class='version hidden-xs'>v0.4.1</span>
 				</a>
 			</div>
 			<div class="collapse navbar-collapse" id="docs-navbar">
@@ -723,7 +723,7 @@
 		this.origBounds = adapter.getLocalBounds(display);
 		//convert bounds to something more usable
 		var temp, bounds = this.origBounds;
-		if(this.origScaleX &lt; 0)
+		if (this.origScaleX &lt; 0)
 		{
 			temp = bounds.x;
 			bounds.x = bounds.right * origScaleX;
@@ -736,7 +736,7 @@
 			bounds.right *= origScaleX;
 			bounds.width *= origScaleX;
 		}
-		if(this.origScaleY &lt; 0)
+		if (this.origScaleY &lt; 0)
 		{
 			temp = bounds.y;
 			bounds.y = bounds.bottom * origScaleY;
@@ -767,39 +767,39 @@
 		switch (this.vertAlign)
 		{
 			case ScaleManager.ALIGN_TOP:
-			{
-				this.origMarginVert = position.y + this.origBounds.y;
-				break;
-			}
+				{
+					this.origMarginVert = position.y + this.origBounds.y;
+					break;
+				}
 			case ScaleManager.ALIGN_CENTER:
-			{
-				this.origMarginVert = size.height * 0.5 - position.y;
-				break;
-			}
+				{
+					this.origMarginVert = size.height * 0.5 - position.y;
+					break;
+				}
 			case ScaleManager.ALIGN_BOTTOM:
-			{
-				this.origMarginVert = size.height - (position.y + this.origBounds.bottom);
-				break;
-			}
+				{
+					this.origMarginVert = size.height - (position.y + this.origBounds.bottom);
+					break;
+				}
 		}
 
 		switch (this.horiAlign)
 		{
 			case ScaleManager.ALIGN_LEFT:
-			{
-				this.origMarginHori = position.x + this.origBounds.x;
-				break;
-			}
+				{
+					this.origMarginHori = position.x + this.origBounds.x;
+					break;
+				}
 			case ScaleManager.ALIGN_CENTER:
-			{
-				this.origMarginHori = size.width * 0.5 - position.x;
-				break;
-			}
+				{
+					this.origMarginHori = size.width * 0.5 - position.x;
+					break;
+				}
 			case ScaleManager.ALIGN_RIGHT:
-			{
-				this.origMarginHori = size.width - (position.x + this.origBounds.right);
-				break;
-			}
+				{
+					this.origMarginHori = size.width - (position.x + this.origBounds.right);
+					break;
+				}
 		}
 	};
 
@@ -887,34 +887,34 @@
 		switch (this.vertAlign)
 		{
 			case ScaleManager.ALIGN_TOP:
-			{
-				if (titleSafe)
 				{
-					y = letterBoxHeight + m - origBounds.y * itemScale;
+					if (titleSafe)
+					{
+						y = letterBoxHeight + m - origBounds.y * itemScale;
+					}
+					else
+					{
+						y = m - origBounds.y * itemScale;
+					}
+					break;
 				}
-				else
-				{
-					y = m - origBounds.y * itemScale;
-				}
-				break;
-			}
 			case ScaleManager.ALIGN_CENTER:
-			{
-				y = displayHeight * 0.5 - m;
-				break;
-			}
+				{
+					y = displayHeight * 0.5 - m;
+					break;
+				}
 			case ScaleManager.ALIGN_BOTTOM:
-			{
-				if (titleSafe)
 				{
-					y = displayHeight - letterBoxHeight - m - origBounds.bottom * itemScale;
+					if (titleSafe)
+					{
+						y = displayHeight - letterBoxHeight - m - origBounds.bottom * itemScale;
+					}
+					else
+					{
+						y = displayHeight - m - origBounds.bottom * itemScale;
+					}
+					break;
 				}
-				else
-				{
-					y = displayHeight - m - origBounds.bottom * itemScale;
-				}
-				break;
-			}
 		}
 
 		// Set the position
@@ -932,41 +932,41 @@
 		switch (this.horiAlign)
 		{
 			case ScaleManager.ALIGN_LEFT:
-			{
-				if (titleSafe)
 				{
-					x = letterBoxWidth + m - origBounds.x * itemScale;
+					if (titleSafe)
+					{
+						x = letterBoxWidth + m - origBounds.x * itemScale;
+					}
+					else
+					{
+						x = m - origBounds.x * itemScale;
+					}
+					break;
 				}
-				else
-				{
-					x = m - origBounds.x * itemScale;
-				}
-				break;
-			}
 			case ScaleManager.ALIGN_CENTER:
-			{
-				if (this.centeredHorizontally)
 				{
-					x = (displayWidth - _display.width) * 0.5;
+					if (this.centeredHorizontally)
+					{
+						x = (displayWidth - _display.width) * 0.5;
+					}
+					else
+					{
+						x = displayWidth * 0.5 - m;
+					}
+					break;
 				}
-				else
-				{
-					x = displayWidth * 0.5 - m;
-				}
-				break;
-			}
 			case ScaleManager.ALIGN_RIGHT:
-			{
-				if (titleSafe)
 				{
-					x = displayWidth - letterBoxWidth - m - origBounds.right * itemScale;
+					if (titleSafe)
+					{
+						x = displayWidth - letterBoxWidth - m - origBounds.right * itemScale;
+					}
+					else
+					{
+						x = displayWidth - m - origBounds.right * itemScale;
+					}
+					break;
 				}
-				else
-				{
-					x = displayWidth - m - origBounds.right * itemScale;
-				}
-				break;
-			}
 		}
 
 		// Set the position
@@ -996,7 +996,7 @@
 </div>
 </div>
 </div>
-<script src='../assets/js/libraries.js?v=0.4.0'></script>
-<script src='../assets/js/main.js?v=0.4.0'></script>
+<script src='../assets/js/libraries.js?v=0.4.1'></script>
+<script src='../assets/js/main.js?v=0.4.1'></script>
 </body>
 </html>

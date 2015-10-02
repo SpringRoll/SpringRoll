@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html lang='en'>
 <head>
-	<title>SpringRoll v0.4.0 API Documentation : src/loaders/AssetLoad.js</title>
+	<title>SpringRoll v0.4.1 API Documentation : src/loaders/AssetLoad.js</title>
 	<meta charset='utf-8'>
 	<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 	<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
-	<link rel='shortcut icon' type='image/png' href='../assets/images/favicon.ico?v=0.4.0'>
+	<link rel='shortcut icon' type='image/png' href='../assets/images/favicon.ico?v=0.4.1'>
 	<link href='//fonts.googleapis.com/css?family=Titillium+Web:300,200,600' rel='stylesheet' type='text/css'>
-	<link rel='stylesheet' type='text/css' href='../assets/css/libraries.css?v=0.4.0'>
-	<link rel='stylesheet' type='text/css' href='../assets/css/main.css?v=0.4.0'>
+	<link rel='stylesheet' type='text/css' href='../assets/css/libraries.css?v=0.4.1'>
+	<link rel='stylesheet' type='text/css' href='../assets/css/main.css?v=0.4.1'>
 </head>
 <body>
 <header>
@@ -22,10 +22,10 @@
 					<span class="icon-bar"></span>
 				</button>
 				<a class="navbar-brand" href='https://github.com/SpringRoll/SpringRoll'>
-						<img src='../assets/images/logo.png?v=0.4.0' class="logo">
+						<img src='../assets/images/logo.png?v=0.4.1' class="logo">
 					<span class='project-name'>SpringRoll</span>
 					<span class="sr-only">API Documentation for:</span>
-					<span class='version hidden-xs'>v0.4.0</span>
+					<span class='version hidden-xs'>v0.4.1</span>
 				</a>
 			</div>
 			<div class="collapse navbar-collapse" id="docs-navbar">
@@ -769,7 +769,7 @@
 
 		// Set the default container for the results
 		this.results = getAssetsContainer(this.mode);
-		
+
 		// Start running
 		if (options.autoStart)
 		{
@@ -886,7 +886,7 @@
 			}
 			else if (Object.isPlain(assets))
 			{
-				for(var id in assets)
+				for (var id in assets)
 				{
 					asset = applyDefaults(assets[id]);
 					task = this.addTask(asset);
@@ -917,12 +917,16 @@
 		// convert to a LoadTask
 		if (isString(asset))
 		{
-			return { src: asset };
+			return {
+				src: asset
+			};
 		}
 		// convert to a FunctionTask
 		else if (isFunction(asset))
 		{
-			return { async: asset };
+			return {
+				async: asset
+			};
 		}
 		return asset;
 	}
@@ -1000,7 +1004,7 @@
 			{
 				task.status = Task.RUNNING;
 				task.start(this.taskDone.bind(this, task));
-				
+
 				// If we aren&#x27;t running in parallel, then stop
 				if (!this.startAll) return;
 			}
@@ -1040,11 +1044,17 @@
 		if (result)
 		{
 			// Handle the result
-			switch(this.mode)
+			switch (this.mode)
 			{
-				case SINGLE_MODE: this.results = result; break;
-				case LIST_MODE: this.results.push(result); break;
-				case MAP_MODE: this.results[task.id] = result; break;
+				case SINGLE_MODE:
+					this.results = result;
+					break;
+				case LIST_MODE:
+					this.results.push(result);
+					break;
+				case MAP_MODE:
+					this.results[task.id] = result;
+					break;
 			}
 
 			// Should we cache the task?
@@ -1110,11 +1120,14 @@
 	 */
 	var getAssetsContainer = function(mode)
 	{
-		switch(mode)
+		switch (mode)
 		{
-			case SINGLE_MODE: return null;
-			case LIST_MODE: return [];
-			case MAP_MODE: return {};
+			case SINGLE_MODE:
+				return null;
+			case LIST_MODE:
+				return [];
+			case MAP_MODE:
+				return {};
 		}
 	};
 
@@ -1162,7 +1175,7 @@
 </div>
 </div>
 </div>
-<script src='../assets/js/libraries.js?v=0.4.0'></script>
-<script src='../assets/js/main.js?v=0.4.0'></script>
+<script src='../assets/js/libraries.js?v=0.4.1'></script>
+<script src='../assets/js/main.js?v=0.4.1'></script>
 </body>
 </html>

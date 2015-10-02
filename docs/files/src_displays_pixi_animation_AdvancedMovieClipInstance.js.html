@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html lang='en'>
 <head>
-	<title>SpringRoll v0.4.0 API Documentation : src/displays/pixi/animation/AdvancedMovieClipInstance.js</title>
+	<title>SpringRoll v0.4.1 API Documentation : src/displays/pixi/animation/AdvancedMovieClipInstance.js</title>
 	<meta charset='utf-8'>
 	<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 	<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
-	<link rel='shortcut icon' type='image/png' href='../assets/images/favicon.ico?v=0.4.0'>
+	<link rel='shortcut icon' type='image/png' href='../assets/images/favicon.ico?v=0.4.1'>
 	<link href='//fonts.googleapis.com/css?family=Titillium+Web:300,200,600' rel='stylesheet' type='text/css'>
-	<link rel='stylesheet' type='text/css' href='../assets/css/libraries.css?v=0.4.0'>
-	<link rel='stylesheet' type='text/css' href='../assets/css/main.css?v=0.4.0'>
+	<link rel='stylesheet' type='text/css' href='../assets/css/libraries.css?v=0.4.1'>
+	<link rel='stylesheet' type='text/css' href='../assets/css/main.css?v=0.4.1'>
 </head>
 <body>
 <header>
@@ -22,10 +22,10 @@
 					<span class="icon-bar"></span>
 				</button>
 				<a class="navbar-brand" href='https://github.com/SpringRoll/SpringRoll'>
-						<img src='../assets/images/logo.png?v=0.4.0' class="logo">
+						<img src='../assets/images/logo.png?v=0.4.1' class="logo">
 					<span class='project-name'>SpringRoll</span>
 					<span class="sr-only">API Documentation for:</span>
-					<span class='version hidden-xs'>v0.4.0</span>
+					<span class='version hidden-xs'>v0.4.1</span>
 				</a>
 			</div>
 			<div class="collapse navbar-collapse" id="docs-navbar">
@@ -614,7 +614,7 @@
 	var Application = include(&quot;springroll.Application&quot;);
 	var AnimatorInstance = include(&#x27;springroll.AnimatorInstance&#x27;);
 	var AdvancedMovieClip = include(&#x27;springroll.pixi.AdvancedMovieClip&#x27;);
-	
+
 	/**
 	 * The plugin for working with AdvancedMovieClips and animator
 	 * @class AdvancedMovieClipInstance
@@ -624,20 +624,20 @@
 	var AdvancedMovieClipInstance = function()
 	{
 		AnimatorInstance.call(this);
-		
+
 		/**
 		 * The start time of the current animation on the movieclip&#x27;s timeline.
 		 * @property {Number} startTime
 		 */
 		this.startTime = 0;
-		
+
 		/**
 		 * Length of current animation in frames.
 		 *
 		 * @property {int} length
 		 */
 		this.length = 0;
-		
+
 		/**
 		 * The frame number of the first frame of the current animation. If this is -1, then the
 		 * animation is currently a pause instead of an animation.
@@ -645,7 +645,7 @@
 		 * @property {int} firstFrame
 		 */
 		this.firstFrame = -1;
-		
+
 		/**
 		 * The frame number of the last frame of the current animation.
 		 *
@@ -670,7 +670,7 @@
 			clip.framerate = Application.instance.options.fps || 15;
 		}
 		clip.tickEnabled = false;
-		
+
 		this.clip = clip;
 		this.isLooping = false;
 		this.currentName = null;
@@ -679,18 +679,18 @@
 		//that it stays on the current frame
 		this.lastFrame = clip.currentFrame;
 	};
-	
+
 	p.beginAnim = function(animObj, isRepeat)
 	{
 		//calculate frames, duration, etc
 		//then gotoAndPlay on the first frame
 		var anim = this.currentName = animObj.anim;
-		
+
 		var l, first = -1,
 			last = -1,
 			loop = false;
-		
-		if(anim == &quot;*&quot;)
+
+		if (anim == &quot;*&quot;)
 		{
 			first = 0;
 			last = this.clip.totalFrames - 1;
@@ -730,17 +730,17 @@
 		var fps = this.clip.framerate;
 		this.startTime = this.firstFrame / fps;
 		this.duration = this.length / fps;
-		if(isRepeat)
+		if (isRepeat)
 			this.position = 0;
 		else
 		{
 			var animStart = animObj.start || 0;
 			this.position = animStart &lt; 0 ? Math.random() * this.duration : animStart;
 		}
-		
+
 		this.clip.elapsedTime = this.startTime + this.position;
 	};
-	
+
 	/**
 	 * Ends animation playback.
 	 * @method endAnim
@@ -749,7 +749,7 @@
 	{
 		this.clip.gotoAndStop(this.lastFrame);
 	};
-	
+
 	/**
 	 * Updates position to a new value, and does anything that the clip needs, like updating
 	 * timelines.
@@ -785,11 +785,11 @@
 	AdvancedMovieClipInstance.hasAnimation = function(clip, event)
 	{
 		//the wildcard event plays the entire timeline
-		if(event == &quot;*&quot;)
+		if (event == &quot;*&quot;)
 		{
 			return true;
 		}
-		
+
 		var labels = clip.getLabels();
 		var startFrame = -1,
 			stopFrame = -1;
@@ -827,13 +827,13 @@
 		{
 			clip.framerate = Application.instance.options.fps || 15;
 		}
-		
+
 		//the wildcard event plays the entire timeline
-		if(event == &quot;*&quot;)
+		if (event == &quot;*&quot;)
 		{
 			return clip.totalFrames / clip.framerate;
 		}
-		
+
 		var labels = clip.getLabels();
 		var startFrame = -1,
 			stopFrame = -1;
@@ -881,7 +881,7 @@
 </div>
 </div>
 </div>
-<script src='../assets/js/libraries.js?v=0.4.0'></script>
-<script src='../assets/js/main.js?v=0.4.0'></script>
+<script src='../assets/js/libraries.js?v=0.4.1'></script>
+<script src='../assets/js/main.js?v=0.4.1'></script>
 </body>
 </html>

@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html lang='en'>
 <head>
-	<title>SpringRoll v0.4.0 API Documentation : src/displays/easeljs/display/FlashArtTask.js</title>
+	<title>SpringRoll v0.4.1 API Documentation : src/displays/easeljs/display/FlashArtTask.js</title>
 	<meta charset='utf-8'>
 	<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 	<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
-	<link rel='shortcut icon' type='image/png' href='../assets/images/favicon.ico?v=0.4.0'>
+	<link rel='shortcut icon' type='image/png' href='../assets/images/favicon.ico?v=0.4.1'>
 	<link href='//fonts.googleapis.com/css?family=Titillium+Web:300,200,600' rel='stylesheet' type='text/css'>
-	<link rel='stylesheet' type='text/css' href='../assets/css/libraries.css?v=0.4.0'>
-	<link rel='stylesheet' type='text/css' href='../assets/css/main.css?v=0.4.0'>
+	<link rel='stylesheet' type='text/css' href='../assets/css/libraries.css?v=0.4.1'>
+	<link rel='stylesheet' type='text/css' href='../assets/css/main.css?v=0.4.1'>
 </head>
 <body>
 <header>
@@ -22,10 +22,10 @@
 					<span class="icon-bar"></span>
 				</button>
 				<a class="navbar-brand" href='https://github.com/SpringRoll/SpringRoll'>
-						<img src='../assets/images/logo.png?v=0.4.0' class="logo">
+						<img src='../assets/images/logo.png?v=0.4.1' class="logo">
 					<span class='project-name'>SpringRoll</span>
 					<span class="sr-only">API Documentation for:</span>
-					<span class='version hidden-xs'>v0.4.0</span>
+					<span class='version hidden-xs'>v0.4.1</span>
 				</a>
 			</div>
 			<div class="collapse navbar-collapse" id="docs-navbar">
@@ -644,7 +644,7 @@
 		 * @property {String} src
 		 */
 		this.src = this.filter(asset.src);
-		
+
 		/**
 		 * Any image, atlas, or SpriteSheet assets that should be loaded along with this piece
 		 * of flash art.
@@ -666,7 +666,7 @@
 		 * @default &#x27;lib&#x27;
 		 */
 		this.libName = asset.libName || &#x27;lib&#x27;;
-		
+
 		/**
 		 * The name of the window object images hang on
 		 * @property {String} imagesName
@@ -703,16 +703,16 @@
 		var images = [];
 		var atlas, assetCount = 0;
 		//handle the deprecated format
-		if(this.atlas)
+		if (this.atlas)
 		{
 			atlas = {
-				atlas:this.atlas,
+				atlas: this.atlas,
 				id: &quot;asset_&quot; + (assetCount++),
 				type: &quot;easeljs&quot;,
 				format: &quot;FlashAtlas&quot;,
 				libName: this.libName
 			};
-			if(this.image)
+			if (this.image)
 				atlas.image = this.image;
 			else
 			{
@@ -721,23 +721,23 @@
 			}
 			images.push(atlas);
 		}
-		else if(this.images)
+		else if (this.images)
 		{
 			var asset;
-			for(var i = 0; i &lt; this.images.length; ++i)
+			for (var i = 0; i &lt; this.images.length; ++i)
 			{
 				//check for texture atlases from TexturePacker or similar things
-				if(this.images[i].atlas)
+				if (this.images[i].atlas)
 				{
 					asset = this.images[i];
 					atlas = {
-						atlas:this.filter(asset.atlas),
+						atlas: this.filter(asset.atlas),
 						id: &quot;asset_&quot; + (assetCount++),
-						type:&quot;easeljs&quot;,
+						type: &quot;easeljs&quot;,
 						format: &quot;FlashAtlas&quot;,
 						libName: this.libName
 					};
-					if(asset.image)
+					if (asset.image)
 						atlas.image = this.filter(asset.image);
 					else
 					{
@@ -747,26 +747,28 @@
 					images.push(atlas);
 				}
 				//Check for EaselJS SpriteSheets
-				else if(this.images[i].format == &quot;createjs.SpriteSheet&quot;)
+				else if (this.images[i].format == &quot;createjs.SpriteSheet&quot;)
 				{
 					asset = this.images[i].clone();
 					images.push(asset);
-					if(!asset.type)
+					if (!asset.type)
 						asset.type = &quot;easeljs&quot;;
-					if(!asset.id)
+					if (!asset.id)
 						asset.id = &quot;asset_&quot; + (assetCount++);
 				}
 				//standard images
 				else
 				{
 					//check for urls
-					if(typeof this.images[i] == &quot;string&quot;)
-						asset = {src:this.filter(this.images[i])};
+					if (typeof this.images[i] == &quot;string&quot;)
+						asset = {
+							src: this.filter(this.images[i])
+						};
 					//and full tasks
 					else
 						asset = this.images[i].clone();
 					//ensure an ID for these
-					if(!asset.id)
+					if (!asset.id)
 					{
 						var fallbackId = asset.src || asset.color;
 						// Remove the file extension
@@ -791,12 +793,14 @@
 				}
 			}
 		}
-		
+
 		var assets = {
-			_flash : this.src
+			_flash: this.src
 		};
-		if(images.length)
-			assets._images = {assets:images};
+		if (images.length)
+			assets._images = {
+				assets: images
+			};
 
 		// Load all the assets
 		Application.instance.load(assets, function(results)
@@ -806,42 +810,42 @@
 				results._flash,
 				this.libName
 			);
-			
+
 			var images = results._images;
-			if(images)
+			if (images)
 			{
 				var image;
 				var objectsToDestroy = [];
 				var globalImages = namespace(this.imagesName);
-				
-				for(var id in images)
+
+				for (var id in images)
 				{
 					var result = images[id];
 					//save the item for cleanup
 					objectsToDestroy.push(result);
 					//look for individual images
-					if(result.image &amp;&amp; result.scale)
+					if (result.image &amp;&amp; result.scale)
 					{
 						//scale asset if needed
-						if(result.scale != 1)
+						if (result.scale != 1)
 							Bitmap.replaceWithScaledBitmap(id, 1 / result.scale, this.libName);
 					}
 					//otherwise the result is a SpriteSheet or the result of a FlashArtAtlasTask
-					else if(result.create)
+					else if (result.create)
 					{
 						//FlashArtAtlasTasks have delayed asset generation to ensure that it doesn&#x27;t
 						//interfere with the loading of the javascript that it overrides
 						result.create();
 					}
 				}
-				
+
 				art._orig_destroy = art.destroy;
 				art.destroy = function()
 				{
 					var i;
-					for(i = objectsToDestroy.length - 1; i &gt;= 0; --i)
+					for (i = objectsToDestroy.length - 1; i &gt;= 0; --i)
 					{
-						if(objectsToDestroy[i].destroy)
+						if (objectsToDestroy[i].destroy)
 							objectsToDestroy[i].destroy();
 						else
 							objectsToDestroy[i].dispatchEvent(&quot;destroy&quot;);
@@ -849,9 +853,9 @@
 					art._orig_destroy();
 				};
 			}
-			
+
 			callback(art);
-			
+
 		}.bind(this));
 	};
 
@@ -863,7 +867,7 @@
 </div>
 </div>
 </div>
-<script src='../assets/js/libraries.js?v=0.4.0'></script>
-<script src='../assets/js/main.js?v=0.4.0'></script>
+<script src='../assets/js/libraries.js?v=0.4.1'></script>
+<script src='../assets/js/main.js?v=0.4.1'></script>
 </body>
 </html>

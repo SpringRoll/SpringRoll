@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html lang='en'>
 <head>
-	<title>SpringRoll v0.4.0 API Documentation : src/displays/pixi/mixins/Point.js</title>
+	<title>SpringRoll v0.4.1 API Documentation : src/displays/pixi/mixins/Point.js</title>
 	<meta charset='utf-8'>
 	<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 	<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
-	<link rel='shortcut icon' type='image/png' href='../assets/images/favicon.ico?v=0.4.0'>
+	<link rel='shortcut icon' type='image/png' href='../assets/images/favicon.ico?v=0.4.1'>
 	<link href='//fonts.googleapis.com/css?family=Titillium+Web:300,200,600' rel='stylesheet' type='text/css'>
-	<link rel='stylesheet' type='text/css' href='../assets/css/libraries.css?v=0.4.0'>
-	<link rel='stylesheet' type='text/css' href='../assets/css/main.css?v=0.4.0'>
+	<link rel='stylesheet' type='text/css' href='../assets/css/libraries.css?v=0.4.1'>
+	<link rel='stylesheet' type='text/css' href='../assets/css/main.css?v=0.4.1'>
 </head>
 <body>
 <header>
@@ -22,10 +22,10 @@
 					<span class="icon-bar"></span>
 				</button>
 				<a class="navbar-brand" href='https://github.com/SpringRoll/SpringRoll'>
-						<img src='../assets/images/logo.png?v=0.4.0' class="logo">
+						<img src='../assets/images/logo.png?v=0.4.1' class="logo">
 					<span class='project-name'>SpringRoll</span>
 					<span class="sr-only">API Documentation for:</span>
-					<span class='version hidden-xs'>v0.4.0</span>
+					<span class='version hidden-xs'>v0.4.1</span>
 				</a>
 			</div>
 			<div class="collapse navbar-collapse" id="docs-navbar">
@@ -612,51 +612,51 @@
 (function(undefined)
 {
 	/**
-	*  Mixins for the PIXI Point class, which include methods
-	*  for calculating the dot product, length, distance, normalize, etc.
-	*  @class Point
-	*/
+	 *  Mixins for the PIXI Point class, which include methods
+	 *  for calculating the dot product, length, distance, normalize, etc.
+	 *  @class Point
+	 */
 
 	var Point = include(&quot;PIXI.Point&quot;, false);
-	if(!Point) return;
+	if (!Point) return;
 
 	var p = Point.prototype;
 
 	/**
-	* Returns the dot product between this point and another one.
-	* @method dotProd
-	* @param other {Point} The point to form a dot product with
-	* @return The dot product between the two points.
-	*/
+	 * Returns the dot product between this point and another one.
+	 * @method dotProd
+	 * @param other {Point} The point to form a dot product with
+	 * @return The dot product between the two points.
+	 */
 	p.dotProd = function(other)
 	{
 		return this.x * other.x + this.y * other.y;
 	};
 
 	/**
-	* Returns the length (or magnitude) of this point.
-	* @method length
-	* @return The length of this point.
-	*/
+	 * Returns the length (or magnitude) of this point.
+	 * @method length
+	 * @return The length of this point.
+	 */
 	p.length = function()
 	{
 		return Math.sqrt(this.x * this.x + this.y * this.y);
 	};
 
 	/**
-	* Returns the squared length (or magnitude) of this point. This is faster than length().
-	* @method lengthSq
-	* @return The length squared of this point.
-	*/
+	 * Returns the squared length (or magnitude) of this point. This is faster than length().
+	 * @method lengthSq
+	 * @return The length squared of this point.
+	 */
 	p.lengthSq = function()
 	{
 		return this.x * this.x + this.y * this.y;
 	};
 
 	/**
-	* Reduces the point to a length of 1.
-	* @method normalize
-	*/
+	 * Reduces the point to a length of 1.
+	 * @method normalize
+	 */
 	p.normalize = function()
 	{
 		var oneOverLen = 1 / this.length();
@@ -665,10 +665,10 @@
 	};
 
 	/**
-	* Subtracts the x and y values of a point from this point.
-	* @method subtract
-	* @param other {Point} The point to subtract from this one
-	*/
+	 * Subtracts the x and y values of a point from this point.
+	 * @method subtract
+	 * @param other {Point} The point to subtract from this one
+	 */
 	p.subtract = function(other)
 	{
 		this.x -= other.x;
@@ -676,10 +676,10 @@
 	};
 
 	/**
-	* Adds the x and y values of a point to this point.
-	* @method add
-	* @param other {Point} The point to add to this one
-	*/
+	 * Adds the x and y values of a point to this point.
+	 * @method add
+	 * @param other {Point} The point to add to this one
+	 */
 	p.add = function(other)
 	{
 		this.x += other.x;
@@ -687,14 +687,14 @@
 	};
 
 	/**
-	* Truncate the length of the point to a maximum.
-	* @method truncate
-	* @param maxLength {Number} The maximum length to allow in this point.
-	*/
+	 * Truncate the length of the point to a maximum.
+	 * @method truncate
+	 * @param maxLength {Number} The maximum length to allow in this point.
+	 */
 	p.truncate = function(maxLength)
 	{
 		var l = this.length();
-		if(l &gt; maxLength)
+		if (l &gt; maxLength)
 		{
 			var maxOverLen = maxLength / l;
 			this.x *= maxOverLen;
@@ -703,10 +703,10 @@
 	};
 
 	/**
-	* Multiplies the x and y values of this point by a value.
-	* @method scaleBy
-	* @param value {Number} The value to scale by.
-	*/
+	 * Multiplies the x and y values of this point by a value.
+	 * @method scaleBy
+	 * @param value {Number} The value to scale by.
+	 */
 	p.scaleBy = function(value)
 	{
 		this.x *= value;
@@ -714,11 +714,11 @@
 	};
 
 	/**
-	* Calculates the distance between this and another point.
-	* @method distance
-	* @param other {Point} The point to calculate the distance to.
-	* @return {Number} The distance.
-	*/
+	 * Calculates the distance between this and another point.
+	 * @method distance
+	 * @param other {Point} The point to calculate the distance to.
+	 * @return {Number} The distance.
+	 */
 	p.distance = function(other)
 	{
 		var xDiff = this.x - other.x;
@@ -727,11 +727,11 @@
 	};
 
 	/**
-	* Calculates the squared distance between this and another point.
-	* @method distanceSq
-	* @param other {Point} The point to calculate the distance to.
-	* @return {Number} The distance squared.
-	*/
+	 * Calculates the squared distance between this and another point.
+	 * @method distanceSq
+	 * @param other {Point} The point to calculate the distance to.
+	 * @return {Number} The distance squared.
+	 */
 	p.distanceSq = function(other)
 	{
 		var xDiff = this.x - other.x;
@@ -741,7 +741,7 @@
 
 	Point.localToGlobal = function(displayObject, localX, localY, outPoint)
 	{
-		if(!outPoint)
+		if (!outPoint)
 			outPoint = new PIXI.Point();
 		outPoint.x = localX;
 		outPoint.y = localY;
@@ -750,7 +750,7 @@
 
 	Point.globalToLocal = function(displayObject, globalX, globalY, outPoint)
 	{
-		if(!outPoint)
+		if (!outPoint)
 			outPoint = new PIXI.Point();
 		outPoint.x = globalX;
 		outPoint.y = globalY;
@@ -759,7 +759,7 @@
 
 	Point.localToLocal = function(sourceDisplayObject, targetDisplayObject, x, y, outPoint)
 	{
-		if(!outPoint)
+		if (!outPoint)
 			outPoint = new PIXI.Point();
 		outPoint.x = x;
 		outPoint.y = y;
@@ -776,7 +776,7 @@
 </div>
 </div>
 </div>
-<script src='../assets/js/libraries.js?v=0.4.0'></script>
-<script src='../assets/js/main.js?v=0.4.0'></script>
+<script src='../assets/js/libraries.js?v=0.4.1'></script>
+<script src='../assets/js/main.js?v=0.4.1'></script>
 </body>
 </html>

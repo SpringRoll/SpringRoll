@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html lang='en'>
 <head>
-	<title>SpringRoll v0.4.0 API Documentation : src/displays/pixi/display/TextureAtlas.js</title>
+	<title>SpringRoll v0.4.1 API Documentation : src/displays/pixi/display/TextureAtlas.js</title>
 	<meta charset='utf-8'>
 	<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 	<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
-	<link rel='shortcut icon' type='image/png' href='../assets/images/favicon.ico?v=0.4.0'>
+	<link rel='shortcut icon' type='image/png' href='../assets/images/favicon.ico?v=0.4.1'>
 	<link href='//fonts.googleapis.com/css?family=Titillium+Web:300,200,600' rel='stylesheet' type='text/css'>
-	<link rel='stylesheet' type='text/css' href='../assets/css/libraries.css?v=0.4.0'>
-	<link rel='stylesheet' type='text/css' href='../assets/css/main.css?v=0.4.0'>
+	<link rel='stylesheet' type='text/css' href='../assets/css/libraries.css?v=0.4.1'>
+	<link rel='stylesheet' type='text/css' href='../assets/css/main.css?v=0.4.1'>
 </head>
 <body>
 <header>
@@ -22,10 +22,10 @@
 					<span class="icon-bar"></span>
 				</button>
 				<a class="navbar-brand" href='https://github.com/SpringRoll/SpringRoll'>
-						<img src='../assets/images/logo.png?v=0.4.0' class="logo">
+						<img src='../assets/images/logo.png?v=0.4.1' class="logo">
 					<span class='project-name'>SpringRoll</span>
 					<span class="sr-only">API Documentation for:</span>
-					<span class='version hidden-xs'>v0.4.0</span>
+					<span class='version hidden-xs'>v0.4.1</span>
 				</a>
 			</div>
 			<div class="collapse navbar-collapse" id="docs-navbar">
@@ -614,7 +614,7 @@
 	var Rectangle = include(&#x27;PIXI.Rectangle&#x27;),
 		Texture = include(&#x27;PIXI.Texture&#x27;),
 		PixiUtils = include(&#x27;PIXI.utils&#x27;);
-	
+
 	/**
 	 * Handles a spritesheet. File extensions and folder paths are dropped from frame names upon
 	 * loading.
@@ -638,28 +638,28 @@
 		 * @property {Object} frames
 		 */
 		this.frames = {};
-		
+
 		//TexturePacker outputs frames with (not) swapped width &amp; height when rotated, so we need to
 		//swap them ourselves - Flash exported textures do not require width &amp; height to swap
 		var swapFrameSize = data.meta &amp;&amp;
-				data.meta.app == &quot;http://www.codeandweb.com/texturepacker&quot;;
-		
+			data.meta.app == &quot;http://www.codeandweb.com/texturepacker&quot;;
+
 		var frames = data.frames;
-		
+
 		//parse the spritesheet
 		for (var name in frames)
 		{
 			var frame = frames[name];
-			
+
 			var index = name.lastIndexOf(&quot;.&quot;);
 			//strip off any &quot;.png&quot; or &quot;.jpg&quot; at the end
-			if(index &gt; 0)
+			if (index &gt; 0)
 				name = name.substring(0, index);
 			index = name.lastIndexOf(&quot;/&quot;);
 			//strip off any folder structure included in the name
-			if(index &gt;= 0)
+			if (index &gt;= 0)
 				name = name.substring(index + 1);
-				
+
 			var rect = frame.frame;
 
 			if (rect)
@@ -680,22 +680,22 @@
 				if (frame.trimmed)
 				{
 					trim = new Rectangle(
-						frame.spriteSourceSize.x,// / resolution,
-						frame.spriteSourceSize.y,// / resolution,
-						frame.sourceSize.w,// / resolution,
-						frame.sourceSize.h// / resolution
-					 );
+						frame.spriteSourceSize.x, // / resolution,
+						frame.spriteSourceSize.y, // / resolution,
+						frame.sourceSize.w, // / resolution,
+						frame.sourceSize.h // / resolution
+					);
 				}
-				
+
 				/*size.x /= resolution;
 				size.y /= resolution;
 				size.width /= resolution;
 				size.height /= resolution;*/
-				
+
 				this.frames[name] = new Texture(this.baseTexture, size, size.clone(), trim,
-													frame.rotated);
-				
-				if(useGlobalCache)
+					frame.rotated);
+
+				if (useGlobalCache)
 				{
 					// lets also add the frame to pixi&#x27;s global cache for fromFrame and fromImage
 					// functions
@@ -704,7 +704,7 @@
 			}
 		}
 	};
-	
+
 	// Extend Object
 	var p = TextureAtlas.prototype = {};
 
@@ -739,22 +739,22 @@
 	 */
 	p.getFrames = function(name, numberMin, numberMax, maxDigits, outArray)
 	{
-		if(maxDigits === undefined)
+		if (maxDigits === undefined)
 			maxDigits = 4;
-		if(maxDigits &lt; 0)
+		if (maxDigits &lt; 0)
 			maxDigits = 0;
-		if(!outArray)
+		if (!outArray)
 			outArray = [];
 		//set up strings to add the correct number of zeros ahead of time to avoid
 		//creating even more strings.
-		var zeros = [];//preceding zeroes array
-		var compares = [];//powers of 10 array for determining how many preceding zeroes to use
+		var zeros = []; //preceding zeroes array
+		var compares = []; //powers of 10 array for determining how many preceding zeroes to use
 		var i, c;
-		for(i = 1; i &lt; maxDigits; ++i)
+		for (i = 1; i &lt; maxDigits; ++i)
 		{
 			var s = &quot;&quot;;
 			c = 1;
-			for(var j = 0; j &lt; i; ++j)
+			for (var j = 0; j &lt; i; ++j)
 			{
 				s += &quot;0&quot;;
 				c *= 10;
@@ -762,35 +762,35 @@
 			zeros.unshift(s);
 			compares.push(c);
 		}
-		var compareLength = compares.length;//the length of the compar
-		
+		var compareLength = compares.length; //the length of the compar
+
 		//the previous Texture, so we can place the same object in multiple times to control
 		//animation rate
 		var prevTex;
 		var len;
-		for(i = numberMin, len = numberMax; i &lt;= len; ++i)
+		for (i = numberMin, len = numberMax; i &lt;= len; ++i)
 		{
 			var num = null;
 			//calculate the number of preceding zeroes needed, then create the full number string.
-			for(c = 0; c &lt; compareLength; ++c)
+			for (c = 0; c &lt; compareLength; ++c)
 			{
-				if(i &lt; compares[c])
+				if (i &lt; compares[c])
 				{
 					num = zeros[c] + i;
 					break;
 				}
 			}
-			if(!num)
+			if (!num)
 				num = i.toString();
-			
+
 			//If the texture doesn&#x27;t exist, use the previous texture - this should allow us to
 			//use fewer textures that are in fact the same, if those textures were removed before
 			//making the spritesheet
 			var texName = name.replace(&quot;#&quot;, num);
 			var tex = this.frames[texName];
-			if(tex)
+			if (tex)
 				prevTex = tex;
-			if(prevTex)
+			if (prevTex)
 				outArray.push(prevTex);
 		}
 
@@ -815,7 +815,7 @@
 </div>
 </div>
 </div>
-<script src='../assets/js/libraries.js?v=0.4.0'></script>
-<script src='../assets/js/main.js?v=0.4.0'></script>
+<script src='../assets/js/libraries.js?v=0.4.1'></script>
+<script src='../assets/js/main.js?v=0.4.1'></script>
 </body>
 </html>

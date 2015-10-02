@@ -1,4 +1,4 @@
-/*! SpringRoll 0.4.0 */
+/*! SpringRoll 0.4.1 */
 /**
  * @module Learning
  * @namespace springroll
@@ -52,7 +52,6 @@
 	namespace('springroll').LearningError = LearningError;
 
 }());
-
 /**
  * @module Learning
  * @namespace springroll
@@ -73,7 +72,8 @@
 		 * The collection of all codes map to events
 		 * @property {Object} events
 		 */
-		this.events = Object.merge({}, defaultEvents);
+		this.events = Object.merge(
+		{}, defaultEvents);
 	};
 
 	// Reference to the prototype
@@ -169,27 +169,26 @@
 
 	//Basic arguments for instructional and feedback events
 	var feedbackArgs = [
-		{
-			"name": "description",
-			"type": "string",
-			"info": "The text or description of the instruction"
-		},
-		{
-			"name": "identifier",
-			"type": "string",
-			"info": "A unique identifier for this piece of instruction"
-		},
-		{
-			"name": "media_type",
-			"type": ["audio", "animation", "other"],
-			"info": "The type of media that has just played"
-		},
-		{
-			"name": "total_duration",
-			"type": "int",
-			"info": "The estimated duration of the media playback in milliseconds (if it ran uninterrupted)"
-		}
-	];
+	{
+		"name": "description",
+		"type": "string",
+		"info": "The text or description of the instruction"
+	},
+	{
+		"name": "identifier",
+		"type": "string",
+		"info": "A unique identifier for this piece of instruction"
+	},
+	{
+		"name": "media_type",
+		"type": ["audio", "animation", "other"],
+		"info": "The type of media that has just played"
+	},
+	{
+		"name": "total_duration",
+		"type": "int",
+		"info": "The estimated duration of the media playback in milliseconds (if it ran uninterrupted)"
+	}];
 
 	/**
 	 * The built-in argument overrides, provides consistent arguments
@@ -203,22 +202,21 @@
 		"3020": feedbackArgs,
 		"3021": feedbackArgs,
 		"2080": [
-			{
-				"name": "movie_id",
-				"type": "string",
-				"info": "The identifier for the movie that was playing"
-			},
-			{
-				"name": "duration",
-				"type": "int",
-				"info": "The duration of the media playback in milliseconds"
-			},
-			{
-				"name": "description",
-				"type": "string",
-				"info": "The text or description of the instruction"
-			}
-		]
+		{
+			"name": "movie_id",
+			"type": "string",
+			"info": "The identifier for the movie that was playing"
+		},
+		{
+			"name": "duration",
+			"type": "int",
+			"info": "The duration of the media playback in milliseconds"
+		},
+		{
+			"name": "description",
+			"type": "string",
+			"info": "The text or description of the instruction"
+		}]
 	};
 
 	/**
@@ -234,7 +232,6 @@
 	namespace('springroll').EventCatalog = EventCatalog;
 
 }());
-
 /**
  * @module Learning
  * @namespace springroll
@@ -469,7 +466,6 @@
 	//Assign to namespace
 	namespace('springroll').EventSignature = EventSignature;
 }());
-
 /**
  * @module Learning
  * @namespace springroll
@@ -532,7 +528,6 @@
 	//Assign to namespace
 	namespace('springroll').EventError = EventError;
 }());
-
 /**
  * @module Learning
  * @namespace springroll
@@ -590,7 +585,6 @@
 	//Assign to namespace
 	namespace('springroll').ValidationError = ValidationError;
 }());
-
 /**
  * @module Learning
  * @namespace springroll
@@ -777,7 +771,6 @@
 	//Assign to namespace
 	namespace('springroll').EventUtils = EventUtils;
 }());
-
 /**
  * @module Learning
  * @namespace springroll
@@ -845,7 +838,7 @@
 			var defaultTrayPosition = SavedData.read('learning-tray-show') ?
 				'learning-tray-show' :
 				'learning-tray-hide';
-			
+
 			/**
 			 * The body dom element, development build only!
 			 * @property {Element} _body
@@ -1549,7 +1542,7 @@
 		//Now we have a formatted data object, pass to the track method
 		this._track(api, data);
 	};
-	
+
 	/**
 	 * Generic method to track an event based on the spec, the arguments
 	 * mirror the arguments in the event spec.
@@ -1747,7 +1740,7 @@
 	// Include classes
 	var ApplicationPlugin = include('springroll.ApplicationPlugin'),
 		Point,
-	 	Learning = include('springroll.Learning');
+		Learning = include('springroll.Learning');
 
 	/**
 	 * @class Application
@@ -1756,7 +1749,7 @@
 
 	// Init the animator
 	plugin.setup = function()
-	{		
+	{
 		/**
 		 * An learning event is dispatched
 		 * @event learningEvent
@@ -1784,10 +1777,10 @@
 		});
 		// Bubble up the learning event
 		this.learning.on('learningEvent', function(data)
-		{
-			this.trigger('learningEvent', data);
-		}
-		.bind(this));
+			{
+				this.trigger('learningEvent', data);
+			}
+			.bind(this));
 
 		// Handle the end game event
 		this.once('endGame', function(exitType)

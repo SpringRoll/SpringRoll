@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html lang='en'>
 <head>
-	<title>SpringRoll v0.4.0 API Documentation : src/learning/LearningMedia.js</title>
+	<title>SpringRoll v0.4.1 API Documentation : src/learning/LearningMedia.js</title>
 	<meta charset='utf-8'>
 	<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 	<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
-	<link rel='shortcut icon' type='image/png' href='../assets/images/favicon.ico?v=0.4.0'>
+	<link rel='shortcut icon' type='image/png' href='../assets/images/favicon.ico?v=0.4.1'>
 	<link href='//fonts.googleapis.com/css?family=Titillium+Web:300,200,600' rel='stylesheet' type='text/css'>
-	<link rel='stylesheet' type='text/css' href='../assets/css/libraries.css?v=0.4.0'>
-	<link rel='stylesheet' type='text/css' href='../assets/css/main.css?v=0.4.0'>
+	<link rel='stylesheet' type='text/css' href='../assets/css/libraries.css?v=0.4.1'>
+	<link rel='stylesheet' type='text/css' href='../assets/css/main.css?v=0.4.1'>
 </head>
 <body>
 <header>
@@ -22,10 +22,10 @@
 					<span class="icon-bar"></span>
 				</button>
 				<a class="navbar-brand" href='https://github.com/SpringRoll/SpringRoll'>
-						<img src='../assets/images/logo.png?v=0.4.0' class="logo">
+						<img src='../assets/images/logo.png?v=0.4.1' class="logo">
 					<span class='project-name'>SpringRoll</span>
 					<span class="sr-only">API Documentation for:</span>
-					<span class='version hidden-xs'>v0.4.0</span>
+					<span class='version hidden-xs'>v0.4.1</span>
 				</a>
 			</div>
 			<div class="collapse navbar-collapse" id="docs-navbar">
@@ -626,7 +626,7 @@
 		 * @property {springroll.StringFilters} filters
 		 */
 		this.filters = null;
-		
+
 		/**
 		 * Reference to the Learning Dispatcher
 		 * @property {springroll.Learning} learning
@@ -668,16 +668,16 @@
 		this.display = app.display;
 		this.animator = app.animator;
 	};
-	
+
 	p._filterEvents = function(events)
 	{
-		if(typeof events == &quot;string&quot;)
+		if (typeof events == &quot;string&quot;)
 			return this.filters.filter(events);
 		else
 		{
-			if(!Array.isArray(events))
+			if (!Array.isArray(events))
 				events = [events];
-			for(var i = 0; i &lt; events.length; ++i)
+			for (var i = 0; i &lt; events.length; ++i)
 			{
 				var eventInfo = events[i];
 				switch (typeof eventInfo)
@@ -693,7 +693,7 @@
 						{
 							if (typeof eventInfo.audio == &#x27;object&#x27;)
 							{
-								eventInfo.audio.alias =	this.filters.filter(eventInfo.audio.alias);
+								eventInfo.audio.alias = this.filters.filter(eventInfo.audio.alias);
 							}
 							else
 							{
@@ -724,7 +724,7 @@
 	p.playMovie = function(instance, events, onComplete, onCancel)
 	{
 		events = this._filterEvents(events);
-	
+
 		if (!this.learning.spec)
 		{
 			if (DEBUG &amp;&amp; Debug)
@@ -773,7 +773,7 @@
 		if (animator.canAnimate(instance)) //use Animator
 		{
 			events = this._filterEvents(events);
-			
+
 			if (!learning.spec)
 			{
 				if (DEBUG &amp;&amp; Debug)
@@ -782,7 +782,7 @@
 				}
 				return animator.play(instance, events, onComplete, onCancel);
 			}
-			
+
 			return this.triggerMoviePlay(
 				instance,
 				events,
@@ -796,7 +796,7 @@
 			onCancel = onComplete;
 			onComplete = events;
 			events = instance;
-			
+
 			events = this._filterEvents(events);
 
 			if (!learning.spec)
@@ -848,7 +848,7 @@
 		if (animator.canAnimate(instance)) //use Animator
 		{
 			events = this._filterEvents(events);
-			
+
 			if (!learning.spec)
 			{
 				if (DEBUG &amp;&amp; Debug)
@@ -871,7 +871,7 @@
 			onCancel = onComplete;
 			onComplete = events;
 			events = instance;
-			
+
 			events = this._filterEvents(events);
 
 			if (!learning.spec)
@@ -923,7 +923,7 @@
 		if (animator.canAnimate(instance)) //use Animator
 		{
 			events = this._filterEvents(events);
-			
+
 			if (!learning.spec)
 			{
 				if (DEBUG &amp;&amp; Debug)
@@ -946,7 +946,7 @@
 			onCancel = onComplete;
 			onComplete = events;
 			events = instance;
-			
+
 			events = this._filterEvents(events);
 
 			if (!learning.spec)
@@ -996,8 +996,8 @@
 		var callback = function(finish)
 		{
 			//quit early if LearningMedia has been destroyed.
-			if(!this.learning) return;
-			
+			if (!this.learning) return;
+
 			learningEnd.call(this.learning);
 			if (finish) finish();
 		};
@@ -1182,8 +1182,8 @@
 		var callback = function(learningCall, otherCall)
 		{
 			//quit early if LearningMedia has been destroyed
-			if(!this.learning) return;
-			
+			if (!this.learning) return;
+
 			this._learningAnimatorInstance = null;
 
 			if (learningCall) //learning end event
@@ -1286,7 +1286,7 @@
 </div>
 </div>
 </div>
-<script src='../assets/js/libraries.js?v=0.4.0'></script>
-<script src='../assets/js/main.js?v=0.4.0'></script>
+<script src='../assets/js/libraries.js?v=0.4.1'></script>
+<script src='../assets/js/main.js?v=0.4.1'></script>
 </body>
 </html>

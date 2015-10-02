@@ -1,4 +1,4 @@
-/*! SpringRoll 0.4.0 */
+/*! SpringRoll 0.4.1 */
 /**
  * @module Hints
  * @namespace springroll
@@ -65,7 +65,6 @@
 	//Assign to namespace
 	namespace('springroll').AbstractHint = AbstractHint;
 }());
-
 /**
  * @module Hints
  * @namespace springroll
@@ -109,7 +108,8 @@
 	p.play = function()
 	{
 		this._hints.enabled = false;
-		this._hints.trigger('vo', {
+		this._hints.trigger('vo',
+		{
 			events: this.idOrList,
 			complete: this._onPlayComplete.bind(this, this.onComplete, false),
 			cancel: this._onPlayComplete.bind(this, this.onCancel, true)
@@ -132,7 +132,6 @@
 	//Assign to namespace
 	namespace('springroll').VOHint = VOHint;
 }());
-
 /**
  * @module Hints
  * @namespace springroll
@@ -179,7 +178,8 @@
 	p.play = function()
 	{
 		this._hints.enabled = false;
-		this._hints.trigger('anim', {
+		this._hints.trigger('anim',
+		{
 			instance: this.instance,
 			events: this.events,
 			complete: this._onPlayComplete.bind(this, this.onComplete, false),
@@ -204,7 +204,6 @@
 	//Assign to namespace
 	namespace('springroll').AnimatorHint = AnimatorHint;
 }());
-
 /**
  * @module Hints
  * @namespace springroll
@@ -248,7 +247,7 @@
 		this.onStart(
 			this._onPlayComplete.bind(this, null, false),
 			this._onPlayComplete.bind(this, null, true)
-			);
+		);
 	};
 
 	/**
@@ -264,7 +263,6 @@
 	//Assign to namespace
 	namespace('springroll').FunctionHint = FunctionHint;
 }());
-
 /**
  * @module Hints
  * @namespace springroll
@@ -456,7 +454,6 @@
 	//Assign to namespace
 	namespace('springroll').GroupHint = GroupHint;
 }());
-
 /**
  * @module Hints
  * @namespace springroll
@@ -540,7 +537,7 @@
 	//Reference to the prototype
 	var s = EventDispatcher.prototype;
 	var p = extend(HintsPlayer, EventDispatcher);
-	
+
 	/**
 	 * Play an animation event
 	 * @event anim
@@ -550,7 +547,7 @@
 	 * @param {Function} data.complete Callback when complete
 	 * @param {Function} data.cancel Callback when canceled
 	 */
-	
+
 	/**
 	 * Play an Voice-Over event
 	 * @event vo
@@ -837,7 +834,7 @@
 	 * @class Application
 	 */
 	var plugin = new ApplicationPlugin();
-	
+
 	// Init the animator
 	plugin.setup = function()
 	{
@@ -863,7 +860,7 @@
 			}
 		}
 
-		if (!this.voPlayer) 
+		if (!this.voPlayer)
 		{
 			if (true)
 			{
@@ -876,8 +873,9 @@
 		}
 
 		// Listen for events
-		this.hints.on({
-			vo: onVOHint.bind(this), 
+		this.hints.on(
+		{
+			vo: onVOHint.bind(this),
 			anim: onAnimatorHint.bind(this)
 		});
 
@@ -889,10 +887,10 @@
 
 			// Listen whtn the hint changes
 			this.hints.on('enabled', function(enabled)
-			{
-				this.container.send('helpEnabled', enabled);
-			}
-			.bind(this));
+				{
+					this.container.send('helpEnabled', enabled);
+				}
+				.bind(this));
 		}
 		done();
 	};
@@ -948,7 +946,7 @@
 				data.complete,
 				data.cancel
 			);
-		}	
+		}
 	};
 
 	// Destroy the animator

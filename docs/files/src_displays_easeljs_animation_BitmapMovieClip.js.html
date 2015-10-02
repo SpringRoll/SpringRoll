@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html lang='en'>
 <head>
-	<title>SpringRoll v0.4.0 API Documentation : src/displays/easeljs/animation/BitmapMovieClip.js</title>
+	<title>SpringRoll v0.4.1 API Documentation : src/displays/easeljs/animation/BitmapMovieClip.js</title>
 	<meta charset='utf-8'>
 	<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 	<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
-	<link rel='shortcut icon' type='image/png' href='../assets/images/favicon.ico?v=0.4.0'>
+	<link rel='shortcut icon' type='image/png' href='../assets/images/favicon.ico?v=0.4.1'>
 	<link href='//fonts.googleapis.com/css?family=Titillium+Web:300,200,600' rel='stylesheet' type='text/css'>
-	<link rel='stylesheet' type='text/css' href='../assets/css/libraries.css?v=0.4.0'>
-	<link rel='stylesheet' type='text/css' href='../assets/css/main.css?v=0.4.0'>
+	<link rel='stylesheet' type='text/css' href='../assets/css/libraries.css?v=0.4.1'>
+	<link rel='stylesheet' type='text/css' href='../assets/css/main.css?v=0.4.1'>
 </head>
 <body>
 <header>
@@ -22,10 +22,10 @@
 					<span class="icon-bar"></span>
 				</button>
 				<a class="navbar-brand" href='https://github.com/SpringRoll/SpringRoll'>
-						<img src='../assets/images/logo.png?v=0.4.0' class="logo">
+						<img src='../assets/images/logo.png?v=0.4.1' class="logo">
 					<span class='project-name'>SpringRoll</span>
 					<span class="sr-only">API Documentation for:</span>
-					<span class='version hidden-xs'>v0.4.0</span>
+					<span class='version hidden-xs'>v0.4.1</span>
 				</a>
 			</div>
 			<div class="collapse navbar-collapse" id="docs-navbar">
@@ -674,7 +674,7 @@
 		Container.call(this);
 
 		//==== Public properties =====
-		
+
 		/**
 		 * Indicates whether this BitmapMovieClip should loop when it reaches the end of its timeline.
 		 * @property loop
@@ -699,7 +699,7 @@
 		 * @default false
 		 */
 		this.paused = false;
-		
+
 		/**
 		 * Boundaries of the animation, like the nominalBounds produced by Flash&#x27;s HTML5 exporter.
 		 * This uses the full, untrimmed size of the first frame.
@@ -812,7 +812,7 @@
 		this.mouseChildren = false;
 		this._bitmap = new Bitmap();
 		this.addChild(this._bitmap);
-		
+
 		if (atlas &amp;&amp; data)
 		{
 			this.init(atlas, data);
@@ -845,7 +845,7 @@
 		},
 		set: function(value)
 		{
-			if(value &gt; 0)
+			if (value &gt; 0)
 			{
 				this._framerate = value;
 				this._duration = value ? this._frames.length / value : 0;
@@ -934,9 +934,12 @@
 	p.draw = function(ctx, ignoreCache)
 	{
 		// draw to cache first:
-		if (this.DisplayObject_draw(ctx, ignoreCache)) { return true; }
+		if (this.DisplayObject_draw(ctx, ignoreCache))
+		{
+			return true;
+		}
 		this._updateTimeline();
-		s.draw.call(this, ctx, ignoreCache);//Container&#x27;s call
+		s.draw.call(this, ctx, ignoreCache); //Container&#x27;s call
 		return true;
 	};
 
@@ -948,7 +951,7 @@
 	{
 		this.paused = false;
 	};
-	
+
 	/**
 	 * Sets paused to true.
 	 * @method stop
@@ -957,7 +960,7 @@
 	{
 		this.paused = true;
 	};
-	
+
 	/**
 	 * Advances this movie clip to the specified position or label and sets paused to false.
 	 * @method gotoAndPlay
@@ -968,7 +971,7 @@
 		this.paused = false;
 		this._goto(positionOrLabel);
 	};
-	
+
 	/**
 	 * Advances this movie clip to the specified position or label and sets paused to true.
 	 * @method gotoAndStop
@@ -984,9 +987,7 @@
 	 * To provide feature parity with the createjs.MovieClip mixin
 	 * @method gotoAndCache
 	 */
-	p.gotoAndCache = function(args)
-	{
-	};
+	p.gotoAndCache = function(args) {};
 
 	/**
 	 * Advances the playhead. This occurs automatically each tick by default.
@@ -996,17 +997,17 @@
 	 */
 	p.advance = function(time)
 	{
-		if(!this.paused)
+		if (!this.paused)
 		{
-			if(this._framerate &gt; 0)
+			if (this._framerate &gt; 0)
 			{
-				if(time)
-					this._t += time * 0.001;//milliseconds -&gt; seconds
-				if(this._t &gt; this._duration)
+				if (time)
+					this._t += time * 0.001; //milliseconds -&gt; seconds
+				if (this._t &gt; this._duration)
 					this._t = this.loop ? this._t - this._duration : this._duration;
 				//add a tiny amount to stop floating point errors in their tracks
 				this._prevPosition = Math.floor(this._t * this._framerate + 0.0000001);
-				if(this._prevPosition &gt;= this._frames.length)
+				if (this._prevPosition &gt;= this._frames.length)
 					this._prevPosition = this._frames.length - 1;
 			}
 			else
@@ -1014,7 +1015,7 @@
 			this._updateTimeline();
 		}
 	};
-	
+
 	/**
 	 * Returns a sorted list of the labels defined on this BitmapMovieClip.
 	 * @method getLabels
@@ -1036,7 +1037,7 @@
 	{
 		return this._events;
 	};
-	
+
 	/**
 	 * Returns the name of the label on or immediately before the current frame.
 	 * @method getCurrentLabel
@@ -1046,9 +1047,9 @@
 	{
 		var labels = this._labels;
 		var current = null;
-		for(var i = 0, len = labels.length; i &lt; len; ++i)
+		for (var i = 0, len = labels.length; i &lt; len; ++i)
 		{
-			if(labels[i].position &lt;= this.currentFrame)
+			if (labels[i].position &lt;= this.currentFrame)
 				current = labels[i].label;
 			else
 				break;
@@ -1082,13 +1083,14 @@
 		//collect the frame labels
 		var labels = this._labels = [];
 		var events = this._events = [];
-		
+
 		var name;
 		if (data.labels)
 		{
-			var positions = {}, position;
+			var positions = {},
+				position;
 
-			for(name in data.labels)
+			for (name in data.labels)
 			{
 				var label = {
 					label: name,
@@ -1122,16 +1124,16 @@
 
 		//collect the frames
 		this._frames = [];
-		
+
 		var index;
-		for(var i = 0; i &lt; data.frames.length; ++i)
+		for (var i = 0; i &lt; data.frames.length; ++i)
 		{
 			var frameSet = data.frames[i];
-			
+
 			name = frameSet.name;
 			index = name.lastIndexOf(&quot;/&quot;);
 			//strip off any folder structure included in the name
-			if(index &gt;= 0)
+			if (index &gt;= 0)
 				name = name.substring(index + 1);
 
 			atlas.getFrames(
@@ -1144,20 +1146,20 @@
 		}
 
 		//set up the framerate
-		if(data.fps)
+		if (data.fps)
 			this.framerate = data.fps;
-		else if(this._framerate)
+		else if (this._framerate)
 			this.framerate = this._framerate;
-		if(data.scale &amp;&amp; data.scale &gt; 0)
+		if (data.scale &amp;&amp; data.scale &gt; 0)
 			this._scale = 1 / data.scale;
 		else
 			this._scale = 1;
 		this._bitmap.scaleX = this._bitmap.scaleY = this._scale;
-		if(data.origin)
+		if (data.origin)
 			this._origin = new Point(data.origin.x * this._scale, data.origin.y * this._scale);
 		else
 			this._origin = new Point();
-		
+
 		//set up a nominal bounds, to make it easier to determine boundaries
 		//this uses the untrimmed size of the texture
 		var frame = this._frames[0];
@@ -1232,10 +1234,10 @@
 	 */
 	p._tick = function(props)
 	{
-		this.advance(props&amp;&amp;props.delta);
+		this.advance(props &amp;&amp; props.delta);
 		s._tick.call(this, props);
 	};
-	
+
 	/**
 	 * @method _goto
 	 * @param {String|Number} positionOrLabel The animation name or frame number to go to.
@@ -1244,12 +1246,12 @@
 	p._goto = function(positionOrLabel)
 	{
 		var pos = null;
-		if(typeof positionOrLabel == &quot;string&quot;)
+		if (typeof positionOrLabel == &quot;string&quot;)
 		{
 			var labels = this._labels;
-			for(var i = 0, len = labels.length; i &lt; len; ++i)
+			for (var i = 0, len = labels.length; i &lt; len; ++i)
 			{
-				if(labels[i].label == positionOrLabel)
+				if (labels[i].label == positionOrLabel)
 				{
 					pos = labels[i].position;
 					break;
@@ -1260,7 +1262,7 @@
 			pos = positionOrLabel;
 		if (pos === null) return;
 		this._prevPosition = pos;
-		if(this._framerate &gt; 0)
+		if (this._framerate &gt; 0)
 			this._t = pos / this._framerate;
 		else
 			this._t = 0;
@@ -1273,12 +1275,12 @@
 	 */
 	p._updateTimeline = function()
 	{
-		if(this._prevPosition &lt; 0)
+		if (this._prevPosition &lt; 0)
 			this._prevPosition = 0;
-		else if(this._prevPosition &gt;= this._frames.length)
+		else if (this._prevPosition &gt;= this._frames.length)
 			this._prevPosition = this._frames.length - 1;
 		this.currentFrame = this._prevPosition;
-		if(this._currentTexture != this._frames[this.currentFrame])
+		if (this._currentTexture != this._frames[this.currentFrame])
 		{
 			var tex = this._currentTexture = this._frames[this.currentFrame],
 				_bitmap = this._bitmap;
@@ -1286,7 +1288,7 @@
 			_bitmap.sourceRect = tex.frame;
 			_bitmap.x = -this._origin.x + tex.offset.x * _bitmap.scaleX;
 			_bitmap.y = -this._origin.y + tex.offset.y * _bitmap.scaleY;
-			if(tex.rotated)
+			if (tex.rotated)
 			{
 				_bitmap.rotation = -90;
 				_bitmap.regX = _bitmap.sourceRect.width;
@@ -1297,7 +1299,7 @@
 			}
 		}
 	};
-	
+
 	/**
 	 * @method _reset
 	 * @private
@@ -1316,7 +1318,7 @@
 </div>
 </div>
 </div>
-<script src='../assets/js/libraries.js?v=0.4.0'></script>
-<script src='../assets/js/main.js?v=0.4.0'></script>
+<script src='../assets/js/libraries.js?v=0.4.1'></script>
+<script src='../assets/js/main.js?v=0.4.1'></script>
 </body>
 </html>
