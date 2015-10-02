@@ -118,7 +118,7 @@ The Framework is inherently canvas-rendering agnostic. We support two different 
 
 ##Examples
 
-* [Basic Application Setup](https://springroll.github.io/SpringRoll/examples/basic.html)
+* [Basic Application](https://springroll.github.io/SpringRoll/examples/basic.html)
 * [Asset Loading &amp; Caching](https://springroll.github.io/SpringRoll/examples/asset-caching.html)
 * [Color-Alpha Image](https://springroll.github.io/SpringRoll/examples/color-alpha.html)
 * [Max Width](https://springroll.github.io/SpringRoll/examples/max-width.html)
@@ -131,6 +131,7 @@ The Framework is inherently canvas-rendering agnostic. We support two different 
 * [Multi-Display Application](https://springroll.github.io/SpringRoll/examples/multiple-displays.html)
 * [Learning](https://springroll.github.io/SpringRoll/examples/learning.html)
 * [Create States](https://springroll.github.io/SpringRoll/examples/states.html)
+* [Container](https://springroll.github.io/SpringRoll/examples/container.html)
 
 ##Documentation
 
