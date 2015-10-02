@@ -244,7 +244,7 @@
 	 */
 	DisplayAdapter.removeChildren = function(container)
 	{
-		container.removeChildren(true);
+		container.removeChildren();
 	};
 
 	/**
