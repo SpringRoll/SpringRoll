@@ -1,4 +1,4 @@
-/*! SpringRoll 0.4.1 */
+/*! SpringRoll 0.4.2 */
 /**
  * @module Core
  * @namespace window

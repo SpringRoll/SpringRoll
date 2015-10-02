@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html lang='en'>
 <head>
-	<title>SpringRoll v0.4.1 API Documentation : src/container/Container.js</title>
+	<title>SpringRoll v0.4.2 API Documentation : src/container/Container.js</title>
 	<meta charset='utf-8'>
 	<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 	<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
-	<link rel='shortcut icon' type='image/png' href='../assets/images/favicon.ico?v=0.4.1'>
+	<link rel='shortcut icon' type='image/png' href='../assets/images/favicon.ico?v=0.4.2'>
 	<link href='//fonts.googleapis.com/css?family=Titillium+Web:300,200,600' rel='stylesheet' type='text/css'>
-	<link rel='stylesheet' type='text/css' href='../assets/css/libraries.css?v=0.4.1'>
-	<link rel='stylesheet' type='text/css' href='../assets/css/main.css?v=0.4.1'>
+	<link rel='stylesheet' type='text/css' href='../assets/css/libraries.css?v=0.4.2'>
+	<link rel='stylesheet' type='text/css' href='../assets/css/main.css?v=0.4.2'>
 </head>
 <body>
 <header>
@@ -22,10 +22,10 @@
 					<span class="icon-bar"></span>
 				</button>
 				<a class="navbar-brand" href='https://github.com/SpringRoll/SpringRoll'>
-						<img src='../assets/images/logo.png?v=0.4.1' class="logo">
+						<img src='../assets/images/logo.png?v=0.4.2' class="logo">
 					<span class='project-name'>SpringRoll</span>
 					<span class="sr-only">API Documentation for:</span>
-					<span class='version hidden-xs'>v0.4.1</span>
+					<span class='version hidden-xs'>v0.4.2</span>
 				</a>
 			</div>
 			<div class="collapse navbar-collapse" id="docs-navbar">
@@ -433,6 +433,9 @@
         <li class='public'>
           <a href='../classes/springroll.SavedData.html'>springroll.SavedData</a>
         </li>
+        <li class='public'>
+          <a href='../classes/springroll.SavedDataHandler.html'>springroll.SavedDataHandler</a>
+        </li>
         <li class='private'>
           <a href='../classes/springroll.ScaleImage.html'>springroll.ScaleImage</a>
         </li>
@@ -474,6 +477,9 @@
         </li>
         <li class='public'>
           <a href='../classes/springroll.UIScaler.html'>springroll.UIScaler</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/springroll.UserData.html'>springroll.UserData</a>
         </li>
         <li class='private'>
           <a href='../classes/springroll.ValidationError.html'>springroll.ValidationError</a>
@@ -614,6 +620,7 @@
 	var SavedData = include(&#x27;springroll.SavedData&#x27;),
 		EventDispatcher = include(&#x27;springroll.EventDispatcher&#x27;),
 		PageVisibility = include(&#x27;springroll.PageVisibility&#x27;),
+		SavedDataHandler = include(&#x27;springroll.SavedDataHandler&#x27;),
 		Features = include(&#x27;springroll.Features&#x27;),
 		Bellhop = include(&#x27;Bellhop&#x27;),
 		$ = include(&#x27;jQuery&#x27;);
@@ -621,6 +628,7 @@
 	/**
 	 * The application container
 	 * @class Container
+	 * @extends springroll.EventDispatcher
 	 * @constructor
 	 * @param {string} iframeSelector jQuery selector for application iframe container
 	 * @param {object} [options] Optional parameteres
@@ -803,6 +811,16 @@
 		 * @default true
 		 */
 		this.sendMutes = true;
+
+		/**
+		 * The external handler class, must include &#x60;remove&#x60;, &#x60;write&#x60;, &#x60;read&#x60; methods
+		 * make it possible to use something else to handle the external, default
+		 * is to use cookies/localStorage. See {{#crossLink &quot;springroll.SavedDataHandler&quot;}}{{/crossLink}}
+		 * as an example.
+		 * @property {Object} userDataHandler
+		 * @default springroll.SavedDataHandler
+		 */
+		this.userDataHandler = SavedDataHandler;
 
 		//Set the defaults if we have none for the controls
 		if (SavedData.read(CAPTIONS_MUTED) === null)
@@ -1092,7 +1110,10 @@
 			learningEvent: onLearningEvent.bind(this),
 			helpEnabled: onHelpEnabled.bind(this),
 			features: onFeatures.bind(this),
-			keepFocus: onKeepFocus.bind(this)
+			keepFocus: onKeepFocus.bind(this),
+			userDataRemove: onUserDataRemove.bind(this),
+			userDataRead: onUserDataRead.bind(this),
+			userDataWrite: onUserDataWrite.bind(this)
 		});
 	};
 
@@ -1108,6 +1129,49 @@
 			this.client.destroy();
 			this.client = null;
 		}
+	};
+
+	/**
+	 * Handler for the userDataRemove event
+	 * @method onUserDataRemove
+	 * @private
+	 */
+	var onUserDataRemove = function(event)
+	{
+		var client = this.client;
+		this.userDataHandler.remove(event.data, function()
+		{
+			client.send(event.type);
+		});
+	};
+
+	/**
+	 * Handler for the userDataRead event
+	 * @method onUserDataRead
+	 * @private
+	 */
+	var onUserDataRead = function(event)
+	{
+		var client = this.client;
+		this.userDataHandler.read(event.data, function(value)
+		{
+			client.send(event.type, value);
+		});
+	};
+
+	/**
+	 * Handler for the userDataWrite event
+	 * @method onUserDataWrite
+	 * @private
+	 */
+	var onUserDataWrite = function(event)
+	{
+		var data = event.data;
+		var client = this.client;
+		this.userDataHandler.write(data.name, data.value, function()
+		{
+			client.send(event.type);
+		});
 	};
 
 	/**
@@ -1867,7 +1931,7 @@
 </div>
 </div>
 </div>
-<script src='../assets/js/libraries.js?v=0.4.1'></script>
-<script src='../assets/js/main.js?v=0.4.1'></script>
+<script src='../assets/js/libraries.js?v=0.4.2'></script>
+<script src='../assets/js/main.js?v=0.4.2'></script>
 </body>
 </html>

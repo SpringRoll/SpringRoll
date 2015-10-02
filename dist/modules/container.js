@@ -1,4 +1,4 @@
-/*! SpringRoll 0.4.1 */
+/*! SpringRoll 0.4.2 */
 /**
  * @module Core
  * @namespace window
@@ -973,6 +973,66 @@
  * @module Container
  * @namespace springroll
  */
+(function()
+{
+	// Include class
+	var SavedData = include('springroll.SavedData');
+
+	/**
+	 * Default user data handler for the {{#crossLink "springroll.Container"}}Container{{/crossLink}} to save data using
+	 * the {{#crossLink "springroll.SavedData"}}SavedData{{/crossLink}} class.
+	 * @class SavedDataHandler
+	 */
+	var SavedDataHandler = {
+
+		/**
+		 * Remove a data setting
+		 * @method  remove
+		 * @static
+		 * @param  {String}   name  The name of the property
+		 * @param  {Function} [callback] Callback when remove is complete
+		 */
+		remove: function(name, callback)
+		{
+			SavedData.remove(name);
+			callback();
+		},
+
+		/**
+		 * Write a custom setting
+		 * @method  write
+		 * @static
+		 * @param  {String}  name  The name of the property
+		 * @param {*} value The value to set the property to
+		 * @param  {Function} [callback] Callback when write is complete
+		 */
+		write: function(name, value, callback)
+		{
+			SavedData.write(name, value);
+			callback();
+		},
+
+		/**
+		 * Read a custom setting
+		 * @method  read
+		 * @static
+		 * @param  {String}  name  The name of the property
+		 * @param  {Function} callback Callback when read is complete, returns the value
+		 */
+		read: function(name, callback)
+		{
+			callback(SavedData.read(name));
+		}
+	};
+
+	// Assign to namespace
+	namespace('springroll').SavedDataHandler = SavedDataHandler;
+
+}());
+/**
+ * @module Container
+ * @namespace springroll
+ */
 (function(undefined)
 {
 	var Debug = include('springroll.Debug', false);
@@ -1219,6 +1279,7 @@
 	var SavedData = include('springroll.SavedData'),
 		EventDispatcher = include('springroll.EventDispatcher'),
 		PageVisibility = include('springroll.PageVisibility'),
+		SavedDataHandler = include('springroll.SavedDataHandler'),
 		Features = include('springroll.Features'),
 		Bellhop = include('Bellhop'),
 		$ = include('jQuery');
@@ -1226,6 +1287,7 @@
 	/**
 	 * The application container
 	 * @class Container
+	 * @extends springroll.EventDispatcher
 	 * @constructor
 	 * @param {string} iframeSelector jQuery selector for application iframe container
 	 * @param {object} [options] Optional parameteres
@@ -1408,6 +1470,16 @@
 		 * @default true
 		 */
 		this.sendMutes = true;
+
+		/**
+		 * The external handler class, must include `remove`, `write`, `read` methods
+		 * make it possible to use something else to handle the external, default
+		 * is to use cookies/localStorage. See {{#crossLink "springroll.SavedDataHandler"}}{{/crossLink}}
+		 * as an example.
+		 * @property {Object} userDataHandler
+		 * @default springroll.SavedDataHandler
+		 */
+		this.userDataHandler = SavedDataHandler;
 
 		//Set the defaults if we have none for the controls
 		if (SavedData.read(CAPTIONS_MUTED) === null)
@@ -1697,7 +1769,10 @@
 			learningEvent: onLearningEvent.bind(this),
 			helpEnabled: onHelpEnabled.bind(this),
 			features: onFeatures.bind(this),
-			keepFocus: onKeepFocus.bind(this)
+			keepFocus: onKeepFocus.bind(this),
+			userDataRemove: onUserDataRemove.bind(this),
+			userDataRead: onUserDataRead.bind(this),
+			userDataWrite: onUserDataWrite.bind(this)
 		});
 	};
 
@@ -1713,6 +1788,49 @@
 			this.client.destroy();
 			this.client = null;
 		}
+	};
+
+	/**
+	 * Handler for the userDataRemove event
+	 * @method onUserDataRemove
+	 * @private
+	 */
+	var onUserDataRemove = function(event)
+	{
+		var client = this.client;
+		this.userDataHandler.remove(event.data, function()
+		{
+			client.send(event.type);
+		});
+	};
+
+	/**
+	 * Handler for the userDataRead event
+	 * @method onUserDataRead
+	 * @private
+	 */
+	var onUserDataRead = function(event)
+	{
+		var client = this.client;
+		this.userDataHandler.read(event.data, function(value)
+		{
+			client.send(event.type, value);
+		});
+	};
+
+	/**
+	 * Handler for the userDataWrite event
+	 * @method onUserDataWrite
+	 * @private
+	 */
+	var onUserDataWrite = function(event)
+	{
+		var data = event.data;
+		var client = this.client;
+		this.userDataHandler.write(data.name, data.value, function()
+		{
+			client.send(event.type);
+		});
 	};
 
 	/**
