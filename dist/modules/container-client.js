@@ -1,4 +1,128 @@
-/*! SpringRoll 0.4.1 */
+/*! SpringRoll 0.4.2 */
+/**
+ * @module Container Client
+ * @namespace springroll
+ */
+(function()
+{
+	// Impor classes
+	var SavedData = include('springroll.SavedData');
+
+	/**
+	 * Externally save and read settings
+	 * @class UserData
+	 * @constructor
+	 */
+	var UserData = function()
+	{
+		/**
+		 * Reference to the container
+		 * @property {Bellhop} container
+		 * @default  null
+		 */
+		this.container = null;
+
+		/**
+		 * The name to preprend to each property name
+		 * @property {String} id
+		 * @default  null
+		 */
+		this.id = "";
+	};
+
+	// Reference to prototype
+	var p = UserData.prototype;
+
+	/**
+	 * Read a saved setting
+	 * @method read
+	 * @param  {String}   prop The property name
+	 * @param  {Function} callback Callback when save completes, returns the value
+	 */
+	p.read = function(prop, callback)
+	{
+		if (!this.container)
+		{
+			return callback(SavedData.read(prop));
+		}
+		this.container.fetch(
+			'userDataRead',
+			function(event)
+			{
+				callback(event.data);
+			},
+			this.id + prop,
+			true // run-once
+		);
+	};
+
+	/**
+	 * Write a setting
+	 * @method write
+	 * @param  {String}   prop The property name
+	 * @param  {*}   value The property value to save
+	 * @param  {Function} [callback] Callback when write completes
+	 */
+	p.write = function(prop, value, callback)
+	{
+		if (!this.container)
+		{
+			SavedData.write(prop, value);
+			if (callback) callback();
+			return;
+		}
+		this.container.fetch(
+			'userDataWrite',
+			function(event)
+			{
+				if (callback) callback();
+			},
+			{
+				name: this.id + prop,
+				value: value
+			},
+			true // run-once
+		);
+	};
+
+	/**
+	 * Delete a saved setting by name
+	 * @method remove
+	 * @param  {String}   prop The property name
+	 * @param  {Function} [callback] Callback when remove completes
+	 */
+	p.remove = function(prop, callback)
+	{
+		if (!this.container)
+		{
+			SavedData.remove(prop);
+			if (callback) callback();
+			return;
+		}
+		this.container.fetch(
+			'userDataRemove',
+			function(event)
+			{
+				if (callback) callback();
+			},
+			this.id + prop,
+			true // run-once
+		);
+	};
+
+	/**
+	 * Destroy and don't use after this
+	 * @method destroy
+	 */
+	p.destroy = function()
+	{
+		this.container = null;
+	};
+
+	// Assign to namespace
+	namespace('springroll').UserData = UserData;
+
+}());
 /**
  * @module Container Client
  * @namespace springroll
@@ -8,6 +132,7 @@
 	// Include classes
 	var ApplicationPlugin = include('springroll.ApplicationPlugin'),
 		PageVisibility = include('springroll.PageVisibility'),
+		UserData = include('springroll.UserData'),
 		Bellhop = include('Bellhop');
 
 	/**
@@ -48,6 +173,14 @@
 		 */
 		var container = this.container = new Bellhop();
 		container.connect();
+
+		/**
+		 * The API for saving user data, default is to save
+		 * data to the container, if not connected, it will
+		 * save user data to local cookies
+		 * @property {springroll.UserData} userData
+		 */
+		this.userData = new UserData();
 
 		/**
 		 * This option tells the container to always keep focus on the iframe even
@@ -180,6 +313,10 @@
 		// application options
 		if (this.container.supported)
 		{
+			// Connect the user data to container
+			this.userData.id = this.name;
+			this.userData.container = this.container;
+
 			//Setup the container listeners for site soundMute and captionsMute events
 			this.container.on(
 			{

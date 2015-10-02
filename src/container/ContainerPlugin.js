@@ -7,6 +7,7 @@
 	// Include classes
 	var ApplicationPlugin = include('springroll.ApplicationPlugin'),
 		PageVisibility = include('springroll.PageVisibility'),
+		UserData = include('springroll.UserData'),
 		Bellhop = include('Bellhop');
 
 	/**
@@ -47,6 +48,14 @@
 		 */
 		var container = this.container = new Bellhop();
 		container.connect();
+
+		/**
+		 * The API for saving user data, default is to save
+		 * data to the container, if not connected, it will
+		 * save user data to local cookies
+		 * @property {springroll.UserData} userData
+		 */
+		this.userData = new UserData();
 
 		/**
 		 * This option tells the container to always keep focus on the iframe even
@@ -179,6 +188,10 @@
 		// application options
 		if (this.container.supported)
 		{
+			// Connect the user data to container
+			this.userData.id = this.name;
+			this.userData.container = this.container;
+
 			//Setup the container listeners for site soundMute and captionsMute events
 			this.container.on(
 			{

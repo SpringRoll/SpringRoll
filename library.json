@@ -1,6 +1,6 @@
 {
 	"name": "SpringRoll",
-	"version": "0.4.1",
+	"version": "0.4.2",
 	"description": "An application framework for building HTML5 Canvas games and applications",
 	"url": "https://github.com/SpringRoll/SpringRoll",
 	"output": "core",
@@ -249,6 +249,7 @@
 		{
 			"output": "container-client",
 			"main": [
+				"src/container/UserData.js",
 				"src/container/ContainerPlugin.js"
 			]
 		},
@@ -261,6 +262,7 @@
 				"src/events/EventDispatcher.js",
 				"src/core/PageVisibility.js",
 				"src/core/utils/SavedData.js",
+				"src/container/SavedDataHandler.js",
 				"src/container/Features.js",
 				"src/container/Container.js"
 			]

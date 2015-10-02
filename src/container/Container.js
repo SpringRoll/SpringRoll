@@ -8,6 +8,7 @@
 	var SavedData = include('springroll.SavedData'),
 		EventDispatcher = include('springroll.EventDispatcher'),
 		PageVisibility = include('springroll.PageVisibility'),
+		SavedDataHandler = include('springroll.SavedDataHandler'),
 		Features = include('springroll.Features'),
 		Bellhop = include('Bellhop'),
 		$ = include('jQuery');
@@ -15,6 +16,7 @@
 	/**
 	 * The application container
 	 * @class Container
+	 * @extends springroll.EventDispatcher
 	 * @constructor
 	 * @param {string} iframeSelector jQuery selector for application iframe container
 	 * @param {object} [options] Optional parameteres
@@ -197,6 +199,15 @@
 		 * @default true
 		 */
 		this.sendMutes = true;
+
+		/**
+		 * The external handler class, must include remove, write, read methods
+		 * make it possible to use something else to handle the external, default
+		 * is to use cookies.
+		 * @property {Object} userDataHandler
+		 * @default SavedDataHandler
+		 */
+		this.userDataHandler = SavedDataHandler;
 
 		//Set the defaults if we have none for the controls
 		if (SavedData.read(CAPTIONS_MUTED) === null)
@@ -486,7 +497,10 @@
 			learningEvent: onLearningEvent.bind(this),
 			helpEnabled: onHelpEnabled.bind(this),
 			features: onFeatures.bind(this),
-			keepFocus: onKeepFocus.bind(this)
+			keepFocus: onKeepFocus.bind(this),
+			userDataRemove: onUserDataRemove.bind(this),
+			userDataRead: onUserDataRead.bind(this),
+			userDataWrite: onUserDataWrite.bind(this)
 		});
 	};
 
@@ -502,6 +516,49 @@
 			this.client.destroy();
 			this.client = null;
 		}
+	};
+
+	/**
+	 * Handler for the userDataRemove event
+	 * @method onUserDataRemove
+	 * @private
+	 */
+	var onUserDataRemove = function(event)
+	{
+		var client = this.client;
+		this.userDataHandler.remove(event.data, function()
+		{
+			client.send(event.type);
+		});
+	};
+
+	/**
+	 * Handler for the userDataRead event
+	 * @method onUserDataRead
+	 * @private
+	 */
+	var onUserDataRead = function(event)
+	{
+		var client = this.client;
+		this.userDataHandler.read(event.data, function(value)
+		{
+			client.send(event.type, value);
+		});
+	};
+
+	/**
+	 * Handler for the userDataWrite event
+	 * @method onUserDataWrite
+	 * @private
+	 */
+	var onUserDataWrite = function(event)
+	{
+		var data = event.data;
+		var client = this.client;
+		this.userDataHandler.write(data.name, data.value, function()
+		{
+			client.send(event.type);
+		});
 	};
 
 	/**
