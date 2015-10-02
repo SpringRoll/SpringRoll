@@ -20,6 +20,6 @@ module.exports = {
 		'components/soundjs/lib/soundjs.min.js',
 		'components/pixi.js/bin/pixi.js',
 		'components/bellhop/dist/bellhop.js',
-		'components/jquery/dist/jquery.min.js'
+		'components/jquery/dist/jquery.js'
 	]
 };
