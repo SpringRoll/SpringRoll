@@ -355,6 +355,12 @@
 			this._pageVisibility = null;
 		}
 
+		if (this.userData)
+		{
+			this.userData.destroy();
+			this.userData = null;
+		}
+
 		// Send the end application event to the container
 		if (this.container)
 		{

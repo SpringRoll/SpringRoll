@@ -979,8 +979,8 @@
 	var SavedData = include('springroll.SavedData');
 
 	/**
-	 * Default user data handler for the container to save data using
-	 * the SavedData class.
+	 * Default user data handler for the {{#crossLink "springroll.Container"}}Container{{/crossLink}} to save data using
+	 * the {{#crossLink "springroll.SavedData"}}SavedData{{/crossLink}} class.
 	 * @class SavedDataHandler
 	 */
 	var SavedDataHandler = {
@@ -1472,11 +1472,12 @@
 		this.sendMutes = true;
 
 		/**
-		 * The external handler class, must include remove, write, read methods
+		 * The external handler class, must include `remove`, `write`, `read` methods
 		 * make it possible to use something else to handle the external, default
-		 * is to use cookies.
+		 * is to use cookies/localStorage. See {{#crossLink "springroll.SavedDataHandler"}}{{/crossLink}}
+		 * as an example.
 		 * @property {Object} userDataHandler
-		 * @default SavedDataHandler
+		 * @default springroll.SavedDataHandler
 		 */
 		this.userDataHandler = SavedDataHandler;
 

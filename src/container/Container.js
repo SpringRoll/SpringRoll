@@ -201,11 +201,12 @@
 		this.sendMutes = true;
 
 		/**
-		 * The external handler class, must include remove, write, read methods
+		 * The external handler class, must include `remove`, `write`, `read` methods
 		 * make it possible to use something else to handle the external, default
-		 * is to use cookies.
+		 * is to use cookies/localStorage. See {{#crossLink "springroll.SavedDataHandler"}}{{/crossLink}}
+		 * as an example.
 		 * @property {Object} userDataHandler
-		 * @default SavedDataHandler
+		 * @default springroll.SavedDataHandler
 		 */
 		this.userDataHandler = SavedDataHandler;
 

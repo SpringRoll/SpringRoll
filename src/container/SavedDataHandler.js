@@ -8,8 +8,8 @@
 	var SavedData = include('springroll.SavedData');
 
 	/**
-	 * Default user data handler for the container to save data using
-	 * the SavedData class.
+	 * Default user data handler for the {{#crossLink "springroll.Container"}}Container{{/crossLink}} to save data using
+	 * the {{#crossLink "springroll.SavedData"}}SavedData{{/crossLink}} class.
 	 * @class SavedDataHandler
 	 */
 	var SavedDataHandler = {

@@ -8,23 +8,31 @@
 	var SavedData = include('springroll.SavedData');
 
 	/**
-	 * Externally save and read settings
+	 * This class is responsible for saving the user-specific data
+	 * within an Application. This can be player-progress data, high
+	 * score information, or other data that needs be saved between
+	 * sessions of running an app. 
 	 * @class UserData
 	 * @constructor
 	 */
 	var UserData = function()
 	{
 		/**
-		 * Reference to the container
+		 * Reference to the container. If the app is not connected
+		 * to the Container (running standalone) then the container
+		 * is set to be `null`.
 		 * @property {Bellhop} container
 		 * @default  null
+		 * @readOnly
 		 */
 		this.container = null;
 
 		/**
-		 * The name to preprend to each property name
+		 * The name to preprend to each property name, this is set
+		 * by default as the Application's name, which is required
+		 * for the Container Client module.
 		 * @property {String} id
-		 * @default  null
+		 * @default ""
 		 */
 		this.id = "";
 	};
