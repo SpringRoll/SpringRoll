@@ -95,13 +95,10 @@ Modules are components which contain common code classes, documentation and/or r
 	* **[EaselJS Animation Module](https://github.com/SpringRoll/SpringRoll/wiki/EaselJS-Animation-Module)** _easeljs-animation_
 	* **[EaselJS Cutscene Module](https://github.com/SpringRoll/SpringRoll/wiki/EaselJS-Cutscene-Module)** _easeljs-cutscene_
 	* **[EaselJS Display Module](https://github.com/SpringRoll/SpringRoll/wiki/EaselJS-Display-Module)** _easeljs-display_
-	* **[EaselJS Learning Module](https://github.com/SpringRoll/SpringRoll/wiki/EaselJS-Learning-Module)** _easeljs-learning_
 	* **[EaselJS States Module](https://github.com/SpringRoll/SpringRoll/wiki/EaselJS-States-Module)** _easeljs-states_
 	* **[EaselJS UI Module](https://github.com/SpringRoll/SpringRoll/wiki/EaselJS-UI-Module)** _easeljs-ui_
 * **[Hints Module](https://github.com/SpringRoll/SpringRoll/wiki/Hints-Module)** _hints_
 * **[Languages Module](https://github.com/SpringRoll/SpringRoll/wiki/Languages-Module)** _languages_
-* **[Learning Module](https://github.com/SpringRoll/SpringRoll/wiki/Learning-Module)** _learning_
-* **[Learning Media Module](https://github.com/SpringRoll/SpringRoll/wiki/Learning-Media-Module)** _learning-media_
 * **[Native Display Module](https://github.com/SpringRoll/SpringRoll/wiki/Native-Display-Module)** _native-display_
 * Pixi.js
 	* **[Pixi.js Animation Module](https://github.com/SpringRoll/SpringRoll/wiki/Pixi.js-Animation-Module)** _pixi-animation_
@@ -129,7 +126,6 @@ The Framework is inherently canvas-rendering agnostic. We support two different 
 * [Basic Captions](https://springroll.github.io/SpringRoll/examples/captions.html)
 * [Captions &amp; Sound](https://springroll.github.io/SpringRoll/examples/captions-sound.html)
 * [Multi-Display Application](https://springroll.github.io/SpringRoll/examples/multiple-displays.html)
-* [Learning](https://springroll.github.io/SpringRoll/examples/learning.html)
 * [Create States](https://springroll.github.io/SpringRoll/examples/states.html)
 * [Container](https://springroll.github.io/SpringRoll/examples/container.html)
 

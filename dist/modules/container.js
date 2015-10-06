@@ -1593,25 +1593,8 @@
 	 * @param {Boolean} data.music If music context is supported
 	 * @param {Boolean} data.sound If Sound is supported
 	 * @param {Boolean} data.sfx If SFX context is supported
-	 * @param {Boolean} data.learning If learning dispatcher is supported
 	 * @param {Boolean} data.captions If captions is supported
 	 * @param {Boolean} data.hints If hinting is supported
-	 */
-
-	/**
-	 * Event when dispatching a Learning Dispatcher event
-	 * @event learningEvent
-	 * @param {object} data The event data
-	 */
-
-	/**
-	 * Event when dispatching a Google Analytics event
-	 * @event analyticEvent
-	 * @param {object} data The event data
-	 * @param {string} data.category The event category
-	 * @param {string} data.action The event action
-	 * @param {string} [data.label] The optional label
-	 * @param {number} [data.value] The optional value
 	 */
 
 	/**
@@ -1763,10 +1746,6 @@
 			loadDone: onLoadDone.bind(this),
 			endGame: onEndGame.bind(this),
 			focus: onFocus.bind(this),
-			trackEvent: onAnalyticEvent.bind(this),
-			analyticEvent: onAnalyticEvent.bind(this),
-			progressEvent: onLearningEvent.bind(this),
-			learningEvent: onLearningEvent.bind(this),
 			helpEnabled: onHelpEnabled.bind(this),
 			features: onFeatures.bind(this),
 			keepFocus: onKeepFocus.bind(this),
@@ -1971,17 +1950,6 @@
 	};
 
 	/**
-	 * Track an event for springroll Learning
-	 * @method onLearningEvent
-	 * @param {event} event The bellhop learningEvent
-	 * @private
-	 */
-	var onLearningEvent = function(event)
-	{
-		this.trigger('learningEvent', event.data);
-	};
-
-	/**
 	 * Handle the application features
 	 * @method onFeatures
 	 * @param {event} event The bellhop features
@@ -2025,45 +1993,6 @@
 	var onHelpEnabled = function(event)
 	{
 		this.helpEnabled = !!event.data;
-	};
-
-	/**
-	 * Track an event for Google Analtyics
-	 * @method onAnalyticEvent
-	 * @private
-	 * @param {event} event Bellhop analyticEvent
-	 */
-	var onAnalyticEvent = function(event)
-	{
-		var data = event.data;
-
-		// PBS Specifc implementation of Google Analytics
-		var GoogleAnalytics = include("GA_obj", false);
-		if (GoogleAnalytics)
-		{
-			GoogleAnalytics.trackEvent(
-				data.category,
-				data.action,
-				data.label,
-				data.value
-			);
-		}
-
-		// Generic implementation of Google Analytics
-		GoogleAnalytics = include('ga', false);
-		if (GoogleAnalytics)
-		{
-			GoogleAnalytics('send',
-			{
-				'hitType': 'event',
-				'eventCategory': data.category,
-				'eventAction': data.action,
-				'eventLabel': data.label,
-				'eventValue': data.value
-			});
-		}
-
-		this.trigger('analyticEvent', event.data);
 	};
 
 	/**
