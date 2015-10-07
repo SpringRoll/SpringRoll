@@ -152,14 +152,6 @@
 				"src/displays/easeljs/cutscene/CutscenePlugin.js"
 			]
 		},
-		"easeljslearning":
-		{
-			"output": "easeljs-learning",
-			"main": [
-				"src/displays/easeljs/learning/DwellTimer.js",
-				"src/displays/easeljs/learning/OffClickPlugin.js"
-			]
-		},
 		"easeljsstates":
 		{
 			"output": "easeljs-states",
@@ -217,25 +209,6 @@
 			"src/debug/DebugOptions.js",
 			"src/debug/DebugPlugin.js"
 		],
-		"learning": [
-			"src/learning/LearningError.js",
-			"src/learning/EventCatalog.js",
-			"src/learning/EventSignature.js",
-			"src/learning/EventError.js",
-			"src/learning/ValidationError.js",
-			"src/learning/EventUtils.js",
-			"src/learning/Learning.js",
-			"src/learning/Learning.less",
-			"src/learning/LearningPlugin.js"
-		],
-		"learningmedia":
-		{
-			"output": "learning-media",
-			"main": [
-				"src/learning/LearningMedia.js",
-				"src/learning/LearningMediaPlugin.js"
-			]
-		},
 		"hints": [
 			"src/hints/AbstractHint.js",
 			"src/hints/VOHint.js",

@@ -202,18 +202,6 @@
 				container.send('keepFocus', data);
 			});
 
-		// Handle the learning event
-		this.on('learningEvent', function(data)
-		{
-			container.send('learningEvent', data);
-		});
-
-		// Handle google analtyics event
-		this.on('analyticEvent', function(data)
-		{
-			container.send('analyticEvent', data);
-		});
-
 		// When the preloading is done
 		this.once('beforeInit', function()
 		{
@@ -264,24 +252,6 @@
 		{
 			this.trigger('endGame', exitType || 'game_completed');
 			this.destroy();
-		};
-
-		/**
-		 * Track a Google Analytics event
-		 * @method analyticEvent
-		 * @param {String} action The action label
-		 * @param {String} [label] The optional label for the event
-		 * @param {Number} [value] The optional value for the event
-		 */
-		this.analyticEvent = function(action, label, value)
-		{
-			this.trigger('analyticEvent',
-			{
-				category: this.name,
-				action: action,
-				label: label,
-				value: value
-			});
 		};
 
 		// Listen when the browser closes or redirects
@@ -345,7 +315,6 @@
 			// Add the features that are enabled
 			this.container.send('features',
 			{
-				learning: !!this.learning,
 				sound: hasSound,
 				hints: !!this.hints,
 				music: hasSound && this.sound.contextExists('music'),
