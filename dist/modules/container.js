@@ -1650,13 +1650,13 @@
 
 	/**
 	 * Open a application or path
-	 * @method open
+	 * @method openPath
 	 * @param {string} path The full path to the application to load
 	 * @param {Object} [options] The open options
 	 * @param {Boolean} [options.singlePlay=false] If we should play in single play mode
 	 * @param {Object} [options.playOptions=null] The optional play options
 	 */
-	p.open = function(path, options, playOptions)
+	p.openPath = function(path, options, playOptions)
 	{
 		options = options ||
 		{};
