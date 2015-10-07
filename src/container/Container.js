@@ -360,9 +360,7 @@
 		//Open the application in the iframe
 		this.main
 			.addClass('loading')
-			.prop('src', path)
-			.prop('width', window.innerWidth)
-			.prop('height', window.innerHeight);
+			.prop('src', path);
 
 		if (options.singlePlay)
 		{
