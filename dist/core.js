@@ -453,6 +453,18 @@
 		return value;
 	};
 
+	/**
+	 * Round a number to the nearest increment.
+	 * For example, 1.4 rounded to the nearest 0.5 is 1.5.
+	 * @param  {Number} val       Value to round
+	 * @param  {Number} increment Increment to round by
+	 * @return {Number}           Rounded value
+	 */
+	Math.roundDecimal = function(val, increment)
+	{
+		return Math.round(val / increment) * increment;
+	};
+
 }(Math));
 /**
  * @module Core
@@ -1087,7 +1099,7 @@
 	 *
 	 * @class Enum
 	 * @constructor
-	 * @param {Array|String|Object} arguments 
+	 * @param {Array|String|Object} arguments
 	 * The list of enumeration values. You can pass either an
 	 * array or a list of parameters. Each string will be
 	 * the previous value plus one, while objects with
@@ -1144,7 +1156,7 @@
 				counter = value;
 			}
 
-			// if name already exists in Enum 
+			// if name already exists in Enum
 			if (this[name])
 			{
 				if (true && Debug)
@@ -1192,8 +1204,9 @@
 
 		/**
 		 * Retrieves the next EnumValue in the Enum (loops to first value at end).
-		 * @method {EnumValue} input
-		 * @return {EnumValue}  
+		 * @method {EnumValue} next
+		 * @param {EnumValue} input An EnumValue to retrieve the value that follows.
+		 * @return {EnumValue}
 		 */
 		Object.defineProperty(this, 'next',
 		{
@@ -1213,8 +1226,8 @@
 
 		/**
 		 * Retrieves the first EnumValue in the Enum
-		 * @method {EnumValue} input
-		 * @return {EnumValue}  
+		 * @method {EnumValue} first
+		 * @return {EnumValue}
 		 */
 		Object.defineProperty(this, 'first',
 		{
@@ -1225,8 +1238,8 @@
 
 		/**
 		 * Retrieves the last EnumValue in the Enum
-		 * @method {EnumValue} input
-		 * @return {EnumValue}  
+		 * @method {EnumValue} last
+		 * @return {EnumValue}
 		 */
 		Object.defineProperty(this, 'last',
 		{

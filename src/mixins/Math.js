@@ -151,4 +151,16 @@
 		return value;
 	};
 
+	/**
+	 * Round a number to the nearest increment.
+	 * For example, 1.4 rounded to the nearest 0.5 is 1.5.
+	 * @param  {Number} val       Value to round
+	 * @param  {Number} increment Increment to round by
+	 * @return {Number}           Rounded value
+	 */
+	Math.roundDecimal = function(val, increment)
+	{
+		return Math.round(val / increment) * increment;
+	};
+
 }(Math));
