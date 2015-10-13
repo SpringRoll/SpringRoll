@@ -186,7 +186,7 @@
 	};
 
 	// Reference to the drag manager
-	var p = DragManager.prototype = {};
+	var p = extend(DragManager);
 
 	/**
 	 * If the DragManager allows multitouch dragging. Setting this stops any current

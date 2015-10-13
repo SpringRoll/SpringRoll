@@ -38,7 +38,7 @@
 	};
 
 	// Reference to prototype
-	var p = UserData.prototype;
+	var p = extend(UserData);
 
 	/**
 	 * Read a saved setting

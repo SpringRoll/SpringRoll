@@ -35,7 +35,7 @@
 
 	//Reference to the prototype
 	var s = AbstractHint.prototype;
-	var p = extend(AnimatorHint, AbstractHint);
+	var p = AbstractHint.extend(AnimatorHint);
 
 	/**
 	 * Run the hint

@@ -106,7 +106,7 @@
 	};
 
 	// Reference to prototype
-	var p = Task.prototype;
+	var p = extend(Task);
 
 	/**
 	 * Status for waiting to be run

@@ -40,7 +40,7 @@
 	};
 
 	// Reference to prototype
-	var p = extend(AdvancedMovieClipTask, TextureAtlasTask);
+	var p = TextureAtlasTask.extend(AdvancedMovieClipTask);
 
 	/**
 	 * Test if we should run this task

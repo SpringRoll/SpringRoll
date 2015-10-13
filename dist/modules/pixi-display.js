@@ -593,7 +593,7 @@
 	};
 
 	// Extend the base Task
-	var p = extend(TextureTask, Task);
+	var p = Task.extend(TextureTask);
 
 	/**
 	 * Test to see if we should load an asset
@@ -816,7 +816,7 @@
 	};
 
 	// Extend Object
-	var p = TextureAtlas.prototype = {};
+	var p = extend(TextureAtlas);
 
 	/**
 	 * Gets a frame by name.
@@ -963,7 +963,7 @@
 	};
 
 	// Reference to prototype
-	var p = extend(TextureAtlasTask, TextureTask);
+	var p = TextureTask.extend(TextureAtlasTask);
 
 	/**
 	 * Test if we should run this task
@@ -1070,7 +1070,7 @@
 	};
 
 	// Reference to prototype
-	var p = extend(BitmapFontTask, TextureTask);
+	var p = TextureTask.extend(BitmapFontTask);
 
 	/**
 	 * Test if we should run this task
@@ -1621,7 +1621,7 @@
 	};
 
 	var s = AbstractDisplay.prototype;
-	var p = extend(PixiDisplay, AbstractDisplay);
+	var p = AbstractDisplay.extend(PixiDisplay);
 
 	/**
 	 * If input is enabled on the stage for this display. The default is true.

@@ -54,7 +54,7 @@
 	};
 
 	// Reference to prototype
-	var p = extend(LoadTask, Task);
+	var p = Task.extend(LoadTask);
 
 	/**
 	 * Test if we should run this task

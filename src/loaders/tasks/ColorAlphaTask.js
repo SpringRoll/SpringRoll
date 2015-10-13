@@ -39,7 +39,7 @@
 	};
 
 	// Reference to prototype
-	var p = extend(ColorAlphaTask, Task);
+	var p = Task.extend(ColorAlphaTask);
 
 	/**
 	 * Test if we should run this task

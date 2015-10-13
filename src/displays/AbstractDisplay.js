@@ -118,7 +118,7 @@
 		this.adapter = null;
 	};
 
-	var p = extend(AbstractDisplay, EventDispatcher);
+	var p = EventDispatcher.extend(AbstractDisplay);
 
 	/**
 	 * If input is enabled on the stage for this display. The default is true.

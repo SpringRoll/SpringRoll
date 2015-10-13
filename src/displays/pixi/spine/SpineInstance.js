@@ -26,7 +26,7 @@
 	};
 
 	// Reference to the prototype
-	var p = AnimatorInstance.extend(SpineInstance, AnimatorInstance);
+	var p = AnimatorInstance.extend(SpineInstance);
 
 	/**
 	 * The initialization method

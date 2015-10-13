@@ -68,7 +68,7 @@
 	};
 
 	// Extend the base Task
-	var p = extend(SpineAnimTask, Task);
+	var p = Task.extend(SpineAnimTask);
 
 	/**
 	 * Test to see if we should load an asset

@@ -24,7 +24,7 @@
 	};
 
 	//Reference to the prototype
-	var p = AbstractHint.prototype;
+	var p = extend(AbstractHint);
 
 	/**
 	 * Run the hint

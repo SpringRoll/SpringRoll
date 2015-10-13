@@ -137,7 +137,7 @@
 	};
 
 	// Reference to the prototype
-	var p = SoundInstance.prototype = {};
+	var p = extend(SoundInstance);
 
 	/**
 	 * The position of the sound playhead in milliseconds, or 0 if it hasn't started playing yet.

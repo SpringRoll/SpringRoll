@@ -37,7 +37,7 @@
 	};
 
 	// Reference to prototype
-	var p = extend(BitmapMovieClipTask, TextureAtlasTask);
+	var p = TextureAtlasTask.extend(BitmapMovieClipTask);
 
 	/**
 	 * Test if we should run this task

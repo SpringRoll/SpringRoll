@@ -594,7 +594,7 @@
 	};
 
 	// Reference to the prototype
-	var p = AnimatorInstance.extend(AdvancedMovieClipInstance, AnimatorInstance);
+	var p = AnimatorInstance.extend(AdvancedMovieClipInstance);
 
 	/**
 	 * The initialization method
@@ -858,7 +858,7 @@
 	};
 
 	// Reference to prototype
-	var p = extend(AdvancedMovieClipTask, TextureAtlasTask);
+	var p = TextureAtlasTask.extend(AdvancedMovieClipTask);
 
 	/**
 	 * Test if we should run this task

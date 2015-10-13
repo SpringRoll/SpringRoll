@@ -208,7 +208,7 @@
 		 * @property {Object} userDataHandler
 		 * @default springroll.SavedDataHandler
 		 */
-		this.userDataHandler = SavedDataHandler;
+		this.userDataHandler = new SavedDataHandler();
 
 		//Set the defaults if we have none for the controls
 		if (SavedData.read(CAPTIONS_MUTED) === null)
@@ -255,7 +255,7 @@
 
 	//Reference to the prototype
 	var s = EventDispatcher.prototype;
-	var p = extend(Container, EventDispatcher);
+	var p = EventDispatcher.extend(Container);
 
 	/**
 	 * Fired when the pause state is toggled
@@ -1221,6 +1221,7 @@
 		this.main = null;
 		this.dom = null;
 
+		this.userDataHandler = null;
 		this.helpButton = null;
 		this.soundButton = null;
 		this.pauseButton = null;

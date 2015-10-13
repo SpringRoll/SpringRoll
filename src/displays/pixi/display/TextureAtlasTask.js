@@ -40,7 +40,7 @@
 	};
 
 	// Reference to prototype
-	var p = extend(TextureAtlasTask, TextureTask);
+	var p = TextureTask.extend(TextureAtlasTask);
 
 	/**
 	 * Test if we should run this task

@@ -44,7 +44,7 @@
 	};
 
 	//Reference to the prototype
-	var p = AnimatorInstance.extend(GenericMovieClipInstance, AnimatorInstance);
+	var p = AnimatorInstance.extend(GenericMovieClipInstance);
 
 	/**
 	 * The initialization method

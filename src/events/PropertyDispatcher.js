@@ -27,7 +27,7 @@
 
 	// Extend the base class
 	var s = EventDispatcher.prototype;
-	var p = extend(PropertyDispatcher, EventDispatcher);
+	var p = EventDispatcher.extend(PropertyDispatcher);
 
 	/**
 	 * Generic setter for an option

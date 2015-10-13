@@ -134,7 +134,7 @@
 		this._onTransitionIn = this._onTransitionIn.bind(this);
 	};
 
-	var p = extend(StateManager, EventDispatcher);
+	var p = EventDispatcher.extend(StateManager);
 
 	/**
 	 * The amount of progress while state is being preloaded from zero to 1

@@ -113,7 +113,7 @@
 	};
 
 	// Reference to the prototype
-	var p = ScaleManager.prototype = {};
+	var p = extend(ScaleManager);
 
 	/**
 	 * Vertically align to the top

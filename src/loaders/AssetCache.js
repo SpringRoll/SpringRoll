@@ -27,7 +27,7 @@
 	};
 
 	// Reference to the prototype
-	var p = AssetCache.prototype;
+	var p = extend(AssetCache);
 
 	/**
 	 * Retrieves a single asset from the cache.

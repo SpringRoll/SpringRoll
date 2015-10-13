@@ -869,7 +869,7 @@
 	};
 
 	// Reference to prototype
-	var p = ReversePlayback.prototype;
+	var p = extend(ReversePlayback);
 
 	/**
 	 * Build a dictionary of all animations start and end
@@ -1011,7 +1011,7 @@
 	};
 
 	// Reference to prototype
-	var p = extend(BitmapMovieClipTask, TextureAtlasTask);
+	var p = TextureAtlasTask.extend(BitmapMovieClipTask);
 
 	/**
 	 * Test if we should run this task

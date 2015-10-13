@@ -57,7 +57,7 @@
 
 	//Reference to the prototype
 	var s = AbstractHint.prototype;
-	var p = extend(GroupHint, AbstractHint);
+	var p = AbstractHint.extend(GroupHint);
 
 	/**
 	 * Run the hint

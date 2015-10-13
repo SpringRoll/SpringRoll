@@ -34,7 +34,7 @@
 
 	// Reference to prototype
 	var s = Task.prototype;
-	var p = extend(SoundTask, Task);
+	var p = Task.extend(SoundTask);
 
 	/**
 	 * Test if we should run this task

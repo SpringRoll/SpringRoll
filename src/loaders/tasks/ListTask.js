@@ -44,7 +44,7 @@
 	};
 
 	// Reference to prototype
-	var p = extend(ListTask, Task);
+	var p = Task.extend(ListTask);
 
 	/**
 	 * Test if we should run this task

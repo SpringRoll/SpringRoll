@@ -102,7 +102,7 @@
 	};
 
 	//reference to the prototype
-	var p = Animator.prototype;
+	var p = extend(Animator);
 
 	//private local vars
 	var _timelines,

@@ -111,7 +111,7 @@
 		Application.instance.on("update", this._update);
 	};
 
-	var p = DelayedCall.prototype;
+	var p = extend(DelayedCall);
 
 	/**
 	 * The callback supplied to the Application for an update each frame.

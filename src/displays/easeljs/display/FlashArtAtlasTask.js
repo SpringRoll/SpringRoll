@@ -61,7 +61,7 @@
 	};
 
 	// Reference to prototype
-	var p = extend(FlashArtAtlasTask, Task);
+	var p = Task.extend(FlashArtAtlasTask);
 
 	/**
 	 * Test if we should run this task

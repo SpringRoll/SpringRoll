@@ -80,7 +80,7 @@
 	};
 
 	// Reference to the prototype
-	var p = AnimatorInstance.extend(SpineInstance, AnimatorInstance);
+	var p = AnimatorInstance.extend(SpineInstance);
 
 	/**
 	 * The initialization method
@@ -475,7 +475,7 @@
 	};
 
 	// Extend Object
-	var p = SpineAtlas.prototype = {};
+	var p = extend(SpineAtlas);
 
 	p.findRegion = function(name)
 	{
@@ -687,7 +687,7 @@
 	};
 
 	// Reference to prototype
-	var p = extend(SpineAtlasTask, TextureTask);
+	var p = TextureTask.extend(SpineAtlasTask);
 
 	/**
 	 * Test if we should run this task
@@ -795,7 +795,7 @@
 	};
 
 	// Extend the base Task
-	var p = extend(SpineAnimTask, Task);
+	var p = Task.extend(SpineAnimTask);
 
 	/**
 	 * Test to see if we should load an asset

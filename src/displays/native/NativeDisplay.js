@@ -39,8 +39,7 @@
 		this.adapter = include('springroll.native.DisplayAdapter');
 	};
 
-	var s = AbstractDisplay.prototype;
-	var p = extend(NativeDisplay, AbstractDisplay);
+	AbstractDisplay.extend(NativeDisplay);
 
 	// Assign to the global namespace
 	namespace('springroll').NativeDisplay = NativeDisplay;

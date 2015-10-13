@@ -52,7 +52,7 @@
 	};
 
 	// Extend the base Task
-	var p = extend(TextureTask, Task);
+	var p = Task.extend(TextureTask);
 
 	/**
 	 * Test to see if we should load an asset

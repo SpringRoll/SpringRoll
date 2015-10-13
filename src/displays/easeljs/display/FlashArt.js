@@ -53,7 +53,7 @@
 	};
 
 	// Reference to the prototype
-	var p = FlashArt.prototype;
+	var p = extend(FlashArt);
 
 	/**
 	 * The collection of all symbols and assets

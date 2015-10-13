@@ -20,7 +20,7 @@
 	};
 
 	// Reference to prototype
-	var p = StringFilters.prototype;
+	var p = extend(StringFilters);
 
 	/**
 	 * Register a filter

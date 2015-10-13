@@ -33,7 +33,7 @@
 		}
 	};
 
-	var p = WeightedRandom.prototype = {};
+	var p = extend(WeightedRandom);
 
 	/**
 	 * Picks an item at random.

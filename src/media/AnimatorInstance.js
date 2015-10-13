@@ -46,7 +46,7 @@
 	};
 
 	//reference to the prototype
-	var p = AnimatorInstance.prototype;
+	var p = extend(AnimatorInstance);
 
 	/**
 	 * The initialization method

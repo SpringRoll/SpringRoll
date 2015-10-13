@@ -43,7 +43,7 @@
 	};
 
 	// Reference to prototype
-	var p = extend(SpineAtlasTask, TextureTask);
+	var p = TextureTask.extend(SpineAtlasTask);
 
 	/**
 	 * Test if we should run this task

@@ -42,7 +42,7 @@
 	};
 
 	// Reference to the prototype
-	var p = AssetSizes.prototype;
+	var p = extend(AssetSizes);
 
 	/**
 	 * The URL substitution string.

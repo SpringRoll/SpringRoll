@@ -37,7 +37,7 @@
 		this.points = points;
 	};
 
-	var p = Polygon.prototype;
+	var p = extend(Polygon);
 
 	/**
 	 * Creates a clone of this polygon

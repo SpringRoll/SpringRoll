@@ -28,7 +28,7 @@
 
 	// Reference to prototype
 	var s = LoadTask.prototype;
-	var p = extend(BitmapTask, LoadTask);
+	var p = LoadTask.extend(BitmapTask);
 
 	/**
 	 * Test if we should run this task

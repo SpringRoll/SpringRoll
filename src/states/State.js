@@ -220,7 +220,7 @@
 
 	// Reference to the prototype
 	var s = EventDispatcher.prototype;
-	var p = extend(State, EventDispatcher);
+	var p = EventDispatcher.extend(State);
 
 	/**
 	 * Event when the state finishes exiting. Nothing is showing at this point.

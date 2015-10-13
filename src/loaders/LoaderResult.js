@@ -40,7 +40,7 @@
 	};
 
 	// Reference to the prototype
-	var p = LoaderResult.prototype;
+	var p = extend(LoaderResult);
 
 	/**
 	 * A to string method

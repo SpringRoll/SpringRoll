@@ -37,7 +37,7 @@
 
 	// Reference to prototype
 	var s = LoadTask.prototype;
-	var p = extend(FlashSpriteSheetTask, LoadTask);
+	var p = LoadTask.extend(FlashSpriteSheetTask);
 
 	/**
 	 * Test if we should run this task

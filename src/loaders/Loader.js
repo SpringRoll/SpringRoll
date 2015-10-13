@@ -55,7 +55,7 @@
 	};
 
 	// The prototype
-	var p = Loader.prototype;
+	var p = extend(Loader);
 
 	if (DEBUG)
 	{

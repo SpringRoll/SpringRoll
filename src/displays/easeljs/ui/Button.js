@@ -419,7 +419,6 @@
 
 	// Extend Container
 	var p = extend(Button, Container);
-
 	var s = Container.prototype; //super
 
 	/**

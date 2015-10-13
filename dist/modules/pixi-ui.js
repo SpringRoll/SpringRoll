@@ -346,7 +346,7 @@
 	};
 
 	// Reference to the prototype
-	var p = Button.prototype = Object.create(Container.prototype);
+	var p = extend(Button, Container);
 
 	/**
 	 * An event for when the button is pressed (while enabled).
@@ -977,7 +977,7 @@
 	};
 
 	// Reference to the drag manager
-	var p = DragManager.prototype = {};
+	var p = extend(DragManager);
 
 	/**
 	 * If the DragManager allows multitouch dragging. Setting this stops any current

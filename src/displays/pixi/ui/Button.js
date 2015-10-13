@@ -345,7 +345,7 @@
 	};
 
 	// Reference to the prototype
-	var p = Button.prototype = Object.create(Container.prototype);
+	var p = extend(Button, Container);
 
 	/**
 	 * An event for when the button is pressed (while enabled).

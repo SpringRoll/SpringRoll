@@ -232,6 +232,8 @@
 		});
 	};
 
+	var p = extend(Enum);
+
 	/**
 	 * Gets an enum value by integer value. If you have multiple enum values with the same integer
 	 * value, this will always retrieve the first enum value.
@@ -239,7 +241,7 @@
 	 * @param {int} input The integer value to get an enum value for.
 	 * @return {EnumValue} The EnumValue that represents the input integer.
 	 */
-	Object.defineProperty(Enum.prototype, 'valueFromInt',
+	Object.defineProperty(p, 'valueFromInt',
 	{
 		enumerable: false,
 		writable: false,

@@ -37,7 +37,7 @@
 	};
 
 	// Extend the base class
-	var p = extend(ApplicationOptions, PropertyDispatcher);
+	var p = PropertyDispatcher.extend(ApplicationOptions);
 
 	/**
 	 * Initialize the values in the options

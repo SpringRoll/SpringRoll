@@ -99,7 +99,7 @@
 	};
 
 	// Reference to prototype
-	var p = extend(AssetLoad, EventDispatcher);
+	var p = EventDispatcher.extend(AssetLoad);
 
 	/**
 	 * When an asset is finished

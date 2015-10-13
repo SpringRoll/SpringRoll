@@ -118,7 +118,7 @@
 		this.isTimer = false;
 	};
 
-	var p = AnimatorTimeline.prototype;
+	var p = extend(AnimatorTimeline);
 
 	/**
 	 * Reset the timeline so we can reuse

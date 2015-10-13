@@ -39,7 +39,7 @@
 		this.type = type;
 	};
 
-	var p = StateEvent.prototype;
+	var p = extend(StateEvent);
 
 	/**
 	 * When the state besome visible

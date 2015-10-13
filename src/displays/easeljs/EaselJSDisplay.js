@@ -86,7 +86,7 @@
 	};
 
 	var s = AbstractDisplay.prototype;
-	var p = extend(EaselJSDisplay, AbstractDisplay);
+	var p = AbstractDisplay.extend(EaselJSDisplay);
 
 	/**
 	 * An internal helper to avoid creating an object each render

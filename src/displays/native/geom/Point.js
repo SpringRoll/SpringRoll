@@ -30,7 +30,7 @@
 		this.y = y || 0;
 	};
 
-	var p = Point.prototype;
+	var p = extend(Point);
 
 	/**
 	 * Creates a clone of this point

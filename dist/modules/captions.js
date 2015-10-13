@@ -147,7 +147,7 @@
 	 * @private
 	 * @property {Object} p
 	 */
-	var p = Captions.prototype;
+	var p = extend(Captions);
 
 	/**
 	 * Set if all captions are currently muted.

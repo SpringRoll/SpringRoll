@@ -43,7 +43,7 @@
 	};
 
 	// Reference to prototype
-	var p = extend(BitmapFontTask, TextureTask);
+	var p = TextureTask.extend(BitmapFontTask);
 
 	/**
 	 * Test if we should run this task

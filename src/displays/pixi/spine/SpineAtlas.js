@@ -137,7 +137,7 @@
 	};
 
 	// Extend Object
-	var p = SpineAtlas.prototype = {};
+	var p = extend(SpineAtlas);
 
 	p.findRegion = function(name)
 	{

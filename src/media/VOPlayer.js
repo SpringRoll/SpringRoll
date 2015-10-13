@@ -111,7 +111,7 @@
 		this._captions = null;
 	};
 
-	var p = VOPlayer.prototype = {};
+	var p = extend(VOPlayer);
 
 	/**
 	 * If VOPlayer is currently playing (audio or silence).

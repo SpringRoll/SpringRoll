@@ -221,7 +221,7 @@
 
 	// Reference to the prototype
 	var s = EventDispatcher.prototype;
-	var p = extend(State, EventDispatcher);
+	var p = EventDispatcher.extend(State);
 
 	/**
 	 * Event when the state finishes exiting. Nothing is showing at this point.
@@ -781,7 +781,7 @@
 		this.type = type;
 	};
 
-	var p = StateEvent.prototype;
+	var p = extend(StateEvent);
 
 	/**
 	 * When the state besome visible
@@ -937,7 +937,7 @@
 		this._onTransitionIn = this._onTransitionIn.bind(this);
 	};
 
-	var p = extend(StateManager, EventDispatcher);
+	var p = EventDispatcher.extend(StateManager);
 
 	/**
 	 * The amount of progress while state is being preloaded from zero to 1

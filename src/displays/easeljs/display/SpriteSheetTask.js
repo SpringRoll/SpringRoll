@@ -48,7 +48,7 @@
 	};
 
 	// Reference to prototype
-	var p = extend(SpriteSheetTask, Task);
+	var p = Task.extend(SpriteSheetTask);
 
 	/**
 	 * Test if we should run this task

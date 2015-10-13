@@ -46,7 +46,7 @@
 		this.height = height || 0;
 	};
 
-	var p = Rectangle.prototype;
+	var p = extend(Rectangle);
 
 	/**
 	 * Creates a clone of this Rectangle

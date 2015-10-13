@@ -29,7 +29,7 @@
 
 	//Reference to the prototype
 	var s = AbstractHint.prototype;
-	var p = extend(FunctionHint, AbstractHint);
+	var p = AbstractHint.extend(FunctionHint);
 
 	/**
 	 * Start function hint

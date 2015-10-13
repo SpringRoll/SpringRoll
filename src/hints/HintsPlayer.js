@@ -80,7 +80,7 @@
 
 	//Reference to the prototype
 	var s = EventDispatcher.prototype;
-	var p = extend(HintsPlayer, EventDispatcher);
+	var p = EventDispatcher.extend(HintsPlayer);
 
 	/**
 	 * Play an animation event

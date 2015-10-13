@@ -38,7 +38,7 @@
 		this.radius = radius || 0;
 	};
 
-	var p = Circle.prototype;
+	var p = extend(Circle);
 
 	/**
 	 * Creates a clone of this Circle instance

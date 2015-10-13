@@ -68,7 +68,7 @@
 		this._adapter = adapter;
 	};
 
-	var p = ScaleImage.prototype;
+	var p = extend(ScaleImage);
 
 	/**
 	 * Resize the current image

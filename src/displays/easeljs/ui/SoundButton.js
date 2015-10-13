@@ -53,7 +53,7 @@
 	var s = Button.prototype;
 
 	// Reference to the prototype
-	var p = extend(SoundButton, Button);
+	var p = Button.extend(SoundButton);
 
 	/**
 	 * Handler for the BUTTON_PRESS event

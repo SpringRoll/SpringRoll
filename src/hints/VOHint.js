@@ -32,7 +32,7 @@
 
 	//Reference to the prototype
 	var s = AbstractHint.prototype;
-	var p = extend(VOHint, AbstractHint);
+	var p = AbstractHint.extend(VOHint);
 
 	/**
 	 * Run the hint

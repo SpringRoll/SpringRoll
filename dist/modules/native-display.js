@@ -39,7 +39,7 @@
 		this.radius = radius || 0;
 	};
 
-	var p = Circle.prototype;
+	var p = extend(Circle);
 
 	/**
 	 * Creates a clone of this Circle instance
@@ -130,7 +130,7 @@
 		this.height = height || 0;
 	};
 
-	var p = Ellipse.prototype;
+	var p = extend(Ellipse);
 
 	/**
 	 * Creates a clone of this Ellipse instance
@@ -211,7 +211,7 @@
 		this.y = y || 0;
 	};
 
-	var p = Point.prototype;
+	var p = extend(Point);
 
 	/**
 	 * Creates a clone of this point
@@ -394,7 +394,7 @@
 		this.points = points;
 	};
 
-	var p = Polygon.prototype;
+	var p = extend(Polygon);
 
 	/**
 	 * Creates a clone of this polygon
@@ -501,7 +501,7 @@
 		this.height = height || 0;
 	};
 
-	var p = Rectangle.prototype;
+	var p = extend(Rectangle);
 
 	/**
 	 * Creates a clone of this Rectangle
@@ -810,8 +810,7 @@
 		this.adapter = include('springroll.native.DisplayAdapter');
 	};
 
-	var s = AbstractDisplay.prototype;
-	var p = extend(NativeDisplay, AbstractDisplay);
+	AbstractDisplay.extend(NativeDisplay);
 
 	// Assign to the global namespace
 	namespace('springroll').NativeDisplay = NativeDisplay;

@@ -112,7 +112,7 @@
 	var s = State.prototype;
 
 	// Reference to current prototype
-	var p = extend(BaseState, State);
+	var p = State.extend(BaseState);
 
 	/**
 	 * Implementation specific for override. When you need to add additional preload

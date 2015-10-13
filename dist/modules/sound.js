@@ -187,7 +187,7 @@
 	};
 
 	// Reference to the prototype
-	var p = SoundInstance.prototype = {};
+	var p = extend(SoundInstance);
 
 	/**
 	 * The position of the sound playhead in milliseconds, or 0 if it hasn't started playing yet.
@@ -357,7 +357,7 @@
 
 	// Reference to prototype
 	var s = Task.prototype;
-	var p = extend(SoundTask, Task);
+	var p = Task.extend(SoundTask);
 
 	/**
 	 * Test if we should run this task
@@ -510,7 +510,7 @@
 
 	//Reference to the prototype
 	var s = EventDispatcher.prototype;
-	var p = extend(Sound, EventDispatcher);
+	var p = EventDispatcher.extend(Sound);
 
 	var _instance = null;
 
@@ -1838,7 +1838,7 @@
 		this._captions = null;
 	};
 
-	var p = VOPlayer.prototype = {};
+	var p = extend(VOPlayer);
 
 	/**
 	 * If VOPlayer is currently playing (audio or silence).

@@ -46,7 +46,7 @@
 		this.height = height || 0;
 	};
 
-	var p = Ellipse.prototype;
+	var p = extend(Ellipse);
 
 	/**
 	 * Creates a clone of this Ellipse instance

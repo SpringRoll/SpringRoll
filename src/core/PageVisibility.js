@@ -58,7 +58,7 @@
 	};
 
 	// Reference to the prototype
-	var p = PageVisibility.prototype;
+	var p = extend(PageVisibility);
 
 	/**
 	 * The name of the visibility change event for the browser

@@ -46,7 +46,7 @@
 	};
 
 	// Reference to prototype
-	var p = extend(FlashArtImageTask, Task);
+	var p = Task.extend(FlashArtImageTask);
 
 	/**
 	 * Test if we should run this task

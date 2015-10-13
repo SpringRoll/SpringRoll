@@ -198,7 +198,7 @@
 	};
 
 	// Reference to the prototype
-	var p = ScaleItem.prototype = {};
+	var p = extend(ScaleItem);
 
 	if (DEBUG)
 	{

@@ -100,7 +100,7 @@
 
 	//Reference to the prototype
 	var s = EventDispatcher.prototype;
-	var p = extend(Sound, EventDispatcher);
+	var p = EventDispatcher.extend(Sound);
 
 	var _instance = null;
 

@@ -61,7 +61,7 @@
 	};
 
 	/* Easy access to the prototype */
-	var p = CacheManager.prototype = {};
+	var p = extend(CacheManager);
 
 	/**
 	 * If we are suppose to cache bust every file

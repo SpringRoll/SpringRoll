@@ -76,7 +76,7 @@
 
 	// Reference to the prototype
 	var s = EventDispatcher.prototype;
-	var p = extend(Languages, EventDispatcher);
+	var p = EventDispatcher.extend(Languages);
 
 	/**
 	 * Fired when the chosen language has changed.

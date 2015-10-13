@@ -13,24 +13,24 @@
 	 * @constructor
 	 */
 	var EventDispatcher = function()
-		{
-			/**
-			 * The collection of listeners
-			 * @property {Array} _listeners
-			 * @private
-			 */
-			this._listeners = [];
+	{
+		/**
+		 * The collection of listeners
+		 * @property {Array} _listeners
+		 * @private
+		 */
+		this._listeners = [];
 
-			/**
-			 * If the dispatcher is destroyed
-			 * @property {Boolean} _destroyed
-			 * @protected
-			 */
-			this._destroyed = false;
-		},
+		/**
+		 * If the dispatcher is destroyed
+		 * @property {Boolean} _destroyed
+		 * @protected
+		 */
+		this._destroyed = false;
+	};
 
-		// Reference to the prototype
-		p = EventDispatcher.prototype;
+	// Reference to the prototype
+	var p = extend(EventDispatcher);
 
 	/**
 	 * If the dispatcher is destroyed

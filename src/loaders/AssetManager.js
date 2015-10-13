@@ -71,7 +71,7 @@
 	};
 
 	// reference to prototype
-	var p = AssetManager.prototype;
+	var p = extend(AssetManager);
 
 	/**
 	 * Register new tasks types, these tasks must extend Task
