@@ -136,7 +136,8 @@
 		this.update = this.update.bind(this);
 
 		//Set with preset
-		this.data = data || null;
+		this.data = data ||
+		{};
 		this.textField = textField || null;
 		this.selfUpdate = selfUpdate === undefined ? true : !!selfUpdate;
 	};
@@ -193,7 +194,7 @@
 	});
 
 	/**
-	 * Sets the dictionary object to use for captions. This overrides the current 
+	 * Sets the dictionary object to use for captions. This overrides the current
 	 * dictionary, if present.
 	 * @property {Object} data
 	 */
