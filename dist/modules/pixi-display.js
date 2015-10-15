@@ -1541,6 +1541,8 @@
 	 * @param {Boolean} [options.preserveDrawingBuffer=false] Set this to true if you want to call
 	 *                                                        toDataUrl on the WebGL rendering
 	 *                                                        context.
+	 * @param {Boolean} [options.autoPreventDefault=true] If preventDefault() should be called on
+	 *                                                    all touch events and mousedown events.
 	 */
 	var PixiDisplay = function(id, options)
 	{
@@ -1555,6 +1557,15 @@
 		 * @public
 		 */
 		this.keepMouseover = options.keepMouseover || false;
+
+		/**
+		 * If preventDefault() should be called on all touch events and mousedown events. Defaults
+		 * to true.
+		 * @property {Boolean} _autoPreventDefault
+		 * @private
+		 */
+		this._autoPreventDefault = options.hasOwnProperty("autoPreventDefault") ?
+			options.autoPreventDefault : true;
 
 		/**
 		 * The rendering library's stage element, the root display object
@@ -1618,6 +1629,9 @@
 
 		// Set display adapter classes
 		this.adapter = include('springroll.pixi.DisplayAdapter');
+
+		// Initialize the autoPreventDefault
+		this.autoPreventDefault = this._autoPreventDefault;
 	};
 
 	var s = AbstractDisplay.prototype;
@@ -1653,6 +1667,27 @@
 				else
 					interactionManager.removeEvents();
 			}
+		}
+	});
+
+	/**
+	 * If preventDefault() should be called on all touch events and mousedown events. Defaults
+	 * to true.
+	 * @property {Boolean} autoPreventDefault
+	 * @public
+	 */
+	Object.defineProperty(p, "autoPreventDefault",
+	{
+		get: function()
+		{
+			return this._autoPreventDefault;
+		},
+		set: function(value)
+		{
+			this._autoPreventDefault = !!value;
+			var interactionManager = this.renderer.plugins.interaction;
+			if (!interactionManager) return;
+			interactionManager.autoPreventDefault = this._autoPreventDefault;
 		}
 	});
 
