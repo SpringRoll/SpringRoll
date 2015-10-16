@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html lang='en'>
 <head>
-	<title>SpringRoll v0.4.2 API Documentation : src/core/utils/Enum.js</title>
+	<title>SpringRoll v0.4.3 API Documentation : src/core/utils/Enum.js</title>
 	<meta charset='utf-8'>
 	<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 	<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
-	<link rel='shortcut icon' type='image/png' href='../assets/images/favicon.ico?v=0.4.2'>
+	<link rel='shortcut icon' type='image/png' href='../assets/images/favicon.ico?v=0.4.3'>
 	<link href='//fonts.googleapis.com/css?family=Titillium+Web:300,200,600' rel='stylesheet' type='text/css'>
-	<link rel='stylesheet' type='text/css' href='../assets/css/libraries.css?v=0.4.2'>
-	<link rel='stylesheet' type='text/css' href='../assets/css/main.css?v=0.4.2'>
+	<link rel='stylesheet' type='text/css' href='../assets/css/libraries.css?v=0.4.3'>
+	<link rel='stylesheet' type='text/css' href='../assets/css/main.css?v=0.4.3'>
 </head>
 <body>
 <header>
@@ -22,10 +22,10 @@
 					<span class="icon-bar"></span>
 				</button>
 				<a class="navbar-brand" href='https://github.com/SpringRoll/SpringRoll'>
-						<img src='../assets/images/logo.png?v=0.4.2' class="logo">
+						<img src='../assets/images/logo.png?v=0.4.3' class="logo">
 					<span class='project-name'>SpringRoll</span>
 					<span class="sr-only">API Documentation for:</span>
-					<span class='version hidden-xs'>v0.4.2</span>
+					<span class='version hidden-xs'>v0.4.3</span>
 				</a>
 			</div>
 			<div class="collapse navbar-collapse" id="docs-navbar">
@@ -239,9 +239,6 @@
           <a href='../classes/springroll.easeljs.DragManager.html'>springroll.easeljs.DragManager</a>
         </li>
         <li class='public'>
-          <a href='../classes/springroll.easeljs.DwellTimer.html'>springroll.easeljs.DwellTimer</a>
-        </li>
-        <li class='public'>
           <a href='../classes/springroll.easeljs.EaselJSDisplay.html'>springroll.easeljs.EaselJSDisplay</a>
         </li>
         <li class='private'>
@@ -283,20 +280,8 @@
         <li class='private'>
           <a href='../classes/springroll.EnumValue.html'>springroll.EnumValue</a>
         </li>
-        <li class='private'>
-          <a href='../classes/springroll.EventCatalog.html'>springroll.EventCatalog</a>
-        </li>
         <li class='public'>
           <a href='../classes/springroll.EventDispatcher.html'>springroll.EventDispatcher</a>
-        </li>
-        <li class='private'>
-          <a href='../classes/springroll.EventError.html'>springroll.EventError</a>
-        </li>
-        <li class='private'>
-          <a href='../classes/springroll.EventSignature.html'>springroll.EventSignature</a>
-        </li>
-        <li class='private'>
-          <a href='../classes/springroll.EventUtils.html'>springroll.EventUtils</a>
         </li>
         <li class='public'>
           <a href='../classes/springroll.Features.html'>springroll.Features</a>
@@ -318,15 +303,6 @@
         </li>
         <li class='public'>
           <a href='../classes/springroll.Languages.html'>springroll.Languages</a>
-        </li>
-        <li class='public'>
-          <a href='../classes/springroll.Learning.html'>springroll.Learning</a>
-        </li>
-        <li class='private'>
-          <a href='../classes/springroll.LearningError.html'>springroll.LearningError</a>
-        </li>
-        <li class='public'>
-          <a href='../classes/springroll.LearningMedia.html'>springroll.LearningMedia</a>
         </li>
         <li class='private'>
           <a href='../classes/springroll.ListTask.html'>springroll.ListTask</a>
@@ -482,9 +458,6 @@
           <a href='../classes/springroll.UserData.html'>springroll.UserData</a>
         </li>
         <li class='private'>
-          <a href='../classes/springroll.ValidationError.html'>springroll.ValidationError</a>
-        </li>
-        <li class='private'>
           <a href='../classes/springroll.VOHint.html'>springroll.VOHint</a>
         </li>
         <li class='public'>
@@ -557,9 +530,6 @@
           <a href='../modules/EaselJS Display.html'>EaselJS Display</a>
         </li>
         <li class=''>
-          <a href='../modules/EaselJS Learning.html'>EaselJS Learning</a>
-        </li>
-        <li class=''>
           <a href='../modules/EaselJS States.html'>EaselJS States</a>
         </li>
         <li class=''>
@@ -570,12 +540,6 @@
         </li>
         <li class=''>
           <a href='../modules/Languages.html'>Languages</a>
-        </li>
-        <li class=''>
-          <a href='../modules/Learning.html'>Learning</a>
-        </li>
-        <li class=''>
-          <a href='../modules/Learning Media.html'>Learning Media</a>
         </li>
         <li class=''>
           <a href='../modules/Native Display.html'>Native Display</a>
@@ -694,7 +658,7 @@
 	 *
 	 * @class Enum
 	 * @constructor
-	 * @param {Array|String|Object} arguments 
+	 * @param {Array|String|Object} arguments
 	 * The list of enumeration values. You can pass either an
 	 * array or a list of parameters. Each string will be
 	 * the previous value plus one, while objects with
@@ -751,7 +715,7 @@
 				counter = value;
 			}
 
-			// if name already exists in Enum 
+			// if name already exists in Enum
 			if (this[name])
 			{
 				if (DEBUG &amp;&amp; Debug)
@@ -799,8 +763,9 @@
 
 		/**
 		 * Retrieves the next EnumValue in the Enum (loops to first value at end).
-		 * @method {EnumValue} input
-		 * @return {EnumValue}  
+		 * @method {EnumValue} next
+		 * @param {EnumValue} input An EnumValue to retrieve the value that follows.
+		 * @return {EnumValue}
 		 */
 		Object.defineProperty(this, &#x27;next&#x27;,
 		{
@@ -820,8 +785,8 @@
 
 		/**
 		 * Retrieves the first EnumValue in the Enum
-		 * @method {EnumValue} input
-		 * @return {EnumValue}  
+		 * @method {EnumValue} first
+		 * @return {EnumValue}
 		 */
 		Object.defineProperty(this, &#x27;first&#x27;,
 		{
@@ -832,8 +797,8 @@
 
 		/**
 		 * Retrieves the last EnumValue in the Enum
-		 * @method {EnumValue} input
-		 * @return {EnumValue}  
+		 * @method {EnumValue} last
+		 * @return {EnumValue}
 		 */
 		Object.defineProperty(this, &#x27;last&#x27;,
 		{
@@ -843,6 +808,8 @@
 		});
 	};
 
+	var p = extend(Enum);
+
 	/**
 	 * Gets an enum value by integer value. If you have multiple enum values with the same integer
 	 * value, this will always retrieve the first enum value.
@@ -850,7 +817,7 @@
 	 * @param {int} input The integer value to get an enum value for.
 	 * @return {EnumValue} The EnumValue that represents the input integer.
 	 */
-	Object.defineProperty(Enum.prototype, &#x27;valueFromInt&#x27;,
+	Object.defineProperty(p, &#x27;valueFromInt&#x27;,
 	{
 		enumerable: false,
 		writable: false,
@@ -871,7 +838,7 @@
 </div>
 </div>
 </div>
-<script src='../assets/js/libraries.js?v=0.4.2'></script>
-<script src='../assets/js/main.js?v=0.4.2'></script>
+<script src='../assets/js/libraries.js?v=0.4.3'></script>
+<script src='../assets/js/main.js?v=0.4.3'></script>
 </body>
 </html>

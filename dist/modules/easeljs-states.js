@@ -1,4 +1,4 @@
-/*! SpringRoll 0.4.2 */
+/*! SpringRoll 0.4.3 */
 /**
  * @module EaselJS States
  * @namespace springroll.easeljs
@@ -245,7 +245,7 @@
 	var s = State.prototype;
 
 	// Reference to current prototype
-	var p = extend(BaseState, State);
+	var p = State.extend(BaseState);
 
 	/**
 	 * Implementation specific for override. When you need to add additional preload

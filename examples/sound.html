@@ -22,7 +22,7 @@
 		<script src="../components/easeljs/lib/easeljs.combined.js"></script>
 		
 		<!-- Library and modules -->
-		<script src="../dist/core.js"></script>	
+		<script src="../dist/core.js"></script>
 		<script src="../dist/modules/debug.js"></script>
 		<script src="../dist/modules/easeljs-display.js"></script>
 		<script src="../dist/modules/easeljs-ui.js"></script>
@@ -78,10 +78,10 @@ app.once('init', function()
 	this.addButton("Title Music", 335, 300, function()
 	{
 		// sound.play() also works, but this using
-		// the music setter fades in the audio 
+		// the music setter fades in the audio
 		// and fades out if music is being switched
-		app.music = "TitleMusic";
-	});					
+		app.music = app.music ? null : "TitleMusic";
+	});
 });
 
 // Simple convenience function for creating some

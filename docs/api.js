@@ -34,11 +34,7 @@ YUI.add("yuidoc-meta", function(Y) {
         "springroll.DelayedCall",
         "springroll.Enum",
         "springroll.EnumValue",
-        "springroll.EventCatalog",
         "springroll.EventDispatcher",
-        "springroll.EventError",
-        "springroll.EventSignature",
-        "springroll.EventUtils",
         "springroll.Features",
         "springroll.FlashArtImageTask",
         "springroll.FunctionHint",
@@ -46,9 +42,6 @@ YUI.add("yuidoc-meta", function(Y) {
         "springroll.GroupHint",
         "springroll.HintsPlayer",
         "springroll.Languages",
-        "springroll.Learning",
-        "springroll.LearningError",
-        "springroll.LearningMedia",
         "springroll.ListTask",
         "springroll.LoadTask",
         "springroll.Loader",
@@ -77,7 +70,6 @@ YUI.add("yuidoc-meta", function(Y) {
         "springroll.UserData",
         "springroll.VOHint",
         "springroll.VOPlayer",
-        "springroll.ValidationError",
         "springroll.WeightedRandom",
         "springroll.easeljs.Animator",
         "springroll.easeljs.Application",
@@ -94,7 +86,6 @@ YUI.add("yuidoc-meta", function(Y) {
         "springroll.easeljs.DisplayAdapter",
         "springroll.easeljs.DragData",
         "springroll.easeljs.DragManager",
-        "springroll.easeljs.DwellTimer",
         "springroll.easeljs.EaselJSDisplay",
         "springroll.easeljs.FlashArt",
         "springroll.easeljs.FlashArtAtlasTask",
@@ -153,13 +144,10 @@ YUI.add("yuidoc-meta", function(Y) {
         "EaselJS Animation",
         "EaselJS Cutscene",
         "EaselJS Display",
-        "EaselJS Learning",
         "EaselJS States",
         "EaselJS UI",
         "Hints",
         "Languages",
-        "Learning",
-        "Learning Media",
         "Native Display",
         "PIXI Animation",
         "PIXI Display",
@@ -207,10 +195,6 @@ YUI.add("yuidoc-meta", function(Y) {
             "name": "EaselJS Display"
         },
         {
-            "displayName": "EaselJS Learning",
-            "name": "EaselJS Learning"
-        },
-        {
             "displayName": "EaselJS States",
             "name": "EaselJS States"
         },
@@ -225,14 +209,6 @@ YUI.add("yuidoc-meta", function(Y) {
         {
             "displayName": "Languages",
             "name": "Languages"
-        },
-        {
-            "displayName": "Learning",
-            "name": "Learning"
-        },
-        {
-            "displayName": "Learning Media",
-            "name": "Learning Media"
         },
         {
             "displayName": "Native Display",

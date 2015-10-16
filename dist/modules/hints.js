@@ -1,4 +1,4 @@
-/*! SpringRoll 0.4.2 */
+/*! SpringRoll 0.4.3 */
 /**
  * @module Hints
  * @namespace springroll
@@ -25,7 +25,7 @@
 	};
 
 	//Reference to the prototype
-	var p = AbstractHint.prototype;
+	var p = extend(AbstractHint);
 
 	/**
 	 * Run the hint
@@ -99,7 +99,7 @@
 
 	//Reference to the prototype
 	var s = AbstractHint.prototype;
-	var p = extend(VOHint, AbstractHint);
+	var p = AbstractHint.extend(VOHint);
 
 	/**
 	 * Run the hint
@@ -169,7 +169,7 @@
 
 	//Reference to the prototype
 	var s = AbstractHint.prototype;
-	var p = extend(AnimatorHint, AbstractHint);
+	var p = AbstractHint.extend(AnimatorHint);
 
 	/**
 	 * Run the hint
@@ -235,7 +235,7 @@
 
 	//Reference to the prototype
 	var s = AbstractHint.prototype;
-	var p = extend(FunctionHint, AbstractHint);
+	var p = AbstractHint.extend(FunctionHint);
 
 	/**
 	 * Start function hint
@@ -322,7 +322,7 @@
 
 	//Reference to the prototype
 	var s = AbstractHint.prototype;
-	var p = extend(GroupHint, AbstractHint);
+	var p = AbstractHint.extend(GroupHint);
 
 	/**
 	 * Run the hint
@@ -536,7 +536,7 @@
 
 	//Reference to the prototype
 	var s = EventDispatcher.prototype;
-	var p = extend(HintsPlayer, EventDispatcher);
+	var p = EventDispatcher.extend(HintsPlayer);
 
 	/**
 	 * Play an animation event

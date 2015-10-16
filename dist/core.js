@@ -1,4 +1,4 @@
-/*! SpringRoll 0.4.2 */
+/*! SpringRoll 0.4.3 */
 /**
  * @module Core
  * @namespace window
@@ -22,20 +22,32 @@
 	 *
 	 * @constructor
 	 * @method extend
-	 * @param {function} subClass The reference to the class
-	 * @param {function|String} superClass The parent reference or full classname
-	 * @return {object} Reference to the subClass's prototype
+	 * @param {function} child The reference to the child class
+	 * @param {function|String} [parent] The parent class reference or full classname
+	 * @return {object} Reference to the child class's prototype
 	 */
-	window.extend = function(subClass, superClass)
+	window.extend = function(child, parent)
 	{
-		if (typeof superClass == "string")
+		if (parent)
 		{
-			superClass = window.include(superClass);
+			if (typeof parent == "string")
+			{
+				parent = window.include(parent);
+			}
+			var p = parent.prototype;
+			child.prototype = Object.create(p);
+			child.prototype.__parent = p;
 		}
-		subClass.prototype = Object.create(
-			superClass.prototype
-		);
-		return subClass.prototype;
+		// Add the constructor
+		child.prototype.constructor = child;
+
+		// Add extend to each class to easily extend
+		// by calling MyClass.extend(SubClass)
+		child.extend = function(subClass)
+		{
+			return window.extend(subClass, child);
+		};
+		return child.prototype;
 	};
 
 }(window));
@@ -451,6 +463,18 @@
 		if (value < min)
 			return min;
 		return value;
+	};
+
+	/**
+	 * Round a number to the nearest increment.
+	 * For example, 1.4 rounded to the nearest 0.5 is 1.5.
+	 * @param  {Number} val       Value to round
+	 * @param  {Number} increment Increment to round by
+	 * @return {Number}           Rounded value
+	 */
+	Math.roundDecimal = function(val, increment)
+	{
+		return Math.round(val / increment) * increment;
 	};
 
 }(Math));
@@ -902,7 +926,7 @@
 		Application.instance.on("update", this._update);
 	};
 
-	var p = DelayedCall.prototype;
+	var p = extend(DelayedCall);
 
 	/**
 	 * The callback supplied to the Application for an update each frame.
@@ -1087,7 +1111,7 @@
 	 *
 	 * @class Enum
 	 * @constructor
-	 * @param {Array|String|Object} arguments 
+	 * @param {Array|String|Object} arguments
 	 * The list of enumeration values. You can pass either an
 	 * array or a list of parameters. Each string will be
 	 * the previous value plus one, while objects with
@@ -1144,7 +1168,7 @@
 				counter = value;
 			}
 
-			// if name already exists in Enum 
+			// if name already exists in Enum
 			if (this[name])
 			{
 				if (true && Debug)
@@ -1192,8 +1216,9 @@
 
 		/**
 		 * Retrieves the next EnumValue in the Enum (loops to first value at end).
-		 * @method {EnumValue} input
-		 * @return {EnumValue}  
+		 * @method {EnumValue} next
+		 * @param {EnumValue} input An EnumValue to retrieve the value that follows.
+		 * @return {EnumValue}
 		 */
 		Object.defineProperty(this, 'next',
 		{
@@ -1213,8 +1238,8 @@
 
 		/**
 		 * Retrieves the first EnumValue in the Enum
-		 * @method {EnumValue} input
-		 * @return {EnumValue}  
+		 * @method {EnumValue} first
+		 * @return {EnumValue}
 		 */
 		Object.defineProperty(this, 'first',
 		{
@@ -1225,8 +1250,8 @@
 
 		/**
 		 * Retrieves the last EnumValue in the Enum
-		 * @method {EnumValue} input
-		 * @return {EnumValue}  
+		 * @method {EnumValue} last
+		 * @return {EnumValue}
 		 */
 		Object.defineProperty(this, 'last',
 		{
@@ -1236,6 +1261,8 @@
 		});
 	};
 
+	var p = extend(Enum);
+
 	/**
 	 * Gets an enum value by integer value. If you have multiple enum values with the same integer
 	 * value, this will always retrieve the first enum value.
@@ -1243,7 +1270,7 @@
 	 * @param {int} input The integer value to get an enum value for.
 	 * @return {EnumValue} The EnumValue that represents the input integer.
 	 */
-	Object.defineProperty(Enum.prototype, 'valueFromInt',
+	Object.defineProperty(p, 'valueFromInt',
 	{
 		enumerable: false,
 		writable: false,
@@ -1512,7 +1539,7 @@
 		}
 	};
 
-	var p = WeightedRandom.prototype = {};
+	var p = extend(WeightedRandom);
 
 	/**
 	 * Picks an item at random.
@@ -1592,24 +1619,24 @@
 	 * @constructor
 	 */
 	var EventDispatcher = function()
-		{
-			/**
-			 * The collection of listeners
-			 * @property {Array} _listeners
-			 * @private
-			 */
-			this._listeners = [];
+	{
+		/**
+		 * The collection of listeners
+		 * @property {Array} _listeners
+		 * @private
+		 */
+		this._listeners = [];
 
-			/**
-			 * If the dispatcher is destroyed
-			 * @property {Boolean} _destroyed
-			 * @protected
-			 */
-			this._destroyed = false;
-		},
+		/**
+		 * If the dispatcher is destroyed
+		 * @property {Boolean} _destroyed
+		 * @protected
+		 */
+		this._destroyed = false;
+	};
 
-		// Reference to the prototype
-		p = EventDispatcher.prototype;
+	// Reference to the prototype
+	var p = extend(EventDispatcher);
 
 	/**
 	 * If the dispatcher is destroyed
@@ -1884,7 +1911,7 @@
 
 	// Extend the base class
 	var s = EventDispatcher.prototype;
-	var p = extend(PropertyDispatcher, EventDispatcher);
+	var p = EventDispatcher.extend(PropertyDispatcher);
 
 	/**
 	 * Generic setter for an option
@@ -2084,7 +2111,7 @@
 	};
 
 	// Extend the base class
-	var p = extend(ApplicationOptions, PropertyDispatcher);
+	var p = PropertyDispatcher.extend(ApplicationOptions);
 
 	/**
 	 * Initialize the values in the options
@@ -2377,7 +2404,7 @@
 
 	// Reference to the prototype
 	var s = EventDispatcher.prototype;
-	var p = extend(Application, EventDispatcher);
+	var p = EventDispatcher.extend(Application);
 
 	/**
 	 * The collection of function references to call when initializing the application
@@ -3044,7 +3071,7 @@
 	};
 
 	// Reference to the prototype
-	var p = PageVisibility.prototype;
+	var p = extend(PageVisibility);
 
 	/**
 	 * The name of the visibility change event for the browser
@@ -3237,7 +3264,7 @@
 	};
 
 	// Reference to prototype
-	var p = StringFilters.prototype;
+	var p = extend(StringFilters);
 
 	/**
 	 * Register a filter
@@ -3711,7 +3738,7 @@
 	};
 
 	/* Easy access to the prototype */
-	var p = CacheManager.prototype = {};
+	var p = extend(CacheManager);
 
 	/**
 	 * If we are suppose to cache bust every file
@@ -4066,7 +4093,7 @@
 	};
 
 	// Reference to prototype
-	var p = Task.prototype;
+	var p = extend(Task);
 
 	/**
 	 * Status for waiting to be run
@@ -4208,7 +4235,7 @@
 	};
 
 	// Reference to prototype
-	var p = extend(FunctionTask, Task);
+	var p = Task.extend(FunctionTask);
 
 	/**
 	 * Test if we should run this task
@@ -4287,7 +4314,7 @@
 	};
 
 	// Reference to prototype
-	var p = extend(ColorAlphaTask, Task);
+	var p = Task.extend(ColorAlphaTask);
 
 	/**
 	 * Test if we should run this task
@@ -4407,7 +4434,7 @@
 	};
 
 	// Reference to prototype
-	var p = extend(ListTask, Task);
+	var p = Task.extend(ListTask);
 
 	/**
 	 * Test if we should run this task
@@ -4506,7 +4533,7 @@
 	};
 
 	// Reference to prototype
-	var p = extend(LoadTask, Task);
+	var p = Task.extend(LoadTask);
 
 	/**
 	 * Test if we should run this task
@@ -4879,7 +4906,7 @@
 	};
 
 	// Reference to the prototype
-	var p = LoaderResult.prototype;
+	var p = extend(LoaderResult);
 
 	/**
 	 * A to string method
@@ -4974,7 +5001,7 @@
 	};
 
 	// The prototype
-	var p = Loader.prototype;
+	var p = extend(Loader);
 
 	if (true)
 	{
@@ -5151,7 +5178,7 @@
 	};
 
 	// Reference to the prototype
-	var p = AssetCache.prototype;
+	var p = extend(AssetCache);
 
 	/**
 	 * Retrieves a single asset from the cache.
@@ -5318,7 +5345,7 @@
 	};
 
 	// Reference to the prototype
-	var p = AssetSizes.prototype;
+	var p = extend(AssetSizes);
 
 	/**
 	 * The URL substitution string.
@@ -5571,7 +5598,7 @@
 	};
 
 	// Reference to prototype
-	var p = extend(AssetLoad, EventDispatcher);
+	var p = EventDispatcher.extend(AssetLoad);
 
 	/**
 	 * When an asset is finished
@@ -6110,7 +6137,7 @@
 	};
 
 	// reference to prototype
-	var p = AssetManager.prototype;
+	var p = extend(AssetManager);
 
 	/**
 	 * Register new tasks types, these tasks must extend Task
@@ -6913,7 +6940,7 @@
 		this.adapter = null;
 	};
 
-	var p = extend(AbstractDisplay, EventDispatcher);
+	var p = EventDispatcher.extend(AbstractDisplay);
 
 	/**
 	 * If input is enabled on the stage for this display. The default is true.

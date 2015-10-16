@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html lang='en'>
 <head>
-	<title>SpringRoll v0.4.2 API Documentation : springroll.pixi.PixiDisplay</title>
+	<title>SpringRoll v0.4.3 API Documentation : springroll.pixi.PixiDisplay</title>
 	<meta charset='utf-8'>
 	<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 	<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
-	<link rel='shortcut icon' type='image/png' href='../assets/images/favicon.ico?v=0.4.2'>
+	<link rel='shortcut icon' type='image/png' href='../assets/images/favicon.ico?v=0.4.3'>
 	<link href='//fonts.googleapis.com/css?family=Titillium+Web:300,200,600' rel='stylesheet' type='text/css'>
-	<link rel='stylesheet' type='text/css' href='../assets/css/libraries.css?v=0.4.2'>
-	<link rel='stylesheet' type='text/css' href='../assets/css/main.css?v=0.4.2'>
+	<link rel='stylesheet' type='text/css' href='../assets/css/libraries.css?v=0.4.3'>
+	<link rel='stylesheet' type='text/css' href='../assets/css/main.css?v=0.4.3'>
 </head>
 <body>
 <header>
@@ -22,10 +22,10 @@
 					<span class="icon-bar"></span>
 				</button>
 				<a class="navbar-brand" href='https://github.com/SpringRoll/SpringRoll'>
-						<img src='../assets/images/logo.png?v=0.4.2' class="logo">
+						<img src='../assets/images/logo.png?v=0.4.3' class="logo">
 					<span class='project-name'>SpringRoll</span>
 					<span class="sr-only">API Documentation for:</span>
-					<span class='version hidden-xs'>v0.4.2</span>
+					<span class='version hidden-xs'>v0.4.3</span>
 				</a>
 			</div>
 			<div class="collapse navbar-collapse" id="docs-navbar">
@@ -239,9 +239,6 @@
           <a href='../classes/springroll.easeljs.DragManager.html'>springroll.easeljs.DragManager</a>
         </li>
         <li class='public'>
-          <a href='../classes/springroll.easeljs.DwellTimer.html'>springroll.easeljs.DwellTimer</a>
-        </li>
-        <li class='public'>
           <a href='../classes/springroll.easeljs.EaselJSDisplay.html'>springroll.easeljs.EaselJSDisplay</a>
         </li>
         <li class='private'>
@@ -283,20 +280,8 @@
         <li class='private'>
           <a href='../classes/springroll.EnumValue.html'>springroll.EnumValue</a>
         </li>
-        <li class='private'>
-          <a href='../classes/springroll.EventCatalog.html'>springroll.EventCatalog</a>
-        </li>
         <li class='public'>
           <a href='../classes/springroll.EventDispatcher.html'>springroll.EventDispatcher</a>
-        </li>
-        <li class='private'>
-          <a href='../classes/springroll.EventError.html'>springroll.EventError</a>
-        </li>
-        <li class='private'>
-          <a href='../classes/springroll.EventSignature.html'>springroll.EventSignature</a>
-        </li>
-        <li class='private'>
-          <a href='../classes/springroll.EventUtils.html'>springroll.EventUtils</a>
         </li>
         <li class='public'>
           <a href='../classes/springroll.Features.html'>springroll.Features</a>
@@ -318,15 +303,6 @@
         </li>
         <li class='public'>
           <a href='../classes/springroll.Languages.html'>springroll.Languages</a>
-        </li>
-        <li class='public'>
-          <a href='../classes/springroll.Learning.html'>springroll.Learning</a>
-        </li>
-        <li class='private'>
-          <a href='../classes/springroll.LearningError.html'>springroll.LearningError</a>
-        </li>
-        <li class='public'>
-          <a href='../classes/springroll.LearningMedia.html'>springroll.LearningMedia</a>
         </li>
         <li class='private'>
           <a href='../classes/springroll.ListTask.html'>springroll.ListTask</a>
@@ -482,9 +458,6 @@
           <a href='../classes/springroll.UserData.html'>springroll.UserData</a>
         </li>
         <li class='private'>
-          <a href='../classes/springroll.ValidationError.html'>springroll.ValidationError</a>
-        </li>
-        <li class='private'>
           <a href='../classes/springroll.VOHint.html'>springroll.VOHint</a>
         </li>
         <li class='public'>
@@ -557,9 +530,6 @@
           <a href='../modules/EaselJS Display.html'>EaselJS Display</a>
         </li>
         <li class=''>
-          <a href='../modules/EaselJS Learning.html'>EaselJS Learning</a>
-        </li>
-        <li class=''>
           <a href='../modules/EaselJS States.html'>EaselJS States</a>
         </li>
         <li class=''>
@@ -570,12 +540,6 @@
         </li>
         <li class=''>
           <a href='../modules/Languages.html'>Languages</a>
-        </li>
-        <li class=''>
-          <a href='../modules/Learning.html'>Learning</a>
-        </li>
-        <li class=''>
-          <a href='../modules/Learning Media.html'>Learning Media</a>
         </li>
         <li class=''>
           <a href='../modules/Native Display.html'>Native Display</a>
@@ -704,8 +668,8 @@ Defined in
 
 <div class='param-description'>
 <p>If a specific renderer should be used instead
-                                            of WebGL falling back to Canvas. Use "webgl" or
-                                            "canvas2d" to specify a renderer.</p>
+of WebGL falling back to Canvas. Use "webgl" or
+"canvas2d" to specify a renderer.</p>
 
 </div>
 
@@ -728,7 +692,7 @@ Defined in
 
 <div class='param-description'>
 <p>The background color of the stage (if
-                                                 it is not transparent).</p>
+it is not transparent).</p>
 
 </div>
 
@@ -762,9 +726,9 @@ Defined in
 
 <div class='param-description'>
 <p>If the WebGL renderer should draw with all
-                                              images as pre-multiplied alpha. In most
-                                              cases, you probably do not want to set this
-                                              option to true.</p>
+images as pre-multiplied alpha. In most
+cases, you probably do not want to set this
+option to true.</p>
 
 </div>
 
@@ -776,8 +740,20 @@ Defined in
 
 <div class='param-description'>
 <p>Set this to true if you want to call
-                                                       toDataUrl on the WebGL rendering
-                                                       context.</p>
+toDataUrl on the WebGL rendering
+context.</p>
+
+</div>
+
+</li>
+<li class='param'>
+<code class='param-name optional'>[autoPreventDefault=true]</code>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
+<span class='flag optional' title='This parameter is optional.'>optional</span>
+
+<div class='param-description'>
+<p>If preventDefault() should be called on
+all touch events and mousedown events.</p>
 
 </div>
 
@@ -858,6 +834,10 @@ Defined in
 <h3>Properties</h3>
 
 <ul class='list-group row properties extends'>
+<li class='col-xs-6 col-md-4 index-item property private'>
+<a href='#property__autoPreventDefault'>_autoPreventDefault</a>
+
+</li>
 <li class='col-xs-6 col-md-4 index-item property protected inherited'>
 <a href='#property__destroyed'>_destroyed</a>
 
@@ -882,6 +862,10 @@ Defined in
 <a href='#property_animator'>animator</a>
 
 <span class='flag deprecated'>deprecated</span>
+</li>
+<li class='col-xs-6 col-md-4 index-item property public'>
+<a href='#property_autoPreventDefault'>autoPreventDefault</a>
+
 </li>
 <li class='col-xs-6 col-md-4 index-item property public inherited'>
 <a href='#property_canvas'>canvas</a>
@@ -989,7 +973,7 @@ Defined in
 springroll.EventDispatcher
 </a>
 but overwritten in
-<a href='../files/src_displays_pixi_PixiDisplay.js.html#l181'><code>destroy:181</code></a>
+<a href='../files/src_displays_pixi_PixiDisplay.js.html#l216'><code>destroy:216</code></a>
 </p>
 
 
@@ -1223,7 +1207,7 @@ not be called directly, use Application.removeDisplay(id).</p>
 
 <div class='param-description'>
 <p>The type of event (can be multiple events separated by spaces),
-     or a map of events to handlers</p>
+or a map of events to handlers</p>
 
 </div>
 
@@ -1320,7 +1304,7 @@ not be called directly, use Application.removeDisplay(id).</p>
 
 <div class='param-description'>
 <p>The type of event (can be multiple events separated by spaces),
-     or a map of events to handlers</p>
+or a map of events to handlers</p>
 
 </div>
 
@@ -1391,7 +1375,7 @@ not be called directly, use Application.removeDisplay(id).</p>
 springroll.AbstractDisplay
 </a>
 but overwritten in
-<a href='../files/src_displays_pixi_PixiDisplay.js.html#l166'><code>render:166</code></a>
+<a href='../files/src_displays_pixi_PixiDisplay.js.html#l201'><code>render:201</code></a>
 </p>
 
 
@@ -1464,7 +1448,7 @@ This method does nothing if paused is true or visible is false.</p>
 springroll.AbstractDisplay
 </a>
 but overwritten in
-<a href='../files/src_displays_pixi_PixiDisplay.js.html#l154'><code>resize:154</code></a>
+<a href='../files/src_displays_pixi_PixiDisplay.js.html#l189'><code>resize:189</code></a>
 </p>
 
 
@@ -1646,7 +1630,33 @@ but overwritten in
 
 <div role='tabpanel' id='docs-properties' class='tab-pane'>
 
-<div class="property__destroyed property item protected inherited">
+<div class="property__autoPreventDefault property item private">
+<h3 class="name"><a class="deeplink" href="#property__autoPreventDefault"><span class="glyphicon glyphicon-link"></span></a> <code>_autoPreventDefault</code></h3>
+<span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
+
+
+<span class="flag private">private</span>
+
+
+
+<div class="meta">
+<p>
+Defined in
+<a href="../files/src_displays_pixi_PixiDisplay.js.html#l56"><code>_autoPreventDefault:56</code></a>
+</p>
+
+
+</div>
+
+<div class="description">
+<p>If preventDefault() should be called on all touch events and mousedown events. Defaults
+to true.</p>
+
+</div>
+
+
+
+</div><div class="property__destroyed property item protected inherited">
 <h3 class="name"><a class="deeplink" href="#property__destroyed"><span class="glyphicon glyphicon-link"></span></a> <code>_destroyed</code></h3>
 <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
 
@@ -1690,8 +1700,7 @@ but overwritten in
 </div>
 
 <div class="description">
-<p>If input is enabled on the stage.</p>
-
+If input is enabled on the stage.
 </div>
 
 
@@ -1740,8 +1749,7 @@ but overwritten in
 </div>
 
 <div class="description">
-<p>If the display is visible.</p>
-
+If the display is visible.
 </div>
 
 
@@ -1765,9 +1773,8 @@ but overwritten in
 </div>
 
 <div class="description">
-<p>Some of the modules require a special display adapter to provide
-common methods for managing display objects.</p>
-
+Some of the modules require a special display adapter to provide
+common methods for managing display objects.
 </div>
 
 <p><strong>Default:</strong> null</p>
@@ -1802,6 +1809,32 @@ but overwritten in
 
 
 
+</div><div class="property_autoPreventDefault property item public">
+<h3 class="name"><a class="deeplink" href="#property_autoPreventDefault"><span class="glyphicon glyphicon-link"></span></a> <code>autoPreventDefault</code></h3>
+<span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
+
+
+<span class="flag public">public</span>
+
+
+
+<div class="meta">
+<p>
+Defined in
+<a href="../files/src_displays_pixi_PixiDisplay.js.html#l168"><code>autoPreventDefault:168</code></a>
+</p>
+
+
+</div>
+
+<div class="description">
+<p>If preventDefault() should be called on all touch events and mousedown events. Defaults
+to true.</p>
+
+</div>
+
+
+
 </div><div class="property_canvas property item public inherited">
 <h3 class="name"><a class="deeplink" href="#property_canvas"><span class="glyphicon glyphicon-link"></span></a> <code>canvas</code></h3>
 <span class="type">DOMElement</span>
@@ -1821,8 +1854,7 @@ but overwritten in
 </div>
 
 <div class="description">
-<p>the canvas managed by this display</p>
-
+the canvas managed by this display
 </div>
 
 
@@ -1866,7 +1898,7 @@ but overwritten in
 springroll.AbstractDisplay
 </a>
 but overwritten in
-<a href="../files/src_displays_pixi_PixiDisplay.js.html#l121"><code>enabled:121</code></a>
+<a href="../files/src_displays_pixi_PixiDisplay.js.html#l135"><code>enabled:135</code></a>
 </p>
 
 
@@ -1898,9 +1930,8 @@ but overwritten in
 </div>
 
 <div class="description">
-<p>Convenience method for getting the height of the canvas element
-would be the same thing as canvas.height</p>
-
+Convenience method for getting the height of the canvas element
+would be the same thing as canvas.height
 </div>
 
 
@@ -1924,8 +1955,7 @@ would be the same thing as canvas.height</p>
 </div>
 
 <div class="description">
-<p>The DOM id for the canvas</p>
-
+The DOM id for the canvas
 </div>
 
 
@@ -1942,7 +1972,7 @@ would be the same thing as canvas.height</p>
 <div class="meta">
 <p>
 Defined in
-<a href="../files/src_displays_pixi_PixiDisplay.js.html#l106"><code>isWebGL:106</code></a>
+<a href="../files/src_displays_pixi_PixiDisplay.js.html#l117"><code>isWebGL:117</code></a>
 </p>
 
 
@@ -1967,7 +1997,7 @@ Defined in
 <div class="meta">
 <p>
 Defined in
-<a href="../files/src_displays_pixi_PixiDisplay.js.html#l47"><code>keepMouseover:47</code></a>
+<a href="../files/src_displays_pixi_PixiDisplay.js.html#l49"><code>keepMouseover:49</code></a>
 </p>
 
 
@@ -1999,9 +2029,8 @@ Defined in
 </div>
 
 <div class="description">
-<p>If rendering is paused on this display only. Pausing all displays can be done
-using Application.paused setter.</p>
-
+If rendering is paused on this display only. Pausing all displays can be done
+using Application.paused setter.
 </div>
 
 
@@ -2018,7 +2047,7 @@ using Application.paused setter.</p>
 <div class="meta">
 <p>
 Defined in
-<a href="../files/src_displays_pixi_PixiDisplay.js.html#l62"><code>renderer:62</code></a>
+<a href="../files/src_displays_pixi_PixiDisplay.js.html#l73"><code>renderer:73</code></a>
 </p>
 
 
@@ -2046,14 +2075,14 @@ Defined in
 springroll.AbstractDisplay
 </a>
 but overwritten in
-<a href="../files/src_displays_pixi_PixiDisplay.js.html#l54"><code>stage:54</code></a>
+<a href="../files/src_displays_pixi_PixiDisplay.js.html#l65"><code>stage:65</code></a>
 </p>
 
 
 </div>
 
 <div class="description">
-<p>The rendering library&#39;s stage element, the root display object</p>
+<p>The rendering library's stage element, the root display object</p>
 
 </div>
 
@@ -2078,8 +2107,7 @@ but overwritten in
 </div>
 
 <div class="description">
-<p>If the display is visible, using "display: none" css on the canvas. Invisible displays won&#39;t render.</p>
-
+If the display is visible, using "display: none" css on the canvas. Invisible displays won't render.
 </div>
 
 
@@ -2103,9 +2131,8 @@ but overwritten in
 </div>
 
 <div class="description">
-<p>Convenience method for getting the width of the canvas element
-would be the same thing as canvas.width</p>
-
+Convenience method for getting the width of the canvas element
+would be the same thing as canvas.width
 </div>
 
 
@@ -2133,8 +2160,7 @@ would be the same thing as canvas.width</p>
 </div>
 
 <div class="description">
-<p>If the display becomes disabled</p>
-
+If the display becomes disabled
 </div>
 
 
@@ -2157,8 +2183,7 @@ would be the same thing as canvas.width</p>
 </div>
 
 <div class="description">
-<p>Enabled state changed on the display</p>
-
+Enabled state changed on the display
 </div>
 
 <div class="params">
@@ -2171,8 +2196,7 @@ would be the same thing as canvas.width</p>
 
 
 <div class="param-description">
-<p>Current state of enabled</p>
-
+Current state of enabled
 </div>
 
 </li>
@@ -2198,8 +2222,7 @@ would be the same thing as canvas.width</p>
 </div>
 
 <div class="description">
-<p>If the display becomes enabled</p>
-
+If the display becomes enabled
 </div>
 
 
@@ -2222,8 +2245,7 @@ would be the same thing as canvas.width</p>
 </div>
 
 <div class="description">
-<p>If the display becomes hidden</p>
-
+If the display becomes hidden
 </div>
 
 
@@ -2246,8 +2268,7 @@ would be the same thing as canvas.width</p>
 </div>
 
 <div class="description">
-<p>Visibility changed on the display</p>
-
+Visibility changed on the display
 </div>
 
 <div class="params">
@@ -2260,8 +2281,7 @@ would be the same thing as canvas.width</p>
 
 
 <div class="param-description">
-<p>Current state of the visibility</p>
-
+Current state of the visibility
 </div>
 
 </li>
@@ -2287,8 +2307,7 @@ would be the same thing as canvas.width</p>
 </div>
 
 <div class="description">
-<p>If the display becomes visible</p>
-
+If the display becomes visible
 </div>
 
 
@@ -2299,7 +2318,7 @@ would be the same thing as canvas.width</p>
 </div>
 </div>
 </div>
-<script src='../assets/js/libraries.js?v=0.4.2'></script>
-<script src='../assets/js/main.js?v=0.4.2'></script>
+<script src='../assets/js/libraries.js?v=0.4.3'></script>
+<script src='../assets/js/main.js?v=0.4.3'></script>
 </body>
 </html>

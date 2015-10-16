@@ -1,4 +1,4 @@
-/*! SpringRoll 0.4.2 */
+/*! SpringRoll 0.4.3 */
 /**
  * @module Core
  * @namespace window
@@ -154,20 +154,32 @@
 	 *
 	 * @constructor
 	 * @method extend
-	 * @param {function} subClass The reference to the class
-	 * @param {function|String} superClass The parent reference or full classname
-	 * @return {object} Reference to the subClass's prototype
+	 * @param {function} child The reference to the child class
+	 * @param {function|String} [parent] The parent class reference or full classname
+	 * @return {object} Reference to the child class's prototype
 	 */
-	window.extend = function(subClass, superClass)
+	window.extend = function(child, parent)
 	{
-		if (typeof superClass == "string")
+		if (parent)
 		{
-			superClass = window.include(superClass);
+			if (typeof parent == "string")
+			{
+				parent = window.include(parent);
+			}
+			var p = parent.prototype;
+			child.prototype = Object.create(p);
+			child.prototype.__parent = p;
 		}
-		subClass.prototype = Object.create(
-			superClass.prototype
-		);
-		return subClass.prototype;
+		// Add the constructor
+		child.prototype.constructor = child;
+
+		// Add extend to each class to easily extend
+		// by calling MyClass.extend(SubClass)
+		child.extend = function(subClass)
+		{
+			return window.extend(subClass, child);
+		};
+		return child.prototype;
 	};
 
 }(window));
@@ -377,24 +389,24 @@
 	 * @constructor
 	 */
 	var EventDispatcher = function()
-		{
-			/**
-			 * The collection of listeners
-			 * @property {Array} _listeners
-			 * @private
-			 */
-			this._listeners = [];
+	{
+		/**
+		 * The collection of listeners
+		 * @property {Array} _listeners
+		 * @private
+		 */
+		this._listeners = [];
 
-			/**
-			 * If the dispatcher is destroyed
-			 * @property {Boolean} _destroyed
-			 * @protected
-			 */
-			this._destroyed = false;
-		},
+		/**
+		 * If the dispatcher is destroyed
+		 * @property {Boolean} _destroyed
+		 * @protected
+		 */
+		this._destroyed = false;
+	};
 
-		// Reference to the prototype
-		p = EventDispatcher.prototype;
+	// Reference to the prototype
+	var p = extend(EventDispatcher);
 
 	/**
 	 * If the dispatcher is destroyed
@@ -700,7 +712,7 @@
 	};
 
 	// Reference to the prototype
-	var p = PageVisibility.prototype;
+	var p = extend(PageVisibility);
 
 	/**
 	 * The name of the visibility change event for the browser
@@ -983,47 +995,50 @@
 	 * the {{#crossLink "springroll.SavedData"}}SavedData{{/crossLink}} class.
 	 * @class SavedDataHandler
 	 */
-	var SavedDataHandler = {
+	var SavedDataHandler = function() {};
 
-		/**
-		 * Remove a data setting
-		 * @method  remove
-		 * @static
-		 * @param  {String}   name  The name of the property
-		 * @param  {Function} [callback] Callback when remove is complete
-		 */
-		remove: function(name, callback)
-		{
-			SavedData.remove(name);
-			callback();
-		},
+	// Reference to prototype
+	var p = extend(SavedDataHandler);
 
-		/**
-		 * Write a custom setting
-		 * @method  write
-		 * @static
-		 * @param  {String}  name  The name of the property
-		 * @param {*} value The value to set the property to
-		 * @param  {Function} [callback] Callback when write is complete
-		 */
-		write: function(name, value, callback)
-		{
-			SavedData.write(name, value);
-			callback();
-		},
-
-		/**
-		 * Read a custom setting
-		 * @method  read
-		 * @static
-		 * @param  {String}  name  The name of the property
-		 * @param  {Function} callback Callback when read is complete, returns the value
-		 */
-		read: function(name, callback)
-		{
-			callback(SavedData.read(name));
-		}
+	/**
+	 * Remove a data setting
+	 * @method  remove
+	 * @static
+	 * @param  {String}   name  The name of the property
+	 * @param  {Function} [callback] Callback when remove is complete
+	 */
+	p.remove = function(name, callback)
+	{
+		SavedData.remove(name);
+		callback();
 	};
+
+	/**
+	 * Write a custom setting
+	 * @method  write
+	 * @static
+	 * @param  {String}  name  The name of the property
+	 * @param {*} value The value to set the property to
+	 * @param  {Function} [callback] Callback when write is complete
+	 */
+	p.write = function(name, value, callback)
+	{
+		SavedData.write(name, value);
+		callback();
+	};
+
+	/**
+	 * Read a custom setting
+	 * @method  read
+	 * @static
+	 * @param  {String}  name  The name of the property
+	 * @param  {Function} callback Callback when read is complete, returns the value
+	 */
+	p.read = function(name, callback)
+	{
+		callback(SavedData.read(name));
+	};
+
 
 	// Assign to namespace
 	namespace('springroll').SavedDataHandler = SavedDataHandler;
@@ -1479,7 +1494,7 @@
 		 * @property {Object} userDataHandler
 		 * @default springroll.SavedDataHandler
 		 */
-		this.userDataHandler = SavedDataHandler;
+		this.userDataHandler = new SavedDataHandler();
 
 		//Set the defaults if we have none for the controls
 		if (SavedData.read(CAPTIONS_MUTED) === null)
@@ -1526,7 +1541,7 @@
 
 	//Reference to the prototype
 	var s = EventDispatcher.prototype;
-	var p = extend(Container, EventDispatcher);
+	var p = EventDispatcher.extend(Container);
 
 	/**
 	 * Fired when the pause state is toggled
@@ -1593,25 +1608,8 @@
 	 * @param {Boolean} data.music If music context is supported
 	 * @param {Boolean} data.sound If Sound is supported
 	 * @param {Boolean} data.sfx If SFX context is supported
-	 * @param {Boolean} data.learning If learning dispatcher is supported
 	 * @param {Boolean} data.captions If captions is supported
 	 * @param {Boolean} data.hints If hinting is supported
-	 */
-
-	/**
-	 * Event when dispatching a Learning Dispatcher event
-	 * @event learningEvent
-	 * @param {object} data The event data
-	 */
-
-	/**
-	 * Event when dispatching a Google Analytics event
-	 * @event analyticEvent
-	 * @param {object} data The event data
-	 * @param {string} data.category The event category
-	 * @param {string} data.action The event action
-	 * @param {string} [data.label] The optional label
-	 * @param {number} [data.value] The optional value
 	 */
 
 	/**
@@ -1648,9 +1646,7 @@
 		//Open the application in the iframe
 		this.main
 			.addClass('loading')
-			.prop('src', path)
-			.prop('width', window.innerWidth)
-			.prop('height', window.innerHeight);
+			.prop('src', path);
 
 		if (options.singlePlay)
 		{
@@ -1667,13 +1663,13 @@
 
 	/**
 	 * Open a application or path
-	 * @method open
+	 * @method openPath
 	 * @param {string} path The full path to the application to load
 	 * @param {Object} [options] The open options
 	 * @param {Boolean} [options.singlePlay=false] If we should play in single play mode
 	 * @param {Object} [options.playOptions=null] The optional play options
 	 */
-	p.open = function(path, options, playOptions)
+	p.openPath = function(path, options, playOptions)
 	{
 		options = options ||
 		{};
@@ -1763,10 +1759,6 @@
 			loadDone: onLoadDone.bind(this),
 			endGame: onEndGame.bind(this),
 			focus: onFocus.bind(this),
-			trackEvent: onAnalyticEvent.bind(this),
-			analyticEvent: onAnalyticEvent.bind(this),
-			progressEvent: onLearningEvent.bind(this),
-			learningEvent: onLearningEvent.bind(this),
 			helpEnabled: onHelpEnabled.bind(this),
 			features: onFeatures.bind(this),
 			keepFocus: onKeepFocus.bind(this),
@@ -1971,17 +1963,6 @@
 	};
 
 	/**
-	 * Track an event for springroll Learning
-	 * @method onLearningEvent
-	 * @param {event} event The bellhop learningEvent
-	 * @private
-	 */
-	var onLearningEvent = function(event)
-	{
-		this.trigger('learningEvent', event.data);
-	};
-
-	/**
 	 * Handle the application features
 	 * @method onFeatures
 	 * @param {event} event The bellhop features
@@ -2025,45 +2006,6 @@
 	var onHelpEnabled = function(event)
 	{
 		this.helpEnabled = !!event.data;
-	};
-
-	/**
-	 * Track an event for Google Analtyics
-	 * @method onAnalyticEvent
-	 * @private
-	 * @param {event} event Bellhop analyticEvent
-	 */
-	var onAnalyticEvent = function(event)
-	{
-		var data = event.data;
-
-		// PBS Specifc implementation of Google Analytics
-		var GoogleAnalytics = include("GA_obj", false);
-		if (GoogleAnalytics)
-		{
-			GoogleAnalytics.trackEvent(
-				data.category,
-				data.action,
-				data.label,
-				data.value
-			);
-		}
-
-		// Generic implementation of Google Analytics
-		GoogleAnalytics = include('ga', false);
-		if (GoogleAnalytics)
-		{
-			GoogleAnalytics('send',
-			{
-				'hitType': 'event',
-				'eventCategory': data.category,
-				'eventAction': data.action,
-				'eventLabel': data.label,
-				'eventValue': data.value
-			});
-		}
-
-		this.trigger('analyticEvent', event.data);
 	};
 
 	/**
@@ -2565,6 +2507,7 @@
 		this.main = null;
 		this.dom = null;
 
+		this.userDataHandler = null;
 		this.helpButton = null;
 		this.soundButton = null;
 		this.pauseButton = null;

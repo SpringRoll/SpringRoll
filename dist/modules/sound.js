@@ -1,4 +1,4 @@
-/*! SpringRoll 0.4.2 */
+/*! SpringRoll 0.4.3 */
 /**
  * @module Sound
  * @namespace springroll
@@ -187,7 +187,7 @@
 	};
 
 	// Reference to the prototype
-	var p = SoundInstance.prototype = {};
+	var p = extend(SoundInstance);
 
 	/**
 	 * The position of the sound playhead in milliseconds, or 0 if it hasn't started playing yet.
@@ -357,7 +357,7 @@
 
 	// Reference to prototype
 	var s = Task.prototype;
-	var p = extend(SoundTask, Task);
+	var p = Task.extend(SoundTask);
 
 	/**
 	 * Test if we should run this task
@@ -510,7 +510,7 @@
 
 	//Reference to the prototype
 	var s = EventDispatcher.prototype;
-	var p = extend(Sound, EventDispatcher);
+	var p = EventDispatcher.extend(Sound);
 
 	var _instance = null;
 
@@ -905,6 +905,7 @@
 		inst._fTime = 0;
 		inst._fDur = duration > 0 ? duration : 500;
 		inst._fEnd = targetVol || inst.curVol;
+		inst._fStop = false;
 		var v = startVol > 0 ? startVol : 0;
 		inst.volume = inst._fStart = v;
 		if (this._fades.indexOf(inst) == -1)
@@ -928,8 +929,10 @@
 	 * The default is 500ms.
 	 * @param {Number} [targetVol=0] The volume to fade to. The default is 0.
 	 * @param {Number} [startVol] The volume to fade from. The default is the current volume.
+	 * @param {Boolean} [stopAtEnd] If the sound should be stopped when the fade completes. The
+	 *                              default is to stop it if the fade completes at a volume of 0.
 	 */
-	p.fadeOut = function(aliasOrInst, duration, targetVol, startVol)
+	p.fadeOut = function(aliasOrInst, duration, targetVol, startVol, stopAtEnd)
 	{
 		var sound, inst;
 		if (isString(aliasOrInst))
@@ -962,6 +965,8 @@
 			inst._fStart = inst.volume;
 		}
 		inst._fEnd = targetVol || 0;
+		stopAtEnd = stopAtEnd === undefined ? inst._fEnd === 0 : !!stopAtEnd;
+		inst._fStop = stopAtEnd;
 		if (this._fades.indexOf(inst) == -1)
 		{
 			this._fades.push(inst);
@@ -992,10 +997,10 @@
 			time = inst._fTime += elapsed;
 			if (time >= inst._fDur)
 			{
-				if (inst._fEnd === 0)
+				if (inst._fStop)
 				{
 					sound = this._sounds[inst.alias];
-					sound.playing = sound.playing.splice(sound.playing.indexOf(inst), 1);
+					sound.playing.splice(sound.playing.indexOf(inst), 1);
 					this._stopInst(inst);
 				}
 				else
@@ -1838,7 +1843,7 @@
 		this._captions = null;
 	};
 
-	var p = VOPlayer.prototype = {};
+	var p = extend(VOPlayer);
 
 	/**
 	 * If VOPlayer is currently playing (audio or silence).

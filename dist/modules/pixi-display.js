@@ -1,4 +1,4 @@
-/*! SpringRoll 0.4.2 */
+/*! SpringRoll 0.4.3 */
 /**
  * @module PIXI Display
  * @namespace PIXI
@@ -593,7 +593,7 @@
 	};
 
 	// Extend the base Task
-	var p = extend(TextureTask, Task);
+	var p = Task.extend(TextureTask);
 
 	/**
 	 * Test to see if we should load an asset
@@ -816,7 +816,7 @@
 	};
 
 	// Extend Object
-	var p = TextureAtlas.prototype = {};
+	var p = extend(TextureAtlas);
 
 	/**
 	 * Gets a frame by name.
@@ -963,7 +963,7 @@
 	};
 
 	// Reference to prototype
-	var p = extend(TextureAtlasTask, TextureTask);
+	var p = TextureTask.extend(TextureAtlasTask);
 
 	/**
 	 * Test if we should run this task
@@ -1070,7 +1070,7 @@
 	};
 
 	// Reference to prototype
-	var p = extend(BitmapFontTask, TextureTask);
+	var p = TextureTask.extend(BitmapFontTask);
 
 	/**
 	 * Test if we should run this task
@@ -1541,6 +1541,8 @@
 	 * @param {Boolean} [options.preserveDrawingBuffer=false] Set this to true if you want to call
 	 *                                                        toDataUrl on the WebGL rendering
 	 *                                                        context.
+	 * @param {Boolean} [options.autoPreventDefault=true] If preventDefault() should be called on
+	 *                                                    all touch events and mousedown events.
 	 */
 	var PixiDisplay = function(id, options)
 	{
@@ -1555,6 +1557,15 @@
 		 * @public
 		 */
 		this.keepMouseover = options.keepMouseover || false;
+
+		/**
+		 * If preventDefault() should be called on all touch events and mousedown events. Defaults
+		 * to true.
+		 * @property {Boolean} _autoPreventDefault
+		 * @private
+		 */
+		this._autoPreventDefault = options.hasOwnProperty("autoPreventDefault") ?
+			options.autoPreventDefault : true;
 
 		/**
 		 * The rendering library's stage element, the root display object
@@ -1618,10 +1629,13 @@
 
 		// Set display adapter classes
 		this.adapter = include('springroll.pixi.DisplayAdapter');
+
+		// Initialize the autoPreventDefault
+		this.autoPreventDefault = this._autoPreventDefault;
 	};
 
 	var s = AbstractDisplay.prototype;
-	var p = extend(PixiDisplay, AbstractDisplay);
+	var p = AbstractDisplay.extend(PixiDisplay);
 
 	/**
 	 * If input is enabled on the stage for this display. The default is true.
@@ -1653,6 +1667,27 @@
 				else
 					interactionManager.removeEvents();
 			}
+		}
+	});
+
+	/**
+	 * If preventDefault() should be called on all touch events and mousedown events. Defaults
+	 * to true.
+	 * @property {Boolean} autoPreventDefault
+	 * @public
+	 */
+	Object.defineProperty(p, "autoPreventDefault",
+	{
+		get: function()
+		{
+			return this._autoPreventDefault;
+		},
+		set: function(value)
+		{
+			this._autoPreventDefault = !!value;
+			var interactionManager = this.renderer.plugins.interaction;
+			if (!interactionManager) return;
+			interactionManager.autoPreventDefault = this._autoPreventDefault;
 		}
 	});
 

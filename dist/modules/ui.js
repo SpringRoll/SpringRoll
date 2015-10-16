@@ -1,4 +1,4 @@
-/*! SpringRoll 0.4.2 */
+/*! SpringRoll 0.4.3 */
 /**
  * @module UI
  * @namespace springroll
@@ -69,7 +69,7 @@
 		this._adapter = adapter;
 	};
 
-	var p = ScaleImage.prototype;
+	var p = extend(ScaleImage);
 
 	/**
 	 * Resize the current image
@@ -338,7 +338,7 @@
 	};
 
 	// Reference to the prototype
-	var p = ScaleItem.prototype = {};
+	var p = extend(ScaleItem);
 
 	if (true)
 	{
@@ -831,7 +831,7 @@
 	};
 
 	// Reference to the prototype
-	var p = ScaleManager.prototype = {};
+	var p = extend(ScaleManager);
 
 	/**
 	 * Vertically align to the top

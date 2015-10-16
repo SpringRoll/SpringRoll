@@ -1,4 +1,4 @@
-/*! SpringRoll 0.4.2 */
+/*! SpringRoll 0.4.3 */
 /**
  * @module EaselJS Display
  * @namespace createjs
@@ -574,7 +574,7 @@
 	};
 
 	// Reference to the prototype
-	var p = FlashArt.prototype;
+	var p = extend(FlashArt);
 
 	/**
 	 * The collection of all symbols and assets
@@ -730,7 +730,7 @@
 	};
 
 	// Reference to prototype
-	var p = extend(FlashArtTask, Task);
+	var p = Task.extend(FlashArtTask);
 
 	/**
 	 * Test if we should run this task
@@ -999,7 +999,7 @@
 	};
 
 	// Extend Object
-	var p = TextureAtlas.prototype = {};
+	var p = extend(TextureAtlas);
 
 	/**
 	 * Gets a frame by name.
@@ -1202,7 +1202,7 @@
 	};
 
 	// Reference to prototype
-	var p = extend(TextureAtlasTask, Task);
+	var p = Task.extend(TextureAtlasTask);
 
 	/**
 	 * Test if we should run this task
@@ -1322,7 +1322,7 @@
 	};
 
 	// Reference to prototype
-	var p = extend(FlashArtImageTask, Task);
+	var p = Task.extend(FlashArtImageTask);
 
 	/**
 	 * Test if we should run this task
@@ -1446,7 +1446,7 @@
 	};
 
 	// Reference to prototype
-	var p = extend(FlashArtAtlasTask, Task);
+	var p = Task.extend(FlashArtAtlasTask);
 
 	/**
 	 * Test if we should run this task
@@ -1596,7 +1596,7 @@
 	};
 
 	// Reference to prototype
-	var p = extend(SpriteSheetTask, Task);
+	var p = Task.extend(SpriteSheetTask);
 
 	/**
 	 * Test if we should run this task
@@ -1691,7 +1691,7 @@
 
 	// Reference to prototype
 	var s = LoadTask.prototype;
-	var p = extend(FlashSpriteSheetTask, LoadTask);
+	var p = LoadTask.extend(FlashSpriteSheetTask);
 
 	/**
 	 * Test if we should run this task
@@ -1760,7 +1760,7 @@
 
 	// Reference to prototype
 	var s = LoadTask.prototype;
-	var p = extend(BitmapTask, LoadTask);
+	var p = LoadTask.extend(BitmapTask);
 
 	/**
 	 * Test if we should run this task
@@ -2250,7 +2250,7 @@
 	};
 
 	var s = AbstractDisplay.prototype;
-	var p = extend(EaselJSDisplay, AbstractDisplay);
+	var p = AbstractDisplay.extend(EaselJSDisplay);
 
 	/**
 	 * An internal helper to avoid creating an object each render

@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html lang='en'>
 <head>
-	<title>SpringRoll v0.4.2 API Documentation : src/container/Container.js</title>
+	<title>SpringRoll v0.4.3 API Documentation : src/container/Container.js</title>
 	<meta charset='utf-8'>
 	<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 	<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
-	<link rel='shortcut icon' type='image/png' href='../assets/images/favicon.ico?v=0.4.2'>
+	<link rel='shortcut icon' type='image/png' href='../assets/images/favicon.ico?v=0.4.3'>
 	<link href='//fonts.googleapis.com/css?family=Titillium+Web:300,200,600' rel='stylesheet' type='text/css'>
-	<link rel='stylesheet' type='text/css' href='../assets/css/libraries.css?v=0.4.2'>
-	<link rel='stylesheet' type='text/css' href='../assets/css/main.css?v=0.4.2'>
+	<link rel='stylesheet' type='text/css' href='../assets/css/libraries.css?v=0.4.3'>
+	<link rel='stylesheet' type='text/css' href='../assets/css/main.css?v=0.4.3'>
 </head>
 <body>
 <header>
@@ -22,10 +22,10 @@
 					<span class="icon-bar"></span>
 				</button>
 				<a class="navbar-brand" href='https://github.com/SpringRoll/SpringRoll'>
-						<img src='../assets/images/logo.png?v=0.4.2' class="logo">
+						<img src='../assets/images/logo.png?v=0.4.3' class="logo">
 					<span class='project-name'>SpringRoll</span>
 					<span class="sr-only">API Documentation for:</span>
-					<span class='version hidden-xs'>v0.4.2</span>
+					<span class='version hidden-xs'>v0.4.3</span>
 				</a>
 			</div>
 			<div class="collapse navbar-collapse" id="docs-navbar">
@@ -239,9 +239,6 @@
           <a href='../classes/springroll.easeljs.DragManager.html'>springroll.easeljs.DragManager</a>
         </li>
         <li class='public'>
-          <a href='../classes/springroll.easeljs.DwellTimer.html'>springroll.easeljs.DwellTimer</a>
-        </li>
-        <li class='public'>
           <a href='../classes/springroll.easeljs.EaselJSDisplay.html'>springroll.easeljs.EaselJSDisplay</a>
         </li>
         <li class='private'>
@@ -283,20 +280,8 @@
         <li class='private'>
           <a href='../classes/springroll.EnumValue.html'>springroll.EnumValue</a>
         </li>
-        <li class='private'>
-          <a href='../classes/springroll.EventCatalog.html'>springroll.EventCatalog</a>
-        </li>
         <li class='public'>
           <a href='../classes/springroll.EventDispatcher.html'>springroll.EventDispatcher</a>
-        </li>
-        <li class='private'>
-          <a href='../classes/springroll.EventError.html'>springroll.EventError</a>
-        </li>
-        <li class='private'>
-          <a href='../classes/springroll.EventSignature.html'>springroll.EventSignature</a>
-        </li>
-        <li class='private'>
-          <a href='../classes/springroll.EventUtils.html'>springroll.EventUtils</a>
         </li>
         <li class='public'>
           <a href='../classes/springroll.Features.html'>springroll.Features</a>
@@ -318,15 +303,6 @@
         </li>
         <li class='public'>
           <a href='../classes/springroll.Languages.html'>springroll.Languages</a>
-        </li>
-        <li class='public'>
-          <a href='../classes/springroll.Learning.html'>springroll.Learning</a>
-        </li>
-        <li class='private'>
-          <a href='../classes/springroll.LearningError.html'>springroll.LearningError</a>
-        </li>
-        <li class='public'>
-          <a href='../classes/springroll.LearningMedia.html'>springroll.LearningMedia</a>
         </li>
         <li class='private'>
           <a href='../classes/springroll.ListTask.html'>springroll.ListTask</a>
@@ -482,9 +458,6 @@
           <a href='../classes/springroll.UserData.html'>springroll.UserData</a>
         </li>
         <li class='private'>
-          <a href='../classes/springroll.ValidationError.html'>springroll.ValidationError</a>
-        </li>
-        <li class='private'>
           <a href='../classes/springroll.VOHint.html'>springroll.VOHint</a>
         </li>
         <li class='public'>
@@ -557,9 +530,6 @@
           <a href='../modules/EaselJS Display.html'>EaselJS Display</a>
         </li>
         <li class=''>
-          <a href='../modules/EaselJS Learning.html'>EaselJS Learning</a>
-        </li>
-        <li class=''>
           <a href='../modules/EaselJS States.html'>EaselJS States</a>
         </li>
         <li class=''>
@@ -570,12 +540,6 @@
         </li>
         <li class=''>
           <a href='../modules/Languages.html'>Languages</a>
-        </li>
-        <li class=''>
-          <a href='../modules/Learning.html'>Learning</a>
-        </li>
-        <li class=''>
-          <a href='../modules/Learning Media.html'>Learning Media</a>
         </li>
         <li class=''>
           <a href='../modules/Native Display.html'>Native Display</a>
@@ -820,7 +784,7 @@
 		 * @property {Object} userDataHandler
 		 * @default springroll.SavedDataHandler
 		 */
-		this.userDataHandler = SavedDataHandler;
+		this.userDataHandler = new SavedDataHandler();
 
 		//Set the defaults if we have none for the controls
 		if (SavedData.read(CAPTIONS_MUTED) === null)
@@ -867,7 +831,7 @@
 
 	//Reference to the prototype
 	var s = EventDispatcher.prototype;
-	var p = extend(Container, EventDispatcher);
+	var p = EventDispatcher.extend(Container);
 
 	/**
 	 * Fired when the pause state is toggled
@@ -934,25 +898,8 @@
 	 * @param {Boolean} data.music If music context is supported
 	 * @param {Boolean} data.sound If Sound is supported
 	 * @param {Boolean} data.sfx If SFX context is supported
-	 * @param {Boolean} data.learning If learning dispatcher is supported
 	 * @param {Boolean} data.captions If captions is supported
 	 * @param {Boolean} data.hints If hinting is supported
-	 */
-
-	/**
-	 * Event when dispatching a Learning Dispatcher event
-	 * @event learningEvent
-	 * @param {object} data The event data
-	 */
-
-	/**
-	 * Event when dispatching a Google Analytics event
-	 * @event analyticEvent
-	 * @param {object} data The event data
-	 * @param {string} data.category The event category
-	 * @param {string} data.action The event action
-	 * @param {string} [data.label] The optional label
-	 * @param {number} [data.value] The optional value
 	 */
 
 	/**
@@ -989,9 +936,7 @@
 		//Open the application in the iframe
 		this.main
 			.addClass(&#x27;loading&#x27;)
-			.prop(&#x27;src&#x27;, path)
-			.prop(&#x27;width&#x27;, window.innerWidth)
-			.prop(&#x27;height&#x27;, window.innerHeight);
+			.prop(&#x27;src&#x27;, path);
 
 		if (options.singlePlay)
 		{
@@ -1008,13 +953,13 @@
 
 	/**
 	 * Open a application or path
-	 * @method open
+	 * @method openPath
 	 * @param {string} path The full path to the application to load
 	 * @param {Object} [options] The open options
 	 * @param {Boolean} [options.singlePlay=false] If we should play in single play mode
 	 * @param {Object} [options.playOptions=null] The optional play options
 	 */
-	p.open = function(path, options, playOptions)
+	p.openPath = function(path, options, playOptions)
 	{
 		options = options ||
 		{};
@@ -1104,10 +1049,6 @@
 			loadDone: onLoadDone.bind(this),
 			endGame: onEndGame.bind(this),
 			focus: onFocus.bind(this),
-			trackEvent: onAnalyticEvent.bind(this),
-			analyticEvent: onAnalyticEvent.bind(this),
-			progressEvent: onLearningEvent.bind(this),
-			learningEvent: onLearningEvent.bind(this),
 			helpEnabled: onHelpEnabled.bind(this),
 			features: onFeatures.bind(this),
 			keepFocus: onKeepFocus.bind(this),
@@ -1312,17 +1253,6 @@
 	};
 
 	/**
-	 * Track an event for springroll Learning
-	 * @method onLearningEvent
-	 * @param {event} event The bellhop learningEvent
-	 * @private
-	 */
-	var onLearningEvent = function(event)
-	{
-		this.trigger(&#x27;learningEvent&#x27;, event.data);
-	};
-
-	/**
 	 * Handle the application features
 	 * @method onFeatures
 	 * @param {event} event The bellhop features
@@ -1366,45 +1296,6 @@
 	var onHelpEnabled = function(event)
 	{
 		this.helpEnabled = !!event.data;
-	};
-
-	/**
-	 * Track an event for Google Analtyics
-	 * @method onAnalyticEvent
-	 * @private
-	 * @param {event} event Bellhop analyticEvent
-	 */
-	var onAnalyticEvent = function(event)
-	{
-		var data = event.data;
-
-		// PBS Specifc implementation of Google Analytics
-		var GoogleAnalytics = include(&quot;GA_obj&quot;, false);
-		if (GoogleAnalytics)
-		{
-			GoogleAnalytics.trackEvent(
-				data.category,
-				data.action,
-				data.label,
-				data.value
-			);
-		}
-
-		// Generic implementation of Google Analytics
-		GoogleAnalytics = include(&#x27;ga&#x27;, false);
-		if (GoogleAnalytics)
-		{
-			GoogleAnalytics(&#x27;send&#x27;,
-			{
-				&#x27;hitType&#x27;: &#x27;event&#x27;,
-				&#x27;eventCategory&#x27;: data.category,
-				&#x27;eventAction&#x27;: data.action,
-				&#x27;eventLabel&#x27;: data.label,
-				&#x27;eventValue&#x27;: data.value
-			});
-		}
-
-		this.trigger(&#x27;analyticEvent&#x27;, event.data);
 	};
 
 	/**
@@ -1906,6 +1797,7 @@
 		this.main = null;
 		this.dom = null;
 
+		this.userDataHandler = null;
 		this.helpButton = null;
 		this.soundButton = null;
 		this.pauseButton = null;
@@ -1931,7 +1823,7 @@
 </div>
 </div>
 </div>
-<script src='../assets/js/libraries.js?v=0.4.2'></script>
-<script src='../assets/js/main.js?v=0.4.2'></script>
+<script src='../assets/js/libraries.js?v=0.4.3'></script>
+<script src='../assets/js/main.js?v=0.4.3'></script>
 </body>
 </html>

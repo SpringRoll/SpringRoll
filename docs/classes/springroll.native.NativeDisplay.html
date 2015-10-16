@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html lang='en'>
 <head>
-	<title>SpringRoll v0.4.2 API Documentation : springroll.native.NativeDisplay</title>
+	<title>SpringRoll v0.4.3 API Documentation : springroll.native.NativeDisplay</title>
 	<meta charset='utf-8'>
 	<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 	<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
-	<link rel='shortcut icon' type='image/png' href='../assets/images/favicon.ico?v=0.4.2'>
+	<link rel='shortcut icon' type='image/png' href='../assets/images/favicon.ico?v=0.4.3'>
 	<link href='//fonts.googleapis.com/css?family=Titillium+Web:300,200,600' rel='stylesheet' type='text/css'>
-	<link rel='stylesheet' type='text/css' href='../assets/css/libraries.css?v=0.4.2'>
-	<link rel='stylesheet' type='text/css' href='../assets/css/main.css?v=0.4.2'>
+	<link rel='stylesheet' type='text/css' href='../assets/css/libraries.css?v=0.4.3'>
+	<link rel='stylesheet' type='text/css' href='../assets/css/main.css?v=0.4.3'>
 </head>
 <body>
 <header>
@@ -22,10 +22,10 @@
 					<span class="icon-bar"></span>
 				</button>
 				<a class="navbar-brand" href='https://github.com/SpringRoll/SpringRoll'>
-						<img src='../assets/images/logo.png?v=0.4.2' class="logo">
+						<img src='../assets/images/logo.png?v=0.4.3' class="logo">
 					<span class='project-name'>SpringRoll</span>
 					<span class="sr-only">API Documentation for:</span>
-					<span class='version hidden-xs'>v0.4.2</span>
+					<span class='version hidden-xs'>v0.4.3</span>
 				</a>
 			</div>
 			<div class="collapse navbar-collapse" id="docs-navbar">
@@ -239,9 +239,6 @@
           <a href='../classes/springroll.easeljs.DragManager.html'>springroll.easeljs.DragManager</a>
         </li>
         <li class='public'>
-          <a href='../classes/springroll.easeljs.DwellTimer.html'>springroll.easeljs.DwellTimer</a>
-        </li>
-        <li class='public'>
           <a href='../classes/springroll.easeljs.EaselJSDisplay.html'>springroll.easeljs.EaselJSDisplay</a>
         </li>
         <li class='private'>
@@ -283,20 +280,8 @@
         <li class='private'>
           <a href='../classes/springroll.EnumValue.html'>springroll.EnumValue</a>
         </li>
-        <li class='private'>
-          <a href='../classes/springroll.EventCatalog.html'>springroll.EventCatalog</a>
-        </li>
         <li class='public'>
           <a href='../classes/springroll.EventDispatcher.html'>springroll.EventDispatcher</a>
-        </li>
-        <li class='private'>
-          <a href='../classes/springroll.EventError.html'>springroll.EventError</a>
-        </li>
-        <li class='private'>
-          <a href='../classes/springroll.EventSignature.html'>springroll.EventSignature</a>
-        </li>
-        <li class='private'>
-          <a href='../classes/springroll.EventUtils.html'>springroll.EventUtils</a>
         </li>
         <li class='public'>
           <a href='../classes/springroll.Features.html'>springroll.Features</a>
@@ -318,15 +303,6 @@
         </li>
         <li class='public'>
           <a href='../classes/springroll.Languages.html'>springroll.Languages</a>
-        </li>
-        <li class='public'>
-          <a href='../classes/springroll.Learning.html'>springroll.Learning</a>
-        </li>
-        <li class='private'>
-          <a href='../classes/springroll.LearningError.html'>springroll.LearningError</a>
-        </li>
-        <li class='public'>
-          <a href='../classes/springroll.LearningMedia.html'>springroll.LearningMedia</a>
         </li>
         <li class='private'>
           <a href='../classes/springroll.ListTask.html'>springroll.ListTask</a>
@@ -482,9 +458,6 @@
           <a href='../classes/springroll.UserData.html'>springroll.UserData</a>
         </li>
         <li class='private'>
-          <a href='../classes/springroll.ValidationError.html'>springroll.ValidationError</a>
-        </li>
-        <li class='private'>
           <a href='../classes/springroll.VOHint.html'>springroll.VOHint</a>
         </li>
         <li class='public'>
@@ -557,9 +530,6 @@
           <a href='../modules/EaselJS Display.html'>EaselJS Display</a>
         </li>
         <li class=''>
-          <a href='../modules/EaselJS Learning.html'>EaselJS Learning</a>
-        </li>
-        <li class=''>
           <a href='../modules/EaselJS States.html'>EaselJS States</a>
         </li>
         <li class=''>
@@ -570,12 +540,6 @@
         </li>
         <li class=''>
           <a href='../modules/Languages.html'>Languages</a>
-        </li>
-        <li class=''>
-          <a href='../modules/Learning.html'>Learning</a>
-        </li>
-        <li class=''>
-          <a href='../modules/Learning Media.html'>Learning Media</a>
         </li>
         <li class=''>
           <a href='../modules/Native Display.html'>Native Display</a>
@@ -914,10 +878,9 @@ but overwritten in
 </div>
 
 <div class='description'>
-<p>Destroys the display. This method is called by the Application and should
+Destroys the display. This method is called by the Application and should
 not be called directly, use Application.removeDisplay(id).
-The stage recursively removes all display objects here.</p>
-
+The stage recursively removes all display objects here.
 </div>
 
 
@@ -1141,7 +1104,7 @@ The stage recursively removes all display objects here.</p>
 
 <div class='param-description'>
 <p>The type of event (can be multiple events separated by spaces),
-     or a map of events to handlers</p>
+or a map of events to handlers</p>
 
 </div>
 
@@ -1238,7 +1201,7 @@ The stage recursively removes all display objects here.</p>
 
 <div class='param-description'>
 <p>The type of event (can be multiple events separated by spaces),
-     or a map of events to handlers</p>
+or a map of events to handlers</p>
 
 </div>
 
@@ -1314,9 +1277,8 @@ The stage recursively removes all display objects here.</p>
 </div>
 
 <div class='description'>
-<p>Updates the stage and draws it. This is only called by the Application.
-This method does nothing if paused is true or visible is false.</p>
-
+Updates the stage and draws it. This is only called by the Application.
+This method does nothing if paused is true or visible is false.
 </div>
 
 <div class='params'>
@@ -1385,8 +1347,7 @@ This method does nothing if paused is true or visible is false.</p>
 </div>
 
 <div class='description'>
-<p>Resizes the canvas. This is only called by the Application.</p>
-
+Resizes the canvas. This is only called by the Application.
 </div>
 
 <div class='params'>
@@ -1538,7 +1499,7 @@ This method does nothing if paused is true or visible is false.</p>
 
 
 <div class='param-description'>
-
+ 
 </div>
 
 </li>
@@ -1578,8 +1539,7 @@ This method does nothing if paused is true or visible is false.</p>
 </div>
 
 <div class="description">
-<p>If the display is visible.</p>
-
+If the display is visible.
 </div>
 
 
@@ -1603,7 +1563,7 @@ Defined in
 </div>
 
 <div class="description">
-<p>The main rendering context, typically either <code>CanvasRenderingContext2d</code> 
+<p>The main rendering context, typically either <code>CanvasRenderingContext2d</code>
 or <code>WebGLRenderingContext</code></p>
 
 </div>
@@ -1629,8 +1589,7 @@ or <code>WebGLRenderingContext</code></p>
 </div>
 
 <div class="description">
-<p>The DOM id for the canvas</p>
-
+The DOM id for the canvas
 </div>
 
 
@@ -1654,9 +1613,8 @@ or <code>WebGLRenderingContext</code></p>
 </div>
 
 <div class="description">
-<p>Convenience method for getting the width of the canvas element
-would be the same thing as canvas.width</p>
-
+Convenience method for getting the width of the canvas element
+would be the same thing as canvas.width
 </div>
 
 
@@ -1680,9 +1638,8 @@ would be the same thing as canvas.width</p>
 </div>
 
 <div class="description">
-<p>Convenience method for getting the height of the canvas element
-would be the same thing as canvas.height</p>
-
+Convenience method for getting the height of the canvas element
+would be the same thing as canvas.height
 </div>
 
 
@@ -1706,8 +1663,7 @@ would be the same thing as canvas.height</p>
 </div>
 
 <div class="description">
-<p>The main rendering context or the root display object or stage.</p>
-
+The main rendering context or the root display object or stage.
 </div>
 
 
@@ -1731,9 +1687,8 @@ would be the same thing as canvas.height</p>
 </div>
 
 <div class="description">
-<p>If rendering is paused on this display only. Pausing all displays can be done
-using Application.paused setter.</p>
-
+If rendering is paused on this display only. Pausing all displays can be done
+using Application.paused setter.
 </div>
 
 
@@ -1757,8 +1712,7 @@ using Application.paused setter.</p>
 </div>
 
 <div class="description">
-<p>If input is enabled on the stage.</p>
-
+If input is enabled on the stage.
 </div>
 
 
@@ -1782,8 +1736,7 @@ using Application.paused setter.</p>
 </div>
 
 <div class="description">
-<p>the canvas managed by this display</p>
-
+the canvas managed by this display
 </div>
 
 
@@ -1807,10 +1760,9 @@ using Application.paused setter.</p>
 </div>
 
 <div class="description">
-<p>The Animator class to use when using this display. Other modules
+The Animator class to use when using this display. Other modules
 uses this to determine what Animator to use, for instance states
-uses Animator when playing transition animations.</p>
-
+uses Animator when playing transition animations.
 </div>
 
 <p><strong>Default:</strong> null</p>
@@ -1835,9 +1787,8 @@ uses Animator when playing transition animations.</p>
 </div>
 
 <div class="description">
-<p>Some of the modules require a special display adapter to provide
-common methods for managing display objects.</p>
-
+Some of the modules require a special display adapter to provide
+common methods for managing display objects.
 </div>
 
 <p><strong>Default:</strong> null</p>
@@ -1862,9 +1813,8 @@ common methods for managing display objects.</p>
 </div>
 
 <div class="description">
-<p>If input is enabled on the stage for this display. The default is true.
-Without a rendering library, this does not actually have an effect.</p>
-
+If input is enabled on the stage for this display. The default is true.
+Without a rendering library, this does not actually have an effect.
 </div>
 
 
@@ -1888,8 +1838,7 @@ Without a rendering library, this does not actually have an effect.</p>
 </div>
 
 <div class="description">
-<p>If the display is visible, using "display: none" css on the canvas. Invisible displays won&#39;t render.</p>
-
+If the display is visible, using "display: none" css on the canvas. Invisible displays won't render.
 </div>
 
 
@@ -1991,8 +1940,7 @@ Without a rendering library, this does not actually have an effect.</p>
 </div>
 
 <div class="description">
-<p>If the display becomes disabled</p>
-
+If the display becomes disabled
 </div>
 
 
@@ -2015,8 +1963,7 @@ Without a rendering library, this does not actually have an effect.</p>
 </div>
 
 <div class="description">
-<p>Enabled state changed on the display</p>
-
+Enabled state changed on the display
 </div>
 
 <div class="params">
@@ -2029,8 +1976,7 @@ Without a rendering library, this does not actually have an effect.</p>
 
 
 <div class="param-description">
-<p>Current state of enabled</p>
-
+Current state of enabled
 </div>
 
 </li>
@@ -2056,8 +2002,7 @@ Without a rendering library, this does not actually have an effect.</p>
 </div>
 
 <div class="description">
-<p>If the display becomes enabled</p>
-
+If the display becomes enabled
 </div>
 
 
@@ -2080,8 +2025,7 @@ Without a rendering library, this does not actually have an effect.</p>
 </div>
 
 <div class="description">
-<p>If the display becomes hidden</p>
-
+If the display becomes hidden
 </div>
 
 
@@ -2104,8 +2048,7 @@ Without a rendering library, this does not actually have an effect.</p>
 </div>
 
 <div class="description">
-<p>Visibility changed on the display</p>
-
+Visibility changed on the display
 </div>
 
 <div class="params">
@@ -2118,8 +2061,7 @@ Without a rendering library, this does not actually have an effect.</p>
 
 
 <div class="param-description">
-<p>Current state of the visibility</p>
-
+Current state of the visibility
 </div>
 
 </li>
@@ -2145,8 +2087,7 @@ Without a rendering library, this does not actually have an effect.</p>
 </div>
 
 <div class="description">
-<p>If the display becomes visible</p>
-
+If the display becomes visible
 </div>
 
 
@@ -2157,7 +2098,7 @@ Without a rendering library, this does not actually have an effect.</p>
 </div>
 </div>
 </div>
-<script src='../assets/js/libraries.js?v=0.4.2'></script>
-<script src='../assets/js/main.js?v=0.4.2'></script>
+<script src='../assets/js/libraries.js?v=0.4.3'></script>
+<script src='../assets/js/main.js?v=0.4.3'></script>
 </body>
 </html>

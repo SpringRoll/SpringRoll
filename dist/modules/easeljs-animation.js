@@ -1,4 +1,4 @@
-/*! SpringRoll 0.4.2 */
+/*! SpringRoll 0.4.3 */
 /**
  * @module EaselJS Animation
  * @namespace springroll.easeljs
@@ -869,7 +869,7 @@
 	};
 
 	// Reference to prototype
-	var p = ReversePlayback.prototype;
+	var p = extend(ReversePlayback);
 
 	/**
 	 * Build a dictionary of all animations start and end
@@ -1011,7 +1011,7 @@
 	};
 
 	// Reference to prototype
-	var p = extend(BitmapMovieClipTask, TextureAtlasTask);
+	var p = TextureAtlasTask.extend(BitmapMovieClipTask);
 
 	/**
 	 * Test if we should run this task

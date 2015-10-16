@@ -2,7 +2,7 @@
     "project": {
         "name": "SpringRoll",
         "description": "An application framework for building HTML5 Canvas games and applications",
-        "version": "0.4.2",
+        "version": "0.4.3",
         "url": "https://github.com/SpringRoll/SpringRoll"
     },
     "files": {
@@ -536,28 +536,6 @@
             "fors": {},
             "namespaces": {
                 "springroll.easeljs": 1
-            }
-        },
-        "src/displays/easeljs/learning/DwellTimer.js": {
-            "name": "src/displays/easeljs/learning/DwellTimer.js",
-            "modules": {
-                "EaselJS Learning": 1
-            },
-            "classes": {
-                "springroll.easeljs.DwellTimer": 1
-            },
-            "fors": {},
-            "namespaces": {
-                "springroll.easeljs": 1
-            }
-        },
-        "src/displays/easeljs/learning/OffClickPlugin.js": {
-            "name": "src/displays/easeljs/learning/OffClickPlugin.js",
-            "modules": {},
-            "classes": {},
-            "fors": {},
-            "namespaces": {
-                "springroll": 1
             }
         },
         "src/displays/easeljs/mixins/Container.js": {
@@ -1222,116 +1200,6 @@
             "name": "src/languages/LanguagesPlugin.js",
             "modules": {},
             "classes": {},
-            "fors": {},
-            "namespaces": {
-                "springroll": 1
-            }
-        },
-        "src/learning/EventCatalog.js": {
-            "name": "src/learning/EventCatalog.js",
-            "modules": {},
-            "classes": {
-                "springroll.EventCatalog": 1
-            },
-            "fors": {},
-            "namespaces": {
-                "springroll": 1
-            }
-        },
-        "src/learning/EventError.js": {
-            "name": "src/learning/EventError.js",
-            "modules": {},
-            "classes": {
-                "springroll.EventError": 1
-            },
-            "fors": {},
-            "namespaces": {
-                "springroll": 1
-            }
-        },
-        "src/learning/EventSignature.js": {
-            "name": "src/learning/EventSignature.js",
-            "modules": {},
-            "classes": {
-                "springroll.EventSignature": 1
-            },
-            "fors": {},
-            "namespaces": {
-                "springroll": 1
-            }
-        },
-        "src/learning/EventUtils.js": {
-            "name": "src/learning/EventUtils.js",
-            "modules": {},
-            "classes": {
-                "springroll.EventUtils": 1
-            },
-            "fors": {},
-            "namespaces": {
-                "springroll": 1
-            }
-        },
-        "src/learning/Learning.js": {
-            "name": "src/learning/Learning.js",
-            "modules": {},
-            "classes": {
-                "springroll.Learning": 1
-            },
-            "fors": {},
-            "namespaces": {
-                "springroll": 1
-            }
-        },
-        "src/learning/LearningError.js": {
-            "name": "src/learning/LearningError.js",
-            "modules": {},
-            "classes": {
-                "springroll.LearningError": 1
-            },
-            "fors": {},
-            "namespaces": {
-                "springroll": 1
-            }
-        },
-        "src/learning/LearningMedia.js": {
-            "name": "src/learning/LearningMedia.js",
-            "modules": {
-                "Learning Media": 1
-            },
-            "classes": {
-                "springroll.LearningMedia": 1
-            },
-            "fors": {},
-            "namespaces": {
-                "springroll": 1
-            }
-        },
-        "src/learning/LearningMediaPlugin.js": {
-            "name": "src/learning/LearningMediaPlugin.js",
-            "modules": {},
-            "classes": {},
-            "fors": {},
-            "namespaces": {
-                "springroll": 1
-            }
-        },
-        "src/learning/LearningPlugin.js": {
-            "name": "src/learning/LearningPlugin.js",
-            "modules": {
-                "Learning": 1
-            },
-            "classes": {},
-            "fors": {},
-            "namespaces": {
-                "springroll": 1
-            }
-        },
-        "src/learning/ValidationError.js": {
-            "name": "src/learning/ValidationError.js",
-            "modules": {},
-            "classes": {
-                "springroll.ValidationError": 1
-            },
             "fors": {},
             "namespaces": {
                 "springroll": 1
@@ -2186,25 +2054,6 @@
                 "EaselJS Display"
             ]
         },
-        "EaselJS Learning": {
-            "name": "EaselJS Learning",
-            "submodules": {},
-            "classes": {
-                "springroll.easeljs.DwellTimer": 1
-            },
-            "fors": {},
-            "namespaces": {
-                "springroll.easeljs": 1,
-                "springroll": 1
-            },
-            "tag": "module",
-            "file": "src/displays/easeljs/learning/DwellTimer.js",
-            "line": 10,
-            "requires": [
-                "Core",
-                "Learning"
-            ]
-        },
         "EaselJS UI": {
             "name": "EaselJS UI",
             "submodules": {},
@@ -2332,49 +2181,6 @@
             "line": 13,
             "requires": [
                 "Core"
-            ]
-        },
-        "Learning": {
-            "name": "Learning",
-            "submodules": {},
-            "classes": {
-                "springroll.EventCatalog": 1,
-                "springroll.EventError": 1,
-                "springroll.EventSignature": 1,
-                "springroll.EventUtils": 1,
-                "springroll.Learning": 1,
-                "springroll.LearningError": 1,
-                "springroll.ValidationError": 1
-            },
-            "fors": {},
-            "namespaces": {
-                "springroll": 1
-            },
-            "tag": "module",
-            "file": "src/learning/ValidationError.js",
-            "line": 10,
-            "requires": [
-                "Core"
-            ]
-        },
-        "Learning Media": {
-            "name": "Learning Media",
-            "submodules": {},
-            "classes": {
-                "springroll.LearningMedia": 1
-            },
-            "fors": {},
-            "namespaces": {
-                "springroll": 1
-            },
-            "tag": "module",
-            "file": "src/learning/LearningMedia.js",
-            "line": 11,
-            "requires": [
-                "Core",
-                "Learning",
-                "Sound",
-                "Captions"
             ]
         },
         "Animation": {
@@ -2703,8 +2509,8 @@
             "is_constructor": 1,
             "params": [
                 {
-                    "name": "arguments",
-                    "description": "\nThe list of enumeration values. You can pass either an\narray or a list of parameters. Each string will be\nthe previous value plus one, while objects with\n'name' and 'value' properties will have the specified\nnumeric value.",
+                    "name": "arguments\nThe",
+                    "description": "list of enumeration values. You can pass either an\narray or a list of parameters. Each string will be\nthe previous value plus one, while objects with\n'name' and 'value' properties will have the specified\nnumeric value.",
                     "type": "Array|String|Object"
                 }
             ]
@@ -3147,6 +2953,13 @@
                             "type": "Boolean",
                             "optional": true,
                             "optdefault": "false"
+                        },
+                        {
+                            "name": "autoPreventDefault",
+                            "description": "If preventDefault() should be called on\n                                                   all touch events and mousedown events.",
+                            "type": "Boolean",
+                            "optional": true,
+                            "optdefault": "true"
                         }
                     ]
                 }
@@ -4375,34 +4188,6 @@
                             "optdefault": "null"
                         }
                     ]
-                }
-            ]
-        },
-        "springroll.easeljs.DwellTimer": {
-            "name": "springroll.easeljs.DwellTimer",
-            "shortname": "DwellTimer",
-            "classitems": [],
-            "plugins": [],
-            "extensions": [],
-            "plugin_for": [],
-            "extension_for": [],
-            "module": "EaselJS Learning",
-            "namespace": "springroll.easeljs",
-            "file": "src/displays/easeljs/learning/DwellTimer.js",
-            "line": 10,
-            "description": "Fires DwellTime Learning events for clickable objects",
-            "is_constructor": 1,
-            "params": [
-                {
-                    "name": "target",
-                    "description": "Object for which to add dwellTime events",
-                    "type": "createjs.DisplayObject"
-                },
-                {
-                    "name": "learning",
-                    "description": "Learning Dispatcher instance to use",
-                    "type": "springroll.Learning",
-                    "optional": true
                 }
             ]
         },
@@ -6475,208 +6260,6 @@
                 }
             ]
         },
-        "springroll.EventCatalog": {
-            "name": "springroll.EventCatalog",
-            "shortname": "EventCatalog",
-            "classitems": [],
-            "plugins": [],
-            "extensions": [],
-            "plugin_for": [],
-            "extension_for": [],
-            "module": "Learning",
-            "namespace": "springroll",
-            "file": "src/learning/EventCatalog.js",
-            "line": 10,
-            "description": "A map of all the event codes to the API method names",
-            "access": "private",
-            "tagname": ""
-        },
-        "springroll.EventError": {
-            "name": "springroll.EventError",
-            "shortname": "EventError",
-            "classitems": [],
-            "plugins": [],
-            "extensions": [],
-            "plugin_for": [],
-            "extension_for": [],
-            "module": "Learning",
-            "namespace": "springroll",
-            "file": "src/learning/EventError.js",
-            "line": 11,
-            "description": "General errors when using the Learning Dispatcher",
-            "extends": "springroll.LearningError",
-            "access": "private",
-            "tagname": "",
-            "is_constructor": 1,
-            "params": [
-                {
-                    "name": "message",
-                    "description": "The error message",
-                    "type": "String"
-                },
-                {
-                    "name": "eventCode",
-                    "description": "The number of the event",
-                    "type": "Int"
-                }
-            ]
-        },
-        "springroll.EventSignature": {
-            "name": "springroll.EventSignature",
-            "shortname": "EventSignature",
-            "classitems": [],
-            "plugins": [],
-            "extensions": [],
-            "plugin_for": [],
-            "extension_for": [],
-            "module": "Learning",
-            "namespace": "springroll",
-            "file": "src/learning/EventSignature.js",
-            "line": 11,
-            "description": "Define the signature of the api",
-            "is_constructor": 1,
-            "access": "private",
-            "tagname": "",
-            "params": [
-                {
-                    "name": "api",
-                    "description": "The name of the API",
-                    "type": "String"
-                },
-                {
-                    "name": "args",
-                    "description": "The list of arguments to be called",
-                    "type": "Array",
-                    "optional": true
-                },
-                {
-                    "name": "info",
-                    "description": "The info description of the API",
-                    "type": "String",
-                    "optional": true
-                }
-            ]
-        },
-        "springroll.EventUtils": {
-            "name": "springroll.EventUtils",
-            "shortname": "EventUtils",
-            "classitems": [],
-            "plugins": [],
-            "extensions": [],
-            "plugin_for": [],
-            "extension_for": [],
-            "module": "Learning",
-            "namespace": "springroll",
-            "file": "src/learning/EventUtils.js",
-            "line": 13,
-            "description": "Utility class for handling events",
-            "access": "private",
-            "tagname": ""
-        },
-        "springroll.Learning": {
-            "name": "springroll.Learning",
-            "shortname": "Learning",
-            "classitems": [],
-            "plugins": [],
-            "extensions": [],
-            "plugin_for": [],
-            "extension_for": [],
-            "module": "Learning",
-            "namespace": "springroll",
-            "file": "src/learning/Learning.js",
-            "line": 20,
-            "description": "The base game class",
-            "extends": "springroll.EventDispatcher",
-            "is_constructor": 1,
-            "params": [
-                {
-                    "name": "app",
-                    "description": "The application reference",
-                    "type": "springroll.Application"
-                },
-                {
-                    "name": "showTray",
-                    "description": "Show the documentation at init or false (dev build only!)",
-                    "type": "Boolean",
-                    "optional": true,
-                    "optdefault": "false"
-                }
-            ]
-        },
-        "springroll.LearningError": {
-            "name": "springroll.LearningError",
-            "shortname": "LearningError",
-            "classitems": [],
-            "plugins": [],
-            "extensions": [],
-            "plugin_for": [],
-            "extension_for": [],
-            "module": "Learning",
-            "namespace": "springroll",
-            "file": "src/learning/LearningError.js",
-            "line": 8,
-            "description": "General errors when using the Learning Dispatcher",
-            "extends": "Error",
-            "is_constructor": 1,
-            "access": "private",
-            "tagname": "",
-            "params": [
-                {
-                    "name": "message",
-                    "description": "The error message",
-                    "type": "String"
-                },
-                {
-                    "name": "eventCode",
-                    "description": "The number of the event",
-                    "type": "Int"
-                }
-            ]
-        },
-        "springroll.LearningMedia": {
-            "name": "springroll.LearningMedia",
-            "shortname": "LearningMedia",
-            "classitems": [],
-            "plugins": [],
-            "extensions": [],
-            "plugin_for": [],
-            "extension_for": [],
-            "module": "Learning Media",
-            "namespace": "springroll",
-            "file": "src/learning/LearningMedia.js",
-            "line": 11,
-            "description": "This class contains a bunch of media playing class\nto provide convenience around using the Learning Dispatcher"
-        },
-        "springroll.ValidationError": {
-            "name": "springroll.ValidationError",
-            "shortname": "ValidationError",
-            "classitems": [],
-            "plugins": [],
-            "extensions": [],
-            "plugin_for": [],
-            "extension_for": [],
-            "module": "Learning",
-            "namespace": "springroll",
-            "file": "src/learning/ValidationError.js",
-            "line": 10,
-            "description": "Error when validating value by Learning Dispatcher",
-            "extends": "springroll.EventError",
-            "access": "private",
-            "tagname": "",
-            "is_constructor": 1,
-            "params": [
-                {
-                    "name": "message",
-                    "description": "The error message",
-                    "type": "String"
-                },
-                {
-                    "name": "property",
-                    "description": "The name of the property",
-                    "type": "String"
-                }
-            ]
-        },
         "springroll.ColorAlphaTask": {
             "name": "springroll.ColorAlphaTask",
             "shortname": "ColorAlphaTask",
@@ -8054,11 +7637,6 @@
                     "type": "Boolean"
                 },
                 {
-                    "name": "data.learning",
-                    "description": "If learning dispatcher is supported",
-                    "type": "Boolean"
-                },
-                {
                     "name": "data.captions",
                     "description": "If captions is supported",
                     "type": "Boolean"
@@ -8075,65 +7653,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 330,
-            "description": "Event when dispatching a Learning Dispatcher event",
-            "itemtype": "event",
-            "name": "learningEvent",
-            "params": [
-                {
-                    "name": "data",
-                    "description": "The event data",
-                    "type": "Object"
-                }
-            ],
-            "class": "springroll.Container",
-            "module": "Container",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/container/Container.js",
-            "line": 336,
-            "description": "Event when dispatching a Google Analytics event",
-            "itemtype": "event",
-            "name": "analyticEvent",
-            "params": [
-                {
-                    "name": "data",
-                    "description": "The event data",
-                    "type": "Object",
-                    "props": [
-                        {
-                            "name": "category",
-                            "description": "The event category",
-                            "type": "String"
-                        },
-                        {
-                            "name": "action",
-                            "description": "The event action",
-                            "type": "String"
-                        },
-                        {
-                            "name": "label",
-                            "description": "The optional label",
-                            "type": "String",
-                            "optional": true
-                        },
-                        {
-                            "name": "value",
-                            "description": "The optional value",
-                            "type": "Number",
-                            "optional": true
-                        }
-                    ]
-                }
-            ],
-            "class": "springroll.Container",
-            "module": "Container",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/container/Container.js",
-            "line": 346,
+            "line": 329,
             "description": "Open a application or path",
             "itemtype": "method",
             "name": "_internalOpen",
@@ -8174,10 +7694,10 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 397,
+            "line": 378,
             "description": "Open a application or path",
             "itemtype": "method",
-            "name": "open",
+            "name": "openPath",
             "params": [
                 {
                     "name": "path",
@@ -8213,7 +7733,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 421,
+            "line": 402,
             "description": "Open application based on an API Call to SpringRoll Connect",
             "itemtype": "method",
             "name": "openRemote",
@@ -8259,7 +7779,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 477,
+            "line": 458,
             "description": "Set up communication layer between site and application.\nMay be called from subclasses if they create/destroy Bellhop instances.",
             "access": "protected",
             "tagname": "",
@@ -8271,7 +7791,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 508,
+            "line": 485,
             "description": "Removes the Bellhop communication layer altogether.",
             "access": "protected",
             "tagname": "",
@@ -8283,7 +7803,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 522,
+            "line": 499,
             "description": "Handler for the userDataRemove event",
             "itemtype": "method",
             "name": "onUserDataRemove",
@@ -8295,7 +7815,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 536,
+            "line": 513,
             "description": "Handler for the userDataRead event",
             "itemtype": "method",
             "name": "onUserDataRead",
@@ -8307,7 +7827,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 550,
+            "line": 527,
             "description": "Handler for the userDataWrite event",
             "itemtype": "method",
             "name": "onUserDataWrite",
@@ -8319,7 +7839,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 565,
+            "line": 542,
             "description": "Reset the mutes for audio and captions",
             "itemtype": "method",
             "name": "onLoadDone",
@@ -8331,7 +7851,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 601,
+            "line": 578,
             "description": "Handle focus events sent from iFrame children",
             "itemtype": "method",
             "name": "onFocus",
@@ -8343,7 +7863,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 612,
+            "line": 589,
             "description": "Handle focus events sent from container's window",
             "itemtype": "method",
             "name": "onContainerFocus",
@@ -8355,7 +7875,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 623,
+            "line": 600,
             "description": "Handle blur events sent from container's window",
             "itemtype": "method",
             "name": "onContainerBlur",
@@ -8367,7 +7887,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 638,
+            "line": 615,
             "description": "Focus on the iframe's contentWindow",
             "itemtype": "method",
             "name": "focus",
@@ -8377,7 +7897,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 647,
+            "line": 624,
             "description": "Unfocus on the iframe's contentWindow",
             "itemtype": "method",
             "name": "blur",
@@ -8387,7 +7907,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 656,
+            "line": 633,
             "description": "Manage the focus change events sent from window and iFrame",
             "itemtype": "method",
             "name": "manageFocus",
@@ -8399,26 +7919,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 702,
-            "description": "Track an event for springroll Learning",
-            "itemtype": "method",
-            "name": "onLearningEvent",
-            "params": [
-                {
-                    "name": "event",
-                    "description": "The bellhop learningEvent",
-                    "type": "Event"
-                }
-            ],
-            "access": "private",
-            "tagname": "",
-            "class": "springroll.Container",
-            "module": "Container",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/container/Container.js",
-            "line": 713,
+            "line": 679,
             "description": "Handle the application features",
             "itemtype": "method",
             "name": "onFeatures",
@@ -8437,7 +7938,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 738,
+            "line": 704,
             "description": "Handle the keep focus event for the window",
             "itemtype": "method",
             "name": "onKeepFocus",
@@ -8449,7 +7950,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 749,
+            "line": 715,
             "description": "Reset the mutes for audio and captions",
             "itemtype": "method",
             "name": "onHelpEnabled",
@@ -8461,26 +7962,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 759,
-            "description": "Track an event for Google Analtyics",
-            "itemtype": "method",
-            "name": "onAnalyticEvent",
-            "access": "private",
-            "tagname": "",
-            "params": [
-                {
-                    "name": "event",
-                    "description": "Bellhop analyticEvent",
-                    "type": "Event"
-                }
-            ],
-            "class": "springroll.Container",
-            "module": "Container",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/container/Container.js",
-            "line": 798,
+            "line": 725,
             "description": "Handler when the play hint button is clicked",
             "itemtype": "method",
             "name": "onPlayHelp",
@@ -8492,7 +7974,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 811,
+            "line": 738,
             "description": "The application ended and destroyed itself",
             "itemtype": "method",
             "name": "onEndGame",
@@ -8504,7 +7986,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 823,
+            "line": 750,
             "description": "Handler when the captions mute button is clicked",
             "itemtype": "method",
             "name": "onCaptionsToggle",
@@ -8516,7 +7998,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 833,
+            "line": 760,
             "description": "If the current application is paused",
             "itemtype": "property",
             "name": "paused",
@@ -8528,7 +8010,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 873,
+            "line": 800,
             "description": "Set the captions are muted",
             "itemtype": "property",
             "name": "helpEnabled",
@@ -8539,7 +8021,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 893,
+            "line": 820,
             "description": "Handler when the sound mute button is clicked",
             "itemtype": "method",
             "name": "onSoundToggle",
@@ -8551,7 +8033,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 907,
+            "line": 834,
             "description": "Handler when the music mute button is clicked",
             "itemtype": "method",
             "name": "onMusicToggle",
@@ -8563,7 +8045,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 918,
+            "line": 845,
             "description": "Handler when the voice-over mute button is clicked",
             "itemtype": "method",
             "name": "onVOToggle",
@@ -8575,7 +8057,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 929,
+            "line": 856,
             "description": "Handler when the voice-over mute button is clicked",
             "itemtype": "method",
             "name": "onSFXToggle",
@@ -8587,7 +8069,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 940,
+            "line": 867,
             "description": "Check for when all mutes are muted or unmuted",
             "itemtype": "method",
             "name": "_checkSoundMute",
@@ -8599,7 +8081,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 950,
+            "line": 877,
             "description": "Toggle the current paused state of the application",
             "itemtype": "method",
             "name": "onPauseToggle",
@@ -8611,7 +8093,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 961,
+            "line": 888,
             "description": "The name of the saved property if the captions are muted or not",
             "itemtype": "property",
             "name": "CAPTIONS_MUTED",
@@ -8626,7 +8108,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 970,
+            "line": 897,
             "description": "The name of the saved property if the sound is muted or not",
             "itemtype": "property",
             "name": "SOUND_MUTED",
@@ -8641,7 +8123,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 979,
+            "line": 906,
             "description": "The name of the saved property if the music is muted or not",
             "itemtype": "property",
             "name": "MUSIC_MUTED",
@@ -8656,7 +8138,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 988,
+            "line": 915,
             "description": "The name of the saved property if the voice-over is muted or not",
             "itemtype": "property",
             "name": "VO_MUTED",
@@ -8671,7 +8153,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 997,
+            "line": 924,
             "description": "The name of the saved property if the effects are muted or not",
             "itemtype": "property",
             "name": "SFX_MUTED",
@@ -8686,7 +8168,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 1006,
+            "line": 933,
             "description": "The name of the saved property for the captions styles",
             "itemtype": "property",
             "name": "CAPTIONS_STYLES",
@@ -8701,7 +8183,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 1015,
+            "line": 942,
             "description": "The map of the default caption style settings",
             "itemtype": "property",
             "name": "DEFAULT_CAPTIONS_STYLES",
@@ -8716,7 +8198,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 1031,
+            "line": 958,
             "description": "Abstract method to handle the muting",
             "itemtype": "method",
             "name": "_setMuteProp",
@@ -8743,7 +8225,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 1050,
+            "line": 977,
             "description": "Set the captions styles",
             "itemtype": "method",
             "name": "setCaptionsStyles",
@@ -8811,7 +8293,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 1116,
+            "line": 1043,
             "description": "Get the captions styles",
             "itemtype": "method",
             "name": "getCaptionsStyles",
@@ -8833,7 +8315,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 1128,
+            "line": 1055,
             "description": "Reset the captions styles",
             "itemtype": "method",
             "name": "clearCaptionsStyles",
@@ -8843,7 +8325,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 1139,
+            "line": 1066,
             "description": "Set the captions are enabled or not",
             "itemtype": "property",
             "name": "captionsMuted",
@@ -8855,7 +8337,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 1157,
+            "line": 1084,
             "description": "Set the all sound is enabled or not",
             "itemtype": "property",
             "name": "soundMuted",
@@ -8867,7 +8349,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 1175,
+            "line": 1102,
             "description": "Set the voice-over audio is muted",
             "itemtype": "property",
             "name": "voMuted",
@@ -8879,7 +8361,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 1193,
+            "line": 1120,
             "description": "Set the music audio is muted",
             "itemtype": "property",
             "name": "musicMuted",
@@ -8891,7 +8373,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 1211,
+            "line": 1138,
             "description": "Set the sound effect audio is muted",
             "itemtype": "property",
             "name": "sfxMuted",
@@ -8903,7 +8385,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 1229,
+            "line": 1156,
             "description": "Reset all the buttons back to their original setting\nand clear the iframe.",
             "itemtype": "method",
             "name": "reset",
@@ -8913,7 +8395,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 1257,
+            "line": 1184,
             "description": "Tell the application to start closing",
             "itemtype": "method",
             "name": "close",
@@ -8923,7 +8405,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 1274,
+            "line": 1201,
             "description": "Disable a button",
             "itemtype": "method",
             "name": "disableButton",
@@ -8942,7 +8424,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 1286,
+            "line": 1213,
             "description": "Destroy and don't use after this",
             "itemtype": "method",
             "name": "destroy",
@@ -9010,7 +8492,7 @@
         },
         {
             "file": "src/container/ContainerPlugin.js",
-            "line": 90,
+            "line": 78,
             "description": "The default play-mode for the application is continuous, if the application is\nrunning as part of a sequence is it considered in \"single play\" mode\nand the application will therefore close itself.",
             "itemtype": "property",
             "name": "singlePlay",
@@ -9023,7 +8505,7 @@
         },
         {
             "file": "src/container/ContainerPlugin.js",
-            "line": 100,
+            "line": 88,
             "description": "The optional play options to use if the application is played in \"single play\"\nmode. These options are passed from the application container to specify\noptions that are used for this single play session. For instance,\nif you want the single play to focus on a certain level or curriculum\nsuch as `{ \"shape\": \"square\" }`",
             "itemtype": "property",
             "name": "playOptions",
@@ -9035,7 +8517,7 @@
         },
         {
             "file": "src/container/ContainerPlugin.js",
-            "line": 111,
+            "line": 99,
             "description": "When a application is in singlePlay mode it will end.\nIt's unnecessary to check `if (this.singlePlay)` just\ncall the method and it will end the application if it can.",
             "itemtype": "method",
             "name": "singlePlayEnd",
@@ -9045,7 +8527,7 @@
         },
         {
             "file": "src/container/ContainerPlugin.js",
-            "line": 125,
+            "line": 113,
             "description": "Manually close the application, this can happen when playing through once",
             "itemtype": "method",
             "name": "endGame",
@@ -9064,36 +8546,7 @@
         },
         {
             "file": "src/container/ContainerPlugin.js",
-            "line": 136,
-            "description": "Track a Google Analytics event",
-            "itemtype": "method",
-            "name": "analyticEvent",
-            "params": [
-                {
-                    "name": "action",
-                    "description": "The action label",
-                    "type": "String"
-                },
-                {
-                    "name": "label",
-                    "description": "The optional label for the event",
-                    "type": "String",
-                    "optional": true
-                },
-                {
-                    "name": "value",
-                    "description": "The optional value for the event",
-                    "type": "Number",
-                    "optional": true
-                }
-            ],
-            "class": "springroll.Application",
-            "module": "Container Client",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/container/ContainerPlugin.js",
-            "line": 237,
+            "line": 206,
             "description": "When the container pauses the application",
             "itemtype": "method",
             "name": "onPause",
@@ -9112,7 +8565,7 @@
         },
         {
             "file": "src/container/ContainerPlugin.js",
-            "line": 249,
+            "line": 218,
             "description": "Handler when the sound is muted",
             "itemtype": "method",
             "name": "onSoundMuted",
@@ -9131,7 +8584,7 @@
         },
         {
             "file": "src/container/ContainerPlugin.js",
-            "line": 263,
+            "line": 232,
             "description": "Handler when the captions are muted",
             "itemtype": "method",
             "name": "onCaptionsMuted",
@@ -9150,7 +8603,7 @@
         },
         {
             "file": "src/container/ContainerPlugin.js",
-            "line": 277,
+            "line": 246,
             "description": "Handler when the context is muted",
             "itemtype": "method",
             "name": "onContextMuted",
@@ -9174,7 +8627,7 @@
         },
         {
             "file": "src/container/ContainerPlugin.js",
-            "line": 292,
+            "line": 261,
             "description": "The captions style is being set",
             "itemtype": "method",
             "name": "onCaptionsStyles",
@@ -9193,7 +8646,7 @@
         },
         {
             "file": "src/container/ContainerPlugin.js",
-            "line": 317,
+            "line": 286,
             "description": "Handler when a application enters single play mode",
             "itemtype": "method",
             "name": "onPlayOptions",
@@ -9212,7 +8665,7 @@
         },
         {
             "file": "src/container/ContainerPlugin.js",
-            "line": 329,
+            "line": 298,
             "description": "Handler when a application enters single play mode",
             "itemtype": "method",
             "name": "onSinglePlay",
@@ -9224,7 +8677,7 @@
         },
         {
             "file": "src/container/ContainerPlugin.js",
-            "line": 339,
+            "line": 308,
             "description": "Game container requests closing the application",
             "itemtype": "method",
             "name": "onClose",
@@ -9444,7 +8897,7 @@
         },
         {
             "file": "src/container/SavedDataHandler.js",
-            "line": 17,
+            "line": 20,
             "description": "Remove a data setting",
             "itemtype": "method",
             "name": "remove",
@@ -9468,7 +8921,7 @@
         },
         {
             "file": "src/container/SavedDataHandler.js",
-            "line": 30,
+            "line": 33,
             "description": "Write a custom setting",
             "itemtype": "method",
             "name": "write",
@@ -9497,7 +8950,7 @@
         },
         {
             "file": "src/container/SavedDataHandler.js",
-            "line": 44,
+            "line": 47,
             "description": "Read a custom setting",
             "itemtype": "method",
             "name": "read",
@@ -9909,8 +9362,15 @@
             "line": 188,
             "description": "Retrieves the next EnumValue in the Enum (loops to first value at end).",
             "itemtype": "method",
-            "name": "input",
+            "name": "next",
             "type": "EnumValue",
+            "params": [
+                {
+                    "name": "input",
+                    "description": "An EnumValue to retrieve the value that follows.",
+                    "type": "EnumValue"
+                }
+            ],
             "return": {
                 "description": "",
                 "type": "EnumValue"
@@ -9921,10 +9381,10 @@
         },
         {
             "file": "src/core/utils/Enum.js",
-            "line": 209,
+            "line": 210,
             "description": "Retrieves the first EnumValue in the Enum",
             "itemtype": "method",
-            "name": "input",
+            "name": "first",
             "type": "EnumValue",
             "return": {
                 "description": "",
@@ -9936,10 +9396,10 @@
         },
         {
             "file": "src/core/utils/Enum.js",
-            "line": 221,
+            "line": 222,
             "description": "Retrieves the last EnumValue in the Enum",
             "itemtype": "method",
-            "name": "input",
+            "name": "last",
             "type": "EnumValue",
             "return": {
                 "description": "",
@@ -9951,7 +9411,7 @@
         },
         {
             "file": "src/core/utils/Enum.js",
-            "line": 234,
+            "line": 237,
             "description": "Gets an enum value by integer value. If you have multiple enum values with the same integer\nvalue, this will always retrieve the first enum value.",
             "itemtype": "method",
             "name": "valueFromInt",
@@ -15311,291 +14771,6 @@
             "namespace": "springroll.easeljs"
         },
         {
-            "file": "src/displays/easeljs/learning/DwellTimer.js",
-            "line": 19,
-            "description": "Interactable DisplayObject",
-            "itemtype": "property",
-            "name": "target",
-            "type": "createjs.DisplayObject",
-            "class": "springroll.easeljs.DwellTimer",
-            "module": "EaselJS Learning",
-            "namespace": "springroll.easeljs"
-        },
-        {
-            "file": "src/displays/easeljs/learning/DwellTimer.js",
-            "line": 30,
-            "description": "name of this timer",
-            "itemtype": "property",
-            "name": "",
-            "type": "String",
-            "class": "springroll.easeljs.DwellTimer",
-            "module": "EaselJS Learning",
-            "namespace": "springroll.easeljs"
-        },
-        {
-            "file": "src/displays/easeljs/learning/DwellTimer.js",
-            "line": 36,
-            "description": "Reference to Learning Dispatcher",
-            "itemtype": "property",
-            "name": "learning",
-            "type": "springroll.Learning",
-            "class": "springroll.easeljs.DwellTimer",
-            "module": "EaselJS Learning",
-            "namespace": "springroll.easeljs"
-        },
-        {
-            "file": "src/displays/easeljs/learning/DwellTimer.js",
-            "line": 53,
-            "description": "minimum length of dwell time necessary to fire event",
-            "itemtype": "property",
-            "name": "",
-            "type": "Number",
-            "class": "springroll.easeljs.DwellTimer",
-            "module": "EaselJS Learning",
-            "namespace": "springroll.easeljs"
-        },
-        {
-            "file": "src/displays/easeljs/learning/DwellTimer.js",
-            "line": 59,
-            "description": "start timer on mouseover",
-            "itemtype": "method",
-            "name": "mouseOver",
-            "params": [
-                {
-                    "name": "ev",
-                    "description": "Mouse Event",
-                    "type": "createjs.MouseEvent"
-                }
-            ],
-            "class": "springroll.easeljs.DwellTimer",
-            "module": "EaselJS Learning",
-            "namespace": "springroll.easeljs"
-        },
-        {
-            "file": "src/displays/easeljs/learning/DwellTimer.js",
-            "line": 84,
-            "description": "Dwell ended - fire event if dwelled long enough",
-            "itemtype": "method",
-            "name": "mouseOut",
-            "params": [
-                {
-                    "name": "ev",
-                    "description": "Mouse Event",
-                    "type": "createjs.MouseEvent"
-                }
-            ],
-            "class": "springroll.easeljs.DwellTimer",
-            "module": "EaselJS Learning",
-            "namespace": "springroll.easeljs"
-        },
-        {
-            "file": "src/displays/easeljs/learning/DwellTimer.js",
-            "line": 105,
-            "description": "Remove all listeners and whatnot",
-            "itemtype": "method",
-            "name": "destroy",
-            "class": "springroll.easeljs.DwellTimer",
-            "module": "EaselJS Learning",
-            "namespace": "springroll.easeljs"
-        },
-        {
-            "file": "src/displays/easeljs/learning/DwellTimer.js",
-            "line": 126,
-            "description": "Setup a DwellTimer for a DisplayObject.",
-            "itemtype": "method",
-            "name": "create",
-            "static": 1,
-            "params": [
-                {
-                    "name": "obj",
-                    "description": "Clickable DisplayObject",
-                    "type": "createjs.DisplayObject"
-                }
-            ],
-            "class": "springroll.easeljs.DwellTimer",
-            "module": "EaselJS Learning",
-            "namespace": "springroll.easeljs"
-        },
-        {
-            "file": "src/displays/easeljs/learning/DwellTimer.js",
-            "line": 138,
-            "description": "If exists, cleanup and remove DwellTimer from object",
-            "itemtype": "method",
-            "name": "destroy",
-            "static": 1,
-            "params": [
-                {
-                    "name": "obj",
-                    "description": "DisplayObject with DwellTimer to cleanup",
-                    "type": "createjs.DisplayObject"
-                }
-            ],
-            "class": "springroll.easeljs.DwellTimer",
-            "module": "EaselJS Learning",
-            "namespace": "springroll.easeljs"
-        },
-        {
-            "file": "src/displays/easeljs/learning/OffClickPlugin.js",
-            "line": 18,
-            "description": "The last interactive position",
-            "itemtype": "property",
-            "name": "_currentPosition",
-            "type": "createjs.Point",
-            "access": "private",
-            "tagname": "",
-            "class": "springroll.Application",
-            "module": "EaselJS Learning",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/displays/easeljs/learning/OffClickPlugin.js",
-            "line": 25,
-            "description": "Helper point for normalizing position",
-            "itemtype": "property",
-            "name": "_helperPoint",
-            "type": "createjs.Point",
-            "access": "private",
-            "tagname": "",
-            "class": "springroll.Application",
-            "module": "EaselJS Learning",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/displays/easeljs/learning/OffClickPlugin.js",
-            "line": 40,
-            "description": "Some games need to send additional parameters to the tracker's\noffClick event. They may set them here as needed. These parameters are appended\nto the normal offClick data.",
-            "itemtype": "property",
-            "name": "offClickParams",
-            "type": "Array",
-            "class": "springroll.Application",
-            "module": "EaselJS Learning",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/displays/easeljs/learning/OffClickPlugin.js",
-            "line": 48,
-            "description": "Keep track of the last Pointer ID",
-            "itemtype": "property",
-            "name": "_lastPointerID",
-            "type": "Int",
-            "access": "private",
-            "tagname": "",
-            "class": "springroll.Application",
-            "module": "EaselJS Learning",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/displays/easeljs/learning/OffClickPlugin.js",
-            "line": 55,
-            "description": "For learning events, we want to send consistent data when sending\npositions. This helper method generates that data.\nIn the future, we may return an object with known properties,\nbut for now we are returning an object of {x:int, y:int,\nstage_width:int, stage_height:int} in unscaled numbers.",
-            "itemtype": "method",
-            "name": "normalizePosition",
-            "params": [
-                {
-                    "name": "pos",
-                    "description": "A display object or point to use.",
-                    "type": "createjs.DisplayObject|createjs.Point"
-                },
-                {
-                    "name": "coordSpace",
-                    "description": "The coordinate space the position is in, so\n                                           it can be converted to global space. If\n                                           omitted and <code>pos</code> is a\n                                           DisplayObject, <code>pos.parent</code> will\n                                           be used.",
-                    "type": "createjs.DisplayObject",
-                    "optional": true
-                }
-            ],
-            "return": {
-                "description": "{x:int, y:int, stage_width:int, stage_height:int}",
-                "type": "Object"
-            },
-            "class": "springroll.Application",
-            "module": "EaselJS Learning",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/displays/easeljs/learning/OffClickPlugin.js",
-            "line": 72,
-            "description": "For learning events, we want to send consistent data when sending\npositions. This helper method generates that data.\nIn the future, we may return an object with known properties,\nbut for now we are returning an object of {x:int, y:int,\nstage_width:int, stage_height:int} in unscaled numbers.",
-            "itemtype": "method",
-            "name": "normalizePosition",
-            "params": [
-                {
-                    "name": "x",
-                    "description": "The x position",
-                    "type": "Number"
-                },
-                {
-                    "name": "y",
-                    "description": "The y position",
-                    "type": "Number"
-                },
-                {
-                    "name": "coordSpace",
-                    "description": "The coordinate space the position is in, so\n                                           it can be converted to global space.",
-                    "type": "createjs.DisplayObject",
-                    "optional": true
-                }
-            ],
-            "return": {
-                "description": "{x:int, y:int, stage_width:int, stage_height:int}",
-                "type": "Object"
-            },
-            "class": "springroll.Application",
-            "module": "EaselJS Learning",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/displays/easeljs/learning/OffClickPlugin.js",
-            "line": 112,
-            "description": "For learning events, we want to send consistent data when sending\nPosition. This helper method generates that data for the\ncurrent stage position of mouse or touch. We are returning an object of\n`{x:int, y:int, stage_width:int, stage_height:int}` in unscaled numbers.",
-            "itemtype": "method",
-            "name": "currentPosition",
-            "return": {
-                "description": "`{x:int, y:int, stage_width:int, stage_height:int}`",
-                "type": "Object"
-            },
-            "class": "springroll.Application",
-            "module": "EaselJS Learning",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/displays/easeljs/learning/OffClickPlugin.js",
-            "line": 158,
-            "description": "Fires event whenever the mouse is moved",
-            "itemtype": "method",
-            "name": "onStateMouseMove",
-            "access": "private",
-            "tagname": "",
-            "params": [
-                {
-                    "name": "ev",
-                    "description": "The mouse event",
-                    "type": "createjs.MouseEvent"
-                }
-            ],
-            "class": "springroll.Application",
-            "module": "EaselJS Learning",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/displays/easeljs/learning/OffClickPlugin.js",
-            "line": 173,
-            "description": "Fires OffClick event if click on unhandled object",
-            "itemtype": "method",
-            "name": "onStageMouseDown",
-            "access": "private",
-            "tagname": "",
-            "params": [
-                {
-                    "name": "ev",
-                    "description": "The mouse event",
-                    "type": "createjs.MouseEvent"
-                }
-            ],
-            "class": "springroll.Application",
-            "module": "EaselJS Learning",
-            "namespace": "springroll"
-        },
-        {
             "file": "src/displays/easeljs/mixins/Container.js",
             "line": 18,
             "description": "Does a cache by the nominalBounds set from Flash",
@@ -16245,7 +15420,7 @@
         },
         {
             "file": "src/displays/easeljs/ui/Button.js",
-            "line": 425,
+            "line": 424,
             "description": "An event for when the button is pressed (while enabled).",
             "static": 1,
             "itemtype": "property",
@@ -16257,7 +15432,7 @@
         },
         {
             "file": "src/displays/easeljs/ui/Button.js",
-            "line": 432,
+            "line": 431,
             "description": "An event for when the button is moused over (while enabled).",
             "static": 1,
             "itemtype": "property",
@@ -16269,7 +15444,7 @@
         },
         {
             "file": "src/displays/easeljs/ui/Button.js",
-            "line": 439,
+            "line": 438,
             "description": "An event for when the button is moused out (while enabled).",
             "static": 1,
             "itemtype": "property",
@@ -16281,7 +15456,7 @@
         },
         {
             "file": "src/displays/easeljs/ui/Button.js",
-            "line": 480,
+            "line": 479,
             "description": "The width of the button, based on the width of back. This value is affected by scale.",
             "itemtype": "property",
             "name": "width",
@@ -16292,7 +15467,7 @@
         },
         {
             "file": "src/displays/easeljs/ui/Button.js",
-            "line": 496,
+            "line": 495,
             "description": "The height of the button, based on the height of back. This value is affected by scale.",
             "itemtype": "property",
             "name": "height",
@@ -16303,7 +15478,7 @@
         },
         {
             "file": "src/displays/easeljs/ui/Button.js",
-            "line": 512,
+            "line": 511,
             "description": "Sets the text of the label. This does nothing if the button was not initialized with a label.",
             "access": "public",
             "tagname": "",
@@ -16322,7 +15497,7 @@
         },
         {
             "file": "src/displays/easeljs/ui/Button.js",
-            "line": 546,
+            "line": 545,
             "description": "Whether or not the button is enabled.",
             "itemtype": "property",
             "name": "enabled",
@@ -16334,7 +15509,7 @@
         },
         {
             "file": "src/displays/easeljs/ui/Button.js",
-            "line": 584,
+            "line": 583,
             "description": "Adds a property to the button. Setting the property sets the value in\n_stateFlags and calls _updateState().",
             "access": "private",
             "tagname": "",
@@ -16353,7 +15528,7 @@
         },
         {
             "file": "src/displays/easeljs/ui/Button.js",
-            "line": 615,
+            "line": 614,
             "description": "Updates back based on the current button state.",
             "access": "private",
             "tagname": "",
@@ -16369,7 +15544,7 @@
         },
         {
             "file": "src/displays/easeljs/ui/Button.js",
-            "line": 686,
+            "line": 685,
             "description": "The callback for when the button receives a mouse down event.",
             "access": "private",
             "tagname": "",
@@ -16381,7 +15556,7 @@
         },
         {
             "file": "src/displays/easeljs/ui/Button.js",
-            "line": 699,
+            "line": 698,
             "description": "The callback for when the button for when the mouse/touch is released on the button\n- only when the button was held down initially.",
             "access": "private",
             "tagname": "",
@@ -16393,7 +15568,7 @@
         },
         {
             "file": "src/displays/easeljs/ui/Button.js",
-            "line": 714,
+            "line": 713,
             "description": "The callback for when the button the button is clicked or tapped on. This is\nthe most reliable way of detecting mouse up/touch end events that are on this button\nwhile letting the pressup event handle the mouse up/touch ends on and outside the button.",
             "access": "private",
             "tagname": "",
@@ -16405,7 +15580,7 @@
         },
         {
             "file": "src/displays/easeljs/ui/Button.js",
-            "line": 726,
+            "line": 725,
             "description": "The callback for when the button is moused over.",
             "access": "private",
             "tagname": "",
@@ -16417,7 +15592,7 @@
         },
         {
             "file": "src/displays/easeljs/ui/Button.js",
-            "line": 739,
+            "line": 738,
             "description": "The callback for when the mouse leaves the button area.",
             "access": "private",
             "tagname": "",
@@ -16429,7 +15604,7 @@
         },
         {
             "file": "src/displays/easeljs/ui/Button.js",
-            "line": 752,
+            "line": 751,
             "description": "Destroys the button.",
             "access": "public",
             "tagname": "",
@@ -16441,7 +15616,7 @@
         },
         {
             "file": "src/displays/easeljs/ui/Button.js",
-            "line": 772,
+            "line": 771,
             "description": "Generates a desaturated up state as a disabled state, and an update with a solid colored\nglow for a highlighted state.",
             "itemtype": "method",
             "name": "generateDefaultStates",
@@ -16534,7 +15709,7 @@
         },
         {
             "file": "src/displays/easeljs/ui/Button.js",
-            "line": 953,
+            "line": 952,
             "description": "Generates an 'imageSettings' from a TextureAtlas, a base name for all frames, and a list\nof state priorities.",
             "itemtype": "method",
             "name": "generateSettingsFromAtlas",
@@ -21253,7 +20428,7 @@
         },
         {
             "file": "src/displays/pixi/PixiDisplay.js",
-            "line": 47,
+            "line": 49,
             "description": "If the display should keep mouse move events running when the display is disabled.",
             "itemtype": "property",
             "name": "keepMouseover",
@@ -21266,7 +20441,20 @@
         },
         {
             "file": "src/displays/pixi/PixiDisplay.js",
-            "line": 54,
+            "line": 56,
+            "description": "If preventDefault() should be called on all touch events and mousedown events. Defaults\nto true.",
+            "itemtype": "property",
+            "name": "_autoPreventDefault",
+            "type": "Boolean",
+            "access": "private",
+            "tagname": "",
+            "class": "springroll.pixi.PixiDisplay",
+            "module": "PIXI Display",
+            "namespace": "springroll.pixi"
+        },
+        {
+            "file": "src/displays/pixi/PixiDisplay.js",
+            "line": 65,
             "description": "The rendering library's stage element, the root display object",
             "itemtype": "property",
             "name": "stage",
@@ -21280,7 +20468,7 @@
         },
         {
             "file": "src/displays/pixi/PixiDisplay.js",
-            "line": 62,
+            "line": 73,
             "description": "The Pixi renderer.",
             "itemtype": "property",
             "name": "renderer",
@@ -21294,7 +20482,7 @@
         },
         {
             "file": "src/displays/pixi/PixiDisplay.js",
-            "line": 106,
+            "line": 117,
             "description": "If Pixi is being rendered with WebGL.",
             "itemtype": "property",
             "name": "isWebGL",
@@ -21308,7 +20496,7 @@
         },
         {
             "file": "src/displays/pixi/PixiDisplay.js",
-            "line": 121,
+            "line": 135,
             "description": "If input is enabled on the stage for this display. The default is true.",
             "itemtype": "property",
             "name": "enabled",
@@ -21321,7 +20509,20 @@
         },
         {
             "file": "src/displays/pixi/PixiDisplay.js",
-            "line": 154,
+            "line": 168,
+            "description": "If preventDefault() should be called on all touch events and mousedown events. Defaults\nto true.",
+            "itemtype": "property",
+            "name": "autoPreventDefault",
+            "type": "Boolean",
+            "access": "public",
+            "tagname": "",
+            "class": "springroll.pixi.PixiDisplay",
+            "module": "PIXI Display",
+            "namespace": "springroll.pixi"
+        },
+        {
+            "file": "src/displays/pixi/PixiDisplay.js",
+            "line": 189,
             "description": "Resizes the canvas and the renderer. This is only called by the Application.",
             "itemtype": "method",
             "name": "resize",
@@ -21343,7 +20544,7 @@
         },
         {
             "file": "src/displays/pixi/PixiDisplay.js",
-            "line": 166,
+            "line": 201,
             "description": "Updates the stage and draws it. This is only called by the Application.\nThis method does nothing if paused is true or visible is false.",
             "itemtype": "method",
             "name": "render",
@@ -21367,7 +20568,7 @@
         },
         {
             "file": "src/displays/pixi/PixiDisplay.js",
-            "line": 181,
+            "line": 216,
             "description": "Destroys the display. This method is called by the Application and should\nnot be called directly, use Application.removeDisplay(id).",
             "itemtype": "method",
             "name": "destroy",
@@ -23200,1739 +22401,6 @@
             "default": "null",
             "class": "springroll.Application",
             "module": "Languages",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/learning/EventCatalog.js",
-            "line": 17,
-            "description": "The collection of all codes map to events",
-            "itemtype": "property",
-            "name": "events",
-            "type": "Object",
-            "class": "springroll.EventCatalog",
-            "module": "Learning",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/learning/EventCatalog.js",
-            "line": 28,
-            "description": "The map of event codes to method names",
-            "itemtype": "property",
-            "name": "defaultEvents",
-            "type": "Object",
-            "static": 1,
-            "access": "private",
-            "tagname": "",
-            "readonly": "",
-            "class": "springroll.EventCatalog",
-            "module": "Learning",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/learning/EventCatalog.js",
-            "line": 65,
-            "description": "The list of global argument names common to all events. This will\nignore any event spec arguments matching these names because\nthey are automatically submitted with event calls.",
-            "itemtype": "property",
-            "name": "globals",
-            "type": "Array",
-            "static": 1,
-            "class": "springroll.EventCatalog",
-            "module": "Learning",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/learning/EventCatalog.js",
-            "line": 78,
-            "description": "Look up an event code by API name",
-            "itemtype": "method",
-            "name": "loopkup",
-            "params": [
-                {
-                    "name": "api",
-                    "description": "The name of the API method",
-                    "type": "String"
-                }
-            ],
-            "return": {
-                "description": "The matching event code",
-                "type": "String"
-            },
-            "class": "springroll.EventCatalog",
-            "module": "Learning",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/learning/EventCatalog.js",
-            "line": 96,
-            "description": "Add additional apis",
-            "itemtype": "method",
-            "name": "add",
-            "params": [
-                {
-                    "name": "map",
-                    "description": "The map of event codes to API names",
-                    "type": "Object"
-                }
-            ],
-            "class": "springroll.EventCatalog",
-            "module": "Learning",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/learning/EventCatalog.js",
-            "line": 139,
-            "description": "The built-in argument overrides, provides consistent arguments\norder for common API calls.",
-            "itemtype": "property",
-            "name": "args",
-            "type": "Object",
-            "static": 1,
-            "readonly": "",
-            "class": "springroll.EventCatalog",
-            "module": "Learning",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/learning/EventCatalog.js",
-            "line": 168,
-            "description": "Destroy this catalog, don't use after this",
-            "itemtype": "method",
-            "name": "destroy",
-            "class": "springroll.EventCatalog",
-            "module": "Learning",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/learning/EventError.js",
-            "line": 24,
-            "description": "The name of the property erroring on",
-            "itemtype": "property",
-            "name": "eventCode",
-            "type": "Int",
-            "class": "springroll.EventError",
-            "module": "Learning",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/learning/EventError.js",
-            "line": 30,
-            "description": "The name of the API method errored on",
-            "itemtype": "property",
-            "name": "api",
-            "type": "String",
-            "class": "springroll.EventError",
-            "module": "Learning",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/learning/EventError.js",
-            "line": 36,
-            "description": "The definition of the API and all it's arguments",
-            "itemtype": "property",
-            "name": "signature",
-            "type": "springroll.EventSignature",
-            "class": "springroll.EventError",
-            "module": "Learning",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/learning/EventError.js",
-            "line": 49,
-            "description": "To string override",
-            "itemtype": "method",
-            "name": "toString",
-            "return": {
-                "description": "The string representation of the error",
-                "type": "String"
-            },
-            "class": "springroll.EventError",
-            "module": "Learning",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/learning/EventSignature.js",
-            "line": 22,
-            "description": "The event code",
-            "itemtype": "property",
-            "name": "eventCode",
-            "type": "String",
-            "class": "springroll.EventSignature",
-            "module": "Learning",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/learning/EventSignature.js",
-            "line": 28,
-            "description": "The name of the method",
-            "itemtype": "property",
-            "name": "api",
-            "type": "String",
-            "class": "springroll.EventSignature",
-            "module": "Learning",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/learning/EventSignature.js",
-            "line": 34,
-            "description": "The arguments to be called by the API",
-            "itemtype": "property",
-            "name": "args",
-            "type": "Array",
-            "class": "springroll.EventSignature",
-            "module": "Learning",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/learning/EventSignature.js",
-            "line": 40,
-            "description": "The arguments required by the spec",
-            "itemtype": "property",
-            "name": "eventArgs",
-            "type": "Array",
-            "class": "springroll.EventSignature",
-            "module": "Learning",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/learning/EventSignature.js",
-            "line": 46,
-            "description": "The API description",
-            "itemtype": "property",
-            "name": "info",
-            "type": "String",
-            "class": "springroll.EventSignature",
-            "module": "Learning",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/learning/EventSignature.js",
-            "line": 56,
-            "description": "See if the event args or the api args has an property by name",
-            "itemtype": "method",
-            "name": "hasProperty",
-            "params": [
-                {
-                    "name": "property",
-                    "description": "The name of the argument",
-                    "type": "String"
-                },
-                {
-                    "name": "isEventArg",
-                    "description": "If we're checking on the event args, default\n      checks on the API arguments.",
-                    "type": "Boolean",
-                    "optional": true,
-                    "optdefault": "false"
-                }
-            ],
-            "return": {
-                "description": "If the property is found",
-                "type": "Boolean"
-            },
-            "class": "springroll.EventSignature",
-            "module": "Learning",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/learning/EventSignature.js",
-            "line": 84,
-            "description": "Generate documentation, development build only!",
-            "itemtype": "method",
-            "name": "docs",
-            "class": "springroll.EventSignature",
-            "module": "Learning",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/learning/EventSignature.js",
-            "line": 105,
-            "description": "Create the markup for the arguments",
-            "itemtype": "method",
-            "name": "_argsDocs",
-            "access": "private",
-            "tagname": "",
-            "params": [
-                {
-                    "name": "args",
-                    "description": "The list of arguments",
-                    "type": "Array"
-                },
-                {
-                    "name": "ignoreNames",
-                    "description": "Ignore any name matching these collection of string",
-                    "type": "Array"
-                }
-            ],
-            "return": {
-                "description": "The markup",
-                "type": "String"
-            },
-            "class": "springroll.EventSignature",
-            "module": "Learning",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/learning/EventSignature.js",
-            "line": 173,
-            "description": "Get the api signature of a method",
-            "itemtype": "method",
-            "name": "_format",
-            "access": "private",
-            "tagname": "",
-            "params": [
-                {
-                    "name": "args",
-                    "description": "The API arguments",
-                    "type": "Array"
-                },
-                {
-                    "name": "indent",
-                    "description": "The indentation",
-                    "type": "String",
-                    "optional": true,
-                    "optdefault": "\"\\t\""
-                }
-            ],
-            "return": {
-                "description": "The signature api",
-                "type": "String"
-            },
-            "class": "springroll.EventSignature",
-            "module": "Learning",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/learning/EventSignature.js",
-            "line": 222,
-            "description": "Get the string representation of the signature",
-            "itemtype": "method",
-            "name": "toString",
-            "return": {
-                "description": "The string version of the signature",
-                "type": "String"
-            },
-            "class": "springroll.EventSignature",
-            "module": "Learning",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/learning/EventUtils.js",
-            "line": 20,
-            "description": "Convert an array of input arguments into a data map",
-            "itemtype": "method",
-            "name": "argsMap",
-            "static": 1,
-            "params": [
-                {
-                    "name": "allArgs",
-                    "description": "All the event arguments",
-                    "type": "Array"
-                },
-                {
-                    "name": "inputs",
-                    "description": "The data to validate",
-                    "type": "Array"
-                }
-            ],
-            "return": {
-                "description": "The validated event data object",
-                "type": "Object"
-            },
-            "class": "springroll.EventUtils",
-            "module": "Learning",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/learning/EventUtils.js",
-            "line": 58,
-            "description": "Validate arguments",
-            "itemtype": "method",
-            "name": "validate",
-            "static": 1,
-            "params": [
-                {
-                    "name": "args",
-                    "description": "The event arguments",
-                    "type": "Array"
-                },
-                {
-                    "name": "inputs",
-                    "description": "The data to validate",
-                    "type": "Object"
-                }
-            ],
-            "return": {
-                "description": "The validated event data object",
-                "type": "Object"
-            },
-            "class": "springroll.EventUtils",
-            "module": "Learning",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/learning/EventUtils.js",
-            "line": 92,
-            "description": "Do the actual type validation on a specific value",
-            "itemtype": "method",
-            "name": "_validate",
-            "access": "private",
-            "tagname": "",
-            "is_constructor": 1,
-            "params": [
-                {
-                    "name": "type",
-                    "description": "The type of value, if an array a set of valid items",
-                    "type": "String|Array"
-                },
-                {
-                    "name": "value",
-                    "description": "The value to test against",
-                    "type": "*"
-                },
-                {
-                    "name": "args",
-                    "description": "The list of properties to validate if a typed object",
-                    "type": "Array"
-                }
-            ],
-            "class": "springroll.EventUtils",
-            "module": "Learning",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/learning/Learning.js",
-            "line": 32,
-            "description": "Create a new instance of the event catalog",
-            "itemtype": "property",
-            "name": "catalog",
-            "type": "springroll.EventCatalog",
-            "class": "springroll.Learning",
-            "module": "Learning",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/learning/Learning.js",
-            "line": 46,
-            "description": "The documentation dom element, development build only!",
-            "itemtype": "property",
-            "name": "_tray",
-            "type": "Element",
-            "access": "private",
-            "tagname": "",
-            "class": "springroll.Learning",
-            "module": "Learning",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/learning/Learning.js",
-            "line": 55,
-            "description": "The toggle handle dom element, development build only!",
-            "itemtype": "property",
-            "name": "_handle",
-            "type": "Element",
-            "access": "private",
-            "tagname": "",
-            "class": "springroll.Learning",
-            "module": "Learning",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/learning/Learning.js",
-            "line": 69,
-            "description": "The body dom element, development build only!",
-            "itemtype": "property",
-            "name": "_body",
-            "type": "Element",
-            "access": "private",
-            "tagname": "",
-            "class": "springroll.Learning",
-            "module": "Learning",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/learning/Learning.js",
-            "line": 82,
-            "description": "The collection of timers",
-            "itemtype": "property",
-            "name": "_timers",
-            "type": "Object",
-            "access": "private",
-            "tagname": "",
-            "class": "springroll.Learning",
-            "module": "Learning",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/learning/Learning.js",
-            "line": 92,
-            "description": "The reference to the application",
-            "itemtype": "property",
-            "name": "_app",
-            "type": "springroll.Application",
-            "access": "private",
-            "tagname": "",
-            "class": "springroll.Learning",
-            "module": "Learning",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/learning/Learning.js",
-            "line": 99,
-            "description": "The saved feedback or instructions",
-            "itemtype": "property",
-            "name": "_feedback",
-            "type": "Object",
-            "access": "private",
-            "tagname": "",
-            "class": "springroll.Learning",
-            "module": "Learning",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/learning/Learning.js",
-            "line": 106,
-            "description": "The saved data for movie events",
-            "itemtype": "property",
-            "name": "_movie",
-            "type": "Object",
-            "access": "private",
-            "tagname": "",
-            "class": "springroll.Learning",
-            "module": "Learning",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/learning/Learning.js",
-            "line": 113,
-            "description": "The collection of api methods called",
-            "itemtype": "property",
-            "name": "_history",
-            "type": "Array",
-            "access": "private",
-            "tagname": "",
-            "class": "springroll.Learning",
-            "module": "Learning",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/learning/Learning.js",
-            "line": 120,
-            "description": "The current level number if support, null if unsupported",
-            "itemtype": "property",
-            "name": "_round",
-            "type": "Int",
-            "access": "private",
-            "tagname": "",
-            "default": "null",
-            "class": "springroll.Learning",
-            "module": "Learning",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/learning/Learning.js",
-            "line": 128,
-            "description": "The current round number if support, null if unsupported",
-            "itemtype": "property",
-            "name": "_round",
-            "type": "Int",
-            "access": "private",
-            "tagname": "",
-            "default": "null",
-            "class": "springroll.Learning",
-            "module": "Learning",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/learning/Learning.js",
-            "line": 136,
-            "description": "Keep track of the round a feedback event was started on\nthe ending event should dispatch the same round.",
-            "itemtype": "property",
-            "name": "_feedbackStartRound",
-            "type": "Int",
-            "access": "private",
-            "tagname": "",
-            "default": "null",
-            "class": "springroll.Learning",
-            "module": "Learning",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/learning/Learning.js",
-            "line": 153,
-            "description": "If the Learning should throw errors",
-            "itemtype": "property",
-            "name": "throwErrors",
-            "type": "Boolean",
-            "static": 1,
-            "class": "springroll.Learning",
-            "module": "Learning",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/learning/Learning.js",
-            "line": 164,
-            "description": "An event is tracked",
-            "itemtype": "event",
-            "name": "learningEvent",
-            "params": [
-                {
-                    "name": "data",
-                    "description": "The event data",
-                    "type": "Object",
-                    "props": [
-                        {
-                            "name": "game_id",
-                            "description": "The unique game id",
-                            "type": "String"
-                        },
-                        {
-                            "name": "event_id",
-                            "description": "The unique event id",
-                            "type": "String"
-                        },
-                        {
-                            "name": "event_data",
-                            "description": "The data attached to event",
-                            "type": "Object",
-                            "props": [
-                                {
-                                    "name": "event_code",
-                                    "description": "The code of the event",
-                                    "type": "Int"
-                                }
-                            ]
-                        }
-                    ]
-                }
-            ],
-            "class": "springroll.Learning",
-            "module": "Learning",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/learning/Learning.js",
-            "line": 175,
-            "description": "An api method was called, this happens before any validation",
-            "itemtype": "event",
-            "name": "called",
-            "params": [
-                {
-                    "name": "api",
-                    "description": "The name of the api method called",
-                    "type": "String"
-                }
-            ],
-            "class": "springroll.Learning",
-            "module": "Learning",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/learning/Learning.js",
-            "line": 182,
-            "description": "Handle errors",
-            "itemtype": "method",
-            "name": "_handleError",
-            "access": "private",
-            "tagname": "",
-            "params": [
-                {
-                    "name": "error",
-                    "description": "The error to handle",
-                    "type": "Error"
-                }
-            ],
-            "return": {
-                "description": "[description]",
-                "type": "[type]"
-            },
-            "class": "springroll.Learning",
-            "module": "Learning",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/learning/Learning.js",
-            "line": 223,
-            "description": "The map of API event name overrides",
-            "itemtype": "method",
-            "name": "addMap",
-            "params": [
-                {
-                    "name": "eventDictionary",
-                    "description": "The collection of game-specific APIs, this is a map\n      of the eventCode to the name of the API method",
-                    "type": "Object"
-                }
-            ],
-            "class": "springroll.Learning",
-            "module": "Learning",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/learning/Learning.js",
-            "line": 244,
-            "description": "The tracking specification",
-            "itemtype": "property",
-            "name": "spec",
-            "type": "Object",
-            "class": "springroll.Learning",
-            "module": "Learning",
-            "namespace": "springroll",
-            "subprops": [
-                {
-                    "name": "gameId",
-                    "description": "",
-                    "type": "String"
-                },
-                {
-                    "name": "version",
-                    "description": "",
-                    "type": "Int"
-                },
-                {
-                    "name": "events",
-                    "description": "",
-                    "type": "Array"
-                }
-            ]
-        },
-        {
-            "file": "src/learning/Learning.js",
-            "line": 317,
-            "description": "When clicking on a method name",
-            "itemtype": "method",
-            "name": "_toggleRowCollapse",
-            "access": "private",
-            "tagname": "",
-            "params": [
-                {
-                    "name": "e",
-                    "description": "The click event",
-                    "type": "Event"
-                }
-            ],
-            "class": "springroll.Learning",
-            "module": "Learning",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/learning/Learning.js",
-            "line": 328,
-            "description": "Toogle the display of the documentation",
-            "itemtype": "method",
-            "name": "toggleDocs",
-            "class": "springroll.Learning",
-            "module": "Learning",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/learning/Learning.js",
-            "line": 344,
-            "description": "Show the documentation panel, development build only!",
-            "itemtype": "property",
-            "name": "showTray",
-            "type": "Boolean",
-            "class": "springroll.Learning",
-            "module": "Learning",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/learning/Learning.js",
-            "line": 379,
-            "description": "Convenience function for measuring the duration which is common\nfor many events. These timers respect the application being paused\nand should be use instead of implementing Date.now() or some other\nDate-based method.",
-            "itemtype": "method",
-            "name": "startTimer",
-            "params": [
-                {
-                    "name": "alias",
-                    "description": "A unique alias for this timer",
-                    "type": "String"
-                }
-            ],
-            "class": "springroll.Learning",
-            "module": "Learning",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/learning/Learning.js",
-            "line": 397,
-            "description": "Check the current progress of a timer, this will not destory the timer",
-            "itemtype": "method",
-            "name": "pollTimer",
-            "params": [
-                {
-                    "name": "alias",
-                    "description": "The unique alias for this timer",
-                    "type": "String"
-                }
-            ],
-            "return": {
-                "description": "The timer in milliseconds",
-                "type": "Int"
-            },
-            "class": "springroll.Learning",
-            "module": "Learning",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/learning/Learning.js",
-            "line": 413,
-            "description": "Get the amount of time since the start of the game",
-            "itemtype": "method",
-            "name": "gameTime",
-            "return": {
-                "description": "The time since the beginning of the game in milliseconds",
-                "type": "Int"
-            },
-            "class": "springroll.Learning",
-            "module": "Learning",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/learning/Learning.js",
-            "line": 423,
-            "description": "Stop a timer and get the final duration to send with an event. This\nwill clean-up and discard the timer and it can't be used again.",
-            "itemtype": "method",
-            "name": "stopTimer",
-            "params": [
-                {
-                    "name": "alias",
-                    "description": "The unique alias for this timer",
-                    "type": "String"
-                }
-            ],
-            "return": {
-                "description": "The timer in milliseconds",
-                "type": "Int"
-            },
-            "class": "springroll.Learning",
-            "module": "Learning",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/learning/Learning.js",
-            "line": 437,
-            "description": "This will clean-up and discard the timer and it can't be used again.",
-            "itemtype": "method",
-            "name": "removeTimer",
-            "params": [
-                {
-                    "name": "alias",
-                    "description": "The unique alias for this timer",
-                    "type": "String"
-                }
-            ],
-            "class": "springroll.Learning",
-            "module": "Learning",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/learning/Learning.js",
-            "line": 450,
-            "description": "Handle the frame update",
-            "itemtype": "method",
-            "name": "updateTimers",
-            "access": "private",
-            "tagname": "",
-            "params": [
-                {
-                    "name": "elapsed",
-                    "description": "The number of milliseconds since the last update",
-                    "type": "Int"
-                }
-            ],
-            "class": "springroll.Learning",
-            "module": "Learning",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/learning/Learning.js",
-            "line": 464,
-            "description": "Override for start game event",
-            "itemtype": "method",
-            "name": "startGame",
-            "class": "springroll.Learning",
-            "module": "Learning",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/learning/Learning.js",
-            "line": 502,
-            "description": "Override for the end game event",
-            "itemtype": "method",
-            "name": "endGame",
-            "params": [
-                {
-                    "name": "exitType",
-                    "description": "The exit type for certain games",
-                    "type": "String",
-                    "optional": true
-                }
-            ],
-            "class": "springroll.Learning",
-            "module": "Learning",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/learning/Learning.js",
-            "line": 532,
-            "description": "Basic method for starting a feedback or instruction",
-            "itemtype": "method",
-            "name": "_startFeedback",
-            "access": "private",
-            "tagname": "",
-            "params": [
-                {
-                    "name": "api",
-                    "description": "The event method to call",
-                    "type": "String"
-                },
-                {
-                    "name": "description",
-                    "description": "Description of the instruction",
-                    "type": "String"
-                },
-                {
-                    "name": "identifier",
-                    "description": "A unique identifier",
-                    "type": "String"
-                },
-                {
-                    "name": "mediaType",
-                    "description": "Either audio animation or other",
-                    "type": "String"
-                },
-                {
-                    "name": "totalDuration",
-                    "description": "The estimated time of instruction in milliseconds",
-                    "type": "Int"
-                }
-            ],
-            "class": "springroll.Learning",
-            "module": "Learning",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/learning/Learning.js",
-            "line": 561,
-            "description": "Basic method for starting a feedback or instruction",
-            "itemtype": "method",
-            "name": "_startFeedback",
-            "access": "private",
-            "tagname": "",
-            "params": [
-                {
-                    "name": "api",
-                    "description": "The event method to call",
-                    "type": "String"
-                }
-            ],
-            "class": "springroll.Learning",
-            "module": "Learning",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/learning/Learning.js",
-            "line": 582,
-            "description": "Start the system initiated instruction",
-            "itemtype": "method",
-            "name": "startInstruction",
-            "params": [
-                {
-                    "name": "description",
-                    "description": "The text description of the instruction",
-                    "type": "String"
-                },
-                {
-                    "name": "identifier",
-                    "description": "A unique identifier for this peice of instruction",
-                    "type": "String"
-                },
-                {
-                    "name": "mediaType",
-                    "description": "The type of media, audio animation or other",
-                    "type": "String"
-                },
-                {
-                    "name": "total_duration",
-                    "description": "The estimated duration of the media in milliseconds",
-                    "type": "Int"
-                }
-            ],
-            "class": "springroll.Learning",
-            "module": "Learning",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/learning/Learning.js",
-            "line": 595,
-            "description": "End the system initiated instruction",
-            "itemtype": "method",
-            "name": "endInstruction",
-            "class": "springroll.Learning",
-            "module": "Learning",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/learning/Learning.js",
-            "line": 605,
-            "description": "Start the incorrect feedback",
-            "itemtype": "method",
-            "name": "startIncorrectFeedback",
-            "params": [
-                {
-                    "name": "description",
-                    "description": "The text description of the instruction",
-                    "type": "String"
-                },
-                {
-                    "name": "identifier",
-                    "description": "A unique identifier for this peice of instruction",
-                    "type": "String"
-                },
-                {
-                    "name": "mediaType",
-                    "description": "The type of media, audio animation or other",
-                    "type": "String"
-                },
-                {
-                    "name": "total_duration",
-                    "description": "The estimated duration of the media in milliseconds",
-                    "type": "Int"
-                }
-            ],
-            "class": "springroll.Learning",
-            "module": "Learning",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/learning/Learning.js",
-            "line": 618,
-            "description": "End the incorrect feedback",
-            "itemtype": "method",
-            "name": "endIncorrectFeedback",
-            "class": "springroll.Learning",
-            "module": "Learning",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/learning/Learning.js",
-            "line": 628,
-            "description": "Start the correct feedback event",
-            "itemtype": "method",
-            "name": "startCorrectFeedback",
-            "params": [
-                {
-                    "name": "description",
-                    "description": "The text description of the instruction",
-                    "type": "String"
-                },
-                {
-                    "name": "identifier",
-                    "description": "A unique identifier for this peice of instruction",
-                    "type": "String"
-                },
-                {
-                    "name": "mediaType",
-                    "description": "The type of media, audio animation or other",
-                    "type": "String"
-                },
-                {
-                    "name": "total_duration",
-                    "description": "The estimated duration of the media in milliseconds",
-                    "type": "Int"
-                }
-            ],
-            "class": "springroll.Learning",
-            "module": "Learning",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/learning/Learning.js",
-            "line": 647,
-            "description": "End the correct feedback event",
-            "itemtype": "method",
-            "name": "endCorrectFeedback",
-            "class": "springroll.Learning",
-            "module": "Learning",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/learning/Learning.js",
-            "line": 657,
-            "description": "The movie started",
-            "itemtype": "method",
-            "name": "startMovie",
-            "params": [
-                {
-                    "name": "movieId",
-                    "description": "The identifier for the movie that's playing",
-                    "type": "String"
-                },
-                {
-                    "name": "duration",
-                    "description": "The duration of the media playback in milliseconds",
-                    "type": "Int"
-                },
-                {
-                    "name": "description",
-                    "description": "The text or description of the instruction",
-                    "type": "String"
-                }
-            ],
-            "class": "springroll.Learning",
-            "module": "Learning",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/learning/Learning.js",
-            "line": 680,
-            "description": "The user decided to skip the movie playback by clicking a skip button",
-            "itemtype": "method",
-            "name": "skipMovie",
-            "class": "springroll.Learning",
-            "module": "Learning",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/learning/Learning.js",
-            "line": 699,
-            "description": "The movie ended",
-            "itemtype": "method",
-            "name": "endMovie",
-            "class": "springroll.Learning",
-            "module": "Learning",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/learning/Learning.js",
-            "line": 719,
-            "description": "Handler when an api is called",
-            "itemtype": "method",
-            "name": "_onCalled",
-            "access": "private",
-            "tagname": "",
-            "params": [
-                {
-                    "name": "api",
-                    "description": "The name of the API method called",
-                    "type": "String"
-                }
-            ],
-            "class": "springroll.Learning",
-            "module": "Learning",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/learning/Learning.js",
-            "line": 737,
-            "description": "Generic method to track an event based on the spec, the arguments\nmirror the arguments in the event spec.",
-            "itemtype": "method",
-            "name": "_specTrack",
-            "access": "private",
-            "tagname": "",
-            "params": [
-                {
-                    "name": "api",
-                    "description": "The name of the api",
-                    "type": "String"
-                },
-                {
-                    "name": "extraArgs",
-                    "description": "The Additional arguments",
-                    "type": "*",
-                    "optional": true,
-                    "multiple": true
-                }
-            ],
-            "class": "springroll.Learning",
-            "module": "Learning",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/learning/Learning.js",
-            "line": 773,
-            "description": "Generic method to track an event based on the spec, the arguments\nmirror the arguments in the event spec.",
-            "itemtype": "method",
-            "name": "_track",
-            "access": "private",
-            "tagname": "",
-            "params": [
-                {
-                    "name": "api",
-                    "description": "The name of the api",
-                    "type": "String"
-                },
-                {
-                    "name": "input",
-                    "description": "The collection of argument values",
-                    "type": "Object",
-                    "optional": true
-                },
-                {
-                    "name": "round",
-                    "description": "The explicit round to add the track event for",
-                    "type": "Int",
-                    "optional": true
-                }
-            ],
-            "class": "springroll.Learning",
-            "module": "Learning",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/learning/Learning.js",
-            "line": 871,
-            "description": "Display an error in the tray",
-            "itemtype": "method",
-            "name": "_showError",
-            "access": "private",
-            "tagname": "",
-            "params": [
-                {
-                    "name": "message",
-                    "description": "The message to log",
-                    "type": "String"
-                },
-                {
-                    "name": "api",
-                    "description": "The name of the api",
-                    "type": "String"
-                },
-                {
-                    "name": "property",
-                    "description": "Optional property",
-                    "type": "String",
-                    "optional": true
-                }
-            ],
-            "class": "springroll.Learning",
-            "module": "Learning",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/learning/Learning.js",
-            "line": 902,
-            "description": "Require that an api has been called",
-            "itemtype": "method",
-            "name": "requires",
-            "params": [
-                {
-                    "name": "api",
-                    "description": "The names of the method or API call",
-                    "type": "String"
-                }
-            ],
-            "return": {
-                "description": "If the api was called before",
-                "type": "Boolean"
-            },
-            "class": "springroll.Learning",
-            "module": "Learning",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/learning/Learning.js",
-            "line": 918,
-            "description": "Don't use after this",
-            "itemtype": "method",
-            "name": "destroy",
-            "class": "springroll.Learning",
-            "module": "Learning",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/learning/LearningError.js",
-            "line": 21,
-            "description": "The error message",
-            "itemtype": "property",
-            "name": "message",
-            "type": "String",
-            "class": "springroll.LearningError",
-            "module": "Learning",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/learning/LearningError.js",
-            "line": 27,
-            "description": "The stack trace",
-            "itemtype": "property",
-            "name": "stack",
-            "type": "String",
-            "class": "springroll.LearningError",
-            "module": "Learning",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/learning/LearningError.js",
-            "line": 40,
-            "description": "To string override",
-            "itemtype": "method",
-            "name": "toString",
-            "return": {
-                "description": "The string representation of the error",
-                "type": "String"
-            },
-            "class": "springroll.LearningError",
-            "module": "Learning",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/learning/LearningMedia.js",
-            "line": 18,
-            "description": "Reference to the StringFilters",
-            "itemtype": "property",
-            "name": "filters",
-            "type": "springroll.StringFilters",
-            "class": "springroll.LearningMedia",
-            "module": "Learning Media",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/learning/LearningMedia.js",
-            "line": 24,
-            "description": "Reference to the Learning Dispatcher",
-            "itemtype": "property",
-            "name": "learning",
-            "type": "springroll.Learning",
-            "class": "springroll.LearningMedia",
-            "module": "Learning Media",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/learning/LearningMedia.js",
-            "line": 30,
-            "description": "Reference to the VO Player",
-            "itemtype": "property",
-            "name": "voPlayer",
-            "type": "springroll.VOPlayer",
-            "class": "springroll.LearningMedia",
-            "module": "Learning Media",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/learning/LearningMedia.js",
-            "line": 36,
-            "description": "Reference to the main display",
-            "itemtype": "property",
-            "name": "display",
-            "type": "createjs.Display",
-            "class": "springroll.LearningMedia",
-            "module": "Learning Media",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/learning/LearningMedia.js",
-            "line": 42,
-            "description": "Reference to the animator instance",
-            "itemtype": "property",
-            "name": "animator",
-            "type": "springroll.Animator",
-            "class": "springroll.LearningMedia",
-            "module": "Learning Media",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/learning/LearningMedia.js",
-            "line": 52,
-            "description": "Intiailize the media",
-            "itemtype": "method",
-            "name": "init",
-            "params": [
-                {
-                    "name": "app",
-                    "description": "",
-                    "type": "springroll.Application"
-                }
-            ],
-            "class": "springroll.LearningMedia",
-            "module": "Learning Media",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/learning/LearningMedia.js",
-            "line": 105,
-            "description": "Plays animation or list of animations using springroll.Animator,\nfiring startMovie and endMovie or skipMovie Learning events.",
-            "itemtype": "method",
-            "name": "playMovie",
-            "params": [
-                {
-                    "name": "instance",
-                    "description": "The MovieClip to animate.",
-                    "type": "MovieClip"
-                },
-                {
-                    "name": "events",
-                    "description": "Event or list of events to animate. See\n                                  springroll.Animator.play() docs for details.",
-                    "type": "String|Array|Object"
-                },
-                {
-                    "name": "onComplete",
-                    "description": "VO/Animation Ended callback",
-                    "type": "Function",
-                    "optional": true
-                },
-                {
-                    "name": "onCancel",
-                    "description": "VO/Animation Cancelled (interrupted) callback.\n                                      If set to 'true' (Boolean), will use same callback as 'onComplete'\n                                      If omited, no callback will be fired on interruption.",
-                    "type": "Function|Boolean",
-                    "optional": true
-                }
-            ],
-            "return": {
-                "description": "AnimatorTimeline of the played animation.",
-                "type": "springroll.AnimatorTimeline"
-            },
-            "class": "springroll.LearningMedia",
-            "module": "Learning Media",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/learning/LearningMedia.js",
-            "line": 140,
-            "description": "Plays events/aliases using Animator or VOPlayer, and fires startInstruction and endInstruction Learning events\n\nExample Animator usage:\ngame.playInstruction(someMovieClip, {\"anim\":\"frameLabel\", \"audio\":\"soundAlias\"}, doneFunction, interruptedFunction);\n\nExample VOPlayer usage:\ngame.playInstruction(\"soundAlias\", doneFunction, interruptedFunction);",
-            "itemtype": "method",
-            "name": "playInstruction",
-            "params": [
-                {
-                    "name": "instance",
-                    "description": "createjs.MovieClip instance to play with Animator.\n                              Omit this parameter to play alias(es) with VOPlayer instead",
-                    "type": "MovieClip",
-                    "optional": true
-                },
-                {
-                    "name": "event",
-                    "description": "If 'instance' is omitted, Alias or Array of aliases for VO lines to play with VOPlayer.\n                                      See VOPlayer.play docs for options.\n                                      If 'instance' is present, Event or list of events to animate with createjs.Animator.\n                                      See springroll.Animator.play() docs for options",
-                    "type": "String|Array|Object"
-                },
-                {
-                    "name": "onComplete",
-                    "description": "VO/Animation Ended callback",
-                    "type": "Function",
-                    "optional": true
-                },
-                {
-                    "name": "onCancel",
-                    "description": "VO/Animation Cancelled (interrupted) callback.\n                                     If set to 'true' (Boolean), will use same callback as 'onComplete'\n                                     If omited, no callback will be fired on interruption.",
-                    "type": "Function|Boolean",
-                    "optional": true
-                }
-            ],
-            "return": {
-                "description": "AnimatorTimeline of the played animation, or nothing if VO only.",
-                "type": "springroll.AnimatorTimeline|undefined"
-            },
-            "class": "springroll.LearningMedia",
-            "module": "Learning Media",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/learning/LearningMedia.js",
-            "line": 215,
-            "description": "Plays events/aliases using Animator or VOPlayer, and fires startIncorrectFeedback and endIncorrectFeedback Learning events\n\nExample Animator usage:\ngame.playIncorrectFeedback(someMovieClip, {\"anim\":\"frameLabel\", \"audio\":\"soundAlias\"}, doneFunction, interruptedFunction);\n\nExample VOPlayer usage:\ngame.playIncorrectFeedback(\"soundAlias\", doneFunction, interruptedFunction);",
-            "itemtype": "method",
-            "name": "playIncorrectFeedback",
-            "params": [
-                {
-                    "name": "instance",
-                    "description": "createjs.MovieClip instance to play with Animator.\n                              Omit this parameter to play alias(es) with VOPlayer instead",
-                    "type": "MovieClip",
-                    "optional": true
-                },
-                {
-                    "name": "events",
-                    "description": "If 'instance' is omitted, Alias or Array of aliases for VO lines to play with VOPlayer.\n                                      See VOPlayer.play docs for options.\n                                      If 'instance' is present, Event or list of events to animate with createjs.Animator.\n                                      See springroll.Animator.play() docs for options",
-                    "type": "String|Array|Object"
-                },
-                {
-                    "name": "onComplete",
-                    "description": "VO/Animation Ended callback",
-                    "type": "Function",
-                    "optional": true
-                },
-                {
-                    "name": "onCancel",
-                    "description": "VO/Animation Cancelled (interrupted) callback.\n                                     If set to 'true' (Boolean), will use same callback as 'onComplete'\n                                     If omited, no callback will be fired on interruption.",
-                    "type": "Function|Boolean",
-                    "optional": true
-                }
-            ],
-            "return": {
-                "description": "AnimatorTimeline of the played animation, or nothing if VO only.",
-                "type": "springroll.easeljs.AnimatorTimeline|undefined"
-            },
-            "class": "springroll.LearningMedia",
-            "module": "Learning Media",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/learning/LearningMedia.js",
-            "line": 290,
-            "description": "Plays events/aliases using Animator or VOPlayer, and fires startCorrectFeedback and endCorrectFeedback Learning events\n\nExample Animator usage:\ngame.playCorrectFeedback(someMovieClip, {\"anim\":\"frameLabel\", \"audio\":\"soundAlias\"}, doneFunction, interruptedFunction);\n\nExample VOPlayer usage:\ngame.playCorrectFeedback(\"soundAlias\", doneFunction, interruptedFunction);",
-            "itemtype": "method",
-            "name": "playCorrectFeedback",
-            "params": [
-                {
-                    "name": "instance",
-                    "description": "createjs.MovieClip instance to play with Animator.\n                              Omit this parameter to play alias(es) with VOPlayer instead",
-                    "type": "MovieClip",
-                    "optional": true
-                },
-                {
-                    "name": "event",
-                    "description": "If 'instance' is omitted, Alias or Array of aliases for VO lines to play with VOPlayer.\n                                      See VOPlayer.play docs for options.\n                                      If 'instance' is present, Event or list of events to animate with createjs.Animator.\n                                      See springroll.Animator.play() docs for options",
-                    "type": "String|Array|Object"
-                },
-                {
-                    "name": "onComplete",
-                    "description": "VO/Animation Ended callback",
-                    "type": "Function",
-                    "optional": true
-                },
-                {
-                    "name": "onCancel",
-                    "description": "VO/Animation Cancelled (interrupted) callback.\n                                     If set to 'true' (Boolean), will use same callback as 'onComplete'.\n                                     If omited, no callback will be fired on interruption.",
-                    "type": "Function|Boolean",
-                    "optional": true
-                }
-            ],
-            "return": {
-                "description": "AnimatorTimeline of the played animation, or nothing if VO only.",
-                "type": "springroll.easeljs.AnimatorTimeline|undefined"
-            },
-            "class": "springroll.LearningMedia",
-            "module": "Learning Media",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/learning/LearningMedia.js",
-            "line": 365,
-            "description": "Generalized method for playing either feedback or instructions",
-            "itemtype": "method",
-            "name": "triggerVOPlay",
-            "access": "protected",
-            "tagname": "",
-            "params": [
-                {
-                    "name": "alias",
-                    "description": "Alias or Array of aliases for VO lines to play",
-                    "type": "String|Array"
-                },
-                {
-                    "name": "learningStart",
-                    "description": "The learning to call while starting",
-                    "type": "Function"
-                },
-                {
-                    "name": "learningEnd",
-                    "description": "The learning call to call after finishing/canceling VO",
-                    "type": "Function"
-                },
-                {
-                    "name": "onComplete",
-                    "description": "VO Ended callback",
-                    "type": "Function",
-                    "optional": true
-                },
-                {
-                    "name": "onCancel",
-                    "description": "VO Cancelled (interrupted) callback",
-                    "type": "Function",
-                    "optional": true
-                }
-            ],
-            "class": "springroll.LearningMedia",
-            "module": "Learning Media",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/learning/LearningMedia.js",
-            "line": 419,
-            "description": "Handles learning events for triggered Animator calls.",
-            "itemtype": "method",
-            "name": "triggerMoviePlay",
-            "access": "protected",
-            "tagname": "",
-            "params": [
-                {
-                    "name": "instance",
-                    "description": "The MovieClip to animate.",
-                    "type": "MovieClip"
-                },
-                {
-                    "name": "events",
-                    "description": "Event or list of events to animate. See\n                           springroll.Animator.play() docs for details.",
-                    "type": "String|Array"
-                },
-                {
-                    "name": "options",
-                    "description": "Additional options. See springroll.Animator.play() docs\n                       for details.",
-                    "type": "Object"
-                },
-                {
-                    "name": "learningEvent",
-                    "description": "Learning VO/animation event type\n                            (\"movie\", \"instruction\", \"incorrect\", or \"correct\").",
-                    "type": "String"
-                }
-            ],
-            "return": {
-                "description": "AnimatorTimeline of animation.",
-                "type": "springroll.AnimatorTimeline"
-            },
-            "class": "springroll.LearningMedia",
-            "module": "Learning Media",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/learning/LearningMedia.js",
-            "line": 607,
-            "description": "Get an alias or group of aliases as a string",
-            "itemtype": "method",
-            "name": "aliasToString",
-            "access": "private",
-            "tagname": "",
-            "params": [
-                {
-                    "name": "alias",
-                    "description": "The alias to convert",
-                    "type": "Array|String"
-                }
-            ],
-            "return": {
-                "description": "The alias as string",
-                "type": "String"
-            },
-            "class": "springroll.LearningMedia",
-            "module": "Learning Media",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/learning/LearningMedia.js",
-            "line": 638,
-            "description": "Stops the currently playing animation or VO.",
-            "itemtype": "method",
-            "name": "stop",
-            "class": "springroll.LearningMedia",
-            "module": "Learning Media",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/learning/LearningMedia.js",
-            "line": 654,
-            "description": "Whether or not VOPlayer or Animator are currently playing",
-            "itemtype": "method",
-            "name": "isPlaying",
-            "return": {
-                "description": "Whether or not VOPlayer or Animator are currently playing",
-                "type": "Boolean"
-            },
-            "class": "springroll.LearningMedia",
-            "module": "Learning Media",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/learning/LearningMedia.js",
-            "line": 664,
-            "description": "Destroy and don't use after this",
-            "itemtype": "method",
-            "name": "destroy",
-            "class": "springroll.LearningMedia",
-            "module": "Learning Media",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/learning/LearningMediaPlugin.js",
-            "line": 20,
-            "description": "For media conveninece methods tracking media events, such as \nplayFeedback, playMovie, etc",
-            "itemtype": "property",
-            "name": "media",
-            "type": "springroll.LearningMedia",
-            "class": "springroll.Application",
-            "module": "Learning Media",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/learning/LearningPlugin.js",
-            "line": 21,
-            "description": "An learning event is dispatched",
-            "itemtype": "event",
-            "name": "learningEvent",
-            "params": [
-                {
-                    "name": "data",
-                    "description": "The event data",
-                    "type": "Object",
-                    "props": [
-                        {
-                            "name": "game_id",
-                            "description": "The unique game id",
-                            "type": "String"
-                        },
-                        {
-                            "name": "event_id",
-                            "description": "The unique event id",
-                            "type": "String"
-                        },
-                        {
-                            "name": "event_data",
-                            "description": "The data attached to event",
-                            "type": "Object",
-                            "props": [
-                                {
-                                    "name": "event_code",
-                                    "description": "The code of the event",
-                                    "type": "Int"
-                                }
-                            ]
-                        }
-                    ]
-                }
-            ],
-            "class": "springroll.Application",
-            "module": "Learning",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/learning/LearningPlugin.js",
-            "line": 31,
-            "description": "The Learning Dispatcher instance",
-            "itemtype": "property",
-            "name": "learning",
-            "type": "springroll.Learning",
-            "class": "springroll.Application",
-            "module": "Learning",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/learning/ValidationError.js",
-            "line": 23,
-            "description": "The name of the property erroring on",
-            "itemtype": "property",
-            "name": "property",
-            "type": "String",
-            "class": "springroll.ValidationError",
-            "module": "Learning",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/learning/ValidationError.js",
-            "line": 29,
-            "description": "The supplied value, if any",
-            "itemtype": "property",
-            "name": "value",
-            "type": "*",
-            "class": "springroll.ValidationError",
-            "module": "Learning",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/learning/ValidationError.js",
-            "line": 42,
-            "description": "To string override",
-            "itemtype": "method",
-            "name": "toString",
-            "return": {
-                "description": "The string representation of the error",
-                "type": "String"
-            },
-            "class": "springroll.ValidationError",
-            "module": "Learning",
             "namespace": "springroll"
         },
         {
@@ -29548,7 +27016,7 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 143,
+            "line": 144,
             "description": "Reference to the prototype",
             "static": 1,
             "access": "private",
@@ -29562,7 +27030,7 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 151,
+            "line": 152,
             "description": "Set if all captions are currently muted.",
             "itemtype": "property",
             "name": "mute",
@@ -29574,7 +27042,7 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 169,
+            "line": 170,
             "description": "If the captions object should do it's own updating unless you want to manuall\nseek. In general, self-updating should not be set to false unless the sync\nof the captions needs to be exact with something else.",
             "itemtype": "property",
             "name": "selfUpdate",
@@ -29586,8 +27054,8 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 194,
-            "description": "Sets the dictionary object to use for captions. This overrides the current \ndictionary, if present.",
+            "line": 195,
+            "description": "Sets the dictionary object to use for captions. This overrides the current\ndictionary, if present.",
             "itemtype": "property",
             "name": "data",
             "type": "Object",
@@ -29597,7 +27065,7 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 265,
+            "line": 266,
             "description": "The text field that the captions uses to update.",
             "itemtype": "property",
             "name": "textField",
@@ -29608,7 +27076,7 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 284,
+            "line": 285,
             "description": "Automatically determine how to set the text field text",
             "itemtype": "method",
             "name": "setText",
@@ -29637,7 +27105,7 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 316,
+            "line": 317,
             "description": "Returns if there is a caption under that alias or not.",
             "itemtype": "method",
             "name": "hasCaption",
@@ -29658,7 +27126,7 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 327,
+            "line": 328,
             "description": "A utility function for getting the full text of a caption by alias\nthis can be useful for debugging or tracking purposes.",
             "itemtype": "method",
             "name": "getFullCaption",
@@ -29686,7 +27154,7 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 389,
+            "line": 390,
             "description": "Sets an array of line data as the current caption data to play.",
             "access": "private",
             "tagname": "",
@@ -29705,7 +27173,7 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 411,
+            "line": 412,
             "description": "Reset the captions",
             "access": "private",
             "tagname": "",
@@ -29717,7 +27185,7 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 422,
+            "line": 423,
             "description": "Take the captions timecode and convert to milliseconds\nformat is in HH:MM:ss:mmm",
             "access": "private",
             "tagname": "",
@@ -29740,7 +27208,7 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 442,
+            "line": 443,
             "description": "The playing status.",
             "access": "public",
             "tagname": "",
@@ -29754,7 +27222,7 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 456,
+            "line": 457,
             "description": "Calculate the total duration of the current caption",
             "access": "private",
             "tagname": "",
@@ -29766,7 +27234,7 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 467,
+            "line": 468,
             "description": "Get the current duration of the current caption",
             "itemtype": "property",
             "name": "currentDuration",
@@ -29778,7 +27246,7 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 480,
+            "line": 481,
             "description": "Get the current caption alias.",
             "itemtype": "property",
             "name": "currentAlias",
@@ -29790,7 +27258,7 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 493,
+            "line": 494,
             "description": "Start the caption playback.",
             "access": "public",
             "tagname": "",
@@ -29814,7 +27282,7 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 512,
+            "line": 513,
             "description": "Convience function for stopping captions.",
             "access": "public",
             "tagname": "",
@@ -29826,7 +27294,7 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 527,
+            "line": 528,
             "description": "Goto a specific time.",
             "access": "public",
             "tagname": "",
@@ -29845,7 +27313,7 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 579,
+            "line": 580,
             "description": "Callback for when a frame is entered.",
             "access": "private",
             "tagname": "",
@@ -29864,7 +27332,7 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 593,
+            "line": 594,
             "description": "Function to update the amount of time elapsed for the caption playback.\nCall this to advance the caption by a given amount of time.",
             "access": "public",
             "tagname": "",
@@ -29883,7 +27351,7 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 608,
+            "line": 609,
             "description": "Calculates the captions after increasing the current time.",
             "access": "private",
             "tagname": "",
@@ -29895,7 +27363,7 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 646,
+            "line": 647,
             "description": "Updates the text in the managed text field.",
             "access": "private",
             "tagname": "",
@@ -29907,7 +27375,7 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 659,
+            "line": 660,
             "description": "Returns duration in milliseconds of given captioned sound alias or alias list.",
             "itemtype": "method",
             "name": "getLength",
@@ -29928,7 +27396,7 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 695,
+            "line": 696,
             "description": "Destroy this load task and don't use after this",
             "itemtype": "method",
             "name": "destroy",
@@ -30636,7 +28104,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 510,
+            "line": 511,
             "description": "Fades a sound from the current volume to a specified volume. A sound that ends\nat 0 volume is stopped after the fade.",
             "itemtype": "method",
             "name": "fadeOut",
@@ -30667,6 +28135,12 @@
                     "description": "The volume to fade from. The default is the current volume.",
                     "type": "Number",
                     "optional": true
+                },
+                {
+                    "name": "stopAtEnd",
+                    "description": "If the sound should be stopped when the fade completes. The\n                             default is to stop it if the fade completes at a volume of 0.",
+                    "type": "Boolean",
+                    "optional": true
                 }
             ],
             "class": "springroll.Sound",
@@ -30675,7 +28149,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 565,
+            "line": 570,
             "description": "The update call, used for fading sounds. This is bound to the instance of Sound",
             "itemtype": "method",
             "name": "_update",
@@ -30694,7 +28168,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 625,
+            "line": 630,
             "description": "Plays a sound.",
             "itemtype": "method",
             "name": "play",
@@ -30778,7 +28252,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 782,
+            "line": 787,
             "description": "Gets a SoundInstance, from the pool if available or maks a new one if not.",
             "itemtype": "method",
             "name": "_getSoundInst",
@@ -30806,7 +28280,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 808,
+            "line": 813,
             "description": "Plays a sound after it finishes loading.",
             "itemtype": "method",
             "name": "_playAfterload",
@@ -30825,7 +28299,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 873,
+            "line": 878,
             "description": "The callback used for when a sound instance is complete.",
             "itemtype": "method",
             "name": "_onSoundComplete",
@@ -30844,7 +28318,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 895,
+            "line": 900,
             "description": "Stops all playing or loading instances of a given sound.",
             "itemtype": "method",
             "name": "stop",
@@ -30863,7 +28337,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 921,
+            "line": 926,
             "description": "Stops all playing SoundInstances for a sound.",
             "itemtype": "method",
             "name": "_stopSound",
@@ -30882,7 +28356,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 937,
+            "line": 942,
             "description": "Stops and repools a specific SoundInstance.",
             "itemtype": "method",
             "name": "_stopInst",
@@ -30901,7 +28375,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 953,
+            "line": 958,
             "description": "Stops all sounds in a given context.",
             "itemtype": "method",
             "name": "stopContext",
@@ -30920,7 +28394,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 977,
+            "line": 982,
             "description": "Stop all sounds that are playing, regardless of context.",
             "itemtype": "method",
             "name": "stopAll",
@@ -30930,7 +28404,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 989,
+            "line": 994,
             "description": "Pauses a specific sound.",
             "itemtype": "method",
             "name": "pause",
@@ -30949,7 +28423,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 1009,
+            "line": 1014,
             "description": "Unpauses a specific sound.",
             "itemtype": "method",
             "name": "resume",
@@ -30968,7 +28442,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 1029,
+            "line": 1034,
             "description": "Pauses all sounds.",
             "itemtype": "method",
             "name": "pauseAll",
@@ -30980,7 +28454,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 1041,
+            "line": 1046,
             "description": "Unpauses all sounds.",
             "itemtype": "method",
             "name": "resumeAll",
@@ -30992,7 +28466,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 1053,
+            "line": 1058,
             "description": "Sets mute status of all sounds in a context",
             "itemtype": "method",
             "name": "setContextMute",
@@ -31016,7 +28490,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 1085,
+            "line": 1090,
             "description": "Set the mute status of all sounds",
             "itemtype": "property",
             "name": "muteAll",
@@ -31027,7 +28501,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 1097,
+            "line": 1102,
             "description": "Sets volume of a context. Individual sound volumes are multiplied by this value.",
             "itemtype": "method",
             "name": "setContextVolume",
@@ -31051,7 +28525,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 1128,
+            "line": 1133,
             "description": "Preloads a list of sounds.",
             "itemtype": "method",
             "name": "preload",
@@ -31076,7 +28550,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 1186,
+            "line": 1191,
             "description": "Marks a sound as loaded. If it needs to play after the load, then it is played.",
             "itemtype": "method",
             "name": "_markLoaded",
@@ -31100,7 +28574,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 1211,
+            "line": 1216,
             "description": "Unloads a list of sounds to reclaim memory if possible.\nIf the sounds are playing, they are stopped.",
             "itemtype": "method",
             "name": "unload",
@@ -31119,7 +28593,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 1235,
+            "line": 1240,
             "description": "Unloads all sounds. If any sounds are playing, they are stopped.\nInternally this calls `unload`.",
             "itemtype": "method",
             "name": "unloadAll",
@@ -31131,7 +28605,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 1251,
+            "line": 1256,
             "description": "Places a SoundInstance back in the pool for reuse.",
             "itemtype": "method",
             "name": "_poolinst",
@@ -31150,7 +28624,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 1272,
+            "line": 1277,
             "description": "Destroys springroll.Sound. This unloads loaded sounds in SoundJS.",
             "itemtype": "method",
             "name": "destroy",
@@ -32367,6 +29841,30 @@
             ],
             "return": {
                 "description": "The constrained value",
+                "type": "Number"
+            },
+            "class": "window.Math",
+            "module": "Core",
+            "namespace": "window"
+        },
+        {
+            "file": "src/mixins/Math.js",
+            "line": 154,
+            "description": "Round a number to the nearest increment.\nFor example, 1.4 rounded to the nearest 0.5 is 1.5.",
+            "params": [
+                {
+                    "name": "val",
+                    "description": "Value to round",
+                    "type": "Number"
+                },
+                {
+                    "name": "increment",
+                    "description": "Increment to round by",
+                    "type": "Number"
+                }
+            ],
+            "return": {
+                "description": "Rounded value",
                 "type": "Number"
             },
             "class": "window.Math",
@@ -34986,18 +32484,19 @@
             "name": "extend",
             "params": [
                 {
-                    "name": "subClass",
-                    "description": "The reference to the class",
+                    "name": "child",
+                    "description": "The reference to the child class",
                     "type": "Function"
                 },
                 {
-                    "name": "superClass",
-                    "description": "The parent reference or full classname",
-                    "type": "Function|String"
+                    "name": "parent",
+                    "description": "The parent class reference or full classname",
+                    "type": "Function|String",
+                    "optional": true
                 }
             ],
             "return": {
-                "description": "Reference to the subClass's prototype",
+                "description": "Reference to the child class's prototype",
                 "type": "Object"
             },
             "class": "window.extend",
@@ -35726,5 +33225,10 @@
             "namespace": "springroll"
         }
     ],
-    "warnings": []
+    "warnings": [
+        {
+            "message": "Missing item type\nRound a number to the nearest increment.\nFor example, 1.4 rounded to the nearest 0.5 is 1.5.",
+            "line": " src/mixins/Math.js:154"
+        }
+    ]
 }

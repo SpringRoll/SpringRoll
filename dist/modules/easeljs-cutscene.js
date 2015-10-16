@@ -1,4 +1,4 @@
-/*! SpringRoll 0.4.2 */
+/*! SpringRoll 0.4.3 */
 /**
  * @module EaselJS Cutscene
  * @namespace springroll.easeljs
@@ -596,7 +596,7 @@
 
 	// Reference to prototype
 	var s = Task.prototype;
-	var p = extend(CutsceneTask, Task);
+	var p = Task.extend(CutsceneTask);
 
 	/**
 	 * Test if we should run this task

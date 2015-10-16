@@ -1,4 +1,4 @@
-/*! SpringRoll 0.4.2 */
+/*! SpringRoll 0.4.3 */
 /**
  * @module Captions
  * @namespace springroll
@@ -136,7 +136,8 @@
 		this.update = this.update.bind(this);
 
 		//Set with preset
-		this.data = data || null;
+		this.data = data ||
+		{};
 		this.textField = textField || null;
 		this.selfUpdate = selfUpdate === undefined ? true : !!selfUpdate;
 	};
@@ -147,7 +148,7 @@
 	 * @private
 	 * @property {Object} p
 	 */
-	var p = Captions.prototype;
+	var p = extend(Captions);
 
 	/**
 	 * Set if all captions are currently muted.
@@ -193,7 +194,7 @@
 	});
 
 	/**
-	 * Sets the dictionary object to use for captions. This overrides the current 
+	 * Sets the dictionary object to use for captions. This overrides the current
 	 * dictionary, if present.
 	 * @property {Object} data
 	 */

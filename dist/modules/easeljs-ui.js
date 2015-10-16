@@ -1,4 +1,4 @@
-/*! SpringRoll 0.4.2 */
+/*! SpringRoll 0.4.3 */
 /**
  * @module EaselJS UI
  * @namespace springroll.easeljs
@@ -420,7 +420,6 @@
 
 	// Extend Container
 	var p = extend(Button, Container);
-
 	var s = Container.prototype; //super
 
 	/**
@@ -1050,7 +1049,7 @@
 	var s = Button.prototype;
 
 	// Reference to the prototype
-	var p = extend(SoundButton, Button);
+	var p = Button.extend(SoundButton);
 
 	/**
 	 * Handler for the BUTTON_PRESS event
@@ -1365,7 +1364,7 @@
 	};
 
 	// Reference to the drag manager
-	var p = DragManager.prototype = {};
+	var p = extend(DragManager);
 
 	/**
 	 * If the DragManager allows multitouch dragging. Setting this stops any current

@@ -1,4 +1,4 @@
-/*! SpringRoll 0.4.2 */
+/*! SpringRoll 0.4.3 */
 /**
  * @module Animation
  * @namespace springroll
@@ -119,7 +119,7 @@
 		this.isTimer = false;
 	};
 
-	var p = AnimatorTimeline.prototype;
+	var p = extend(AnimatorTimeline);
 
 	/**
 	 * Reset the timeline so we can reuse
@@ -406,7 +406,7 @@
 	};
 
 	//reference to the prototype
-	var p = Animator.prototype;
+	var p = extend(Animator);
 
 	//private local vars
 	var _timelines,
@@ -1302,7 +1302,7 @@
 	};
 
 	//reference to the prototype
-	var p = AnimatorInstance.prototype;
+	var p = extend(AnimatorInstance);
 
 	/**
 	 * The initialization method
@@ -1483,7 +1483,7 @@
 	};
 
 	//Reference to the prototype
-	var p = AnimatorInstance.extend(GenericMovieClipInstance, AnimatorInstance);
+	var p = AnimatorInstance.extend(GenericMovieClipInstance);
 
 	/**
 	 * The initialization method
