@@ -12,7 +12,7 @@
 	 * This class is responsible for saving the user-specific data
 	 * within an Application. This can be player-progress data, high
 	 * score information, or other data that needs be saved between
-	 * sessions of running an app. 
+	 * sessions of running an app.
 	 * @class UserData
 	 * @constructor
 	 */
@@ -49,7 +49,7 @@
 	 */
 	p.read = function(prop, callback)
 	{
-		if (!this.container)
+		if (!this.container || !this.container.supported)
 		{
 			return callback(SavedData.read(prop));
 		}
@@ -73,7 +73,7 @@
 	 */
 	p.write = function(prop, value, callback)
 	{
-		if (!this.container)
+		if (!this.container || !this.container.supported)
 		{
 			SavedData.write(prop, value);
 			if (callback) callback();
@@ -101,7 +101,7 @@
 	 */
 	p.remove = function(prop, callback)
 	{
-		if (!this.container)
+		if (!this.container || !this.container.supported)
 		{
 			SavedData.remove(prop);
 			if (callback) callback();
