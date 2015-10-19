@@ -808,7 +808,12 @@
 					if (!asset.type)
 						asset.type = "easeljs";
 					if (!asset.id)
-						asset.id = "asset_" + (assetCount++);
+					{
+						var src = asset.src;
+						src = src.substr(0, src.lastIndexOf("."));
+						src = src.substr(src.lastIndexOf("/") + 1);
+						asset.id = src;
+					}
 				}
 				//standard images
 				else
