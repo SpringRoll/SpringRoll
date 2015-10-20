@@ -952,6 +952,8 @@
 			inst._channel.removeEventListener("complete", inst._endFunc);
 			inst._channel.stop();
 		}
+		var fadeIdx = this._fades.indexOf(inst);
+		if (fadeIdx > -1) this._fades.splice(fadeIdx, 1);
 		this._poolInst(inst);
 	};
 
