@@ -590,7 +590,7 @@
 				if (inst._fStop)
 				{
 					sound = this._sounds[inst.alias];
-					sound.playing.splice(sound.playing.indexOf(inst), 1);
+					if (sound) sound.playing.splice(sound.playing.indexOf(inst), 1);
 					this._stopInst(inst);
 				}
 				else
