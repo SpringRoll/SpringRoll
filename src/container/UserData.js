@@ -6,6 +6,7 @@
 {
 	// Impor classes
 	var SavedData = include('springroll.SavedData');
+	var Application = include('springroll.Application');
 
 	/**
 	 * This class is responsible for saving the user-specific data
@@ -50,7 +51,8 @@
 	{
 		if (!this.container || !this.container.supported)
 		{
-			return callback(SavedData.read(prop));
+			var prefix = Application.instance.options.name || "";
+			return callback(SavedData.read(prefix + prop));
 		}
 		this.container.fetch(
 			'userDataRead',
@@ -74,7 +76,8 @@
 	{
 		if (!this.container || !this.container.supported)
 		{
-			SavedData.write(prop, value);
+			var prefix = Application.instance.options.name || "";
+			SavedData.write(prefix + prop, value);
 			if (callback) callback();
 			return;
 		}
@@ -102,7 +105,8 @@
 	{
 		if (!this.container || !this.container.supported)
 		{
-			SavedData.remove(prop);
+			var prefix = Application.instance.options.name || "";
+			SavedData.remove(prefix + prop);
 			if (callback) callback();
 			return;
 		}
