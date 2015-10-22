@@ -1,4 +1,4 @@
-/*! SpringRoll 0.4.3 */
+/*! SpringRoll 0.4.4 */
 /**
  * @module Container Client
  * @namespace springroll
@@ -7,12 +7,13 @@
 {
 	// Impor classes
 	var SavedData = include('springroll.SavedData');
+	var Application = include('springroll.Application');
 
 	/**
 	 * This class is responsible for saving the user-specific data
 	 * within an Application. This can be player-progress data, high
 	 * score information, or other data that needs be saved between
-	 * sessions of running an app. 
+	 * sessions of running an app.
 	 * @class UserData
 	 * @constructor
 	 */
@@ -49,9 +50,10 @@
 	 */
 	p.read = function(prop, callback)
 	{
-		if (!this.container)
+		if (!this.container || !this.container.supported)
 		{
-			return callback(SavedData.read(prop));
+			var prefix = Application.instance.options.name || "";
+			return callback(SavedData.read(prefix + prop));
 		}
 		this.container.fetch(
 			'userDataRead',
@@ -73,9 +75,10 @@
 	 */
 	p.write = function(prop, value, callback)
 	{
-		if (!this.container)
+		if (!this.container || !this.container.supported)
 		{
-			SavedData.write(prop, value);
+			var prefix = Application.instance.options.name || "";
+			SavedData.write(prefix + prop, value);
 			if (callback) callback();
 			return;
 		}
@@ -101,9 +104,10 @@
 	 */
 	p.remove = function(prop, callback)
 	{
-		if (!this.container)
+		if (!this.container || !this.container.supported)
 		{
-			SavedData.remove(prop);
+			var prefix = Application.instance.options.name || "";
+			SavedData.remove(prefix + prop);
 			if (callback) callback();
 			return;
 		}

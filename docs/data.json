@@ -2,7 +2,7 @@
     "project": {
         "name": "SpringRoll",
         "description": "An application framework for building HTML5 Canvas games and applications",
-        "version": "0.4.3",
+        "version": "0.4.4",
         "url": "https://github.com/SpringRoll/SpringRoll"
     },
     "files": {
@@ -1766,7 +1766,7 @@
             },
             "tag": "module",
             "file": "src/container/UserData.js",
-            "line": 10
+            "line": 11
         },
         "Core": {
             "name": "Core",
@@ -2370,7 +2370,7 @@
             "module": "Container Client",
             "namespace": "springroll",
             "file": "src/container/UserData.js",
-            "line": 10,
+            "line": 11,
             "description": "This class is responsible for saving the user-specific data\nwithin an Application. This can be player-progress data, high\nscore information, or other data that needs be saved between\nsessions of running an app.",
             "is_constructor": 1
         },
@@ -7206,7 +7206,19 @@
     "classitems": [
         {
             "file": "src/container/Container.js",
-            "line": 44,
+            "line": 38,
+            "description": "The options",
+            "itemtype": "property",
+            "name": "options",
+            "type": "Object",
+            "readonly": "",
+            "class": "springroll.Container",
+            "module": "Container",
+            "namespace": "springroll"
+        },
+        {
+            "file": "src/container/Container.js",
+            "line": 49,
             "description": "The name of this class",
             "itemtype": "property",
             "name": "name",
@@ -7217,7 +7229,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 50,
+            "line": 55,
             "description": "The current iframe jquery object",
             "itemtype": "property",
             "name": "iframe",
@@ -7228,7 +7240,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 56,
+            "line": 61,
             "description": "The DOM object for the iframe",
             "itemtype": "property",
             "name": "dom",
@@ -7239,7 +7251,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 62,
+            "line": 67,
             "description": "Reference to the help button",
             "itemtype": "property",
             "name": "helpButton",
@@ -7250,7 +7262,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 69,
+            "line": 74,
             "description": "Reference to the captions button",
             "itemtype": "property",
             "name": "captionsButton",
@@ -7261,7 +7273,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 76,
+            "line": 81,
             "description": "Reference to the all sound mute button",
             "itemtype": "property",
             "name": "soundButton",
@@ -7272,7 +7284,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 83,
+            "line": 88,
             "description": "Reference to the music mute button",
             "itemtype": "property",
             "name": "musicButton",
@@ -7283,7 +7295,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 90,
+            "line": 95,
             "description": "Reference to the sound effects mute button",
             "itemtype": "property",
             "name": "sfxButton",
@@ -7294,7 +7306,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 97,
+            "line": 102,
             "description": "Reference to the voice-over mute button",
             "itemtype": "property",
             "name": "voButton",
@@ -7305,7 +7317,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 104,
+            "line": 109,
             "description": "Reference to the pause application button",
             "itemtype": "property",
             "name": "pauseButton",
@@ -7316,7 +7328,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 111,
+            "line": 116,
             "description": "Communication layer between the container and application",
             "itemtype": "property",
             "name": "client",
@@ -7327,7 +7339,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 117,
+            "line": 122,
             "description": "The current release data",
             "itemtype": "property",
             "name": "release",
@@ -7338,7 +7350,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 123,
+            "line": 128,
             "description": "Check to see if a application is loaded",
             "itemtype": "property",
             "name": "loaded",
@@ -7350,7 +7362,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 130,
+            "line": 135,
             "description": "Check to see if a application is loading",
             "itemtype": "property",
             "name": "loading",
@@ -7362,7 +7374,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 137,
+            "line": 142,
             "description": "The collection of captions styles",
             "itemtype": "property",
             "name": "_captionsStyles",
@@ -7375,7 +7387,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 149,
+            "line": 154,
             "description": "Whether the Game is currently \"blurred\" (not focused) - for pausing/unpausing",
             "itemtype": "property",
             "name": "_appBlurred",
@@ -7389,7 +7401,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 157,
+            "line": 162,
             "description": "Always keep the focus on the application iframe",
             "itemtype": "property",
             "name": "_keepFocus",
@@ -7403,7 +7415,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 165,
+            "line": 170,
             "description": "Whether the Container is currently \"blurred\" (not focused) - for pausing/unpausing",
             "itemtype": "property",
             "name": "_containerBlurred",
@@ -7417,7 +7429,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 173,
+            "line": 178,
             "description": "Delays pausing of application to mitigate issues with asynchronous communication\nbetween Game and Container",
             "itemtype": "property",
             "name": "_pauseTimer",
@@ -7428,7 +7440,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 180,
+            "line": 185,
             "description": "If the application is currently paused manually",
             "itemtype": "property",
             "name": "_isManualPause",
@@ -7442,7 +7454,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 188,
+            "line": 193,
             "description": "If the current application is paused",
             "itemtype": "property",
             "name": "_paused",
@@ -7456,7 +7468,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 196,
+            "line": 201,
             "description": "Should we send bellhop messages for the mute (etc) buttons?",
             "itemtype": "property",
             "name": "sendMutes",
@@ -7468,7 +7480,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 203,
+            "line": 208,
             "description": "The external handler class, must include `remove`, `write`, `read` methods\nmake it possible to use something else to handle the external, default\nis to use cookies/localStorage. See {{#crossLink \"springroll.SavedDataHandler\"}}{{/crossLink}}\nas an example.",
             "itemtype": "property",
             "name": "userDataHandler",
@@ -7480,7 +7492,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 260,
+            "line": 257,
             "description": "Fired when the pause state is toggled",
             "itemtype": "event",
             "name": "pause",
@@ -7497,7 +7509,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 266,
+            "line": 263,
             "description": "Fired when the application resumes from a paused state",
             "itemtype": "event",
             "name": "resumed",
@@ -7507,7 +7519,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 271,
+            "line": 268,
             "description": "Fired when the application becomes paused",
             "itemtype": "event",
             "name": "paused",
@@ -7517,7 +7529,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 276,
+            "line": 273,
             "description": "Fired when the application is unsupported",
             "itemtype": "event",
             "name": "unsupported",
@@ -7534,7 +7546,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 282,
+            "line": 279,
             "description": "Fired when the API cannot be called",
             "itemtype": "event",
             "name": "remoteFailed",
@@ -7544,7 +7556,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 287,
+            "line": 284,
             "description": "There was a problem with the API call",
             "itemtype": "event",
             "name": "remoteError",
@@ -7554,7 +7566,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 292,
+            "line": 289,
             "description": "Event when the application gives the load done signal",
             "itemtype": "event",
             "name": "opened",
@@ -7564,7 +7576,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 297,
+            "line": 294,
             "description": "Event when a application starts closing",
             "itemtype": "event",
             "name": "close",
@@ -7574,7 +7586,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 302,
+            "line": 299,
             "description": "Event when a application closes",
             "itemtype": "event",
             "name": "closed",
@@ -7584,7 +7596,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 307,
+            "line": 304,
             "description": "Event when a application start loading",
             "itemtype": "event",
             "name": "open",
@@ -7594,7 +7606,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 312,
+            "line": 309,
             "description": "Fired when the enabled status of the help button changes",
             "itemtype": "event",
             "name": "helpEnabled",
@@ -7611,7 +7623,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 318,
+            "line": 315,
             "description": "The features supported by the application",
             "itemtype": "event",
             "name": "features",
@@ -7653,7 +7665,26 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 329,
+            "line": 326,
+            "description": "When the document is clicked",
+            "itemtype": "method",
+            "name": "_onDocClicked",
+            "access": "private",
+            "tagname": "",
+            "params": [
+                {
+                    "name": "e",
+                    "description": "Click or focus event",
+                    "type": "Event"
+                }
+            ],
+            "class": "springroll.Container",
+            "module": "Container",
+            "namespace": "springroll"
+        },
+        {
+            "file": "src/container/Container.js",
+            "line": 340,
             "description": "Open a application or path",
             "itemtype": "method",
             "name": "_internalOpen",
@@ -7694,7 +7725,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 378,
+            "line": 389,
             "description": "Open a application or path",
             "itemtype": "method",
             "name": "openPath",
@@ -7733,7 +7764,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 402,
+            "line": 413,
             "description": "Open application based on an API Call to SpringRoll Connect",
             "itemtype": "method",
             "name": "openRemote",
@@ -7779,7 +7810,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 458,
+            "line": 472,
             "description": "Set up communication layer between site and application.\nMay be called from subclasses if they create/destroy Bellhop instances.",
             "access": "protected",
             "tagname": "",
@@ -7791,7 +7822,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 485,
+            "line": 499,
             "description": "Removes the Bellhop communication layer altogether.",
             "access": "protected",
             "tagname": "",
@@ -7803,7 +7834,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 499,
+            "line": 513,
             "description": "Handler for the userDataRemove event",
             "itemtype": "method",
             "name": "onUserDataRemove",
@@ -7815,7 +7846,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 513,
+            "line": 527,
             "description": "Handler for the userDataRead event",
             "itemtype": "method",
             "name": "onUserDataRead",
@@ -7827,7 +7858,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 527,
+            "line": 541,
             "description": "Handler for the userDataWrite event",
             "itemtype": "method",
             "name": "onUserDataWrite",
@@ -7839,7 +7870,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 542,
+            "line": 556,
             "description": "Reset the mutes for audio and captions",
             "itemtype": "method",
             "name": "onLoadDone",
@@ -7851,7 +7882,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 578,
+            "line": 592,
             "description": "Handle focus events sent from iFrame children",
             "itemtype": "method",
             "name": "onFocus",
@@ -7863,7 +7894,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 589,
+            "line": 603,
             "description": "Handle focus events sent from container's window",
             "itemtype": "method",
             "name": "onContainerFocus",
@@ -7875,7 +7906,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 600,
+            "line": 614,
             "description": "Handle blur events sent from container's window",
             "itemtype": "method",
             "name": "onContainerBlur",
@@ -7887,7 +7918,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 615,
+            "line": 629,
             "description": "Focus on the iframe's contentWindow",
             "itemtype": "method",
             "name": "focus",
@@ -7897,7 +7928,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 624,
+            "line": 638,
             "description": "Unfocus on the iframe's contentWindow",
             "itemtype": "method",
             "name": "blur",
@@ -7907,7 +7938,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 633,
+            "line": 647,
             "description": "Manage the focus change events sent from window and iFrame",
             "itemtype": "method",
             "name": "manageFocus",
@@ -7919,7 +7950,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 679,
+            "line": 693,
             "description": "Handle the application features",
             "itemtype": "method",
             "name": "onFeatures",
@@ -7938,7 +7969,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 704,
+            "line": 718,
             "description": "Handle the keep focus event for the window",
             "itemtype": "method",
             "name": "onKeepFocus",
@@ -7950,7 +7981,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 715,
+            "line": 729,
             "description": "Reset the mutes for audio and captions",
             "itemtype": "method",
             "name": "onHelpEnabled",
@@ -7962,7 +7993,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 725,
+            "line": 739,
             "description": "Handler when the play hint button is clicked",
             "itemtype": "method",
             "name": "onPlayHelp",
@@ -7974,7 +8005,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 738,
+            "line": 752,
             "description": "The application ended and destroyed itself",
             "itemtype": "method",
             "name": "onEndGame",
@@ -7986,7 +8017,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 750,
+            "line": 764,
             "description": "Handler when the captions mute button is clicked",
             "itemtype": "method",
             "name": "onCaptionsToggle",
@@ -7998,7 +8029,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 760,
+            "line": 774,
             "description": "If the current application is paused",
             "itemtype": "property",
             "name": "paused",
@@ -8010,7 +8041,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 800,
+            "line": 814,
             "description": "Set the captions are muted",
             "itemtype": "property",
             "name": "helpEnabled",
@@ -8021,7 +8052,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 820,
+            "line": 834,
             "description": "Handler when the sound mute button is clicked",
             "itemtype": "method",
             "name": "onSoundToggle",
@@ -8033,7 +8064,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 834,
+            "line": 848,
             "description": "Handler when the music mute button is clicked",
             "itemtype": "method",
             "name": "onMusicToggle",
@@ -8045,7 +8076,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 845,
+            "line": 859,
             "description": "Handler when the voice-over mute button is clicked",
             "itemtype": "method",
             "name": "onVOToggle",
@@ -8057,7 +8088,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 856,
+            "line": 870,
             "description": "Handler when the voice-over mute button is clicked",
             "itemtype": "method",
             "name": "onSFXToggle",
@@ -8069,7 +8100,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 867,
+            "line": 881,
             "description": "Check for when all mutes are muted or unmuted",
             "itemtype": "method",
             "name": "_checkSoundMute",
@@ -8081,7 +8112,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 877,
+            "line": 891,
             "description": "Toggle the current paused state of the application",
             "itemtype": "method",
             "name": "onPauseToggle",
@@ -8093,7 +8124,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 888,
+            "line": 902,
             "description": "The name of the saved property if the captions are muted or not",
             "itemtype": "property",
             "name": "CAPTIONS_MUTED",
@@ -8108,7 +8139,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 897,
+            "line": 911,
             "description": "The name of the saved property if the sound is muted or not",
             "itemtype": "property",
             "name": "SOUND_MUTED",
@@ -8123,7 +8154,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 906,
+            "line": 920,
             "description": "The name of the saved property if the music is muted or not",
             "itemtype": "property",
             "name": "MUSIC_MUTED",
@@ -8138,7 +8169,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 915,
+            "line": 929,
             "description": "The name of the saved property if the voice-over is muted or not",
             "itemtype": "property",
             "name": "VO_MUTED",
@@ -8153,7 +8184,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 924,
+            "line": 938,
             "description": "The name of the saved property if the effects are muted or not",
             "itemtype": "property",
             "name": "SFX_MUTED",
@@ -8168,7 +8199,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 933,
+            "line": 947,
             "description": "The name of the saved property for the captions styles",
             "itemtype": "property",
             "name": "CAPTIONS_STYLES",
@@ -8183,7 +8214,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 942,
+            "line": 956,
             "description": "The map of the default caption style settings",
             "itemtype": "property",
             "name": "DEFAULT_CAPTIONS_STYLES",
@@ -8198,7 +8229,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 958,
+            "line": 972,
             "description": "Abstract method to handle the muting",
             "itemtype": "method",
             "name": "_setMuteProp",
@@ -8225,7 +8256,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 977,
+            "line": 991,
             "description": "Set the captions styles",
             "itemtype": "method",
             "name": "setCaptionsStyles",
@@ -8293,7 +8324,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 1043,
+            "line": 1057,
             "description": "Get the captions styles",
             "itemtype": "method",
             "name": "getCaptionsStyles",
@@ -8315,7 +8346,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 1055,
+            "line": 1069,
             "description": "Reset the captions styles",
             "itemtype": "method",
             "name": "clearCaptionsStyles",
@@ -8325,7 +8356,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 1066,
+            "line": 1080,
             "description": "Set the captions are enabled or not",
             "itemtype": "property",
             "name": "captionsMuted",
@@ -8337,7 +8368,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 1084,
+            "line": 1098,
             "description": "Set the all sound is enabled or not",
             "itemtype": "property",
             "name": "soundMuted",
@@ -8349,7 +8380,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 1102,
+            "line": 1116,
             "description": "Set the voice-over audio is muted",
             "itemtype": "property",
             "name": "voMuted",
@@ -8361,7 +8392,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 1120,
+            "line": 1134,
             "description": "Set the music audio is muted",
             "itemtype": "property",
             "name": "musicMuted",
@@ -8373,7 +8404,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 1138,
+            "line": 1152,
             "description": "Set the sound effect audio is muted",
             "itemtype": "property",
             "name": "sfxMuted",
@@ -8385,7 +8416,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 1156,
+            "line": 1170,
             "description": "Reset all the buttons back to their original setting\nand clear the iframe.",
             "itemtype": "method",
             "name": "reset",
@@ -8395,7 +8426,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 1184,
+            "line": 1198,
             "description": "Tell the application to start closing",
             "itemtype": "method",
             "name": "close",
@@ -8405,7 +8436,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 1201,
+            "line": 1215,
             "description": "Disable a button",
             "itemtype": "method",
             "name": "disableButton",
@@ -8424,7 +8455,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 1213,
+            "line": 1227,
             "description": "Destroy and don't use after this",
             "itemtype": "method",
             "name": "destroy",
@@ -8973,7 +9004,7 @@
         },
         {
             "file": "src/container/UserData.js",
-            "line": 20,
+            "line": 21,
             "description": "Reference to the container. If the app is not connected\nto the Container (running standalone) then the container\nis set to be `null`.",
             "itemtype": "property",
             "name": "container",
@@ -8986,7 +9017,7 @@
         },
         {
             "file": "src/container/UserData.js",
-            "line": 30,
+            "line": 31,
             "description": "The name to preprend to each property name, this is set\nby default as the Application's name, which is required\nfor the Container Client module.",
             "itemtype": "property",
             "name": "id",
@@ -8998,7 +9029,7 @@
         },
         {
             "file": "src/container/UserData.js",
-            "line": 43,
+            "line": 44,
             "description": "Read a saved setting",
             "itemtype": "method",
             "name": "read",
@@ -9020,7 +9051,7 @@
         },
         {
             "file": "src/container/UserData.js",
-            "line": 66,
+            "line": 68,
             "description": "Write a setting",
             "itemtype": "method",
             "name": "write",
@@ -9048,7 +9079,7 @@
         },
         {
             "file": "src/container/UserData.js",
-            "line": 95,
+            "line": 98,
             "description": "Delete a saved setting by name",
             "itemtype": "method",
             "name": "remove",
@@ -9071,7 +9102,7 @@
         },
         {
             "file": "src/container/UserData.js",
-            "line": 120,
+            "line": 124,
             "description": "Destroy and don't use after this",
             "itemtype": "method",
             "name": "destroy",
@@ -28375,7 +28406,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 958,
+            "line": 960,
             "description": "Stops all sounds in a given context.",
             "itemtype": "method",
             "name": "stopContext",
@@ -28394,7 +28425,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 982,
+            "line": 984,
             "description": "Stop all sounds that are playing, regardless of context.",
             "itemtype": "method",
             "name": "stopAll",
@@ -28404,7 +28435,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 994,
+            "line": 996,
             "description": "Pauses a specific sound.",
             "itemtype": "method",
             "name": "pause",
@@ -28423,7 +28454,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 1014,
+            "line": 1016,
             "description": "Unpauses a specific sound.",
             "itemtype": "method",
             "name": "resume",
@@ -28442,7 +28473,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 1034,
+            "line": 1036,
             "description": "Pauses all sounds.",
             "itemtype": "method",
             "name": "pauseAll",
@@ -28454,7 +28485,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 1046,
+            "line": 1048,
             "description": "Unpauses all sounds.",
             "itemtype": "method",
             "name": "resumeAll",
@@ -28466,7 +28497,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 1058,
+            "line": 1060,
             "description": "Sets mute status of all sounds in a context",
             "itemtype": "method",
             "name": "setContextMute",
@@ -28490,7 +28521,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 1090,
+            "line": 1092,
             "description": "Set the mute status of all sounds",
             "itemtype": "property",
             "name": "muteAll",
@@ -28501,7 +28532,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 1102,
+            "line": 1104,
             "description": "Sets volume of a context. Individual sound volumes are multiplied by this value.",
             "itemtype": "method",
             "name": "setContextVolume",
@@ -28525,7 +28556,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 1133,
+            "line": 1135,
             "description": "Preloads a list of sounds.",
             "itemtype": "method",
             "name": "preload",
@@ -28550,7 +28581,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 1191,
+            "line": 1193,
             "description": "Marks a sound as loaded. If it needs to play after the load, then it is played.",
             "itemtype": "method",
             "name": "_markLoaded",
@@ -28574,7 +28605,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 1216,
+            "line": 1218,
             "description": "Unloads a list of sounds to reclaim memory if possible.\nIf the sounds are playing, they are stopped.",
             "itemtype": "method",
             "name": "unload",
@@ -28593,7 +28624,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 1240,
+            "line": 1242,
             "description": "Unloads all sounds. If any sounds are playing, they are stopped.\nInternally this calls `unload`.",
             "itemtype": "method",
             "name": "unloadAll",
@@ -28605,7 +28636,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 1256,
+            "line": 1258,
             "description": "Places a SoundInstance back in the pool for reuse.",
             "itemtype": "method",
             "name": "_poolinst",
@@ -28624,7 +28655,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 1277,
+            "line": 1279,
             "description": "Destroys springroll.Sound. This unloads loaded sounds in SoundJS.",
             "itemtype": "method",
             "name": "destroy",

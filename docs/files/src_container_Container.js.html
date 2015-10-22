@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html lang='en'>
 <head>
-	<title>SpringRoll v0.4.3 API Documentation : src/container/Container.js</title>
+	<title>SpringRoll v0.4.4 API Documentation : src/container/Container.js</title>
 	<meta charset='utf-8'>
 	<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 	<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
-	<link rel='shortcut icon' type='image/png' href='../assets/images/favicon.ico?v=0.4.3'>
+	<link rel='shortcut icon' type='image/png' href='../assets/images/favicon.ico?v=0.4.4'>
 	<link href='//fonts.googleapis.com/css?family=Titillium+Web:300,200,600' rel='stylesheet' type='text/css'>
-	<link rel='stylesheet' type='text/css' href='../assets/css/libraries.css?v=0.4.3'>
-	<link rel='stylesheet' type='text/css' href='../assets/css/main.css?v=0.4.3'>
+	<link rel='stylesheet' type='text/css' href='../assets/css/libraries.css?v=0.4.4'>
+	<link rel='stylesheet' type='text/css' href='../assets/css/main.css?v=0.4.4'>
 </head>
 <body>
 <header>
@@ -22,10 +22,10 @@
 					<span class="icon-bar"></span>
 				</button>
 				<a class="navbar-brand" href='https://github.com/SpringRoll/SpringRoll'>
-						<img src='../assets/images/logo.png?v=0.4.3' class="logo">
+						<img src='../assets/images/logo.png?v=0.4.4' class="logo">
 					<span class='project-name'>SpringRoll</span>
 					<span class="sr-only">API Documentation for:</span>
-					<span class='version hidden-xs'>v0.4.3</span>
+					<span class='version hidden-xs'>v0.4.4</span>
 				</a>
 			</div>
 			<div class="collapse navbar-collapse" id="docs-navbar">
@@ -611,7 +611,12 @@
 	{
 		EventDispatcher.call(this);
 
-		options = $.extend(
+		/**
+		 * The options
+		 * @property {Object} options
+		 * @readOnly
+		 */
+		this.options = options = $.extend(
 		{
 			pauseFocusSelector: &#x27;.pause-on-focus&#x27;
 		}, options ||
@@ -803,16 +808,8 @@
 
 		// Focus on the window on focusing on anything else
 		// without the .pause-on-focus class
-		$(document).on(
-			&#x27;focus click&#x27;,
-			function(e)
-			{
-				if (!$(e.target).filter(options.pauseFocusSelector).length)
-				{
-					this.focus();
-				}
-			}.bind(this)
-		);
+		this._onDocClick = _onDocClick.bind(this);
+		$(document).on(&#x27;focus click&#x27;, this._onDocClick);
 
 		// On elements with the class name pause-on-focus
 		// we will pause the game until a blur event to that item
@@ -901,6 +898,20 @@
 	 * @param {Boolean} data.captions If captions is supported
 	 * @param {Boolean} data.hints If hinting is supported
 	 */
+
+	/**
+	 * When the document is clicked
+	 * @method _onDocClicked
+	 * @private
+	 * @param  {Event} e Click or focus event
+	 */
+	var _onDocClick = function(e)
+	{
+		if (!$(e.target).filter(this.options.pauseFocusSelector).length)
+		{
+			this.focus();
+		}
+	};
 
 	/**
 	 * Open a application or path
@@ -1005,6 +1016,8 @@
 
 		$.getJSON(api, function(result)
 				{
+					if (this._destroyed) return;
+
 					if (!result.success)
 					{
 						return this.trigger(&#x27;remoteError&#x27;, result.error);
@@ -1026,6 +1039,7 @@
 				.bind(this))
 			.fail(function()
 				{
+					if (this._destroyed) return;
 					return this.trigger(&#x27;remoteFailed&#x27;);
 				}
 				.bind(this));
@@ -1794,9 +1808,16 @@
 	{
 		this.reset();
 
+		s.destroy.call(this);
+
+		// Remove listener
+		$(document).off(&#x27;focus click&#x27;, this._onDocClick);
+
 		this.main = null;
 		this.dom = null;
+		this.options = null;
 
+		this._onDocClick = null;
 		this.userDataHandler = null;
 		this.helpButton = null;
 		this.soundButton = null;
@@ -1813,8 +1834,6 @@
 		}
 
 		this.destroyClient();
-
-		s.destroy.call(this);
 	};
 
 	namespace(&#x27;springroll&#x27;).Container = Container;
@@ -1823,7 +1842,7 @@
 </div>
 </div>
 </div>
-<script src='../assets/js/libraries.js?v=0.4.3'></script>
-<script src='../assets/js/main.js?v=0.4.3'></script>
+<script src='../assets/js/libraries.js?v=0.4.4'></script>
+<script src='../assets/js/main.js?v=0.4.4'></script>
 </body>
 </html>

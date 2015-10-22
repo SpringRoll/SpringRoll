@@ -1,4 +1,4 @@
-/*! SpringRoll 0.4.3 */
+/*! SpringRoll 0.4.4 */
 /**
  * @module Sound
  * @namespace springroll
@@ -1000,7 +1000,7 @@
 				if (inst._fStop)
 				{
 					sound = this._sounds[inst.alias];
-					sound.playing.splice(sound.playing.indexOf(inst), 1);
+					if (sound) sound.playing.splice(sound.playing.indexOf(inst), 1);
 					this._stopInst(inst);
 				}
 				else
@@ -1362,6 +1362,8 @@
 			inst._channel.removeEventListener("complete", inst._endFunc);
 			inst._channel.stop();
 		}
+		var fadeIdx = this._fades.indexOf(inst);
+		if (fadeIdx > -1) this._fades.splice(fadeIdx, 1);
 		this._poolInst(inst);
 	};
 
