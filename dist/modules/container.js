@@ -1,4 +1,4 @@
-/*! SpringRoll 0.4.3 */
+/*! SpringRoll 0.4.4 */
 /**
  * @module Core
  * @namespace window
@@ -1321,7 +1321,12 @@
 	{
 		EventDispatcher.call(this);
 
-		options = $.extend(
+		/**
+		 * The options
+		 * @property {Object} options
+		 * @readOnly
+		 */
+		this.options = options = $.extend(
 		{
 			pauseFocusSelector: '.pause-on-focus'
 		}, options ||
@@ -1513,16 +1518,8 @@
 
 		// Focus on the window on focusing on anything else
 		// without the .pause-on-focus class
-		$(document).on(
-			'focus click',
-			function(e)
-			{
-				if (!$(e.target).filter(options.pauseFocusSelector).length)
-				{
-					this.focus();
-				}
-			}.bind(this)
-		);
+		this._onDocClick = _onDocClick.bind(this);
+		$(document).on('focus click', this._onDocClick);
 
 		// On elements with the class name pause-on-focus
 		// we will pause the game until a blur event to that item
@@ -1611,6 +1608,20 @@
 	 * @param {Boolean} data.captions If captions is supported
 	 * @param {Boolean} data.hints If hinting is supported
 	 */
+
+	/**
+	 * When the document is clicked
+	 * @method _onDocClicked
+	 * @private
+	 * @param  {Event} e Click or focus event
+	 */
+	var _onDocClick = function(e)
+	{
+		if (!$(e.target).filter(this.options.pauseFocusSelector).length)
+		{
+			this.focus();
+		}
+	};
 
 	/**
 	 * Open a application or path
@@ -1715,6 +1726,8 @@
 
 		$.getJSON(api, function(result)
 				{
+					if (this._destroyed) return;
+
 					if (!result.success)
 					{
 						return this.trigger('remoteError', result.error);
@@ -1736,6 +1749,7 @@
 				.bind(this))
 			.fail(function()
 				{
+					if (this._destroyed) return;
 					return this.trigger('remoteFailed');
 				}
 				.bind(this));
@@ -2504,9 +2518,16 @@
 	{
 		this.reset();
 
+		s.destroy.call(this);
+
+		// Remove listener
+		$(document).off('focus click', this._onDocClick);
+
 		this.main = null;
 		this.dom = null;
+		this.options = null;
 
+		this._onDocClick = null;
 		this.userDataHandler = null;
 		this.helpButton = null;
 		this.soundButton = null;
@@ -2523,8 +2544,6 @@
 		}
 
 		this.destroyClient();
-
-		s.destroy.call(this);
 	};
 
 	namespace('springroll').Container = Container;
