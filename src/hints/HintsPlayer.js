@@ -84,6 +84,12 @@
 
 	/**
 	 * Play an animation event
+	 * @event start
+	 * @param {springroll.AbstractHint} hint The hint being played
+	 */
+
+	/**
+	 * Play an animation event
 	 * @event anim
 	 * @param {Object} data The event data
 	 * @param {createjs.MovieClip} data.instance The movieclip instance
@@ -224,6 +230,9 @@
 			// it is now safe to destroy old hints since 
 			// their callbacks have already fired
 			this._clearOldHints();
+
+			// Trigger start event
+			this.trigger('start', this._hint);
 		}
 		return this;
 	};
