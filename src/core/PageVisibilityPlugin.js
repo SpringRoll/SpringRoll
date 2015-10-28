@@ -40,6 +40,24 @@
 			{
 				return visibility.enabled;
 			});
+
+		/**
+		 * Setter for if the application is being automatically paused, 
+		 * usually by the PageVisibility plugin or the ContainerClient plugin.
+		 * @property {Boolean} autoPaused 
+		 * @protected
+		 */
+		Object.defineProperty(this, 'autoPaused',
+		{
+			set: function(paused)
+			{
+				// check if app is manually paused
+				if (!this.paused)
+				{
+					this.internalPaused(paused);
+				}
+			}
+		});
 	};
 
 	/**
@@ -49,7 +67,7 @@
 	 */
 	var onHidden = function()
 	{
-		this.paused = true;
+		this.autoPaused = true;
 	};
 
 	/**
@@ -59,7 +77,7 @@
 	 */
 	var onVisible = function()
 	{
-		this.paused = false;
+		this.autoPaused = false;
 	};
 
 	// Destroy the animator
