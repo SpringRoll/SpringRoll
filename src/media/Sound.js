@@ -1008,7 +1008,7 @@
 		var i;
 		for (i = arr.length - 1; i >= 0; --i)
 		{
-			if(!arr[i].paused)
+			if (!arr[i].paused)
 			{
 				arr[i].pause();
 				arr[i].globallyPaused = isGlobal;
@@ -1017,7 +1017,7 @@
 		arr = sound.waitingToPlay;
 		for (i = arr.length - 1; i >= 0; --i)
 		{
-			if(!arr[i].paused)
+			if (!arr[i].paused)
 			{
 				arr[i].pause();
 				arr[i].globallyPaused = isGlobal;
@@ -1040,13 +1040,13 @@
 		var i;
 		for (i = arr.length - 1; i >= 0; --i)
 		{
-			if(arr[i].globallyPaused == isGlobal)
+			if (arr[i].globallyPaused == isGlobal)
 				arr[i].resume();
 		}
 		arr = sound.waitingToPlay;
 		for (i = arr.length - 1; i >= 0; --i)
 		{
-			if(arr[i].globallyPaused == isGlobal)
+			if (arr[i].globallyPaused == isGlobal)
 				arr[i].resume();
 		}
 	};

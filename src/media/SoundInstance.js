@@ -124,7 +124,7 @@
 		 * @readOnly
 		 */
 		this.paused = false;
-		
+
 		/**
 		 * If the sound is paused due to a global pause, probably from the Application.
 		 * @property {Boolean} globallyPaused
