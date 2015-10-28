@@ -8,69 +8,61 @@
 	/**
 	 * Animator Timeline is a class designed to provide
 	 * base animation functionality
-	 *
 	 * @class AnimatorTimeline
 	 */
 	var AnimatorTimeline = function()
 	{
 		/**
 		 * The function to call when we're done
-		 *
 		 * @property {Function} onComplete
 		 */
 		this.onComplete = null;
-		
+
 		/**
 		 * The function to call when stopped early.
-		 *
 		 * @property {Function} onCancelled
 		 */
 		this.onCancelled = null;
-		
+
 		/**
 		 * An array of animations and pauses.
-		 *
 		 * @property {Array} eventList
 		 */
 		this.eventList = null;
-		
+
 		/**
 		 * The index of the active animation in eventList.
 		 * @property {int} listIndex
 		 */
 		this.listIndex = -1;
-		
+
 		/**
 		 * The instance of the timeline to animate
-		 *
 		 * @property {springroll.AnimatorInstance} instance
 		 */
 		this.instance = null;
-		
+
 		/**
 		 * If the current animation loops - determined by looking to see if it ends
-		in "_stop" or "_loop"
-		 *
+		 * in "_stop" or "_loop"
 		 * @property {Boolean} isLooping
 		 */
 		this.isLooping = false;
 
 		/**
 		 * If this timeline plays captions for the current sound.
-		 *
 		 * @property {Boolean} useCaptions
 		 * @readOnly
 		 */
 		this.useCaptions = false;
-		
+
 		/**
 		 * If the timeline is paused.
-		 *
 		 * @property {Boolean} _paused
 		 * @private
 		 */
 		this._paused = false;
-		
+
 		/**
 		 * The current animation duration in seconds.
 		 * @property {Number} duration
@@ -90,8 +82,8 @@
 		this.soundAlias = null;
 
 		/**
-		 * A sound instance object from springroll.Sound, used for tracking sound position for the
-		 * current animation.
+		 * A sound instance object from springroll.Sound, used for tracking sound
+		 * position for the current animation.
 		 * @property {Object} soundInst
 		 */
 		this.soundInst = null;
@@ -113,20 +105,20 @@
 		 * @property {Number} soundEnd
 		 */
 		this.soundEnd = 0;
-		
+
 		/**
 		 * If the timeline is complete. Looping timelines will never complete.
 		 * @property {Boolean} complete
 		 * @readOnly
 		 */
 		this.complete = false;
-		
+
 		this._position = 0;
-		
+
 		this.isTimer = false;
 	};
-	
-	var p = AnimatorTimeline.prototype;
+
+	var p = extend(AnimatorTimeline);
 
 	/**
 	 * Reset the timeline so we can reuse
@@ -160,18 +152,23 @@
 		this.onComplete = null;
 		return this;
 	};
-	
+
 	Object.defineProperty(p, "position",
 	{
-		get: function() { return this._position; },
+		get: function()
+		{
+			return this._position;
+		},
 		set: function(value)
 		{
 			this._position = value;
-			if(!this.isTimer)
+			if (!this.isTimer)
+			{
 				this.instance.setPosition(value);
+			}
 		}
 	});
-	
+
 	/**
 	 * Advances to the next item in the list of things to play.
 	 * @method _nextItem
@@ -180,8 +177,9 @@
 	p._nextItem = function()
 	{
 		var repeat = false;
+		if (this.soundInst) this.soundInst._endCallback = null;
 		//if on a looping animation, set up the animation to be replayed
-		// - this will only happen on looping animations with audio
+		//(this will only happen on looping animations with audio)
 		if (this.isLooping)
 		{
 			//if sound is playing, we need to stop it immediately
@@ -198,13 +196,13 @@
 		}
 		else
 		{
-			if(!this.isTimer)
+			if (!this.isTimer)
 				this.instance.endAnim();
 			//reset variables
 			this.soundEnd = this.soundStart = 0;
 			this.isLooping = this.playSound = this.useCaptions = false;
 			this.soundInst = this.soundAlias = null;
-			
+
 			//see if the animation list is complete
 			if (++this.listIndex >= this.eventList.length)
 			{
@@ -218,40 +216,40 @@
 		switch (typeof listItem)
 		{
 			case "object":
-			{
-				this.isTimer = false;
-				var instance = this.instance;
-				instance.beginAnim(listItem, repeat);
-				this.duration = instance.duration;
-				this.speed = listItem.speed;
-				this.isLooping = instance.isLooping || listItem.loop;
-				this._position = instance.position;
-				
-				if (listItem.alias)
 				{
-					this.soundAlias = listItem.alias;
-					this.soundStart = listItem.audioStart;
-					this.playSound = true;
-					this.useCaptions = listItem.useCaptions;
+					this.isTimer = false;
+					var instance = this.instance;
+					instance.beginAnim(listItem, repeat);
+					this.duration = instance.duration;
+					this.speed = listItem.speed;
+					this.isLooping = instance.isLooping || listItem.loop;
+					this._position = instance.position;
+
+					if (listItem.alias)
+					{
+						this.soundAlias = listItem.alias;
+						this.soundStart = listItem.audioStart;
+						this.playSound = true;
+						this.useCaptions = listItem.useCaptions;
+					}
+					break;
 				}
-				break;
-			}
 			case "number":
-			{
-				this.isTimer = true;
-				this.duration = listItem;
-				this._position = 0;
-				break;
-			}
+				{
+					this.isTimer = true;
+					this.duration = listItem;
+					this._position = 0;
+					break;
+				}
 			case "function":
-			{
-				listItem();
-				this._nextItem();
-				break;
-			}
+				{
+					listItem();
+					this._nextItem();
+					break;
+				}
 		}
 	};
-	
+
 	/**
 	 * The position of the current animation, or the current pause timer, in milliseconds.
 	 * @property {Number} time
@@ -267,7 +265,7 @@
 			this.position = value * 0.001;
 		}
 	});
-	
+
 	/**
 	 * Sets and gets the animation's paused status.
 	 * @property {Boolean} paused
@@ -280,7 +278,9 @@
 		},
 		set: function(value)
 		{
-			if (value == this._paused) return;
+			if (value == this._paused)
+				return;
+
 			this._paused = !!value;
 			var sound = this.soundInst;
 			if (sound)
@@ -291,13 +291,13 @@
 				}
 				else
 				{
-					sound.unpause();
+					sound.resume();
 				}
 			}
 		}
 	});
-	
-	// Assign to the name space
+
+	//assign to the name space
 	namespace('springroll').AnimatorTimeline = AnimatorTimeline;
-	
+
 }());

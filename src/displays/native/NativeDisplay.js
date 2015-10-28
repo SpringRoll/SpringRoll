@@ -3,7 +3,8 @@
  * @namespace springroll.native
  * @requires Core
  */
-(function(undefined){
+(function(undefined)
+{
 
 	var AbstractDisplay = include('springroll.AbstractDisplay');
 
@@ -22,7 +23,8 @@
 	{
 		AbstractDisplay.call(this, id, options);
 
-		options = options || {};
+		options = options ||
+		{};
 
 		/**
 		 * The main rendering context, typically either `CanvasRenderingContext2d` 
@@ -37,8 +39,7 @@
 		this.adapter = include('springroll.native.DisplayAdapter');
 	};
 
-	var s = AbstractDisplay.prototype;
-	var p = extend(NativeDisplay, AbstractDisplay);
+	AbstractDisplay.extend(NativeDisplay);
 
 	// Assign to the global namespace
 	namespace('springroll').NativeDisplay = NativeDisplay;

@@ -1,7 +1,7 @@
 /**
- * @module PIXI Animation
+ * @module PIXI Spine
  * @namespace springroll.pixi
- * @requires  Core, Animation, PIXI Display
+ * @requires  Core, PIXI Display, Animation
  */
 (function()
 {
@@ -22,7 +22,7 @@
 		this.loop = !!loop;
 		this.speed = speed > 0 ? speed : 1;
 	};
-	
+
 	// Assign to namespace
 	namespace("springroll.pixi").ParallelSpineData = ParallelSpineData;
 

@@ -23,37 +23,39 @@
 	Object.defineProperty(String.prototype, 'format',
 	{
 		enumerable: false,
-		writable:false,
-		value: function() {
+		writable: false,
+		value: function()
+		{
 			if (arguments.length < 1) return this;
 			var args = Array.isArray(args) ? args : Array.prototype.slice.call(arguments);
-			
+
 			return this.replace(
 				/([^%]|^)%(?:(\d+)\$)?s/g,
 				function(p0, p, position)
 				{
 					if (position)
 					{
-						return p + args[parseInt(position)-1];
+						return p + args[parseInt(position) - 1];
 					}
 					return p + args.shift();
 				}
 			).replace(/%%s/g, '%s');
 		}
 	});
-	
+
 	/**
 	 * Returns a reversed copy of the string.
 	 * @method reverse
 	 * @return {String} The reversed string.
 	 */
-	if(!String.prototype.reverse)
+	if (!String.prototype.reverse)
 	{
 		Object.defineProperty(String.prototype, 'reverse',
 		{
 			enumerable: false,
-			writable:false,
-			value: function() {
+			writable: false,
+			value: function()
+			{
 				var o = '';
 				for (var i = this.length - 1; i >= 0; i--)
 					o += this[i];

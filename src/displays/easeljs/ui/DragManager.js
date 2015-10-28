@@ -29,8 +29,8 @@
 			Tween = include('createjs.Tween', false);
 			Stage = include("createjs.Stage");
 		}
-		
-		if(typeof display == "function" && !endCallback)
+
+		if (typeof display == "function" && !endCallback)
 		{
 			endCallback = startCallback;
 			startCallback = display;
@@ -136,7 +136,7 @@
 		 * @property {createjs.Stage} _theStage
 		 */
 		//passing stage is deprecated - we should be using the display
-		if(stage instanceof Stage)
+		if (stage instanceof Stage)
 			this._theStage = display;
 		else
 			this._theStage = display.stage;
@@ -148,7 +148,7 @@
 		 * @property {createjs.Point} _dragOffset
 		 */
 		this._dragOffset = null;
-		
+
 		/**
 		 * The pointer id that triggered the drag. This is only used when multitouch is false
 		 * - the DragData is indexed by pointer id when multitouch is true.
@@ -198,8 +198,8 @@
 		this._multitouch = false;
 	};
 
-	/** Reference to the drag manager */
-	var p = DragManager.prototype = {};
+	// Reference to the drag manager
+	var p = extend(DragManager);
 
 	/**
 	 * If the DragManager allows multitouch dragging. Setting this stops any current
@@ -301,7 +301,7 @@
 		if (!ev)
 		{
 			this.isHeldDrag = true;
-			this._dragPointerID = -1;//allow any touch/mouse up to stop drag
+			this._dragPointerID = -1; //allow any touch/mouse up to stop drag
 			this._startDrag();
 		}
 		else
@@ -459,8 +459,8 @@
 		else
 		{
 			//don't stop the drag if a different finger than the dragging one was released
-			if(ev && ev.pointerID != this._dragPointerID && this._dragPointerID > -1) return;
-			
+			if (ev && ev.pointerID != this._dragPointerID && this._dragPointerID > -1) return;
+
 			obj = this.draggedObj;
 			this.draggedObj = null;
 		}
@@ -508,15 +508,15 @@
 		if (this._multitouch)
 		{
 			var data = this.draggedObj[ev.pointerID];
-			if(!data) return;
-			
+			if (!data) return;
+
 			draggedObj = data.obj;
 			dragOffset = data.dragOffset;
 		}
 		else
 		{
-			if(ev.pointerID != this._dragPointerID && this._dragPointerID > -1) return;
-			
+			if (ev.pointerID != this._dragPointerID && this._dragPointerID > -1) return;
+
 			draggedObj = this.draggedObj;
 			dragOffset = this._dragOffset;
 		}
@@ -524,8 +524,8 @@
 		var bounds = draggedObj._dragBounds;
 		if (bounds)
 		{
-			draggedObj.x = clamp(mousePos.x - dragOffset.x, bounds.x, bounds.right);
-			draggedObj.y = clamp(mousePos.y - dragOffset.y, bounds.y, bounds.bottom);
+			draggedObj.x = Math.clamp(mousePos.x - dragOffset.x, bounds.x, bounds.right);
+			draggedObj.y = Math.clamp(mousePos.y - dragOffset.y, bounds.y, bounds.bottom);
 		}
 		else
 		{
@@ -572,7 +572,7 @@
 		for (var i = points.length - 1; i >= 0; --i)
 		{
 			p = points[i];
-			distSq = distSquared(objX, objY, p.x, p.y);
+			distSq = Math.distSq(objX, objY, p.x, p.y);
 			if (distSq <= minDistSq && (distSq < leastDist || leastDist == -1))
 			{
 				leastDist = distSq;
@@ -584,24 +584,6 @@
 			obj.x = closestPoint.x;
 			obj.y = closestPoint.y;
 		}
-	};
-
-	/*
-	 * Small distance squared function
-	 */
-	var distSquared = function(x1, y1, x2, y2)
-	{
-		var xDiff = x1 - x2;
-		var yDiff = y1 - y2;
-		return xDiff * xDiff + yDiff * yDiff;
-	};
-
-	/*
-	 * Simple clamp function
-	 */
-	var clamp = function(x, a, b)
-	{
-		return (x < a ? a : (x > b ? b : x));
 	};
 
 	//=== Giving functions and properties to draggable objects objects
@@ -712,7 +694,7 @@
 		this._helperPoint = null;
 	};
 
-	/** Assign to the global namespace */
+	// Assign to the global namespace
 	namespace('springroll').DragManager = DragManager;
 	namespace('springroll.easeljs').DragManager = DragManager;
 }());

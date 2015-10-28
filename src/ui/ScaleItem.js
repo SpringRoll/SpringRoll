@@ -16,10 +16,10 @@
 	 * @private
 	 * @param {PIXI.DisplayObject|createjs.DisplayObject} display The item to affect
 	 * @param {String} align The vertical-horizontal alignment shorthand
-	 * @param {springroll.ScreenSettings} designedScreen The original screen the item was designed for
+	 * @param {Object} size The original screen the item was designed for
 	 * @param {DisplayAdapter} adapter The display adapter
 	 */
-	var ScaleItem = function(display, align, designedScreen, adapter)
+	var ScaleItem = function(display, align, size, adapter)
 	{
 		if (!ScaleManager)
 		{
@@ -81,9 +81,9 @@
 		/**
 		 * The original screen the item was designed for
 		 * @private
-		 * @property {ScreenSettings} _designedScreen
+		 * @property {Object} _size
 		 */
-		this._designedScreen = designedScreen;
+		this._size = size;
 
 		/**
 		 * The adapter for universal scale, rotation size access
@@ -100,29 +100,49 @@
 		 * @property {Number} origScaleX
 		 * @default 0
 		 */
-		this.origScaleX = scale.x || 1;
+		var origScaleX = this.origScaleX = scale.x || 1;
 
 		/**
 		 * The original Y scale of the item
 		 * @property {Number} origScaleY
 		 * @default 0
 		 */
-		this.origScaleY = scale.y || 1;
+		var origScaleY = this.origScaleY = scale.y || 1;
 
 		/**
-		 * Original width in pixels
-		 * @property {Number} origWidth
-		 * @default 0
-		 */
-		this.origWidth = display.width || 0;
-
-		/**
-		 * The original bounds of the item with x, y, right, bottom, width, 
-		 * height properties. Used to determine the distance to each edge of
-		 * the item from its origin
+		 * The original bounds of the item with x, y, right, bottom, width,
+		 * height properties. This is converted from local bounds to scaled bounds.
 		 * @property {Object} origBounds
 		 */
 		this.origBounds = adapter.getLocalBounds(display);
+		//convert bounds to something more usable
+		var temp, bounds = this.origBounds;
+		if (this.origScaleX < 0)
+		{
+			temp = bounds.x;
+			bounds.x = bounds.right * origScaleX;
+			bounds.right = temp * origScaleX;
+			bounds.width *= Math.abs(origScaleX);
+		}
+		else
+		{
+			bounds.x *= origScaleX;
+			bounds.right *= origScaleX;
+			bounds.width *= origScaleX;
+		}
+		if (this.origScaleY < 0)
+		{
+			temp = bounds.y;
+			bounds.y = bounds.bottom * origScaleY;
+			bounds.bottom = temp * origScaleY;
+			bounds.height *= Math.abs(origScaleY);
+		}
+		else
+		{
+			bounds.y *= origScaleY;
+			bounds.bottom *= origScaleY;
+			bounds.height *= origScaleY;
+		}
 
 		/**
 		 * Original horizontal margin in pixels
@@ -141,44 +161,44 @@
 		switch (this.vertAlign)
 		{
 			case ScaleManager.ALIGN_TOP:
-			{
-				this.origMarginVert = position.y + this.origBounds.y * scale.y;
-				break;
-			}
+				{
+					this.origMarginVert = position.y + this.origBounds.y;
+					break;
+				}
 			case ScaleManager.ALIGN_CENTER:
-			{
-				this.origMarginVert = designedScreen.height * 0.5 - position.y;
-				break;
-			}
+				{
+					this.origMarginVert = size.height * 0.5 - position.y;
+					break;
+				}
 			case ScaleManager.ALIGN_BOTTOM:
-			{
-				this.origMarginVert = designedScreen.height - (position.y + this.origBounds.bottom * scale.y);
-				break;
-			}
+				{
+					this.origMarginVert = size.height - (position.y + this.origBounds.bottom);
+					break;
+				}
 		}
 
 		switch (this.horiAlign)
 		{
 			case ScaleManager.ALIGN_LEFT:
-			{
-				this.origMarginHori = position.x + this.origBounds.x * scale.x;
-				break;
-			}
+				{
+					this.origMarginHori = position.x + this.origBounds.x;
+					break;
+				}
 			case ScaleManager.ALIGN_CENTER:
-			{
-				this.origMarginHori = designedScreen.width * 0.5 - position.x;
-				break;
-			}
+				{
+					this.origMarginHori = size.width * 0.5 - position.x;
+					break;
+				}
 			case ScaleManager.ALIGN_RIGHT:
-			{
-				this.origMarginHori = designedScreen.width - (position.x + this.origBounds.right * scale.x);
-				break;
-			}
+				{
+					this.origMarginHori = size.width - (position.x + this.origBounds.right);
+					break;
+				}
 		}
 	};
 
 	// Reference to the prototype
-	var p = ScaleItem.prototype = {};
+	var p = extend(ScaleItem);
 
 	if (DEBUG)
 	{
@@ -211,26 +231,26 @@
 	{
 		var adapter = this._adapter;
 		var _display = this._display;
-		var _designedScreen = this._designedScreen;
+		var _size = this._size;
 		var origBounds = this.origBounds;
 		var origScaleX = this.origScaleX;
 		var origScaleY = this.origScaleY;
-		var defaultRatio = _designedScreen.width / _designedScreen.height;
+		var defaultRatio = _size.width / _size.height;
 		var currentRatio = displayWidth / displayHeight;
 		var overallScale = currentRatio >= defaultRatio ?
-			displayHeight / _designedScreen.height :
-			displayWidth / _designedScreen.width;
+			displayHeight / _size.height :
+			displayWidth / _size.width;
 		var scaleToHeight = currentRatio >= defaultRatio;
 		var letterBoxWidth = 0;
 		var letterBoxHeight = 0;
 
 		if (scaleToHeight)
 		{
-			letterBoxWidth = (displayWidth - _designedScreen.width * overallScale) / 2;
+			letterBoxWidth = (displayWidth - _size.width * overallScale) / 2;
 		}
 		else
 		{
-			letterBoxHeight = (displayHeight - _designedScreen.height * overallScale) / 2;
+			letterBoxHeight = (displayHeight - _size.height * overallScale) / 2;
 		}
 
 		// Optional clamps on the min and max scale of the item
@@ -261,35 +281,34 @@
 		switch (this.vertAlign)
 		{
 			case ScaleManager.ALIGN_TOP:
-			{
-				if (titleSafe)
 				{
-					y = letterBoxHeight + m - origBounds.y * origScaleY * itemScale;
+					if (titleSafe)
+					{
+						y = letterBoxHeight + m - origBounds.y * itemScale;
+					}
+					else
+					{
+						y = m - origBounds.y * itemScale;
+					}
+					break;
 				}
-				else
-				{
-					y = m - origBounds.y * origScaleY * itemScale;
-				}
-				break;
-			}
 			case ScaleManager.ALIGN_CENTER:
-			{
-				y = displayHeight * 0.5 - m;
-				break;
-			}
+				{
+					y = displayHeight * 0.5 - m;
+					break;
+				}
 			case ScaleManager.ALIGN_BOTTOM:
-			{
-				if (titleSafe)
 				{
-					y = displayHeight - letterBoxHeight - m -
-						origBounds.bottom * origScaleY * itemScale;
+					if (titleSafe)
+					{
+						y = displayHeight - letterBoxHeight - m - origBounds.bottom * itemScale;
+					}
+					else
+					{
+						y = displayHeight - m - origBounds.bottom * itemScale;
+					}
+					break;
 				}
-				else
-				{
-					y = displayHeight - m - origBounds.bottom * origScaleY * itemScale;
-				}
-				break;
-			}
 		}
 
 		// Set the position
@@ -307,42 +326,41 @@
 		switch (this.horiAlign)
 		{
 			case ScaleManager.ALIGN_LEFT:
-			{
-				if (titleSafe)
 				{
-					x = letterBoxWidth + m - origBounds.x * origScaleX * itemScale;
+					if (titleSafe)
+					{
+						x = letterBoxWidth + m - origBounds.x * itemScale;
+					}
+					else
+					{
+						x = m - origBounds.x * itemScale;
+					}
+					break;
 				}
-				else
-				{
-					x = m - origBounds.x * origScaleX * itemScale;
-				}
-				break;
-			}
 			case ScaleManager.ALIGN_CENTER:
-			{
-				if (this.centeredHorizontally)
 				{
-					x = (displayWidth - _display.width) * 0.5;
+					if (this.centeredHorizontally)
+					{
+						x = (displayWidth - _display.width) * 0.5;
+					}
+					else
+					{
+						x = displayWidth * 0.5 - m;
+					}
+					break;
 				}
-				else
-				{
-					x = displayWidth * 0.5 - m;
-				}
-				break;
-			}
 			case ScaleManager.ALIGN_RIGHT:
-			{
-				if (titleSafe)
 				{
-					x = displayWidth - letterBoxWidth - m -
-						origBounds.right * origScaleX * itemScale;
+					if (titleSafe)
+					{
+						x = displayWidth - letterBoxWidth - m - origBounds.right * itemScale;
+					}
+					else
+					{
+						x = displayWidth - m - origBounds.right * itemScale;
+					}
+					break;
 				}
-				else
-				{
-					x = displayWidth - m - origBounds.right * origScaleX * itemScale;
-				}
-				break;
-			}
 		}
 
 		// Set the position
@@ -361,7 +379,7 @@
 		this._adapter = null;
 		this.origBounds = null;
 		this._display = null;
-		this._designedScreen = null;
+		this._size = null;
 	};
 
 	// Assign to namespace

@@ -19,6 +19,12 @@
 	 */
 
 	/**
+	 * The amount of progress of the preload from 0 to 1
+	 * @event progress
+	 * @param {Number} percentage The amount preloaded
+	 */
+
+	/**
 	 * The config has finished loading, in case you want to
 	 * add additional tasks to the manager after this.
 	 * @event configLoaded
@@ -37,12 +43,14 @@
 	{
 		Debug = include('springroll.Debug', false);
 
+		var options = this.options;
+
 		/**
 		 * The path to the config file to load
 		 * @property {String} options.configPath
 		 * @default null
 		 */
-		this.options.add('configPath', null, true);
+		options.add('configPath', null, true);
 
 		/**
 		 * The collection of assets to preload, can be individual
@@ -50,13 +58,45 @@
 		 * @property {String} options.preload
 		 * @default []
 		 */
-		this.options.add('preload', [], true);
+		options.add('preload', [], true);
 
 		/**
 		 * The game configuration loaded from and external JSON file
 		 * @property {Object} config
 		 */
 		this.config = null;
+
+		/**
+		 * The asset load for preloading
+		 * @property {springroll.AssetLoad} _assetLoad
+		 * @private
+		 */
+		this._assetLoad = null;
+
+		/**
+		 * The total number of assets loaded
+		 * @property {int} _numLoaded
+		 * @private
+		 */
+		this._numLoaded = 0;
+
+		/**
+		 * The total assets to preload
+		 * @property {int} _total
+		 * @private
+		 */
+		this._total = 0;
+
+		/**
+		 * The current combined progress with plugin and asset load
+		 * @property {Number} _progress
+		 * @private
+		 * @default -1
+		 */
+		this._progress = -1;
+
+		// Listen for changes to the plugin progress
+		this.on('pluginProgress', onProgress.bind(this));
 	};
 
 	// async
@@ -68,7 +108,8 @@
 		// If there's a config path then add it
 		if (configPath)
 		{
-			assets.push({
+			assets.push(
+			{
 				id: 'config',
 				src: configPath,
 				cache: false,
@@ -84,14 +125,39 @@
 
 		if (assets.length)
 		{
-			this.load(assets, {
+			this._assetLoad = this.load(assets,
+			{
 				complete: callback,
+				progress: onProgress.bind(this),
 				cacheAll: true
 			});
 		}
 		else
 		{
 			callback();
+		}
+	};
+
+	/**
+	 * Callback when progress is finished
+	 * @method onProgress
+	 * @private
+	 * @param {Number} progress The amount loaded from 0 to 1
+	 */
+	var onProgress = function()
+	{
+		if (this._assetLoad)
+		{
+			this._numLoaded = this._assetLoad.numLoaded;
+			this._total = this._assetLoad.total;
+		}
+		var numLoaded = (this._numLoaded + this.pluginLoad.numLoaded);
+		var total = (this._total + this.pluginLoad.total);
+		var progress = numLoaded / total;
+		if (progress > this._progress)
+		{
+			this._progress = progress;
+			this.trigger('progress', progress);
 		}
 	};
 
@@ -113,7 +179,7 @@
 				assets.push(asset);
 			});
 		}
-		
+
 		// Allow extending game to add additional tasks
 		app.trigger('loading', assets);
 	};
@@ -142,6 +208,7 @@
 	 */
 	var onLoadComplete = function(done, results)
 	{
+		this._assetLoad = null;
 		this.trigger('loaded', results);
 		done();
 	};

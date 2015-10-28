@@ -6,8 +6,7 @@
 (function()
 {
 	var Task = include('springroll.Task'),
-		SpriteSheet = include('createjs.SpriteSheet'),
-		Application = include('springroll.Application');
+		SpriteSheet = include('createjs.SpriteSheet');
 
 	/**
 	 * Create a createjs.SpriteSheet object, see SpriteSheet for more information
@@ -49,7 +48,7 @@
 	};
 
 	// Reference to prototype
-	var p = extend(SpriteSheetTask, Task);
+	var p = Task.extend(SpriteSheetTask);
 
 	/**
 	 * Test if we should run this task
@@ -77,9 +76,10 @@
 		var id = this.id;
 		var frames = this.frames;
 
-		Application.instance.load(this.images, function(results)
+		this.load(this.images, function(results)
 		{
-			var spriteSheet = new SpriteSheet({
+			var spriteSheet = new SpriteSheet(
+			{
 				images: results,
 				frames: frames
 			});
@@ -91,7 +91,7 @@
 			spriteSheet.addEventListener('destroy', function()
 			{
 				delete window[globalProperty][id];
-				for(var i = results.length - 1; i >= 0; --i)
+				for (var i = results.length - 1; i >= 0; --i)
 					results[i].src = "";
 			});
 

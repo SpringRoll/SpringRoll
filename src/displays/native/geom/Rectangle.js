@@ -46,7 +46,7 @@
 		this.height = height || 0;
 	};
 
-	var p = Rectangle.prototype;
+	var p = extend(Rectangle);
 
 	/**
 	 * Creates a clone of this Rectangle
@@ -69,15 +69,15 @@
 	 */
 	p.contains = function(x, y)
 	{
-	    if(this.width <= 0 || this.height <= 0)
-	        return false;
+		if (this.width <= 0 || this.height <= 0)
+			return false;
 
 		var x1 = this.x;
-		if(x >= x1 && x <= x1 + this.width)
+		if (x >= x1 && x <= x1 + this.width)
 		{
 			var y1 = this.y;
 
-			if(y >= y1 && y <= y1 + this.height)
+			if (y >= y1 && y <= y1 + this.height)
 			{
 				return true;
 			}
@@ -94,7 +94,7 @@
 	// constructor
 	p.constructor = Rectangle;
 
-    // Assign to namespace
-    namespace('springroll.native').Rectangle = Rectangle;
+	// Assign to namespace
+	namespace('springroll.native').Rectangle = Rectangle;
 
 }());

@@ -5,7 +5,7 @@
  */
 (function()
 {
-	// Include classes
+	//Include classes
 	var ApplicationPlugin = include('springroll.ApplicationPlugin'),
 		Captions = include('springroll.Captions'),
 		Debug = include('springroll.Debug', false);
@@ -15,7 +15,7 @@
 	 */
 	var plugin = new ApplicationPlugin(60);
 
-	// Initialize
+	//Initialize
 	plugin.setup = function()
 	{
 		/**
@@ -34,7 +34,7 @@
 		 * @readOnly
 		 */
 		this.options.add('captionsPath', null, true);
-		
+
 		/**
 		 * The global captions object
 		 * @property {springroll.Captions} captions
@@ -42,27 +42,27 @@
 		this.captions = new Captions();
 	};
 
-	// Preload the captions
+	//Preload the captions
 	plugin.preload = function(done)
 	{
-		// Give the player a reference
+		//Give the player a reference
 		if (this.voPlayer)
 		{
 			this.voPlayer.captions = this.captions;
 		}
 
-		// Setup the text field
+		//Setup the text field
 		this.captions.textField = this.options.captions;
 
 		var captionsPath = this.options.captionsPath;
 		if (captionsPath)
 		{
 			this.load(captionsPath, function(data)
-			{
-				this.captions.data = data;
-				done();
-			}
-			.bind(this));
+				{
+					this.captions.data = data;
+					done();
+				}
+				.bind(this));
 		}
 		else
 		{
@@ -74,7 +74,7 @@
 		}
 	};
 
-	// Destroy the animator
+	//Destroy the animator
 	plugin.teardown = function()
 	{
 		if (this.captions)

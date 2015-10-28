@@ -88,7 +88,7 @@
 		var bounds;
 		var width = object.width;
 		var height = object.height;
-		if(width && height)
+		if (width && height)
 		{
 			bounds = new PIXI.Rectangle(-object.pivot.x, -object.pivot.y, width / object.scale.x, height / object.scale.y);
 		}
@@ -244,11 +244,13 @@
 	 */
 	DisplayAdapter.removeChildren = function(container)
 	{
-		container.removeChildren(true);
+		container.removeChildren();
 	};
 
 	/**
 	 * If a container contains a child
+	 * @method contains
+	 * @static
 	 * @param  {PIXI.DisplayObjectContainer} container The container
 	 * @param  {PIXI.DisplayObject} child  The object to test
 	 * @return {Boolean} If the child contained within the container
@@ -257,10 +259,13 @@
 	{
 		while (child)
 		{
-            if (child == container) { return true; }
-            child = child.parent;
-        }
-        return false;
+			if (child == container)
+			{
+				return true;
+			}
+			child = child.parent;
+		}
+		return false;
 	};
 
 	// Assign to namespace

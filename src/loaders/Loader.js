@@ -10,7 +10,7 @@
 		LoaderResult = include('springroll.LoaderResult');
 
 	/**
-	 * The Loader is the singleton loader for loading all assets
+	 * The Loader is the singular loader for loading all assets
 	 * including images, data, code and sounds. Loader supports cache-busting
 	 * in the browser using dynamic query string parameters.
 	 * @class Loader
@@ -19,11 +19,11 @@
 	{
 		/**
 		 * The current application
-		 * @property {springroll.Application} app 
+		 * @property {springroll.Application} app
 		 * @private
 		 */
 		this.app = app;
-		
+
 		/**
 		 * The maximum number of simulaneous loads
 		 * @public
@@ -31,7 +31,7 @@
 		 * @default 2
 		 */
 		this.maxCurrentLoads = 2;
-		
+
 		/**
 		 * The reference to the cache manager
 		 * @public
@@ -45,7 +45,7 @@
 		 * @property {Object} items
 		 */
 		this.items = {};
-		
+
 		/**
 		 * The pool of LoaderItems
 		 * @private
@@ -53,9 +53,9 @@
 		 */
 		this.itemPool = [];
 	};
-	
-	/** The prototype */
-	var p = Loader.prototype;
+
+	// The prototype
+	var p = extend(Loader);
 
 	if (DEBUG)
 	{
@@ -64,7 +64,7 @@
 		 * @property {Boolean} verbose
 		 * @default  false
 		 */
-		Object.defineProperty(p, 'verbose', 
+		Object.defineProperty(p, 'verbose',
 		{
 			set: function(verbose)
 			{
@@ -72,7 +72,7 @@
 			}
 		});
 	}
-	
+
 	/**
 	 * Destroy the Loader singleton, don't use after this
 	 * @public
@@ -112,8 +112,8 @@
 		var item = this._getItem();
 
 		var basePath = options.basePath;
-		if (basePath !== undefined && 
-			/^http(s)?\:/.test(url) === false && 
+		if (basePath !== undefined &&
+			/^http(s)?\:/.test(url) === false &&
 			url.search(basePath) == -1)
 		{
 			item.basePath = basePath;
@@ -154,7 +154,7 @@
 		complete(result);
 		this._putItem(item);
 	};
-	
+
 	/**
 	 * Cancel a load that's currently in progress
 	 * @public
@@ -165,7 +165,7 @@
 	p.cancel = function(url)
 	{
 		var item = this.items[url];
-		
+
 		if (item)
 		{
 			item.clear();
@@ -174,7 +174,7 @@
 		}
 		return false;
 	};
-	
+
 	/**
 	 * Get a Queue item from the pool or new
 	 * @method  _getItem
@@ -184,9 +184,9 @@
 	p._getItem = function()
 	{
 		var itemPool = this.itemPool;
-		return itemPool.length ? itemPool.pop(): new LoaderItem();
+		return itemPool.length ? itemPool.pop() : new LoaderItem();
 	};
-	
+
 	/**
 	 * Pool the loader queue item
 	 * @method  _putItem
@@ -199,7 +199,7 @@
 		item.clear();
 		this.itemPool.push(item);
 	};
-	
+
 	namespace('springroll').Loader = Loader;
-	
+
 }());

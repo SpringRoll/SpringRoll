@@ -23,7 +23,8 @@
 	{
 		EventDispatcher.call(this);
 
-		options = options || {};
+		options = options ||
+		{};
 
 		/**
 		 * the canvas managed by this display
@@ -104,7 +105,7 @@
 		 * @public
 		 * @default null
 		 */
-		this.animator = null;
+		// this.animator = null;
 
 		/**
 		 * Some of the modules require a special display adapter to provide
@@ -117,7 +118,7 @@
 		this.adapter = null;
 	};
 
-	var p = extend(AbstractDisplay, EventDispatcher);
+	var p = EventDispatcher.extend(AbstractDisplay);
 
 	/**
 	 * If input is enabled on the stage for this display. The default is true.
@@ -129,8 +130,8 @@
 	{
 		// enabled getter
 		get: function()
-		{ 
-			return this._enabled; 
+		{
+			return this._enabled;
 		},
 		// enabled setter
 		set: function(value)
@@ -166,17 +167,17 @@
 	 * @property {Boolean} visible
 	 * @public
 	 */
-	Object.defineProperty(p, "visible", 
+	Object.defineProperty(p, "visible",
 	{
 		// visible getter
 		get: function()
-		{ 
-			return this._visible; 
+		{
+			return this._visible;
 		},
 		// visible setter
 		set: function(value)
 		{
-			var oldVisible = this._visible; 
+			var oldVisible = this._visible;
 			this._visible = value;
 			this.canvas.style.display = value ? "block" : "none";
 
@@ -206,7 +207,6 @@
 	/**
 	 * Resizes the canvas. This is only called by the Application.
 	 * @method resize
-	 * @internal
 	 * @param {int} width The width that the display should be
 	 * @param {int} height The height that the display should be
 	 */
@@ -216,11 +216,10 @@
 		this.height = this.canvas.height = height;
 	};
 
-	/** 
-	 * Updates the stage and draws it. This is only called by the Application. 
+	/**
+	 * Updates the stage and draws it. This is only called by the Application.
 	 * This method does nothing if paused is true or visible is false.
 	 * @method render
-	 * @internal
 	 * @param {int} elapsed The time elapsed since the previous frame.
 	 * @param {Boolean} [force=false] For the re-render
 	 */
@@ -230,11 +229,10 @@
 	};
 
 	/**
-	 * Destroys the display. This method is called by the Application and should 
-	 * not be called directly, use Application.removeDisplay(id). 
+	 * Destroys the display. This method is called by the Application and should
+	 * not be called directly, use Application.removeDisplay(id).
 	 * The stage recursively removes all display objects here.
 	 * @method destroy
-	 * @internal
 	 */
 	p.destroy = function()
 	{

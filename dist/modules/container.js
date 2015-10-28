@@ -1,9 +1,10 @@
-/*! SpringRoll 0.4.0 */
+/*! SpringRoll 0.4.4 */
 /**
  * @module Core
  * @namespace window
  */
-(function(Object, support, undefined){
+(function(Object, support, undefined)
+{
 
 	/**
 	 * Add methods to Object
@@ -27,13 +28,13 @@
 		{
 			target = {};
 		}
-		
+
 		for (var property in source)
 		{
 			if (source.hasOwnProperty(property))
 			{
 				var sourceProperty = source[property];
-				
+
 				if (typeof sourceProperty === 'object' && Object.isPlain(sourceProperty))
 				{
 					target[property] = Object.merge(target[property], sourceProperty);
@@ -42,7 +43,7 @@
 				target[property] = sourceProperty;
 			}
 		}
-		
+
 		for (var i = 2, l = arguments.length; i < l; i++)
 		{
 			Object.merge(target, arguments[i]);
@@ -70,11 +71,13 @@
 			return false;
 		}
 
-		try {
+		try
+		{
 			// Not own constructor property must be Object
-			if ( obj.constructor &&
+			if (obj.constructor &&
 				!hasOwn.call(obj, "constructor") &&
-				!hasOwn.call(obj.constructor.prototype, "isPrototypeOf") ) {
+				!hasOwn.call(obj.constructor.prototype, "isPrototypeOf"))
+			{
 				return false;
 			}
 		}
@@ -96,17 +99,18 @@
 
 		// Own properties are enumerated firstly, so to speed up,
 		// if last one is own, then all properties are own.
-		for (key in obj) {}
+		for (key in obj)
+		{}
 
 		return key === undefined || hasOwn.call(obj, key);
 	};
-	
+
 	/**
 	 * Creates a shallow copy of the object.
 	 * @method clone
 	 * @return {Object} The shallow copy.
 	 */
-	if(!Object.prototype.clone)
+	if (!Object.prototype.clone)
 	{
 		Object.defineProperty(Object.prototype, 'clone',
 		{
@@ -116,7 +120,7 @@
 			{
 				var rtn = {};
 				var thisObj = this;
-				for(var key in thisObj)
+				for (var key in thisObj)
 				{
 					rtn[key] = thisObj[key];
 				}
@@ -125,7 +129,8 @@
 		});
 	}
 
-}(Object, {}));
+}(Object,
+{}));
 /**
  * @module Core
  * @namespace window
@@ -135,8 +140,9 @@
  * @class extend
  * @static
  */
-(function(window){
-	
+(function(window)
+{
+
 	// The extend function already exists
 	if ("extend" in window) return;
 
@@ -148,20 +154,32 @@
 	 *
 	 * @constructor
 	 * @method extend
-	 * @param {function} subClass The reference to the class
-	 * @param {function|String} superClass The parent reference or full classname
-	 * @return {object} Reference to the subClass's prototype
+	 * @param {function} child The reference to the child class
+	 * @param {function|String} [parent] The parent class reference or full classname
+	 * @return {object} Reference to the child class's prototype
 	 */
-	window.extend = function(subClass, superClass)
+	window.extend = function(child, parent)
 	{
-		if (typeof superClass == "string")
+		if (parent)
 		{
-			superClass = window.include(superClass);
+			if (typeof parent == "string")
+			{
+				parent = window.include(parent);
+			}
+			var p = parent.prototype;
+			child.prototype = Object.create(p);
+			child.prototype.__parent = p;
 		}
-		subClass.prototype = Object.create(
-			superClass.prototype
-		);
-		return subClass.prototype;
+		// Add the constructor
+		child.prototype.constructor = child;
+
+		// Add extend to each class to easily extend
+		// by calling MyClass.extend(SubClass)
+		child.extend = function(subClass)
+		{
+			return window.extend(subClass, child);
+		};
+		return child.prototype;
 	};
 
 }(window));
@@ -174,11 +192,12 @@
  * @class include
  * @static
  */
-(function(window, undefined){
-	
+(function(window, undefined)
+{
+
 	// The include function already exists
 	if ("include" in window) return;
-	
+
 	/**
 	 * Import a class
 	 *
@@ -197,10 +216,10 @@
 		var parts = namespaceString.split('.'),
 			parent = window,
 			currentPart = '';
-		
+
 		required = required !== undefined ? !!required : true;
 
-		for(var i = 0, length = parts.length; i < length; i++)
+		for (var i = 0, length = parts.length; i < length; i++)
 		{
 			currentPart = parts[i];
 			if (!parent[currentPart])
@@ -222,10 +241,10 @@
 		}
 		return parent;
 	};
-	
+
 	// Assign to the window namespace
 	window.include = include;
-	
+
 }(window));
 /**
  * @module Core
@@ -282,13 +301,13 @@
 		//loop over mixin prototype to add functions
 		var p = superClass.prototype;
 
-		for(var prop in p)
+		for (var prop in p)
 		{
 			// For things that we set using Object.defineProperty
 			// very important that enumerable:true for the 
 			// defineProperty options
 			var propDesc = Object.getOwnPropertyDescriptor(p, prop);
-			if(propDesc)
+			if (propDesc)
 			{
 				Object.defineProperty(target, prop, propDesc);
 			}
@@ -305,7 +324,7 @@
 
 	// Assign to the window namespace
 	window.mixin = mixin;
-	
+
 }(window, Object));
 /**
  * @module Core
@@ -317,11 +336,12 @@
  * @class namespace
  * @static
  */
-(function(window){
-	
+(function(window)
+{
+
 	// The namespace function already exists
 	if ("namespace" in window) return;
-	
+
 	/**
 	 * Create the namespace and assing to the window
 	 *
@@ -334,31 +354,32 @@
 	 * @param {string} namespaceString Name space, for instance 'springroll.utils'
 	 * @return {object} The namespace object attached to the current window
 	 */
-	var namespace = function(namespaceString) {
+	var namespace = function(namespaceString)
+	{
 		var parts = namespaceString.split('.'),
 			parent = window,
 			currentPart = '';
 
-		for(var i = 0, length = parts.length; i < length; i++)
+		for (var i = 0, length = parts.length; i < length; i++)
 		{
 			currentPart = parts[i];
-			parent[currentPart] = parent[currentPart] || {};
+			parent[currentPart] = parent[currentPart] ||
+			{};
 			parent = parent[currentPart];
 		}
 		return parent;
 	};
-	
+
 	// Assign to the window namespace
 	window.namespace = namespace;
-	
+
 }(window));
-
-
 /**
  * @module Core
  * @namespace springroll
  */
-(function(undefined){
+(function(undefined)
+{
 
 	/**
 	 * The EventDispatcher mirrors the functionality of AS3 and EaselJS's EventDispatcher,
@@ -382,10 +403,10 @@
 		 * @protected
 		 */
 		this._destroyed = false;
-	},
+	};
 
 	// Reference to the prototype
-	p = EventDispatcher.prototype;
+	var p = extend(EventDispatcher);
 
 	/**
 	 * If the dispatcher is destroyed
@@ -393,7 +414,7 @@
 	 */
 	Object.defineProperty(p, 'destroyed',
 	{
-		enumerable:true,
+		enumerable: true,
 		get: function()
 		{
 			return this._destroyed;
@@ -417,12 +438,12 @@
 
 			var args;
 
-			if(arguments.length > 1)
+			if (arguments.length > 1)
 			{
 				args = Array.prototype.slice.call(arguments, 1);
 			}
 
-			for(var i = listeners.length - 1; i >= 0; --i)
+			for (var i = listeners.length - 1; i >= 0; --i)
 			{
 				var listener = listeners[i];
 				if (listener._eventDispatcherOnce)
@@ -478,14 +499,15 @@
 		// Callback
 		else if (type(callback) === 'function')
 		{
-			var names = name.split(' '), n = null;
+			var names = name.split(' '),
+				n = null;
 
 			var listener;
 			for (var i = 0, nl = names.length; i < nl; i++)
 			{
 				n = names[i];
 				listener = this._listeners[n];
-				if(!listener)
+				if (!listener)
 					listener = this._listeners[n] = [];
 
 				if (once)
@@ -497,7 +519,7 @@
 				if (listener.indexOf(callback) === -1)
 				{
 					listener.push(callback);
-					if(listener.length > 1)
+					if (listener.length > 1)
 						listener.sort(listenerSorter);
 				}
 			}
@@ -545,15 +567,15 @@
 		}
 		else
 		{
-			var names = name.split(' '); 
-			var	n = null;
-			var listener; 
-			var	index;
+			var names = name.split(' ');
+			var n = null;
+			var listener;
+			var index;
 			for (var i = 0, nl = names.length; i < nl; i++)
 			{
 				n = names[i];
 				listener = this._listeners[n];
-				if(listener)
+				if (listener)
 				{
 					// remove all listeners for that event
 					if (callback === undefined)
@@ -585,11 +607,11 @@
 	 */
 	p.has = function(name, callback)
 	{
-		if(!name) return false;
+		if (!name) return false;
 
 		var listeners = this._listeners[name];
-		if(!listeners) return false;
-		if(!callback)
+		if (!listeners) return false;
+		if (!callback)
 			return listeners.length > 0;
 		return listeners.indexOf(callback) >= 0;
 	};
@@ -634,12 +656,13 @@
  * @module Core
  * @namespace springroll
  */
-(function(global, doc, undefined){
-		
+(function(global, doc, undefined)
+{
+
 	/**
 	 * Handle the page visiblity change, if supported. Application uses one of these to
-	 * monitor page visibility. It is suggested that you listen to "pause", "paused",
-	 * or "unpaused" events on the application instead of using one of these yourself.
+	 * monitor page visibility. It is suggested that you listen to `pause`, `paused`,
+	 * or `resumed` events on the Application instead of using one of these yourself.
 	 *
 	 * @class PageVisibility
 	 * @constructor
@@ -654,14 +677,14 @@
 		 * @private
 		 */
 		this._onFocus = onFocus;
-		
+
 		/**
 		 * Callback when the page loses visibility
 		 * @property {Function} _onBlur
 		 * @private
 		 */
 		this._onBlur = onBlur;
-		
+
 		/**
 		 * If this object is enabled.
 		 * @property {Function} _enabled
@@ -671,7 +694,7 @@
 
 		// If this browser doesn't support visibility
 		if (!_visibilityChange && doc.onfocusin === undefined) return;
-		
+
 		/**
 		 * The visibility toggle listener function
 		 * @property {Function} _onToggle
@@ -684,21 +707,21 @@
 			else
 				this._onFocus();
 		}.bind(this);
-		
+
 		this.enabled = true;
-	},
-	
+	};
+
 	// Reference to the prototype
-	p = PageVisibility.prototype,
-	
+	var p = extend(PageVisibility);
+
 	/**
 	 * The name of the visibility change event for the browser
 	 *
 	 * @property {String} _visibilityChange
 	 * @private
 	 */
-	_visibilityChange = null;
-	
+	var _visibilityChange = null;
+
 	// Select the visiblity change event name
 	if (doc.hidden !== undefined)
 	{
@@ -716,35 +739,39 @@
 	{
 		_visibilityChange = "webkitvisibilitychange";
 	}
-	
+
 	var isIE9 = !_visibilityChange && doc.onfocusin !== undefined;
-	
+
 	/**
 	 * If this object is enabled.
 	 * @property {Function} enabled
 	 * @private
 	 */
-	Object.defineProperty(p, "enabled", {
-		get: function() { return this._enabled; },
+	Object.defineProperty(p, "enabled",
+	{
+		get: function()
+		{
+			return this._enabled;
+		},
 		set: function(value)
 		{
 			value = !!value;
-			if(this._enabled == value) return;
+			if (this._enabled == value) return;
 			this._enabled = value;
-			
+
 			global.removeEventListener("pagehide", this._onBlur);
 			global.removeEventListener("pageshow", this._onFocus);
 			global.removeEventListener("blur", this._onBlur);
 			global.removeEventListener("focus", this._onFocus);
 			global.removeEventListener("visibilitychange", this._onToggle);
 			doc.removeEventListener(_visibilityChange, this._onToggle, false);
-			if(isIE9)
+			if (isIE9)
 			{
 				doc.removeEventListener("focusin", this._onFocus);
 				doc.removeEventListener("focusout", this._onBlur);
 			}
-			
-			if(value)
+
+			if (value)
 			{
 				// Listen to visibility change
 				// see https://developer.mozilla.org/en/API/PageVisibility/Page_Visibility_API
@@ -756,7 +783,7 @@
 				global.addEventListener("focus", this._onFocus);
 				global.addEventListener("visibilitychange", this._onToggle, false);
 				//IE9 is old and uses its own events
-				if(isIE9)
+				if (isIE9)
 				{
 					doc.addEventListener("focusin", this._onFocus);
 					doc.addEventListener("focusout", this._onBlur);
@@ -764,7 +791,7 @@
 			}
 		}
 	});
-	
+
 	/**
 	 * Disable the detection
 	 * @method destroy
@@ -773,45 +800,60 @@
 	{
 		// If this browser doesn't support visibility
 		if (!_visibilityChange || !this._onToggle) return;
-		
+
 		this.enabled = false;
 		this._onToggle = null;
 		this._onFocus = null;
 		this._onBlur = null;
 	};
-	
+
 	// Assign to the global space
 	namespace('springroll').PageVisibility = PageVisibility;
-	
+
 }(window, document));
 /**
  * @module Core
  * @namespace springroll
  */
-(function(undefined){
+(function(undefined)
+{
 
 	/**
 	 * The SavedData functions use localStorage and sessionStorage, with a cookie fallback.
 	 *
 	 * @class SavedData
 	 */
-	var SavedData = {},
+	var SavedData = {};
 
-	/** A constant to determine if we can use localStorage and sessionStorage */
-	WEB_STORAGE_SUPPORT = window.Storage !== undefined,
+	/** 
+	 * A constant to determine if we can use localStorage and 
+	 * sessionStorage 
+	 * @static
+	 * @property {Boolean} WEB_STORAGE_SUPPORT
+	 * @private
+	 * @readOnly
+	 */
+	var WEB_STORAGE_SUPPORT = window.Storage !== undefined;
 
-	/** A constant for cookie fallback for SavedData.clear() */
-	ERASE_COOKIE = -1;
+	/**
+	 * A constant for cookie fallback for `SavedData.clear()` 
+	 * @static
+	 * @property {int} ERASE_COOKIE
+	 * @private
+	 * @readOnly
+	 * @default -1
+	 */
+	var ERASE_COOKIE = -1;
 
 	//in iOS, if the user is in Private Browsing, writing to localStorage throws an error.
-	if(WEB_STORAGE_SUPPORT)
+	if (WEB_STORAGE_SUPPORT)
 	{
 		try
 		{
 			localStorage.setItem("LS_TEST", "test");
 			localStorage.removeItem("LS_TEST");
 		}
-		catch(e)
+		catch (e)
 		{
 			WEB_STORAGE_SUPPORT = false;
 		}
@@ -825,13 +867,13 @@
 	 */
 	SavedData.remove = function(name)
 	{
-		if(WEB_STORAGE_SUPPORT)
+		if (WEB_STORAGE_SUPPORT)
 		{
 			localStorage.removeItem(name);
 			sessionStorage.removeItem(name);
 		}
 		else
-			SavedData.write(name,"",ERASE_COOKIE);
+			SavedData.write(name, "", ERASE_COOKIE);
 	};
 
 	/**
@@ -844,9 +886,9 @@
 	 */
 	SavedData.write = function(name, value, tempOnly)
 	{
-		if(WEB_STORAGE_SUPPORT)
+		if (WEB_STORAGE_SUPPORT)
 		{
-			if(tempOnly)
+			if (tempOnly)
 				sessionStorage.setItem(name, JSON.stringify(value));
 			else
 				localStorage.setItem(name, JSON.stringify(value));
@@ -856,15 +898,15 @@
 			var expires;
 			if (tempOnly)
 			{
-				if(tempOnly !== ERASE_COOKIE)
-					expires = "";//remove when browser is closed
+				if (tempOnly !== ERASE_COOKIE)
+					expires = ""; //remove when browser is closed
 				else
-					expires = "; expires=Thu, 01 Jan 1970 00:00:00 GMT";//save cookie in the past for immediate removal
+					expires = "; expires=Thu, 01 Jan 1970 00:00:00 GMT"; //save cookie in the past for immediate removal
 			}
 			else
-				expires = "; expires="+new Date(2147483646000).toGMTString();//THE END OF (32bit UNIX) TIME!
+				expires = "; expires=" + new Date(2147483646000).toGMTString(); //THE END OF (32bit UNIX) TIME!
 
-			document.cookie = name+"="+escape(JSON.stringify(value))+expires+"; path=/";
+			document.cookie = name + "=" + escape(JSON.stringify(value)) + expires + "; path=/";
 		}
 	};
 
@@ -877,10 +919,10 @@
 	 */
 	SavedData.read = function(name)
 	{
-		if(WEB_STORAGE_SUPPORT)
+		if (WEB_STORAGE_SUPPORT)
 		{
 			var value = localStorage.getItem(name) || sessionStorage.getItem(name);
-			if(value)
+			if (value)
 				return JSON.parse(value, SavedData.reviver);
 			else
 				return null;
@@ -889,13 +931,14 @@
 		{
 			var nameEQ = name + "=",
 				ca = document.cookie.split(';'),
-				i = 0, c, len;
+				i = 0,
+				c, len;
 
-			for(i=0, len=ca.length; i<len;i++)
+			for (i = 0, len = ca.length; i < len; i++)
 			{
 				c = ca[i];
-				while (c.charAt(0) == ' ') c = c.substring(1,c.length);
-				if (c.indexOf(nameEQ) === 0) return JSON.parse(unescape(c.substring(nameEQ.length,c.length)), SavedData.reviver);
+				while (c.charAt(0) == ' ') c = c.substring(1, c.length);
+				if (c.indexOf(nameEQ) === 0) return JSON.parse(unescape(c.substring(nameEQ.length, c.length)), SavedData.reviver);
 			}
 			return null;
 		}
@@ -906,6 +949,8 @@
 	 * In our case, this will check if the object has a specially-named property (`__classname`).
 	 * If it does, we will attempt to construct a new instance of that class, rather than using a
 	 * plain old Object. Note that this recurses through the object.
+	 * @method reviver
+	 * @static
 	 * @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/parse
 	 * @param  {String} key   each key name
 	 * @param  {Object} value Object that we wish to restore
@@ -913,14 +958,14 @@
 	 */
 	SavedData.reviver = function(key, value)
 	{
-		if(value && typeof value.__classname == "string")
+		if (value && typeof value.__classname == "string")
 		{
 			var _class = include(value.__classname, false);
-			if(_class)
+			if (_class)
 			{
 				var rtn = new _class();
 				//if we may call fromJSON, do so
-				if(rtn.fromJSON)
+				if (rtn.fromJSON)
 				{
 					rtn.fromJSON(value);
 					//return the cast Object
@@ -936,7 +981,69 @@
 	namespace('springroll').SavedData = SavedData;
 
 }());
+/**
+ * @module Container
+ * @namespace springroll
+ */
+(function()
+{
+	// Include class
+	var SavedData = include('springroll.SavedData');
 
+	/**
+	 * Default user data handler for the {{#crossLink "springroll.Container"}}Container{{/crossLink}} to save data using
+	 * the {{#crossLink "springroll.SavedData"}}SavedData{{/crossLink}} class.
+	 * @class SavedDataHandler
+	 */
+	var SavedDataHandler = function() {};
+
+	// Reference to prototype
+	var p = extend(SavedDataHandler);
+
+	/**
+	 * Remove a data setting
+	 * @method  remove
+	 * @static
+	 * @param  {String}   name  The name of the property
+	 * @param  {Function} [callback] Callback when remove is complete
+	 */
+	p.remove = function(name, callback)
+	{
+		SavedData.remove(name);
+		callback();
+	};
+
+	/**
+	 * Write a custom setting
+	 * @method  write
+	 * @static
+	 * @param  {String}  name  The name of the property
+	 * @param {*} value The value to set the property to
+	 * @param  {Function} [callback] Callback when write is complete
+	 */
+	p.write = function(name, value, callback)
+	{
+		SavedData.write(name, value);
+		callback();
+	};
+
+	/**
+	 * Read a custom setting
+	 * @method  read
+	 * @static
+	 * @param  {String}  name  The name of the property
+	 * @param  {Function} callback Callback when read is complete, returns the value
+	 */
+	p.read = function(name, callback)
+	{
+		callback(SavedData.read(name));
+	};
+
+
+	// Assign to namespace
+	namespace('springroll').SavedDataHandler = SavedDataHandler;
+
+}());
 /**
  * @module Container
  * @namespace springroll
@@ -944,7 +1051,7 @@
 (function(undefined)
 {
 	var Debug = include('springroll.Debug', false);
-	
+
 	/**
 	 * Provide feature detection
 	 * @class Features
@@ -1045,7 +1152,7 @@
 	 */
 	Features.touch = function()
 	{
-		return !!(('ontouchstart' in window) ||// iOS & Android
+		return !!(('ontouchstart' in window) || // iOS & Android
 			(navigator.msPointerEnabled && navigator.msMaxTouchPoints > 0) || // IE10
 			(navigator.pointerEnabled && navigator.maxTouchPoints > 0)); // IE11+
 	}();
@@ -1101,9 +1208,9 @@
 		}
 		var features = capabilities.features;
 		var ui = capabilities.ui;
-		var sizes = capabilities.sizes;		
-		
-		for(var name in features)
+		var sizes = capabilities.sizes;
+
+		for (var name in features)
 		{
 			if (Features[name] !== undefined)
 			{
@@ -1114,17 +1221,17 @@
 				}
 				else
 				{
-					if (true && Debug) 
-						Debug.log("Browser has "+ name);
+					if (true && Debug)
+						Debug.log("Browser has " + name);
 				}
 			}
 			else
 			{
-				if (true && Debug) 
+				if (true && Debug)
 					Debug.warn("The feature " + name + " is not supported");
 			}
 		}
-		
+
 		// Failed negative touch requirement
 		if (!ui.touch && Features.touch)
 		{
@@ -1187,6 +1294,7 @@
 	var SavedData = include('springroll.SavedData'),
 		EventDispatcher = include('springroll.EventDispatcher'),
 		PageVisibility = include('springroll.PageVisibility'),
+		SavedDataHandler = include('springroll.SavedDataHandler'),
 		Features = include('springroll.Features'),
 		Bellhop = include('Bellhop'),
 		$ = include('jQuery');
@@ -1194,6 +1302,7 @@
 	/**
 	 * The application container
 	 * @class Container
+	 * @extends springroll.EventDispatcher
 	 * @constructor
 	 * @param {string} iframeSelector jQuery selector for application iframe container
 	 * @param {object} [options] Optional parameteres
@@ -1212,9 +1321,16 @@
 	{
 		EventDispatcher.call(this);
 
-		options = $.extend({
+		/**
+		 * The options
+		 * @property {Object} options
+		 * @readOnly
+		 */
+		this.options = options = $.extend(
+		{
 			pauseFocusSelector: '.pause-on-focus'
-		}, options || {});
+		}, options ||
+		{});
 
 		/**
 		 * The name of this class
@@ -1317,7 +1433,8 @@
 		this._captionsStyles = Object.merge(
 			{},
 			DEFAULT_CAPTIONS_STYLES,
-			SavedData.read(CAPTIONS_STYLES) || {}
+			SavedData.read(CAPTIONS_STYLES) ||
+			{}
 		);
 
 		/**
@@ -1374,6 +1491,16 @@
 		 */
 		this.sendMutes = true;
 
+		/**
+		 * The external handler class, must include `remove`, `write`, `read` methods
+		 * make it possible to use something else to handle the external, default
+		 * is to use cookies/localStorage. See {{#crossLink "springroll.SavedDataHandler"}}{{/crossLink}}
+		 * as an example.
+		 * @property {Object} userDataHandler
+		 * @default springroll.SavedDataHandler
+		 */
+		this.userDataHandler = new SavedDataHandler();
+
 		//Set the defaults if we have none for the controls
 		if (SavedData.read(CAPTIONS_MUTED) === null)
 		{
@@ -1383,7 +1510,7 @@
 		{
 			this.soundMuted = false;
 		}
-		
+
 		this._pageVisibility = new PageVisibility(
 			onContainerFocus.bind(this),
 			onContainerBlur.bind(this)
@@ -1391,16 +1518,8 @@
 
 		// Focus on the window on focusing on anything else
 		// without the .pause-on-focus class
-		$(document).on(
-			'focus click',
-			function(e)
-			{
-				if (!$(e.target).filter(options.pauseFocusSelector).length)
-				{
-					this.focus();
-				}
-			}.bind(this)
-		);
+		this._onDocClick = _onDocClick.bind(this);
+		$(document).on('focus click', this._onDocClick);
 
 		// On elements with the class name pause-on-focus
 		// we will pause the game until a blur event to that item
@@ -1419,7 +1538,7 @@
 
 	//Reference to the prototype
 	var s = EventDispatcher.prototype;
-	var p = extend(Container, EventDispatcher);
+	var p = EventDispatcher.extend(Container);
 
 	/**
 	 * Fired when the pause state is toggled
@@ -1472,13 +1591,13 @@
 	 * Event when a application start loading
 	 * @event open
 	 */
-	
+
 	/**
 	 * Fired when the enabled status of the help button changes
 	 * @event helpEnabled
 	 * @param {boolean} enabled If the help button is enabled
 	 */
-	
+
 	/**
 	 * The features supported by the application
 	 * @event features
@@ -1486,26 +1605,23 @@
 	 * @param {Boolean} data.music If music context is supported
 	 * @param {Boolean} data.sound If Sound is supported
 	 * @param {Boolean} data.sfx If SFX context is supported
-	 * @param {Boolean} data.learning If learning dispatcher is supported
 	 * @param {Boolean} data.captions If captions is supported
 	 * @param {Boolean} data.hints If hinting is supported
 	 */
 
 	/**
-	 * Event when dispatching a Learning Dispatcher event
-	 * @event learningEvent
-	 * @param {object} data The event data
+	 * When the document is clicked
+	 * @method _onDocClicked
+	 * @private
+	 * @param  {Event} e Click or focus event
 	 */
-
-	/**
-	 * Event when dispatching a Google Analytics event
-	 * @event analyticEvent
-	 * @param {object} data The event data
-	 * @param {string} data.category The event category
-	 * @param {string} data.action The event action
-	 * @param {string} [data.label] The optional label
-	 * @param {number} [data.value] The optional value
-	 */
+	var _onDocClick = function(e)
+	{
+		if (!$(e.target).filter(this.options.pauseFocusSelector).length)
+		{
+			this.focus();
+		}
+	};
 
 	/**
 	 * Open a application or path
@@ -1518,7 +1634,8 @@
 	 */
 	p._internalOpen = function(path, options)
 	{
-		options = $.extend({
+		options = $.extend(
+		{
 			singlePlay: false,
 			playOptions: null
 		}, options);
@@ -1540,9 +1657,7 @@
 		//Open the application in the iframe
 		this.main
 			.addClass('loading')
-			.prop('src', path)
-			.prop('width', window.innerWidth)
-			.prop('height', window.innerHeight);
+			.prop('src', path);
 
 		if (options.singlePlay)
 		{
@@ -1559,15 +1674,16 @@
 
 	/**
 	 * Open a application or path
-	 * @method open
+	 * @method openPath
 	 * @param {string} path The full path to the application to load
 	 * @param {Object} [options] The open options
 	 * @param {Boolean} [options.singlePlay=false] If we should play in single play mode
 	 * @param {Object} [options.playOptions=null] The optional play options
 	 */
-	p.open = function(path, options, playOptions)
+	p.openPath = function(path, options, playOptions)
 	{
-		options = options || {};
+		options = options ||
+		{};
 
 		// This should be deprecated, support for old function signature
 		if (typeof options === "boolean")
@@ -1599,7 +1715,8 @@
 				playOptions: playOptions
 			};
 		}
-		options = $.extend({
+		options = $.extend(
+		{
 			query: '',
 			playOptions: null,
 			singlePlay: false
@@ -1608,31 +1725,34 @@
 		this.release = null;
 
 		$.getJSON(api, function(result)
-		{
-			if (!result.success)
-			{
-				return this.trigger('remoteError', result.error);
-			}
-			var release = result.data;
+				{
+					if (this._destroyed) return;
 
-			var err = Features.test(release.capabilities);
+					if (!result.success)
+					{
+						return this.trigger('remoteError', result.error);
+					}
+					var release = result.data;
 
-			if (err)
-			{
-				return this.trigger('unsupported', err); 
-			}
+					var err = Features.test(release.capabilities);
 
-			this.release = release;
+					if (err)
+					{
+						return this.trigger('unsupported', err);
+					}
 
-			// Open the application
-			this._internalOpen(release.url + options.query, options);
-		}
-		.bind(this))
-		.fail(function()
-		{
-			return this.trigger('remoteFailed');
-		}
-		.bind(this));
+					this.release = release;
+
+					// Open the application
+					this._internalOpen(release.url + options.query, options);
+				}
+				.bind(this))
+			.fail(function()
+				{
+					if (this._destroyed) return;
+					return this.trigger('remoteFailed');
+				}
+				.bind(this));
 	};
 
 	/**
@@ -1653,13 +1773,12 @@
 			loadDone: onLoadDone.bind(this),
 			endGame: onEndGame.bind(this),
 			focus: onFocus.bind(this),
-			trackEvent: onAnalyticEvent.bind(this),
-			analyticEvent: onAnalyticEvent.bind(this),
-			progressEvent: onLearningEvent.bind(this),
-			learningEvent: onLearningEvent.bind(this),
 			helpEnabled: onHelpEnabled.bind(this),
 			features: onFeatures.bind(this),
-			keepFocus: onKeepFocus.bind(this)
+			keepFocus: onKeepFocus.bind(this),
+			userDataRemove: onUserDataRemove.bind(this),
+			userDataRead: onUserDataRead.bind(this),
+			userDataWrite: onUserDataWrite.bind(this)
 		});
 	};
 
@@ -1675,6 +1794,49 @@
 			this.client.destroy();
 			this.client = null;
 		}
+	};
+
+	/**
+	 * Handler for the userDataRemove event
+	 * @method onUserDataRemove
+	 * @private
+	 */
+	var onUserDataRemove = function(event)
+	{
+		var client = this.client;
+		this.userDataHandler.remove(event.data, function()
+		{
+			client.send(event.type);
+		});
+	};
+
+	/**
+	 * Handler for the userDataRead event
+	 * @method onUserDataRead
+	 * @private
+	 */
+	var onUserDataRead = function(event)
+	{
+		var client = this.client;
+		this.userDataHandler.read(event.data, function(value)
+		{
+			client.send(event.type, value);
+		});
+	};
+
+	/**
+	 * Handler for the userDataWrite event
+	 * @method onUserDataWrite
+	 * @private
+	 */
+	var onUserDataWrite = function(event)
+	{
+		var data = event.data;
+		var client = this.client;
+		this.userDataHandler.write(data.name, data.value, function()
+		{
+			client.send(event.type);
+		});
 	};
 
 	/**
@@ -1815,17 +1977,6 @@
 	};
 
 	/**
-	 * Track an event for springroll Learning
-	 * @method onLearningEvent
-	 * @param {event} event The bellhop learningEvent
-	 * @private
-	 */
-	var onLearningEvent = function(event)
-	{
-		this.trigger('learningEvent', event.data);
-	};
-
-	/**
 	 * Handle the application features
 	 * @method onFeatures
 	 * @param {event} event The bellhop features
@@ -1869,45 +2020,6 @@
 	var onHelpEnabled = function(event)
 	{
 		this.helpEnabled = !!event.data;
-	};
-
-	/**
-	 * Track an event for Google Analtyics
-	 * @method onAnalyticEvent
-	 * @private
-	 * @param {event} event Bellhop analyticEvent
-	 */
-	var onAnalyticEvent = function(event)
-	{
-		var data = event.data;
-
-		// PBS Specifc implementation of Google Analytics
-		var GoogleAnalytics = include("GA_obj", false);
-		if (GoogleAnalytics)
-		{
-			GoogleAnalytics.trackEvent(
-				data.category,
-				data.action,
-				data.label,
-				data.value
-			);
-		}
-
-		// Generic implementation of Google Analytics
-		GoogleAnalytics = include('ga', false);
-		if (GoogleAnalytics)
-		{
-			GoogleAnalytics('send',
-			{
-				'hitType': 'event',
-				'eventCategory': data.category,
-				'eventAction': data.action,
-				'eventLabel': data.label,
-				'eventValue': data.value
-			});
-		}
-
-		this.trigger('analyticEvent', event.data);
 	};
 
 	/**
@@ -2406,9 +2518,17 @@
 	{
 		this.reset();
 
+		s.destroy.call(this);
+
+		// Remove listener
+		$(document).off('focus click', this._onDocClick);
+
 		this.main = null;
 		this.dom = null;
+		this.options = null;
 
+		this._onDocClick = null;
+		this.userDataHandler = null;
 		this.helpButton = null;
 		this.soundButton = null;
 		this.pauseButton = null;
@@ -2416,16 +2536,14 @@
 		this.musicButton = null;
 		this.voButton = null;
 		this.sfxButton = null;
-		
-		if(this._pageVisibility)
+
+		if (this._pageVisibility)
 		{
 			this._pageVisibility.destroy();
 			this._pageVisibility = null;
 		}
-		
-		this.destroyClient();
 
-		s.destroy.call(this);
+		this.destroyClient();
 	};
 
 	namespace('springroll').Container = Container;

@@ -1,19 +1,18 @@
 /**
- * @module Pixi Display
+ * @module PIXI Spine
  * @namespace springroll.pixi
- * @requires Core
+ * @requires  Core, PIXI Display, Animation
  */
 (function()
 {
 	var TextureTask = include('springroll.pixi.TextureTask'),
 		SpineAtlas = include('springroll.pixi.SpineAtlas', false),
-		PixiUtils = include('PIXI.utils'),
-		Application = include('springroll.Application');
-	
-	if(!SpineAtlas) return;
+		PixiUtils = include('PIXI.utils');
+
+	if (!SpineAtlas) return;
 
 	/**
-	 * Internal class for dealing with async load assets through Loader.
+	 * Internal class for loading a texture atlas in the format exported by Spine.
 	 * @class SpineAtlasTask
 	 * @extends springroll.pixi.TextureTask
 	 * @constructor
@@ -39,12 +38,12 @@
 		 * @property {String} spineAtlas
 		 */
 		this.spineAtlas = this.filter(asset.spineAtlas);
-		
+
 		this.images = asset.images;
 	};
 
 	// Reference to prototype
-	var p = extend(SpineAtlasTask, TextureTask);
+	var p = TextureTask.extend(SpineAtlasTask);
 
 	/**
 	 * Test if we should run this task
@@ -57,8 +56,8 @@
 	{
 		// atlas data and one or more images or color/alpha splits
 		return !!asset.spineAtlas &&
-				Array.isArray(asset.images) &&
-				TextureTask.test(asset.images[0]);
+			Array.isArray(asset.images) &&
+			TextureTask.test(asset.images[0]);
 	};
 
 	/**
@@ -68,7 +67,11 @@
 	 */
 	p.start = function(callback)
 	{
-		Application.instance.load({_atlas: this.spineAtlas, _images: this.images}, function(results)
+		this.load(
+		{
+			_atlas: this.spineAtlas,
+			_images: this.images
+		}, function(results)
 		{
 			callback(new SpineAtlas(results._atlas, results._images), results);
 		});

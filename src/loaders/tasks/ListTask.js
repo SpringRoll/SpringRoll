@@ -4,11 +4,10 @@
  */
 (function()
 {
-	var Task = include('springroll.Task'),
-		Application = include('springroll.Application');
+	var Task = include('springroll.Task');
 
 	/**
-	 * Internal class for dealing with async load assets through Loader.
+	 * Internal class for grouping a list of tasks into one task.
 	 * @class ListTask
 	 * @extends springroll.Task
 	 * @constructor
@@ -19,6 +18,7 @@
 	 * @param {Boolean} [asset.cache=false] If we should cache the result
 	 * @param {String} [asset.id] Id of asset
 	 * @param {Function} [asset.complete=null] The event to call when done
+	 * @param {Function} [asset.progress=null] The event to call when progress is updated
 	 */
 	var ListTask = function(asset)
 	{
@@ -29,16 +29,22 @@
 		 * @property {Array|Object} assets
 		 */
 		this.assets = asset.assets;
-		
+
 		/**
 		 * If each asset in the collection should be cached.
 		 * @property {Boolean} cacheAll
 		 */
 		this.cacheAll = asset.cacheAll;
+
+		/**
+		 * Callback when progress is updated
+		 * @property {Function} progress
+		 */
+		this.progress = asset.progress;
 	};
 
 	// Reference to prototype
-	var p = extend(ListTask, Task);
+	var p = Task.extend(ListTask);
 
 	/**
 	 * Test if we should run this task
@@ -59,7 +65,12 @@
 	 */
 	p.start = function(callback)
 	{
-		Application.instance.load(this.assets, {complete:callback, cacheAll: this.cacheAll});
+		this.load(this.assets,
+		{
+			complete: callback,
+			progress: this.progress,
+			cacheAll: this.cacheAll
+		});
 	};
 
 	/**

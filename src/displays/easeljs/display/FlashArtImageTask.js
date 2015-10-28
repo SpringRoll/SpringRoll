@@ -4,11 +4,10 @@
  */
 (function()
 {
-	var Task = include('springroll.Task'),
-		Application = include('springroll.Application');
+	var Task = include('springroll.Task');
 
 	/**
-	 * Internal class for dealing with async load assets through Loader.
+	 * Internal class for loading an image for a FlashArt load.
 	 * @class FlashArtImageTask
 	 * @extends springroll.Task
 	 * @constructor
@@ -28,7 +27,7 @@
 	var FlashArtImageTask = function(asset)
 	{
 		Task.call(this, asset, asset.color);
-		
+
 		this.src = this.filter(asset.src);
 
 		/**
@@ -42,12 +41,12 @@
 		 * @property {String} alpha
 		 */
 		this.alpha = this.filter(asset.alpha);
-		
+
 		this.imagesName = asset.imagesName;
 	};
 
 	// Reference to prototype
-	var p = extend(FlashArtImageTask, Task);
+	var p = Task.extend(FlashArtImageTask);
 
 	/**
 	 * Test if we should run this task
@@ -71,7 +70,7 @@
 	p.start = function(callback)
 	{
 		var load = this.src;
-		if(!load)
+		if (!load)
 		{
 			//load a standard ColorAlphaTask
 			load = {
@@ -79,23 +78,27 @@
 				color: this.color
 			};
 		}
-		Application.instance.load(load,
+		this.load(load,
 			function(result)
 			{
 				var img = result;
-				
+
 				var images = namespace(this.imagesName);
 				images[this.id] = img;
-				
-				var asset = {image: img, scale: this.scale, id: this.id};
+
+				var asset = {
+					image: img,
+					scale: this.scale,
+					id: this.id
+				};
 				asset.destroy = function()
 				{
 					img.src = "";
 					delete images[this.id];
 				};
-				
+
 				callback(asset);
-				
+
 			}.bind(this)
 		);
 	};

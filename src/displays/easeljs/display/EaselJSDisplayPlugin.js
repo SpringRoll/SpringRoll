@@ -17,7 +17,7 @@
 	plugin.setup = function()
 	{
 		var assetManager = this.assetManager;
-		
+
 		assetManager.register('springroll.easeljs.TextureAtlasTask', 30);
 		assetManager.register('springroll.easeljs.FlashArtImageTask', 40);
 		assetManager.register('springroll.easeljs.FlashArtAtlasTask', 40);

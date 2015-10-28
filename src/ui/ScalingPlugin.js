@@ -13,7 +13,9 @@
 	/**
 	 * @class Application
 	 */
-	var plugin = new ApplicationPlugin();
+	//ScalingPlugin needs to be destroyed after StatesPlugin from the States module,
+	//so it gets a slightly higher priority
+	var plugin = new ApplicationPlugin(1);
 
 	//Init the scaling
 	plugin.setup = function()
@@ -26,6 +28,9 @@
 		 * @property {springroll.ScaleManager} scaling
 		 */
 		this.scaling = new ScaleManager();
+
+		// Application should be responsive if using the scale manager
+		this.options.override('responsive', true);
 
 		//Add the scaling size
 		this.once('configLoaded', function(config)

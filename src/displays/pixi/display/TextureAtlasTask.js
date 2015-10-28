@@ -1,5 +1,5 @@
 /**
- * @module Pixi Display
+ * @module PIXI Display
  * @namespace springroll.pixi
  * @requires Core
  */
@@ -8,11 +8,10 @@
 	var TextureTask = include('springroll.pixi.TextureTask'),
 		Texture = include('PIXI.Texture'),
 		TextureAtlas = include('springroll.pixi.TextureAtlas'),
-		PixiUtils = include('PIXI.utils'),
-		Application = include('springroll.Application');
+		PixiUtils = include('PIXI.utils');
 
 	/**
-	 * Internal class for dealing with async load assets through Loader.
+	 * Internal class for loading a texture atlas for Pixi.
 	 * @class TextureAtlasTask
 	 * @extends springroll.pixi.TextureTask
 	 * @constructor
@@ -41,7 +40,7 @@
 	};
 
 	// Reference to prototype
-	var p = extend(TextureAtlasTask, TextureTask);
+	var p = TextureTask.extend(TextureAtlasTask);
 
 	/**
 	 * Test if we should run this task
@@ -63,7 +62,8 @@
 	 */
 	p.start = function(callback)
 	{
-		this.loadAtlas({}, callback);
+		this.loadAtlas(
+		{}, callback);
 	};
 
 	/**
@@ -78,13 +78,22 @@
 	p.loadAtlas = function(assets, done, ignoreCacheSetting)
 	{
 		assets._atlas = this.atlas;
-		
+
 		this.loadImage(assets, function(texture, results)
 		{
 			var data = results._atlas;
-			
-			var atlas = new TextureAtlas(texture, data, this.cache && !ignoreCacheSetting);
-			
+			var atlas = new TextureAtlas(
+				texture,
+				data,
+				this.cache && !ignoreCacheSetting
+			);
+			//if the spritesheet JSON had a scale in it, use that to override
+			//whatever settings came from loading, as the texture atlas size is more important
+			if (data.meta && data.meta.scale && parseFloat(data.meta.scale) != 1)
+			{
+				texture.baseTexture.resolution = parseFloat(results._atlas.meta.scale);
+				texture.baseTexture.update();
+			}
 			done(atlas, results);
 		}.bind(this), true);
 	};

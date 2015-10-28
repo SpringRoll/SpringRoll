@@ -7,11 +7,10 @@
 {
 	var Task = include('springroll.Task'),
 		TextureAtlas = include('springroll.easeljs.TextureAtlas'),
-		ColorAlphaTask = include('springroll.ColorAlphaTask'),
-		Application = include('springroll.Application');
+		ColorAlphaTask = include('springroll.ColorAlphaTask');
 
 	/**
-	 * Internal class for dealing with async load assets through Loader.
+	 * Internal class for loading a texture atlas, creating a 'springroll.easeljs.TextureAtlas'.
 	 * @class TextureAtlasTask
 	 * @extends springroll.Task
 	 * @constructor
@@ -57,7 +56,7 @@
 	};
 
 	// Reference to prototype
-	var p = extend(TextureAtlasTask, Task);
+	var p = Task.extend(TextureAtlasTask);
 
 	/**
 	 * Test if we should run this task
@@ -81,7 +80,8 @@
 	 */
 	p.start = function(callback)
 	{
-		this.loadAtlas({}, callback);
+		this.loadAtlas(
+		{}, callback);
 	};
 
 	/**
@@ -105,7 +105,7 @@
 		}
 
 		// Do the load
-		Application.instance.load(assets, function(results)
+		this.load(assets, function(results)
 		{
 			var image;
 			if (results._image)

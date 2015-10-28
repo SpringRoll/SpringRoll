@@ -1,16 +1,15 @@
 /**
- * @module Pixi Animation
+ * @module PIXI Animation
  * @namespace springroll.pixi
- * @requires Core, Pixi Display
+ * @requires  Core, PIXI Display, Animation
  */
 (function()
 {
 	var TextureAtlasTask = include('springroll.pixi.TextureAtlasTask'),
-		AdvancedMovieClip = include('springroll.pixi.AdvancedMovieClip'),
-		Application = include('springroll.Application');
+		AdvancedMovieClip = include('springroll.pixi.AdvancedMovieClip');
 
 	/**
-	 * Internal class for dealing with async load assets through Loader.
+	 * Internal class for loading and instantiating an AdvancedMovieClip.
 	 * @class AdvancedMovieClipTask
 	 * @extends springroll.TextureAtlasTask
 	 * @constructor
@@ -34,14 +33,14 @@
 		TextureAtlasTask.call(this, asset, asset.anim);
 
 		/**
-		 * The AdvancedMovieclip data source path
+		 * The AdvancedMovieClip data source path
 		 * @property {String} anim
 		 */
 		this.anim = this.filter(asset.anim);
 	};
 
 	// Reference to prototype
-	var p = extend(AdvancedMovieClipTask, TextureAtlasTask);
+	var p = TextureAtlasTask.extend(AdvancedMovieClipTask);
 
 	/**
 	 * Test if we should run this task
@@ -62,7 +61,10 @@
 	 */
 	p.start = function(callback)
 	{
-		this.loadAtlas({ _anim: this.anim }, function(textureAtlas, results)
+		this.loadAtlas(
+		{
+			_anim: this.anim
+		}, function(textureAtlas, results)
 		{
 			var clip = new AdvancedMovieClip(results._anim, textureAtlas);
 			//override destroy on clip to destroy textureAtlas as well

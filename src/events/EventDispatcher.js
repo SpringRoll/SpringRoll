@@ -2,7 +2,8 @@
  * @module Core
  * @namespace springroll
  */
-(function(undefined){
+(function(undefined)
+{
 
 	/**
 	 * The EventDispatcher mirrors the functionality of AS3 and EaselJS's EventDispatcher,
@@ -26,10 +27,10 @@
 		 * @protected
 		 */
 		this._destroyed = false;
-	},
+	};
 
 	// Reference to the prototype
-	p = EventDispatcher.prototype;
+	var p = extend(EventDispatcher);
 
 	/**
 	 * If the dispatcher is destroyed
@@ -37,7 +38,7 @@
 	 */
 	Object.defineProperty(p, 'destroyed',
 	{
-		enumerable:true,
+		enumerable: true,
 		get: function()
 		{
 			return this._destroyed;
@@ -61,12 +62,12 @@
 
 			var args;
 
-			if(arguments.length > 1)
+			if (arguments.length > 1)
 			{
 				args = Array.prototype.slice.call(arguments, 1);
 			}
 
-			for(var i = listeners.length - 1; i >= 0; --i)
+			for (var i = listeners.length - 1; i >= 0; --i)
 			{
 				var listener = listeners[i];
 				if (listener._eventDispatcherOnce)
@@ -122,14 +123,15 @@
 		// Callback
 		else if (type(callback) === 'function')
 		{
-			var names = name.split(' '), n = null;
+			var names = name.split(' '),
+				n = null;
 
 			var listener;
 			for (var i = 0, nl = names.length; i < nl; i++)
 			{
 				n = names[i];
 				listener = this._listeners[n];
-				if(!listener)
+				if (!listener)
 					listener = this._listeners[n] = [];
 
 				if (once)
@@ -141,7 +143,7 @@
 				if (listener.indexOf(callback) === -1)
 				{
 					listener.push(callback);
-					if(listener.length > 1)
+					if (listener.length > 1)
 						listener.sort(listenerSorter);
 				}
 			}
@@ -189,15 +191,15 @@
 		}
 		else
 		{
-			var names = name.split(' '); 
-			var	n = null;
-			var listener; 
-			var	index;
+			var names = name.split(' ');
+			var n = null;
+			var listener;
+			var index;
 			for (var i = 0, nl = names.length; i < nl; i++)
 			{
 				n = names[i];
 				listener = this._listeners[n];
-				if(listener)
+				if (listener)
 				{
 					// remove all listeners for that event
 					if (callback === undefined)
@@ -229,11 +231,11 @@
 	 */
 	p.has = function(name, callback)
 	{
-		if(!name) return false;
+		if (!name) return false;
 
 		var listeners = this._listeners[name];
-		if(!listeners) return false;
-		if(!callback)
+		if (!listeners) return false;
+		if (!callback)
 			return listeners.length > 0;
 		return listeners.indexOf(callback) >= 0;
 	};

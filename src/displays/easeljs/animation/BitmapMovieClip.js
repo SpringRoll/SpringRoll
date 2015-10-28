@@ -68,7 +68,7 @@
 		Container.call(this);
 
 		//==== Public properties =====
-		
+
 		/**
 		 * Indicates whether this BitmapMovieClip should loop when it reaches the end of its timeline.
 		 * @property loop
@@ -93,7 +93,7 @@
 		 * @default false
 		 */
 		this.paused = false;
-		
+
 		/**
 		 * Boundaries of the animation, like the nominalBounds produced by Flash's HTML5 exporter.
 		 * This uses the full, untrimmed size of the first frame.
@@ -206,7 +206,7 @@
 		this.mouseChildren = false;
 		this._bitmap = new Bitmap();
 		this.addChild(this._bitmap);
-		
+
 		if (atlas && data)
 		{
 			this.init(atlas, data);
@@ -239,7 +239,7 @@
 		},
 		set: function(value)
 		{
-			if(value > 0)
+			if (value > 0)
 			{
 				this._framerate = value;
 				this._duration = value ? this._frames.length / value : 0;
@@ -328,9 +328,12 @@
 	p.draw = function(ctx, ignoreCache)
 	{
 		// draw to cache first:
-		if (this.DisplayObject_draw(ctx, ignoreCache)) { return true; }
+		if (this.DisplayObject_draw(ctx, ignoreCache))
+		{
+			return true;
+		}
 		this._updateTimeline();
-		s.draw.call(this, ctx, ignoreCache);//Container's call
+		s.draw.call(this, ctx, ignoreCache); //Container's call
 		return true;
 	};
 
@@ -342,7 +345,7 @@
 	{
 		this.paused = false;
 	};
-	
+
 	/**
 	 * Sets paused to true.
 	 * @method stop
@@ -351,7 +354,7 @@
 	{
 		this.paused = true;
 	};
-	
+
 	/**
 	 * Advances this movie clip to the specified position or label and sets paused to false.
 	 * @method gotoAndPlay
@@ -362,7 +365,7 @@
 		this.paused = false;
 		this._goto(positionOrLabel);
 	};
-	
+
 	/**
 	 * Advances this movie clip to the specified position or label and sets paused to true.
 	 * @method gotoAndStop
@@ -378,9 +381,7 @@
 	 * To provide feature parity with the createjs.MovieClip mixin
 	 * @method gotoAndCache
 	 */
-	p.gotoAndCache = function(args)
-	{
-	};
+	p.gotoAndCache = function(args) {};
 
 	/**
 	 * Advances the playhead. This occurs automatically each tick by default.
@@ -390,17 +391,17 @@
 	 */
 	p.advance = function(time)
 	{
-		if(!this.paused)
+		if (!this.paused)
 		{
-			if(this._framerate > 0)
+			if (this._framerate > 0)
 			{
-				if(time)
-					this._t += time * 0.001;//milliseconds -> seconds
-				if(this._t > this._duration)
+				if (time)
+					this._t += time * 0.001; //milliseconds -> seconds
+				if (this._t > this._duration)
 					this._t = this.loop ? this._t - this._duration : this._duration;
 				//add a tiny amount to stop floating point errors in their tracks
 				this._prevPosition = Math.floor(this._t * this._framerate + 0.0000001);
-				if(this._prevPosition >= this._frames.length)
+				if (this._prevPosition >= this._frames.length)
 					this._prevPosition = this._frames.length - 1;
 			}
 			else
@@ -408,7 +409,7 @@
 			this._updateTimeline();
 		}
 	};
-	
+
 	/**
 	 * Returns a sorted list of the labels defined on this BitmapMovieClip.
 	 * @method getLabels
@@ -430,7 +431,7 @@
 	{
 		return this._events;
 	};
-	
+
 	/**
 	 * Returns the name of the label on or immediately before the current frame.
 	 * @method getCurrentLabel
@@ -440,9 +441,9 @@
 	{
 		var labels = this._labels;
 		var current = null;
-		for(var i = 0, len = labels.length; i < len; ++i)
+		for (var i = 0, len = labels.length; i < len; ++i)
 		{
-			if(labels[i].position <= this.currentFrame)
+			if (labels[i].position <= this.currentFrame)
 				current = labels[i].label;
 			else
 				break;
@@ -476,13 +477,14 @@
 		//collect the frame labels
 		var labels = this._labels = [];
 		var events = this._events = [];
-		
+
 		var name;
 		if (data.labels)
 		{
-			var positions = {}, position;
+			var positions = {},
+				position;
 
-			for(name in data.labels)
+			for (name in data.labels)
 			{
 				var label = {
 					label: name,
@@ -516,16 +518,16 @@
 
 		//collect the frames
 		this._frames = [];
-		
+
 		var index;
-		for(var i = 0; i < data.frames.length; ++i)
+		for (var i = 0; i < data.frames.length; ++i)
 		{
 			var frameSet = data.frames[i];
-			
+
 			name = frameSet.name;
 			index = name.lastIndexOf("/");
 			//strip off any folder structure included in the name
-			if(index >= 0)
+			if (index >= 0)
 				name = name.substring(index + 1);
 
 			atlas.getFrames(
@@ -538,20 +540,20 @@
 		}
 
 		//set up the framerate
-		if(data.fps)
+		if (data.fps)
 			this.framerate = data.fps;
-		else if(this._framerate)
+		else if (this._framerate)
 			this.framerate = this._framerate;
-		if(data.scale && data.scale > 0)
+		if (data.scale && data.scale > 0)
 			this._scale = 1 / data.scale;
 		else
 			this._scale = 1;
 		this._bitmap.scaleX = this._bitmap.scaleY = this._scale;
-		if(data.origin)
+		if (data.origin)
 			this._origin = new Point(data.origin.x * this._scale, data.origin.y * this._scale);
 		else
 			this._origin = new Point();
-		
+
 		//set up a nominal bounds, to make it easier to determine boundaries
 		//this uses the untrimmed size of the texture
 		var frame = this._frames[0];
@@ -626,10 +628,10 @@
 	 */
 	p._tick = function(props)
 	{
-		this.advance(props&&props.delta);
+		this.advance(props && props.delta);
 		s._tick.call(this, props);
 	};
-	
+
 	/**
 	 * @method _goto
 	 * @param {String|Number} positionOrLabel The animation name or frame number to go to.
@@ -638,12 +640,12 @@
 	p._goto = function(positionOrLabel)
 	{
 		var pos = null;
-		if(typeof positionOrLabel == "string")
+		if (typeof positionOrLabel == "string")
 		{
 			var labels = this._labels;
-			for(var i = 0, len = labels.length; i < len; ++i)
+			for (var i = 0, len = labels.length; i < len; ++i)
 			{
-				if(labels[i].label == positionOrLabel)
+				if (labels[i].label == positionOrLabel)
 				{
 					pos = labels[i].position;
 					break;
@@ -654,7 +656,7 @@
 			pos = positionOrLabel;
 		if (pos === null) return;
 		this._prevPosition = pos;
-		if(this._framerate > 0)
+		if (this._framerate > 0)
 			this._t = pos / this._framerate;
 		else
 			this._t = 0;
@@ -667,12 +669,12 @@
 	 */
 	p._updateTimeline = function()
 	{
-		if(this._prevPosition < 0)
+		if (this._prevPosition < 0)
 			this._prevPosition = 0;
-		else if(this._prevPosition >= this._frames.length)
+		else if (this._prevPosition >= this._frames.length)
 			this._prevPosition = this._frames.length - 1;
 		this.currentFrame = this._prevPosition;
-		if(this._currentTexture != this._frames[this.currentFrame])
+		if (this._currentTexture != this._frames[this.currentFrame])
 		{
 			var tex = this._currentTexture = this._frames[this.currentFrame],
 				_bitmap = this._bitmap;
@@ -680,7 +682,7 @@
 			_bitmap.sourceRect = tex.frame;
 			_bitmap.x = -this._origin.x + tex.offset.x * _bitmap.scaleX;
 			_bitmap.y = -this._origin.y + tex.offset.y * _bitmap.scaleY;
-			if(tex.rotated)
+			if (tex.rotated)
 			{
 				_bitmap.rotation = -90;
 				_bitmap.regX = _bitmap.sourceRect.width;
@@ -691,7 +693,7 @@
 			}
 		}
 	};
-	
+
 	/**
 	 * @method _reset
 	 * @private

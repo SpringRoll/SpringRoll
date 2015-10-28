@@ -5,7 +5,7 @@
 (function()
 {
 	var Debug;
-	
+
 	/**
 	 * An enumeration value. This class is private, and is only used by Enum.
 	 * @class EnumValue
@@ -82,7 +82,7 @@
 	 *
 	 * @class Enum
 	 * @constructor
-	 * @param {Array|String|Object} arguments 
+	 * @param {Array|String|Object} arguments
 	 * The list of enumeration values. You can pass either an
 	 * array or a list of parameters. Each string will be
 	 * the previous value plus one, while objects with
@@ -139,7 +139,7 @@
 				counter = value;
 			}
 
-			// if name already exists in Enum 
+			// if name already exists in Enum
 			if (this[name])
 			{
 				if (DEBUG && Debug)
@@ -187,8 +187,9 @@
 
 		/**
 		 * Retrieves the next EnumValue in the Enum (loops to first value at end).
-		 * @method {EnumValue} input
-		 * @return {EnumValue}  
+		 * @method {EnumValue} next
+		 * @param {EnumValue} input An EnumValue to retrieve the value that follows.
+		 * @return {EnumValue}
 		 */
 		Object.defineProperty(this, 'next',
 		{
@@ -208,8 +209,8 @@
 
 		/**
 		 * Retrieves the first EnumValue in the Enum
-		 * @method {EnumValue} input
-		 * @return {EnumValue}  
+		 * @method {EnumValue} first
+		 * @return {EnumValue}
 		 */
 		Object.defineProperty(this, 'first',
 		{
@@ -220,16 +221,18 @@
 
 		/**
 		 * Retrieves the last EnumValue in the Enum
-		 * @method {EnumValue} input
-		 * @return {EnumValue}  
+		 * @method {EnumValue} last
+		 * @return {EnumValue}
 		 */
 		Object.defineProperty(this, 'last',
 		{
 			enumerable: false,
 			writable: false,
-			value: this.valueFromInt(counter-1)
+			value: this.valueFromInt(counter - 1)
 		});
 	};
+
+	var p = extend(Enum);
 
 	/**
 	 * Gets an enum value by integer value. If you have multiple enum values with the same integer
@@ -238,7 +241,7 @@
 	 * @param {int} input The integer value to get an enum value for.
 	 * @return {EnumValue} The EnumValue that represents the input integer.
 	 */
-	Object.defineProperty(Enum.prototype, 'valueFromInt',
+	Object.defineProperty(p, 'valueFromInt',
 	{
 		enumerable: false,
 		writable: false,

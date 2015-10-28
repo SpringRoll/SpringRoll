@@ -31,7 +31,7 @@
 	{
 		return clip instanceof BitmapMovieClip;
 	};
-	
+
 	BitmapMovieClipInstance.hasAnimation = GenericMovieClipInstance.hasAnimation;
 	BitmapMovieClipInstance.getDuration = GenericMovieClipInstance.getDuration;
 

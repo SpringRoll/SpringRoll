@@ -13,7 +13,7 @@
 	 * @class Application
 	 */
 	var plugin = new ApplicationPlugin();
-	
+
 	// Init the animator
 	plugin.setup = function()
 	{
@@ -27,11 +27,11 @@
 	// Check for dependencies
 	plugin.preload = function(done)
 	{
-		if (!this.display.animator)
+		if (!this.animator)
 		{
 			if (DEBUG)
 			{
-				throw "Hints requires the CreateJS or PIXI Animator to run";
+				throw "Hints requires the Animator to run";
 			}
 			else
 			{
@@ -39,7 +39,7 @@
 			}
 		}
 
-		if (!this.voPlayer) 
+		if (!this.voPlayer)
 		{
 			if (DEBUG)
 			{
@@ -52,8 +52,9 @@
 		}
 
 		// Listen for events
-		this.hints.on({
-			vo: onVOHint.bind(this), 
+		this.hints.on(
+		{
+			vo: onVOHint.bind(this),
 			anim: onAnimatorHint.bind(this)
 		});
 
@@ -65,10 +66,10 @@
 
 			// Listen whtn the hint changes
 			this.hints.on('enabled', function(enabled)
-			{
-				this.container.send('helpEnabled', enabled);
-			}
-			.bind(this));
+				{
+					this.container.send('helpEnabled', enabled);
+				}
+				.bind(this));
 		}
 		done();
 	};
@@ -118,13 +119,13 @@
 		}
 		else
 		{
-			this.display.animator.play(
+			this.animator.play(
 				data.instance,
 				data.events,
 				data.complete,
 				data.cancel
 			);
-		}	
+		}
 	};
 
 	// Destroy the animator

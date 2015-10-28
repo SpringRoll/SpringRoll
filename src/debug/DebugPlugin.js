@@ -53,37 +53,37 @@
 		 * @property {String} options.debugRemote
 		 */
 		this.options.add('debugRemote', null)
-		.respond('debug', function()
-		{
-			return Debug.enabled;
-		})
-		.on('debug', function(value)
-		{
-			Debug.enabled = value;
-		})
-		.on('debugRemote', function(value)
-		{
-			Debug.disconnect();
-			if (value)
+			.respond('debug', function()
 			{
-				Debug.connect(value);
-			}
-		})
-		.respond('minLogLevel', function()
-		{
-			return Debug.minLogLevel.asInt;
-		})
-		.on('minLogLevel', function(value)
-		{
-			Debug.minLogLevel = Debug.Levels.valueFromInt(
-				parseInt(value, 10)
-			);
+				return Debug.enabled;
+			})
+			.on('debug', function(value)
+			{
+				Debug.enabled = value;
+			})
+			.on('debugRemote', function(value)
+			{
+				Debug.disconnect();
+				if (value)
+				{
+					Debug.connect(value);
+				}
+			})
+			.respond('minLogLevel', function()
+			{
+				return Debug.minLogLevel.asInt;
+			})
+			.on('minLogLevel', function(value)
+			{
+				Debug.minLogLevel = Debug.Levels.valueFromInt(
+					parseInt(value, 10)
+				);
 
-			if (!Debug.minLogLevel)
-			{
-				Debug.minLogLevel = Debug.Levels.GENERAL;
-			}
-		});
+				if (!Debug.minLogLevel)
+				{
+					Debug.minLogLevel = Debug.Levels.GENERAL;
+				}
+			});
 	};
 
 	plugin.preload = function(done)
@@ -113,23 +113,23 @@
 			var framerateTimer = 0;
 
 			this.on('update', function(elapsed)
-			{
-				frameCount++;
-				framerateTimer += elapsed;
-				
-				// Only update the framerate every second
-				if (framerateTimer >= 1000)
 				{
-					var fps = 1000 / framerateTimer * frameCount;
-					framerate.innerHTML = "FPS: " + fps.toFixed(3);
-					framerateTimer = 0;
-					frameCount = 0;
-				}
-			})
-			.on('resumed', function()
-			{
-				frameCount = framerateTimer = 0;
-			});
+					frameCount++;
+					framerateTimer += elapsed;
+
+					// Only update the framerate every second
+					if (framerateTimer >= 1000)
+					{
+						var fps = 1000 / framerateTimer * frameCount;
+						framerate.innerHTML = "FPS: " + fps.toFixed(3);
+						framerateTimer = 0;
+						frameCount = 0;
+					}
+				})
+				.on('resumed', function()
+				{
+					frameCount = framerateTimer = 0;
+				});
 		}
 		done();
 	};

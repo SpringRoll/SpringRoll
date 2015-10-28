@@ -53,7 +53,7 @@
 	var s = Button.prototype;
 
 	// Reference to the prototype
-	var p = extend(SoundButton, Button);
+	var p = Button.extend(SoundButton);
 
 	/**
 	 * Handler for the BUTTON_PRESS event
@@ -78,7 +78,7 @@
 		if (this.overAlias && this.enabled && this._audioEnabled)
 		{
 			Sound.instance.play(this.overAlias);
-		}	
+		}
 	};
 
 	/**
@@ -97,14 +97,18 @@
 		}
 	});
 
-	Object.defineProperty(p, "enabled", {
-		get: function(){ return !this._stateFlags.disabled; },
+	Object.defineProperty(p, "enabled",
+	{
+		get: function()
+		{
+			return !this._stateFlags.disabled;
+		},
 		set: function(value)
 		{
 			this.removeEventListener('rollover', this._onRollover);
 			this.removeEventListener(Button.BUTTON_PRESS, this._onButtonPress);
 			// add listeners
-			if(value)
+			if (value)
 			{
 				this.addEventListener('rollover', this._onRollover);
 				this.addEventListener(Button.BUTTON_PRESS, this._onButtonPress);

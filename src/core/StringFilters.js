@@ -20,7 +20,7 @@
 	};
 
 	// Reference to prototype
-	var p = StringFilters.prototype;
+	var p = extend(StringFilters);
 
 	/**
 	 * Register a filter
@@ -45,7 +45,7 @@
 			else
 				throw 'invalid replacement value';
 		}
-		
+
 		if (this._filters)
 		{
 			for (var i = this._filters.length - 1; i >= 0; i--)

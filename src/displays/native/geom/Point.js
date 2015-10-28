@@ -30,7 +30,7 @@
 		this.y = y || 0;
 	};
 
-	var p = Point.prototype;
+	var p = extend(Point);
 
 	/**
 	 * Creates a clone of this point
@@ -115,11 +115,11 @@
 	p.truncate = function(maxLength)
 	{
 		var l = this.length();
-		if(l > maxLength)
+		if (l > maxLength)
 		{
 			var maxOverLen = maxLength / l;
 			this.x *= maxOverLen;
-			this.y *= maxOverLen;	
+			this.y *= maxOverLen;
 		}
 	};
 
@@ -141,25 +141,27 @@
 	 * @method toJSON
 	 * @return {Object} serializable object
 	 */
-	p.toJSON = function() {
+	p.toJSON = function()
+	{
 		return {
 			__classname: "springroll.native.Point",
 			x: this.x,
 			y: this.y
-		};	
+		};
 	};
-	
+
 	/**
 	 * Works with a reviver function to restore from a native Object 
 	 * to an instance of this type.
 	 * @param  {Object} inputObj serialized object
 	 * @method fromJSON
 	 */
-	p.fromJSON = function(inputObj) {
+	p.fromJSON = function(inputObj)
+	{
 		this.x = inputObj.x;
 		this.y = inputObj.y;
 	};
-	
+
 	p.toString = function()
 	{
 		return "(" + this.x + ", " + this.y + ")";
@@ -168,7 +170,7 @@
 	// constructor
 	p.constructor = Point;
 
-    // Assign to namespace
-    namespace('springroll.native').Point = Point;
+	// Assign to namespace
+	namespace('springroll.native').Point = Point;
 
 }());

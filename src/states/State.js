@@ -9,7 +9,7 @@
 	var Debug,
 		Application,
 		EventDispatcher = include('springroll.EventDispatcher');
-	
+
 	/**
 	 * Defines the base functionality for a state used by the state manager
 	 *
@@ -23,15 +23,16 @@
 	 * @param {int} [options.delayLoad=0] The number of frames to delay the loading for cases where
 	 *  heavy object instaniation slow the game dramatically.
 	 * @param {Array} [options.preload=[]] The assets to preload before the state loads
-	 * @param {Object} [options.scaling=null] The scaling items to use with the ScaleManager.
-	 *       See `ScaleManager.addItems` for more information about the
+	 * @param {Object|String} [options.scaling=null] The scaling items to use with the ScaleManager.
+	 *       If options.scaling is `"panel"` then the entire panel will be scaled as a title-safe
+	 *       item. See `ScaleManager.addItems` for more information about the
 	 *       format of the scaling objects. (UI Module only)
 	 */
 	var State = function(panel, options)
 	{
 		EventDispatcher.call(this);
 
-		if(!Application)
+		if (!Application)
 		{
 			Application = include('springroll.Application');
 			Debug = include('springroll.Debug', false);
@@ -43,13 +44,15 @@
 		}
 
 		// Construct the options
-		options = Object.merge({
+		options = Object.merge(
+		{
 			next: null,
 			previous: null,
 			delayLoad: 0,
 			preload: [],
 			scaling: null
-		}, options || {});
+		}, options ||
+		{});
 
 		/**
 		 * Reference to the main app
@@ -104,13 +107,13 @@
 		 * @property {String} stateId
 		 */
 		this.stateId = null;
-		
+
 		/**
 		 * A reference to the state manager
 		 * @property {springroll.StateManager} manager
 		 */
 		this.manager = null;
-		
+
 		/**
 		 * The panel for the state.
 		 * @property {createjs.Container|PIXI.DisplayObjectContainer} panel
@@ -137,49 +140,49 @@
 		 * @protected
 		 */
 		this.assets = null;
-		
+
 		/**
 		 * If the state has been destroyed.
 		 * @property {Boolean} _destroyed
 		 * @private
 		 */
 		this._destroyed = false;
-		
+
 		/**
 		 * If the manager considers this the active panel
 		 * @property {Boolean} _active
 		 * @private
 		 */
 		this._active = false;
-		
+
 		/**
 		 * If we are pre-loading the state
 		 * @property {Boolean} _isLoading
 		 * @private
 		 */
 		this._isLoading = false;
-		
+
 		/**
 		 * If we canceled entering the state
 		 * @property {Boolean} _canceled
 		 * @private
 		 */
 		this._canceled = false;
-		
+
 		/**
 		 * When we're finishing loading
 		 * @property {Function} _onEnterProceed
 		 * @private
 		 */
 		this._onEnterProceed = null;
-		
+
 		/**
 		 * If we start doing a load in enter, assign the onEnterComplete here
 		 * @property {Function} _onLoadingComplete
 		 * @private
 		 */
 		this._onLoadingComplete = null;
-		
+
 		/**
 		 * If the state is enabled, meaning that it is click ready
 		 * @property {Boolean} _enabled
@@ -194,7 +197,7 @@
 		 * @private
 		 */
 		this._nextState = options.next;
-		
+
 		/**
 		 * Either the alias of the previous state or a function
 		 * to call when going to the previous state.
@@ -214,49 +217,55 @@
 		// Hide the panel by default
 		this.panel.visible = false;
 	};
-	
+
 	// Reference to the prototype
 	var s = EventDispatcher.prototype;
-	var p = extend(State, EventDispatcher);
+	var p = EventDispatcher.extend(State);
 
 	/**
 	 * Event when the state finishes exiting. Nothing is showing at this point.
 	 * @event exit
 	 */
-	
+
 	/**
 	 * Event when the state is being destroyed.
 	 * @event destroy
 	 */
-	
+
 	/**
 	 * Event when the transition is finished the state is fully entered.
 	 * @event enterDone
 	 */
-	
+
 	/**
 	 * Event when the loading of a state was canceled.
 	 * @event cancel
 	 */
-	
+
 	/**
 	 * Event when the state starts exiting, everything is showing at this point.
 	 * @event exitStart
 	 */
-	
+
 	/**
 	 * Event when the preload of assets is finished. If no assets are loaded, the `assets` parameter is null.
 	 * @event loaded
 	 * @param {Object|Array|null} asset The collection of assets loaded
 	 */
-	
+
+	/**
+	 * When there has been a change in how much has been preloaded
+	 * @event progress
+	 * @param {Number} percentage The amount preloaded from zero to 1
+	 */
+
 	/**
 	 * Event when the assets are starting to load.
 	 * @event loading
 	 * @param {Array} asset An empty array that additional assets can be added to, if needed. Any dynamic
 	 *                      assets that are added need to be manually unloaded when the state exits.
 	 */
-	
+
 	/**
 	 * Event when the state is enabled status changes. Enable is when the state is mouse enabled or not.
 	 * @event enabled
@@ -264,7 +273,7 @@
 	 */
 
 	// create empty function to avoid a lot of if checks
-	var empty = function(){};
+	var empty = function() {};
 
 	/**
 	 * When the state is exited. Override this to provide state cleanup.
@@ -272,7 +281,7 @@
 	 * @default null
 	 */
 	p.exit = empty;
-	
+
 	/**
 	 * When the state has requested to be exit, pre-transition. Override this to ensure
 	 * that animation/audio is stopped when leaving the state.
@@ -288,7 +297,7 @@
 	 * @default null
 	 */
 	p.cancel = empty;
-	
+
 	/**
 	 * When the state is entered. Override this to start loading assets - call loadingStart()
 	 * to tell the StateManager that that is going on.
@@ -296,7 +305,7 @@
 	 * @default null
 	 */
 	p.enter = empty;
-	
+
 	/**
 	 * When the state is visually entered fully - after the transition is done.
 	 * Override this to begin your state's activities.
@@ -371,7 +380,7 @@
 			if (DEBUG && Debug) Debug.warn("loadingStart() was called while we're already loading");
 			return;
 		}
-		
+
 		this._isLoading = true;
 		this.manager.loadingStart();
 
@@ -383,7 +392,7 @@
 		this._onLoadingComplete = this._onEnterProceed;
 		this._onEnterProceed = null;
 	};
-	
+
 	/**
 	 * Manual call to signal the end of preloading
 	 * @method loadingDone
@@ -403,7 +412,7 @@
 			if (DEBUG && Debug) Debug.warn("loadingDone() was called without a load started, call loadingStart() first");
 			return;
 		}
-		
+
 		if (delay && typeof delay == "number")
 		{
 			this.app.setTimeout(this.loadingDone.bind(this, 0), delay, true);
@@ -419,7 +428,7 @@
 			this._onLoadingComplete = null;
 		}
 	};
-	
+
 	/**
 	 * Status of whether the panel load was canceled
 	 * @property {Boolean} canceled
@@ -445,7 +454,7 @@
 			return this._active;
 		}
 	});
-	
+
 	/**
 	 * If the state is enabled, meaning that it is click ready
 	 * @property {Boolean} enabled
@@ -466,7 +475,7 @@
 			}
 		}
 	});
-	
+
 	/**
 	 * If the state has been destroyed.
 	 * @property {Boolean} destroyed
@@ -489,6 +498,24 @@
 	{
 		this.preloaded = false;
 
+		// local variables
+		var panel = this.panel;
+		var items = this.scalingItems;
+		var scaling = this.scaling;
+
+		//remove scaling objects that we added
+		if (scaling && items)
+		{
+			if (items == "panel")
+			{
+				scaling.removeItem(panel);
+			}
+			else
+			{
+				scaling.removeItems(panel, items);
+			}
+		}
+
 		// Clean any assets loaded by the manifest
 		if (this.preload.length)
 		{
@@ -498,14 +525,16 @@
 		if (this._isTransitioning)
 		{
 			this._isTransitioning = false;
-			this.manager._display.animator.stop(this.panel);
+			if (this.manager.animator)
+			{
+				this.manager.animator.stop(panel);
+			}
 		}
 		this._enabled = false;
-		this.panel.visible = false;
+		panel.visible = false;
 		this._active = false;
 		this.exit();
 
-		
 		this.trigger('exit');
 	};
 
@@ -539,8 +568,10 @@
 		// Start loading assets if we have some
 		if (assets.length)
 		{
-			this.app.load(assets, {
+			this.app.load(assets,
+			{
 				complete: this._onLoaded.bind(this),
+				progress: onProgress.bind(this),
 				cacheAll: true
 			});
 		}
@@ -549,6 +580,18 @@
 		{
 			this._onLoaded(null);
 		}
+	};
+
+	/**
+	 * Handle the load progress and pass to the manager
+	 * @method onProgress
+	 * @private
+	 * @param {Number} progress The amount preloaded from zero to 1
+	 */
+	var onProgress = function(progress)
+	{
+		this.trigger('progress', progress);
+		this.manager.trigger('progress', progress);
 	};
 
 	/**
@@ -570,28 +613,29 @@
 
 			if (items)
 			{
-				this.scaling.addItems(this.panel, items);
-			}
-			// If there is no scaling config for the state,
-			// then scale the entire panel
-			else
-			{
-				// Reset the panel scale & position, to ensure
-				// that the panel is scaled properly
-				// upon state re-entry
-				this.panel.x = this.panel.y = 0;
-				this.panel.scaleX = this.panel.scaleY = 1;
-
-				this.scaling.addItem(this.panel,
+				if (items == "panel")
 				{
-					align: "top-left",
-					titleSafe: true
-				});
+					// Reset the panel scale & position, to ensure
+					// that the panel is scaled properly
+					// upon state re-entry
+					this.panel.x = this.panel.y = 0;
+					this.panel.scaleX = this.panel.scaleY = 1;
+
+					this.scaling.addItem(this.panel,
+					{
+						align: "top-left",
+						titleSafe: true
+					});
+				}
+				else
+				{
+					this.scaling.addItems(this.panel, items);
+				}
 			}
 		}
 		this.loadingDone();
 	};
-	
+
 	/**
 	 * Exit the state start, called by the State Manager
 	 * @method _internalExitStart
@@ -602,7 +646,7 @@
 		this.exitStart();
 		this.trigger('exitStart');
 	};
-	
+
 	/**
 	 * Exit the state start, called by the State Manager
 	 * @method _internalEnter
@@ -614,7 +658,10 @@
 		if (this._isTransitioning)
 		{
 			this._isTransitioning = false;
-			this.manager._display.animator.stop(this.panel);
+			if (this.manager.animator)
+			{
+				this.manager.animator.stop(this.panel);
+			}
 		}
 		this._enabled = false;
 		this._active = true;
@@ -622,14 +669,14 @@
 
 		this._onEnterProceed = proceed;
 		this._internalEntering();
-		
+
 		if (this._onEnterProceed)
 		{
 			this._onEnterProceed();
 			this._onEnterProceed = null;
 		}
 	};
-	
+
 	/**
 	 * Cancel the loading of this state
 	 * @method _internalCancel
@@ -640,12 +687,12 @@
 		this._active = false;
 		this._canceled = true;
 		this._isLoading = false;
-		
+
 		this._internalExit();
 		this.cancel();
 		this.trigger('cancel');
 	};
-	
+
 	/**
 	 * Exit the state start, called by the State Manager
 	 * @method _internalEnterDone
@@ -654,12 +701,12 @@
 	p._internalEnterDone = function()
 	{
 		if (this._canceled) return;
-		
+
 		this.enabled = true;
 		this.enterDone();
 		this.trigger('enterDone');
 	};
-	
+
 	/**
 	 * Don't use the state object after this
 	 * @method destroy
@@ -687,7 +734,7 @@
 
 		s.destroy.call(this);
 	};
-	
+
 	// Add to the namespace
 	namespace('springroll').State = State;
 

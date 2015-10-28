@@ -8,6 +8,7 @@
 	var SavedData = include('springroll.SavedData'),
 		EventDispatcher = include('springroll.EventDispatcher'),
 		PageVisibility = include('springroll.PageVisibility'),
+		SavedDataHandler = include('springroll.SavedDataHandler'),
 		Features = include('springroll.Features'),
 		Bellhop = include('Bellhop'),
 		$ = include('jQuery');
@@ -15,6 +16,7 @@
 	/**
 	 * The application container
 	 * @class Container
+	 * @extends springroll.EventDispatcher
 	 * @constructor
 	 * @param {string} iframeSelector jQuery selector for application iframe container
 	 * @param {object} [options] Optional parameteres
@@ -33,9 +35,16 @@
 	{
 		EventDispatcher.call(this);
 
-		options = $.extend({
+		/**
+		 * The options
+		 * @property {Object} options
+		 * @readOnly
+		 */
+		this.options = options = $.extend(
+		{
 			pauseFocusSelector: '.pause-on-focus'
-		}, options || {});
+		}, options ||
+		{});
 
 		/**
 		 * The name of this class
@@ -138,7 +147,8 @@
 		this._captionsStyles = Object.merge(
 			{},
 			DEFAULT_CAPTIONS_STYLES,
-			SavedData.read(CAPTIONS_STYLES) || {}
+			SavedData.read(CAPTIONS_STYLES) ||
+			{}
 		);
 
 		/**
@@ -195,6 +205,16 @@
 		 */
 		this.sendMutes = true;
 
+		/**
+		 * The external handler class, must include `remove`, `write`, `read` methods
+		 * make it possible to use something else to handle the external, default
+		 * is to use cookies/localStorage. See {{#crossLink "springroll.SavedDataHandler"}}{{/crossLink}}
+		 * as an example.
+		 * @property {Object} userDataHandler
+		 * @default springroll.SavedDataHandler
+		 */
+		this.userDataHandler = new SavedDataHandler();
+
 		//Set the defaults if we have none for the controls
 		if (SavedData.read(CAPTIONS_MUTED) === null)
 		{
@@ -204,7 +224,7 @@
 		{
 			this.soundMuted = false;
 		}
-		
+
 		this._pageVisibility = new PageVisibility(
 			onContainerFocus.bind(this),
 			onContainerBlur.bind(this)
@@ -212,16 +232,8 @@
 
 		// Focus on the window on focusing on anything else
 		// without the .pause-on-focus class
-		$(document).on(
-			'focus click',
-			function(e)
-			{
-				if (!$(e.target).filter(options.pauseFocusSelector).length)
-				{
-					this.focus();
-				}
-			}.bind(this)
-		);
+		this._onDocClick = _onDocClick.bind(this);
+		$(document).on('focus click', this._onDocClick);
 
 		// On elements with the class name pause-on-focus
 		// we will pause the game until a blur event to that item
@@ -240,7 +252,7 @@
 
 	//Reference to the prototype
 	var s = EventDispatcher.prototype;
-	var p = extend(Container, EventDispatcher);
+	var p = EventDispatcher.extend(Container);
 
 	/**
 	 * Fired when the pause state is toggled
@@ -293,13 +305,13 @@
 	 * Event when a application start loading
 	 * @event open
 	 */
-	
+
 	/**
 	 * Fired when the enabled status of the help button changes
 	 * @event helpEnabled
 	 * @param {boolean} enabled If the help button is enabled
 	 */
-	
+
 	/**
 	 * The features supported by the application
 	 * @event features
@@ -307,26 +319,23 @@
 	 * @param {Boolean} data.music If music context is supported
 	 * @param {Boolean} data.sound If Sound is supported
 	 * @param {Boolean} data.sfx If SFX context is supported
-	 * @param {Boolean} data.learning If learning dispatcher is supported
 	 * @param {Boolean} data.captions If captions is supported
 	 * @param {Boolean} data.hints If hinting is supported
 	 */
 
 	/**
-	 * Event when dispatching a Learning Dispatcher event
-	 * @event learningEvent
-	 * @param {object} data The event data
+	 * When the document is clicked
+	 * @method _onDocClicked
+	 * @private
+	 * @param  {Event} e Click or focus event
 	 */
-
-	/**
-	 * Event when dispatching a Google Analytics event
-	 * @event analyticEvent
-	 * @param {object} data The event data
-	 * @param {string} data.category The event category
-	 * @param {string} data.action The event action
-	 * @param {string} [data.label] The optional label
-	 * @param {number} [data.value] The optional value
-	 */
+	var _onDocClick = function(e)
+	{
+		if (!$(e.target).filter(this.options.pauseFocusSelector).length)
+		{
+			this.focus();
+		}
+	};
 
 	/**
 	 * Open a application or path
@@ -339,7 +348,8 @@
 	 */
 	p._internalOpen = function(path, options)
 	{
-		options = $.extend({
+		options = $.extend(
+		{
 			singlePlay: false,
 			playOptions: null
 		}, options);
@@ -361,9 +371,7 @@
 		//Open the application in the iframe
 		this.main
 			.addClass('loading')
-			.prop('src', path)
-			.prop('width', window.innerWidth)
-			.prop('height', window.innerHeight);
+			.prop('src', path);
 
 		if (options.singlePlay)
 		{
@@ -380,15 +388,16 @@
 
 	/**
 	 * Open a application or path
-	 * @method open
+	 * @method openPath
 	 * @param {string} path The full path to the application to load
 	 * @param {Object} [options] The open options
 	 * @param {Boolean} [options.singlePlay=false] If we should play in single play mode
 	 * @param {Object} [options.playOptions=null] The optional play options
 	 */
-	p.open = function(path, options, playOptions)
+	p.openPath = function(path, options, playOptions)
 	{
-		options = options || {};
+		options = options ||
+		{};
 
 		// This should be deprecated, support for old function signature
 		if (typeof options === "boolean")
@@ -420,7 +429,8 @@
 				playOptions: playOptions
 			};
 		}
-		options = $.extend({
+		options = $.extend(
+		{
 			query: '',
 			playOptions: null,
 			singlePlay: false
@@ -429,31 +439,34 @@
 		this.release = null;
 
 		$.getJSON(api, function(result)
-		{
-			if (!result.success)
-			{
-				return this.trigger('remoteError', result.error);
-			}
-			var release = result.data;
+				{
+					if (this._destroyed) return;
 
-			var err = Features.test(release.capabilities);
+					if (!result.success)
+					{
+						return this.trigger('remoteError', result.error);
+					}
+					var release = result.data;
 
-			if (err)
-			{
-				return this.trigger('unsupported', err); 
-			}
+					var err = Features.test(release.capabilities);
 
-			this.release = release;
+					if (err)
+					{
+						return this.trigger('unsupported', err);
+					}
 
-			// Open the application
-			this._internalOpen(release.url + options.query, options);
-		}
-		.bind(this))
-		.fail(function()
-		{
-			return this.trigger('remoteFailed');
-		}
-		.bind(this));
+					this.release = release;
+
+					// Open the application
+					this._internalOpen(release.url + options.query, options);
+				}
+				.bind(this))
+			.fail(function()
+				{
+					if (this._destroyed) return;
+					return this.trigger('remoteFailed');
+				}
+				.bind(this));
 	};
 
 	/**
@@ -474,13 +487,12 @@
 			loadDone: onLoadDone.bind(this),
 			endGame: onEndGame.bind(this),
 			focus: onFocus.bind(this),
-			trackEvent: onAnalyticEvent.bind(this),
-			analyticEvent: onAnalyticEvent.bind(this),
-			progressEvent: onLearningEvent.bind(this),
-			learningEvent: onLearningEvent.bind(this),
 			helpEnabled: onHelpEnabled.bind(this),
 			features: onFeatures.bind(this),
-			keepFocus: onKeepFocus.bind(this)
+			keepFocus: onKeepFocus.bind(this),
+			userDataRemove: onUserDataRemove.bind(this),
+			userDataRead: onUserDataRead.bind(this),
+			userDataWrite: onUserDataWrite.bind(this)
 		});
 	};
 
@@ -496,6 +508,49 @@
 			this.client.destroy();
 			this.client = null;
 		}
+	};
+
+	/**
+	 * Handler for the userDataRemove event
+	 * @method onUserDataRemove
+	 * @private
+	 */
+	var onUserDataRemove = function(event)
+	{
+		var client = this.client;
+		this.userDataHandler.remove(event.data, function()
+		{
+			client.send(event.type);
+		});
+	};
+
+	/**
+	 * Handler for the userDataRead event
+	 * @method onUserDataRead
+	 * @private
+	 */
+	var onUserDataRead = function(event)
+	{
+		var client = this.client;
+		this.userDataHandler.read(event.data, function(value)
+		{
+			client.send(event.type, value);
+		});
+	};
+
+	/**
+	 * Handler for the userDataWrite event
+	 * @method onUserDataWrite
+	 * @private
+	 */
+	var onUserDataWrite = function(event)
+	{
+		var data = event.data;
+		var client = this.client;
+		this.userDataHandler.write(data.name, data.value, function()
+		{
+			client.send(event.type);
+		});
 	};
 
 	/**
@@ -636,17 +691,6 @@
 	};
 
 	/**
-	 * Track an event for springroll Learning
-	 * @method onLearningEvent
-	 * @param {event} event The bellhop learningEvent
-	 * @private
-	 */
-	var onLearningEvent = function(event)
-	{
-		this.trigger('learningEvent', event.data);
-	};
-
-	/**
 	 * Handle the application features
 	 * @method onFeatures
 	 * @param {event} event The bellhop features
@@ -690,45 +734,6 @@
 	var onHelpEnabled = function(event)
 	{
 		this.helpEnabled = !!event.data;
-	};
-
-	/**
-	 * Track an event for Google Analtyics
-	 * @method onAnalyticEvent
-	 * @private
-	 * @param {event} event Bellhop analyticEvent
-	 */
-	var onAnalyticEvent = function(event)
-	{
-		var data = event.data;
-
-		// PBS Specifc implementation of Google Analytics
-		var GoogleAnalytics = include("GA_obj", false);
-		if (GoogleAnalytics)
-		{
-			GoogleAnalytics.trackEvent(
-				data.category,
-				data.action,
-				data.label,
-				data.value
-			);
-		}
-
-		// Generic implementation of Google Analytics
-		GoogleAnalytics = include('ga', false);
-		if (GoogleAnalytics)
-		{
-			GoogleAnalytics('send',
-			{
-				'hitType': 'event',
-				'eventCategory': data.category,
-				'eventAction': data.action,
-				'eventLabel': data.label,
-				'eventValue': data.value
-			});
-		}
-
-		this.trigger('analyticEvent', event.data);
 	};
 
 	/**
@@ -1227,9 +1232,17 @@
 	{
 		this.reset();
 
+		s.destroy.call(this);
+
+		// Remove listener
+		$(document).off('focus click', this._onDocClick);
+
 		this.main = null;
 		this.dom = null;
+		this.options = null;
 
+		this._onDocClick = null;
+		this.userDataHandler = null;
 		this.helpButton = null;
 		this.soundButton = null;
 		this.pauseButton = null;
@@ -1237,16 +1250,14 @@
 		this.musicButton = null;
 		this.voButton = null;
 		this.sfxButton = null;
-		
-		if(this._pageVisibility)
+
+		if (this._pageVisibility)
 		{
 			this._pageVisibility.destroy();
 			this._pageVisibility = null;
 		}
-		
-		this.destroyClient();
 
-		s.destroy.call(this);
+		this.destroyClient();
 	};
 
 	namespace('springroll').Container = Container;

@@ -5,7 +5,7 @@
  */
 (function()
 {
-	// Include classes
+	//include classes
 	var ApplicationPlugin = include('springroll.ApplicationPlugin'),
 		Animator = include('springroll.Animator');
 
@@ -14,7 +14,7 @@
 	 */
 	var plugin = new ApplicationPlugin(50);
 
-	// Init the animator
+	//init the animator
 	plugin.setup = function()
 	{
 		/**
@@ -26,7 +26,7 @@
 		this.animator.register('springroll.GenericMovieClipInstance', 0);
 	};
 
-	// Destroy the animator
+	//destroy the animator
 	plugin.teardown = function()
 	{
 		if (this.animator)

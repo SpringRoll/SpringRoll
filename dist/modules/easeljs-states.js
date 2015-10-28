@@ -1,4 +1,4 @@
-/*! SpringRoll 0.4.0 */
+/*! SpringRoll 0.4.4 */
 /**
  * @module EaselJS States
  * @namespace springroll.easeljs
@@ -9,13 +9,12 @@
 	//Import classes
 	var Container = include('createjs.Container'),
 		DwellTimer,
-		Animator,
 		Application;
 
 	/**
 	 * Panel with convenience properties to the config, background and app.
 	 * @class BasePanel
-	 * @extend createjs.Container
+	 * @extends createjs.Container
 	 * @constructor
 	 */
 	var BasePanel = function()
@@ -24,7 +23,6 @@
 		{
 			Application = include('springroll.Application');
 			DwellTimer = include('springroll.easeljs.DwellTimer', false);
-			Animator = include('springroll.Animator', false);
 		}
 
 		Container.call(this);
@@ -101,7 +99,7 @@
 			if (DwellTimer) DwellTimer.destroy(child);
 
 			// If there's an animation playing stop it
-			if (Animator) Animator.stop(child, true);
+			if (this.app.animator) this.app.animator.stop(child, true);
 
 			// Stop movie clips
 			if (child.stop) child.stop();
@@ -172,12 +170,13 @@
 			throw "springroll.State requires the panel be a springroll.easeljs.BasePanel";
 		}
 
-		options = options || {};
+		options = options ||
+		{};
 
 		if (options.manifest)
 		{
 			options.preload = options.manifest;
-			if (true && Debug)
+			if (true)
 			{
 				console.warn("The BaseState option 'manifest' is deprecated, use 'preload' instead");
 			}
@@ -193,58 +192,60 @@
 		 */
 		this._images = [];
 
+		var priority = 100;
+
 		// @deprecated method for adding assets dynamically to task
 		this.on('loading', function(assets)
 		{
 			if (this.addTasks)
 			{
-				console.warn('addTasks has been deprecated, use loading event instead: e.g., state.on(\'loading\', function(assets){})');
+				if (true) console.warn('addTasks has been deprecated, use loading event instead: e.g., state.on(\'loading\', function(assets){})');
 				this.addTasks(assets);
 			}
-		})
+		}, priority)
 
 		// Handle when assets are preloaded
 		.on('loaded', function(assets)
-		{
-			if (assets)
 			{
-				// save all images to the window images object
-				// this is required for CreateJS to be available
-				// on the images window object
-				for (var id in assets)
+				if (assets)
 				{
-					if (assets[id].tagName == "IMG" || 
-						assets[id].tagName == "CANVAS")
+					// save all images to the window images object
+					// this is required for CreateJS to be available
+					// on the images window object
+					for (var id in assets)
 					{
-						images[id] = assets[id];
-						this._images.push(id);
+						if (assets[id].tagName == "IMG" ||
+							assets[id].tagName == "CANVAS")
+						{
+							images[id] = assets[id];
+							this._images.push(id);
+						}
 					}
 				}
-			}
-			this.panel.setup();
+				this.panel.setup();
 
-			// @deprecated Method to handle on assets loaded
-			this.onAssetsLoaded();
-		})
-		// Handle the panel exit
-		.on('exit', function()
-		{
-			this.panel.teardown();
-
-			// Remove global images reference
-			this._images.forEach(function(id)
+				// @deprecated Method to handle on assets loaded
+				this.onAssetsLoaded();
+			}, priority)
+			// Handle the panel exit
+			.on('exit', function()
 			{
-				delete images[id];
-			});
-			this._images.length = 0;
-		});
+				this.panel.teardown();
+
+				// Remove global images reference
+				this._images.forEach(function(id)
+				{
+					delete images[id];
+				});
+				this._images.length = 0;
+			}, priority);
 	};
 
 	// Reference to the parent prototype
 	var s = State.prototype;
 
 	// Reference to current prototype
-	var p = extend(BaseState, State);
+	var p = State.extend(BaseState);
 
 	/**
 	 * Implementation specific for override. When you need to add additional preload
@@ -322,7 +323,10 @@
 		// Change the defaults
 		this.options.override('fps', 30);
 		this.options.override('display', include('springroll.easeljs.EaselJSDisplay'));
-		this.options.override('displayOptions', { clearView: true });
+		this.options.override('displayOptions',
+		{
+			clearView: true
+		});
 		this.options.override('canvasId', 'stage');
 
 		Debug = include('springroll.Debug', false);
@@ -355,7 +359,8 @@
 
 			if (manifestsPath)
 			{
-				assets.push({
+				assets.push(
+				{
 					id: "manifests",
 					src: manifestsPath,
 					complete: onManifestsLoaded.bind(this)
@@ -387,69 +392,76 @@
 	};
 
 }());
+/**
+ * @module EaselJS States
+ * @namespace springroll.easeljs
+ * @requires Core, States, UI, Sound, EaselJS Display, EaselJS UI
+ */
 (function(Object)
 {
 	// Include classes
 	var BasePanel = include('springroll.easeljs.BasePanel'),
 		BaseState = include('springroll.easeljs.BaseState');
-	
+
 	/**
-	 * @property
-	 * @name springroll.BasePanel#game
-	 * @see {@link springroll.BasePanel#app}
+	 * @class BasePanel
+	 */
+	/**
+	 * See {{#crossLink "springroll.BasePanel/app:property"}}{{/crossLink}}
+	 * @property {springroll.Application} game
 	 * @deprecated since version 0.3.0
 	 */
-	Object.defineProperty(BasePanel.prototype, 'game', 
+	Object.defineProperty(BasePanel.prototype, 'game',
 	{
 		get: function()
 		{
-			console.warn('BasePanel\'s game property is now deprecated, please use the app property, e.g. : panel.app');
+			if (true) console.warn('BasePanel\'s game property is now deprecated, please use the app property, e.g. : panel.app');
 			return this.app;
 		}
 	});
 
 	/**
-	 * @property
-	 * @name springroll.easeljs.BaseState#game
-	 * @see {@link springroll.BaseState#app}
+	 * @class BaseState
+	 */
+	/**
+	 * See {{#crossLink "springroll.BaseState/app:property"}}{{/crossLink}}
+	 * @property {springroll.Application} game
 	 * @deprecated since version 0.3.0
 	 */
-	Object.defineProperty(BaseState.prototype, 'game', 
+	Object.defineProperty(BaseState.prototype, 'game',
 	{
 		get: function()
 		{
-			console.warn('BaseState\'s game property is now deprecated, please use the app property, e.g. : state.app');
+			if (true) console.warn('BaseState\'s game property is now deprecated, please use the app property, e.g. : state.app');
 			return this.app;
 		}
 	});
 
 	/**
-	 * @property
-	 * @name springroll.easeljs.BaseState#manifest
-	 * @see {@link springroll.State#preload}
+	 * See {{#crossLink "springroll.State/preload:property"}}{{/crossLink}}
+	 * @property {Array} manifest
 	 * @deprecated since version 0.4.0
 	 */
-	Object.defineProperty(BaseState.prototype, 'manifest', 
+	Object.defineProperty(BaseState.prototype, 'manifest',
 	{
 		get: function()
 		{
-			console.log("BaseState's manifest property is now deprecated, please use preload property, e.g. : state.preload");
+			if (true) console.warn("BaseState's manifest property is now deprecated, please use preload property, e.g. : state.preload");
 			return this.preload;
 		}
 	});
 
 	/**
-	 * @property
-	 * @name springroll.easeljs.BaseState#assetsLoaded
-	 * @see {@link springroll.State#preloaded}
+	 * See {{#crossLink "springroll.State/preloaded:property"}}{{/crossLink}}
+	 * @property {Boolean} assetsLoaded
 	 * @deprecated since version 0.4.0
 	 * @readOnly
 	 */
-	Object.defineProperty(BaseState.prototype, 'assetsLoaded', 
+	Object.defineProperty(BaseState.prototype, 'assetsLoaded',
 	{
 		get: function()
 		{
-			console.log("BaseState's assetsLoaded property is now deprecated, please use preloaded property, e.g. : state.preloaded");
+			if (true) console.warn("BaseState's assetsLoaded property is now deprecated, please use preloaded property, e.g. : state.preloaded");
 			return this.preloaded;
 		}
 	});

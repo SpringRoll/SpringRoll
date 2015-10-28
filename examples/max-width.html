@@ -60,11 +60,10 @@ app.once('init', function()
 	var background = new Bitmap(this.getCache('background'));
 	this.display.stage.addChild(background);
 	
+	// Center the image
 	this.on('resize', function(w, h)
 	{
-		var overallScale = h / 500;
-		background.scaleX = background.scaleY = overallScale;
-		background.x = (w - background.image.width * overallScale) / 2;
+		background.x = (w - background.image.width) / 2;
 	});
 
 	// Manually call resize

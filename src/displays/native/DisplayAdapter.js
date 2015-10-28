@@ -3,8 +3,9 @@
  * @namespace springroll.native
  * @requires Core
  */
-(function(undefined){
-	
+(function(undefined)
+{
+
 	/**
 	 * Provide a normalized way to get size, position, scale values
 	 * as well as provide reference for different geometry classes.
@@ -100,7 +101,10 @@
 	DisplayAdapter.getScale = function(object, direction)
 	{
 		// Not implemented
-		return {x:1,y:1};
+		return {
+			x: 1,
+			y: 1
+		};
 	};
 
 	/**
@@ -190,8 +194,8 @@
 	DisplayAdapter.getBitmapSize = function(bitmap)
 	{
 		return {
-			w : bitmap.width,
-			h : bitmap.height
+			w: bitmap.width,
+			h: bitmap.height
 		};
 	};
 

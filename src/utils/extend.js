@@ -7,8 +7,9 @@
  * @class extend
  * @static
  */
-(function(window){
-	
+(function(window)
+{
+
 	// The extend function already exists
 	if ("extend" in window) return;
 
@@ -20,20 +21,32 @@
 	 *
 	 * @constructor
 	 * @method extend
-	 * @param {function} subClass The reference to the class
-	 * @param {function|String} superClass The parent reference or full classname
-	 * @return {object} Reference to the subClass's prototype
+	 * @param {function} child The reference to the child class
+	 * @param {function|String} [parent] The parent class reference or full classname
+	 * @return {object} Reference to the child class's prototype
 	 */
-	window.extend = function(subClass, superClass)
+	window.extend = function(child, parent)
 	{
-		if (typeof superClass == "string")
+		if (parent)
 		{
-			superClass = window.include(superClass);
+			if (typeof parent == "string")
+			{
+				parent = window.include(parent);
+			}
+			var p = parent.prototype;
+			child.prototype = Object.create(p);
+			child.prototype.__parent = p;
 		}
-		subClass.prototype = Object.create(
-			superClass.prototype
-		);
-		return subClass.prototype;
+		// Add the constructor
+		child.prototype.constructor = child;
+
+		// Add extend to each class to easily extend
+		// by calling MyClass.extend(SubClass)
+		child.extend = function(subClass)
+		{
+			return window.extend(subClass, child);
+		};
+		return child.prototype;
 	};
 
 }(window));

@@ -3,10 +3,10 @@
  * @namespace springroll
  * @requires Core
  */
-(function()
+(function(window)
 {
 	var ApplicationPlugin = include('springroll.ApplicationPlugin');
-	
+
 	/**
 	 * @class Application
 	 */
@@ -15,6 +15,8 @@
 	// Init the animator
 	plugin.setup = function()
 	{
+		var navigator = window.navigator;
+
 		/**
 		 * If the current brower is iOS
 		 * @property {Boolean} isIOS
@@ -32,8 +34,8 @@
 		 * @property {Boolean} hasTouch
 		 */
 		this.hasTouch = !!(('ontouchstart' in window) || // iOS & Android
-			(window.navigator.msPointerEnabled && window.navigator.msMaxTouchPoints > 0) || // IE10
-			(window.navigator.pointerEnabled && window.navigator.maxTouchPoints > 0)); // IE11+
+			(navigator.msPointerEnabled && navigator.msMaxTouchPoints > 0) || // IE10
+			(navigator.pointerEnabled && navigator.maxTouchPoints > 0)); // IE11+
 
 		if (DEBUG)
 		{
@@ -45,7 +47,7 @@
 			this.options.add('forceTouch', false)
 				.on('forceTouch', function(value)
 					{
-						if(value === "true" || value === true)
+						if (value === "true" || value === true)
 							this.hasTouch = true;
 					}
 					.bind(this));
@@ -64,12 +66,12 @@
 		if (DEBUG)
 		{
 			var value = this.options.forceTouch;
-			if(value === "true" || value === true)
+			if (value === "true" || value === true)
 				this.hasTouch = true;
 		}
 
 		// Add the interaction filters, must have interface module MobilePlugin
-		if(this.filters)
+		if (this.filters)
 		{
 			var ui = !!this.hasTouch ? '_touch' : '_mouse';
 			this.filters.add('%INTERACTION%', ui);
@@ -78,4 +80,4 @@
 		done();
 	};
 
-}());
+}(window));

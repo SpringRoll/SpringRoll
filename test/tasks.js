@@ -31,7 +31,8 @@ test('Single Asset', function(assert)
 			assert.strictEqual(objectCallback, asset.complete, "Asset object check");
 
 			stop();
-			assets.push({
+			assets.push(
+			{
 				src: "data/config.json",
 				complete: function(config)
 				{
@@ -40,7 +41,8 @@ test('Single Asset', function(assert)
 				}
 			})
 		};
-		app.load({
+		app.load(
+		{
 			src: src,
 			complete: objectCallback
 		})
@@ -59,7 +61,8 @@ test('List Assets', function(assert)
 		}
 	];
 	stop();
-	app.load(assets, {
+	app.load(assets,
+	{
 		startAll: false,
 		complete: function(results)
 		{
@@ -78,22 +81,21 @@ test('Mapped Assets', function(assert)
 {
 	expect(5);
 	var assets = [
-		{
-			src: 'data/config.json',
-			id: 'config'
-		},
-		{
-			src: 'data/image.png',
-			id: 'image'
-		},
-		{
-			assets: [
-				'data/file.txt',
-				'data/captions.json'
-			],
-			id: 'files'
-		}
-	];
+	{
+		src: 'data/config.json',
+		id: 'config'
+	},
+	{
+		src: 'data/image.png',
+		id: 'image'
+	},
+	{
+		assets: [
+			'data/file.txt',
+			'data/captions.json'
+		],
+		id: 'files'
+	}];
 	stop();
 	app.load(assets, function(results)
 	{
@@ -125,7 +127,8 @@ test('Cached Assets', function(assert)
 		'data/image.png'
 	];
 	stop();
-	app.load(assets, {
+	app.load(assets,
+	{
 		complete: function(results)
 		{
 			start();

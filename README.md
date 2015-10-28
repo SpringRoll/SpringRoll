@@ -95,18 +95,16 @@ Modules are components which contain common code classes, documentation and/or r
 	* **[EaselJS Animation Module](https://github.com/SpringRoll/SpringRoll/wiki/EaselJS-Animation-Module)** _easeljs-animation_
 	* **[EaselJS Cutscene Module](https://github.com/SpringRoll/SpringRoll/wiki/EaselJS-Cutscene-Module)** _easeljs-cutscene_
 	* **[EaselJS Display Module](https://github.com/SpringRoll/SpringRoll/wiki/EaselJS-Display-Module)** _easeljs-display_
-	* **[EaselJS Learning Module](https://github.com/SpringRoll/SpringRoll/wiki/EaselJS-Learning-Module)** _easeljs-learning_
 	* **[EaselJS States Module](https://github.com/SpringRoll/SpringRoll/wiki/EaselJS-States-Module)** _easeljs-states_
 	* **[EaselJS UI Module](https://github.com/SpringRoll/SpringRoll/wiki/EaselJS-UI-Module)** _easeljs-ui_
 * **[Hints Module](https://github.com/SpringRoll/SpringRoll/wiki/Hints-Module)** _hints_
 * **[Languages Module](https://github.com/SpringRoll/SpringRoll/wiki/Languages-Module)** _languages_
-* **[Learning Module](https://github.com/SpringRoll/SpringRoll/wiki/Learning-Module)** _learning_
-* **[Learning Media Module](https://github.com/SpringRoll/SpringRoll/wiki/Learning-Media-Module)** _learning-media_
 * **[Native Display Module](https://github.com/SpringRoll/SpringRoll/wiki/Native-Display-Module)** _native-display_
 * Pixi.js
 	* **[Pixi.js Animation Module](https://github.com/SpringRoll/SpringRoll/wiki/Pixi.js-Animation-Module)** _pixi-animation_
 	* **[Pixi.js Display Module](https://github.com/SpringRoll/SpringRoll/wiki/Pixi.js-Display-Module)** _pixi-display_
-	* **[Pixi.js UI Module](https://github.com/SpringRoll/SpringRoll/wiki/Pixi.js-UI-Module)** _pixi-ui_
+	* **[Pixi.js Spine Module](https://github.com/SpringRoll/SpringRoll/wiki/Pixi.js-Spine-Module)** _pixi-spine_
+	* **[Pixi.js UI Module](https://github.com/SpringRoll/SpringRoll/wiki/Pixi.js-UI-Module)**  _pixi-ui_
 * **[Sound Module](https://github.com/SpringRoll/SpringRoll/wiki/Sound-Module)** _sound_
 * **[States Module](https://github.com/SpringRoll/SpringRoll/wiki/States-Module)** _states_
 * **[UI Module](https://github.com/SpringRoll/SpringRoll/wiki/UI-Module)** _ui_
@@ -115,9 +113,25 @@ Modules are components which contain common code classes, documentation and/or r
 
 The Framework is inherently canvas-rendering agnostic. We support two different rendering display plugins for [EaselJS](http://www.createjs.com/EaselJS) and [Pixi.js](http://www.pixijs.com/). Features within the different modules require SpringRoll's forks of EaselJS and PixiJS. In addition, there is a generic display for rendering using [Context2d](http://www.w3.org/TR/2014/CR-2dcontext-20140821/) or [WebGL](http://get.webgl.org/). An Application built with the Framework can support all three displays methods simultaneously.
 
+##Examples
+
+* [Basic Application](https://springroll.github.io/SpringRoll/examples/basic.html)
+* [Asset Loading &amp; Caching](https://springroll.github.io/SpringRoll/examples/asset-caching.html)
+* [Color-Alpha Image](https://springroll.github.io/SpringRoll/examples/color-alpha.html)
+* [Max Width](https://springroll.github.io/SpringRoll/examples/max-width.html)
+* [Responsive UI](https://springroll.github.io/SpringRoll/examples/ui.html)
+* [Cutscene](https://springroll.github.io/SpringRoll/examples/cutscene.html)
+* [Using TweenJS](https://springroll.github.io/SpringRoll/examples/tween.html)
+* [Adding and Playing Sound](https://springroll.github.io/SpringRoll/examples/sound.html)
+* [Basic Captions](https://springroll.github.io/SpringRoll/examples/captions.html)
+* [Captions &amp; Sound](https://springroll.github.io/SpringRoll/examples/captions-sound.html)
+* [Multi-Display Application](https://springroll.github.io/SpringRoll/examples/multiple-displays.html)
+* [Create States](https://springroll.github.io/SpringRoll/examples/states.html)
+* [Container](https://springroll.github.io/SpringRoll/examples/container.html)
+
 ##Documentation
 
-[API Documentation](http://springroll.github.io/SpringRoll/) has full documentation for the core and related modules. For examples of implementing each module please consult the [wiki](https://github.com/SpringRoll/SpringRoll/wiki).
+[API Documentation](http://springroll.github.io/SpringRoll/docs/) has full documentation for the core and related modules. For examples of implementing each module please consult the [wiki](https://github.com/SpringRoll/SpringRoll/wiki).
 
 ##License
 

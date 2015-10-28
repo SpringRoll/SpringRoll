@@ -28,7 +28,7 @@
 
 	// Reference to prototype
 	var s = LoadTask.prototype;
-	var p = extend(BitmapTask, LoadTask);
+	var p = LoadTask.extend(BitmapTask);
 
 	/**
 	 * Test if we should run this task
@@ -39,8 +39,8 @@
 	 */
 	BitmapTask.test = function(asset)
 	{
-		return asset.src && 
-			asset.type == "easeljs" && 
+		return asset.src &&
+			asset.type == "easeljs" &&
 			asset.format == "createjs.Bitmap";
 	};
 

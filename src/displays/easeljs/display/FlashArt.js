@@ -53,7 +53,7 @@
 	};
 
 	// Reference to the prototype
-	var p = FlashArt.prototype;
+	var p = extend(FlashArt);
 
 	/**
 	 * The collection of all symbols and assets
@@ -72,7 +72,7 @@
 	{
 		// split into the initialization functions, that take 'lib' as a parameter
 		var textArray = text.split(/[\(!]function\s*\(/);
-		
+
 		var globalSymbols = FlashArt.globalSymbols;
 		// go through each initialization function
 		for (var i = 0; i < textArray.length; ++i)
@@ -132,7 +132,7 @@
 		});
 		this.symbols = null;
 	};
-	
+
 	// Assign to namespace
 	namespace('springroll.easeljs').FlashArt = FlashArt;
 

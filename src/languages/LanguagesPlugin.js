@@ -7,7 +7,7 @@
 {
 	// Include classes
 	var ApplicationPlugin = include('springroll.ApplicationPlugin'),
-		Languages = include('springroll.Languages'), 
+		Languages = include('springroll.Languages'),
 		Debug;
 
 	/**
@@ -46,16 +46,16 @@
 		if (languagesConfig)
 		{
 			this.load(languagesConfig, function(config)
-			{
-				this.languages.setConfig(config);
-				var lang = this.options.language;
-				if (lang)
 				{
-					this.languages.setLanguage(lang);
+					this.languages.setConfig(config);
+					var lang = this.options.language;
+					if (lang)
+					{
+						this.languages.setLanguage(lang);
+					}
+					done();
 				}
-				done();
-			}
-			.bind(this));
+				.bind(this));
 		}
 		else
 		{

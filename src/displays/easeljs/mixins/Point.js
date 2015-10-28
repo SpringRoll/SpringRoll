@@ -12,7 +12,7 @@
 	 */
 
 	var p = include("createjs.Point", false);
-	if(!p) return;
+	if (!p) return;
 
 	p = p.prototype;
 
@@ -88,7 +88,7 @@
 	p.truncate = function(maxLength)
 	{
 		var l = this.length();
-		if(l > maxLength)
+		if (l > maxLength)
 		{
 			var maxOverLen = maxLength / l;
 			this.x *= maxOverLen;

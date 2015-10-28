@@ -5,12 +5,7 @@
  */
 (function(undefined)
 {
-
 	var RAD_TO_DEGREES = 180 / Math.PI;
-
-	/**
-	 * @author Andrew Start <andrew@cloudkid.com>
-	 */
 
 	/**
 	 * The Sector object can be used to specify a hit area for display objects.
@@ -55,7 +50,7 @@
 		 */
 		this.startAngle = startAngle || 0;
 		//for math purposes, ensure that this is greater than 0
-		while(this.startAngle < 0)
+		while (this.startAngle < 0)
 			this.startAngle += 360;
 
 		/**
@@ -65,7 +60,7 @@
 		 */
 		this.endAngle = endAngle || 0;
 		//for math purposes, ensure that this is greater than startAngle
-		if(this.endAngle < this.startAngle)
+		if (this.endAngle < this.startAngle)
 			this.endAngle += 360;
 	};
 
@@ -92,7 +87,7 @@
 	 */
 	p.contains = function(x, y)
 	{
-		if(this.radius <= 0)
+		if (this.radius <= 0)
 			return false;
 
 		var dx = (this.x - x),
@@ -102,11 +97,11 @@
 		dx *= dx;
 		dy *= dy;
 
-		if(dx + dy > r2) return false;
+		if (dx + dy > r2) return false;
 
 		var angle = Math.atan2(y - this.y, x - this.x) * RAD_TO_DEGREES;
 		//make the angle in the same space as the sector
-		while(angle < this.startAngle) angle += 360;
+		while (angle < this.startAngle) angle += 360;
 		return angle >= this.startAngle && angle <= this.endAngle;
 	};
 

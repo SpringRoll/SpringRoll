@@ -1,23 +1,22 @@
 /**
- * @module PIXI Display
+ * @module PIXI Spine
  * @namespace springroll.pixi
- * @requires Core
+ * @requires  Core, PIXI Display, Animation
  */
 (function()
 {
-	var Application = include('springroll.Application'),
-		Task = include('springroll.Task'),
+	var Task = include('springroll.Task'),
 		TextureAtlasTask = include('springroll.pixi.TextureAtlasTask'),
 		atlasParser = include('PIXI.spine.loaders.atlasParser', false),
 		SkeletonJsonParser = include('PIXI.spine.SpineRuntime.SkeletonJsonParser', false),
 		AtlasAttachmentParser = include('PIXI.spine.SpineRuntime.AtlasAttachmentParser', false),
 		SpineAtlasTask = include('springroll.pixi.SpineAtlasTask', false),
 		SpineAtlas = include('springroll.pixi.SpineAtlas', false);
-	
-	if(!atlasParser) return;
+
+	if (!atlasParser) return;
 
 	/**
-	 * SpineAnimTask loads an image and sets it up for Pixi to use as a PIXI.Texture.
+	 * SpineAnimTask loads a spine animation and the texture atlas(es) that it needs.
 	 * @class SpineAnimTask
 	 * @constructor
 	 * @private
@@ -60,7 +59,7 @@
 		 * @property {String} atlas
 		 */
 		this.atlas = asset.atlas;
-		
+
 		/**
 		 * Extra images to be added to the atlas
 		 * @property {String} extraImages
@@ -69,7 +68,7 @@
 	};
 
 	// Extend the base Task
-	var p = extend(SpineAnimTask, Task);
+	var p = Task.extend(SpineAnimTask);
 
 	/**
 	 * Test to see if we should load an asset
@@ -81,14 +80,14 @@
 	SpineAnimTask.test = function(asset)
 	{
 		//anim data is required
-		if(!asset.spineAnim)
+		if (!asset.spineAnim)
 			return false;
 		//if atlas exists, make sure it is a valid atlas
-		if(asset.atlas &&
+		if (asset.atlas &&
 			!(TextureAtlasTask.test(asset.atlas) || SpineAtlasTask.test(asset.atlas)))
 			return false;
 		//if atlas does not exist, extraImages is required
-		if(!asset.atlas)
+		if (!asset.atlas)
 			return !!asset.extraImages;
 		//if it made it this far, it checks out
 		return true;
@@ -101,30 +100,34 @@
 	 */
 	p.start = function(callback)
 	{
-		var asset = {_anim: this.spineAnim};
-		if(this.atlas)
+		var asset = {
+			_anim: this.spineAnim
+		};
+		if (this.atlas)
 			asset._atlas = this.atlas;
-		if(this.extraImages)
-			asset._images = {assets:this.extraImages};
-		
-		Application.instance.load(asset, function(results)
+		if (this.extraImages)
+			asset._images = {
+				assets: this.extraImages
+			};
+
+		this.load(asset, function(results)
 		{
 			var spineAtlas = results._atlas;
 			//if we didn't load an atlas, then should make an atlas because we were probably
 			//loading individual images
-			if(!spineAtlas)
+			if (!spineAtlas)
 				spineAtlas = new SpineAtlas();
 			//if a TextureAtlas was loaded, make a SpineAtlas out of it
-			if(!(spineAtlas instanceof SpineAtlas))
+			if (!(spineAtlas instanceof SpineAtlas))
 			{
 				var textureAtlas = spineAtlas;
 				spineAtlas = new SpineAtlas();
 				spineAtlas.fromTextureAtlas(textureAtlas);
 			}
 			//see if we need to add in any individual images
-			if(results._images)
+			if (results._images)
 			{
-				for(var name in results._images)
+				for (var name in results._images)
 				{
 					spineAtlas.addImage(name, results._images[name]);
 				}
@@ -133,7 +136,7 @@
 			// spine animation
 			var spineJsonParser = new SkeletonJsonParser(new AtlasAttachmentParser(spineAtlas));
 			var skeletonData = spineJsonParser.readSkeletonData(results._anim);
-			
+
 			//store both the atlas and the skeleton data for later cleanup
 			var asset = {
 				id: this.id,
@@ -143,7 +146,7 @@
 			//store the skeletonData in the external cache, for standardization
 			if (atlasParser.enableCaching && this.cache)
 				atlasParser.AnimCache[this.id] = skeletonData;
-			
+
 			//set up a destroy function for cleanly unloading the asset (in particular the atlas)
 			asset.destroy = function()
 			{
@@ -155,7 +158,7 @@
 				//of spine runtime objects, no display objects or anything
 				this.spineData = this.spineAtlas = null;
 			};
-			
+
 			//return the asset object
 			callback(asset, results);
 		}.bind(this));

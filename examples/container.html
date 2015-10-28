@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<title>Container Example</title>
+		<meta name="description" content="">
+		<meta name="viewport" content="width=device-width">
+		<link rel="stylesheet" href="assets/css/container.css">
+
+		<!-- External dependencies -->
+		<script src="../components/bellhop/dist/bellhop.js"></script>
+		<script src="../components/jquery/dist/jquery.js"></script>
+
+		<!-- Library and modules -->
+		<script src="../dist/modules/container.js"></script>
+
+	</head>
+	<body>
+		<h1>Container Example</h1>
+		<button id="loadGame">Open App</button>
+		<div id="frame">
+			<iframe id="appContainer" scrolling="no" frameborder="0"></iframe>
+		</div>
+		<script>
+
+			// Include classes
+			var Container = include('springroll.Container');
+
+			// Create the new container
+			var container = new Container("#appContainer");
+
+			// Open the application on button click
+			var loadGame = $("#loadGame").click(function()
+			{
+				container.openPath('container-client.html');
+			});
+
+			// Handle when the app is opened
+			container.on('opened', function()
+			{
+				loadGame.remove();
+			});
+			
+		</script>
+	</body>
+</html>

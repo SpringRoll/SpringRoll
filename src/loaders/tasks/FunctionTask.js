@@ -30,7 +30,7 @@
 	};
 
 	// Reference to prototype
-	var p = extend(FunctionTask, Task);
+	var p = Task.extend(FunctionTask);
 
 	/**
 	 * Test if we should run this task

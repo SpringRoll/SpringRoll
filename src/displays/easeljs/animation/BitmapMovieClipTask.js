@@ -6,11 +6,10 @@
 (function()
 {
 	var TextureAtlasTask = include('springroll.easeljs.TextureAtlasTask'),
-		BitmapMovieClip = include('springroll.easeljs.BitmapMovieClip'),
-		Application = include('springroll.Application');
+		BitmapMovieClip = include('springroll.easeljs.BitmapMovieClip');
 
 	/**
-	 * Internal class for dealing with async load assets through Loader.
+	 * Internal class for loading an instantiating a BitmapMovieClip.
 	 * @class BitmapMovieClipTask
 	 * @extends springroll.TextureAtlasTask
 	 * @constructor
@@ -31,14 +30,14 @@
 		TextureAtlasTask.call(this, asset);
 
 		/**
-		 * The BitmapMovieclip data source path
+		 * The BitmapMovieClip data source path
 		 * @property {String} anim
 		 */
 		this.anim = this.filter(asset.anim);
 	};
 
 	// Reference to prototype
-	var p = extend(BitmapMovieClipTask, TextureAtlasTask);
+	var p = TextureAtlasTask.extend(BitmapMovieClipTask);
 
 	/**
 	 * Test if we should run this task
@@ -59,10 +58,13 @@
 	 */
 	p.start = function(callback)
 	{
-		this.loadAtlas({ _anim: this.anim }, function(textureAtlas, results)
+		this.loadAtlas(
+		{
+			_anim: this.anim
+		}, function(textureAtlas, results)
 		{
 			callback(new BitmapMovieClip(
-				textureAtlas, 
+				textureAtlas,
 				results._anim
 			), results);
 		});

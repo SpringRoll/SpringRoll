@@ -1,5 +1,6 @@
-test('namespace & include', function(assert){
-	
+test('namespace & include', function(assert)
+{
+
 	expect(2);
 
 	var MyClass = {};
@@ -14,8 +15,9 @@ test('namespace & include', function(assert){
 	delete window.my;
 });
 
-test('mixin', function(assert){
-	
+test('mixin', function(assert)
+{
+
 	var instance = {};
 	var MyClass = function(value)
 	{
@@ -30,7 +32,8 @@ test('mixin', function(assert){
 	};
 
 	// Add a getter or setter with enumerable
-	Object.defineProperty(p, "enabled", {
+	Object.defineProperty(p, "enabled",
+	{
 		enumerable: true,
 		get: function()
 		{
@@ -39,7 +42,8 @@ test('mixin', function(assert){
 	});
 
 	// We want this to fail, no enumerable property
-	Object.defineProperty(p, "active", {
+	Object.defineProperty(p, "active",
+	{
 		get: function()
 		{
 			return true;
@@ -56,36 +60,50 @@ test('mixin', function(assert){
 	assert.strictEqual(instance.enabled, true, "getter works");
 });
 
-test('Enum', function(assert){
+test('Enum', function(assert)
+{
 
 	expect(8);
 
 	var Enum = include('springroll.Enum');
-	
+
 	var myEnum = new Enum("valueOf0",
-						"valueOf1",
-						"valueOf2");
-	var myOtherEnum = new Enum({name: "one", value:"1", toString:"I am the One!"},
-								"two",
-								{name:"screwSequentialNumbers", value:42},
-								{name:"duplicateValue", value:42});
+		"valueOf1",
+		"valueOf2");
+	var myOtherEnum = new Enum(
+		{
+			name: "one",
+			value: "1",
+			toString: "I am the One!"
+		},
+		"two",
+		{
+			name: "screwSequentialNumbers",
+			value: 42
+		},
+		{
+			name: "duplicateValue",
+			value: 42
+		});
 	assert.ok(myEnum.valueOf0, "EnumValue was created.");
 	assert.notEqual(myEnum.valueOf0, 0, "EnumValues are not integers.");
 	assert.notEqual(myEnum.valueOf1, myOtherEnum.one, "EnumValues with the same integer value are not the same.");
 	assert.equal(myEnum.valueOf2.asInt, 2, "EnumValue.asInt is correct.");
 	assert.ok(myOtherEnum.duplicateValue, "Duplicate value was created properly.");
 	assert.equal(myOtherEnum.screwSequentialNumbers, myOtherEnum.valueFromInt(42),
-				"Enum.valueFromInt() returns the correct value, even when nonsequential and duplicate.");
+		"Enum.valueFromInt() returns the correct value, even when nonsequential and duplicate.");
 	assert.equal(myOtherEnum.one.toString(), "I am the One!", "toString() override works.");
 	//test to make sure we only enumrate the EnumValues
 	var count = 0;
-	for (var enumVal in myEnum) {
+	for (var enumVal in myEnum)
+	{
 		count++;
 	}
 	assert.equal(count, 3, "Enum's only enumerable properties are EnumValues.");
 });
 
-test('Application', function(assert){
+test('Application', function(assert)
+{
 
 	expect(5);
 
@@ -103,16 +121,33 @@ test('Application', function(assert){
 	assert.ok(!app.loader, "Loader was destroyed");
 });
 
-test('Math', function(assert){
+test('Math', function(assert)
+{
 	expect(13);
 
-	assert.strictEqual(10, Math.clamp(20,2,10), "Upper clamp");
-	assert.strictEqual(2, Math.clamp(-1,2,10), "Lower clamp");
-	assert.strictEqual(0, Math.clamp(-1,10), "Zero-based clamp");
-	assert.strictEqual(4, Math.dist({x:0,y:4}, {x:0,y:0}), "2 Point distance");
-	assert.strictEqual(16, Math.distSq({x:0,y:4}, {x:0,y:0}), "2 Point distance squared");
-	assert.strictEqual(4, Math.dist(0,4,0,0), "X, Y, X1, Y1 distance");
-	assert.strictEqual(16, Math.distSq(0,4,0,0), "X, Y, X1, Y1 distance squared");
+	assert.strictEqual(10, Math.clamp(20, 2, 10), "Upper clamp");
+	assert.strictEqual(2, Math.clamp(-1, 2, 10), "Lower clamp");
+	assert.strictEqual(0, Math.clamp(-1, 10), "Zero-based clamp");
+	assert.strictEqual(4, Math.dist(
+	{
+		x: 0,
+		y: 4
+	},
+	{
+		x: 0,
+		y: 0
+	}), "2 Point distance");
+	assert.strictEqual(16, Math.distSq(
+	{
+		x: 0,
+		y: 4
+	},
+	{
+		x: 0,
+		y: 0
+	}), "2 Point distance squared");
+	assert.strictEqual(4, Math.dist(0, 4, 0, 0), "X, Y, X1, Y1 distance");
+	assert.strictEqual(16, Math.distSq(0, 4, 0, 0), "X, Y, X1, Y1 distance squared");
 
 	var i = Math.randomInt(4, 10);
 	assert.ok(i >= 4, "Random Int Min");
@@ -125,7 +160,8 @@ test('Math', function(assert){
 	assert.equal(parseInt(i), i, "Zero-based Is Int");
 });
 
-test('Array', function(assert){
+test('Array', function(assert)
+{
 	expect(6);
 	var arr = [1, 2, 3];
 	assert.strictEqual(3, arr.last(), "Last property");
@@ -137,7 +173,8 @@ test('Array', function(assert){
 	assert.ok(arr.indexOf(3) > -1, "Third item index");
 });
 
-test('String', function(assert){
+test('String', function(assert)
+{
 	expect(2);
 	var str = "Test String";
 	assert.strictEqual(str.reverse(), "gnirtS tseT", "String reverse");
@@ -147,11 +184,19 @@ test('String', function(assert){
 	assert.strictEqual(str.format("John"), result, "String formatting");
 });
 
-test('Object', function(assert){
+test('Object', function(assert)
+{
 	expect(13);
 
-	var obj1 = { id : 'foo', name : 'Hello!', value : 100 };
-	var obj2 = { id : 'bar', value : 200 };
+	var obj1 = {
+		id: 'foo',
+		name: 'Hello!',
+		value: 100
+	};
+	var obj2 = {
+		id: 'bar',
+		value: 200
+	};
 	var result = Object.merge(obj1, obj2);
 	assert.strictEqual(result.id, 'bar', "Override existing property id");
 	assert.strictEqual(result.value, 200, "Override existing property value");
@@ -163,23 +208,31 @@ test('Object', function(assert){
 	assert.strictEqual(result.value, resultCopy.value, "Cloned property value");
 	assert.strictEqual(result.name, resultCopy.name, "Cloned property name");
 
-	assert.ok(Object.isPlain({}), "Empty is plain object");
-	assert.ok(Object.isPlain({value:{}}), "Nested is plain object");
+	assert.ok(Object.isPlain(
+	{}), "Empty is plain object");
+	assert.ok(Object.isPlain(
+	{
+		value:
+		{}
+	}), "Nested is plain object");
 	assert.ok(Object.isPlain(result), "Result is plain object");
-	assert.notOk(Object.isPlain(function(){}), "New function is not plain object");
+	assert.notOk(Object.isPlain(function() {}), "New function is not plain object");
 	assert.notOk(Object.isPlain(window), "Window is not a plain object");
-	
-	assert.ok(Object.merge(null, {}), "Object.merge handles null targets");
+
+	assert.ok(Object.merge(null,
+	{}), "Object.merge handles null targets");
 });
 
-test('Loader', function(assert){
+test('Loader', function(assert)
+{
 
 	//expect(9);
 	var Application = include('springroll.Application');
 
 	// New Application
 	var basePath = "http://example.com/";
-	var app = new Application({
+	var app = new Application(
+	{
 		cacheBust: true,
 		basePath: basePath
 	});
@@ -187,7 +240,7 @@ test('Loader', function(assert){
 	var url = "test.jpg";
 	var cbUrl = loader.cacheManager.prepare(url);
 	var basePathUrl = loader.cacheManager.prepare(url, true);
-	
+
 	assert.ok(/^test\.jpg\?cb\=[0-9]+$/.test(cbUrl), "Cache Busting works");
 	assert.equal(basePathUrl.indexOf(basePath + url), 0, "Found base path");
 
@@ -195,25 +248,28 @@ test('Loader', function(assert){
 	app.options.cacheBust = false;
 	app.options.basePath = '';
 
-	loader.load('data/nothing.txt', function(){});
+	loader.load('data/nothing.txt', function() {});
 	assert.ok(loader.cancel('data/nothing.txt'), "Canceling load");
 
 	stop();
 	// Test loading a basic file
 	url = 'data/file.txt';
-	loader.load(url, function(result){
+	loader.load(url, function(result)
+	{
 		start();
 		assert.strictEqual(result.content, "info", "Loaded plain text file");
 		assert.strictEqual(result.url, url, 'Result url is the same');
 		stop();
-		
-		loader.load('data/file.json', function(result){
+
+		loader.load('data/file.json', function(result)
+		{
 			start();
 			assert.ok(typeof result.content == "object", "JSON parsed return");
 			assert.strictEqual(result.content.example, 1, "JSON content return");
 			stop();
 
-			loader.load('data/image.png', function(result){
+			loader.load('data/image.png', function(result)
+			{
 				start();
 				assert.equal(result.content.nodeName, "IMG", "DOM image element loaded");
 				assert.equal(result.content.width, 15, "DOM image element width");

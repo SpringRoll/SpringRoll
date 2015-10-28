@@ -4,8 +4,7 @@
  */
 (function()
 {
-	var Task = include('springroll.Task'),
-		Application = include('springroll.Application');
+	var Task = include('springroll.Task');
 
 	/**
 	 * Internal class for dealing with async load assets through Loader.
@@ -55,7 +54,7 @@
 	};
 
 	// Reference to prototype
-	var p = extend(LoadTask, Task);
+	var p = Task.extend(LoadTask);
 
 	/**
 	 * Test if we should run this task
@@ -77,8 +76,7 @@
 	p.start = function(callback)
 	{
 		var advanced = this.advanced;
-
-		Application.instance.loader.load(
+		this.simpleLoad(
 			this.src,
 			function(result)
 			{

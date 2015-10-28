@@ -5,8 +5,7 @@
  */
 (function()
 {
-	var LoadTask = include('springroll.LoadTask'),
-		Application = include('springroll.Application');
+	var LoadTask = include('springroll.LoadTask');
 
 	/**
 	 * Created a createjs Spritesheet from the Flash export
@@ -38,7 +37,7 @@
 
 	// Reference to prototype
 	var s = LoadTask.prototype;
-	var p = extend(FlashSpriteSheetTask, LoadTask);
+	var p = LoadTask.extend(FlashSpriteSheetTask);
 
 	/**
 	 * Test if we should run this task
@@ -64,12 +63,13 @@
 		var prop = this.globalProperty;
 		var id = this.id;
 		s.start.call(this, function(data)
-		{
-			data.id = id;
-			data.globalProperty = prop;
-			data.type = "easeljs";
-			Application.instance.load(data, callback);
-		});
+			{
+				data.id = id;
+				data.globalProperty = prop;
+				data.type = "easeljs";
+				this.load(data, callback);
+			}
+			.bind(this));
 	};
 
 	// Assign to namespace

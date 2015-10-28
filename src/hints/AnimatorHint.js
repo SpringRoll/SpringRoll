@@ -35,7 +35,7 @@
 
 	//Reference to the prototype
 	var s = AbstractHint.prototype;
-	var p = extend(AnimatorHint, AbstractHint);
+	var p = AbstractHint.extend(AnimatorHint);
 
 	/**
 	 * Run the hint
@@ -44,7 +44,8 @@
 	p.play = function()
 	{
 		this._hints.enabled = false;
-		this._hints.trigger('anim', {
+		this._hints.trigger('anim',
+		{
 			instance: this.instance,
 			events: this.events,
 			complete: this._onPlayComplete.bind(this, this.onComplete, false),

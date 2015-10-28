@@ -1,4 +1,140 @@
-/*! SpringRoll 0.4.0 */
+/*! SpringRoll 0.4.4 */
+/**
+ * @module Container Client
+ * @namespace springroll
+ */
+(function()
+{
+	// Impor classes
+	var SavedData = include('springroll.SavedData');
+	var Application = include('springroll.Application');
+
+	/**
+	 * This class is responsible for saving the user-specific data
+	 * within an Application. This can be player-progress data, high
+	 * score information, or other data that needs be saved between
+	 * sessions of running an app.
+	 * @class UserData
+	 * @constructor
+	 */
+	var UserData = function()
+	{
+		/**
+		 * Reference to the container. If the app is not connected
+		 * to the Container (running standalone) then the container
+		 * is set to be `null`.
+		 * @property {Bellhop} container
+		 * @default  null
+		 * @readOnly
+		 */
+		this.container = null;
+
+		/**
+		 * The name to preprend to each property name, this is set
+		 * by default as the Application's name, which is required
+		 * for the Container Client module.
+		 * @property {String} id
+		 * @default ""
+		 */
+		this.id = "";
+	};
+
+	// Reference to prototype
+	var p = extend(UserData);
+
+	/**
+	 * Read a saved setting
+	 * @method read
+	 * @param  {String}   prop The property name
+	 * @param  {Function} callback Callback when save completes, returns the value
+	 */
+	p.read = function(prop, callback)
+	{
+		if (!this.container || !this.container.supported)
+		{
+			var prefix = Application.instance.options.name || "";
+			return callback(SavedData.read(prefix + prop));
+		}
+		this.container.fetch(
+			'userDataRead',
+			function(event)
+			{
+				callback(event.data);
+			},
+			this.id + prop,
+			true // run-once
+		);
+	};
+
+	/**
+	 * Write a setting
+	 * @method write
+	 * @param  {String}   prop The property name
+	 * @param  {*}   value The property value to save
+	 * @param  {Function} [callback] Callback when write completes
+	 */
+	p.write = function(prop, value, callback)
+	{
+		if (!this.container || !this.container.supported)
+		{
+			var prefix = Application.instance.options.name || "";
+			SavedData.write(prefix + prop, value);
+			if (callback) callback();
+			return;
+		}
+		this.container.fetch(
+			'userDataWrite',
+			function(event)
+			{
+				if (callback) callback();
+			},
+			{
+				name: this.id + prop,
+				value: value
+			},
+			true // run-once
+		);
+	};
+
+	/**
+	 * Delete a saved setting by name
+	 * @method remove
+	 * @param  {String}   prop The property name
+	 * @param  {Function} [callback] Callback when remove completes
+	 */
+	p.remove = function(prop, callback)
+	{
+		if (!this.container || !this.container.supported)
+		{
+			var prefix = Application.instance.options.name || "";
+			SavedData.remove(prefix + prop);
+			if (callback) callback();
+			return;
+		}
+		this.container.fetch(
+			'userDataRemove',
+			function(event)
+			{
+				if (callback) callback();
+			},
+			this.id + prop,
+			true // run-once
+		);
+	};
+
+	/**
+	 * Destroy and don't use after this
+	 * @method destroy
+	 */
+	p.destroy = function()
+	{
+		this.container = null;
+	};
+
+	// Assign to namespace
+	namespace('springroll').UserData = UserData;
+
+}());
 /**
  * @module Container Client
  * @namespace springroll
@@ -8,6 +144,7 @@
 	// Include classes
 	var ApplicationPlugin = include('springroll.ApplicationPlugin'),
 		PageVisibility = include('springroll.PageVisibility'),
+		UserData = include('springroll.UserData'),
 		Bellhop = include('Bellhop');
 
 	/**
@@ -50,6 +187,14 @@
 		container.connect();
 
 		/**
+		 * The API for saving user data, default is to save
+		 * data to the container, if not connected, it will
+		 * save user data to local cookies
+		 * @property {springroll.UserData} userData
+		 */
+		this.userData = new UserData();
+
+		/**
 		 * This option tells the container to always keep focus on the iframe even
 		 * when the focus is lost. This is useful mostly if your Application
 		 * requires keyboard input.
@@ -60,18 +205,6 @@
 			{
 				container.send('keepFocus', data);
 			});
-
-		// Handle the learning event
-		this.on('learningEvent', function(data)
-		{
-			container.send('learningEvent', data);
-		});
-
-		// Handle google analtyics event
-		this.on('analyticEvent', function(data)
-		{
-			container.send('analyticEvent', data);
-		});
 
 		// When the preloading is done
 		this.once('beforeInit', function()
@@ -125,24 +258,6 @@
 			this.destroy();
 		};
 
-		/**
-		 * Track a Google Analytics event
-		 * @method analyticEvent
-		 * @param {String} action The action label
-		 * @param {String} [label] The optional label for the event
-		 * @param {Number} [value] The optional value for the event
-		 */
-		this.analyticEvent = function(action, label, value)
-		{
-			this.trigger('analyticEvent',
-			{
-				category: this.name,
-				action: action,
-				label: label,
-				value: value
-			});
-		};
-
 		// Listen when the browser closes or redirects
 		window.onunload = window.onbeforeunload = onWindowUnload.bind(this);
 	};
@@ -170,15 +285,20 @@
 				throw "Application name is empty";
 			}
 		}
-		
+
 		// Add the options to properties
 		this.singlePlay = !!this.options.singlePlay;
-		this.playOptions = this.options.playOptions || {};
+		this.playOptions = this.options.playOptions ||
+		{};
 
 		// Merge the container options with the current
 		// application options
 		if (this.container.supported)
 		{
+			// Connect the user data to container
+			this.userData.id = this.name;
+			this.userData.container = this.container;
+
 			//Setup the container listeners for site soundMute and captionsMute events
 			this.container.on(
 			{
@@ -197,8 +317,8 @@
 			var hasSound = !!this.sound;
 
 			// Add the features that are enabled
-			this.container.send('features', {
-				learning: !!this.learning,
+			this.container.send('features',
+			{
 				sound: hasSound,
 				hints: !!this.hints,
 				music: hasSound && this.sound.contextExists('music'),
@@ -284,7 +404,8 @@
 	var onCaptionsStyles = function(e)
 	{
 		var styles = e.data;
-		var captions = this.captions || {};
+		var captions = this.captions ||
+		{};
 		var textField = captions.textField || null;
 
 		// Make sure we have a text field and a DOM object
@@ -307,7 +428,8 @@
 	 */
 	var onPlayOptions = function(e)
 	{
-		Object.merge(this.playOptions, e.data || {});
+		Object.merge(this.playOptions, e.data ||
+		{});
 	};
 
 	/**
@@ -337,6 +459,12 @@
 		{
 			this._pageVisibility.destroy();
 			this._pageVisibility = null;
+		}
+
+		if (this.userData)
+		{
+			this.userData.destroy();
+			this.userData = null;
 		}
 
 		// Send the end application event to the container

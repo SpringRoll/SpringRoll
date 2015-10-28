@@ -2,7 +2,8 @@
  * @module Core
  * @namespace window
  */
-(function(Object, support, undefined){
+(function(Object, support, undefined)
+{
 
 	/**
 	 * Add methods to Object
@@ -26,13 +27,13 @@
 		{
 			target = {};
 		}
-		
+
 		for (var property in source)
 		{
 			if (source.hasOwnProperty(property))
 			{
 				var sourceProperty = source[property];
-				
+
 				if (typeof sourceProperty === 'object' && Object.isPlain(sourceProperty))
 				{
 					target[property] = Object.merge(target[property], sourceProperty);
@@ -41,7 +42,7 @@
 				target[property] = sourceProperty;
 			}
 		}
-		
+
 		for (var i = 2, l = arguments.length; i < l; i++)
 		{
 			Object.merge(target, arguments[i]);
@@ -69,11 +70,13 @@
 			return false;
 		}
 
-		try {
+		try
+		{
 			// Not own constructor property must be Object
-			if ( obj.constructor &&
+			if (obj.constructor &&
 				!hasOwn.call(obj, "constructor") &&
-				!hasOwn.call(obj.constructor.prototype, "isPrototypeOf") ) {
+				!hasOwn.call(obj.constructor.prototype, "isPrototypeOf"))
+			{
 				return false;
 			}
 		}
@@ -95,17 +98,18 @@
 
 		// Own properties are enumerated firstly, so to speed up,
 		// if last one is own, then all properties are own.
-		for (key in obj) {}
+		for (key in obj)
+		{}
 
 		return key === undefined || hasOwn.call(obj, key);
 	};
-	
+
 	/**
 	 * Creates a shallow copy of the object.
 	 * @method clone
 	 * @return {Object} The shallow copy.
 	 */
-	if(!Object.prototype.clone)
+	if (!Object.prototype.clone)
 	{
 		Object.defineProperty(Object.prototype, 'clone',
 		{
@@ -115,7 +119,7 @@
 			{
 				var rtn = {};
 				var thisObj = this;
-				for(var key in thisObj)
+				for (var key in thisObj)
 				{
 					rtn[key] = thisObj[key];
 				}
@@ -124,4 +128,5 @@
 		});
 	}
 
-}(Object, {}));
+}(Object,
+{}));

@@ -1,6 +1,6 @@
 /**
-  * @module Core
-  * @namespace springroll
+ * @module Core
+ * @namespace springroll
  */
 (function(undefined)
 {
@@ -21,7 +21,7 @@
 	 *	var app = new Application();
 	 *
 	 * @class Application
-	 * @extend springroll.EventDispatcher
+	 * @extends springroll.EventDispatcher
 	 * @constructor
 	 * @param {Object} [options] The options for creating the application,
 	 * 		see `springroll.ApplicationOptions` for the specific options
@@ -61,6 +61,13 @@
 		 */
 		this.init = init || null;
 
+		/**
+		 * The preload progress
+		 * @property {springroll.AssetLoad} pluginLoad
+		 * @protected
+		 */
+		this.pluginLoad = null;
+
 		// Reset the displays
 		_displaysMap = {};
 		_displays = [];
@@ -94,7 +101,7 @@
 
 	// Reference to the prototype
 	var s = EventDispatcher.prototype;
-	var p = extend(Application, EventDispatcher);
+	var p = EventDispatcher.extend(Application);
 
 	/**
 	 * The collection of function references to call when initializing the application
@@ -112,79 +119,84 @@
 	 */
 	var _lastFrameTime = 0,
 
-	/**
-	 * The bound callback for listening to tick events
-	 * @private
-	 * @property {Function} _tickCallback
-	 */
-	_tickCallback = null,
+		/**
+		 * The bound callback for listening to tick events
+		 * @private
+		 * @property {Function} _tickCallback
+		 */
+		_tickCallback = null,
 
-	/**
-	 * If the current application is paused
-	 * @private
-	 * @property {Boolean} _paused
-	 */
-	_paused = false,
+		/**
+		 * If the current application is paused
+		 * @private
+		 * @property {Boolean} _paused
+		 */
+		_paused = false,
 
-	/**
-	 * If the current application is enabled
-	 * @private
-	 * @property {Boolean} _enabled
-	 */
-	_enabled = true,
+		/**
+		 * If the current application is enabled
+		 * @private
+		 * @property {Boolean} _enabled
+		 */
+		_enabled = true,
 
-	/**
-	 * The id of the active requestAnimationFrame or setTimeout call.
-	 * @property {Number} _tickId
-	 * @private
-	 */
-	_tickId = -1,
+		/**
+		 * The id of the active requestAnimationFrame or setTimeout call.
+		 * @property {Number} _tickId
+		 * @private
+		 */
+		_tickId = -1,
 
-	/**
-	 * If requestionAnimationFrame should be used
-	 * @private
-	 * @property {Bool} _useRAF
-	 * @default false
-	 */
-	_useRAF = false,
+		/**
+		 * If requestionAnimationFrame should be used
+		 * @private
+		 * @property {Bool} _useRAF
+		 * @default false
+		 */
+		_useRAF = false,
 
-	/**
-	 * The number of milliseconds per frame
-	 * @property {int} _msPerFrame
-	 * @private
-	 */
-	_msPerFrame = 0,
+		/**
+		 * The number of milliseconds per frame
+		 * @property {int} _msPerFrame
+		 * @private
+		 */
+		_msPerFrame = 0,
 
-	/**
-	 * The collection of displays
-	 * @property {Array} _displays
-	 * @private
-	 */
-	_displays = null,
+		/**
+		 * The collection of displays
+		 * @property {Array} _displays
+		 * @private
+		 */
+		_displays = null,
 
-	/**
-	 * The displays by canvas id
-	 * @property {Object} _displaysMap
-	 * @private
-	 */
-	_displaysMap = null;
+		/**
+		 * The displays by canvas id
+		 * @property {Object} _displaysMap
+		 * @private
+		 */
+		_displaysMap = null;
 
 
 	/**
 	 * Fired when initialization of the application is ready
 	 * @event init
 	 */
-	
+
+	/**
+	 * The handler for the plugin progress
+	 * @event pluginProgress
+	 */
+
 	/**
 	 * Fired when initialization of the application is done
 	 * @event afterInit
 	 */
-	
+
 	/**
 	 * Fired when before initialization of the application
 	 * @event beforeInit
 	 */
-	
+
 	/**
 	 * Fired when an update is called, every frame update
 	 * @event update
@@ -202,7 +214,7 @@
 	 * @event displayAdded
 	 * @param {springroll.AbstractDisplay} [display] The current display being added
 	 */
-	
+
 	/**
 	 * When a display is removed.
 	 * @event displayRemoved
@@ -261,7 +273,7 @@
 			if (typeof value != "number") return;
 			_msPerFrame = (1000 / value) | 0;
 		});
-		
+
 		//add the initial display if specified
 		if (options.canvasId && options.display)
 		{
@@ -285,10 +297,27 @@
 		});
 
 		// Run the asyncronous tasks in series
-		this.load(tasks, {
-			complete: this._doInit.bind(this), 
+		this.pluginLoad = this.load(tasks,
+		{
+			complete: this._doInit.bind(this),
+			progress: onPluginProgress.bind(this),
+			autoStart: false,
 			startAll: false
 		});
+
+		// Manually start load
+		this.pluginLoad.start();
+	};
+
+	/**
+	 * Progress handler for the plugin load
+	 * @method onPluginProgress
+	 * @private
+	 * @param {Number} progress Plugins preloaded amount from 0 - 1
+	 */
+	var onPluginProgress = function(progress)
+	{
+		this.trigger('pluginProgress', progress);
 	};
 
 	/**
@@ -300,11 +329,13 @@
 	{
 		if (this.destroyed) return;
 
+		this.pluginLoad = null;
+
 		this.trigger('beforeInit');
 
 		//start update loop
 		this.paused = false;
-	
+
 		// Dispatch the init event
 		this.trigger('init');
 
@@ -418,7 +449,7 @@
 		// Add it to the collections
 		_displaysMap[id] = display;
 		_displays.push(display);
-		
+
 		// Inherit the enabled state from the application
 		display.enabled = _enabled;
 
@@ -568,7 +599,7 @@
 		_displaysMap = null;
 
 		_instance =
-		_tickCallback = null;
+			_tickCallback = null;
 
 		this.display = null;
 		this.options.destroy();

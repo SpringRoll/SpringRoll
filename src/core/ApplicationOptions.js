@@ -15,9 +15,9 @@
 	 */
 	var ApplicationOptions = function(app, options)
 	{
-		if(Debug === undefined)
+		if (Debug === undefined)
 			Debug = include('springroll.Debug', false);
-		
+
 		PropertyDispatcher.call(this);
 
 		/**
@@ -25,7 +25,8 @@
 		 * @property {Object} _options
 		 * @private
 		 */
-		this._options = options || {};
+		this._options = options ||
+		{};
 
 		/**
 		 * Reference to the application
@@ -36,7 +37,7 @@
 	};
 
 	// Extend the base class
-	var p = extend(ApplicationOptions, PropertyDispatcher);
+	var p = PropertyDispatcher.extend(ApplicationOptions);
 
 	/**
 	 * Initialize the values in the options
@@ -48,7 +49,8 @@
 		var app = this._app;
 
 		// Create the options overrides
-		options = Object.merge({}, options);
+		options = Object.merge(
+		{}, options);
 
 		// If parse querystring is turned on, we'll
 		// override with any of the query string parameters
@@ -59,14 +61,14 @@
 
 		// Create getter and setters for all properties
 		// this is so we can dispatch events when the property changes
-		for(var name in options)
+		for (var name in options)
 		{
 			this.add(name, options[name]);
 		}
-		
+
 		//trigger all of the initial values, because otherwise they don't take effect.
 		var _properties = this._properties;
-		for(var id in _properties)
+		for (var id in _properties)
 		{
 			this.trigger(id, _properties[id].value);
 		}
@@ -85,7 +87,7 @@
 		{
 			return output;
 		}
-		var vars = href.substr(href.indexOf("?")+1);
+		var vars = href.substr(href.indexOf("?") + 1);
 		var pound = vars.indexOf('#');
 		vars = pound < 0 ? vars : vars.substring(0, pound);
 		var splitFlashVars = vars.split("&");
@@ -94,9 +96,9 @@
 		{
 			myVar = splitFlashVars[i].split("=");
 			var value = myVar[1];
-			if(value === "true" || value === undefined)
+			if (value === "true" || value === undefined)
 				value = true;
-			else if(value === "false")
+			else if (value === "false")
 				value = false;
 			if (DEBUG && Debug)
 			{
@@ -109,7 +111,7 @@
 
 	/**
 	 * Convert a string into a DOM Element
-	 * @private asDOMElement
+	 * @method asDOMElement
 	 * @param {String} name The property name to fetch
 	 */
 	p.asDOMElement = function(name)
@@ -123,7 +125,7 @@
 
 	/**
 	 * Override a default value
-	 * @private override
+	 * @method override
 	 * @param {String} name The property name to fetch
 	 * @param {*} value The value
 	 * @return {springroll.ApplicationOptions} Instance of this options for chaining

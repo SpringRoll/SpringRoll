@@ -37,12 +37,13 @@
 			throw "springroll.State requires the panel be a springroll.easeljs.BasePanel";
 		}
 
-		options = options || {};
+		options = options ||
+		{};
 
 		if (options.manifest)
 		{
 			options.preload = options.manifest;
-			if (DEBUG && Debug)
+			if (DEBUG)
 			{
 				console.warn("The BaseState option 'manifest' is deprecated, use 'preload' instead");
 			}
@@ -58,58 +59,60 @@
 		 */
 		this._images = [];
 
+		var priority = 100;
+
 		// @deprecated method for adding assets dynamically to task
 		this.on('loading', function(assets)
 		{
 			if (this.addTasks)
 			{
-				console.warn('addTasks has been deprecated, use loading event instead: e.g., state.on(\'loading\', function(assets){})');
+				if (DEBUG) console.warn('addTasks has been deprecated, use loading event instead: e.g., state.on(\'loading\', function(assets){})');
 				this.addTasks(assets);
 			}
-		})
+		}, priority)
 
 		// Handle when assets are preloaded
 		.on('loaded', function(assets)
-		{
-			if (assets)
 			{
-				// save all images to the window images object
-				// this is required for CreateJS to be available
-				// on the images window object
-				for (var id in assets)
+				if (assets)
 				{
-					if (assets[id].tagName == "IMG" || 
-						assets[id].tagName == "CANVAS")
+					// save all images to the window images object
+					// this is required for CreateJS to be available
+					// on the images window object
+					for (var id in assets)
 					{
-						images[id] = assets[id];
-						this._images.push(id);
+						if (assets[id].tagName == "IMG" ||
+							assets[id].tagName == "CANVAS")
+						{
+							images[id] = assets[id];
+							this._images.push(id);
+						}
 					}
 				}
-			}
-			this.panel.setup();
+				this.panel.setup();
 
-			// @deprecated Method to handle on assets loaded
-			this.onAssetsLoaded();
-		})
-		// Handle the panel exit
-		.on('exit', function()
-		{
-			this.panel.teardown();
-
-			// Remove global images reference
-			this._images.forEach(function(id)
+				// @deprecated Method to handle on assets loaded
+				this.onAssetsLoaded();
+			}, priority)
+			// Handle the panel exit
+			.on('exit', function()
 			{
-				delete images[id];
-			});
-			this._images.length = 0;
-		});
+				this.panel.teardown();
+
+				// Remove global images reference
+				this._images.forEach(function(id)
+				{
+					delete images[id];
+				});
+				this._images.length = 0;
+			}, priority);
 	};
 
 	// Reference to the parent prototype
 	var s = State.prototype;
 
 	// Reference to current prototype
-	var p = extend(BaseState, State);
+	var p = State.extend(BaseState);
 
 	/**
 	 * Implementation specific for override. When you need to add additional preload

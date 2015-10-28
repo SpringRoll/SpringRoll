@@ -37,7 +37,8 @@
 
 		AbstractDisplay.call(this, id, options);
 
-		options = options || {};
+		options = options ||
+		{};
 
 		/**
 		 * The rate at which EaselJS calculates mouseover events, in times/second.
@@ -53,7 +54,7 @@
 		 * @public
 		 */
 		this.keepMouseover = options.keepMouseover || false;
-		
+
 		/**
 		 * If preventDefault() should be called on all touch events and mousedown events. Defaults
 		 * to true.
@@ -61,7 +62,7 @@
 		 * @private
 		 */
 		this._autoPreventDefault = options.hasOwnProperty("autoPreventDefault") ?
-												options.autoPreventDefault : true;
+			options.autoPreventDefault : true;
 
 		if (options.stageType == "spriteStage")
 		{
@@ -80,12 +81,12 @@
 		}
 		this.stage.autoClear = !!options.clearView;
 		this.stage.preventSelection = this._autoPreventDefault;
-		
+
 		this.adapter = include('springroll.easeljs.DisplayAdapter');
 	};
 
 	var s = AbstractDisplay.prototype;
-	var p = extend(EaselJSDisplay, AbstractDisplay);
+	var p = AbstractDisplay.extend(EaselJSDisplay);
 
 	/**
 	 * An internal helper to avoid creating an object each render
@@ -137,7 +138,7 @@
 			}
 		}
 	});
-	
+
 	/**
 	 * If preventDefault() should be called on all touch events and mousedown events. Defaults
 	 * to true.
@@ -153,9 +154,9 @@
 		set: function(value)
 		{
 			this._autoPreventDefault = !!value;
-			if(this.stage)
+			if (this.stage)
 			{
-				if(this._enabled)
+				if (this._enabled)
 				{
 					Touch.disable(this.stage);
 					Touch.enable(this.stage, false, !this._autoPreventDefault);
@@ -169,7 +170,6 @@
 	 * Updates the stage and draws it. This is only called by the Application.
 	 * This method does nothing if paused is true or visible is false.
 	 * @method render
-	 * @internal
 	 * @param {int} elapsed The time elapsed since the previous frame.
 	 * @param {Boolean} [force=false] Will re-render even if the game is paused or not visible
 	 */
@@ -187,7 +187,6 @@
 	 * not be called directly, use Application.removeDisplay(id).
 	 * The stage recursively removes all display objects here.
 	 * @method destroy
-	 * @internal
 	 */
 	p.destroy = function()
 	{

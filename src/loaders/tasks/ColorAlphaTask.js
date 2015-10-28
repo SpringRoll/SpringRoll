@@ -4,11 +4,11 @@
  */
 (function()
 {
-	var Task = include('springroll.Task'),
-		Application = include('springroll.Application');
+	var Task = include('springroll.Task');
 
 	/**
-	 * Internal class for dealing with async load assets through Loader.
+	 * Internal class for loading an image that has been split into an alpha channel image and a
+	 * RGB only color image.
 	 * @class ColorAlphaTask
 	 * @extends springroll.Task
 	 * @constructor
@@ -39,7 +39,7 @@
 	};
 
 	// Reference to prototype
-	var p = extend(ColorAlphaTask, Task);
+	var p = Task.extend(ColorAlphaTask);
 
 	/**
 	 * Test if we should run this task
@@ -60,7 +60,8 @@
 	 */
 	p.start = function(callback)
 	{
-		Application.instance.load({
+		this.load(
+			{
 				_alpha: this.alpha,
 				_color: this.color
 			},
@@ -101,9 +102,9 @@
 		canvas.height = Math.max(alphaImage.height, rgbImage.height);
 		var ctx = canvas.getContext("2d");
 		ctx.save();
-		ctx.drawImage(rgbImage,0,0);
+		ctx.drawImage(rgbImage, 0, 0);
 		ctx.globalCompositeOperation = "destination-in";
-		ctx.drawImage(alphaImage,0,0);
+		ctx.drawImage(alphaImage, 0, 0);
 		ctx.restore();
 		return canvas;
 	};

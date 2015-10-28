@@ -10,7 +10,6 @@
 	/**
 	 * Internal class for dealing with async load assets
 	 * @class Task
-	 * @abstract
 	 * @constructor
 	 * @private
 	 * @param {Object} asset The asset data
@@ -27,7 +26,7 @@
 		{
 			Debug = include("springroll.Debug", false);
 		}
-		
+
 		/**
 		 * The current status of the task (waiting, running, etc)
 		 * @property {int} status
@@ -63,7 +62,7 @@
 		 * @property {String} type
 		 */
 		this.type = asset.type || null;
-	
+
 		/**
 		 * Reference to the original asset data
 		 * @property {Object} original
@@ -107,7 +106,7 @@
 	};
 
 	// Reference to prototype
-	var p = Task.prototype;
+	var p = extend(Task);
 
 	/**
 	 * Status for waiting to be run
@@ -172,6 +171,32 @@
 			this.original.scale = size.scale;
 		}
 		return url;
+	};
+
+	/**
+	 * Pass-through to the Application load method
+	 * @method load
+	 * @protected
+	 * @param {String|Array|Object} source The source to load
+	 * @param {Object|Function} [options] The load options or callback function
+	 */
+	p.load = function(source, options)
+	{
+		return Application.instance.load(source, options);
+	};
+
+	/**
+	 * Pass-through to the Application Loader.load
+	 * @method simpleLoad
+	 * @protected
+	 * @param {String} url Path to file to load
+	 * @param {Function} complete The callback
+	 * @param {Function} [progress] The load progress
+	 * @param {Object} [data] Additiona data
+	 */
+	p.simpleLoad = function(url, complete, progress, data)
+	{
+		return Application.instance.loader.load(url, complete, progress, data);
 	};
 
 	/**

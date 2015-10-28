@@ -7,47 +7,44 @@
 {
 	var Application = include("springroll.Application");
 	var AnimatorInstance = include('springroll.AnimatorInstance');
+
 	/**
 	 * Animator Instance is a wrapper for different types of media
 	 * files. They need to extend some basic methods.
-	 *
 	 * @class AnimatorTimeline
 	 */
 	var GenericMovieClipInstance = function()
 	{
 		AnimatorInstance.call(this);
-		
+
 		/**
 		 * The start time of the current animation on the movieclip's timeline.
 		 * @property {Number} startTime
 		 */
 		this.startTime = 0;
-		
+
 		/**
 		 * Length of current animation in frames.
-		 *
 		 * @property {int} length
 		 */
 		this.length = 0;
-		
+
 		/**
 		 * The frame number of the first frame of the current animation. If this is -1, then the
 		 * animation is currently a pause instead of an animation.
-		 *
 		 * @property {int} firstFrame
 		 */
 		this.firstFrame = -1;
-		
+
 		/**
 		 * The frame number of the last frame of the current animation.
-		 *
 		 * @property {int} lastFrame
 		 */
 		this.lastFrame = -1;
 	};
 
-	// Reference to the prototype
-	var p = AnimatorInstance.extend(GenericMovieClipInstance, AnimatorInstance);
+	//Reference to the prototype
+	var p = AnimatorInstance.extend(GenericMovieClipInstance);
 
 	/**
 	 * The initialization method
@@ -59,50 +56,63 @@
 		//make sure the movieclip is framerate independent
 		if (!clip.framerate)
 		{
-			fps = Application.instance.options.fps || 15;
-			clip.framerate = fps;
+			clip.framerate = Application.instance.options.fps || 15;
 		}
 		clip.tickEnabled = false;
-		
+
 		this.clip = clip;
 		this.isLooping = false;
 		this.currentName = null;
 		this.position = this.duration = 0;
+		//ensure that if we call endAnim() before any animation
+		//that it stays on the current frame
+		this.lastFrame = clip.currentFrame;
 	};
-	
+
 	p.beginAnim = function(animObj, isRepeat)
 	{
 		//calculate frames, duration, etc
 		//then gotoAndPlay on the first frame
 		var anim = this.currentName = animObj.anim;
-		var labels = this.clip.getLabels();
-		//go through the list of labels (they are sorted by frame number)
-		var stopLabel = anim + "_stop";
-		var loopLabel = anim + "_loop";
 
 		var l, first = -1,
 			last = -1,
 			loop = false;
-
-		for (var i = 0, len = labels.length; i < len; ++i)
+		//the wildcard event plays the entire timeline
+		if (anim == "*" && !this.clip.timeline.resolve(anim))
 		{
-			l = labels[i];
-			if (l.label == anim)
+			first = 0;
+			last = this.clip.timeline.duration - 1;
+			loop = !!animObj.loop;
+		}
+		else
+		{
+			var labels = this.clip.getLabels();
+			//go through the list of labels (they are sorted by frame number)
+			var stopLabel = anim + "_stop";
+			var loopLabel = anim + "_loop";
+
+			for (var i = 0, len = labels.length; i < len; ++i)
 			{
-				first = l.position;
-			}
-			else if (l.label == stopLabel)
-			{
-				last = l.position;
-				break;
-			}
-			else if (l.label == loopLabel)
-			{
-				last = l.position;
-				loop = true;
-				break;
+				l = labels[i];
+				if (l.label == anim)
+				{
+					first = l.position;
+				}
+				else if (l.label == stopLabel)
+				{
+					last = l.position;
+					break;
+				}
+				else if (l.label == loopLabel)
+				{
+					last = l.position;
+					loop = true;
+					break;
+				}
 			}
 		}
+
 		this.firstFrame = first;
 		this.lastFrame = last;
 		this.length = last - first;
@@ -110,19 +120,21 @@
 		var fps = this.clip.framerate;
 		this.startTime = this.firstFrame / fps;
 		this.duration = this.length / fps;
-		if(isRepeat)
+		if (isRepeat)
+		{
 			this.position = 0;
+		}
 		else
 		{
 			var animStart = animObj.start || 0;
 			this.position = animStart < 0 ? Math.random() * this.duration : animStart;
 		}
-		
+
 		this.clip.play();
 		this.clip.elapsedTime = this.startTime + this.position;
 		this.clip.advance();
 	};
-	
+
 	/**
 	 * Ends animation playback.
 	 * @method endAnim
@@ -131,7 +143,7 @@
 	{
 		this.clip.gotoAndStop(this.lastFrame);
 	};
-	
+
 	/**
 	 * Updates position to a new value, and does anything that the clip needs, like updating
 	 * timelines.
@@ -166,7 +178,6 @@
 
 	/**
 	 * Checks if animation exists
-	 *
 	 * @method hasAnimation
 	 * @static
 	 * @param {*} clip The clip to check for an animation.
@@ -175,9 +186,15 @@
 	 */
 	GenericMovieClipInstance.hasAnimation = function(clip, event)
 	{
+		//the wildcard event plays the entire timeline
+		if (event == "*" && !clip.timeline.resolve(event))
+		{
+			return true;
+		}
+
 		var labels = clip.getLabels();
-		var startFrame = -1,
-			stopFrame = -1;
+		var startFrame = -1;
+		var stopFrame = -1;
 		var stopLabel = event + "_stop";
 		var loopLabel = event + "_loop";
 		var l;
@@ -207,9 +224,21 @@
 	 */
 	GenericMovieClipInstance.getDuration = function(clip, event)
 	{
+		//make sure the movieclip has a framerate
+		if (!clip.framerate)
+		{
+			clip.framerate = Application.instance.options.fps || 15;
+		}
+
+		//the wildcard event plays the entire timeline
+		if (event == "*" && !clip.timeline.resolve(event))
+		{
+			return clip.timeline.duration / clip.framerate * 1000;
+		}
+
 		var labels = clip.getLabels();
-		var startFrame = -1,
-			stopFrame = -1;
+		var startFrame = -1;
+		var stopFrame = -1;
 		var stopLabel = event + "_stop";
 		var loopLabel = event + "_loop";
 		var l;
@@ -228,13 +257,6 @@
 		}
 		if (startFrame >= 0 && stopFrame > 0)
 		{
-			//make sure the movieclip has a framerate
-			if (!clip.framerate)
-			{
-				var fps = Application.instance.options.fps || 15;
-				clip.framerate = fps;
-			}
-
 			return (stopFrame - startFrame) / clip.framerate * 1000;
 		}
 		else
@@ -253,7 +275,7 @@
 		this.clip = null;
 	};
 
-	// Assign to namespace
+	//Assign to namespace
 	namespace('springroll').GenericMovieClipInstance = GenericMovieClipInstance;
 
 }());

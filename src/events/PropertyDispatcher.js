@@ -27,7 +27,7 @@
 
 	// Extend the base class
 	var s = EventDispatcher.prototype;
-	var p = extend(PropertyDispatcher, EventDispatcher);
+	var p = EventDispatcher.extend(PropertyDispatcher);
 
 	/**
 	 * Generic setter for an option
@@ -89,7 +89,7 @@
 			prop.setReadOnly(readOnly === undefined ? prop.readOnly : readOnly);
 			return this;
 		}
-		
+
 		if (this.hasOwnProperty(name))
 		{
 			throw "Object already has property " + name;
@@ -97,32 +97,12 @@
 
 		props[name] = new Property(name, value, readOnly);
 
-		Object.defineProperty(this, name, {
+		Object.defineProperty(this, name,
+		{
 			get: get.bind(this, name),
 			set: set.bind(this, name)
 		});
 		return this;
-	};
-
-	/**
-	 * Turn on read-only for properties
-	 * @method readOnly
-	 * @param {String} prop* The property or properties to make readonly
-	 * @return {PropertyDispatcher} The instance for chaining
-	 */
-	p.readOnly = function(properties)
-	{
-		var prop, name;
-		for(var i in arguments)
-		{
-			name = arguments[i];
-			prop = this._properties[name];
-			if (prop === undefined)
-			{
-				throw "Property " + name + " does not exist";
-			}
-			prop.readOnly = true;
-		}
 	};
 
 	/**
@@ -146,29 +126,8 @@
 
 		// Update the property value
 		prop.value = responder();
-		
+
 		return this;
-	};
-
-	/**
-	 * Internal class for managing the property
-	 */
-	var Property = function(name, value, readOnly)
-	{
-		this.name = name;
-		this.setValue(value);
-		this.setReadOnly(readOnly);
-		this.responder = null;
-	};
-
-	Property.prototype.setValue = function(value)
-	{
-		this.value = value === undefined ? null : value;
-	};
-
-	Property.prototype.setReadOnly = function(readOnly)
-	{
-		this.readOnly = readOnly === undefined ? false : !!readOnly;
 	};
 
 	/**
@@ -186,6 +145,43 @@
 		}
 		this._properties = null;
 		s.destroy.call(this);
+	};
+
+	/**
+	 * Internal class for managing the property
+	 * @class Property
+	 * @private
+	 * @constructor
+	 * @param {String} name The name of the property
+	 * @param {*} [value=null] The initial value
+	 * @param {Boolean} [readOnly=false] If property is read-only
+	 */
+	var Property = function(name, value, readOnly)
+	{
+		this.name = name;
+		this.setValue(value);
+		this.setReadOnly(readOnly);
+		this.responder = null;
+	};
+
+	/**
+	 * Set the value of the property
+	 * @method setValue
+	 * @param {*} [value=null] The value to set
+	 */
+	Property.prototype.setValue = function(value)
+	{
+		this.value = value === undefined ? null : value;
+	};
+
+	/**
+	 * Set the value of the property
+	 * @method setReadOnly
+	 * @param {Boolean} [readOnly=false] The readOnly status
+	 */
+	Property.prototype.setReadOnly = function(readOnly)
+	{
+		this.readOnly = readOnly === undefined ? false : !!readOnly;
 	};
 
 	// Assign to namespace

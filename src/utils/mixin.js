@@ -53,13 +53,13 @@
 		//loop over mixin prototype to add functions
 		var p = superClass.prototype;
 
-		for(var prop in p)
+		for (var prop in p)
 		{
 			// For things that we set using Object.defineProperty
 			// very important that enumerable:true for the 
 			// defineProperty options
 			var propDesc = Object.getOwnPropertyDescriptor(p, prop);
-			if(propDesc)
+			if (propDesc)
 			{
 				Object.defineProperty(target, prop, propDesc);
 			}
@@ -76,5 +76,5 @@
 
 	// Assign to the window namespace
 	window.mixin = mixin;
-	
+
 }(window, Object));

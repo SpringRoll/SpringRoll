@@ -29,7 +29,7 @@
 		<script src="../dist/modules/easeljs-animation.js"></script>
 
 	</head>
-	<body>
+	<body class="sm">
 		<div id="content" class="canvas">
 			<nav>
 				<button id="canvas">Application</button>
@@ -78,6 +78,11 @@ var app = new Application({
 			image:'assets/images/FlowerSheet.png',
 		}
 	]
+});
+
+app.on('progress', function(progress)
+{
+	console.log("Load progress: ", progress * 100, "%");
 });
 
 app.once('init', function()

@@ -5,7 +5,7 @@
 (function(undefined)
 {
 	var Debug = include('springroll.Debug', false);
-	
+
 	/**
 	 * Provide feature detection
 	 * @class Features
@@ -106,7 +106,7 @@
 	 */
 	Features.touch = function()
 	{
-		return !!(('ontouchstart' in window) ||// iOS & Android
+		return !!(('ontouchstart' in window) || // iOS & Android
 			(navigator.msPointerEnabled && navigator.msMaxTouchPoints > 0) || // IE10
 			(navigator.pointerEnabled && navigator.maxTouchPoints > 0)); // IE11+
 	}();
@@ -162,9 +162,9 @@
 		}
 		var features = capabilities.features;
 		var ui = capabilities.ui;
-		var sizes = capabilities.sizes;		
-		
-		for(var name in features)
+		var sizes = capabilities.sizes;
+
+		for (var name in features)
 		{
 			if (Features[name] !== undefined)
 			{
@@ -175,17 +175,17 @@
 				}
 				else
 				{
-					if (DEBUG && Debug) 
-						Debug.log("Browser has "+ name);
+					if (DEBUG && Debug)
+						Debug.log("Browser has " + name);
 				}
 			}
 			else
 			{
-				if (DEBUG && Debug) 
+				if (DEBUG && Debug)
 					Debug.warn("The feature " + name + " is not supported");
 			}
 		}
-		
+
 		// Failed negative touch requirement
 		if (!ui.touch && Features.touch)
 		{

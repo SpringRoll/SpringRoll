@@ -80,8 +80,14 @@
 
 	//Reference to the prototype
 	var s = EventDispatcher.prototype;
-	var p = extend(HintsPlayer, EventDispatcher);
-	
+	var p = EventDispatcher.extend(HintsPlayer);
+
+	/**
+	 * Play an animation event
+	 * @event start
+	 * @param {springroll.AbstractHint} hint The hint being played
+	 */
+
 	/**
 	 * Play an animation event
 	 * @event anim
@@ -91,7 +97,7 @@
 	 * @param {Function} data.complete Callback when complete
 	 * @param {Function} data.cancel Callback when canceled
 	 */
-	
+
 	/**
 	 * Play an Voice-Over event
 	 * @event vo
@@ -224,6 +230,9 @@
 			// it is now safe to destroy old hints since 
 			// their callbacks have already fired
 			this._clearOldHints();
+
+			// Trigger start event
+			this.trigger('start', this._hint);
 		}
 		return this;
 	};
@@ -332,7 +341,9 @@
 	};
 
 	/**
-	 * destroys old hints
+	 * Destroys old hints
+	 * @method _clearOldHints
+	 * @private
 	 */
 	p._clearOldHints = function()
 	{

@@ -1,6 +1,6 @@
 {
 	"name": "SpringRoll",
-	"version": "0.4.0",
+	"version": "0.4.4",
 	"description": "An application framework for building HTML5 Canvas games and applications",
 	"url": "https://github.com/SpringRoll/SpringRoll",
 	"output": "core",
@@ -40,8 +40,10 @@
 		"src/displays/*.js",
 		"src/deprecation/core.js"
 	],
-	"modules": {
-		"nativedisplay": {
+	"modules":
+	{
+		"nativedisplay":
+		{
 			"output": "native-display",
 			"main": [
 				"src/displays/native/geom/*.js",
@@ -49,7 +51,8 @@
 				"src/displays/native/NativeDisplay.js"
 			]
 		},
-		"pixidisplay": {
+		"pixidisplay":
+		{
 			"output": "pixi-display",
 			"main": [
 				"src/displays/pixi/mixins/*.js",
@@ -60,25 +63,35 @@
 				"src/displays/pixi/display/PixiDisplayPlugin.js",
 				"src/displays/pixi/DisplayAdapter.js",
 				"src/displays/pixi/PixiDisplay.js",
-				"src/displays/pixi/TickerPlugin.js"
+				"src/displays/pixi/TickerPlugin.js",
+				"src/deprecation/pixi-display.js"
 			]
 		},
-		"pixianimation": {
+		"pixianimation":
+		{
 			"output": "pixi-animation",
 			"main": [
 				"src/displays/pixi/animation/AnimationPlugin.js",
 				"src/displays/pixi/animation/AdvancedMovieClip.js",
 				"src/displays/pixi/animation/AdvancedMovieClipInstance.js",
 				"src/displays/pixi/animation/AdvancedMovieClipTask.js",
-				"src/displays/pixi/animation/ParallelSpineData.js",
-				"src/displays/pixi/animation/SpineInstance.js",
-				"src/displays/pixi/animation/SpineAtlas.js",
-				"src/displays/pixi/animation/SpineAtlasTask.js",
-				"src/displays/pixi/animation/SpineAnimTask.js",
 				"src/deprecation/pixi-animation.js"
 			]
 		},
-		"pixiui": {
+		"pixispine":
+		{
+			"output": "pixi-spine",
+			"main": [
+				"src/displays/pixi/spine/SpinePlugin.js",
+				"src/displays/pixi/spine/ParallelSpineData.js",
+				"src/displays/pixi/spine/SpineInstance.js",
+				"src/displays/pixi/spine/SpineAtlas.js",
+				"src/displays/pixi/spine/SpineAtlasTask.js",
+				"src/displays/pixi/spine/SpineAnimTask.js"
+			]
+		},
+		"pixiui":
+		{
 			"output": "pixi-ui",
 			"main": [
 				"src/displays/pixi/ui/Button.js",
@@ -86,7 +99,8 @@
 				"src/displays/pixi/ui/DragManager.js"
 			]
 		},
-		"easeljsdisplay": {
+		"easeljsdisplay":
+		{
 			"output": "easeljs-display",
 			"main": [
 				"src/displays/easeljs/mixins/*.js",
@@ -102,10 +116,12 @@
 				"src/displays/easeljs/display/BitmapTask.js",
 				"src/displays/easeljs/display/EaselJSDisplayPlugin.js",
 				"src/displays/easeljs/DisplayAdapter.js",
-				"src/displays/easeljs/EaselJSDisplay.js"
+				"src/displays/easeljs/EaselJSDisplay.js",
+				"src/deprecation/easeljs-display.js"
 			]
 		},
-		"easeljsanimation": {
+		"easeljsanimation":
+		{
 			"output": "easeljs-animation",
 			"main": [
 				"src/displays/easeljs/animation/AnimationPlugin.js",
@@ -117,7 +133,8 @@
 				"src/deprecation/easeljs-animation.js"
 			]
 		},
-		"easeljsui": {
+		"easeljsui":
+		{
 			"output": "easeljs-ui",
 			"main": [
 				"src/displays/easeljs/ui/Button.js",
@@ -126,7 +143,8 @@
 				"src/displays/easeljs/ui/DragManager.js"
 			]
 		},
-		"easeljscutscene": {
+		"easeljscutscene":
+		{
 			"output": "easeljs-cutscene",
 			"main": [
 				"src/displays/easeljs/cutscene/Cutscene.js",
@@ -134,14 +152,8 @@
 				"src/displays/easeljs/cutscene/CutscenePlugin.js"
 			]
 		},
-		"easeljslearning": {
-			"output": "easeljs-learning",
-			"main": [
-				"src/displays/easeljs/learning/DwellTimer.js",
-				"src/displays/easeljs/learning/OffClickPlugin.js"
-			]
-		},
-		"easeljsstates": {
+		"easeljsstates":
+		{
 			"output": "easeljs-states",
 			"main": [
 				"src/displays/easeljs/states/BasePanel.js",
@@ -174,11 +186,13 @@
 			"src/media/AnimatorPlugin.js"
 		],
 		"ui": [
+			"src/ui/ScaleImage.js",
 			"src/ui/ScaleItem.js",
 			"src/ui/Positioner.js",
 			"src/ui/ScaleManager.js",
 			"src/ui/ScalingPlugin.js",
-			"src/ui/TouchPlugin.js"
+			"src/ui/TouchPlugin.js",
+			"src/deprecation/ui.js"
 		],
 		"captions": [
 			"src/media/Captions.less",
@@ -195,24 +209,6 @@
 			"src/debug/DebugOptions.js",
 			"src/debug/DebugPlugin.js"
 		],
-		"learning": [
-			"src/learning/LearningError.js",
-			"src/learning/EventCatalog.js",
-			"src/learning/EventSignature.js",
-			"src/learning/EventError.js",
-			"src/learning/ValidationError.js",
-			"src/learning/EventUtils.js",
-			"src/learning/Learning.js",
-			"src/learning/Learning.less",
-			"src/learning/LearningPlugin.js"
-		],
-		"learningmedia": {
-			"output": "learning-media",
-			"main": [
-				"src/learning/LearningMedia.js",
-				"src/learning/LearningMediaPlugin.js"
-			]
-		},
 		"hints": [
 			"src/hints/AbstractHint.js",
 			"src/hints/VOHint.js",
@@ -222,13 +218,16 @@
 			"src/hints/HintsPlayer.js",
 			"src/hints/HintsPlugin.js"
 		],
-		"containerclient": {
+		"containerclient":
+		{
 			"output": "container-client",
 			"main": [
+				"src/container/UserData.js",
 				"src/container/ContainerPlugin.js"
 			]
 		},
-		"container": {
+		"container":
+		{
 			"output": "container",
 			"main": [
 				"src/mixins/Object.js",
@@ -236,6 +235,7 @@
 				"src/events/EventDispatcher.js",
 				"src/core/PageVisibility.js",
 				"src/core/utils/SavedData.js",
+				"src/container/SavedDataHandler.js",
 				"src/container/Features.js",
 				"src/container/Container.js"
 			]

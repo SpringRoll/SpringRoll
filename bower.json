@@ -1,14 +1,16 @@
 {
 	"name": "springroll",
-	"version": "0.4.0",
+	"version": "0.4.4",
 	"main": "dist/core.min.js",
-	"dependencies": {
+	"dependencies":
+	{
 		"preloadjs": "https://github.com/SpringRoll/PreloadJS.git",
 		"bellhop": "*",
 		"jquery": "*"
 	},
-	"devDependencies": {
-		"pixi.js": "https://github.com/SpringRoll/pixi.js.git#master",
+	"devDependencies":
+	{
+		"pixi.js": "https://github.com/SpringRoll/pixi.js.git",
 		"easeljs": "https://github.com/SpringRoll/EaselJS.git",
 		"tweenjs": "https://github.com/SpringRoll/TweenJS.git",
 		"soundjs": "https://github.com/SpringRoll/SoundJS.git",
@@ -26,6 +28,7 @@
 		"tools",
 		".bowerrc",
 		".editorconfig",
+		".jsbeautifyrc",
 		".travis.yml",
 		".gitattributes",
 		"library.json",

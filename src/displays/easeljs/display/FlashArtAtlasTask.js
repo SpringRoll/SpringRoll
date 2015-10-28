@@ -8,11 +8,10 @@
 	var Task = include('springroll.Task'),
 		TextureAtlas = include('springroll.easeljs.TextureAtlas'),
 		ColorAlphaTask = include('springroll.ColorAlphaTask'),
-		Application = include('springroll.Application'),
 		BitmapUtils = include('springroll.easeljs.BitmapUtils');
 
 	/**
-	 * Internal class for dealing with async load assets through Loader.
+	 * Internal class for loading a texture atlas for a FlashArt load.
 	 * @class FlashArtAtlasTask
 	 * @extends springroll.Task
 	 * @constructor
@@ -57,12 +56,12 @@
 		 * @property {String} alpha
 		 */
 		this.alpha = this.filter(asset.alpha);
-		
+
 		this.libName = asset.libName || "lib";
 	};
 
 	// Reference to prototype
-	var p = extend(FlashArtAtlasTask, Task);
+	var p = Task.extend(FlashArtAtlasTask);
 
 	/**
 	 * Test if we should run this task
@@ -87,7 +86,8 @@
 	 */
 	p.start = function(callback)
 	{
-		this.loadAtlas({}, callback);
+		this.loadAtlas(
+		{}, callback);
 	};
 
 	/**
@@ -111,7 +111,7 @@
 		}
 
 		// Do the load
-		Application.instance.load(assets, function(results)
+		this.load(assets, function(results)
 		{
 			var image;
 			if (results._image)
@@ -125,34 +125,34 @@
 					results._alpha
 				);
 			}
-			
+
 			//prefer the spritesheet's exported scale
 			var scale = results._atlas.meta ? 1 / parseFloat(results._atlas.meta.scale) : 0;
 			//if it doesn't have one, then use the asset scale specified by the
 			//AssetManager.
-			if(!scale)
-				scale = 1/ this.original.scale;
-			
-			
+			if (!scale)
+				scale = 1 / this.original.scale;
+
+
 			var asset = {};
-			
+
 			var libName = this.libName;
 			asset.create = function()
 			{
 				BitmapUtils.loadSpriteSheet(results._atlas, image, scale, libName);
 			};
-			
+
 			var lib = namespace(this.libName);
 			var frames = results._atlas.frames;
 			asset.destroy = function()
 			{
-				for(var id in frames)
+				for (var id in frames)
 				{
 					delete lib[id];
 				}
 				image.src = null;
 			};
-			
+
 			done(asset, results);
 		}.bind(this));
 	};

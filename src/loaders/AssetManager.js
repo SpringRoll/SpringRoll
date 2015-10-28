@@ -9,7 +9,7 @@
 		AssetSizes = include('springroll.AssetSizes'),
 		Task = include('springroll.Task'),
 		Debug;
-	
+
 	/**
 	 * Handle the asynchronous loading of multiple assets.
 	 * @class AssetManager
@@ -30,7 +30,7 @@
 		this.loads = [];
 
 		/**
-		 * The expired loads to recycle
+		 * The expired loads to reuse.
 		 * @property {Array} loadPool
 		 * @private
 		 */
@@ -51,7 +51,8 @@
 		this.cache = new AssetCache();
 
 		/**
-		 * Handle multiple asset spritesheets
+		 * Handle multiple asset sizes. Defaults are 'full' at a scale of 1, and
+		 * 'half' at a scale of 0.5 (under 400 points).
 		 * @property {springroll.AssetSizes} sizes
 		 * @readOnly
 		 */
@@ -70,15 +71,15 @@
 	};
 
 	// reference to prototype
-	var p = AssetManager.prototype;
+	var p = extend(AssetManager);
 
 	/**
 	 * Register new tasks types, these tasks must extend Task
 	 * @method register
 	 * @private
 	 * @param {Function|String} TaskClass The class task reference
-	 * @param {int} [priority=0] The priority, higher prioity tasks
-	 *      are tested first. More general Tasks should be lower
+	 * @param {int} [priority=0] The priority. Higher priority tasks
+	 *      are tested first. More general tasks should be lower
 	 *      and more specific tasks should be higher.
 	 */
 	p.register = function(TaskClass, priority)
@@ -87,8 +88,8 @@
 		{
 			TaskClass = include(TaskClass, false);
 		}
-		
-		if(!TaskClass) return;
+
+		if (!TaskClass) return;
 
 		TaskClass.priority = priority || 0;
 
@@ -118,8 +119,10 @@
 	 * @method load
 	 * @param {Object|Array} asset The assets to load
 	 * @param {Object} [options] The loading options
-	 * @param {function} [options.complete] The function when finished
-	 * @param {function} [options.progress] The function when finished a single task
+	 * @param {function} [options.complete] The callback when finished
+	 * @param {function} [options.progress] The callback when loading percentage is updated
+	 * @param {function} [options.taskDone] The callback when finished with each individual task
+	 * @param {Boolean} [options.autoStart=true] If we should start running right away
 	 * @param {Boolean} [options.startAll=true] If we should run all the tasks at once, in parallel
 	 * @param {Boolean} [options.cacheAll=false] If we should cache all files
 	 * @param {String} [options.type] The type of assets to load, defaults to AssetManager.prototype.defaultType
@@ -128,11 +131,14 @@
 	p.load = function(assets, options)
 	{
 		// Apply defaults to options
-		options = Object.merge({
+		options = Object.merge(
+		{
 			complete: null,
 			progress: null,
+			taskDone: null,
 			cacheAll: false,
 			startAll: true,
+			autoStart: true,
 			type: this.defaultType
 		}, options);
 
@@ -149,8 +155,21 @@
 			load
 		);
 
+		// Handle the finish
+		load.once('complete', options.complete);
+
+		// Optional loaded amount event
+		if (options.progress)
+			load.on('progress', options.progress);
+
+		// Called when a task is complete
+		if (options.taskDone)
+			load.on('taskDone', options.taskDone);
+
 		// Start the load
-		load.start(assets, options);
+		load.setup(assets, options);
+
+		return load;
 	};
 
 	/**
@@ -161,6 +180,7 @@
 	 */
 	p.poolLoad = function(load)
 	{
+		load.off('complete progress taskDone');
 		load.reset();
 		this.loadPool.push(load);
 	};

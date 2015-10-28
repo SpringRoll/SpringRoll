@@ -5,8 +5,7 @@
  */
 (function()
 {
-	var Application = include('springroll.Application'),
-		ColorAlphaTask = include('springroll.ColorAlphaTask'),
+	var ColorAlphaTask = include('springroll.ColorAlphaTask'),
 		Task = include('springroll.Task'),
 		Texture = include('PIXI.Texture'),
 		BaseTexture = include('PIXI.BaseTexture'),
@@ -53,7 +52,7 @@
 	};
 
 	// Extend the base Task
-	var p = extend(TextureTask, Task);
+	var p = Task.extend(TextureTask);
 
 	/**
 	 * Test to see if we should load an asset
@@ -74,7 +73,8 @@
 	 */
 	p.start = function(callback)
 	{
-		this.loadImage({}, callback);
+		this.loadImage(
+		{}, callback);
 	};
 
 	/**
@@ -99,7 +99,7 @@
 		}
 
 		// Do the load
-		Application.instance.load(assets, function(results)
+		this.load(assets, function(results)
 		{
 			var image;
 			if (results._image)
@@ -113,26 +113,26 @@
 					results._alpha
 				);
 			}
-			
+
 			//determine scale using SpringRoll's scale management
 			var scale = this.original.scale;
 			//if the scale doesn't exist, or is 1, then see if the devs are trying to use Pixi's
 			//built in scale recognition
-			if(!scale || scale === 1)
+			if (!scale || scale === 1)
 			{
 				scale = PixiUtils.getResolutionOfUrl(this.image || this.color);
 			}
 			//create the Texture and BaseTexture
 			var texture = new Texture(new BaseTexture(image, null, scale));
 			texture.baseTexture.imageUrl = this.image;
-			
-			if(this.cache && !ignoreCacheSetting)
+
+			if (this.cache && !ignoreCacheSetting)
 			{
 				//for cache id, prefer task id, but if Pixi global texture cache is using urls, then
 				//use that
 				var id = this.id;
 				//if pixi is expecting URLs, then use the URL
-				if(!PixiUtils.useFilenamesForTextures)
+				if (!PixiUtils.useFilenamesForTextures)
 				{
 					//use color image if regular image is not available
 					id = this.image || this.color;
@@ -140,21 +140,22 @@
 				//also add the frame to Pixi's global cache for fromFrame and fromImage functions
 				PixiUtils.TextureCache[id] = texture;
 				PixiUtils.BaseTextureCache[id] = texture.baseTexture;
-				
+
 				//set up a special destroy wrapper for this texture so that Application.instance.unload
 				//works properly to completely unload it
 				texture.__T_destroy = texture.destroy;
 				texture.destroy = function()
 				{
+					if (this.__destroyed) return;
+					this.__destroyed = true;
 					//destroy the base texture as well
 					this.__T_destroy(true);
-					
+
 					//remove it from the global texture cache, if relevant
-					if(PixiUtils.TextureCache[id] == this)
+					if (PixiUtils.TextureCache[id] == this)
 						delete PixiUtils.TextureCache[id];
 				};
 			}
-			
 			done(texture, results);
 		}.bind(this));
 	};

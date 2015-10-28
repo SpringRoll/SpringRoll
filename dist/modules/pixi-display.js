@@ -1,21 +1,21 @@
-/*! SpringRoll 0.4.0 */
+/*! SpringRoll 0.4.4 */
 /**
- * @module Pixi Display
+ * @module PIXI Display
  * @namespace PIXI
  * @requires Core
  */
 (function(undefined)
 {
 	/**
-	*  Mixins for the PIXI BitmapText class
-	*  @class BitmapText
-	*/
+	 *  Mixins for the PIXI BitmapText class
+	 *  @class BitmapText
+	 */
 
 	var BitmapText = include("PIXI.extras.BitmapText", false);
-	if(!BitmapText) return;
+	if (!BitmapText) return;
 
 	var p = BitmapText.prototype;
-	
+
 	/**
 	 * Determines if the text object's pivot property will reflect the text's alignment, e.g.
 	 * a BitmapText with align of 'right' will have pivot.x set to the text's width, so that the
@@ -26,18 +26,18 @@
 	 * @default false
 	 */
 	p.setPivotToAlign = false;
-	
+
 	//save a copy of the super function so that we can override it safely
 	p._orig_updateText = p.updateText;
-	
+
 	p.updateText = function()
 	{
 		this._orig_updateText();
-		if(this.setPivotToAlign)
+		if (this.setPivotToAlign)
 		{
 			//have the entire text area be positioned based on the alignment, to make it easy to
 			//center or right-align text with other elements
-			switch(this.align)
+			switch (this.align)
 			{
 				case 'center':
 					this.pivot.x = this.textWidth / 2;
@@ -45,31 +45,31 @@
 				case 'right':
 					this.pivot.x = this.textWidth;
 					break;
-				default://left or unspecified
+				default: //left or unspecified
 					this.pivot.x = 0;
 					break;
 			}
 		}
 	};
-	
+
 }());
 /**
- * @module Pixi Display
+ * @module PIXI Display
  * @namespace PIXI
  * @requires Core
  */
 (function(undefined)
 {
 	/**
-	*  Mixins for the PIXI Container class
-	*  @class Container
-	*/
+	 *  Mixins for the PIXI Container class
+	 *  @class Container
+	 */
 
 	var Container = include("PIXI.Container", false);
-	if(!Container) return;
+	if (!Container) return;
 
 	var p = Container.prototype;
-	
+
 	/**
 	 * Determines if width and height will calculate bounds of all children using getLocalBounds(),
 	 * or only use the internal _width or _height. This should really only be set once, when the
@@ -80,28 +80,28 @@
 	 * @default true
 	 */
 	p.useBoundsForSize = true;
-	
+
 	p._width = 0;
 	p._height = 0;
-	
-	if(Object.getOwnPropertyDescriptor(p, 'width').configurable)
+
+	if (Object.getOwnPropertyDescriptor(p, 'width').configurable)
 	{
 		Object.defineProperty(p, 'width',
 		{
 			configurable: true,
 			get: function()
 			{
-				if(this.useBoundsForSize)
+				if (this.useBoundsForSize)
 					return this.scale.x * this.getLocalBounds().width;
 				else
 					return this.scale.x * this._width;
 			},
 			set: function(value)
 			{
-				if(this.useBoundsForSize)
+				if (this.useBoundsForSize)
 				{
 					var width = this.getLocalBounds().width;
-					if(width !== 0)
+					if (width !== 0)
 						this.scale.x = value / width;
 					else
 						this.scale.x = 1;
@@ -109,7 +109,7 @@
 				}
 				else
 				{
-					if(this._width === 0)
+					if (this._width === 0)
 						this._width = value / this.scale.x;
 					else
 						this.scale.x = value / this._width;
@@ -122,17 +122,17 @@
 			configurable: true,
 			get: function()
 			{
-				if(this.useBoundsForSize)
+				if (this.useBoundsForSize)
 					return this.scale.y * this.getLocalBounds().height;
 				else
 					return this.scale.y * this._height;
 			},
 			set: function(value)
 			{
-				if(this.useBoundsForSize)
+				if (this.useBoundsForSize)
 				{
 					var height = this.getLocalBounds().height;
-					if(height !== 0)
+					if (height !== 0)
 						this.scale.y = value / height;
 					else
 						this.scale.y = 1;
@@ -140,7 +140,7 @@
 				}
 				else
 				{
-					if(this._height === 0)
+					if (this._height === 0)
 						this._height = value / this.scale.y;
 					else
 						this.scale.y = value / this._height;
@@ -148,25 +148,25 @@
 			}
 		});
 	}
-	
+
 }());
 /**
- * @module Pixi Display
+ * @module PIXI Display
  * @namespace PIXI
  * @requires Core
  */
 (function(undefined)
 {
 	/**
-	*  Mixins for the PIXI InteractionManager class
-	*  @class InteractionManager
-	*/
+	 *  Mixins for the PIXI InteractionManager class
+	 *  @class InteractionManager
+	 */
 
 	var InteractionManager = include("PIXI.interaction.InteractionManager", false);
-	if(!InteractionManager) return;
+	if (!InteractionManager) return;
 
 	var p = InteractionManager.prototype;
-	
+
 	/**
 	 * Removes mousedown, mouseup, etc. events, but leaves the mousemove events. This allows a
 	 * custom cursor to continue to update its position while disabling any real interaction.
@@ -193,70 +193,70 @@
 		//this.interactionDOMElement.removeEventListener('mouseover', this.onMouseOver, true);
 
 		this.interactionDOMElement.removeEventListener('touchstart', this.onTouchStart, true);
-		this.interactionDOMElement.removeEventListener('touchend',  this.onTouchEnd, true);
+		this.interactionDOMElement.removeEventListener('touchend', this.onTouchEnd, true);
 		this.interactionDOMElement.removeEventListener('touchmove', this.onTouchMove, true);
 
 		//this.interactionDOMElement = null;
 
-		window.removeEventListener('mouseup',  this.onMouseUp, true);
+		window.removeEventListener('mouseup', this.onMouseUp, true);
 
 		//this.eventsAdded = false;
 	};
-	
+
 }());
 /**
- * @module Pixi Display
+ * @module PIXI Display
  * @namespace PIXI
  * @requires Core
  */
 (function(undefined)
 {
 	/**
-	*  Mixins for the PIXI Point class, which include methods
-	*  for calculating the dot product, length, distance, normalize, etc.
-	*  @class Point
-	*/
+	 *  Mixins for the PIXI Point class, which include methods
+	 *  for calculating the dot product, length, distance, normalize, etc.
+	 *  @class Point
+	 */
 
 	var Point = include("PIXI.Point", false);
-	if(!Point) return;
+	if (!Point) return;
 
 	var p = Point.prototype;
 
 	/**
-	* Returns the dot product between this point and another one.
-	* @method dotProd
-	* @param other {Point} The point to form a dot product with
-	* @return The dot product between the two points.
-	*/
+	 * Returns the dot product between this point and another one.
+	 * @method dotProd
+	 * @param other {Point} The point to form a dot product with
+	 * @return The dot product between the two points.
+	 */
 	p.dotProd = function(other)
 	{
 		return this.x * other.x + this.y * other.y;
 	};
 
 	/**
-	* Returns the length (or magnitude) of this point.
-	* @method length
-	* @return The length of this point.
-	*/
+	 * Returns the length (or magnitude) of this point.
+	 * @method length
+	 * @return The length of this point.
+	 */
 	p.length = function()
 	{
 		return Math.sqrt(this.x * this.x + this.y * this.y);
 	};
 
 	/**
-	* Returns the squared length (or magnitude) of this point. This is faster than length().
-	* @method lengthSq
-	* @return The length squared of this point.
-	*/
+	 * Returns the squared length (or magnitude) of this point. This is faster than length().
+	 * @method lengthSq
+	 * @return The length squared of this point.
+	 */
 	p.lengthSq = function()
 	{
 		return this.x * this.x + this.y * this.y;
 	};
 
 	/**
-	* Reduces the point to a length of 1.
-	* @method normalize
-	*/
+	 * Reduces the point to a length of 1.
+	 * @method normalize
+	 */
 	p.normalize = function()
 	{
 		var oneOverLen = 1 / this.length();
@@ -265,10 +265,10 @@
 	};
 
 	/**
-	* Subtracts the x and y values of a point from this point.
-	* @method subtract
-	* @param other {Point} The point to subtract from this one
-	*/
+	 * Subtracts the x and y values of a point from this point.
+	 * @method subtract
+	 * @param other {Point} The point to subtract from this one
+	 */
 	p.subtract = function(other)
 	{
 		this.x -= other.x;
@@ -276,10 +276,10 @@
 	};
 
 	/**
-	* Adds the x and y values of a point to this point.
-	* @method add
-	* @param other {Point} The point to add to this one
-	*/
+	 * Adds the x and y values of a point to this point.
+	 * @method add
+	 * @param other {Point} The point to add to this one
+	 */
 	p.add = function(other)
 	{
 		this.x += other.x;
@@ -287,14 +287,14 @@
 	};
 
 	/**
-	* Truncate the length of the point to a maximum.
-	* @method truncate
-	* @param maxLength {Number} The maximum length to allow in this point.
-	*/
+	 * Truncate the length of the point to a maximum.
+	 * @method truncate
+	 * @param maxLength {Number} The maximum length to allow in this point.
+	 */
 	p.truncate = function(maxLength)
 	{
 		var l = this.length();
-		if(l > maxLength)
+		if (l > maxLength)
 		{
 			var maxOverLen = maxLength / l;
 			this.x *= maxOverLen;
@@ -303,10 +303,10 @@
 	};
 
 	/**
-	* Multiplies the x and y values of this point by a value.
-	* @method scaleBy
-	* @param value {Number} The value to scale by.
-	*/
+	 * Multiplies the x and y values of this point by a value.
+	 * @method scaleBy
+	 * @param value {Number} The value to scale by.
+	 */
 	p.scaleBy = function(value)
 	{
 		this.x *= value;
@@ -314,11 +314,11 @@
 	};
 
 	/**
-	* Calculates the distance between this and another point.
-	* @method distance
-	* @param other {Point} The point to calculate the distance to.
-	* @return {Number} The distance.
-	*/
+	 * Calculates the distance between this and another point.
+	 * @method distance
+	 * @param other {Point} The point to calculate the distance to.
+	 * @return {Number} The distance.
+	 */
 	p.distance = function(other)
 	{
 		var xDiff = this.x - other.x;
@@ -327,11 +327,11 @@
 	};
 
 	/**
-	* Calculates the squared distance between this and another point.
-	* @method distanceSq
-	* @param other {Point} The point to calculate the distance to.
-	* @return {Number} The distance squared.
-	*/
+	 * Calculates the squared distance between this and another point.
+	 * @method distanceSq
+	 * @param other {Point} The point to calculate the distance to.
+	 * @return {Number} The distance squared.
+	 */
 	p.distanceSq = function(other)
 	{
 		var xDiff = this.x - other.x;
@@ -341,7 +341,7 @@
 
 	Point.localToGlobal = function(displayObject, localX, localY, outPoint)
 	{
-		if(!outPoint)
+		if (!outPoint)
 			outPoint = new PIXI.Point();
 		outPoint.x = localX;
 		outPoint.y = localY;
@@ -350,7 +350,7 @@
 
 	Point.globalToLocal = function(displayObject, globalX, globalY, outPoint)
 	{
-		if(!outPoint)
+		if (!outPoint)
 			outPoint = new PIXI.Point();
 		outPoint.x = globalX;
 		outPoint.y = globalY;
@@ -359,7 +359,7 @@
 
 	Point.localToLocal = function(sourceDisplayObject, targetDisplayObject, x, y, outPoint)
 	{
-		if(!outPoint)
+		if (!outPoint)
 			outPoint = new PIXI.Point();
 		outPoint.x = x;
 		outPoint.y = y;
@@ -379,12 +379,7 @@
  */
 (function(undefined)
 {
-
 	var RAD_TO_DEGREES = 180 / Math.PI;
-
-	/**
-	 * @author Andrew Start <andrew@cloudkid.com>
-	 */
 
 	/**
 	 * The Sector object can be used to specify a hit area for display objects.
@@ -429,7 +424,7 @@
 		 */
 		this.startAngle = startAngle || 0;
 		//for math purposes, ensure that this is greater than 0
-		while(this.startAngle < 0)
+		while (this.startAngle < 0)
 			this.startAngle += 360;
 
 		/**
@@ -439,7 +434,7 @@
 		 */
 		this.endAngle = endAngle || 0;
 		//for math purposes, ensure that this is greater than startAngle
-		if(this.endAngle < this.startAngle)
+		if (this.endAngle < this.startAngle)
 			this.endAngle += 360;
 	};
 
@@ -466,7 +461,7 @@
 	 */
 	p.contains = function(x, y)
 	{
-		if(this.radius <= 0)
+		if (this.radius <= 0)
 			return false;
 
 		var dx = (this.x - x),
@@ -476,11 +471,11 @@
 		dx *= dx;
 		dy *= dy;
 
-		if(dx + dy > r2) return false;
+		if (dx + dy > r2) return false;
 
 		var angle = Math.atan2(y - this.y, x - this.x) * RAD_TO_DEGREES;
 		//make the angle in the same space as the sector
-		while(angle < this.startAngle) angle += 360;
+		while (angle < this.startAngle) angle += 360;
 		return angle >= this.startAngle && angle <= this.endAngle;
 	};
 
@@ -491,22 +486,22 @@
 
 }());
 /**
- * @module Pixi Display
+ * @module PIXI Display
  * @namespace PIXI
  * @requires Core
  */
 (function(undefined)
 {
 	/**
-	*  Mixins for the PIXI Text class
-	*  @class Text
-	*/
+	 *  Mixins for the PIXI Text class
+	 *  @class Text
+	 */
 
 	var Text = include("PIXI.Text", false);
-	if(!Text) return;
+	if (!Text) return;
 
 	var p = Text.prototype;
-	
+
 	/**
 	 * Determines if the text object's pivot property will reflect the text's alignment, e.g.
 	 * a Text with align of 'right' will have pivot.x set to the text's width, so that the
@@ -517,18 +512,18 @@
 	 * @default false
 	 */
 	p.setPivotToAlign = false;
-	
+
 	//save a copy of the super function so that we can override it safely
 	p._orig_updateText = p.updateText;
-	
+
 	p.updateText = function()
 	{
 		this._orig_updateText();
-		if(this.setPivotToAlign)
+		if (this.setPivotToAlign)
 		{
 			//have the entire text area be positioned based on the alignment, to make it easy to
 			//center or right-align text with other elements
-			switch(this.style.align)
+			switch (this.style.align)
 			{
 				case 'center':
 					this.pivot.x = this._width / 2;
@@ -536,13 +531,13 @@
 				case 'right':
 					this.pivot.x = this._width;
 					break;
-				default://left or unspecified
+				default: //left or unspecified
 					this.pivot.x = 0;
 					break;
 			}
 		}
 	};
-	
+
 }());
 /**
  * @module PIXI Display
@@ -551,8 +546,7 @@
  */
 (function()
 {
-	var Application = include('springroll.Application'),
-		ColorAlphaTask = include('springroll.ColorAlphaTask'),
+	var ColorAlphaTask = include('springroll.ColorAlphaTask'),
 		Task = include('springroll.Task'),
 		Texture = include('PIXI.Texture'),
 		BaseTexture = include('PIXI.BaseTexture'),
@@ -599,7 +593,7 @@
 	};
 
 	// Extend the base Task
-	var p = extend(TextureTask, Task);
+	var p = Task.extend(TextureTask);
 
 	/**
 	 * Test to see if we should load an asset
@@ -620,7 +614,8 @@
 	 */
 	p.start = function(callback)
 	{
-		this.loadImage({}, callback);
+		this.loadImage(
+		{}, callback);
 	};
 
 	/**
@@ -645,7 +640,7 @@
 		}
 
 		// Do the load
-		Application.instance.load(assets, function(results)
+		this.load(assets, function(results)
 		{
 			var image;
 			if (results._image)
@@ -659,26 +654,26 @@
 					results._alpha
 				);
 			}
-			
+
 			//determine scale using SpringRoll's scale management
 			var scale = this.original.scale;
 			//if the scale doesn't exist, or is 1, then see if the devs are trying to use Pixi's
 			//built in scale recognition
-			if(!scale || scale === 1)
+			if (!scale || scale === 1)
 			{
 				scale = PixiUtils.getResolutionOfUrl(this.image || this.color);
 			}
 			//create the Texture and BaseTexture
 			var texture = new Texture(new BaseTexture(image, null, scale));
 			texture.baseTexture.imageUrl = this.image;
-			
-			if(this.cache && !ignoreCacheSetting)
+
+			if (this.cache && !ignoreCacheSetting)
 			{
 				//for cache id, prefer task id, but if Pixi global texture cache is using urls, then
 				//use that
 				var id = this.id;
 				//if pixi is expecting URLs, then use the URL
-				if(!PixiUtils.useFilenamesForTextures)
+				if (!PixiUtils.useFilenamesForTextures)
 				{
 					//use color image if regular image is not available
 					id = this.image || this.color;
@@ -686,21 +681,22 @@
 				//also add the frame to Pixi's global cache for fromFrame and fromImage functions
 				PixiUtils.TextureCache[id] = texture;
 				PixiUtils.BaseTextureCache[id] = texture.baseTexture;
-				
+
 				//set up a special destroy wrapper for this texture so that Application.instance.unload
 				//works properly to completely unload it
 				texture.__T_destroy = texture.destroy;
 				texture.destroy = function()
 				{
+					if (this.__destroyed) return;
+					this.__destroyed = true;
 					//destroy the base texture as well
 					this.__T_destroy(true);
-					
+
 					//remove it from the global texture cache, if relevant
-					if(PixiUtils.TextureCache[id] == this)
+					if (PixiUtils.TextureCache[id] == this)
 						delete PixiUtils.TextureCache[id];
 				};
 			}
-			
 			done(texture, results);
 		}.bind(this));
 	};
@@ -719,7 +715,7 @@
 
 }());
 /**
- * @module Pixi Display
+ * @module PIXI Display
  * @namespace springroll.pixi
  * @requires Core
  */
@@ -728,7 +724,7 @@
 	var Rectangle = include('PIXI.Rectangle'),
 		Texture = include('PIXI.Texture'),
 		PixiUtils = include('PIXI.utils');
-	
+
 	/**
 	 * Handles a spritesheet. File extensions and folder paths are dropped from frame names upon
 	 * loading.
@@ -752,28 +748,28 @@
 		 * @property {Object} frames
 		 */
 		this.frames = {};
-		
+
 		//TexturePacker outputs frames with (not) swapped width & height when rotated, so we need to
 		//swap them ourselves - Flash exported textures do not require width & height to swap
 		var swapFrameSize = data.meta &&
-				data.meta.app == "http://www.codeandweb.com/texturepacker";
-		
+			data.meta.app == "http://www.codeandweb.com/texturepacker";
+
 		var frames = data.frames;
-		
+
 		//parse the spritesheet
 		for (var name in frames)
 		{
 			var frame = frames[name];
-			
+
 			var index = name.lastIndexOf(".");
 			//strip off any ".png" or ".jpg" at the end
-			if(index > 0)
+			if (index > 0)
 				name = name.substring(0, index);
 			index = name.lastIndexOf("/");
 			//strip off any folder structure included in the name
-			if(index >= 0)
+			if (index >= 0)
 				name = name.substring(index + 1);
-				
+
 			var rect = frame.frame;
 
 			if (rect)
@@ -794,22 +790,22 @@
 				if (frame.trimmed)
 				{
 					trim = new Rectangle(
-						frame.spriteSourceSize.x,// / resolution,
-						frame.spriteSourceSize.y,// / resolution,
-						frame.sourceSize.w,// / resolution,
-						frame.sourceSize.h// / resolution
-					 );
+						frame.spriteSourceSize.x, // / resolution,
+						frame.spriteSourceSize.y, // / resolution,
+						frame.sourceSize.w, // / resolution,
+						frame.sourceSize.h // / resolution
+					);
 				}
-				
+
 				/*size.x /= resolution;
 				size.y /= resolution;
 				size.width /= resolution;
 				size.height /= resolution;*/
-				
+
 				this.frames[name] = new Texture(this.baseTexture, size, size.clone(), trim,
-													frame.rotated);
-				
-				if(useGlobalCache)
+					frame.rotated);
+
+				if (useGlobalCache)
 				{
 					// lets also add the frame to pixi's global cache for fromFrame and fromImage
 					// functions
@@ -818,9 +814,9 @@
 			}
 		}
 	};
-	
+
 	// Extend Object
-	var p = TextureAtlas.prototype = {};
+	var p = extend(TextureAtlas);
 
 	/**
 	 * Gets a frame by name.
@@ -853,22 +849,22 @@
 	 */
 	p.getFrames = function(name, numberMin, numberMax, maxDigits, outArray)
 	{
-		if(maxDigits === undefined)
+		if (maxDigits === undefined)
 			maxDigits = 4;
-		if(maxDigits < 0)
+		if (maxDigits < 0)
 			maxDigits = 0;
-		if(!outArray)
+		if (!outArray)
 			outArray = [];
 		//set up strings to add the correct number of zeros ahead of time to avoid
 		//creating even more strings.
-		var zeros = [];//preceding zeroes array
-		var compares = [];//powers of 10 array for determining how many preceding zeroes to use
+		var zeros = []; //preceding zeroes array
+		var compares = []; //powers of 10 array for determining how many preceding zeroes to use
 		var i, c;
-		for(i = 1; i < maxDigits; ++i)
+		for (i = 1; i < maxDigits; ++i)
 		{
 			var s = "";
 			c = 1;
-			for(var j = 0; j < i; ++j)
+			for (var j = 0; j < i; ++j)
 			{
 				s += "0";
 				c *= 10;
@@ -876,35 +872,35 @@
 			zeros.unshift(s);
 			compares.push(c);
 		}
-		var compareLength = compares.length;//the length of the compar
-		
+		var compareLength = compares.length; //the length of the compar
+
 		//the previous Texture, so we can place the same object in multiple times to control
 		//animation rate
 		var prevTex;
 		var len;
-		for(i = numberMin, len = numberMax; i <= len; ++i)
+		for (i = numberMin, len = numberMax; i <= len; ++i)
 		{
 			var num = null;
 			//calculate the number of preceding zeroes needed, then create the full number string.
-			for(c = 0; c < compareLength; ++c)
+			for (c = 0; c < compareLength; ++c)
 			{
-				if(i < compares[c])
+				if (i < compares[c])
 				{
 					num = zeros[c] + i;
 					break;
 				}
 			}
-			if(!num)
+			if (!num)
 				num = i.toString();
-			
+
 			//If the texture doesn't exist, use the previous texture - this should allow us to
 			//use fewer textures that are in fact the same, if those textures were removed before
 			//making the spritesheet
 			var texName = name.replace("#", num);
 			var tex = this.frames[texName];
-			if(tex)
+			if (tex)
 				prevTex = tex;
-			if(prevTex)
+			if (prevTex)
 				outArray.push(prevTex);
 		}
 
@@ -917,7 +913,7 @@
 	 */
 	p.destroy = function()
 	{
-		this.texture.destroy();
+		this.texture.destroy(true);
 		this.texture = null;
 		this.baseTexture = null;
 		this.frames = null;
@@ -926,7 +922,7 @@
 	namespace("springroll.pixi").TextureAtlas = TextureAtlas;
 }());
 /**
- * @module Pixi Display
+ * @module PIXI Display
  * @namespace springroll.pixi
  * @requires Core
  */
@@ -935,11 +931,10 @@
 	var TextureTask = include('springroll.pixi.TextureTask'),
 		Texture = include('PIXI.Texture'),
 		TextureAtlas = include('springroll.pixi.TextureAtlas'),
-		PixiUtils = include('PIXI.utils'),
-		Application = include('springroll.Application');
+		PixiUtils = include('PIXI.utils');
 
 	/**
-	 * Internal class for dealing with async load assets through Loader.
+	 * Internal class for loading a texture atlas for Pixi.
 	 * @class TextureAtlasTask
 	 * @extends springroll.pixi.TextureTask
 	 * @constructor
@@ -968,7 +963,7 @@
 	};
 
 	// Reference to prototype
-	var p = extend(TextureAtlasTask, TextureTask);
+	var p = TextureTask.extend(TextureAtlasTask);
 
 	/**
 	 * Test if we should run this task
@@ -990,7 +985,8 @@
 	 */
 	p.start = function(callback)
 	{
-		this.loadAtlas({}, callback);
+		this.loadAtlas(
+		{}, callback);
 	};
 
 	/**
@@ -1005,13 +1001,22 @@
 	p.loadAtlas = function(assets, done, ignoreCacheSetting)
 	{
 		assets._atlas = this.atlas;
-		
+
 		this.loadImage(assets, function(texture, results)
 		{
 			var data = results._atlas;
-			
-			var atlas = new TextureAtlas(texture, data, this.cache && !ignoreCacheSetting);
-			
+			var atlas = new TextureAtlas(
+				texture,
+				data,
+				this.cache && !ignoreCacheSetting
+			);
+			//if the spritesheet JSON had a scale in it, use that to override
+			//whatever settings came from loading, as the texture atlas size is more important
+			if (data.meta && data.meta.scale && parseFloat(data.meta.scale) != 1)
+			{
+				texture.baseTexture.resolution = parseFloat(results._atlas.meta.scale);
+				texture.baseTexture.update();
+			}
 			done(atlas, results);
 		}.bind(this), true);
 	};
@@ -1021,7 +1026,7 @@
 
 }());
 /**
- * @module Pixi Display
+ * @module PIXI Display
  * @namespace springroll.pixi
  * @requires Core
  */
@@ -1031,13 +1036,12 @@
 		Texture = include('PIXI.Texture'),
 		Rectangle = include('PIXI.Rectangle'),
 		BitmapText = include('PIXI.extras.BitmapText', false),
-		PixiUtils = include('PIXI.utils'),
-		Application = include('springroll.Application');
-	
-	if(!BitmapText) return;
+		PixiUtils = include('PIXI.utils');
+
+	if (!BitmapText) return;
 
 	/**
-	 * Internal class for dealing with async load assets through Loader.
+	 * Internal class for loading a bitmap font for Pixi.
 	 * @class BitmapFontTask
 	 * @extends springroll.pixi.TextureTask
 	 * @constructor
@@ -1066,7 +1070,7 @@
 	};
 
 	// Reference to prototype
-	var p = extend(BitmapFontTask, TextureTask);
+	var p = TextureTask.extend(BitmapFontTask);
 
 	/**
 	 * Test if we should run this task
@@ -1080,34 +1084,34 @@
 		// atlas data and an image or color/alpha split
 		return !!asset.font && TextureTask.test(asset);
 	};
-	
+
 	/*
-	NOTE: PixiV2 did the following to ensure successful getting of XML data in all situations
-	we may need to have PreloadJS do something similar, or perhaps have it recognize .fnt as .xml
-	at least
+    NOTE: PixiV2 did the following to ensure successful getting of XML data in all situations
+    we may need to have PreloadJS do something similar, or perhaps have it recognize .fnt as .xml
+    at least
 	
-	var responseXML = this.ajaxRequest.responseXML || this.ajaxRequest.response || this.ajaxRequest.responseText;
-	if(typeof responseXML === 'string')
-	{
-		if(responseXML.xml)
-			responseXML = responseXML.xml;
-		else
-		{
-			var text = responseXML;
-			if (window.DOMParser)
-			{
-				var parser = new DOMParser();
-				responseXML = parser.parseFromString(text,'text/xml');
-			}
-			else // Internet Explorer
-			{
-				responseXML = new window.ActiveXObject('Microsoft.XMLDOM');
-				responseXML.async=false;
-				responseXML.loadXML(text);
-			}
-		}
-	}
-	 */
+    var responseXML = this.ajaxRequest.responseXML || this.ajaxRequest.response || this.ajaxRequest.responseText;
+    if(typeof responseXML === 'string')
+    {
+    	if(responseXML.xml)
+    		responseXML = responseXML.xml;
+    	else
+    	{
+    		var text = responseXML;
+    		if (window.DOMParser)
+    		{
+    			var parser = new DOMParser();
+    			responseXML = parser.parseFromString(text,'text/xml');
+    		}
+    		else // Internet Explorer
+    		{
+    			responseXML = new window.ActiveXObject('Microsoft.XMLDOM');
+    			responseXML.async=false;
+    			responseXML.loadXML(text);
+    		}
+    	}
+    }
+     */
 
 	/**
 	 * Start the task
@@ -1116,45 +1120,49 @@
 	 */
 	p.start = function(callback)
 	{
-		this.loadImage({_font: this.font}, function(texture, results)
+		this.loadImage(
+		{
+			_font: this.font
+		}, function(texture, results)
 		{
 			var data = results._font;
-			
+
 			var font = {};
-			
+
 			var info = data.getElementsByTagName('info')[0];
 			var common = data.getElementsByTagName('common')[0];
-		
+
 			font.font = info.getAttribute('face');
 			font.size = parseInt(info.getAttribute('size'), 10);
 			font.lineHeight = parseInt(common.getAttribute('lineHeight'), 10);
 			font.chars = {};
-		
+
 			//parse letters
 			var letters = data.getElementsByTagName('char');
-			
+
 			var i;
 			for (i = 0; i < letters.length; i++)
 			{
 				var l = letters[i];
 				var charCode = parseInt(l.getAttribute('id'), 10);
-		
+
 				var textureRect = new Rectangle(
 					parseInt(l.getAttribute('x'), 10) + texture.frame.x,
 					parseInt(l.getAttribute('y'), 10) + texture.frame.y,
 					parseInt(l.getAttribute('width'), 10),
 					parseInt(l.getAttribute('height'), 10)
 				);
-		
+
 				font.chars[charCode] = {
 					xOffset: parseInt(l.getAttribute('xoffset'), 10),
 					yOffset: parseInt(l.getAttribute('yoffset'), 10),
 					xAdvance: parseInt(l.getAttribute('xadvance'), 10),
-					kerning: {},
+					kerning:
+					{},
 					texture: new Texture(texture.baseTexture, textureRect)
 				};
 			}
-		
+
 			//parse kernings
 			var kernings = data.getElementsByTagName('kerning');
 			for (i = 0; i < kernings.length; i++)
@@ -1163,22 +1171,22 @@
 				var first = parseInt(k.getAttribute('first'), 10);
 				var second = parseInt(k.getAttribute('second'), 10);
 				var amount = parseInt(k.getAttribute('amount'), 10);
-		
+
 				font.chars[second].kerning[first] = amount;
 			}
-		
+
 			// I'm leaving this as a temporary fix so we can test the bitmap fonts in v3
 			// but it's very likely to change
-			if(this.cache && BitmapText.fonts)
+			if (this.cache && BitmapText.fonts)
 				BitmapText.fonts[font.font] = font;
-			
+
 			//add a cleanup function
 			font.destroy = function()
 			{
 				font.chars = null;
 				texture.destroy();
 			};
-			
+
 			callback(font, results);
 		}.bind(this), true);
 	};
@@ -1311,7 +1319,7 @@
 		var bounds;
 		var width = object.width;
 		var height = object.height;
-		if(width && height)
+		if (width && height)
 		{
 			bounds = new PIXI.Rectangle(-object.pivot.x, -object.pivot.y, width / object.scale.x, height / object.scale.y);
 		}
@@ -1467,11 +1475,13 @@
 	 */
 	DisplayAdapter.removeChildren = function(container)
 	{
-		container.removeChildren(true);
+		container.removeChildren();
 	};
 
 	/**
 	 * If a container contains a child
+	 * @method contains
+	 * @static
 	 * @param  {PIXI.DisplayObjectContainer} container The container
 	 * @param  {PIXI.DisplayObject} child  The object to test
 	 * @return {Boolean} If the child contained within the container
@@ -1480,10 +1490,13 @@
 	{
 		while (child)
 		{
-            if (child == container) { return true; }
-            child = child.parent;
-        }
-        return false;
+			if (child == container)
+			{
+				return true;
+			}
+			child = child.parent;
+		}
+		return false;
 	};
 
 	// Assign to namespace
@@ -1495,7 +1508,8 @@
  * @namespace springroll.pixi
  * @requires Core
  */
-(function(undefined){
+(function(undefined)
+{
 
 	var AbstractDisplay = include('springroll.AbstractDisplay'),
 		Container = include('PIXI.Container'),
@@ -1527,19 +1541,31 @@
 	 * @param {Boolean} [options.preserveDrawingBuffer=false] Set this to true if you want to call
 	 *                                                        toDataUrl on the WebGL rendering
 	 *                                                        context.
+	 * @param {Boolean} [options.autoPreventDefault=true] If preventDefault() should be called on
+	 *                                                    all touch events and mousedown events.
 	 */
 	var PixiDisplay = function(id, options)
 	{
 		AbstractDisplay.call(this, id, options);
 
-		options = options || {};
-		
+		options = options ||
+		{};
+
 		/**
 		 * If the display should keep mouse move events running when the display is disabled.
 		 * @property {Boolean} keepMouseover
 		 * @public
 		 */
 		this.keepMouseover = options.keepMouseover || false;
+
+		/**
+		 * If preventDefault() should be called on all touch events and mousedown events. Defaults
+		 * to true.
+		 * @property {Boolean} _autoPreventDefault
+		 * @private
+		 */
+		this._autoPreventDefault = options.hasOwnProperty("autoPreventDefault") ?
+			options.autoPreventDefault : true;
 
 		/**
 		 * The rendering library's stage element, the root display object
@@ -1558,8 +1584,7 @@
 		this.renderer = null;
 
 		//make the renderer
-		var rendererOptions =
-		{
+		var rendererOptions = {
 			view: this.canvas,
 			transparent: !!options.transparent,
 			antialias: !!options.antiAlias,
@@ -1567,25 +1592,25 @@
 			clearBeforeRender: !!options.clearView,
 			backgroundColor: options.backgroundColor || 0,
 			//this defaults to false, but we never want it to auto resize.
-			autoResize:false
+			autoResize: false
 		};
 		var preMultAlpha = !!options.preMultAlpha;
-		if(rendererOptions.transparent && !preMultAlpha)
+		if (rendererOptions.transparent && !preMultAlpha)
 			rendererOptions.transparent = "notMultiplied";
-		
+
 		//check for IE11 because it tends to have WebGL problems (especially older versions)
 		//if we find it, then make Pixi use to the canvas renderer instead
-		if(options.forceContext != "webgl")
+		if (options.forceContext != "webgl")
 		{
 			var ua = window.navigator.userAgent;
 			if (ua.indexOf("Trident/7.0") > 0)
 				options.forceContext = "canvas2d";
 		}
-		if(options.forceContext == "canvas2d")
+		if (options.forceContext == "canvas2d")
 		{
 			this.renderer = new CanvasRenderer(this.width, this.height, rendererOptions);
 		}
-		else if(options.forceContext == "webgl")
+		else if (options.forceContext == "webgl")
 		{
 			this.renderer = new WebGLRenderer(this.width, this.height, rendererOptions);
 		}
@@ -1601,28 +1626,35 @@
 		 * @public
 		 */
 		this.isWebGL = this.renderer instanceof WebGLRenderer;
-		
+
 		// Set display adapter classes
 		this.adapter = include('springroll.pixi.DisplayAdapter');
+
+		// Initialize the autoPreventDefault
+		this.autoPreventDefault = this._autoPreventDefault;
 	};
 
 	var s = AbstractDisplay.prototype;
-	var p = extend(PixiDisplay, AbstractDisplay);
+	var p = AbstractDisplay.extend(PixiDisplay);
 
 	/**
 	 * If input is enabled on the stage for this display. The default is true.
 	 * @property {Boolean} enabled
 	 * @public
 	 */
-	Object.defineProperty(p, "enabled", {
-		get: function(){ return this._enabled; },
+	Object.defineProperty(p, "enabled",
+	{
+		get: function()
+		{
+			return this._enabled;
+		},
 		set: function(value)
 		{
 			Object.getOwnPropertyDescriptor(s, 'enabled').set.call(this, value);
-			
+
 			var interactionManager = this.renderer.plugins.interaction;
-			if(!interactionManager) return;
-			if(value)
+			if (!interactionManager) return;
+			if (value)
 			{
 				//add events to the interaction manager's target
 				interactionManager.setTargetElement(this.canvas);
@@ -1630,7 +1662,7 @@
 			else
 			{
 				//remove event listeners
-				if(this.keepMouseover)
+				if (this.keepMouseover)
 					interactionManager.removeClickEvents();
 				else
 					interactionManager.removeEvents();
@@ -1639,9 +1671,29 @@
 	});
 
 	/**
+	 * If preventDefault() should be called on all touch events and mousedown events. Defaults
+	 * to true.
+	 * @property {Boolean} autoPreventDefault
+	 * @public
+	 */
+	Object.defineProperty(p, "autoPreventDefault",
+	{
+		get: function()
+		{
+			return this._autoPreventDefault;
+		},
+		set: function(value)
+		{
+			this._autoPreventDefault = !!value;
+			var interactionManager = this.renderer.plugins.interaction;
+			if (!interactionManager) return;
+			interactionManager.autoPreventDefault = this._autoPreventDefault;
+		}
+	});
+
+	/**
 	 * Resizes the canvas and the renderer. This is only called by the Application.
 	 * @method resize
-	 * @internal
 	 * @param {int} width The width that the display should be
 	 * @param {int} height The height that the display should be
 	 */
@@ -1655,13 +1707,12 @@
 	 * Updates the stage and draws it. This is only called by the Application.
 	 * This method does nothing if paused is true or visible is false.
 	 * @method render
-	 * @internal
 	 * @param {int} elapsed
 	 * @param {Boolean} [force=false] Will re-render even if the game is paused or not visible
 	 */
 	p.render = function(elapsed, force)
 	{
-		if(force || (!this.paused && this._visible))
+		if (force || (!this.paused && this._visible))
 		{
 			this.renderer.render(this.stage);
 		}
@@ -1671,14 +1722,13 @@
 	 * Destroys the display. This method is called by the Application and should
 	 * not be called directly, use Application.removeDisplay(id).
 	 * @method destroy
-	 * @internal
 	 */
 	p.destroy = function()
 	{
 		this.stage.destroy();
-		
+
 		s.destroy.call(this);
-		
+
 		this.renderer.destroy();
 		this.renderer = null;
 	};
@@ -1689,33 +1739,31 @@
 
 }());
 /**
- *	@module Core
- *	@namespace springroll
+ * @module PIXI Display
+ * @namespace springroll
+ * @requires Core
  */
 (function()
 {
 	// Include classes
 	var ticker = include('PIXI.ticker.shared', false),
 		ApplicationPlugin = include('springroll.ApplicationPlugin');
-	
-	if(!ticker) return;
+
+	if (!ticker) return;
 
 	/**
-	 *	Create an app plugin for resizing application, all properties and methods documented
-	 *	in this class are mixed-in to the main Application
-	 *	@class TickerPlugin
-	 *	@extends springroll.ApplicationPlugin
+	 *	@class Application
 	 */
 	var plugin = new ApplicationPlugin();
 
 	/**
-	*  Keep track of total time elapsed to feed to the Ticker
-	*  @property {Number} _time
-	*  @private
-	*  @default 0
-	*/
+	 *  Keep track of total time elapsed to feed to the Ticker
+	 *  @property {Number} _time
+	 *  @private
+	 *  @default 0
+	 */
 	var _time = 0;
-	
+
 	ticker.autoStart = false;
 	ticker.stop();
 
@@ -1725,7 +1773,7 @@
 		//and what the user saw the previous frame
 		this.on('update', updateTicker, 300);
 	};
-	
+
 	function updateTicker(elapsed)
 	{
 		_time += elapsed;
@@ -1733,3 +1781,32 @@
 	}
 
 }());
+/**
+ * @module PIXI Display
+ * @namespace springroll.pixi
+ * @requires Core
+ */
+(function(Object)
+{
+	// Include classes
+	var PixiDisplay = include('springroll.pixi.PixiDisplay'),
+		Application = include('springroll.Application');
+
+	/**
+	 * @class PixiDisplay
+	 */
+	/**
+	 * See {{#crossLink "springroll.Application/animator:property"}}{{/crossLink}}
+	 * @property {springroll.Animator} animator
+	 * @deprecated since version 0.4.0
+	 */
+	Object.defineProperty(PixiDisplay.prototype, 'animator',
+	{
+		get: function()
+		{
+			if (true) console.warn('PixiDisplay\'s animator property is now deprecated, please use the app property, e.g. : app.animator');
+			return Application.instance.animator;
+		}
+	});
+
+}(Object));

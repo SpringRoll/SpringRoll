@@ -149,7 +149,7 @@
 		// bind some callbacks
 		this.update = this.update.bind(this);
 		this.resize = this.resize.bind(this);
-		
+
 		// Set some clip defaults
 		clip.mouseEnabled = false;
 		clip.tickEnabled = false;
@@ -363,7 +363,8 @@
 				}
 				else
 				{
-					var instance = Sound.instance.play(alias, {
+					var instance = Sound.instance.play(alias,
+					{
 						complete: this._audioCallback.bind(this, instanceRef),
 						offset: (this._elapsedTime - data.start) * 1000
 					});
@@ -464,7 +465,7 @@
 	p.destroy = function()
 	{
 		this.stop();
-		
+
 		this.dispatchEvent('destroy');
 
 		Application.instance.off("resize", this.resize);
@@ -472,12 +473,12 @@
 		this.removeAllChildren(true);
 
 		this._activeSyncAudio =
-		this._activeAudio =
-		this._audio =
-		this._display =
-		this._endCallback =
-		this._clip =
-		this._captions = null;
+			this._activeAudio =
+			this._audio =
+			this._display =
+			this._endCallback =
+			this._clip =
+			this._captions = null;
 
 		if (this.parent)
 		{

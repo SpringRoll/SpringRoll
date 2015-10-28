@@ -17,13 +17,13 @@
 	plugin.setup = function()
 	{
 		/**
-		 * Reference to the loader singleton
+		 * Reference to the loader.
 		 * @property {springroll.Loader} loader
 		 */
 		var loader = this.loader = new Loader(this);
 
 		/**
-		 * Reference to the multiple asset loader
+		 * Reference to the asset manager.
 		 * @property {springroll.AssetManager} assetManager
 		 * @private
 		 */
@@ -37,28 +37,29 @@
 
 		/**
 		 * Override the end-user browser cache by adding
-		 * "?v=" to the end of each file path requested. Use
-		 * for developmently, debugging only!
+		 * "?cb=" to the end of each file path requested. Use
+		 * for development, debugging only!
 		 * @property {Boolean} options.cacheBust
 		 * @default DEBUG
 		 */
-		this.options.add('cacheBust', DEBUG)
-		.respond('cacheBust', function()
-		{
-			return loader.cacheManager.cacheBust;
-		})
-		.on('cacheBust', function(value)
-		{
-			loader.cacheManager.cacheBust = (value == "true" || !!value);
-		});
+		var options = this.options;
+		options.add('cacheBust', DEBUG)
+			.respond('cacheBust', function()
+			{
+				return loader.cacheManager.cacheBust;
+			})
+			.on('cacheBust', function(value)
+			{
+				loader.cacheManager.cacheBust = (value == "true" || !!value);
+			});
 
 		/**
 		 * The optional file path to prefix to any relative file
-		 * requests this is a great way to load all load requests
+		 * requests. This is a great way to load all load requests
 		 * with a CDN path.
 		 * @property {String} options.basePath
 		 */
-		this.options.add('basePath');
+		options.add('basePath');
 
 		/**
 		 * The current version number for your application. This
@@ -67,7 +68,7 @@
 		 * file requests will be appended with "?v=0.0.1"
 		 * @property {String} options.version
 		 */
-		this.options.add('version', null, true);
+		options.add('version', null, true);
 
 		/**
 		 * Path to a text file which contains explicit version
@@ -78,17 +79,17 @@
 		 * `assets/config/config.json?v=2`
 		 * @property {String} options.versionsFile
 		 */
-		this.options.add('versionsFile', null, true);
+		options.add('versionsFile', null, true);
 
 		/**
 		 * Different displays offer flavors of the same asset definition.
 		 * Instead of repeatedly defining the asset type property,
 		 * it's possible to define a global default. If PIXI
-		 * is your default display "pixi" is recommended as a value
-		 * if EaselJS is your default display "easeljs" is recommended.
+		 * is your default display "pixi" is recommended as a value.
+		 * If EaselJS is your default display "easeljs" is recommended.
 		 * @property {String} options.defaultAssetType
 		 */
-		this.options.add('defaultAssetType')
+		options.add('defaultAssetType')
 			.on('defaultAssetType', function(value)
 			{
 				assetManager.defaultType = value;
@@ -114,7 +115,7 @@
 		 * @param {Function} [asset.progress=null] Callback on load progress,
 		 *      has a parameter which is the percentage loaded from 0 to 1.
 		 * @param {*} [asset.data] Additional data to attach to load is
-		 *      accessible in the loader's result. 
+		 *      accessible in the loader's result.
 		 * @param {Function} [complete] The completed callback with a single
 		 *      parameter which is a result object. will
 		 *      only use if `asset.complete` is undefined.
@@ -138,7 +139,8 @@
 		 * @param {Function|Object} [options] Callback where the only parameter is the
 		 *      map of the results by ID, or the collection of load options.
 		 * @param {Function} [options.complete=null] The complete callback if using load options.
-		 * @param {Function} [options.progress=null] The callback when a single item is finished.
+		 * @param {Function} [options.taskDone=null] The callback when a single item is finished.
+		 * @param {Function} [options.progress=null] Callback percentage updates
 		 * @param {Boolean} [options.cacheAll=false] If tasks should be cached
 		 * @param {Boolean} [options.startAll=true] If tasks should be run in parallel
 		 * @param {String} [options.type] The default asset type of load, gets attached to each asset
@@ -151,14 +153,15 @@
 		 * @param {Function|Object} [options] Callback where the only parameter is the
 		 *      collection or map of the results, or the collection of load options.
 		 * @param {Function} [options.complete=null] The complete callback if using load options.
-		 * @param {Function} [options.progress=null] The callback when a single item is finished.
+		 * @param {Function} [options.taskDone=null] The callback when a single item is finished.
+		 * @param {Function} [options.progress=null] Callback percentage updates
 		 * @param {Boolean} [options.cacheAll=false] If tasks should be cached
 		 * @param {Boolean} [options.startAll=true] If tasks should be run in parallel
 		 * @param {String} [options.type] The default asset type of load, gets attached to each asset
 		 */
 		this.load = function(source, complete, progress, cache, data)
 		{
-			var options; 
+			var options;
 
 			// If the load arguments are setup like the Loader.load call
 			// then we'll convert to an object that we can use
@@ -185,15 +188,15 @@
 					};
 				}
 			}
-			assetManager.load(source, options);
+			return assetManager.load(source, options);
 		};
 
 		/**
 		 * Unload an asset or list of assets.
 		 * @method unload
-		 * @param {Array|String} assets The collection of asset ids or 
-		 *      single asset id. As an array, it can be a manifest 
-		 *      with objects that contain an ID. Or multiple strings.
+		 * @param {Array|String} assets The collection of asset ids or
+		 *      single asset id. As an array, it can be a manifest
+		 *      with objects that contain an ID, or an array of multiple strings.
 		 */
 		this.unload = function(assets)
 		{
@@ -201,7 +204,7 @@
 			{
 				assets = Array.prototype.slice.call(arguments);
 			}
-			
+
 			for (var i = 0; i < assets.length; i++)
 			{
 				assetManager.cache.delete(assets[i]);
@@ -228,20 +231,36 @@
 			return assetManager.cache.read(id);
 		};
 
-		// Refresh the default size as soon as the first display
-		// is added to the aplication
-		this.once('displayAdded', function(display)
+		// Refresh the default size whenever the app resizes
+		this.on('resize', function()
 		{
+			// Use the actual canvas size regard
 			assetManager.sizes.refresh(
-				display.width, 
-				display.height
+				this.realWidth,
+				this.realHeight
 			);
+		});
+
+		// Make sure we refresh the sizes for non resizing application
+		this.once('beforeInit', function()
+		{
+			if (this.display)
+			{
+				assetManager.sizes.refresh(
+					this.realWidth,
+					this.realHeight
+				);
+			}
 		});
 	};
 
 	// Preload task
 	plugin.preload = function(done)
 	{
+		// This is to make sure that sizes are set before anything
+		// gets preloaded by the ConfigPlugin
+		this.triggerResize();
+
 		var versionsFile = this.options.versionsFile;
 		if (versionsFile)
 		{

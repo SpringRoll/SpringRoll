@@ -7,6 +7,7 @@
 {
 	// Class imports
 	var ScaleItem = include('springroll.ScaleItem'),
+		ScaleImage = include('springroll.ScaleImage'),
 		Positioner = include('springroll.Positioner'),
 		Application = include('springroll.Application'),
 		Debug;
@@ -73,13 +74,6 @@
 		this._adapter = null;
 
 		/**
-		 * The collection of bitmaps to full screen scale
-		 * @property {Array} _backgrounds
-		 * @private
-		 */
-		this._backgrounds = [];
-
-		/**
 		 * The internal enabled
 		 * @property {boolean} _enabled
 		 * @private
@@ -119,7 +113,7 @@
 	};
 
 	// Reference to the prototype
-	var p = ScaleManager.prototype = {};
+	var p = extend(ScaleManager);
 
 	/**
 	 * Vertically align to the top
@@ -331,14 +325,60 @@
 	});
 
 	/**
-	 * Remove all ScaleItem where the item display is a the container or it contains items
+	 * Remove all items where the item display is a the container or it contains items
 	 * @method removeItems
-	 * @param  {createjs.Container|PIXI.DisplayObjectContainer} container
+	 * @param  {*} parent The object which contains the items as live variables.
+	 * @param {Object} items The items that was passed to `addItems`
+	 * @return {springroll.ScaleManager} The ScaleManager for chaining
 	 */
-	p.removeItems = function(container)
+	p.removeItems = function(parent, items)
 	{
-		if(!this._items) return;
-		
+		var children = [];
+		if (items)
+		{
+			// Get the list of children to remove
+			for (var name in items)
+			{
+				if (parent[name])
+				{
+					children.push(parent[name]);
+				}
+			}
+		}
+		else
+		{
+			// @deprecated implementation
+			if (DEBUG)
+			{
+				console.warn("ScaleManager.removeItems should have a second parameter which is the items dictionary e.g., removeItems(panel, items)");
+			}
+			return this.removeItemsByContainer(parent);
+		}
+
+		// Remove the items by children's list
+		if (children.length)
+		{
+			var _itemsCopy = this._items.slice();
+			var _items = this._items;
+			_itemsCopy.forEach(function(item)
+			{
+				if (children.indexOf(item.display) > -1)
+				{
+					_items.splice(_items.indexOf(item), 1);
+				}
+			});
+		}
+		return this;
+	};
+
+	/**
+	 * Remove all items where the item display is a child of the container display
+	 * @method removeItemsByParent
+	 * @param  {createjs.Container|PIXI.DisplayObjectContainer} container The container to remove items from
+	 * @return {springroll.ScaleManager} The ScaleManager for chaining
+	 */
+	p.removeItemsByContainer = function(container)
+	{
 		var adapter = this._adapter;
 		this._items.forEach(function(item, i, items)
 		{
@@ -347,20 +387,40 @@
 				items.splice(i, 1);
 			}
 		});
+		return this;
+	};
+
+	/**
+	 * Remove a single item from the scaler
+	 * @method removeItem
+	 * @param  {createjs.Bitmap|PIXI.Sprite|createjs.Container|PIXI.DisplayObjectContainer} display The object to remove
+	 * @return {springroll.ScaleManager} The ScaleManager for chaining
+	 */
+	p.removeItem = function(display)
+	{
+		var items = this._items;
+		for (var i = 0, len = items.length; i < len; i++)
+		{
+			if (items[i].display === display)
+			{
+				items.splice(i, 1);
+				break;
+			}
+		}
+		return this;
 	};
 
 	/**
 	 * Register a dictionary of items to the ScaleManager to control.
 	 * @method addItems
-	 * @param {PIXI.DisplayObjectContainer|createjs.Container} container The container where the
-	 *                                                                 items live as variables.
+	 * @param {*} parent The parent object that contains the items as variables.
 	 * @param {object} items The items object where the keys are the name of the property on the
 	 *                     parent and the value is an object with keys of "titleSafe", "minScale",
 	 *                     "maxScale", "centerHorizontally", "align", see ScaleManager.addItem for a
 	 *                     description of the different keys.
 	 * @return {springroll.ScaleManager} The instance of this ScaleManager for chaining
 	 */
-	p.addItems = function(container, items)
+	p.addItems = function(parent, items)
 	{
 		// Temp variables
 		var settings;
@@ -372,7 +432,7 @@
 		{
 			settings = items[name];
 
-			if (!container[name])
+			if (!parent[name])
 			{
 				if (DEBUG && Debug && this.verbose)
 				{
@@ -380,7 +440,7 @@
 				}
 				continue;
 			}
-			this.addItem(container[name], settings, false);
+			this.addItem(parent[name], settings, false);
 		}
 		Application.instance.triggerResize();
 		return this;
@@ -420,6 +480,13 @@
 	 *      "rect", "ellipse", "circle", etc
 	 * @return {springroll.ScaleManager} The instance of this ScaleManager for chaining
 	 */
+	/**
+	 * Add a bitmap to make be fullscreen
+	 * @method  addItem
+	 * @param {PIXI.Sprite|createjs.Bitmap} bitmap The bitmap to scale
+	 * @param {String} settings      Must be 'cover-image'
+	 * @return {springroll.ScaleManager} The instance of this ScaleManager for chaining
+	 */
 	p.addItem = function(displayObject, settings, doResize)
 	{
 		if (doResize === undefined)
@@ -432,98 +499,65 @@
 				align: ALIGN_CENTER
 			};
 		}
-		if (typeof settings === "string")
+
+		if (settings === "cover-image")
 		{
-			settings = {
-				align: settings
-			};
+			this._items.push(new ScaleImage(displayObject, this._size, this._adapter));
 		}
-		var align = settings.align || ALIGN_CENTER;
-
-		// Interpret short handed versions
-		switch (align)
+		else
 		{
-			case ALIGN_CENTER:
+			if (typeof settings === "string")
 			{
-				align = align + "-" + align;
-				break;
+				settings = {
+					align: settings
+				};
 			}
-			case ALIGN_LEFT:
-			case ALIGN_RIGHT:
+			var align = settings.align || ALIGN_CENTER;
+
+			// Interpret short handed versions
+			switch (align)
 			{
-				align = ALIGN_CENTER + "-" + align;
-				break;
+				case ALIGN_CENTER:
+					{
+						align = align + "-" + align;
+						break;
+					}
+				case ALIGN_LEFT:
+				case ALIGN_RIGHT:
+					{
+						align = ALIGN_CENTER + "-" + align;
+						break;
+					}
+				case ALIGN_TOP:
+				case ALIGN_BOTTOM:
+					{
+						align = align + "-" + ALIGN_CENTER;
+						break;
+					}
 			}
-			case ALIGN_TOP:
-			case ALIGN_BOTTOM:
+
+			// Error check the alignment value input
+			if (!/^(center|top|bottom)\-(left|right|center)$/.test(align))
 			{
-				align = align + "-" + ALIGN_CENTER;
-				break;
+				throw "Item align '" + align + "' is invalid for " + displayObject;
 			}
+
+			// Do the intial positioning of the display object
+			Positioner.init(displayObject, settings, this._adapter);
+
+			// Create the item settings
+			var item = new ScaleItem(displayObject, align, this._size, this._adapter);
+
+			item.titleSafe = settings.titleSafe == "all" ? true : settings.titleSafe;
+			item.maxScale = settings.maxScale || NaN;
+			item.minScale = settings.minScale || NaN;
+			item.centeredHorizontally = !!settings.centeredHorizontally;
+
+			this._items.push(item);
 		}
-
-		// Error check the alignment value input
-		if (!/^(center|top|bottom)\-(left|right|center)$/.test(align))
-		{
-			throw "Item align '" + align + "' is invalid for " + displayObject;
-		}
-
-		// Do the intial positioning of the display object
-		Positioner.init(displayObject, settings, this._adapter);
-
-		// Create the item settings
-		var item = new ScaleItem(displayObject, align, this._size, this._adapter);
-
-		item.titleSafe = settings.titleSafe == "all" ? true : settings.titleSafe;
-		item.maxScale = settings.maxScale || NaN;
-		item.minScale = settings.minScale || NaN;
-		item.centeredHorizontally = !!settings.centeredHorizontally;
-
-		this._items.push(item);
-
 		if (doResize)
 		{
 			Application.instance.triggerResize();
-		}
-		return this;
-	};
-
-	/**
-	 * Add background bitmaps to scale full screen, this will attempt to
-	 * scale the background to the height of the display and crop on
-	 * the left and right.
-	 * @method addBackground
-	 * @param {Bitmap} The bitmap to scale or collection of bitmaps
-	 * @return {springroll.ScaleManager} The ScaleManager for chaining
-	 */
-	p.addBackground = function(bitmap)
-	{
-		if (this._backgrounds.indexOf(bitmap) > -1)
-		{
-			throw "Background already added to ScaleManager";
-		}
-		this._backgrounds.push(bitmap);
-		Application.instance.triggerResize();
-		return this;
-	};
-
-	/**
-	 * Remove background
-	 * @method removeBackground
-	 * @param {Bitmap} bitmap The bitmap added
-	 * @return {springroll.ScaleManager} The ScaleManager for chaining
-	 */
-	p.removeBackground = function(bitmap)
-	{
-		if(!this._backgrounds) return;
-		
-		for (var i = 0, len = this._backgrounds.length; i < len; i++)
-		{
-			if (bitmap === this._backgrounds[i])
-			{
-				this._backgrounds.splice(i, 1);
-				return this;
-			}
 		}
 		return this;
 	};
@@ -554,57 +588,12 @@
 		this._scale = currentRatio > defaultRatio ?
 			h / _size.height :
 			w / _size.width;
-		var scaleToHeight = currentRatio >= defaultRatio;
 
-		var _items = this._items;
-		var i;
-		var len = _items.length;
-
-		if (len > 0)
+		// Resize all the items
+		this._items.forEach(function(item)
 		{
-			for (i = 0; i < len; ++i)
-			{
-				_items[i].resize(w, h);
-			}
-		}
-
-		var _backgrounds = this._backgrounds;
-		var _adapter = this._adapter;
-		len = _backgrounds.length;
-
-		if (len > 0)
-		{
-			var expectedBGWidth = _size.maxWidth || _size.width;
-			var bitmap;
-			var size;
-			var scale;
-			var positionHelper = {
-				x: 0,
-				y: 0
-			};
-			var bgScale;
-			var activeBGSize;
-			for (i = 0; i < len; i++)
-			{
-				bitmap = _backgrounds[i];
-				size = _adapter.getBitmapSize(bitmap);
-				// A double resolution image would have a bgScale of 2
-				bgScale = size.w / expectedBGWidth;
-				// Determine the size of the active dimension, width or height
-				activeBGSize = bgScale * (scaleToHeight ? _size.height : _size.width);
-				// Determine scale the bg should be used at to fill the display properly
-				scale = (scaleToHeight ? h : w) / activeBGSize;
-				// Scale the background
-				_adapter.setScale(bitmap, scale);
-				// Center the background
-				positionHelper.x = (w - size.w * scale) * 0.5;
-				positionHelper.y = (h - size.h * scale) * 0.5;
-				_adapter.setPosition(
-					bitmap,
-					positionHelper
-				);
-			}
-		}
+			item.resize(w, h);
+		});
 	};
 
 	/**
@@ -620,7 +609,6 @@
 			item.destroy();
 		});
 
-		this._backgrounds = null;
 		this._adapter = null;
 		this._size = null;
 		this._items = null;
@@ -628,6 +616,5 @@
 
 	// Assign to namespace
 	namespace('springroll').ScaleManager = ScaleManager;
-	namespace('springroll').UIScaler = ScaleManager;
 
 }());

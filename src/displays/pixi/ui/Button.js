@@ -11,7 +11,8 @@
 		Point = include('PIXI.Point'),
 		Sprite = include('PIXI.Sprite'),
 		BitmapText = include('PIXI.extras.BitmapText', false),
-		Text = include('PIXI.Text');
+		Text = include('PIXI.Text'),
+		Texture = include('PIXI.Texture');
 
 	/**
 	 * A Multipurpose button class. It is designed to have one image, and an optional text label.
@@ -34,7 +35,9 @@
 	 * @param {Object|PIXI.Texture} [imageSettings.up] The texture for the up state of the button.
 	 *                                                 This can be either the texture itself, or an
 	 *                                                 object with 'tex' and 'label' properties.
-	 * @param {PIXI.Texture} [imageSettings.up.tex] The sourceRect for the state within the image.
+	 * @param {PIXI.Texture|String} [imageSettings.up.tex] The texture to use for the up state. If
+	 *                                                     this is a string, Texture.fromImage()
+	 *                                                     will be used.
 	 * @param {Object} [imageSettings.up.label=null] Label information specific to this state.
 	 *                                               Properties on this parameter override data in
 	 *                                               the label parameter for this button state
@@ -43,8 +46,9 @@
 	 * @param {Object|PIXI.Texture} [imageSettings.over=null] The texture for the over state of the
 	 *                                                        button. If omitted, uses the up
 	 *                                                        state.
-	 * @param {PIXI.Texture} [imageSettings.over.tex] The sourceRect for the state within the
-	 *                                                image.
+	 * @param {PIXI.Texture|String} [imageSettings.over.tex] The texture to use for the over state.
+	 *                                                       If this is a string,
+	 *                                                       Texture.fromImage() will be used.
 	 * @param {Object} [imageSettings.over.label=null] Label information specific to this state.
 	 *                                                 Properties on this parameter override data
 	 *                                                 in the label parameter for this button state
@@ -53,8 +57,9 @@
 	 * @param {Object|PIXI.Texture} [imageSettings.down=null] The texture for the down state of the
 	 *                                                        button. If omitted, uses the up
 	 *                                                        state.
-	 * @param {PIXI.Texture} [imageSettings.down.tex] The sourceRect for the state within the
-	 *                                                image.
+	 * @param {PIXI.Texture|String} [imageSettings.down.tex] The texture to use for the down state.
+	 *                                                       If this is a string,
+	 *                                                       Texture.fromImage() will be used.
 	 * @param {Object} [imageSettings.down.label=null] Label information specific to this state.
 	 *                                                 Properties on this parameter override data
 	 *                                                 in the label parameter for this button state
@@ -63,8 +68,9 @@
 	 * @param {Object|PIXI.Texture} [imageSettings.disabled=null] The texture for the disabled
 	 *                                                            state of the button. If omitted,
 	 *                                                            uses the up state.
-	 * @param {PIXI.Texture} [imageSettings.disabled.tex] The sourceRect for the state within
-	 *                                                    the image.
+	 * @param {PIXI.Texture|String} [imageSettings.disabled.tex] The texture to use for the disabled
+	 *                                                           state. If this is a string,
+	 *                                                           Texture.fromImage() will be used.
 	 * @param {Object} [imageSettings.disabled.label=null] Label information specific to this
 	 *                                                     state. Properties on this parameter
 	 *                                                     override data in the label parameter for
@@ -84,8 +90,11 @@
 	 *                                                                     moved to this system are
 	 *                                                                     "selected" and
 	 *                                                                     "highlighted".
-	 * @param {PIXI.Texture} [imageSettings.<yourCustomState>.tex] The texture for the custom
-	 *                                                             state.
+	 * @param {PIXI.Texture|String} [imageSettings.<yourCustomState>.tex] The texture to use for
+	 *                                                                    your custom state. If
+	 *                                                                    this is a string,
+	 *                                                                    Texture.fromImage()
+	 *                                                                    will be used.
 	 * @param {Object} [imageSettings.<yourCustomState>.label=null] Label information specific to
 	 *                                                              this state. Properties on this
 	 *                                                              parameter override data in the
@@ -131,7 +140,7 @@
 		 * @property {PIXI.Sprite} back
 		 * @readOnly
 		 */
-		this.back = new Sprite(imageSettings.up);
+		this.back = new Sprite();
 
 		/**
 		 * The text field of the button. The label is centered by both width and height on the
@@ -156,7 +165,7 @@
 		 * @property {Array} _statePriority
 		 */
 		this._statePriority = imageSettings.priority || DEFAULT_PRIORITY;
-		
+
 		/**
 		 * A dictionary of state graphic data, keyed by state name.
 		 * Each object contains the sourceRect (src) and optionally 'trim', another Rectangle.
@@ -180,7 +189,7 @@
 		 * @property {PIXI.Point} _offset
 		 */
 		this._offset = new Point();
-		
+
 		/**
 		 * The width of the button art, independent of the scaling of the button itself.
 		 * @private
@@ -196,7 +205,7 @@
 		this._height = 0;
 
 		this.addChild(this.back);
-		
+
 		this._onOver = this._onOver.bind(this);
 		this._onOut = this._onOut.bind(this);
 		this._onDown = this._onDown.bind(this);
@@ -205,7 +214,7 @@
 		this._emitPress = this._emitPress.bind(this);
 
 		var _stateData = this._stateData = {};
-		
+
 		//a clone of the label data to use as a default value, without changing the original
 		var labelData;
 		if (label)
@@ -234,9 +243,9 @@
 				style.wordWrapWidth = style.wordWrapWidth || 100;
 			}
 		}
-		
+
 		//start at the end to start at the up state
-		for(var i = this._statePriority.length - 1; i >= 0; --i)
+		for (var i = this._statePriority.length - 1; i >= 0; --i)
 		{
 			var state = this._statePriority[i];
 			//set up the property for the state so it can be set
@@ -246,15 +255,21 @@
 			if (state != "disabled" && state != "up")
 				this._stateFlags[state] = false;
 			var inputData = imageSettings[state];
-			
+
 			if (inputData)
 			{
 				//if inputData is an object with a tex property, use that
 				//otherwise it is a texture itself
 				if (inputData.tex)
-					_stateData[state] = {tex: inputData.tex};
+					_stateData[state] = {
+						tex: inputData.tex
+					};
 				else
-					_stateData[state] = {tex: inputData};
+					_stateData[state] = {
+						tex: inputData
+					};
+				if (typeof _stateData[state].tex == "string")
+					_stateData[state].tex = Texture.fromImage(_stateData[state].tex);
 			}
 			else
 			{
@@ -310,7 +325,7 @@
 			var s = imageSettings.scale || 1;
 			this.back.scale.x = this.back.scale.y = s;
 		}
-		
+
 		if (label)
 		{
 			this.label = (label.type == "bitmap" && BitmapText) ?
@@ -322,37 +337,37 @@
 
 		this.back.x = this._offset.x;
 		this.back.y = this._offset.y;
-		
+
 		this._width = this.back.width;
 		this._height = this.back.height;
-		
+
 		this.enabled = enabled === undefined ? true : !!enabled;
 	};
-	
+
 	// Reference to the prototype
-	var p = Button.prototype = Object.create(Container.prototype);
-	
+	var p = extend(Button, Container);
+
 	/**
 	 * An event for when the button is pressed (while enabled).
 	 * @static
 	 * @property {String} BUTTON_PRESS
 	 */
 	Button.BUTTON_PRESS = "buttonPress";
-	
+
 	/**
 	 * An event for when the button is moused over (while enabled).
 	 * @static
 	 * @property {String} BUTTON_OVER
 	 */
 	Button.BUTTON_OVER = "buttonOver";
-	
+
 	/**
 	 * An event for when the button is moused out (while enabled).
 	 * @static
 	 * @property {String} BUTTON_OUT
 	 */
 	Button.BUTTON_OUT = "buttonOut";
-	
+
 	/*
 	 * A list of state names that should not have properties autogenerated.
 	 * @private
@@ -376,19 +391,25 @@
 	{
 		if (!obj || "object" != typeof obj) return null;
 		var copy = obj.constructor();
-		for (var attr in obj) {
+		for (var attr in obj)
+		{
 			if (obj.hasOwnProperty(attr)) copy[attr] = obj[attr];
 		}
 		return copy;
 	}
-	
+
 	/*
 	 * The width of the button, based on the width of back. This value is affected by scale.
 	 * @property {Number} width
 	 */
-	Object.defineProperty(p, "width", {
-		get:function(){return this._width * this.scale.x;},
-		set:function(value){
+	Object.defineProperty(p, "width",
+	{
+		get: function()
+		{
+			return this._width * this.scale.x;
+		},
+		set: function(value)
+		{
 			this.scale.x = value / this._width;
 		}
 	});
@@ -396,13 +417,18 @@
 	 * The height of the button, based on the height of back. This value is affected by scale.
 	 * @property {Number} height
 	 */
-	Object.defineProperty(p, "height", {
-		get:function(){return this._height * this.scale.y;},
-		set:function(value){
+	Object.defineProperty(p, "height",
+	{
+		get: function()
+		{
+			return this._height * this.scale.y;
+		},
+		set: function(value)
+		{
 			this.scale.y = value / this._height;
 		}
 	});
-	
+
 	/**
 	 * Sets the text of the label. This does nothing if the button was not initialized with a
 	 * label.
@@ -415,11 +441,13 @@
 		{
 			this.label.text = text;
 			//make the text update so we can figure out the size for positioning
-			this.label.updateText();
-			this.label.dirty = false;
+			if (this.label instanceof Text)
+				this.label.updateText();
+			else
+				this.label.validate();
 			//position the text
 			var data;
-			for(var i = 0; i < this._statePriority.length; ++i)
+			for (var i = 0; i < this._statePriority.length; ++i)
 			{
 				if (this._stateFlags[this._statePriority[i]])
 				{
@@ -432,16 +460,17 @@
 			data = data.label;
 			if (data.x == "center")
 			{
-				var bW = this.back.width, lW = this.label.width;
-				switch(this._currentLabelStyle.align)
+				var bW = this.back.width,
+					lW = this.label.width;
+				switch (this._currentLabelStyle.align)
 				{
 					case "center":
 						this.label.position.x = bW * 0.5;
 						break;
 					case "right":
-						this.label.position.x = (bW - lW) * 0.5 + lW;
+						this.label.position.x = bw - (bW - lW) * 0.5;
 						break;
-					default://left or null (defaults to left)
+					default: //left or null (defaults to left)
 						this.label.position.x = (bW - lW) * 0.5;
 						break;
 				}
@@ -456,25 +485,29 @@
 				this.label.position.y = data.y + this._offset.y;
 		}
 	};
-	
+
 	/**
 	 * Whether or not the button is enabled.
 	 * @property {Boolean} enabled
 	 * @default true
 	 */
-	Object.defineProperty(p, "enabled", {
-		get: function() { return !this._stateFlags.disabled; },
+	Object.defineProperty(p, "enabled",
+	{
+		get: function()
+		{
+			return !this._stateFlags.disabled;
+		},
 		set: function(value)
 		{
 			this._stateFlags.disabled = !value;
 			this.buttonMode = value;
 			this.interactive = value;
-			
+
 			this.off("mousedown", this._onDown);
 			this.off("touchstart", this._onDown);
 			this.off("mouseover", this._onOver);
 			this.off("mouseout", this._onOut);
-			
+
 			//make sure interaction callbacks are properly set
 			if (value)
 			{
@@ -494,7 +527,7 @@
 				this._over = false;
 				this._touchDown = false;
 			}
-			
+
 			this._updateState();
 		}
 	});
@@ -510,15 +543,18 @@
 	{
 		//check to make sure we don't add reserved names
 		if (RESERVED_STATES.indexOf(propertyName) >= 0) return;
-		
-		if(DEBUG && Debug &&
-			(this.hasOwnProperty(propertyName) || this.prototype.hasOwnProperty(propertyName)))
+
+		if (DEBUG && Debug && this[propertyName] !== undefined)
 		{
 			Debug.error("Adding property %s to button is dangerous, as property already exists with that name!", propertyName);
 		}
-		
-		Object.defineProperty(this, propertyName, {
-			get: function() { return this._stateFlags[propertyName]; },
+
+		Object.defineProperty(this, propertyName,
+		{
+			get: function()
+			{
+				return this._stateFlags[propertyName];
+			},
 			set: function(value)
 			{
 				this._stateFlags[propertyName] = value;
@@ -526,11 +562,13 @@
 			}
 		});
 	};
-	
+
 	/**
 	 * Updates back based on the current button state.
 	 * @private
 	 * @method _updateState
+	 * @return {Object} The state data for the active button state, so that subclasses can use the
+	 *                  value picked by this function without needing to calculate it themselves.
 	 */
 	p._updateState = function()
 	{
@@ -538,7 +576,7 @@
 
 		var data;
 		//use the highest priority state
-		for(var i = 0; i < this._statePriority.length; ++i)
+		for (var i = 0; i < this._statePriority.length; ++i)
 		{
 			if (this._stateFlags[this._statePriority[i]])
 			{
@@ -553,47 +591,48 @@
 		//if we have a label, update that too
 		if (this.label)
 		{
-			data = data.label;
+			var lData = data.label;
+			var label = this.label;
 			//update the text style
-			if (!this._currentLabelStyle || !doObjectsMatch(this._currentLabelStyle, data.style))
+			if (!this._currentLabelStyle || !doObjectsMatch(this._currentLabelStyle, lData.style))
 			{
-				this.label.setStyle(data.style);
-				this._currentLabelStyle = data.style;
+				label.font = lData.style.font;
+				label.align = lData.style.align;
+				this._currentLabelStyle = lData.style;
 				//make the text update so we can figure out the size for positioning
-				if (this.label instanceof Text)
-				{
-					this.label.updateText();
-					this.label.dirty = false;
-				}
+				if (label instanceof Text)
+					label.updateText();
 				else
-					this.label.forceUpdateText();
+					label.validate();
 			}
 			//position the text
-			if (data.x == "center")
+			if (lData.x == "center")
 			{
-				var bW = this.back.width, lW = this.label.width;
-				switch(this._currentLabelStyle.align)
+				var bW = this.back.width,
+					lW = label.width;
+				switch (this._currentLabelStyle.align)
 				{
 					case "center":
-						this.label.position.x = bW * 0.5;
+						label.position.x = bW * 0.5;
 						break;
 					case "right":
-						this.label.position.x = (bW - lW) * 0.5 + lW;
+						label.position.x = bW - (bW - lW) * 0.5;
 						break;
-					default://left or null (defaults to left)
-						this.label.position.x = (bW - lW) * 0.5;
+					default: //left or null (defaults to left)
+						label.position.x = (bW - lW) * 0.5;
 						break;
 				}
 			}
 			else
-				this.label.position.x = data.x + this._offset.x;
-			if (data.y == "center")
+				label.position.x = lData.x + this._offset.x;
+			if (lData.y == "center")
 			{
-				this.label.position.y = (this.back.height - this.label.height) * 0.5;
+				label.position.y = (this.back.height - label.height) * 0.5;
 			}
 			else
-				this.label.position.y = data.y + this._offset.y;
+				label.position.y = lData.y + this._offset.y;
 		}
+		return data;
 	};
 
 	/*
@@ -603,14 +642,14 @@
 	{
 		if (obj1 === obj2)
 			return true;
-		for(var key in obj1)
+		for (var key in obj1)
 		{
 			if (obj1[key] != obj2[key])
 				return false;
 		}
 		return true;
 	}
-	
+
 	/**
 	 * The callback for when the button is moused over.
 	 * @private
@@ -620,10 +659,10 @@
 	{
 		this._stateFlags.over = true;
 		this._updateState();
-		
+
 		this.emit(Button.BUTTON_OVER, this);
 	};
-	
+
 	/**
 	 * The callback for when the mouse leaves the button area.
 	 * @private
@@ -633,10 +672,10 @@
 	{
 		this._stateFlags.over = false;
 		this._updateState();
-		
+
 		this.emit(Button.BUTTON_OUT, this);
 	};
-	
+
 	/**
 	 * The callback for when the button receives a mouse down event.
 	 * @private
@@ -647,13 +686,13 @@
 		event.data.originalEvent.preventDefault();
 		this._stateFlags.down = true;
 		this._updateState();
-		
+
 		this.on("mouseupoutside", this._onUpOutside);
 		this.on("touchendoutside", this._onUpOutside);
 		this.on("mouseup", this._onUp);
 		this.on("touchend", this._onUp);
 	};
-	
+
 	/**
 	 * The callback for when the button for when the mouse/touch is released on the button
 	 * - only when the button was held down initially.
@@ -668,19 +707,19 @@
 		this.off("touchendoutside", this._onUpOutside);
 		this.off("mouseup", this._onUp);
 		this.off("touchend", this._onUp);
-		
+
 		this._updateState();
-		
+
 		//because of the way PIXI handles interaction, it is safer to emit this event outside
 		//the interaction check, in case the user's callback modifies the display list
 		setTimeout(this._emitPress, 0);
 	};
-	
+
 	p._emitPress = function()
 	{
 		this.emit(Button.BUTTON_PRESS, this);
 	};
-	
+
 	/**
 	 * The callback for when the mouse/touch is released outside the button when the button was
 	 * held down.
@@ -694,10 +733,10 @@
 		this.off("touchendoutside", this._onUpOutside);
 		this.off("mouseup", this._onUp);
 		this.off("touchend", this._onUp);
-		
+
 		this._updateState();
 	};
-	
+
 	/**
 	 * Destroys the button.
 	 * @public
@@ -713,7 +752,7 @@
 		this._stateFlags = null;
 		this._statePriority = null;
 	};
-	
+
 	namespace('springroll').Button = Button;
 	namespace('springroll.pixi').Button = Button;
 }());

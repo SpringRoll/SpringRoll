@@ -39,7 +39,10 @@
 		// Change the defaults
 		this.options.override('fps', 30);
 		this.options.override('display', include('springroll.easeljs.EaselJSDisplay'));
-		this.options.override('displayOptions', { clearView: true });
+		this.options.override('displayOptions',
+		{
+			clearView: true
+		});
 		this.options.override('canvasId', 'stage');
 
 		Debug = include('springroll.Debug', false);
@@ -72,7 +75,8 @@
 
 			if (manifestsPath)
 			{
-				assets.push({
+				assets.push(
+				{
 					id: "manifests",
 					src: manifestsPath,
 					complete: onManifestsLoaded.bind(this)

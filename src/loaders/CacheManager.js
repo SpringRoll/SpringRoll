@@ -2,7 +2,8 @@
  * @module Core
  * @namespace springroll
  */
-(function(undefined){
+(function(undefined)
+{
 
 	// Classes to import
 	var Debug;
@@ -60,7 +61,7 @@
 	};
 
 	/* Easy access to the prototype */
-	var p = CacheManager.prototype = {};
+	var p = extend(CacheManager);
 
 	/**
 	 * If we are suppose to cache bust every file
@@ -86,7 +87,7 @@
 			{
 				var version = this._app.options.version;
 				this._globalVersion = version ? "v=" + version : null;
-				if(this._globalVersion)
+				if (this._globalVersion)
 				{
 					this.unregisterURLFilter(this._applySpecificVersion);
 					this.registerURLFilter(this._applyGlobalVersion);
@@ -194,7 +195,7 @@
 	 */
 	p.registerURLFilter = function(filter)
 	{
-		if(this._filters.indexOf(filter) == -1)
+		if (this._filters.indexOf(filter) == -1)
 			this._filters.push(filter);
 	};
 
@@ -207,7 +208,7 @@
 	p.unregisterURLFilter = function(filter)
 	{
 		var index = this._filters.indexOf(filter);
-		if(index > -1)
+		if (index > -1)
 			this._filters.splice(index, 1);
 	};
 
@@ -222,12 +223,12 @@
 	{
 		//don't apply versioning if the asset is retrieved from a php service
 		var basePath = this._app.options.basePath;
-		if(basePath && basePath.indexOf("?") > 0) return url;
-		
+		if (basePath && basePath.indexOf("?") > 0) return url;
+
 		var ver = this._versions[url];
 		//if a version exists for this url, and the url doesn't already have 'v=' in it
 		//then apply the url specific version.
-		if(ver && /(\?|\&)v\=[0-9]*/.test(url) === false)
+		if (ver && /(\?|\&)v\=[0-9]*/.test(url) === false)
 		{
 			url = url + (url.indexOf("?") < 0 ? "?" : "&") + "v=" + ver.version;
 		}
@@ -243,15 +244,15 @@
 	 */
 	p._applyGlobalVersion = function(url)
 	{
-		if(!this._globalVersion) return url;
+		if (!this._globalVersion) return url;
 		//don't apply versioning if the asset is retrieved from a php service
 		var basePath = this._app.options.basePath;
-		if(basePath && basePath.indexOf("?") > 0) return url;
-		
+		if (basePath && basePath.indexOf("?") > 0) return url;
+
 		//apply the versioning if it isn't already on the url
 		var test = this._globalVersion.indexOf("cb=") === 0 ?
 			(/(\?|\&)cb\=[0-9]*/) : (/(\?|\&)v\=/);
-		if(test.test(url) === false)
+		if (test.test(url) === false)
 		{
 			url = url + (url.indexOf("?") < 0 ? "?" : "&") + this._globalVersion;
 		}
@@ -291,11 +292,11 @@
 	p.prepare = function(url, applyBasePath)
 	{
 		//apply first in case the base path is strange and makes the rest of the path a query string
-		if(applyBasePath)
+		if (applyBasePath)
 		{
 			url = this._applyBasePath(url);
 		}
-		
+
 		for (var i = 0, len = this._filters.length; i < len; ++i)
 		{
 			url = this._filters[i](url);

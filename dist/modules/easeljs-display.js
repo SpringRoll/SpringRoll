@@ -1,4 +1,4 @@
-/*! SpringRoll 0.4.0 */
+/*! SpringRoll 0.4.4 */
 /**
  * @module EaselJS Display
  * @namespace createjs
@@ -26,7 +26,7 @@
 	{
 		this.cacheByRect(this.nominalBounds, buffer, scale);
 	};
-	
+
 	/**
 	 * Does a cache by a given rectangle
 	 * @method cacheByRect
@@ -81,10 +81,10 @@
 		frame = (frame === undefined) ? 0 : frame;
 		this.gotoAndStop(frame);
 		var rect = this.frameBounds ? this.frameBounds[this.currentFrame] : this.nominalBounds;
-		if(rect)//only cache if there is content on this frame
+		if (rect) //only cache if there is content on this frame
 			this.cacheByRect(rect, buffer, scale);
 		else
-			this.uncache();//prevent leftover cached data from showing up on empty frames
+			this.uncache(); //prevent leftover cached data from showing up on empty frames
 	};
 
 }());
@@ -102,7 +102,7 @@
 	 */
 
 	var p = include("createjs.Point", false);
-	if(!p) return;
+	if (!p) return;
 
 	p = p.prototype;
 
@@ -178,7 +178,7 @@
 	p.truncate = function(maxLength)
 	{
 		var l = this.length();
-		if(l > maxLength)
+		if (l > maxLength)
 		{
 			var maxOverLen = maxLength / l;
 			this.x *= maxOverLen;
@@ -272,7 +272,7 @@
 	var Bitmap = include('createjs.Bitmap'),
 		Container = include('createjs.Container'),
 		Rectangle = include('createjs.Rectangle');
-	
+
 	/**
 	 * Designed to provide utility related to Bitmaps.
 	 * @class BitmapUtils
@@ -312,15 +312,15 @@
 			// scale should default to 1
 			scale = 1;
 		}
-		if(!libName)
+		if (!libName)
 			libName = "lib";
-		
+
 		var frameDict = spritesheetData.frames || spritesheetData;
 		// TexturePacker outputs frames with (not) swapped width & height when rotated, so we need to
 		// swap them ourselves
 		var swapFrameSize = spritesheetData.meta &&
-				spritesheetData.meta.app == "http://www.codeandweb.com/texturepacker";
-		
+			spritesheetData.meta.app == "http://www.codeandweb.com/texturepacker";
+
 		var lib = window[libName];
 		for (var key in frameDict)
 		{
@@ -342,7 +342,7 @@
 				child.sourceRect = this._frameRect;
 				var s = this._scale;
 				child.setTransform(this._frameOffsetX * s, this._frameOffsetY * s, s, s);
-				if(this._rotated)
+				if (this._rotated)
 				{
 					child.rotation = -90;
 					//scale should not be included with regX
@@ -360,7 +360,7 @@
 			p._scale = scale;
 
 			var rotated = frame.rotated;
-			if(rotated)
+			if (rotated)
 			{
 				p._rotated = true;
 			}
@@ -369,9 +369,7 @@
 			//save the source rectangle of the sprite
 			p._frameRect = new Rectangle(
 				frameRect.x,
-				frameRect.y,
-				(rotated && swapFrameSize) ? frameRect.h : frameRect.w,
-				(rotated && swapFrameSize) ? frameRect.w : frameRect.h
+				frameRect.y, (rotated && swapFrameSize) ? frameRect.h : frameRect.w, (rotated && swapFrameSize) ? frameRect.w : frameRect.h
 			);
 
 			//if the sprite is trimmed, then save the amount that was trimmed
@@ -400,7 +398,7 @@
 			}
 		}
 	};
-	
+
 	/**
 	 * Creates a faux Bitmap from a TextureAtlas entry.
 	 * @method bitmapFromTexture
@@ -411,7 +409,7 @@
 	 */
 	BitmapUtils.bitmapFromTexture = function(texture, scale)
 	{
-		if(scale > 0)
+		if (scale > 0)
 		{
 			// Do nothing
 		}
@@ -431,7 +429,7 @@
 			scale
 		);
 
-		if(texture.rotated)
+		if (texture.rotated)
 		{
 			bitmap.rotation = -90;
 			bitmap.regX = bitmap.sourceRect.width;
@@ -459,7 +457,7 @@
 	BitmapUtils.replaceWithScaledBitmap = function(idOrDict, scale, libName)
 	{
 		//scale is required, but it doesn't hurt to check - also, don't bother for a scale of 1
-		if(scale != 1 && scale > 0)
+		if (scale != 1 && scale > 0)
 		{
 			// Do nothing
 		}
@@ -467,7 +465,7 @@
 		{
 			return;
 		}
-		if(!libName)
+		if (!libName)
 			libName = "lib";
 
 		var key, bitmap, newBitmap, p;
@@ -476,7 +474,7 @@
 		{
 			key = idOrDict;
 			bitmap = lib[key];
-			if(bitmap)
+			if (bitmap)
 			{
 				/* jshint ignore:start */
 				newBitmap = lib[key] = function()
@@ -488,9 +486,9 @@
 				};
 				/* jshint ignore:end */
 				p = newBitmap.prototype = new Container();
-				p._oldBM = bitmap;//give it a reference to the Bitmap
-				p._scale = scale;//tell it what scale to use on the Bitmap to bring it to normal size
-				p.nominalBounds = bitmap.prototype.nominalBounds;//keep the nominal bounds
+				p._oldBM = bitmap; //give it a reference to the Bitmap
+				p._scale = scale; //tell it what scale to use on the Bitmap to bring it to normal size
+				p.nominalBounds = bitmap.prototype.nominalBounds; //keep the nominal bounds
 			}
 		}
 		else
@@ -498,7 +496,7 @@
 			for (key in idOrDict)
 			{
 				bitmap = lib[key];
-				if(bitmap)
+				if (bitmap)
 				{
 					/* jshint ignore:start */
 					newBitmap = lib[key] = function()
@@ -510,9 +508,9 @@
 					};
 					/* jshint ignore:end */
 					p = newBitmap.prototype = new Container();
-					p._oldBM = bitmap;//give it a reference to the Bitmap
-					p._scale = scale;//tell it what scale to use on the Bitmap to bring it to normal size
-					p.nominalBounds = bitmap.prototype.nominalBounds;//keep the nominal bounds
+					p._oldBM = bitmap; //give it a reference to the Bitmap
+					p._scale = scale; //tell it what scale to use on the Bitmap to bring it to normal size
+					p.nominalBounds = bitmap.prototype.nominalBounds; //keep the nominal bounds
 				}
 			}
 		}
@@ -576,7 +574,7 @@
 	};
 
 	// Reference to the prototype
-	var p = FlashArt.prototype;
+	var p = extend(FlashArt);
 
 	/**
 	 * The collection of all symbols and assets
@@ -595,7 +593,7 @@
 	{
 		// split into the initialization functions, that take 'lib' as a parameter
 		var textArray = text.split(/[\(!]function\s*\(/);
-		
+
 		var globalSymbols = FlashArt.globalSymbols;
 		// go through each initialization function
 		for (var i = 0; i < textArray.length; ++i)
@@ -655,7 +653,7 @@
 		});
 		this.symbols = null;
 	};
-	
+
 	// Assign to namespace
 	namespace('springroll.easeljs').FlashArt = FlashArt;
 
@@ -672,8 +670,9 @@
 		Application = include('springroll.Application');
 
 	/**
-	 * Replaces Bitmaps in the global lib dictionary with a faux Bitmap
-	 * that pulls the image from a spritesheet.
+	 * Loads javascript art exported from Flash, with special care taken to allow images to be
+	 * handled properly and to attempt to avoid library definition collisions between different
+	 * pieces of art.
 	 * @class FlashArtTask
 	 * @extends springroll.Task
 	 * @constructor
@@ -699,7 +698,7 @@
 		 * @property {String} src
 		 */
 		this.src = this.filter(asset.src);
-		
+
 		/**
 		 * Any image, atlas, or SpriteSheet assets that should be loaded along with this piece
 		 * of flash art.
@@ -721,7 +720,7 @@
 		 * @default 'lib'
 		 */
 		this.libName = asset.libName || 'lib';
-		
+
 		/**
 		 * The name of the window object images hang on
 		 * @property {String} imagesName
@@ -731,7 +730,7 @@
 	};
 
 	// Reference to prototype
-	var p = extend(FlashArtTask, Task);
+	var p = Task.extend(FlashArtTask);
 
 	/**
 	 * Test if we should run this task
@@ -758,16 +757,16 @@
 		var images = [];
 		var atlas, assetCount = 0;
 		//handle the deprecated format
-		if(this.atlas)
+		if (this.atlas)
 		{
 			atlas = {
-				atlas:this.atlas,
+				atlas: this.atlas,
 				id: "asset_" + (assetCount++),
 				type: "easeljs",
 				format: "FlashAtlas",
 				libName: this.libName
 			};
-			if(this.image)
+			if (this.image)
 				atlas.image = this.image;
 			else
 			{
@@ -776,23 +775,23 @@
 			}
 			images.push(atlas);
 		}
-		else if(this.images)
+		else if (this.images)
 		{
 			var asset;
-			for(var i = 0; i < this.images.length; ++i)
+			for (var i = 0; i < this.images.length; ++i)
 			{
 				//check for texture atlases from TexturePacker or similar things
-				if(this.images[i].atlas)
+				if (this.images[i].atlas)
 				{
 					asset = this.images[i];
 					atlas = {
-						atlas:this.filter(asset.atlas),
+						atlas: this.filter(asset.atlas),
 						id: "asset_" + (assetCount++),
-						type:"easeljs",
+						type: "easeljs",
 						format: "FlashAtlas",
 						libName: this.libName
 					};
-					if(asset.image)
+					if (asset.image)
 						atlas.image = this.filter(asset.image);
 					else
 					{
@@ -802,26 +801,33 @@
 					images.push(atlas);
 				}
 				//Check for EaselJS SpriteSheets
-				else if(this.images[i].format == "createjs.SpriteSheet")
+				else if (this.images[i].format == "createjs.SpriteSheet")
 				{
 					asset = this.images[i].clone();
 					images.push(asset);
-					if(!asset.type)
+					if (!asset.type)
 						asset.type = "easeljs";
-					if(!asset.id)
-						asset.id = "asset_" + (assetCount++);
+					if (!asset.id)
+					{
+						var src = asset.src;
+						src = src.substr(0, src.lastIndexOf("."));
+						src = src.substr(src.lastIndexOf("/") + 1);
+						asset.id = src;
+					}
 				}
 				//standard images
 				else
 				{
 					//check for urls
-					if(typeof this.images[i] == "string")
-						asset = {src:this.filter(this.images[i])};
+					if (typeof this.images[i] == "string")
+						asset = {
+							src: this.filter(this.images[i])
+						};
 					//and full tasks
 					else
 						asset = this.images[i].clone();
 					//ensure an ID for these
-					if(!asset.id)
+					if (!asset.id)
 					{
 						var fallbackId = asset.src || asset.color;
 						// Remove the file extension
@@ -846,12 +852,14 @@
 				}
 			}
 		}
-		
+
 		var assets = {
-			_flash : this.src
+			_flash: this.src
 		};
-		if(images.length)
-			assets._images = {assets:images};
+		if (images.length)
+			assets._images = {
+				assets: images
+			};
 
 		// Load all the assets
 		Application.instance.load(assets, function(results)
@@ -861,42 +869,42 @@
 				results._flash,
 				this.libName
 			);
-			
+
 			var images = results._images;
-			if(images)
+			if (images)
 			{
 				var image;
 				var objectsToDestroy = [];
 				var globalImages = namespace(this.imagesName);
-				
-				for(var id in images)
+
+				for (var id in images)
 				{
 					var result = images[id];
 					//save the item for cleanup
 					objectsToDestroy.push(result);
 					//look for individual images
-					if(result.image && result.scale)
+					if (result.image && result.scale)
 					{
 						//scale asset if needed
-						if(result.scale != 1)
+						if (result.scale != 1)
 							Bitmap.replaceWithScaledBitmap(id, 1 / result.scale, this.libName);
 					}
 					//otherwise the result is a SpriteSheet or the result of a FlashArtAtlasTask
-					else if(result.create)
+					else if (result.create)
 					{
 						//FlashArtAtlasTasks have delayed asset generation to ensure that it doesn't
 						//interfere with the loading of the javascript that it overrides
 						result.create();
 					}
 				}
-				
+
 				art._orig_destroy = art.destroy;
 				art.destroy = function()
 				{
 					var i;
-					for(i = objectsToDestroy.length - 1; i >= 0; --i)
+					for (i = objectsToDestroy.length - 1; i >= 0; --i)
 					{
-						if(objectsToDestroy[i].destroy)
+						if (objectsToDestroy[i].destroy)
 							objectsToDestroy[i].destroy();
 						else
 							objectsToDestroy[i].dispatchEvent("destroy");
@@ -904,9 +912,9 @@
 					art._orig_destroy();
 				};
 			}
-			
+
 			callback(art);
-			
+
 		}.bind(this));
 	};
 
@@ -943,7 +951,7 @@
 		 * @property {Array} _image
 		 * @private
 		 */
-		if(Array.isArray(image))
+		if (Array.isArray(image))
 		{
 			this._images = image;
 		}
@@ -958,45 +966,45 @@
 		 * @property {Object} frames
 		 */
 		this.frames = {};
-		
+
 		/**
 		 * The scale of the texture atlas, if available in spritesheet metadata. Defaults to 1,
 		 * otherwise
 		 * @property {Number} scale
 		 */
-		if(spritesheetData[0].meta && parseFloat(spritesheetData[0].meta.scale))
+		if (spritesheetData[0].meta && parseFloat(spritesheetData[0].meta.scale))
 		{
 			this.scale = parseFloat(spritesheetData[0].meta.scale);
 		}
 		else
 			this.scale = 1;
 
-		for(var i = 0; i < this._images.length; ++i)
+		for (var i = 0; i < this._images.length; ++i)
 		{
 			image = this._images[i];
-			
+
 			//TexturePacker outputs frames with (not) swapped width & height when rotated, so we need to
 			//swap them ourselves
 			var swapFrameSize = spritesheetData[i].meta &&
-					spritesheetData[i].meta.app == "http://www.codeandweb.com/texturepacker";
+				spritesheetData[i].meta.app == "http://www.codeandweb.com/texturepacker";
 
 			var dataFrames = spritesheetData[i].frames;
-			for(var name in dataFrames)
+			for (var name in dataFrames)
 			{
 				var data = dataFrames[name];
 				var index = name.lastIndexOf(".");
-				if(index > 0)
-					name = name.substring(0, index);//strip off any ".png" or ".jpg" at the end
+				if (index > 0)
+					name = name.substring(0, index); //strip off any ".png" or ".jpg" at the end
 				index = name.lastIndexOf("/");
-				if(index >= 0)
-					name = name.substring(index + 1);//strip off any folder structure included in the name
+				if (index >= 0)
+					name = name.substring(index + 1); //strip off any folder structure included in the name
 				this.frames[name] = new Texture(image, data, swapFrameSize);
 			}
 		}
 	};
-	
+
 	// Extend Object
-	var p = TextureAtlas.prototype = {};
+	var p = extend(TextureAtlas);
 
 	/**
 	 * Gets a frame by name.
@@ -1028,21 +1036,21 @@
 	 */
 	p.getFrames = function(name, numberMin, numberMax, maxDigits, outArray)
 	{
-		if(maxDigits === undefined)
+		if (maxDigits === undefined)
 			maxDigits = 4;
-		if(maxDigits < 0)
+		if (maxDigits < 0)
 			maxDigits = 0;
-		if(!outArray)
+		if (!outArray)
 			outArray = [];
 		//set up strings to add the correct number of zeros ahead of time to avoid creating even more strings.
-		var zeros = [];//preceding zeroes array
-		var compares = [];//powers of 10 array for determining how many preceding zeroes to use
+		var zeros = []; //preceding zeroes array
+		var compares = []; //powers of 10 array for determining how many preceding zeroes to use
 		var i, c;
-		for(i = 1; i < maxDigits; ++i)
+		for (i = 1; i < maxDigits; ++i)
 		{
 			var s = "";
 			c = 1;
-			for(var j = 0; j < i; ++j)
+			for (var j = 0; j < i; ++j)
 			{
 				s += "0";
 				c *= 10;
@@ -1050,32 +1058,32 @@
 			zeros.unshift(s);
 			compares.push(c);
 		}
-		var compareLength = compares.length;//the length of the compar
+		var compareLength = compares.length; //the length of the compar
 
-		var prevTex;//the previous Texture, so we can place the same object in multiple times to control animation rate
+		var prevTex; //the previous Texture, so we can place the same object in multiple times to control animation rate
 		var len;
-		for(i = numberMin, len = numberMax; i <= len; ++i)
+		for (i = numberMin, len = numberMax; i <= len; ++i)
 		{
 			var num = null;
 			//calculate the number of preceding zeroes needed, then create the full number string.
-			for(c = 0; c < compareLength; ++c)
+			for (c = 0; c < compareLength; ++c)
 			{
-				if(i < compares[c])
+				if (i < compares[c])
 				{
 					num = zeros[c] + i;
 					break;
 				}
 			}
-			if(!num)
+			if (!num)
 				num = i.toString();
-			
+
 			//If the texture doesn't exist, use the previous texture - this should allow us to use fewer textures
 			//that are in fact the same, if those textures were removed before making the spritesheet
 			var texName = name.replace("#", num);
 			var tex = this.frames[texName];
-			if(tex)
+			if (tex)
 				prevTex = tex;
-			if(prevTex)
+			if (prevTex)
 				outArray.push(prevTex);
 		}
 
@@ -1112,15 +1120,13 @@
 		 * @property {Boolean} rotated
 		 */
 		this.rotated = data.rotated;
-		
+
 		var f = data.frame;
 		/**
 		 * The frame rectangle within the image.
 		 * @property {createjs.Rectangle} frame
 		 */
-		this.frame = new createjs.Rectangle(f.x, f.y,
-			(data.rotated && swapRotatedSize) ? f.h : f.w,
-			(data.rotated && swapRotatedSize) ? f.w : f.h);
+		this.frame = new createjs.Rectangle(f.x, f.y, (data.rotated && swapRotatedSize) ? f.h : f.w, (data.rotated && swapRotatedSize) ? f.w : f.h);
 		/**
 		 * If this texture has been trimmed.
 		 * @property {Boolean} trimmed
@@ -1152,11 +1158,10 @@
 {
 	var Task = include('springroll.Task'),
 		TextureAtlas = include('springroll.easeljs.TextureAtlas'),
-		ColorAlphaTask = include('springroll.ColorAlphaTask'),
-		Application = include('springroll.Application');
+		ColorAlphaTask = include('springroll.ColorAlphaTask');
 
 	/**
-	 * Internal class for dealing with async load assets through Loader.
+	 * Internal class for loading a texture atlas, creating a 'springroll.easeljs.TextureAtlas'.
 	 * @class TextureAtlasTask
 	 * @extends springroll.Task
 	 * @constructor
@@ -1202,7 +1207,7 @@
 	};
 
 	// Reference to prototype
-	var p = extend(TextureAtlasTask, Task);
+	var p = Task.extend(TextureAtlasTask);
 
 	/**
 	 * Test if we should run this task
@@ -1226,7 +1231,8 @@
 	 */
 	p.start = function(callback)
 	{
-		this.loadAtlas({}, callback);
+		this.loadAtlas(
+		{}, callback);
 	};
 
 	/**
@@ -1250,7 +1256,7 @@
 		}
 
 		// Do the load
-		Application.instance.load(assets, function(results)
+		this.load(assets, function(results)
 		{
 			var image;
 			if (results._image)
@@ -1279,11 +1285,10 @@
  */
 (function()
 {
-	var Task = include('springroll.Task'),
-		Application = include('springroll.Application');
+	var Task = include('springroll.Task');
 
 	/**
-	 * Internal class for dealing with async load assets through Loader.
+	 * Internal class for loading an image for a FlashArt load.
 	 * @class FlashArtImageTask
 	 * @extends springroll.Task
 	 * @constructor
@@ -1303,7 +1308,7 @@
 	var FlashArtImageTask = function(asset)
 	{
 		Task.call(this, asset, asset.color);
-		
+
 		this.src = this.filter(asset.src);
 
 		/**
@@ -1317,12 +1322,12 @@
 		 * @property {String} alpha
 		 */
 		this.alpha = this.filter(asset.alpha);
-		
+
 		this.imagesName = asset.imagesName;
 	};
 
 	// Reference to prototype
-	var p = extend(FlashArtImageTask, Task);
+	var p = Task.extend(FlashArtImageTask);
 
 	/**
 	 * Test if we should run this task
@@ -1346,7 +1351,7 @@
 	p.start = function(callback)
 	{
 		var load = this.src;
-		if(!load)
+		if (!load)
 		{
 			//load a standard ColorAlphaTask
 			load = {
@@ -1354,23 +1359,27 @@
 				color: this.color
 			};
 		}
-		Application.instance.load(load,
+		this.load(load,
 			function(result)
 			{
 				var img = result;
-				
+
 				var images = namespace(this.imagesName);
 				images[this.id] = img;
-				
-				var asset = {image: img, scale: this.scale, id: this.id};
+
+				var asset = {
+					image: img,
+					scale: this.scale,
+					id: this.id
+				};
 				asset.destroy = function()
 				{
 					img.src = "";
 					delete images[this.id];
 				};
-				
+
 				callback(asset);
-				
+
 			}.bind(this)
 		);
 	};
@@ -1389,11 +1398,10 @@
 	var Task = include('springroll.Task'),
 		TextureAtlas = include('springroll.easeljs.TextureAtlas'),
 		ColorAlphaTask = include('springroll.ColorAlphaTask'),
-		Application = include('springroll.Application'),
 		BitmapUtils = include('springroll.easeljs.BitmapUtils');
 
 	/**
-	 * Internal class for dealing with async load assets through Loader.
+	 * Internal class for loading a texture atlas for a FlashArt load.
 	 * @class FlashArtAtlasTask
 	 * @extends springroll.Task
 	 * @constructor
@@ -1438,12 +1446,12 @@
 		 * @property {String} alpha
 		 */
 		this.alpha = this.filter(asset.alpha);
-		
+
 		this.libName = asset.libName || "lib";
 	};
 
 	// Reference to prototype
-	var p = extend(FlashArtAtlasTask, Task);
+	var p = Task.extend(FlashArtAtlasTask);
 
 	/**
 	 * Test if we should run this task
@@ -1468,7 +1476,8 @@
 	 */
 	p.start = function(callback)
 	{
-		this.loadAtlas({}, callback);
+		this.loadAtlas(
+		{}, callback);
 	};
 
 	/**
@@ -1492,7 +1501,7 @@
 		}
 
 		// Do the load
-		Application.instance.load(assets, function(results)
+		this.load(assets, function(results)
 		{
 			var image;
 			if (results._image)
@@ -1506,34 +1515,34 @@
 					results._alpha
 				);
 			}
-			
+
 			//prefer the spritesheet's exported scale
 			var scale = results._atlas.meta ? 1 / parseFloat(results._atlas.meta.scale) : 0;
 			//if it doesn't have one, then use the asset scale specified by the
 			//AssetManager.
-			if(!scale)
-				scale = 1/ this.original.scale;
-			
-			
+			if (!scale)
+				scale = 1 / this.original.scale;
+
+
 			var asset = {};
-			
+
 			var libName = this.libName;
 			asset.create = function()
 			{
 				BitmapUtils.loadSpriteSheet(results._atlas, image, scale, libName);
 			};
-			
+
 			var lib = namespace(this.libName);
 			var frames = results._atlas.frames;
 			asset.destroy = function()
 			{
-				for(var id in frames)
+				for (var id in frames)
 				{
 					delete lib[id];
 				}
 				image.src = null;
 			};
-			
+
 			done(asset, results);
 		}.bind(this));
 	};
@@ -1550,8 +1559,7 @@
 (function()
 {
 	var Task = include('springroll.Task'),
-		SpriteSheet = include('createjs.SpriteSheet'),
-		Application = include('springroll.Application');
+		SpriteSheet = include('createjs.SpriteSheet');
 
 	/**
 	 * Create a createjs.SpriteSheet object, see SpriteSheet for more information
@@ -1593,7 +1601,7 @@
 	};
 
 	// Reference to prototype
-	var p = extend(SpriteSheetTask, Task);
+	var p = Task.extend(SpriteSheetTask);
 
 	/**
 	 * Test if we should run this task
@@ -1621,9 +1629,10 @@
 		var id = this.id;
 		var frames = this.frames;
 
-		Application.instance.load(this.images, function(results)
+		this.load(this.images, function(results)
 		{
-			var spriteSheet = new SpriteSheet({
+			var spriteSheet = new SpriteSheet(
+			{
 				images: results,
 				frames: frames
 			});
@@ -1635,7 +1644,7 @@
 			spriteSheet.addEventListener('destroy', function()
 			{
 				delete window[globalProperty][id];
-				for(var i = results.length - 1; i >= 0; --i)
+				for (var i = results.length - 1; i >= 0; --i)
 					results[i].src = "";
 			});
 
@@ -1655,8 +1664,7 @@
  */
 (function()
 {
-	var LoadTask = include('springroll.LoadTask'),
-		Application = include('springroll.Application');
+	var LoadTask = include('springroll.LoadTask');
 
 	/**
 	 * Created a createjs Spritesheet from the Flash export
@@ -1688,7 +1696,7 @@
 
 	// Reference to prototype
 	var s = LoadTask.prototype;
-	var p = extend(FlashSpriteSheetTask, LoadTask);
+	var p = LoadTask.extend(FlashSpriteSheetTask);
 
 	/**
 	 * Test if we should run this task
@@ -1714,12 +1722,13 @@
 		var prop = this.globalProperty;
 		var id = this.id;
 		s.start.call(this, function(data)
-		{
-			data.id = id;
-			data.globalProperty = prop;
-			data.type = "easeljs";
-			Application.instance.load(data, callback);
-		});
+			{
+				data.id = id;
+				data.globalProperty = prop;
+				data.type = "easeljs";
+				this.load(data, callback);
+			}
+			.bind(this));
 	};
 
 	// Assign to namespace
@@ -1756,7 +1765,7 @@
 
 	// Reference to prototype
 	var s = LoadTask.prototype;
-	var p = extend(BitmapTask, LoadTask);
+	var p = LoadTask.extend(BitmapTask);
 
 	/**
 	 * Test if we should run this task
@@ -1767,8 +1776,8 @@
 	 */
 	BitmapTask.test = function(asset)
 	{
-		return asset.src && 
-			asset.type == "easeljs" && 
+		return asset.src &&
+			asset.type == "easeljs" &&
 			asset.format == "createjs.Bitmap";
 	};
 
@@ -1814,7 +1823,7 @@
 	plugin.setup = function()
 	{
 		var assetManager = this.assetManager;
-		
+
 		assetManager.register('springroll.easeljs.TextureAtlasTask', 30);
 		assetManager.register('springroll.easeljs.FlashArtImageTask', 40);
 		assetManager.register('springroll.easeljs.FlashArtAtlasTask', 40);
@@ -1921,7 +1930,7 @@
 	 */
 	DisplayAdapter.getLocalBounds = function(object)
 	{
-		var bounds;
+		var bounds, temp;
 		if (object.nominalBounds)
 		{
 			// Start by using nominal bounds, if it was exported from Flash, since it
@@ -1933,8 +1942,8 @@
 			// Next check for a width and height that someone might have set up,
 			// like our Button class has. This also needs to take into account
 			// the registration point, as that affects the positioning of the art
-			var actW = object.width / object.scaleX;
-			var actH = object.height / object.scaleY;
+			var actW = object.width / Math.abs(object.scaleX);
+			var actH = object.height / Math.abs(object.scaleY);
 			bounds = new createjs.Rectangle(-object.regX, -object.regY, actW, actH);
 		}
 		else
@@ -1951,7 +1960,7 @@
 			}
 			if (!bounds)
 			{
-				// Make sure we actually got a rectangle, if getLocalBounds 
+				// Make sure we actually got a rectangle, if getLocalBounds
 				// failed for some reason
 				bounds = new createjs.Rectangle();
 			}
@@ -2015,7 +2024,7 @@
 	 * @static
 	 * @param {createjs.DisplayObject} object The createjs display object
 	 * @param {String} [direction] Either "x" or "y", default is an object of both
-	 * @return {Object|Number} The position as an object with x and y keys if 
+	 * @return {Object|Number} The position as an object with x and y keys if
 	 * no direction value is set, or the value of the specific direction
 	 */
 	DisplayAdapter.getPosition = function(object, direction)
@@ -2061,7 +2070,7 @@
 	 * @param {object|Number} pivot The object pivot point or the value if the direction is set
 	 * @param {Number} [pivot.x] The x position of the pivot point
 	 * @param {Number} [pivot.y] The y position of the pivot point
-	 * @param {String} [direction] Either "x" or "y" the value for specific direction, 
+	 * @param {String} [direction] Either "x" or "y" the value for specific direction,
 	 * default will set using the object.
 	 * @return {createjs.DisplayObject} Return the object for chaining
 	 */
@@ -2143,6 +2152,8 @@
 
 	/**
 	 * If a container contains a child
+	 * @method contains
+	 * @static
 	 * @param  {createjs.Container} container The container
 	 * @param  {createjs.DisplayObject} child  The object to test
 	 * @return {Boolean} If the child contained within the container
@@ -2195,7 +2206,8 @@
 
 		AbstractDisplay.call(this, id, options);
 
-		options = options || {};
+		options = options ||
+		{};
 
 		/**
 		 * The rate at which EaselJS calculates mouseover events, in times/second.
@@ -2211,7 +2223,7 @@
 		 * @public
 		 */
 		this.keepMouseover = options.keepMouseover || false;
-		
+
 		/**
 		 * If preventDefault() should be called on all touch events and mousedown events. Defaults
 		 * to true.
@@ -2219,7 +2231,7 @@
 		 * @private
 		 */
 		this._autoPreventDefault = options.hasOwnProperty("autoPreventDefault") ?
-												options.autoPreventDefault : true;
+			options.autoPreventDefault : true;
 
 		if (options.stageType == "spriteStage")
 		{
@@ -2238,12 +2250,12 @@
 		}
 		this.stage.autoClear = !!options.clearView;
 		this.stage.preventSelection = this._autoPreventDefault;
-		
+
 		this.adapter = include('springroll.easeljs.DisplayAdapter');
 	};
 
 	var s = AbstractDisplay.prototype;
-	var p = extend(EaselJSDisplay, AbstractDisplay);
+	var p = AbstractDisplay.extend(EaselJSDisplay);
 
 	/**
 	 * An internal helper to avoid creating an object each render
@@ -2295,7 +2307,7 @@
 			}
 		}
 	});
-	
+
 	/**
 	 * If preventDefault() should be called on all touch events and mousedown events. Defaults
 	 * to true.
@@ -2311,9 +2323,9 @@
 		set: function(value)
 		{
 			this._autoPreventDefault = !!value;
-			if(this.stage)
+			if (this.stage)
 			{
-				if(this._enabled)
+				if (this._enabled)
 				{
 					Touch.disable(this.stage);
 					Touch.enable(this.stage, false, !this._autoPreventDefault);
@@ -2327,7 +2339,6 @@
 	 * Updates the stage and draws it. This is only called by the Application.
 	 * This method does nothing if paused is true or visible is false.
 	 * @method render
-	 * @internal
 	 * @param {int} elapsed The time elapsed since the previous frame.
 	 * @param {Boolean} [force=false] Will re-render even if the game is paused or not visible
 	 */
@@ -2345,7 +2356,6 @@
 	 * not be called directly, use Application.removeDisplay(id).
 	 * The stage recursively removes all display objects here.
 	 * @method destroy
-	 * @internal
 	 */
 	p.destroy = function()
 	{
@@ -2359,3 +2369,32 @@
 	namespace('springroll.easeljs').EaselJSDisplay = EaselJSDisplay;
 
 }());
+/**
+ * @module EaselJS Display
+ * @namespace springroll.easeljs
+ * @requires Core
+ */
+(function(Object)
+{
+	// Include classes
+	var EaselJSDisplay = include('springroll.easeljs.EaselJSDisplay'),
+		Application = include('springroll.Application');
+
+	/**
+	 * @class EaselJSDisplay
+	 */
+	/**
+	 * See {{#crossLink "springroll.Application/animator:property"}}{{/crossLink}}
+	 * @property {springroll.Animator} animator
+	 * @deprecated since version 0.4.0
+	 */
+	Object.defineProperty(EaselJSDisplay.prototype, 'animator',
+	{
+		get: function()
+		{
+			if (true) console.warn('EaselJSDisplay\'s animator property is now deprecated, please use the app property, e.g. : app.animator');
+			return Application.instance.animator;
+		}
+	});
+
+}(Object));

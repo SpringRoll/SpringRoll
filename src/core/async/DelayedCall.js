@@ -2,7 +2,8 @@
  * @module Core
  * @namespace springroll
  */
-(function(undefined) {
+(function(undefined)
+{
 
 	var Application;
 
@@ -42,13 +43,15 @@
 		}
 
 		// Set the default options
-		options = Object.merge({
+		options = Object.merge(
+		{
 			repeat: false,
 			autoDestroy: true,
 			useFrames: false
-		}, options || {});
+		}, options ||
+		{});
 
-		
+
 		/**
 		 * The function to call when the delay is completed.
 		 * @private
@@ -85,7 +88,7 @@
 		 * @default true
 		 */
 		this._autoDestroy = options.autoDestroy;
-		
+
 		/**
 		 * If the DelayedCall should use frames instead of milliseconds for the delay.
 		 * @private
@@ -108,7 +111,7 @@
 		Application.instance.on("update", this._update);
 	};
 
-	var p = DelayedCall.prototype;
+	var p = extend(DelayedCall);
 
 	/**
 	 * The callback supplied to the Application for an update each frame.
@@ -118,19 +121,19 @@
 	 */
 	p._update = function(elapsed)
 	{
-		if(!this._callback)
+		if (!this._callback)
 		{
 			this.destroy();
 			return;
 		}
 
 		this._timer -= this._useFrames ? 1 : elapsed;
-		if(this._timer <= 0)
+		if (this._timer <= 0)
 		{
 			this._callback(this);
-			if(this._repeat)
+			if (this._repeat)
 				this._timer += this._delay;
-			else if(this._autoDestroy)
+			else if (this._autoDestroy)
 				this.destroy();
 			else
 				Application.instance.off("update", this._update);
@@ -144,9 +147,9 @@
 	 */
 	p.restart = function()
 	{
-		if(!this._callback) return;
+		if (!this._callback) return;
 		var app = Application.instance;
-		if(!app.has("update", this._update))
+		if (!app.has("update", this._update))
 			app.on("update", this._update);
 		this._timer = this._delay;
 		this._paused = false;
@@ -168,21 +171,25 @@
 	 * @public
 	 * @property {Boolean} paused
 	 */
-	Object.defineProperty(p, "paused", {
-		get: function() { return this._paused; },
+	Object.defineProperty(p, "paused",
+	{
+		get: function()
+		{
+			return this._paused;
+		},
 		set: function(value)
 		{
-			if(!this._callback) return;
+			if (!this._callback) return;
 			var app = Application.instance;
-			if(this._paused && !value)
+			if (this._paused && !value)
 			{
 				this._paused = false;
-				if(!app.has("update", this._update))
+				if (!app.has("update", this._update))
 					app.on("update", this._update);
 			}
-			else if(value)
+			else if (value)
 			{
-				if(app.has("update", this._update))
+				if (app.has("update", this._update))
 				{
 					this._paused = true;
 					app.off("update", this._update);

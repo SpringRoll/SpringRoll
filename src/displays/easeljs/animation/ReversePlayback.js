@@ -44,7 +44,7 @@
 	};
 
 	// Reference to prototype
-	var p = ReversePlayback.prototype;
+	var p = extend(ReversePlayback);
 
 	/**
 	 * Build a dictionary of all animations start and end
@@ -96,7 +96,7 @@
 	p.play = function(label)
 	{
 		this.stop();
-		
+
 		var frame = this.frameDictionary[label];
 		this.startFrame = frame.last;
 		this.endFrame = frame.first;

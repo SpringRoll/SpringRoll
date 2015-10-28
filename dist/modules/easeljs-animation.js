@@ -1,7 +1,7 @@
-/*! SpringRoll 0.4.0 */
+/*! SpringRoll 0.4.4 */
 /**
  * @module EaselJS Animation
- * @namespace springroll
+ * @namespace springroll.easeljs
  * @requires Core, Animation, EaselJS Display
  */
 (function()
@@ -94,7 +94,7 @@
 		Container.call(this);
 
 		//==== Public properties =====
-		
+
 		/**
 		 * Indicates whether this BitmapMovieClip should loop when it reaches the end of its timeline.
 		 * @property loop
@@ -119,7 +119,7 @@
 		 * @default false
 		 */
 		this.paused = false;
-		
+
 		/**
 		 * Boundaries of the animation, like the nominalBounds produced by Flash's HTML5 exporter.
 		 * This uses the full, untrimmed size of the first frame.
@@ -232,7 +232,7 @@
 		this.mouseChildren = false;
 		this._bitmap = new Bitmap();
 		this.addChild(this._bitmap);
-		
+
 		if (atlas && data)
 		{
 			this.init(atlas, data);
@@ -265,7 +265,7 @@
 		},
 		set: function(value)
 		{
-			if(value > 0)
+			if (value > 0)
 			{
 				this._framerate = value;
 				this._duration = value ? this._frames.length / value : 0;
@@ -354,9 +354,12 @@
 	p.draw = function(ctx, ignoreCache)
 	{
 		// draw to cache first:
-		if (this.DisplayObject_draw(ctx, ignoreCache)) { return true; }
+		if (this.DisplayObject_draw(ctx, ignoreCache))
+		{
+			return true;
+		}
 		this._updateTimeline();
-		s.draw.call(this, ctx, ignoreCache);//Container's call
+		s.draw.call(this, ctx, ignoreCache); //Container's call
 		return true;
 	};
 
@@ -368,7 +371,7 @@
 	{
 		this.paused = false;
 	};
-	
+
 	/**
 	 * Sets paused to true.
 	 * @method stop
@@ -377,7 +380,7 @@
 	{
 		this.paused = true;
 	};
-	
+
 	/**
 	 * Advances this movie clip to the specified position or label and sets paused to false.
 	 * @method gotoAndPlay
@@ -388,7 +391,7 @@
 		this.paused = false;
 		this._goto(positionOrLabel);
 	};
-	
+
 	/**
 	 * Advances this movie clip to the specified position or label and sets paused to true.
 	 * @method gotoAndStop
@@ -404,9 +407,7 @@
 	 * To provide feature parity with the createjs.MovieClip mixin
 	 * @method gotoAndCache
 	 */
-	p.gotoAndCache = function(args)
-	{
-	};
+	p.gotoAndCache = function(args) {};
 
 	/**
 	 * Advances the playhead. This occurs automatically each tick by default.
@@ -416,17 +417,17 @@
 	 */
 	p.advance = function(time)
 	{
-		if(!this.paused)
+		if (!this.paused)
 		{
-			if(this._framerate > 0)
+			if (this._framerate > 0)
 			{
-				if(time)
-					this._t += time * 0.001;//milliseconds -> seconds
-				if(this._t > this._duration)
+				if (time)
+					this._t += time * 0.001; //milliseconds -> seconds
+				if (this._t > this._duration)
 					this._t = this.loop ? this._t - this._duration : this._duration;
 				//add a tiny amount to stop floating point errors in their tracks
 				this._prevPosition = Math.floor(this._t * this._framerate + 0.0000001);
-				if(this._prevPosition >= this._frames.length)
+				if (this._prevPosition >= this._frames.length)
 					this._prevPosition = this._frames.length - 1;
 			}
 			else
@@ -434,7 +435,7 @@
 			this._updateTimeline();
 		}
 	};
-	
+
 	/**
 	 * Returns a sorted list of the labels defined on this BitmapMovieClip.
 	 * @method getLabels
@@ -456,7 +457,7 @@
 	{
 		return this._events;
 	};
-	
+
 	/**
 	 * Returns the name of the label on or immediately before the current frame.
 	 * @method getCurrentLabel
@@ -466,9 +467,9 @@
 	{
 		var labels = this._labels;
 		var current = null;
-		for(var i = 0, len = labels.length; i < len; ++i)
+		for (var i = 0, len = labels.length; i < len; ++i)
 		{
-			if(labels[i].position <= this.currentFrame)
+			if (labels[i].position <= this.currentFrame)
 				current = labels[i].label;
 			else
 				break;
@@ -502,13 +503,14 @@
 		//collect the frame labels
 		var labels = this._labels = [];
 		var events = this._events = [];
-		
+
 		var name;
 		if (data.labels)
 		{
-			var positions = {}, position;
+			var positions = {},
+				position;
 
-			for(name in data.labels)
+			for (name in data.labels)
 			{
 				var label = {
 					label: name,
@@ -542,16 +544,16 @@
 
 		//collect the frames
 		this._frames = [];
-		
+
 		var index;
-		for(var i = 0; i < data.frames.length; ++i)
+		for (var i = 0; i < data.frames.length; ++i)
 		{
 			var frameSet = data.frames[i];
-			
+
 			name = frameSet.name;
 			index = name.lastIndexOf("/");
 			//strip off any folder structure included in the name
-			if(index >= 0)
+			if (index >= 0)
 				name = name.substring(index + 1);
 
 			atlas.getFrames(
@@ -564,20 +566,20 @@
 		}
 
 		//set up the framerate
-		if(data.fps)
+		if (data.fps)
 			this.framerate = data.fps;
-		else if(this._framerate)
+		else if (this._framerate)
 			this.framerate = this._framerate;
-		if(data.scale && data.scale > 0)
+		if (data.scale && data.scale > 0)
 			this._scale = 1 / data.scale;
 		else
 			this._scale = 1;
 		this._bitmap.scaleX = this._bitmap.scaleY = this._scale;
-		if(data.origin)
+		if (data.origin)
 			this._origin = new Point(data.origin.x * this._scale, data.origin.y * this._scale);
 		else
 			this._origin = new Point();
-		
+
 		//set up a nominal bounds, to make it easier to determine boundaries
 		//this uses the untrimmed size of the texture
 		var frame = this._frames[0];
@@ -652,10 +654,10 @@
 	 */
 	p._tick = function(props)
 	{
-		this.advance(props&&props.delta);
+		this.advance(props && props.delta);
 		s._tick.call(this, props);
 	};
-	
+
 	/**
 	 * @method _goto
 	 * @param {String|Number} positionOrLabel The animation name or frame number to go to.
@@ -664,12 +666,12 @@
 	p._goto = function(positionOrLabel)
 	{
 		var pos = null;
-		if(typeof positionOrLabel == "string")
+		if (typeof positionOrLabel == "string")
 		{
 			var labels = this._labels;
-			for(var i = 0, len = labels.length; i < len; ++i)
+			for (var i = 0, len = labels.length; i < len; ++i)
 			{
-				if(labels[i].label == positionOrLabel)
+				if (labels[i].label == positionOrLabel)
 				{
 					pos = labels[i].position;
 					break;
@@ -680,7 +682,7 @@
 			pos = positionOrLabel;
 		if (pos === null) return;
 		this._prevPosition = pos;
-		if(this._framerate > 0)
+		if (this._framerate > 0)
 			this._t = pos / this._framerate;
 		else
 			this._t = 0;
@@ -693,12 +695,12 @@
 	 */
 	p._updateTimeline = function()
 	{
-		if(this._prevPosition < 0)
+		if (this._prevPosition < 0)
 			this._prevPosition = 0;
-		else if(this._prevPosition >= this._frames.length)
+		else if (this._prevPosition >= this._frames.length)
 			this._prevPosition = this._frames.length - 1;
 		this.currentFrame = this._prevPosition;
-		if(this._currentTexture != this._frames[this.currentFrame])
+		if (this._currentTexture != this._frames[this.currentFrame])
 		{
 			var tex = this._currentTexture = this._frames[this.currentFrame],
 				_bitmap = this._bitmap;
@@ -706,7 +708,7 @@
 			_bitmap.sourceRect = tex.frame;
 			_bitmap.x = -this._origin.x + tex.offset.x * _bitmap.scaleX;
 			_bitmap.y = -this._origin.y + tex.offset.y * _bitmap.scaleY;
-			if(tex.rotated)
+			if (tex.rotated)
 			{
 				_bitmap.rotation = -90;
 				_bitmap.regX = _bitmap.sourceRect.width;
@@ -717,7 +719,7 @@
 			}
 		}
 	};
-	
+
 	/**
 	 * @method _reset
 	 * @private
@@ -765,7 +767,7 @@
 	{
 		return clip instanceof MovieClip;
 	};
-	
+
 	MovieClipInstance.hasAnimation = GenericMovieClipInstance.hasAnimation;
 	MovieClipInstance.getDuration = GenericMovieClipInstance.getDuration;
 
@@ -810,7 +812,7 @@
 	{
 		return clip instanceof BitmapMovieClip;
 	};
-	
+
 	BitmapMovieClipInstance.hasAnimation = GenericMovieClipInstance.hasAnimation;
 	BitmapMovieClipInstance.getDuration = GenericMovieClipInstance.getDuration;
 
@@ -867,7 +869,7 @@
 	};
 
 	// Reference to prototype
-	var p = ReversePlayback.prototype;
+	var p = extend(ReversePlayback);
 
 	/**
 	 * Build a dictionary of all animations start and end
@@ -919,7 +921,7 @@
 	p.play = function(label)
 	{
 		this.stop();
-		
+
 		var frame = this.frameDictionary[label];
 		this.startFrame = frame.last;
 		this.endFrame = frame.first;
@@ -978,11 +980,10 @@
 (function()
 {
 	var TextureAtlasTask = include('springroll.easeljs.TextureAtlasTask'),
-		BitmapMovieClip = include('springroll.easeljs.BitmapMovieClip'),
-		Application = include('springroll.Application');
+		BitmapMovieClip = include('springroll.easeljs.BitmapMovieClip');
 
 	/**
-	 * Internal class for dealing with async load assets through Loader.
+	 * Internal class for loading an instantiating a BitmapMovieClip.
 	 * @class BitmapMovieClipTask
 	 * @extends springroll.TextureAtlasTask
 	 * @constructor
@@ -1003,14 +1004,14 @@
 		TextureAtlasTask.call(this, asset);
 
 		/**
-		 * The BitmapMovieclip data source path
+		 * The BitmapMovieClip data source path
 		 * @property {String} anim
 		 */
 		this.anim = this.filter(asset.anim);
 	};
 
 	// Reference to prototype
-	var p = extend(BitmapMovieClipTask, TextureAtlasTask);
+	var p = TextureAtlasTask.extend(BitmapMovieClipTask);
 
 	/**
 	 * Test if we should run this task
@@ -1031,10 +1032,13 @@
 	 */
 	p.start = function(callback)
 	{
-		this.loadAtlas({ _anim: this.anim }, function(textureAtlas, results)
+		this.loadAtlas(
+		{
+			_anim: this.anim
+		}, function(textureAtlas, results)
 		{
 			callback(new BitmapMovieClip(
-				textureAtlas, 
+				textureAtlas,
 				results._anim
 			), results);
 		});
@@ -1044,212 +1048,237 @@
 	namespace('springroll.easeljs').BitmapMovieClipTask = BitmapMovieClipTask;
 
 }());
+/**
+ * @module EaselJS Animation
+ * @namespace springroll.easeljs
+ * @requires Core, Animation, EaselJS Display
+ */
 (function()
 {
 	var Application = include('springroll.Application');
 
 	/**
+	 * See {{#crossLink "springroll.Animator"}}{{/crossLink}}
 	 * @class Animator
-	 * @namespace springroll.easeljs
-	 * @see {@link springroll.Animator}
 	 * @deprecated since version 0.4.0
 	 */
-	var Animator = namespace('springroll.easeljs').Animator = {};
+	var Animator = namespace('springroll').Animator = namespace('springroll.easeljs').Animator = {};
 
 	/**
-	 * @method
-	 * @name springroll.easeljs.Animator#canAnimate
-	 * @see {@link springroll.Animator#canAnimate}
+	 * If an instance can be animated, See {{#crossLink "springroll.Animator/canAnimate:method"}}{{/crossLink}}
+	 * @static
+	 * @method canAnimate
 	 * @deprecated since version 0.4.0
+	 * @param {*} instance The instance to check
+	 * @return {Boolean} If the instance is animate-able
 	 */
 	Animator.canAnimate = function(instance)
 	{
-		console.warn('Animator.canAnimate() is now deprecated, please use the app.animator.canAnimate()');
+		if (true) console.warn('Animator.canAnimate() is now deprecated, please use the app.animator.canAnimate()');
 		return Application.instance.animator.canAnimate(instance);
 	};
 
 	/**
-	 * @method
-	 * @name springroll.easeljs.Animator#getDuration
-	 * @see {@link springroll.Animator#getDuration}
+	 * Get the duration for an instance by event, see {{#crossLink "springroll.Animator/getDuration:method"}}{{/crossLink}}
+	 * @method getDuration
+	 * @static
 	 * @deprecated since version 0.4.0
+	 * @param {*} instance The clip instance
+	 * @param {string} event The event name
+	 * @return {int} The length in milliseconds
 	 */
 	Animator.getDuration = function(instance, event)
 	{
-		console.warn('Animator.getDuration() is now deprecated, please use the app.animator.getDuration()');
+		if (true) console.warn('Animator.getDuration() is now deprecated, please use the app.animator.getDuration()');
 		return Application.instance.animator.getDuration(instance, event);
 	};
 
 	/**
-	 * @method
-	 * @name springroll.easeljs.Animator#getTimeline
-	 * @see {@link springroll.Animator#getTimeline}
+	 * Get a timeline by instance, see {{#crossLink "springroll.Animator/getTimeline:method"}}{{/crossLink}}
+	 * @static
+	 * @method getTimeline
 	 * @deprecated since version 0.4.0
+	 * @param {*} instance The clip instance
+	 * @return {springroll.AnimatorTimeline} The timeline instance
 	 */
 	Animator.getTimeline = function(instance)
 	{
-		console.warn('Animator.getTimeline() is now deprecated, please use the app.animator.getTimeline()');
+		if (true) console.warn('Animator.getTimeline() is now deprecated, please use the app.animator.getTimeline()');
 		return Application.instance.animator.getTimeline(instance);
 	};
 
 	/**
-	 * @method
-	 * @name springroll.easeljs.Animator#instanceHasAnimation
-	 * @see {@link springroll.Animator#instanceHasAnimation}
+	 * If an instance has an animation event label, see {{#crossLink "springroll.Animator/hasAnimation:method"}}{{/crossLink}}
+	 * @static
+	 * @method instanceHasAnimation
 	 * @deprecated since version 0.4.0
+	 * @param {*} instance The clip instance
+	 * @param {String} event The event label to check
+	 * @return {Boolean} If the instance has the event
 	 */
 	Animator.instanceHasAnimation = function(instance, event)
 	{
-		console.warn('Animator.instanceHasAnimation() is now deprecated, please use the app.animator.hasAnimation()');
+		if (true) console.warn('Animator.instanceHasAnimation() is now deprecated, please use the app.animator.hasAnimation()');
 		return Application.instance.animator.hasAnimation(instance, event);
 	};
 
 	/**
-	 * @method
-	 * @name springroll.easeljs.Animator#pauseInGroup
-	 * @see {@link springroll.Animator#pauseInGroup}
+	 * Pause all animations in a group, see {{#crossLink "springroll.Animator/pauseInGroup:method"}}{{/crossLink}}
+	 * @method pauseInGroup
+	 * @static
 	 * @deprecated since version 0.4.0
+	 * @param {Boolean} paused The paused state
+	 * @param {PIXI.Container} container The container of instances
 	 */
 	Animator.pauseInGroup = function(paused, container)
 	{
-		console.warn('Animator.pauseInGroup() is now deprecated, please use the app.animator.pauseInGroup()');
+		if (true) console.warn('Animator.pauseInGroup() is now deprecated, please use the app.animator.pauseInGroup()');
 		Application.instance.animator.pauseInGroup(paused, container);
 	};
 
 	/**
-	 * @method
-	 * @name springroll.easeljs.Animator#resume
-	 * @see {@link springroll.Animator#resume}
+	 * Resume all animations, see {{#crossLink "springroll.Animator/resume:method"}}{{/crossLink}}
+	 * @static
+	 * @method resume
 	 * @deprecated since version 0.4.0
 	 */
 	Animator.resume = function()
 	{
-		console.warn('Animator.resume() is now deprecated, please use the app.animator.resume()');
+		if (true) console.warn('Animator.resume() is now deprecated, please use the app.animator.resume()');
 		Application.instance.animator.resume();
 	};
 
 	/**
-	 * @method
-	 * @name springroll.easeljs.Animator#stopAll
-	 * @see {@link springroll.Animator#stopAll}
+	 * Stop all animations, see {{#crossLink "springroll.Animator/stopAll:method"}}{{/crossLink}}
+	 * @method stopAll
+	 * @static
 	 * @deprecated since version 0.4.0
 	 */
 	Animator.stopAll = function(container, removeCallbacks)
 	{
-		console.warn('Animator.stopAll() is now deprecated, please use the app.animator.stopAll()');
+		if (true) console.warn('Animator.stopAll() is now deprecated, please use the app.animator.stopAll()');
 		Application.instance.animator.stopAll(container, removeCallbacks);
 	};
 
 	/**
-	 * @method
-	 * @name springroll.easeljs.Animator#destroy
-	 * @see {@link springroll.Animator#destroy}
+	 * Destroy the animator, see {{#crossLink "springroll.Animator/destroy:method"}}{{/crossLink}}
+	 * @method destroy
+	 * @static
 	 * @deprecated since version 0.4.0
 	 */
 	Animator.destroy = function()
 	{
-		console.warn('Animator.destroy() is now deprecated, please use the app.animator.destroy()');
+		if (true) console.warn('Animator.destroy() is now deprecated, please use the app.animator.destroy()');
 		Application.instance.animator.destroy();
 	};
 
 	/**
-	 * @method
-	 * @name springroll.easeljs.Animator#getPaused
-	 * @see {@link springroll.Animator#paused}
+	 * Get the paused state of instance, see {{#crossLink "springroll.Animator/paused:property"}}{{/crossLink}}
+	 * @method getPaused
+	 * @static
 	 * @deprecated since version 0.4.0
+	 * @param {*} instance The instance to get
+	 * @return {Boolean} Is paused
 	 */
 	Animator.getPaused = function(instance)
 	{
-		console.warn('Animator.getPaused() is now deprecated, please use the app.animator.paused');
+		if (true) console.warn('Animator.getPaused() is now deprecated, please use the app.animator.paused');
 		return Application.instance.animator.paused;
 	};
 
 	/**
-	 * @method
-	 * @name springroll.easeljs.Animator#init
-	 * @see {@link springroll.Animator#init}
+	 * Initialize the animator, see {{#crossLink "springroll.Application/animator:property"}}{{/crossLink}}
+	 * @method init
+	 * @static
 	 * @deprecated since version 0.4.0
+	 * @return {springroll.Animator} The animator instance
 	 */
 	Animator.init = function()
 	{
-		console.warn('Animator.init() is now deprecated, please use the app.animator property');
+		if (true) console.warn('Animator.init() is now deprecated, please use the app.animator property');
 		return Application.intance.animator;
 	};
 
 	/**
-	 * @method
-	 * @name springroll.easeljs.Animator#pause
-	 * @see {@link springroll.Animator#pause}
+	 * Pause all animations, see {{#crossLink "springroll.Animator/pause:method"}}{{/crossLink}}
+	 * @method pause
+	 * @static
 	 * @deprecated since version 0.4.0
 	 */
 	Animator.pause = function()
 	{
-		console.warn('Animator.pause() is now deprecated, please use the app.animator.pause()');
+		if (true) console.warn('Animator.pause() is now deprecated, please use the app.animator.pause()');
 		Application.instance.animator.pause();
 	};
 
 	/**
-	 * @method
-	 * @name springroll.easeljs.Animator#play
-	 * @see {@link springroll.Animator#play}
+	 * Play an instance event, see {{#crossLink "springroll.Animator/play:method"}}{{/crossLink}}
+	 * @method play
+	 * @static
 	 * @deprecated since version 0.4.0
+	 * @param {*} instance The clip instance
+	 * @param {Object|String} eventList The event information to play
+	 * @param {Function} onComplete The completed function
+	 * @param {Function} [onCancelled] The cancelled function
 	 */
 	Animator.play = function(instance, eventList, onComplete, onCancelled)
 	{
-		console.warn('Animator.play() is now deprecated, please use the app.animator.play');
+		if (true) console.warn('Animator.play() is now deprecated, please use the app.animator.play');
 		return Application.instance.animator.play(instance, eventList, onComplete, onCancelled);
 	};
 
 	/**
-	 * @method
-	 * @name springroll.easeljs.Animator#stop
-	 * @see {@link springroll.Animator#stop}
+	 * See {{#crossLink "springroll.Animator/stop:method"}}{{/crossLink}}
+	 * @method stop
+	 * @static
 	 * @deprecated since version 0.4.0
+	 * @param {*} instance The clip to play
+	 * @param {Boolean} [removeCallbacks=false] If we should remove callbacks
 	 */
 	Animator.stop = function(instance, removeCallbacks)
 	{
-		console.warn('Animator.stop() is now deprecated, please use the app.animator.stop()');
+		if (true) console.warn('Animator.stop() is now deprecated, please use the app.animator.stop()');
 		Application.instance.animator.stop(instance, removeCallbacks);
 	};
 
 	/**
-	 * @method
-	 * @name springroll.easeljs.Animator#toString
+	 * @method toString
+	 * @static
 	 * @deprecated since version 0.4.0
 	 */
 	Animator.toString = function()
 	{
-		console.warn('Animator.toString is now deprecated');
+		if (true) console.warn('Animator.toString is now deprecated');
 		return '[Animator]';
 	};
 
-	Object.defineProperties(Animator, 
+	Object.defineProperties(Animator,
 	{
 		/**
-		 * @property
-		 * @name springroll.easeljs.Animator#captions
-		 * @see {@link springroll.Animator#captions}
+		 * See {{#crossLink "springroll.Animator/captions:property"}}{{/crossLink}}
+		 * @property {springroll.Captions} captions
+		 * @static
 		 * @deprecated since version 0.4.0
 		 */
-		captions: 
+		captions:
 		{
 			get: function()
 			{
-				console.warn('Animator.captions is now deprecated, please use the app.animator.captions');
+				if (true) console.warn('Animator.captions is now deprecated, please use the app.animator.captions');
 				return Application.instance.animator.captions;
 			}
 		},
 		/**
-		 * @property
-		 * @name springroll.easeljs.Animator#debug
-		 * @see {@link springroll.Animator#debug}
+		 * See {{#crossLink "springroll.Animator/debug:property"}}{{/crossLink}}
+		 * @property {Boolean} debug
+		 * @static
 		 * @deprecated since version 0.4.0
 		 */
-		debug: 
+		debug:
 		{
 			get: function()
 			{
-				console.warn('Animator.debug is now deprecated, please use the app.animator.debug');
+				if (true) console.warn('Animator.debug is now deprecated, please use the app.animator.debug');
 				return Application.instance.animator.debug;
 			}
 		}

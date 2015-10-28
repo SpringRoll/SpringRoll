@@ -5,9 +5,10 @@
 (function()
 {
 	var Debug;
+	var devicePixelRatio = include('devicePixelRatio', false) || 1;
 
 	/**
-	 * Remember the assets loaded by the AssetManager
+	 * Manages filtering of loads to load assets sized for the current device.
 	 * @class AssetSizes
 	 * @private
 	 */
@@ -41,10 +42,10 @@
 	};
 
 	// Reference to the prototype
-	var p = AssetSizes.prototype;
+	var p = extend(AssetSizes);
 
 	/**
-	 * The name of the URL substitution variable
+	 * The URL substitution string.
 	 * @property {String} SIZE_TOKEN
 	 * @static
 	 * @default  "%SIZE%"
@@ -52,7 +53,7 @@
 	AssetSizes.SIZE_TOKEN = "%SIZE%";
 
 	/**
-	 * Remove the pre-defined sizes
+	 * Removes all currently defined sizes.
 	 * @method  reset
 	 */
 	p.reset = function()
@@ -62,10 +63,10 @@
 	};
 
 	/**
-	 * Add a new size definition
+	 * Adds a new size definition.
 	 * @method define
-	 * @param {String} id The name of the folder which contains size
-	 * @param {int} maxSize The maximum size capable of using this
+	 * @param {String} id The name of the folder which contains assets of this size.
+	 * @param {int} maxSize The maximum size in points capable of using this size.
 	 * @param {Number} scale The scale of assets
 	 * @param {Array} fallback The size fallbacks if this size isn't available
 	 *      for the current asset request.
@@ -151,7 +152,7 @@
 	};
 
 	/**
-	 * Refresh the current preferred size based on width and height
+	 * Recalculate the current preferred size based on width and height
 	 * @method refresh
 	 * @param  {Number} width  The width of the stage
 	 * @param  {Number} height The height of the stage
@@ -164,16 +165,16 @@
 		var sizes = this._sizes;
 
 		// Check the largest first
-		for(var i = sizes.length - 1; i >= 0; --i)
+		for (var i = sizes.length - 1; i >= 0; --i)
 		{
-			if (sizes[i].maxSize > minSize)
+			if (sizes[i].maxSize / devicePixelRatio > minSize)
 			{
 				size = sizes[i];
 			}
 			else
 			{
 				break;
-			}	
+			}
 		}
 		this._preferredSize = size;
 	};
