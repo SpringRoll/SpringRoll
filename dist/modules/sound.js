@@ -91,7 +91,7 @@
 		this._endCallback = null;
 
 		/**
-		 * User's callback function for when the sound starts. 
+		 * User's callback function for when the sound starts.
 		 * This is only used if the sound wasn't loaded before play() was called.
 		 * @property {function} _startFunc
 		 * @private
@@ -99,7 +99,7 @@
 		this._startFunc = null;
 
 		/**
-		 * An array of relevant parameters passed to play(). This is only used if 
+		 * An array of relevant parameters passed to play(). This is only used if
 		 * the sound wasn't loaded before play() was called.
 		 * @property {Array} _startParams
 		 * @private
@@ -174,6 +174,13 @@
 		 * @readOnly
 		 */
 		this.paused = false;
+
+		/**
+		 * If the sound is paused due to a global pause, probably from the Application.
+		 * @property {Boolean} globallyPaused
+		 * @readOnly
+		 */
+		this.globallyPaused = false;
 
 		/**
 		 * An active SoundInstance should always be valid, but if you keep a reference after a
@@ -299,6 +306,8 @@
 	 */
 	p.pause = function()
 	{
+		//ensure that this is marked as a manual pause
+		this.globallyPaused = false;
 		if (this.paused) return;
 		this.paused = true;
 		if (!this._channel) return;
@@ -1410,17 +1419,29 @@
 	 * @param {String} alias The alias of the sound to pause.
 	 * 	Internally, this can also be the object from the _sounds dictionary directly.
 	 */
-	p.pause = function(sound)
+	p.pause = function(sound, isGlobal)
 	{
 		if (isString(sound))
 			sound = this._sounds[sound];
 		var arr = sound.playing;
 		var i;
 		for (i = arr.length - 1; i >= 0; --i)
-			arr[i].pause();
+		{
+			if (!arr[i].paused)
+			{
+				arr[i].pause();
+				arr[i].globallyPaused = isGlobal;
+			}
+		}
 		arr = sound.waitingToPlay;
 		for (i = arr.length - 1; i >= 0; --i)
-			arr[i].pause();
+		{
+			if (!arr[i].paused)
+			{
+				arr[i].pause();
+				arr[i].globallyPaused = isGlobal;
+			}
+		}
 	};
 
 	/**
@@ -1430,17 +1451,23 @@
 	 * @param {String} alias The alias of the sound to pause.
 	 * 	Internally, this can also be the object from the _sounds dictionary directly.
 	 */
-	p.resume = function(sound)
+	p.resume = function(sound, isGlobal)
 	{
 		if (isString(sound))
 			sound = this._sounds[sound];
 		var arr = sound.playing;
 		var i;
 		for (i = arr.length - 1; i >= 0; --i)
-			arr[i].resume();
+		{
+			if (arr[i].globallyPaused == isGlobal)
+				arr[i].resume();
+		}
 		arr = sound.waitingToPlay;
 		for (i = arr.length - 1; i >= 0; --i)
-			arr[i].resume();
+		{
+			if (arr[i].globallyPaused == isGlobal)
+				arr[i].resume();
+		}
 	};
 
 	/**
@@ -1452,7 +1479,7 @@
 	{
 		var arr = this._sounds;
 		for (var i in arr)
-			this.pause(arr[i]);
+			this.pause(arr[i], true);
 	};
 
 	/**
@@ -1464,7 +1491,7 @@
 	{
 		var arr = this._sounds;
 		for (var i in arr)
-			this.resume(arr[i]);
+			this.resume(arr[i], true);
 	};
 
 	/**
@@ -1675,13 +1702,9 @@
 	{
 		if (this._pool.indexOf(inst) == -1)
 		{
-			inst._endCallback = null;
-			inst.alias = null;
-			inst._channel = null;
-			inst._startFunc = null;
+			inst._endCallback = inst.alias = inst._channel = inst._startFunc = null;
 			inst.curVol = 0;
-			inst.paused = false;
-			inst.isValid = false;
+			inst.globallyPaused = inst.paused = inst.isValid = false;
 			this._pool.push(inst);
 		}
 	};

@@ -1,20 +1,20 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-        <title>Sound Example</title>
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width">
-        <link rel="stylesheet" href="assets/css/main.css">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<title>Sound Example</title>
+		<meta name="description" content="">
+		<meta name="viewport" content="width=device-width">
+		<link rel="stylesheet" href="assets/css/main.css">
 
-        <!-- Examples dependencies, these are only necessary for examples -->
-        <link rel="stylesheet" href="../components/google-code-prettify/bin/prettify.min.css">
+		<!-- Examples dependencies, these are only necessary for examples -->
+		<link rel="stylesheet" href="../components/google-code-prettify/bin/prettify.min.css">
 		<script src="../components/google-code-prettify/bin/prettify.min.js"></script>
 		<script src="../components/google-code-prettify/bin/run_prettify.min.js"></script>
 		<script src="assets/js/examples.js"></script>
 
-        <!-- External dependencies -->
+		<!-- External dependencies -->
 		<script src="../components/soundjs/lib/soundjs.min.js"></script>
 		<script src="../components/soundjs/lib/flashaudioplugin.min.js"></script>
 		<script src="../components/tweenjs/lib/tweenjs.min.js"></script>
@@ -28,8 +28,8 @@
 		<script src="../dist/modules/easeljs-ui.js"></script>
 		<script src="../dist/modules/sound.js"></script>
 
-    </head>
-    <body class="md">
+	</head>
+	<body class="md">
 		<div id="content" class="canvas">
 			<nav>
 				<button id="canvas">Application</button>
@@ -53,6 +53,7 @@ var app = new Application({
 	displayOptions: {
 		clearView: true
 	},
+	autoPause: true,//automatically pause all audio when window loses focus
 	preload: ['assets/images/button.png']
 });
 
@@ -82,11 +83,22 @@ app.once('init', function()
 		// and fades out if music is being switched
 		app.music = app.music ? null : "TitleMusic";
 	});
+	
+	this.addButton("Pause/Resume", 470, 307, function()
+	{
+		if(app.musicInstance)
+		{
+			if(app.musicInstance.paused)
+				app.musicInstance.resume();
+			else
+				app.musicInstance.pause();
+		}
+	}, 0.7);
 });
 
 // Simple convenience function for creating some
 // buttons and adding them to the stage
-app.addButton = function(text, x, y, onPress)
+app.addButton = function(text, x, y, onPress, scale)
 {
 	var button = new Button(this.getCache('button'), {
 		text: text,
@@ -95,11 +107,13 @@ app.addButton = function(text, x, y, onPress)
 	});
 	button.x = x || 0;
 	button.y = y || 0;
+	if(scale)
+		button.scaleX = button.scaleY = scale;
 	button.on('buttonPress', onPress);
 	this.display.stage.addChild(button);
 }
 
 </script>
 		</div>
-    </body>
+	</body>
 </html>

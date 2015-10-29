@@ -41,7 +41,7 @@
 		this._endCallback = null;
 
 		/**
-		 * User's callback function for when the sound starts. 
+		 * User's callback function for when the sound starts.
 		 * This is only used if the sound wasn't loaded before play() was called.
 		 * @property {function} _startFunc
 		 * @private
@@ -49,7 +49,7 @@
 		this._startFunc = null;
 
 		/**
-		 * An array of relevant parameters passed to play(). This is only used if 
+		 * An array of relevant parameters passed to play(). This is only used if
 		 * the sound wasn't loaded before play() was called.
 		 * @property {Array} _startParams
 		 * @private
@@ -124,6 +124,13 @@
 		 * @readOnly
 		 */
 		this.paused = false;
+
+		/**
+		 * If the sound is paused due to a global pause, probably from the Application.
+		 * @property {Boolean} globallyPaused
+		 * @readOnly
+		 */
+		this.globallyPaused = false;
 
 		/**
 		 * An active SoundInstance should always be valid, but if you keep a reference after a
@@ -249,6 +256,8 @@
 	 */
 	p.pause = function()
 	{
+		//ensure that this is marked as a manual pause
+		this.globallyPaused = false;
 		if (this.paused) return;
 		this.paused = true;
 		if (!this._channel) return;
