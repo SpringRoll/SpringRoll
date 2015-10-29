@@ -995,9 +995,8 @@
 	p._update = function(elapsed)
 	{
 		var fades = this._fades;
-		var trim = 0;
 
-		var inst, time, sound, swapIndex, lerp, vol;
+		var inst, time, sound, lerp, vol;
 		for (var i = fades.length - 1; i >= 0; --i)
 		{
 			inst = fades[i];
@@ -1016,12 +1015,7 @@
 				{
 					inst.curVol = inst._fEnd;
 					inst.updateVolume();
-				}
-				++trim;
-				swapIndex = fades.length - trim;
-				if (i != swapIndex) //don't bother swapping if it is already last
-				{
-					fades[i] = fades[swapIndex];
+					fades.splice(i, 1);
 				}
 			}
 			else
@@ -1039,7 +1033,6 @@
 				inst.updateVolume();
 			}
 		}
-		fades.length = fades.length - trim;
 		if (fades.length === 0)
 		{
 			Application.instance.off("update", this._update);
