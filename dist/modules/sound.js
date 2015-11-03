@@ -1,4 +1,4 @@
-/*! SpringRoll 0.4.4 */
+/*! SpringRoll 0.4.5 */
 /**
  * @module Sound
  * @namespace springroll
