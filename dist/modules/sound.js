@@ -509,6 +509,15 @@
 		 * @readOnly
 		 */
 		this.systemMuted = createjs.BrowserDetect.isIOS;
+
+		/**
+		 * If preventDefault should be called on the interaction event that unmutes the audio.
+		 * In most cases (games) you would want to leave this, but for a website you may want
+		 * to disable it.
+		 * @property {Boolean} preventDefaultOnUnmute
+		 * @default true
+		 */
+		this.preventDefaultOnUnmute = true;
 	};
 
 	/**
@@ -585,10 +594,15 @@
 		//playback pretty much has to be createjs.WebAudioPlugin for iOS
 		//We cannot use touchstart in iOS 9.0 - http://www.holovaty.com/writing/ios9-web-audio/
 		if (createjs.BrowserDetect.isIOS &&
-			SoundJS.activePlugin instanceof WebAudioPlugin)
+			SoundJS.activePlugin instanceof WebAudioPlugin &&
+			SoundJS.activePlugin.context.state != "running")
 		{
+			document.addEventListener("touchstart", _playEmpty);
 			document.addEventListener("touchend", _playEmpty);
+			document.addEventListener("mousedown", _playEmpty);
 		}
+		else
+			this.systemMuted = false;
 
 		//New sound object
 		_instance = new Sound();
@@ -640,11 +654,18 @@
 	 */
 	function _playEmpty(ev)
 	{
-		ev.preventDefault();
-		document.removeEventListener("touchend", _playEmpty);
 		WebAudioPlugin.playEmptySound();
-		_instance.systemMuted = false;
-		_instance.trigger("systemUnmuted");
+		if (WebAudioPlugin.context.state == "running")
+		{
+			if (_instance.preventDefaultOnUnmute)
+				ev.preventDefault();
+			document.removeEventListener("touchstart", _playEmpty);
+			document.removeEventListener("touchend", _playEmpty);
+			document.removeEventListener("mousedown", _playEmpty);
+
+			_instance.systemMuted = false;
+			_instance.trigger("systemUnmuted");
+		}
 	}
 
 	/**
