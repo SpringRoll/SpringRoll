@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html lang='en'>
 <head>
-	<title>SpringRoll v0.4.5 API Documentation : src/container/Container.js</title>
+	<title>SpringRoll v0.4.6 API Documentation : src/container/Container.js</title>
 	<meta charset='utf-8'>
 	<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 	<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
-	<link rel='shortcut icon' type='image/png' href='../assets/images/favicon.ico?v=0.4.5'>
+	<link rel='shortcut icon' type='image/png' href='../assets/images/favicon.ico?v=0.4.6'>
 	<link href='//fonts.googleapis.com/css?family=Titillium+Web:300,200,600' rel='stylesheet' type='text/css'>
-	<link rel='stylesheet' type='text/css' href='../assets/css/libraries.css?v=0.4.5'>
-	<link rel='stylesheet' type='text/css' href='../assets/css/main.css?v=0.4.5'>
+	<link rel='stylesheet' type='text/css' href='../assets/css/libraries.css?v=0.4.6'>
+	<link rel='stylesheet' type='text/css' href='../assets/css/main.css?v=0.4.6'>
 </head>
 <body>
 <header>
@@ -22,10 +22,10 @@
 					<span class="icon-bar"></span>
 				</button>
 				<a class="navbar-brand" href='https://github.com/SpringRoll/SpringRoll'>
-						<img src='../assets/images/logo.png?v=0.4.5' class="logo">
+						<img src='../assets/images/logo.png?v=0.4.6' class="logo">
 					<span class='project-name'>SpringRoll</span>
 					<span class="sr-only">API Documentation for:</span>
-					<span class='version hidden-xs'>v0.4.5</span>
+					<span class='version hidden-xs'>v0.4.6</span>
 				</a>
 			</div>
 			<div class="collapse navbar-collapse" id="docs-navbar">
@@ -754,9 +754,9 @@
 		/**
 		 * Delays pausing of application to mitigate issues with asynchronous communication
 		 * between Game and Container
-		 * @property {int} _pauseTimer
+		 * @property {int} _focusTimer
 		 */
-		this._pauseTimer = null;
+		this._focusTimer = null;
 
 		/**
 		 * If the application is currently paused manually
@@ -1079,7 +1079,8 @@
 			keepFocus: onKeepFocus.bind(this),
 			userDataRemove: onUserDataRemove.bind(this),
 			userDataRead: onUserDataRead.bind(this),
-			userDataWrite: onUserDataWrite.bind(this)
+			userDataWrite: onUserDataWrite.bind(this),
+			localError: onLocalError.bind(this)
 		});
 	};
 
@@ -1141,6 +1142,17 @@
 	};
 
 	/**
+	 * Handle the local errors
+	 * @method onLocalError
+	 * @private
+	 * @param  {Event} event Bellhop event
+	 */
+	var onLocalError = function(event)
+	{
+		this.trigger(event.type, event.data);
+	};
+
+	/**
 	 * Reset the mutes for audio and captions
 	 * @method onLoadDone
 	 * @private
@@ -1168,16 +1180,6 @@
 
 		// Loading is done
 		this.trigger(&#x27;opened&#x27;);
-
-		// Handle uncaught errors within the game
-		// destroying errors can halt the container DOM
-		this.dom.contentWindow.onerror = function(e)
-			{
-				console.error(e); // show the error
-				this.trigger(&#x27;localError&#x27;, e);
-				return true;
-			}
-			.bind(this);
 
 		// Focus on the content
 		this.focus();
@@ -1256,19 +1258,19 @@
 
 		// we only need one delayed call, at the end of any
 		// sequence of rapidly-fired blur/focus events
-		if (this._pauseTimer)
+		if (this._focusTimer)
 		{
-			clearTimeout(this._pauseTimer);
+			clearTimeout(this._focusTimer);
 		}
 
 		// Delay setting of &#x27;paused&#x27; in case we get another focus event soon.
 		// Focus events are sent to the container asynchronously, and this was
 		// causing rapid toggling of the pause state and related issues,
 		// especially in Internet Explorer
-		this._pauseTimer = setTimeout(
+		this._focusTimer = setTimeout(
 			function()
 			{
-				this._pauseTimer = null;
+				this._focusTimer = null;
 				// A manual pause cannot be overriden by focus events.
 				// User must click the resume button.
 				if (this._isManualPause) return;
@@ -1773,6 +1775,12 @@
 	{
 		var wasLoaded = this.loaded || this.loading;
 
+		// Stop the focus timer if it&#x27;s running
+		if (this._focusTimer)
+		{
+			clearTimeout(this._focusTimer);
+		}
+
 		// Disable the hint button
 		this.helpEnabled = false;
 
@@ -1794,7 +1802,6 @@
 		if (wasLoaded)
 		{
 			this.off(&#x27;localError&#x27;, this._onCloseFailed);
-			this.dom.contentWindow.onerror = null;
 			this.trigger(&#x27;closed&#x27;);
 		}
 	};
@@ -1886,7 +1893,7 @@
 </div>
 </div>
 </div>
-<script src='../assets/js/libraries.js?v=0.4.5'></script>
-<script src='../assets/js/main.js?v=0.4.5'></script>
+<script src='../assets/js/libraries.js?v=0.4.6'></script>
+<script src='../assets/js/main.js?v=0.4.6'></script>
 </body>
 </html>

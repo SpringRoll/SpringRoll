@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html lang='en'>
 <head>
-	<title>SpringRoll v0.4.5 API Documentation : src/core/ResizePlugin.js</title>
+	<title>SpringRoll v0.4.6 API Documentation : src/core/ResizePlugin.js</title>
 	<meta charset='utf-8'>
 	<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 	<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
-	<link rel='shortcut icon' type='image/png' href='../assets/images/favicon.ico?v=0.4.5'>
+	<link rel='shortcut icon' type='image/png' href='../assets/images/favicon.ico?v=0.4.6'>
 	<link href='//fonts.googleapis.com/css?family=Titillium+Web:300,200,600' rel='stylesheet' type='text/css'>
-	<link rel='stylesheet' type='text/css' href='../assets/css/libraries.css?v=0.4.5'>
-	<link rel='stylesheet' type='text/css' href='../assets/css/main.css?v=0.4.5'>
+	<link rel='stylesheet' type='text/css' href='../assets/css/libraries.css?v=0.4.6'>
+	<link rel='stylesheet' type='text/css' href='../assets/css/main.css?v=0.4.6'>
 </head>
 <body>
 <header>
@@ -22,10 +22,10 @@
 					<span class="icon-bar"></span>
 				</button>
 				<a class="navbar-brand" href='https://github.com/SpringRoll/SpringRoll'>
-						<img src='../assets/images/logo.png?v=0.4.5' class="logo">
+						<img src='../assets/images/logo.png?v=0.4.6' class="logo">
 					<span class='project-name'>SpringRoll</span>
 					<span class="sr-only">API Documentation for:</span>
-					<span class='version hidden-xs'>v0.4.5</span>
+					<span class='version hidden-xs'>v0.4.6</span>
 				</a>
 			</div>
 			<div class="collapse navbar-collapse" id="docs-navbar">
@@ -581,6 +581,7 @@
 (function()
 {
 	var ApplicationPlugin = include(&#x27;springroll.ApplicationPlugin&#x27;);
+	var devicePixelRatio = include(&#x27;devicePixelRatio&#x27;, false);
 
 	/**
 	 * @class Application
@@ -635,6 +636,13 @@
 		normalHeight: 0
 	};
 
+	/**
+	 * The timeout when the window is being resized
+	 * @property {springroll.DelayedCall} _windowResizer
+	 * @private
+	 */
+	var _windowResizer = null;
+
 	// Init the animator
 	plugin.setup = function()
 	{
@@ -688,6 +696,13 @@
 		 * @default &#x27;frame&#x27;
 		 */
 		options.add(&#x27;resizeElement&#x27;, &#x27;frame&#x27;, true);
+
+		/**
+		 * Whether to account for devicePixelRatio when rendering game
+		 * @property {Boolean} options.enableHiDPI
+		 * @default false
+		 */
+		options.add(&#x27;enableHiDPI&#x27;, false);
 
 		options.on(&#x27;maxWidth&#x27;, function(value)
 		{
@@ -746,12 +761,20 @@
 			var normalHeight = _resizeHelper.normalHeight;
 
 			var responsive = this.options.responsive;
+			var enableHiDPI = this.options.enableHiDPI;
 
 			//resize the displays
 			this.displays.forEach(function(display)
 			{
 				if (responsive)
 				{
+					if (enableHiDPI &amp;&amp; devicePixelRatio)
+					{
+						display.canvas.style.width = width + &quot;px&quot;;
+						display.canvas.style.height = height + &quot;px&quot;;
+						width *= devicePixelRatio;
+						height *= devicePixelRatio;
+					}
 					// update the dimensions of the canvas
 					display.resize(width, height);
 				}
@@ -761,6 +784,11 @@
 					display.canvas.style.width = width + &quot;px&quot;;
 					display.canvas.style.height = height + &quot;px&quot;;
 
+					if (enableHiDPI &amp;&amp; devicePixelRatio)
+					{
+						normalWidth *= devicePixelRatio;
+						normalHeight *= devicePixelRatio;
+					}
 					// Update the canvas size for maxWidth and maxHeight
 					display.resize(normalWidth, normalHeight);
 				}
@@ -774,6 +802,31 @@
 			{
 				display.render(0, true); // force renderer
 			});
+		};
+
+		/**
+		 * Handle the window resize events
+		 * @method onWindowResize
+		 * @protected
+		 */
+		this.onWindowResize = function()
+		{
+			// Call the resize once
+			this.triggerResize();
+
+			// After a short timeout, call the resize again
+			// this will solve issues where the window doesn&#x27;t
+			// properly get the &quot;full&quot; resize, like on some mobile
+			// devices when pulling-down/releasing the HUD
+			_windowResizer = this.setTimeout(
+				function()
+				{
+					this.triggerResize();
+					_windowResizer = null;
+				}
+				.bind(this),
+				500
+			);
 		};
 
 		/**
@@ -847,17 +900,23 @@
 		if (options.resizeElement)
 		{
 			_resizeElement = options.resizeElement;
-			this.triggerResize = this.triggerResize.bind(this);
-			window.addEventListener(&quot;resize&quot;, this.triggerResize);
+			this.onWindowResize = this.onWindowResize.bind(this);
+			window.addEventListener(&quot;resize&quot;, this.onWindowResize);
 		}
 		done();
 	};
 
 	plugin.teardown = function()
 	{
+		if (_windowResizer)
+		{
+			_windowResizer.destroy();
+			_windowResizer = null;
+		}
+
 		if (_resizeElement)
 		{
-			window.removeEventListener(&quot;resize&quot;, this.triggerResize);
+			window.removeEventListener(&quot;resize&quot;, this.onWindowResize);
 		}
 		_resizeElement = null;
 
@@ -877,7 +936,7 @@
 </div>
 </div>
 </div>
-<script src='../assets/js/libraries.js?v=0.4.5'></script>
-<script src='../assets/js/main.js?v=0.4.5'></script>
+<script src='../assets/js/libraries.js?v=0.4.6'></script>
+<script src='../assets/js/main.js?v=0.4.6'></script>
 </body>
 </html>

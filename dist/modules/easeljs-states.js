@@ -1,4 +1,4 @@
-/*! SpringRoll 0.4.5 */
+/*! SpringRoll 0.4.6 */
 /**
  * @module EaselJS States
  * @namespace springroll.easeljs

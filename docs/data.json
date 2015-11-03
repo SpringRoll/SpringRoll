@@ -2,7 +2,7 @@
     "project": {
         "name": "SpringRoll",
         "description": "An application framework for building HTML5 Canvas games and applications",
-        "version": "0.4.5",
+        "version": "0.4.6",
         "url": "https://github.com/SpringRoll/SpringRoll"
     },
     "files": {
@@ -7432,7 +7432,7 @@
             "line": 178,
             "description": "Delays pausing of application to mitigate issues with asynchronous communication\nbetween Game and Container",
             "itemtype": "property",
-            "name": "_pauseTimer",
+            "name": "_focusTimer",
             "type": "Int",
             "class": "springroll.Container",
             "module": "Container",
@@ -7839,7 +7839,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 510,
+            "line": 511,
             "description": "Removes the Bellhop communication layer altogether.",
             "access": "protected",
             "tagname": "",
@@ -7851,7 +7851,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 524,
+            "line": 525,
             "description": "Handler for the userDataRemove event",
             "itemtype": "method",
             "name": "onUserDataRemove",
@@ -7863,7 +7863,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 538,
+            "line": 539,
             "description": "Handler for the userDataRead event",
             "itemtype": "method",
             "name": "onUserDataRead",
@@ -7875,7 +7875,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 552,
+            "line": 553,
             "description": "Handler for the userDataWrite event",
             "itemtype": "method",
             "name": "onUserDataWrite",
@@ -7887,7 +7887,26 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 567,
+            "line": 568,
+            "description": "Handle the local errors",
+            "itemtype": "method",
+            "name": "onLocalError",
+            "access": "private",
+            "tagname": "",
+            "params": [
+                {
+                    "name": "event",
+                    "description": "Bellhop event",
+                    "type": "Event"
+                }
+            ],
+            "class": "springroll.Container",
+            "module": "Container",
+            "namespace": "springroll"
+        },
+        {
+            "file": "src/container/Container.js",
+            "line": 579,
             "description": "Reset the mutes for audio and captions",
             "itemtype": "method",
             "name": "onLoadDone",
@@ -7899,7 +7918,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 613,
+            "line": 615,
             "description": "Handle focus events sent from iFrame children",
             "itemtype": "method",
             "name": "onFocus",
@@ -7911,7 +7930,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 624,
+            "line": 626,
             "description": "Handle focus events sent from container's window",
             "itemtype": "method",
             "name": "onContainerFocus",
@@ -7923,7 +7942,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 635,
+            "line": 637,
             "description": "Handle blur events sent from container's window",
             "itemtype": "method",
             "name": "onContainerBlur",
@@ -7935,7 +7954,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 650,
+            "line": 652,
             "description": "Focus on the iframe's contentWindow",
             "itemtype": "method",
             "name": "focus",
@@ -7945,7 +7964,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 659,
+            "line": 661,
             "description": "Unfocus on the iframe's contentWindow",
             "itemtype": "method",
             "name": "blur",
@@ -7955,7 +7974,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 668,
+            "line": 670,
             "description": "Manage the focus change events sent from window and iFrame",
             "itemtype": "method",
             "name": "manageFocus",
@@ -7967,7 +7986,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 714,
+            "line": 716,
             "description": "Handle the application features",
             "itemtype": "method",
             "name": "onFeatures",
@@ -7986,7 +8005,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 739,
+            "line": 741,
             "description": "Handle the keep focus event for the window",
             "itemtype": "method",
             "name": "onKeepFocus",
@@ -7998,7 +8017,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 750,
+            "line": 752,
             "description": "Reset the mutes for audio and captions",
             "itemtype": "method",
             "name": "onHelpEnabled",
@@ -8010,7 +8029,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 760,
+            "line": 762,
             "description": "Handler when the play hint button is clicked",
             "itemtype": "method",
             "name": "onPlayHelp",
@@ -8022,7 +8041,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 773,
+            "line": 775,
             "description": "The application ended and destroyed itself",
             "itemtype": "method",
             "name": "onEndGame",
@@ -8034,7 +8053,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 785,
+            "line": 787,
             "description": "Handler when the captions mute button is clicked",
             "itemtype": "method",
             "name": "onCaptionsToggle",
@@ -8046,7 +8065,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 795,
+            "line": 797,
             "description": "If the current application is paused",
             "itemtype": "property",
             "name": "paused",
@@ -8058,7 +8077,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 835,
+            "line": 837,
             "description": "Set the captions are muted",
             "itemtype": "property",
             "name": "helpEnabled",
@@ -8069,7 +8088,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 855,
+            "line": 857,
             "description": "Handler when the sound mute button is clicked",
             "itemtype": "method",
             "name": "onSoundToggle",
@@ -8081,7 +8100,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 869,
+            "line": 871,
             "description": "Handler when the music mute button is clicked",
             "itemtype": "method",
             "name": "onMusicToggle",
@@ -8093,7 +8112,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 880,
+            "line": 882,
             "description": "Handler when the voice-over mute button is clicked",
             "itemtype": "method",
             "name": "onVOToggle",
@@ -8105,7 +8124,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 891,
+            "line": 893,
             "description": "Handler when the voice-over mute button is clicked",
             "itemtype": "method",
             "name": "onSFXToggle",
@@ -8117,7 +8136,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 902,
+            "line": 904,
             "description": "Check for when all mutes are muted or unmuted",
             "itemtype": "method",
             "name": "_checkSoundMute",
@@ -8129,7 +8148,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 912,
+            "line": 914,
             "description": "Toggle the current paused state of the application",
             "itemtype": "method",
             "name": "onPauseToggle",
@@ -8141,7 +8160,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 923,
+            "line": 925,
             "description": "The name of the saved property if the captions are muted or not",
             "itemtype": "property",
             "name": "CAPTIONS_MUTED",
@@ -8156,7 +8175,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 932,
+            "line": 934,
             "description": "The name of the saved property if the sound is muted or not",
             "itemtype": "property",
             "name": "SOUND_MUTED",
@@ -8171,7 +8190,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 941,
+            "line": 943,
             "description": "The name of the saved property if the music is muted or not",
             "itemtype": "property",
             "name": "MUSIC_MUTED",
@@ -8186,7 +8205,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 950,
+            "line": 952,
             "description": "The name of the saved property if the voice-over is muted or not",
             "itemtype": "property",
             "name": "VO_MUTED",
@@ -8201,7 +8220,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 959,
+            "line": 961,
             "description": "The name of the saved property if the effects are muted or not",
             "itemtype": "property",
             "name": "SFX_MUTED",
@@ -8216,7 +8235,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 968,
+            "line": 970,
             "description": "The name of the saved property for the captions styles",
             "itemtype": "property",
             "name": "CAPTIONS_STYLES",
@@ -8231,7 +8250,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 977,
+            "line": 979,
             "description": "The map of the default caption style settings",
             "itemtype": "property",
             "name": "DEFAULT_CAPTIONS_STYLES",
@@ -8246,7 +8265,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 993,
+            "line": 995,
             "description": "Abstract method to handle the muting",
             "itemtype": "method",
             "name": "_setMuteProp",
@@ -8273,7 +8292,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 1012,
+            "line": 1014,
             "description": "Set the captions styles",
             "itemtype": "method",
             "name": "setCaptionsStyles",
@@ -8341,7 +8360,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 1078,
+            "line": 1080,
             "description": "Get the captions styles",
             "itemtype": "method",
             "name": "getCaptionsStyles",
@@ -8363,7 +8382,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 1090,
+            "line": 1092,
             "description": "Reset the captions styles",
             "itemtype": "method",
             "name": "clearCaptionsStyles",
@@ -8373,7 +8392,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 1101,
+            "line": 1103,
             "description": "Set the captions are enabled or not",
             "itemtype": "property",
             "name": "captionsMuted",
@@ -8385,7 +8404,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 1119,
+            "line": 1121,
             "description": "Set the all sound is enabled or not",
             "itemtype": "property",
             "name": "soundMuted",
@@ -8397,7 +8416,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 1137,
+            "line": 1139,
             "description": "Set the voice-over audio is muted",
             "itemtype": "property",
             "name": "voMuted",
@@ -8409,7 +8428,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 1155,
+            "line": 1157,
             "description": "Set the music audio is muted",
             "itemtype": "property",
             "name": "musicMuted",
@@ -8421,7 +8440,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 1173,
+            "line": 1175,
             "description": "Set the sound effect audio is muted",
             "itemtype": "property",
             "name": "sfxMuted",
@@ -8433,7 +8452,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 1191,
+            "line": 1193,
             "description": "Reset all the buttons back to their original setting\nand clear the iframe.",
             "itemtype": "method",
             "name": "reset",
@@ -8443,7 +8462,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 1226,
+            "line": 1233,
             "description": "Tell the application to start closing",
             "itemtype": "method",
             "name": "close",
@@ -8453,7 +8472,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 1249,
+            "line": 1256,
             "description": "If there was an error when closing, reset the container",
             "itemtype": "method",
             "name": "_onCloseFailed",
@@ -8465,7 +8484,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 1259,
+            "line": 1266,
             "description": "Disable a button",
             "itemtype": "method",
             "name": "disableButton",
@@ -8484,7 +8503,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 1271,
+            "line": 1278,
             "description": "Destroy and don't use after this",
             "itemtype": "method",
             "name": "destroy",
@@ -8606,7 +8625,38 @@
         },
         {
             "file": "src/container/ContainerPlugin.js",
-            "line": 206,
+            "line": 131,
+            "description": "Handler for when a window is unloaded",
+            "itemtype": "method",
+            "name": "onWindowUnload",
+            "access": "private",
+            "tagname": "",
+            "class": "springroll.Application",
+            "module": "Container Client",
+            "namespace": "springroll"
+        },
+        {
+            "file": "src/container/ContainerPlugin.js",
+            "line": 144,
+            "description": "Handle the window uncaught errors with the container",
+            "itemtype": "method",
+            "name": "onWindowError",
+            "access": "private",
+            "tagname": "",
+            "params": [
+                {
+                    "name": "error",
+                    "description": "Uncaught Error",
+                    "type": "Error"
+                }
+            ],
+            "class": "springroll.Application",
+            "module": "Container Client",
+            "namespace": "springroll"
+        },
+        {
+            "file": "src/container/ContainerPlugin.js",
+            "line": 231,
             "description": "When the container pauses the application",
             "itemtype": "method",
             "name": "onPause",
@@ -8625,7 +8675,7 @@
         },
         {
             "file": "src/container/ContainerPlugin.js",
-            "line": 221,
+            "line": 246,
             "description": "Handler when the sound is muted",
             "itemtype": "method",
             "name": "onSoundMuted",
@@ -8644,7 +8694,7 @@
         },
         {
             "file": "src/container/ContainerPlugin.js",
-            "line": 235,
+            "line": 260,
             "description": "Handler when the captions are muted",
             "itemtype": "method",
             "name": "onCaptionsMuted",
@@ -8663,7 +8713,7 @@
         },
         {
             "file": "src/container/ContainerPlugin.js",
-            "line": 249,
+            "line": 274,
             "description": "Handler when the context is muted",
             "itemtype": "method",
             "name": "onContextMuted",
@@ -8687,7 +8737,7 @@
         },
         {
             "file": "src/container/ContainerPlugin.js",
-            "line": 264,
+            "line": 289,
             "description": "The captions style is being set",
             "itemtype": "method",
             "name": "onCaptionsStyles",
@@ -8706,7 +8756,7 @@
         },
         {
             "file": "src/container/ContainerPlugin.js",
-            "line": 289,
+            "line": 314,
             "description": "Handler when a application enters single play mode",
             "itemtype": "method",
             "name": "onPlayOptions",
@@ -8725,7 +8775,7 @@
         },
         {
             "file": "src/container/ContainerPlugin.js",
-            "line": 301,
+            "line": 326,
             "description": "Handler when a application enters single play mode",
             "itemtype": "method",
             "name": "onSinglePlay",
@@ -8737,7 +8787,7 @@
         },
         {
             "file": "src/container/ContainerPlugin.js",
-            "line": 311,
+            "line": 336,
             "description": "Game container requests closing the application",
             "itemtype": "method",
             "name": "onClose",
@@ -10039,7 +10089,7 @@
         },
         {
             "file": "src/core/ResizePlugin.js",
-            "line": 14,
+            "line": 15,
             "description": "Dom element (or the window) to attach resize listeners and read the size from",
             "itemtype": "property",
             "name": "_resizeElement",
@@ -10053,7 +10103,7 @@
         },
         {
             "file": "src/core/ResizePlugin.js",
-            "line": 22,
+            "line": 23,
             "description": "The maximum width of the primary display, compared to the original height.",
             "itemtype": "property",
             "name": "_maxWidth",
@@ -10066,7 +10116,7 @@
         },
         {
             "file": "src/core/ResizePlugin.js",
-            "line": 29,
+            "line": 30,
             "description": "The maximum height of the primary display, compared to the original width.",
             "itemtype": "property",
             "name": "_maxHeight",
@@ -10079,7 +10129,7 @@
         },
         {
             "file": "src/core/ResizePlugin.js",
-            "line": 36,
+            "line": 37,
             "description": "The original width of the primary display, used to calculate the aspect ratio.",
             "itemtype": "property",
             "name": "_originalWidth",
@@ -10092,7 +10142,7 @@
         },
         {
             "file": "src/core/ResizePlugin.js",
-            "line": 43,
+            "line": 44,
             "description": "The original height of the primary display, used to calculate the aspect ratio.",
             "itemtype": "property",
             "name": "_originalHeight",
@@ -10105,7 +10155,7 @@
         },
         {
             "file": "src/core/ResizePlugin.js",
-            "line": 50,
+            "line": 51,
             "description": "A helper object to avoid object creation each resize event.",
             "itemtype": "property",
             "name": "_resizeHelper",
@@ -10118,7 +10168,20 @@
         },
         {
             "file": "src/core/ResizePlugin.js",
-            "line": 67,
+            "line": 63,
+            "description": "The timeout when the window is being resized",
+            "itemtype": "property",
+            "name": "_windowResizer",
+            "type": "springroll.DelayedCall",
+            "access": "private",
+            "tagname": "",
+            "class": "springroll.Application",
+            "module": "Core",
+            "namespace": "springroll"
+        },
+        {
+            "file": "src/core/ResizePlugin.js",
+            "line": 75,
             "description": "Fired when a resize is called",
             "itemtype": "event",
             "name": "resize",
@@ -10140,7 +10203,7 @@
         },
         {
             "file": "src/core/ResizePlugin.js",
-            "line": 74,
+            "line": 82,
             "description": "If doing uniform resizing, optional parameter to add\na maximum width relative to the original height. This\nallows for \"title-safe\" responsiveness. Must be greater\nthan the original width of the canvas.",
             "itemtype": "property",
             "name": "options.maxWidth",
@@ -10151,7 +10214,7 @@
         },
         {
             "file": "src/core/ResizePlugin.js",
-            "line": 83,
+            "line": 91,
             "description": "If doing uniform resizing, optional parameter to add\na maximum height relative to the original width. This\nallows for \"title-safe\" responsiveness. Must be greater\nthan the original height of the canvas.",
             "itemtype": "property",
             "name": "options.maxHeight",
@@ -10162,7 +10225,7 @@
         },
         {
             "file": "src/core/ResizePlugin.js",
-            "line": 92,
+            "line": 100,
             "description": "Whether to resize the displays to the original aspect ratio",
             "itemtype": "property",
             "name": "options.uniformResize",
@@ -10174,7 +10237,7 @@
         },
         {
             "file": "src/core/ResizePlugin.js",
-            "line": 99,
+            "line": 107,
             "description": "If responsive is true, the width and height properties\nare adjusted on the `<canvas>` element. It's assumed that\nresponsive applications will adjust their own elements.\nIf responsive is false then the style properties are changed.",
             "itemtype": "property",
             "name": "options.responsive",
@@ -10186,7 +10249,7 @@
         },
         {
             "file": "src/core/ResizePlugin.js",
-            "line": 109,
+            "line": 117,
             "description": "The element that the canvas is resized to fit.",
             "itemtype": "property",
             "name": "options.resizeElement",
@@ -10198,7 +10261,19 @@
         },
         {
             "file": "src/core/ResizePlugin.js",
-            "line": 138,
+            "line": 124,
+            "description": "Whether to account for devicePixelRatio when rendering game",
+            "itemtype": "property",
+            "name": "options.enableHiDPI",
+            "type": "Boolean",
+            "default": "false",
+            "class": "springroll.Application",
+            "module": "Core",
+            "namespace": "springroll"
+        },
+        {
+            "file": "src/core/ResizePlugin.js",
+            "line": 153,
             "description": "The current width of the application, in real point values",
             "itemtype": "property",
             "name": "realWidth",
@@ -10209,7 +10284,7 @@
         },
         {
             "file": "src/core/ResizePlugin.js",
-            "line": 144,
+            "line": 159,
             "description": "The current height of the application, in real point values",
             "itemtype": "property",
             "name": "realHeight",
@@ -10220,7 +10295,7 @@
         },
         {
             "file": "src/core/ResizePlugin.js",
-            "line": 150,
+            "line": 165,
             "description": "Fire a resize event with the current width and height of the display",
             "itemtype": "method",
             "name": "triggerResize",
@@ -10230,7 +10305,19 @@
         },
         {
             "file": "src/core/ResizePlugin.js",
-            "line": 203,
+            "line": 231,
+            "description": "Handle the window resize events",
+            "itemtype": "method",
+            "name": "onWindowResize",
+            "access": "protected",
+            "tagname": "",
+            "class": "springroll.Application",
+            "module": "Core",
+            "namespace": "springroll"
+        },
+        {
+            "file": "src/core/ResizePlugin.js",
+            "line": 256,
             "description": "Calculates the resizing of displays. By default, this limits the new size\nto the initial aspect ratio of the primary display. Override this function\nif you need variable aspect ratios.",
             "itemtype": "method",
             "name": "calculateDisplaySize",
