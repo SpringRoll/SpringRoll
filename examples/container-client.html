@@ -58,6 +58,10 @@ app.once('init', function()
 	// Add it to the EaselJS stage
 	this.display.stage.addChild(shape);
 });
+app.once('destroy', function()
+{
+	throw "Bad destroy";
+});
 </script>
 		</div>
     </body>

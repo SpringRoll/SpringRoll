@@ -1,4 +1,4 @@
-/*! SpringRoll 0.4.5 */
+/*! SpringRoll 0.4.6 */
 /**
  * @module PIXI Spine
  * @namespace springroll

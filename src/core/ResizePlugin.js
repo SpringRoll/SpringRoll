@@ -5,6 +5,7 @@
 (function()
 {
 	var ApplicationPlugin = include('springroll.ApplicationPlugin');
+	var devicePixelRatio = include('devicePixelRatio', false);
 
 	/**
 	 * @class Application
@@ -59,6 +60,13 @@
 		normalHeight: 0
 	};
 
+	/**
+	 * The timeout when the window is being resized
+	 * @property {springroll.DelayedCall} _windowResizer
+	 * @private
+	 */
+	var _windowResizer = null;
+
 	// Init the animator
 	plugin.setup = function()
 	{
@@ -112,6 +120,13 @@
 		 * @default 'frame'
 		 */
 		options.add('resizeElement', 'frame', true);
+
+		/**
+		 * Whether to account for devicePixelRatio when rendering game
+		 * @property {Boolean} options.enableHiDPI
+		 * @default false
+		 */
+		options.add('enableHiDPI', false);
 
 		options.on('maxWidth', function(value)
 		{
@@ -170,12 +185,20 @@
 			var normalHeight = _resizeHelper.normalHeight;
 
 			var responsive = this.options.responsive;
+			var enableHiDPI = this.options.enableHiDPI;
 
 			//resize the displays
 			this.displays.forEach(function(display)
 			{
 				if (responsive)
 				{
+					if (enableHiDPI && devicePixelRatio)
+					{
+						display.canvas.style.width = width + "px";
+						display.canvas.style.height = height + "px";
+						width *= devicePixelRatio;
+						height *= devicePixelRatio;
+					}
 					// update the dimensions of the canvas
 					display.resize(width, height);
 				}
@@ -185,6 +208,11 @@
 					display.canvas.style.width = width + "px";
 					display.canvas.style.height = height + "px";
 
+					if (enableHiDPI && devicePixelRatio)
+					{
+						normalWidth *= devicePixelRatio;
+						normalHeight *= devicePixelRatio;
+					}
 					// Update the canvas size for maxWidth and maxHeight
 					display.resize(normalWidth, normalHeight);
 				}
@@ -198,6 +226,31 @@
 			{
 				display.render(0, true); // force renderer
 			});
+		};
+
+		/**
+		 * Handle the window resize events
+		 * @method onWindowResize
+		 * @protected
+		 */
+		this.onWindowResize = function()
+		{
+			// Call the resize once
+			this.triggerResize();
+
+			// After a short timeout, call the resize again
+			// this will solve issues where the window doesn't
+			// properly get the "full" resize, like on some mobile
+			// devices when pulling-down/releasing the HUD
+			_windowResizer = this.setTimeout(
+				function()
+				{
+					this.triggerResize();
+					_windowResizer = null;
+				}
+				.bind(this),
+				500
+			);
 		};
 
 		/**
@@ -271,17 +324,23 @@
 		if (options.resizeElement)
 		{
 			_resizeElement = options.resizeElement;
-			this.triggerResize = this.triggerResize.bind(this);
-			window.addEventListener("resize", this.triggerResize);
+			this.onWindowResize = this.onWindowResize.bind(this);
+			window.addEventListener("resize", this.onWindowResize);
 		}
 		done();
 	};
 
 	plugin.teardown = function()
 	{
+		if (_windowResizer)
+		{
+			_windowResizer.destroy();
+			_windowResizer = null;
+		}
+
 		if (_resizeElement)
 		{
-			window.removeEventListener("resize", this.triggerResize);
+			window.removeEventListener("resize", this.onWindowResize);
 		}
 		_resizeElement = null;
 
