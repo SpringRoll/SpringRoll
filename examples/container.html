@@ -19,6 +19,7 @@
 	<body>
 		<h1>Container Example</h1>
 		<button id="loadGame">Open App</button>
+		<button id="closeGame">&times; Close</button>
 		<div id="frame">
 			<iframe id="appContainer" scrolling="no" frameborder="0"></iframe>
 		</div>
@@ -36,10 +37,32 @@
 				container.openPath('container-client.html');
 			});
 
-			// Handle when the app is opened
-			container.on('opened', function()
+			// Open the application on button click
+			var closeGame = $("#closeGame").click(function()
 			{
-				loadGame.remove();
+				container.close();
+			});
+
+			container.on(
+			{
+				open: function()
+				{
+					console.log("Opening...");
+				},
+				opened: function()
+				{
+					console.log("Container opened.");
+					$('body').addClass('loaded');
+				},
+				close: function()
+				{
+					console.log("Closing...");
+				},
+				closed: function()
+				{
+					console.log("Container closed.");
+					$('body').removeClass('loaded');
+				}
 			});
 			
 		</script>
