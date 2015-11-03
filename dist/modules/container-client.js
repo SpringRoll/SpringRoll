@@ -1,4 +1,4 @@
-/*! SpringRoll 0.3.15 */
+/*! SpringRoll 0.3.16 */
 /**
 *  @module Container Client
 *  @namespace springroll
@@ -143,17 +143,42 @@
 			});
 		};
 
+		// Handle errors
+		window.onerror = onWindowError.bind(this);
+
 		// Listen when the browser closes or redirects
 		window.onunload = window.onbeforeunload = onWindowUnload.bind(this);
 	};
 
-	// Handler for when a window is unloaded
+	/**
+	 * Handler for when a window is unloaded
+	 * @method  onWindowUnload
+	 * @private
+	 */
 	var onWindowUnload = function()
 	{
 		// Remove listener to not trigger twice
 		window.onunload = window.onbeforeunload = null;
 		this.endGame('left_site');
 		return undefined;
+	};
+
+	/**
+	 * Handle the window uncaught errors with the container
+	 * @method  onWindowError
+	 * @private
+	 * @param  {Error} error Uncaught Error
+	 */
+	var onWindowError = function(error)
+	{
+		// If the container is supported
+		// then handle the errors and pass to the container
+		if (this.container.supported)
+		{
+			if (true && window.console) console.error(error);
+			this.container.send('localError', String(error));
+			return true;
+		}
 	};
 
 	// Check for application name
@@ -333,6 +358,8 @@
 	// Destroy the animator
 	plugin.teardown = function()
 	{
+		window.onerror = null;
+		
 		if (this._pageVisibility)
 		{
 			this._pageVisibility.destroy();

@@ -1,6 +1,6 @@
 {
 	"name": "springroll",
-	"version": "0.3.15",
+	"version": "0.3.16",
 	"main": "dist/core.min.js",
 	"dependencies": {
 		"preloadjs": "https://github.com/SpringRoll/PreloadJS.git",

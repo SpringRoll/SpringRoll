@@ -5,6 +5,7 @@
 (function()
 {
 	var ApplicationPlugin = include('springroll.ApplicationPlugin');
+	var DelayedCall = include('springroll.DelayedCall');
 	
 	/**
 	 *	Create an app plugin for resizing application, all properties and methods documented
@@ -59,6 +60,13 @@
 		width: 0,
 		height: 0
 	};
+
+	/**
+	 * The timeout when the window is being resized
+	 * @property {springroll.DelayedCall} _windowResizer
+	 * @private
+	 */
+	var _windowResizer = null;
 
 	// Init the animator
 	plugin.setup = function()
@@ -161,6 +169,31 @@
 		};
 
 		/**
+		 * Handle the window resize events
+		 * @method onWindowResize
+		 * @protected
+		 */
+		this.onWindowResize = function()
+		{
+			// Call the resize once
+			this.triggerResize();
+
+			// After a short timeout, call the resize again
+			// this will solve issues where the window doesn't
+			// properly get the "full" resize, like on some mobile
+			// devices when pulling-down/releasing the HUD
+			_windowResizer = new DelayedCall(
+				function()
+				{
+					this.triggerResize();
+					_windowResizer = null;
+				}
+				.bind(this),
+				500
+			);
+		};
+
+		/**
 		 *  Calculates the resizing of displays. By default, this limits the new size
 		 *  to the initial aspect ratio of the primary display. Override this function
 		 *  if you need variable aspect ratios.
@@ -207,17 +240,23 @@
 		if (options.resizeElement)
 		{
 			_resizeElement = options.resizeElement;
-			this.triggerResize = this.triggerResize.bind(this);
-			window.addEventListener("resize", this.triggerResize);
+			this.onWindowResize = this.onWindowResize.bind(this);
+			window.addEventListener("resize", this.onWindowResize);
 		}
 		done();
 	};
 
 	plugin.teardown = function()
 	{
+		if (_windowResizer)
+		{
+			_windowResizer.destroy();
+			_windowResizer = null;
+		}
+
 		if (_resizeElement)
 		{
-			window.removeEventListener("resize", this.triggerResize);
+			window.removeEventListener("resize", this.onWindowResize);
 		}
 		_resizeElement = null;
 		

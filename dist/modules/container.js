@@ -1,4 +1,4 @@
-/*! SpringRoll 0.3.15 */
+/*! SpringRoll 0.3.16 */
 /**
  * @module Core
  * @namespace window
@@ -1366,9 +1366,9 @@
 		/**
 		 * Delays pausing of application to mitigate issues with asynchronous communication
 		 * between Game and Container
-		 * @property {int} _pauseTimer
+		 * @property {int} _focusTimer
 		 */
-		this._pauseTimer = null;
+		this._focusTimer = null;
 
 		/**
 		 * If the application is currently paused manually
@@ -1678,7 +1678,8 @@
 			learningEvent: onLearningEvent.bind(this),
 			helpEnabled: onHelpEnabled.bind(this),
 			features: onFeatures.bind(this),
-			keepFocus: onKeepFocus.bind(this)
+			keepFocus: onKeepFocus.bind(this),
+			localError: onLocalError.bind(this)
 		});
 	};
 
@@ -1696,6 +1697,17 @@
 		}
 	};
 
+	/**
+	 * Handle the local errors
+	 * @method onLocalError
+	 * @private
+	 * @param  {Event} event Bellhop event
+	 */
+	var onLocalError = function(event)
+	{
+		this.trigger(event.type, event.data);
+	};
+	
 	/**
 	 * Reset the mutes for audio and captions
 	 * @method onLoadDone
@@ -1802,19 +1814,19 @@
 
 		// we only need one delayed call, at the end of any 
 		// sequence of rapidly-fired blur/focus events
-		if (this._pauseTimer)
+		if (this._focusTimer)
 		{
-			clearTimeout(this._pauseTimer);
+			clearTimeout(this._focusTimer);
 		}
 
 		// Delay setting of 'paused' in case we get another focus event soon.
 		// Focus events are sent to the container asynchronously, and this was
 		// causing rapid toggling of the pause state and related issues,
 		// especially in Internet Explorer
-		this._pauseTimer = setTimeout(
+		this._focusTimer = setTimeout(
 			function()
 			{
-				this._pauseTimer = null;
+				this._focusTimer = null;
 				// A manual pause cannot be overriden by focus events.
 				// User must click the resume button.
 				if (this._isManualPause) return;
@@ -2367,6 +2379,12 @@
 	 */
 	p.reset = function()
 	{
+		// Stop the focus timer if it's running
+		if (this._focusTimer)
+		{
+			clearTimeout(this._focusTimer);
+		}
+
 		// Disable the hint button
 		this.helpEnabled = false;
 
