@@ -15,7 +15,7 @@ body {
 	color:#ccc;
 	font-family:sans-serif;
 }
-#loadGame {
+#loadGame, #closeGame {
 	border:0;
 	background:#64CCC2;
 	color:#000;
@@ -24,6 +24,14 @@ body {
 	position:absolute;
 	top:10px;
 	right:10px;
+}
+body.loaded #loadGame,
+body #closeGame {
+	display:none;
+}
+body #loadGame,
+body.loaded #closeGame {
+	display:block;
 }
 h1 {
 	font-size:16px;

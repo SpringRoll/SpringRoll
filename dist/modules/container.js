@@ -1,4 +1,4 @@
-/*! SpringRoll 0.4.4 */
+/*! SpringRoll 0.4.5 */
 /**
  * @module Core
  * @namespace window
@@ -1521,6 +1521,9 @@
 		this._onDocClick = _onDocClick.bind(this);
 		$(document).on('focus click', this._onDocClick);
 
+		// Bind close failed handler
+		this._onCloseFailed = this._onCloseFailed.bind(this);
+
 		// On elements with the class name pause-on-focus
 		// we will pause the game until a blur event to that item
 		// has been sent
@@ -1573,6 +1576,12 @@
 	 */
 
 	/**
+	 * There was an uncaught iframe error destroying the game on closing
+	 * @event localError
+	 * @param {Error} error The error triggered
+	 */
+
+	/**
 	 * Event when the application gives the load done signal
 	 * @event opened
 	 */
@@ -1617,6 +1626,8 @@
 	 */
 	var _onDocClick = function(e)
 	{
+		if (!this.loaded) return;
+
 		if (!$(e.target).filter(this.options.pauseFocusSelector).length)
 		{
 			this.focus();
@@ -1868,6 +1879,16 @@
 		// Loading is done
 		this.trigger('opened');
 
+		// Handle uncaught errors within the game
+		// destroying errors can halt the container DOM
+		this.dom.contentWindow.onerror = function(e)
+			{
+				console.error(e); // show the error
+				this.trigger('localError', e);
+				return true;
+			}
+			.bind(this);
+
 		// Focus on the content
 		this.focus();
 
@@ -1943,7 +1964,7 @@
 			this.blur();
 		}
 
-		// we only need one delayed call, at the end of any 
+		// we only need one delayed call, at the end of any
 		// sequence of rapidly-fired blur/focus events
 		if (this._pauseTimer)
 		{
@@ -2460,6 +2481,8 @@
 	 */
 	p.reset = function()
 	{
+		var wasLoaded = this.loaded || this.loading;
+
 		// Disable the hint button
 		this.helpEnabled = false;
 
@@ -2478,7 +2501,12 @@
 		// Clear the iframe src location
 		this.main.attr('src', '');
 
-		this.trigger('closed');
+		if (wasLoaded)
+		{
+			this.off('localError', this._onCloseFailed);
+			this.dom.contentWindow.onerror = null;
+			this.trigger('closed');
+		}
 	};
 
 	/**
@@ -2490,12 +2518,28 @@
 		if (this.loading || this.loaded)
 		{
 			this.trigger('close');
+
+			// If any errors are handled on close, 
+			// then we'll force close the container
+			this.once('localError', this._onCloseFailed);
+
+			// Start the close
 			this.client.send('close');
 		}
 		else
 		{
 			this.reset();
 		}
+	};
+
+	/**
+	 * If there was an error when closing, reset the container
+	 * @method _onCloseFailed
+	 * @private
+	 */
+	p._onCloseFailed = function()
+	{
+		this.reset(); // force close the app
 	};
 
 	/**
@@ -2524,8 +2568,8 @@
 		$(document).off('focus click', this._onDocClick);
 
 		this.main = null;
-		this.dom = null;
 		this.options = null;
+		this.dom = null;
 
 		this._onDocClick = null;
 		this.userDataHandler = null;

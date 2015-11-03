@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html lang='en'>
 <head>
-	<title>SpringRoll v0.4.4 API Documentation : src/container/Container.js</title>
+	<title>SpringRoll v0.4.5 API Documentation : src/container/Container.js</title>
 	<meta charset='utf-8'>
 	<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 	<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
-	<link rel='shortcut icon' type='image/png' href='../assets/images/favicon.ico?v=0.4.4'>
+	<link rel='shortcut icon' type='image/png' href='../assets/images/favicon.ico?v=0.4.5'>
 	<link href='//fonts.googleapis.com/css?family=Titillium+Web:300,200,600' rel='stylesheet' type='text/css'>
-	<link rel='stylesheet' type='text/css' href='../assets/css/libraries.css?v=0.4.4'>
-	<link rel='stylesheet' type='text/css' href='../assets/css/main.css?v=0.4.4'>
+	<link rel='stylesheet' type='text/css' href='../assets/css/libraries.css?v=0.4.5'>
+	<link rel='stylesheet' type='text/css' href='../assets/css/main.css?v=0.4.5'>
 </head>
 <body>
 <header>
@@ -22,10 +22,10 @@
 					<span class="icon-bar"></span>
 				</button>
 				<a class="navbar-brand" href='https://github.com/SpringRoll/SpringRoll'>
-						<img src='../assets/images/logo.png?v=0.4.4' class="logo">
+						<img src='../assets/images/logo.png?v=0.4.5' class="logo">
 					<span class='project-name'>SpringRoll</span>
 					<span class="sr-only">API Documentation for:</span>
-					<span class='version hidden-xs'>v0.4.4</span>
+					<span class='version hidden-xs'>v0.4.5</span>
 				</a>
 			</div>
 			<div class="collapse navbar-collapse" id="docs-navbar">
@@ -811,6 +811,9 @@
 		this._onDocClick = _onDocClick.bind(this);
 		$(document).on(&#x27;focus click&#x27;, this._onDocClick);
 
+		// Bind close failed handler
+		this._onCloseFailed = this._onCloseFailed.bind(this);
+
 		// On elements with the class name pause-on-focus
 		// we will pause the game until a blur event to that item
 		// has been sent
@@ -863,6 +866,12 @@
 	 */
 
 	/**
+	 * There was an uncaught iframe error destroying the game on closing
+	 * @event localError
+	 * @param {Error} error The error triggered
+	 */
+
+	/**
 	 * Event when the application gives the load done signal
 	 * @event opened
 	 */
@@ -907,6 +916,8 @@
 	 */
 	var _onDocClick = function(e)
 	{
+		if (!this.loaded) return;
+
 		if (!$(e.target).filter(this.options.pauseFocusSelector).length)
 		{
 			this.focus();
@@ -1158,6 +1169,16 @@
 		// Loading is done
 		this.trigger(&#x27;opened&#x27;);
 
+		// Handle uncaught errors within the game
+		// destroying errors can halt the container DOM
+		this.dom.contentWindow.onerror = function(e)
+			{
+				console.error(e); // show the error
+				this.trigger(&#x27;localError&#x27;, e);
+				return true;
+			}
+			.bind(this);
+
 		// Focus on the content
 		this.focus();
 
@@ -1233,7 +1254,7 @@
 			this.blur();
 		}
 
-		// we only need one delayed call, at the end of any 
+		// we only need one delayed call, at the end of any
 		// sequence of rapidly-fired blur/focus events
 		if (this._pauseTimer)
 		{
@@ -1750,6 +1771,8 @@
 	 */
 	p.reset = function()
 	{
+		var wasLoaded = this.loaded || this.loading;
+
 		// Disable the hint button
 		this.helpEnabled = false;
 
@@ -1768,7 +1791,12 @@
 		// Clear the iframe src location
 		this.main.attr(&#x27;src&#x27;, &#x27;&#x27;);
 
-		this.trigger(&#x27;closed&#x27;);
+		if (wasLoaded)
+		{
+			this.off(&#x27;localError&#x27;, this._onCloseFailed);
+			this.dom.contentWindow.onerror = null;
+			this.trigger(&#x27;closed&#x27;);
+		}
 	};
 
 	/**
@@ -1780,12 +1808,28 @@
 		if (this.loading || this.loaded)
 		{
 			this.trigger(&#x27;close&#x27;);
+
+			// If any errors are handled on close, 
+			// then we&#x27;ll force close the container
+			this.once(&#x27;localError&#x27;, this._onCloseFailed);
+
+			// Start the close
 			this.client.send(&#x27;close&#x27;);
 		}
 		else
 		{
 			this.reset();
 		}
+	};
+
+	/**
+	 * If there was an error when closing, reset the container
+	 * @method _onCloseFailed
+	 * @private
+	 */
+	p._onCloseFailed = function()
+	{
+		this.reset(); // force close the app
 	};
 
 	/**
@@ -1814,8 +1858,8 @@
 		$(document).off(&#x27;focus click&#x27;, this._onDocClick);
 
 		this.main = null;
-		this.dom = null;
 		this.options = null;
+		this.dom = null;
 
 		this._onDocClick = null;
 		this.userDataHandler = null;
@@ -1842,7 +1886,7 @@
 </div>
 </div>
 </div>
-<script src='../assets/js/libraries.js?v=0.4.4'></script>
-<script src='../assets/js/main.js?v=0.4.4'></script>
+<script src='../assets/js/libraries.js?v=0.4.5'></script>
+<script src='../assets/js/main.js?v=0.4.5'></script>
 </body>
 </html>

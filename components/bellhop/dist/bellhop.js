@@ -1,4 +1,4 @@
-/*! Bellhop 1.1.7 */
+/*! Bellhop 1.1.8 */
 (function(window, undefined){
 
 	/**
@@ -202,7 +202,7 @@
 	*  Setup the connection
 	*  @method connect
 	*  @param {DOM} [iframe] The iframe to communicate with. If no value is set, the assumption
-	*         is that we're the child trying to communcate with our window.top parent
+	*         is that we're the child trying to communcate with our window.parent
 	*  @param {String} [origin="*"] The domain to communicate with if different from the current.
 	*  @return {Bellhop} Return instance of current object
 	*/
@@ -223,7 +223,7 @@
 
 		// The instance of bellhop is inside the iframe
 		var isChild = this.isChild = (iframe === undefined);
-		var target = this.target = isChild ? window.top : (iframe.contentWindow || iframe);
+		var target = this.target = isChild ? window.parent : (iframe.contentWindow || iframe);
 		this.supported = isChild ? (!!target && window != target) : !!target;
 		this.origin = origin === undefined ? "*" : origin;
 

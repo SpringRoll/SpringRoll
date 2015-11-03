@@ -1,4 +1,4 @@
-/*! SpringRoll 0.4.4 */
+/*! SpringRoll 0.4.5 */
 /**
  * @module Container Client
  * @namespace springroll
@@ -348,8 +348,11 @@
 	 */
 	var onPause = function(e)
 	{
-		this.paused = !!e.data;
-		this.enabled = !this.paused;
+		var paused = !!e.data;
+		// container pause events are also considered "autoPause" events
+		// event if the event was fired by the container's pauseButton
+		this.autoPaused = paused;
+		this.enabled = !paused;
 	};
 
 	/**

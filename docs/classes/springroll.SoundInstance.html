@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html lang='en'>
 <head>
-	<title>SpringRoll v0.4.4 API Documentation : springroll.SoundInstance</title>
+	<title>SpringRoll v0.4.5 API Documentation : springroll.SoundInstance</title>
 	<meta charset='utf-8'>
 	<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 	<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
-	<link rel='shortcut icon' type='image/png' href='../assets/images/favicon.ico?v=0.4.4'>
+	<link rel='shortcut icon' type='image/png' href='../assets/images/favicon.ico?v=0.4.5'>
 	<link href='//fonts.googleapis.com/css?family=Titillium+Web:300,200,600' rel='stylesheet' type='text/css'>
-	<link rel='stylesheet' type='text/css' href='../assets/css/libraries.css?v=0.4.4'>
-	<link rel='stylesheet' type='text/css' href='../assets/css/main.css?v=0.4.4'>
+	<link rel='stylesheet' type='text/css' href='../assets/css/libraries.css?v=0.4.5'>
+	<link rel='stylesheet' type='text/css' href='../assets/css/main.css?v=0.4.5'>
 </head>
 <body>
 <header>
@@ -22,10 +22,10 @@
 					<span class="icon-bar"></span>
 				</button>
 				<a class="navbar-brand" href='https://github.com/SpringRoll/SpringRoll'>
-						<img src='../assets/images/logo.png?v=0.4.4' class="logo">
+						<img src='../assets/images/logo.png?v=0.4.5' class="logo">
 					<span class='project-name'>SpringRoll</span>
 					<span class="sr-only">API Documentation for:</span>
-					<span class='version hidden-xs'>v0.4.4</span>
+					<span class='version hidden-xs'>v0.4.5</span>
 				</a>
 			</div>
 			<div class="collapse navbar-collapse" id="docs-navbar">
@@ -690,6 +690,10 @@ be created through springroll.Sound.instance.play().</p>
 <a href='#property_curVol'>curVol</a>
 
 </li>
+<li class='col-xs-6 col-md-4 index-item property'>
+<a href='#property_globallyPaused'>globallyPaused</a>
+
+</li>
 <li class='col-xs-6 col-md-4 index-item property public'>
 <a href='#property_isValid'>isValid</a>
 
@@ -740,7 +744,7 @@ be created through springroll.Sound.instance.play().</p>
 <div class='meta'>
 <p>
 Defined in
-<a href='../files/src_media_SoundInstance.js.html#l245'><code>pause:245</code></a>
+<a href='../files/src_media_SoundInstance.js.html#l252'><code>pause:252</code></a>
 </p>
 
 
@@ -772,7 +776,7 @@ Defined in
 <div class='meta'>
 <p>
 Defined in
-<a href='../files/src_media_SoundInstance.js.html#l258'><code>resume:258</code></a>
+<a href='../files/src_media_SoundInstance.js.html#l267'><code>resume:267</code></a>
 </p>
 
 
@@ -804,7 +808,7 @@ Defined in
 <div class='meta'>
 <p>
 Defined in
-<a href='../files/src_media_SoundInstance.js.html#l156'><code>stop:156</code></a>
+<a href='../files/src_media_SoundInstance.js.html#l163'><code>stop:163</code></a>
 </p>
 
 
@@ -877,7 +881,7 @@ Defined in
 <div class='meta'>
 <p>
 Defined in
-<a href='../files/src_media_SoundInstance.js.html#l182'><code>updateVolume:182</code></a>
+<a href='../files/src_media_SoundInstance.js.html#l189'><code>updateVolume:189</code></a>
 </p>
 
 
@@ -1216,6 +1220,30 @@ Setting this won't take effect until updateVolume() is called.</p>
 
 
 
+</div><div class="property_globallyPaused property item">
+<h3 class="name"><a class="deeplink" href="#property_globallyPaused"><span class="glyphicon glyphicon-link"></span></a> <code>globallyPaused</code></h3>
+<span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
+
+
+
+
+
+<div class="meta">
+<p>
+Defined in
+<a href="../files/src_media_SoundInstance.js.html#l128"><code>globallyPaused:128</code></a>
+</p>
+
+
+</div>
+
+<div class="description">
+<p>If the sound is paused due to a global pause, probably from the Application.</p>
+
+</div>
+
+
+
 </div><div class="property_isValid property item public">
 <h3 class="name"><a class="deeplink" href="#property_isValid"><span class="glyphicon glyphicon-link"></span></a> <code>isValid</code></h3>
 <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
@@ -1228,7 +1256,7 @@ Setting this won't take effect until updateVolume() is called.</p>
 <div class="meta">
 <p>
 Defined in
-<a href="../files/src_media_SoundInstance.js.html#l128"><code>isValid:128</code></a>
+<a href="../files/src_media_SoundInstance.js.html#l135"><code>isValid:135</code></a>
 </p>
 
 
@@ -1280,7 +1308,7 @@ Defined in
 <div class="meta">
 <p>
 Defined in
-<a href="../files/src_media_SoundInstance.js.html#l226"><code>pan:226</code></a>
+<a href="../files/src_media_SoundInstance.js.html#l233"><code>pan:233</code></a>
 </p>
 
 
@@ -1331,7 +1359,7 @@ and resume().</p>
 <div class="meta">
 <p>
 Defined in
-<a href="../files/src_media_SoundInstance.js.html#l142"><code>position:142</code></a>
+<a href="../files/src_media_SoundInstance.js.html#l149"><code>position:149</code></a>
 </p>
 
 
@@ -1356,7 +1384,7 @@ Defined in
 <div class="meta">
 <p>
 Defined in
-<a href="../files/src_media_SoundInstance.js.html#l207"><code>volume:207</code></a>
+<a href="../files/src_media_SoundInstance.js.html#l214"><code>volume:214</code></a>
 </p>
 
 
@@ -1378,7 +1406,7 @@ get the actual sound volume.</p>
 </div>
 </div>
 </div>
-<script src='../assets/js/libraries.js?v=0.4.4'></script>
-<script src='../assets/js/main.js?v=0.4.4'></script>
+<script src='../assets/js/libraries.js?v=0.4.5'></script>
+<script src='../assets/js/main.js?v=0.4.5'></script>
 </body>
 </html>

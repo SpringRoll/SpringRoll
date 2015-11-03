@@ -1,4 +1,4 @@
-/*! SpringRoll 0.4.4 */
+/*! SpringRoll 0.4.5 */
 /**
  * @module Core
  * @namespace window
@@ -2671,7 +2671,9 @@
 	});
 
 	/**
-	 * Pause updates at the application level
+	 * Manual pause for the entire application, this suspends
+	 * anything driving the the application update events. Include
+	 * Animator, Captions, Sound and other media playback.
 	 * @property {Boolean} paused
 	 */
 	Object.defineProperty(p, "paused",
@@ -2683,34 +2685,45 @@
 		set: function(value)
 		{
 			_paused = !!value;
-			this.trigger('pause', _paused);
-			this.trigger(_paused ? 'paused' : 'resumed', _paused);
-
-			if (_paused)
-			{
-				if (_tickId != -1)
-				{
-					if (_useRAF)
-					{
-						cancelAnimationFrame(_tickId);
-					}
-					else
-						clearTimeout(_tickId);
-					_tickId = -1;
-				}
-			}
-			else
-			{
-				if (_tickId == -1 && _tickCallback)
-				{
-					_lastFrameTime = TimeUtils.now();
-					_tickId = _useRAF ?
-						requestAnimFrame(_tickCallback) :
-						setTargetedTimeout(_tickCallback);
-				}
-			}
+			this.internalPaused(_paused);
 		}
 	});
+
+	/**
+	 * Handle the internal pause of the application
+	 * @protected
+	 * @method internalPaused
+	 * @param  {Boolean} paused If the application should be paused or not
+	 */
+	p.internalPaused = function(paused)
+	{
+		this.trigger('pause', paused);
+		this.trigger(paused ? 'paused' : 'resumed', paused);
+
+		if (paused)
+		{
+			if (_tickId != -1)
+			{
+				if (_useRAF)
+				{
+					cancelAnimationFrame(_tickId);
+				}
+				else
+					clearTimeout(_tickId);
+				_tickId = -1;
+			}
+		}
+		else
+		{
+			if (_tickId == -1 && _tickCallback)
+			{
+				_lastFrameTime = TimeUtils.now();
+				_tickId = _useRAF ?
+					requestAnimFrame(_tickCallback) :
+					setTargetedTimeout(_tickCallback);
+			}
+		}
+	};
 
 	/**
 	 * Makes a setTimeout with a time based on _msPerFrame and the amount of time spent in the
@@ -3212,6 +3225,24 @@
 			{
 				return visibility.enabled;
 			});
+
+		/**
+		 * Setter for if the application is being automatically paused, 
+		 * usually by the PageVisibility plugin or the ContainerClient plugin.
+		 * @property {Boolean} autoPaused 
+		 * @protected
+		 */
+		Object.defineProperty(this, 'autoPaused',
+		{
+			set: function(paused)
+			{
+				// check if app is manually paused
+				if (!this.paused)
+				{
+					this.internalPaused(paused);
+				}
+			}
+		});
 	};
 
 	/**
@@ -3221,7 +3252,7 @@
 	 */
 	var onHidden = function()
 	{
-		this.paused = true;
+		this.autoPaused = true;
 	};
 
 	/**
@@ -3231,7 +3262,7 @@
 	 */
 	var onVisible = function()
 	{
-		this.paused = false;
+		this.autoPaused = false;
 	};
 
 	// Destroy the animator

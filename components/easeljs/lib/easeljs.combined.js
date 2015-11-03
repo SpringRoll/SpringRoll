@@ -10207,7 +10207,11 @@ this.createjs = this.createjs||{};
 	p._drawTextLine = function(ctx, text, y) {
 		// Chrome 17 will fail to draw the text if the last param is included but null, so we feed it a large value instead:
 		if (this.outline) { ctx.strokeText(text, 0, y, this.maxWidth||0xFFFF); }
-		else { ctx.fillText(text, 0, y, this.maxWidth||0xFFFF); }
+		else {
+			if(this.stroke)
+				ctx.strokeText(text, 0, y, this.maxWidth || 0xFFFF);
+			ctx.fillText(text, 0, y, this.maxWidth||0xFFFF);
+		}
 	};
 	
 	
@@ -13148,7 +13152,7 @@ this.createjs = this.createjs || {};
 	 * @type String
 	 * @static
 	 **/
-	s.version = /*=version*/"0.8.5"; // injected by build process
+	s.version = /*=version*/"0.8.7"; // injected by build process
 
 	/**
 	 * The build date for this release in UTC format.
@@ -13156,6 +13160,6 @@ this.createjs = this.createjs || {};
 	 * @type String
 	 * @static
 	 **/
-	s.buildDate = /*=date*/"Fri, 22 May 2015 21:23:03 GMT"; // injected by build process
+	s.buildDate = /*=date*/"Tue, 06 Oct 2015 13:52:46 GMT"; // injected by build process
 
 })();

@@ -1,4 +1,4 @@
-/*! SpringRoll 0.4.4 */
+/*! SpringRoll 0.4.5 */
 /**
  * @module UI
  * @namespace springroll
@@ -92,6 +92,10 @@
 
 		// A double resolution image would have a bgScale of 2
 		var bgScale = size.w / expectedBGWidth;
+		//if the app only expands horizontally, then we shouldn't use the expected width
+		//in case the image's aspect ratio isn't the one we expect for any reason
+		if (!_size.maxHeight)
+			bgScale = size.h / _size.height;
 
 		// Determine the size of the active dimension, width or height
 		var activeBGSize = bgScale * (scaleToHeight ? _size.height : _size.width);

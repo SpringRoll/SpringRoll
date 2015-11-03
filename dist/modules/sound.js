@@ -1,4 +1,4 @@
-/*! SpringRoll 0.4.4 */
+/*! SpringRoll 0.4.5 */
 /**
  * @module Sound
  * @namespace springroll
@@ -91,7 +91,7 @@
 		this._endCallback = null;
 
 		/**
-		 * User's callback function for when the sound starts. 
+		 * User's callback function for when the sound starts.
 		 * This is only used if the sound wasn't loaded before play() was called.
 		 * @property {function} _startFunc
 		 * @private
@@ -99,7 +99,7 @@
 		this._startFunc = null;
 
 		/**
-		 * An array of relevant parameters passed to play(). This is only used if 
+		 * An array of relevant parameters passed to play(). This is only used if
 		 * the sound wasn't loaded before play() was called.
 		 * @property {Array} _startParams
 		 * @private
@@ -174,6 +174,13 @@
 		 * @readOnly
 		 */
 		this.paused = false;
+
+		/**
+		 * If the sound is paused due to a global pause, probably from the Application.
+		 * @property {Boolean} globallyPaused
+		 * @readOnly
+		 */
+		this.globallyPaused = false;
 
 		/**
 		 * An active SoundInstance should always be valid, but if you keep a reference after a
@@ -299,6 +306,8 @@
 	 */
 	p.pause = function()
 	{
+		//ensure that this is marked as a manual pause
+		this.globallyPaused = false;
 		if (this.paused) return;
 		this.paused = true;
 		if (!this._channel) return;
@@ -500,6 +509,15 @@
 		 * @readOnly
 		 */
 		this.systemMuted = createjs.BrowserDetect.isIOS;
+
+		/**
+		 * If preventDefault should be called on the interaction event that unmutes the audio.
+		 * In most cases (games) you would want to leave this, but for a website you may want
+		 * to disable it.
+		 * @property {Boolean} preventDefaultOnUnmute
+		 * @default true
+		 */
+		this.preventDefaultOnUnmute = true;
 	};
 
 	/**
@@ -576,10 +594,15 @@
 		//playback pretty much has to be createjs.WebAudioPlugin for iOS
 		//We cannot use touchstart in iOS 9.0 - http://www.holovaty.com/writing/ios9-web-audio/
 		if (createjs.BrowserDetect.isIOS &&
-			SoundJS.activePlugin instanceof WebAudioPlugin)
+			SoundJS.activePlugin instanceof WebAudioPlugin &&
+			SoundJS.activePlugin.context.state != "running")
 		{
+			document.addEventListener("touchstart", _playEmpty);
 			document.addEventListener("touchend", _playEmpty);
+			document.addEventListener("mousedown", _playEmpty);
 		}
+		else
+			this.systemMuted = false;
 
 		//New sound object
 		_instance = new Sound();
@@ -631,11 +654,18 @@
 	 */
 	function _playEmpty(ev)
 	{
-		ev.preventDefault();
-		document.removeEventListener("touchend", _playEmpty);
 		WebAudioPlugin.playEmptySound();
-		_instance.systemMuted = false;
-		_instance.trigger("systemUnmuted");
+		if (WebAudioPlugin.context.state == "running")
+		{
+			if (_instance.preventDefaultOnUnmute)
+				ev.preventDefault();
+			document.removeEventListener("touchstart", _playEmpty);
+			document.removeEventListener("touchend", _playEmpty);
+			document.removeEventListener("mousedown", _playEmpty);
+
+			_instance.systemMuted = false;
+			_instance.trigger("systemUnmuted");
+		}
 	}
 
 	/**
@@ -986,9 +1016,8 @@
 	p._update = function(elapsed)
 	{
 		var fades = this._fades;
-		var trim = 0;
 
-		var inst, time, sound, swapIndex, lerp, vol;
+		var inst, time, sound, lerp, vol;
 		for (var i = fades.length - 1; i >= 0; --i)
 		{
 			inst = fades[i];
@@ -1007,12 +1036,7 @@
 				{
 					inst.curVol = inst._fEnd;
 					inst.updateVolume();
-				}
-				++trim;
-				swapIndex = fades.length - trim;
-				if (i != swapIndex) //don't bother swapping if it is already last
-				{
-					fades[i] = fades[swapIndex];
+					fades.splice(i, 1);
 				}
 			}
 			else
@@ -1030,7 +1054,6 @@
 				inst.updateVolume();
 			}
 		}
-		fades.length = fades.length - trim;
 		if (fades.length === 0)
 		{
 			Application.instance.off("update", this._update);
@@ -1410,17 +1433,29 @@
 	 * @param {String} alias The alias of the sound to pause.
 	 * 	Internally, this can also be the object from the _sounds dictionary directly.
 	 */
-	p.pause = function(sound)
+	p.pause = function(sound, isGlobal)
 	{
 		if (isString(sound))
 			sound = this._sounds[sound];
 		var arr = sound.playing;
 		var i;
 		for (i = arr.length - 1; i >= 0; --i)
-			arr[i].pause();
+		{
+			if (!arr[i].paused)
+			{
+				arr[i].pause();
+				arr[i].globallyPaused = isGlobal;
+			}
+		}
 		arr = sound.waitingToPlay;
 		for (i = arr.length - 1; i >= 0; --i)
-			arr[i].pause();
+		{
+			if (!arr[i].paused)
+			{
+				arr[i].pause();
+				arr[i].globallyPaused = isGlobal;
+			}
+		}
 	};
 
 	/**
@@ -1430,17 +1465,23 @@
 	 * @param {String} alias The alias of the sound to pause.
 	 * 	Internally, this can also be the object from the _sounds dictionary directly.
 	 */
-	p.resume = function(sound)
+	p.resume = function(sound, isGlobal)
 	{
 		if (isString(sound))
 			sound = this._sounds[sound];
 		var arr = sound.playing;
 		var i;
 		for (i = arr.length - 1; i >= 0; --i)
-			arr[i].resume();
+		{
+			if (arr[i].globallyPaused == isGlobal)
+				arr[i].resume();
+		}
 		arr = sound.waitingToPlay;
 		for (i = arr.length - 1; i >= 0; --i)
-			arr[i].resume();
+		{
+			if (arr[i].globallyPaused == isGlobal)
+				arr[i].resume();
+		}
 	};
 
 	/**
@@ -1452,7 +1493,7 @@
 	{
 		var arr = this._sounds;
 		for (var i in arr)
-			this.pause(arr[i]);
+			this.pause(arr[i], true);
 	};
 
 	/**
@@ -1464,7 +1505,7 @@
 	{
 		var arr = this._sounds;
 		for (var i in arr)
-			this.resume(arr[i]);
+			this.resume(arr[i], true);
 	};
 
 	/**
@@ -1675,13 +1716,9 @@
 	{
 		if (this._pool.indexOf(inst) == -1)
 		{
-			inst._endCallback = null;
-			inst.alias = null;
-			inst._channel = null;
-			inst._startFunc = null;
+			inst._endCallback = inst.alias = inst._channel = inst._startFunc = null;
 			inst.curVol = 0;
-			inst.paused = false;
-			inst.isValid = false;
+			inst.globallyPaused = inst.paused = inst.isValid = false;
 			this._pool.push(inst);
 		}
 	};
