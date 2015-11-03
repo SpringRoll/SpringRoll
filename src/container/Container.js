@@ -331,6 +331,8 @@
 	 */
 	var _onDocClick = function(e)
 	{
+		if (!this.loaded) return;
+
 		if (!$(e.target).filter(this.options.pauseFocusSelector).length)
 		{
 			this.focus();
@@ -657,7 +659,7 @@
 			this.blur();
 		}
 
-		// we only need one delayed call, at the end of any 
+		// we only need one delayed call, at the end of any
 		// sequence of rapidly-fired blur/focus events
 		if (this._pauseTimer)
 		{
@@ -1174,6 +1176,7 @@
 	 */
 	p.reset = function()
 	{
+		var wasLoaded = this.loaded || this.loading;
 		// Disable the hint button
 		this.helpEnabled = false;
 
@@ -1192,7 +1195,8 @@
 		// Clear the iframe src location
 		this.main.attr('src', '');
 
-		this.trigger('closed');
+		if (wasLoaded)
+			this.trigger('closed');
 	};
 
 	/**
