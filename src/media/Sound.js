@@ -1018,6 +1018,7 @@
 	{
 		if (isString(sound))
 			sound = this._sounds[sound];
+		isGlobal = !!isGlobal;
 		var arr = sound.playing;
 		var i;
 		for (i = arr.length - 1; i >= 0; --i)
@@ -1064,6 +1065,55 @@
 				arr[i].resume();
 		}
 	};
+	
+	/**
+	 * Pauses all sounds in a given context. Audio paused this way will not be resumed with
+	 * resumeAll(), but must be resumed individually or with resumeContext().
+	 * @method pauseContext
+	 * @param {String} context The name of the context to pause.
+	 */
+	p.pauseContext = function(context)
+	{
+		context = this._contexts[context];
+		if (context)
+		{
+			var arr = context.sounds;
+			var s;
+			for (var i = arr.length - 1; i >= 0; --i)
+			{
+				s = arr[i];
+				var j;
+				for(j = s.playing.length - 1; j >= 0; --j)
+					s.playing[j].pause();
+				for(j = s.waitingToPlay.length - 1; j >= 0; --j)
+					s.waitingToPlay[j].pause();
+			}
+		}
+	};
+	
+	/**
+	 * Resumes all sounds in a given context.
+	 * @method pauseContext
+	 * @param {String} context The name of the context to pause.
+	 */
+	p.resumeContext = function(context)
+	{
+		context = this._contexts[context];
+		if (context)
+		{
+			var arr = context.sounds;
+			var s;
+			for (var i = arr.length - 1; i >= 0; --i)
+			{
+				s = arr[i];
+				var j;
+				for(j = s.playing.length - 1; j >= 0; --j)
+					s.playing[j].resume();
+				for(j = s.waitingToPlay.length - 1; j >= 0; --j)
+					s.waitingToPlay[j].resume();
+			}
+		}
+	};
 
 	/**
 	 * Pauses all sounds.
@@ -1078,7 +1128,8 @@
 	};
 
 	/**
-	 * Unpauses all sounds.
+	 * Unpauses all sounds that were paused with pauseAll(). This does not unpause audio
+	 * that was paused individually or with pauseContext().
 	 * @method resumeAll
 	 * @public
 	 */
