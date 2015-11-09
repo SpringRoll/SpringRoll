@@ -231,7 +231,8 @@
 	function _playEmpty(ev)
 	{
 		WebAudioPlugin.playEmptySound();
-		if (WebAudioPlugin.context.state == "running")
+		if (WebAudioPlugin.context.state == "running" ||
+			WebAudioPlugin.context.state === undefined)
 		{
 			if (_instance.preventDefaultOnUnmute)
 				ev.preventDefault();
