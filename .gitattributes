@@ -1,3 +1,6 @@
+# Auto detect text files and perform LF normalization
+text=auto
+
 examples export-ignore
 src export-ignore
 Gruntfile.js export-ignore
