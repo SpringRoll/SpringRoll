@@ -262,6 +262,7 @@
 		this.paused = true;
 		if (!this._channel) return;
 		this._channel.pause();
+		Sound.instance._onInstancePaused();
 	};
 
 	/**
@@ -274,6 +275,7 @@
 		if (!this.paused) return;
 		this.paused = false;
 		if (!this._channel) return;
+		Sound.instance._onInstanceResumed();
 		this._channel.resume();
 	};
 

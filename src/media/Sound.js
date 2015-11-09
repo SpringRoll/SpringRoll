@@ -111,6 +111,29 @@
 	var s = EventDispatcher.prototype;
 	var p = EventDispatcher.extend(Sound);
 
+	function _fixAudioContext()
+	{
+		var activePlugin = SoundJS.activePlugin;
+		//save audio data
+		var _audioSources = activePlugin._audioSources;
+		var _soundInstances = activePlugin._soundInstances;
+		var _loaders = activePlugin._loaders;
+
+		//close old context
+		WebAudioPlugin.context.close();
+
+		// Reset context
+		WebAudioPlugin.context = new AudioContext();
+
+		// Reset WebAudioPlugin
+		WebAudioPlugin.call(activePlugin);
+
+		// Copy over relevant properties
+		activePlugin._loaders = _loaders;
+		activePlugin._audioSources = _audioSources;
+		activePlugin._soundInstances = _soundInstances;
+	}
+
 	var _instance = null;
 
 	//sound states
@@ -274,6 +297,13 @@
 					break;
 				}
 			}
+		}
+		this._fixAndroidAudio = createjs.BrowserDetect.isAndroid &&
+			SoundJS.activePlugin instanceof WebAudioPlugin;
+		if (this._fixAndroidAudio)
+		{
+			this._numPlayingAudio = 0;
+			this._lastAudioTime = Date.now();
 		}
 
 		if (callback)
@@ -716,6 +746,21 @@
 		var inst, arr;
 		if (loadState == LoadStates.loaded)
 		{
+			if (this._fixAndroidAudio)
+			{
+				if (this._numPlayingAudio)
+				{
+					this._numPlayingAudio++;
+					this._lastAudioTime = -1;
+				}
+				else
+				{
+					if (Date.now() - this._lastAudioTime >= 30000)
+						_fixAudioContext();
+					this._numPlayingAudio = 1;
+					this._lastAudioTime = -1;
+				}
+			}
 			//have Sound manage the playback of the sound
 			var channel = SoundJS.play(alias, interrupt, delay, offset, loop, volume, pan);
 
@@ -839,6 +884,14 @@
 		//If the sound was stopped before it finished loading, then don't play anything
 		if (!sound.playAfterLoad) return;
 
+		if (this._fixAndroidAudio)
+		{
+			if (this._lastAudioTime > 0 && Date.now() - this._lastAudioTime >= 30000)
+			{
+				_fixAudioContext();
+			}
+		}
+
 		//Go through the list of sound instances that are waiting to start and start them
 		var waiting = sound.waitingToPlay;
 
@@ -871,6 +924,20 @@
 			}
 			else
 			{
+				if (this._fixAndroidAudio)
+				{
+					if (this._numPlayingAudio)
+					{
+						this._numPlayingAudio++;
+						this._lastAudioTime = -1;
+					}
+					else
+					{
+						this._numPlayingAudio = 1;
+						this._lastAudioTime = -1;
+					}
+				}
+
 				sound.playing.push(inst);
 				inst._channel = channel;
 				if (channel.handleExtraData)
@@ -899,6 +966,12 @@
 	{
 		if (inst._channel)
 		{
+			if (this._fixAndroidAudio)
+			{
+				if (--this._numPlayingAudio === 0)
+					this._lastAudioTime = Date.now();
+			}
+
 			inst._channel.removeEventListener("complete", inst._endFunc);
 			var sound = this._sounds[inst.alias];
 			var index = sound.playing.indexOf(inst);
@@ -963,6 +1036,11 @@
 	{
 		if (inst._channel)
 		{
+			if (!inst.paused && this._fixAndroidAudio)
+			{
+				if (--this._numPlayingAudio === 0)
+					this._lastAudioTime = Date.now();
+			}
 			inst._channel.removeEventListener("complete", inst._endFunc);
 			inst._channel.stop();
 		}
@@ -1065,7 +1143,7 @@
 				arr[i].resume();
 		}
 	};
-	
+
 	/**
 	 * Pauses all sounds in a given context. Audio paused this way will not be resumed with
 	 * resumeAll(), but must be resumed individually or with resumeContext().
@@ -1083,14 +1161,14 @@
 			{
 				s = arr[i];
 				var j;
-				for(j = s.playing.length - 1; j >= 0; --j)
+				for (j = s.playing.length - 1; j >= 0; --j)
 					s.playing[j].pause();
-				for(j = s.waitingToPlay.length - 1; j >= 0; --j)
+				for (j = s.waitingToPlay.length - 1; j >= 0; --j)
 					s.waitingToPlay[j].pause();
 			}
 		}
 	};
-	
+
 	/**
 	 * Resumes all sounds in a given context.
 	 * @method pauseContext
@@ -1107,9 +1185,9 @@
 			{
 				s = arr[i];
 				var j;
-				for(j = s.playing.length - 1; j >= 0; --j)
+				for (j = s.playing.length - 1; j >= 0; --j)
 					s.playing[j].resume();
-				for(j = s.waitingToPlay.length - 1; j >= 0; --j)
+				for (j = s.waitingToPlay.length - 1; j >= 0; --j)
 					s.waitingToPlay[j].resume();
 			}
 		}
@@ -1138,6 +1216,27 @@
 		var arr = this._sounds;
 		for (var i in arr)
 			this.resume(arr[i], true);
+	};
+
+	p._onInstancePaused = function()
+	{
+		if (this._fixAndroidAudio)
+		{
+			if (--this._numPlayingAudio === 0)
+				this._lastAudioTime = Date.now();
+		}
+	};
+
+	p._onInstanceResume = function()
+	{
+		if (this._fixAndroidAudio)
+		{
+			if (this._lastAudioTime > 0 && Date.now() - this._lastAudioTime > 30000)
+				_fixAudioContext();
+
+			this._numPlayingAudio++;
+			this._lastAudioTime = -1;
+		}
 	};
 
 	/**
