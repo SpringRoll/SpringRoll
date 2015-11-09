@@ -1,4 +1,4 @@
-/*! SpringRoll 0.3.17 */
+/*! SpringRoll 0.3.18 */
 /**
  * @module States
  * @namespace springroll
