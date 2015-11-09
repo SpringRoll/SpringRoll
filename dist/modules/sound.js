@@ -291,6 +291,7 @@
 		this.paused = true;
 		if(!this._channel) return;
 		this._channel.pause();
+		Sound.instance._onInstancePaused();
 	};
 
 	/**
@@ -303,6 +304,7 @@
 		if(!this.paused) return;
 		this.paused = false;
 		if(!this._channel) return;
+		Sound.instance._onInstanceResumed();
 		this._channel.resume();
 	};
 
@@ -486,6 +488,29 @@
 	// Reference to the prototype
 	var s = EventDispatcher.prototype;
 	var p = extend(Sound, EventDispatcher);
+	
+	function _fixAudioContext()
+	{
+		var activePlugin = SoundJS.activePlugin;
+		//save audio data
+		var _audioSources = activePlugin._audioSources;
+		var _soundInstances = activePlugin._soundInstances;
+		var _loaders = activePlugin._loaders;
+
+		//close old context
+		WebAudioPlugin.context.close();
+
+		// Reset context
+		WebAudioPlugin.context = new AudioContext();
+
+		// Reset WebAudioPlugin
+		WebAudioPlugin.call(activePlugin);
+
+		// Copy over relevant properties
+		activePlugin._loaders = _loaders;
+		activePlugin._audioSources = _audioSources;
+		activePlugin._soundInstances = _soundInstances;
+	}
 
 	var _instance = null;
 	
@@ -645,6 +670,13 @@
 					break;
 				}
 			}
+		}
+		this._fixAndroidAudio = createjs.BrowserDetect.isAndroid &&
+			SoundJS.activePlugin instanceof WebAudioPlugin;
+		if (this._fixAndroidAudio)
+		{
+			this._numPlayingAudio = 0;
+			this._lastAudioTime = Date.now();
 		}
 
 		if (callback)
@@ -1183,6 +1215,14 @@
 
 		//If the sound was stopped before it finished loading, then don't play anything
 		if (!sound.playAfterLoad) return;
+		
+		if (this._fixAndroidAudio)
+		{
+			if (this._lastAudioTime > 0 && Date.now() - this._lastAudioTime >= 30000)
+			{
+				_fixAudioContext();
+			}
+		}
 
 		//Go through the list of sound instances that are waiting to start and start them
 		var waiting = sound.waitingToPlay;
@@ -1209,6 +1249,20 @@
 			}
 			else
 			{
+				if (this._fixAndroidAudio)
+				{
+					if (this._numPlayingAudio)
+					{
+						this._numPlayingAudio++;
+						this._lastAudioTime = -1;
+					}
+					else
+					{
+						this._numPlayingAudio = 1;
+						this._lastAudioTime = -1;
+					}
+				}
+
 				sound.playing.push(inst);
 				inst._channel = channel;
 				if (channel.handleExtraData)
@@ -1237,6 +1291,12 @@
 	{
 		if (inst._channel)
 		{
+			if (this._fixAndroidAudio)
+			{
+				if (--this._numPlayingAudio === 0)
+					this._lastAudioTime = Date.now();
+			}
+
 			inst._channel.removeEventListener("complete", inst._endFunc);
 			var sound = this._sounds[inst.alias];
 			var index = sound.playing.indexOf(inst);
@@ -1301,6 +1361,12 @@
 	{
 		if (inst._channel)
 		{
+			if (!inst.paused && this._fixAndroidAudio)
+			{
+				if (--this._numPlayingAudio === 0)
+					this._lastAudioTime = Date.now();
+			}
+
 			inst._channel.removeEventListener("complete", inst._endFunc);
 			inst._channel.stop();
 		}
@@ -1405,6 +1471,27 @@
 		var arr = this._sounds;
 		for (var i in arr)
 			this.unpauseSound(arr[i]);
+	};
+	
+	p._onInstancePaused = function()
+	{
+		if (this._fixAndroidAudio)
+		{
+			if (--this._numPlayingAudio === 0)
+				this._lastAudioTime = Date.now();
+		}
+	};
+
+	p._onInstanceResume = function()
+	{
+		if (this._fixAndroidAudio)
+		{
+			if (this._lastAudioTime > 0 && Date.now() - this._lastAudioTime > 30000)
+				_fixAudioContext();
+
+			this._numPlayingAudio++;
+			this._lastAudioTime = -1;
+		}
 	};
 
 	/**
