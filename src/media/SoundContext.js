@@ -41,6 +41,13 @@
 		 * @public
 		 */
 		this.sounds = [];
+
+		/**
+		 * A list of context ids of SoundContexts that belong to this one,
+		 * for example: "game-sfx" and "ui-sfx" being sub-contexts of "sfx".
+		 * @property {Array} subContexts
+		 */
+		this.subContexts = [];
 	};
 
 	// Assign to name space

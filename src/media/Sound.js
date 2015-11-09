@@ -407,6 +407,38 @@
 	};
 
 	/**
+	 * Links one or more sound contexts to another in a parent-child relationship, so
+	 * that the children can be controlled separately, but still be affected by
+	 * setContextMute(), stopContext(), pauseContext(), etc on the parent.
+	 * Note that sub-contexts are not currently affected by setContextVolume().
+	 * @method linkContexts
+	 * @param {String} parent The id of the SoundContext that should be the parent.
+	 * @param {String|Array} subContext The id of a SoundContext to add to parent as a
+	 *                                  sub-context, or an array of ids.
+	 * @return {Boolean} true if the sound exists, false otherwise.
+	 */
+	p.linkContexts = function(parent, subContext)
+	{
+		if (!this._contexts[parent])
+			this._contexts[parent] = new SoundContext(parent);
+		parent = this._contexts[parent];
+
+		if (Array.isArray(subContext))
+		{
+			for (var i = 0; i < subContext.length; ++i)
+			{
+				if (parent.subContexts.indexOf(subContext[i]) < 0)
+					parent.subContexts.push(subContext[i]);
+			}
+		}
+		else
+		{
+			if (parent.subContexts.indexOf(subContext) < 0)
+				parent.subContexts.push(subContext);
+		}
+	};
+
+	/**
 	 * If a sound exists in the list of recognized sounds.
 	 * @method exists
 	 * @public
@@ -1061,14 +1093,18 @@
 		if (context)
 		{
 			var arr = context.sounds;
-			var s;
-			for (var i = arr.length - 1; i >= 0; --i)
+			var s, i;
+			for (i = arr.length - 1; i >= 0; --i)
 			{
 				s = arr[i];
 				if (s.playing.length)
 					this._stopSound(s);
 				else if (s.loadState == LoadStates.loading)
 					s.playAfterLoad = false;
+			}
+			for (i = 0; i < context.subContexts.length; ++i)
+			{
+				this.stopContext(context.subContexts[i]);
 			}
 		}
 	};
@@ -1156,8 +1192,8 @@
 		if (context)
 		{
 			var arr = context.sounds;
-			var s;
-			for (var i = arr.length - 1; i >= 0; --i)
+			var s, i;
+			for (i = arr.length - 1; i >= 0; --i)
 			{
 				s = arr[i];
 				var j;
@@ -1165,6 +1201,10 @@
 					s.playing[j].pause();
 				for (j = s.waitingToPlay.length - 1; j >= 0; --j)
 					s.waitingToPlay[j].pause();
+			}
+			for (i = 0; i < context.subContexts.length; ++i)
+			{
+				this.pauseContext(context.subContexts[i]);
 			}
 		}
 	};
@@ -1180,8 +1220,8 @@
 		if (context)
 		{
 			var arr = context.sounds;
-			var s;
-			for (var i = arr.length - 1; i >= 0; --i)
+			var s, i;
+			for (i = arr.length - 1; i >= 0; --i)
 			{
 				s = arr[i];
 				var j;
@@ -1189,6 +1229,10 @@
 					s.playing[j].resume();
 				for (j = s.waitingToPlay.length - 1; j >= 0; --j)
 					s.waitingToPlay[j].resume();
+			}
+			for (i = 0; i < context.subContexts.length; ++i)
+			{
+				this.resumeContext(context.subContexts[i]);
 			}
 		}
 	};
@@ -1255,8 +1299,8 @@
 			var volume = context.volume;
 			var arr = context.sounds;
 
-			var s, playing, j;
-			for (var i = arr.length - 1; i >= 0; --i)
+			var s, playing, j, i;
+			for (i = arr.length - 1; i >= 0; --i)
 			{
 				s = arr[i];
 				if (s.playing.length)
@@ -1267,6 +1311,10 @@
 						playing[j].updateVolume(muted ? 0 : volume);
 					}
 				}
+			}
+			for (i = 0; i < context.subContexts.length; ++i)
+			{
+				this.setContextMute(context.subContexts[i], muted);
 			}
 		}
 	};
