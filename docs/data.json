@@ -2,7 +2,7 @@
     "project": {
         "name": "SpringRoll",
         "description": "An application framework for building HTML5 Canvas games and applications",
-        "version": "0.4.6",
+        "version": "0.4.7",
         "url": "https://github.com/SpringRoll/SpringRoll"
     },
     "files": {
@@ -8053,7 +8053,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 787,
+            "line": 785,
             "description": "Handler when the captions mute button is clicked",
             "itemtype": "method",
             "name": "onCaptionsToggle",
@@ -8065,7 +8065,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 797,
+            "line": 795,
             "description": "If the current application is paused",
             "itemtype": "property",
             "name": "paused",
@@ -8077,7 +8077,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 837,
+            "line": 835,
             "description": "Set the captions are muted",
             "itemtype": "property",
             "name": "helpEnabled",
@@ -8088,7 +8088,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 857,
+            "line": 855,
             "description": "Handler when the sound mute button is clicked",
             "itemtype": "method",
             "name": "onSoundToggle",
@@ -8100,7 +8100,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 871,
+            "line": 869,
             "description": "Handler when the music mute button is clicked",
             "itemtype": "method",
             "name": "onMusicToggle",
@@ -8112,7 +8112,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 882,
+            "line": 880,
             "description": "Handler when the voice-over mute button is clicked",
             "itemtype": "method",
             "name": "onVOToggle",
@@ -8124,7 +8124,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 893,
+            "line": 891,
             "description": "Handler when the voice-over mute button is clicked",
             "itemtype": "method",
             "name": "onSFXToggle",
@@ -8136,7 +8136,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 904,
+            "line": 902,
             "description": "Check for when all mutes are muted or unmuted",
             "itemtype": "method",
             "name": "_checkSoundMute",
@@ -8148,7 +8148,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 914,
+            "line": 912,
             "description": "Toggle the current paused state of the application",
             "itemtype": "method",
             "name": "onPauseToggle",
@@ -8160,7 +8160,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 925,
+            "line": 923,
             "description": "The name of the saved property if the captions are muted or not",
             "itemtype": "property",
             "name": "CAPTIONS_MUTED",
@@ -8175,7 +8175,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 934,
+            "line": 932,
             "description": "The name of the saved property if the sound is muted or not",
             "itemtype": "property",
             "name": "SOUND_MUTED",
@@ -8190,7 +8190,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 943,
+            "line": 941,
             "description": "The name of the saved property if the music is muted or not",
             "itemtype": "property",
             "name": "MUSIC_MUTED",
@@ -8205,7 +8205,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 952,
+            "line": 950,
             "description": "The name of the saved property if the voice-over is muted or not",
             "itemtype": "property",
             "name": "VO_MUTED",
@@ -8220,7 +8220,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 961,
+            "line": 959,
             "description": "The name of the saved property if the effects are muted or not",
             "itemtype": "property",
             "name": "SFX_MUTED",
@@ -8235,7 +8235,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 970,
+            "line": 968,
             "description": "The name of the saved property for the captions styles",
             "itemtype": "property",
             "name": "CAPTIONS_STYLES",
@@ -8250,7 +8250,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 979,
+            "line": 977,
             "description": "The map of the default caption style settings",
             "itemtype": "property",
             "name": "DEFAULT_CAPTIONS_STYLES",
@@ -8265,7 +8265,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 995,
+            "line": 993,
             "description": "Abstract method to handle the muting",
             "itemtype": "method",
             "name": "_setMuteProp",
@@ -8292,7 +8292,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 1014,
+            "line": 1012,
             "description": "Set the captions styles",
             "itemtype": "method",
             "name": "setCaptionsStyles",
@@ -8360,7 +8360,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 1080,
+            "line": 1078,
             "description": "Get the captions styles",
             "itemtype": "method",
             "name": "getCaptionsStyles",
@@ -8382,7 +8382,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 1092,
+            "line": 1090,
             "description": "Reset the captions styles",
             "itemtype": "method",
             "name": "clearCaptionsStyles",
@@ -8392,7 +8392,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 1103,
+            "line": 1101,
             "description": "Set the captions are enabled or not",
             "itemtype": "property",
             "name": "captionsMuted",
@@ -8404,7 +8404,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 1121,
+            "line": 1119,
             "description": "Set the all sound is enabled or not",
             "itemtype": "property",
             "name": "soundMuted",
@@ -8416,7 +8416,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 1139,
+            "line": 1137,
             "description": "Set the voice-over audio is muted",
             "itemtype": "property",
             "name": "voMuted",
@@ -8428,7 +8428,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 1157,
+            "line": 1155,
             "description": "Set the music audio is muted",
             "itemtype": "property",
             "name": "musicMuted",
@@ -8440,7 +8440,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 1175,
+            "line": 1173,
             "description": "Set the sound effect audio is muted",
             "itemtype": "property",
             "name": "sfxMuted",
@@ -8452,7 +8452,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 1193,
+            "line": 1191,
             "description": "Reset all the buttons back to their original setting\nand clear the iframe.",
             "itemtype": "method",
             "name": "reset",
@@ -8462,7 +8462,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 1233,
+            "line": 1234,
             "description": "Tell the application to start closing",
             "itemtype": "method",
             "name": "close",
@@ -8472,7 +8472,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 1256,
+            "line": 1257,
             "description": "If there was an error when closing, reset the container",
             "itemtype": "method",
             "name": "_onCloseFailed",
@@ -8484,7 +8484,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 1266,
+            "line": 1267,
             "description": "Disable a button",
             "itemtype": "method",
             "name": "disableButton",
@@ -8503,7 +8503,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 1278,
+            "line": 1279,
             "description": "Destroy and don't use after this",
             "itemtype": "method",
             "name": "destroy",
@@ -27898,7 +27898,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 119,
+            "line": 142,
             "description": "Initializes the Sound singleton. If using createjs.FlashAudioPlugin, you will\nbe responsible for setting createjs.FlashAudioPlugin.BASE_PATH.",
             "itemtype": "method",
             "name": "init",
@@ -27949,7 +27949,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 230,
+            "line": 253,
             "description": "Satisfies the iOS event needed to initialize the audio\nNote that we listen on touchend as per http://www.holovaty.com/writing/ios9-web-audio/",
             "access": "private",
             "tagname": "",
@@ -27961,7 +27961,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 252,
+            "line": 276,
             "description": "When the initialization as completed",
             "itemtype": "method",
             "name": "",
@@ -27985,7 +27985,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 285,
+            "line": 316,
             "description": "The singleton instance of Sound.",
             "itemtype": "property",
             "name": "instance",
@@ -27999,7 +27999,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 299,
+            "line": 330,
             "description": "Loads a context config object. This should not be called until after Sound.init() is complete.",
             "itemtype": "method",
             "name": "addContext",
@@ -28093,7 +28093,33 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 379,
+            "line": 410,
+            "description": "Links one or more sound contexts to another in a parent-child relationship, so\nthat the children can be controlled separately, but still be affected by\nsetContextMute(), stopContext(), pauseContext(), etc on the parent.\nNote that sub-contexts are not currently affected by setContextVolume().",
+            "itemtype": "method",
+            "name": "linkContexts",
+            "params": [
+                {
+                    "name": "parent",
+                    "description": "The id of the SoundContext that should be the parent.",
+                    "type": "String"
+                },
+                {
+                    "name": "subContext",
+                    "description": "The id of a SoundContext to add to parent as a\n                                 sub-context, or an array of ids.",
+                    "type": "String|Array"
+                }
+            ],
+            "return": {
+                "description": "true if the sound exists, false otherwise.",
+                "type": "Boolean"
+            },
+            "class": "springroll.Sound",
+            "module": "Sound",
+            "namespace": "springroll"
+        },
+        {
+            "file": "src/media/Sound.js",
+            "line": 442,
             "description": "If a sound exists in the list of recognized sounds.",
             "itemtype": "method",
             "name": "exists",
@@ -28116,7 +28142,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 391,
+            "line": 454,
             "description": "If a context exists",
             "itemtype": "method",
             "name": "contextExists",
@@ -28139,7 +28165,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 403,
+            "line": 466,
             "description": "If a sound is unloaded.",
             "itemtype": "method",
             "name": "isUnloaded",
@@ -28162,7 +28188,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 415,
+            "line": 478,
             "description": "If a sound is loaded.",
             "itemtype": "method",
             "name": "isLoaded",
@@ -28185,7 +28211,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 427,
+            "line": 490,
             "description": "If a sound is in the process of being loaded",
             "itemtype": "method",
             "name": "isLoading",
@@ -28208,7 +28234,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 440,
+            "line": 503,
             "description": "If a sound is playing.",
             "itemtype": "method",
             "name": "isPlaying",
@@ -28231,7 +28257,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 456,
+            "line": 519,
             "description": "Gets the duration of a sound in milliseconds, if it has been loaded.",
             "itemtype": "method",
             "name": "getDuration",
@@ -28254,7 +28280,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 485,
+            "line": 548,
             "description": "Fades a sound from 0 to a specified volume.",
             "itemtype": "method",
             "name": "fadeIn",
@@ -28293,7 +28319,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 532,
+            "line": 595,
             "description": "Fades a sound from the current volume to a specified volume. A sound that ends\nat 0 volume is stopped after the fade.",
             "itemtype": "method",
             "name": "fadeOut",
@@ -28338,7 +28364,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 591,
+            "line": 654,
             "description": "The update call, used for fading sounds. This is bound to the instance of Sound",
             "itemtype": "method",
             "name": "_update",
@@ -28357,7 +28383,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 644,
+            "line": 707,
             "description": "Plays a sound.",
             "itemtype": "method",
             "name": "play",
@@ -28441,7 +28467,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 801,
+            "line": 879,
             "description": "Gets a SoundInstance, from the pool if available or maks a new one if not.",
             "itemtype": "method",
             "name": "_getSoundInst",
@@ -28469,7 +28495,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 827,
+            "line": 905,
             "description": "Plays a sound after it finishes loading.",
             "itemtype": "method",
             "name": "_playAfterload",
@@ -28488,7 +28514,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 892,
+            "line": 992,
             "description": "The callback used for when a sound instance is complete.",
             "itemtype": "method",
             "name": "_onSoundComplete",
@@ -28507,7 +28533,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 914,
+            "line": 1020,
             "description": "Stops all playing or loading instances of a given sound.",
             "itemtype": "method",
             "name": "stop",
@@ -28526,7 +28552,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 940,
+            "line": 1046,
             "description": "Stops all playing SoundInstances for a sound.",
             "itemtype": "method",
             "name": "_stopSound",
@@ -28545,7 +28571,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 956,
+            "line": 1062,
             "description": "Stops and repools a specific SoundInstance.",
             "itemtype": "method",
             "name": "_stopInst",
@@ -28564,7 +28590,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 974,
+            "line": 1085,
             "description": "Stops all sounds in a given context.",
             "itemtype": "method",
             "name": "stopContext",
@@ -28583,7 +28609,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 998,
+            "line": 1113,
             "description": "Stop all sounds that are playing, regardless of context.",
             "itemtype": "method",
             "name": "stopAll",
@@ -28593,7 +28619,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 1010,
+            "line": 1125,
             "description": "Pauses a specific sound.",
             "itemtype": "method",
             "name": "pause",
@@ -28612,7 +28638,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 1042,
+            "line": 1158,
             "description": "Unpauses a specific sound.",
             "itemtype": "method",
             "name": "resume",
@@ -28631,7 +28657,41 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 1068,
+            "line": 1184,
+            "description": "Pauses all sounds in a given context. Audio paused this way will not be resumed with\nresumeAll(), but must be resumed individually or with resumeContext().",
+            "itemtype": "method",
+            "name": "pauseContext",
+            "params": [
+                {
+                    "name": "context",
+                    "description": "The name of the context to pause.",
+                    "type": "String"
+                }
+            ],
+            "class": "springroll.Sound",
+            "module": "Sound",
+            "namespace": "springroll"
+        },
+        {
+            "file": "src/media/Sound.js",
+            "line": 1213,
+            "description": "Resumes all sounds in a given context.",
+            "itemtype": "method",
+            "name": "pauseContext",
+            "params": [
+                {
+                    "name": "context",
+                    "description": "The name of the context to pause.",
+                    "type": "String"
+                }
+            ],
+            "class": "springroll.Sound",
+            "module": "Sound",
+            "namespace": "springroll"
+        },
+        {
+            "file": "src/media/Sound.js",
+            "line": 1241,
             "description": "Pauses all sounds.",
             "itemtype": "method",
             "name": "pauseAll",
@@ -28643,8 +28703,8 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 1080,
-            "description": "Unpauses all sounds.",
+            "line": 1253,
+            "description": "Unpauses all sounds that were paused with pauseAll(). This does not unpause audio\nthat was paused individually or with pauseContext().",
             "itemtype": "method",
             "name": "resumeAll",
             "access": "public",
@@ -28655,7 +28715,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 1092,
+            "line": 1287,
             "description": "Sets mute status of all sounds in a context",
             "itemtype": "method",
             "name": "setContextMute",
@@ -28679,7 +28739,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 1124,
+            "line": 1323,
             "description": "Set the mute status of all sounds",
             "itemtype": "property",
             "name": "muteAll",
@@ -28690,7 +28750,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 1136,
+            "line": 1335,
             "description": "Sets volume of a context. Individual sound volumes are multiplied by this value.",
             "itemtype": "method",
             "name": "setContextVolume",
@@ -28714,7 +28774,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 1167,
+            "line": 1366,
             "description": "Preloads a list of sounds.",
             "itemtype": "method",
             "name": "preload",
@@ -28739,7 +28799,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 1225,
+            "line": 1424,
             "description": "Marks a sound as loaded. If it needs to play after the load, then it is played.",
             "itemtype": "method",
             "name": "_markLoaded",
@@ -28763,7 +28823,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 1250,
+            "line": 1449,
             "description": "Unloads a list of sounds to reclaim memory if possible.\nIf the sounds are playing, they are stopped.",
             "itemtype": "method",
             "name": "unload",
@@ -28782,7 +28842,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 1274,
+            "line": 1473,
             "description": "Unloads all sounds. If any sounds are playing, they are stopped.\nInternally this calls `unload`.",
             "itemtype": "method",
             "name": "unloadAll",
@@ -28794,7 +28854,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 1290,
+            "line": 1489,
             "description": "Places a SoundInstance back in the pool for reuse.",
             "itemtype": "method",
             "name": "_poolinst",
@@ -28813,7 +28873,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 1307,
+            "line": 1506,
             "description": "Destroys springroll.Sound. This unloads loaded sounds in SoundJS.",
             "itemtype": "method",
             "name": "destroy",
@@ -28871,6 +28931,17 @@
             "type": "Array",
             "access": "public",
             "tagname": "",
+            "class": "springroll.SoundContext",
+            "module": "Sound",
+            "namespace": "springroll"
+        },
+        {
+            "file": "src/media/SoundContext.js",
+            "line": 45,
+            "description": "A list of context ids of SoundContexts that belong to this one,\nfor example: \"game-sfx\" and \"ui-sfx\" being sub-contexts of \"sfx\".",
+            "itemtype": "property",
+            "name": "subContexts",
+            "type": "Array",
             "class": "springroll.SoundContext",
             "module": "Sound",
             "namespace": "springroll"
@@ -29172,7 +29243,7 @@
         },
         {
             "file": "src/media/SoundInstance.js",
-            "line": 267,
+            "line": 268,
             "description": "Unpauses this SoundInstance.",
             "itemtype": "method",
             "name": "resume",

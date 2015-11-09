@@ -1,4 +1,4 @@
-/*! SpringRoll 0.4.6 */
+/*! SpringRoll 0.4.7 */
 /**
  * @module Sound
  * @namespace springroll
@@ -42,6 +42,13 @@
 		 * @public
 		 */
 		this.sounds = [];
+
+		/**
+		 * A list of context ids of SoundContexts that belong to this one,
+		 * for example: "game-sfx" and "ui-sfx" being sub-contexts of "sfx".
+		 * @property {Array} subContexts
+		 */
+		this.subContexts = [];
 	};
 
 	// Assign to name space
@@ -312,6 +319,7 @@
 		this.paused = true;
 		if (!this._channel) return;
 		this._channel.pause();
+		Sound.instance._onInstancePaused();
 	};
 
 	/**
@@ -324,6 +332,7 @@
 		if (!this.paused) return;
 		this.paused = false;
 		if (!this._channel) return;
+		Sound.instance._onInstanceResumed();
 		this._channel.resume();
 	};
 
@@ -530,6 +539,29 @@
 	var s = EventDispatcher.prototype;
 	var p = EventDispatcher.extend(Sound);
 
+	function _fixAudioContext()
+	{
+		var activePlugin = SoundJS.activePlugin;
+		//save audio data
+		var _audioSources = activePlugin._audioSources;
+		var _soundInstances = activePlugin._soundInstances;
+		var _loaders = activePlugin._loaders;
+
+		//close old context
+		WebAudioPlugin.context.close();
+
+		// Reset context
+		WebAudioPlugin.context = new AudioContext();
+
+		// Reset WebAudioPlugin
+		WebAudioPlugin.call(activePlugin);
+
+		// Copy over relevant properties
+		activePlugin._loaders = _loaders;
+		activePlugin._audioSources = _audioSources;
+		activePlugin._soundInstances = _soundInstances;
+	}
+
 	var _instance = null;
 
 	//sound states
@@ -655,7 +687,8 @@
 	function _playEmpty(ev)
 	{
 		WebAudioPlugin.playEmptySound();
-		if (WebAudioPlugin.context.state == "running")
+		if (WebAudioPlugin.context.state == "running" ||
+			WebAudioPlugin.context.state === undefined)
 		{
 			if (_instance.preventDefaultOnUnmute)
 				ev.preventDefault();
@@ -693,6 +726,13 @@
 					break;
 				}
 			}
+		}
+		this._fixAndroidAudio = createjs.BrowserDetect.isAndroid &&
+			SoundJS.activePlugin instanceof WebAudioPlugin;
+		if (this._fixAndroidAudio)
+		{
+			this._numPlayingAudio = 0;
+			this._lastAudioTime = Date.now();
 		}
 
 		if (callback)
@@ -793,6 +833,38 @@
 		}
 		//return the Sound instance for chaining
 		return this;
+	};
+
+	/**
+	 * Links one or more sound contexts to another in a parent-child relationship, so
+	 * that the children can be controlled separately, but still be affected by
+	 * setContextMute(), stopContext(), pauseContext(), etc on the parent.
+	 * Note that sub-contexts are not currently affected by setContextVolume().
+	 * @method linkContexts
+	 * @param {String} parent The id of the SoundContext that should be the parent.
+	 * @param {String|Array} subContext The id of a SoundContext to add to parent as a
+	 *                                  sub-context, or an array of ids.
+	 * @return {Boolean} true if the sound exists, false otherwise.
+	 */
+	p.linkContexts = function(parent, subContext)
+	{
+		if (!this._contexts[parent])
+			this._contexts[parent] = new SoundContext(parent);
+		parent = this._contexts[parent];
+
+		if (Array.isArray(subContext))
+		{
+			for (var i = 0; i < subContext.length; ++i)
+			{
+				if (parent.subContexts.indexOf(subContext[i]) < 0)
+					parent.subContexts.push(subContext[i]);
+			}
+		}
+		else
+		{
+			if (parent.subContexts.indexOf(subContext) < 0)
+				parent.subContexts.push(subContext);
+		}
 	};
 
 	/**
@@ -1135,6 +1207,21 @@
 		var inst, arr;
 		if (loadState == LoadStates.loaded)
 		{
+			if (this._fixAndroidAudio)
+			{
+				if (this._numPlayingAudio)
+				{
+					this._numPlayingAudio++;
+					this._lastAudioTime = -1;
+				}
+				else
+				{
+					if (Date.now() - this._lastAudioTime >= 30000)
+						_fixAudioContext();
+					this._numPlayingAudio = 1;
+					this._lastAudioTime = -1;
+				}
+			}
 			//have Sound manage the playback of the sound
 			var channel = SoundJS.play(alias, interrupt, delay, offset, loop, volume, pan);
 
@@ -1258,6 +1345,14 @@
 		//If the sound was stopped before it finished loading, then don't play anything
 		if (!sound.playAfterLoad) return;
 
+		if (this._fixAndroidAudio)
+		{
+			if (this._lastAudioTime > 0 && Date.now() - this._lastAudioTime >= 30000)
+			{
+				_fixAudioContext();
+			}
+		}
+
 		//Go through the list of sound instances that are waiting to start and start them
 		var waiting = sound.waitingToPlay;
 
@@ -1290,6 +1385,20 @@
 			}
 			else
 			{
+				if (this._fixAndroidAudio)
+				{
+					if (this._numPlayingAudio)
+					{
+						this._numPlayingAudio++;
+						this._lastAudioTime = -1;
+					}
+					else
+					{
+						this._numPlayingAudio = 1;
+						this._lastAudioTime = -1;
+					}
+				}
+
 				sound.playing.push(inst);
 				inst._channel = channel;
 				if (channel.handleExtraData)
@@ -1318,6 +1427,12 @@
 	{
 		if (inst._channel)
 		{
+			if (this._fixAndroidAudio)
+			{
+				if (--this._numPlayingAudio === 0)
+					this._lastAudioTime = Date.now();
+			}
+
 			inst._channel.removeEventListener("complete", inst._endFunc);
 			var sound = this._sounds[inst.alias];
 			var index = sound.playing.indexOf(inst);
@@ -1382,6 +1497,11 @@
 	{
 		if (inst._channel)
 		{
+			if (!inst.paused && this._fixAndroidAudio)
+			{
+				if (--this._numPlayingAudio === 0)
+					this._lastAudioTime = Date.now();
+			}
 			inst._channel.removeEventListener("complete", inst._endFunc);
 			inst._channel.stop();
 		}
@@ -1402,14 +1522,18 @@
 		if (context)
 		{
 			var arr = context.sounds;
-			var s;
-			for (var i = arr.length - 1; i >= 0; --i)
+			var s, i;
+			for (i = arr.length - 1; i >= 0; --i)
 			{
 				s = arr[i];
 				if (s.playing.length)
 					this._stopSound(s);
 				else if (s.loadState == LoadStates.loading)
 					s.playAfterLoad = false;
+			}
+			for (i = 0; i < context.subContexts.length; ++i)
+			{
+				this.stopContext(context.subContexts[i]);
 			}
 		}
 	};
@@ -1437,6 +1561,7 @@
 	{
 		if (isString(sound))
 			sound = this._sounds[sound];
+		isGlobal = !!isGlobal;
 		var arr = sound.playing;
 		var i;
 		for (i = arr.length - 1; i >= 0; --i)
@@ -1485,6 +1610,63 @@
 	};
 
 	/**
+	 * Pauses all sounds in a given context. Audio paused this way will not be resumed with
+	 * resumeAll(), but must be resumed individually or with resumeContext().
+	 * @method pauseContext
+	 * @param {String} context The name of the context to pause.
+	 */
+	p.pauseContext = function(context)
+	{
+		context = this._contexts[context];
+		if (context)
+		{
+			var arr = context.sounds;
+			var s, i;
+			for (i = arr.length - 1; i >= 0; --i)
+			{
+				s = arr[i];
+				var j;
+				for (j = s.playing.length - 1; j >= 0; --j)
+					s.playing[j].pause();
+				for (j = s.waitingToPlay.length - 1; j >= 0; --j)
+					s.waitingToPlay[j].pause();
+			}
+			for (i = 0; i < context.subContexts.length; ++i)
+			{
+				this.pauseContext(context.subContexts[i]);
+			}
+		}
+	};
+
+	/**
+	 * Resumes all sounds in a given context.
+	 * @method pauseContext
+	 * @param {String} context The name of the context to pause.
+	 */
+	p.resumeContext = function(context)
+	{
+		context = this._contexts[context];
+		if (context)
+		{
+			var arr = context.sounds;
+			var s, i;
+			for (i = arr.length - 1; i >= 0; --i)
+			{
+				s = arr[i];
+				var j;
+				for (j = s.playing.length - 1; j >= 0; --j)
+					s.playing[j].resume();
+				for (j = s.waitingToPlay.length - 1; j >= 0; --j)
+					s.waitingToPlay[j].resume();
+			}
+			for (i = 0; i < context.subContexts.length; ++i)
+			{
+				this.resumeContext(context.subContexts[i]);
+			}
+		}
+	};
+
+	/**
 	 * Pauses all sounds.
 	 * @method pauseAll
 	 * @public
@@ -1497,7 +1679,8 @@
 	};
 
 	/**
-	 * Unpauses all sounds.
+	 * Unpauses all sounds that were paused with pauseAll(). This does not unpause audio
+	 * that was paused individually or with pauseContext().
 	 * @method resumeAll
 	 * @public
 	 */
@@ -1506,6 +1689,27 @@
 		var arr = this._sounds;
 		for (var i in arr)
 			this.resume(arr[i], true);
+	};
+
+	p._onInstancePaused = function()
+	{
+		if (this._fixAndroidAudio)
+		{
+			if (--this._numPlayingAudio === 0)
+				this._lastAudioTime = Date.now();
+		}
+	};
+
+	p._onInstanceResume = function()
+	{
+		if (this._fixAndroidAudio)
+		{
+			if (this._lastAudioTime > 0 && Date.now() - this._lastAudioTime > 30000)
+				_fixAudioContext();
+
+			this._numPlayingAudio++;
+			this._lastAudioTime = -1;
+		}
 	};
 
 	/**
@@ -1524,8 +1728,8 @@
 			var volume = context.volume;
 			var arr = context.sounds;
 
-			var s, playing, j;
-			for (var i = arr.length - 1; i >= 0; --i)
+			var s, playing, j, i;
+			for (i = arr.length - 1; i >= 0; --i)
 			{
 				s = arr[i];
 				if (s.playing.length)
@@ -1536,6 +1740,10 @@
 						playing[j].updateVolume(muted ? 0 : volume);
 					}
 				}
+			}
+			for (i = 0; i < context.subContexts.length; ++i)
+			{
+				this.setContextMute(context.subContexts[i], muted);
 			}
 		}
 	};

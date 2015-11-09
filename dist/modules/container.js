@@ -1,4 +1,4 @@
-/*! SpringRoll 0.4.6 */
+/*! SpringRoll 0.4.7 */
 /**
  * @module Core
  * @namespace window
@@ -2065,8 +2065,6 @@
 	 */
 	var onEndGame = function()
 	{
-		this.destroyClient();
-
 		this.reset();
 	};
 
@@ -2491,6 +2489,9 @@
 			clearTimeout(this._focusTimer);
 		}
 
+		// Remove bellhop instance
+		this.destroyClient();
+
 		// Disable the hint button
 		this.helpEnabled = false;
 
@@ -2593,8 +2594,6 @@
 			this._pageVisibility.destroy();
 			this._pageVisibility = null;
 		}
-
-		this.destroyClient();
 	};
 
 	namespace('springroll').Container = Container;
