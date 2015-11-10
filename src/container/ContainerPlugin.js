@@ -308,10 +308,11 @@
 	 * Handler when a application enters single play mode
 	 * @method onSinglePlay
 	 * @private
+	 * @param {event} e The Bellhop event
 	 */
-	var onSinglePlay = function()
+	var onSinglePlay = function(e)
 	{
-		this.singlePlay = true;
+		this.singlePlay = !!e.data;
 	};
 
 	/**
