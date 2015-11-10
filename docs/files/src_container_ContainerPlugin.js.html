@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html lang='en'>
 <head>
-	<title>SpringRoll v0.4.7 API Documentation : src/container/ContainerPlugin.js</title>
+	<title>SpringRoll v0.4.8 API Documentation : src/container/ContainerPlugin.js</title>
 	<meta charset='utf-8'>
 	<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 	<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
-	<link rel='shortcut icon' type='image/png' href='../assets/images/favicon.ico?v=0.4.7'>
+	<link rel='shortcut icon' type='image/png' href='../assets/images/favicon.ico?v=0.4.8'>
 	<link href='//fonts.googleapis.com/css?family=Titillium+Web:300,200,600' rel='stylesheet' type='text/css'>
-	<link rel='stylesheet' type='text/css' href='../assets/css/libraries.css?v=0.4.7'>
-	<link rel='stylesheet' type='text/css' href='../assets/css/main.css?v=0.4.7'>
+	<link rel='stylesheet' type='text/css' href='../assets/css/libraries.css?v=0.4.8'>
+	<link rel='stylesheet' type='text/css' href='../assets/css/main.css?v=0.4.8'>
 </head>
 <body>
 <header>
@@ -22,10 +22,10 @@
 					<span class="icon-bar"></span>
 				</button>
 				<a class="navbar-brand" href='https://github.com/SpringRoll/SpringRoll'>
-						<img src='../assets/images/logo.png?v=0.4.7' class="logo">
+						<img src='../assets/images/logo.png?v=0.4.8' class="logo">
 					<span class='project-name'>SpringRoll</span>
 					<span class="sr-only">API Documentation for:</span>
-					<span class='version hidden-xs'>v0.4.7</span>
+					<span class='version hidden-xs'>v0.4.8</span>
 				</a>
 			</div>
 			<div class="collapse navbar-collapse" id="docs-navbar">
@@ -597,27 +597,6 @@
 		var options = this.options;
 
 		/**
-		 * The default play-mode for the application is continuous, if the application is
-		 * running as part of a sequence is it considered in &quot;single play&quot; mode
-		 * and the application will therefore close itself.
-		 * @property {Boolean} options.singlePlay
-		 * @readOnly
-		 * @default false
-		 */
-		options.add(&#x27;singlePlay&#x27;, false, true);
-
-		/**
-		 * The optional play options to use if the application is played in &quot;single play&quot;
-		 * mode. These options are passed from the application container to specify
-		 * options that are used for this single play session. For instance,
-		 * if you want the single play to focus on a certain level or curriculum
-		 * such as &#x60;{ &quot;shape&quot;: &quot;square&quot; }&#x60;
-		 * @property {Object} options.playOptions
-		 * @readOnly
-		 */
-		options.add(&#x27;playOptions&#x27;, null, true);
-
-		/**
 		 * Send a message to let the site know that this has
 		 * been loaded, if the site is there
 		 * @property {Bellhop} container
@@ -670,20 +649,23 @@
 		 * @property {Object} playOptions
 		 * @readOnly
 		 */
-		this.playOptions = null;
+		this.playOptions = {};
 
 		/**
 		 * When a application is in singlePlay mode it will end.
 		 * It&#x27;s unnecessary to check &#x60;if (this.singlePlay)&#x60; just
 		 * call the method and it will end the application if it can.
 		 * @method singlePlayEnd
+		 * @return {Boolean} If endGame is called
 		 */
 		this.singlePlayEnd = function()
 		{
 			if (this.singlePlay)
 			{
 				this.endGame();
+				return true;
 			}
+			return false;
 		};
 
 		/**
@@ -696,6 +678,12 @@
 			this.trigger(&#x27;endGame&#x27;, exitType || &#x27;game_completed&#x27;);
 			this.destroy();
 		};
+
+		if (container.supported)
+		{
+			container.fetch(&#x27;singlePlay&#x27;, onSinglePlay.bind(this));
+			container.fetch(&#x27;playOptions&#x27;, onPlayOptions.bind(this));
+		}
 
 		// Handle errors
 		window.onerror = onWindowError.bind(this);
@@ -750,11 +738,6 @@
 			}
 		}
 
-		// Add the options to properties
-		this.singlePlay = !!this.options.singlePlay;
-		this.playOptions = this.options.playOptions ||
-		{};
-
 		// Merge the container options with the current
 		// application options
 		if (this.container.supported)
@@ -773,8 +756,6 @@
 				sfxMuted: onContextMuted.bind(this, &#x27;sfx&#x27;),
 				captionsStyles: onCaptionsStyles.bind(this),
 				pause: onPause.bind(this),
-				singlePlay: onSinglePlay.bind(this),
-				playOptions: onPlayOptions.bind(this),
 				close: onClose.bind(this)
 			});
 
@@ -950,7 +931,7 @@
 </div>
 </div>
 </div>
-<script src='../assets/js/libraries.js?v=0.4.7'></script>
-<script src='../assets/js/main.js?v=0.4.7'></script>
+<script src='../assets/js/libraries.js?v=0.4.8'></script>
+<script src='../assets/js/main.js?v=0.4.8'></script>
 </body>
 </html>

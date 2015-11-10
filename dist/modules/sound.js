@@ -1,4 +1,4 @@
-/*! SpringRoll 0.4.7 */
+/*! SpringRoll 0.4.8 */
 /**
  * @module Sound
  * @namespace springroll
@@ -332,7 +332,7 @@
 		if (!this.paused) return;
 		this.paused = false;
 		if (!this._channel) return;
-		Sound.instance._onInstanceResumed();
+		Sound.instance._onInstanceResume();
 		this._channel.resume();
 	};
 

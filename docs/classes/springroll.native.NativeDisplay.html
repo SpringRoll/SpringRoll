@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html lang='en'>
 <head>
-	<title>SpringRoll v0.4.7 API Documentation : springroll.native.NativeDisplay</title>
+	<title>SpringRoll v0.4.8 API Documentation : springroll.native.NativeDisplay</title>
 	<meta charset='utf-8'>
 	<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 	<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
-	<link rel='shortcut icon' type='image/png' href='../assets/images/favicon.ico?v=0.4.7'>
+	<link rel='shortcut icon' type='image/png' href='../assets/images/favicon.ico?v=0.4.8'>
 	<link href='//fonts.googleapis.com/css?family=Titillium+Web:300,200,600' rel='stylesheet' type='text/css'>
-	<link rel='stylesheet' type='text/css' href='../assets/css/libraries.css?v=0.4.7'>
-	<link rel='stylesheet' type='text/css' href='../assets/css/main.css?v=0.4.7'>
+	<link rel='stylesheet' type='text/css' href='../assets/css/libraries.css?v=0.4.8'>
+	<link rel='stylesheet' type='text/css' href='../assets/css/main.css?v=0.4.8'>
 </head>
 <body>
 <header>
@@ -22,10 +22,10 @@
 					<span class="icon-bar"></span>
 				</button>
 				<a class="navbar-brand" href='https://github.com/SpringRoll/SpringRoll'>
-						<img src='../assets/images/logo.png?v=0.4.7' class="logo">
+						<img src='../assets/images/logo.png?v=0.4.8' class="logo">
 					<span class='project-name'>SpringRoll</span>
 					<span class="sr-only">API Documentation for:</span>
-					<span class='version hidden-xs'>v0.4.7</span>
+					<span class='version hidden-xs'>v0.4.8</span>
 				</a>
 			</div>
 			<div class="collapse navbar-collapse" id="docs-navbar">
@@ -749,7 +749,7 @@ Defined in
 
 <ul class='list-group row properties extends'>
 <li class='col-xs-6 col-md-4 index-item property private inherited'>
-<a href='#property__visible'>_visible</a>
+<a href='#property__enabled'>_enabled</a>
 
 </li>
 <li class='col-xs-6 col-md-4 index-item property public'>
@@ -776,16 +776,12 @@ Defined in
 <a href='#property_paused'>paused</a>
 
 </li>
-<li class='col-xs-6 col-md-4 index-item property private inherited'>
-<a href='#property__enabled'>_enabled</a>
-
-</li>
 <li class='col-xs-6 col-md-4 index-item property public inherited'>
 <a href='#property_canvas'>canvas</a>
 
 </li>
-<li class='col-xs-6 col-md-4 index-item property public inherited'>
-<a href='#property_animator'>animator</a>
+<li class='col-xs-6 col-md-4 index-item property private inherited'>
+<a href='#property__visible'>_visible</a>
 
 </li>
 <li class='col-xs-6 col-md-4 index-item property public inherited'>
@@ -870,7 +866,7 @@ Defined in
 springroll.EventDispatcher
 </a>
 but overwritten in
-<a href='../files/src_displays_AbstractDisplay.js.html#l231'><code>destroy:231</code></a>
+<a href='../files/src_displays_AbstractDisplay.js.html#l220'><code>destroy:220</code></a>
 </p>
 
 
@@ -1269,7 +1265,7 @@ or a map of events to handlers</p>
 <div class='meta'>
 <p>Inherited from
 <a href='../classes/springroll.AbstractDisplay.html#method_render'>springroll.AbstractDisplay</a>:
-<a href='../files/src_displays_AbstractDisplay.js.html#l219'><code>render:219</code></a>
+<a href='../files/src_displays_AbstractDisplay.js.html#l208'><code>render:208</code></a>
 </p>
 
 
@@ -1339,7 +1335,7 @@ This method does nothing if paused is true or visible is false.
 <div class='meta'>
 <p>Inherited from
 <a href='../classes/springroll.AbstractDisplay.html#method_resize'>springroll.AbstractDisplay</a>:
-<a href='../files/src_displays_AbstractDisplay.js.html#l207'><code>resize:207</code></a>
+<a href='../files/src_displays_AbstractDisplay.js.html#l196'><code>resize:196</code></a>
 </p>
 
 
@@ -1520,8 +1516,8 @@ Resizes the canvas. This is only called by the Application.
 
 <div role='tabpanel' id='docs-properties' class='tab-pane'>
 
-<div class="property__visible property item private inherited">
-<h3 class="name"><a class="deeplink" href="#property__visible"><span class="glyphicon glyphicon-link"></span></a> <code>_visible</code></h3>
+<div class="property__enabled property item private inherited">
+<h3 class="name"><a class="deeplink" href="#property__enabled"><span class="glyphicon glyphicon-link"></span></a> <code>_enabled</code></h3>
 <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
 
 
@@ -1531,15 +1527,15 @@ Resizes the canvas. This is only called by the Application.
 
 <div class="meta">
 <p>Inherited from
-<a href="../classes/springroll.AbstractDisplay.html#property__visible">springroll.AbstractDisplay</a>:
-<a href="../files/src_displays_AbstractDisplay.js.html#l86"><code>_visible:86</code></a>
+<a href="../classes/springroll.AbstractDisplay.html#property__enabled">springroll.AbstractDisplay</a>:
+<a href="../files/src_displays_AbstractDisplay.js.html#l79"><code>_enabled:79</code></a>
 </p>
 
 
 </div>
 
 <div class="description">
-If the display is visible.
+If input is enabled on the stage.
 </div>
 
 
@@ -1693,30 +1689,6 @@ using Application.paused setter.
 
 
 
-</div><div class="property__enabled property item private inherited">
-<h3 class="name"><a class="deeplink" href="#property__enabled"><span class="glyphicon glyphicon-link"></span></a> <code>_enabled</code></h3>
-<span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
-
-
-<span class="flag private">private</span>
-
-
-
-<div class="meta">
-<p>Inherited from
-<a href="../classes/springroll.AbstractDisplay.html#property__enabled">springroll.AbstractDisplay</a>:
-<a href="../files/src_displays_AbstractDisplay.js.html#l79"><code>_enabled:79</code></a>
-</p>
-
-
-</div>
-
-<div class="description">
-If input is enabled on the stage.
-</div>
-
-
-
 </div><div class="property_canvas property item public inherited">
 <h3 class="name"><a class="deeplink" href="#property_canvas"><span class="glyphicon glyphicon-link"></span></a> <code>canvas</code></h3>
 <span class="type">DOMElement</span>
@@ -1741,31 +1713,28 @@ the canvas managed by this display
 
 
 
-</div><div class="property_animator property item public inherited">
-<h3 class="name"><a class="deeplink" href="#property_animator"><span class="glyphicon glyphicon-link"></span></a> <code>animator</code></h3>
-<span class="type">Animator</span>
+</div><div class="property__visible property item private inherited">
+<h3 class="name"><a class="deeplink" href="#property__visible"><span class="glyphicon glyphicon-link"></span></a> <code>_visible</code></h3>
+<span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
 
 
-<span class="flag public">public</span>
+<span class="flag private">private</span>
 
 
 
 <div class="meta">
 <p>Inherited from
-<a href="../classes/springroll.AbstractDisplay.html#property_animator">springroll.AbstractDisplay</a>:
-<a href="../files/src_displays_AbstractDisplay.js.html#l99"><code>animator:99</code></a>
+<a href="../classes/springroll.AbstractDisplay.html#property__visible">springroll.AbstractDisplay</a>:
+<a href="../files/src_displays_AbstractDisplay.js.html#l86"><code>_visible:86</code></a>
 </p>
 
 
 </div>
 
 <div class="description">
-The Animator class to use when using this display. Other modules
-uses this to determine what Animator to use, for instance states
-uses Animator when playing transition animations.
+If the display is visible.
 </div>
 
-<p><strong>Default:</strong> null</p>
 
 
 </div><div class="property_adapter property item public inherited">
@@ -1780,7 +1749,7 @@ uses Animator when playing transition animations.
 <div class="meta">
 <p>Inherited from
 <a href="../classes/springroll.AbstractDisplay.html#property_adapter">springroll.AbstractDisplay</a>:
-<a href="../files/src_displays_AbstractDisplay.js.html#l110"><code>adapter:110</code></a>
+<a href="../files/src_displays_AbstractDisplay.js.html#l99"><code>adapter:99</code></a>
 </p>
 
 
@@ -1806,7 +1775,7 @@ common methods for managing display objects.
 <div class="meta">
 <p>Inherited from
 <a href="../classes/springroll.AbstractDisplay.html#property_enabled">springroll.AbstractDisplay</a>:
-<a href="../files/src_displays_AbstractDisplay.js.html#l123"><code>enabled:123</code></a>
+<a href="../files/src_displays_AbstractDisplay.js.html#l112"><code>enabled:112</code></a>
 </p>
 
 
@@ -1831,7 +1800,7 @@ Without a rendering library, this does not actually have an effect.
 <div class="meta">
 <p>Inherited from
 <a href="../classes/springroll.AbstractDisplay.html#property_visible">springroll.AbstractDisplay</a>:
-<a href="../files/src_displays_AbstractDisplay.js.html#l165"><code>visible:165</code></a>
+<a href="../files/src_displays_AbstractDisplay.js.html#l154"><code>visible:154</code></a>
 </p>
 
 
@@ -1933,7 +1902,7 @@ If the display is visible, using "display: none" css on the canvas. Invisible di
 <div class="meta">
 <p>Inherited from
 <a href="../classes/springroll.AbstractDisplay.html#event_disabled">springroll.AbstractDisplay</a>:
-<a href="../files/src_displays_AbstractDisplay.js.html#l149"><code>disabled:149</code></a>
+<a href="../files/src_displays_AbstractDisplay.js.html#l138"><code>disabled:138</code></a>
 </p>
 
 
@@ -1956,7 +1925,7 @@ If the display becomes disabled
 <div class="meta">
 <p>Inherited from
 <a href="../classes/springroll.AbstractDisplay.html#event_enable">springroll.AbstractDisplay</a>:
-<a href="../files/src_displays_AbstractDisplay.js.html#l155"><code>enable:155</code></a>
+<a href="../files/src_displays_AbstractDisplay.js.html#l144"><code>enable:144</code></a>
 </p>
 
 
@@ -1995,7 +1964,7 @@ Current state of enabled
 <div class="meta">
 <p>Inherited from
 <a href="../classes/springroll.AbstractDisplay.html#event_enabled">springroll.AbstractDisplay</a>:
-<a href="../files/src_displays_AbstractDisplay.js.html#l144"><code>enabled:144</code></a>
+<a href="../files/src_displays_AbstractDisplay.js.html#l133"><code>enabled:133</code></a>
 </p>
 
 
@@ -2018,7 +1987,7 @@ If the display becomes enabled
 <div class="meta">
 <p>Inherited from
 <a href="../classes/springroll.AbstractDisplay.html#event_hidden">springroll.AbstractDisplay</a>:
-<a href="../files/src_displays_AbstractDisplay.js.html#l191"><code>hidden:191</code></a>
+<a href="../files/src_displays_AbstractDisplay.js.html#l180"><code>hidden:180</code></a>
 </p>
 
 
@@ -2041,7 +2010,7 @@ If the display becomes hidden
 <div class="meta">
 <p>Inherited from
 <a href="../classes/springroll.AbstractDisplay.html#event_visibility">springroll.AbstractDisplay</a>:
-<a href="../files/src_displays_AbstractDisplay.js.html#l197"><code>visibility:197</code></a>
+<a href="../files/src_displays_AbstractDisplay.js.html#l186"><code>visibility:186</code></a>
 </p>
 
 
@@ -2080,7 +2049,7 @@ Current state of the visibility
 <div class="meta">
 <p>Inherited from
 <a href="../classes/springroll.AbstractDisplay.html#event_visible">springroll.AbstractDisplay</a>:
-<a href="../files/src_displays_AbstractDisplay.js.html#l186"><code>visible:186</code></a>
+<a href="../files/src_displays_AbstractDisplay.js.html#l175"><code>visible:175</code></a>
 </p>
 
 
@@ -2098,7 +2067,7 @@ If the display becomes visible
 </div>
 </div>
 </div>
-<script src='../assets/js/libraries.js?v=0.4.7'></script>
-<script src='../assets/js/main.js?v=0.4.7'></script>
+<script src='../assets/js/libraries.js?v=0.4.8'></script>
+<script src='../assets/js/main.js?v=0.4.8'></script>
 </body>
 </html>
