@@ -1,4 +1,4 @@
-/*! SpringRoll 0.4.7 */
+/*! SpringRoll 0.4.8 */
 /**
  * @module Core
  * @namespace window
@@ -1670,15 +1670,9 @@
 			.addClass('loading')
 			.prop('src', path);
 
-		if (options.singlePlay)
-		{
-			this.client.send('singlePlay');
-		}
-
-		if (options.playOptions)
-		{
-			this.client.send('playOptions', options.playOptions);
-		}
+		// Respond with data when we're ready
+		this.client.respond('singlePlay', options.singlePlay);
+		this.client.respond('playOptions', options.playOptions);
 
 		this.trigger('open');
 	};
@@ -2508,7 +2502,8 @@
 		this.paused = false;
 
 		// Clear the iframe src location
-		this.main.attr('src', '');
+		this.main.attr('src', '')
+			.removeClass('loading');
 
 		if (wasLoaded)
 		{
