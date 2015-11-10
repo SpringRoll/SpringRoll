@@ -1,4 +1,4 @@
-/*! SpringRoll 0.3.18 */
+/*! SpringRoll 0.3.19 */
 /**
 *  @module Container Client
 *  @namespace springroll
@@ -19,27 +19,6 @@
 	plugin.setup = function()
 	{
 		var options = this.options;
-
-		/**
-		 * The default play-mode for the application is continuous, if the application is
-		 * running as part of a sequence is it considered in "single play" mode
-		 * and the application will therefore close itself.
-		 * @property {Boolean} options.singlePlay
-		 * @readOnly
-		 * @default false
-		 */
-		options.add('singlePlay', false, true);
-
-		/**
-		 * The optional play options to use if the application is played in "single play"
-		 * mode. These options are passed from the application container to specify
-		 * options that are used for this single play session. For instance,
-		 * if you want the single play to focus on a certain level or curriculum
-		 * such as `{ "shape": "square" }`
-		 * @property {Object} options.playOptions
-		 * @readOnly
-		 */
-		options.add('playOptions', null, true);
 
 		/**
 		 * Send a message to let the site know that this has
@@ -98,20 +77,23 @@
 		 * @property {Object} playOptions
 		 * @readOnly
 		 */
-		this.playOptions = null;
+		this.playOptions = {};
 
 		/**
 		 * When a application is in singlePlay mode it will end.
 		 * It's unnecessary to check `if (this.singlePlay)` just
 		 * call the method and it will end the application if it can.
 		 * @method singlePlayEnd
+		 * @return {Boolean} If endGame was called
 		 */
 		this.singlePlayEnd = function()
 		{
 			if (this.singlePlay)
 			{
 				this.endGame();
+				return true;
 			}
+			return false;
 		};
 
 		/**
@@ -124,6 +106,12 @@
 			this.trigger('endGame', exitType || 'game_completed');
 			this.destroy();
 		};
+
+		if (container.supported)
+		{
+			container.fetch('singlePlay', onSinglePlay.bind(this));
+			container.fetch('playOptions', onPlayOptions.bind(this));
+		}
 
 		/**
 		 * Track a Google Analytics event
@@ -195,10 +183,6 @@
 				throw "Application name is empty";
 			}
 		}
-		
-		// Add the options to properties
-		this.singlePlay = !!this.options.singlePlay;
-		this.playOptions = this.options.playOptions || {};
 
 		// Merge the container options with the current
 		// application options
@@ -214,8 +198,6 @@
 				sfxMuted: onContextMuted.bind(this, 'sfx'),
 				captionsStyles: onCaptionsStyles.bind(this),
 				pause: onPause.bind(this),
-				singlePlay: onSinglePlay.bind(this),
-				playOptions: onPlayOptions.bind(this),
 				close: onClose.bind(this)
 			});
 

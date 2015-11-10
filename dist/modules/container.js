@@ -1,4 +1,4 @@
-/*! SpringRoll 0.3.18 */
+/*! SpringRoll 0.3.19 */
 /**
  * @module Core
  * @namespace window
@@ -1410,16 +1410,11 @@
 
 		// Focus on the window on focusing on anything else
 		// without the .pause-on-focus class
-		$(document).on(
-			'focus click',
-			function(e)
-			{
-				if (!$(e.target).filter(options.pauseFocusSelector).length)
-				{
-					this.focus();
-				}
-			}.bind(this)
-		);
+		this._onDocClick = _onDocClick.bind(this);
+		$(document).on('focus click', this._onDocClick);
+
+		// Bind close failed handler
+		this._onCloseFailed = this._onCloseFailed.bind(this);
 
 		// On elements with the class name pause-on-focus
 		// we will pause the game until a blur event to that item
@@ -1525,6 +1520,22 @@
 	 * @param {string} [data.label] The optional label
 	 * @param {number} [data.value] The optional value
 	 */
+	
+	/**
+	 * When the document is clicked
+	 * @method _onDocClicked
+	 * @private
+	 * @param  {Event} e Click or focus event
+	 */
+	var _onDocClick = function(e)
+	{
+		if (!this.loaded) return;
+
+		if (!$(e.target).filter(this.options.pauseFocusSelector).length)
+		{
+			this.focus();
+		}
+	};
 
 	/**
 	 * Open a application or path
@@ -1563,15 +1574,9 @@
 			.prop('width', window.innerWidth)
 			.prop('height', window.innerHeight);
 
-		if (options.singlePlay)
-		{
-			this.client.send('singlePlay');
-		}
-
-		if (options.playOptions)
-		{
-			this.client.send('playOptions', options.playOptions);
-		}
+		// Respond with data when we're ready
+		this.client.respond('singlePlay', options.singlePlay);
+		this.client.respond('playOptions', options.playOptions);
 
 		this.trigger('open');
 	};
@@ -1961,8 +1966,6 @@
 	 */
 	var onEndGame = function()
 	{
-		this.destroyClient();
-
 		this.reset();
 	};
 
@@ -2379,11 +2382,15 @@
 	 */
 	p.reset = function()
 	{
+		var wasLoaded = this.loaded || this.loading;
+
 		// Stop the focus timer if it's running
 		if (this._focusTimer)
 		{
 			clearTimeout(this._focusTimer);
 		}
+
+		this.destroyClient();
 
 		// Disable the hint button
 		this.helpEnabled = false;
@@ -2401,9 +2408,14 @@
 		this.paused = false;
 
 		// Clear the iframe src location
-		this.main.attr('src', '');
+		this.main.attr('src', '')
+			.removeClass('loading');
 
-		this.trigger('closed');
+		if (wasLoaded)
+		{
+			this.off('localError', this._onCloseFailed);
+			this.trigger('closed');
+		}
 	};
 
 	/**
@@ -2415,12 +2427,28 @@
 		if (this.loading || this.loaded)
 		{
 			this.trigger('close');
+
+			// If any errors are handled on close, 
+			// then we'll force close the container
+			this.once('localError', this._onCloseFailed);
+
+			// Start the close
 			this.client.send('close');
 		}
 		else
 		{
 			this.reset();
 		}
+	};
+
+	/**
+	 * If there was an error when closing, reset the container
+	 * @method _onCloseFailed
+	 * @private
+	 */
+	p._onCloseFailed = function()
+	{
+		this.reset(); // force close the app
 	};
 
 	/**
@@ -2443,9 +2471,16 @@
 	{
 		this.reset();
 
+		s.destroy.call(this);
+
+		// Remove listener
+		$(document).off('focus click', this._onDocClick);
+
 		this.main = null;
+		this.options = null;
 		this.dom = null;
 
+		this._onDocClick = null;
 		this.helpButton = null;
 		this.soundButton = null;
 		this.pauseButton = null;
@@ -2459,10 +2494,6 @@
 			this._pageVisibility.destroy();
 			this._pageVisibility = null;
 		}
-		
-		this.destroyClient();
-
-		s.destroy.call(this);
 	};
 
 	namespace('springroll').Container = Container;
