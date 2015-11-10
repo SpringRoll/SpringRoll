@@ -97,17 +97,6 @@
 		};
 
 		/**
-		 * The Animator class to use when using this display. Other modules
-		 * uses this to determine what Animator to use, for instance states
-		 * uses Animator when playing transition animations.
-		 * @property {Animator} animator
-		 * @readOnly
-		 * @public
-		 * @default null
-		 */
-		// this.animator = null;
-
-		/**
 		 * Some of the modules require a special display adapter to provide
 		 * common methods for managing display objects.
 		 * @property {DisplayAdapter} adapter
@@ -237,7 +226,6 @@
 	p.destroy = function()
 	{
 		this.enabled = false;
-		this.animator = null;
 		this.adapter = null;
 		this.stage = null;
 		if (this.canvas.parentNode)
