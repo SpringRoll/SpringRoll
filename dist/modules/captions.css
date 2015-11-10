@@ -1,6 +1,11 @@
 /*! SpringRoll 0.3.19 */
 body {
-  font-size: 1.3em;
+  font-size: 1.4em;
+}
+@media (max-width: 1280px) {
+  body {
+    font-size: 1.3em;
+  }
 }
 @media (max-width: 1152px) {
   body {
