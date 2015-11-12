@@ -415,6 +415,9 @@
 
 		if (delay && typeof delay == "number")
 		{
+			//allow the renderer to figure out that any images on stage need decoding during the
+			//delay, not during the transition in
+			this.panel.visible = true;
 			this.app.setTimeout(this.loadingDone.bind(this, 0), delay, true);
 			return;
 		}
