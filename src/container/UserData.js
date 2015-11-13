@@ -6,7 +6,6 @@
 {
 	// Impor classes
 	var SavedData = include('springroll.SavedData');
-	var Application = include('springroll.Application');
 
 	/**
 	 * This class is responsible for saving the user-specific data
@@ -15,8 +14,9 @@
 	 * sessions of running an app.
 	 * @class UserData
 	 * @constructor
+	 * @param {Bellhop} container The container instance
 	 */
-	var UserData = function()
+	var UserData = function(container)
 	{
 		/**
 		 * Reference to the container. If the app is not connected
@@ -26,7 +26,7 @@
 		 * @default  null
 		 * @readOnly
 		 */
-		this.container = null;
+		this.container = container;
 
 		/**
 		 * The name to preprend to each property name, this is set
@@ -49,10 +49,9 @@
 	 */
 	p.read = function(prop, callback)
 	{
-		if (!this.container || !this.container.supported)
+		if (!this.container.supported)
 		{
-			var prefix = Application.instance.options.name || "";
-			return callback(SavedData.read(prefix + prop));
+			return callback(SavedData.read(this.id + prop));
 		}
 		this.container.fetch(
 			'userDataRead',
@@ -74,10 +73,9 @@
 	 */
 	p.write = function(prop, value, callback)
 	{
-		if (!this.container || !this.container.supported)
+		if (!this.container.supported)
 		{
-			var prefix = Application.instance.options.name || "";
-			SavedData.write(prefix + prop, value);
+			SavedData.write(this.id + prop, value);
 			if (callback) callback();
 			return;
 		}
@@ -103,10 +101,9 @@
 	 */
 	p.remove = function(prop, callback)
 	{
-		if (!this.container || !this.container.supported)
+		if (!this.container.supported)
 		{
-			var prefix = Application.instance.options.name || "";
-			SavedData.remove(prefix + prop);
+			SavedData.remove(this.id + prop);
 			if (callback) callback();
 			return;
 		}
@@ -127,6 +124,7 @@
 	 */
 	p.destroy = function()
 	{
+		this.id = null;
 		this.container = null;
 	};
 

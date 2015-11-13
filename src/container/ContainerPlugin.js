@@ -13,7 +13,7 @@
 	/**
 	 * @class Application
 	 */
-	var plugin = new ApplicationPlugin(50);
+	var plugin = new ApplicationPlugin(200);
 
 	// Init the animator
 	plugin.setup = function()
@@ -34,7 +34,7 @@
 		 * save user data to local cookies
 		 * @property {springroll.UserData} userData
 		 */
-		this.userData = new UserData();
+		this.userData = new UserData(container);
 
 		/**
 		 * This option tells the container to always keep focus on the iframe even
@@ -51,8 +51,11 @@
 		// When the preloading is done
 		this.once('beforeInit', function()
 		{
-			container.send('loadDone');
+			container.send('loaded');
 		});
+
+		// Send the first event
+		container.send('loading');
 
 		/**
 		 * The default play-mode for the application is continuous, if the application is
@@ -103,13 +106,30 @@
 			this.destroy();
 		};
 
+		// Dispatch the features
+		this.once('beforeInit', function()
+		{
+			var hasSound = !!this.sound;
+
+			// Add the features that are enabled
+			this.container.send('features',
+			{
+				sound: hasSound,
+				hints: !!this.hints,
+				music: hasSound && this.sound.contextExists('music'),
+				vo: hasSound && this.sound.contextExists('vo'),
+				sfx: hasSound && this.sound.contextExists('sfx'),
+				captions: !!this.captions
+			});
+		});
+
 		if (container.supported)
 		{
 			container.fetch('singlePlay', onSinglePlay.bind(this));
 			container.fetch('playOptions', onPlayOptions.bind(this));
 		}
 
-		// Handle errors
+		// Handle errors gracefully
 		window.onerror = onWindowError.bind(this);
 
 		// Listen when the browser closes or redirects
@@ -143,7 +163,7 @@
 		{
 			if (DEBUG && window.console) console.error(error);
 			this.container.send('localError', String(error));
-			return true;
+			return RELEASE; // handle gracefully in release mode
 		}
 	};
 
@@ -162,14 +182,13 @@
 			}
 		}
 
+		// Connect the user data to container
+		this.userData.id = this.name;
+
 		// Merge the container options with the current
 		// application options
 		if (this.container.supported)
 		{
-			// Connect the user data to container
-			this.userData.id = this.name;
-			this.userData.container = this.container;
-
 			//Setup the container listeners for site soundMute and captionsMute events
 			this.container.on(
 			{
@@ -181,19 +200,6 @@
 				captionsStyles: onCaptionsStyles.bind(this),
 				pause: onPause.bind(this),
 				close: onClose.bind(this)
-			});
-
-			var hasSound = !!this.sound;
-
-			// Add the features that are enabled
-			this.container.send('features',
-			{
-				sound: hasSound,
-				hints: !!this.hints,
-				music: hasSound && this.sound.contextExists('music'),
-				vo: hasSound && this.sound.contextExists('vo'),
-				sfx: hasSound && this.sound.contextExists('sfx'),
-				captions: !!this.captions
 			});
 
 			// Turn off the page hide and show auto pausing the App
