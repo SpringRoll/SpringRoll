@@ -505,10 +505,10 @@
 		/**
 		 * If sound is enabled. This will only be false if Sound was unable to initialize
 		 * a SoundJS plugin.
-		 * @property {Boolean} soundEnabled
+		 * @property {Boolean} isSupported
 		 * @readOnly
 		 */
-		this.soundEnabled = true;
+		this.isSupported = true;
 
 		/**
 		 * If sound is currently muted by the system. This will only be true on iOS until
@@ -669,7 +669,7 @@
 			{
 				Debug.error("Unable to initialize SoundJS with a plugin!");
 			}
-			this.soundEnabled = false;
+			_instance.isSupported = false;
 			if (options.ready)
 			{
 				options.ready();
@@ -1160,8 +1160,6 @@
 	 */
 	p.play = function(alias, options, startCallback, interrupt, delay, offset, loop, volume, pan)
 	{
-		if (!this.soundEnabled) return;
-
 		var completeCallback;
 		if (options && isFunction(options))
 		{
@@ -1176,6 +1174,15 @@
 		loop = (options ? options.loop : loop);
 		volume = (options ? options.volume : volume);
 		pan = (options ? options.pan : pan) || 0;
+
+		if (!this.isSupported)
+		{
+			if (completeCallback)
+			{
+				setTimeout(completeCallback, 0);
+			}
+			return;
+		}
 
 		//Replace with correct infinite looping.
 		if (loop === true)
@@ -1801,6 +1808,15 @@
 	 */
 	p.preload = function(list, callback)
 	{
+		if (!this.isSupported)
+		{
+			if (callback)
+			{
+				setTimeout(callback, 0);
+			}
+			return;
+		}
+
 		if (isString(list))
 		{
 			list = [list];
