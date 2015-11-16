@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html lang='en'>
 <head>
-	<title>SpringRoll v0.4.8 API Documentation : src/container/Container.js</title>
+	<title>SpringRoll v0.4.9 API Documentation : src/container/Container.js</title>
 	<meta charset='utf-8'>
 	<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 	<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
-	<link rel='shortcut icon' type='image/png' href='../assets/images/favicon.ico?v=0.4.8'>
+	<link rel='shortcut icon' type='image/png' href='../assets/images/favicon.ico?v=0.4.9'>
 	<link href='//fonts.googleapis.com/css?family=Titillium+Web:300,200,600' rel='stylesheet' type='text/css'>
-	<link rel='stylesheet' type='text/css' href='../assets/css/libraries.css?v=0.4.8'>
-	<link rel='stylesheet' type='text/css' href='../assets/css/main.css?v=0.4.8'>
+	<link rel='stylesheet' type='text/css' href='../assets/css/libraries.css?v=0.4.9'>
+	<link rel='stylesheet' type='text/css' href='../assets/css/main.css?v=0.4.9'>
 </head>
 <body>
 <header>
@@ -22,10 +22,10 @@
 					<span class="icon-bar"></span>
 				</button>
 				<a class="navbar-brand" href='https://github.com/SpringRoll/SpringRoll'>
-						<img src='../assets/images/logo.png?v=0.4.8' class="logo">
+						<img src='../assets/images/logo.png?v=0.4.9' class="logo">
 					<span class='project-name'>SpringRoll</span>
 					<span class="sr-only">API Documentation for:</span>
-					<span class='version hidden-xs'>v0.4.8</span>
+					<span class='version hidden-xs'>v0.4.9</span>
 				</a>
 			</div>
 			<div class="collapse navbar-collapse" id="docs-navbar">
@@ -887,8 +887,15 @@
 	 */
 
 	/**
-	 * Event when a application start loading
+	 * Event when request to open an application has begin either by
+	 * calling &#x60;openPath&#x60; or &#x60;openRemote&#x60;
 	 * @event open
+	 */
+
+	/**
+	 * Event when a application start loading, first even received
+	 * from the Application.
+	 * @event opening
 	 */
 
 	/**
@@ -1065,7 +1072,9 @@
 		//Handle bellhop events coming from the application
 		this.client.on(
 		{
-			loadDone: onLoadDone.bind(this),
+			loading: onLoading.bind(this),
+			loadDone: onLoadDone.bind(this), // @deprecated use &#x27;loaded&#x27; instead
+			loaded: onLoadDone.bind(this),
 			endGame: onEndGame.bind(this),
 			focus: onFocus.bind(this),
 			helpEnabled: onHelpEnabled.bind(this),
@@ -1144,6 +1153,16 @@
 	var onLocalError = function(event)
 	{
 		this.trigger(event.type, event.data);
+	};
+
+	/**
+	 * The game is starting to load
+	 * @method onLoading
+	 * @private
+	 */
+	var onLoading = function()
+	{
+		this.trigger(&#x27;opening&#x27;);
 	};
 
 	/**
@@ -1887,7 +1906,7 @@
 </div>
 </div>
 </div>
-<script src='../assets/js/libraries.js?v=0.4.8'></script>
-<script src='../assets/js/main.js?v=0.4.8'></script>
+<script src='../assets/js/libraries.js?v=0.4.9'></script>
+<script src='../assets/js/main.js?v=0.4.9'></script>
 </body>
 </html>

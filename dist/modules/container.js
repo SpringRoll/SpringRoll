@@ -1,4 +1,4 @@
-/*! SpringRoll 0.4.8 */
+/*! SpringRoll 0.4.9 */
 /**
  * @module Core
  * @namespace window
@@ -1597,8 +1597,15 @@
 	 */
 
 	/**
-	 * Event when a application start loading
+	 * Event when request to open an application has begin either by
+	 * calling `openPath` or `openRemote`
 	 * @event open
+	 */
+
+	/**
+	 * Event when a application start loading, first even received
+	 * from the Application.
+	 * @event opening
 	 */
 
 	/**
@@ -1775,7 +1782,9 @@
 		//Handle bellhop events coming from the application
 		this.client.on(
 		{
-			loadDone: onLoadDone.bind(this),
+			loading: onLoading.bind(this),
+			loadDone: onLoadDone.bind(this), // @deprecated use 'loaded' instead
+			loaded: onLoadDone.bind(this),
 			endGame: onEndGame.bind(this),
 			focus: onFocus.bind(this),
 			helpEnabled: onHelpEnabled.bind(this),
@@ -1854,6 +1863,16 @@
 	var onLocalError = function(event)
 	{
 		this.trigger(event.type, event.data);
+	};
+
+	/**
+	 * The game is starting to load
+	 * @method onLoading
+	 * @private
+	 */
+	var onLoading = function()
+	{
+		this.trigger('opening');
 	};
 
 	/**
