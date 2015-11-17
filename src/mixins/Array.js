@@ -91,7 +91,7 @@
 					{
 						for (var j = 0, jLength = other.length; j < jLength; ++j)
 						{
-							this.push(other[i]);
+							this.push(other[j]);
 						}
 					}
 					else

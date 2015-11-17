@@ -55,7 +55,7 @@
 		/**
 		 * The collection of assets to preload, can be individual
 		 * URLs or objects with keys `src`, `complete`, `progress`, etc. 
-		 * @property {String} options.preload
+		 * @property {String|Array|Object} options.preload
 		 * @default []
 		 */
 		options.add('preload', [], true);
@@ -170,15 +170,7 @@
 	 */
 	var addPreloadAssets = function(app, assets)
 	{
-		var preload = app.options.preload;
-
-		if (preload && preload.length)
-		{
-			preload.forEach(function(asset)
-			{
-				assets.push(asset);
-			});
-		}
+		assets.append(app.options.preload);
 
 		// Allow extending game to add additional tasks
 		app.trigger('loading', assets);
