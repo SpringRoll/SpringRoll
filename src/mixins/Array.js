@@ -67,4 +67,41 @@
 			}
 		});
 	}
+
+	/**
+	 * Appends a list of items or list of arrays to the end of this array. This functions
+	 * like concat(), but works on the original array instead of making a copy.
+	 * @method append
+	 * @param {*} arguments A list of arrays or individual items.
+	 * @return {Array} This array.
+	 */
+	if (!Array.prototype.append)
+	{
+		Object.defineProperty(Array.prototype, "append",
+		{
+			enumerable: false,
+			writable: false,
+			value: function()
+			{
+				var args = arguments;
+				for (var i = 0, length = args.length; i < length; ++i)
+				{
+					var other = args[i];
+					if (Array.isArray(other))
+					{
+						for (var j = 0, jLength = other.length; j < jLength; ++j)
+						{
+							this.push(other[i]);
+						}
+					}
+					else
+					{
+						this.push(other);
+					}
+				}
+				return this;
+			}
+		});
+	}
+
 }(Array, Math, Object));
