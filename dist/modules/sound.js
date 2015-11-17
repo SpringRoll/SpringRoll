@@ -2690,6 +2690,15 @@
 	// Reference to prototype
 	var p = Sound.prototype;
 
+	Object.defineProperty(p, "soundEnabled",
+	{
+		get: function()
+		{
+			if (true) console.warn("soundEnabled is now deprecated, please use isSupported instead.");
+			return this.isSupported;
+		}
+	});
+
 	/**
 	 * @class Sound
 	 */
