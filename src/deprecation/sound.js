@@ -8,7 +8,7 @@
 	var Sound = include('springroll.Sound');
 	var SoundInstance = include('springroll.SoundInstance');
 	var VOPlayer = include('springroll.VOPlayer');
-	
+
 	/**
 	 * @class Sound
 	 */
@@ -29,7 +29,7 @@
 		}
 	});
 
-	
+
 	/**
 	 * Add a configuration to the load, see {{#crossLink "springroll.Sound/addContext:method"}}{{/crossLink}}
 	 * @method loadConfig

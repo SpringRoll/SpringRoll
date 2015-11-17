@@ -276,12 +276,20 @@
 			Tween.removeTweens(obj.position);
 		}
 
-		//get the mouse position and convert it to object parent space
-		interactionData.getLocalPosition(obj.parent, dragOffset);
+		if (obj._dragOffset)
+		{
+			dragOffset.x = obj._dragOffset.x;
+			dragOffset.y = obj._dragOffset.y;
+		}
+		else
+		{
+			//get the mouse position and convert it to object parent space
+			interactionData.getLocalPosition(obj.parent, dragOffset);
 
-		//move the offset to respect the object's current position
-		dragOffset.x -= obj.position.x;
-		dragOffset.y -= obj.position.y;
+			//move the offset to respect the object's current position
+			dragOffset.x -= obj.position.x;
+			dragOffset.y -= obj.position.y;
+		}
 
 		mouseDownObjPos.x = obj.position.x;
 		mouseDownObjPos.y = obj.position.y;
@@ -613,15 +621,21 @@
 	/**
 	 * Adds properties and functions to the object - use enableDrag() and disableDrag() on
 	 * objects to enable/disable them (they start out disabled). Properties added to objects:
-	 * _dragBounds (Rectangle), _onMouseDownListener (Function), _dragMan (springroll.DragManager) reference to the DragManager
+	 * _dragBounds (Rectangle), _dragOffset (Point), _onMouseDownListener (Function),
+	 * _dragMan (springroll.DragManager) reference to the DragManager
 	 * these will override any existing properties of the same name
 	 * @method addObject
 	 * @public
 	 * @param {PIXI.DisplayObject} obj The display object
 	 * @param {PIXI.Rectangle} [bounds] The rectangle bounds. 'right' and 'bottom' properties
 	 *                                  will be added to this object.
+	 * @param {PIXI.Point} [dragOffset] A specific drag offset to use each time, instead of
+	 *                                  the mousedown/touchstart position relative to the
+	 *                                  object. This is useful if you want something to always
+	 *                                  be dragged from a specific position, like the base of
+	 *                                  a torch.
 	 */
-	p.addObject = function(obj, bounds)
+	p.addObject = function(obj, bounds, dragOffset)
 	{
 		if (bounds)
 		{
@@ -629,6 +643,7 @@
 			bounds.bottom = bounds.y + bounds.height;
 		}
 		obj._dragBounds = bounds;
+		obj._dragOffset = dragOffset || null;
 		if (this._draggableObjects.indexOf(obj) >= 0)
 		{
 			//don't change any of the functions or anything, just quit the function after having updated the bounds
@@ -658,6 +673,7 @@
 			delete obj._onMouseDownListener;
 			delete obj._dragMan;
 			delete obj._dragBounds;
+			delete obj._dragOffset;
 			this._draggableObjects.splice(index, 1);
 		}
 	};
@@ -688,6 +704,7 @@
 			delete obj._onMouseDownListener;
 			delete obj._dragMan;
 			delete obj._dragBounds;
+			delete obj._dragOffset;
 		}
 		this._draggableObjects = null;
 	};
