@@ -395,6 +395,8 @@
 		stage.addEventListener("stagemousemove", this._updateObjPosition);
 		stage.addEventListener("stagemouseup", this._stopDrag);
 
+		this._updateObjPosition(ev);
+
 		this._dragStartCallback(this._multitouch ?
 			this.draggedObj[ev.pointerID].obj :
 			this.draggedObj);

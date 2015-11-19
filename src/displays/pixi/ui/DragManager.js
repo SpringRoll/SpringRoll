@@ -387,6 +387,11 @@
 		else
 			draggedObj = this.draggedObj;
 
+		this._updateObjPosition(
+		{
+			data: ev
+		});
+
 		if (!this._addedDragListeners)
 		{
 			this._addedDragListeners = true;
