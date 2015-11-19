@@ -389,7 +389,7 @@
 
 		this._updateObjPosition(
 		{
-			data: ev
+			data: interactionData
 		});
 
 		if (!this._addedDragListeners)
