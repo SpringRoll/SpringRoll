@@ -560,6 +560,28 @@
 		activePlugin._loaders = _loaders;
 		activePlugin._audioSources = _audioSources;
 		activePlugin._soundInstances = _soundInstances;
+
+		//update any playing instances to not have references to old audio nodes
+		//while we could go through all of the springroll.Sound instances, it's probably
+		//faster to go through SoundJS's stuff, as well as catching any cases where a
+		//naughty person went over springroll.Sound's head and played audio through SoundJS
+		//directly
+		for (var url in _soundInstances)
+		{
+			var instances = _soundInstances[url];
+			for (var i = 0; i < instances.length; ++i)
+			{
+				var instance = instances[i];
+				//clean up old nodes
+				instance.panNode.disconnect(0);
+				instance.gainNode.disconnect(0);
+				//make brand new nodes
+				instance.gainNode = WebAudioPlugin.context.createGain();
+				instance.panNode = WebAudioPlugin.context.createPanner();
+				instance.panNode.panningModel = WebAudioPlugin._panningModel;
+				instance.panNode.connect(instance.gainNode);
+			}
+		}
 	}
 
 	var _instance = null;
