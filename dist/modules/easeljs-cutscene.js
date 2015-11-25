@@ -442,6 +442,7 @@
 		{
 			this._activeAudio[i].stop();
 		}
+		this._activeAudio.length = this._activeSyncAudio.length = 0;
 
 		if (this._captions)
 		{
