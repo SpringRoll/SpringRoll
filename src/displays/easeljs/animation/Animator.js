@@ -349,7 +349,7 @@
 					start = audio.start > 0 ? audio.start * 0.001 : 0; //seconds
 					alias = audio.alias;
 				}
-				if (Sound.instance.exists(alias))
+				if (!Sound.instance.systemMuted && Sound.instance.exists(alias))
 				{
 					Sound.instance.preloadSound(alias);
 					animData.alias = alias;
