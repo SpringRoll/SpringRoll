@@ -5880,6 +5880,11 @@
 		assets = applyDefaults(assets);
 
 		// Check for a task definition on the asset
+		// add default type for proper task recognition
+		if (assets.type === undefined && this.type)
+		{
+			assets.type = this.type;
+		}
 		var isSingle = this.getTaskByAsset(assets);
 
 		if (isSingle)
@@ -5889,6 +5894,11 @@
 		}
 		else
 		{
+			//if we added a default type for task recognition, remove it
+			if (assets.type === this.type && this.type)
+			{
+				delete assets.type;
+			}
 			var task;
 			if (Array.isArray(assets))
 			{
