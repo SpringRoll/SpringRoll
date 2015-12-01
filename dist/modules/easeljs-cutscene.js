@@ -1,4 +1,4 @@
-/*! SpringRoll 0.4.9 */
+/*! SpringRoll 0.4.10 */
 /**
  * @module EaselJS Cutscene
  * @namespace springroll.easeljs
@@ -442,6 +442,7 @@
 		{
 			this._activeAudio[i].stop();
 		}
+		this._activeAudio.length = this._activeSyncAudio.length = 0;
 
 		if (this._captions)
 		{

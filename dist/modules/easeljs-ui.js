@@ -1,4 +1,4 @@
-/*! SpringRoll 0.4.9 */
+/*! SpringRoll 0.4.10 */
 /**
  * @module EaselJS UI
  * @namespace springroll.easeljs
@@ -1451,11 +1451,19 @@
 
 		if (ev)
 		{
-			//get the mouse position in global space and convert it to parent space
-			dragOffset = obj.parent.globalToLocal(ev.stageX, ev.stageY, dragOffset);
-			//move the offset to respect the object's current position
-			dragOffset.x -= obj.x;
-			dragOffset.y -= obj.y;
+			if (obj._dragOffset)
+			{
+				dragOffset.x = obj._dragOffset.x;
+				dragOffset.y = obj._dragOffset.y;
+			}
+			else
+			{
+				//get the mouse position in global space and convert it to parent space
+				dragOffset = obj.parent.globalToLocal(ev.stageX, ev.stageY, dragOffset);
+				//move the offset to respect the object's current position
+				dragOffset.x -= obj.x;
+				dragOffset.y -= obj.y;
+			}
 		}
 
 		//save the position of the object before dragging began, for easy restoration, if desired
@@ -1551,6 +1559,8 @@
 		//duplicate listeners are ignored
 		stage.addEventListener("stagemousemove", this._updateObjPosition);
 		stage.addEventListener("stagemouseup", this._stopDrag);
+
+		this._updateObjPosition(ev);
 
 		this._dragStartCallback(this._multitouch ?
 			this.draggedObj[ev.pointerID].obj :
@@ -1779,7 +1789,7 @@
 	/**
 	 * Adds properties and functions to the object - use enableDrag() and disableDrag() on
 	 * objects to enable/disable them (they start out disabled). Properties added to objects:
-	 * _dragBounds (Rectangle), _onMouseDownListener (Function),
+	 * _dragBounds (Rectangle), _dragOffset (Point), _onMouseDownListener (Function),
 	 * _dragMan (springroll.DragManager) reference to the DragManager
 	 * these will override any existing properties of the same name
 	 * @method addObject
@@ -1787,8 +1797,13 @@
 	 * @param {createjs.DisplayObject} obj The display object
 	 * @param {createjs.Rectangle} [bounds] The rectangle bounds. 'right' and 'bottom' properties
 	 *                                    will be added to this object.
+	 * @param {createjs.Point} [dragOffset] A specific drag offset to use each time, instead of
+	 *                                      the mousedown/touchstart position relative to the
+	 *                                      object. This is useful if you want something to always
+	 *                                      be dragged from a specific position, like the base of
+	 *                                      a torch.
 	 */
-	p.addObject = function(obj, bounds)
+	p.addObject = function(obj, bounds, dragOffset)
 	{
 		if (bounds)
 		{
@@ -1796,6 +1811,7 @@
 			bounds.bottom = bounds.y + bounds.height;
 		}
 		obj._dragBounds = bounds;
+		obj._dragOffset = dragOffset || null;
 		if (this._draggableObjects.indexOf(obj) >= 0)
 		{
 			//don't change any of the functions or anything, just quit the function after having updated the bounds
@@ -1816,12 +1832,15 @@
 	 */
 	p.removeObject = function(obj)
 	{
+		if (!obj.disableDrag) return;
+
 		obj.disableDrag();
 		delete obj.enableDrag;
 		delete obj.disableDrag;
 		delete obj._onMouseDownListener;
 		delete obj._dragMan;
 		delete obj._dragBounds;
+		delete obj._dragOffset;
 		var index = this._draggableObjects.indexOf(obj);
 		if (index >= 0)
 			this._draggableObjects.splice(index, 1);
@@ -1854,6 +1873,7 @@
 			delete obj._onMouseDownListener;
 			delete obj._dragMan;
 			delete obj._dragBounds;
+			delete obj._dragOffset;
 		}
 		this._draggableObjects = null;
 		this._helperPoint = null;

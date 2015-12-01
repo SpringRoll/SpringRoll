@@ -1,4 +1,4 @@
-/*! SpringRoll 0.4.9 */
+/*! SpringRoll 0.4.10 */
 /**
  * @module Core
  * @namespace window
@@ -311,6 +311,43 @@
 			}
 		});
 	}
+
+	/**
+	 * Appends a list of items or list of arrays to the end of this array. This functions
+	 * like concat(), but works on the original array instead of making a copy.
+	 * @method append
+	 * @param {*} arguments A list of arrays or individual items.
+	 * @return {Array} This array.
+	 */
+	if (!Array.prototype.append)
+	{
+		Object.defineProperty(Array.prototype, "append",
+		{
+			enumerable: false,
+			writable: false,
+			value: function()
+			{
+				var args = arguments;
+				for (var i = 0, length = args.length; i < length; ++i)
+				{
+					var other = args[i];
+					if (Array.isArray(other))
+					{
+						for (var j = 0, jLength = other.length; j < jLength; ++j)
+						{
+							this.push(other[j]);
+						}
+					}
+					else
+					{
+						this.push(other);
+					}
+				}
+				return this;
+			}
+		});
+	}
+
 }(Array, Math, Object));
 /**
  * @module Core
@@ -5843,6 +5880,11 @@
 		assets = applyDefaults(assets);
 
 		// Check for a task definition on the asset
+		// add default type for proper task recognition
+		if (assets.type === undefined && this.type)
+		{
+			assets.type = this.type;
+		}
 		var isSingle = this.getTaskByAsset(assets);
 
 		if (isSingle)
@@ -5852,6 +5894,11 @@
 		}
 		else
 		{
+			//if we added a default type for task recognition, remove it
+			if (assets.type === this.type && this.type)
+			{
+				delete assets.type;
+			}
 			var task;
 			if (Array.isArray(assets))
 			{
@@ -6745,7 +6792,7 @@
 		/**
 		 * The collection of assets to preload, can be individual
 		 * URLs or objects with keys `src`, `complete`, `progress`, etc. 
-		 * @property {String} options.preload
+		 * @property {String|Array|Object} options.preload
 		 * @default []
 		 */
 		options.add('preload', [], true);
@@ -6860,15 +6907,7 @@
 	 */
 	var addPreloadAssets = function(app, assets)
 	{
-		var preload = app.options.preload;
-
-		if (preload && preload.length)
-		{
-			preload.forEach(function(asset)
-			{
-				assets.push(asset);
-			});
-		}
+		assets.append(app.options.preload);
 
 		// Allow extending game to add additional tasks
 		app.trigger('loading', assets);

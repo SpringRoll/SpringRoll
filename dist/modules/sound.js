@@ -1,4 +1,4 @@
-/*! SpringRoll 0.4.9 */
+/*! SpringRoll 0.4.10 */
 /**
  * @module Sound
  * @namespace springroll
@@ -505,10 +505,10 @@
 		/**
 		 * If sound is enabled. This will only be false if Sound was unable to initialize
 		 * a SoundJS plugin.
-		 * @property {Boolean} soundEnabled
+		 * @property {Boolean} isSupported
 		 * @readOnly
 		 */
-		this.soundEnabled = true;
+		this.isSupported = true;
 
 		/**
 		 * If sound is currently muted by the system. This will only be true on iOS until
@@ -560,6 +560,28 @@
 		activePlugin._loaders = _loaders;
 		activePlugin._audioSources = _audioSources;
 		activePlugin._soundInstances = _soundInstances;
+
+		//update any playing instances to not have references to old audio nodes
+		//while we could go through all of the springroll.Sound instances, it's probably
+		//faster to go through SoundJS's stuff, as well as catching any cases where a
+		//naughty person went over springroll.Sound's head and played audio through SoundJS
+		//directly
+		for (var url in _soundInstances)
+		{
+			var instances = _soundInstances[url];
+			for (var i = 0; i < instances.length; ++i)
+			{
+				var instance = instances[i];
+				//clean up old nodes
+				instance.panNode.disconnect(0);
+				instance.gainNode.disconnect(0);
+				//make brand new nodes
+				instance.gainNode = WebAudioPlugin.context.createGain();
+				instance.panNode = WebAudioPlugin.context.createPanner();
+				instance.panNode.panningModel = WebAudioPlugin._panningModel;
+				instance.panNode.connect(instance.gainNode);
+			}
+		}
 	}
 
 	var _instance = null;
@@ -669,7 +691,7 @@
 			{
 				Debug.error("Unable to initialize SoundJS with a plugin!");
 			}
-			this.soundEnabled = false;
+			_instance.isSupported = false;
 			if (options.ready)
 			{
 				options.ready();
@@ -1160,8 +1182,6 @@
 	 */
 	p.play = function(alias, options, startCallback, interrupt, delay, offset, loop, volume, pan)
 	{
-		if (!this.soundEnabled) return;
-
 		var completeCallback;
 		if (options && isFunction(options))
 		{
@@ -1176,6 +1196,15 @@
 		loop = (options ? options.loop : loop);
 		volume = (options ? options.volume : volume);
 		pan = (options ? options.pan : pan) || 0;
+
+		if (!this.isSupported)
+		{
+			if (completeCallback)
+			{
+				setTimeout(completeCallback, 0);
+			}
+			return;
+		}
 
 		//Replace with correct infinite looping.
 		if (loop === true)
@@ -1801,6 +1830,15 @@
 	 */
 	p.preload = function(list, callback)
 	{
+		if (!this.isSupported)
+		{
+			if (callback)
+			{
+				setTimeout(callback, 0);
+			}
+			return;
+		}
+
 		if (isString(list))
 		{
 			list = [list];
@@ -2671,12 +2709,27 @@
 	var SoundInstance = include('springroll.SoundInstance');
 	var VOPlayer = include('springroll.VOPlayer');
 
+	/**
+	 * @class Sound
+	 */
 	// Reference to prototype
 	var p = Sound.prototype;
 
 	/**
-	 * @class Sound
+	 * If sound is supported on the device/browser, see {{#crossLink "springroll.Sound/isSupported:property"}}{{/crossLink}}
+	 * @property {Boolean} soundEnabled
+	 * @deprecated since version 0.4.10
 	 */
+	Object.defineProperty(p, "soundEnabled",
+	{
+		get: function()
+		{
+			if (true) console.warn("soundEnabled is now deprecated, please use isSupported instead.");
+			return this.isSupported;
+		}
+	});
+
+
 	/**
 	 * Add a configuration to the load, see {{#crossLink "springroll.Sound/addContext:method"}}{{/crossLink}}
 	 * @method loadConfig
@@ -2765,7 +2818,7 @@
 
 	/**
 	 * Get the current list of VO sounds, see {{#crossLink "springroll.VOPlayer/voList:property"}}{{/crossLink}}
-	 * @method soundList
+	 * @property soundList
 	 * @deprecated since version 0.4.0
 	 * @public
 	 */

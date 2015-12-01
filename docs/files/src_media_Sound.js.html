@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html lang='en'>
 <head>
-	<title>SpringRoll v0.4.9 API Documentation : src/media/Sound.js</title>
+	<title>SpringRoll v0.4.10 API Documentation : src/media/Sound.js</title>
 	<meta charset='utf-8'>
 	<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 	<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
-	<link rel='shortcut icon' type='image/png' href='../assets/images/favicon.ico?v=0.4.9'>
+	<link rel='shortcut icon' type='image/png' href='../assets/images/favicon.ico?v=0.4.10'>
 	<link href='//fonts.googleapis.com/css?family=Titillium+Web:300,200,600' rel='stylesheet' type='text/css'>
-	<link rel='stylesheet' type='text/css' href='../assets/css/libraries.css?v=0.4.9'>
-	<link rel='stylesheet' type='text/css' href='../assets/css/main.css?v=0.4.9'>
+	<link rel='stylesheet' type='text/css' href='../assets/css/libraries.css?v=0.4.10'>
+	<link rel='stylesheet' type='text/css' href='../assets/css/main.css?v=0.4.10'>
 </head>
 <body>
 <header>
@@ -22,10 +22,10 @@
 					<span class="icon-bar"></span>
 				</button>
 				<a class="navbar-brand" href='https://github.com/SpringRoll/SpringRoll'>
-						<img src='../assets/images/logo.png?v=0.4.9' class="logo">
+						<img src='../assets/images/logo.png?v=0.4.10' class="logo">
 					<span class='project-name'>SpringRoll</span>
 					<span class="sr-only">API Documentation for:</span>
-					<span class='version hidden-xs'>v0.4.9</span>
+					<span class='version hidden-xs'>v0.4.10</span>
 				</a>
 			</div>
 			<div class="collapse navbar-collapse" id="docs-navbar">
@@ -653,10 +653,10 @@
 		/**
 		 * If sound is enabled. This will only be false if Sound was unable to initialize
 		 * a SoundJS plugin.
-		 * @property {Boolean} soundEnabled
+		 * @property {Boolean} isSupported
 		 * @readOnly
 		 */
-		this.soundEnabled = true;
+		this.isSupported = true;
 
 		/**
 		 * If sound is currently muted by the system. This will only be true on iOS until
@@ -708,6 +708,28 @@
 		activePlugin._loaders = _loaders;
 		activePlugin._audioSources = _audioSources;
 		activePlugin._soundInstances = _soundInstances;
+
+		//update any playing instances to not have references to old audio nodes
+		//while we could go through all of the springroll.Sound instances, it&#x27;s probably
+		//faster to go through SoundJS&#x27;s stuff, as well as catching any cases where a
+		//naughty person went over springroll.Sound&#x27;s head and played audio through SoundJS
+		//directly
+		for (var url in _soundInstances)
+		{
+			var instances = _soundInstances[url];
+			for (var i = 0; i &lt; instances.length; ++i)
+			{
+				var instance = instances[i];
+				//clean up old nodes
+				instance.panNode.disconnect(0);
+				instance.gainNode.disconnect(0);
+				//make brand new nodes
+				instance.gainNode = WebAudioPlugin.context.createGain();
+				instance.panNode = WebAudioPlugin.context.createPanner();
+				instance.panNode.panningModel = WebAudioPlugin._panningModel;
+				instance.panNode.connect(instance.gainNode);
+			}
+		}
 	}
 
 	var _instance = null;
@@ -817,7 +839,7 @@
 			{
 				Debug.error(&quot;Unable to initialize SoundJS with a plugin!&quot;);
 			}
-			this.soundEnabled = false;
+			_instance.isSupported = false;
 			if (options.ready)
 			{
 				options.ready();
@@ -1308,8 +1330,6 @@
 	 */
 	p.play = function(alias, options, startCallback, interrupt, delay, offset, loop, volume, pan)
 	{
-		if (!this.soundEnabled) return;
-
 		var completeCallback;
 		if (options &amp;&amp; isFunction(options))
 		{
@@ -1324,6 +1344,15 @@
 		loop = (options ? options.loop : loop);
 		volume = (options ? options.volume : volume);
 		pan = (options ? options.pan : pan) || 0;
+
+		if (!this.isSupported)
+		{
+			if (completeCallback)
+			{
+				setTimeout(completeCallback, 0);
+			}
+			return;
+		}
 
 		//Replace with correct infinite looping.
 		if (loop === true)
@@ -1949,6 +1978,15 @@
 	 */
 	p.preload = function(list, callback)
 	{
+		if (!this.isSupported)
+		{
+			if (callback)
+			{
+				setTimeout(callback, 0);
+			}
+			return;
+		}
+
 		if (isString(list))
 		{
 			list = [list];
@@ -2129,7 +2167,7 @@
 </div>
 </div>
 </div>
-<script src='../assets/js/libraries.js?v=0.4.9'></script>
-<script src='../assets/js/main.js?v=0.4.9'></script>
+<script src='../assets/js/libraries.js?v=0.4.10'></script>
+<script src='../assets/js/main.js?v=0.4.10'></script>
 </body>
 </html>

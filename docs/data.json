@@ -2,7 +2,7 @@
     "project": {
         "name": "SpringRoll",
         "description": "An application framework for building HTML5 Canvas games and applications",
-        "version": "0.4.9",
+        "version": "0.4.10",
         "url": "https://github.com/SpringRoll/SpringRoll"
     },
     "files": {
@@ -12678,6 +12678,19 @@
         {
             "file": "src/deprecation/sound.js",
             "line": 18,
+            "description": "If sound is supported on the device/browser, see {{#crossLink \"springroll.Sound/isSupported:property\"}}{{/crossLink}}",
+            "itemtype": "property",
+            "name": "soundEnabled",
+            "type": "Boolean",
+            "deprecated": true,
+            "deprecationMessage": "since version 0.4.10",
+            "class": "springroll.Sound",
+            "module": "Sound",
+            "namespace": "springroll"
+        },
+        {
+            "file": "src/deprecation/sound.js",
+            "line": 33,
             "description": "Add a configuration to the load, see {{#crossLink \"springroll.Sound/addContext:method\"}}{{/crossLink}}",
             "itemtype": "method",
             "name": "loadConfig",
@@ -12700,7 +12713,7 @@
         },
         {
             "file": "src/deprecation/sound.js",
-            "line": 31,
+            "line": 46,
             "description": "Preload a single sound, see {{#crossLink \"springroll.Sound/preload:method\"}}{{/crossLink}}",
             "itemtype": "method",
             "name": "preloadSound",
@@ -12724,7 +12737,7 @@
         },
         {
             "file": "src/deprecation/sound.js",
-            "line": 44,
+            "line": 59,
             "description": "Unpauses all sounds, see {{#crossLink \"springroll.Sound/resumeAll:method\"}}{{/crossLink}}",
             "itemtype": "method",
             "name": "unpauseAll",
@@ -12738,7 +12751,7 @@
         },
         {
             "file": "src/deprecation/sound.js",
-            "line": 56,
+            "line": 71,
             "description": "Unpauses a specific sound, see {{#crossLink \"springroll.Sound/resume:method\"}}{{/crossLink}}",
             "itemtype": "method",
             "name": "unpauseSound",
@@ -12759,7 +12772,7 @@
         },
         {
             "file": "src/deprecation/sound.js",
-            "line": 69,
+            "line": 84,
             "description": "Unpauses a specific sound, see {{#crossLink \"springroll.Sound/pause:method\"}}{{/crossLink}}",
             "itemtype": "method",
             "name": "pauseSound",
@@ -12780,7 +12793,7 @@
         },
         {
             "file": "src/deprecation/sound.js",
-            "line": 87,
+            "line": 102,
             "description": "Unpauses this SoundInstance, see {{#crossLink \"springroll.SoundInstance/resume:method\"}}{{/crossLink}}",
             "itemtype": "method",
             "name": "unpause",
@@ -12794,9 +12807,9 @@
         },
         {
             "file": "src/deprecation/sound.js",
-            "line": 104,
+            "line": 119,
             "description": "Get the current list of VO sounds, see {{#crossLink \"springroll.VOPlayer/voList:property\"}}{{/crossLink}}",
-            "itemtype": "method",
+            "itemtype": "property",
             "name": "soundList",
             "deprecated": true,
             "deprecationMessage": "since version 0.4.0",
@@ -13984,7 +13997,7 @@
         },
         {
             "file": "src/displays/easeljs/cutscene/Cutscene.js",
-            "line": 461,
+            "line": 462,
             "description": "Destroys the cutscene.",
             "itemtype": "method",
             "name": "destroy",
@@ -16199,7 +16212,7 @@
         },
         {
             "file": "src/displays/easeljs/ui/DragManager.js",
-            "line": 332,
+            "line": 340,
             "description": "Start the sticky click",
             "itemtype": "method",
             "name": "_triggerStickyClick",
@@ -16218,7 +16231,7 @@
         },
         {
             "file": "src/displays/easeljs/ui/DragManager.js",
-            "line": 347,
+            "line": 355,
             "description": "Start hold dragging",
             "itemtype": "method",
             "name": "_triggerHeldDrag",
@@ -16237,7 +16250,7 @@
         },
         {
             "file": "src/displays/easeljs/ui/DragManager.js",
-            "line": 378,
+            "line": 386,
             "description": "Internal start dragging on the stage",
             "itemtype": "method",
             "name": "_startDrag",
@@ -16249,7 +16262,7 @@
         },
         {
             "file": "src/displays/easeljs/ui/DragManager.js",
-            "line": 395,
+            "line": 405,
             "description": "Stops dragging the currently dragged object.",
             "access": "public",
             "tagname": "",
@@ -16276,7 +16289,7 @@
         },
         {
             "file": "src/displays/easeljs/ui/DragManager.js",
-            "line": 421,
+            "line": 431,
             "description": "Internal stop dragging on the stage",
             "itemtype": "method",
             "name": "_stopDrag",
@@ -16300,7 +16313,7 @@
         },
         {
             "file": "src/displays/easeljs/ui/DragManager.js",
-            "line": 497,
+            "line": 507,
             "description": "Update the object position based on the mouse",
             "itemtype": "method",
             "name": "_updateObjPosition",
@@ -16319,7 +16332,7 @@
         },
         {
             "file": "src/displays/easeljs/ui/DragManager.js",
-            "line": 552,
+            "line": 562,
             "description": "Handles snapping the dragged object to the nearest among a list of points",
             "itemtype": "method",
             "name": "_handlePointSnap",
@@ -16348,8 +16361,8 @@
         },
         {
             "file": "src/displays/easeljs/ui/DragManager.js",
-            "line": 614,
-            "description": "Adds properties and functions to the object - use enableDrag() and disableDrag() on\nobjects to enable/disable them (they start out disabled). Properties added to objects:\n_dragBounds (Rectangle), _onMouseDownListener (Function),\n_dragMan (springroll.DragManager) reference to the DragManager\nthese will override any existing properties of the same name",
+            "line": 624,
+            "description": "Adds properties and functions to the object - use enableDrag() and disableDrag() on\nobjects to enable/disable them (they start out disabled). Properties added to objects:\n_dragBounds (Rectangle), _dragOffset (Point), _onMouseDownListener (Function),\n_dragMan (springroll.DragManager) reference to the DragManager\nthese will override any existing properties of the same name",
             "itemtype": "method",
             "name": "addObject",
             "access": "public",
@@ -16365,6 +16378,12 @@
                     "description": "The rectangle bounds. 'right' and 'bottom' properties\n                                   will be added to this object.",
                     "type": "createjs.Rectangle",
                     "optional": true
+                },
+                {
+                    "name": "dragOffset",
+                    "description": "A specific drag offset to use each time, instead of\n                                     the mousedown/touchstart position relative to the\n                                     object. This is useful if you want something to always\n                                     be dragged from a specific position, like the base of\n                                     a torch.",
+                    "type": "createjs.Point",
+                    "optional": true
                 }
             ],
             "class": "springroll.easeljs.DragManager",
@@ -16373,7 +16392,7 @@
         },
         {
             "file": "src/displays/easeljs/ui/DragManager.js",
-            "line": 646,
+            "line": 662,
             "description": "Removes properties and functions added by addObject().",
             "access": "public",
             "tagname": "",
@@ -16392,7 +16411,7 @@
         },
         {
             "file": "src/displays/easeljs/ui/DragManager.js",
-            "line": 665,
+            "line": 684,
             "description": "Destroy the manager",
             "access": "public",
             "tagname": "",
@@ -19994,7 +20013,7 @@
         },
         {
             "file": "src/displays/pixi/ui/DragManager.js",
-            "line": 316,
+            "line": 324,
             "description": "Start the sticky click",
             "itemtype": "method",
             "name": "_triggerStickyClick",
@@ -20013,7 +20032,7 @@
         },
         {
             "file": "src/displays/pixi/ui/DragManager.js",
-            "line": 336,
+            "line": 344,
             "description": "Start hold dragging",
             "itemtype": "method",
             "name": "_triggerHeldDrag",
@@ -20032,7 +20051,7 @@
         },
         {
             "file": "src/displays/pixi/ui/DragManager.js",
-            "line": 368,
+            "line": 376,
             "description": "Internal start dragging on the stage",
             "itemtype": "method",
             "name": "_startDrag",
@@ -20051,7 +20070,7 @@
         },
         {
             "file": "src/displays/pixi/ui/DragManager.js",
-            "line": 392,
+            "line": 405,
             "description": "Stops dragging the currently dragged object.",
             "access": "public",
             "tagname": "",
@@ -20078,7 +20097,7 @@
         },
         {
             "file": "src/displays/pixi/ui/DragManager.js",
-            "line": 418,
+            "line": 431,
             "description": "Internal stop dragging on the stage",
             "itemtype": "method",
             "name": "_stopDrag",
@@ -20102,7 +20121,7 @@
         },
         {
             "file": "src/displays/pixi/ui/DragManager.js",
-            "line": 498,
+            "line": 511,
             "description": "Update the object position based on the mouse",
             "itemtype": "method",
             "name": "_updateObjPosition",
@@ -20121,7 +20140,7 @@
         },
         {
             "file": "src/displays/pixi/ui/DragManager.js",
-            "line": 559,
+            "line": 572,
             "description": "Handles snapping the dragged object to the nearest among a list of points",
             "itemtype": "method",
             "name": "_handlePointSnap",
@@ -20150,8 +20169,8 @@
         },
         {
             "file": "src/displays/pixi/ui/DragManager.js",
-            "line": 613,
-            "description": "Adds properties and functions to the object - use enableDrag() and disableDrag() on\nobjects to enable/disable them (they start out disabled). Properties added to objects:\n_dragBounds (Rectangle), _onMouseDownListener (Function), _dragMan (springroll.DragManager) reference to the DragManager\nthese will override any existing properties of the same name",
+            "line": 626,
+            "description": "Adds properties and functions to the object - use enableDrag() and disableDrag() on\nobjects to enable/disable them (they start out disabled). Properties added to objects:\n_dragBounds (Rectangle), _dragOffset (Point), _onMouseDownListener (Function),\n_dragMan (springroll.DragManager) reference to the DragManager\nthese will override any existing properties of the same name",
             "itemtype": "method",
             "name": "addObject",
             "access": "public",
@@ -20167,6 +20186,12 @@
                     "description": "The rectangle bounds. 'right' and 'bottom' properties\n                                 will be added to this object.",
                     "type": "PIXI.Rectangle",
                     "optional": true
+                },
+                {
+                    "name": "dragOffset",
+                    "description": "A specific drag offset to use each time, instead of\n                                 the mousedown/touchstart position relative to the\n                                 object. This is useful if you want something to always\n                                 be dragged from a specific position, like the base of\n                                 a torch.",
+                    "type": "PIXI.Point",
+                    "optional": true
                 }
             ],
             "class": "springroll.pixi.DragManager",
@@ -20175,7 +20200,7 @@
         },
         {
             "file": "src/displays/pixi/ui/DragManager.js",
-            "line": 644,
+            "line": 664,
             "description": "Removes properties and functions added by addObject().",
             "access": "public",
             "tagname": "",
@@ -20194,7 +20219,7 @@
         },
         {
             "file": "src/displays/pixi/ui/DragManager.js",
-            "line": 665,
+            "line": 686,
             "description": "Destroy the manager",
             "access": "public",
             "tagname": "",
@@ -23585,7 +23610,7 @@
         },
         {
             "file": "src/loaders/AssetLoad.js",
-            "line": 301,
+            "line": 311,
             "description": "Convert assets into object defaults",
             "itemtype": "method",
             "name": "applyDefaults",
@@ -23609,7 +23634,7 @@
         },
         {
             "file": "src/loaders/AssetLoad.js",
-            "line": 328,
+            "line": 338,
             "description": "Load a single asset",
             "itemtype": "method",
             "name": "addTask",
@@ -23628,7 +23653,7 @@
         },
         {
             "file": "src/loaders/AssetLoad.js",
-            "line": 360,
+            "line": 370,
             "description": "Get the Task definition for an asset",
             "itemtype": "method",
             "name": "getTaskByAsset",
@@ -23652,7 +23677,7 @@
         },
         {
             "file": "src/loaders/AssetLoad.js",
-            "line": 386,
+            "line": 396,
             "description": "Run the next task that's waiting",
             "itemtype": "method",
             "name": "nextTask",
@@ -23664,7 +23689,7 @@
         },
         {
             "file": "src/loaders/AssetLoad.js",
-            "line": 408,
+            "line": 418,
             "description": "Handler when a task has completed",
             "itemtype": "method",
             "name": "taskDone",
@@ -23689,7 +23714,7 @@
         },
         {
             "file": "src/loaders/AssetLoad.js",
-            "line": 508,
+            "line": 518,
             "description": "Get an empty assets collection",
             "itemtype": "method",
             "name": "getAssetsContainer",
@@ -23712,7 +23737,7 @@
         },
         {
             "file": "src/loaders/AssetLoad.js",
-            "line": 528,
+            "line": 538,
             "description": "Destroy this and discard",
             "itemtype": "method",
             "name": "destroy",
@@ -23722,7 +23747,7 @@
         },
         {
             "file": "src/loaders/AssetLoad.js",
-            "line": 540,
+            "line": 550,
             "description": "Check if an object is an String type",
             "itemtype": "method",
             "name": "isString",
@@ -23745,7 +23770,7 @@
         },
         {
             "file": "src/loaders/AssetLoad.js",
-            "line": 552,
+            "line": 562,
             "description": "Check if an object is an function type",
             "itemtype": "method",
             "name": "isFunction",
@@ -24571,7 +24596,7 @@
             "description": "The collection of assets to preload, can be individual\nURLs or objects with keys `src`, `complete`, `progress`, etc.",
             "itemtype": "property",
             "name": "options.preload",
-            "type": "String",
+            "type": "String|Array|Object",
             "default": "[]",
             "class": "springroll.Application",
             "module": "Core",
@@ -24686,7 +24711,7 @@
         },
         {
             "file": "src/loaders/ConfigPlugin.js",
-            "line": 187,
+            "line": 179,
             "description": "Callback when the config is loaded",
             "itemtype": "method",
             "name": "onConfigLoaded",
@@ -24715,7 +24740,7 @@
         },
         {
             "file": "src/loaders/ConfigPlugin.js",
-            "line": 202,
+            "line": 194,
             "description": "Callback when tasks are completed",
             "itemtype": "method",
             "name": "onLoadComplete",
@@ -26011,7 +26036,7 @@
         },
         {
             "file": "src/media/Animator.js",
-            "line": 353,
+            "line": 354,
             "description": "Determines if a given instance can be animated by Animator. Note - `id` is a property\nwith a unique value for each `createjs.DisplayObject`. If a custom object is made that does\nnot inherit from DisplayObject, it needs to not have an id that is identical to anything\nfrom EaselJS.",
             "itemtype": "method",
             "name": "canAnimate",
@@ -26032,7 +26057,7 @@
         },
         {
             "file": "src/media/Animator.js",
-            "line": 371,
+            "line": 372,
             "description": "Create an instance by clip",
             "itemtype": "method",
             "name": "createInstance",
@@ -26055,7 +26080,7 @@
         },
         {
             "file": "src/media/Animator.js",
-            "line": 388,
+            "line": 389,
             "description": "Destroy an instance",
             "itemtype": "method",
             "name": "poolInstance",
@@ -26074,7 +26099,7 @@
         },
         {
             "file": "src/media/Animator.js",
-            "line": 400,
+            "line": 401,
             "description": "Get a definition by clip",
             "access": "private",
             "tagname": "",
@@ -26097,7 +26122,7 @@
         },
         {
             "file": "src/media/Animator.js",
-            "line": 420,
+            "line": 421,
             "description": "Checks if animation exists",
             "itemtype": "method",
             "name": "hasAnimation",
@@ -26125,7 +26150,7 @@
         },
         {
             "file": "src/media/Animator.js",
-            "line": 438,
+            "line": 439,
             "description": "Get duration of animation event (or sequence of events) in seconds",
             "itemtype": "method",
             "name": "getDuration",
@@ -26153,7 +26178,7 @@
         },
         {
             "file": "src/media/Animator.js",
-            "line": 478,
+            "line": 479,
             "description": "Stop the animation.",
             "itemtype": "method",
             "name": "stop",
@@ -26177,7 +26202,7 @@
         },
         {
             "file": "src/media/Animator.js",
-            "line": 499,
+            "line": 500,
             "description": "Stop all current Animator animations. This is good for cleaning up all\nanimation, as it doesn't do a callback on any of them.",
             "itemtype": "method",
             "name": "stopAll",
@@ -26202,7 +26227,7 @@
         },
         {
             "file": "src/media/Animator.js",
-            "line": 531,
+            "line": 532,
             "description": "Remove a timeline from the stack",
             "itemtype": "method",
             "name": "_remove",
@@ -26226,7 +26251,7 @@
         },
         {
             "file": "src/media/Animator.js",
-            "line": 604,
+            "line": 605,
             "description": "Pause all tweens which have been excuted by `play()`",
             "itemtype": "method",
             "name": "pause",
@@ -26236,7 +26261,7 @@
         },
         {
             "file": "src/media/Animator.js",
-            "line": 623,
+            "line": 624,
             "description": "Resumes all tweens executed by the `play()`",
             "itemtype": "method",
             "name": "resume",
@@ -26246,7 +26271,7 @@
         },
         {
             "file": "src/media/Animator.js",
-            "line": 646,
+            "line": 647,
             "description": "Pauses or unpauses all timelines that are children of the specified DisplayObjectContainer.",
             "itemtype": "method",
             "name": "pauseInGroup",
@@ -26268,7 +26293,7 @@
         },
         {
             "file": "src/media/Animator.js",
-            "line": 667,
+            "line": 668,
             "description": "Get the timeline object for an instance",
             "itemtype": "method",
             "name": "getTimeline",
@@ -26289,7 +26314,7 @@
         },
         {
             "file": "src/media/Animator.js",
-            "line": 682,
+            "line": 683,
             "description": "Loop a clip by timeline",
             "itemtype": "method",
             "name": "getTimelineByClip",
@@ -26312,7 +26337,7 @@
         },
         {
             "file": "src/media/Animator.js",
-            "line": 708,
+            "line": 709,
             "description": "Whether the Animator class is currently paused.",
             "itemtype": "property",
             "name": "paused",
@@ -26324,7 +26349,7 @@
         },
         {
             "file": "src/media/Animator.js",
-            "line": 721,
+            "line": 722,
             "description": "Start the updating",
             "itemtype": "method",
             "name": "_startUpdate",
@@ -26336,7 +26361,7 @@
         },
         {
             "file": "src/media/Animator.js",
-            "line": 731,
+            "line": 732,
             "description": "Stop the updating",
             "itemtype": "method",
             "name": "_stopUpdate",
@@ -26348,7 +26373,7 @@
         },
         {
             "file": "src/media/Animator.js",
-            "line": 741,
+            "line": 742,
             "description": "The update every frame",
             "itemtype": "method",
             "name": "",
@@ -26367,7 +26392,7 @@
         },
         {
             "file": "src/media/Animator.js",
-            "line": 851,
+            "line": 852,
             "description": "The sound has been started",
             "itemtype": "method",
             "name": "onSoundStarted",
@@ -26391,7 +26416,7 @@
         },
         {
             "file": "src/media/Animator.js",
-            "line": 868,
+            "line": 869,
             "description": "The sound is done",
             "itemtype": "method",
             "name": "_onSoundDone",
@@ -26420,7 +26445,7 @@
         },
         {
             "file": "src/media/Animator.js",
-            "line": 895,
+            "line": 896,
             "description": "Stops all animations and cleans up the variables used.",
             "itemtype": "method",
             "name": "destroy",
@@ -26430,7 +26455,7 @@
         },
         {
             "file": "src/media/Animator.js",
-            "line": 913,
+            "line": 914,
             "description": "Check to see if object is a String",
             "itemtype": "method",
             "name": "isString",
@@ -26453,7 +26478,7 @@
         },
         {
             "file": "src/media/Animator.js",
-            "line": 925,
+            "line": 926,
             "description": "Check to see if object is a Number",
             "itemtype": "method",
             "name": "isNumber",
@@ -26476,7 +26501,7 @@
         },
         {
             "file": "src/media/Animator.js",
-            "line": 937,
+            "line": 938,
             "description": "Check to see if object is a Function",
             "itemtype": "method",
             "name": "isFunction",
@@ -27855,7 +27880,7 @@
             "line": 77,
             "description": "If sound is enabled. This will only be false if Sound was unable to initialize\na SoundJS plugin.",
             "itemtype": "property",
-            "name": "soundEnabled",
+            "name": "isSupported",
             "type": "Boolean",
             "readonly": "",
             "class": "springroll.Sound",
@@ -27898,7 +27923,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 142,
+            "line": 164,
             "description": "Initializes the Sound singleton. If using createjs.FlashAudioPlugin, you will\nbe responsible for setting createjs.FlashAudioPlugin.BASE_PATH.",
             "itemtype": "method",
             "name": "init",
@@ -27949,7 +27974,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 253,
+            "line": 275,
             "description": "Satisfies the iOS event needed to initialize the audio\nNote that we listen on touchend as per http://www.holovaty.com/writing/ios9-web-audio/",
             "access": "private",
             "tagname": "",
@@ -27961,7 +27986,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 276,
+            "line": 298,
             "description": "When the initialization as completed",
             "itemtype": "method",
             "name": "",
@@ -27985,7 +28010,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 316,
+            "line": 338,
             "description": "The singleton instance of Sound.",
             "itemtype": "property",
             "name": "instance",
@@ -27999,7 +28024,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 330,
+            "line": 352,
             "description": "Loads a context config object. This should not be called until after Sound.init() is complete.",
             "itemtype": "method",
             "name": "addContext",
@@ -28093,7 +28118,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 410,
+            "line": 432,
             "description": "Links one or more sound contexts to another in a parent-child relationship, so\nthat the children can be controlled separately, but still be affected by\nsetContextMute(), stopContext(), pauseContext(), etc on the parent.\nNote that sub-contexts are not currently affected by setContextVolume().",
             "itemtype": "method",
             "name": "linkContexts",
@@ -28119,7 +28144,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 442,
+            "line": 464,
             "description": "If a sound exists in the list of recognized sounds.",
             "itemtype": "method",
             "name": "exists",
@@ -28142,7 +28167,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 454,
+            "line": 476,
             "description": "If a context exists",
             "itemtype": "method",
             "name": "contextExists",
@@ -28165,7 +28190,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 466,
+            "line": 488,
             "description": "If a sound is unloaded.",
             "itemtype": "method",
             "name": "isUnloaded",
@@ -28188,7 +28213,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 478,
+            "line": 500,
             "description": "If a sound is loaded.",
             "itemtype": "method",
             "name": "isLoaded",
@@ -28211,7 +28236,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 490,
+            "line": 512,
             "description": "If a sound is in the process of being loaded",
             "itemtype": "method",
             "name": "isLoading",
@@ -28234,7 +28259,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 503,
+            "line": 525,
             "description": "If a sound is playing.",
             "itemtype": "method",
             "name": "isPlaying",
@@ -28257,7 +28282,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 519,
+            "line": 541,
             "description": "Gets the duration of a sound in milliseconds, if it has been loaded.",
             "itemtype": "method",
             "name": "getDuration",
@@ -28280,7 +28305,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 548,
+            "line": 570,
             "description": "Fades a sound from 0 to a specified volume.",
             "itemtype": "method",
             "name": "fadeIn",
@@ -28319,7 +28344,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 595,
+            "line": 617,
             "description": "Fades a sound from the current volume to a specified volume. A sound that ends\nat 0 volume is stopped after the fade.",
             "itemtype": "method",
             "name": "fadeOut",
@@ -28364,7 +28389,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 654,
+            "line": 676,
             "description": "The update call, used for fading sounds. This is bound to the instance of Sound",
             "itemtype": "method",
             "name": "_update",
@@ -28383,7 +28408,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 707,
+            "line": 729,
             "description": "Plays a sound.",
             "itemtype": "method",
             "name": "play",
@@ -28467,7 +28492,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 879,
+            "line": 908,
             "description": "Gets a SoundInstance, from the pool if available or maks a new one if not.",
             "itemtype": "method",
             "name": "_getSoundInst",
@@ -28495,7 +28520,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 905,
+            "line": 934,
             "description": "Plays a sound after it finishes loading.",
             "itemtype": "method",
             "name": "_playAfterload",
@@ -28514,7 +28539,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 992,
+            "line": 1021,
             "description": "The callback used for when a sound instance is complete.",
             "itemtype": "method",
             "name": "_onSoundComplete",
@@ -28533,7 +28558,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 1020,
+            "line": 1049,
             "description": "Stops all playing or loading instances of a given sound.",
             "itemtype": "method",
             "name": "stop",
@@ -28552,7 +28577,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 1046,
+            "line": 1075,
             "description": "Stops all playing SoundInstances for a sound.",
             "itemtype": "method",
             "name": "_stopSound",
@@ -28571,7 +28596,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 1062,
+            "line": 1091,
             "description": "Stops and repools a specific SoundInstance.",
             "itemtype": "method",
             "name": "_stopInst",
@@ -28590,7 +28615,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 1085,
+            "line": 1114,
             "description": "Stops all sounds in a given context.",
             "itemtype": "method",
             "name": "stopContext",
@@ -28609,7 +28634,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 1113,
+            "line": 1142,
             "description": "Stop all sounds that are playing, regardless of context.",
             "itemtype": "method",
             "name": "stopAll",
@@ -28619,7 +28644,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 1125,
+            "line": 1154,
             "description": "Pauses a specific sound.",
             "itemtype": "method",
             "name": "pause",
@@ -28638,7 +28663,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 1158,
+            "line": 1187,
             "description": "Unpauses a specific sound.",
             "itemtype": "method",
             "name": "resume",
@@ -28657,7 +28682,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 1184,
+            "line": 1213,
             "description": "Pauses all sounds in a given context. Audio paused this way will not be resumed with\nresumeAll(), but must be resumed individually or with resumeContext().",
             "itemtype": "method",
             "name": "pauseContext",
@@ -28674,7 +28699,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 1213,
+            "line": 1242,
             "description": "Resumes all sounds in a given context.",
             "itemtype": "method",
             "name": "pauseContext",
@@ -28691,7 +28716,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 1241,
+            "line": 1270,
             "description": "Pauses all sounds.",
             "itemtype": "method",
             "name": "pauseAll",
@@ -28703,7 +28728,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 1253,
+            "line": 1282,
             "description": "Unpauses all sounds that were paused with pauseAll(). This does not unpause audio\nthat was paused individually or with pauseContext().",
             "itemtype": "method",
             "name": "resumeAll",
@@ -28715,7 +28740,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 1287,
+            "line": 1316,
             "description": "Sets mute status of all sounds in a context",
             "itemtype": "method",
             "name": "setContextMute",
@@ -28739,7 +28764,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 1323,
+            "line": 1352,
             "description": "Set the mute status of all sounds",
             "itemtype": "property",
             "name": "muteAll",
@@ -28750,7 +28775,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 1335,
+            "line": 1364,
             "description": "Sets volume of a context. Individual sound volumes are multiplied by this value.",
             "itemtype": "method",
             "name": "setContextVolume",
@@ -28774,7 +28799,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 1366,
+            "line": 1395,
             "description": "Preloads a list of sounds.",
             "itemtype": "method",
             "name": "preload",
@@ -28799,7 +28824,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 1424,
+            "line": 1462,
             "description": "Marks a sound as loaded. If it needs to play after the load, then it is played.",
             "itemtype": "method",
             "name": "_markLoaded",
@@ -28823,7 +28848,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 1449,
+            "line": 1487,
             "description": "Unloads a list of sounds to reclaim memory if possible.\nIf the sounds are playing, they are stopped.",
             "itemtype": "method",
             "name": "unload",
@@ -28842,7 +28867,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 1473,
+            "line": 1511,
             "description": "Unloads all sounds. If any sounds are playing, they are stopped.\nInternally this calls `unload`.",
             "itemtype": "method",
             "name": "unloadAll",
@@ -28854,7 +28879,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 1489,
+            "line": 1527,
             "description": "Places a SoundInstance back in the pool for reuse.",
             "itemtype": "method",
             "name": "_poolinst",
@@ -28873,7 +28898,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 1506,
+            "line": 1544,
             "description": "Destroys springroll.Sound. This unloads loaded sounds in SoundJS.",
             "itemtype": "method",
             "name": "destroy",
@@ -29825,6 +29850,27 @@
             "return": {
                 "description": "The last item",
                 "type": "*"
+            },
+            "class": "window.Array",
+            "module": "Core",
+            "namespace": "window"
+        },
+        {
+            "file": "src/mixins/Array.js",
+            "line": 71,
+            "description": "Appends a list of items or list of arrays to the end of this array. This functions\nlike concat(), but works on the original array instead of making a copy.",
+            "itemtype": "method",
+            "name": "append",
+            "params": [
+                {
+                    "name": "arguments",
+                    "description": "A list of arrays or individual items.",
+                    "type": "*"
+                }
+            ],
+            "return": {
+                "description": "This array.",
+                "type": "Array"
             },
             "class": "window.Array",
             "module": "Core",

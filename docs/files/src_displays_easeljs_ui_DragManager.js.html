@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html lang='en'>
 <head>
-	<title>SpringRoll v0.4.9 API Documentation : src/displays/easeljs/ui/DragManager.js</title>
+	<title>SpringRoll v0.4.10 API Documentation : src/displays/easeljs/ui/DragManager.js</title>
 	<meta charset='utf-8'>
 	<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 	<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
-	<link rel='shortcut icon' type='image/png' href='../assets/images/favicon.ico?v=0.4.9'>
+	<link rel='shortcut icon' type='image/png' href='../assets/images/favicon.ico?v=0.4.10'>
 	<link href='//fonts.googleapis.com/css?family=Titillium+Web:300,200,600' rel='stylesheet' type='text/css'>
-	<link rel='stylesheet' type='text/css' href='../assets/css/libraries.css?v=0.4.9'>
-	<link rel='stylesheet' type='text/css' href='../assets/css/main.css?v=0.4.9'>
+	<link rel='stylesheet' type='text/css' href='../assets/css/libraries.css?v=0.4.10'>
+	<link rel='stylesheet' type='text/css' href='../assets/css/main.css?v=0.4.10'>
 </head>
 <body>
 <header>
@@ -22,10 +22,10 @@
 					<span class="icon-bar"></span>
 				</button>
 				<a class="navbar-brand" href='https://github.com/SpringRoll/SpringRoll'>
-						<img src='../assets/images/logo.png?v=0.4.9' class="logo">
+						<img src='../assets/images/logo.png?v=0.4.10' class="logo">
 					<span class='project-name'>SpringRoll</span>
 					<span class="sr-only">API Documentation for:</span>
-					<span class='version hidden-xs'>v0.4.9</span>
+					<span class='version hidden-xs'>v0.4.10</span>
 				</a>
 			</div>
 			<div class="collapse navbar-collapse" id="docs-navbar">
@@ -862,11 +862,19 @@
 
 		if (ev)
 		{
-			//get the mouse position in global space and convert it to parent space
-			dragOffset = obj.parent.globalToLocal(ev.stageX, ev.stageY, dragOffset);
-			//move the offset to respect the object&#x27;s current position
-			dragOffset.x -= obj.x;
-			dragOffset.y -= obj.y;
+			if (obj._dragOffset)
+			{
+				dragOffset.x = obj._dragOffset.x;
+				dragOffset.y = obj._dragOffset.y;
+			}
+			else
+			{
+				//get the mouse position in global space and convert it to parent space
+				dragOffset = obj.parent.globalToLocal(ev.stageX, ev.stageY, dragOffset);
+				//move the offset to respect the object&#x27;s current position
+				dragOffset.x -= obj.x;
+				dragOffset.y -= obj.y;
+			}
 		}
 
 		//save the position of the object before dragging began, for easy restoration, if desired
@@ -962,6 +970,8 @@
 		//duplicate listeners are ignored
 		stage.addEventListener(&quot;stagemousemove&quot;, this._updateObjPosition);
 		stage.addEventListener(&quot;stagemouseup&quot;, this._stopDrag);
+
+		this._updateObjPosition(ev);
 
 		this._dragStartCallback(this._multitouch ?
 			this.draggedObj[ev.pointerID].obj :
@@ -1190,7 +1200,7 @@
 	/**
 	 * Adds properties and functions to the object - use enableDrag() and disableDrag() on
 	 * objects to enable/disable them (they start out disabled). Properties added to objects:
-	 * _dragBounds (Rectangle), _onMouseDownListener (Function),
+	 * _dragBounds (Rectangle), _dragOffset (Point), _onMouseDownListener (Function),
 	 * _dragMan (springroll.DragManager) reference to the DragManager
 	 * these will override any existing properties of the same name
 	 * @method addObject
@@ -1198,8 +1208,13 @@
 	 * @param {createjs.DisplayObject} obj The display object
 	 * @param {createjs.Rectangle} [bounds] The rectangle bounds. &#x27;right&#x27; and &#x27;bottom&#x27; properties
 	 *                                    will be added to this object.
+	 * @param {createjs.Point} [dragOffset] A specific drag offset to use each time, instead of
+	 *                                      the mousedown/touchstart position relative to the
+	 *                                      object. This is useful if you want something to always
+	 *                                      be dragged from a specific position, like the base of
+	 *                                      a torch.
 	 */
-	p.addObject = function(obj, bounds)
+	p.addObject = function(obj, bounds, dragOffset)
 	{
 		if (bounds)
 		{
@@ -1207,6 +1222,7 @@
 			bounds.bottom = bounds.y + bounds.height;
 		}
 		obj._dragBounds = bounds;
+		obj._dragOffset = dragOffset || null;
 		if (this._draggableObjects.indexOf(obj) &gt;= 0)
 		{
 			//don&#x27;t change any of the functions or anything, just quit the function after having updated the bounds
@@ -1227,12 +1243,15 @@
 	 */
 	p.removeObject = function(obj)
 	{
+		if (!obj.disableDrag) return;
+
 		obj.disableDrag();
 		delete obj.enableDrag;
 		delete obj.disableDrag;
 		delete obj._onMouseDownListener;
 		delete obj._dragMan;
 		delete obj._dragBounds;
+		delete obj._dragOffset;
 		var index = this._draggableObjects.indexOf(obj);
 		if (index &gt;= 0)
 			this._draggableObjects.splice(index, 1);
@@ -1265,6 +1284,7 @@
 			delete obj._onMouseDownListener;
 			delete obj._dragMan;
 			delete obj._dragBounds;
+			delete obj._dragOffset;
 		}
 		this._draggableObjects = null;
 		this._helperPoint = null;
@@ -1278,7 +1298,7 @@
 </div>
 </div>
 </div>
-<script src='../assets/js/libraries.js?v=0.4.9'></script>
-<script src='../assets/js/main.js?v=0.4.9'></script>
+<script src='../assets/js/libraries.js?v=0.4.10'></script>
+<script src='../assets/js/main.js?v=0.4.10'></script>
 </body>
 </html>

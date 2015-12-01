@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html lang='en'>
 <head>
-	<title>SpringRoll v0.4.9 API Documentation : springroll.easeljs.DragManager</title>
+	<title>SpringRoll v0.4.10 API Documentation : springroll.easeljs.DragManager</title>
 	<meta charset='utf-8'>
 	<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 	<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
-	<link rel='shortcut icon' type='image/png' href='../assets/images/favicon.ico?v=0.4.9'>
+	<link rel='shortcut icon' type='image/png' href='../assets/images/favicon.ico?v=0.4.10'>
 	<link href='//fonts.googleapis.com/css?family=Titillium+Web:300,200,600' rel='stylesheet' type='text/css'>
-	<link rel='stylesheet' type='text/css' href='../assets/css/libraries.css?v=0.4.9'>
-	<link rel='stylesheet' type='text/css' href='../assets/css/main.css?v=0.4.9'>
+	<link rel='stylesheet' type='text/css' href='../assets/css/libraries.css?v=0.4.10'>
+	<link rel='stylesheet' type='text/css' href='../assets/css/main.css?v=0.4.10'>
 </head>
 <body>
 <header>
@@ -22,10 +22,10 @@
 					<span class="icon-bar"></span>
 				</button>
 				<a class="navbar-brand" href='https://github.com/SpringRoll/SpringRoll'>
-						<img src='../assets/images/logo.png?v=0.4.9' class="logo">
+						<img src='../assets/images/logo.png?v=0.4.10' class="logo">
 					<span class='project-name'>SpringRoll</span>
 					<span class="sr-only">API Documentation for:</span>
-					<span class='version hidden-xs'>v0.4.9</span>
+					<span class='version hidden-xs'>v0.4.10</span>
 				</a>
 			</div>
 			<div class="collapse navbar-collapse" id="docs-navbar">
@@ -867,7 +867,7 @@ Application's default display will be used.</p>
 <div class='meta'>
 <p>
 Defined in
-<a href='../files/src_displays_easeljs_ui_DragManager.js.html#l552'><code>_handlePointSnap:552</code></a>
+<a href='../files/src_displays_easeljs_ui_DragManager.js.html#l562'><code>_handlePointSnap:562</code></a>
 </p>
 
 
@@ -1010,7 +1010,7 @@ what type of drag should be used.</p>
 <div class='meta'>
 <p>
 Defined in
-<a href='../files/src_displays_easeljs_ui_DragManager.js.html#l378'><code>_startDrag:378</code></a>
+<a href='../files/src_displays_easeljs_ui_DragManager.js.html#l386'><code>_startDrag:386</code></a>
 </p>
 
 
@@ -1052,7 +1052,7 @@ Defined in
 <div class='meta'>
 <p>
 Defined in
-<a href='../files/src_displays_easeljs_ui_DragManager.js.html#l421'><code>_stopDrag:421</code></a>
+<a href='../files/src_displays_easeljs_ui_DragManager.js.html#l431'><code>_stopDrag:431</code></a>
 </p>
 
 
@@ -1119,7 +1119,7 @@ Defined in
 <div class='meta'>
 <p>
 Defined in
-<a href='../files/src_displays_easeljs_ui_DragManager.js.html#l347'><code>_triggerHeldDrag:347</code></a>
+<a href='../files/src_displays_easeljs_ui_DragManager.js.html#l355'><code>_triggerHeldDrag:355</code></a>
 </p>
 
 
@@ -1175,7 +1175,7 @@ Defined in
 <div class='meta'>
 <p>
 Defined in
-<a href='../files/src_displays_easeljs_ui_DragManager.js.html#l332'><code>_triggerStickyClick:332</code></a>
+<a href='../files/src_displays_easeljs_ui_DragManager.js.html#l340'><code>_triggerStickyClick:340</code></a>
 </p>
 
 
@@ -1231,7 +1231,7 @@ Defined in
 <div class='meta'>
 <p>
 Defined in
-<a href='../files/src_displays_easeljs_ui_DragManager.js.html#l497'><code>_updateObjPosition:497</code></a>
+<a href='../files/src_displays_easeljs_ui_DragManager.js.html#l507'><code>_updateObjPosition:507</code></a>
 </p>
 
 
@@ -1274,6 +1274,9 @@ Defined in
 <li class='arg'>
 <code class='optional'>[bounds]</code>
 </li>
+<li class='arg'>
+<code class='optional'>[dragOffset]</code>
+</li>
 </ul><span class='paren'>)</span>
 </div>
 
@@ -1290,7 +1293,7 @@ Defined in
 <div class='meta'>
 <p>
 Defined in
-<a href='../files/src_displays_easeljs_ui_DragManager.js.html#l614'><code>addObject:614</code></a>
+<a href='../files/src_displays_easeljs_ui_DragManager.js.html#l624'><code>addObject:624</code></a>
 </p>
 
 
@@ -1300,7 +1303,7 @@ Defined in
 <div class='description'>
 <p>Adds properties and functions to the object - use enableDrag() and disableDrag() on
 objects to enable/disable them (they start out disabled). Properties added to objects:
-_dragBounds (Rectangle), _onMouseDownListener (Function),
+_dragBounds (Rectangle), _dragOffset (Point), _onMouseDownListener (Function),
 _dragMan (springroll.DragManager) reference to the DragManager
 these will override any existing properties of the same name</p>
 
@@ -1334,6 +1337,22 @@ will be added to this object.</p>
 </div>
 
 </li>
+<li class='param'>
+<code class='param-name optional'>[dragOffset]</code>
+<span class='type'><a href="../classes/createjs.Point.html" class="crosslink">createjs.Point</a></span>
+<span class='flag optional' title='This parameter is optional.'>optional</span>
+
+
+<div class='param-description'>
+<p>A specific drag offset to use each time, instead of
+the mousedown/touchstart position relative to the
+object. This is useful if you want something to always
+be dragged from a specific position, like the base of
+a torch.</p>
+
+</div>
+
+</li>
 </ul>
 </div>
 
@@ -1356,7 +1375,7 @@ will be added to this object.</p>
 <div class='meta'>
 <p>
 Defined in
-<a href='../files/src_displays_easeljs_ui_DragManager.js.html#l665'><code>destroy:665</code></a>
+<a href='../files/src_displays_easeljs_ui_DragManager.js.html#l684'><code>destroy:684</code></a>
 </p>
 
 
@@ -1395,7 +1414,7 @@ Defined in
 <div class='meta'>
 <p>
 Defined in
-<a href='../files/src_displays_easeljs_ui_DragManager.js.html#l646'><code>removeObject:646</code></a>
+<a href='../files/src_displays_easeljs_ui_DragManager.js.html#l662'><code>removeObject:662</code></a>
 </p>
 
 
@@ -1529,7 +1548,7 @@ used.</p>
 <div class='meta'>
 <p>
 Defined in
-<a href='../files/src_displays_easeljs_ui_DragManager.js.html#l395'><code>stopDrag:395</code></a>
+<a href='../files/src_displays_easeljs_ui_DragManager.js.html#l405'><code>stopDrag:405</code></a>
 </p>
 
 
@@ -2059,7 +2078,7 @@ points:[
 </div>
 </div>
 </div>
-<script src='../assets/js/libraries.js?v=0.4.9'></script>
-<script src='../assets/js/main.js?v=0.4.9'></script>
+<script src='../assets/js/libraries.js?v=0.4.10'></script>
+<script src='../assets/js/main.js?v=0.4.10'></script>
 </body>
 </html>

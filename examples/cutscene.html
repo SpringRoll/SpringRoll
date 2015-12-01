@@ -54,7 +54,7 @@ var app = new Application({
 	displayOptions: {
 		clearView: true
 	},
-	preload: [{
+	preload: {
 		// if no "id" prop, defaults to "animClass"
 		// this is used to fetch Cutscene from the cache
 		"animClass": "Intro", // e.g. lib.Intro name of the movieclip
@@ -114,7 +114,7 @@ var app = new Application({
 			"assets/cutscene/images/Intro_FG_R.png",
 			"assets/cutscene/images/Intro_MG.png"
 		]
-	}]
+	}
 });
 
 // Wait until the app is ready

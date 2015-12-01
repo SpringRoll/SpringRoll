@@ -1,4 +1,4 @@
-/*! SpringRoll 0.4.9 */
+/*! SpringRoll 0.4.10 */
 /**
  * @module Animation
  * @namespace springroll
@@ -629,7 +629,8 @@
 						start = audio.start > 0 ? audio.start * 0.001 : 0; //seconds
 						alias = audio.alias;
 					}
-					if (_app.sound.exists(alias))
+					if (_app.sound.isSupported && !_app.sound.systemMuted &&
+						_app.sound.exists(alias))
 					{
 						_app.sound.preload(alias);
 						animData.alias = alias;
