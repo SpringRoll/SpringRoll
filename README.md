@@ -87,7 +87,6 @@ The basic usage is to create a canvas element on the DOM, assign it an ID and th
 Modules are components which contain common code classes, documentation and/or related tools that can easily be bundled into a project. The goal of these modules is to provide convenient solutions to common problems producers face when authoring games. All modules are optional and located in the **dist/modules** folder, except the Core Module.
 
 * **[Core Module](https://github.com/SpringRoll/SpringRoll/wiki/Core-Module)** (required)
-* **[Container](https://github.com/SpringRoll/SpringRoll/wiki/Container)** _container_
 * **[Container Client Module](https://github.com/SpringRoll/SpringRoll/wiki/Container-Client-Module)** _container-client_
 * **[Captions Module](https://github.com/SpringRoll/SpringRoll/wiki/Captions-Module)** _captions_
 * **[Debug Module](https://github.com/SpringRoll/SpringRoll/wiki/Debug-Module)** _debug_
