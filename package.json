@@ -3,6 +3,10 @@
 	"version": "0.3.21",
 	"main": "dist/core.min.js",
 	"author": "CloudKid <tools@cloudkid.com>",
+	"dependencies": 
+	{
+		"bellhop-iframe": "*"
+	},
 	"devDependencies":
 	{
 		"grunt": "~0.4.5",
