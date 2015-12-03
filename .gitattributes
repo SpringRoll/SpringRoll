@@ -1,9 +1,16 @@
+# Auto detect text files and perform LF normalization
+text=auto
+
 examples export-ignore
 src export-ignore
 Gruntfile.js export-ignore
-build.json export-ignore
 tasks export-ignore
 test export-ignore
 .gitignore export-ignore
 .gitattributes export-ignore
+.bowerrc export-ignore
+.editorconfig export-ignore
+.travis.yml export-ignore
+.jsbeautifyrc export-ignore
 .npmignore export-ignore
+library.json export-ignore
