@@ -1,4 +1,4 @@
-/*! SpringRoll 0.5.0 */
+/*! SpringRoll 0.4.11 */
 /**
  * @module Native Display
  * @namespace springroll.native
