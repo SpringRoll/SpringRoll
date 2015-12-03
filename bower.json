@@ -1,12 +1,11 @@
 {
 	"name": "springroll",
-	"version": "0.4.10",
+	"version": "0.5.0",
 	"main": "dist/core.min.js",
 	"dependencies":
 	{
 		"preloadjs": "https://github.com/SpringRoll/PreloadJS.git",
-		"bellhop": "*",
-		"jquery": "*"
+		"bellhop": "*"
 	},
 	"devDependencies":
 	{
@@ -16,7 +15,8 @@
 		"soundjs": "https://github.com/SpringRoll/SoundJS.git",
 		"qunit": "*",
 		"google-code-prettify": "*",
-		"bind-polyfill": "*"
+		"bind-polyfill": "*",
+		"jquery": "*"
 	},
 	"ignore": [
 		"Gruntfile.js",

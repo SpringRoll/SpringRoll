@@ -1,4 +1,4 @@
-/*! SpringRoll 0.4.10 */
+/*! SpringRoll 0.5.0 */
 /**
  * @module PIXI UI
  * @namespace springroll.pixi
