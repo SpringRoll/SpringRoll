@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html lang='en'>
 <head>
-	<title>SpringRoll v0.4.10 API Documentation : src/container/SavedDataHandler.js</title>
+	<title>SpringRoll v0.4.11 API Documentation : src/container-client/UserData.js</title>
 	<meta charset='utf-8'>
 	<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 	<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
-	<link rel='shortcut icon' type='image/png' href='../assets/images/favicon.ico?v=0.4.10'>
+	<link rel='shortcut icon' type='image/png' href='../assets/images/favicon.ico?v=0.4.11'>
 	<link href='//fonts.googleapis.com/css?family=Titillium+Web:300,200,600' rel='stylesheet' type='text/css'>
-	<link rel='stylesheet' type='text/css' href='../assets/css/libraries.css?v=0.4.10'>
-	<link rel='stylesheet' type='text/css' href='../assets/css/main.css?v=0.4.10'>
+	<link rel='stylesheet' type='text/css' href='../assets/css/libraries.css?v=0.4.11'>
+	<link rel='stylesheet' type='text/css' href='../assets/css/main.css?v=0.4.11'>
 </head>
 <body>
 <header>
@@ -22,10 +22,10 @@
 					<span class="icon-bar"></span>
 				</button>
 				<a class="navbar-brand" href='https://github.com/SpringRoll/SpringRoll'>
-						<img src='../assets/images/logo.png?v=0.4.10' class="logo">
+						<img src='../assets/images/logo.png?v=0.4.11' class="logo">
 					<span class='project-name'>SpringRoll</span>
 					<span class="sr-only">API Documentation for:</span>
-					<span class='version hidden-xs'>v0.4.10</span>
+					<span class='version hidden-xs'>v0.4.11</span>
 				</a>
 			</div>
 			<div class="collapse navbar-collapse" id="docs-navbar">
@@ -182,9 +182,6 @@
           <a href='../classes/springroll.CombinedCallback.html'>springroll.CombinedCallback</a>
         </li>
         <li class='public'>
-          <a href='../classes/springroll.Container.html'>springroll.Container</a>
-        </li>
-        <li class='public'>
           <a href='../classes/springroll.Debug.html'>springroll.Debug</a>
         </li>
         <li class='public'>
@@ -282,9 +279,6 @@
         </li>
         <li class='public'>
           <a href='../classes/springroll.EventDispatcher.html'>springroll.EventDispatcher</a>
-        </li>
-        <li class='public'>
-          <a href='../classes/springroll.Features.html'>springroll.Features</a>
         </li>
         <li class='private'>
           <a href='../classes/springroll.FlashArtImageTask.html'>springroll.FlashArtImageTask</a>
@@ -409,9 +403,6 @@
         <li class='public'>
           <a href='../classes/springroll.SavedData.html'>springroll.SavedData</a>
         </li>
-        <li class='public'>
-          <a href='../classes/springroll.SavedDataHandler.html'>springroll.SavedDataHandler</a>
-        </li>
         <li class='private'>
           <a href='../classes/springroll.ScaleImage.html'>springroll.ScaleImage</a>
         </li>
@@ -509,9 +500,6 @@
           <a href='../modules/Captions.html'>Captions</a>
         </li>
         <li class=''>
-          <a href='../modules/Container.html'>Container</a>
-        </li>
-        <li class=''>
           <a href='../modules/Container Client.html'>Container Client</a>
         </li>
         <li class=''>
@@ -571,77 +559,148 @@
 </nav></nav>
 <div class='col-sm-8 col-md-9'>
 <div id='docs-main' class='apidocs'>
-<h1 class="file-heading">File:SavedDataHandler.js</h1>
+<h1 class="file-heading">File:UserData.js</h1>
 
 <div class="file">
 <pre class="code prettyprint linenums">/**
- * @module Container
+ * @module Container Client
  * @namespace springroll
  */
 (function()
 {
-	// Include class
+	// Impor classes
 	var SavedData = include(&#x27;springroll.SavedData&#x27;);
 
 	/**
-	 * Default user data handler for the {{#crossLink &quot;springroll.Container&quot;}}Container{{/crossLink}} to save data using
-	 * the {{#crossLink &quot;springroll.SavedData&quot;}}SavedData{{/crossLink}} class.
-	 * @class SavedDataHandler
+	 * This class is responsible for saving the user-specific data
+	 * within an Application. This can be player-progress data, high
+	 * score information, or other data that needs be saved between
+	 * sessions of running an app.
+	 * @class UserData
+	 * @constructor
+	 * @param {Bellhop} container The container instance
 	 */
-	var SavedDataHandler = function() {};
+	var UserData = function(container)
+	{
+		/**
+		 * Reference to the container. If the app is not connected
+		 * to the Container (running standalone) then the container
+		 * is set to be &#x60;null&#x60;.
+		 * @property {Bellhop} container
+		 * @default  null
+		 * @readOnly
+		 */
+		this.container = container;
+
+		/**
+		 * The name to preprend to each property name, this is set
+		 * by default as the Application&#x27;s name, which is required
+		 * for the Container Client module.
+		 * @property {String} id
+		 * @default &quot;&quot;
+		 */
+		this.id = &quot;&quot;;
+	};
 
 	// Reference to prototype
-	var p = extend(SavedDataHandler);
+	var p = extend(UserData);
 
 	/**
-	 * Remove a data setting
-	 * @method  remove
-	 * @static
-	 * @param  {String}   name  The name of the property
-	 * @param  {Function} [callback] Callback when remove is complete
+	 * Read a saved setting
+	 * @method read
+	 * @param  {String}   prop The property name
+	 * @param  {Function} callback Callback when save completes, returns the value
 	 */
-	p.remove = function(name, callback)
+	p.read = function(prop, callback)
 	{
-		SavedData.remove(name);
-		callback();
+		if (!this.container.supported)
+		{
+			return callback(SavedData.read(this.id + prop));
+		}
+		this.container.fetch(
+			&#x27;userDataRead&#x27;,
+			function(event)
+			{
+				callback(event.data);
+			},
+			this.id + prop,
+			true // run-once
+		);
 	};
 
 	/**
-	 * Write a custom setting
-	 * @method  write
-	 * @static
-	 * @param  {String}  name  The name of the property
-	 * @param {*} value The value to set the property to
-	 * @param  {Function} [callback] Callback when write is complete
+	 * Write a setting
+	 * @method write
+	 * @param  {String}   prop The property name
+	 * @param  {*}   value The property value to save
+	 * @param  {Function} [callback] Callback when write completes
 	 */
-	p.write = function(name, value, callback)
+	p.write = function(prop, value, callback)
 	{
-		SavedData.write(name, value);
-		callback();
+		if (!this.container.supported)
+		{
+			SavedData.write(this.id + prop, value);
+			if (callback) callback();
+			return;
+		}
+		this.container.fetch(
+			&#x27;userDataWrite&#x27;,
+			function(event)
+			{
+				if (callback) callback();
+			},
+			{
+				name: this.id + prop,
+				value: value
+			},
+			true // run-once
+		);
 	};
 
 	/**
-	 * Read a custom setting
-	 * @method  read
-	 * @static
-	 * @param  {String}  name  The name of the property
-	 * @param  {Function} callback Callback when read is complete, returns the value
+	 * Delete a saved setting by name
+	 * @method remove
+	 * @param  {String}   prop The property name
+	 * @param  {Function} [callback] Callback when remove completes
 	 */
-	p.read = function(name, callback)
+	p.remove = function(prop, callback)
 	{
-		callback(SavedData.read(name));
+		if (!this.container.supported)
+		{
+			SavedData.remove(this.id + prop);
+			if (callback) callback();
+			return;
+		}
+		this.container.fetch(
+			&#x27;userDataRemove&#x27;,
+			function(event)
+			{
+				if (callback) callback();
+			},
+			this.id + prop,
+			true // run-once
+		);
 	};
 
+	/**
+	 * Destroy and don&#x27;t use after this
+	 * @method destroy
+	 */
+	p.destroy = function()
+	{
+		this.id = null;
+		this.container = null;
+	};
 
 	// Assign to namespace
-	namespace(&#x27;springroll&#x27;).SavedDataHandler = SavedDataHandler;
+	namespace(&#x27;springroll&#x27;).UserData = UserData;
 
 }());</pre>
 </div></div>
 </div>
 </div>
 </div>
-<script src='../assets/js/libraries.js?v=0.4.10'></script>
-<script src='../assets/js/main.js?v=0.4.10'></script>
+<script src='../assets/js/libraries.js?v=0.4.11'></script>
+<script src='../assets/js/main.js?v=0.4.11'></script>
 </body>
 </html>

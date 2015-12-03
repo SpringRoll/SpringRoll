@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html lang='en'>
 <head>
-	<title>SpringRoll v0.4.10 API Documentation : Container</title>
+	<title>SpringRoll v0.4.11 API Documentation : src/container-client/ContainerClientPlugin.js</title>
 	<meta charset='utf-8'>
 	<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 	<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
-	<link rel='shortcut icon' type='image/png' href='../assets/images/favicon.ico?v=0.4.10'>
+	<link rel='shortcut icon' type='image/png' href='../assets/images/favicon.ico?v=0.4.11'>
 	<link href='//fonts.googleapis.com/css?family=Titillium+Web:300,200,600' rel='stylesheet' type='text/css'>
-	<link rel='stylesheet' type='text/css' href='../assets/css/libraries.css?v=0.4.10'>
-	<link rel='stylesheet' type='text/css' href='../assets/css/main.css?v=0.4.10'>
+	<link rel='stylesheet' type='text/css' href='../assets/css/libraries.css?v=0.4.11'>
+	<link rel='stylesheet' type='text/css' href='../assets/css/main.css?v=0.4.11'>
 </head>
 <body>
 <header>
@@ -22,10 +22,10 @@
 					<span class="icon-bar"></span>
 				</button>
 				<a class="navbar-brand" href='https://github.com/SpringRoll/SpringRoll'>
-						<img src='../assets/images/logo.png?v=0.4.10' class="logo">
+						<img src='../assets/images/logo.png?v=0.4.11' class="logo">
 					<span class='project-name'>SpringRoll</span>
 					<span class="sr-only">API Documentation for:</span>
-					<span class='version hidden-xs'>v0.4.10</span>
+					<span class='version hidden-xs'>v0.4.11</span>
 				</a>
 			</div>
 			<div class="collapse navbar-collapse" id="docs-navbar">
@@ -182,9 +182,6 @@
           <a href='../classes/springroll.CombinedCallback.html'>springroll.CombinedCallback</a>
         </li>
         <li class='public'>
-          <a href='../classes/springroll.Container.html'>springroll.Container</a>
-        </li>
-        <li class='public'>
           <a href='../classes/springroll.Debug.html'>springroll.Debug</a>
         </li>
         <li class='public'>
@@ -282,9 +279,6 @@
         </li>
         <li class='public'>
           <a href='../classes/springroll.EventDispatcher.html'>springroll.EventDispatcher</a>
-        </li>
-        <li class='public'>
-          <a href='../classes/springroll.Features.html'>springroll.Features</a>
         </li>
         <li class='private'>
           <a href='../classes/springroll.FlashArtImageTask.html'>springroll.FlashArtImageTask</a>
@@ -409,9 +403,6 @@
         <li class='public'>
           <a href='../classes/springroll.SavedData.html'>springroll.SavedData</a>
         </li>
-        <li class='public'>
-          <a href='../classes/springroll.SavedDataHandler.html'>springroll.SavedDataHandler</a>
-        </li>
         <li class='private'>
           <a href='../classes/springroll.ScaleImage.html'>springroll.ScaleImage</a>
         </li>
@@ -509,9 +500,6 @@
           <a href='../modules/Captions.html'>Captions</a>
         </li>
         <li class=''>
-          <a href='../modules/Container.html'>Container</a>
-        </li>
-        <li class=''>
           <a href='../modules/Container Client.html'>Container Client</a>
         </li>
         <li class=''>
@@ -571,46 +559,374 @@
 </nav></nav>
 <div class='col-sm-8 col-md-9'>
 <div id='docs-main' class='apidocs'>
-<h1>Container Module</h1>
-<div class="box clearfix meta">
+<h1 class="file-heading">File:ContainerClientPlugin.js</h1>
 
-<div class="foundat">
-Defined in: <a href="../files/src_container_SavedDataHandler.js.html#l10"><code>Container:10</code></a>
+<div class="file">
+<pre class="code prettyprint linenums">/**
+ * @module Container Client
+ * @namespace springroll
+ */
+(function(undefined)
+{
+	// Include classes
+	var ApplicationPlugin = include(&#x27;springroll.ApplicationPlugin&#x27;),
+		PageVisibility = include(&#x27;springroll.PageVisibility&#x27;),
+		UserData = include(&#x27;springroll.UserData&#x27;),
+		Bellhop = include(&#x27;Bellhop&#x27;);
+
+	/**
+	 * @class Application
+	 */
+	var plugin = new ApplicationPlugin(200);
+
+	// Init the animator
+	plugin.setup = function()
+	{
+		var options = this.options;
+
+		/**
+		 * Send a message to let the site know that this has
+		 * been loaded, if the site is there
+		 * @property {Bellhop} container
+		 */
+		var container = this.container = new Bellhop();
+		container.connect();
+
+		/**
+		 * The API for saving user data, default is to save
+		 * data to the container, if not connected, it will
+		 * save user data to local cookies
+		 * @property {springroll.UserData} userData
+		 */
+		this.userData = new UserData(container);
+
+		/**
+		 * This option tells the container to always keep focus on the iframe even
+		 * when the focus is lost. This is useful mostly if your Application
+		 * requires keyboard input.
+		 * @property {Boolean} options.keepFocus
+		 */
+		options.add(&#x27;keepFocus&#x27;, false)
+			.on(&#x27;keepFocus&#x27;, function(data)
+			{
+				container.send(&#x27;keepFocus&#x27;, data);
+			});
+
+		// When the preloading is done
+		this.once(&#x27;beforeInit&#x27;, function()
+		{
+			container.send(&#x27;loaded&#x27;);
+		});
+
+		// Send the first event
+		container.send(&#x27;loading&#x27;);
+
+		/**
+		 * The default play-mode for the application is continuous, if the application is
+		 * running as part of a sequence is it considered in &quot;single play&quot; mode
+		 * and the application will therefore close itself.
+		 * @property {Boolean} singlePlay
+		 * @readOnly
+		 * @default false
+		 */
+		this.singlePlay = false;
+
+		/**
+		 * The optional play options to use if the application is played in &quot;single play&quot;
+		 * mode. These options are passed from the application container to specify
+		 * options that are used for this single play session. For instance,
+		 * if you want the single play to focus on a certain level or curriculum
+		 * such as &#x60;{ &quot;shape&quot;: &quot;square&quot; }&#x60;
+		 * @property {Object} playOptions
+		 * @readOnly
+		 */
+		this.playOptions = {};
+
+		/**
+		 * When a application is in singlePlay mode it will end.
+		 * It&#x27;s unnecessary to check &#x60;if (this.singlePlay)&#x60; just
+		 * call the method and it will end the application if it can.
+		 * @method singlePlayEnd
+		 * @return {Boolean} If endGame is called
+		 */
+		this.singlePlayEnd = function()
+		{
+			if (this.singlePlay)
+			{
+				this.endGame();
+				return true;
+			}
+			return false;
+		};
+
+		/**
+		 * Manually close the application, this can happen when playing through once
+		 * @method endGame
+		 * @param {String} [exitType=&#x27;game_completed&#x27;] The type of exit
+		 */
+		this.endGame = function(exitType)
+		{
+			this.trigger(&#x27;endGame&#x27;, exitType || &#x27;game_completed&#x27;);
+			this.destroy();
+		};
+
+		// Dispatch the features
+		this.once(&#x27;beforeInit&#x27;, function()
+		{
+			var hasSound = !!this.sound;
+
+			// Add the features that are enabled
+			this.container.send(&#x27;features&#x27;,
+			{
+				sound: hasSound,
+				hints: !!this.hints,
+				music: hasSound &amp;&amp; this.sound.contextExists(&#x27;music&#x27;),
+				vo: hasSound &amp;&amp; this.sound.contextExists(&#x27;vo&#x27;),
+				sfx: hasSound &amp;&amp; this.sound.contextExists(&#x27;sfx&#x27;),
+				captions: !!this.captions
+			});
+		});
+
+		if (container.supported)
+		{
+			container.fetch(&#x27;singlePlay&#x27;, onSinglePlay.bind(this));
+			container.fetch(&#x27;playOptions&#x27;, onPlayOptions.bind(this));
+		}
+
+		// Handle errors gracefully
+		window.onerror = onWindowError.bind(this);
+
+		// Listen when the browser closes or redirects
+		window.onunload = window.onbeforeunload = onWindowUnload.bind(this);
+	};
+
+	/**
+	 * Handler for when a window is unloaded
+	 * @method  onWindowUnload
+	 * @private
+	 */
+	var onWindowUnload = function()
+	{
+		// Remove listener to not trigger twice
+		window.onunload = window.onbeforeunload = null;
+		this.endGame(&#x27;left_site&#x27;);
+		return undefined;
+	};
+
+	/**
+	 * Handle the window uncaught errors with the container
+	 * @method  onWindowError
+	 * @private
+	 * @param  {Error} error Uncaught Error
+	 */
+	var onWindowError = function(error)
+	{
+		// If the container is supported
+		// then handle the errors and pass to the container
+		if (this.container.supported)
+		{
+			if (DEBUG &amp;&amp; window.console) console.error(error);
+			this.container.send(&#x27;localError&#x27;, String(error));
+			return RELEASE; // handle gracefully in release mode
+		}
+	};
+
+	// Check for application name
+	plugin.preload = function(done)
+	{
+		if (!this.name)
+		{
+			if (DEBUG)
+			{
+				throw &quot;Application name is empty, please add a Application option of &#x27;name&#x27;&quot;;
+			}
+			else
+			{
+				throw &quot;Application name is empty&quot;;
+			}
+		}
+
+		// Connect the user data to container
+		this.userData.id = this.name;
+
+		// Merge the container options with the current
+		// application options
+		if (this.container.supported)
+		{
+			//Setup the container listeners for site soundMute and captionsMute events
+			this.container.on(
+			{
+				soundMuted: onSoundMuted.bind(this),
+				captionsMuted: onCaptionsMuted.bind(this),
+				musicMuted: onContextMuted.bind(this, &#x27;music&#x27;),
+				voMuted: onContextMuted.bind(this, &#x27;vo&#x27;),
+				sfxMuted: onContextMuted.bind(this, &#x27;sfx&#x27;),
+				captionsStyles: onCaptionsStyles.bind(this),
+				pause: onPause.bind(this),
+				close: onClose.bind(this)
+			});
+
+			// Turn off the page hide and show auto pausing the App
+			this.options.autoPause = false;
+
+			//handle detecting and sending blur/focus events
+			var container = this.container;
+			this._pageVisibility = new PageVisibility(
+				container.send.bind(container, &#x27;focus&#x27;, true),
+				container.send.bind(container, &#x27;focus&#x27;, false)
+			);
+		}
+		done();
+	};
+
+	/**
+	 * When the container pauses the application
+	 * @method onPause
+	 * @private
+	 * @param {event} e The Bellhop event
+	 */
+	var onPause = function(e)
+	{
+		var paused = !!e.data;
+		// container pause events are also considered &quot;autoPause&quot; events
+		// event if the event was fired by the container&#x27;s pauseButton
+		this.autoPaused = paused;
+		this.enabled = !paused;
+	};
+
+	/**
+	 * Handler when the sound is muted
+	 * @method onSoundMuted
+	 * @private
+	 * @param {Event} e The bellhop event
+	 */
+	var onSoundMuted = function(e)
+	{
+		if (this.sound)
+		{
+			this.sound.muteAll = !!e.data;
+		}
+	};
+
+	/**
+	 * Handler when the captions are muted
+	 * @method onCaptionsMuted
+	 * @private
+	 * @param {Event} e The bellhop event
+	 */
+	var onCaptionsMuted = function(e)
+	{
+		if (this.captions)
+		{
+			this.captions.mute = !!e.data;
+		}
+	};
+
+	/**
+	 * Handler when the context is muted
+	 * @method onContextMuted
+	 * @private
+	 * @param {String} context The name of the sound context
+	 * @param {Event} e The bellhop event
+	 */
+	var onContextMuted = function(context, e)
+	{
+		if (this.sound)
+		{
+			this.sound.setContextMute(context, !!e.data);
+		}
+	};
+
+	/**
+	 * The captions style is being set
+	 * @method onCaptionsStyles
+	 * @private
+	 * @param {Event} e The bellhop event
+	 */
+	var onCaptionsStyles = function(e)
+	{
+		var styles = e.data;
+		var captions = this.captions ||
+		{};
+		var textField = captions.textField || null;
+
+		// Make sure we have a text field and a DOM object
+		if (textField &amp;&amp; textField.nodeName)
+		{
+			textField.className = &quot;size-&quot; + styles.size + &quot; &quot; +
+				&quot;bg-&quot; + styles.background + &quot; &quot; +
+				&quot;color-&quot; + styles.color + &quot; &quot; +
+				&quot;edge-&quot; + styles.edge + &quot; &quot; +
+				&quot;font-&quot; + styles.font + &quot; &quot; +
+				&quot;align-&quot; + styles.align;
+		}
+	};
+
+	/**
+	 * Handler when a application enters single play mode
+	 * @method onPlayOptions
+	 * @private
+	 * @param {event} e The Bellhop event
+	 */
+	var onPlayOptions = function(e)
+	{
+		Object.merge(this.playOptions, e.data ||
+		{});
+	};
+
+	/**
+	 * Handler when a application enters single play mode
+	 * @method onSinglePlay
+	 * @private
+	 * @param {event} e The Bellhop event
+	 */
+	var onSinglePlay = function(e)
+	{
+		this.singlePlay = !!e.data;
+	};
+
+	/**
+	 * Game container requests closing the application
+	 * @method onClose
+	 * @private
+	 */
+	var onClose = function()
+	{
+		this.endGame(&#x27;closed_container&#x27;);
+	};
+
+	// Destroy the animator
+	plugin.teardown = function()
+	{
+		window.onerror = null;
+
+		if (this._pageVisibility)
+		{
+			this._pageVisibility.destroy();
+			this._pageVisibility = null;
+		}
+
+		if (this.userData)
+		{
+			this.userData.destroy();
+			this.userData = null;
+		}
+
+		// Send the end application event to the container
+		if (this.container)
+		{
+			this.container.send(&#x27;endGame&#x27;);
+			this.container.destroy();
+			this.container = null;
+		}
+	};
+
+}());</pre>
+</div></div>
 </div>
-
-</div>
-
-
-<div class="box intro">
-
-</div>
-
-
-
-<p>This namespace provides the following classes:</p>
-<ul class="module-classes normal">
-<li class="module-class">
-<a href="../classes/springroll.Container.html">
-springroll.Container
-</a>
-</li>
-<li class="module-class">
-<a href="../classes/springroll.Features.html">
-springroll.Features
-</a>
-</li>
-<li class="module-class">
-<a href="../classes/springroll.SavedDataHandler.html">
-springroll.SavedDataHandler
-</a>
-</li>
-</ul>
-
 </div>
 </div>
-</div>
-</div>
-<script src='../assets/js/libraries.js?v=0.4.10'></script>
-<script src='../assets/js/main.js?v=0.4.10'></script>
+<script src='../assets/js/libraries.js?v=0.4.11'></script>
+<script src='../assets/js/main.js?v=0.4.11'></script>
 </body>
 </html>

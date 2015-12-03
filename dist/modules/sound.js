@@ -1,4 +1,4 @@
-/*! SpringRoll 0.4.10 */
+/*! SpringRoll 0.4.11 */
 /**
  * @module Sound
  * @namespace springroll
@@ -580,6 +580,10 @@
 				instance.panNode = WebAudioPlugin.context.createPanner();
 				instance.panNode.panningModel = WebAudioPlugin._panningModel;
 				instance.panNode.connect(instance.gainNode);
+				instance._updatePan();
+				//double check that the position is a valid thing
+				if (instance._position < 0 || instance._position === undefined)
+					instance._position = 0;
 			}
 		}
 	}

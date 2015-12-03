@@ -28,14 +28,12 @@ YUI.add("yuidoc-meta", function(Y) {
         "springroll.Captions",
         "springroll.ColorAlphaTask",
         "springroll.CombinedCallback",
-        "springroll.Container",
         "springroll.Debug",
         "springroll.DebugOptions",
         "springroll.DelayedCall",
         "springroll.Enum",
         "springroll.EnumValue",
         "springroll.EventDispatcher",
-        "springroll.Features",
         "springroll.FlashArtImageTask",
         "springroll.FunctionHint",
         "springroll.FunctionTask",
@@ -52,7 +50,6 @@ YUI.add("yuidoc-meta", function(Y) {
         "springroll.Property",
         "springroll.PropertyDispatcher",
         "springroll.SavedData",
-        "springroll.SavedDataHandler",
         "springroll.ScaleImage",
         "springroll.ScaleItem",
         "springroll.ScaleManager",
@@ -137,7 +134,6 @@ YUI.add("yuidoc-meta", function(Y) {
     "modules": [
         "Animation",
         "Captions",
-        "Container",
         "Container Client",
         "Core",
         "Debug",
@@ -165,10 +161,6 @@ YUI.add("yuidoc-meta", function(Y) {
         {
             "displayName": "Captions",
             "name": "Captions"
-        },
-        {
-            "displayName": "Container",
-            "name": "Container"
         },
         {
             "displayName": "Container Client",

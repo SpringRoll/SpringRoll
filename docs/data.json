@@ -2,59 +2,24 @@
     "project": {
         "name": "SpringRoll",
         "description": "An application framework for building HTML5 Canvas games and applications",
-        "version": "0.4.10",
+        "version": "0.4.11",
         "url": "https://github.com/SpringRoll/SpringRoll"
     },
     "files": {
-        "src/container/Container.js": {
-            "name": "src/container/Container.js",
-            "modules": {},
-            "classes": {
-                "springroll.Container": 1
+        "src/container-client/ContainerClientPlugin.js": {
+            "name": "src/container-client/ContainerClientPlugin.js",
+            "modules": {
+                "Container Client": 1
             },
-            "fors": {},
-            "namespaces": {
-                "springroll": 1
-            }
-        },
-        "src/container/ContainerPlugin.js": {
-            "name": "src/container/ContainerPlugin.js",
-            "modules": {},
             "classes": {},
             "fors": {},
             "namespaces": {
                 "springroll": 1
             }
         },
-        "src/container/Features.js": {
-            "name": "src/container/Features.js",
-            "modules": {
-                "Container": 1
-            },
-            "classes": {
-                "springroll.Features": 1
-            },
-            "fors": {},
-            "namespaces": {
-                "springroll": 1
-            }
-        },
-        "src/container/SavedDataHandler.js": {
-            "name": "src/container/SavedDataHandler.js",
+        "src/container-client/UserData.js": {
+            "name": "src/container-client/UserData.js",
             "modules": {},
-            "classes": {
-                "springroll.SavedDataHandler": 1
-            },
-            "fors": {},
-            "namespaces": {
-                "springroll": 1
-            }
-        },
-        "src/container/UserData.js": {
-            "name": "src/container/UserData.js",
-            "modules": {
-                "Container Client": 1
-            },
             "classes": {
                 "springroll.UserData": 1
             },
@@ -1738,22 +1703,6 @@
         }
     },
     "modules": {
-        "Container": {
-            "name": "Container",
-            "submodules": {},
-            "classes": {
-                "springroll.Container": 1,
-                "springroll.Features": 1,
-                "springroll.SavedDataHandler": 1
-            },
-            "fors": {},
-            "namespaces": {
-                "springroll": 1
-            },
-            "tag": "module",
-            "file": "src/container/SavedDataHandler.js",
-            "line": 10
-        },
         "Container Client": {
             "name": "Container Client",
             "submodules": {},
@@ -1765,7 +1714,7 @@
                 "springroll": 1
             },
             "tag": "module",
-            "file": "src/container/UserData.js",
+            "file": "src/container-client/UserData.js",
             "line": 10
         },
         "Core": {
@@ -2220,86 +2169,6 @@
         }
     },
     "classes": {
-        "springroll.Container": {
-            "name": "springroll.Container",
-            "shortname": "Container",
-            "classitems": [],
-            "plugins": [],
-            "extensions": [],
-            "plugin_for": [],
-            "extension_for": [],
-            "module": "Container",
-            "namespace": "springroll",
-            "file": "src/container/Container.js",
-            "line": 16,
-            "description": "The application container",
-            "extends": "springroll.EventDispatcher",
-            "is_constructor": 1,
-            "params": [
-                {
-                    "name": "iframeSelector",
-                    "description": "jQuery selector for application iframe container",
-                    "type": "String"
-                },
-                {
-                    "name": "options",
-                    "description": "Optional parameteres",
-                    "type": "Object",
-                    "optional": true,
-                    "props": [
-                        {
-                            "name": "helpButton",
-                            "description": "jQuery selector for help button",
-                            "type": "String",
-                            "optional": true
-                        },
-                        {
-                            "name": "captionsButton",
-                            "description": "jQuery selector for captions button",
-                            "type": "String",
-                            "optional": true
-                        },
-                        {
-                            "name": "soundButton",
-                            "description": "jQuery selector for captions button",
-                            "type": "String",
-                            "optional": true
-                        },
-                        {
-                            "name": "voButton",
-                            "description": "jQuery selector for vo button",
-                            "type": "String",
-                            "optional": true
-                        },
-                        {
-                            "name": "sfxButton",
-                            "description": "jQuery selector for sounf effects button",
-                            "type": "String",
-                            "optional": true
-                        },
-                        {
-                            "name": "musicButton",
-                            "description": "jQuery selector for music button",
-                            "type": "String",
-                            "optional": true
-                        },
-                        {
-                            "name": "pauseButton",
-                            "description": "jQuery selector for pause button",
-                            "type": "String",
-                            "optional": true
-                        },
-                        {
-                            "name": "pauseFocusSelector",
-                            "description": "The class to pause\n       the application when focused on. This is useful for form elements which\n       require focus and play better with Application's keepFocus option.",
-                            "type": "String",
-                            "optional": true,
-                            "optdefault": "'.pause-on-focus'"
-                        }
-                    ]
-                }
-            ]
-        },
         "springroll.Application": {
             "name": "springroll.Application",
             "shortname": "Application",
@@ -2331,34 +2200,6 @@
                 }
             ]
         },
-        "springroll.Features": {
-            "name": "springroll.Features",
-            "shortname": "Features",
-            "classitems": [],
-            "plugins": [],
-            "extensions": [],
-            "plugin_for": [],
-            "extension_for": [],
-            "module": "Container",
-            "namespace": "springroll",
-            "file": "src/container/Features.js",
-            "line": 9,
-            "description": "Provide feature detection"
-        },
-        "springroll.SavedDataHandler": {
-            "name": "springroll.SavedDataHandler",
-            "shortname": "SavedDataHandler",
-            "classitems": [],
-            "plugins": [],
-            "extensions": [],
-            "plugin_for": [],
-            "extension_for": [],
-            "module": "Container",
-            "namespace": "springroll",
-            "file": "src/container/SavedDataHandler.js",
-            "line": 10,
-            "description": "Default user data handler for the {{#crossLink \"springroll.Container\"}}Container{{/crossLink}} to save data using\nthe {{#crossLink \"springroll.SavedData\"}}SavedData{{/crossLink}} class."
-        },
         "springroll.UserData": {
             "name": "springroll.UserData",
             "shortname": "UserData",
@@ -2369,7 +2210,7 @@
             "extension_for": [],
             "module": "Container Client",
             "namespace": "springroll",
-            "file": "src/container/UserData.js",
+            "file": "src/container-client/UserData.js",
             "line": 10,
             "description": "This class is responsible for saving the user-specific data\nwithin an Application. This can be player-progress data, high\nscore information, or other data that needs be saved between\nsessions of running an app.",
             "is_constructor": 1,
@@ -7212,1336 +7053,7 @@
     },
     "classitems": [
         {
-            "file": "src/container/Container.js",
-            "line": 38,
-            "description": "The options",
-            "itemtype": "property",
-            "name": "options",
-            "type": "Object",
-            "readonly": "",
-            "class": "springroll.Container",
-            "module": "Container",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/container/Container.js",
-            "line": 49,
-            "description": "The name of this class",
-            "itemtype": "property",
-            "name": "name",
-            "type": "String",
-            "class": "springroll.Container",
-            "module": "Container",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/container/Container.js",
-            "line": 55,
-            "description": "The current iframe jquery object",
-            "itemtype": "property",
-            "name": "iframe",
-            "type": "Jquery",
-            "class": "springroll.Container",
-            "module": "Container",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/container/Container.js",
-            "line": 61,
-            "description": "The DOM object for the iframe",
-            "itemtype": "property",
-            "name": "dom",
-            "type": "Element",
-            "class": "springroll.Container",
-            "module": "Container",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/container/Container.js",
-            "line": 67,
-            "description": "Reference to the help button",
-            "itemtype": "property",
-            "name": "helpButton",
-            "type": "Jquery",
-            "class": "springroll.Container",
-            "module": "Container",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/container/Container.js",
-            "line": 74,
-            "description": "Reference to the captions button",
-            "itemtype": "property",
-            "name": "captionsButton",
-            "type": "Jquery",
-            "class": "springroll.Container",
-            "module": "Container",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/container/Container.js",
-            "line": 81,
-            "description": "Reference to the all sound mute button",
-            "itemtype": "property",
-            "name": "soundButton",
-            "type": "Jquery",
-            "class": "springroll.Container",
-            "module": "Container",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/container/Container.js",
-            "line": 88,
-            "description": "Reference to the music mute button",
-            "itemtype": "property",
-            "name": "musicButton",
-            "type": "Jquery",
-            "class": "springroll.Container",
-            "module": "Container",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/container/Container.js",
-            "line": 95,
-            "description": "Reference to the sound effects mute button",
-            "itemtype": "property",
-            "name": "sfxButton",
-            "type": "Jquery",
-            "class": "springroll.Container",
-            "module": "Container",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/container/Container.js",
-            "line": 102,
-            "description": "Reference to the voice-over mute button",
-            "itemtype": "property",
-            "name": "voButton",
-            "type": "Jquery",
-            "class": "springroll.Container",
-            "module": "Container",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/container/Container.js",
-            "line": 109,
-            "description": "Reference to the pause application button",
-            "itemtype": "property",
-            "name": "pauseButton",
-            "type": "Jquery",
-            "class": "springroll.Container",
-            "module": "Container",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/container/Container.js",
-            "line": 116,
-            "description": "Communication layer between the container and application",
-            "itemtype": "property",
-            "name": "client",
-            "type": "Bellhop",
-            "class": "springroll.Container",
-            "module": "Container",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/container/Container.js",
-            "line": 122,
-            "description": "The current release data",
-            "itemtype": "property",
-            "name": "release",
-            "type": "Object",
-            "class": "springroll.Container",
-            "module": "Container",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/container/Container.js",
-            "line": 128,
-            "description": "Check to see if a application is loaded",
-            "itemtype": "property",
-            "name": "loaded",
-            "type": "Boolean",
-            "readonly": "",
-            "class": "springroll.Container",
-            "module": "Container",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/container/Container.js",
-            "line": 135,
-            "description": "Check to see if a application is loading",
-            "itemtype": "property",
-            "name": "loading",
-            "type": "Boolean",
-            "readonly": "",
-            "class": "springroll.Container",
-            "module": "Container",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/container/Container.js",
-            "line": 142,
-            "description": "The collection of captions styles",
-            "itemtype": "property",
-            "name": "_captionsStyles",
-            "type": "String",
-            "access": "private",
-            "tagname": "",
-            "class": "springroll.Container",
-            "module": "Container",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/container/Container.js",
-            "line": 154,
-            "description": "Whether the Game is currently \"blurred\" (not focused) - for pausing/unpausing",
-            "itemtype": "property",
-            "name": "_appBlurred",
-            "type": "Boolean",
-            "access": "private",
-            "tagname": "",
-            "default": "false",
-            "class": "springroll.Container",
-            "module": "Container",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/container/Container.js",
-            "line": 162,
-            "description": "Always keep the focus on the application iframe",
-            "itemtype": "property",
-            "name": "_keepFocus",
-            "type": "Boolean",
-            "access": "private",
-            "tagname": "",
-            "default": "false",
-            "class": "springroll.Container",
-            "module": "Container",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/container/Container.js",
-            "line": 170,
-            "description": "Whether the Container is currently \"blurred\" (not focused) - for pausing/unpausing",
-            "itemtype": "property",
-            "name": "_containerBlurred",
-            "type": "Boolean",
-            "access": "private",
-            "tagname": "",
-            "default": "false",
-            "class": "springroll.Container",
-            "module": "Container",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/container/Container.js",
-            "line": 178,
-            "description": "Delays pausing of application to mitigate issues with asynchronous communication\nbetween Game and Container",
-            "itemtype": "property",
-            "name": "_focusTimer",
-            "type": "Int",
-            "class": "springroll.Container",
-            "module": "Container",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/container/Container.js",
-            "line": 185,
-            "description": "If the application is currently paused manually",
-            "itemtype": "property",
-            "name": "_isManualPause",
-            "type": "Boolean",
-            "access": "private",
-            "tagname": "",
-            "default": "false",
-            "class": "springroll.Container",
-            "module": "Container",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/container/Container.js",
-            "line": 193,
-            "description": "If the current application is paused",
-            "itemtype": "property",
-            "name": "_paused",
-            "type": "Boolean",
-            "access": "private",
-            "tagname": "",
-            "default": "false",
-            "class": "springroll.Container",
-            "module": "Container",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/container/Container.js",
-            "line": 201,
-            "description": "Should we send bellhop messages for the mute (etc) buttons?",
-            "itemtype": "property",
-            "name": "sendMutes",
-            "type": "Boolean",
-            "default": "true",
-            "class": "springroll.Container",
-            "module": "Container",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/container/Container.js",
-            "line": 208,
-            "description": "The external handler class, must include `remove`, `write`, `read` methods\nmake it possible to use something else to handle the external, default\nis to use cookies/localStorage. See {{#crossLink \"springroll.SavedDataHandler\"}}{{/crossLink}}\nas an example.",
-            "itemtype": "property",
-            "name": "userDataHandler",
-            "type": "Object",
-            "default": "springroll.SavedDataHandler",
-            "class": "springroll.Container",
-            "module": "Container",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/container/Container.js",
-            "line": 260,
-            "description": "Fired when the pause state is toggled",
-            "itemtype": "event",
-            "name": "pause",
-            "params": [
-                {
-                    "name": "paused",
-                    "description": "If the application is now paused",
-                    "type": "Boolean"
-                }
-            ],
-            "class": "springroll.Container",
-            "module": "Container",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/container/Container.js",
-            "line": 266,
-            "description": "Fired when the application resumes from a paused state",
-            "itemtype": "event",
-            "name": "resumed",
-            "class": "springroll.Container",
-            "module": "Container",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/container/Container.js",
-            "line": 271,
-            "description": "Fired when the application becomes paused",
-            "itemtype": "event",
-            "name": "paused",
-            "class": "springroll.Container",
-            "module": "Container",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/container/Container.js",
-            "line": 276,
-            "description": "Fired when the application is unsupported",
-            "itemtype": "event",
-            "name": "unsupported",
-            "params": [
-                {
-                    "name": "err",
-                    "description": "The error message",
-                    "type": "String"
-                }
-            ],
-            "class": "springroll.Container",
-            "module": "Container",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/container/Container.js",
-            "line": 282,
-            "description": "Fired when the API cannot be called",
-            "itemtype": "event",
-            "name": "remoteFailed",
-            "class": "springroll.Container",
-            "module": "Container",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/container/Container.js",
-            "line": 287,
-            "description": "There was a problem with the API call",
-            "itemtype": "event",
-            "name": "remoteError",
-            "class": "springroll.Container",
-            "module": "Container",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/container/Container.js",
-            "line": 292,
-            "description": "There was an uncaught iframe error destroying the game on closing",
-            "itemtype": "event",
-            "name": "localError",
-            "params": [
-                {
-                    "name": "error",
-                    "description": "The error triggered",
-                    "type": "Error"
-                }
-            ],
-            "class": "springroll.Container",
-            "module": "Container",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/container/Container.js",
-            "line": 298,
-            "description": "Event when the application gives the load done signal",
-            "itemtype": "event",
-            "name": "opened",
-            "class": "springroll.Container",
-            "module": "Container",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/container/Container.js",
-            "line": 303,
-            "description": "Event when a application starts closing",
-            "itemtype": "event",
-            "name": "close",
-            "class": "springroll.Container",
-            "module": "Container",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/container/Container.js",
-            "line": 308,
-            "description": "Event when a application closes",
-            "itemtype": "event",
-            "name": "closed",
-            "class": "springroll.Container",
-            "module": "Container",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/container/Container.js",
-            "line": 313,
-            "description": "Event when request to open an application has begin either by\ncalling `openPath` or `openRemote`",
-            "itemtype": "event",
-            "name": "open",
-            "class": "springroll.Container",
-            "module": "Container",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/container/Container.js",
-            "line": 319,
-            "description": "Event when a application start loading, first even received\nfrom the Application.",
-            "itemtype": "event",
-            "name": "opening",
-            "class": "springroll.Container",
-            "module": "Container",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/container/Container.js",
-            "line": 325,
-            "description": "Fired when the enabled status of the help button changes",
-            "itemtype": "event",
-            "name": "helpEnabled",
-            "params": [
-                {
-                    "name": "enabled",
-                    "description": "If the help button is enabled",
-                    "type": "Boolean"
-                }
-            ],
-            "class": "springroll.Container",
-            "module": "Container",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/container/Container.js",
-            "line": 331,
-            "description": "The features supported by the application",
-            "itemtype": "event",
-            "name": "features",
-            "params": [
-                {
-                    "name": "data.vo",
-                    "description": "If VO vo context is supported",
-                    "type": "Boolean"
-                },
-                {
-                    "name": "data.music",
-                    "description": "If music context is supported",
-                    "type": "Boolean"
-                },
-                {
-                    "name": "data.sound",
-                    "description": "If Sound is supported",
-                    "type": "Boolean"
-                },
-                {
-                    "name": "data.sfx",
-                    "description": "If SFX context is supported",
-                    "type": "Boolean"
-                },
-                {
-                    "name": "data.captions",
-                    "description": "If captions is supported",
-                    "type": "Boolean"
-                },
-                {
-                    "name": "data.hints",
-                    "description": "If hinting is supported",
-                    "type": "Boolean"
-                }
-            ],
-            "class": "springroll.Container",
-            "module": "Container",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/container/Container.js",
-            "line": 342,
-            "description": "When the document is clicked",
-            "itemtype": "method",
-            "name": "_onDocClicked",
-            "access": "private",
-            "tagname": "",
-            "params": [
-                {
-                    "name": "e",
-                    "description": "Click or focus event",
-                    "type": "Event"
-                }
-            ],
-            "class": "springroll.Container",
-            "module": "Container",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/container/Container.js",
-            "line": 358,
-            "description": "Open a application or path",
-            "itemtype": "method",
-            "name": "_internalOpen",
-            "access": "private",
-            "tagname": "",
-            "params": [
-                {
-                    "name": "path",
-                    "description": "The full path to the application to load",
-                    "type": "String"
-                },
-                {
-                    "name": "options",
-                    "description": "The open options",
-                    "type": "Object",
-                    "optional": true,
-                    "props": [
-                        {
-                            "name": "singlePlay",
-                            "description": "If we should play in single play mode",
-                            "type": "Boolean",
-                            "optional": true,
-                            "optdefault": "false"
-                        },
-                        {
-                            "name": "playOptions",
-                            "description": "The optional play options",
-                            "type": "Object",
-                            "optional": true,
-                            "optdefault": "null"
-                        }
-                    ]
-                }
-            ],
-            "class": "springroll.Container",
-            "module": "Container",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/container/Container.js",
-            "line": 401,
-            "description": "Open a application or path",
-            "itemtype": "method",
-            "name": "openPath",
-            "params": [
-                {
-                    "name": "path",
-                    "description": "The full path to the application to load",
-                    "type": "String"
-                },
-                {
-                    "name": "options",
-                    "description": "The open options",
-                    "type": "Object",
-                    "optional": true,
-                    "props": [
-                        {
-                            "name": "singlePlay",
-                            "description": "If we should play in single play mode",
-                            "type": "Boolean",
-                            "optional": true,
-                            "optdefault": "false"
-                        },
-                        {
-                            "name": "playOptions",
-                            "description": "The optional play options",
-                            "type": "Object",
-                            "optional": true,
-                            "optdefault": "null"
-                        }
-                    ]
-                }
-            ],
-            "class": "springroll.Container",
-            "module": "Container",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/container/Container.js",
-            "line": 425,
-            "description": "Open application based on an API Call to SpringRoll Connect",
-            "itemtype": "method",
-            "name": "openRemote",
-            "params": [
-                {
-                    "name": "api",
-                    "description": "The path to API call, this can be a full URL",
-                    "type": "String"
-                },
-                {
-                    "name": "options",
-                    "description": "The open options",
-                    "type": "Object",
-                    "optional": true,
-                    "props": [
-                        {
-                            "name": "singlePlay",
-                            "description": "If we should play in single play mode",
-                            "type": "Boolean",
-                            "optional": true,
-                            "optdefault": "false"
-                        },
-                        {
-                            "name": "playOptions",
-                            "description": "The optional play options",
-                            "type": "Object",
-                            "optional": true,
-                            "optdefault": "null"
-                        },
-                        {
-                            "name": "query",
-                            "description": "The application query string options (e.g., \"?level=1\")",
-                            "type": "String",
-                            "optional": true,
-                            "optdefault": "''"
-                        }
-                    ]
-                }
-            ],
-            "class": "springroll.Container",
-            "module": "Container",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/container/Container.js",
-            "line": 484,
-            "description": "Set up communication layer between site and application.\nMay be called from subclasses if they create/destroy Bellhop instances.",
-            "access": "protected",
-            "tagname": "",
-            "itemtype": "method",
-            "name": "initClient",
-            "class": "springroll.Container",
-            "module": "Container",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/container/Container.js",
-            "line": 514,
-            "description": "Removes the Bellhop communication layer altogether.",
-            "access": "protected",
-            "tagname": "",
-            "itemtype": "method",
-            "name": "destroyClient",
-            "class": "springroll.Container",
-            "module": "Container",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/container/Container.js",
-            "line": 528,
-            "description": "Handler for the userDataRemove event",
-            "itemtype": "method",
-            "name": "onUserDataRemove",
-            "access": "private",
-            "tagname": "",
-            "class": "springroll.Container",
-            "module": "Container",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/container/Container.js",
-            "line": 542,
-            "description": "Handler for the userDataRead event",
-            "itemtype": "method",
-            "name": "onUserDataRead",
-            "access": "private",
-            "tagname": "",
-            "class": "springroll.Container",
-            "module": "Container",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/container/Container.js",
-            "line": 556,
-            "description": "Handler for the userDataWrite event",
-            "itemtype": "method",
-            "name": "onUserDataWrite",
-            "access": "private",
-            "tagname": "",
-            "class": "springroll.Container",
-            "module": "Container",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/container/Container.js",
-            "line": 571,
-            "description": "Handle the local errors",
-            "itemtype": "method",
-            "name": "onLocalError",
-            "access": "private",
-            "tagname": "",
-            "params": [
-                {
-                    "name": "event",
-                    "description": "Bellhop event",
-                    "type": "Event"
-                }
-            ],
-            "class": "springroll.Container",
-            "module": "Container",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/container/Container.js",
-            "line": 582,
-            "description": "The game is starting to load",
-            "itemtype": "method",
-            "name": "onLoading",
-            "access": "private",
-            "tagname": "",
-            "class": "springroll.Container",
-            "module": "Container",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/container/Container.js",
-            "line": 592,
-            "description": "Reset the mutes for audio and captions",
-            "itemtype": "method",
-            "name": "onLoadDone",
-            "access": "private",
-            "tagname": "",
-            "class": "springroll.Container",
-            "module": "Container",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/container/Container.js",
-            "line": 628,
-            "description": "Handle focus events sent from iFrame children",
-            "itemtype": "method",
-            "name": "onFocus",
-            "access": "private",
-            "tagname": "",
-            "class": "springroll.Container",
-            "module": "Container",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/container/Container.js",
-            "line": 639,
-            "description": "Handle focus events sent from container's window",
-            "itemtype": "method",
-            "name": "onContainerFocus",
-            "access": "private",
-            "tagname": "",
-            "class": "springroll.Container",
-            "module": "Container",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/container/Container.js",
-            "line": 650,
-            "description": "Handle blur events sent from container's window",
-            "itemtype": "method",
-            "name": "onContainerBlur",
-            "access": "private",
-            "tagname": "",
-            "class": "springroll.Container",
-            "module": "Container",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/container/Container.js",
-            "line": 665,
-            "description": "Focus on the iframe's contentWindow",
-            "itemtype": "method",
-            "name": "focus",
-            "class": "springroll.Container",
-            "module": "Container",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/container/Container.js",
-            "line": 674,
-            "description": "Unfocus on the iframe's contentWindow",
-            "itemtype": "method",
-            "name": "blur",
-            "class": "springroll.Container",
-            "module": "Container",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/container/Container.js",
-            "line": 683,
-            "description": "Manage the focus change events sent from window and iFrame",
-            "itemtype": "method",
-            "name": "manageFocus",
-            "access": "protected",
-            "tagname": "",
-            "class": "springroll.Container",
-            "module": "Container",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/container/Container.js",
-            "line": 729,
-            "description": "Handle the application features",
-            "itemtype": "method",
-            "name": "onFeatures",
-            "params": [
-                {
-                    "name": "event",
-                    "description": "The bellhop features",
-                    "type": "Event"
-                }
-            ],
-            "access": "private",
-            "tagname": "",
-            "class": "springroll.Container",
-            "module": "Container",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/container/Container.js",
-            "line": 754,
-            "description": "Handle the keep focus event for the window",
-            "itemtype": "method",
-            "name": "onKeepFocus",
-            "access": "private",
-            "tagname": "",
-            "class": "springroll.Container",
-            "module": "Container",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/container/Container.js",
-            "line": 765,
-            "description": "Reset the mutes for audio and captions",
-            "itemtype": "method",
-            "name": "onHelpEnabled",
-            "access": "private",
-            "tagname": "",
-            "class": "springroll.Container",
-            "module": "Container",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/container/Container.js",
-            "line": 775,
-            "description": "Handler when the play hint button is clicked",
-            "itemtype": "method",
-            "name": "onPlayHelp",
-            "access": "private",
-            "tagname": "",
-            "class": "springroll.Container",
-            "module": "Container",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/container/Container.js",
-            "line": 788,
-            "description": "The application ended and destroyed itself",
-            "itemtype": "method",
-            "name": "onEndGame",
-            "access": "private",
-            "tagname": "",
-            "class": "springroll.Container",
-            "module": "Container",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/container/Container.js",
-            "line": 798,
-            "description": "Handler when the captions mute button is clicked",
-            "itemtype": "method",
-            "name": "onCaptionsToggle",
-            "access": "private",
-            "tagname": "",
-            "class": "springroll.Container",
-            "module": "Container",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/container/Container.js",
-            "line": 808,
-            "description": "If the current application is paused",
-            "itemtype": "property",
-            "name": "paused",
-            "type": "Boolean",
-            "default": "false",
-            "class": "springroll.Container",
-            "module": "Container",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/container/Container.js",
-            "line": 848,
-            "description": "Set the captions are muted",
-            "itemtype": "property",
-            "name": "helpEnabled",
-            "type": "Boolean",
-            "class": "springroll.Container",
-            "module": "Container",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/container/Container.js",
-            "line": 868,
-            "description": "Handler when the sound mute button is clicked",
-            "itemtype": "method",
-            "name": "onSoundToggle",
-            "access": "private",
-            "tagname": "",
-            "class": "springroll.Container",
-            "module": "Container",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/container/Container.js",
-            "line": 882,
-            "description": "Handler when the music mute button is clicked",
-            "itemtype": "method",
-            "name": "onMusicToggle",
-            "access": "private",
-            "tagname": "",
-            "class": "springroll.Container",
-            "module": "Container",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/container/Container.js",
-            "line": 893,
-            "description": "Handler when the voice-over mute button is clicked",
-            "itemtype": "method",
-            "name": "onVOToggle",
-            "access": "private",
-            "tagname": "",
-            "class": "springroll.Container",
-            "module": "Container",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/container/Container.js",
-            "line": 904,
-            "description": "Handler when the voice-over mute button is clicked",
-            "itemtype": "method",
-            "name": "onSFXToggle",
-            "access": "private",
-            "tagname": "",
-            "class": "springroll.Container",
-            "module": "Container",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/container/Container.js",
-            "line": 915,
-            "description": "Check for when all mutes are muted or unmuted",
-            "itemtype": "method",
-            "name": "_checkSoundMute",
-            "access": "private",
-            "tagname": "",
-            "class": "springroll.Container",
-            "module": "Container",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/container/Container.js",
-            "line": 925,
-            "description": "Toggle the current paused state of the application",
-            "itemtype": "method",
-            "name": "onPauseToggle",
-            "access": "private",
-            "tagname": "",
-            "class": "springroll.Container",
-            "module": "Container",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/container/Container.js",
-            "line": 936,
-            "description": "The name of the saved property if the captions are muted or not",
-            "itemtype": "property",
-            "name": "CAPTIONS_MUTED",
-            "type": "String",
-            "static": 1,
-            "access": "private",
-            "tagname": "",
-            "final": 1,
-            "class": "springroll.Container",
-            "module": "Container",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/container/Container.js",
-            "line": 945,
-            "description": "The name of the saved property if the sound is muted or not",
-            "itemtype": "property",
-            "name": "SOUND_MUTED",
-            "type": "String",
-            "static": 1,
-            "access": "private",
-            "tagname": "",
-            "final": 1,
-            "class": "springroll.Container",
-            "module": "Container",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/container/Container.js",
-            "line": 954,
-            "description": "The name of the saved property if the music is muted or not",
-            "itemtype": "property",
-            "name": "MUSIC_MUTED",
-            "type": "String",
-            "static": 1,
-            "access": "private",
-            "tagname": "",
-            "final": 1,
-            "class": "springroll.Container",
-            "module": "Container",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/container/Container.js",
-            "line": 963,
-            "description": "The name of the saved property if the voice-over is muted or not",
-            "itemtype": "property",
-            "name": "VO_MUTED",
-            "type": "String",
-            "static": 1,
-            "access": "private",
-            "tagname": "",
-            "final": 1,
-            "class": "springroll.Container",
-            "module": "Container",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/container/Container.js",
-            "line": 972,
-            "description": "The name of the saved property if the effects are muted or not",
-            "itemtype": "property",
-            "name": "SFX_MUTED",
-            "type": "String",
-            "static": 1,
-            "access": "private",
-            "tagname": "",
-            "final": 1,
-            "class": "springroll.Container",
-            "module": "Container",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/container/Container.js",
-            "line": 981,
-            "description": "The name of the saved property for the captions styles",
-            "itemtype": "property",
-            "name": "CAPTIONS_STYLES",
-            "type": "String",
-            "static": 1,
-            "access": "private",
-            "tagname": "",
-            "final": 1,
-            "class": "springroll.Container",
-            "module": "Container",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/container/Container.js",
-            "line": 990,
-            "description": "The map of the default caption style settings",
-            "itemtype": "property",
-            "name": "DEFAULT_CAPTIONS_STYLES",
-            "type": "Object",
-            "static": 1,
-            "access": "private",
-            "tagname": "",
-            "final": 1,
-            "class": "springroll.Container",
-            "module": "Container",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/container/Container.js",
-            "line": 1006,
-            "description": "Abstract method to handle the muting",
-            "itemtype": "method",
-            "name": "_setMuteProp",
-            "params": [
-                {
-                    "name": "prop",
-                    "description": "The name of the property to save",
-                    "type": "String"
-                },
-                {
-                    "name": "button",
-                    "description": "Reference to the jquery button",
-                    "type": "Jquery"
-                },
-                {
-                    "name": "muted",
-                    "description": "If the button is muted",
-                    "type": "Boolean"
-                }
-            ],
-            "class": "springroll.Container",
-            "module": "Container",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/container/Container.js",
-            "line": 1025,
-            "description": "Set the captions styles",
-            "itemtype": "method",
-            "name": "setCaptionsStyles",
-            "params": [
-                {
-                    "name": "styles",
-                    "description": "The style options or the name of the\nproperty (e.g., \"color\", \"edge\", \"font\", \"background\", \"size\")",
-                    "type": "Object|String",
-                    "optional": true,
-                    "props": [
-                        {
-                            "name": "color",
-                            "description": "The text color, the default is white",
-                            "type": "String",
-                            "optional": true,
-                            "optdefault": "'white'"
-                        },
-                        {
-                            "name": "edge",
-                            "description": "The edge style, default is none",
-                            "type": "String",
-                            "optional": true,
-                            "optdefault": "'none'"
-                        },
-                        {
-                            "name": "font",
-                            "description": "The font style, default is arial",
-                            "type": "String",
-                            "optional": true,
-                            "optdefault": "'arial'"
-                        },
-                        {
-                            "name": "background",
-                            "description": "The background style, black semi-transparent",
-                            "type": "String",
-                            "optional": true,
-                            "optdefault": "'black-semi'"
-                        },
-                        {
-                            "name": "size",
-                            "description": "The font style default is medium",
-                            "type": "String",
-                            "optional": true,
-                            "optdefault": "'md'"
-                        },
-                        {
-                            "name": "align",
-                            "description": "The align style default is top of the window",
-                            "type": "String",
-                            "optional": true,
-                            "optdefault": "'top'"
-                        }
-                    ]
-                },
-                {
-                    "name": "value",
-                    "description": "If setting styles parameter as a string, this is the value of the property.",
-                    "type": "String",
-                    "optional": true
-                }
-            ],
-            "class": "springroll.Container",
-            "module": "Container",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/container/Container.js",
-            "line": 1091,
-            "description": "Get the captions styles",
-            "itemtype": "method",
-            "name": "getCaptionsStyles",
-            "params": [
-                {
-                    "name": "prop",
-                    "description": "The optional property, values are \"size\", \"edge\", \"font\", \"background\", \"color\"",
-                    "type": "String",
-                    "optional": true
-                }
-            ],
-            "return": {
-                "description": "The collection of styles, see setCaptionsStyles for more info.",
-                "type": "Object"
-            },
-            "class": "springroll.Container",
-            "module": "Container",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/container/Container.js",
-            "line": 1103,
-            "description": "Reset the captions styles",
-            "itemtype": "method",
-            "name": "clearCaptionsStyles",
-            "class": "springroll.Container",
-            "module": "Container",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/container/Container.js",
-            "line": 1114,
-            "description": "Set the captions are enabled or not",
-            "itemtype": "property",
-            "name": "captionsMuted",
-            "type": "Boolean",
-            "default": "true",
-            "class": "springroll.Container",
-            "module": "Container",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/container/Container.js",
-            "line": 1132,
-            "description": "Set the all sound is enabled or not",
-            "itemtype": "property",
-            "name": "soundMuted",
-            "type": "Boolean",
-            "default": "false",
-            "class": "springroll.Container",
-            "module": "Container",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/container/Container.js",
-            "line": 1150,
-            "description": "Set the voice-over audio is muted",
-            "itemtype": "property",
-            "name": "voMuted",
-            "type": "Boolean",
-            "default": "true",
-            "class": "springroll.Container",
-            "module": "Container",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/container/Container.js",
-            "line": 1168,
-            "description": "Set the music audio is muted",
-            "itemtype": "property",
-            "name": "musicMuted",
-            "type": "Boolean",
-            "default": "true",
-            "class": "springroll.Container",
-            "module": "Container",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/container/Container.js",
-            "line": 1186,
-            "description": "Set the sound effect audio is muted",
-            "itemtype": "property",
-            "name": "sfxMuted",
-            "type": "Boolean",
-            "default": "true",
-            "class": "springroll.Container",
-            "module": "Container",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/container/Container.js",
-            "line": 1204,
-            "description": "Reset all the buttons back to their original setting\nand clear the iframe.",
-            "itemtype": "method",
-            "name": "reset",
-            "class": "springroll.Container",
-            "module": "Container",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/container/Container.js",
-            "line": 1248,
-            "description": "Tell the application to start closing",
-            "itemtype": "method",
-            "name": "close",
-            "class": "springroll.Container",
-            "module": "Container",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/container/Container.js",
-            "line": 1271,
-            "description": "If there was an error when closing, reset the container",
-            "itemtype": "method",
-            "name": "_onCloseFailed",
-            "access": "private",
-            "tagname": "",
-            "class": "springroll.Container",
-            "module": "Container",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/container/Container.js",
-            "line": 1281,
-            "description": "Disable a button",
-            "itemtype": "method",
-            "name": "disableButton",
-            "access": "private",
-            "tagname": "",
-            "params": [
-                {
-                    "name": "button",
-                    "description": "The button to disable",
-                    "type": "Jquery"
-                }
-            ],
-            "class": "springroll.Container",
-            "module": "Container",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/container/Container.js",
-            "line": 1293,
-            "description": "Destroy and don't use after this",
-            "itemtype": "method",
-            "name": "destroy",
-            "class": "springroll.Container",
-            "module": "Container",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/container/ContainerPlugin.js",
+            "file": "src/container-client/ContainerClientPlugin.js",
             "line": 23,
             "description": "Send a message to let the site know that this has\nbeen loaded, if the site is there",
             "itemtype": "property",
@@ -8552,7 +7064,7 @@
             "namespace": "springroll"
         },
         {
-            "file": "src/container/ContainerPlugin.js",
+            "file": "src/container-client/ContainerClientPlugin.js",
             "line": 31,
             "description": "The API for saving user data, default is to save\ndata to the container, if not connected, it will\nsave user data to local cookies",
             "itemtype": "property",
@@ -8563,7 +7075,7 @@
             "namespace": "springroll"
         },
         {
-            "file": "src/container/ContainerPlugin.js",
+            "file": "src/container-client/ContainerClientPlugin.js",
             "line": 39,
             "description": "This option tells the container to always keep focus on the iframe even\nwhen the focus is lost. This is useful mostly if your Application\nrequires keyboard input.",
             "itemtype": "property",
@@ -8574,7 +7086,7 @@
             "namespace": "springroll"
         },
         {
-            "file": "src/container/ContainerPlugin.js",
+            "file": "src/container-client/ContainerClientPlugin.js",
             "line": 60,
             "description": "The default play-mode for the application is continuous, if the application is\nrunning as part of a sequence is it considered in \"single play\" mode\nand the application will therefore close itself.",
             "itemtype": "property",
@@ -8587,7 +7099,7 @@
             "namespace": "springroll"
         },
         {
-            "file": "src/container/ContainerPlugin.js",
+            "file": "src/container-client/ContainerClientPlugin.js",
             "line": 70,
             "description": "The optional play options to use if the application is played in \"single play\"\nmode. These options are passed from the application container to specify\noptions that are used for this single play session. For instance,\nif you want the single play to focus on a certain level or curriculum\nsuch as `{ \"shape\": \"square\" }`",
             "itemtype": "property",
@@ -8599,7 +7111,7 @@
             "namespace": "springroll"
         },
         {
-            "file": "src/container/ContainerPlugin.js",
+            "file": "src/container-client/ContainerClientPlugin.js",
             "line": 81,
             "description": "When a application is in singlePlay mode it will end.\nIt's unnecessary to check `if (this.singlePlay)` just\ncall the method and it will end the application if it can.",
             "itemtype": "method",
@@ -8613,7 +7125,7 @@
             "namespace": "springroll"
         },
         {
-            "file": "src/container/ContainerPlugin.js",
+            "file": "src/container-client/ContainerClientPlugin.js",
             "line": 98,
             "description": "Manually close the application, this can happen when playing through once",
             "itemtype": "method",
@@ -8632,7 +7144,7 @@
             "namespace": "springroll"
         },
         {
-            "file": "src/container/ContainerPlugin.js",
+            "file": "src/container-client/ContainerClientPlugin.js",
             "line": 139,
             "description": "Handler for when a window is unloaded",
             "itemtype": "method",
@@ -8644,7 +7156,7 @@
             "namespace": "springroll"
         },
         {
-            "file": "src/container/ContainerPlugin.js",
+            "file": "src/container-client/ContainerClientPlugin.js",
             "line": 152,
             "description": "Handle the window uncaught errors with the container",
             "itemtype": "method",
@@ -8663,7 +7175,7 @@
             "namespace": "springroll"
         },
         {
-            "file": "src/container/ContainerPlugin.js",
+            "file": "src/container-client/ContainerClientPlugin.js",
             "line": 218,
             "description": "When the container pauses the application",
             "itemtype": "method",
@@ -8682,7 +7194,7 @@
             "namespace": "springroll"
         },
         {
-            "file": "src/container/ContainerPlugin.js",
+            "file": "src/container-client/ContainerClientPlugin.js",
             "line": 233,
             "description": "Handler when the sound is muted",
             "itemtype": "method",
@@ -8701,7 +7213,7 @@
             "namespace": "springroll"
         },
         {
-            "file": "src/container/ContainerPlugin.js",
+            "file": "src/container-client/ContainerClientPlugin.js",
             "line": 247,
             "description": "Handler when the captions are muted",
             "itemtype": "method",
@@ -8720,7 +7232,7 @@
             "namespace": "springroll"
         },
         {
-            "file": "src/container/ContainerPlugin.js",
+            "file": "src/container-client/ContainerClientPlugin.js",
             "line": 261,
             "description": "Handler when the context is muted",
             "itemtype": "method",
@@ -8744,7 +7256,7 @@
             "namespace": "springroll"
         },
         {
-            "file": "src/container/ContainerPlugin.js",
+            "file": "src/container-client/ContainerClientPlugin.js",
             "line": 276,
             "description": "The captions style is being set",
             "itemtype": "method",
@@ -8763,7 +7275,7 @@
             "namespace": "springroll"
         },
         {
-            "file": "src/container/ContainerPlugin.js",
+            "file": "src/container-client/ContainerClientPlugin.js",
             "line": 301,
             "description": "Handler when a application enters single play mode",
             "itemtype": "method",
@@ -8782,7 +7294,7 @@
             "namespace": "springroll"
         },
         {
-            "file": "src/container/ContainerPlugin.js",
+            "file": "src/container-client/ContainerClientPlugin.js",
             "line": 313,
             "description": "Handler when a application enters single play mode",
             "itemtype": "method",
@@ -8801,7 +7313,7 @@
             "namespace": "springroll"
         },
         {
-            "file": "src/container/ContainerPlugin.js",
+            "file": "src/container-client/ContainerClientPlugin.js",
             "line": 324,
             "description": "Game container requests closing the application",
             "itemtype": "method",
@@ -8813,291 +7325,7 @@
             "namespace": "springroll"
         },
         {
-            "file": "src/container/Features.js",
-            "line": 15,
-            "description": "If the browser has flash",
-            "itemtype": "property",
-            "name": "flash",
-            "type": "Boolean",
-            "class": "springroll.Features",
-            "module": "Container",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/container/Features.js",
-            "line": 42,
-            "description": "If the browser has WebGL support",
-            "itemtype": "property",
-            "name": "webgl",
-            "type": "Boolean",
-            "class": "springroll.Features",
-            "module": "Container",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/container/Features.js",
-            "line": 57,
-            "description": "If the browser has Canvas support",
-            "itemtype": "property",
-            "name": "canvas",
-            "type": "Boolean",
-            "class": "springroll.Features",
-            "module": "Container",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/container/Features.js",
-            "line": 67,
-            "description": "If the browser has WebAudio API support",
-            "itemtype": "property",
-            "name": "webaudio",
-            "type": "Boolean",
-            "class": "springroll.Features",
-            "module": "Container",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/container/Features.js",
-            "line": 76,
-            "description": "If the browser has Web Sockets API",
-            "itemtype": "property",
-            "name": "websockets",
-            "type": "Boolean",
-            "class": "springroll.Features",
-            "module": "Container",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/container/Features.js",
-            "line": 85,
-            "description": "If the browser has Geolocation API",
-            "itemtype": "property",
-            "name": "geolocation",
-            "type": "Boolean",
-            "class": "springroll.Features",
-            "module": "Container",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/container/Features.js",
-            "line": 94,
-            "description": "If the browser has Web Workers API",
-            "itemtype": "property",
-            "name": "webworkers",
-            "type": "Boolean",
-            "class": "springroll.Features",
-            "module": "Container",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/container/Features.js",
-            "line": 103,
-            "description": "If the browser has touch",
-            "itemtype": "property",
-            "name": "touch",
-            "type": "Boolean",
-            "class": "springroll.Features",
-            "module": "Container",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/container/Features.js",
-            "line": 114,
-            "description": "Test for basic browser compatiliblity",
-            "itemtype": "method",
-            "name": "basic",
-            "static": 1,
-            "return": {
-                "description": "The error message, if fails",
-                "type": "String"
-            },
-            "class": "springroll.Features",
-            "module": "Container",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/container/Features.js",
-            "line": 133,
-            "description": "See if the current bowser has the correct features",
-            "itemtype": "method",
-            "name": "test",
-            "static": 1,
-            "params": [
-                {
-                    "name": "capabilities",
-                    "description": "The capabilities",
-                    "type": "Object",
-                    "props": [
-                        {
-                            "name": "features",
-                            "description": "The features",
-                            "type": "Object",
-                            "props": [
-                                {
-                                    "name": "webgl",
-                                    "description": "WebGL required",
-                                    "type": "Object"
-                                },
-                                {
-                                    "name": "geolocation",
-                                    "description": "Geolocation required",
-                                    "type": "Object"
-                                },
-                                {
-                                    "name": "webworkers",
-                                    "description": "Web Workers API required",
-                                    "type": "Object"
-                                },
-                                {
-                                    "name": "webaudio",
-                                    "description": "WebAudio API required",
-                                    "type": "Object"
-                                },
-                                {
-                                    "name": "websockets",
-                                    "description": "WebSockets required",
-                                    "type": "Object"
-                                }
-                            ]
-                        },
-                        {
-                            "name": "sizes",
-                            "description": "The sizes",
-                            "type": "Object",
-                            "props": [
-                                {
-                                    "name": "xsmall",
-                                    "description": "Screens < 480",
-                                    "type": "Boolean"
-                                },
-                                {
-                                    "name": "small",
-                                    "description": "Screens < 768",
-                                    "type": "Boolean"
-                                },
-                                {
-                                    "name": "medium",
-                                    "description": "Screens < 992",
-                                    "type": "Boolean"
-                                },
-                                {
-                                    "name": "large",
-                                    "description": "Screens < 1200",
-                                    "type": "Boolean"
-                                },
-                                {
-                                    "name": "xlarge",
-                                    "description": "Screens >= 1200",
-                                    "type": "Boolean"
-                                }
-                            ]
-                        },
-                        {
-                            "name": "ui",
-                            "description": "The ui",
-                            "type": "Object",
-                            "props": [
-                                {
-                                    "name": "touch",
-                                    "description": "Touch capable",
-                                    "type": "Boolean"
-                                },
-                                {
-                                    "name": "mouse",
-                                    "description": "Mouse capable",
-                                    "type": "Boolean"
-                                }
-                            ]
-                        }
-                    ]
-                }
-            ],
-            "return": {
-                "description": "The error, or else returns null",
-                "type": "String|null"
-            },
-            "class": "springroll.Features",
-            "module": "Container",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/container/SavedDataHandler.js",
-            "line": 20,
-            "description": "Remove a data setting",
-            "itemtype": "method",
-            "name": "remove",
-            "static": 1,
-            "params": [
-                {
-                    "name": "name",
-                    "description": "The name of the property",
-                    "type": "String"
-                },
-                {
-                    "name": "callback",
-                    "description": "Callback when remove is complete",
-                    "type": "Function",
-                    "optional": true
-                }
-            ],
-            "class": "springroll.SavedDataHandler",
-            "module": "Container",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/container/SavedDataHandler.js",
-            "line": 33,
-            "description": "Write a custom setting",
-            "itemtype": "method",
-            "name": "write",
-            "static": 1,
-            "params": [
-                {
-                    "name": "name",
-                    "description": "The name of the property",
-                    "type": "String"
-                },
-                {
-                    "name": "value",
-                    "description": "The value to set the property to",
-                    "type": "*"
-                },
-                {
-                    "name": "callback",
-                    "description": "Callback when write is complete",
-                    "type": "Function",
-                    "optional": true
-                }
-            ],
-            "class": "springroll.SavedDataHandler",
-            "module": "Container",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/container/SavedDataHandler.js",
-            "line": 47,
-            "description": "Read a custom setting",
-            "itemtype": "method",
-            "name": "read",
-            "static": 1,
-            "params": [
-                {
-                    "name": "name",
-                    "description": "The name of the property",
-                    "type": "String"
-                },
-                {
-                    "name": "callback",
-                    "description": "Callback when read is complete, returns the value",
-                    "type": "Function"
-                }
-            ],
-            "class": "springroll.SavedDataHandler",
-            "module": "Container",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/container/UserData.js",
+            "file": "src/container-client/UserData.js",
             "line": 21,
             "description": "Reference to the container. If the app is not connected\nto the Container (running standalone) then the container\nis set to be `null`.",
             "itemtype": "property",
@@ -9110,7 +7338,7 @@
             "namespace": "springroll"
         },
         {
-            "file": "src/container/UserData.js",
+            "file": "src/container-client/UserData.js",
             "line": 31,
             "description": "The name to preprend to each property name, this is set\nby default as the Application's name, which is required\nfor the Container Client module.",
             "itemtype": "property",
@@ -9122,7 +7350,7 @@
             "namespace": "springroll"
         },
         {
-            "file": "src/container/UserData.js",
+            "file": "src/container-client/UserData.js",
             "line": 44,
             "description": "Read a saved setting",
             "itemtype": "method",
@@ -9144,7 +7372,7 @@
             "namespace": "springroll"
         },
         {
-            "file": "src/container/UserData.js",
+            "file": "src/container-client/UserData.js",
             "line": 67,
             "description": "Write a setting",
             "itemtype": "method",
@@ -9172,7 +7400,7 @@
             "namespace": "springroll"
         },
         {
-            "file": "src/container/UserData.js",
+            "file": "src/container-client/UserData.js",
             "line": 96,
             "description": "Delete a saved setting by name",
             "itemtype": "method",
@@ -9195,7 +7423,7 @@
             "namespace": "springroll"
         },
         {
-            "file": "src/container/UserData.js",
+            "file": "src/container-client/UserData.js",
             "line": 121,
             "description": "Destroy and don't use after this",
             "itemtype": "method",
@@ -27923,7 +26151,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 164,
+            "line": 168,
             "description": "Initializes the Sound singleton. If using createjs.FlashAudioPlugin, you will\nbe responsible for setting createjs.FlashAudioPlugin.BASE_PATH.",
             "itemtype": "method",
             "name": "init",
@@ -27974,7 +26202,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 275,
+            "line": 279,
             "description": "Satisfies the iOS event needed to initialize the audio\nNote that we listen on touchend as per http://www.holovaty.com/writing/ios9-web-audio/",
             "access": "private",
             "tagname": "",
@@ -27986,7 +26214,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 298,
+            "line": 302,
             "description": "When the initialization as completed",
             "itemtype": "method",
             "name": "",
@@ -28010,7 +26238,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 338,
+            "line": 342,
             "description": "The singleton instance of Sound.",
             "itemtype": "property",
             "name": "instance",
@@ -28024,7 +26252,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 352,
+            "line": 356,
             "description": "Loads a context config object. This should not be called until after Sound.init() is complete.",
             "itemtype": "method",
             "name": "addContext",
@@ -28118,7 +26346,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 432,
+            "line": 436,
             "description": "Links one or more sound contexts to another in a parent-child relationship, so\nthat the children can be controlled separately, but still be affected by\nsetContextMute(), stopContext(), pauseContext(), etc on the parent.\nNote that sub-contexts are not currently affected by setContextVolume().",
             "itemtype": "method",
             "name": "linkContexts",
@@ -28144,7 +26372,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 464,
+            "line": 468,
             "description": "If a sound exists in the list of recognized sounds.",
             "itemtype": "method",
             "name": "exists",
@@ -28167,7 +26395,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 476,
+            "line": 480,
             "description": "If a context exists",
             "itemtype": "method",
             "name": "contextExists",
@@ -28190,7 +26418,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 488,
+            "line": 492,
             "description": "If a sound is unloaded.",
             "itemtype": "method",
             "name": "isUnloaded",
@@ -28213,7 +26441,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 500,
+            "line": 504,
             "description": "If a sound is loaded.",
             "itemtype": "method",
             "name": "isLoaded",
@@ -28236,7 +26464,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 512,
+            "line": 516,
             "description": "If a sound is in the process of being loaded",
             "itemtype": "method",
             "name": "isLoading",
@@ -28259,7 +26487,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 525,
+            "line": 529,
             "description": "If a sound is playing.",
             "itemtype": "method",
             "name": "isPlaying",
@@ -28282,7 +26510,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 541,
+            "line": 545,
             "description": "Gets the duration of a sound in milliseconds, if it has been loaded.",
             "itemtype": "method",
             "name": "getDuration",
@@ -28305,7 +26533,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 570,
+            "line": 574,
             "description": "Fades a sound from 0 to a specified volume.",
             "itemtype": "method",
             "name": "fadeIn",
@@ -28344,7 +26572,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 617,
+            "line": 621,
             "description": "Fades a sound from the current volume to a specified volume. A sound that ends\nat 0 volume is stopped after the fade.",
             "itemtype": "method",
             "name": "fadeOut",
@@ -28389,7 +26617,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 676,
+            "line": 680,
             "description": "The update call, used for fading sounds. This is bound to the instance of Sound",
             "itemtype": "method",
             "name": "_update",
@@ -28408,7 +26636,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 729,
+            "line": 733,
             "description": "Plays a sound.",
             "itemtype": "method",
             "name": "play",
@@ -28492,7 +26720,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 908,
+            "line": 912,
             "description": "Gets a SoundInstance, from the pool if available or maks a new one if not.",
             "itemtype": "method",
             "name": "_getSoundInst",
@@ -28520,7 +26748,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 934,
+            "line": 938,
             "description": "Plays a sound after it finishes loading.",
             "itemtype": "method",
             "name": "_playAfterload",
@@ -28539,7 +26767,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 1021,
+            "line": 1025,
             "description": "The callback used for when a sound instance is complete.",
             "itemtype": "method",
             "name": "_onSoundComplete",
@@ -28558,7 +26786,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 1049,
+            "line": 1053,
             "description": "Stops all playing or loading instances of a given sound.",
             "itemtype": "method",
             "name": "stop",
@@ -28577,7 +26805,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 1075,
+            "line": 1079,
             "description": "Stops all playing SoundInstances for a sound.",
             "itemtype": "method",
             "name": "_stopSound",
@@ -28596,7 +26824,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 1091,
+            "line": 1095,
             "description": "Stops and repools a specific SoundInstance.",
             "itemtype": "method",
             "name": "_stopInst",
@@ -28615,7 +26843,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 1114,
+            "line": 1118,
             "description": "Stops all sounds in a given context.",
             "itemtype": "method",
             "name": "stopContext",
@@ -28634,7 +26862,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 1142,
+            "line": 1146,
             "description": "Stop all sounds that are playing, regardless of context.",
             "itemtype": "method",
             "name": "stopAll",
@@ -28644,7 +26872,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 1154,
+            "line": 1158,
             "description": "Pauses a specific sound.",
             "itemtype": "method",
             "name": "pause",
@@ -28663,7 +26891,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 1187,
+            "line": 1191,
             "description": "Unpauses a specific sound.",
             "itemtype": "method",
             "name": "resume",
@@ -28682,7 +26910,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 1213,
+            "line": 1217,
             "description": "Pauses all sounds in a given context. Audio paused this way will not be resumed with\nresumeAll(), but must be resumed individually or with resumeContext().",
             "itemtype": "method",
             "name": "pauseContext",
@@ -28699,7 +26927,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 1242,
+            "line": 1246,
             "description": "Resumes all sounds in a given context.",
             "itemtype": "method",
             "name": "pauseContext",
@@ -28716,7 +26944,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 1270,
+            "line": 1274,
             "description": "Pauses all sounds.",
             "itemtype": "method",
             "name": "pauseAll",
@@ -28728,7 +26956,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 1282,
+            "line": 1286,
             "description": "Unpauses all sounds that were paused with pauseAll(). This does not unpause audio\nthat was paused individually or with pauseContext().",
             "itemtype": "method",
             "name": "resumeAll",
@@ -28740,7 +26968,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 1316,
+            "line": 1320,
             "description": "Sets mute status of all sounds in a context",
             "itemtype": "method",
             "name": "setContextMute",
@@ -28764,7 +26992,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 1352,
+            "line": 1356,
             "description": "Set the mute status of all sounds",
             "itemtype": "property",
             "name": "muteAll",
@@ -28775,7 +27003,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 1364,
+            "line": 1368,
             "description": "Sets volume of a context. Individual sound volumes are multiplied by this value.",
             "itemtype": "method",
             "name": "setContextVolume",
@@ -28799,7 +27027,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 1395,
+            "line": 1399,
             "description": "Preloads a list of sounds.",
             "itemtype": "method",
             "name": "preload",
@@ -28824,7 +27052,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 1462,
+            "line": 1466,
             "description": "Marks a sound as loaded. If it needs to play after the load, then it is played.",
             "itemtype": "method",
             "name": "_markLoaded",
@@ -28848,7 +27076,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 1487,
+            "line": 1491,
             "description": "Unloads a list of sounds to reclaim memory if possible.\nIf the sounds are playing, they are stopped.",
             "itemtype": "method",
             "name": "unload",
@@ -28867,7 +27095,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 1511,
+            "line": 1515,
             "description": "Unloads all sounds. If any sounds are playing, they are stopped.\nInternally this calls `unload`.",
             "itemtype": "method",
             "name": "unloadAll",
@@ -28879,7 +27107,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 1527,
+            "line": 1531,
             "description": "Places a SoundInstance back in the pool for reuse.",
             "itemtype": "method",
             "name": "_poolinst",
@@ -28898,7 +27126,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 1544,
+            "line": 1548,
             "description": "Destroys springroll.Sound. This unloads loaded sounds in SoundJS.",
             "itemtype": "method",
             "name": "destroy",
