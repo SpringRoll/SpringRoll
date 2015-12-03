@@ -33,6 +33,7 @@
 		".gitattributes",
 		"library.json",
 		"package.json",
-		".gitignore"
+		".gitignore",
+		".npmignore"
 	]
 }
