@@ -4,6 +4,6 @@ Gruntfile.js export-ignore
 build.json export-ignore
 tasks export-ignore
 test export-ignore
-package.json export-ignore
 .gitignore export-ignore
 .gitattributes export-ignore
+.npmignore export-ignore

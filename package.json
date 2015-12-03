@@ -1,11 +1,33 @@
 {
-	"private": true,
+	"name": "springroll",
 	"version": "0.3.21",
-	"dependencies": {
+	"main": "dist/core.min.js",
+	"author": "CloudKid <tools@cloudkid.com>",
+	"devDependencies":
+	{
 		"grunt": "~0.4.5",
-		"library-grunt": "~0.6.0"
+		"library-grunt": "~0.6.0",
 	},
-	"scripts": {
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/SpringRoll/SpringRoll"
+	},
+	"bugs": {
+		"url": "https://github.com/SpringRoll/SpringRoll/issues"
+	},
+	"scripts":
+	{
 		"test": "grunt default test --verbose"
-	}
+	},
+	"keywords": [
+		"webgl",
+		"pixi",
+		"pixi.js",
+		"createjs",
+		"easeljs",
+		"educational",
+		"cross-browser",
+		"webaudio"
+	],
+	"license": "MIT"
 }
