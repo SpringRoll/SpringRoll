@@ -3,7 +3,7 @@
 	"version": "0.4.11",
 	"main": "dist/core.min.js",
 	"author": "CloudKid <tools@cloudkid.com>",
-	"dependencies": 
+	"dependencies":
 	{
 		"bellhop-iframe": "*"
 	},
@@ -14,11 +14,13 @@
 		"library-grunt": "~0.6.0",
 		"grunt-jsbeautifier": "~0.2.10"
 	},
-	"repository": {
+	"repository":
+	{
 		"type": "git",
 		"url": "https://github.com/SpringRoll/SpringRoll"
 	},
-	"bugs": {
+	"bugs":
+	{
 		"url": "https://github.com/SpringRoll/SpringRoll/issues"
 	},
 	"scripts":
