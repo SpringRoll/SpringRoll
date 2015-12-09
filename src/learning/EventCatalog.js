@@ -49,7 +49,7 @@
 		"3120": "endIncorrectFeedback",
 		"3021": "startCorrectFeedback",
 		"3121": "endCorrectFeedback",
-		"4010": "selectLevel",
+		"4010": "clickPlay",
 		"4020": "selectAnswer",
 		"4030": "startDrag",
 		"4035": "endDragOutside",
@@ -162,7 +162,13 @@
 				"type": "string",
 				"info": "The text or description of the instruction"
 			}
-		]
+		],
+		"4010": [
+		{
+			"name": "coordinates",
+			"type": "object",
+			"info": "the game screen coordinates of the click dictionary: {'x': integer, 'y': integer, 'stage_width': integer, 'stage_height': integer}"
+		}]
 	};
 
 	/**

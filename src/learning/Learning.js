@@ -500,6 +500,28 @@
 	};
 
 	/**
+	 * When a user clicks or taps on the play button to start the game.
+	 * @method clickPlay
+	 * @param {Object} coordinates The coordinates object
+	 * @param {int} coordinates.x The x position clicked or tapped
+	 * @param {int} coordinates.y The y position clicked or tapped
+	 * @param {int} coordinates.stage_width The stage width 
+	 * @param {int} coordinates.stage_height The stage height
+	 */
+	p.clickPlay = function(coordinates)
+	{
+		if (!this.clickPlay.signature)
+		{
+			this._handleError("clickPlay: signature is undefined");
+			return;
+		}
+		this._track('clickPlay',
+		{
+			coordinates: coordinates
+		});
+	};
+
+	/**
 	 *  Override for the end game event
 	 *  @method endGame
 	 *  @param {string} [exitType] The exit type for certain games

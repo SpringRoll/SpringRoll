@@ -1,4 +1,4 @@
-/*! SpringRoll 0.3.21 */
+/*! SpringRoll 0.3.22 */
 /**
  * @module Core
  * @namespace window
@@ -2477,6 +2477,15 @@
 		//stuff?
 		setTimeout(this._preInit.bind(this), 0);
 	};
+
+	/**
+	 * The current version of the library
+	 * @property {String} version
+	 * @static
+	 * @readOnly
+	 * @default "0.3.22"
+	 */
+	Application.version = "0.3.22";
 
 	// Reference to the prototype
 	var s = EventDispatcher.prototype;
