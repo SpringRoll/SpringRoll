@@ -2,7 +2,7 @@
     "project": {
         "name": "SpringRoll",
         "description": "An application framework for building HTML5 Canvas games and applications",
-        "version": "0.4.11",
+        "version": "0.4.12",
         "url": "https://github.com/SpringRoll/SpringRoll"
     },
     "files": {
@@ -31205,7 +31205,20 @@
         },
         {
             "file": "src/Application.js",
-            "line": 106,
+            "line": 102,
+            "description": "The current version of the library",
+            "itemtype": "property",
+            "name": "version",
+            "type": "String",
+            "static": 1,
+            "readonly": "",
+            "class": "springroll.Application",
+            "module": "Core",
+            "namespace": "springroll"
+        },
+        {
+            "file": "src/Application.js",
+            "line": 114,
             "description": "The collection of function references to call when initializing the application\nthese are registered by external modules.",
             "itemtype": "property",
             "name": "_plugins",
@@ -31219,7 +31232,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 115,
+            "line": 123,
             "description": "The number of ms since the last frame update",
             "access": "private",
             "tagname": "",
@@ -31232,7 +31245,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 122,
+            "line": 130,
             "description": "The bound callback for listening to tick events",
             "access": "private",
             "tagname": "",
@@ -31245,7 +31258,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 129,
+            "line": 137,
             "description": "If the current application is paused",
             "access": "private",
             "tagname": "",
@@ -31258,7 +31271,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 136,
+            "line": 144,
             "description": "If the current application is enabled",
             "access": "private",
             "tagname": "",
@@ -31271,7 +31284,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 143,
+            "line": 151,
             "description": "The id of the active requestAnimationFrame or setTimeout call.",
             "itemtype": "property",
             "name": "_tickId",
@@ -31284,7 +31297,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 150,
+            "line": 158,
             "description": "If requestionAnimationFrame should be used",
             "access": "private",
             "tagname": "",
@@ -31298,7 +31311,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 158,
+            "line": 166,
             "description": "The number of milliseconds per frame",
             "itemtype": "property",
             "name": "_msPerFrame",
@@ -31311,7 +31324,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 165,
+            "line": 173,
             "description": "The collection of displays",
             "itemtype": "property",
             "name": "_displays",
@@ -31324,7 +31337,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 172,
+            "line": 180,
             "description": "The displays by canvas id",
             "itemtype": "property",
             "name": "_displaysMap",
@@ -31337,7 +31350,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 180,
+            "line": 188,
             "description": "Fired when initialization of the application is ready",
             "itemtype": "event",
             "name": "init",
@@ -31347,7 +31360,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 185,
+            "line": 193,
             "description": "The handler for the plugin progress",
             "itemtype": "event",
             "name": "pluginProgress",
@@ -31357,7 +31370,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 190,
+            "line": 198,
             "description": "Fired when initialization of the application is done",
             "itemtype": "event",
             "name": "afterInit",
@@ -31367,7 +31380,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 195,
+            "line": 203,
             "description": "Fired when before initialization of the application",
             "itemtype": "event",
             "name": "beforeInit",
@@ -31377,7 +31390,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 200,
+            "line": 208,
             "description": "Fired when an update is called, every frame update",
             "itemtype": "event",
             "name": "update",
@@ -31394,7 +31407,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 206,
+            "line": 214,
             "description": "Fired when the pause state is toggled",
             "itemtype": "event",
             "name": "pause",
@@ -31411,7 +31424,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 212,
+            "line": 220,
             "description": "When a display is added.",
             "itemtype": "event",
             "name": "displayAdded",
@@ -31429,7 +31442,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 218,
+            "line": 226,
             "description": "When a display is removed.",
             "itemtype": "event",
             "name": "displayRemoved",
@@ -31447,7 +31460,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 224,
+            "line": 232,
             "description": "Fired when the application becomes paused",
             "itemtype": "event",
             "name": "paused",
@@ -31457,7 +31470,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 229,
+            "line": 237,
             "description": "Fired when the application resumes from a paused state",
             "itemtype": "event",
             "name": "resumed",
@@ -31467,7 +31480,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 234,
+            "line": 242,
             "description": "Fired when the application is destroyed",
             "itemtype": "event",
             "name": "destroy",
@@ -31477,7 +31490,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 239,
+            "line": 247,
             "description": "Get the singleton instance of the application",
             "itemtype": "property",
             "name": "instance",
@@ -31491,7 +31504,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 254,
+            "line": 262,
             "description": "The internal initialization",
             "itemtype": "method",
             "name": "_preInit",
@@ -31503,7 +31516,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 312,
+            "line": 320,
             "description": "Progress handler for the plugin load",
             "itemtype": "method",
             "name": "onPluginProgress",
@@ -31522,7 +31535,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 323,
+            "line": 331,
             "description": "Initialize the application",
             "itemtype": "method",
             "name": "_doInit",
@@ -31534,7 +31547,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 348,
+            "line": 356,
             "description": "Enables at the application level which enables\nand disables all the displays.",
             "itemtype": "property",
             "name": "enabled",
@@ -31546,7 +31559,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 370,
+            "line": 378,
             "description": "Manual pause for the entire application, this suspends\nanything driving the the application update events. Include\nAnimator, Captions, Sound and other media playback.",
             "itemtype": "property",
             "name": "paused",
@@ -31557,7 +31570,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 389,
+            "line": 397,
             "description": "Handle the internal pause of the application",
             "access": "protected",
             "tagname": "",
@@ -31576,7 +31589,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 425,
+            "line": 433,
             "description": "Makes a setTimeout with a time based on _msPerFrame and the amount of time spent in the\ncurrent tick.",
             "itemtype": "method",
             "name": "setTargetedTimeout",
@@ -31600,7 +31613,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 442,
+            "line": 450,
             "description": "Add a display. If this is the first display added, then it will be stored as this.display.",
             "itemtype": "method",
             "name": "addDisplay",
@@ -31632,7 +31645,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 477,
+            "line": 485,
             "description": "Get all the displays",
             "itemtype": "property",
             "name": "displays",
@@ -31644,7 +31657,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 490,
+            "line": 498,
             "description": "Gets a specific renderer by the canvas id.",
             "itemtype": "method",
             "name": "getDisplay",
@@ -31665,7 +31678,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 501,
+            "line": 509,
             "description": "Removes and destroys a display",
             "itemtype": "method",
             "name": "removeDisplay",
@@ -31682,7 +31695,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 518,
+            "line": 526,
             "description": "_tick would be bound in _tickCallback",
             "itemtype": "method",
             "name": "_tick",
@@ -31694,7 +31707,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 558,
+            "line": 566,
             "description": "Works just like `window.setTimeout` but respects the pause\nstate of the Application.",
             "itemtype": "method",
             "name": "setTimeout",
@@ -31734,7 +31747,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 573,
+            "line": 581,
             "description": "Works just like `window.setInterval` but respects the pause\nstate of the Application.",
             "itemtype": "method",
             "name": "setInterval",
@@ -31767,7 +31780,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 587,
+            "line": 595,
             "description": "Destroys the application and all active displays and plugins",
             "itemtype": "method",
             "name": "destroy",
@@ -31777,7 +31790,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 624,
+            "line": 632,
             "description": "The toString debugging method",
             "itemtype": "method",
             "name": "toString",
