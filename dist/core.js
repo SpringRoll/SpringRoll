@@ -2483,7 +2483,6 @@
 	 * @property {String} version
 	 * @static
 	 * @readOnly
-	 * @default "0.3.22"
 	 */
 	Application.version = "0.3.22";
 
