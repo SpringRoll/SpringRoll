@@ -2444,7 +2444,6 @@
 	 * @property {String} version
 	 * @static
 	 * @readOnly
-	 * @default "0.4.11"
 	 */
 	Application.version = "0.4.11";
 

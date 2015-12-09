@@ -104,7 +104,6 @@
 	 * @property {String} version
 	 * @static
 	 * @readOnly
-	 * @default VERSION
 	 */
 	Application.version = VERSION;
 
