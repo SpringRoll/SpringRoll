@@ -257,6 +257,7 @@
 		if(!this._channel) return;
 		Sound.instance._onInstanceResume();
 		this._channel.resume();
+		this.updateVolume();
 	};
 
 	namespace('springroll').SoundInstance = SoundInstance;
