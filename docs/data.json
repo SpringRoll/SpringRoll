@@ -2,7 +2,7 @@
     "project": {
         "name": "SpringRoll",
         "description": "An application framework for building HTML5 Canvas games and applications",
-        "version": "0.4.12",
+        "version": "0.4.13",
         "url": "https://github.com/SpringRoll/SpringRoll"
     },
     "files": {

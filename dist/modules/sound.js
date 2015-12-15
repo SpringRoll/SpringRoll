@@ -1,4 +1,4 @@
-/*! SpringRoll 0.4.12 */
+/*! SpringRoll 0.4.13 */
 /**
  * @module Sound
  * @namespace springroll
@@ -334,6 +334,7 @@
 		if (!this._channel) return;
 		Sound.instance._onInstanceResume();
 		this._channel.resume();
+		this.updateVolume();
 	};
 
 	namespace('springroll').SoundInstance = SoundInstance;
