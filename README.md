@@ -129,7 +129,7 @@ The Framework is inherently canvas-rendering agnostic. We support two different 
 
 ##Documentation
 
-[API Documentation](http://springroll.github.io/SpringRoll/docs/) has full documentation for the core and related modules. For examples of implementing each module please consult the [wiki](https://github.com/SpringRoll/SpringRoll/wiki).
+[API Documentation](http://springroll.io/SpringRoll/docs/) has full documentation for the core and related modules. For examples of implementing each module please consult the [wiki](/SpringRoll/SpringRoll/wiki).
 
 ##License
 
