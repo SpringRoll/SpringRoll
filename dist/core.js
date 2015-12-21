@@ -1,4 +1,4 @@
-/*! SpringRoll 0.4.14 */
+/*! SpringRoll 0.4.15 */
 /**
  * @module Core
  * @namespace window
@@ -2445,7 +2445,7 @@
 	 * @static
 	 * @readOnly
 	 */
-	Application.version = "0.4.14";
+	Application.version = "0.4.15";
 
 	// Reference to the prototype
 	var s = EventDispatcher.prototype;
@@ -7048,12 +7048,6 @@
 		 * @private
 		 */
 		this._visible = this.canvas.style.display != "none";
-
-		// prevent mouse down turning into text cursor
-		/*this.canvas.onmousedown = function(e)
-		{
-			e.preventDefault();
-		};*/
 
 		/**
 		 * Some of the modules require a special display adapter to provide

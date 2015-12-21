@@ -89,7 +89,7 @@
 		 * @private
 		 */
 		this._visible = this.canvas.style.display != "none";
-		
+
 		/**
 		 * Some of the modules require a special display adapter to provide
 		 * common methods for managing display objects.
