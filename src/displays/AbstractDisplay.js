@@ -89,13 +89,7 @@
 		 * @private
 		 */
 		this._visible = this.canvas.style.display != "none";
-
-		// prevent mouse down turning into text cursor
-		this.canvas.onmousedown = function(e)
-		{
-			e.preventDefault();
-		};
-
+		
 		/**
 		 * Some of the modules require a special display adapter to provide
 		 * common methods for managing display objects.
