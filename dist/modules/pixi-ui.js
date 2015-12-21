@@ -684,7 +684,6 @@
 	 */
 	p._onDown = function(event)
 	{
-		event.data.originalEvent.preventDefault();
 		this._stateFlags.down = true;
 		this._updateState();
 
@@ -702,7 +701,6 @@
 	 */
 	p._onUp = function(event)
 	{
-		event.data.originalEvent.preventDefault();
 		this._stateFlags.down = false;
 		this.off("mouseupoutside", this._onUpOutside);
 		this.off("touchendoutside", this._onUpOutside);
