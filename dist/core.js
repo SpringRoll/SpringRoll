@@ -1,4 +1,4 @@
-/*! SpringRoll 0.3.23 */
+/*! SpringRoll 0.3.24 */
 /**
  * @module Core
  * @namespace window
@@ -2484,7 +2484,7 @@
 	 * @static
 	 * @readOnly
 	 */
-	Application.version = "0.3.23";
+	Application.version = "0.3.24";
 
 	// Reference to the prototype
 	var s = EventDispatcher.prototype;

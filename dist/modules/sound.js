@@ -1,4 +1,4 @@
-/*! SpringRoll 0.3.23 */
+/*! SpringRoll 0.3.24 */
 /**
  * @module Sound
  * @namespace springroll
@@ -1128,6 +1128,14 @@
 		var inst, arr;
 		if (loadState == LoadStates.loaded)
 		{
+			if (this._fixAndroidAudio)
+			{
+				if (this._lastAudioTime > 0 && Date.now() - this._lastAudioTime >= 30000)
+				{
+					_fixAudioContext();
+				}
+			}
+
 			var channel = SoundJS.play(alias, interrupt, delay, offset, loop, volume, pan);
 			//have Sound manage the playback of the sound
 
@@ -1139,6 +1147,20 @@
 			}
 			else
 			{
+				if (this._fixAndroidAudio)
+				{
+					if (this._numPlayingAudio)
+					{
+						this._numPlayingAudio++;
+						this._lastAudioTime = -1;
+					}
+					else
+					{
+						this._numPlayingAudio = 1;
+						this._lastAudioTime = -1;
+					}
+				}
+				
 				inst = this._getSoundInst(channel, sound.id);
 				if (channel.handleExtraData)
 					channel.handleExtraData(sound.data);
