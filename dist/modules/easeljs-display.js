@@ -1,4 +1,4 @@
-/*! SpringRoll 0.4.16 */
+/*! SpringRoll 0.4.17 */
 /**
  * @module EaselJS Display
  * @namespace createjs
