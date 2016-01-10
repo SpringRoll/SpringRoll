@@ -46,7 +46,7 @@
 		this.transition = null;
 
 		/**
-		 * Wait to fire the onTransitionIn event until the onTransitionLoading 
+		 * Wait to fire the onTransitionIn event until the onTransitionLoading
 		 * loop reaches it’s final frame.
 		 * @property {boolean} waitForLoadingComplete
 		 */
@@ -115,14 +115,6 @@
 		 * @private
 		 */
 		this._destroyed = false;
-
-		/**
-		 * If we're transitioning the state, the queue the id of the next one
-		 *
-		 * @property {String} _queueStateId
-		 * @private
-		 */
-		this._queueStateId = null;
 
 		// Hide the blocker
 		this.enabled = true;
@@ -290,7 +282,7 @@
 	};
 
 	/**
-	 * Internal setter for the enabled status 
+	 * Internal setter for the enabled status
 	 * @private
 	 * @property {Boolean} enabled
 	 */
@@ -301,7 +293,7 @@
 			/**
 			 * If the state manager is enabled, used internally
 			 * @event enabled
-			 * @param {Boolean} enabled 
+			 * @param {Boolean} enabled
 			 */
 			this.trigger('enabled', enabled);
 		}
@@ -334,7 +326,6 @@
 			// after an animation has played out, to avoid abrupt changes
 			if (this._isTransitioning)
 			{
-				this._queueStateId = id;
 				return;
 			}
 
@@ -407,11 +398,8 @@
 
 		this._onTransitionLoading(); //play the transition loop animation
 
-		if (!this._processQueue())
-		{
-			this._isLoading = true;
-			this._state._internalEnter(this._onStateLoaded);
-		}
+		this._isLoading = true;
+		this._state._internalEnter(this._onStateLoaded);
 	};
 
 	/**
@@ -462,32 +450,7 @@
 		this._isTransitioning = false;
 		this.enabled = true;
 
-		if (!this._processQueue())
-		{
-			this._state._internalEnterDone();
-		}
-	};
-
-	/**
-	 * Process the state queue
-	 *
-	 * @method _processQueue
-	 * @return If there is a queue to process
-	 * @private
-	 */
-	p._processQueue = function()
-	{
-		// If we have a state queued up
-		// then don't start loading the new state
-		// enter a new one
-		if (this._queueStateId)
-		{
-			var queueStateId = this._queueStateId;
-			this._queueStateId = null;
-			this.state = queueStateId;
-			return true;
-		}
-		return false;
+		this._state._internalEnterDone();
 	};
 
 	/**
