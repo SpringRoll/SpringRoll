@@ -130,9 +130,12 @@
 			for (var i = 0, nl = names.length; i < nl; i++)
 			{
 				n = names[i];
-				listener = this._listeners[n];
-				if (!listener)
+				if (this._listeners.hasOwnProperty(n))
+                {
+    				listener = this._listeners[n];
+                } else {
 					listener = this._listeners[n] = [];
+                }
 
 				if (once)
 				{
@@ -198,10 +201,11 @@
 			for (var i = 0, nl = names.length; i < nl; i++)
 			{
 				n = names[i];
-				listener = this._listeners[n];
-				if (listener)
+				if (this._listeners.hasOwnProperty(n))
 				{
-					// remove all listeners for that event
+    				listener = this._listeners[n];
+	
+    				// remove all listeners for that event
 					if (callback === undefined)
 					{
 						listener.length = 0;
@@ -233,7 +237,7 @@
 	{
 		if (!name) return false;
 
-		var listeners = this._listeners[name];
+		var listeners = this._listeners.hasOwnProperty(name);
 		if (!listeners) return false;
 		if (!callback)
 			return listeners.length > 0;
