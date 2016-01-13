@@ -235,9 +235,9 @@
 	 */
 	p.has = function(name, callback)
 	{
-		if (!name) return false;
+		if (!name || !this._listeners.hasOwnProperty(name)) return false;
 
-		var listeners = this._listeners.hasOwnProperty(name);
+		var listeners = this._listeners[name];
 		if (!listeners) return false;
 		if (!callback)
 			return listeners.length > 0;
