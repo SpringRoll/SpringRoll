@@ -16,10 +16,10 @@
 	{
 		/**
 		 * The collection of listeners
-		 * @property {Array} _listeners
+		 * @property {Object} _listeners
 		 * @private
 		 */
-		this._listeners = [];
+		this._listeners = {};
 
 		/**
 		 * If the dispatcher is destroyed
@@ -55,7 +55,7 @@
 	{
 		if (this._destroyed) return;
 
-		if (this._listeners[type] !== undefined)
+		if (this._listeners.hasOwnProperty(type) && (this._listeners[type] !== undefined))
 		{
 			// copy the listeners array
 			var listeners = this._listeners[type].slice();
@@ -179,7 +179,7 @@
 		// remove all
 		if (name === undefined)
 		{
-			this._listeners = [];
+			this._listeners = {};
 		}
 		// remove multiple callbacks
 		else if (Array.isArray(callback))
