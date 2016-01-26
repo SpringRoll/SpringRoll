@@ -131,11 +131,13 @@
 			{
 				n = names[i];
 				if (this._listeners.hasOwnProperty(n))
-                {
-    				listener = this._listeners[n];
-                } else {
+				{
+					listener = this._listeners[n];
+				}
+				else
+				{
 					listener = this._listeners[n] = [];
-                }
+				}
 
 				if (once)
 				{
@@ -203,9 +205,9 @@
 				n = names[i];
 				if (this._listeners.hasOwnProperty(n))
 				{
-    				listener = this._listeners[n];
-	
-    				// remove all listeners for that event
+					listener = this._listeners[n];
+
+					// remove all listeners for that event
 					if (callback === undefined)
 					{
 						listener.length = 0;

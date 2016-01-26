@@ -80,10 +80,13 @@
 	 */
 	p.destroy = function()
 	{
-		this.itemPool.forEach(function(item)
+		if (this.itemPool)
 		{
-			item.clear();
-		});
+			this.itemPool.forEach(function(item)
+			{
+				item.clear();
+			});
+		}
 		this.itemPool = null;
 
 		if (this.cacheManager)
