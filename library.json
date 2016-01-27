@@ -1,6 +1,6 @@
 {
 	"name": "SpringRoll",
-	"version": "0.4.17",
+	"version": "0.4.18",
 	"description": "An application framework for building HTML5 Canvas games and applications",
 	"url": "https://github.com/SpringRoll/SpringRoll",
 	"output": "core",
@@ -40,10 +40,8 @@
 		"src/displays/*.js",
 		"src/deprecation/core.js"
 	],
-	"modules":
-	{
-		"nativedisplay":
-		{
+	"modules": {
+		"nativedisplay": {
 			"output": "native-display",
 			"main": [
 				"src/displays/native/geom/*.js",
@@ -51,8 +49,7 @@
 				"src/displays/native/NativeDisplay.js"
 			]
 		},
-		"pixidisplay":
-		{
+		"pixidisplay": {
 			"output": "pixi-display",
 			"main": [
 				"src/displays/pixi/mixins/*.js",
@@ -67,8 +64,7 @@
 				"src/deprecation/pixi-display.js"
 			]
 		},
-		"pixianimation":
-		{
+		"pixianimation": {
 			"output": "pixi-animation",
 			"main": [
 				"src/displays/pixi/animation/AnimationPlugin.js",
@@ -78,8 +74,7 @@
 				"src/deprecation/pixi-animation.js"
 			]
 		},
-		"pixispine":
-		{
+		"pixispine": {
 			"output": "pixi-spine",
 			"main": [
 				"src/displays/pixi/spine/SpinePlugin.js",
@@ -90,8 +85,7 @@
 				"src/displays/pixi/spine/SpineAnimTask.js"
 			]
 		},
-		"pixiui":
-		{
+		"pixiui": {
 			"output": "pixi-ui",
 			"main": [
 				"src/displays/pixi/ui/Button.js",
@@ -99,8 +93,7 @@
 				"src/displays/pixi/ui/DragManager.js"
 			]
 		},
-		"easeljsdisplay":
-		{
+		"easeljsdisplay": {
 			"output": "easeljs-display",
 			"main": [
 				"src/displays/easeljs/mixins/*.js",
@@ -120,8 +113,7 @@
 				"src/deprecation/easeljs-display.js"
 			]
 		},
-		"easeljsanimation":
-		{
+		"easeljsanimation": {
 			"output": "easeljs-animation",
 			"main": [
 				"src/displays/easeljs/animation/AnimationPlugin.js",
@@ -133,8 +125,7 @@
 				"src/deprecation/easeljs-animation.js"
 			]
 		},
-		"easeljsui":
-		{
+		"easeljsui": {
 			"output": "easeljs-ui",
 			"main": [
 				"src/displays/easeljs/ui/Button.js",
@@ -143,8 +134,7 @@
 				"src/displays/easeljs/ui/DragManager.js"
 			]
 		},
-		"easeljscutscene":
-		{
+		"easeljscutscene": {
 			"output": "easeljs-cutscene",
 			"main": [
 				"src/displays/easeljs/cutscene/Cutscene.js",
@@ -152,8 +142,7 @@
 				"src/displays/easeljs/cutscene/CutscenePlugin.js"
 			]
 		},
-		"easeljsstates":
-		{
+		"easeljsstates": {
 			"output": "easeljs-states",
 			"main": [
 				"src/displays/easeljs/states/BasePanel.js",
@@ -218,8 +207,7 @@
 			"src/hints/HintsPlayer.js",
 			"src/hints/HintsPlugin.js"
 		],
-		"containerclient":
-		{
+		"containerclient": {
 			"output": "container-client",
 			"main": [
 				"src/container-client/UserData.js",

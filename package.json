@@ -1,30 +1,25 @@
 {
 	"name": "springroll",
-	"version": "0.4.17",
+	"version": "0.4.18",
 	"main": "dist/core.min.js",
 	"author": "CloudKid <tools@cloudkid.com>",
-	"dependencies":
-	{
+	"dependencies": {
 		"bellhop-iframe": "*"
 	},
-	"devDependencies":
-	{
+	"devDependencies": {
 		"grunt": "~0.4.5",
 		"grunt-file-creator": "^0.1.3",
 		"library-grunt": "~0.6.0",
 		"grunt-jsbeautifier": "~0.2.10"
 	},
-	"repository":
-	{
+	"repository": {
 		"type": "git",
 		"url": "https://github.com/SpringRoll/SpringRoll"
 	},
-	"bugs":
-	{
+	"bugs": {
 		"url": "https://github.com/SpringRoll/SpringRoll/issues"
 	},
-	"scripts":
-	{
+	"scripts": {
 		"test": "grunt default test --verbose"
 	},
 	"keywords": [

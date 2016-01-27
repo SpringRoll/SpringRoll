@@ -1,14 +1,12 @@
 {
 	"name": "springroll",
-	"version": "0.4.17",
+	"version": "0.4.18",
 	"main": "dist/core.min.js",
-	"dependencies":
-	{
+	"dependencies": {
 		"preloadjs": "https://github.com/SpringRoll/PreloadJS.git",
 		"bellhop": "*"
 	},
-	"devDependencies":
-	{
+	"devDependencies": {
 		"pixi.js": "https://github.com/SpringRoll/pixi.js.git",
 		"easeljs": "https://github.com/SpringRoll/EaselJS.git",
 		"tweenjs": "https://github.com/SpringRoll/TweenJS.git",
