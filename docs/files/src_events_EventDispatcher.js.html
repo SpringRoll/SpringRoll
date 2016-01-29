@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html lang='en'>
 <head>
-	<title>SpringRoll v0.4.13 API Documentation : src/events/EventDispatcher.js</title>
+	<title>SpringRoll v0.4.18 API Documentation : src/events/EventDispatcher.js</title>
 	<meta charset='utf-8'>
 	<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 	<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
-	<link rel='shortcut icon' type='image/png' href='../assets/images/favicon.ico?v=0.4.13'>
+	<link rel='shortcut icon' type='image/png' href='../assets/images/favicon.ico?v=0.4.18'>
 	<link href='//fonts.googleapis.com/css?family=Titillium+Web:300,200,600' rel='stylesheet' type='text/css'>
-	<link rel='stylesheet' type='text/css' href='../assets/css/libraries.css?v=0.4.13'>
-	<link rel='stylesheet' type='text/css' href='../assets/css/main.css?v=0.4.13'>
+	<link rel='stylesheet' type='text/css' href='../assets/css/libraries.css?v=0.4.18'>
+	<link rel='stylesheet' type='text/css' href='../assets/css/main.css?v=0.4.18'>
 </head>
 <body>
 <header>
@@ -22,10 +22,10 @@
 					<span class="icon-bar"></span>
 				</button>
 				<a class="navbar-brand" href='https://github.com/SpringRoll/SpringRoll'>
-						<img src='../assets/images/logo.png?v=0.4.13' class="logo">
+						<img src='../assets/images/logo.png?v=0.4.18' class="logo">
 					<span class='project-name'>SpringRoll</span>
 					<span class="sr-only">API Documentation for:</span>
-					<span class='version hidden-xs'>v0.4.13</span>
+					<span class='version hidden-xs'>v0.4.18</span>
 				</a>
 			</div>
 			<div class="collapse navbar-collapse" id="docs-navbar">
@@ -580,10 +580,10 @@
 	{
 		/**
 		 * The collection of listeners
-		 * @property {Array} _listeners
+		 * @property {Object} _listeners
 		 * @private
 		 */
-		this._listeners = [];
+		this._listeners = {};
 
 		/**
 		 * If the dispatcher is destroyed
@@ -619,7 +619,7 @@
 	{
 		if (this._destroyed) return;
 
-		if (this._listeners[type] !== undefined)
+		if (this._listeners.hasOwnProperty(type) &amp;&amp; (this._listeners[type] !== undefined))
 		{
 			// copy the listeners array
 			var listeners = this._listeners[type].slice();
@@ -694,9 +694,14 @@
 			for (var i = 0, nl = names.length; i &lt; nl; i++)
 			{
 				n = names[i];
-				listener = this._listeners[n];
-				if (!listener)
+				if (this._listeners.hasOwnProperty(n))
+				{
+					listener = this._listeners[n];
+				}
+				else
+				{
 					listener = this._listeners[n] = [];
+				}
 
 				if (once)
 				{
@@ -743,7 +748,7 @@
 		// remove all
 		if (name === undefined)
 		{
-			this._listeners = [];
+			this._listeners = {};
 		}
 		// remove multiple callbacks
 		else if (Array.isArray(callback))
@@ -762,9 +767,10 @@
 			for (var i = 0, nl = names.length; i &lt; nl; i++)
 			{
 				n = names[i];
-				listener = this._listeners[n];
-				if (listener)
+				if (this._listeners.hasOwnProperty(n))
 				{
+					listener = this._listeners[n];
+
 					// remove all listeners for that event
 					if (callback === undefined)
 					{
@@ -795,7 +801,7 @@
 	 */
 	p.has = function(name, callback)
 	{
-		if (!name) return false;
+		if (!name || !this._listeners.hasOwnProperty(name)) return false;
 
 		var listeners = this._listeners[name];
 		if (!listeners) return false;
@@ -844,7 +850,7 @@
 </div>
 </div>
 </div>
-<script src='../assets/js/libraries.js?v=0.4.13'></script>
-<script src='../assets/js/main.js?v=0.4.13'></script>
+<script src='../assets/js/libraries.js?v=0.4.18'></script>
+<script src='../assets/js/main.js?v=0.4.18'></script>
 </body>
 </html>

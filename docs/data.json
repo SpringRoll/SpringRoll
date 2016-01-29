@@ -2,7 +2,7 @@
     "project": {
         "name": "SpringRoll",
         "description": "An application framework for building HTML5 Canvas games and applications",
-        "version": "0.4.13",
+        "version": "0.4.18",
         "url": "https://github.com/SpringRoll/SpringRoll"
     },
     "files": {
@@ -12206,7 +12206,7 @@
         },
         {
             "file": "src/displays/easeljs/cutscene/Cutscene.js",
-            "line": 425,
+            "line": 428,
             "description": "Stops playback of the cutscene.",
             "itemtype": "method",
             "name": "stop",
@@ -12225,7 +12225,7 @@
         },
         {
             "file": "src/displays/easeljs/cutscene/Cutscene.js",
-            "line": 462,
+            "line": 465,
             "description": "Destroys the cutscene.",
             "itemtype": "method",
             "name": "destroy",
@@ -17931,7 +17931,7 @@
         },
         {
             "file": "src/displays/pixi/ui/Button.js",
-            "line": 696,
+            "line": 695,
             "description": "The callback for when the button for when the mouse/touch is released on the button\n- only when the button was held down initially.",
             "access": "private",
             "tagname": "",
@@ -17943,7 +17943,7 @@
         },
         {
             "file": "src/displays/pixi/ui/Button.js",
-            "line": 723,
+            "line": 721,
             "description": "The callback for when the mouse/touch is released outside the button when the button was\nheld down.",
             "access": "private",
             "tagname": "",
@@ -17955,7 +17955,7 @@
         },
         {
             "file": "src/displays/pixi/ui/Button.js",
-            "line": 740,
+            "line": 738,
             "description": "Destroys the button.",
             "access": "public",
             "tagname": "",
@@ -19129,7 +19129,7 @@
         },
         {
             "file": "src/displays/AbstractDisplay.js",
-            "line": 99,
+            "line": 93,
             "description": "Some of the modules require a special display adapter to provide\ncommon methods for managing display objects.",
             "itemtype": "property",
             "name": "adapter",
@@ -19144,7 +19144,7 @@
         },
         {
             "file": "src/displays/AbstractDisplay.js",
-            "line": 112,
+            "line": 106,
             "description": "If input is enabled on the stage for this display. The default is true.\nWithout a rendering library, this does not actually have an effect.",
             "itemtype": "property",
             "name": "enabled",
@@ -19157,7 +19157,7 @@
         },
         {
             "file": "src/displays/AbstractDisplay.js",
-            "line": 133,
+            "line": 127,
             "description": "If the display becomes enabled",
             "itemtype": "event",
             "name": "enabled",
@@ -19167,7 +19167,7 @@
         },
         {
             "file": "src/displays/AbstractDisplay.js",
-            "line": 138,
+            "line": 132,
             "description": "If the display becomes disabled",
             "itemtype": "event",
             "name": "disabled",
@@ -19177,7 +19177,7 @@
         },
         {
             "file": "src/displays/AbstractDisplay.js",
-            "line": 144,
+            "line": 138,
             "description": "Enabled state changed on the display",
             "itemtype": "event",
             "name": "enable",
@@ -19194,7 +19194,7 @@
         },
         {
             "file": "src/displays/AbstractDisplay.js",
-            "line": 154,
+            "line": 148,
             "description": "If the display is visible, using \"display: none\" css on the canvas. Invisible displays won't render.",
             "itemtype": "property",
             "name": "visible",
@@ -19207,7 +19207,7 @@
         },
         {
             "file": "src/displays/AbstractDisplay.js",
-            "line": 175,
+            "line": 169,
             "description": "If the display becomes visible",
             "itemtype": "event",
             "name": "visible",
@@ -19217,7 +19217,7 @@
         },
         {
             "file": "src/displays/AbstractDisplay.js",
-            "line": 180,
+            "line": 174,
             "description": "If the display becomes hidden",
             "itemtype": "event",
             "name": "hidden",
@@ -19227,7 +19227,7 @@
         },
         {
             "file": "src/displays/AbstractDisplay.js",
-            "line": 186,
+            "line": 180,
             "description": "Visibility changed on the display",
             "itemtype": "event",
             "name": "visibility",
@@ -19244,7 +19244,7 @@
         },
         {
             "file": "src/displays/AbstractDisplay.js",
-            "line": 196,
+            "line": 190,
             "description": "Resizes the canvas. This is only called by the Application.",
             "itemtype": "method",
             "name": "resize",
@@ -19266,7 +19266,7 @@
         },
         {
             "file": "src/displays/AbstractDisplay.js",
-            "line": 208,
+            "line": 202,
             "description": "Updates the stage and draws it. This is only called by the Application.\nThis method does nothing if paused is true or visible is false.",
             "itemtype": "method",
             "name": "render",
@@ -19290,7 +19290,7 @@
         },
         {
             "file": "src/displays/AbstractDisplay.js",
-            "line": 220,
+            "line": 214,
             "description": "Destroys the display. This method is called by the Application and should\nnot be called directly, use Application.removeDisplay(id).\nThe stage recursively removes all display objects here.",
             "itemtype": "method",
             "name": "destroy",
@@ -19304,7 +19304,7 @@
             "description": "The collection of listeners",
             "itemtype": "property",
             "name": "_listeners",
-            "type": "Array",
+            "type": "Object",
             "access": "private",
             "tagname": "",
             "class": "springroll.EventDispatcher",
@@ -19425,7 +19425,7 @@
         },
         {
             "file": "src/events/EventDispatcher.js",
-            "line": 167,
+            "line": 172,
             "description": "Remove the event listener",
             "itemtype": "method",
             "name": "off",
@@ -19451,7 +19451,7 @@
         },
         {
             "file": "src/events/EventDispatcher.js",
-            "line": 224,
+            "line": 230,
             "description": "Checks if the EventDispatcher has a specific listener or any listener for a given event.",
             "itemtype": "method",
             "name": "has",
@@ -19478,7 +19478,7 @@
         },
         {
             "file": "src/events/EventDispatcher.js",
-            "line": 243,
+            "line": 249,
             "description": "Destroy and don't use after this",
             "itemtype": "method",
             "name": "destroy",
@@ -19488,7 +19488,7 @@
         },
         {
             "file": "src/events/EventDispatcher.js",
-            "line": 253,
+            "line": 259,
             "description": "Return type of the value.",
             "access": "private",
             "tagname": "",
@@ -23082,7 +23082,7 @@
         },
         {
             "file": "src/loaders/Loader.js",
-            "line": 97,
+            "line": 100,
             "description": "Load a file",
             "itemtype": "method",
             "name": "load",
@@ -23122,7 +23122,7 @@
         },
         {
             "file": "src/loaders/Loader.js",
-            "line": 136,
+            "line": 139,
             "description": "Handler for the file complete",
             "itemtype": "method",
             "name": "_onComplete",
@@ -23151,7 +23151,7 @@
         },
         {
             "file": "src/loaders/Loader.js",
-            "line": 158,
+            "line": 161,
             "description": "Cancel a load that's currently in progress",
             "access": "public",
             "tagname": "",
@@ -23174,7 +23174,7 @@
         },
         {
             "file": "src/loaders/Loader.js",
-            "line": 178,
+            "line": 181,
             "description": "Get a Queue item from the pool or new",
             "itemtype": "method",
             "name": "_getItem",
@@ -23190,7 +23190,7 @@
         },
         {
             "file": "src/loaders/Loader.js",
-            "line": 190,
+            "line": 193,
             "description": "Pool the loader queue item",
             "itemtype": "method",
             "name": "_putItem",
@@ -23401,7 +23401,7 @@
         },
         {
             "file": "src/loaders/LoaderItem.js",
-            "line": 174,
+            "line": 175,
             "description": "Start the loading",
             "itemtype": "method",
             "name": "start",
@@ -23418,7 +23418,7 @@
         },
         {
             "file": "src/loaders/LoaderItem.js",
-            "line": 191,
+            "line": 192,
             "description": "Start the loading internally",
             "itemtype": "method",
             "name": "_internalStart",
@@ -23430,7 +23430,7 @@
         },
         {
             "file": "src/loaders/LoaderItem.js",
-            "line": 214,
+            "line": 215,
             "description": "The file load progress event",
             "itemtype": "method",
             "name": "_onProgress",
@@ -23449,7 +23449,7 @@
         },
         {
             "file": "src/loaders/LoaderItem.js",
-            "line": 228,
+            "line": 229,
             "description": "There was an error loading the file",
             "access": "private",
             "tagname": "",
@@ -23461,7 +23461,7 @@
         },
         {
             "file": "src/loaders/LoaderItem.js",
-            "line": 242,
+            "line": 243,
             "description": "Retry the current load",
             "itemtype": "method",
             "name": "retry",
@@ -23471,7 +23471,7 @@
         },
         {
             "file": "src/loaders/LoaderItem.js",
-            "line": 259,
+            "line": 260,
             "description": "The file was loaded successfully",
             "access": "private",
             "tagname": "",
@@ -24048,7 +24048,7 @@
         },
         {
             "file": "src/media/Animator.js",
-            "line": 77,
+            "line": 81,
             "description": "The collection of used timeline objects",
             "itemtype": "property",
             "name": "_timelinePool",
@@ -24061,7 +24061,7 @@
         },
         {
             "file": "src/media/Animator.js",
-            "line": 84,
+            "line": 88,
             "description": "If there are timelines available",
             "itemtype": "property",
             "name": "_hasTimelines",
@@ -24074,7 +24074,7 @@
         },
         {
             "file": "src/media/Animator.js",
-            "line": 91,
+            "line": 95,
             "description": "If the Animator is paused",
             "itemtype": "property",
             "name": "_paused",
@@ -24087,7 +24087,7 @@
         },
         {
             "file": "src/media/Animator.js",
-            "line": 116,
+            "line": 120,
             "description": "Register an animator instance definition type",
             "itemtype": "method",
             "name": "register",
@@ -24109,7 +24109,7 @@
         },
         {
             "file": "src/media/Animator.js",
-            "line": 137,
+            "line": 141,
             "description": "Play an animation for a frame label event, with more verbose play options.",
             "itemtype": "method",
             "name": "play",
@@ -24188,7 +24188,7 @@
         },
         {
             "file": "src/media/Animator.js",
-            "line": 159,
+            "line": 163,
             "description": "Play an animation for a frame label event or events",
             "itemtype": "method",
             "name": "play",
@@ -24226,7 +24226,7 @@
         },
         {
             "file": "src/media/Animator.js",
-            "line": 245,
+            "line": 249,
             "description": "Creates the AnimatorTimeline for a given animation",
             "itemtype": "method",
             "name": "_makeTimeline",
@@ -24264,7 +24264,7 @@
         },
         {
             "file": "src/media/Animator.js",
-            "line": 354,
+            "line": 358,
             "description": "Determines if a given instance can be animated by Animator. Note - `id` is a property\nwith a unique value for each `createjs.DisplayObject`. If a custom object is made that does\nnot inherit from DisplayObject, it needs to not have an id that is identical to anything\nfrom EaselJS.",
             "itemtype": "method",
             "name": "canAnimate",
@@ -24285,7 +24285,7 @@
         },
         {
             "file": "src/media/Animator.js",
-            "line": 372,
+            "line": 376,
             "description": "Create an instance by clip",
             "itemtype": "method",
             "name": "createInstance",
@@ -24308,7 +24308,7 @@
         },
         {
             "file": "src/media/Animator.js",
-            "line": 389,
+            "line": 393,
             "description": "Destroy an instance",
             "itemtype": "method",
             "name": "poolInstance",
@@ -24327,7 +24327,7 @@
         },
         {
             "file": "src/media/Animator.js",
-            "line": 401,
+            "line": 405,
             "description": "Get a definition by clip",
             "access": "private",
             "tagname": "",
@@ -24350,7 +24350,7 @@
         },
         {
             "file": "src/media/Animator.js",
-            "line": 421,
+            "line": 425,
             "description": "Checks if animation exists",
             "itemtype": "method",
             "name": "hasAnimation",
@@ -24378,7 +24378,7 @@
         },
         {
             "file": "src/media/Animator.js",
-            "line": 439,
+            "line": 443,
             "description": "Get duration of animation event (or sequence of events) in seconds",
             "itemtype": "method",
             "name": "getDuration",
@@ -24406,7 +24406,7 @@
         },
         {
             "file": "src/media/Animator.js",
-            "line": 479,
+            "line": 483,
             "description": "Stop the animation.",
             "itemtype": "method",
             "name": "stop",
@@ -24430,7 +24430,7 @@
         },
         {
             "file": "src/media/Animator.js",
-            "line": 500,
+            "line": 504,
             "description": "Stop all current Animator animations. This is good for cleaning up all\nanimation, as it doesn't do a callback on any of them.",
             "itemtype": "method",
             "name": "stopAll",
@@ -24455,7 +24455,7 @@
         },
         {
             "file": "src/media/Animator.js",
-            "line": 532,
+            "line": 536,
             "description": "Remove a timeline from the stack",
             "itemtype": "method",
             "name": "_remove",
@@ -24479,7 +24479,7 @@
         },
         {
             "file": "src/media/Animator.js",
-            "line": 605,
+            "line": 609,
             "description": "Pause all tweens which have been excuted by `play()`",
             "itemtype": "method",
             "name": "pause",
@@ -24489,7 +24489,7 @@
         },
         {
             "file": "src/media/Animator.js",
-            "line": 624,
+            "line": 628,
             "description": "Resumes all tweens executed by the `play()`",
             "itemtype": "method",
             "name": "resume",
@@ -24499,7 +24499,7 @@
         },
         {
             "file": "src/media/Animator.js",
-            "line": 647,
+            "line": 651,
             "description": "Pauses or unpauses all timelines that are children of the specified DisplayObjectContainer.",
             "itemtype": "method",
             "name": "pauseInGroup",
@@ -24521,7 +24521,7 @@
         },
         {
             "file": "src/media/Animator.js",
-            "line": 668,
+            "line": 672,
             "description": "Get the timeline object for an instance",
             "itemtype": "method",
             "name": "getTimeline",
@@ -24542,7 +24542,7 @@
         },
         {
             "file": "src/media/Animator.js",
-            "line": 683,
+            "line": 687,
             "description": "Loop a clip by timeline",
             "itemtype": "method",
             "name": "getTimelineByClip",
@@ -24565,7 +24565,7 @@
         },
         {
             "file": "src/media/Animator.js",
-            "line": 709,
+            "line": 713,
             "description": "Whether the Animator class is currently paused.",
             "itemtype": "property",
             "name": "paused",
@@ -24577,7 +24577,7 @@
         },
         {
             "file": "src/media/Animator.js",
-            "line": 722,
+            "line": 726,
             "description": "Start the updating",
             "itemtype": "method",
             "name": "_startUpdate",
@@ -24589,7 +24589,7 @@
         },
         {
             "file": "src/media/Animator.js",
-            "line": 732,
+            "line": 736,
             "description": "Stop the updating",
             "itemtype": "method",
             "name": "_stopUpdate",
@@ -24601,7 +24601,7 @@
         },
         {
             "file": "src/media/Animator.js",
-            "line": 742,
+            "line": 746,
             "description": "The update every frame",
             "itemtype": "method",
             "name": "",
@@ -24620,7 +24620,7 @@
         },
         {
             "file": "src/media/Animator.js",
-            "line": 852,
+            "line": 856,
             "description": "The sound has been started",
             "itemtype": "method",
             "name": "onSoundStarted",
@@ -24644,7 +24644,7 @@
         },
         {
             "file": "src/media/Animator.js",
-            "line": 869,
+            "line": 873,
             "description": "The sound is done",
             "itemtype": "method",
             "name": "_onSoundDone",
@@ -24673,7 +24673,7 @@
         },
         {
             "file": "src/media/Animator.js",
-            "line": 896,
+            "line": 900,
             "description": "Stops all animations and cleans up the variables used.",
             "itemtype": "method",
             "name": "destroy",
@@ -24683,7 +24683,7 @@
         },
         {
             "file": "src/media/Animator.js",
-            "line": 914,
+            "line": 918,
             "description": "Check to see if object is a String",
             "itemtype": "method",
             "name": "isString",
@@ -24706,7 +24706,7 @@
         },
         {
             "file": "src/media/Animator.js",
-            "line": 926,
+            "line": 930,
             "description": "Check to see if object is a Number",
             "itemtype": "method",
             "name": "isNumber",
@@ -24729,7 +24729,7 @@
         },
         {
             "file": "src/media/Animator.js",
-            "line": 938,
+            "line": 942,
             "description": "Check to see if object is a Function",
             "itemtype": "method",
             "name": "isFunction",
@@ -29326,7 +29326,7 @@
         {
             "file": "src/states/StateManager.js",
             "line": 48,
-            "description": "Wait to fire the onTransitionIn event until the onTransitionLoading \nloop reaches it’s final frame.",
+            "description": "Wait to fire the onTransitionIn event until the onTransitionLoading\nloop reaches it’s final frame.",
             "itemtype": "property",
             "name": "waitForLoadingComplete",
             "type": "Boolean",
@@ -29440,20 +29440,7 @@
         },
         {
             "file": "src/states/StateManager.js",
-            "line": 119,
-            "description": "If we're transitioning the state, the queue the id of the next one",
-            "itemtype": "property",
-            "name": "_queueStateId",
-            "type": "String",
-            "access": "private",
-            "tagname": "",
-            "class": "springroll.StateManager",
-            "module": "States",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/states/StateManager.js",
-            "line": 139,
+            "line": 131,
             "description": "The amount of progress while state is being preloaded from zero to 1",
             "itemtype": "event",
             "name": "progress",
@@ -29470,7 +29457,7 @@
         },
         {
             "file": "src/states/StateManager.js",
-            "line": 145,
+            "line": 137,
             "description": "The name of the Animator label and event for transitioning into a state.",
             "itemtype": "event",
             "name": "onTransitionIn",
@@ -29480,7 +29467,7 @@
         },
         {
             "file": "src/states/StateManager.js",
-            "line": 152,
+            "line": 144,
             "description": "The name of the Animator label and event for loading between state change.\nthis event is only dispatched if there is a loading sequence to show in the\ntransition. Recommended to use 'loadingStart' instead for checking.",
             "itemtype": "event",
             "name": "onTransitionLoading",
@@ -29490,7 +29477,7 @@
         },
         {
             "file": "src/states/StateManager.js",
-            "line": 161,
+            "line": 153,
             "description": "The name of the event for completing transitioning into a state.",
             "itemtype": "event",
             "name": "onTransitionInDone",
@@ -29500,7 +29487,7 @@
         },
         {
             "file": "src/states/StateManager.js",
-            "line": 168,
+            "line": 160,
             "description": "The name of the Animator label and event for transitioning out of a state.",
             "itemtype": "event",
             "name": "onTransitionOut",
@@ -29510,7 +29497,7 @@
         },
         {
             "file": "src/states/StateManager.js",
-            "line": 175,
+            "line": 167,
             "description": "The name of the event for completing transitioning out of a state.",
             "itemtype": "event",
             "name": "onTransitionOutDone",
@@ -29520,7 +29507,7 @@
         },
         {
             "file": "src/states/StateManager.js",
-            "line": 182,
+            "line": 174,
             "description": "The name of the event for initialization complete - the first state is then being entered.",
             "itemtype": "event",
             "name": "onInitDone",
@@ -29530,7 +29517,7 @@
         },
         {
             "file": "src/states/StateManager.js",
-            "line": 189,
+            "line": 181,
             "description": "Event when the state begins loading assets when it is entered.",
             "itemtype": "event",
             "name": "onLoadingStart",
@@ -29540,7 +29527,7 @@
         },
         {
             "file": "src/states/StateManager.js",
-            "line": 196,
+            "line": 188,
             "description": "Event when the state finishes loading assets when it is entered.",
             "itemtype": "event",
             "name": "onLoadingDone",
@@ -29550,7 +29537,7 @@
         },
         {
             "file": "src/states/StateManager.js",
-            "line": 203,
+            "line": 195,
             "description": "Register a state with the state manager, done initially",
             "itemtype": "method",
             "name": "addState",
@@ -29572,7 +29559,7 @@
         },
         {
             "file": "src/states/StateManager.js",
-            "line": 227,
+            "line": 219,
             "description": "Get the current selected state (state object)",
             "itemtype": "property",
             "name": "currentState",
@@ -29584,7 +29571,7 @@
         },
         {
             "file": "src/states/StateManager.js",
-            "line": 240,
+            "line": 232,
             "description": "Access a certain state by the ID",
             "itemtype": "method",
             "name": "getStateById",
@@ -29605,7 +29592,7 @@
         },
         {
             "file": "src/states/StateManager.js",
-            "line": 253,
+            "line": 245,
             "description": "If the StateManager is busy because it is currently loading or transitioning.",
             "itemtype": "method",
             "name": "isBusy",
@@ -29619,7 +29606,7 @@
         },
         {
             "file": "src/states/StateManager.js",
-            "line": 264,
+            "line": 256,
             "description": "If the state needs to do some asyncronous tasks,\nThe state can tell the manager to stop the animation",
             "itemtype": "method",
             "name": "loadingStart",
@@ -29629,7 +29616,7 @@
         },
         {
             "file": "src/states/StateManager.js",
-            "line": 279,
+            "line": 271,
             "description": "If the state has finished it's asyncronous task loading\nLets enter the state",
             "itemtype": "method",
             "name": "loadingDone",
@@ -29639,7 +29626,7 @@
         },
         {
             "file": "src/states/StateManager.js",
-            "line": 292,
+            "line": 284,
             "description": "Internal setter for the enabled status",
             "access": "private",
             "tagname": "",
@@ -29652,7 +29639,7 @@
         },
         {
             "file": "src/states/StateManager.js",
-            "line": 301,
+            "line": 293,
             "description": "If the state manager is enabled, used internally",
             "itemtype": "event",
             "name": "enabled",
@@ -29669,7 +29656,7 @@
         },
         {
             "file": "src/states/StateManager.js",
-            "line": 310,
+            "line": 302,
             "description": "This transitions out of the current state and\nenters it again. Can be useful for clearing a state",
             "itemtype": "method",
             "name": "refresh",
@@ -29679,7 +29666,7 @@
         },
         {
             "file": "src/states/StateManager.js",
-            "line": 322,
+            "line": 314,
             "description": "Get or change the current state, using the state id.",
             "itemtype": "property",
             "name": "state",
@@ -29690,7 +29677,7 @@
         },
         {
             "file": "src/states/StateManager.js",
-            "line": 387,
+            "line": 378,
             "description": "When the transition out of a state has finished playing during a state change.",
             "itemtype": "method",
             "name": "_onTransitionOut",
@@ -29702,7 +29689,7 @@
         },
         {
             "file": "src/states/StateManager.js",
-            "line": 417,
+            "line": 405,
             "description": "When the state has completed its loading sequence.\nThis should be treated as an asynchronous process.",
             "itemtype": "method",
             "name": "_onStateLoaded",
@@ -29714,7 +29701,7 @@
         },
         {
             "file": "src/states/StateManager.js",
-            "line": 450,
+            "line": 438,
             "description": "When the transition into a state has finished playing during a state change.",
             "itemtype": "method",
             "name": "_onTransitionIn",
@@ -29726,22 +29713,7 @@
         },
         {
             "file": "src/states/StateManager.js",
-            "line": 471,
-            "description": "Process the state queue",
-            "itemtype": "method",
-            "name": "_processQueue",
-            "return": {
-                "description": "If there is a queue to process"
-            },
-            "access": "private",
-            "tagname": "",
-            "class": "springroll.StateManager",
-            "module": "States",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/states/StateManager.js",
-            "line": 493,
+            "line": 456,
             "description": "Plays the animation \"onTransitionLoading\" on the transition. Also serves as the animation callback.\nManually looping the animation allows the animation to be synced to the audio while looping.",
             "itemtype": "method",
             "name": "_onTransitionLoading",
@@ -29753,7 +29725,7 @@
         },
         {
             "file": "src/states/StateManager.js",
-            "line": 538,
+            "line": 501,
             "description": "Displays the transition out animation, without changing states. Upon completion, the\ntransition looping animation automatically starts playing.",
             "itemtype": "method",
             "name": "showTransitionOut",
@@ -29770,7 +29742,7 @@
         },
         {
             "file": "src/states/StateManager.js",
-            "line": 556,
+            "line": 519,
             "description": "Displays the transition in animation, without changing states.",
             "itemtype": "method",
             "name": "showTransitionIn",
@@ -29787,7 +29759,7 @@
         },
         {
             "file": "src/states/StateManager.js",
-            "line": 573,
+            "line": 536,
             "description": "Generalized function for transitioning with the manager",
             "itemtype": "method",
             "name": "_transitioning",
@@ -29811,7 +29783,7 @@
         },
         {
             "file": "src/states/StateManager.js",
-            "line": 609,
+            "line": 572,
             "description": "Remove the state manager",
             "itemtype": "method",
             "name": "destroy",

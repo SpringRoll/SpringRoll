@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html lang='en'>
 <head>
-	<title>SpringRoll v0.4.13 API Documentation : src/states/StateManager.js</title>
+	<title>SpringRoll v0.4.18 API Documentation : src/states/StateManager.js</title>
 	<meta charset='utf-8'>
 	<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 	<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
-	<link rel='shortcut icon' type='image/png' href='../assets/images/favicon.ico?v=0.4.13'>
+	<link rel='shortcut icon' type='image/png' href='../assets/images/favicon.ico?v=0.4.18'>
 	<link href='//fonts.googleapis.com/css?family=Titillium+Web:300,200,600' rel='stylesheet' type='text/css'>
-	<link rel='stylesheet' type='text/css' href='../assets/css/libraries.css?v=0.4.13'>
-	<link rel='stylesheet' type='text/css' href='../assets/css/main.css?v=0.4.13'>
+	<link rel='stylesheet' type='text/css' href='../assets/css/libraries.css?v=0.4.18'>
+	<link rel='stylesheet' type='text/css' href='../assets/css/main.css?v=0.4.18'>
 </head>
 <body>
 <header>
@@ -22,10 +22,10 @@
 					<span class="icon-bar"></span>
 				</button>
 				<a class="navbar-brand" href='https://github.com/SpringRoll/SpringRoll'>
-						<img src='../assets/images/logo.png?v=0.4.13' class="logo">
+						<img src='../assets/images/logo.png?v=0.4.18' class="logo">
 					<span class='project-name'>SpringRoll</span>
 					<span class="sr-only">API Documentation for:</span>
-					<span class='version hidden-xs'>v0.4.13</span>
+					<span class='version hidden-xs'>v0.4.18</span>
 				</a>
 			</div>
 			<div class="collapse navbar-collapse" id="docs-navbar">
@@ -610,7 +610,7 @@
 		this.transition = null;
 
 		/**
-		 * Wait to fire the onTransitionIn event until the onTransitionLoading 
+		 * Wait to fire the onTransitionIn event until the onTransitionLoading
 		 * loop reaches it’s final frame.
 		 * @property {boolean} waitForLoadingComplete
 		 */
@@ -679,14 +679,6 @@
 		 * @private
 		 */
 		this._destroyed = false;
-
-		/**
-		 * If we&#x27;re transitioning the state, the queue the id of the next one
-		 *
-		 * @property {String} _queueStateId
-		 * @private
-		 */
-		this._queueStateId = null;
 
 		// Hide the blocker
 		this.enabled = true;
@@ -854,7 +846,7 @@
 	};
 
 	/**
-	 * Internal setter for the enabled status 
+	 * Internal setter for the enabled status
 	 * @private
 	 * @property {Boolean} enabled
 	 */
@@ -865,7 +857,7 @@
 			/**
 			 * If the state manager is enabled, used internally
 			 * @event enabled
-			 * @param {Boolean} enabled 
+			 * @param {Boolean} enabled
 			 */
 			this.trigger(&#x27;enabled&#x27;, enabled);
 		}
@@ -898,7 +890,6 @@
 			// after an animation has played out, to avoid abrupt changes
 			if (this._isTransitioning)
 			{
-				this._queueStateId = id;
 				return;
 			}
 
@@ -971,11 +962,8 @@
 
 		this._onTransitionLoading(); //play the transition loop animation
 
-		if (!this._processQueue())
-		{
-			this._isLoading = true;
-			this._state._internalEnter(this._onStateLoaded);
-		}
+		this._isLoading = true;
+		this._state._internalEnter(this._onStateLoaded);
 	};
 
 	/**
@@ -1026,32 +1014,7 @@
 		this._isTransitioning = false;
 		this.enabled = true;
 
-		if (!this._processQueue())
-		{
-			this._state._internalEnterDone();
-		}
-	};
-
-	/**
-	 * Process the state queue
-	 *
-	 * @method _processQueue
-	 * @return If there is a queue to process
-	 * @private
-	 */
-	p._processQueue = function()
-	{
-		// If we have a state queued up
-		// then don&#x27;t start loading the new state
-		// enter a new one
-		if (this._queueStateId)
-		{
-			var queueStateId = this._queueStateId;
-			this._queueStateId = null;
-			this.state = queueStateId;
-			return true;
-		}
-		return false;
+		this._state._internalEnterDone();
 	};
 
 	/**
@@ -1212,7 +1175,7 @@
 </div>
 </div>
 </div>
-<script src='../assets/js/libraries.js?v=0.4.13'></script>
-<script src='../assets/js/main.js?v=0.4.13'></script>
+<script src='../assets/js/libraries.js?v=0.4.18'></script>
+<script src='../assets/js/main.js?v=0.4.18'></script>
 </body>
 </html>
