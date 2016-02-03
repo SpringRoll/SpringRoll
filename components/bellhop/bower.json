@@ -1,0 +1,29 @@
+{
+	"name": "Bellhop",
+	"version": "1.2.0",
+	"main": "dist/bellhop.min.js",
+	"dependencies":
+	{
+		"bind-polyfill": "*"
+	},
+	"devDependencies":
+	{
+		"jquery": "*",
+		"qunit": "*",
+		"google-code-prettify": "*",
+		"bind-polyfill": "*"
+	},
+	"ignore": [
+		"src",
+		"example",
+		"package.json",
+		"tasks",
+		"Gruntfile.js",
+		".travis.yml",
+		"library.json",
+		".jsbeautifyrc",
+		".editorconfig",
+		".gitignore",
+		".gitattributes"
+	]
+}

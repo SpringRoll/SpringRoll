@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<title>Bellhop Example</title>
+		<meta name="description" content="">
+		<script src="../components/jquery/dist/jquery.js"></script>
+		<script src="../dist/bellhop.js"></script>
+	</head>
+	<body>
+		<h1>Single Bellhop Example</h1>
+
+		<iframe id="child" 
+			src="child.html" 
+			width="400" 
+			height="300" 
+			style="border:none;" 
+			frameborder="0"></iframe>
+		
+		<div id="output"></div>
+		
+		<script>
+
+			// Create the bellhop and give it a name, for debugging purposes
+			var bellhop = new Bellhop();
+			bellhop.name = "[parent]";
+
+			var output = $("#output");
+
+			// Connect to the iframe by padding the dom to the connect() method
+			bellhop.connect($("#child").get(0));
+
+			// Request a highscore from the iframe and handle the response
+			bellhop.fetch('highscore', function(e){
+				output.append("Received highscore from iframe : " + e.data + "<br>");
+			});		
+
+			// Handle multiple events at once
+			bellhop.on('started ended paused resumed', function(e){
+				output.append("'"+e.type+"' event called in the iframe<br>");
+			});
+
+		</script>
+	</body>
+</html>

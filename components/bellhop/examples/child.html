@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<title>Parent Window</title>
+		<meta name="description" content="">
+		<style type="text/css">
+			body {
+				background-color:#ccc;
+			}
+		</style>
+		<script src="../components/jquery/dist/jquery.js"></script>
+		<script src="../dist/bellhop.js"></script>
+	</head>
+	<body>
+		<h1>Game</h1>
+		<button data-event="started">Start</button>
+		<button data-event="ended">End</button>
+		<button data-event="paused">Pause</button>
+		<button data-event="resumed">Resume</button><br>
+		<script>
+			var body = $('body');
+
+			// Create the bellhop object
+			var bellhop = new Bellhop();
+
+			// Give it a name, easier for debugging purposes
+			bellhop.name = "[child]";
+
+			// Try to connect to the parent window, assuming we're an iframe
+			bellhop.connect();
+
+			// Not required, but a good way to see if the
+			// communication layer is current supported
+			// must call connect() before this can be checked
+			if (!bellhop.supported)
+			{
+				body.append("No parent to connect to.");
+			}
+			else
+			{
+				body.append('Connecting to parent...<br>');
+
+				// Everytime the highscore event request is sent
+				// to this page, page will respond with a value of 10000
+				// this is a more persistent way then using send()
+				bellhop.respond("highscore", 10000);
+
+				// Event to check for when we've been connected
+				bellhop.on('connected', function(e){
+					body.append('Connection is ready!');
+				});
+
+				// Send an event on button click
+				$("button").click(function(){
+					bellhop.send($(this).data('event'));
+				});
+			}
+		</script>
+	</body>
+</html>

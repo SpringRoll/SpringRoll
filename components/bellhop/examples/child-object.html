@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<title>Parent Window</title>
+		<meta name="description" content="">
+		<style type="text/css">
+			body {
+				background-color:#ccc;
+			}
+		</style>
+		<script src="../components/jquery/dist/jquery.js"></script>
+		<script src="../dist/bellhop.js"></script>
+		<script src="js/User.js"></script>
+	</head>
+	<body>
+		<h1>Example App</h1>
+		<button id="userButton">Send User</button><br>
+		<script>
+
+			// User is an example class included
+			// in the examples/js folder
+			var user = new examples.User("Matt", 1);
+
+			var body = $('body');
+
+			// Create the bellhop object
+			var bellhop = new Bellhop();
+
+			// Give it a name, easier for debugging purposes
+			bellhop.name = "[child]";
+
+			// Try to connect to the parent window, assuming we're an iframe
+			bellhop.connect();
+
+			// Not required, but a good way to see if the
+			// communication layer is current supported
+			// must call connect() before this can be checked
+			if (!bellhop.supported)
+			{
+				body.append("No parent to connect to.");
+			}
+			else
+			{
+				$("#userButton").click(function(){
+					bellhop.send('user', user);
+				});
+			}
+			
+		</script>
+	</body>
+</html>

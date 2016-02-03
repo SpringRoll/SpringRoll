@@ -1,0 +1,42 @@
+{
+  "name": "TweenJS",
+  "version": "0.6.0",
+  "homepage": "https://github.com/CreateJS/TweenJS",
+  "authors": [
+    "gskinner",
+    "lannymcnie",
+    "wdamien"
+  ],
+  "description": "A simple but powerful tweening / animation library for Javascript. Part of the CreateJS suite of libraries.",
+  "main": "lib/tweenjs.combined.js",
+  "keywords": [
+    "tween",
+    "tweening",
+    "animation",
+    "createjs"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "_assets",
+    "bower_components",
+    "build",
+    "docs",
+    "examples",
+    "icon.png",
+    "LICENSE.txt",
+    "README.md",
+    "src",
+    "VERSIONS.txt"
+  ],
+  "_release": "0.6.0",
+  "_resolution": {
+    "type": "version",
+    "tag": "0.6.0",
+    "commit": "1c0e0ce73dc03a5f56c353fab8bb904dd4e8f516"
+  },
+  "_source": "https://github.com/SpringRoll/TweenJS.git",
+  "_target": "*",
+  "_originalSource": "https://github.com/SpringRoll/TweenJS.git"
+}

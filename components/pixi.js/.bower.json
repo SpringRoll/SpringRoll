@@ -1,0 +1,29 @@
+{
+  "name": "pixi.js",
+  "main": "bin/pixi.js",
+  "ignore": [
+    "**/.*",
+    "docs",
+    "gulp",
+    "node_modules",
+    "bower_components",
+    "test",
+    "bower.json",
+    "gulpfile.js",
+    "inch.json",
+    "testem.json"
+  ],
+  "dependencies": {},
+  "devDependencies": {},
+  "homepage": "https://github.com/SpringRoll/pixi.js",
+  "version": "3.0.9",
+  "_release": "3.0.9",
+  "_resolution": {
+    "type": "version",
+    "tag": "3.0.9",
+    "commit": "65b334216e391be6e227ddbbf15dec516b06f437"
+  },
+  "_source": "https://github.com/SpringRoll/pixi.js.git",
+  "_target": "*",
+  "_originalSource": "https://github.com/SpringRoll/pixi.js.git"
+}

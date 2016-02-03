@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<title>Multi-Bellhop Example</title>
+		<meta name="description" content="">
+		<script src="../components/jquery/dist/jquery.js"></script>
+		<script src="../dist/bellhop.js"></script>
+	</head>
+	<body>
+		<h1>Multi-Bellhop Example</h1>
+
+		<iframe id="child1" 
+			src="child.html" 
+			width="400" 
+			height="300" 
+			style="border:2px solid blue" 
+			frameborder="0"></iframe>
+
+		<iframe id="child2" 
+			src="child.html" 
+			width="400" 
+			height="300" 
+			style="border:2px solid green" 
+			frameborder="0"></iframe>
+
+		<div id="output"></div>
+
+		<script>
+
+			// Create two bellhops to interact with each iframe independently
+			var bellhop1 = new Bellhop();
+			bellhop1.name = "[Game 1]";
+			
+			var bellhop2 = new Bellhop();
+			bellhop2.name = "[Game 2]";
+
+			// Output messages
+			var output = $("#output");
+			var log = function(msg, color)
+			{
+				output.append('<div style="color:'+color+'">' + msg + '</div>');
+			};
+
+			// Connect to the iframes
+			var iframes = $('iframe');
+			bellhop1.connect(iframes.get(0));
+			bellhop2.connect(iframes.get(1));
+
+			// Request a highscore from the iframe and handle the response
+			bellhop1.fetch('highscore', function(e){
+				log("Received highscore from iframe : " 
+					+ e.data + " " + bellhop1.name, "blue");
+			});		
+
+			// Handle multiple events at once
+			bellhop1.on('started ended paused resumed', function(e){
+				log("'"+e.type+"' event called in the iframe " 
+					+ bellhop1.name, 'blue');
+			});
+			
+			// Request a highscore from the iframe and handle the response
+			bellhop2.fetch('highscore', function(e){
+				log("Received highscore from iframe : " 
+					+ e.data + " " + bellhop2.name, 'green');
+			});		
+
+			// Handle multiple events at once
+			bellhop2.on('started ended paused resumed', function(e){
+				log("'"+e.type+"' event called in the iframe " 
+					+ bellhop2.name, 'green');
+			});
+
+		</script>
+	</body>
+</html>

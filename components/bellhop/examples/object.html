@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<title>Bellhop Example</title>
+		<meta name="description" content="">
+		<script src="../components/jquery/dist/jquery.js"></script>
+		<script src="../dist/bellhop.js"></script>
+
+		<!-- The typed class must exist for both the child/parent -->
+		<script src="js/User.js"></script>
+	</head>
+	<body>
+		<h1>Object Bellhop Example</h1>
+
+		<p>Send a strictly typed object using Bellhop. In this example the child will send an instance of "examples.User" object. This is a custom class that can be found in the "js" folder.</p>
+
+		<iframe id="child" 
+			src="child-object.html" 
+			width="400" 
+			height="130" 
+			style="border:none;" 
+			frameborder="0"></iframe>
+		
+		<div id="output"></div>
+		
+		<script>
+
+			// Create the bellhop and give it a name, for debugging purposes
+			var bellhop = new Bellhop();
+			bellhop.name = "[parent]";
+
+			var output = $("#output");
+
+			// Connect to the iframe by padding the dom to the connect() method
+			bellhop.connect($("#child").get(0));
+
+			// Request a highscore from the iframe and handle the response
+			bellhop.on('user', function(e){
+				console.log(e.data);
+				if (e.data instanceof examples.User)
+				{
+					output.append("Received the typed object<br>");
+					output.append(JSON.stringify(e.data)+"<br>");
+				}
+			});
+
+		</script>
+	</body>
+</html>

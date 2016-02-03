@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Bellhop Child</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+</head>
+<body>
+
+	<script src="../../components/bind-polyfill/index.js"></script>
+	<script src="../../components/jquery/dist/jquery.js"></script>
+	<script src="../../dist/bellhop.js"></script>
+	<script>
+
+		var bellhop = new Bellhop();
+		bellhop.connect();
+		if (!bellhop.supported)
+		{
+			console.warn("Unsupported");
+		}
+		else
+		{
+			bellhop.respond("highscore", 10000);
+		}
+
+	</script>
+</body>
+</html>

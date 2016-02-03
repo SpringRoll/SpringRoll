@@ -1,0 +1,14 @@
+.gitignore
+.gitattributes
+.editorconfig
+.bowerrc
+.jsbeautifyrc
+.travis.yml
+bower.json
+library.json
+tasks
+test
+Gruntfile.js
+examples
+docs
+src

@@ -1,0 +1,20 @@
+{
+  "name": "bind-polyfill",
+  "authors": [
+    "Mozilla"
+  ],
+  "main": "index.js",
+  "license": "MIT",
+  "private": true,
+  "_resolution": {
+    "type": "version",
+    "tag": "1.0.0",
+    "commit": "3ac135c3a1314c2a0f3261d32e87f6482273f464"
+  },
+  "homepage": "https://github.com/kdimatteo/bind-polyfill",
+  "version": "1.0.0",
+  "_release": "1.0.0",
+  "_source": "git://github.com/kdimatteo/bind-polyfill.git",
+  "_target": "*",
+  "_originalSource": "bind-polyfill"
+}
