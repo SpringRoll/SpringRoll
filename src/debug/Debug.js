@@ -611,8 +611,7 @@
 				case "object":
 					{
 						result[key] = (depth > maxDepth || circularArray.indexOf(value) > -1) ?
-							String(value) :
-							removeCircular(value, maxDepth, depth + 1);
+						String(value) : removeCircular(value, maxDepth, depth + 1);
 						break;
 					}
 				case "function":

@@ -54,7 +54,7 @@
 				{
 					if (DEBUG)
 						throw "Filter " + replace +
-						" already exists in this._filters array.";
+							" already exists in this._filters array.";
 					else
 						throw "Filter already exists.";
 				}
