@@ -334,6 +334,10 @@
 		if (!this._channel) return;
 		Sound.instance._onInstanceResume();
 		this._channel.resume();
+		//reset values on the channel to ensure that the volume update takes -
+		//the default volume on the audio after playing/resuming will be 1
+		this._channel._volume = -1;
+		this._channel.gainNode.gain.value = 0;
 		this.updateVolume();
 	};
 
