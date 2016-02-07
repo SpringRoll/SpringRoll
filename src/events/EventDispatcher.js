@@ -16,10 +16,10 @@
 	{
 		/**
 		 * The collection of listeners
-		 * @property {Array} _listeners
+		 * @property {Object} _listeners
 		 * @private
 		 */
-		this._listeners = [];
+		this._listeners = {};
 
 		/**
 		 * If the dispatcher is destroyed
@@ -55,7 +55,7 @@
 	{
 		if (this._destroyed) return;
 
-		if (this._listeners[type] !== undefined)
+		if (this._listeners.hasOwnProperty(type) && (this._listeners[type] !== undefined))
 		{
 			// copy the listeners array
 			var listeners = this._listeners[type].slice();
@@ -130,9 +130,14 @@
 			for (var i = 0, nl = names.length; i < nl; i++)
 			{
 				n = names[i];
-				listener = this._listeners[n];
-				if (!listener)
+				if (this._listeners.hasOwnProperty(n))
+				{
+					listener = this._listeners[n];
+				}
+				else
+				{
 					listener = this._listeners[n] = [];
+				}
 
 				if (once)
 				{
@@ -179,7 +184,7 @@
 		// remove all
 		if (name === undefined)
 		{
-			this._listeners = [];
+			this._listeners = {};
 		}
 		// remove multiple callbacks
 		else if (Array.isArray(callback))
@@ -198,9 +203,10 @@
 			for (var i = 0, nl = names.length; i < nl; i++)
 			{
 				n = names[i];
-				listener = this._listeners[n];
-				if (listener)
+				if (this._listeners.hasOwnProperty(n))
 				{
+					listener = this._listeners[n];
+
 					// remove all listeners for that event
 					if (callback === undefined)
 					{
@@ -231,7 +237,7 @@
 	 */
 	p.has = function(name, callback)
 	{
-		if (!name) return false;
+		if (!name || !this._listeners.hasOwnProperty(name)) return false;
 
 		var listeners = this._listeners[name];
 		if (!listeners) return false;

@@ -168,6 +168,7 @@
 		this.url = null;
 
 		this.removeAllEventListeners();
+		this.removeAll();
 		this.close();
 	};
 
