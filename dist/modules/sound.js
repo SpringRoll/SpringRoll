@@ -763,7 +763,9 @@
 		//assume a Chrome based browser, so consider it a potential liability for the
 		//bug in Chrome where the AudioContext is not restarted after too much silence
 		this._fixAndroidAudio = createjs.BrowserDetect.isAndroid &&
-			SoundJS.activePlugin instanceof WebAudioPlugin && navigator.userAgent.indexOf("Gecko") > -1 && navigator.userAgent.indexOf("Firefox") > -1;
+			SoundJS.activePlugin instanceof WebAudioPlugin &&
+			!(navigator.userAgent.indexOf("Gecko") > -1 &&
+				navigator.userAgent.indexOf("Firefox") > -1);
 		if (this._fixAndroidAudio)
 		{
 			this._numPlayingAudio = 0;
