@@ -553,7 +553,8 @@
 		var _loaders = activePlugin._loaders;
 
 		//close old context
-		WebAudioPlugin.context.close();
+		if (WebAudioPlugin.context.close)
+			WebAudioPlugin.context.close();
 
 		var AudioContext = window.AudioContext || window.webkitAudioContext;
 		// Reset context
