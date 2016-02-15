@@ -1,4 +1,4 @@
-/*! SpringRoll 0.4.20 */
+/*! SpringRoll 0.4.21 */
 /**
  * @module Animation
  * @namespace springroll
