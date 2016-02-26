@@ -35,12 +35,15 @@
 			}
 			var p = parent.prototype;
 			child.prototype = Object.create(p);
-			child.prototype.__parent = p;
+            Object.defineProperty(child.prototype, '__parent', {
+                configurable: true,
+                writable: true,
+                value: p
+            });
 		}
 		// Add the constructor
         Object.defineProperty(child.prototype, 'constructor', {
             configurable: true,
-            enumerable: false,
             writable: true,
             value: child
         });
