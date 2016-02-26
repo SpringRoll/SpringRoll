@@ -9,7 +9,9 @@
 		Task = include('springroll.Task'),
 		Texture = include('PIXI.Texture'),
 		BaseTexture = include('PIXI.BaseTexture'),
-		PixiUtils = include('PIXI.utils');
+		PixiUtils = include('PIXI.utils'),
+		Application = include('springroll.Application');
+	var PixiDisplay;
 
 	/**
 	 * TextureTask loads an image and sets it up for Pixi to use as a PIXI.Texture.
@@ -30,6 +32,8 @@
 	 */
 	var TextureTask = function(asset, fallbackId)
 	{
+		if (!PixiDisplay) PixiDisplay = include('springroll.pixi.PixiDisplay');
+
 		Task.call(this, asset, fallbackId || asset.image);
 
 		/**
@@ -49,6 +53,12 @@
 		 * @property {String} alpha
 		 */
 		this.alpha = this.filter(asset.alpha);
+
+		/**
+		 * If the texture should be uploaded to the GPU immediately.
+		 * @property {Boolean} uploadToGPU
+		 */
+		this.uploadToGPU = !!asset.uploadToGPU;
 	};
 
 	// Extend the base Task
@@ -155,6 +165,19 @@
 					if (PixiUtils.TextureCache[id] == this)
 						delete PixiUtils.TextureCache[id];
 				};
+			}
+			if (this.uploadToGPU)
+			{
+				var displays = Application.instance.displays;
+				for (var dispId in displays)
+				{
+					var display = displays[dispId];
+					if (display instanceof PixiDisplay && display.isWebGL)
+					{
+						display.renderer.updateTexture(texture);
+						break;
+					}
+				}
 			}
 			done(texture, results);
 		}.bind(this));
