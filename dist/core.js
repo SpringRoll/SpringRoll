@@ -36,10 +36,20 @@
 			}
 			var p = parent.prototype;
 			child.prototype = Object.create(p);
-			child.prototype.__parent = p;
+			Object.defineProperty(child.prototype, '__parent',
+			{
+				configurable: true,
+				writable: true,
+				value: p
+			});
 		}
 		// Add the constructor
-		child.prototype.constructor = child;
+		Object.defineProperty(child.prototype, 'constructor',
+		{
+			configurable: true,
+			writable: true,
+			value: child
+		});
 
 		// Add extend to each class to easily extend
 		// by calling MyClass.extend(SubClass)
