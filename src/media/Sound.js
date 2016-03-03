@@ -1517,9 +1517,6 @@
 			}
 			SoundJS.removeSound(list[i]);
 		}
-
-		//This is to release the audio binary that remains in the jsArrayBufferData.
-		SoundJS.removeAllSounds();
 	};
 
 	/**
@@ -1536,6 +1533,9 @@
 			arr.push(i);
 		}
 		this.unload(arr);
+
+		//This is to release the audio binary that remains in the jsArrayBufferData.
+		SoundJS.removeAllSounds();
 	};
 
 	/**
