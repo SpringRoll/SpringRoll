@@ -12,7 +12,7 @@
 		Application;
 
 	/**
-	 * A class for managing audio by only playing one at a time, playing a list, 
+	 * A class for managing audio by only playing one at a time, playing a list,
 	 * and even managing captions (Captions library) at the same time.
 	 * @class VOPlayer
 	 */
@@ -39,15 +39,24 @@
 		this._listHelper = [];
 
 		/**
-		 * If the VOPlayer should keep a list of all audio it plays for unloading 
+		 * If the VOPlayer should keep a list of all audio it plays for unloading
 		 * later. Default is false.
 		 * @property {Boolean} trackSound
 		 * @public
 		 */
 		this.trackSound = false;
+		
+		/**
+		 * If the sound is currently paused. Setting this has no effect - use pause()
+		 * and resume().
+		 * @property {Boolean} paused
+		 * @public
+		 * @readOnly
+		 */
+		this.paused = false;
 
 		/**
-		 * The current list of audio/silence times/functions. 
+		 * The current list of audio/silence times/functions.
 		 * Generally you will not need to modify this.
 		 * @property {Array} voList
 		 * @public
@@ -128,8 +137,8 @@
 	});
 
 	/**
-	 * The springroll.Captions object used for captions. The developer is responsible 
-	 * for initializing this with a captions dictionary config file and a reference 
+	 * The springroll.Captions object used for captions. The developer is responsible
+	 * for initializing this with a captions dictionary config file and a reference
 	 * to a text field.
 	 * @property {Captions} captions
 	 * @public
@@ -193,6 +202,44 @@
 		}
 		return total;
 	};
+	
+	p.pause = function()
+	{
+		if(this.paused) return;
+		
+		this.paused = true;
+		
+		if(this._soundInstance)
+			this._soundInstance.pause();
+		//remove any update callback
+		Application.instance.off("update", [
+			this._updateSoloCaption,
+			this._syncCaptionToSound,
+			this._updateSilence
+		]);
+	};
+	
+	p.resume = function()
+	{
+		if(!this.paused) return;
+		
+		this.paused = false;
+		if(this._soundInstance)
+			this._soundInstance.resume();
+		//captions for solo captions or VO
+		if(this._captions.playing)
+		{
+			if(this._currentVO)
+				Application.instance.on("update", this._syncCaptionToSound);
+			else
+				Application.instance.on("update", this._updateSoloCaption);
+		}
+		//timer
+		else
+		{
+			Application.instance.on("update", this._updateSilence);
+		}
+	};
 
 	/**
 	 * Plays a single audio alias, interrupting any current playback.
@@ -200,11 +247,11 @@
 	 * Audio in the list will be preloaded to minimize pauses for loading.
 	 * @method play
 	 * @public
-	 * @param {String|Array} idOrList The alias of the audio file to play or the 
+	 * @param {String|Array} idOrList The alias of the audio file to play or the
 	 * array of items to play/call in order.
 	 * @param {Function} [callback] The function to call when playback is complete.
-	 * @param {Function|Boolean} [cancelledCallback] The function to call when playback 
-	 * is interrupted with a stop() or play() call. If this value is a boolean 
+	 * @param {Function|Boolean} [cancelledCallback] The function to call when playback
+	 * is interrupted with a stop() or play() call. If this value is a boolean
 	 * <code>true</code> then callback will be used instead.
 	 */
 	p.play = function(idOrList, callback, cancelledCallback)
@@ -212,7 +259,7 @@
 		this.stop();
 
 		//Handle the case where a cancel callback starts
-		//A new VO play. Inline VO call should take priority 
+		//A new VO play. Inline VO call should take priority
 		//over the cancelled callback VO play.
 		if (this.playing)
 		{
@@ -400,8 +447,10 @@
 	 */
 	p.stop = function()
 	{
+		this.paused = false;
 		if (this._currentVO)
 		{
+			this._soundInstance = null;
 			Sound.instance.stop(this._currentVO);
 			this._currentVO = null;
 		}
