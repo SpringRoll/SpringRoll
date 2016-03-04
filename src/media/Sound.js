@@ -1515,7 +1515,7 @@
 				this._stopSound(sound);
 				sound.loadState = LoadStates.unloaded;
 			}
-			SoundJS.removeSound(list[i]);
+			SoundJS.removeSound(sound.src);
 		}
 	};
 
@@ -1533,9 +1533,6 @@
 			arr.push(i);
 		}
 		this.unload(arr);
-
-		//This is to release the audio binary that remains in the jsArrayBufferData.
-		SoundJS.removeAllSounds();
 	};
 
 	/**
