@@ -135,6 +135,21 @@
 			return this._currentVO !== null || this._timer > 0;
 		}
 	});
+	
+	/**
+	 * The current VO alias that is playing, even if it is just a caption. If a silence timer
+	 * is running, currentVO will be null.
+	 * @property {Boolean} currentVO
+	 * @public
+	 * @readOnly
+	 */
+	Object.defineProperty(p, "currentVO",
+	{
+		get: function()
+		{
+			return this._currentVO;
+		}
+	});
 
 	/**
 	 * The springroll.Captions object used for captions. The developer is responsible
@@ -158,6 +173,25 @@
 			return this._captions;
 		}
 	});
+	
+	/**
+	 * Gets the amount of time elapsed in the currently playing item of audio/silence.
+	 * @method getCurrentElapsed
+	 * @return {int} The elapsed time in milliseconds.
+	 */
+	p.getCurrentElapsed = function()
+	{
+		if(!this.playing) return 0;
+		//active audio
+		if(this._soundInstance)
+			return this._soundInstance.position;
+		//captions only
+		else if(this._currentVO)
+			return this._timer;
+		//silence timer
+		else
+			return this.voList[this._listCounter] - this._timer;
+	};
 
 	/**
 	 * Calculates the amount of time elapsed in the current playlist of audio/silence.
@@ -229,7 +263,7 @@
 		//captions for solo captions or VO
 		if(this._captions.playing)
 		{
-			if(this._currentVO)
+			if(this._soundInstance)
 				Application.instance.on("update", this._syncCaptionToSound);
 			else
 				Application.instance.on("update", this._updateSoloCaption);
@@ -412,7 +446,6 @@
 		{
 			this._captions.play(this._currentVO);
 			this._timer = 0;
-			this._currentVO = null;
 			Application.instance.on("update", this._updateSoloCaption);
 		}
 		else
@@ -448,12 +481,12 @@
 	p.stop = function()
 	{
 		this.paused = false;
-		if (this._currentVO)
+		if (this._soundInstance)
 		{
+			this._soundInstance.stop();
 			this._soundInstance = null;
-			Sound.instance.stop(this._currentVO);
-			this._currentVO = null;
 		}
+		this._currentVO = null;
 		if (this._captions)
 		{
 			this._captions.stop();
