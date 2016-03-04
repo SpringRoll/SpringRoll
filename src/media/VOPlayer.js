@@ -175,22 +175,47 @@
 	});
 	
 	/**
-	 * Gets the amount of time elapsed in the currently playing item of audio/silence.
-	 * @method getCurrentElapsed
-	 * @return {int} The elapsed time in milliseconds.
+	 * The amount of time elapsed in the currently playing item of audio/silence in milliseconds
+	 * @return {int} currentPosition
 	 */
-	p.getCurrentElapsed = function()
-	{
-		if(!this.playing) return 0;
-		//active audio
-		if(this._soundInstance)
-			return this._soundInstance.position;
-		//captions only
-		else if(this._currentVO)
-			return this._timer;
-		//silence timer
-		else
-			return this.voList[this._listCounter] - this._timer;
+	 Object.defineProperty(p, "currentPosition",
+ 	{
+		get: function()
+		{
+			if(!this.playing) return 0;
+			//active audio
+			if(this._soundInstance)
+				return this._soundInstance.position;
+			//captions only
+			else if(this._currentVO)
+				return this._timer;
+			//silence timer
+			else
+				return this.voList[this._listCounter] - this._timer;
+		}
+	};
+	
+	/**
+	 * The duration of the currently playing item of audio/silence in milliseconds. If this is
+	 * waiting on an audio file to load for the first time, it will be 0, as there is no duration
+	 * data to give.
+	 * @return {int} currentDuration
+	 */
+	 Object.defineProperty(p, "currentDuration",
+ 	{
+		get: function()
+		{
+			if(!this.playing) return 0;
+			//active audio
+			if(this._soundInstance)
+				return Sound.instance.getDuration(this._soundInstance.alias);
+			//captions only
+			else if(this._currentVO && this._captions)
+				return this._captions.currentDuration;
+			//silence timer
+			else
+				return this.voList[this._listCounter];
+		}
 	};
 
 	/**
