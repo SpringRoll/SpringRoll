@@ -2048,7 +2048,7 @@
 		Application;
 
 	/**
-	 * A class for managing audio by only playing one at a time, playing a list, 
+	 * A class for managing audio by only playing one at a time, playing a list,
 	 * and even managing captions (Captions library) at the same time.
 	 * @class VOPlayer
 	 */
@@ -2075,7 +2075,7 @@
 		this._listHelper = [];
 
 		/**
-		 * If the VOPlayer should keep a list of all audio it plays for unloading 
+		 * If the VOPlayer should keep a list of all audio it plays for unloading
 		 * later. Default is false.
 		 * @property {Boolean} trackSound
 		 * @public
@@ -2083,7 +2083,16 @@
 		this.trackSound = false;
 
 		/**
-		 * The current list of audio/silence times/functions. 
+		 * If the sound is currently paused. Setting this has no effect - use pause()
+		 * and resume().
+		 * @property {Boolean} paused
+		 * @public
+		 * @readOnly
+		 */
+		this.paused = false;
+
+		/**
+		 * The current list of audio/silence times/functions.
 		 * Generally you will not need to modify this.
 		 * @property {Array} voList
 		 * @public
@@ -2164,8 +2173,23 @@
 	});
 
 	/**
-	 * The springroll.Captions object used for captions. The developer is responsible 
-	 * for initializing this with a captions dictionary config file and a reference 
+	 * The current VO alias that is playing, even if it is just a caption. If a silence timer
+	 * is running, currentVO will be null.
+	 * @property {Boolean} currentVO
+	 * @public
+	 * @readOnly
+	 */
+	Object.defineProperty(p, "currentVO",
+	{
+		get: function()
+		{
+			return this._currentVO;
+		}
+	});
+
+	/**
+	 * The springroll.Captions object used for captions. The developer is responsible
+	 * for initializing this with a captions dictionary config file and a reference
 	 * to a text field.
 	 * @property {Captions} captions
 	 * @public
@@ -2183,6 +2207,50 @@
 		get: function()
 		{
 			return this._captions;
+		}
+	});
+
+	/**
+	 * The amount of time elapsed in the currently playing item of audio/silence in milliseconds
+	 * @return {int} currentPosition
+	 */
+	Object.defineProperty(p, "currentPosition",
+	{
+		get: function()
+		{
+			if (!this.playing) return 0;
+			//active audio
+			if (this._soundInstance)
+				return this._soundInstance.position;
+			//captions only
+			else if (this._currentVO)
+				return this._timer;
+			//silence timer
+			else
+				return this.voList[this._listCounter] - this._timer;
+		}
+	});
+
+	/**
+	 * The duration of the currently playing item of audio/silence in milliseconds. If this is
+	 * waiting on an audio file to load for the first time, it will be 0, as there is no duration
+	 * data to give.
+	 * @return {int} currentDuration
+	 */
+	Object.defineProperty(p, "currentDuration",
+	{
+		get: function()
+		{
+			if (!this.playing) return 0;
+			//active audio
+			if (this._soundInstance)
+				return Sound.instance.getDuration(this._soundInstance.alias);
+			//captions only
+			else if (this._currentVO && this._captions)
+				return this._captions.currentDuration;
+			//silence timer
+			else
+				return this.voList[this._listCounter];
 		}
 	});
 
@@ -2230,17 +2298,55 @@
 		return total;
 	};
 
+	p.pause = function()
+	{
+		if (this.paused) return;
+
+		this.paused = true;
+
+		if (this._soundInstance)
+			this._soundInstance.pause();
+		//remove any update callback
+		Application.instance.off("update", [
+			this._updateSoloCaption,
+			this._syncCaptionToSound,
+			this._updateSilence
+		]);
+	};
+
+	p.resume = function()
+	{
+		if (!this.paused) return;
+
+		this.paused = false;
+		if (this._soundInstance)
+			this._soundInstance.resume();
+		//captions for solo captions or VO
+		if (this._captions.playing)
+		{
+			if (this._soundInstance)
+				Application.instance.on("update", this._syncCaptionToSound);
+			else
+				Application.instance.on("update", this._updateSoloCaption);
+		}
+		//timer
+		else
+		{
+			Application.instance.on("update", this._updateSilence);
+		}
+	};
+
 	/**
 	 * Plays a single audio alias, interrupting any current playback.
 	 * Alternatively, plays a list of audio files, timers, and/or functions.
 	 * Audio in the list will be preloaded to minimize pauses for loading.
 	 * @method play
 	 * @public
-	 * @param {String|Array} idOrList The alias of the audio file to play or the 
+	 * @param {String|Array} idOrList The alias of the audio file to play or the
 	 * array of items to play/call in order.
 	 * @param {Function} [callback] The function to call when playback is complete.
-	 * @param {Function|Boolean} [cancelledCallback] The function to call when playback 
-	 * is interrupted with a stop() or play() call. If this value is a boolean 
+	 * @param {Function|Boolean} [cancelledCallback] The function to call when playback
+	 * is interrupted with a stop() or play() call. If this value is a boolean
 	 * <code>true</code> then callback will be used instead.
 	 */
 	p.play = function(idOrList, callback, cancelledCallback)
@@ -2248,7 +2354,7 @@
 		this.stop();
 
 		//Handle the case where a cancel callback starts
-		//A new VO play. Inline VO call should take priority 
+		//A new VO play. Inline VO call should take priority
 		//over the cancelled callback VO play.
 		if (this.playing)
 		{
@@ -2401,7 +2507,6 @@
 		{
 			this._captions.play(this._currentVO);
 			this._timer = 0;
-			this._currentVO = null;
 			Application.instance.on("update", this._updateSoloCaption);
 		}
 		else
@@ -2436,11 +2541,13 @@
 	 */
 	p.stop = function()
 	{
-		if (this._currentVO)
+		this.paused = false;
+		if (this._soundInstance)
 		{
-			Sound.instance.stop(this._currentVO);
-			this._currentVO = null;
+			this._soundInstance.stop();
+			this._soundInstance = null;
 		}
+		this._currentVO = null;
 		if (this._captions)
 		{
 			this._captions.stop();

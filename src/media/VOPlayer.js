@@ -45,7 +45,7 @@
 		 * @public
 		 */
 		this.trackSound = false;
-		
+
 		/**
 		 * If the sound is currently paused. Setting this has no effect - use pause()
 		 * and resume().
@@ -135,7 +135,7 @@
 			return this._currentVO !== null || this._timer > 0;
 		}
 	});
-	
+
 	/**
 	 * The current VO alias that is playing, even if it is just a caption. If a silence timer
 	 * is running, currentVO will be null.
@@ -173,50 +173,50 @@
 			return this._captions;
 		}
 	});
-	
+
 	/**
 	 * The amount of time elapsed in the currently playing item of audio/silence in milliseconds
 	 * @return {int} currentPosition
 	 */
-	 Object.defineProperty(p, "currentPosition",
- 	{
+	Object.defineProperty(p, "currentPosition",
+	{
 		get: function()
 		{
-			if(!this.playing) return 0;
+			if (!this.playing) return 0;
 			//active audio
-			if(this._soundInstance)
+			if (this._soundInstance)
 				return this._soundInstance.position;
 			//captions only
-			else if(this._currentVO)
+			else if (this._currentVO)
 				return this._timer;
 			//silence timer
 			else
 				return this.voList[this._listCounter] - this._timer;
 		}
-	};
-	
+	});
+
 	/**
 	 * The duration of the currently playing item of audio/silence in milliseconds. If this is
 	 * waiting on an audio file to load for the first time, it will be 0, as there is no duration
 	 * data to give.
 	 * @return {int} currentDuration
 	 */
-	 Object.defineProperty(p, "currentDuration",
- 	{
+	Object.defineProperty(p, "currentDuration",
+	{
 		get: function()
 		{
-			if(!this.playing) return 0;
+			if (!this.playing) return 0;
 			//active audio
-			if(this._soundInstance)
+			if (this._soundInstance)
 				return Sound.instance.getDuration(this._soundInstance.alias);
 			//captions only
-			else if(this._currentVO && this._captions)
+			else if (this._currentVO && this._captions)
 				return this._captions.currentDuration;
 			//silence timer
 			else
 				return this.voList[this._listCounter];
 		}
-	};
+	});
 
 	/**
 	 * Calculates the amount of time elapsed in the current playlist of audio/silence.
@@ -261,14 +261,14 @@
 		}
 		return total;
 	};
-	
+
 	p.pause = function()
 	{
-		if(this.paused) return;
-		
+		if (this.paused) return;
+
 		this.paused = true;
-		
-		if(this._soundInstance)
+
+		if (this._soundInstance)
 			this._soundInstance.pause();
 		//remove any update callback
 		Application.instance.off("update", [
@@ -277,18 +277,18 @@
 			this._updateSilence
 		]);
 	};
-	
+
 	p.resume = function()
 	{
-		if(!this.paused) return;
-		
+		if (!this.paused) return;
+
 		this.paused = false;
-		if(this._soundInstance)
+		if (this._soundInstance)
 			this._soundInstance.resume();
 		//captions for solo captions or VO
-		if(this._captions.playing)
+		if (this._captions.playing)
 		{
-			if(this._soundInstance)
+			if (this._soundInstance)
 				Application.instance.on("update", this._syncCaptionToSound);
 			else
 				Application.instance.on("update", this._updateSoloCaption);
