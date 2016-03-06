@@ -2045,7 +2045,8 @@
 	//in case these classes were included after in the load-order
 	var Sound = include('springroll.Sound'),
 		Captions,
-		Application;
+		Application = include('springroll.Application'),
+		EventDispatcher = include('springroll.EventDispatcher');
 
 	/**
 	 * A class for managing audio by only playing one at a time, playing a list,
@@ -2055,10 +2056,9 @@
 	var VOPlayer = function()
 	{
 		//Import classes
-		if (!Application)
+		if (!Captions)
 		{
 			Captions = include('springroll.Captions', false);
-			Application = include('springroll.Application');
 		}
 
 		//Bound method calls
@@ -2156,7 +2156,19 @@
 		this._captions = null;
 	};
 
-	var p = extend(VOPlayer);
+	var p = extend(VOPlayer, EventDispatcher);
+
+	/**
+	 * Fired when a new VO, caption, or silence timer begins
+	 * @event start
+	 * @param {String} currentVO The alias of the VO or caption that has begun, or null if it is
+	 *                           a silence timer.
+	 */
+
+	/**
+	 * Fired when a new VO, caption, or silence timer completes
+	 * @event end
+	 */
 
 	/**
 	 * If VOPlayer is currently playing (audio or silence).
@@ -2394,6 +2406,8 @@
 	 */
 	p._onSoundFinished = function()
 	{
+		if (this._listCounter >= 0)
+			this.trigger("end");
 		//remove any update callback
 		Application.instance.off("update", [
 			this._updateSoloCaption,
@@ -2434,6 +2448,7 @@
 				//If the sound doesn't exist, then we play it and let it fail,
 				//an error should be shown and playback will continue
 				this._playSound();
+				this.trigger("start", this._currentVO);
 			}
 			else if (typeof this._currentVO == "function")
 			{
@@ -2445,6 +2460,7 @@
 				this._timer = this._currentVO; //set up a timer to wait
 				this._currentVO = null;
 				Application.instance.on("update", this._updateSilence);
+				this.trigger("start", null);
 			}
 		}
 	};
@@ -2606,6 +2622,7 @@
 		this._cancelledCallback = null;
 		this._trackedSounds = null;
 		this._captions = null;
+		EventDispatcher.prototype.destroy.call(this);
 	};
 
 	namespace('springroll').VOPlayer = VOPlayer;
