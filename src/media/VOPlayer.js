@@ -262,9 +262,14 @@
 		return total;
 	};
 
+	/**
+	 * Pauses the current VO, caption, or silence timer if the VOPlayer is playing.
+	 * @method pause
+	 * @public
+	 */
 	p.pause = function()
 	{
-		if (this.paused) return;
+		if (this.paused || !this.playing) return;
 
 		this.paused = true;
 
@@ -278,6 +283,11 @@
 		]);
 	};
 
+	/**
+	 * Resumes the current VO, caption, or silence timer if the VOPlayer was paused.
+	 * @method resume
+	 * @public
+	 */
 	p.resume = function()
 	{
 		if (!this.paused) return;
