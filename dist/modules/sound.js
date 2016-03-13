@@ -2055,6 +2055,8 @@
 	 */
 	var VOPlayer = function()
 	{
+		EventDispatcher.call(this);
+
 		//Import classes
 		if (!Captions)
 		{
@@ -2168,6 +2170,8 @@
 	/**
 	 * Fired when a new VO, caption, or silence timer completes
 	 * @event end
+	 * @param {String} currentVO The alias of the VO or caption that has begun, or null if it is
+	 *                           a silence timer.
 	 */
 
 	/**
@@ -2407,7 +2411,7 @@
 	p._onSoundFinished = function()
 	{
 		if (this._listCounter >= 0)
-			this.trigger("end");
+			this.trigger("end", this._currentVO);
 		//remove any update callback
 		Application.instance.off("update", [
 			this._updateSoloCaption,
