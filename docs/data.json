@@ -27946,10 +27946,9 @@
             "file": "src\\media\\VOPlayer.js",
             "line": 193,
             "description": "The amount of time elapsed in the currently playing item of audio/silence in milliseconds",
-            "return": {
-                "description": "currentPosition",
-                "type": "Int"
-            },
+            "itemtype": "property",
+            "name": "currentPosition",
+            "type": "Int",
             "class": "springroll.VOPlayer",
             "module": "Sound",
             "namespace": "springroll"
@@ -27958,10 +27957,9 @@
             "file": "src\\media\\VOPlayer.js",
             "line": 214,
             "description": "The duration of the currently playing item of audio/silence in milliseconds. If this is\nwaiting on an audio file to load for the first time, it will be 0, as there is no duration\ndata to give.",
-            "return": {
-                "description": "currentDuration",
-                "type": "Int"
-            },
+            "itemtype": "property",
+            "name": "currentDuration",
+            "type": "Int",
             "class": "springroll.VOPlayer",
             "module": "Sound",
             "namespace": "springroll"
@@ -31897,14 +31895,6 @@
         }
     ],
     "warnings": [
-        {
-            "message": "Missing item type\nThe amount of time elapsed in the currently playing item of audio/silence in milliseconds",
-            "line": " src\\media\\VOPlayer.js:193"
-        },
-        {
-            "message": "Missing item type\nThe duration of the currently playing item of audio/silence in milliseconds. If this is\nwaiting on an audio file to load for the first time, it will be 0, as there is no duration\ndata to give.",
-            "line": " src\\media\\VOPlayer.js:214"
-        },
         {
             "message": "Missing item type\nRound a number to the nearest increment.\nFor example, 1.4 rounded to the nearest 0.5 is 1.5.",
             "line": " src\\mixins\\Math.js:154"

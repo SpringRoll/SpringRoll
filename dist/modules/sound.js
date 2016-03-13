@@ -2228,7 +2228,7 @@
 
 	/**
 	 * The amount of time elapsed in the currently playing item of audio/silence in milliseconds
-	 * @return {int} currentPosition
+	 * @property {int} currentPosition
 	 */
 	Object.defineProperty(p, "currentPosition",
 	{
@@ -2251,7 +2251,7 @@
 	 * The duration of the currently playing item of audio/silence in milliseconds. If this is
 	 * waiting on an audio file to load for the first time, it will be 0, as there is no duration
 	 * data to give.
-	 * @return {int} currentDuration
+	 * @property {int} currentDuration
 	 */
 	Object.defineProperty(p, "currentDuration",
 	{
