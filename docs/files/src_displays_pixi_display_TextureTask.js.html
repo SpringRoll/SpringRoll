@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html lang='en'>
 <head>
-	<title>SpringRoll v0.4.18 API Documentation : src/displays/pixi/display/TextureTask.js</title>
+	<title>SpringRoll v0.4.24 API Documentation : src\displays\pixi\display\TextureTask.js</title>
 	<meta charset='utf-8'>
 	<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 	<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
-	<link rel='shortcut icon' type='image/png' href='../assets/images/favicon.ico?v=0.4.18'>
+	<link rel='shortcut icon' type='image/png' href='../assets/images/favicon.ico?v=0.4.24'>
 	<link href='//fonts.googleapis.com/css?family=Titillium+Web:300,200,600' rel='stylesheet' type='text/css'>
-	<link rel='stylesheet' type='text/css' href='../assets/css/libraries.css?v=0.4.18'>
-	<link rel='stylesheet' type='text/css' href='../assets/css/main.css?v=0.4.18'>
+	<link rel='stylesheet' type='text/css' href='../assets/css/libraries.css?v=0.4.24'>
+	<link rel='stylesheet' type='text/css' href='../assets/css/main.css?v=0.4.24'>
 </head>
 <body>
 <header>
@@ -22,10 +22,10 @@
 					<span class="icon-bar"></span>
 				</button>
 				<a class="navbar-brand" href='https://github.com/SpringRoll/SpringRoll'>
-						<img src='../assets/images/logo.png?v=0.4.18' class="logo">
+						<img src='../assets/images/logo.png?v=0.4.24' class="logo">
 					<span class='project-name'>SpringRoll</span>
 					<span class="sr-only">API Documentation for:</span>
-					<span class='version hidden-xs'>v0.4.18</span>
+					<span class='version hidden-xs'>v0.4.24</span>
 				</a>
 			</div>
 			<div class="collapse navbar-collapse" id="docs-navbar">
@@ -559,7 +559,7 @@
 </nav></nav>
 <div class='col-sm-8 col-md-9'>
 <div id='docs-main' class='apidocs'>
-<h1 class="file-heading">File:TextureTask.js</h1>
+<h1 class="file-heading">File:src\displays\pixi\display\TextureTask.js</h1>
 
 <div class="file">
 <pre class="code prettyprint linenums">/**
@@ -573,7 +573,9 @@
 		Task = include(&#x27;springroll.Task&#x27;),
 		Texture = include(&#x27;PIXI.Texture&#x27;),
 		BaseTexture = include(&#x27;PIXI.BaseTexture&#x27;),
-		PixiUtils = include(&#x27;PIXI.utils&#x27;);
+		PixiUtils = include(&#x27;PIXI.utils&#x27;),
+		Application = include(&#x27;springroll.Application&#x27;);
+	var PixiDisplay;
 
 	/**
 	 * TextureTask loads an image and sets it up for Pixi to use as a PIXI.Texture.
@@ -594,6 +596,8 @@
 	 */
 	var TextureTask = function(asset, fallbackId)
 	{
+		if (!PixiDisplay) PixiDisplay = include(&#x27;springroll.pixi.PixiDisplay&#x27;);
+
 		Task.call(this, asset, fallbackId || asset.image);
 
 		/**
@@ -613,6 +617,12 @@
 		 * @property {String} alpha
 		 */
 		this.alpha = this.filter(asset.alpha);
+
+		/**
+		 * If the texture should be uploaded to the GPU immediately.
+		 * @property {Boolean} uploadToGPU
+		 */
+		this.uploadToGPU = !!asset.uploadToGPU;
 	};
 
 	// Extend the base Task
@@ -720,6 +730,19 @@
 						delete PixiUtils.TextureCache[id];
 				};
 			}
+			if (this.uploadToGPU)
+			{
+				var displays = Application.instance.displays;
+				for (var dispId in displays)
+				{
+					var display = displays[dispId];
+					if (display instanceof PixiDisplay &amp;&amp; display.isWebGL)
+					{
+						display.renderer.updateTexture(texture);
+						break;
+					}
+				}
+			}
 			done(texture, results);
 		}.bind(this));
 	};
@@ -741,7 +764,7 @@
 </div>
 </div>
 </div>
-<script src='../assets/js/libraries.js?v=0.4.18'></script>
-<script src='../assets/js/main.js?v=0.4.18'></script>
+<script src='../assets/js/libraries.js?v=0.4.24'></script>
+<script src='../assets/js/main.js?v=0.4.24'></script>
 </body>
 </html>

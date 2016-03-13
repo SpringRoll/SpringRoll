@@ -1,4 +1,4 @@
-/*! SpringRoll 0.4.18 */
+/*! SpringRoll 0.4.24 */
 /**
  * @module EaselJS Animation
  * @namespace springroll.easeljs

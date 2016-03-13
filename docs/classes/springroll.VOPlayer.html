@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html lang='en'>
 <head>
-	<title>SpringRoll v0.4.18 API Documentation : springroll.VOPlayer</title>
+	<title>SpringRoll v0.4.24 API Documentation : springroll.VOPlayer</title>
 	<meta charset='utf-8'>
 	<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 	<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
-	<link rel='shortcut icon' type='image/png' href='../assets/images/favicon.ico?v=0.4.18'>
+	<link rel='shortcut icon' type='image/png' href='../assets/images/favicon.ico?v=0.4.24'>
 	<link href='//fonts.googleapis.com/css?family=Titillium+Web:300,200,600' rel='stylesheet' type='text/css'>
-	<link rel='stylesheet' type='text/css' href='../assets/css/libraries.css?v=0.4.18'>
-	<link rel='stylesheet' type='text/css' href='../assets/css/main.css?v=0.4.18'>
+	<link rel='stylesheet' type='text/css' href='../assets/css/libraries.css?v=0.4.24'>
+	<link rel='stylesheet' type='text/css' href='../assets/css/main.css?v=0.4.24'>
 </head>
 <body>
 <header>
@@ -22,10 +22,10 @@
 					<span class="icon-bar"></span>
 				</button>
 				<a class="navbar-brand" href='https://github.com/SpringRoll/SpringRoll'>
-						<img src='../assets/images/logo.png?v=0.4.18' class="logo">
+						<img src='../assets/images/logo.png?v=0.4.24' class="logo">
 					<span class='project-name'>SpringRoll</span>
 					<span class="sr-only">API Documentation for:</span>
-					<span class='version hidden-xs'>v0.4.18</span>
+					<span class='version hidden-xs'>v0.4.24</span>
 				</a>
 			</div>
 			<div class="collapse navbar-collapse" id="docs-navbar">
@@ -565,7 +565,7 @@
 
 
 <div class='foundat'>
-Defined in: <a href='../files/src_media_VOPlayer.js.html#l14'><code>springroll.VOPlayer:14</code></a>
+Defined in: <a href='../files/src_media_VOPlayer.js.html#l15'><code>springroll.VOPlayer:15</code></a>
 </div>
 
 Module:
@@ -592,6 +592,9 @@ and even managing captions (Captions library) at the same time.</p>
 </li>
 <li id='tab-properties' class='docs-toggle'>
 <a data-toggle='tab' href='#docs-properties'>Properties</a>
+</li>
+<li id='tab-events' class='docs-toggle'>
+<a data-toggle='tab' href='#docs-events'>Events</a>
 </li>
 </ul>
 
@@ -631,7 +634,15 @@ and even managing captions (Captions library) at the same time.</p>
 
 </li>
 <li class='col-xs-6 col-md-4 index-item method public'>
+<a href='#method_pause'>pause</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item method public'>
 <a href='#method_play'>play</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item method public'>
+<a href='#method_resume'>resume</a>
 
 </li>
 <li class='col-xs-6 col-md-4 index-item method public'>
@@ -690,6 +701,14 @@ and even managing captions (Captions library) at the same time.</p>
 
 </li>
 <li class='col-xs-6 col-md-4 index-item property public'>
+<a href='#property_currentVO'>currentVO</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item property public'>
+<a href='#property_paused'>paused</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item property public'>
 <a href='#property_playing'>playing</a>
 
 </li>
@@ -710,6 +729,20 @@ and even managing captions (Captions library) at the same time.</p>
 </div>
 
 
+<div class='index-section tab-pane events'>
+<h3>Events</h3>
+
+<ul class='list-group row events'>
+<li class='col-xs-6 col-md-4 index-item event'>
+<a href='#event_end'>end</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item event'>
+<a href='#event_start'>start</a>
+
+</li>
+</ul>
+</div>
 </div>
 
 <div role='tabpanel' id='docs-methods' class='tab-pane'>
@@ -732,7 +765,7 @@ and even managing captions (Captions library) at the same time.</p>
 <div class='meta'>
 <p>
 Defined in
-<a href='../files/src_media_VOPlayer.js.html#l238'><code>_onSoundFinished:238</code></a>
+<a href='../files/src_media_VOPlayer.js.html#l370'><code>_onSoundFinished:370</code></a>
 </p>
 
 
@@ -764,7 +797,7 @@ Defined in
 <div class='meta'>
 <p>
 Defined in
-<a href='../files/src_media_VOPlayer.js.html#l349'><code>_playSound:349</code></a>
+<a href='../files/src_media_VOPlayer.js.html#l485'><code>_playSound:485</code></a>
 </p>
 
 
@@ -803,7 +836,7 @@ Defined in
 <div class='meta'>
 <p>
 Defined in
-<a href='../files/src_media_VOPlayer.js.html#l335'><code>_syncCaptionToSound:335</code></a>
+<a href='../files/src_media_VOPlayer.js.html#l471'><code>_syncCaptionToSound:471</code></a>
 </p>
 
 
@@ -860,7 +893,7 @@ This method is bound to the VOPlayer instance.</p>
 <div class='meta'>
 <p>
 Defined in
-<a href='../files/src_media_VOPlayer.js.html#l300'><code>_updateSilence:300</code></a>
+<a href='../files/src_media_VOPlayer.js.html#l436'><code>_updateSilence:436</code></a>
 </p>
 
 
@@ -917,7 +950,7 @@ This method is bound to the VOPlayer instance.</p>
 <div class='meta'>
 <p>
 Defined in
-<a href='../files/src_media_VOPlayer.js.html#l317'><code>_updateSoloCaption:317</code></a>
+<a href='../files/src_media_VOPlayer.js.html#l453'><code>_updateSoloCaption:453</code></a>
 </p>
 
 
@@ -967,7 +1000,7 @@ This method is bound to the VOPlayer instance.</p>
 <div class='meta'>
 <p>
 Defined in
-<a href='../files/src_media_VOPlayer.js.html#l440'><code>destroy:440</code></a>
+<a href='../files/src_media_VOPlayer.js.html#l577'><code>destroy:577</code></a>
 </p>
 
 
@@ -1001,7 +1034,7 @@ Defined in
 <div class='meta'>
 <p>
 Defined in
-<a href='../files/src_media_VOPlayer.js.html#l153'><code>getElapsed:153</code></a>
+<a href='../files/src_media_VOPlayer.js.html#l237'><code>getElapsed:237</code></a>
 </p>
 
 
@@ -1023,6 +1056,38 @@ Defined in
 
 </div>
 </div>
+
+</div><div class='method_pause method item public'>
+<h3 class='name'><a class="deeplink" href="#method_pause"><span class="glyphicon glyphicon-link"></span></a> <code>pause</code></h3>
+
+<span class='paren'>()</span>
+
+
+<div class='flags'>
+
+<span class='flag public'>public</span>
+
+
+
+
+</div> 
+
+<div class='meta'>
+<p>
+Defined in
+<a href='../files/src_media_VOPlayer.js.html#l281'><code>pause:281</code></a>
+</p>
+
+
+
+</div>
+
+<div class='description'>
+<p>Pauses the current VO, caption, or silence timer if the VOPlayer is playing.</p>
+
+</div>
+
+
 
 </div><div class='method_play method item public'>
 <h3 class='name'><a class="deeplink" href="#method_play"><span class="glyphicon glyphicon-link"></span></a> <code>play</code></h3>
@@ -1055,7 +1120,7 @@ Defined in
 <div class='meta'>
 <p>
 Defined in
-<a href='../files/src_media_VOPlayer.js.html#l197'><code>play:197</code></a>
+<a href='../files/src_media_VOPlayer.js.html#l329'><code>play:329</code></a>
 </p>
 
 
@@ -1115,6 +1180,38 @@ is interrupted with a stop() or play() call. If this value is a boolean
 </div>
 
 
+</div><div class='method_resume method item public'>
+<h3 class='name'><a class="deeplink" href="#method_resume"><span class="glyphicon glyphicon-link"></span></a> <code>resume</code></h3>
+
+<span class='paren'>()</span>
+
+
+<div class='flags'>
+
+<span class='flag public'>public</span>
+
+
+
+
+</div> 
+
+<div class='meta'>
+<p>
+Defined in
+<a href='../files/src_media_VOPlayer.js.html#l302'><code>resume:302</code></a>
+</p>
+
+
+
+</div>
+
+<div class='description'>
+<p>Resumes the current VO, caption, or silence timer if the VOPlayer was paused.</p>
+
+</div>
+
+
+
 </div><div class='method_stop method item public'>
 <h3 class='name'><a class="deeplink" href="#method_stop"><span class="glyphicon glyphicon-link"></span></a> <code>stop</code></h3>
 
@@ -1133,7 +1230,7 @@ is interrupted with a stop() or play() call. If this value is a boolean
 <div class='meta'>
 <p>
 Defined in
-<a href='../files/src_media_VOPlayer.js.html#l396'><code>stop:396</code></a>
+<a href='../files/src_media_VOPlayer.js.html#l531'><code>stop:531</code></a>
 </p>
 
 
@@ -1165,7 +1262,7 @@ Defined in
 <div class='meta'>
 <p>
 Defined in
-<a href='../files/src_media_VOPlayer.js.html#l429'><code>unloadSound:429</code></a>
+<a href='../files/src_media_VOPlayer.js.html#l566'><code>unloadSound:566</code></a>
 </p>
 
 
@@ -1195,7 +1292,7 @@ Defined in
 <div class="meta">
 <p>
 Defined in
-<a href="../files/src_media_VOPlayer.js.html#l78"><code>_callback:78</code></a>
+<a href="../files/src_media_VOPlayer.js.html#l89"><code>_callback:89</code></a>
 </p>
 
 
@@ -1220,7 +1317,7 @@ Defined in
 <div class="meta">
 <p>
 Defined in
-<a href="../files/src_media_VOPlayer.js.html#l85"><code>_cancelledCallback:85</code></a>
+<a href="../files/src_media_VOPlayer.js.html#l96"><code>_cancelledCallback:96</code></a>
 </p>
 
 
@@ -1245,7 +1342,7 @@ Defined in
 <div class="meta">
 <p>
 Defined in
-<a href="../files/src_media_VOPlayer.js.html#l106"><code>_captions:106</code></a>
+<a href="../files/src_media_VOPlayer.js.html#l117"><code>_captions:117</code></a>
 </p>
 
 
@@ -1270,7 +1367,7 @@ Defined in
 <div class="meta">
 <p>
 Defined in
-<a href="../files/src_media_VOPlayer.js.html#l64"><code>_currentVO:64</code></a>
+<a href="../files/src_media_VOPlayer.js.html#l75"><code>_currentVO:75</code></a>
 </p>
 
 
@@ -1295,7 +1392,7 @@ Defined in
 <div class="meta">
 <p>
 Defined in
-<a href="../files/src_media_VOPlayer.js.html#l57"><code>_listCounter:57</code></a>
+<a href="../files/src_media_VOPlayer.js.html#l68"><code>_listCounter:68</code></a>
 </p>
 
 
@@ -1320,7 +1417,7 @@ Defined in
 <div class="meta">
 <p>
 Defined in
-<a href="../files/src_media_VOPlayer.js.html#l34"><code>_listHelper:34</code></a>
+<a href="../files/src_media_VOPlayer.js.html#l36"><code>_listHelper:36</code></a>
 </p>
 
 
@@ -1345,7 +1442,7 @@ Defined in
 <div class="meta">
 <p>
 Defined in
-<a href="../files/src_media_VOPlayer.js.html#l71"><code>_soundInstance:71</code></a>
+<a href="../files/src_media_VOPlayer.js.html#l82"><code>_soundInstance:82</code></a>
 </p>
 
 
@@ -1370,7 +1467,7 @@ Defined in
 <div class="meta">
 <p>
 Defined in
-<a href="../files/src_media_VOPlayer.js.html#l99"><code>_timer:99</code></a>
+<a href="../files/src_media_VOPlayer.js.html#l110"><code>_timer:110</code></a>
 </p>
 
 
@@ -1395,7 +1492,7 @@ Defined in
 <div class="meta">
 <p>
 Defined in
-<a href="../files/src_media_VOPlayer.js.html#l92"><code>_trackedSounds:92</code></a>
+<a href="../files/src_media_VOPlayer.js.html#l103"><code>_trackedSounds:103</code></a>
 </p>
 
 
@@ -1420,7 +1517,7 @@ Defined in
 <div class="meta">
 <p>
 Defined in
-<a href="../files/src_media_VOPlayer.js.html#l130"><code>captions:130</code></a>
+<a href="../files/src_media_VOPlayer.js.html#l170"><code>captions:170</code></a>
 </p>
 
 
@@ -1430,6 +1527,58 @@ Defined in
 <p>The springroll.Captions object used for captions. The developer is responsible
 for initializing this with a captions dictionary config file and a reference
 to a text field.</p>
+
+</div>
+
+
+
+</div><div class="property_currentVO property item public">
+<h3 class="name"><a class="deeplink" href="#property_currentVO"><span class="glyphicon glyphicon-link"></span></a> <code>currentVO</code></h3>
+<span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
+
+
+<span class="flag public">public</span>
+
+
+
+<div class="meta">
+<p>
+Defined in
+<a href="../files/src_media_VOPlayer.js.html#l155"><code>currentVO:155</code></a>
+</p>
+
+
+</div>
+
+<div class="description">
+<p>The current VO alias that is playing, even if it is just a caption. If a silence timer
+is running, currentVO will be null.</p>
+
+</div>
+
+
+
+</div><div class="property_paused property item public">
+<h3 class="name"><a class="deeplink" href="#property_paused"><span class="glyphicon glyphicon-link"></span></a> <code>paused</code></h3>
+<span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
+
+
+<span class="flag public">public</span>
+
+
+
+<div class="meta">
+<p>
+Defined in
+<a href="../files/src_media_VOPlayer.js.html#l51"><code>paused:51</code></a>
+</p>
+
+
+</div>
+
+<div class="description">
+<p>If the sound is currently paused. Setting this has no effect - use pause()
+and resume().</p>
 
 </div>
 
@@ -1447,7 +1596,7 @@ to a text field.</p>
 <div class="meta">
 <p>
 Defined in
-<a href="../files/src_media_VOPlayer.js.html#l116"><code>playing:116</code></a>
+<a href="../files/src_media_VOPlayer.js.html#l141"><code>playing:141</code></a>
 </p>
 
 
@@ -1499,7 +1648,7 @@ Defined in
 <div class="meta">
 <p>
 Defined in
-<a href="../files/src_media_VOPlayer.js.html#l41"><code>trackSound:41</code></a>
+<a href="../files/src_media_VOPlayer.js.html#l43"><code>trackSound:43</code></a>
 </p>
 
 
@@ -1525,7 +1674,7 @@ later. Default is false.</p>
 <div class="meta">
 <p>
 Defined in
-<a href="../files/src_media_VOPlayer.js.html#l49"><code>voList:49</code></a>
+<a href="../files/src_media_VOPlayer.js.html#l60"><code>voList:60</code></a>
 </p>
 
 
@@ -1542,12 +1691,99 @@ Generally you will not need to modify this.</p>
 </div></div>
 
 
+<div role='tabpanel' id='docs-events' class='tab-pane'>
+
+<div class="event_end events item">
+<h3 class="name"><a class="deeplink" href="#event_end"><span class="glyphicon glyphicon-link"></span></a> <code>end</code></h3>
+<span class="type"></span>
+
+
+
+
+
+<div class="meta">
+<p>
+Defined in
+<a href="../files/src_media_VOPlayer.js.html#l134"><code>end:134</code></a>
+</p>
+
+
+</div>
+
+<div class="description">
+<p>Fired when a new VO, caption, or silence timer completes</p>
+
+</div>
+
+<div class="params">
+<h4>Event Payload:</h4>
+
+<ul class="params-list">
+<li class="param">
+<code class="param-name">currentVO</code>
+<span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+
+
+<div class="param-description">
+<p>The alias of the VO or caption that has begun, or null if it is
+a silence timer.</p>
+
+</div>
+
+</li>
+</ul>
+</div>
+
+
+</div><div class="event_start events item">
+<h3 class="name"><a class="deeplink" href="#event_start"><span class="glyphicon glyphicon-link"></span></a> <code>start</code></h3>
+<span class="type"></span>
+
+
+
+
+
+<div class="meta">
+<p>
+Defined in
+<a href="../files/src_media_VOPlayer.js.html#l127"><code>start:127</code></a>
+</p>
+
+
+</div>
+
+<div class="description">
+<p>Fired when a new VO, caption, or silence timer begins</p>
+
+</div>
+
+<div class="params">
+<h4>Event Payload:</h4>
+
+<ul class="params-list">
+<li class="param">
+<code class="param-name">currentVO</code>
+<span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+
+
+<div class="param-description">
+<p>The alias of the VO or caption that has begun, or null if it is
+a silence timer.</p>
+
+</div>
+
+</li>
+</ul>
+</div>
+
+
+</div></div>
 </div>
 </div></div>
 </div>
 </div>
 </div>
-<script src='../assets/js/libraries.js?v=0.4.18'></script>
-<script src='../assets/js/main.js?v=0.4.18'></script>
+<script src='../assets/js/libraries.js?v=0.4.24'></script>
+<script src='../assets/js/main.js?v=0.4.24'></script>
 </body>
 </html>

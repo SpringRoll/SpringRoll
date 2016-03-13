@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html lang='en'>
 <head>
-	<title>SpringRoll v0.4.18 API Documentation : src/media/VOPlayer.js</title>
+	<title>SpringRoll v0.4.24 API Documentation : src\media\VOPlayer.js</title>
 	<meta charset='utf-8'>
 	<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 	<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
-	<link rel='shortcut icon' type='image/png' href='../assets/images/favicon.ico?v=0.4.18'>
+	<link rel='shortcut icon' type='image/png' href='../assets/images/favicon.ico?v=0.4.24'>
 	<link href='//fonts.googleapis.com/css?family=Titillium+Web:300,200,600' rel='stylesheet' type='text/css'>
-	<link rel='stylesheet' type='text/css' href='../assets/css/libraries.css?v=0.4.18'>
-	<link rel='stylesheet' type='text/css' href='../assets/css/main.css?v=0.4.18'>
+	<link rel='stylesheet' type='text/css' href='../assets/css/libraries.css?v=0.4.24'>
+	<link rel='stylesheet' type='text/css' href='../assets/css/main.css?v=0.4.24'>
 </head>
 <body>
 <header>
@@ -22,10 +22,10 @@
 					<span class="icon-bar"></span>
 				</button>
 				<a class="navbar-brand" href='https://github.com/SpringRoll/SpringRoll'>
-						<img src='../assets/images/logo.png?v=0.4.18' class="logo">
+						<img src='../assets/images/logo.png?v=0.4.24' class="logo">
 					<span class='project-name'>SpringRoll</span>
 					<span class="sr-only">API Documentation for:</span>
-					<span class='version hidden-xs'>v0.4.18</span>
+					<span class='version hidden-xs'>v0.4.24</span>
 				</a>
 			</div>
 			<div class="collapse navbar-collapse" id="docs-navbar">
@@ -559,7 +559,7 @@
 </nav></nav>
 <div class='col-sm-8 col-md-9'>
 <div id='docs-main' class='apidocs'>
-<h1 class="file-heading">File:VOPlayer.js</h1>
+<h1 class="file-heading">File:src\media\VOPlayer.js</h1>
 
 <div class="file">
 <pre class="code prettyprint linenums">/**
@@ -573,20 +573,22 @@
 	//in case these classes were included after in the load-order
 	var Sound = include(&#x27;springroll.Sound&#x27;),
 		Captions,
-		Application;
+		Application = include(&#x27;springroll.Application&#x27;),
+		EventDispatcher = include(&#x27;springroll.EventDispatcher&#x27;);
 
 	/**
-	 * A class for managing audio by only playing one at a time, playing a list, 
+	 * A class for managing audio by only playing one at a time, playing a list,
 	 * and even managing captions (Captions library) at the same time.
 	 * @class VOPlayer
 	 */
 	var VOPlayer = function()
 	{
+		EventDispatcher.call(this);
+
 		//Import classes
-		if (!Application)
+		if (!Captions)
 		{
 			Captions = include(&#x27;springroll.Captions&#x27;, false);
-			Application = include(&#x27;springroll.Application&#x27;);
 		}
 
 		//Bound method calls
@@ -603,7 +605,7 @@
 		this._listHelper = [];
 
 		/**
-		 * If the VOPlayer should keep a list of all audio it plays for unloading 
+		 * If the VOPlayer should keep a list of all audio it plays for unloading
 		 * later. Default is false.
 		 * @property {Boolean} trackSound
 		 * @public
@@ -611,7 +613,16 @@
 		this.trackSound = false;
 
 		/**
-		 * The current list of audio/silence times/functions. 
+		 * If the sound is currently paused. Setting this has no effect - use pause()
+		 * and resume().
+		 * @property {Boolean} paused
+		 * @public
+		 * @readOnly
+		 */
+		this.paused = false;
+
+		/**
+		 * The current list of audio/silence times/functions.
 		 * Generally you will not need to modify this.
 		 * @property {Array} voList
 		 * @public
@@ -675,7 +686,21 @@
 		this._captions = null;
 	};
 
-	var p = extend(VOPlayer);
+	var p = extend(VOPlayer, EventDispatcher);
+
+	/**
+	 * Fired when a new VO, caption, or silence timer begins
+	 * @event start
+	 * @param {String} currentVO The alias of the VO or caption that has begun, or null if it is
+	 *                           a silence timer.
+	 */
+
+	/**
+	 * Fired when a new VO, caption, or silence timer completes
+	 * @event end
+	 * @param {String} currentVO The alias of the VO or caption that has begun, or null if it is
+	 *                           a silence timer.
+	 */
 
 	/**
 	 * If VOPlayer is currently playing (audio or silence).
@@ -692,8 +717,23 @@
 	});
 
 	/**
-	 * The springroll.Captions object used for captions. The developer is responsible 
-	 * for initializing this with a captions dictionary config file and a reference 
+	 * The current VO alias that is playing, even if it is just a caption. If a silence timer
+	 * is running, currentVO will be null.
+	 * @property {Boolean} currentVO
+	 * @public
+	 * @readOnly
+	 */
+	Object.defineProperty(p, &quot;currentVO&quot;,
+	{
+		get: function()
+		{
+			return this._currentVO;
+		}
+	});
+
+	/**
+	 * The springroll.Captions object used for captions. The developer is responsible
+	 * for initializing this with a captions dictionary config file and a reference
 	 * to a text field.
 	 * @property {Captions} captions
 	 * @public
@@ -711,6 +751,50 @@
 		get: function()
 		{
 			return this._captions;
+		}
+	});
+
+	/**
+	 * The amount of time elapsed in the currently playing item of audio/silence in milliseconds
+	 * @return {int} currentPosition
+	 */
+	Object.defineProperty(p, &quot;currentPosition&quot;,
+	{
+		get: function()
+		{
+			if (!this.playing) return 0;
+			//active audio
+			if (this._soundInstance)
+				return this._soundInstance.position;
+			//captions only
+			else if (this._currentVO)
+				return this._timer;
+			//silence timer
+			else
+				return this.voList[this._listCounter] - this._timer;
+		}
+	});
+
+	/**
+	 * The duration of the currently playing item of audio/silence in milliseconds. If this is
+	 * waiting on an audio file to load for the first time, it will be 0, as there is no duration
+	 * data to give.
+	 * @return {int} currentDuration
+	 */
+	Object.defineProperty(p, &quot;currentDuration&quot;,
+	{
+		get: function()
+		{
+			if (!this.playing) return 0;
+			//active audio
+			if (this._soundInstance)
+				return Sound.instance.getDuration(this._soundInstance.alias);
+			//captions only
+			else if (this._currentVO &amp;&amp; this._captions)
+				return this._captions.currentDuration;
+			//silence timer
+			else
+				return this.voList[this._listCounter];
 		}
 	});
 
@@ -759,16 +843,64 @@
 	};
 
 	/**
+	 * Pauses the current VO, caption, or silence timer if the VOPlayer is playing.
+	 * @method pause
+	 * @public
+	 */
+	p.pause = function()
+	{
+		if (this.paused || !this.playing) return;
+
+		this.paused = true;
+
+		if (this._soundInstance)
+			this._soundInstance.pause();
+		//remove any update callback
+		Application.instance.off(&quot;update&quot;, [
+			this._updateSoloCaption,
+			this._syncCaptionToSound,
+			this._updateSilence
+		]);
+	};
+
+	/**
+	 * Resumes the current VO, caption, or silence timer if the VOPlayer was paused.
+	 * @method resume
+	 * @public
+	 */
+	p.resume = function()
+	{
+		if (!this.paused) return;
+
+		this.paused = false;
+		if (this._soundInstance)
+			this._soundInstance.resume();
+		//captions for solo captions or VO
+		if (this._captions.playing)
+		{
+			if (this._soundInstance)
+				Application.instance.on(&quot;update&quot;, this._syncCaptionToSound);
+			else
+				Application.instance.on(&quot;update&quot;, this._updateSoloCaption);
+		}
+		//timer
+		else
+		{
+			Application.instance.on(&quot;update&quot;, this._updateSilence);
+		}
+	};
+
+	/**
 	 * Plays a single audio alias, interrupting any current playback.
 	 * Alternatively, plays a list of audio files, timers, and/or functions.
 	 * Audio in the list will be preloaded to minimize pauses for loading.
 	 * @method play
 	 * @public
-	 * @param {String|Array} idOrList The alias of the audio file to play or the 
+	 * @param {String|Array} idOrList The alias of the audio file to play or the
 	 * array of items to play/call in order.
 	 * @param {Function} [callback] The function to call when playback is complete.
-	 * @param {Function|Boolean} [cancelledCallback] The function to call when playback 
-	 * is interrupted with a stop() or play() call. If this value is a boolean 
+	 * @param {Function|Boolean} [cancelledCallback] The function to call when playback
+	 * is interrupted with a stop() or play() call. If this value is a boolean
 	 * &lt;code&gt;true&lt;/code&gt; then callback will be used instead.
 	 */
 	p.play = function(idOrList, callback, cancelledCallback)
@@ -776,7 +908,7 @@
 		this.stop();
 
 		//Handle the case where a cancel callback starts
-		//A new VO play. Inline VO call should take priority 
+		//A new VO play. Inline VO call should take priority
 		//over the cancelled callback VO play.
 		if (this.playing)
 		{
@@ -806,6 +938,8 @@
 	 */
 	p._onSoundFinished = function()
 	{
+		if (this._listCounter &gt;= 0)
+			this.trigger(&quot;end&quot;, this._currentVO);
 		//remove any update callback
 		Application.instance.off(&quot;update&quot;, [
 			this._updateSoloCaption,
@@ -846,6 +980,7 @@
 				//If the sound doesn&#x27;t exist, then we play it and let it fail,
 				//an error should be shown and playback will continue
 				this._playSound();
+				this.trigger(&quot;start&quot;, this._currentVO);
 			}
 			else if (typeof this._currentVO == &quot;function&quot;)
 			{
@@ -857,6 +992,7 @@
 				this._timer = this._currentVO; //set up a timer to wait
 				this._currentVO = null;
 				Application.instance.on(&quot;update&quot;, this._updateSilence);
+				this.trigger(&quot;start&quot;, null);
 			}
 		}
 	};
@@ -929,7 +1065,6 @@
 		{
 			this._captions.play(this._currentVO);
 			this._timer = 0;
-			this._currentVO = null;
 			Application.instance.on(&quot;update&quot;, this._updateSoloCaption);
 		}
 		else
@@ -964,11 +1099,13 @@
 	 */
 	p.stop = function()
 	{
-		if (this._currentVO)
+		this.paused = false;
+		if (this._soundInstance)
 		{
-			Sound.instance.stop(this._currentVO);
-			this._currentVO = null;
+			this._soundInstance.stop();
+			this._soundInstance = null;
 		}
+		this._currentVO = null;
 		if (this._captions)
 		{
 			this._captions.stop();
@@ -1017,6 +1154,7 @@
 		this._cancelledCallback = null;
 		this._trackedSounds = null;
 		this._captions = null;
+		EventDispatcher.prototype.destroy.call(this);
 	};
 
 	namespace(&#x27;springroll&#x27;).VOPlayer = VOPlayer;
@@ -1027,7 +1165,7 @@
 </div>
 </div>
 </div>
-<script src='../assets/js/libraries.js?v=0.4.18'></script>
-<script src='../assets/js/main.js?v=0.4.18'></script>
+<script src='../assets/js/libraries.js?v=0.4.24'></script>
+<script src='../assets/js/main.js?v=0.4.24'></script>
 </body>
 </html>

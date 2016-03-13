@@ -1,4 +1,4 @@
-/*! SpringRoll 0.4.18 */
+/*! SpringRoll 0.4.24 */
 /**
  * @module Core
  * @namespace window
@@ -36,10 +36,20 @@
 			}
 			var p = parent.prototype;
 			child.prototype = Object.create(p);
-			child.prototype.__parent = p;
+			Object.defineProperty(child.prototype, '__parent',
+			{
+				configurable: true,
+				writable: true,
+				value: p
+			});
 		}
 		// Add the constructor
-		child.prototype.constructor = child;
+		Object.defineProperty(child.prototype, 'constructor',
+		{
+			configurable: true,
+			writable: true,
+			value: child
+		});
 
 		// Add extend to each class to easily extend
 		// by calling MyClass.extend(SubClass)
@@ -2451,7 +2461,7 @@
 	 * @static
 	 * @readOnly
 	 */
-	Application.version = "0.4.18";
+	Application.version = "0.4.24";
 
 	// Reference to the prototype
 	var s = EventDispatcher.prototype;
@@ -3380,7 +3390,7 @@
 				{
 					if (true)
 						throw "Filter " + replace +
-						" already exists in this._filters array.";
+							" already exists in this._filters array.";
 					else
 						throw "Filter already exists.";
 				}
