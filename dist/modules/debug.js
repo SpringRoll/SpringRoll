@@ -1,4 +1,4 @@
-/*! SpringRoll 0.4.23 */
+/*! SpringRoll 0.4.24 */
 /**
  * @module Debug
  * @namespace springroll
