@@ -1951,7 +1951,7 @@
 				this._stopSound(sound);
 				sound.loadState = LoadStates.unloaded;
 			}
-			SoundJS.removeSound(list[i]);
+			SoundJS.removeSound(sound.src);
 		}
 	};
 
