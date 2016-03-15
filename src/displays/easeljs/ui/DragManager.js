@@ -525,7 +525,7 @@
 		}
 		else
 		{
-			if (ev.pointerID != this._dragPointerID && this._dragPointerID > -1) return;
+			if (ev && ev.pointerID != this._dragPointerID && this._dragPointerID > -1) return;
 
 			draggedObj = this.draggedObj;
 			dragOffset = this._dragOffset;
