@@ -1,4 +1,4 @@
-/*! SpringRoll 0.4.24 */
+/*! SpringRoll 0.4.26 */
 /**
  * @module Sound
  * @namespace springroll
@@ -1951,7 +1951,7 @@
 				this._stopSound(sound);
 				sound.loadState = LoadStates.unloaded;
 			}
-			SoundJS.removeSound(list[i]);
+			SoundJS.removeSound(sound.src);
 		}
 	};
 
