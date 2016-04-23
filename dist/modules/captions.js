@@ -1,4 +1,4 @@
-/*! SpringRoll 0.4.25 */
+/*! SpringRoll 0.4.26 */
 /**
  * @module Captions
  * @namespace springroll

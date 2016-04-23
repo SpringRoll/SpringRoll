@@ -1,4 +1,4 @@
-/*! SpringRoll 0.4.25 */
+/*! SpringRoll 0.4.26 */
 /**
  * @module EaselJS Cutscene
  * @namespace springroll.easeljs
