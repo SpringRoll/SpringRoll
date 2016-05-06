@@ -118,7 +118,7 @@ The Framework is inherently canvas-rendering agnostic. We support two different 
 * [Asset Loading &amp; Caching](http://springroll.io/SpringRoll/examples/asset-caching.html)
 * [Color-Alpha](http://springroll.io/SpringRoll/examples/color-alpha.html)
 * [Max-Width](http://springroll.io/SpringRoll/examples/max-width.html)
-* [UI Scaling]http://springroll.io/SpringRoll/examples/ui.html)
+* [UI Scaling](http://springroll.io/SpringRoll/examples/ui.html)
 * [Cutscene](http://springroll.io/SpringRoll/cutscene.html)
 * [Tweening](http://springroll.io/SpringRoll/examples/tween.html)
 * [Sound](http://springroll.io/SpringRoll/examples/sound.html)
