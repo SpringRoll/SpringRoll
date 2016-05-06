@@ -114,18 +114,18 @@ The Framework is inherently canvas-rendering agnostic. We support two different 
 
 ##Examples
 
-* [Application](https://springroll.github.io/SpringRoll/examples/basic.html)
-* [Asset Loading &amp; Caching](https://springroll.github.io/SpringRoll/examples/asset-caching.html)
-* [Color-Alpha](https://springroll.github.io/SpringRoll/examples/color-alpha.html)
-* [Max-Width](https://springroll.github.io/SpringRoll/examples/max-width.html)
-* [UI Scaling](https://springroll.github.io/SpringRoll/examples/ui.html)
-* [Cutscene](https://springroll.github.io/SpringRoll/examples/cutscene.html)
-* [Tweening](https://springroll.github.io/SpringRoll/examples/tween.html)
-* [Sound](https://springroll.github.io/SpringRoll/examples/sound.html)
-* [Captions](https://springroll.github.io/SpringRoll/examples/captions.html)
-* [Captions &amp; Sound](https://springroll.github.io/SpringRoll/examples/captions-sound.html)
-* [Multi-Display](https://springroll.github.io/SpringRoll/examples/multiple-displays.html)
-* [States](https://springroll.github.io/SpringRoll/examples/states.html)
+* [Application](http://springroll.io/SpringRoll/examples/basic.html)
+* [Asset Loading &amp; Caching](http://springroll.io/SpringRoll/examples/asset-caching.html)
+* [Color-Alpha](http://springroll.io/SpringRoll/examples/color-alpha.html)
+* [Max-Width](http://springroll.io/SpringRoll/examples/max-width.html)
+* [UI Scaling](http://springroll.io/SpringRoll/examples/ui.html)
+* [Cutscene](http://springroll.io/SpringRoll/examples/cutscene.html)
+* [Tweening](http://springroll.io/SpringRoll/examples/tween.html)
+* [Sound](http://springroll.io/SpringRoll/examples/sound.html)
+* [Captions](http://springroll.io/SpringRoll/examples/captions.html)
+* [Captions &amp; Sound](http://springroll.io/SpringRoll/examples/captions-sound.html)
+* [Multi-Display](http://springroll.io/SpringRoll/examples/multiple-displays.html)
+* [States](http://springroll.io/SpringRoll/examples/states.html)
 
 ##Documentation
 
