@@ -11,6 +11,7 @@
 		SoundContext,
 		SoundInstance,
 		WebAudioPlugin = include('createjs.WebAudioPlugin'),
+		HTMLAudioPlugin = include('createjs.HTMLAudioPlugin'),
 		FlashAudioPlugin = include('createjs.FlashAudioPlugin', false),
 		SoundJS = include('createjs.Sound'),
 		Enum = include('springroll.Enum');
@@ -195,7 +196,7 @@
 		}
 
 		var defaultOptions = {
-			plugins: appOptions.forceFlashAudio ? [FlashAudioPlugin] : [WebAudioPlugin, FlashAudioPlugin],
+			plugins: appOptions.forceFlashAudio ? [FlashAudioPlugin] : [WebAudioPlugin, FlashAudioPlugin, HTMLAudioPlugin],
 			types: ['ogg', 'mp3'],
 			swfPath: 'assets/swfs/',
 			ready: null
