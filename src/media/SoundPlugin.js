@@ -8,7 +8,9 @@
 	//Include classes
 	var ApplicationPlugin = include('springroll.ApplicationPlugin'),
 		Sound = include('springroll.Sound'),
-		VOPlayer = include('springroll.VOPlayer');
+		VOPlayer = include('springroll.VOPlayer'),
+		WebAudioPlugin = include('createjs.WebAudioPlugin'),
+		FlashAudioPlugin = include('createjs.FlashAudioPlugin', false);
 
 	/**
 	 * @class Application
@@ -19,9 +21,17 @@
 	plugin.setup = function()
 	{
 		/**
+		 * The preferred order of SoundJS audio plugins to use.
+		 * @property {Array} options.audioPlugins
+		 * @default [WebAudioPlugin,FlashAudioPlugin]
+		 * @readOnly
+		 */
+		this.options.add('audioPlugins', FlashAudioPlugin ? [WebAudioPlugin, FlashAudioPlugin] : [WebAudioPlugin], true);
+
+		/**
 		 * The relative location to the FlashPlugin swf for SoundJS
 		 * @property {String} options.swfPath
-		 * @default 'assets/swfs/' 
+		 * @default 'assets/swfs/'
 		 * @readOnly
 		 */
 		this.options.add('swfPath', 'assets/swfs/', true);
@@ -29,7 +39,7 @@
 		/**
 		 * For the Sound class to use the Flash plugin shim
 		 * @property {Boolean} options.forceFlashAudio
-		 * @default false 
+		 * @default false
 		 * @readOnly
 		 */
 		this.options.add('forceFlashAudio', false, true);
@@ -39,7 +49,7 @@
 		 * preferred, where "ogg" becomes a ".ogg"
 		 * extension on all sound file urls.
 		 * @property {Array} options.audioTypes
-		 * @default ['ogg','mp3'] 
+		 * @default ['ogg','mp3']
 		 * @readOnly
 		 */
 		this.options.add('audioTypes', ["ogg", "mp3"], true);
@@ -47,7 +57,7 @@
 		if (DEBUG)
 		{
 			/**
-			 * Set the initial mute state of the all the audio 
+			 * Set the initial mute state of the all the audio
 			 * (unminifed library version only)
 			 * @property {Boolean} options.mute
 			 * @default false
@@ -171,6 +181,7 @@
 	{
 		Sound.init(
 		{
+			plugins: this.options.audioPlugins,
 			swfPath: this.options.swfPath,
 			types: this.options.audioTypes,
 			ready: function()

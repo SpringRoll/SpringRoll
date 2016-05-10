@@ -195,7 +195,7 @@
 		}
 
 		var defaultOptions = {
-			plugins: appOptions.forceFlashAudio ? [FlashAudioPlugin] : [WebAudioPlugin, FlashAudioPlugin],
+			plugins: FlashAudioPlugin ? [WebAudioPlugin, FlashAudioPlugin] : [WebAudioPlugin],
 			types: ['ogg', 'mp3'],
 			swfPath: 'assets/swfs/',
 			ready: null
@@ -203,6 +203,9 @@
 
 		options = Object.merge(
 		{}, defaultOptions, options);
+
+		if (appOptions.forceFlashAudio)
+			options.plugins = [FlashAudioPlugin];
 
 		//Check if the ready callback is the second argument
 		//this is deprecated
