@@ -344,12 +344,14 @@
 	 */
 	var disableScrollingKeys = function(event)
 	{
-    	var keys = [32, 33, 34, 35, 36, 37, 38, 39, 40, 44];
+		var keys = [32, 33, 34, 35, 36, 37, 38, 39, 40, 44];
 
-    	if( keys.indexOf( event.which ) > -1 ) {
+		if (keys.indexOf(event.which) > -1)
+		{
 
-        event.preventDefault();
-        event.stopPropagation();
+			event.preventDefault();
+			event.stopPropagation();
+		}
 	};
 
 	// Destroy the animator
