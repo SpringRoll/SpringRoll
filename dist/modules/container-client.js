@@ -269,6 +269,11 @@
 
 		// Listen when the browser closes or redirects
 		window.onunload = window.onbeforeunload = onWindowUnload.bind(this);
+
+		if (namespace('springroll').keyboard)
+		{
+			window.onkeydown = disableScrollingKeys;
+		}
 	};
 
 	/**
@@ -464,6 +469,24 @@
 	var onClose = function()
 	{
 		this.endGame('closed_container');
+	};
+
+	/**
+	 * Disables the scrolling keys, such as arrows and the spacebar when the keyboard plugin is detected
+	 * @method disableScrollingKeys
+	 * @private
+	 * @param {event} event The keydown event
+	 */
+	var disableScrollingKeys = function(event)
+	{
+		var keys = [32, 33, 34, 35, 36, 37, 38, 39, 40, 44];
+
+		if (keys.indexOf(event.which) > -1)
+		{
+
+			event.preventDefault();
+			event.stopPropagation();
+		}
 	};
 
 	// Destroy the animator
