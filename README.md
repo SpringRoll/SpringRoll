@@ -17,7 +17,7 @@ A light-weight, extensible, future-forward framework for building HTML5 canvas-b
 
 The primary objective of the framework is to build content which supports WebAudio API and WebGL (with Context2d fallback). With the exception of the WebAudio API fallback to Flash, there are very few fallbacks implemented. We want to produce canvas content that is about the future. Here are the currently planned browser support:
 
-* Internet Explorer 9+
+* Internet Explorer 10+
 * iOS Safari & iOS WebView 6+
 * Chrome for Android 37+
 * Chrome 30+
