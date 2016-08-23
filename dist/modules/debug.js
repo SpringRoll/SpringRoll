@@ -151,6 +151,15 @@
 	Debug.output = null;
 
 	/**
+	 * Boolean to turn on or off the container pause for debugging
+	 * @public
+	 * @static
+	 * @default false
+	 * @property {Boolean} disablePause
+	 */
+	Debug.disablePause = false;
+
+	/**
 	 * Browser port for the websocket - browsers tend to block lower ports
 	 * @static
 	 * @private

@@ -8,7 +8,7 @@
 	var ApplicationPlugin = include('springroll.ApplicationPlugin'),
 		PageVisibility = include('springroll.PageVisibility'),
 		UserData = include('springroll.UserData'),
-		Debug = include('springroll.Debug'),
+		Debug,
 		Bellhop = include('Bellhop');
 
 	/**

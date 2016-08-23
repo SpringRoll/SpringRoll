@@ -143,6 +143,7 @@
 	var ApplicationPlugin = include('springroll.ApplicationPlugin'),
 		PageVisibility = include('springroll.PageVisibility'),
 		UserData = include('springroll.UserData'),
+		Debug,
 		Bellhop = include('Bellhop');
 
 	/**
@@ -182,6 +183,12 @@
 			{
 				container.send('keepFocus', data);
 			});
+
+		// Pass along preloading progress
+		this.on('progress', function(e)
+		{
+			this.container.send('progress', e);
+		});
 
 		// When the preloading is done
 		this.once('beforeInit', function()
@@ -361,7 +368,8 @@
 		var paused = !!e.data;
 		// container pause events are also considered "autoPause" events
 		// event if the event was fired by the container's pauseButton
-		this.autoPaused = paused;
+		// Pausing can be disabled in Debug mode using disablePause property
+		this.autoPaused = (Debug.enabled && Debug.disablePause) ? false : paused;
 		this.enabled = !paused;
 	};
 
