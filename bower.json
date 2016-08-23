@@ -13,7 +13,7 @@
 		"easeljs": "https://github.com/SpringRoll/EaselJS.git#^0.8.0",
 		"tweenjs": "https://github.com/SpringRoll/TweenJS.git#^0.6.0",
 		"soundjs": "https://github.com/SpringRoll/SoundJS.git#^0.6.3",
-		"qunit": "*",
+		"qunit": "~1",
 		"google-code-prettify": "*",
 		"bind-polyfill": "*",
 		"jquery": "*"
