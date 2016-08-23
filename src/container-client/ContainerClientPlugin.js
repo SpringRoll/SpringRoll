@@ -8,6 +8,7 @@
 	var ApplicationPlugin = include('springroll.ApplicationPlugin'),
 		PageVisibility = include('springroll.PageVisibility'),
 		UserData = include('springroll.UserData'),
+		Debug = include('springroll.Debug'),
 		Bellhop = include('Bellhop');
 
 	/**
@@ -229,7 +230,8 @@
 		var paused = !!e.data;
 		// container pause events are also considered "autoPause" events
 		// event if the event was fired by the container's pauseButton
-		this.autoPaused = paused;
+		// Pausing can be disabled in Debug mode using disablePause property
+		this.autoPaused = (Debug.enabled && Debug.disablePause) ? false : paused;
 		this.enabled = !paused;
 	};
 
