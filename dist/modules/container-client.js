@@ -183,12 +183,6 @@
 				container.send('keepFocus', data);
 			});
 
-		// Pass along preloading progress
-		this.on('progress', function(e)
-		{
-			this.container.send('progress', e);
-		});
-
 		// When the preloading is done
 		this.once('beforeInit', function()
 		{
