@@ -208,9 +208,6 @@
 				close: onClose.bind(this)
 			});
 
-			// Turn off the page hide and show auto pausing the App
-			this.options.autoPause = false;
-
 			//handle detecting and sending blur/focus events
 			var container = this.container;
 			this._pageVisibility = new PageVisibility(
