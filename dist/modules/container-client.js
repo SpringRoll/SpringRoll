@@ -372,15 +372,6 @@
 		// event if the event was fired by the container's pauseButton
 		// Pausing can be disabled in Debug mode using disablePause property
 
-		if (Debug.enabled && Debug.disablePause)
-		{
-			console.log('Debug.enabled && Debug.disablePause');
-		}
-		else
-		{
-			console.log('Else');
-		}
-
 		this.autoPaused = (Debug && Debug.disablePause) ? false : paused;
 		this.enabled = !paused;
 	};
