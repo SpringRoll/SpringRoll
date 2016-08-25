@@ -154,6 +154,8 @@
 	// Init the animator
 	plugin.setup = function()
 	{
+		Debug = include('springroll.Debug', false);
+
 		var options = this.options;
 
 		/**
