@@ -8,7 +8,6 @@
 	var ApplicationPlugin = include('springroll.ApplicationPlugin'),
 		PageVisibility = include('springroll.PageVisibility'),
 		UserData = include('springroll.UserData'),
-		Debug,
 		Bellhop = include('Bellhop');
 
 	/**
@@ -19,8 +18,6 @@
 	// Init the animator
 	plugin.setup = function()
 	{
-		Debug = include('springroll.Debug', false);
-
 		var options = this.options;
 
 		/**
@@ -129,7 +126,7 @@
 				vo: hasSound && this.sound.contextExists('vo'),
 				sfx: hasSound && this.sound.contextExists('sfx'),
 				captions: !!this.captions,
-				disablePause: Debug.disablePause
+				disablePause: !!this.options.disablePause
 			});
 		});
 
