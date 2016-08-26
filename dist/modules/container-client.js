@@ -263,7 +263,8 @@
 				music: hasSound && this.sound.contextExists('music'),
 				vo: hasSound && this.sound.contextExists('vo'),
 				sfx: hasSound && this.sound.contextExists('sfx'),
-				captions: !!this.captions
+				captions: !!this.captions,
+				disablePause: Debug.disablePause
 			});
 		});
 
@@ -370,9 +371,7 @@
 		var paused = !!e.data;
 		// container pause events are also considered "autoPause" events
 		// event if the event was fired by the container's pauseButton
-		// Pausing can be disabled in Debug mode using disablePause property
-
-		this.autoPaused = (Debug && Debug.disablePause) ? false : paused;
+		this.autoPaused = paused;
 		this.enabled = !paused;
 	};
 
