@@ -1,4 +1,4 @@
-/*! SpringRoll 0.4.25 */
+/*! SpringRoll 1.0.0 */
 /**
  * @module Sound
  * @namespace springroll
@@ -318,7 +318,7 @@
 		if (this.paused) return;
 		this.paused = true;
 		if (!this._channel) return;
-		this._channel.pause();
+		this._channel.paused = true;
 		Sound.instance._onInstancePaused();
 	};
 
@@ -333,7 +333,7 @@
 		this.paused = false;
 		if (!this._channel) return;
 		Sound.instance._onInstanceResume();
-		this._channel.resume();
+		this._channel.paused = false;
 		if (this._channel.gainNode)
 		{
 			//reset values on the channel to ensure that the volume update takes -
@@ -631,7 +631,7 @@
 		}
 
 		var defaultOptions = {
-			plugins: appOptions.forceFlashAudio ? [FlashAudioPlugin] : [WebAudioPlugin, FlashAudioPlugin],
+			plugins: FlashAudioPlugin ? [WebAudioPlugin, FlashAudioPlugin] : [WebAudioPlugin],
 			types: ['ogg', 'mp3'],
 			swfPath: 'assets/swfs/',
 			ready: null
@@ -639,6 +639,9 @@
 
 		options = Object.merge(
 		{}, defaultOptions, options);
+
+		if (appOptions.forceFlashAudio)
+			options.plugins = [FlashAudioPlugin];
 
 		//Check if the ready callback is the second argument
 		//this is deprecated
@@ -2643,7 +2646,9 @@
 	//Include classes
 	var ApplicationPlugin = include('springroll.ApplicationPlugin'),
 		Sound = include('springroll.Sound'),
-		VOPlayer = include('springroll.VOPlayer');
+		VOPlayer = include('springroll.VOPlayer'),
+		WebAudioPlugin = include('createjs.WebAudioPlugin'),
+		FlashAudioPlugin = include('createjs.FlashAudioPlugin', false);
 
 	/**
 	 * @class Application
@@ -2654,9 +2659,17 @@
 	plugin.setup = function()
 	{
 		/**
+		 * The preferred order of SoundJS audio plugins to use.
+		 * @property {Array} options.audioPlugins
+		 * @default [WebAudioPlugin,FlashAudioPlugin]
+		 * @readOnly
+		 */
+		this.options.add('audioPlugins', FlashAudioPlugin ? [WebAudioPlugin, FlashAudioPlugin] : [WebAudioPlugin], true);
+
+		/**
 		 * The relative location to the FlashPlugin swf for SoundJS
 		 * @property {String} options.swfPath
-		 * @default 'assets/swfs/' 
+		 * @default 'assets/swfs/'
 		 * @readOnly
 		 */
 		this.options.add('swfPath', 'assets/swfs/', true);
@@ -2664,7 +2677,7 @@
 		/**
 		 * For the Sound class to use the Flash plugin shim
 		 * @property {Boolean} options.forceFlashAudio
-		 * @default false 
+		 * @default false
 		 * @readOnly
 		 */
 		this.options.add('forceFlashAudio', false, true);
@@ -2674,7 +2687,7 @@
 		 * preferred, where "ogg" becomes a ".ogg"
 		 * extension on all sound file urls.
 		 * @property {Array} options.audioTypes
-		 * @default ['ogg','mp3'] 
+		 * @default ['ogg','mp3']
 		 * @readOnly
 		 */
 		this.options.add('audioTypes', ["ogg", "mp3"], true);
@@ -2682,7 +2695,7 @@
 		if (true)
 		{
 			/**
-			 * Set the initial mute state of the all the audio 
+			 * Set the initial mute state of the all the audio
 			 * (unminifed library version only)
 			 * @property {Boolean} options.mute
 			 * @default false
@@ -2806,6 +2819,7 @@
 	{
 		Sound.init(
 		{
+			plugins: this.options.audioPlugins,
 			swfPath: this.options.swfPath,
 			types: this.options.audioTypes,
 			ready: function()
