@@ -261,7 +261,7 @@
 		if (this.paused) return;
 		this.paused = true;
 		if (!this._channel) return;
-		this._channel.pause();
+		this._channel.paused = true;
 		Sound.instance._onInstancePaused();
 	};
 
@@ -276,7 +276,7 @@
 		this.paused = false;
 		if (!this._channel) return;
 		Sound.instance._onInstanceResume();
-		this._channel.resume();
+		this._channel.paused = false;
 		if (this._channel.gainNode)
 		{
 			//reset values on the channel to ensure that the volume update takes -
