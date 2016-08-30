@@ -472,7 +472,7 @@
 		else
 		{
 			//don't stop the drag if a different finger than the dragging one was released
-			if (ev && ev.pointerID != this._dragPointerID && this._dragPointerID > -1) return;
+			if (ev.pointerID != this._dragPointerID && this._dragPointerID > -1) return;
 
 			obj = this.draggedObj;
 			this.draggedObj = null;
