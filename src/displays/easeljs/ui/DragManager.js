@@ -395,7 +395,10 @@
 		stage.addEventListener("stagemousemove", this._updateObjPosition);
 		stage.addEventListener("stagemouseup", this._stopDrag);
 
-		this._updateObjPosition(ev);
+		if (ev)
+		{
+			this._updateObjPosition(ev);
+		}
 
 		this._dragStartCallback(this._multitouch ?
 			this.draggedObj[ev.pointerID].obj :
@@ -512,7 +515,7 @@
 	 */
 	p._updateObjPosition = function(ev)
 	{
-		if (!this.isTouchMove && !this._theStage.mouseInBounds) return;
+		if (!ev || (!this.isTouchMove && !this._theStage.mouseInBounds)) return;
 
 		var draggedObj, dragOffset;
 		if (this._multitouch)
