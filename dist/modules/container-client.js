@@ -260,7 +260,8 @@
 				music: hasSound && this.sound.contextExists('music'),
 				vo: hasSound && this.sound.contextExists('vo'),
 				sfx: hasSound && this.sound.contextExists('sfx'),
-				captions: !!this.captions
+				captions: !!this.captions,
+				disablePause: !!this.options.disablePause
 			});
 		});
 
