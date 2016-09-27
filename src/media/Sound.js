@@ -657,6 +657,11 @@
 				//fade the last played instance
 				inst = sound.playing[sound.playing.length - 1];
 			}
+			else if (s.loadState == LoadStates.loading)
+			{
+				this.stop(aliasOrInst);
+				return;
+			}
 		}
 		else
 		{
