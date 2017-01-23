@@ -1,4 +1,4 @@
-/*! SpringRoll 0.4.26 */
+/*! SpringRoll 1.0.0 */
 /**
  * @module Container Client
  * @namespace springroll
@@ -183,6 +183,12 @@
 				container.send('keepFocus', data);
 			});
 
+		// Pass along preloading progress
+		this.on('progress', function(e)
+		{
+			this.container.send('progress', e);
+		});
+
 		// When the preloading is done
 		this.once('beforeInit', function()
 		{
@@ -254,7 +260,8 @@
 				music: hasSound && this.sound.contextExists('music'),
 				vo: hasSound && this.sound.contextExists('vo'),
 				sfx: hasSound && this.sound.contextExists('sfx'),
-				captions: !!this.captions
+				captions: !!this.captions,
+				disablePause: !!this.options.disablePause
 			});
 		});
 
