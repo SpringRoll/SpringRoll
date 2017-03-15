@@ -237,6 +237,8 @@
 		{
 			Debug.error("Unable to load file: " + this.url + " - reason: " + event.error);
 		}
+		// TODO: This requires a bit more looking into, this solves a memory leak with event listeners piling up.
+		this.removeAll();
 		this.retry();
 	};
 
