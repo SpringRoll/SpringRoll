@@ -1,4 +1,4 @@
-/*! SpringRoll 1.0.0 */
+/*! SpringRoll 1.0.1 */
 /**
  * @module Sound
  * @namespace springroll
@@ -1092,6 +1092,11 @@
 			{
 				//fade the last played instance
 				inst = sound.playing[sound.playing.length - 1];
+			}
+			else if (s.loadState == LoadStates.loading)
+			{
+				this.stop(aliasOrInst);
+				return;
 			}
 		}
 		else
