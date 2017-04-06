@@ -8,7 +8,6 @@
 {
 	var Debug,
 		Container = include('createjs.Container'),
-		BitmapUtils,
 		Application,
 		Sound;
 
@@ -37,7 +36,6 @@
 			Debug = include('springroll.Debug', false);
 			Application = include('springroll.Application');
 			Sound = include('springroll.Sound');
-			BitmapUtils = include('springroll.easeljs.BitmapUtils');
 		}
 
 		Container.call(this);

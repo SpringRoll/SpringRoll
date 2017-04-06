@@ -667,7 +667,8 @@
 {
 	var Task = include('springroll.Task'),
 		FlashArt = include('springroll.easeljs.FlashArt'),
-		Application = include('springroll.Application');
+		Application = include('springroll.Application'),
+		BitmapUtils = include('springroll.easeljs.BitmapUtils');
 
 	/**
 	 * Loads javascript art exported from Flash, with special care taken to allow images to be
@@ -887,7 +888,7 @@
 					{
 						//scale asset if needed
 						if (result.scale != 1)
-							Bitmap.replaceWithScaledBitmap(id, 1 / result.scale, this.libName);
+							BitmapUtils.replaceWithScaledBitmap(id, 1 / result.scale, this.libName);
 					}
 					//otherwise the result is a SpriteSheet or the result of a FlashArtAtlasTask
 					else if (result.create)

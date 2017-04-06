@@ -446,6 +446,7 @@
 		Debug,
 		SoundContext,
 		SoundInstance,
+		CordovaAudioPlugin = include('createjs.CordovaAudioPlugin'),
 		WebAudioPlugin = include('createjs.WebAudioPlugin'),
 		FlashAudioPlugin = include('createjs.FlashAudioPlugin', false),
 		SoundJS = include('createjs.Sound'),
@@ -643,6 +644,11 @@
 		if (appOptions.forceFlashAudio)
 			options.plugins = [FlashAudioPlugin];
 
+		if ((window.forceNativeAudio) || (window.top && window.top.forceNativeAudio))
+		{
+			options.plugins = [CordovaAudioPlugin];
+		}
+
 		//Check if the ready callback is the second argument
 		//this is deprecated
 		options.ready = options.ready || readyCallback;
@@ -691,13 +697,32 @@
 			}
 			//if the sound plugin is not ready, then just wait until it is
 			var waitFunction;
+			var waitResult;
+
 			waitFunction = function()
 			{
-				if (SoundJS.getCapabilities())
+				//TODO: DRYify this.
+				if (window.plugins.NativeAudio)
 				{
-					Application.instance.off("update", waitFunction);
-					_instance._initComplete(options.types, options.ready);
+
+					window.plugins.NativeAudio.getCapabilities(function(result)
+					{
+						waitResult = result;
+					});
+
 				}
+				else if (window.top.plugins.NativeAudio)
+				{
+
+					window.top.plugins.NativeAudio.getCapabilities(function(result)
+					{
+						waitResult = result;
+					});
+
+				}
+
+				Application.instance.off("update", waitFunction);
+				_instance._initComplete(options.types, options.ready);
 			};
 
 			Application.instance.on("update", waitFunction);
