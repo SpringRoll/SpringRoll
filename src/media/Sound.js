@@ -196,7 +196,7 @@
 		}
 
 		var defaultOptions = {
-			plugins: FlashAudioPlugin ? [CordovaAudioPlugin, WebAudioPlugin, FlashAudioPlugin] : [CordovaAudioPlugin, WebAudioPlugin],
+			plugins: FlashAudioPlugin ? [WebAudioPlugin, FlashAudioPlugin] : [WebAudioPlugin],
 			types: ['ogg', 'mp3'],
 			swfPath: 'assets/swfs/',
 			ready: null
@@ -207,6 +207,11 @@
 
 		if (appOptions.forceFlashAudio)
 			options.plugins = [FlashAudioPlugin];
+
+		if ( (window.forceNativeAudio) || (window.top && window.top.forceNativeAudio) )
+		{
+			options.plugins = [CordovaAudioPlugin];
+		}
 
 		//Check if the ready callback is the second argument
 		//this is deprecated
@@ -224,8 +229,7 @@
 			FlashAudioPlugin.swfPath = (basePath || "") + options.swfPath;
 		}
 
-		SoundJS.registerPlugins([CordovaAudioPlugin, WebAudioPlugin]);
-		//SoundJS.registerPlugins(options.plugins);
+		SoundJS.registerPlugins(options.plugins);
 
 		//If on iOS, then we need to add a touch listener to unmute sounds.
 		//playback pretty much has to be createjs.WebAudioPlugin for iOS
@@ -261,9 +265,20 @@
 
 			waitFunction = function()
 			{
-				window.top.plugins.NativeAudio.getCapabilities(function(result) {
-					waitResult = result;
-				});
+				//TODO: DRYify this.
+				if (window.plugins.NativeAudio) {
+
+					window.plugins.NativeAudio.getCapabilities(function(result) {
+						waitResult = result;
+					});
+
+				} else if (window.top.plugins.NativeAudio) {
+
+					window.top.plugins.NativeAudio.getCapabilities(function(result) {
+						waitResult = result;
+					});
+
+				}
 
 				Application.instance.off("update", waitFunction);
 				_instance._initComplete(options.types, options.ready);
