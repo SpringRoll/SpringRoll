@@ -1,4 +1,4 @@
-/*! SpringRoll 1.0.1 */
+/*! SpringRoll 1.0.2 */
 /**
  * @module Languages
  * @namespace springroll
