@@ -10,8 +10,8 @@
 		Debug,
 		SoundContext,
 		SoundInstance,
-		CordovaAudioPlugin = include('createjs.CordovaAudioPlugin'),
 		WebAudioPlugin = include('createjs.WebAudioPlugin'),
+		CordovaAudioPlugin = include('createjs.CordovaAudioPlugin', false),
 		FlashAudioPlugin = include('createjs.FlashAudioPlugin', false),
 		SoundJS = include('createjs.Sound'),
 		Enum = include('springroll.Enum');
@@ -209,7 +209,7 @@
 			options.plugins = [FlashAudioPlugin];
 
 		var forceNativeAudio = (window.top) ? window.top.forceNativeAudio : window.forceNativeAudio;
-		if (forceNativeAudio)
+		if (forceNativeAudio && CordovaAudioPlugin)
 		{
 			options.plugins = [CordovaAudioPlugin];
 		}
