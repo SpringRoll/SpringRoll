@@ -272,10 +272,11 @@
 					NativeAudio.getCapabilities(function(result)
 					{
 						waitResult = result;
-						
+
 						Application.instance.off("update", waitFunction);
 						_instance._initComplete(options.types, options.ready);
-					}, function(result) {
+					}, function(result)
+					{
 						waitResult = result;
 
 						if (DEBUG && Debug)
