@@ -447,6 +447,7 @@
 		SoundContext,
 		SoundInstance,
 		WebAudioPlugin = include('createjs.WebAudioPlugin'),
+		CordovaAudioPlugin = include('createjs.CordovaAudioPlugin', false),
 		FlashAudioPlugin = include('createjs.FlashAudioPlugin', false),
 		SoundJS = include('createjs.Sound'),
 		Enum = include('springroll.Enum');
@@ -643,6 +644,12 @@
 		if (appOptions.forceFlashAudio)
 			options.plugins = [FlashAudioPlugin];
 
+		var forceNativeAudio = (window.top) ? window.top.forceNativeAudio : window.forceNativeAudio;
+		if (forceNativeAudio && CordovaAudioPlugin)
+		{
+			options.plugins = [CordovaAudioPlugin];
+		}
+
 		//Check if the ready callback is the second argument
 		//this is deprecated
 		options.ready = options.ready || readyCallback;
@@ -691,12 +698,28 @@
 			}
 			//if the sound plugin is not ready, then just wait until it is
 			var waitFunction;
+			var waitResult;
+
 			waitFunction = function()
 			{
-				if (SoundJS.getCapabilities())
+				var NativeAudio = window.plugins.NativeAudio || window.top.plugins.NativeAudio || null;
+				if (NativeAudio)
 				{
-					Application.instance.off("update", waitFunction);
-					_instance._initComplete(options.types, options.ready);
+					NativeAudio.getCapabilities(function(result)
+					{
+						waitResult = result;
+
+						Application.instance.off("update", waitFunction);
+						_instance._initComplete(options.types, options.ready);
+					}, function(result)
+					{
+						waitResult = result;
+
+						if (true && Debug)
+						{
+							Debug.error("Unable to get capabilities from Cordova Native Audio Plugin");
+						}
+					});
 				}
 			};
 
