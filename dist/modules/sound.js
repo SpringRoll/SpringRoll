@@ -644,7 +644,8 @@
 		if (appOptions.forceFlashAudio)
 			options.plugins = [FlashAudioPlugin];
 
-		if ((window.forceNativeAudio) || (window.top && window.top.forceNativeAudio))
+		var forceNativeAudio = (window.top) ? window.top.forceNativeAudio : window.forceNativeAudio;
+		if (forceNativeAudio)
 		{
 			options.plugins = [CordovaAudioPlugin];
 		}
@@ -701,24 +702,13 @@
 
 			waitFunction = function()
 			{
-				//TODO: DRYify this.
-				if (window.plugins.NativeAudio)
+				var NativeAudio = window.plugins.NativeAudio || window.top.plugins.NativeAudio || null;
+				if (NativeAudio)
 				{
-
-					window.plugins.NativeAudio.getCapabilities(function(result)
+					NativeAudio.getCapabilities(function(result)
 					{
 						waitResult = result;
 					});
-
-				}
-				else if (window.top.plugins.NativeAudio)
-				{
-
-					window.top.plugins.NativeAudio.getCapabilities(function(result)
-					{
-						waitResult = result;
-					});
-
 				}
 
 				Application.instance.off("update", waitFunction);
@@ -1117,11 +1107,6 @@
 			{
 				//fade the last played instance
 				inst = sound.playing[sound.playing.length - 1];
-			}
-			else if (s.loadState == LoadStates.loading)
-			{
-				this.stop(aliasOrInst);
-				return;
 			}
 		}
 		else
