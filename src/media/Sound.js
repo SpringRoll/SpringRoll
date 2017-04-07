@@ -272,11 +272,18 @@
 					NativeAudio.getCapabilities(function(result)
 					{
 						waitResult = result;
+						
+						Application.instance.off("update", waitFunction);
+						_instance._initComplete(options.types, options.ready);
+					}, function(result) {
+						waitResult = result;
+
+						if (DEBUG && Debug)
+						{
+							Debug.error("Unable to get capabilities from Cordova Native Audio Plugin");
+						}
 					});
 				}
-
-				Application.instance.off("update", waitFunction);
-				_instance._initComplete(options.types, options.ready);
 			};
 
 			Application.instance.on("update", waitFunction);
