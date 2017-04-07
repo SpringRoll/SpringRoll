@@ -208,7 +208,7 @@
 		if (appOptions.forceFlashAudio)
 			options.plugins = [FlashAudioPlugin];
 
-		var forceNativeAudio = (window.top) ? window.top.forceNativeAudio : window.forceNativeAudio;
+		var forceNativeAudio = (window.top) ? window.top.forceNativeAudio : window.forceNativeAudio;n
 		if (forceNativeAudio)
 		{
 			options.plugins = [CordovaAudioPlugin];
@@ -266,7 +266,6 @@
 
 			waitFunction = function()
 			{
-				//TODO: DRYify this.
 				var NativeAudio = window.plugins.NativeAudio || window.top.plugins.NativeAudio || null;
 				if (NativeAudio)
 				{
