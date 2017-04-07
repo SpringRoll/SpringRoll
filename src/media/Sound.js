@@ -208,7 +208,7 @@
 		if (appOptions.forceFlashAudio)
 			options.plugins = [FlashAudioPlugin];
 
-		var forceNativeAudio = (window.top) ? window.top.forceNativeAudio : window.forceNativeAudio;n
+		var forceNativeAudio = (window.top) ? window.top.forceNativeAudio : window.forceNativeAudio;
 		if (forceNativeAudio)
 		{
 			options.plugins = [CordovaAudioPlugin];
