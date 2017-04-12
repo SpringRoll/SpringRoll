@@ -645,7 +645,7 @@
 			options.plugins = [FlashAudioPlugin];
 
 		var forceNativeAudio = (window.top) ? window.top.springroll.forceNativeAudio : window.springroll.forceNativeAudio;
-		if (forceNativeAudio && CordovaAudioPlugin)
+		if (forceNativeAudio && CordovaAudioPlugin && appOptions.options.forceNativeAudio)
 		{
 			options.plugins = [CordovaAudioPlugin];
 		}
