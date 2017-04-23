@@ -208,7 +208,20 @@
 		if (appOptions.forceFlashAudio)
 			options.plugins = [FlashAudioPlugin];
 
-		var forceNativeAudio = (window.top) ? window.top.springroll.forceNativeAudio : window.springroll.forceNativeAudio;
+		// Security CORS error can be thrown when attempting to access window.top, wrapping the check in a try/catch block to prevent
+		// the game from crashing where there is no CORS policy setup.
+		try
+		{
+			var forceNativeAudio = (window.top) ? window.top.springroll.forceNativeAudio : window.springroll.forceNativeAudio;
+		}
+		catch(e)
+		{
+			if (DEBUG && Debug)
+			{
+				Debug.error("springroll.Sound.init cannot access window.top. Check for cross-origin permissions.");
+			}
+		}
+
 		if (forceNativeAudio && CordovaAudioPlugin && appOptions.options.forceNativeAudio)
 		{
 			options.plugins = [CordovaAudioPlugin];
@@ -266,7 +279,20 @@
 
 			waitFunction = function()
 			{
-				var NativeAudio = window.plugins.NativeAudio || window.top.plugins.NativeAudio || null;
+				// Security CORS error can be thrown when attempting to access window.top, wrapping the check in a try/catch block to prevent
+				// the game from crashing where there is no CORS policy setup.
+				try
+				{
+					var NativeAudio = window.plugins.NativeAudio || window.top.plugins.NativeAudio || null;
+				}
+				catch(e)
+				{
+					if (DEBUG && Debug)
+					{
+						Debug.error("Cannot access window.top. Check for cross-origin permissions.");
+					}
+				}
+
 				if (NativeAudio)
 				{
 					NativeAudio.getCapabilities(function(result)
