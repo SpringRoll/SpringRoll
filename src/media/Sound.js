@@ -213,6 +213,11 @@
 		try
 		{
 			var forceNativeAudio = (window.top) ? window.top.springroll.forceNativeAudio : window.springroll.forceNativeAudio;
+			
+			if (forceNativeAudio && CordovaAudioPlugin && appOptions.options.forceNativeAudio)
+			{
+				options.plugins = [CordovaAudioPlugin];
+			}
 		}
 		catch(e)
 		{
@@ -220,11 +225,6 @@
 			{
 				Debug.error("springroll.Sound.init cannot access window.top. Check for cross-origin permissions.");
 			}
-		}
-
-		if (forceNativeAudio && CordovaAudioPlugin && appOptions.options.forceNativeAudio)
-		{
-			options.plugins = [CordovaAudioPlugin];
 		}
 
 		//Check if the ready callback is the second argument
@@ -284,6 +284,25 @@
 				try
 				{
 					var NativeAudio = window.plugins.NativeAudio || window.top.plugins.NativeAudio || null;
+
+					if (NativeAudio)
+					{
+						NativeAudio.getCapabilities(function(result)
+						{
+							waitResult = result;
+
+							Application.instance.off("update", waitFunction);
+							_instance._initComplete(options.types, options.ready);
+						}, function(result)
+						{
+							waitResult = result;
+
+							if (DEBUG && Debug)
+							{
+								Debug.error("Unable to get capabilities from Cordova Native Audio Plugin");
+							}
+						});
+					}
 				}
 				catch(e)
 				{
@@ -291,25 +310,6 @@
 					{
 						Debug.error("Cannot access window.top. Check for cross-origin permissions.");
 					}
-				}
-
-				if (NativeAudio)
-				{
-					NativeAudio.getCapabilities(function(result)
-					{
-						waitResult = result;
-
-						Application.instance.off("update", waitFunction);
-						_instance._initComplete(options.types, options.ready);
-					}, function(result)
-					{
-						waitResult = result;
-
-						if (DEBUG && Debug)
-						{
-							Debug.error("Unable to get capabilities from Cordova Native Audio Plugin");
-						}
-					});
 				}
 			};
 
