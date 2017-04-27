@@ -215,13 +215,13 @@
 			try
 			{
 				var forceNativeAudio = (window.top) ? window.top.springroll.forceNativeAudio : window.springroll.forceNativeAudio;
-				
+
 				if (forceNativeAudio)
 				{
 					options.plugins = [CordovaAudioPlugin];
 				}
 			}
-			catch(e)
+			catch (e)
 			{
 				if (DEBUG && Debug)
 				{
@@ -307,7 +307,7 @@
 						});
 					}
 				}
-				catch(e)
+				catch (e)
 				{
 					if (DEBUG && Debug)
 					{
