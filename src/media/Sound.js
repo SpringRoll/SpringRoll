@@ -208,10 +208,26 @@
 		if (appOptions.forceFlashAudio)
 			options.plugins = [FlashAudioPlugin];
 
-		var forceNativeAudio = (window.top) ? window.top.springroll.forceNativeAudio : window.springroll.forceNativeAudio;
-		if (forceNativeAudio && CordovaAudioPlugin)
+		if (CordovaAudioPlugin && (appOptions.forceNativeAudio || options.plugins.indexOf(CordovaAudioPlugin) >= 0))
 		{
-			options.plugins = [CordovaAudioPlugin];
+			// Security CORS error can be thrown when attempting to access window.top, wrapping the check in a try/catch block to prevent
+			// the game from crashing where there is no CORS policy setup.
+			try
+			{
+				var forceNativeAudio = (window.top) ? window.top.springroll.forceNativeAudio : window.springroll.forceNativeAudio;
+
+				if (forceNativeAudio)
+				{
+					options.plugins = [CordovaAudioPlugin];
+				}
+			}
+			catch (e)
+			{
+				if (DEBUG && Debug)
+				{
+					Debug.error("springroll.Sound.init cannot access window.top. Check for cross-origin permissions.");
+				}
+			}
 		}
 
 		//Check if the ready callback is the second argument
@@ -266,24 +282,37 @@
 
 			waitFunction = function()
 			{
-				var NativeAudio = window.plugins.NativeAudio || window.top.plugins.NativeAudio || null;
-				if (NativeAudio)
+				// Security CORS error can be thrown when attempting to access window.top, wrapping the check in a try/catch block to prevent
+				// the game from crashing where there is no CORS policy setup.
+				try
 				{
-					NativeAudio.getCapabilities(function(result)
-					{
-						waitResult = result;
+					var NativeAudio = window.plugins.NativeAudio || window.top.plugins.NativeAudio || null;
 
-						Application.instance.off("update", waitFunction);
-						_instance._initComplete(options.types, options.ready);
-					}, function(result)
+					if (NativeAudio)
 					{
-						waitResult = result;
-
-						if (DEBUG && Debug)
+						NativeAudio.getCapabilities(function(result)
 						{
-							Debug.error("Unable to get capabilities from Cordova Native Audio Plugin");
-						}
-					});
+							waitResult = result;
+
+							Application.instance.off("update", waitFunction);
+							_instance._initComplete(options.types, options.ready);
+						}, function(result)
+						{
+							waitResult = result;
+
+							if (DEBUG && Debug)
+							{
+								Debug.error("Unable to get capabilities from Cordova Native Audio Plugin");
+							}
+						});
+					}
+				}
+				catch (e)
+				{
+					if (DEBUG && Debug)
+					{
+						Debug.error("Cannot access window.top. Check for cross-origin permissions.");
+					}
 				}
 			};
 

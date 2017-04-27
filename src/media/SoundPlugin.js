@@ -45,6 +45,16 @@
 		this.options.add('forceFlashAudio', false, true);
 
 		/**
+		 * For the Sound class to use Native Audio Plugin if Cordova is detected. Only applicable to games that require native audio.
+		 * If set to true, use Native Audio in Cordova if the plugin is available.
+		 * If set to false, then Sound will fall back to the standard plugins as set either by plugin options or in sound class.
+		 * @property {Boolean} options.forceNativeAudio
+		 * @default false
+		 * @readOnly
+		 */
+		this.options.add('forceNativeAudio', false, true);
+
+		/**
 		 * The order in which file types are
 		 * preferred, where "ogg" becomes a ".ogg"
 		 * extension on all sound file urls.
