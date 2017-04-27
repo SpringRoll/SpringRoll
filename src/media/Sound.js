@@ -214,7 +214,7 @@
 		{
 			var forceNativeAudio = (window.top) ? window.top.springroll.forceNativeAudio : window.springroll.forceNativeAudio;
 			
-			if (forceNativeAudio && CordovaAudioPlugin && appOptions.options.forceNativeAudio)
+			if (forceNativeAudio && CordovaAudioPlugin && appOptions.forceNativeAudio)
 			{
 				options.plugins = [CordovaAudioPlugin];
 			}
