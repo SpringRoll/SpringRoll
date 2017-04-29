@@ -1,6 +1,6 @@
 {
 	"name": "springroll",
-	"version": "1.0.2",
+	"version": "1.0.3",
 	"main": "dist/core.min.js",
 	"author": "CloudKid <tools@cloudkid.com>",
 	"dependencies":
