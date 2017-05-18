@@ -1,4 +1,4 @@
-/*! SpringRoll 1.0.0 */
+/*! SpringRoll 1.0.3 */
 /**
  * @module EaselJS States
  * @namespace springroll.easeljs
@@ -196,16 +196,16 @@
 
 		// @deprecated method for adding assets dynamically to task
 		this.on('loading', function(assets)
-		{
-			if (this.addTasks)
 			{
-				if (true) console.warn('addTasks has been deprecated, use loading event instead: e.g., state.on(\'loading\', function(assets){})');
-				this.addTasks(assets);
-			}
-		}, priority)
+				if (this.addTasks)
+				{
+					if (true) console.warn('addTasks has been deprecated, use loading event instead: e.g., state.on(\'loading\', function(assets){})');
+					this.addTasks(assets);
+				}
+			}, priority)
 
-		// Handle when assets are preloaded
-		.on('loaded', function(assets)
+			// Handle when assets are preloaded
+			.on('loaded', function(assets)
 			{
 				if (assets)
 				{

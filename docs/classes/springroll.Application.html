@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html lang='en'>
 <head>
-	<title>SpringRoll v1.0.0 API Documentation : springroll.Application</title>
+	<title>SpringRoll v1.0.3 API Documentation : springroll.Application</title>
 	<meta charset='utf-8'>
 	<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 	<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
-	<link rel='shortcut icon' type='image/png' href='../assets/images/favicon.ico?v=1.0.0'>
+	<link rel='shortcut icon' type='image/png' href='../assets/images/favicon.ico?v=1.0.3'>
 	<link href='//fonts.googleapis.com/css?family=Titillium+Web:300,200,600' rel='stylesheet' type='text/css'>
-	<link rel='stylesheet' type='text/css' href='../assets/css/libraries.css?v=1.0.0'>
-	<link rel='stylesheet' type='text/css' href='../assets/css/main.css?v=1.0.0'>
+	<link rel='stylesheet' type='text/css' href='../assets/css/libraries.css?v=1.0.3'>
+	<link rel='stylesheet' type='text/css' href='../assets/css/main.css?v=1.0.3'>
 </head>
 <body>
 <header>
@@ -22,10 +22,10 @@
 					<span class="icon-bar"></span>
 				</button>
 				<a class="navbar-brand" href='https://github.com/SpringRoll/SpringRoll'>
-						<img src='../assets/images/logo.png?v=1.0.0' class="logo">
+						<img src='../assets/images/logo.png?v=1.0.3' class="logo">
 					<span class='project-name'>SpringRoll</span>
 					<span class="sr-only">API Documentation for:</span>
-					<span class='version hidden-xs'>v1.0.0</span>
+					<span class='version hidden-xs'>v1.0.3</span>
 				</a>
 			</div>
 			<div class="collapse navbar-collapse" id="docs-navbar">
@@ -1193,6 +1193,10 @@ that can be overridden and set.</p>
 </li>
 <li class='col-xs-6 col-md-4 index-item property'>
 <a href='#property_options.forceFlashAudio'>options.forceFlashAudio</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item property'>
+<a href='#property_options.forceNativeAudio'>options.forceNativeAudio</a>
 
 </li>
 <li class='col-xs-6 col-md-4 index-item property'>
@@ -5174,7 +5178,7 @@ Defined in
 <p>Provided by the <a href="../modules/Sound.html">Sound</a> module.</p>
 <p>
 Defined in
-<a href="../files/src_media_SoundPlugin.js.html#l69"><code>_music:69</code></a>
+<a href="../files/src_media_SoundPlugin.js.html#l79"><code>_music:79</code></a>
 </p>
 
 
@@ -5200,7 +5204,7 @@ Defined in
 <p>Provided by the <a href="../modules/Sound.html">Sound</a> module.</p>
 <p>
 Defined in
-<a href="../files/src_media_SoundPlugin.js.html#l76"><code>_musicInstance:76</code></a>
+<a href="../files/src_media_SoundPlugin.js.html#l86"><code>_musicInstance:86</code></a>
 </p>
 
 
@@ -6184,7 +6188,7 @@ Defined in
 <p>Provided by the <a href="../modules/Sound.html">Sound</a> module.</p>
 <p>
 Defined in
-<a href="../files/src_media_SoundPlugin.js.html#l98"><code>music:98</code></a>
+<a href="../files/src_media_SoundPlugin.js.html#l108"><code>music:108</code></a>
 </p>
 
 
@@ -6210,7 +6214,7 @@ Defined in
 <p>Provided by the <a href="../modules/Sound.html">Sound</a> module.</p>
 <p>
 Defined in
-<a href="../files/src_media_SoundPlugin.js.html#l137"><code>musicInstance:137</code></a>
+<a href="../files/src_media_SoundPlugin.js.html#l147"><code>musicInstance:147</code></a>
 </p>
 
 
@@ -6311,7 +6315,7 @@ Defined in
 <p>Provided by the <a href="../modules/Sound.html">Sound</a> module.</p>
 <p>
 Defined in
-<a href="../files/src_media_SoundPlugin.js.html#l47"><code>options.audioTypes:47</code></a>
+<a href="../files/src_media_SoundPlugin.js.html#l57"><code>options.audioTypes:57</code></a>
 </p>
 
 
@@ -6689,6 +6693,34 @@ Defined in
 <p><strong>Default:</strong> false</p>
 
 
+</div><div class="property_options.forceNativeAudio property item">
+<h3 class="name"><a class="deeplink" href="#property_options.forceNativeAudio"><span class="glyphicon glyphicon-link"></span></a> <code>options.forceNativeAudio</code></h3>
+<span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
+
+
+
+
+
+<div class="meta">
+<p>Provided by the <a href="../modules/Sound.html">Sound</a> module.</p>
+<p>
+Defined in
+<a href="../files/src_media_SoundPlugin.js.html#l47"><code>options.forceNativeAudio:47</code></a>
+</p>
+
+
+</div>
+
+<div class="description">
+<p>For the Sound class to use Native Audio Plugin if Cordova is detected. Only applicable to games that require native audio.
+If set to true, use Native Audio in Cordova if the plugin is available.
+If set to false, then Sound will fall back to the standard plugins as set either by plugin options or in sound class.</p>
+
+</div>
+
+<p><strong>Default:</strong> false</p>
+
+
 </div><div class="property_options.forceTouch property item">
 <h3 class="name"><a class="deeplink" href="#property_options.forceTouch"><span class="glyphicon glyphicon-link"></span></a> <code>options.forceTouch</code></h3>
 <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
@@ -6964,7 +6996,7 @@ Defined in
 <p>Provided by the <a href="../modules/Sound.html">Sound</a> module.</p>
 <p>
 Defined in
-<a href="../files/src_media_SoundPlugin.js.html#l59"><code>options.mute:59</code></a>
+<a href="../files/src_media_SoundPlugin.js.html#l69"><code>options.mute:69</code></a>
 </p>
 
 
@@ -7587,7 +7619,7 @@ and the application will therefore close itself.</p>
 <p>Provided by the <a href="../modules/Sound.html">Sound</a> module.</p>
 <p>
 Defined in
-<a href="../files/src_media_SoundPlugin.js.html#l89"><code>sound:89</code></a>
+<a href="../files/src_media_SoundPlugin.js.html#l99"><code>sound:99</code></a>
 </p>
 
 
@@ -7715,7 +7747,7 @@ Defined in
 <p>Provided by the <a href="../modules/Sound.html">Sound</a> module.</p>
 <p>
 Defined in
-<a href="../files/src_media_SoundPlugin.js.html#l83"><code>voPlayer:83</code></a>
+<a href="../files/src_media_SoundPlugin.js.html#l93"><code>voPlayer:93</code></a>
 </p>
 
 
@@ -8291,7 +8323,7 @@ Defined in
 <p>Provided by the <a href="../modules/Sound.html">Sound</a> module.</p>
 <p>
 Defined in
-<a href="../files/src_media_SoundPlugin.js.html#l173"><code>soundReady:173</code></a>
+<a href="../files/src_media_SoundPlugin.js.html#l183"><code>soundReady:183</code></a>
 </p>
 
 
@@ -8404,7 +8436,7 @@ Defined in
 </div>
 </div>
 </div>
-<script src='../assets/js/libraries.js?v=1.0.0'></script>
-<script src='../assets/js/main.js?v=1.0.0'></script>
+<script src='../assets/js/libraries.js?v=1.0.3'></script>
+<script src='../assets/js/main.js?v=1.0.3'></script>
 </body>
 </html>

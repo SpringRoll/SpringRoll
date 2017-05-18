@@ -1,4 +1,4 @@
-/*! SpringRoll 1.0.0 */
+/*! SpringRoll 1.0.3 */
 /**
  * @module EaselJS UI
  * @namespace springroll.easeljs
@@ -1680,7 +1680,7 @@
 	 */
 	p._updateObjPosition = function(ev)
 	{
-		if (!this.isTouchMove && !this._theStage.mouseInBounds) return;
+		if (!ev || (!this.isTouchMove && !this._theStage.mouseInBounds)) return;
 
 		var draggedObj, dragOffset;
 		if (this._multitouch)
@@ -1693,7 +1693,7 @@
 		}
 		else
 		{
-			if (ev && ev.pointerID != this._dragPointerID && this._dragPointerID > -1) return;
+			if (ev.pointerID != this._dragPointerID && this._dragPointerID > -1) return;
 
 			draggedObj = this.draggedObj;
 			dragOffset = this._dragOffset;

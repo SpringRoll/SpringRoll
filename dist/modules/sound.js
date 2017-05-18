@@ -1,4 +1,4 @@
-/*! SpringRoll 1.0.0 */
+/*! SpringRoll 1.0.3 */
 /**
  * @module Sound
  * @namespace springroll
@@ -447,6 +447,7 @@
 		SoundContext,
 		SoundInstance,
 		WebAudioPlugin = include('createjs.WebAudioPlugin'),
+		CordovaAudioPlugin = include('createjs.CordovaAudioPlugin', false),
 		FlashAudioPlugin = include('createjs.FlashAudioPlugin', false),
 		SoundJS = include('createjs.Sound'),
 		Enum = include('springroll.Enum');
@@ -643,6 +644,28 @@
 		if (appOptions.forceFlashAudio)
 			options.plugins = [FlashAudioPlugin];
 
+		if (CordovaAudioPlugin && (appOptions.forceNativeAudio || options.plugins.indexOf(CordovaAudioPlugin) >= 0))
+		{
+			// Security CORS error can be thrown when attempting to access window.top, wrapping the check in a try/catch block to prevent
+			// the game from crashing where there is no CORS policy setup.
+			try
+			{
+				var forceNativeAudio = (window.top) ? window.top.springroll.forceNativeAudio : window.springroll.forceNativeAudio;
+
+				if (forceNativeAudio)
+				{
+					options.plugins = [CordovaAudioPlugin];
+				}
+			}
+			catch (e)
+			{
+				if (true && Debug)
+				{
+					Debug.error("springroll.Sound.init cannot access window.top. Check for cross-origin permissions.");
+				}
+			}
+		}
+
 		//Check if the ready callback is the second argument
 		//this is deprecated
 		options.ready = options.ready || readyCallback;
@@ -691,12 +714,41 @@
 			}
 			//if the sound plugin is not ready, then just wait until it is
 			var waitFunction;
+			var waitResult;
+
 			waitFunction = function()
 			{
-				if (SoundJS.getCapabilities())
+				// Security CORS error can be thrown when attempting to access window.top, wrapping the check in a try/catch block to prevent
+				// the game from crashing where there is no CORS policy setup.
+				try
 				{
-					Application.instance.off("update", waitFunction);
-					_instance._initComplete(options.types, options.ready);
+					var NativeAudio = window.plugins.NativeAudio || window.top.plugins.NativeAudio || null;
+
+					if (NativeAudio)
+					{
+						NativeAudio.getCapabilities(function(result)
+						{
+							waitResult = result;
+
+							Application.instance.off("update", waitFunction);
+							_instance._initComplete(options.types, options.ready);
+						}, function(result)
+						{
+							waitResult = result;
+
+							if (true && Debug)
+							{
+								Debug.error("Unable to get capabilities from Cordova Native Audio Plugin");
+							}
+						});
+					}
+				}
+				catch (e)
+				{
+					if (true && Debug)
+					{
+						Debug.error("Cannot access window.top. Check for cross-origin permissions.");
+					}
 				}
 			};
 
@@ -1092,6 +1144,11 @@
 			{
 				//fade the last played instance
 				inst = sound.playing[sound.playing.length - 1];
+			}
+			else if (s.loadState == LoadStates.loading)
+			{
+				this.stop(aliasOrInst);
+				return;
 			}
 		}
 		else
@@ -2681,6 +2738,16 @@
 		 * @readOnly
 		 */
 		this.options.add('forceFlashAudio', false, true);
+
+		/**
+		 * For the Sound class to use Native Audio Plugin if Cordova is detected. Only applicable to games that require native audio.
+		 * If set to true, use Native Audio in Cordova if the plugin is available.
+		 * If set to false, then Sound will fall back to the standard plugins as set either by plugin options or in sound class.
+		 * @property {Boolean} options.forceNativeAudio
+		 * @default false
+		 * @readOnly
+		 */
+		this.options.add('forceNativeAudio', false, true);
 
 		/**
 		 * The order in which file types are
