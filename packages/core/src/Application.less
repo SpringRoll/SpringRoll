@@ -1,0 +1,53 @@
+/** 
+ * Here's the assumed markup structure for basic Application
+ *
+    <body>
+        <div class="frame">
+            <div class="content">
+                <canvas></canvas>
+            </div>
+        </div>
+    </body>
+ */
+
+body {
+    padding:0;
+    margin:0;
+    position: absolute;
+    // transparent allows for the iframe
+    // to be transparent which gives more
+    // flexibility to the presentation
+    background-color:transparent;
+    width:100%;
+    height:100%;
+}
+
+/**
+ * Base frame
+ */
+.frame, #frame {
+    position:absolute;
+    left:0;
+    right:0;
+    height:100%;
+}
+
+/**
+ * We'll vertically center the content
+ * the JavaScript will resize the canvas
+ * content to the Window size
+ */
+.content, #content {
+    position: absolute;
+    display:block;
+    top:50%;
+    left:50%;
+    -webkit-transform: translate(-50%, -50%);
+    -moz-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    -o-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    canvas {
+        display:block;
+    }
+}
