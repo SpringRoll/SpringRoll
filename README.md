@@ -1,6 +1,8 @@
 ![SpringRoll Logo](http://springroll.io/assets/images/logo.png)
 
-#SpringRoll [![Build Status](https://travis-ci.org/SpringRoll/SpringRoll.svg?branch=master)](https://travis-ci.org/SpringRoll/SpringRoll) [![Dependency Status](https://david-dm.org/SpringRoll/SpringRoll.svg?style=flat)](https://david-dm.org/SpringRoll/SpringRoll) [![GitHub version](https://badge.fury.io/gh/SpringRoll%2FSpringRoll.svg)](https://github.com/SpringRoll/SpringRoll/releases/latest) [![Inline docs](http://inch-ci.org/github/springroll/springroll.svg?branch=master)](http://inch-ci.org/github/springroll/springroll)
+# SpringRoll
+
+[![Build Status](https://travis-ci.org/SpringRoll/SpringRoll.svg?branch=master)](https://travis-ci.org/SpringRoll/SpringRoll) [![Dependency Status](https://david-dm.org/SpringRoll/SpringRoll.svg?style=flat)](https://david-dm.org/SpringRoll/SpringRoll) [![GitHub version](https://badge.fury.io/gh/SpringRoll%2FSpringRoll.svg)](https://github.com/SpringRoll/SpringRoll/releases/latest) [![Inline docs](http://inch-ci.org/github/springroll/springroll.svg?branch=master)](http://inch-ci.org/github/springroll/springroll)
 
 A light-weight, extensible, future-forward framework for building HTML5 canvas-based games and applications. The framework is built on a display plugin architecture to work with [PixiJS](http://pixijs.org), [EaselJS](http://www.createjs.com/EaselJS) and native canvas rendering. The framework comes with several modules for doing common multimedia development tasks, such as:
 
@@ -13,7 +15,7 @@ A light-weight, extensible, future-forward framework for building HTML5 canvas-b
 * Preloading Assets
 * Browser Cache Control
 
-##Browser Support
+## Browser Support
 
 The primary objective of the framework is to build content which supports WebAudio API and WebGL (with Context2d fallback). With the exception of the WebAudio API fallback to Flash, there are very few fallbacks implemented. We want to produce canvas content that is about the future. Here are the currently planned browser support:
 
@@ -28,7 +30,7 @@ We have intentionally avoided support for these browsers:
 * Android stock browser (no WebAudio support or suitable fallback support)
 * Internet Explorer 7/8 (no HTML5 canvas support)
 
-##Installation
+## Installation
 
 SpringRoll can be installed using Bower.
 
@@ -36,7 +38,7 @@ SpringRoll can be installed using Bower.
 bower install springroll
 ```
 
-##Examples
+## Examples
 
 To test the examples, run the grunt task `examples`. This will download any dependencies and automatically launch the examples in your browser.
 
@@ -44,11 +46,11 @@ To test the examples, run the grunt task `examples`. This will download any depe
 grunt examples
 ```
 
-##Dependencies
+## Dependencies
 
 * [PreloadJS](https://github.com/SpringRoll/PreloadJS) SpringRoll's fork of PreloadJS
 
-##Usage
+## Usage
 
 The basic usage is to create a canvas element on the DOM, assign it an ID and then create a new Application to render that canvas.
 
@@ -82,7 +84,7 @@ The basic usage is to create a canvas element on the DOM, assign it an ID and th
 </html>
 ```
 
-##Modules
+## Modules
 
 Modules are components which contain common code classes, documentation and/or related tools that can easily be bundled into a project. The goal of these modules is to provide convenient solutions to common problems producers face when authoring games. All modules are optional and located in the **dist/modules** folder, except the Core Module.
 
@@ -108,11 +110,11 @@ Modules are components which contain common code classes, documentation and/or r
 * **[States Module](https://github.com/SpringRoll/SpringRoll/wiki/States-Module)** _states_
 * **[UI Module](https://github.com/SpringRoll/SpringRoll/wiki/UI-Module)** _ui_
 
-##Displays
+## Displays
 
 The Framework is inherently canvas-rendering agnostic. We support two different rendering display plugins for [EaselJS](http://www.createjs.com/EaselJS) and [Pixi.js](http://www.pixijs.com/). Features within the different modules require SpringRoll's forks of EaselJS and PixiJS. In addition, there is a generic display for rendering using [Context2d](http://www.w3.org/TR/2014/CR-2dcontext-20140821/) or [WebGL](http://get.webgl.org/). An Application built with the Framework can support all three displays methods simultaneously.
 
-##Examples
+## Examples
 
 * [Application](http://springroll.io/SpringRoll/examples/basic.html)
 * [Asset Loading &amp; Caching](http://springroll.io/SpringRoll/examples/asset-caching.html)
@@ -127,11 +129,11 @@ The Framework is inherently canvas-rendering agnostic. We support two different 
 * [Multi-Display](http://springroll.io/SpringRoll/examples/multiple-displays.html)
 * [States](http://springroll.io/SpringRoll/examples/states.html)
 
-##Documentation
+## Documentation
 
 [API Documentation](http://springroll.io/SpringRoll/docs/) has full documentation for the core and related modules. For examples of implementing each module please consult the [wiki](https://github.com/SpringRoll/SpringRoll/wiki).
 
-##License
+## License
 
 Copyright (c) 2015 [CloudKid](http://github.com/cloudkidstudio)
 
