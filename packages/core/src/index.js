@@ -9,6 +9,8 @@ export {default as ApplicationPlugin} from './ApplicationPlugin';
 export {default as ApplicationOptions} from './ApplicationOptions';
 export {default as Application} from './Application';
 
+export * from './events/index';
+
 import './plugins/index';
 
 export {

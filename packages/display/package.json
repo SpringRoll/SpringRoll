@@ -1,11 +1,8 @@
 {
-  "name": "@springroll/core",
+  "name": "@springroll/display",
   "version": "2.0.0",
-  "main": "lib/core.min.js",
+  "main": "lib/display.min.js",
   "author": "CloudKid <tools@cloudkid.com>",
-  "dependencies": {
-    "bellhop-iframe": "^1.2.0"
-  },
   "repository": {
     "type": "git",
     "url": "https://github.com/SpringRoll/SpringRoll"
@@ -24,6 +21,9 @@
     "lib"
   ],
   "license": "MIT",
+  "dependencies": {
+    "@springroll/core": "^2.0.0"
+  },
   "devDependencies": {
     "@springroll/build": "^2.0.0"
   }

@@ -5,9 +5,15 @@
     "build": "lerna run build",
     "pretest": "npm run build",
     "test": "lerna run test",
-    "clean": "lerna clean"
+    "clean": "lerna clean",
+    "predocs": "rimraf docs/**",
+    "docs": "jsdoc -c jsdoc.config.json -R README.md"
   },
   "devDependencies": {
-    "lerna": "^2.0.0-rc.5"
+    "gh-pages": "^1.0.0",
+    "jaguarjs-jsdoc": "^1.0.2",
+    "jsdoc": "^3.4.3",
+    "lerna": "^2.0.0-rc.5",
+    "rimraf": "^2.6.1"
   }
 }

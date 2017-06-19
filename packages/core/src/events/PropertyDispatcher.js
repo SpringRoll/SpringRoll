@@ -184,5 +184,4 @@ Property.prototype.setReadOnly = function(readOnly)
     this.readOnly = readOnly === undefined ? false : !!readOnly;
 };
 
-// Assign to namespace
 export default PropertyDispatcher;

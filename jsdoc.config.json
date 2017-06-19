@@ -1,0 +1,50 @@
+{
+    "tags": {
+        "allowUnknownTags": false
+    },
+    "source": {
+        "include": [
+            "./packages/animation/src/",
+            "./packages/captions/src/",
+            "./packages/container-client/src/",
+            "./packages/core/src/",
+            "./packages/debug/src/",
+            "./packages/display/src/",
+            "./packages/display-animation/src/",
+            "./packages/display-spine/src/",
+            "./packages/display-ui/src/",
+            "./packages/hints/src/",
+            "./packages/languages/src/",
+            "./packages/loaders/src/",
+            "./packages/sound/src/",
+            "./packages/states/src/",
+            "./packages/ui/src/"
+        ],
+        "includePattern": ".+\\.js(doc)?$",
+        "excludePattern": "(^|\\/|\\\\)_"
+    },
+    "plugins": [
+        "./node_modules/jsdoc/plugins/markdown"
+    ],
+    "templates": {
+        "cleverLinks": false,
+        "monospaceLinks": false,
+        "default": {
+            "outputSourceFiles" : true
+        },
+        "applicationName": "SpringRoll",
+        "copyright": "SpringRoll Copyright © 2013-2017 CloudKid, LLC",
+        "linenums": true
+    },
+    "markdown"  : {
+        "parser": "gfm"
+    },
+    "opts": {
+        "encoding": "utf8",
+        "recurse": true,
+        "private": false,
+        "lenient": true,
+        "destination": "./docs",
+        "template": "./node_modules/jaguarjs-jsdoc"
+    }
+}

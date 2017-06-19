@@ -1,4 +1,4 @@
-import {PropertyDispatcher} from '@springroll/events';
+import PropertyDispatcher from './events/PropertyDispatcher';
 import extend from './utils/extend';
 
 /**

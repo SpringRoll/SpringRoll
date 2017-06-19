@@ -1,4 +1,4 @@
-import {EventDispatcher} from '@springroll/events';
+import EventDispatcher from './events/EventDispatcher';
 import ApplicationOptions from './ApplicationOptions';
 import DelayedCall from './async/DelayedCall';
 import extend from './utils/extend';

@@ -1,5 +1,3 @@
-    
-
 /**
  * CombinedCallback is a utility class that creates a function to be passed to multiple
  * asynchronous functions as a callback, and will call your callback on the last time it

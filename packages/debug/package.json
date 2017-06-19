@@ -1,11 +1,8 @@
 {
-  "name": "@springroll/core",
+  "name": "@springroll/debug",
   "version": "2.0.0",
-  "main": "lib/core.min.js",
+  "main": "lib/debug.min.js",
   "author": "CloudKid <tools@cloudkid.com>",
-  "dependencies": {
-    "bellhop-iframe": "^1.2.0"
-  },
   "repository": {
     "type": "git",
     "url": "https://github.com/SpringRoll/SpringRoll"
