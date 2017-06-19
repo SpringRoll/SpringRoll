@@ -1,3 +1,5 @@
+import include from '../utils/include';
+
 /**
  * @module Core
  * @namespace window

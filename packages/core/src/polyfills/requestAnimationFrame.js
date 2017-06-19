@@ -15,12 +15,11 @@
     // create a setTimeout based fallback if there wasn't an official or prefixed version
     if (!window.requestAnimationFrame)
     {
-        var TimeUtils = include('springroll.TimeUtils');
         var lastTime = 0;
         // Create the polyfill
         window.requestAnimationFrame = function(callback)
         {
-            var currTime = TimeUtils.now(); //use the now function from down below
+            var currTime = performance.now(); //use the now function from down below
             var timeToCall = Math.max(0, 16 - (currTime - lastTime));
             var id = window.setTimeout(function()
             {

@@ -16,8 +16,7 @@ var ApplicationOptions = function(app, options)
      * @property {Object} _options
      * @private
      */
-    this._options = options ||
-    {};
+    this._options = options || {};
 
     /**
      * Reference to the application
@@ -37,11 +36,9 @@ extend(ApplicationOptions, PropertyDispatcher);
 ApplicationOptions.prototype.init = function()
 {
     var options = this._options;
-    var app = this._app;
 
     // Create the options overrides
-    options = Object.merge(
-    {}, options);
+    options = Object.merge({}, options);
 
     // If parse querystring is turned on, we'll
     // override with any of the query string parameters
@@ -58,10 +55,10 @@ ApplicationOptions.prototype.init = function()
     }
 
     //trigger all of the initial values, because otherwise they don't take effect.
-    var _properties = this._properties;
-    for (var id in _properties)
+    var properties = this._properties;
+    for (var id in properties)
     {
-        this.trigger(id, _properties[id].value);
+        this.trigger(id, properties[id].value);
     }
 };
 
@@ -132,6 +129,7 @@ ApplicationOptions.prototype.override = function(name, value)
         // @endif
 
         // @if RELEASE
+        // eslint-disable-next-line no-unreachable
         throw "Invalid override " + name;
         // @endif
     }

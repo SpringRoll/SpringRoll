@@ -1,4 +1,4 @@
-    
+import include from './include';    
 
 /**
  * The SavedData functions use localStorage and sessionStorage, with a cookie fallback.
@@ -55,7 +55,7 @@ SavedData.remove = function(name)
         sessionStorage.removeItem(name);
     }
     else
-        SavedData.write(name, "", SaveData.ERASE_COOKIE);
+        SavedData.write(name, "", SavedData.ERASE_COOKIE);
 };
 
 /**

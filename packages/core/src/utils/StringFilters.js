@@ -29,6 +29,7 @@ StringFilters.prototype.add = function(replace, replacement)
         // @endif
 
         // @if RELEASE
+        // eslint-disable-next-line no-unreachable
         throw 'invalide replace value';
         // @endif
     }
@@ -39,6 +40,7 @@ StringFilters.prototype.add = function(replace, replacement)
         // @endif
 
         // @if RELEASE
+        // eslint-disable-next-line no-unreachable
         throw 'invalid replacement value';
         // @endif
     }
@@ -55,6 +57,7 @@ StringFilters.prototype.add = function(replace, replacement)
                 // @endif
 
                 // @if RELEASE
+                // eslint-disable-next-line no-unreachable
                 throw "Filter already exists.";
                 // @endif
             }

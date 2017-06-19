@@ -43,6 +43,7 @@ export default function include(namespaceString, required)
             // @endif
             
             // @if RELEASE
+            // eslint-disable-next-line no-unreachable
             throw "Unable to include '" + namespaceString + "'";
             // @endif
         }

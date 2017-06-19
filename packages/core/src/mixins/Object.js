@@ -98,8 +98,7 @@
 
         // Own properties are enumerated firstly, so to speed up,
         // if last one is own, then all properties are own.
-        for (key in obj)
-        {}
+        key = Object.keys(obj).pop();
 
         return key === undefined || hasOwn.call(obj, key);
     };

@@ -343,7 +343,7 @@ Application.prototype._doInit = function()
  * @property {Boolean} enabled
  * @default true
  */
-Object.defineProperty(p, "enabled",
+Object.defineProperty(Application.prototype, "enabled",
 {
     set: function(enabled)
     {
@@ -365,7 +365,7 @@ Object.defineProperty(p, "enabled",
  * Animator, Captions, Sound and other media playback.
  * @property {Boolean} paused
  */
-Object.defineProperty(p, "paused",
+Object.defineProperty(Application.prototype, "paused",
 {
     get: function()
     {
@@ -407,8 +407,8 @@ Application.prototype.internalPaused = function(paused)
         if (this._tickId == -1 && this._tickCallback)
         {
             this._lastFrameTime = performance.now();
-            this._tickId = _useRAF ?
-                requestAnimFrame(this._tickCallback) :
+            this._tickId = this._useRAF ?
+                requestAnimationFrame(this._tickCallback) :
                 setTargetedTimeout(this._tickCallback);
         }
     }
@@ -471,11 +471,11 @@ Application.prototype.addDisplay = function(id, displayConstructor, options)
  * @property {Array} displays
  * @readOnly
  */
-Object.defineProperty(p, 'displays',
+Object.defineProperty(Application.prototype, 'displays',
 {
     get: function()
     {
-        return _displays;
+        return this._displays;
     }
 });
 
@@ -487,7 +487,7 @@ Object.defineProperty(p, 'displays',
  */
 Application.prototype.getDisplay = function(id)
 {
-    return _displaysMap[id];
+    return this._displaysMap[id];
 };
 
 /**
@@ -497,12 +497,12 @@ Application.prototype.getDisplay = function(id)
  */
 Application.prototype.removeDisplay = function(id)
 {
-    var display = _displaysMap[id];
+    var display = this._displaysMap[id];
     if (display)
     {
-        _displays.splice(_displays.indexOf(display), 1);
+        this._displays.splice(this._displays.indexOf(display), 1);
         display.destroy();
-        delete _displaysMap[id];
+        delete this._displaysMap[id];
         this.trigger('displayRemoved', id);
     }
 };
@@ -542,7 +542,7 @@ Application.prototype._tick = function()
     if (this._tickCallback)
     {
         this._tickId = this._useRAF ?
-            requestAnimFrame(this._tickCallback) :
+            requestAnimationFrame(this._tickCallback) :
             setTargetedTimeout(this._tickCallback, performance.now() - this._lastFrameTime);
     }
 };
@@ -610,7 +610,7 @@ Application.prototype.destroy = function()
     this.options.destroy();
     this.options = null;
 
-    s.destroy.call(this);
+    EventDispatcher.prototype.destroy.call(this);
 };
 
 /**

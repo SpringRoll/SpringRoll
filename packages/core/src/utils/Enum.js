@@ -1,3 +1,7 @@
+// @if DEBUG
+import Debug from '@springroll/debug';
+// @endif
+
 /**
 * @module Core
 * @namespace springroll
@@ -15,10 +19,6 @@
  */
 var EnumValue = function(name, value, toString)
 {
-
-    if (Debug === undefined)
-        Debug = include('springroll.Debug', false);
-
     /**
      * The name of the value, for reflection or logging purposes.
      * @property {String} name

@@ -40,11 +40,12 @@ export default function mixin(target, superClass)
     if (!superClass.prototype)
     {
         // @if DEBUG
-            throw 'The mixin class does not have a valid protoype';
+        throw 'The mixin class does not have a valid protoype';
         // @endif
 
         // @if RELEASE
-            throw 'no mixin prototype';
+        // eslint-disable-next-line no-unreachable
+        throw 'no mixin prototype';
         // @endif
     }
     //loop over mixin prototype to add functions

@@ -1,4 +1,5 @@
 import ApplicationPlugin from '../ApplicationPlugin';
+import include from '../utils/include';
 
 (function() {
 
@@ -29,7 +30,11 @@ import ApplicationPlugin from '../ApplicationPlugin';
          * @property {Boolean} options.useQueryString
          * @default false
          */
-        options.add('useQueryString', DEBUG, true);
+        var useQueryString = false;
+        // @if DEBUG
+        useQueryString = true;
+        // @endif
+        options.add('useQueryString', useQueryString, true);
 
         /**
          * The default display DOM ID name

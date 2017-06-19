@@ -17,7 +17,7 @@
         window.performance.now = function now()
         {
             return Date.now() - nowOffset;
-        }
+        };
     }
 
 })();
