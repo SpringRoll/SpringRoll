@@ -1,11 +1,8 @@
 {
-  "name": "@springroll/core",
+  "name": "@springroll/events",
   "version": "2.0.0",
-  "main": "lib/core.min.js",
+  "main": "lib/events.min.js",
   "author": "CloudKid <tools@cloudkid.com>",
-  "dependencies": {
-    "bellhop-iframe": "^1.2.0"
-  },
   "repository": {
     "type": "git",
     "url": "https://github.com/SpringRoll/SpringRoll"
@@ -37,12 +34,10 @@
   "license": "MIT",
   "devDependencies": {
     "babel-runtime": "^6.23.0",
-    "less-plugin-clean-css": "^1.5.1",
     "mkdirp": "^0.5.1",
     "rimraf": "^2.6.1",
     "rollup": "^0.43.0",
     "rollup-plugin-eslint": "^3.0.0",
-    "rollup-plugin-less": "^0.1.3",
     "rollup-plugin-preprocess": "0.0.1",
     "rollup-plugin-uglify": "^2.0.1",
     "rollup-watch": "^4.0.0"

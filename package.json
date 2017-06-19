@@ -1,36 +1,13 @@
 {
-  "name": "springroll",
-  "version": "1.0.3",
-  "main": "dist/core.min.js",
-  "author": "CloudKid <tools@cloudkid.com>",
-  "dependencies": {
-    "bellhop-iframe": "*"
+  "private": true,
+  "scripts": {
+    "postinstall": "lerna bootstrap",
+    "build": "lerna run build",
+    "pretest": "npm run build",
+    "test": "lerna run test",
+    "clean": "lerna clean"
   },
   "devDependencies": {
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/SpringRoll/SpringRoll"
-  },
-  "bugs": {
-    "url": "https://github.com/SpringRoll/SpringRoll/issues"
-  },
-  "scripts": {
-    "test": "exit 0",
-    "docs": "exit 0"
-  },
-  "files": [
-    "dist"
-  ],
-  "keywords": [
-    "webgl",
-    "pixi",
-    "pixi.js",
-    "createjs",
-    "easeljs",
-    "educational",
-    "cross-browser",
-    "webaudio"
-  ],
-  "license": "MIT"
+    "lerna": "^2.0.0-rc.5"
+  }
 }
