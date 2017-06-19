@@ -18,8 +18,9 @@ if (!process.stderr.isTTY) chalk.enabled = false;
 const pkg = require(path.resolve('package'));
 const eslintConfig = require('./eslintConfig');
 const name = path.basename(pkg.name);
+const moduleName = 'springroll';
 const banner = `/*! ${pkg.name} - v${pkg.version} */\n`;
-const format = 'cjs';
+const format = 'iife';
 const entry = 'src/index.js';
 
 const command = process.argv[2] || null;
@@ -84,6 +85,7 @@ function devWatch() {
         onwarn,
         format,
         banner,
+        moduleName,
         dest: `lib/${name}.js`,
         plugins: [
             eslint(Object.assign({
@@ -135,6 +137,7 @@ function dev() {
     }).then(bundle => bundle.write({
         format,
         banner,
+        moduleName,
         dest: `lib/${name}.js`
     }));
 }
@@ -174,6 +177,7 @@ function prod() {
     }).then(bundle => bundle.write({
         format,
         banner,
+        moduleName,
         dest: `lib/${name}.min.js`
     }));
 }

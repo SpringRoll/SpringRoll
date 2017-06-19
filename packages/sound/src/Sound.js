@@ -202,7 +202,7 @@
             ready: null
         };
 
-        options = Object.merge(
+        options = Object.assign(
         {}, defaultOptions, options);
 
         if (appOptions.forceFlashAudio)

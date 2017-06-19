@@ -35,7 +35,7 @@
     {
         Debug = include('springroll.Debug', false);
 
-        options = Object.merge(
+        options = Object.assign(
         {
             enabled: false,
             size: null,

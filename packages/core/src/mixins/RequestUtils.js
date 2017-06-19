@@ -1,9 +1,5 @@
 import include from '../utils/include';
 
-/**
- * @module Core
- * @namespace window
- */
 (function()
 {
     var RequestUtils = include('createjs.RequestUtils', false);

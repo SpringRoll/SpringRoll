@@ -1,7 +1,3 @@
-/**
- * @module Core
- * @namespace window
- */
 (function(Number, Object)
 {
     /**

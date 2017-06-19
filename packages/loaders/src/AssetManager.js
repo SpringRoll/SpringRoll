@@ -131,7 +131,7 @@
     p.load = function(assets, options)
     {
         // Apply defaults to options
-        options = Object.merge(
+        options = Object.assign(
         {
             complete: null,
             progress: null,

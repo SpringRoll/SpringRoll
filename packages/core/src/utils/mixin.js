@@ -1,8 +1,4 @@
 /**
- * @module Core
- * @namespace window
- */
-/**
  * Static class for mixing in functionality into objects.
  * @class mixin
  * @static

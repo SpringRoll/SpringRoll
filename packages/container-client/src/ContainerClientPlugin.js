@@ -313,7 +313,7 @@
      */
     var onPlayOptions = function(e)
     {
-        Object.merge(this.playOptions, e.data ||
+        Object.assign(this.playOptions, e.data ||
         {});
     };
 

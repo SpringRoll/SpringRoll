@@ -44,7 +44,7 @@
         }
 
         // Construct the options
-        options = Object.merge(
+        options = Object.assign(
         {
             next: null,
             previous: null,

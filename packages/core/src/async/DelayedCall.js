@@ -36,7 +36,7 @@ var DelayedCall = function(callback, delay, options, autoDestroy, useFrames)
     }
 
     // Set the default options
-    options = Object.merge(
+    options = Object.assign(
     {
         repeat: false,
         autoDestroy: true,

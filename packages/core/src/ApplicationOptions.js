@@ -38,13 +38,13 @@ ApplicationOptions.prototype.init = function()
     var options = this._options;
 
     // Create the options overrides
-    options = Object.merge({}, options);
+    options = Object.assign({}, options);
 
     // If parse querystring is turned on, we'll
     // override with any of the query string parameters
     if (options.useQueryString)
     {
-        Object.merge(options, this.getQueryString());
+        Object.assign(options, this.getQueryString());
     }
 
     // Create getter and setters for all properties
