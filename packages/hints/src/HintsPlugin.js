@@ -1,14 +1,8 @@
-/**
- * @module Hints
- * @namespace springroll
- * @requires Core, Sound
- */
+import {ApplicationPlugin} from '@springroll/core';
+import HintsPlayer from './HintsPlayer';
+
 (function()
 {
-    // Include classes
-    var ApplicationPlugin = include('springroll.ApplicationPlugin'),
-        HintsPlayer = include('springroll.HintsPlayer');
-
     /**
      * @class Application
      */
@@ -29,26 +23,24 @@
     {
         if (!this.animator)
         {
-            if (DEBUG)
-            {
-                throw "Hints requires the Animator to run";
-            }
-            else
-            {
-                throw "No animator";
-            }
+            // @if DEBUG
+            throw "Hints requires the Animator to run";
+            // @endif
+            // @if RELEASE
+            // eslint-disable-next-line no-unreachable
+            throw "No animator";
+            // @endif
         }
 
         if (!this.voPlayer)
         {
-            if (DEBUG)
-            {
-                throw "Hints requires the Sound module to be included";
-            }
-            else
-            {
-                throw "No sound";
-            }
+            // @if DEBUG
+            throw "Hints requires the Sound module to be included";
+            // @endif
+            // @if RELEASE
+            // eslint-disable-next-line no-unreachable
+            throw "No sound";
+            // @endif
         }
 
         // Listen for events

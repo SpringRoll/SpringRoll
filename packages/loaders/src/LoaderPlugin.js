@@ -1,13 +1,13 @@
+import {ApplicationPlugin} from '@springroll/core';
+import Loader from './Loader';
+import AssetManager from './AssetManager';
+
 /**
  * @module Core
  * @namespace springroll
  */
 (function()
 {
-    var ApplicationPlugin = include('springroll.ApplicationPlugin'),
-        Loader = include('springroll.Loader'),
-        AssetManager = include('springroll.AssetManager');
-
     /**
      * @class Application
      */
@@ -43,7 +43,11 @@
          * @default DEBUG
          */
         var options = this.options;
-        options.add('cacheBust', DEBUG)
+        var cacheBust = false;
+        // @if DEBUG
+        cacheBust = true;
+        // @endif
+        options.add('cacheBust', cacheBust)
             .respond('cacheBust', function()
             {
                 return loader.cacheManager.cacheBust;

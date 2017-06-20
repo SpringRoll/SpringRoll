@@ -1,15 +1,11 @@
-/**
- * @module Languages
- * @namespace springroll
- * @requires Core
- */
+import {ApplicationPlugin} from '@springroll/core';
+import Languages from './Languages';
+// @if DEBUG
+import {Debug} from '@springroll/debug';
+// @endif
+
 (function()
 {
-    // Include classes
-    var ApplicationPlugin = include('springroll.ApplicationPlugin'),
-        Languages = include('springroll.Languages'),
-        Debug;
-
     /**
      * @class Application
      */
@@ -59,11 +55,9 @@
         }
         else
         {
-            Debug = include('springroll.Debug', false);
-            if (DEBUG && Debug)
-            {
-                Debug.info("Application option 'languagesPath' is empty, set to automatically load languages configuration.");
-            }
+            // @if DEBUG
+            Debug.info("Application option 'languagesPath' is empty, set to automatically load languages configuration.");
+            // @endif
             done();
         }
     };

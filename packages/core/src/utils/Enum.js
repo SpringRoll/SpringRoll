@@ -1,5 +1,5 @@
 // @if DEBUG
-// import Debug from '@springroll/debug';
+import {Debug} from '@springroll/debug';
 // @endif
 
 /**

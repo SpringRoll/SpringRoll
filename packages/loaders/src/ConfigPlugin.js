@@ -1,13 +1,7 @@
-/**
- * @module Core
- * @namespace springroll
- */
+import {ApplicationPlugin} from '@springroll/core';
+
 (function()
 {
-    // Include classes
-    var ApplicationPlugin = include('springroll.ApplicationPlugin'),
-        Debug;
-
     /**
      * @class Application
      */
@@ -41,8 +35,6 @@
     // Init the animator
     plugin.setup = function()
     {
-        Debug = include('springroll.Debug', false);
-
         var options = this.options;
 
         /**

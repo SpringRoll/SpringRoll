@@ -1,17 +1,9 @@
-/**
- * @module Sound
- * @namespace springroll
- * @requires Core
- */
+import {ApplicationPlugin, include} from '@springroll/core';
+import Sound from './Sound';
+import VOPlayer from './VOPlayer';
+
 (function()
 {
-    //Include classes
-    var ApplicationPlugin = include('springroll.ApplicationPlugin'),
-        Sound = include('springroll.Sound'),
-        VOPlayer = include('springroll.VOPlayer'),
-        WebAudioPlugin = include('createjs.WebAudioPlugin'),
-        FlashAudioPlugin = include('createjs.FlashAudioPlugin', false);
-
     /**
      * @class Application
      */
@@ -20,6 +12,10 @@
     //Initialize
     plugin.setup = function()
     {
+        //Include classes
+        var WebAudioPlugin = include('createjs.WebAudioPlugin');
+        var FlashAudioPlugin = include('createjs.FlashAudioPlugin', false);
+
         /**
          * The preferred order of SoundJS audio plugins to use.
          * @property {Array} options.audioPlugins

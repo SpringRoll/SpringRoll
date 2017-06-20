@@ -5,7 +5,6 @@
  */
 (function(undefined)
 {
-
     var AbstractDisplay = include('springroll.AbstractDisplay'),
         Container = include('PIXI.Container'),
         CanvasRenderer = include('PIXI.CanvasRenderer'),

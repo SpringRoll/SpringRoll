@@ -24,6 +24,9 @@
   "dependencies": {
     "@springroll/core": "^2.0.0"
   },
+  "optionalDependencies": {
+    "@springroll/debug": "^2.0.0"
+  },
   "devDependencies": {
     "@springroll/build": "^2.0.0"
   }

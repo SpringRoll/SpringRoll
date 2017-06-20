@@ -1,15 +1,9 @@
-/**
- * @module Container Client
- * @namespace springroll
- */
+import {ApplicationPlugin, PageVisibility} from '@springroll/core';
+import UserData from './UserData';
+import Bellhop from 'bellhop-iframe';
+
 (function(undefined)
 {
-    // Include classes
-    var ApplicationPlugin = include('springroll.ApplicationPlugin'),
-        PageVisibility = include('springroll.PageVisibility'),
-        UserData = include('springroll.UserData'),
-        Bellhop = include('Bellhop');
-
     /**
      * @class Application
      */

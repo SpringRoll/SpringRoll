@@ -2,18 +2,12 @@ import './Application.less';
 import './mixins/index';
 import './polyfills/index';
 
-import * as utils from './utils/index';
-import * as async from './async/index';
+export * from './utils/index';
+export * from './async/index';
+export * from './events/index';
 
 export {default as ApplicationPlugin} from './ApplicationPlugin';
 export {default as ApplicationOptions} from './ApplicationOptions';
 export {default as Application} from './Application';
 
-export * from './events/index';
-
 import './plugins/index';
-
-export {
-    utils,
-    async
-};

@@ -22,7 +22,8 @@
   ],
   "license": "MIT",
   "dependencies": {
-    "@springroll/core": "^2.0.0"
+    "@springroll/core": "^2.0.0",
+    "bellhop-iframe": "^1.2.0"
   },
   "devDependencies": {
     "@springroll/build": "^2.0.0"

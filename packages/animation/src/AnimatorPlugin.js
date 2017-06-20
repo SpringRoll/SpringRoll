@@ -1,14 +1,8 @@
-/**
- * @module Animation
- * @namespace springroll
- * @requires Core
- */
+import {ApplicationPlugin} from '@springroll/core';
+import Animator from './Animator';
+
 (function()
 {
-    //include classes
-    var ApplicationPlugin = include('springroll.ApplicationPlugin'),
-        Animator = include('springroll.Animator');
-
     /**
      * @class Application
      */

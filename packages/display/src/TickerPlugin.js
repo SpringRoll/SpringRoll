@@ -1,3 +1,5 @@
+import {ApplicationPlugin} from '@springroll/core';
+
 /**
  * @module PIXI Display
  * @namespace springroll
@@ -5,12 +7,6 @@
  */
 (function()
 {
-    // Include classes
-    var ticker = include('PIXI.ticker.shared', false),
-        ApplicationPlugin = include('springroll.ApplicationPlugin');
-
-    if (!ticker) return;
-
     /**
      *    @class Application
      */
@@ -24,8 +20,8 @@
      */
     var _time = 0;
 
-    ticker.autoStart = false;
-    ticker.stop();
+    PIXI.ticker.shared.autoStart = false;
+    PIXI.ticker.shared.stop();
 
     plugin.setup = function()
     {
@@ -37,7 +33,7 @@
     function updateTicker(elapsed)
     {
         _time += elapsed;
-        ticker.update(_time);
+        PIXI.ticker.shared.update(_time);
     }
 
 }());

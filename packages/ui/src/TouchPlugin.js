@@ -1,12 +1,7 @@
-/**
- * @module UI
- * @namespace springroll
- * @requires Core
- */
+import {ApplicationPlugin} from '@springroll/core';
+
 (function(window)
 {
-    var ApplicationPlugin = include('springroll.ApplicationPlugin');
-
     /**
      * @class Application
      */
@@ -37,38 +32,36 @@
             (navigator.msPointerEnabled && navigator.msMaxTouchPoints > 0) || // IE10
             (navigator.pointerEnabled && navigator.maxTouchPoints > 0)); // IE11+
 
-        if (DEBUG)
-        {
-            /**
-             * Manually override the check for hasTouch (unminifed library version only)
-             * @property {Boolean} options.forceTouch
-             * @default false
-             */
-            this.options.add('forceTouch', false)
-                .on('forceTouch', function(value)
-                    {
-                        if (value === "true" || value === true)
-                            this.hasTouch = true;
-                    }
-                    .bind(this));
+        // @if DEBUG
+        /**
+         * Manually override the check for hasTouch (unminifed library version only)
+         * @property {Boolean} options.forceTouch
+         * @default false
+         */
+        this.options.add('forceTouch', false)
+            .on('forceTouch', function(value)
+                {
+                    if (value === "true" || value === true)
+                        this.hasTouch = true;
+                }
+                .bind(this));
 
-            var DebugOptions = include('springroll.DebugOptions', false);
-            if (DebugOptions)
-            {
-                DebugOptions.boolean('forceTouch', 'Force hasTouch to true');
-            }
+        var DebugOptions = include('springroll.DebugOptions', false);
+        if (DebugOptions)
+        {
+            DebugOptions.boolean('forceTouch', 'Force hasTouch to true');
         }
+        // @endif
     };
 
     // Add common filteres interaction
     plugin.preload = function(done)
     {
-        if (DEBUG)
-        {
-            var value = this.options.forceTouch;
-            if (value === "true" || value === true)
-                this.hasTouch = true;
-        }
+        // @if DEBUG
+        var value = this.options.forceTouch;
+        if (value === "true" || value === true)
+            this.hasTouch = true;
+        // @endif
 
         // Add the interaction filters, must have interface module MobilePlugin
         if (this.filters)

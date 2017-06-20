@@ -1,15 +1,11 @@
-/**
- * @module Sound
- * @namespace springroll
- * @requires Core
- */
+import {ApplicationPlugin} from '@springroll/core';
+import Captions from './Captions';
+// @if DEBUG
+import {Debug} from '@springroll/debug';
+// @endif
+
 (function()
 {
-    //Include classes
-    var ApplicationPlugin = include('springroll.ApplicationPlugin'),
-        Captions = include('springroll.Captions'),
-        Debug = include('springroll.Debug', false);
-
     /**
      * @class Application
      */
@@ -66,10 +62,9 @@
         }
         else
         {
-            if (DEBUG && Debug)
-            {
-                Debug.info("Application option 'captionsPath' is empty, set to automatically load captions JSON");
-            }
+            // @if DEBUG
+            Debug.info("Application option 'captionsPath' is empty, set to automatically load captions JSON");
+            // @endif
             done();
         }
     };

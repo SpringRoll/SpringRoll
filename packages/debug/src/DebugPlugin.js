@@ -1,13 +1,10 @@
-/**
- * @module Core
- * @namespace springroll
- */
+import {ApplicationPlugin} from '@springroll/core';
+// @if DEBUG
+import {Debug} from '@springroll/debug';
+// @endif
+
 (function()
 {
-    // Include classes
-    var ApplicationPlugin = include('springroll.ApplicationPlugin'),
-        Debug = include('springroll.Debug');
-
     /**
      * @class Application
      */

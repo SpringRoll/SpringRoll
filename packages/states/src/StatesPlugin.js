@@ -1,15 +1,12 @@
-/**
- * @module States
- * @namespace springroll
- * @requires Core
- */
+import {ApplicationPlugin} from '@springroll/core';
+import StateManager from './StateManager';
+
+// @if DEBUG
+import {Debug} from '@springroll/debug';
+// @endif
+
 (function()
 {
-    // Include classes
-    var ApplicationPlugin = include('springroll.ApplicationPlugin'),
-        StateManager = include('springroll.StateManager'),
-        Debug = include('springroll.Debug', false);
-
     /**
      * @class Application
      */
@@ -54,26 +51,24 @@
             {
                 if (!this.display)
                 {
-                    if (DEBUG)
-                    {
-                        throw "No default display is available to set the states. Use the display application option";
-                    }
-                    else
-                    {
-                        throw "No default display";
-                    }
+                    // @if DEBUG
+                    throw "No default display is available to set the states. Use the display application option";
+                    // @endif
+                    // @if DEBUG
+                    // eslint-disable-next-line no-unreachable
+                    throw "No default display";
+                    // @endif
                 }
 
                 if (transition && !this.animator)
                 {
-                    if (DEBUG)
-                    {
-                        throw "Use of a transition requires the animation module, please include";
-                    }
-                    else
-                    {
-                        throw "No animation module";
-                    }
+                    // @if DEBUG
+                    throw "Use of a transition requires the animation module, please include";
+                    // @endif
+                    // @if DEBUG
+                    // eslint-disable-next-line no-unreachable
+                    throw "No animation module";
+                    // @endif
                 }
 
                 // Remove the old transition
@@ -157,26 +152,24 @@
             {
                 if (this.manager)
                 {
-                    if (DEBUG)
-                    {
-                        throw "StateManager has already been initialized, cannot set states multiple times";
-                    }
-                    else
-                    {
-                        throw "States already set";
-                    }
+                    // @if DEBUG
+                    throw "StateManager has already been initialized, cannot set states multiple times";
+                    // @endif
+                    // @if RELEASE
+                    // eslint-disable-next-line no-unreachable
+                    throw "States already set";
+                    // @endif
                 }
 
                 if (!this.display)
                 {
-                    if (DEBUG)
-                    {
-                        throw "No default display is available to set the states. Use the display application option";
-                    }
-                    else
-                    {
-                        throw "No default display";
-                    }
+                    // @if DEBUG
+                    throw "No default display is available to set the states. Use the display application option";
+                    // @endif
+                    // @if RELEASE
+                    // eslint-disable-next-line no-unreachable
+                    throw "No default display";
+                    // @endif
                 }
 
                 // Create the state manager
@@ -243,10 +236,9 @@
 
     plugin.teardown = function()
     {
-        if (DEBUG)
-        {
-            window.onkeyup = null;
-        }
+        // @if DEBUG
+        window.onkeyup = null;
+        // @endif
         this._state = null;
         if (this.manager)
         {

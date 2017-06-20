@@ -1,15 +1,12 @@
-/**
- * @module UI
- * @namespace springroll
- * @requires Core
- */
+import {ApplicationPlugin} from '@springroll/core';
+import ScaleManager from './ScaleManager';
+
+// @if DEBUG
+import {Debug} from '@springroll/debug';
+// @endif
+
 (function()
 {
-    //Include classes
-    var ApplicationPlugin = include('springroll.ApplicationPlugin'),
-        ScaleManager = include('springroll.ScaleManager'),
-        Debug;
-
     /**
      * @class Application
      */
@@ -20,8 +17,6 @@
     //Init the scaling
     plugin.setup = function()
     {
-        Debug = include('springroll.Debug', false);
-
         /**
          * The main ScaleManager for any display object references
          * in the main game.
@@ -40,9 +35,11 @@
             {
                 this.scaling.size = scalingSize;
             }
-            else if (DEBUG && Debug)
+            else
             {
+                // @if DEBUG
                 Debug.warn("Recommended that config contains 'scalingSize' object with keys 'width' and 'height' an optionally 'maxWidth' and 'maxHeight'.");
+                // @endif
             }
         });
 

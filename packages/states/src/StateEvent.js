@@ -1,61 +1,48 @@
 /**
- * @module States
- * @namespace springroll
- * @requires Core
+ * A state-related event used by the State Manager
+ *
+ * @class StateEvent
+ * @constructor
+ * @param {String} type The type of event.
+ * @param {BaseState} currentState The currentState of the state manager
+ * @param {BaseState} visibleState The current state being transitioned or changing visibility,
+ *                               default to currentState
  */
-(function(undefined)
+var StateEvent = function(type, currentState, visibleState)
 {
+    /**
+     * A reference to the current state of the state manager
+     *
+     * @property {BaseState} currentState
+     */
+    this.currentState = currentState;
 
     /**
-     * A state-related event used by the State Manager
+     * A reference to the state who's actually being transitioned or being changed
      *
-     * @class StateEvent
-     * @constructor
-     * @param {String} type The type of event.
-     * @param {BaseState} currentState The currentState of the state manager
-     * @param {BaseState} visibleState The current state being transitioned or changing visibility,
-     *                               default to currentState
+     * @property {BaseState} visibleState
      */
-    var StateEvent = function(type, currentState, visibleState)
-    {
-        /**
-         * A reference to the current state of the state manager
-         *
-         * @property {BaseState} currentState
-         */
-        this.currentState = currentState;
+    this.visibleState = visibleState === undefined ? currentState : visibleState;
 
-        /**
-         * A reference to the state who's actually being transitioned or being changed
-         *
-         * @property {BaseState} visibleState
-         */
-        this.visibleState = visibleState === undefined ? currentState : visibleState;
-
-        /** The type of event
-         *
-         * @property {String} type
-         */
-        this.type = type;
-    };
-
-    var p = extend(StateEvent);
-
-    /**
-     * When the state besome visible
+    /** The type of event
      *
-     * @event {String} onVisible
+     * @property {String} type
      */
-    StateEvent.VISIBLE = "onVisible";
+    this.type = type;
+};
 
-    /**
-     * When the state becomes hidden
-     *
-     * @event {String} onHidden
-     */
-    StateEvent.HIDDEN = "onHidden";
+/**
+ * When the state besome visible
+ *
+ * @event {String} onVisible
+ */
+StateEvent.VISIBLE = "onVisible";
 
-    // Add to the name space
-    namespace('springroll').StateEvent = StateEvent;
+/**
+ * When the state becomes hidden
+ *
+ * @event {String} onHidden
+ */
+StateEvent.HIDDEN = "onHidden";
 
-}());
+export default StateEvent;
