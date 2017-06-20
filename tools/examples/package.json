@@ -1,0 +1,33 @@
+{
+  "name": "@springroll/examples",
+  "version": "2.0.0",
+  "description": "Example for SpringRoll library",
+  "author": "Matt Karl <matt@mattkarl.com>",
+  "license": "MIT",
+  "scripts": {
+    "build": "webpack -d",
+    "build:prod": "webpack -p",
+    "build:dev": "webpack -d"
+  },
+  "devDependencies": {
+    "@springroll/animation": "^2.0.0",
+    "@springroll/captions": "^2.0.0",
+    "@springroll/container-client": "^2.0.0",
+    "@springroll/core": "^2.0.0",
+    "@springroll/debug": "^2.0.0",
+    "@springroll/display": "^2.0.0",
+    "@springroll/display-animation": "^2.0.0",
+    "@springroll/display-ui": "^2.0.0",
+    "@springroll/hints": "^2.0.0",
+    "@springroll/languages": "^2.0.0",
+    "@springroll/loaders": "^2.0.0",
+    "@springroll/sound": "^2.0.0",
+    "@springroll/states": "^2.0.0",
+    "@springroll/ui": "^2.0.0",
+    "css-loader": "^0.28.4",
+    "extract-text-webpack-plugin": "^2.1.2",
+    "google-code-prettify": "^1.0.5",
+    "pixi.js": "^4.5.3",
+    "webpack": "^2.0.0"
+  }
+}
