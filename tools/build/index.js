@@ -20,7 +20,7 @@ const eslintConfig = require('./eslintConfig');
 const name = path.basename(pkg.name);
 const moduleName = 'springroll';
 const banner = `/*! ${pkg.name} - v${pkg.version} */\n`;
-const format = 'iife';
+const format = 'cjs';
 const entry = 'src/index.js';
 
 const command = process.argv[2] || null;

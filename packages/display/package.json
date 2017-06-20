@@ -21,8 +21,12 @@
     "lib"
   ],
   "license": "MIT",
+  "peerDependencies": {
+    "pixi.js": "^4.5.3"
+  },
   "dependencies": {
-    "@springroll/core": "^2.0.0"
+    "@springroll/core": "^2.0.0",
+    "@springroll/loaders": "^2.0.0"
   },
   "devDependencies": {
     "@springroll/build": "^2.0.0"

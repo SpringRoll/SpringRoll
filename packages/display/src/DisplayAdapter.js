@@ -1,17 +1,10 @@
 /**
- * @module PIXI Display
- * @namespace springroll.pixi
- * @requires Core
+ * Provide a normalized way to get size, position, scale values
+ * as well as provide reference for different geometry classes.
+ * @class DisplayAdapter
  */
-(function(undefined)
-{
-    /**
-     * Provide a normalized way to get size, position, scale values
-     * as well as provide reference for different geometry classes.
-     * @class DisplayAdapter
-     */
-    var DisplayAdapter = {};
-
+export default {
+    
     /**
      * The geometry class for Circle
      * @property {Function} Circle
@@ -19,7 +12,7 @@
      * @static
      * @default PIXI.Circle
      */
-    DisplayAdapter.Circle = include('PIXI.Circle');
+    Circle: PIXI.Circle,
 
     /**
      * The geometry class for Ellipse
@@ -28,7 +21,7 @@
      * @static
      * @default PIXI.Ellipse
      */
-    DisplayAdapter.Ellipse = include('PIXI.Ellipse');
+    Ellipse: PIXI.Ellipse,
 
     /**
      * The geometry class for Rectangle
@@ -37,7 +30,7 @@
      * @static
      * @default PIXI.Rectangle
      */
-    DisplayAdapter.Rectangle = include('PIXI.Rectangle');
+    Rectangle: PIXI.Rectangle,
 
     /**
      * The geometry class for Sector
@@ -46,7 +39,7 @@
      * @static
      * @default PIXI.Sector
      */
-    DisplayAdapter.Sector = include('PIXI.Sector');
+    Sector: PIXI.Sector,
 
     /**
      * The geometry class for point
@@ -55,7 +48,7 @@
      * @static
      * @default PIXI.Point
      */
-    DisplayAdapter.Point = include('PIXI.Point');
+    Point: PIXI.Point,
 
     /**
      * The geometry class for Polygon
@@ -64,7 +57,7 @@
      * @static
      * @default PIXI.Polygon
      */
-    DisplayAdapter.Polygon = include('PIXI.Polygon');
+    Polygon: PIXI.Polygon,
 
     /**
      * If the rotation is expressed in radians
@@ -73,7 +66,7 @@
      * @static
      * @default true
      */
-    DisplayAdapter.useRadians = true;
+    useRadians: true,
 
     /**
      * Gets the object's boundaries in its local coordinate space, without any scaling or
@@ -83,14 +76,19 @@
      * @param {PIXI.DisplayObject} object The createjs display object
      * @return {PIXI.Rectangle} A rectangle with additional right and bottom properties.
      */
-    DisplayAdapter.getLocalBounds = function(object)
+    getLocalBounds: function(object)
     {
         var bounds;
         var width = object.width;
         var height = object.height;
         if (width && height)
         {
-            bounds = new PIXI.Rectangle(-object.pivot.x, -object.pivot.y, width / object.scale.x, height / object.scale.y);
+            bounds = new PIXI.Rectangle(
+                -object.pivot.x,
+                -object.pivot.y,
+                width / object.scale.x,
+                height / object.scale.y
+            );
         }
         else
         {
@@ -99,7 +97,7 @@
         bounds.right = bounds.x + bounds.width;
         bounds.bottom = bounds.y + bounds.height;
         return bounds;
-    };
+    },
 
     /**
      * Normalize the object scale
@@ -109,14 +107,14 @@
      * @param {String} [direction] Either "x" or "y" to return a specific value
      * @return {object|Number} A scale object with x and y keys or a single number if direction is set
      */
-    DisplayAdapter.getScale = function(object, direction)
+    getScale: function(object, direction)
     {
         if (direction !== undefined)
         {
             return object.scale[direction];
         }
         return object.scale;
-    };
+    },
 
     /**
      * Normalize the object position setting
@@ -130,7 +128,7 @@
      * @param {String} [direction] Either "x" or "y" value
      * @return {PIXI.DisplayObject} Return the object for chaining
      */
-    DisplayAdapter.setPosition = function(object, position, direction)
+    setPosition: function(object, position, direction)
     {
         if (direction !== undefined)
         {
@@ -142,7 +140,7 @@
             if (position.y !== undefined) object.position.y = position.y;
         }
         return object;
-    };
+    },
 
     /**
      * Normalize the object position getting
@@ -153,14 +151,14 @@
      * @return {Object|Number} The position as an object with x and y keys if no direction
      *        value is set, or the value of the specific direction
      */
-    DisplayAdapter.getPosition = function(object, direction)
+    getPosition: function(object, direction)
     {
         if (direction !== undefined)
         {
             return object.position[direction];
         }
         return object.position;
-    };
+    },
 
     /**
      * Normalize the object scale setting
@@ -172,7 +170,7 @@
      *         sets both the scale x and scale y.
      * @return {PIXI.DisplayObject} Return the object for chaining
      */
-    DisplayAdapter.setScale = function(object, scale, direction)
+    setScale: function(object, scale, direction)
     {
         if (direction !== undefined)
         {
@@ -183,7 +181,7 @@
             object.scale.x = object.scale.y = scale;
         }
         return object;
-    };
+    },
 
     /**
      * Set the pivot or registration point of an object
@@ -197,7 +195,7 @@
      *         will set using the object.
      * @return {PIXI.DisplayObject} Return the object for chaining
      */
-    DisplayAdapter.setPivot = function(object, pivot, direction)
+    setPivot: function(object, pivot, direction)
     {
         if (direction !== undefined)
         {
@@ -205,7 +203,7 @@
         }
         object.pivot = pivot;
         return object;
-    };
+    },
 
     /**
      * Set the hit area of the shape
@@ -215,11 +213,11 @@
      * @param {Object} shape The geometry object
      * @return {PIXI.DisplayObject} Return the object for chaining
      */
-    DisplayAdapter.setHitArea = function(object, shape)
+    setHitArea: function(object, shape)
     {
         object.hitArea = shape;
         return object;
-    };
+    },
 
     /**
      * Get the original size of a bitmap
@@ -228,13 +226,13 @@
      * @param {PIXI.Bitmap} bitmap The bitmap to measure
      * @return {object} The width (w) and height (h) of the actual bitmap size
      */
-    DisplayAdapter.getBitmapSize = function(bitmap)
+    getBitmapSize: function(bitmap)
     {
         return {
             h: bitmap.height / bitmap.scale.y,
             w: bitmap.width / bitmap.scale.x
         };
-    };
+    },
 
     /**
      * Remove all children from a display object
@@ -242,10 +240,10 @@
      * @static
      * @param {PIXI.DisplayObjectContainer} container The display object container
      */
-    DisplayAdapter.removeChildren = function(container)
+    removeChildren: function(container)
     {
         container.removeChildren();
-    };
+    },
 
     /**
      * If a container contains a child
@@ -255,7 +253,7 @@
      * @param  {PIXI.DisplayObject} child  The object to test
      * @return {Boolean} If the child contained within the container
      */
-    DisplayAdapter.contains = function(container, child)
+    contains: function(container, child)
     {
         while (child)
         {
@@ -266,9 +264,5 @@
             child = child.parent;
         }
         return false;
-    };
-
-    // Assign to namespace
-    namespace('springroll.pixi').DisplayAdapter = DisplayAdapter;
-
-}());
+    }
+};

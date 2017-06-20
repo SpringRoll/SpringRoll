@@ -21,6 +21,9 @@
     "lib"
   ],
   "license": "MIT",
+  "optionalDependencies": {
+    "@springroll/debug": "^2.0.0"
+  },
   "devDependencies": {
     "@springroll/build": "^2.0.0"
   }
