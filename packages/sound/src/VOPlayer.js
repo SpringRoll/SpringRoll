@@ -1,5 +1,4 @@
 import Sound from './Sound';
-import {Captions} from '@springroll/captions';
 import {Application, EventDispatcher} from '@springroll/core';
 
 /**

@@ -62,6 +62,7 @@ result.catch((err) => {
 });
 
 function onwarn(warning) {
+    if (warning.message.indexOf('external dependency') > -1) return;
     const warnSymbol = process.stderr.isTTY ? '⚠️   ' : 'Warning: ';
     console.log(warnSymbol, chalk.bold(warning.message));
     console.log(chalk.cyan(warning.url), '\n');

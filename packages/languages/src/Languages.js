@@ -1,4 +1,3 @@
-import {Loader} from '@springroll/loaders';
 import {Application, EventDispatcher} from '@springroll/core';
 
 /**

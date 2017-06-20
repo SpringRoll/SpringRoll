@@ -27,7 +27,8 @@
         ],
         "brace-style": [
             "error",
-            "allman"
+            "allman",
+            { "allowSingleLine": false }
         ],
         "indent": [
             "error",

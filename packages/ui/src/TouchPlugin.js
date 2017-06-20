@@ -60,7 +60,9 @@ import {ApplicationPlugin} from '@springroll/core';
         // @if DEBUG
         var value = this.options.forceTouch;
         if (value === "true" || value === true)
+        {
             this.hasTouch = true;
+        }
         // @endif
 
         // Add the interaction filters, must have interface module MobilePlugin
