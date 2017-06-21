@@ -42,12 +42,12 @@ import {DebugOptions} from '@springroll/debug';
          * @default false
          */
         this.options.add('forceTouch', false)
-            .on('forceTouch', function(value)
+            .on('forceTouch', value => {
+                if (value === "true" || value === true)
                 {
-                    if (value === "true" || value === true)
-                        this.hasTouch = true;
+                    this.hasTouch = true;
                 }
-                .bind(this));
+            });
 
         DebugOptions.boolean('forceTouch', 'Force hasTouch to true');        
         // @endif
