@@ -12,7 +12,7 @@ import {Debug} from '@springroll/debug';
      */
     //ScalingPlugin needs to be destroyed after StatesPlugin from the States module,
     //so it gets a slightly higher priority
-    var plugin = new ApplicationPlugin(1);
+    const plugin = new ApplicationPlugin(1);
 
     //Init the scaling
     plugin.setup = function()
@@ -30,7 +30,8 @@ import {Debug} from '@springroll/debug';
         //Add the scaling size
         this.once('configLoaded', function(config)
         {
-            var scalingSize = config.scalingSize;
+            const scalingSize = config.scalingSize;
+            
             if (scalingSize)
             {
                 this.scaling.size = scalingSize;

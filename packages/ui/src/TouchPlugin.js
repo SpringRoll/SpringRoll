@@ -1,16 +1,19 @@
 import {ApplicationPlugin} from '@springroll/core';
+// @if DEBUG
+import {DebugOptions} from '@springroll/debug';
+// @endif
 
 (function(window)
 {
     /**
      * @class Application
      */
-    var plugin = new ApplicationPlugin(100);
+    const plugin = new ApplicationPlugin(100);
 
     // Init the animator
     plugin.setup = function()
     {
-        var navigator = window.navigator;
+        const navigator = window.navigator;
 
         /**
          * If the current brower is iOS
@@ -46,11 +49,7 @@ import {ApplicationPlugin} from '@springroll/core';
                 }
                 .bind(this));
 
-        var DebugOptions = include('springroll.DebugOptions', false);
-        if (DebugOptions)
-        {
-            DebugOptions.boolean('forceTouch', 'Force hasTouch to true');
-        }
+        DebugOptions.boolean('forceTouch', 'Force hasTouch to true');        
         // @endif
     };
 
