@@ -1,5 +1,4 @@
-import './AnimationPlugin';
-
-export {default as SpriteClip} from './SpriteClip';
-export {default as SpriteClipInstance} from './SpriteClipInstance';
-export {default as SpriteClipTask} from './SpriteClipTask';
+import * as main from './main';
+import {expose} from '@springroll/core';
+expose(main);
+export * from './main';

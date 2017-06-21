@@ -191,7 +191,7 @@ Languages.prototype.setLanguage = function(languageList)
     }
     if (!chosen)
         chosen = this._default;
-    if (chosen != this._current)
+    if (chosen !== this._current)
     {
         this._current = chosen;
         this.trigger('changed', chosen);

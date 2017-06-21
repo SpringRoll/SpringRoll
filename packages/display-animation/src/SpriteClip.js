@@ -204,12 +204,12 @@ Object.defineProperty(SpriteClip.prototype, 'totalFrames',
 SpriteClip.prototype.gotoAndStop = function(positionOrLabel)
 {
     var pos = null;
-    if (typeof positionOrLabel == "string")
+    if (typeof positionOrLabel === "string")
     {
         var labels = this._labels;
         for (var i = 0, len = labels.length; i < len; ++i)
         {
-            if (labels[i].label == positionOrLabel)
+            if (labels[i].label === positionOrLabel)
             {
                 pos = labels[i].position;
                 break;

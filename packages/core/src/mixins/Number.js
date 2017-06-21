@@ -21,19 +21,31 @@
             value: function(totalDigits)
             {
                 if (!totalDigits)
+                {
                     totalDigits = 2;
+                }
+                
                 var num = this;
                 var leader;
+
                 if (num < 0)
                 {
                     num *= -1;
                     leader = "-";
                 }
+
                 var s = String(Math.floor(num));
+
                 while (s.length < totalDigits)
+                {
                     s = "0" + s;
+                }
+
                 if (leader)
+                {
                     s = leader + s;
+                }
+
                 return s;
             }
         });

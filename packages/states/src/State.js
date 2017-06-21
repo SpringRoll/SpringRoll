@@ -400,7 +400,7 @@ State.prototype.loadingDone = function(delay)
         return;
     }
 
-    if (delay && typeof delay == "number")
+    if (delay && typeof delay === "number")
     {
         //allow the renderer to figure out that any images on stage need decoding during the
         //delay, not during the transition in
@@ -459,7 +459,7 @@ Object.defineProperty(State.prototype, 'enabled',
     {
         var oldEnabled = this._enabled;
         this._enabled = value;
-        if (oldEnabled != value)
+        if (oldEnabled !== value)
         {
             this.trigger('enabled', value);
         }
@@ -496,7 +496,7 @@ State.prototype._internalExit = function()
     //remove scaling objects that we added
     if (scaling && items)
     {
-        if (items == "panel")
+        if (items === "panel")
         {
             scaling.removeItem(panel);
         }
@@ -603,7 +603,7 @@ State.prototype._onLoaded = function(assets)
 
         if (items)
         {
-            if (items == "panel")
+            if (items === "panel")
             {
                 // Reset the panel scale & position, to ensure
                 // that the panel is scaled properly

@@ -217,7 +217,7 @@ var Button = function(imageSettings, label, enabled)
             labelData.y = "center";
         //clone the style object and set up the defaults from PIXI.Text or PIXI.BitmapText
         var style = labelData.style = clone(label.style);
-        if (label.type == "bitmap")
+        if (label.type === "bitmap")
         {
             style.align = style.align || "left";
         }
@@ -241,7 +241,7 @@ var Button = function(imageSettings, label, enabled)
         // - the function will ignore reserved states
         this._addProperty(state);
         //set the default value for the state flag
-        if (state != "disabled" && state != "up")
+        if (state !== "disabled" && state !== "up")
             this._stateFlags[state] = false;
         var inputData = imageSettings[state];
 
@@ -257,7 +257,7 @@ var Button = function(imageSettings, label, enabled)
                 _stateData[state] = {
                     tex: inputData
                 };
-            if (typeof _stateData[state].tex == "string")
+            if (typeof _stateData[state].tex === "string")
                 _stateData[state].tex = PIXI.Texture.fromImage(_stateData[state].tex);
         }
         else
@@ -316,7 +316,7 @@ var Button = function(imageSettings, label, enabled)
 
     if (label)
     {
-        this.label = (label.type == "bitmap" && BitmapText) ?
+        this.label = (label.type === "bitmap" && BitmapText) ?
             new PIXI.BitmapText(label.text, labelData.style) :
             new PIXI.Text(label.text, labelData.style);
         this.label.setPivotToAlign = true;
@@ -376,7 +376,7 @@ var DEFAULT_PRIORITY = ["disabled", "down", "over", "up"];
  */
 function clone(obj)
 {
-    if (!obj || "object" != typeof obj) return null;
+    if (!obj || "object" !== typeof obj) return null;
     var copy = obj.constructor();
     for (var attr in obj)
     {
@@ -445,7 +445,7 @@ Button.prototype.setText = function(text)
         if (!data)
             data = this._stateData.up;
         data = data.label;
-        if (data.x == "center")
+        if (data.x === "center")
         {
             var bW = this.back.width,
                 lW = this.label.width;
@@ -464,7 +464,7 @@ Button.prototype.setText = function(text)
         }
         else
             this.label.position.x = data.x + this._offset.x;
-        if (data.y == "center")
+        if (data.y === "center")
         {
             this.label.position.y = (this.back.height - this.label.height) * 0.5;
         }
@@ -595,7 +595,7 @@ Button.prototype._updateState = function()
                 label.validate();
         }
         //position the text
-        if (lData.x == "center")
+        if (lData.x === "center")
         {
             var bW = this.back.width,
                 lW = label.width;
@@ -614,7 +614,7 @@ Button.prototype._updateState = function()
         }
         else
             label.position.x = lData.x + this._offset.x;
-        if (lData.y == "center")
+        if (lData.y === "center")
         {
             label.position.y = (this.back.height - label.height) * 0.5;
         }
@@ -633,7 +633,7 @@ function doObjectsMatch(obj1, obj2)
         return true;
     for (var key in obj1)
     {
-        if (obj1[key] != obj2[key])
+        if (obj1[key] !== obj2[key])
             return false;
     }
     return true;

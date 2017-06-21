@@ -24,7 +24,7 @@ var TextureAtlas = function(texture, data, useGlobalCache)
 
     //TexturePacker outputs frames with (not) swapped width & height when rotated, so we need to
     //swap them ourselves - Flash exported textures do not require width & height to swap
-    var swapFrameSize = data.meta && data.meta.app == "http://www.codeandweb.com/texturepacker";
+    var swapFrameSize = data.meta && data.meta.app === "http://www.codeandweb.com/texturepacker";
 
     var frames = data.frames;
 

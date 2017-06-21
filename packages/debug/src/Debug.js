@@ -381,7 +381,7 @@ Debug._remoteLog = function(message, level, stack)
     // references with simplified objects
     for (i = 0, length = message.length; i < length; i++)
     {
-        if (typeof message[i] == "object")
+        if (typeof message[i] === "object")
         {
             try
             {
@@ -411,7 +411,7 @@ Debug._remoteLog = function(message, level, stack)
         //FF has an empty string at the end
         if (!line)
         {
-            if (i == length - 1)
+            if (i === length - 1)
             {
                 stack.pop();
                 break;
@@ -421,7 +421,7 @@ Debug._remoteLog = function(message, level, stack)
         }
         //strip out any actual errors in the stack trace, since that is the message
         //also the 'error' line from our new Error().
-        if (line == "Error" || line.indexOf("Error:") > -1)
+        if (line === "Error" || line.indexOf("Error:") > -1)
         {
             lastToStrip = i;
             continue;
@@ -434,11 +434,11 @@ Debug._remoteLog = function(message, level, stack)
             functionSection = line.substring(0, splitIndex);
             //if we should strip this line out of the stack, we should stop parsing the stack
             //early
-            if (functionSection.indexOf(".") != -1)
+            if (functionSection.indexOf(".") !== -1)
                 functionName = functionSection.substring(functionSection.lastIndexOf(".") + 1);
             else
                 functionName = functionSection;
-            if (shouldStrip && Debug._methodsToStrip.indexOf(functionName) != -1)
+            if (shouldStrip && Debug._methodsToStrip.indexOf(functionName) !== -1)
             {
                 lastToStrip = i;
                 continue;
@@ -455,11 +455,11 @@ Debug._remoteLog = function(message, level, stack)
             functionSection = line.substring(3, splitIndex - 1);
             //if we should strip this line out of the stack, we should stop parsing the stack
             //early
-            if (functionSection.indexOf(".") != -1)
+            if (functionSection.indexOf(".") !== -1)
                 functionName = functionSection.substring(functionSection.lastIndexOf(".") + 1);
             else
                 functionName = functionSection;
-            if (shouldStrip && Debug._methodsToStrip.indexOf(functionName) != -1)
+            if (shouldStrip && Debug._methodsToStrip.indexOf(functionName) !== -1)
             {
                 lastToStrip = i;
                 continue;
@@ -562,19 +562,19 @@ Debug._removeCircular = function(obj, maxDepth, depth)
         if (value instanceof Window ||
             value instanceof Document ||
             value instanceof HTMLElement ||
-            key == "document" ||
-            key == "window" ||
-            key == "ownerDocument" ||
-            key == "view" ||
-            key == "target" ||
-            key == "currentTarget" ||
-            key == "originalTarget" ||
-            key == "explicitOriginalTarget" ||
-            key == "rangeParent" ||
-            key == "srcElement" ||
-            key == "relatedTarget" ||
-            key == "fromElement" ||
-            key == "toElement")
+            key === "document" ||
+            key === "window" ||
+            key === "ownerDocument" ||
+            key === "view" ||
+            key === "target" ||
+            key === "currentTarget" ||
+            key === "originalTarget" ||
+            key === "explicitOriginalTarget" ||
+            key === "rangeParent" ||
+            key === "srcElement" ||
+            key === "relatedTarget" ||
+            key === "fromElement" ||
+            key === "toElement")
         {
             if (value instanceof HTMLElement)
             {
@@ -636,7 +636,7 @@ Debug.log = function(params)
     {
         Debug._remoteLog(Array.prototype.slice.call(arguments));
     }
-    else if (Debug.minLogLevel == Levels.GENERAL)
+    else if (Debug.minLogLevel === Levels.GENERAL)
     {
         if (Debug._hasConsole)
         {
@@ -1107,17 +1107,6 @@ Debug._palette = {
     gray: '#aaa'
 };
 
-// Loop through each item in the _palette object and create
-// a static function in Debug via the key (the color name) that
-// outputs a message to the console in key's value (a hex color).
-for (var key in Debug._palette)
-{
-    if (Debug._consoleSupportsColors)
-        Debug[key] = Debug._colorClosure(Debug._palette[key]);
-    else
-        Debug[key] = Debug.log;
-}
-
 /**
  * Due to the way closures and variables work, _colorClosure returns
  * the color logging function needed for the color that you pass it.
@@ -1135,7 +1124,7 @@ Debug._colorClosure = function(hex)
         if (arguments.length > 1)
         {
             var params = Array.prototype.slice.call(arguments);
-            if (typeof params[0] == "object")
+            if (typeof params[0] === "object")
             {
                 params.unshift(colorString);
                 params.unshift('%c%o');
@@ -1148,10 +1137,21 @@ Debug._colorClosure = function(hex)
             }
             return Debug.log.apply(Debug, params);
         }
-        if (typeof arguments[0] == "object")
+        if (typeof arguments[0] === "object")
             return Debug.log('%c%o', colorString, message);
         return Debug.log('%c' + message, colorString);
     };
+}
+
+// Loop through each item in the _palette object and create
+// a static function in Debug via the key (the color name) that
+// outputs a message to the console in key's value (a hex color).
+for (var key in Debug._palette)
+{
+    if (Debug._consoleSupportsColors)
+        Debug[key] = Debug._colorClosure(Debug._palette[key]);
+    else
+        Debug[key] = Debug.log;
 }
 
 export default Debug;

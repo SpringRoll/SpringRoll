@@ -53,12 +53,10 @@ import {Debug} from '@springroll/debug';
         var captionsPath = this.options.captionsPath;
         if (captionsPath)
         {
-            this.load(captionsPath, function(data)
-                {
-                    this.captions.data = data;
-                    done();
-                }
-                .bind(this));
+            this.load(captionsPath, data => {
+                this.captions.data = data;
+                done();
+            });
         }
         else
         {

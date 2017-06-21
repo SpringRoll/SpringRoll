@@ -556,7 +556,7 @@ StateManager.prototype._transitioning = function(event, callback)
     var audio;
     if (sounds)
     {
-        audio = (event == TRANSITION_IN) ? sounds.in : sounds.out;
+        audio = (event === TRANSITION_IN) ? sounds.in : sounds.out;
     }
     this.animator.play(
         transition,

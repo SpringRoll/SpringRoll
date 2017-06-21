@@ -257,7 +257,7 @@ export default {
     {
         while (child)
         {
-            if (child == container)
+            if (child === container)
             {
                 return true;
             }

@@ -13,41 +13,39 @@
  * @constructor
  * @param {Object} object The configuration object for this weighted value generator.
  */
-var WeightedRandom = function(object)
+export default class WeightedRandom
 {
-    this.max = -1;
-    this.options = [];
-    var total = 0;
-    for (var key in object)
+    constructor(object)
     {
-        total += object[key];
-        this.options.push(
+        this.max = -1;
+        this.options = [];
+        var total = 0;
+        for (var key in object)
         {
-            key: key,
-            value: total
-        });
-        this.max += object[key];
+            total += object[key];
+            this.options.push(
+            {
+                key: key,
+                value: total
+            });
+            this.max += object[key];
+        }
     }
-};
 
-
-
-/**
- * Picks an item at random.
- * @method random
- * @return {String} The randomly chosen value.
- */
-WeightedRandom.prototype.random = function()
-{
-    var rand = Math.randomInt(0, this.max);
-    for (var i = 0, options = this.options, length = options.length; i < length; ++i)
+    /**
+     * Picks an item at random.
+     * @method random
+     * @return {String} The randomly chosen value.
+     */
+    random()
     {
-        if (rand < options[i].value)
-            return options[i].key;
+        var rand = Math.randomInt(0, this.max);
+        for (var i = 0, options = this.options, length = options.length; i < length; ++i)
+        {
+            if (rand < options[i].value)
+                return options[i].key;
+        }
+        //if we are somehow here, then return null
+        return null;
     }
-    //if we are somehow here, then return null
-    return null;
-};
-
-
-export default WeightedRandom;
+}

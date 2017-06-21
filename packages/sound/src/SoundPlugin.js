@@ -110,7 +110,7 @@ import VOPlayer from './VOPlayer';
         {
             set: function(value)
             {
-                if (value == this._music)
+                if (value === this._music)
                 {
                     return;
                 }

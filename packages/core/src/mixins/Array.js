@@ -86,9 +86,11 @@
             value: function()
             {
                 var args = arguments;
+
                 for (var i = 0, length = args.length; i < length; ++i)
                 {
                     var other = args[i];
+
                     if (Array.isArray(other))
                     {
                         for (var j = 0, jLength = other.length; j < jLength; ++j)
@@ -101,6 +103,7 @@
                         this.push(other);
                     }
                 }
+                
                 return this;
             }
         });

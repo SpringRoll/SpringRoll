@@ -1,4 +1,4 @@
-import './StatesPlugin';
-export {default as State} from './State';
-export {default as StateEvent} from './StateEvent';
-export {default as StateManager} from './StateManager';
+import * as main from './main';
+import {expose} from '@springroll/core';
+expose(main);
+export * from './main';

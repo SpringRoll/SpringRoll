@@ -1,276 +1,271 @@
 /**
- * @module Core
- * @namespace springroll
- */
-
-/**
  * The EventDispatcher mirrors the functionality of AS3 and EaselJS's EventDispatcher,
  * but is more robust in terms of inputs for the `on()` and `off()` methods.
  *
  * @class EventDispatcher
  * @constructor
  */
-var EventDispatcher = function()
+export default class EventDispatcher
 {
-    /**
-     * The collection of listeners
-     * @property {Object} _listeners
-     * @private
-     */
-    this._listeners = {};
+    constructor()
+    {
+        /**
+         * The collection of listeners
+         * @property {Object} _listeners
+         * @private
+         */
+        this._listeners = {};
+
+        /**
+         * If the dispatcher is destroyed
+         * @property {Boolean} _destroyed
+         * @protected
+         */
+        this._destroyed = false;
+    }
 
     /**
      * If the dispatcher is destroyed
-     * @property {Boolean} _destroyed
-     * @protected
+     * @property {Boolean} destroyed
      */
-    this._destroyed = false;
-};
-
-/**
- * If the dispatcher is destroyed
- * @property {Boolean} destroyed
- */
-Object.defineProperty(EventDispatcher.prototype, 'destroyed',
-{
-    enumerable: true,
-    get: function()
+    get destroyed()
     {
         return this._destroyed;
     }
-});
 
-/**
- * Dispatch an event
- * @method trigger
- * @param {String} type The type of event to trigger
- * @param {*} arguments Additional parameters for the listener functions.
- */
-EventDispatcher.prototype.trigger = function trigger(type)
-{
-    if (this._destroyed) return;
-
-    if (this._listeners.hasOwnProperty(type) && (this._listeners[type] !== undefined))
+    /**
+     * Dispatch an event
+     * @method trigger
+     * @param {String} type The type of event to trigger
+     * @param {*} arguments Additional parameters for the listener functions.
+     */
+    trigger(type)
     {
-        // copy the listeners array
-        var listeners = this._listeners[type].slice();
-
-        var args;
-
-        if (arguments.length > 1)
+        if (this._destroyed)
         {
-            args = Array.prototype.slice.call(arguments, 1);
+            return;
         }
 
-        for (var i = listeners.length - 1; i >= 0; --i)
+        if (this._listeners.hasOwnProperty(type) && (this._listeners[type] !== undefined))
         {
-            var listener = listeners[i];
-            if (listener._eventDispatcherOnce)
-            {
-                delete listener._eventDispatcherOnce;
-                this.off(type, listener);
-            }
-            listener.apply(this, args);
-        }
-    }
-};
+            // copy the listeners array
+            var listeners = this._listeners[type].slice();
 
-/**
- * Add an event listener but only handle it one time.
- *
- * @method once
- * @param {String|object} name The type of event (can be multiple events separated by spaces),
- *      or a map of events to handlers
- * @param {Function|Array*} callback The callback function when event is fired or an array of callbacks.
- * @param {int} [priority=0] The priority of the event listener. Higher numbers are handled first.
- * @return {EventDispatcher} Return this EventDispatcher for chaining calls.
- */
-EventDispatcher.prototype.once = function once(name, callback, priority)
-{
-    return this.on(name, callback, priority, true);
-};
+            var args;
 
-/**
- * Add an event listener. The parameters for the listener functions depend on the event.
- *
- * @method on
- * @param {String|object} name The type of event (can be multiple events separated by spaces),
- *      or a map of events to handlers
- * @param {Function|Array*} callback The callback function when event is fired or an array of callbacks.
- * @param {int} [priority=0] The priority of the event listener. Higher numbers are handled first.
- * @return {EventDispatcher} Return this EventDispatcher for chaining calls.
- */
-EventDispatcher.prototype.on = function(name, callback, priority, once)
-{
-    if (this._destroyed) return;
-
-    // Callbacks map
-    if (this.type(name) === 'object')
-    {
-        for (var key in name)
-        {
-            if (name.hasOwnProperty(key))
+            if (arguments.length > 1)
             {
-                this.on(key, name[key], priority, once);
-            }
-        }
-    }
-    // Callback
-    else if (this.type(callback) === 'function')
-    {
-        var names = name.split(' '),
-            n = null;
-
-        var listener;
-        for (var i = 0, nl = names.length; i < nl; i++)
-        {
-            n = names[i];
-            if (this._listeners.hasOwnProperty(n))
-            {
-                listener = this._listeners[n];
-            }
-            else
-            {
-                listener = this._listeners[n] = [];
+                args = Array.prototype.slice.call(arguments, 1);
             }
 
-            if (once)
+            for (var i = listeners.length - 1; i >= 0; --i)
             {
-                callback._eventDispatcherOnce = true;
-            }
-            callback._priority = parseInt(priority) || 0;
-
-            if (listener.indexOf(callback) === -1)
-            {
-                listener.push(callback);
-                if (listener.length > 1)
+                var listener = listeners[i];
+                if (listener._eventDispatcherOnce)
                 {
-                    listener.sort(function(a, b)
-                    {
-                        return a._priority - b._priority;
-                    });
+                    delete listener._eventDispatcherOnce;
+                    this.off(type, listener);
+                }
+                listener.apply(this, args);
+            }
+        }
+    }
+
+    /**
+     * Add an event listener but only handle it one time.
+     *
+     * @method once
+     * @param {String|object} name The type of event (can be multiple events separated by spaces),
+     *      or a map of events to handlers
+     * @param {Function|Array*} callback The callback function when event is fired or an array of callbacks.
+     * @param {int} [priority=0] The priority of the event listener. Higher numbers are handled first.
+     * @return {EventDispatcher} Return this EventDispatcher for chaining calls.
+     */
+    once(name, callback, priority)
+    {
+        return this.on(name, callback, priority, true);
+    }
+
+    /**
+     * Add an event listener. The parameters for the listener functions depend on the event.
+     *
+     * @method on
+     * @param {String|object} name The type of event (can be multiple events separated by spaces),
+     *      or a map of events to handlers
+     * @param {Function|Array*} callback The callback function when event is fired or an array of callbacks.
+     * @param {int} [priority=0] The priority of the event listener. Higher numbers are handled first.
+     * @return {EventDispatcher} Return this EventDispatcher for chaining calls.
+     */
+    on(name, callback, priority, once)
+    {
+        if (this._destroyed) return;
+
+        // Callbacks map
+        if (this.type(name) === 'object')
+        {
+            for (var key in name)
+            {
+                if (name.hasOwnProperty(key))
+                {
+                    this.on(key, name[key], priority, once);
                 }
             }
         }
-    }
-    // Callbacks array
-    else if (Array.isArray(callback))
-    {
-        for (var f = 0, fl = callback.length; f < fl; f++)
+        // Callback
+        else if (this.type(callback) === 'function')
         {
-            this.on(name, callback[f], priority, once);
-        }
-    }
-    return this;
-};
+            var names = name.split(' '),
+                n = null;
 
-/**
- * Remove the event listener
- *
- * @method off
- * @param {String*} name The type of event string separated by spaces, if no name is specifed remove all listeners.
- * @param {Function|Array*} callback The listener function or collection of callback functions
- * @return {EventDispatcher} Return this EventDispatcher for chaining calls.
- */
-EventDispatcher.prototype.off = function(name, callback)
-{
-    if (this._destroyed) return;
-
-    // remove all
-    if (name === undefined)
-    {
-        this._listeners = {};
-    }
-    // remove multiple callbacks
-    else if (Array.isArray(callback))
-    {
-        for (var f = 0, fl = callback.length; f < fl; f++)
-        {
-            this.off(name, callback[f]);
-        }
-    }
-    else
-    {
-        var names = name.split(' ');
-        var n = null;
-        var listener;
-        var index;
-        for (var i = 0, nl = names.length; i < nl; i++)
-        {
-            n = names[i];
-            if (this._listeners.hasOwnProperty(n))
+            var listener;
+            for (var i = 0, nl = names.length; i < nl; i++)
             {
-                listener = this._listeners[n];
-
-                // remove all listeners for that event
-                if (callback === undefined)
+                n = names[i];
+                if (this._listeners.hasOwnProperty(n))
                 {
-                    listener.length = 0;
+                    listener = this._listeners[n];
                 }
                 else
                 {
-                    //remove single listener
-                    index = listener.indexOf(callback);
-                    if (index !== -1)
+                    listener = this._listeners[n] = [];
+                }
+
+                if (once)
+                {
+                    callback._eventDispatcherOnce = true;
+                }
+                callback._priority = parseInt(priority) || 0;
+
+                if (listener.indexOf(callback) === -1)
+                {
+                    listener.push(callback);
+                    if (listener.length > 1)
                     {
-                        listener.splice(index, 1);
+                        listener.sort(function(a, b)
+                        {
+                            return a._priority - b._priority;
+                        });
                     }
                 }
             }
         }
+        // Callbacks array
+        else if (Array.isArray(callback))
+        {
+            for (var f = 0, fl = callback.length; f < fl; f++)
+            {
+                this.on(name, callback[f], priority, once);
+            }
+        }
+        return this;
     }
-    return this;
-};
 
-/**
- * Checks if the EventDispatcher has a specific listener or any listener for a given event.
- *
- * @method has
- * @param {String} name The name of the single event type to check for
- * @param {Function} [callback] The listener function to check for. If omitted, checks for any listener.
- * @return {Boolean} If the EventDispatcher has the specified listener.
- */
-EventDispatcher.prototype.has = function(name, callback)
-{
-    if (!name || !this._listeners.hasOwnProperty(name)) return false;
-
-    var listeners = this._listeners[name];
-    if (!listeners) return false;
-    if (!callback)
-        return listeners.length > 0;
-    return listeners.indexOf(callback) >= 0;
-};
-
-/**
- * Destroy and don't use after this
- * @method destroy
- */
-EventDispatcher.prototype.destroy = function()
-{
-    this._destroyed = true;
-    this._listeners = null;
-};
-
-/**
- * Return type of the value.
- *
- * @private
- * @method type
- * @param  {*} value
- * @return {String} The type
- */
-EventDispatcher.prototype.type = function(value)
-{
-    if (value === null)
+    /**
+     * Remove the event listener
+     *
+     * @method off
+     * @param {String*} name The type of event string separated by spaces, if no name is specifed remove all listeners.
+     * @param {Function|Array*} callback The listener function or collection of callback functions
+     * @return {EventDispatcher} Return this EventDispatcher for chaining calls.
+     */
+    off(name, callback)
     {
-        return 'null';
+        if (this._destroyed) return;
+
+        // remove all
+        if (name === undefined)
+        {
+            this._listeners = {};
+        }
+        // remove multiple callbacks
+        else if (Array.isArray(callback))
+        {
+            for (var f = 0, fl = callback.length; f < fl; f++)
+            {
+                this.off(name, callback[f]);
+            }
+        }
+        else
+        {
+            var names = name.split(' ');
+            var n = null;
+            var listener;
+            var index;
+            for (var i = 0, nl = names.length; i < nl; i++)
+            {
+                n = names[i];
+                if (this._listeners.hasOwnProperty(n))
+                {
+                    listener = this._listeners[n];
+
+                    // remove all listeners for that event
+                    if (callback === undefined)
+                    {
+                        listener.length = 0;
+                    }
+                    else
+                    {
+                        //remove single listener
+                        index = listener.indexOf(callback);
+                        if (index !== -1)
+                        {
+                            listener.splice(index, 1);
+                        }
+                    }
+                }
+            }
+        }
+        return this;
     }
-    var typeOfValue = typeof value;
-    if (typeOfValue === 'object' || typeOfValue === 'function')
+
+    /**
+     * Checks if the EventDispatcher has a specific listener or any listener for a given event.
+     *
+     * @method has
+     * @param {String} name The name of the single event type to check for
+     * @param {Function} [callback] The listener function to check for. If omitted, checks for any listener.
+     * @return {Boolean} If the EventDispatcher has the specified listener.
+     */
+    has(name, callback)
     {
-        return Object.prototype.toString.call(value).match(/\s([a-z]+)/i)[1].toLowerCase() || 'object';
+        if (!name || !this._listeners.hasOwnProperty(name)) return false;
+
+        var listeners = this._listeners[name];
+        if (!listeners) return false;
+        if (!callback)
+            return listeners.length > 0;
+        return listeners.indexOf(callback) >= 0;
     }
-    return typeOfValue;
+
+    /**
+     * Destroy and don't use after this
+     * @method destroy
+     */
+    destroy()
+    {
+        this._destroyed = true;
+        this._listeners = null;
+    }
+
+    /**
+     * Return type of the value.
+     *
+     * @private
+     * @method type
+     * @param  {*} value
+     * @return {String} The type
+     */
+    type(value)
+    {
+        if (value === null)
+        {
+            return 'null';
+        }
+        var typeOfValue = typeof value;
+        if (typeOfValue === 'object' || typeOfValue === 'function')
+        {
+            return Object.prototype.toString.call(value).match(/\s([a-z]+)/i)[1].toLowerCase() || 'object';
+        }
+        return typeOfValue;
+    }
 }
-
-export default EventDispatcher;

@@ -1,0 +1,142 @@
+doctype html
+html
+  head
+    meta(charset='utf-8')
+    meta(http-equiv='X-UA-Compatible', content='IE=edge,chrome=1')
+    title States Example
+    meta(name='description', content='')
+    meta(name='viewport', content='width=device-width')
+    link(rel='stylesheet', href='css/common.css')
+    // Examples dependencies, these are only necessary for examples
+    link(rel='stylesheet', href='../node_modules/google-code-prettify/bin/prettify.min.css')
+    script(src='../node_modules/google-code-prettify/bin/prettify.min.js')
+    script(src='../node_modules/google-code-prettify/bin/run_prettify.min.js')
+    script(src='js/common.js')
+    // External dependencies
+    script(src='../node_modules/soundjs/lib/soundjs.min.js')
+    script(src='../node_modules/soundjs/lib/flashaudioplugin.min.js')
+    script(src='../node_modules/tweenjs/lib/tweenjs.min.js')
+    script(src='../node_modules/preloadjs/lib/preloadjs.min.js')
+    script(src='../node_modules/easeljs/lib/easeljs.combined.js')
+    script(src='../node_modules/easeljs/lib/movieclip.combined.js')
+    // Library and modules
+    script(src='../dist/core.js')
+    script(src='../dist/modules/debug.js')
+    script(src='../dist/modules/animation.js')
+    script(src='../dist/modules/easeljs-display.js')
+    script(src='../dist/modules/easeljs-animation.js')
+    script(src='../dist/modules/easeljs-ui.js')
+    script(src='../dist/modules/states.js')
+    // CreateJS Assets
+    script(src='assets/js/Transition.js')
+  body.sm
+    #content.canvas
+      nav
+        button#canvas Application
+        button#code Code
+        button#back Back
+      canvas#stage(width='800', height='400')
+      pre#codeDisplay.
+      script.
+        var Application = include('springroll.Application'),
+        EaselJSDisplay = include('springroll.EaselJSDisplay'),
+        Button = include('springroll.easeljs.Button'),
+        Bitmap = include('createjs.Bitmap'),
+        Container = include('createjs.Container'),
+        State = include('springroll.State'),
+        Loader = include('springroll.Loader'),
+        Transition = include('lib.Transition');
+        var app = new Application({
+        canvasId: "stage",
+        state: "title",
+        transition: new Transition(),
+        display: EaselJSDisplay,
+        displayOptions: {
+        clearView: true
+        },
+        preload: 'assets/images/button.png'
+        });
+        app.once('init', function()
+        {
+        // Add the states to the application
+        // this is a map where the key is the state
+        // alias
+        this.states = {
+        title: getTitleState(),
+        game: getGameState()
+        };
+        // Update the psotion
+        this.transition.x = -140;
+        });
+        // Create the title state
+        function getTitleState()
+        {
+        var state = new State(
+        new Container(), {
+        next: 'game'
+        }
+        );
+        // When the transition starts transitining into to state
+        state.on('enter', function()
+        {
+        var button = addButton("Play");
+        this.panel.addChild(button);
+        button.on('buttonPress', this.nextState.bind(this));
+        this.nextButton = button;
+        });
+        // When the transition is done transitioning out of state
+        state.on('exit', function()
+        {
+        this.nextButton.destroy();
+        this.nextButton = null;
+        this.panel.removeAllChildren();
+        });
+        return state;
+        }
+        // Add a new button to the stage
+        function getGameState()
+        {
+        // Create the new game state
+        var state = new State(
+        new Container(), {
+        previous: 'title',
+        next: 'title',
+        preload: [{
+        src: 'assets/images/background2.jpg',
+        format: 'createjs.Bitmap',
+        complete: function(background)
+        {
+        state.panel.addChildAt(background, 0);
+        }
+        }]
+        }
+        );
+        // When the transition starts transitining into to state
+        state.on('enter', function()
+        {
+        var button = addButton("Back");
+        this.panel.addChild(button);
+        button.on('buttonPress', this.previousState.bind(this));
+        this.backButton = button;
+        });
+        // When the transition is done transitioning out of state
+        state.on('exit', function()
+        {
+        this.backButton.destroy();
+        this.backButton = null;
+        this.panel.removeAllChildren();
+        });
+        return state;
+        }
+        // Create a simple button
+        var addButton = function(text)
+        {
+        var button = new Button(app.getCache('button'), {
+        text: text,
+        font: "20px Arial",
+        color: "#ffffff"
+        });
+        button.x = 340;
+        button.y = 300;
+        return button;
+        };

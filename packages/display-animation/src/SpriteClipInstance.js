@@ -76,7 +76,7 @@ SpriteClipInstance.prototype.beginAnim = function(animObj, isRepeat)
         last = -1,
         loop = false;
 
-    if (anim == "*")
+    if (anim === "*")
     {
         first = 0;
         last = this.clip.totalFrames - 1;
@@ -92,16 +92,16 @@ SpriteClipInstance.prototype.beginAnim = function(animObj, isRepeat)
         for (var i = 0, len = labels.length; i < len; ++i)
         {
             l = labels[i];
-            if (l.label == anim)
+            if (l.label === anim)
             {
                 first = l.position;
             }
-            else if (l.label == stopLabel)
+            else if (l.label === stopLabel)
             {
                 last = l.position;
                 break;
             }
-            else if (l.label == loopLabel)
+            else if (l.label === loopLabel)
             {
                 last = l.position;
                 loop = true;
@@ -171,7 +171,7 @@ SpriteClipInstance.test = function(clip)
 SpriteClipInstance.hasAnimation = function(clip, event)
 {
     //the wildcard event plays the entire timeline
-    if (event == "*")
+    if (event === "*")
     {
         return true;
     }
@@ -185,11 +185,11 @@ SpriteClipInstance.hasAnimation = function(clip, event)
     for (var i = 0, len = labels.length; i < len; ++i)
     {
         l = labels[i];
-        if (l.label == event)
+        if (l.label === event)
         {
             startFrame = l.position;
         }
-        else if (l.label == stopLabel || l.label == loopLabel)
+        else if (l.label === stopLabel || l.label === loopLabel)
         {
             stopFrame = l.position;
             break;
@@ -215,7 +215,7 @@ SpriteClipInstance.getDuration = function(clip, event)
     }
 
     //the wildcard event plays the entire timeline
-    if (event == "*")
+    if (event === "*")
     {
         return clip.totalFrames / clip.framerate;
     }
@@ -229,11 +229,11 @@ SpriteClipInstance.getDuration = function(clip, event)
     for (var i = 0, labelsLength = labels.length; i < labelsLength; ++i)
     {
         l = labels[i];
-        if (l.label == event)
+        if (l.label === event)
         {
             startFrame = l.position;
         }
-        else if (l.label == stopLabel || l.label == loopLabel)
+        else if (l.label === stopLabel || l.label === loopLabel)
         {
             stopFrame = l.position;
             break;

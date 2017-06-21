@@ -94,7 +94,7 @@ var Display = function(id, options)
      * @property {Boolean} _visible
      * @private
      */
-    this._visible = this.canvas.style.display != "none";
+    this._visible = this.canvas.style.display !== "none";
 
     /**
      * If the display should keep mouse move events running when the display is disabled.
@@ -149,7 +149,7 @@ var Display = function(id, options)
 
     //check for IE11 because it tends to have WebGL problems (especially older versions)
     //if we find it, then make Pixi use to the canvas renderer instead
-    if (options.forceContext != "webgl")
+    if (options.forceContext !== "webgl")
     {
         var ua = window.navigator.userAgent;
 
@@ -159,11 +159,11 @@ var Display = function(id, options)
         }
     }
 
-    if (options.forceContext == "canvas2d")
+    if (options.forceContext === "canvas2d")
     {
         this.renderer = new PIXI.CanvasRenderer(this.width, this.height, rendererOptions);
     }
-    else if (options.forceContext == "webgl")
+    else if (options.forceContext === "webgl")
     {
         this.renderer = new PIXI.WebGLRenderer(this.width, this.height, rendererOptions);
     }
@@ -205,7 +205,7 @@ Object.defineProperty(Display.prototype, "enabled",
         var oldEnabled = this._enabled;
         this._enabled = value;
 
-        if (oldEnabled != value)
+        if (oldEnabled !== value)
         {
             var interactionManager = this.renderer.plugins.interaction;
 
@@ -350,7 +350,7 @@ Object.defineProperty(Display.prototype, "visible",
         this._visible = value;
         this.canvas.style.display = value ? "block" : "none";
 
-        if (oldVisible != value)
+        if (oldVisible !== value)
         {
             /**
              * If the display becomes visible

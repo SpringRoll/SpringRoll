@@ -3,11 +3,14 @@
 
 const rollup = require('rollup');
 const path = require('path');
+const fs = require('fs');
 const less = require('rollup-plugin-less');
+const resolve = require('rollup-plugin-node-resolve');
 const preprocess = require('rollup-plugin-preprocess').default;
 const CleanCSS = require('less-plugin-clean-css');
 const uglify = require('rollup-plugin-uglify');
 const eslint = require('rollup-plugin-eslint');
+const babel = require('rollup-plugin-babel');
 const watch = require('rollup-watch');
 const rimraf = require('rimraf');
 const mkdirp = require('mkdirp');
@@ -17,12 +20,19 @@ if (!process.stderr.isTTY) chalk.enabled = false;
 
 const pkg = require(path.resolve('package'));
 const eslintConfig = require('./eslintConfig');
+const babelrc = require('./babelrc');
 const name = path.basename(pkg.name);
-const moduleName = 'springroll';
 const banner = `/*! ${pkg.name} - v${pkg.version} */\n`;
 const format = 'cjs';
 const entry = 'src/index.js';
 
+// Add the dependencies to externals
+// needed to work with Lerna's internal symlinking
+const external = Object.keys(pkg.dependencies || {}).concat(
+    Object.keys(pkg.optionalDependencies || {})
+);
+
+// Get the command from the arguments
 const command = process.argv[2] || null;
 
 let result;
@@ -86,9 +96,10 @@ function devWatch() {
         onwarn,
         format,
         banner,
-        moduleName,
+        external,
         dest: `lib/${name}.js`,
         plugins: [
+            resolve(),
             eslint(Object.assign({
                 include: 'src/**/*.js',
                 fix: true
@@ -100,6 +111,7 @@ function devWatch() {
                     VERSION: pkg.version
                 }
             }),
+            babel(babelrc),
             less({
                 output: `lib/${name}.css`
             })
@@ -119,7 +131,9 @@ function dev() {
     return rollup.rollup({
         entry: 'src/index.js',
         onwarn,
+        external,
         plugins: [
+            resolve(),
             eslint(Object.assign({
                 include: 'src/**/*.js',
                 fix: true
@@ -131,6 +145,7 @@ function dev() {
                     VERSION: pkg.version
                 }
             }),
+            babel(babelrc),
             less({
                 output: `lib/${name}.css`
             })
@@ -138,7 +153,6 @@ function dev() {
     }).then(bundle => bundle.write({
         format,
         banner,
-        moduleName,
         dest: `lib/${name}.js`
     }));
 }
@@ -147,7 +161,9 @@ function prod() {
     return rollup.rollup({
         entry: 'src/index.js',
         onwarn,
+        external,
         plugins: [
+            resolve(),
             preprocess({
                 context: {
                     DEBUG: false,
@@ -155,6 +171,7 @@ function prod() {
                     VERSION: pkg.version
                 }
             }),
+            babel(babelrc),
             uglify({
                 mangle: true,
                 compress: true,
@@ -178,7 +195,6 @@ function prod() {
     }).then(bundle => bundle.write({
         format,
         banner,
-        moduleName,
         dest: `lib/${name}.min.js`
     }));
 }

@@ -73,7 +73,7 @@ var AssetManager = function()
  */
 AssetManager.prototype.register = function(TaskClass, priority)
 {
-    if (typeof TaskClass == "string")
+    if (typeof TaskClass === "string")
     {
         TaskClass = include(TaskClass, false);
     }

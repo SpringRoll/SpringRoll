@@ -106,7 +106,7 @@ Loader.prototype.load = function(url, complete, progress, data)
     var basePath = options.basePath;
     if (basePath !== undefined &&
         /^http(s)?\:/.test(url) === false &&
-        url.search(basePath) == -1)
+        url.search(basePath) === -1)
     {
         item.basePath = basePath;
     }

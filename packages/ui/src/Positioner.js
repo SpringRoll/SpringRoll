@@ -121,7 +121,7 @@ Positioner.generateHitArea = function(hitArea, scale, adapter)
 
     if (Array.isArray(hitArea))
     {
-        if (scale == 1)
+        if (scale === 1)
         {
             return new adapter.Polygon(hitArea);
         }
@@ -138,7 +138,7 @@ Positioner.generateHitArea = function(hitArea, scale, adapter)
             return new adapter.Polygon(temp);
         }
     }
-    else if (hitArea.type == "rect" || !hitArea.type)
+    else if (hitArea.type === "rect" || !hitArea.type)
     {
         return new adapter.Rectangle(
             hitArea.x * scale,
@@ -147,7 +147,7 @@ Positioner.generateHitArea = function(hitArea, scale, adapter)
             hitArea.h * scale
         );
     }
-    else if (hitArea.type == "ellipse")
+    else if (hitArea.type === "ellipse")
     {
         // Convert center to upper left corner
         return new adapter.Ellipse(
@@ -156,7 +156,7 @@ Positioner.generateHitArea = function(hitArea, scale, adapter)
             hitArea.h * scale
         );
     }
-    else if (hitArea.type == "circle")
+    else if (hitArea.type === "circle")
     {
         return new adapter.Circle(
             hitArea.x * scale,
@@ -164,7 +164,7 @@ Positioner.generateHitArea = function(hitArea, scale, adapter)
             hitArea.r * scale
         );
     }
-    else if (hitArea.type == "sector")
+    else if (hitArea.type === "sector")
     {
         return new adapter.Sector(
             hitArea.x * scale,

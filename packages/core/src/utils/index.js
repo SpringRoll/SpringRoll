@@ -1,5 +1,4 @@
 export {default as Enum} from './Enum';
-export {default as extend} from './extend';
 export {default as include} from './include';
 export {default as mixin} from './mixin';
 export {default as namespace} from './namespace';
@@ -7,3 +6,5 @@ export {default as SavedData} from './SavedData';
 export {default as WeightedRandom} from './WeightedRandom';
 export {default as PageVisibility} from './PageVisibility';
 export {default as StringFilters} from './StringFilters';
+export {default as name} from './name';
+export {default as expose} from './expose';

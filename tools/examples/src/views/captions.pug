@@ -1,0 +1,85 @@
+doctype html
+html
+  head
+    meta(charset='utf-8')
+    meta(http-equiv='X-UA-Compatible', content='IE=edge,chrome=1')
+    title Basic Captions
+    meta(name='description', content='')
+    meta(name='viewport', content='width=device-width')
+    link(rel='stylesheet', href='css/common.css')
+    // Examples dependencies, these are only necessary for examples
+    script(src='js/common.js')
+    // External dependencies
+    script(src='../node_modules/preloadjs/lib/preloadjs.min.js')
+    script(src='../node_modules/easeljs/lib/easeljs.combined.js')
+    // Library and modules
+    script(src='../dist/core.js')
+    script(src='../dist/modules/debug.js')
+    script(src='../dist/modules/captions.js')
+    script(src='../dist/modules/easeljs-display.js')
+    script(src='../dist/modules/easeljs-ui.js')
+  body.md
+    #content.canvas
+      nav
+        button#canvas Application
+        button#code Code
+        button#back Back
+      #captions
+      canvas#stage(width='800', height='500')
+      pre#codeDisplay.
+      script.
+        // Import classes
+        var Application = include('springroll.Application'),
+        Button = include('springroll.easeljs.Button'),
+        EaselJSDisplay = include('springroll.EaselJSDisplay'),
+        Shape = include('createjs.Shape'),
+        Captions = include('springroll.Captions');
+        var app = new Application({
+        canvasId: "stage",
+        captionsPath: 'assets/config/captions.json',
+        display: EaselJSDisplay,
+        displayOptions: {
+        clearView: true
+        },
+        preload: 'assets/images/button.png'
+        });
+        app.once('init', function()
+        {
+        // Setup the UI
+        this.makeButtons();
+        // Start playing the caption on click
+        this.playButton.on('buttonPress', function()
+        {
+        app.captions.play("ExampleAlias");
+        });
+        // Stop the captions on click
+        this.stopButton.on('buttonPress', function()
+        {
+        app.captions.stop();
+        });
+        });
+        // Create the UI elements
+        app.makeButtons = function()
+        {
+        // Create a play button
+        this.playButton = new Button(this.getCache('button'), {
+        text: 'Play',
+        font: "16px Arial",
+        color: "#ffffff"
+        });
+        this.playButton.x = 335;
+        this.playButton.y = 100;
+        // Create a stop button
+        this.stopButton = new Button(this.getCache('button'), {
+        text: 'Stop',
+        font: "16px Arial",
+        color: "#ffffff"
+        });
+        this.stopButton.x = 335;
+        this.stopButton.y = 170;
+        // Add the button to the stage
+        this.display.stage.addChild(
+        this.playButton,
+        this.stopButton
+        );
+        };

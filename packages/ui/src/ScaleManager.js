@@ -536,7 +536,7 @@ ScaleManager.prototype.addItem = function(displayObject, settings, doResize)
         // Create the item settings
         var item = new ScaleItem(displayObject, align, this._size, this._adapter);
 
-        item.titleSafe = settings.titleSafe == "all" ? true : settings.titleSafe;
+        item.titleSafe = settings.titleSafe === "all" ? true : settings.titleSafe;
         item.maxScale = settings.maxScale || NaN;
         item.minScale = settings.minScale || NaN;
         item.centeredHorizontally = !!settings.centeredHorizontally;

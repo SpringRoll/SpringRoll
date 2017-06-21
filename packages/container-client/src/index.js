@@ -1,2 +1,4 @@
-export {default as UserData} from './UserData';
-import './ContainerClientPlugin';
+import * as main from './main';
+import {expose} from '@springroll/core';
+expose(main);
+export * from './main';

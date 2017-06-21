@@ -69,10 +69,10 @@ EnumValue.prototype.toString = function()
         "two",
         {name:"screwSequentialNumbers", value:42});
         
-    myEnum.valueOf0 != 0;//enum values are not integers
-    myEnum.valueOf1 != myOtherEnum.one;//enum values are not the same as other enums
-    myEnum.valueOf2.asInt == 2;//enum values can be explicitly compared to integers
-    myOtherEnum.screwSequentialNumbers == myOtherEnum.valueFromInt(42);//can use ints to get values
+    myEnum.valueOf0 !== 0;//enum values are not integers
+    myEnum.valueOf1 !== myOtherEnum.one;//enum values are not the same as other enums
+    myEnum.valueOf2.asInt === 2;//enum values can be explicitly compared to integers
+    myOtherEnum.screwSequentialNumbers === myOtherEnum.valueFromInt(42);//can use ints to get values
     console.log(myOtherEnum.one.toString());//outputs "I am the One!"
 
     for (var i in myEnum) console.log(i); //outputs "valueOf0","valueOf1","valueOf2"
@@ -125,7 +125,7 @@ var Enum = function()
     // Create an EnumValue for each argument provided
     for (var i = 0, len = args.length; i < len; ++i)
     {
-        if (typeof args[i] == "string")
+        if (typeof args[i] === "string")
         {
             name = args[i];
         }
@@ -146,7 +146,7 @@ var Enum = function()
             continue;
         }
 
-        item = (typeof args[i] == "string") ?
+        item = (typeof args[i] === "string") ?
             new EnumValue(name, counter, name) :
             new EnumValue(name, value, args[i].toString || name);
 

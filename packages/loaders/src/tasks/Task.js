@@ -64,7 +64,7 @@ var Task = function(asset, fallbackId)
     // We're trying to cache but we don't have an ID
     if (this.cache && !this.id)
     {
-        if (fallbackId && typeof fallbackId == "string")
+        if (fallbackId && typeof fallbackId === "string")
         {
             // Remove the file extension
             var extIndex = fallbackId.lastIndexOf('.');

@@ -27,9 +27,12 @@ import include from '../utils/include';
             switch (extension.toLowerCase())
             {
                 case "fnt":
+                {
                     return AbstractLoader.XML;
+                }
             }
         }
+        
         return orig_getTypeByExtension(extension);
     };
 

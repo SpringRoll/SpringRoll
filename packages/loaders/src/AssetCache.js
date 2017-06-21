@@ -60,7 +60,7 @@ AssetCache.prototype.write = function(id, content)
  */
 AssetCache.prototype.delete = function(asset)
 {
-    var id = typeof asset == "string" ? asset : asset.id;
+    var id = typeof asset === "string" ? asset : asset.id;
 
     // If we don't have an ID, stop
     if (!id) return;
@@ -108,7 +108,7 @@ AssetCache.prototype._destroyResult = function(result)
     }
 
     // Clear images if we have an HTML node
-    if (result.tagName == "IMG")
+    if (result.tagName === "IMG")
     {
         result.src = "";
     }

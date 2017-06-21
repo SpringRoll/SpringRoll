@@ -33,6 +33,10 @@
         "indent": [
             "error",
             4
+        ],
+        "eqeqeq": [
+            "warn",
+            "always"
         ]
     }
 }

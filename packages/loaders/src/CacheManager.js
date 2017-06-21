@@ -150,7 +150,7 @@ CacheManager.prototype.addVersionsFile = function(url, callback, baseUrl)
                 parts = lines[i].split(' ');
 
                 // Add the parts
-                if (parts.length != 2) continue;
+                if (parts.length !== 2) continue;
 
                 // Add the versioning
                 cm.addVersion((baseUrl || "") + parts[0], parts[1]);
@@ -183,7 +183,7 @@ CacheManager.prototype.addVersion = function(url, version)
  */
 CacheManager.prototype.registerURLFilter = function(filter)
 {
-    if (this._filters.indexOf(filter) == -1)
+    if (this._filters.indexOf(filter) === -1)
         this._filters.push(filter);
 };
 
@@ -259,7 +259,7 @@ CacheManager.prototype._applyGlobalVersion = function(url)
 CacheManager.prototype._applyBasePath = function(url)
 {
     var basePath = this._app.options.basePath;
-    if (basePath && /^http(s)?\:/.test(url) === false && url.search(basePath) == -1)
+    if (basePath && /^http(s)?\:/.test(url) === false && url.search(basePath) === -1)
     {
         url = basePath + url;
     }

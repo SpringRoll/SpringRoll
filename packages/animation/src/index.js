@@ -1,5 +1,4 @@
-import './AnimatorPlugin';
-export {default as Animator} from './Animator';
-export {default as AnimatorInstance} from './AnimatorInstance';
-export {default as AnimatorTimeline} from './AnimatorTimeline';
-export {default as GenericMovieClipInstance} from './GenericMovieClipInstance';
+import * as main from './main';
+import {expose} from '@springroll/core';
+expose(main);
+export * from './main';

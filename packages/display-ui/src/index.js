@@ -1,3 +1,4 @@
-export {default as DragManager} from './DragManager';
-export {default as DragData} from './DragData';
-export {default as Button} from './Button';
+import * as main from './main';
+import {expose} from '@springroll/core';
+expose(main);
+export * from './main';

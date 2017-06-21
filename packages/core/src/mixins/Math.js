@@ -97,7 +97,7 @@
     Math.distSq = function(x, y, x0, y0)
     {
         //see if the first parameter is a point
-        if (typeof x.x == "number" && x.x == x.x) //faster !isNaN
+        if (typeof x.x === "number" && x.x === x.x) //faster !isNaN
         {
             //shift later parameters back
             y0 = x0;
@@ -107,7 +107,7 @@
             x = x.x;
         }
         //see if the 2nd parameter is a point
-        if (typeof x0.x == "number" && x0.x == x0.x)
+        if (typeof x0.x === "number" && x0.x === x0.x)
         {
             y0 = x0.y;
             x0 = x0.x;
@@ -140,10 +140,17 @@
             max = min;
             min = 0;
         }
+        
         if (value > max)
+        {
             return max;
+        }
+
         if (value < min)
+        {
             return min;
+        }
+
         return value;
     };
 

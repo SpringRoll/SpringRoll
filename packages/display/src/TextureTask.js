@@ -60,7 +60,7 @@ TextureTask.prototype = Object.create(Task.prototype);
  */
 TextureTask.test = function(asset)
 {
-    return asset.type == "pixi" && (!!asset.image || (!!asset.alpha && !!asset.color));
+    return asset.type === "pixi" && (!!asset.image || (!!asset.alpha && !!asset.color));
 };
 
 /**
@@ -156,7 +156,7 @@ TextureTask.prototype.loadImage = function(assets, done, ignoreCacheSetting)
                 this.__origDestroy(true);
 
                 //remove it from the global texture cache, if relevant
-                if (PIXI.utils.TextureCache[id] == this)
+                if (PIXI.utils.TextureCache[id] === this)
                 {
                     delete PIXI.utils.TextureCache[id];
                 }

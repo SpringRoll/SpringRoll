@@ -235,7 +235,7 @@ Sound.init = function(options, readyCallback)
     //We cannot use touchstart in iOS 9.0 - http://www.holovaty.com/writing/ios9-web-audio/
     if (createjs.BrowserDetect.isIOS &&
         SoundJS.activePlugin instanceof WebAudioPlugin &&
-        SoundJS.activePlugin.context.state != "running")
+        SoundJS.activePlugin.context.state !== "running")
     {
         document.addEventListener("touchstart", Sound._playEmpty);
         document.addEventListener("touchend", Sound._playEmpty);
@@ -324,7 +324,7 @@ Sound.init = function(options, readyCallback)
 Sound._playEmpty = function(ev)
 {
     WebAudioPlugin.playEmptySound();
-    if (WebAudioPlugin.context.state == "running" ||
+    if (WebAudioPlugin.context.state === "running" ||
         WebAudioPlugin.context.state === undefined)
     {
         if (Sound._instance.preventDefaultOnUnmute)
@@ -439,7 +439,7 @@ Sound.prototype.addContext = function(config)
     for (var i = 0, len = list.length; i < len; ++i)
     {
         s = list[i];
-        if (typeof s == "string")
+        if (typeof s === "string")
         {
             s = {
                 id: s
@@ -567,7 +567,7 @@ Sound.prototype.isLoaded = function(alias)
  */
 Sound.prototype.isLoading = function(alias)
 {
-    return this._sounds[alias] ? this._sounds[alias].loadState == Sound.LoadStates.loading : false;
+    return this._sounds[alias] ? this._sounds[alias].loadState === Sound.LoadStates.loading : false;
 };
 
 /**
@@ -652,10 +652,10 @@ Sound.prototype.fadeIn = function(aliasOrInst, duration, targetVol, startVol)
     inst._fStop = false;
     var v = startVol > 0 ? startVol : 0;
     inst.volume = inst._fStart = v;
-    if (this._fades.indexOf(inst) == -1)
+    if (this._fades.indexOf(inst) === -1)
     {
         this._fades.push(inst);
-        if (this._fades.length == 1)
+        if (this._fades.length === 1)
         {
             Application.instance.on("update", this._update);
         }
@@ -679,7 +679,7 @@ Sound.prototype.fadeIn = function(aliasOrInst, duration, targetVol, startVol)
 Sound.prototype.fadeOut = function(aliasOrInst, duration, targetVol, startVol, stopAtEnd)
 {
     var sound, inst;
-    if (typeof aliasOrInst == "string")
+    if (typeof aliasOrInst === "string")
     {
         sound = this._sounds[aliasOrInst];
         if (!sound)
@@ -716,10 +716,10 @@ Sound.prototype.fadeOut = function(aliasOrInst, duration, targetVol, startVol, s
     inst._fEnd = targetVol || 0;
     stopAtEnd = stopAtEnd === undefined ? inst._fEnd === 0 : !!stopAtEnd;
     inst._fStop = stopAtEnd;
-    if (this._fades.indexOf(inst) == -1)
+    if (this._fades.indexOf(inst) === -1)
     {
         this._fades.push(inst);
-        if (this._fades.length == 1)
+        if (this._fades.length === 1)
         {
             Application.instance.on("update", this._update);
         }
@@ -855,7 +855,7 @@ Sound.prototype.play = function(alias, options, startCallback, interrupt, delay,
         loop = -1;
     }
     //check for sound volume settings
-    volume = (typeof(volume) == "number") ? volume : sound.volume;
+    volume = (typeof(volume) === "number") ? volume : sound.volume;
     //take action based on the sound state
     var loadState = sound.loadState;
     var inst, arr;
@@ -879,7 +879,7 @@ Sound.prototype.play = function(alias, options, startCallback, interrupt, delay,
         //have Sound manage the playback of the sound
         var channel = SoundJS.play(alias, interrupt, delay, offset, loop, volume, pan);
 
-        if (!channel || channel.playState == SoundJS.PLAY_FAILED)
+        if (!channel || channel.playState === SoundJS.PLAY_FAILED)
         {
             if (completeCallback)
             {
@@ -992,7 +992,7 @@ Sound.prototype._getSoundInst = function(channel, id)
  */
 Sound.prototype._playAfterLoad = function(result)
 {
-    var alias = typeof result == "string" ? result : result.data.id;
+    var alias = typeof result === "string" ? result : result.data.id;
     var sound = this._sounds[alias];
     sound.loadState = Sound.LoadStates.loaded;
 
@@ -1027,7 +1027,7 @@ Sound.prototype._playAfterLoad = function(result)
             pan
         );
 
-        if (!channel || channel.playState == SoundJS.PLAY_FAILED)
+        if (!channel || channel.playState === SoundJS.PLAY_FAILED)
         {
             if (DEBUG && Debug)
             {
@@ -1111,7 +1111,7 @@ Sound.prototype.stop = function(alias)
     if (!s) return;
     if (s.playing.length)
         this._stopSound(s);
-    else if (s.loadState == Sound.LoadStates.loading)
+    else if (s.loadState === Sound.LoadStates.loading)
     {
         s.playAfterLoad = false;
         var waiting = s.waitingToPlay;
@@ -1182,7 +1182,7 @@ Sound.prototype.stopContext = function(context)
             s = arr[i];
             if (s.playing.length)
                 this._stopSound(s);
-            else if (s.loadState == Sound.LoadStates.loading)
+            else if (s.loadState === Sound.LoadStates.loading)
                 s.playAfterLoad = false;
         }
         for (i = 0; i < context.subContexts.length; ++i)
@@ -1252,13 +1252,13 @@ Sound.prototype.resume = function(sound, isGlobal)
     var i;
     for (i = arr.length - 1; i >= 0; --i)
     {
-        if (arr[i].globallyPaused == isGlobal)
+        if (arr[i].globallyPaused === isGlobal)
             arr[i].resume();
     }
     arr = sound.waitingToPlay;
     for (i = arr.length - 1; i >= 0; --i)
     {
-        if (arr[i].globallyPaused == isGlobal)
+        if (arr[i].globallyPaused === isGlobal)
             arr[i].resume();
     }
 };
@@ -1585,7 +1585,7 @@ Sound.prototype.unloadAll = function()
  */
 Sound.prototype._poolInst = function(inst)
 {
-    if (this._pool.indexOf(inst) == -1)
+    if (this._pool.indexOf(inst) === -1)
     {
         inst._endCallback = inst.alias = inst._channel = inst._startFunc = null;
         inst.curVol = 0;

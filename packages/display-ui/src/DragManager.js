@@ -15,7 +15,7 @@ import {Application, include} from '@springroll/core';
  */
 var DragManager = function(display, startCallback, endCallback)
 {
-    if (typeof display == "function" && !endCallback)
+    if (typeof display === "function" && !endCallback)
     {
         endCallback = startCallback;
         startCallback = display;
@@ -289,9 +289,9 @@ p._objMouseDown = function(obj, interactionData)
         mouseDownStagePos.x = interactionData.global.x;
         mouseDownStagePos.y = interactionData.global.y;
         //if it is a touch event, force it to be the held drag type
-        if (!this.allowStickyClick || interactionData.originalEvent.type == "touchstart")
+        if (!this.allowStickyClick || interactionData.originalEvent.type === "touchstart")
         {
-            this.isTouchMove = interactionData.originalEvent.type == "touchstart";
+            this.isTouchMove = interactionData.originalEvent.type === "touchstart";
             this.isHeldDrag = true;
             this._startDrag(interactionData);
         }
@@ -401,7 +401,7 @@ p.stopDrag = function(doCallback, obj)
     {
         for (var key in this.draggedObj)
         {
-            if (this.draggedObj[key].obj == obj)
+            if (this.draggedObj[key].obj === obj)
             {
                 id = key;
                 break;
@@ -423,7 +423,7 @@ p._stopDrag = function(interactionData, doCallback)
 {
     var obj, id = null;
     //if touch id was passed directly
-    if (typeof interactionData == "number")
+    if (typeof interactionData === "number")
         id = interactionData;
     else if (interactionData)
     {
@@ -574,7 +574,7 @@ p._handlePointSnap = function(localMousePos, dragOffset, obj)
     {
         var p = points[i];
         var distSq = Math.distSq(objX, objY, p.x, p.y);
-        if (distSq <= minDistSq && (distSq < leastDist || leastDist == -1))
+        if (distSq <= minDistSq && (distSq < leastDist || leastDist === -1))
         {
             leastDist = distSq;
             closestPoint = p;

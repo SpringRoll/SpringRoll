@@ -54,7 +54,7 @@ import AssetManager from './AssetManager';
             })
             .on('cacheBust', function(value)
             {
-                loader.cacheManager.cacheBust = (value == "true" || !!value);
+                loader.cacheManager.cacheBust = (value === "true" || !!value);
             });
 
         /**
@@ -169,7 +169,7 @@ import AssetManager from './AssetManager';
 
             // If the load arguments are setup like the Loader.load call
             // then we'll convert to an object that we can use
-            if (typeof source == "string")
+            if (typeof source === "string")
             {
                 source = {
                     src: source,
@@ -204,7 +204,7 @@ import AssetManager from './AssetManager';
          */
         this.unload = function(assets)
         {
-            if (typeof assets == "string")
+            if (typeof assets === "string")
             {
                 assets = Array.prototype.slice.call(arguments);
             }

@@ -1,12 +1,12 @@
 (function() {
 
     // From: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/assign
-    if (typeof Object.assign != 'function')
+    if (typeof Object.assign !== 'function')
     {
         Object.assign = function(target, varArgs) // .length of function is 2
         { 
             'use strict';
-            if (target == null) // TypeError if undefined or null
+            if (target === null) // TypeError if undefined or null
             {
                 throw new TypeError('Cannot convert undefined or null to object');
             }
@@ -17,7 +17,7 @@
             {
                 var nextSource = arguments[index];
 
-                if (nextSource != null) // Skip over if undefined or null
+                if (nextSource !== null) // Skip over if undefined or null
                 {
                     for (var nextKey in nextSource)
                     {

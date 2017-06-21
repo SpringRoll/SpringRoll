@@ -235,11 +235,11 @@ VOPlayer.prototype.getElapsed = function()
     for (i = 0; i < this._listCounter; ++i)
     {
         item = this.voList[i];
-        if (typeof item == "string")
+        if (typeof item === "string")
         {
             total += Sound.instance.getDuration(item);
         }
-        else if (typeof item == "number")
+        else if (typeof item === "number")
         {
             total += item;
         }
@@ -249,11 +249,11 @@ VOPlayer.prototype.getElapsed = function()
     if (i < this.voList.length)
     {
         item = this.voList[i];
-        if (typeof item == "string")
+        if (typeof item === "string")
         {
             total += this._soundInstance.position;
         }
-        else if (typeof item == "number")
+        else if (typeof item === "number")
         {
             total += item - this._timer;
         }
@@ -335,7 +335,7 @@ VOPlayer.prototype.play = function(idOrList, callback, cancelledCallback)
     }
 
     this._listCounter = -1;
-    if (typeof idOrList == "string")
+    if (typeof idOrList === "string")
     {
         this._listHelper.length = 0;
         this._listHelper[0] = idOrList;
@@ -394,14 +394,14 @@ VOPlayer.prototype._onSoundFinished = function()
     else
     {
         this._currentVO = this.voList[this._listCounter];
-        if (typeof this._currentVO == "string")
+        if (typeof this._currentVO === "string")
         {
             //If the sound doesn't exist, then we play it and let it fail,
             //an error should be shown and playback will continue
             this._playSound();
             this.trigger("start", this._currentVO);
         }
-        else if (typeof this._currentVO == "function")
+        else if (typeof this._currentVO === "function")
         {
             this._currentVO(); //call function
             this._onSoundFinished(); //immediately continue
@@ -473,7 +473,7 @@ VOPlayer.prototype._syncCaptionToSound = function(elapsed)
 VOPlayer.prototype._playSound = function()
 {
     // Only add a sound once
-    if (this.trackSound && this._trackedSounds.indexOf(this._currentVO) == -1)
+    if (this.trackSound && this._trackedSounds.indexOf(this._currentVO) === -1)
     {
         this._trackedSounds.push(this._currentVO);
     }
@@ -500,7 +500,7 @@ VOPlayer.prototype._playSound = function()
     for (var i = this._listCounter + 1; i < len; ++i)
     {
         next = this.voList[i];
-        if (typeof next == "string")
+        if (typeof next === "string")
         {
             if (s.exists(next) && !s.isLoaded(next))
             {
