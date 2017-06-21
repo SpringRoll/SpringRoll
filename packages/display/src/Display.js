@@ -26,181 +26,179 @@ import DisplayAdapter from './DisplayAdapter';
  * @param {Boolean} [options.autoPreventDefault=true] If preventDefault() should be called on
  *                                                    all touch events and mousedown events.
  */
-var Display = function(id, options)
+export default class Display extends EventDispatcher
 {
-    EventDispatcher.call(this);
-
-    options = options || {};
-
-    /**
-     * the canvas managed by this display
-     * @property {DOMElement} canvas
-     * @readOnly
-     * @public
-     */
-    this.canvas = document.getElementById(id);
-
-    /**
-     * The DOM id for the canvas
-     * @property {String} id
-     * @readOnly
-     * @public
-     */
-    this.id = id;
-
-    /**
-     * Convenience method for getting the width of the canvas element
-     * would be the same thing as canvas.width
-     * @property {int} width
-     * @readOnly
-     * @public
-     */
-    this.width = this.canvas.width;
-
-    /**
-     * Convenience method for getting the height of the canvas element
-     * would be the same thing as canvas.height
-     * @property {int} height
-     * @readOnly
-     * @public
-     */
-    this.height = this.canvas.height;
-
-    /**
-     * The main rendering context or the root display object or stage.
-     * @property {mixed} stage
-     * @readOnly
-     * @public
-     */
-    this.stage = null;
-
-    /**
-     * If rendering is paused on this display only. Pausing all displays can be done
-     * using Application.paused setter.
-     * @property {Boolean} paused
-     * @public
-     */
-    this.paused = false;
-
-    /**
-     * If input is enabled on the stage.
-     * @property {Boolean} _enabled
-     * @private
-     */
-    this._enabled = false;
-
-    /**
-     * If the display is visible.
-     * @property {Boolean} _visible
-     * @private
-     */
-    this._visible = this.canvas.style.display !== "none";
-
-    /**
-     * If the display should keep mouse move events running when the display is disabled.
-     * @property {Boolean} keepMouseover
-     * @public
-     */
-    this.keepMouseover = options.keepMouseover || false;
-
-    /**
-     * If preventDefault() should be called on all touch events and mousedown events. Defaults
-     * to true.
-     * @property {Boolean} _autoPreventDefault
-     * @private
-     */
-    this._autoPreventDefault = options.autoPreventDefault !== undefined ?
-        options.autoPreventDefault : true;
-
-    /**
-     * The rendering library's stage element, the root display object
-     * @property {PIXI.Stage} stage
-     * @readOnly
-     * @public
-     */
-    this.stage = new PIXI.Container();
-
-    /**
-     * The Pixi renderer.
-     * @property {PIXI.CanvasRenderer|PIXI.WebGLRenderer} renderer
-     * @readOnly
-     * @public
-     */
-    this.renderer = null;
-
-    //make the renderer
-    var rendererOptions = {
-        view: this.canvas,
-        transparent: !!options.transparent,
-        antialias: !!options.antiAlias,
-        preserveDrawingBuffer: !!options.preserveDrawingBuffer,
-        clearBeforeRender: !!options.clearView,
-        backgroundColor: options.backgroundColor || 0,
-        // this defaults to false, but we never want it to auto resize.
-        autoResize: false
-    };
-
-    var preMultAlpha = !!options.preMultAlpha;
-
-    if (rendererOptions.transparent && !preMultAlpha)
+    constructor(id, options)
     {
-        rendererOptions.transparent = "notMultiplied";
-    }
+        super();
 
-    //check for IE11 because it tends to have WebGL problems (especially older versions)
-    //if we find it, then make Pixi use to the canvas renderer instead
-    if (options.forceContext !== "webgl")
-    {
-        var ua = window.navigator.userAgent;
+        options = options || {};
 
-        if (ua.indexOf("Trident/7.0") > 0)
+        /**
+         * the canvas managed by this display
+         * @property {DOMElement} canvas
+         * @readOnly
+         * @public
+         */
+        this.canvas = document.getElementById(id);
+
+        /**
+         * The DOM id for the canvas
+         * @property {String} id
+         * @readOnly
+         * @public
+         */
+        this.id = id;
+
+        /**
+         * Convenience method for getting the width of the canvas element
+         * would be the same thing as canvas.width
+         * @property {int} width
+         * @readOnly
+         * @public
+         */
+        this.width = this.canvas.width;
+
+        /**
+         * Convenience method for getting the height of the canvas element
+         * would be the same thing as canvas.height
+         * @property {int} height
+         * @readOnly
+         * @public
+         */
+        this.height = this.canvas.height;
+
+        /**
+         * The main rendering context or the root display object or stage.
+         * @property {mixed} stage
+         * @readOnly
+         * @public
+         */
+        this.stage = null;
+
+        /**
+         * If rendering is paused on this display only. Pausing all displays can be done
+         * using Application.paused setter.
+         * @property {Boolean} paused
+         * @public
+         */
+        this.paused = false;
+
+        /**
+         * If input is enabled on the stage.
+         * @property {Boolean} _enabled
+         * @private
+         */
+        this._enabled = false;
+
+        /**
+         * If the display is visible.
+         * @property {Boolean} _visible
+         * @private
+         */
+        this._visible = this.canvas.style.display !== "none";
+
+        /**
+         * If the display should keep mouse move events running when the display is disabled.
+         * @property {Boolean} keepMouseover
+         * @public
+         */
+        this.keepMouseover = options.keepMouseover || false;
+
+        /**
+         * If preventDefault() should be called on all touch events and mousedown events. Defaults
+         * to true.
+         * @property {Boolean} _autoPreventDefault
+         * @private
+         */
+        this._autoPreventDefault = options.autoPreventDefault !== undefined ?
+            options.autoPreventDefault : true;
+
+        /**
+         * The rendering library's stage element, the root display object
+         * @property {PIXI.Stage} stage
+         * @readOnly
+         * @public
+         */
+        this.stage = new PIXI.Container();
+
+        /**
+         * The Pixi renderer.
+         * @property {PIXI.CanvasRenderer|PIXI.WebGLRenderer} renderer
+         * @readOnly
+         * @public
+         */
+        this.renderer = null;
+
+        //make the renderer
+        var rendererOptions = {
+            view: this.canvas,
+            transparent: !!options.transparent,
+            antialias: !!options.antiAlias,
+            preserveDrawingBuffer: !!options.preserveDrawingBuffer,
+            clearBeforeRender: !!options.clearView,
+            backgroundColor: options.backgroundColor || 0,
+            // this defaults to false, but we never want it to auto resize.
+            autoResize: false
+        };
+
+        var preMultAlpha = !!options.preMultAlpha;
+
+        if (rendererOptions.transparent && !preMultAlpha)
         {
-            options.forceContext = "canvas2d";
+            rendererOptions.transparent = "notMultiplied";
         }
-    }
 
-    if (options.forceContext === "canvas2d")
-    {
-        this.renderer = new PIXI.CanvasRenderer(this.width, this.height, rendererOptions);
-    }
-    else if (options.forceContext === "webgl")
-    {
-        this.renderer = new PIXI.WebGLRenderer(this.width, this.height, rendererOptions);
-    }
-    else
-    {
-        this.renderer = PIXI.autoDetectRenderer(this.width, this.height, rendererOptions);
+        //check for IE11 because it tends to have WebGL problems (especially older versions)
+        //if we find it, then make Pixi use to the canvas renderer instead
+        if (options.forceContext !== "webgl")
+        {
+            var ua = window.navigator.userAgent;
+
+            if (ua.indexOf("Trident/7.0") > 0)
+            {
+                options.forceContext = "canvas2d";
+            }
+        }
+
+        if (options.forceContext === "canvas2d")
+        {
+            this.renderer = new PIXI.CanvasRenderer(this.width, this.height, rendererOptions);
+        }
+        else if (options.forceContext === "webgl")
+        {
+            this.renderer = new PIXI.WebGLRenderer(this.width, this.height, rendererOptions);
+        }
+        else
+        {
+            this.renderer = PIXI.autoDetectRenderer(this.width, this.height, rendererOptions);
+        }
+
+        /**
+         * If Pixi is being rendered with WebGL.
+         * @property {Boolean} isWebGL
+         * @readOnly
+         * @public
+         */
+        this.isWebGL = this.renderer instanceof PIXI.WebGLRenderer;
+
+        // Set display adapter classes
+        this.adapter = DisplayAdapter;
+
+        // Initialize the autoPreventDefault
+        this.autoPreventDefault = this._autoPreventDefault;
     }
 
     /**
-     * If Pixi is being rendered with WebGL.
-     * @property {Boolean} isWebGL
-     * @readOnly
+     * If input is enabled on the stage for this display. The default is true.
+     * @property {Boolean} enabled
      * @public
      */
-    this.isWebGL = this.renderer instanceof PIXI.WebGLRenderer;
-
-    // Set display adapter classes
-    this.adapter = DisplayAdapter;
-
-    // Initialize the autoPreventDefault
-    this.autoPreventDefault = this._autoPreventDefault;
-};
-
-Display.prototype = Object.create(EventDispatcher.prototype);
-
-/**
- * If input is enabled on the stage for this display. The default is true.
- * @property {Boolean} enabled
- * @public
- */
-Object.defineProperty(Display.prototype, "enabled",
-{
-    get: function()
+    get enabled()
     {
         return this._enabled;
-    },
-    set: function(value)
+    }
+    set enabled(value)
     {
         var oldEnabled = this._enabled;
         this._enabled = value;
@@ -249,21 +247,18 @@ Object.defineProperty(Display.prototype, "enabled",
             this.trigger('enable', value);
         }
     }
-});
 
-/**
- * If preventDefault() should be called on all touch events and mousedown events. Defaults
- * to true.
- * @property {Boolean} autoPreventDefault
- * @public
- */
-Object.defineProperty(Display.prototype, "autoPreventDefault",
-{
-    get: function()
+    /**
+     * If preventDefault() should be called on all touch events and mousedown events. Defaults
+     * to true.
+     * @property {Boolean} autoPreventDefault
+     * @public
+     */
+    get autoPreventDefault()
     {
         return this._autoPreventDefault;
-    },
-    set: function(value)
+    }
+    set autoPreventDefault(value)
     {
         this._autoPreventDefault = !!value;
         var interactionManager = this.renderer.plugins.interaction;
@@ -273,78 +268,74 @@ Object.defineProperty(Display.prototype, "autoPreventDefault",
             interactionManager.autoPreventDefault = this._autoPreventDefault;
         }
     }
-});
 
-/**
- * Resizes the canvas and the renderer. This is only called by the Application.
- * @method resize
- * @param {int} width The width that the display should be
- * @param {int} height The height that the display should be
- */
-Display.prototype.resize = function(width, height)
-{
-    this.width = this.canvas.width = width;
-    this.height = this.canvas.height = height;
-    this.renderer.resize(width, height);
-};
-
-/**
- * Updates the stage and draws it. This is only called by the Application.
- * This method does nothing if paused is true or visible is false.
- * @method render
- * @param {int} elapsed
- * @param {Boolean} [force=false] Will re-render even if the game is paused or not visible
- */
-Display.prototype.render = function(elapsed, force)
-{
-    if (force || (!this.paused && this._visible))
+    /**
+     * Resizes the canvas and the renderer. This is only called by the Application.
+     * @method resize
+     * @param {int} width The width that the display should be
+     * @param {int} height The height that the display should be
+     */
+    resize(width, height)
     {
-        this.renderer.render(this.stage);
-    }
-};
-
-/**
- * Destroys the display. This method is called by the Application and should
- * not be called directly, use Application.removeDisplay(id).
- * @method destroy
- */
-Display.prototype.destroy = function()
-{
-    this.stage.destroy(true);
-    this.stage = null;
-
-    this.enabled = false;
-    this.adapter = null;
-    this.stage = null;
-
-    if (this.canvas.parentNode)
-    {
-        this.canvas.parentNode.removeChild(this.canvas);
+        this.width = this.canvas.width = width;
+        this.height = this.canvas.height = height;
+        this.renderer.resize(width, height);
     }
 
-    this.canvas.onmousedown = null;
-    this.canvas = null;
+    /**
+     * Updates the stage and draws it. This is only called by the Application.
+     * This method does nothing if paused is true or visible is false.
+     * @method render
+     * @param {int} elapsed
+     * @param {Boolean} [force=false] Will re-render even if the game is paused or not visible
+     */
+    render(elapsed, force)
+    {
+        if (force || (!this.paused && this._visible))
+        {
+            this.renderer.render(this.stage);
+        }
+    }
 
-    EventDispatcher.prototype.destroy.call(this);
+    /**
+     * Destroys the display. This method is called by the Application and should
+     * not be called directly, use Application.removeDisplay(id).
+     * @method destroy
+     */
+    destroy()
+    {
+        this.stage.destroy(true);
+        this.stage = null;
 
-    this.renderer.destroy();
-    this.renderer = null;
-};
+        this.enabled = false;
+        this.adapter = null;
+        this.stage = null;
 
-/**
- * If the display is visible, using "display: none" css on the canvas. Invisible displays won't render.
- * @property {Boolean} visible
- * @public
+        if (this.canvas.parentNode)
+        {
+            this.canvas.parentNode.removeChild(this.canvas);
+        }
+
+        this.canvas.onmousedown = null;
+        this.canvas = null;
+
+        super.destroy();
+
+        this.renderer.destroy();
+        this.renderer = null;
+    }
+
+    /**
+     * If the display is visible, using "display: none" css on the canvas. Invisible displays won't render.
+     * @property {Boolean} visible
+     * @public
  */
-Object.defineProperty(Display.prototype, "visible",
-{
-    // visible getter
-    get: function()
+    get visible()
     {
         return this._visible;
-    },
+    }
     // visible setter
-    set: function(value)
+    set visible(value)
     {
         var oldVisible = this._visible;
         this._visible = value;
@@ -371,6 +362,4 @@ Object.defineProperty(Display.prototype, "visible",
             this.trigger('visibility', value);
         }
     }
-});
-
-export default Display;
+}

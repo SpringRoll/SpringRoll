@@ -12,7 +12,7 @@ import SpriteClipInstance from './SpriteClipInstance';
     /**
      * @class Application
      */
-    var plugin = new ApplicationPlugin();
+    const plugin = new ApplicationPlugin();
 
     // Init the animator
     plugin.setup = function()

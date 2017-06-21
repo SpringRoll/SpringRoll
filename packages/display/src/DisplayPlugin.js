@@ -9,7 +9,7 @@ import Display from './Display';
     /**
      * @class Application
      */
-    var plugin = new ApplicationPlugin();
+    const plugin = new ApplicationPlugin();
 
     // Register the tasks
     plugin.setup = function()
@@ -20,7 +20,7 @@ import Display from './Display';
 
         this.once('displayAdded', function(display)
         {
-            var options = this.options;
+            const options = this.options;
 
             if (!options.defaultAssetType && display instanceof Display)
             {

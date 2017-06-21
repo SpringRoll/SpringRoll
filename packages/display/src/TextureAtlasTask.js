@@ -19,72 +19,70 @@ import TextureTask from './TextureTask';
  * @param {Function} [asset.complete] The event to call when done
  * @param {Object} [asset.sizes=null] Define if certain sizes are not supported
  */
-var TextureAtlasTask = function(asset, fallbackId)
+export default class TextureAtlasTask extends TextureTask
 {
-    TextureTask.call(this, asset, fallbackId || asset.atlas);
+    constructor(asset, fallbackId)
+    {
+        super(asset, fallbackId || asset.atlas);
+
+        /**
+         * The TextureAtlas data source path
+         * @property {String} atlas
+         */
+        this.atlas = this.filter(asset.atlas);
+    }
 
     /**
-     * The TextureAtlas data source path
-     * @property {String} atlas
+     * Test if we should run this task
+     * @method test
+     * @static
+     * @param {Object} asset The asset to check
+     * @return {Boolean} If the asset is compatible with this asset
      */
-    this.atlas = this.filter(asset.atlas);
-};
-
-TextureAtlasTask.prototype = Object.create(TextureTask.prototype);
-
-/**
- * Test if we should run this task
- * @method test
- * @static
- * @param {Object} asset The asset to check
- * @return {Boolean} If the asset is compatible with this asset
- */
-TextureAtlasTask.test = function(asset)
-{
-    // atlas data and an image or color/alpha split
-    return !!asset.atlas && TextureTask.test(asset);
-};
-
-/**
- * Start the task
- * @method  start
- * @param  {Function} callback Callback when finished
- */
-TextureAtlasTask.prototype.start = function(callback)
-{
-    this.loadAtlas({}, callback);
-};
-
-/**
- * Load a texture atlas from the properties
- * @method loadAtlas
- * @param {Object} assets The assets object to load
- * @param {Function} done Callback when complete, returns new TextureAtlas
- * @param {Boolean} [ignoreCacheSetting] If the setting to cache results should be ignored
- *                                       because this task is still returning stuff to another
- *                                       task.
- */
-TextureAtlasTask.prototype.loadAtlas = function(assets, done, ignoreCacheSetting)
-{
-    assets._atlas = this.atlas;
-
-    this.loadImage(assets, function(texture, results)
+    static test(asset)
     {
-        var data = results._atlas;
-        var atlas = new TextureAtlas(
-            texture,
-            data,
-            this.cache && !ignoreCacheSetting
-        );
-        //if the spritesheet JSON had a scale in it, use that to override
-        //whatever settings came from loading, as the texture atlas size is more important
-        if (data.meta && data.meta.scale && parseFloat(data.meta.scale) !== 1)
-        {
-            texture.baseTexture.resolution = parseFloat(results._atlas.meta.scale);
-            texture.baseTexture.update();
-        }
-        done(atlas, results);
-    }.bind(this), true);
-};
+        // atlas data and an image or color/alpha split
+        return !!asset.atlas && TextureTask.test(asset);
+    }
 
-export default TextureAtlasTask;
+    /**
+     * Start the task
+     * @method  start
+     * @param  {Function} callback Callback when finished
+     */
+    start(callback)
+    {
+        this.loadAtlas({}, callback);
+    }
+
+    /**
+     * Load a texture atlas from the properties
+     * @method loadAtlas
+     * @param {Object} assets The assets object to load
+     * @param {Function} done Callback when complete, returns new TextureAtlas
+     * @param {Boolean} [ignoreCacheSetting] If the setting to cache results should be ignored
+     *                                       because this task is still returning stuff to another
+     *                                       task.
+     */
+    loadAtlas(assets, done, ignoreCacheSetting)
+    {
+        assets._atlas = this.atlas;
+
+        this.loadImage(assets, (texture, results) => {
+            var data = results._atlas;
+            var atlas = new TextureAtlas(
+                texture,
+                data,
+                this.cache && !ignoreCacheSetting
+            );
+            //if the spritesheet JSON had a scale in it, use that to override
+            //whatever settings came from loading, as the texture atlas size is more important
+            if (data.meta && data.meta.scale && parseFloat(data.meta.scale) !== 1)
+            {
+                texture.baseTexture.resolution = parseFloat(results._atlas.meta.scale);
+                texture.baseTexture.update();
+            }
+            done(atlas, results);
+        }, true);
+    }
+}

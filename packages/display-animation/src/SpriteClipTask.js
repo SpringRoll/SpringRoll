@@ -21,53 +21,49 @@ import {TextureAtlasTask} from '@springroll/display';
  * @param {Function} [asset.complete] The event to call when done
  * @param {Object} [asset.sizes=null] Define if certain sizes are not supported
  */
-var SpriteClipTask = function(asset)
+export default class SpriteClipTask extends TextureAtlasTask
 {
-    TextureAtlasTask.call(this, asset, asset.anim);
+    constructor(asset)
+    {
+        super(asset, asset.anim);
+
+        /**
+         * The SpriteClip data source path
+         * @property {String} anim
+         */
+        this.anim = this.filter(asset.anim);
+    }
 
     /**
-     * The SpriteClip data source path
-     * @property {String} anim
+     * Test if we should run this task
+     * @method test
+     * @static
+     * @param {Object} asset The asset to check
+     * @return {Boolean} If the asset is compatible with this asset
      */
-    this.anim = this.filter(asset.anim);
-};
-
-SpriteClipTask.prototype = Object.create(TextureAtlasTask.prototype);
-
-/**
- * Test if we should run this task
- * @method test
- * @static
- * @param {Object} asset The asset to check
- * @return {Boolean} If the asset is compatible with this asset
- */
-SpriteClipTask.test = function(asset)
-{
-    return !!asset.anim && TextureAtlasTask.test(asset);
-};
-
-/**
- * Start the task
- * @method  start
- * @param  {Function} callback Callback when finished
- */
-SpriteClipTask.prototype.start = function(callback)
-{
-    this.loadAtlas(
+    static test(asset)
     {
-        _anim: this.anim
-    }, function(textureAtlas, results)
-    {
-        var clip = new SpriteClip(results._anim, textureAtlas);
-        //override destroy on clip to destroy textureAtlas as well
-        clip.__AMC_destroy = clip.destroy;
-        clip.destroy = function()
-        {
-            clip.__AMC_destroy();
-            textureAtlas.destroy();
-        };
-        callback(clip, results);
-    }, true);
-};
+        return !!asset.anim && TextureAtlasTask.test(asset);
+    }
 
-export default SpriteClipTask;
+    /**
+     * Start the task
+     * @method  start
+     * @param  {Function} callback Callback when finished
+     */
+    start(callback)
+    {
+        this.loadAtlas({ _anim: this.anim }, (textureAtlas, results) => {
+
+            const clip = new SpriteClip(results._anim, textureAtlas);
+            //override destroy on clip to destroy textureAtlas as well
+            clip.__AMC_destroy = clip.destroy;
+            clip.destroy = function()
+            {
+                clip.__AMC_destroy();
+                textureAtlas.destroy();
+            };
+            callback(clip, results);
+        }, true);
+    }
+}
