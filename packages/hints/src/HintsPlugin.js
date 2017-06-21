@@ -6,7 +6,7 @@ import HintsPlayer from './HintsPlayer';
     /**
      * @class Application
      */
-    var plugin = new ApplicationPlugin();
+    const plugin = new ApplicationPlugin();
 
     // Init the animator
     plugin.setup = function()
@@ -57,11 +57,9 @@ import HintsPlayer from './HintsPlayer';
             this.container.on('playHelp', this.hints.play);
 
             // Listen whtn the hint changes
-            this.hints.on('enabled', function(enabled)
-                {
-                    this.container.send('helpEnabled', enabled);
-                }
-                .bind(this));
+            this.hints.on('enabled', enabled => {
+                this.container.send('helpEnabled', enabled);
+            });
         }
         done();
     };

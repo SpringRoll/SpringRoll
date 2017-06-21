@@ -13,36 +13,37 @@ import AbstractHint from './AbstractHint';
  *                           onComplete and onCancelled
  *                           and call them when complete or cancelled
  */
-var FunctionHint = function(hints, done, onStart)
+export default class FunctionHint extends AbstractHint
 {
-    AbstractHint.call(this, hints, done);
-    this.onStart = onStart;
-};
+    constructor(hints, done, onStart)
+    {
+        super(hints, done);
+        this.onStart = onStart;
+    }
 
-//Reference to the prototype
-FunctionHint.prototype = Object.create(AbstractHint.prototype);
+    //Reference to the prototype
 
-/**
- * Start function hint
- * @method play
- */
-p.play = function()
-{
-    this._hints.enabled = false;
-    this.onStart(
-        this._onPlayComplete.bind(this, null, false),
-        this._onPlayComplete.bind(this, null, true)
-    );
-};
 
-/**
- * Clean-up the hint, don't use after this
- * @method destroy
- */
-p.destroy = function()
-{
-    this.onStart = null;
-    AbstractHint.prototype.destroy.call(this);
-};
+    /**
+     * Start function hint
+     * @method play
+     */
+    play()
+    {
+        this._hints.enabled = false;
+        this.onStart(
+            this._onPlayComplete.bind(this, null, false),
+            this._onPlayComplete.bind(this, null, true)
+        );
+    }
 
-export default FunctionHint;
+    /**
+     * Clean-up the hint, don't use after this
+     * @method destroy
+     */
+    destroy()
+    {
+        this.onStart = null;
+        super.destroy();
+    }
+}

@@ -15,46 +15,45 @@ import AbstractHint from './AbstractHint';
  * @param {function|boolean} onCancel If the call is cancelled, true set onComplete
  *      to also be the cancelled callback
  */
-var AnimatorHint = function(hints, done, instance, events, onComplete, onCancel)
+export default class AnimatorHint extends AbstractHint
 {
-    AbstractHint.call(this, hints, done);
-
-    this.instance = instance;
-    this.events = events;
-    this.onComplete = onComplete;
-    this.onCancel = onCancel === true ? onComplete : onCancel;
-};
-
-AnimatorHint.prototype = Object.create(AbstractHint.prototype);
-
-/**
- * Run the hint
- * @method play
- */
-AnimatorHint.prototype.play = function()
-{
-    this._hints.enabled = false;
-    this._hints.trigger('anim',
+    constructor(hints, done, instance, events, onComplete, onCancel)
     {
-        instance: this.instance,
-        events: this.events,
-        complete: this._onPlayComplete.bind(this, this.onComplete, false),
-        cancel: this._onPlayComplete.bind(this, this.onCancel, true)
-    });
-};
+        super(hints, done);
 
-/**
- * Clean-up the hint, don't use after this
- * @method destroy
- */
-AnimatorHint.prototype.destroy = function()
-{
-    this.instance = null;
-    this.events = null;
-    this.onComplete = null;
-    this.onCancel = null;
+        this.instance = instance;
+        this.events = events;
+        this.onComplete = onComplete;
+        this.onCancel = onCancel === true ? onComplete : onCancel;
+    }
 
-    AbstractHint.prototype.destroy.call(this);
-};
+    /**
+     * Run the hint
+     * @method play
+     */
+    play()
+    {
+        this._hints.enabled = false;
+        this._hints.trigger('anim',
+        {
+            instance: this.instance,
+            events: this.events,
+            complete: this._onPlayComplete.bind(this, this.onComplete, false),
+            cancel: this._onPlayComplete.bind(this, this.onCancel, true)
+        });
+    }
 
-export default AnimatorHint;
+    /**
+     * Clean-up the hint, don't use after this
+     * @method destroy
+     */
+    destroy()
+    {
+        this.instance = null;
+        this.events = null;
+        this.onComplete = null;
+        this.onCancel = null;
+
+        super.destroy();
+    }
+}

@@ -13,43 +13,42 @@ import AbstractHint from './AbstractHint';
  * @param {Function} onComplete
  * @param {Function} onCancel
  */
-var VOHint = function(hints, done, idOrList, onComplete, onCancel)
+export default class VOHint extends AbstractHint
 {
-    AbstractHint.call(this, hints, done);
-
-    this.idOrList = idOrList;
-    this.onComplete = onComplete;
-    this.onCancel = onCancel;
-};
-
-VOHint.prototype = Object.create(AbstractHint.prototype);
-
-/**
- * Run the hint
- * @method play
- */
-VOHint.prototype.play = function()
-{
-    this._hints.enabled = false;
-    this._hints.trigger('vo',
+    constructor(hints, done, idOrList, onComplete, onCancel)
     {
-        events: this.idOrList,
-        complete: this._onPlayComplete.bind(this, this.onComplete, false),
-        cancel: this._onPlayComplete.bind(this, this.onCancel, true)
-    });
-};
+        super(hints, done);
 
-/**
- * Clean-up the hint, don't use after this
- * @method destroy
- */
-VOHint.prototype.destroy = function()
-{
-    this.idOrList = null;
-    this.onComplete = null;
-    this.onCancel = null;
+        this.idOrList = idOrList;
+        this.onComplete = onComplete;
+        this.onCancel = onCancel;
+    }
 
-    AbstractHint.prototype.destroy.call(this);
-};
+    /**
+     * Run the hint
+     * @method play
+     */
+    play()
+    {
+        this._hints.enabled = false;
+        this._hints.trigger('vo',
+        {
+            events: this.idOrList,
+            complete: this._onPlayComplete.bind(this, this.onComplete, false),
+            cancel: this._onPlayComplete.bind(this, this.onCancel, true)
+        });
+    }
 
-export default VOHint;
+    /**
+     * Clean-up the hint, don't use after this
+     * @method destroy
+     */
+    destroy()
+    {
+        this.idOrList = null;
+        this.onComplete = null;
+        this.onCancel = null;
+
+        super.destroy(this);
+    }
+}
