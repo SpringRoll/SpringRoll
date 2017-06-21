@@ -113,378 +113,353 @@ import {Debug} from '@springroll/debug';
  *                                           button.
  * @param {Boolean} [enabled=true] Whether or not the button is initially enabled.
  */
-var Button = function(imageSettings, label, enabled)
+export default class Button extends PIXI.Container
 {
-    // @if DEBUG
-    if (!imageSettings)
-    {
-        throw "springroll.Button requires image as first parameter";
-    }
-    // @endif
-
-    PIXI.Container.call(this);
-
-    /**
-     * The sprite that is the body of the button.
-     * @property {PIXI.Sprite} back
-     * @readOnly
-     */
-    this.back = new Sprite();
-
-    /**
-     * The text field of the button. The label is centered by both width and height on the
-     * button.
-     * @property {PIXI.Text|PIXI.BitmapText} label
-     * @readOnly
-     */
-    this.label = null;
-
-    /**
-     * A dictionary of state booleans, keyed by state name.
-     * @private
-     * @property {Object} _stateFlags
-     */
-    this._stateFlags = {};
-
-    /**
-     * An array of state names (Strings), in their order of priority.
-     * The standard order previously was ["highlighted", "disabled", "down", "over",
-     * "selected", "up"].
-     * @private
-     * @property {Array} _statePriority
-     */
-    this._statePriority = imageSettings.priority || DEFAULT_PRIORITY;
-
-    /**
-     * A dictionary of state graphic data, keyed by state name.
-     * Each object contains the sourceRect (src) and optionally 'trim', another Rectangle.
-     * Additionally, each object will contain a 'label' object if the button has a text label.
-     * @private
-     * @property {Object} _stateData
-     */
-    this._stateData = null;
-
-    /**
-     * The current style for the label, to avoid setting this if it is unchanged.
-     * @private
-     * @property {Object} _currentLabelStyle
-     */
-    this._currentLabelStyle = null;
-
-    /**
-     * An offset to button positioning, generally used to adjust for a highlight
-     * around the button.
-     * @private
-     * @property {PIXI.Point} _offset
-     */
-    this._offset = new PIXI.Point();
-
-    /**
-     * The width of the button art, independent of the scaling of the button itself.
-     * @private
-     * @property {Number} _width
-     */
-    this._width = 0;
-
-    /**
-     * The height of the button art, independent of the scaling of the button itself.
-     * @private
-     * @property {Number} _height
-     */
-    this._height = 0;
-
-    this.addChild(this.back);
-
-    this._onOver = this._onOver.bind(this);
-    this._onOut = this._onOut.bind(this);
-    this._onDown = this._onDown.bind(this);
-    this._onUp = this._onUp.bind(this);
-    this._onUpOutside = this._onUpOutside.bind(this);
-    this._emitPress = this._emitPress.bind(this);
-
-    var _stateData = this._stateData = {};
-
-    //a clone of the label data to use as a default value, without changing the original
-    var labelData;
-    if (label)
-    {
-        labelData = clone(label);
-        delete labelData.text;
-        delete labelData.type;
-        if (labelData.x === undefined)
-            labelData.x = "center";
-        if (labelData.y === undefined)
-            labelData.y = "center";
-        //clone the style object and set up the defaults from PIXI.Text or PIXI.BitmapText
-        var style = labelData.style = clone(label.style);
-        if (label.type === "bitmap")
-        {
-            style.align = style.align || "left";
-        }
-        else
-        {
-            style.font = style.font || "bold 20pt Arial";
-            style.fill = style.fill || "black";
-            style.align = style.align || "left";
-            style.stroke = style.stroke || "black";
-            style.strokeThickness = style.strokeThickness || 0;
-            style.wordWrap = style.wordWrap || false;
-            style.wordWrapWidth = style.wordWrapWidth || 100;
-        }
-    }
-
-    //start at the end to start at the up state
-    for (var i = this._statePriority.length - 1; i >= 0; --i)
-    {
-        var state = this._statePriority[i];
-        //set up the property for the state so it can be set
-        // - the function will ignore reserved states
-        this._addProperty(state);
-        //set the default value for the state flag
-        if (state !== "disabled" && state !== "up")
-            this._stateFlags[state] = false;
-        var inputData = imageSettings[state];
-
-        if (inputData)
-        {
-            //if inputData is an object with a tex property, use that
-            //otherwise it is a texture itself
-            if (inputData.tex)
-                _stateData[state] = {
-                    tex: inputData.tex
-                };
-            else
-                _stateData[state] = {
-                    tex: inputData
-                };
-            if (typeof _stateData[state].tex === "string")
-                _stateData[state].tex = PIXI.Texture.fromImage(_stateData[state].tex);
-        }
-        else
-        {
-            //it's established that over, down, and particularly disabled default to
-            //the up state
-            _stateData[state] = _stateData.up;
-        }
-        //set up the label info for this state
-        if (label)
-        {
-            //if there is actual label data for this state, use that
-            if (inputData && inputData.label)
-            {
-                inputData = inputData.label;
-                var stateLabel = _stateData[state].label = {};
-                stateLabel.style = inputData.style || labelData.style;
-                stateLabel.x = inputData.x || labelData.x;
-                stateLabel.y = inputData.y || labelData.y;
-            }
-            //otherwise use the default
-            else
-                _stateData[state].label = labelData;
-        }
-    }
-    //ensure that our required states exist
-    if (!_stateData.up)
+    constructor(imageSettings, label, enabled)
     {
         // @if DEBUG
-        Debug.error("Button lacks an up state! This is a serious problem! Input data follows:");
-        Debug.error(imageSettings);
+        if (!imageSettings)
+        {
+            throw "springroll.Button requires image as first parameter";
+        }
         // @endif
+
+        super();
+
+        /**
+         * The sprite that is the body of the button.
+         * @property {PIXI.Sprite} back
+         * @readOnly
+         */
+        this.back = new Sprite();
+
+        /**
+         * The text field of the button. The label is centered by both width and height on the
+         * button.
+         * @property {PIXI.Text|PIXI.BitmapText} label
+         * @readOnly
+         */
+        this.label = null;
+
+        /**
+         * A dictionary of state booleans, keyed by state name.
+         * @private
+         * @property {Object} _stateFlags
+         */
+        this._stateFlags = {};
+
+        /**
+         * An array of state names (Strings), in their order of priority.
+         * The standard order previously was ["highlighted", "disabled", "down", "over",
+         * "selected", "up"].
+         * @private
+         * @property {Array} _statePriority
+         */
+        this._statePriority = imageSettings.priority || Button.DEFAULT_PRIORITY;
+
+        /**
+         * A dictionary of state graphic data, keyed by state name.
+         * Each object contains the sourceRect (src) and optionally 'trim', another Rectangle.
+         * Additionally, each object will contain a 'label' object if the button has a text label.
+         * @private
+         * @property {Object} _stateData
+         */
+        this._stateData = null;
+
+        /**
+         * The current style for the label, to avoid setting this if it is unchanged.
+         * @private
+         * @property {Object} _currentLabelStyle
+         */
+        this._currentLabelStyle = null;
+
+        /**
+         * An offset to button positioning, generally used to adjust for a highlight
+         * around the button.
+         * @private
+         * @property {PIXI.Point} _offset
+         */
+        this._offset = new PIXI.Point();
+
+        /**
+         * The width of the button art, independent of the scaling of the button itself.
+         * @private
+         * @property {Number} _width
+         */
+        this._width = 0;
+
+        /**
+         * The height of the button art, independent of the scaling of the button itself.
+         * @private
+         * @property {Number} _height
+         */
+        this._height = 0;
+
+        this.addChild(this.back);
+
+        this._onOver = this._onOver.bind(this);
+        this._onOut = this._onOut.bind(this);
+        this._onDown = this._onDown.bind(this);
+        this._onUp = this._onUp.bind(this);
+        this._onUpOutside = this._onUpOutside.bind(this);
+        this._emitPress = this._emitPress.bind(this);
+
+        var _stateData = this._stateData = {};
+
+        //a clone of the label data to use as a default value, without changing the original
+        var labelData;
+        if (label)
+        {
+            labelData = Button._cloneElement(label);
+            delete labelData.text;
+            delete labelData.type;
+            if (labelData.x === undefined)
+                labelData.x = "center";
+            if (labelData.y === undefined)
+                labelData.y = "center";
+            //clone the style object and set up the defaults from PIXI.Text or PIXI.BitmapText
+            var style = labelData.style = Button._cloneElement(label.style);
+            if (label.type === "bitmap")
+            {
+                style.align = style.align || "left";
+            }
+            else
+            {
+                style.font = style.font || "bold 20pt Arial";
+                style.fill = style.fill || "black";
+                style.align = style.align || "left";
+                style.stroke = style.stroke || "black";
+                style.strokeThickness = style.strokeThickness || 0;
+                style.wordWrap = style.wordWrap || false;
+                style.wordWrapWidth = style.wordWrapWidth || 100;
+            }
+        }
+
+        //start at the end to start at the up state
+        for (var i = this._statePriority.length - 1; i >= 0; --i)
+        {
+            var state = this._statePriority[i];
+            //set up the property for the state so it can be set
+            // - the function will ignore reserved states
+            this._addProperty(state);
+            //set the default value for the state flag
+            if (state !== "disabled" && state !== "up")
+            {
+                this._stateFlags[state] = false;
+            }
+
+            var inputData = imageSettings[state];
+
+            if (inputData)
+            {
+                //if inputData is an object with a tex property, use that
+                //otherwise it is a texture itself
+                if (inputData.tex)
+                {
+                    _stateData[state] = {
+                        tex: inputData.tex
+                    };
+                }
+                else
+                {
+                    _stateData[state] = {
+                        tex: inputData
+                    };
+                }
+
+                if (typeof _stateData[state].tex === "string")
+                {
+                    _stateData[state].tex = PIXI.Texture.fromImage(_stateData[state].tex);
+                }
+            }
+            else
+            {
+                //it's established that over, down, and particularly disabled default to
+                //the up state
+                _stateData[state] = _stateData.up;
+            }
+            //set up the label info for this state
+            if (label)
+            {
+                //if there is actual label data for this state, use that
+                if (inputData && inputData.label)
+                {
+                    inputData = inputData.label;
+                    var stateLabel = _stateData[state].label = {};
+                    stateLabel.style = inputData.style || labelData.style;
+                    stateLabel.x = inputData.x || labelData.x;
+                    stateLabel.y = inputData.y || labelData.y;
+                }
+                //otherwise use the default
+                else
+                {
+                    _stateData[state].label = labelData;
+                }
+            }
+        }
+        //ensure that our required states exist
+        if (!_stateData.up)
+        {
+            // @if DEBUG
+            Debug.error("Button lacks an up state! This is a serious problem! Input data follows:");
+            Debug.error(imageSettings);
+            // @endif
+        }
+        if (!_stateData.over)
+        {
+            _stateData.over = _stateData.up;
+        }
+        if (!_stateData.down)
+        {
+            _stateData.down = _stateData.up;
+        }
+        if (!_stateData.disabled)
+        {
+            _stateData.disabled = _stateData.up;
+        }
+        //set up the offset
+        if (imageSettings.offset)
+        {
+            this._offset.x = imageSettings.offset.x;
+            this._offset.y = imageSettings.offset.y;
+        }
+        else
+        {
+            this._offset.x = this._offset.y = 0;
+        }
+
+        if (imageSettings.scale)
+        {
+            var s = imageSettings.scale || 1;
+            this.back.scale.x = this.back.scale.y = s;
+        }
+
+        if (label)
+        {
+            this.label = (label.type === "bitmap" && BitmapText) ?
+                new PIXI.BitmapText(label.text, labelData.style) :
+                new PIXI.Text(label.text, labelData.style);
+            this.label.setPivotToAlign = true;
+            this.addChild(this.label);
+        }
+
+        this.back.x = this._offset.x;
+        this.back.y = this._offset.y;
+
+        this._width = this.back.width;
+        this._height = this.back.height;
+
+        this.enabled = enabled === undefined ? true : !!enabled;
     }
-    if (!_stateData.over)
-        _stateData.over = _stateData.up;
-    if (!_stateData.down)
-        _stateData.down = _stateData.up;
-    if (!_stateData.disabled)
-        _stateData.disabled = _stateData.up;
-    //set up the offset
-    if (imageSettings.offset)
-    {
-        this._offset.x = imageSettings.offset.x;
-        this._offset.y = imageSettings.offset.y;
-    }
-    else
-    {
-        this._offset.x = this._offset.y = 0;
-    }
 
-    if (imageSettings.scale)
-    {
-        var s = imageSettings.scale || 1;
-        this.back.scale.x = this.back.scale.y = s;
-    }
-
-    if (label)
-    {
-        this.label = (label.type === "bitmap" && BitmapText) ?
-            new PIXI.BitmapText(label.text, labelData.style) :
-            new PIXI.Text(label.text, labelData.style);
-        this.label.setPivotToAlign = true;
-        this.addChild(this.label);
-    }
-
-    this.back.x = this._offset.x;
-    this.back.y = this._offset.y;
-
-    this._width = this.back.width;
-    this._height = this.back.height;
-
-    this.enabled = enabled === undefined ? true : !!enabled;
-};
-
-Button.prototype = Object.create(PIXI.Container.prototype);
-
-/**
- * An event for when the button is pressed (while enabled).
- * @static
- * @property {String} BUTTON_PRESS
- */
-Button.BUTTON_PRESS = "buttonPress";
-
-/**
- * An event for when the button is moused over (while enabled).
- * @static
- * @property {String} BUTTON_OVER
- */
-Button.BUTTON_OVER = "buttonOver";
-
-/**
- * An event for when the button is moused out (while enabled).
- * @static
- * @property {String} BUTTON_OUT
- */
-Button.BUTTON_OUT = "buttonOut";
-
-/*
- * A list of state names that should not have properties autogenerated.
- * @private
- * @static
- * @property {Array} RESERVED_STATES
- */
-var RESERVED_STATES = ["disabled", "enabled", "up", "over", "down"];
-
-/*
- * A state priority list to use as the default.
- * @private
- * @static
- * @property {Array} DEFAULT_PRIORITY
- */
-var DEFAULT_PRIORITY = ["disabled", "down", "over", "up"];
-
-/*
- * A simple function for making a shallow copy of an object.
- */
-function clone(obj)
-{
-    if (!obj || "object" !== typeof obj) return null;
-    var copy = obj.constructor();
-    for (var attr in obj)
-    {
-        if (obj.hasOwnProperty(attr)) copy[attr] = obj[attr];
-    }
-    return copy;
-}
-
-/*
- * The width of the button, based on the width of back. This value is affected by scale.
- * @property {Number} width
- */
-Object.defineProperty(Button.prototype, "width",
-{
-    get: function()
+    /**
+     * The width of the button, based on the width of back. This value is affected by scale.
+     * @property {Number} width
+     */
+    get width()
     {
         return this._width * this.scale.x;
-    },
-    set: function(value)
+    }
+    set width(value)
     {
         this.scale.x = value / this._width;
     }
-});
-/*
- * The height of the button, based on the height of back. This value is affected by scale.
- * @property {Number} height
- */
-Object.defineProperty(Button.prototype, "height",
-{
-    get: function()
+
+    /**
+     * The height of the button, based on the height of back. This value is affected by scale.
+     * @property {Number} height
+     */
+    get height()
     {
         return this._height * this.scale.y;
-    },
-    set: function(value)
+    }
+    set height(value)
     {
         this.scale.y = value / this._height;
     }
-});
 
-/**
- * Sets the text of the label. This does nothing if the button was not initialized with a
- * label.
- * @method setText
- * @param {String} text The text to set the label to.
- */
-Button.prototype.setText = function(text)
-{
-    if (this.label)
+    /**
+     * Sets the text of the label. This does nothing if the button was not initialized with a
+     * label.
+     * @method setText
+     * @param {String} text The text to set the label to.
+     */
+    setText(text)
     {
-        this.label.text = text;
-        //make the text update so we can figure out the size for positioning
-        if (this.label instanceof PIXI.Text)
-            this.label.updateText();
-        else
-            this.label.validate();
-        //position the text
-        var data;
-        for (var i = 0; i < this._statePriority.length; ++i)
+        if (this.label)
         {
-            if (this._stateFlags[this._statePriority[i]])
+            this.label.text = text;
+            //make the text update so we can figure out the size for positioning
+            if (this.label instanceof PIXI.Text)
             {
-                data = this._stateData[this._statePriority[i]];
-                break;
+                this.label.updateText();
             }
-        }
-        if (!data)
-            data = this._stateData.up;
-        data = data.label;
-        if (data.x === "center")
-        {
-            var bW = this.back.width,
-                lW = this.label.width;
-            switch (this._currentLabelStyle.align)
+            else
             {
-                case "center":
-                    this.label.position.x = bW * 0.5;
-                    break;
-                case "right":
-                    this.label.position.x = bw - (bW - lW) * 0.5;
-                    break;
-                default: //left or null (defaults to left)
-                    this.label.position.x = (bW - lW) * 0.5;
-                    break;
+                this.label.validate();
             }
-        }
-        else
-            this.label.position.x = data.x + this._offset.x;
-        if (data.y === "center")
-        {
-            this.label.position.y = (this.back.height - this.label.height) * 0.5;
-        }
-        else
-            this.label.position.y = data.y + this._offset.y;
-    }
-};
+            //position the text
+            var data;
+            for (var i = 0; i < this._statePriority.length; ++i)
+            {
+                if (this._stateFlags[this._statePriority[i]])
+                {
+                    data = this._stateData[this._statePriority[i]];
+                    break;
+                }
+            }
+            if (!data)
+                data = this._stateData.up;
+            data = data.label;
+            if (data.x === "center")
+            {
+                var bW = this.back.width,
+                    lW = this.label.width;
+                switch (this._currentLabelStyle.align)
+                {
+                    case "center":
+                    {
+                        this.label.position.x = bW * 0.5;
+                        break;
+                    }
+                    case "right":
+                    {
+                        this.label.position.x = bw - (bW - lW) * 0.5;
+                        break;
+                    }
+                    default: //left or null (defaults to left)
+                    {
+                        this.label.position.x = (bW - lW) * 0.5;
+                        break;
+                    }
+                }
+            }
+            else
+            {
+                this.label.position.x = data.x + this._offset.x;
+            }
 
-/**
- * Whether or not the button is enabled.
- * @property {Boolean} enabled
- * @default true
- */
-Object.defineProperty(Button.prototype, "enabled",
-{
-    get: function()
+            if (data.y === "center")
+            {
+                this.label.position.y = (this.back.height - this.label.height) * 0.5;
+            }
+            else
+            {
+                this.label.position.y = data.y + this._offset.y;
+            }
+        }
+    }
+
+    /**
+     * Whether or not the button is enabled.
+     * @property {Boolean} enabled
+     * @default true
+     */
+    get enabled()
     {
         return !this._stateFlags.disabled;
-    },
-    set: function(value)
+    }
+    set enabled(value)
     {
         this._stateFlags.disabled = !value;
         this.buttonMode = value;
@@ -517,227 +492,300 @@ Object.defineProperty(Button.prototype, "enabled",
 
         this._updateState();
     }
-});
 
-/**
- * Adds a property to the button. Setting the property sets the value in
- * _stateFlags and calls _updateState().
- * @private
- * @method _addProperty
- * @param {String} propertyName The property name to add to the button.
- */
-Button.prototype._addProperty = function(propertyName)
-{
-    //check to make sure we don't add reserved names
-    if (RESERVED_STATES.indexOf(propertyName) >= 0) return;
-
-    // @if DEBUG
-    if (this[propertyName] !== undefined)
+    /**
+     * Adds a property to the button. Setting the property sets the value in
+     * _stateFlags and calls _updateState().
+     * @private
+     * @method _addProperty
+     * @param {String} propertyName The property name to add to the button.
+     */
+    _addProperty(propertyName)
     {
-        Debug.error("Adding property %s to button is dangerous, as property already exists with that name!", propertyName);
-    }
-    // @endif
+        //check to make sure we don't add reserved names
+        if (Button.RESERVED_STATES.indexOf(propertyName) >= 0) return;
 
-    Object.defineProperty(this, propertyName,
-    {
-        get: function()
+        // @if DEBUG
+        if (this[propertyName] !== undefined)
         {
-            return this._stateFlags[propertyName];
-        },
-        set: function(value)
-        {
-            this._stateFlags[propertyName] = value;
-            this._updateState();
+            Debug.error("Adding property %s to button is dangerous, as property already exists with that name!", propertyName);
         }
-    });
-};
+        // @endif
 
-/**
- * Updates back based on the current button state.
- * @private
- * @method _updateState
- * @return {Object} The state data for the active button state, so that subclasses can use the
- *                  value picked by this function without needing to calculate it themselves.
- */
-Button.prototype._updateState = function()
-{
-    if (!this.back) return;
-
-    var data;
-    //use the highest priority state
-    for (var i = 0; i < this._statePriority.length; ++i)
-    {
-        if (this._stateFlags[this._statePriority[i]])
+        Object.defineProperty(this, propertyName,
         {
-            data = this._stateData[this._statePriority[i]];
-            break;
-        }
-    }
-    //if no state is active, use the up state
-    if (!data)
-        data = this._stateData.up;
-    this.back.texture = data.tex;
-    //if we have a label, update that too
-    if (this.label)
-    {
-        var lData = data.label;
-        var label = this.label;
-        //update the text style
-        if (!this._currentLabelStyle || !doObjectsMatch(this._currentLabelStyle, lData.style))
-        {
-            label.font = lData.style.font;
-            label.align = lData.style.align;
-            this._currentLabelStyle = lData.style;
-            //make the text update so we can figure out the size for positioning
-            if (label instanceof PIXI.Text)
-                label.updateText();
-            else
-                label.validate();
-        }
-        //position the text
-        if (lData.x === "center")
-        {
-            var bW = this.back.width,
-                lW = label.width;
-            switch (this._currentLabelStyle.align)
+            get()
             {
-                case "center":
-                    label.position.x = bW * 0.5;
-                    break;
-                case "right":
-                    label.position.x = bW - (bW - lW) * 0.5;
-                    break;
-                default: //left or null (defaults to left)
-                    label.position.x = (bW - lW) * 0.5;
-                    break;
+                return this._stateFlags[propertyName];
+            },
+            set(value)
+            {
+                this._stateFlags[propertyName] = value;
+                this._updateState();
+            }
+        });
+    }
+
+    /**
+     * Updates back based on the current button state.
+     * @private
+     * @method _updateState
+     * @return {Object} The state data for the active button state, so that subclasses can use the
+     *                  value picked by this function without needing to calculate it themselves.
+     */
+    _updateState()
+    {
+        if (!this.back) return;
+
+        var data;
+        //use the highest priority state
+        for (var i = 0; i < this._statePriority.length; ++i)
+        {
+            if (this._stateFlags[this._statePriority[i]])
+            {
+                data = this._stateData[this._statePriority[i]];
+                break;
             }
         }
-        else
-            label.position.x = lData.x + this._offset.x;
-        if (lData.y === "center")
+        //if no state is active, use the up state
+        if (!data)
         {
-            label.position.y = (this.back.height - label.height) * 0.5;
+            data = this._stateData.up;
         }
-        else
-            label.position.y = lData.y + this._offset.y;
-    }
-    return data;
-};
 
-/*
- * A simple function for comparing the properties of two objects
- */
-function doObjectsMatch(obj1, obj2)
-{
-    if (obj1 === obj2)
-        return true;
-    for (var key in obj1)
-    {
-        if (obj1[key] !== obj2[key])
-            return false;
+        this.back.texture = data.tex;
+        //if we have a label, update that too
+        if (this.label)
+        {
+            var lData = data.label;
+            var label = this.label;
+            //update the text style
+            if (!this._currentLabelStyle || !Button._compare(this._currentLabelStyle, lData.style))
+            {
+                label.font = lData.style.font;
+                label.align = lData.style.align;
+                this._currentLabelStyle = lData.style;
+                //make the text update so we can figure out the size for positioning
+                if (label instanceof PIXI.Text)
+                    label.updateText();
+                else
+                    label.validate();
+            }
+            //position the text
+            if (lData.x === "center")
+            {
+                var bW = this.back.width,
+                    lW = label.width;
+                switch (this._currentLabelStyle.align)
+                {
+                    case "center":
+                    {
+                        label.position.x = bW * 0.5;
+                        break;
+                    }
+                    case "right":
+                    {
+                        label.position.x = bW - (bW - lW) * 0.5;
+                        break;
+                    }
+                    default: //left or null (defaults to left)
+                    {
+                        label.position.x = (bW - lW) * 0.5;
+                        break;
+                    }
+                }
+            }
+            else
+            {
+                label.position.x = lData.x + this._offset.x;
+            }
+            if (lData.y === "center")
+            {
+                label.position.y = (this.back.height - label.height) * 0.5;
+            }
+            else
+            {
+                label.position.y = lData.y + this._offset.y;
+            }
+        }
+        return data;
     }
-    return true;
+
+    /**
+     * The callback for when the button is moused over.
+     * @private
+     * @method _onOver
+     */
+    _onOver(event)
+    {
+        this._stateFlags.over = true;
+        this._updateState();
+        this.emit(Button.BUTTON_OVER, this);
+    }
+
+    /**
+     * The callback for when the mouse leaves the button area.
+     * @private
+     * @method _onOut
+     */
+    _onOut(event)
+    {
+        this._stateFlags.over = false;
+        this._updateState();
+        this.emit(Button.BUTTON_OUT, this);
+    }
+
+    /**
+     * The callback for when the button receives a mouse down event.
+     * @private
+     * @method _onDown
+     */
+    _onDown(event)
+    {
+        this._stateFlags.down = true;
+        this._updateState();
+
+        this.on("mouseupoutside", this._onUpOutside);
+        this.on("touchendoutside", this._onUpOutside);
+        this.on("mouseup", this._onUp);
+        this.on("touchend", this._onUp);
+    }
+
+    /**
+     * The callback for when the button for when the mouse/touch is released on the button
+     * - only when the button was held down initially.
+     * @private
+     * @method _onUp
+     */
+    _onUp(event)
+    {
+        this._stateFlags.down = false;
+        this.off("mouseupoutside", this._onUpOutside);
+        this.off("touchendoutside", this._onUpOutside);
+        this.off("mouseup", this._onUp);
+        this.off("touchend", this._onUp);
+
+        this._updateState();
+
+        //because of the way PIXI handles interaction, it is safer to emit this event outside
+        //the interaction check, in case the user's callback modifies the display list
+        setTimeout(this._emitPress, 0);
+    }
+
+    _emitPress()
+    {
+        this.emit(Button.BUTTON_PRESS, this);
+    }
+
+    /**
+     * The callback for when the mouse/touch is released outside the button when the button was
+     * held down.
+     * @private
+     * @method _onUpOutside
+     */
+    _onUpOutside(event)
+    {
+        this._stateFlags.down = false;
+        this.off("mouseupoutside", this._onUpOutside);
+        this.off("touchendoutside", this._onUpOutside);
+        this.off("mouseup", this._onUp);
+        this.off("touchend", this._onUp);
+
+        this._updateState();
+    }
+
+    /**
+     * Destroys the button.
+     * @public
+     * @method destroy
+     */
+    destroy(options)
+    {
+        this.removeAllListeners();
+        this.removeChildren();
+        this.label = null;
+        this.back = null;
+        this._stateData = null;
+        this._stateFlags = null;
+        this._statePriority = null;
+        super.destroy(options);
+    }
+
+    /**
+     * A simple function for comparing the properties of two objects
+     */
+    static _compare(obj1, obj2)
+    {
+        if (obj1 === obj2)
+        {
+            return true;
+        }
+
+        for (var key in obj1)
+        {
+            if (obj1[key] !== obj2[key])
+            {
+                return false;
+            }
+        }
+        
+        return true;
+    }
+
+    /**
+     * A simple function for making a shallow copy of an object.
+     */
+    static _cloneElement(obj)
+    {
+        if (!obj || "object" !== typeof obj)
+        {
+            return null;
+        }
+
+        var copy = obj.constructor();
+
+        for (var attr in obj)
+        {
+            if (obj.hasOwnProperty(attr)) copy[attr] = obj[attr];
+        }
+
+        return copy;
+    }
 }
 
 /**
- * The callback for when the button is moused over.
- * @private
- * @method _onOver
+ * An event for when the button is pressed (while enabled).
+ * @static
+ * @property {String} BUTTON_PRESS
  */
-Button.prototype._onOver = function(event)
-{
-    this._stateFlags.over = true;
-    this._updateState();
-
-    this.emit(Button.BUTTON_OVER, this);
-};
+Button.BUTTON_PRESS = "buttonPress";
 
 /**
- * The callback for when the mouse leaves the button area.
- * @private
- * @method _onOut
+ * An event for when the button is moused over (while enabled).
+ * @static
+ * @property {String} BUTTON_OVER
  */
-Button.prototype._onOut = function(event)
-{
-    this._stateFlags.over = false;
-    this._updateState();
-
-    this.emit(Button.BUTTON_OUT, this);
-};
+Button.BUTTON_OVER = "buttonOver";
 
 /**
- * The callback for when the button receives a mouse down event.
+ * An event for when the button is moused out (while enabled).
+ * @static
+ * @property {String} BUTTON_OUT
+ */
+Button.BUTTON_OUT = "buttonOut";
+
+/*
+ * A list of state names that should not have properties autogenerated.
  * @private
- * @method _onDown
+ * @static
+ * @property {Array} RESERVED_STATES
  */
-Button.prototype._onDown = function(event)
-{
-    this._stateFlags.down = true;
-    this._updateState();
+Button.RESERVED_STATES = ["disabled", "enabled", "up", "over", "down"];
 
-    this.on("mouseupoutside", this._onUpOutside);
-    this.on("touchendoutside", this._onUpOutside);
-    this.on("mouseup", this._onUp);
-    this.on("touchend", this._onUp);
-};
-
-/**
- * The callback for when the button for when the mouse/touch is released on the button
- * - only when the button was held down initially.
+/*
+ * A state priority list to use as the default.
  * @private
- * @method _onUp
+ * @static
+ * @property {Array} DEFAULT_PRIORITY
  */
-Button.prototype._onUp = function(event)
-{
-    this._stateFlags.down = false;
-    this.off("mouseupoutside", this._onUpOutside);
-    this.off("touchendoutside", this._onUpOutside);
-    this.off("mouseup", this._onUp);
-    this.off("touchend", this._onUp);
-
-    this._updateState();
-
-    //because of the way PIXI handles interaction, it is safer to emit this event outside
-    //the interaction check, in case the user's callback modifies the display list
-    setTimeout(this._emitPress, 0);
-};
-
-Button.prototype._emitPress = function()
-{
-    this.emit(Button.BUTTON_PRESS, this);
-};
-
-/**
- * The callback for when the mouse/touch is released outside the button when the button was
- * held down.
- * @private
- * @method _onUpOutside
- */
-Button.prototype._onUpOutside = function(event)
-{
-    this._stateFlags.down = false;
-    this.off("mouseupoutside", this._onUpOutside);
-    this.off("touchendoutside", this._onUpOutside);
-    this.off("mouseup", this._onUp);
-    this.off("touchend", this._onUp);
-
-    this._updateState();
-};
-
-/**
- * Destroys the button.
- * @public
- * @method destroy
- */
-Button.prototype.destroy = function()
-{
-    this.removeAllListeners();
-    this.removeChildren();
-    this.label = null;
-    this.back = null;
-    this._stateData = null;
-    this._stateFlags = null;
-    this._statePriority = null;
-};
-
-export default Button;
+Button.DEFAULT_PRIORITY = ["disabled", "down", "over", "up"];
