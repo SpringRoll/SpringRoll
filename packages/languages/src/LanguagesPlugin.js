@@ -9,7 +9,7 @@ import {Debug} from '@springroll/debug';
     /**
      * @class Application
      */
-    var plugin = new ApplicationPlugin(95);
+    const plugin = new ApplicationPlugin(95);
 
     // Init the animator
     plugin.setup = function()
@@ -38,20 +38,19 @@ import {Debug} from '@springroll/debug';
     // preload the language configuration
     plugin.preload = function(done)
     {
-        var languagesConfig = this.options.languagesPath;
+        const languagesConfig = this.options.languagesPath;
+        
         if (languagesConfig)
         {
-            this.load(languagesConfig, function(config)
+            this.load(languagesConfig, config => {
+                this.languages.setConfig(config);
+                var lang = this.options.language;
+                if (lang)
                 {
-                    this.languages.setConfig(config);
-                    var lang = this.options.language;
-                    if (lang)
-                    {
-                        this.languages.setLanguage(lang);
-                    }
-                    done();
+                    this.languages.setLanguage(lang);
                 }
-                .bind(this));
+                done();
+            });
         }
         else
         {
@@ -65,7 +64,10 @@ import {Debug} from '@springroll/debug';
     // Destroy the animator
     plugin.teardown = function()
     {
-        if (this.languages) this.languages.destroy();
+        if (this.languages)
+        {
+            this.languages.destroy();
+        }
         this.languages = null;
     };
 
