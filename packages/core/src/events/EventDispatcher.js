@@ -49,18 +49,19 @@ export default class EventDispatcher
         if (this._listeners.hasOwnProperty(type) && (this._listeners[type] !== undefined))
         {
             // copy the listeners array
-            var listeners = this._listeners[type].slice();
+            let listeners = this._listeners[type].slice();
 
-            var args;
+            let args;
 
             if (arguments.length > 1)
             {
                 args = Array.prototype.slice.call(arguments, 1);
             }
 
-            for (var i = listeners.length - 1; i >= 0; --i)
+            for (let i = listeners.length - 1; i >= 0; --i)
             {
-                var listener = listeners[i];
+                let listener = listeners[i];
+                
                 if (listener._eventDispatcherOnce)
                 {
                     delete listener._eventDispatcherOnce;
@@ -98,12 +99,15 @@ export default class EventDispatcher
      */
     on(name, callback, priority, once)
     {
-        if (this._destroyed) return;
+        if (this._destroyed)
+        {
+            return;
+        }
 
         // Callbacks map
         if (this.type(name) === 'object')
         {
-            for (var key in name)
+            for (let key in name)
             {
                 if (name.hasOwnProperty(key))
                 {
@@ -114,13 +118,14 @@ export default class EventDispatcher
         // Callback
         else if (this.type(callback) === 'function')
         {
-            var names = name.split(' '),
-                n = null;
+            let names = name.split(' ');
+            let n = null;
 
-            var listener;
-            for (var i = 0, nl = names.length; i < nl; i++)
+            let listener;
+            for (let i = 0, nl = names.length; i < nl; i++)
             {
                 n = names[i];
+
                 if (this._listeners.hasOwnProperty(n))
                 {
                     listener = this._listeners[n];
@@ -134,6 +139,7 @@ export default class EventDispatcher
                 {
                     callback._eventDispatcherOnce = true;
                 }
+
                 callback._priority = parseInt(priority) || 0;
 
                 if (listener.indexOf(callback) === -1)
@@ -152,7 +158,7 @@ export default class EventDispatcher
         // Callbacks array
         else if (Array.isArray(callback))
         {
-            for (var f = 0, fl = callback.length; f < fl; f++)
+            for (let f = 0, fl = callback.length; f < fl; f++)
             {
                 this.on(name, callback[f], priority, once);
             }
@@ -180,20 +186,22 @@ export default class EventDispatcher
         // remove multiple callbacks
         else if (Array.isArray(callback))
         {
-            for (var f = 0, fl = callback.length; f < fl; f++)
+            for (let f = 0, fl = callback.length; f < fl; f++)
             {
                 this.off(name, callback[f]);
             }
         }
         else
         {
-            var names = name.split(' ');
-            var n = null;
-            var listener;
-            var index;
-            for (var i = 0, nl = names.length; i < nl; i++)
+            let names = name.split(' ');
+            let n = null;
+            let listener;
+            let index;
+
+            for (let i = 0, nl = names.length; i < nl; i++)
             {
                 n = names[i];
+
                 if (this._listeners.hasOwnProperty(n))
                 {
                     listener = this._listeners[n];
@@ -207,6 +215,7 @@ export default class EventDispatcher
                     {
                         //remove single listener
                         index = listener.indexOf(callback);
+
                         if (index !== -1)
                         {
                             listener.splice(index, 1);
@@ -230,10 +239,18 @@ export default class EventDispatcher
     {
         if (!name || !this._listeners.hasOwnProperty(name)) return false;
 
-        var listeners = this._listeners[name];
-        if (!listeners) return false;
+        const listeners = this._listeners[name];
+
+        if (!listeners)
+        {
+            return false;
+        }
+
         if (!callback)
+        {
             return listeners.length > 0;
+        }
+
         return listeners.indexOf(callback) >= 0;
     }
 
@@ -261,11 +278,13 @@ export default class EventDispatcher
         {
             return 'null';
         }
-        var typeOfValue = typeof value;
+        const typeOfValue = typeof value;
+
         if (typeOfValue === 'object' || typeOfValue === 'function')
         {
             return Object.prototype.toString.call(value).match(/\s([a-z]+)/i)[1].toLowerCase() || 'object';
         }
+
         return typeOfValue;
     }
 }
