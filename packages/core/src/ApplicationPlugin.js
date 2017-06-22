@@ -18,9 +18,7 @@ import Application from './Application';
 export default class ApplicationPlugin
 {
     constructor(priority)
-    {
-        function noop() {};
-        
+    {        
         /**
          * The priority of the plugin. Higher numbers handled first. This should be set
          * in the constructor of the extending ApplicationPlugin.
@@ -36,7 +34,7 @@ export default class ApplicationPlugin
          * is bound to the Application. This should be overridden.
          * @method setup
          */
-        this.setup = noop;
+        this.setup = () => {};
 
         /**
          * The function to call right before the application is initailized. 
@@ -53,7 +51,7 @@ export default class ApplicationPlugin
          * is bound to the Application. This should be overridden.
          * @method teardown
          */
-        this.teardown = noop;
+        this.teardown = () => {};
 
         // Add the plugin to application
         Application._plugins.push(this);

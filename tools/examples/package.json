@@ -9,7 +9,7 @@
     "build": "webpack -d",
     "build:prod": "webpack -p",
     "build:dev": "webpack -d",
-    "start": "webpack-dev-server -d"
+    "watch": "webpack-dev-server -d"
   },
   "devDependencies": {
     "@springroll/animation": "^2.0.0",

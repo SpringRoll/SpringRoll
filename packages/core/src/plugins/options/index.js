@@ -24,25 +24,6 @@ import include from '../../utils/include';
         options.add('useQueryString', useQueryString, true);
 
         /**
-         * The default display DOM ID name
-         * @property {String} options.canvasId
-         */
-        options.add('canvasId', null, true);
-
-        /**
-         * The name of the class to automatically instantiate as the
-         * display (e.g. `springroll.PixiDisplay`)
-         * @property {Function} options.display
-         */
-        options.add('display', null, true);
-
-        /**
-         * Display specific setup options
-         * @property {Object} options.displayOptions
-         */
-        options.add('displayOptions', null, true);
-
-        /**
          * The name of the application
          * @property {String} options.name
          * @default ''

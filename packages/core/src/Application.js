@@ -20,7 +20,7 @@ import series from 'async-series';
  *        that can be overridden and set.
  * @param {Function} [init=null] The callback when initialized
  */
-class Application extends EventDispatcher
+export default class Application extends EventDispatcher
 {
     constructor(options, init)
     {
@@ -39,15 +39,6 @@ class Application extends EventDispatcher
          * @readOnly
          */
         this.options = new ApplicationOptions(this, options);
-
-        /**
-         * Primary renderer for the application, for simply accessing
-         * Application.instance.display.stage;
-         * The first display added becomes the primary display automatically.
-         * @property {Display} display
-         * @public
-         */
-        this.display = null;
 
         /**
          * Override this to do post constructor initialization
@@ -75,20 +66,6 @@ class Application extends EventDispatcher
          * @property {Boolean} _enabled
          */
         this._enabled = true;
-
-        /**
-         * The collection of displays
-         * @property {Array} _displays
-         * @private
-         */
-        this._displays = [];
-
-        /**
-         * The displays by canvas id
-         * @property {Object} _displaysMap
-         * @private
-         */
-        this._displaysMap = {};
 
         // Call any global libraries to initialize
         Application._plugins.forEach(plugin => {
@@ -147,19 +124,9 @@ class Application extends EventDispatcher
             return;
         }
 
-        var options = this.options;
+        this.trigger('beforePreload');
 
-        //add the initial display if specified
-        if (options.canvasId && options.display)
-        {
-            this.addDisplay(
-                options.canvasId,
-                options.display,
-                options.displayOptions
-            );
-        }
-
-        var tasks = [];
+        const tasks = [];
 
         Application._plugins.forEach(plugin => {
             if (plugin.preload)
@@ -212,9 +179,8 @@ class Application extends EventDispatcher
     set enabled(enabled)
     {
         this._enabled = enabled;
-        this._displays.forEach(display => {
-            display.enabled = enabled;
-        });
+        this.trigger('enable', enabled);
+        this.trigger(enabled ? 'enabled' : 'disabled', enabled);
     }
     get enabled()
     {
@@ -250,95 +216,6 @@ class Application extends EventDispatcher
     }
 
     /**
-     * Add a display. If this is the first display added, then it will be stored as this.display.
-     * @method addDisplay
-     * @param {String} id The id of the canvas element, this will be used to grab the Display later
-     *                   also the Display should be the one to called document.getElementById(id)
-     *                   and not the application sinc we don't care about the DOMElement as this
-     *                   point
-     * @param {function} displayConstructor The function to call to create the display instance
-     * @param {Object} [options] Optional Display specific options
-     * @return {Display} The created display.
-     */
-    addDisplay(id, displayConstructor, options)
-    {
-        if (this._displaysMap[id])
-        {
-            throw `Display exists with id '${id}'`;
-        }
-        // Creat the display
-        var display = new displayConstructor(id, options);
-
-        // Add it to the collections
-        this._displaysMap[id] = display;
-        this._displays.push(display);
-
-        // Inherit the enabled state from the application
-        display.enabled = this._enabled;
-
-        if (!this.display)
-        {
-            this.display = display;
-        }
-        this.trigger('displayAdded', display);
-        return display;
-    }
-
-    /**
-     * Get all the displays
-     * @property {Array} displays
-     * @readOnly
-     */
-    get displays()
-    {
-        return this._displays;
-    }
-
-    /**
-     * Gets a specific renderer by the canvas id.
-     * @method getDisplay
-     * @param {String} id The id of the canvas
-     * @return {Display} The requested display.
-     */
-    getDisplay(id)
-    {
-        return this._displaysMap[id];
-    }
-
-    /**
-     * Removes and destroys a display
-     * @method removeDisplay
-     * @param {String} id The Display's id (also the canvas ID)
-     */
-    removeDisplay(id)
-    {
-        var display = this._displaysMap[id];
-        if (display)
-        {
-            this._displays.splice(this._displays.indexOf(display), 1);
-            display.destroy();
-            delete this._displaysMap[id];
-            this.trigger('displayRemoved', id);
-        }
-    }
-
-    /**
-     * Render the displays, if any.
-     * @method render
-     * @param {Number} elapsed Time elapsed since last frame render
-     */
-    render(elapsed)
-    {
-        if (this._displays)
-        {
-            for (let i = 0; i < this._displays.length; i++)
-            {
-                this._displays[i].render(elapsed);
-            }
-        }
-    }
-
-    /**
      * Destroys the application and all active displays and plugins
      * @method destroy
      */
@@ -355,21 +232,14 @@ class Application extends EventDispatcher
         this.trigger('destroy');
 
         // Destroy in the reverse priority order
-        var plugins = Application._plugins.slice().reverse();
+        const plugins = Application._plugins.slice().reverse();
 
         plugins.forEach(plugin => {
             plugin.teardown.call(this);
         });
 
-        this._displays.forEach(display => {
-            display.destroy();
-        });
-        this._displays = null;
-        this._displaysMap = null;
-
         Application._instance = null;
 
-        this.display = null;
         this.options.destroy();
         this.options = null;
 
@@ -415,6 +285,11 @@ Application._instance = null;
  */
 
 /**
+ * Before preload of plugins begin.
+ * @event beforePreload
+ */
+
+/**
  * Fired when initialization of the application is done
  * @event afterInit
  */
@@ -437,18 +312,6 @@ Application._instance = null;
  */
 
 /**
- * When a display is added.
- * @event displayAdded
- * @param {springroll.AbstractDisplay} [display] The current display being added
- */
-
-/**
- * When a display is removed.
- * @event displayRemoved
- * @param {string} [displayId] The display alias
- */
-
-/**
  * Fired when the application becomes paused
  * @event paused
  */
@@ -462,5 +325,3 @@ Application._instance = null;
  * Fired when the application is destroyed
  * @event destroy
  */
-
-export default Application;

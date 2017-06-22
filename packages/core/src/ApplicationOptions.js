@@ -33,7 +33,7 @@ export default class ApplicationOptions extends PropertyDispatcher
      */
     init()
     {
-        var options = this._options;
+        let options = this._options;
 
         // Create the options overrides
         options = Object.assign({}, options);
@@ -47,14 +47,14 @@ export default class ApplicationOptions extends PropertyDispatcher
 
         // Create getter and setters for all properties
         // this is so we can dispatch events when the property changes
-        for (var name in options)
+        for (let name in options)
         {
             this.add(name, options[name]);
         }
 
         //trigger all of the initial values, because otherwise they don't take effect.
-        var properties = this._properties;
-        for (var id in properties)
+        let properties = this._properties;
+        for (let id in properties)
         {
             this.trigger(id, properties[id].value);
         }
@@ -67,24 +67,24 @@ export default class ApplicationOptions extends PropertyDispatcher
      */
     getQueryString()
     {
-        var output = {};
-        var href = window.location.search;
+        let output = {};
+        let href = window.location.search;
 
         if (!href) //empty string is false
         {
             return output;
         }
 
-        var vars = href.substr(href.indexOf("?") + 1);
-        var pound = vars.indexOf('#');
+        let vars = href.substr(href.indexOf("?") + 1);
+        let pound = vars.indexOf('#');
         vars = pound < 0 ? vars : vars.substring(0, pound);
-        var splitFlashVars = vars.split("&");
-        var myVar;
+        let splitFlashVars = vars.split("&");
+        let myVar;
 
-        for (var i = 0, len = splitFlashVars.length; i < len; i++)
+        for (let i = 0, len = splitFlashVars.length; i < len; i++)
         {
             myVar = splitFlashVars[i].split("=");
-            var value = myVar[1];
+            let value = myVar[1];
 
             if (value === "true" || value === undefined)
             {
@@ -111,7 +111,7 @@ export default class ApplicationOptions extends PropertyDispatcher
      */
     asDOMElement(name)
     {
-        var prop = this._properties[name];
+        let prop = this._properties[name];
 
         if (prop && prop.value && typeof prop.value === "string")
         {
@@ -128,7 +128,7 @@ export default class ApplicationOptions extends PropertyDispatcher
      */
     override(name, value)
     {
-        var prop = this._properties[name];
+        let prop = this._properties[name];
 
         if (prop === undefined)
         {
