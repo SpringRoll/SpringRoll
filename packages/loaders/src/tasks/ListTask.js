@@ -14,66 +14,65 @@ import Task from './Task';
  * @param {Function} [asset.complete=null] The event to call when done
  * @param {Function} [asset.progress=null] The event to call when progress is updated
  */
-var ListTask = function(asset)
+export default class ListTask extends Task
 {
-    Task.call(this, asset);
-
-    /**
-     * The collection of assets to load
-     * @property {Array|Object} assets
-     */
-    this.assets = asset.assets;
-
-    /**
-     * If each asset in the collection should be cached.
-     * @property {Boolean} cacheAll
-     */
-    this.cacheAll = asset.cacheAll;
-
-    /**
-     * Callback when progress is updated
-     * @property {Function} progress
-     */
-    this.progress = asset.progress;
-};
-
-ListTask.prototype = Object.create(Task.prototype);
-
-/**
- * Test if we should run this task
- * @method test
- * @static
- * @param {Object} asset The asset to check
- * @return {Boolean} If the asset is compatible with this asset
- */
-ListTask.test = function(asset)
-{
-    return !!asset.assets && (Array.isArray(asset.assets) || Object.isPlain(asset.assets));
-};
-
-/**
- * Start the task
- * @method  start
- * @param  {Function} callback Callback when finished
- */
-ListTask.prototype.start = function(callback)
-{
-    this.load(this.assets,
+    constructor(asset)
     {
-        complete: callback,
-        progress: this.progress,
-        cacheAll: this.cacheAll
-    });
-};
+        super(asset);
 
-/**
- * Destroy this and discard
- * @method destroy
- */
-ListTask.prototype.destroy = function()
-{
-    Task.prototype.destroy.call(this);
-    this.assets = null;
-};
+        /**
+         * The collection of assets to load
+         * @property {Array|Object} assets
+         */
+        this.assets = asset.assets;
 
-export default ListTask;
+        /**
+         * If each asset in the collection should be cached.
+         * @property {Boolean} cacheAll
+         */
+        this.cacheAll = asset.cacheAll;
+
+        /**
+         * Callback when progress is updated
+         * @property {Function} progress
+         */
+        this.progress = asset.progress;
+    }
+
+    /**
+     * Test if we should run this task
+     * @method test
+     * @static
+     * @param {Object} asset The asset to check
+     * @return {Boolean} If the asset is compatible with this asset
+     */
+    static test(asset)
+    {
+        return !!asset.assets && (Array.isArray(asset.assets) || Object.isPlain(asset.assets));
+    }
+
+    /**
+     * Start the task
+     * @method  start
+     * @param  {Function} callback Callback when finished
+     */
+    start(callback)
+    {
+        this.load(this.assets,
+        {
+            complete: callback,
+            progress: this.progress,
+            cacheAll: this.cacheAll
+        });
+    }
+
+    /**
+     * Destroy this and discard
+     * @method destroy
+     */
+    destroy()
+    {
+        super.destroy();
+        this.assets = null;
+    }
+}

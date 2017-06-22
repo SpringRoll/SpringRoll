@@ -6,63 +6,64 @@
  * @param {String} url The url that was loaded
  * @param {*} [data] Optional data associated with object
  */
-var LoaderResult = function(content, url, data)
+export default class LoaderResult
 {
-    /**
-     * The contents of the load
-     * @property {*} content
-     */
-    this.content = content;
+    constructor(content, url, data)
+    {
+        /**
+         * The contents of the load
+         * @property {*} content
+         */
+        this.content = content;
 
-    /**
-     * The url of the load
-     * @property {String} url
-     */
-    this.url = url;
+        /**
+         * The url of the load
+         * @property {String} url
+         */
+        this.url = url;
 
-    /**
-     * The data for the load item.
-     * @property {*} data
-     */
-    this.data = data;
+        /**
+         * The data for the load item.
+         * @property {*} data
+         */
+        this.data = data;
 
-    /**
-     * The original asset id, if any
-     * @property {String} id
-     */
-    this.id = null;
-};
-
-/**
- * A to string method
- * @public
- * @method toString
- * @return {String} A string rep of the object
- */
-LoaderResult.prototype.toString = function()
-{
-    return "[LoaderResult(url: '" + this.url + "')]";
-};
-
-/**
- * Reset to the original state
- * @method reset
- */
-LoaderResult.prototype.reset = function()
-{
-    this.content =
-        this.url =
-        this.data =
+        /**
+         * The original asset id, if any
+         * @property {String} id
+         */
         this.id = null;
-};
+    }
 
-/**
- * Destroy this result
- * @method destroy
- */
-LoaderResult.prototype.destroy = function()
-{
-    this.reset();
-};
+    /**
+     * A to string method
+     * @public
+     * @method toString
+     * @return {String} A string rep of the object
+     */
+    toString()
+    {
+        return `[LoaderResult(url: '${this.url}')]`;
+    }
 
-export default LoaderResult;
+    /**
+     * Reset to the original state
+     * @method reset
+     */
+    reset()
+    {
+        this.content =
+            this.url =
+            this.data =
+            this.id = null;
+    }
+
+    /**
+     * Destroy this result
+     * @method destroy
+     */
+    destroy()
+    {
+        this.reset();
+    }
+}

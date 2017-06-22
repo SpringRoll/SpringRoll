@@ -16,85 +16,84 @@ import Task from './Task';
  * @param {Function} [asset.progress=null] The event to call on load progress
  * @param {Object} [asset.sizes=null] Define if certain sizes are not supported
  */
-var LoadTask = function(asset)
+export default class LoadTask extends Task
 {
-    Task.call(this, asset, asset.src);
+    constructor(asset)
+    {
+        super(asset, asset.src);
+
+        /**
+         * The source URL to load
+         * @property {String} src
+         */
+        this.src = this.filter(asset.src);
+
+        /**
+         * Call on load progress
+         * @property {Function} progress
+         */
+        this.progress = asset.progress || null;
+
+        /**
+         * Optional data to attach to load
+         * @property {*} data
+         */
+        this.data = asset.data || null;
+
+        /**
+         * If turned on return a springroll.LoaderResult object
+         * instead of the content
+         * @property {Boolean} advanced
+         * @default false
+         */
+        this.advanced = !!asset.advanced;
+    }
 
     /**
-     * The source URL to load
-     * @property {String} src
+     * Test if we should run this task
+     * @method test
+     * @static
+     * @param {Object} asset The asset to check
+     * @return {Boolean} If the asset is compatible with this asset
      */
-    this.src = this.filter(asset.src);
+    static test(asset)
+    {
+        return !!asset.src;
+    }
 
     /**
-     * Call on load progress
-     * @property {Function} progress
+     * Start the task
+     * @method  start
+     * @param  {Function} callback Callback when finished
      */
-    this.progress = asset.progress || null;
-
-    /**
-     * Optional data to attach to load
-     * @property {*} data
-     */
-    this.data = asset.data || null;
-
-    /**
-     * If turned on return a springroll.LoaderResult object
-     * instead of the content
-     * @property {Boolean} advanced
-     * @default false
-     */
-    this.advanced = !!asset.advanced;
-};
-
-LoadTask.prototype = Object.create(Task.prototype);
-
-/**
- * Test if we should run this task
- * @method test
- * @static
- * @param {Object} asset The asset to check
- * @return {Boolean} If the asset is compatible with this asset
- */
-LoadTask.test = function(asset)
-{
-    return !!asset.src;
-};
-
-/**
- * Start the task
- * @method  start
- * @param  {Function} callback Callback when finished
- */
-LoadTask.prototype.start = function(callback)
-{
-    var advanced = this.advanced;
-    this.simpleLoad(
-        this.src,
-        function(result)
-        {
-            var content = result;
-            if (content && !advanced)
+    start(callback)
+    {
+        var advanced = this.advanced;
+        this.simpleLoad(
+            this.src,
+            function(result)
             {
-                content = result.content;
-                result.destroy();
-            }
-            callback(content);
-        },
-        this.progress,
-        this.data
-    );
-};
+                var content = result;
+                if (content && !advanced)
+                {
+                    content = result.content;
+                    result.destroy();
+                }
+                callback(content);
+            },
+            this.progress,
+            this.data
+        );
+    }
 
-/**
- * Destroy this and discard
- * @method destroy
- */
-LoadTask.prototype.destroy = function()
-{
-    Task.prototype.destroy.call(this);
-    this.data = null;
-    this.progress = null;
-};
-
-export default LoadTask;
+    /**
+     * Destroy this and discard
+     * @method destroy
+     */
+    destroy()
+    {
+        super.destroy();
+        this.data = null;
+        this.progress = null;
+    }
+}

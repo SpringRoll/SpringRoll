@@ -12,49 +12,48 @@ import Task from './Task';
  * @param {Function} [asset.complete] The function to call when we're done
  * @param {String} [asset.id] The task id for mapping the result, if any
  */
-var FunctionTask = function(asset)
+export default class FunctionTask extends Task
 {
-    Task.call(this, asset);
+    constructor(asset)
+    {
+        super(asset);
+
+        /**
+         * The asynchronous call
+         * @property {Function} async
+         */
+        this.async = asset.async;
+    }
 
     /**
-     * The asynchronous call
-     * @property {Function} async
+     * Test if we should run this task
+     * @method test
+     * @static
+     * @param {Object} asset The asset to check
+     * @return {Boolean} If the asset is compatible with this asset
      */
-    this.async = asset.async;
-};
+    static test(asset)
+    {
+        return !!asset.async;
+    }
 
-FunctionTask.prototype = Object.create(Task.prototype);
+    /**
+     * Start the task
+     * @method start
+     * @param {Function} callback Callback when done
+     */
+    start(callback)
+    {
+        this.async(callback);
+    }
 
-/**
- * Test if we should run this task
- * @method test
- * @static
- * @param {Object} asset The asset to check
- * @return {Boolean} If the asset is compatible with this asset
- */
-FunctionTask.test = function(asset)
-{
-    return !!asset.async;
-};
-
-/**
- * Start the task
- * @method start
- * @param {Function} callback Callback when done
- */
-FunctionTask.prototype.start = function(callback)
-{
-    this.async(callback);
-};
-
-/**
- * Destroy this and discard
- * @method destroy
- */
-FunctionTask.prototype.destroy = function()
-{
-    Task.prototype.destroy.call(this);
-    this.async = null;
-};
-
-export default FunctionTask;
+    /**
+     * Destroy this and discard
+     * @method destroy
+     */
+    destroy()
+    {
+        super.destroy();
+        this.async = null;
+    }
+}

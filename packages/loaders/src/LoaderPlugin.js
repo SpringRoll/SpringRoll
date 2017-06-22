@@ -11,7 +11,7 @@ import AssetManager from './AssetManager';
     /**
      * @class Application
      */
-    var plugin = new ApplicationPlugin(100);
+    const plugin = new ApplicationPlugin(100);
 
     // Init the animator
     plugin.setup = function()
@@ -20,14 +20,14 @@ import AssetManager from './AssetManager';
          * Reference to the loader.
          * @property {springroll.Loader} loader
          */
-        var loader = this.loader = new Loader(this);
+        const loader = this.loader = new Loader(this);
 
         /**
          * Reference to the asset manager.
          * @property {springroll.AssetManager} assetManager
          * @private
          */
-        var assetManager = this.assetManager = new AssetManager();
+        const assetManager = this.assetManager = new AssetManager();
 
         // Register the default tasks
         assetManager.register('springroll.LoadTask');
@@ -42,8 +42,8 @@ import AssetManager from './AssetManager';
          * @property {Boolean} options.cacheBust
          * @default DEBUG
          */
-        var options = this.options;
-        var cacheBust = false;
+        const options = this.options;
+        let cacheBust = false;
         // @if DEBUG
         cacheBust = true;
         // @endif
@@ -165,7 +165,7 @@ import AssetManager from './AssetManager';
          */
         this.load = function(source, complete, progress, cache, data)
         {
-            var options;
+            let options;
 
             // If the load arguments are setup like the Loader.load call
             // then we'll convert to an object that we can use
@@ -209,7 +209,7 @@ import AssetManager from './AssetManager';
                 assets = Array.prototype.slice.call(arguments);
             }
 
-            for (var i = 0; i < assets.length; i++)
+            for (let i = 0; i < assets.length; i++)
             {
                 assetManager.cache.delete(assets[i]);
             }

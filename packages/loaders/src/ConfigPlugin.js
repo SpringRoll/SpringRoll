@@ -5,7 +5,7 @@ import {ApplicationPlugin} from '@springroll/core';
     /**
      * @class Application
      */
-    var plugin = new ApplicationPlugin(80);
+    const plugin = new ApplicationPlugin(80);
 
     /**
      * The game has finished loading
@@ -35,7 +35,7 @@ import {ApplicationPlugin} from '@springroll/core';
     // Init the animator
     plugin.setup = function()
     {
-        var options = this.options;
+        const options = this.options;
 
         /**
          * The path to the config file to load
@@ -136,7 +136,7 @@ import {ApplicationPlugin} from '@springroll/core';
      * @private
      * @param {Number} progress The amount loaded from 0 to 1
      */
-    var onProgress = function()
+    function onProgress()
     {
         if (this._assetLoad)
         {
@@ -151,7 +151,7 @@ import {ApplicationPlugin} from '@springroll/core';
             this._progress = progress;
             this.trigger('progress', progress);
         }
-    };
+    }
 
     /**
      * Add the preload assets to the list of assets to load
@@ -160,13 +160,13 @@ import {ApplicationPlugin} from '@springroll/core';
      * @param {springroll.Application} app Reference to the application
      * @param {Array} assets The array to add new load tasks to
      */
-    var addPreloadAssets = function(app, assets)
+    function addPreloadAssets(app, assets)
     {
         assets.append(app.options.preload);
 
         // Allow extending game to add additional tasks
         app.trigger('loading', assets);
-    };
+    }
 
     /**
      * Callback when the config is loaded
@@ -176,12 +176,12 @@ import {ApplicationPlugin} from '@springroll/core';
      * @param {Object} asset Original asset data
      * @param {Array} assets The array to add new load tasks to
      */
-    var onConfigLoaded = function(config, asset, assets)
+    function onConfigLoaded(config, asset, assets)
     {
         this.config = config;
         this.trigger('configLoaded', config, assets);
         addPreloadAssets(this, assets);
-    };
+    }
 
     /**
      * Callback when tasks are completed
@@ -190,12 +190,12 @@ import {ApplicationPlugin} from '@springroll/core';
      * @param {function} done Call when we're done
      * @param {Array} results The collection of final LoaderResult objects
      */
-    var onLoadComplete = function(done, results)
+    function onLoadComplete(done, results)
     {
         this._assetLoad = null;
         this.trigger('loaded', results);
         done();
-    };
+    }
 
     // Destroy the animator
     plugin.teardown = function()

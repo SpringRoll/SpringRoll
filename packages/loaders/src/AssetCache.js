@@ -7,133 +7,134 @@ import {Debug} from '@springroll/debug';
  * @class AssetCache
  * @private
  */
-var AssetCache = function()
+export default class AssetCache
 {
-    /**
-     * The cache containing assets
-     * @property {Object} _cache
-     * @private
-     */
-    this._cache = {};
-};
-
-/**
- * Retrieves a single asset from the cache.
- * @method read
- * @param {String} id The asset to get.
- */
-AssetCache.prototype.read = function(id)
-{
-    // @if DEBUG
-    if (!this._cache[id])
+    constructor()
     {
-        Debug.warn("AssetCache: no asset matching id: '" + id + "'");
+        /**
+         * The cache containing assets
+         * @property {Object} _cache
+         * @private
+         */
+        this._cache = {};
     }
-    // @endif
-    return this._cache[id] || null;
-};
 
-/**
- * Adds a single asset to the cache.
- * @method write
- * @param {String} id The id to save the asset as.
- * @param {*} content The asset content to save.
- */
-AssetCache.prototype.write = function(id, content)
-{
-    if (this._cache[id])
+    /**
+     * Retrieves a single asset from the cache.
+     * @method read
+     * @param {String} id The asset to get.
+     */
+    read(id)
     {
         // @if DEBUG
-        Debug.warn("AssetCache: overwriting existing asset: '" + id + "'");
+        if (!this._cache[id])
+        {
+            Debug.warn(`AssetCache: no asset matching id: "${id}"`);
+        }
         // @endif
-        
-        // Remove it first
-        this.delete(id);
+        return this._cache[id] || null;
     }
-    this._cache[id] = content;
-};
 
-/**
- * Removes a single asset from the cache.
- * @method delete
- * @param {Object|String} asset The asset to remove.
- */
-AssetCache.prototype.delete = function(asset)
-{
-    var id = typeof asset === "string" ? asset : asset.id;
-
-    // If we don't have an ID, stop
-    if (!id) return;
-
-    var result = this._cache[id];
-    if (result)
+    /**
+     * Adds a single asset to the cache.
+     * @method write
+     * @param {String} id The id to save the asset as.
+     * @param {*} content The asset content to save.
+     */
+    write(id, content)
     {
-        // Destroy mapped result
-        if (Object.isPlain(result))
+        if (this._cache[id])
         {
-            for (var key in result)
+            // @if DEBUG
+            Debug.warn(`AssetCache: overwriting existing asset: "${id}"`);
+            // @endif
+            
+            // Remove it first
+            this.delete(id);
+        }
+        this._cache[id] = content;
+    }
+
+    /**
+     * Removes a single asset from the cache.
+     * @method delete
+     * @param {Object|String} asset The asset to remove.
+     */
+    delete(asset)
+    {
+        var id = typeof asset === 'string' ? asset : asset.id;
+
+        // If we don't have an ID, stop
+        if (!id) return;
+
+        var result = this._cache[id];
+        if (result)
+        {
+            // Destroy mapped result
+            if (Object.isPlain(result))
             {
-                this._destroyResult(result[key]);
+                for (var key in result)
+                {
+                    this._destroyResult(result[key]);
+                }
             }
+            // Destroy list of results
+            else if (Array.isArray(result))
+            {
+                result.forEach(this._destroyResult);
+            }
+            // Destory single
+            else
+            {
+                this._destroyResult(result);
+            }
+            delete this._cache[id];
         }
-        // Destroy list of results
-        else if (Array.isArray(result))
+    }
+
+    /**
+     * Destroy a result object.
+     * @method _destroyResult
+     * @private
+     * @param  {*} result The object to destroy.
+     */
+    _destroyResult(result)
+    {
+        // Ignore null results or empty objects
+        if (!result) return;
+
+        // Destroy any objects with a destroy function
+        if (result.destroy)
         {
-            result.forEach(this._destroyResult);
+            result.destroy();
         }
-        // Destory single
-        else
+
+        // Clear images if we have an HTML node
+        if (result.tagName === 'IMG')
         {
-            this._destroyResult(result);
+            result.src = '';
         }
-        delete this._cache[id];
     }
-};
 
-/**
- * Destroy a result object.
- * @method _destroyResult
- * @private
- * @param  {*} result The object to destroy.
- */
-AssetCache.prototype._destroyResult = function(result)
-{
-    // Ignore null results or empty objects
-    if (!result) return;
-
-    // Destroy any objects with a destroy function
-    if (result.destroy)
+    /**
+     * Removes all assets from the cache.
+     * @method empty
+     */
+    empty()
     {
-        result.destroy();
+        for (var id in this._cache)
+        {
+            this.delete(id);
+        }
     }
 
-    // Clear images if we have an HTML node
-    if (result.tagName === "IMG")
+    /**
+     * Destroy the cache. Don't use after this.
+     * @method destroy
+     */
+    destroy()
     {
-        result.src = "";
+        this.empty();
+        this._cache = null;
     }
-};
-
-/**
- * Removes all assets from the cache.
- * @method empty
- */
-AssetCache.prototype.empty = function()
-{
-    for (var id in this._cache)
-    {
-        this.delete(id);
-    }
-};
-
-/**
- * Destroy the cache. Don't use after this.
- * @method destroy
- */
-AssetCache.prototype.destroy = function()
-{
-    this.empty();
-    this._cache = null;
-};
-
-export default AssetCache;
+}

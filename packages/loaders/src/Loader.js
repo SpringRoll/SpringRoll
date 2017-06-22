@@ -8,188 +8,186 @@ import CacheManager from './CacheManager';
  * in the browser using dynamic query string parameters.
  * @class Loader
  */
-var Loader = function(app)
+export default class Loader
 {
-    /**
-     * The current application
-     * @property {springroll.Application} app
-     * @private
-     */
-    this.app = app;
+    constructor(app)
+    {
+        /**
+         * The current application
+         * @property {springroll.Application} app
+         * @private
+         */
+        this.app = app;
 
-    /**
-     * The maximum number of simulaneous loads
-     * @public
-     * @property {int} maxCurrentLoads
-     * @default 2
-     */
-    this.maxCurrentLoads = 2;
+        /**
+         * The maximum number of simulaneous loads
+         * @public
+         * @property {int} maxCurrentLoads
+         * @default 2
+         */
+        this.maxCurrentLoads = 2;
 
-    /**
-     * The reference to the cache manager
-     * @public
-     * @property {CacheManager} cacheManager
-     */
-    this.cacheManager = new CacheManager(app);
+        /**
+         * The reference to the cache manager
+         * @public
+         * @property {CacheManager} cacheManager
+         */
+        this.cacheManager = new CacheManager(app);
 
-    /**
-     * The collection of LoaderItems by url
-     * @private
-     * @property {Object} items
-     */
-    this.items = {};
+        /**
+         * The collection of LoaderItems by url
+         * @private
+         * @property {Object} items
+         */
+        this.items = {};
 
-    /**
-     * The pool of LoaderItems
-     * @private
-     * @property {array} itemPool
-     */
-    this.itemPool = [];
-};
+        /**
+         * The pool of LoaderItems
+         * @private
+         * @property {array} itemPool
+         */
+        this.itemPool = [];
+    }
 
-// @if DEBUG
-/**
- * If the logging should be verbose (unminified library only)
- * @property {Boolean} verbose
- * @default  false
- */
-Object.defineProperty(Loader.prototype, 'verbose',
-{
-    set: function(verbose)
+    // @if DEBUG
+    /**
+     * If the logging should be verbose (unminified library only)
+     * @property {Boolean} verbose
+     * @default  false
+     */
+    set verbose(verbose)
     {
         LoaderItem.verbose = verbose;
     }
-});
-// @endif
+    // @endif
 
-/**
- * Destroy the Loader singleton, don't use after this
- * @public
- * @method destroy
- */
-Loader.prototype.destroy = function()
-{
-    if (this.itemPool)
+    /**
+     * Destroy the Loader singleton, don't use after this
+     * @public
+     * @method destroy
+     */
+    destroy()
     {
-        this.itemPool.forEach(function(item)
+        if (this.itemPool)
+        {
+            this.itemPool.forEach(function(item)
+            {
+                item.clear();
+            });
+        }
+        this.itemPool = null;
+
+        if (this.cacheManager)
+        {
+            this.cacheManager.destroy();
+        }
+        this.cacheManager = null;
+        this.items = null;
+    }
+
+    /**
+     * Load a file
+     * @method load
+     * @public
+     * @param {string} url The file path to load
+     * @param {function} complete The callback function when completed
+     * @param {function} [progress] The callback for load progress update, passes 0-1 as param
+     * @param {*} [data] optional data
+     * @return {createjs.LoadQueue} The load queue item
+     */
+    load(url, complete, progress, data)
+    {
+        var options = this.app.options;
+
+        // Get a new loader object
+        var item = this._getItem();
+
+        var basePath = options.basePath;
+        if (basePath !== undefined &&
+            /^http(s)?\:/.test(url) === false &&
+            url.search(basePath) === -1)
+        {
+            item.basePath = basePath;
+        }
+        item.crossOrigin = options.crossOrigin;
+        item.url = url;
+        item.preparedUrl = this.cacheManager.prepare(url);
+        item.onComplete = this._onComplete.bind(this, complete);
+        item.onProgress = progress || null;
+        item.data = data || null;
+        item.setMaxConnections(this.maxCurrentLoads);
+
+        this.items[url] = item;
+
+        item.start();
+
+        return item;
+    }
+
+    /**
+     * Handler for the file complete
+     * @method _onComplete
+     * @private
+     * @param  {function} complete Callback function when done
+     * @param  {springroll.LoaderItem} item The LoadQueue
+     * @param  {null|*} result   [description]
+     */
+    _onComplete(complete, item, result)
+    {
+        if (result)
+        {
+            result = new LoaderResult(
+                result,
+                item.url,
+                item.data
+            );
+        }
+        complete(result);
+        this._putItem(item);
+    }
+
+    /**
+     * Cancel a load that's currently in progress
+     * @public
+     * @method cancel
+     * @param {string} url The url
+     * @return {bool} If canceled returns true, false if not canceled
+     */
+    cancel(url)
+    {
+        var item = this.items[url];
+
+        if (item)
         {
             item.clear();
-        });
+            this._putItem(item);
+            return true;
+        }
+        return false;
     }
-    this.itemPool = null;
 
-    if (this.cacheManager)
+    /**
+     * Get a Queue item from the pool or new
+     * @method  _getItem
+     * @private
+     * @return  {springroll.LoaderItem} The Queue item to use
+     */
+    _getItem()
     {
-        this.cacheManager.destroy();
+        var itemPool = this.itemPool;
+        return itemPool.length ? itemPool.pop() : new LoaderItem();
     }
-    this.cacheManager = null;
-    this.items = null;
-};
 
-/**
- * Load a file
- * @method load
- * @public
- * @param {string} url The file path to load
- * @param {function} complete The callback function when completed
- * @param {function} [progress] The callback for load progress update, passes 0-1 as param
- * @param {*} [data] optional data
- * @return {createjs.LoadQueue} The load queue item
- */
-Loader.prototype.load = function(url, complete, progress, data)
-{
-    var options = this.app.options;
-
-    // Get a new loader object
-    var item = this._getItem();
-
-    var basePath = options.basePath;
-    if (basePath !== undefined &&
-        /^http(s)?\:/.test(url) === false &&
-        url.search(basePath) === -1)
+    /**
+     * Pool the loader queue item
+     * @method  _putItem
+     * @private
+     * @param  {springroll.LoaderItem} item Loader item that's done
+     */
+    _putItem(item)
     {
-        item.basePath = basePath;
-    }
-    item.crossOrigin = options.crossOrigin;
-    item.url = url;
-    item.preparedUrl = this.cacheManager.prepare(url);
-    item.onComplete = this._onComplete.bind(this, complete);
-    item.onProgress = progress || null;
-    item.data = data || null;
-    item.setMaxConnections(this.maxCurrentLoads);
-
-    this.items[url] = item;
-
-    item.start();
-
-    return item;
-};
-
-/**
- * Handler for the file complete
- * @method _onComplete
- * @private
- * @param  {function} complete Callback function when done
- * @param  {springroll.LoaderItem} item The LoadQueue
- * @param  {null|*} result   [description]
- */
-Loader.prototype._onComplete = function(complete, item, result)
-{
-    if (result)
-    {
-        result = new LoaderResult(
-            result,
-            item.url,
-            item.data
-        );
-    }
-    complete(result);
-    this._putItem(item);
-};
-
-/**
- * Cancel a load that's currently in progress
- * @public
- * @method cancel
- * @param {string} url The url
- * @return {bool} If canceled returns true, false if not canceled
- */
-Loader.prototype.cancel = function(url)
-{
-    var item = this.items[url];
-
-    if (item)
-    {
+        delete this.items[item.url];
         item.clear();
-        this._putItem(item);
-        return true;
+        this.itemPool.push(item);
     }
-    return false;
-};
-
-/**
- * Get a Queue item from the pool or new
- * @method  _getItem
- * @private
- * @return  {springroll.LoaderItem} The Queue item to use
- */
-Loader.prototype._getItem = function()
-{
-    var itemPool = this.itemPool;
-    return itemPool.length ? itemPool.pop() : new LoaderItem();
-};
-
-/**
- * Pool the loader queue item
- * @method  _putItem
- * @private
- * @param  {springroll.LoaderItem} item Loader item that's done
- */
-Loader.prototype._putItem = function(item)
-{
-    delete this.items[item.url];
-    item.clear();
-    this.itemPool.push(item);
-};
-
-export default Loader;
+}
