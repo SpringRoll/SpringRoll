@@ -1,4 +1,6 @@
-import './ApplicationOptionsPlugin';
-import './PageVisibilityPlugin';
-import './StringFiltersPlugin';
-import './ResizePlugin';
+import './filters';
+import './options';
+import './resize';
+import './ticker';
+import './visibility';
+import './storage';

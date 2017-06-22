@@ -1,12 +1,12 @@
-import ApplicationPlugin from '../ApplicationPlugin';
-import PageVisibility from '../utils/PageVisibility';
+import ApplicationPlugin from '../../ApplicationPlugin';
+import PageVisibility from './PageVisibility';
     
 (function()
 {
     /**
      * @class Application
      */
-    var plugin = new ApplicationPlugin();
+    const plugin = new ApplicationPlugin();
 
     // Init the animator
     plugin.setup = function()
@@ -17,9 +17,15 @@ import PageVisibility from '../utils/PageVisibility';
          * @property {springroll.PageVisibility} _visibility
          * @private
          */
-        var visibility = this._visibility = new PageVisibility(
-            onVisible.bind(this),
-            onHidden.bind(this)
+        const visibility = this._visibility = new PageVisibility(
+            () => {
+                // Private listener for when the page is shown.
+                this.autoPaused = false;
+            },
+            () => {
+                // Private listener for when the page is hidden.
+                this.autoPaused = true;
+            }
         );
 
         /**
@@ -28,12 +34,10 @@ import PageVisibility from '../utils/PageVisibility';
          * @default true
          */
         this.options.add('autoPause', true)
-            .on('autoPause', function(value)
-            {
+            .on('autoPause', value => {
                 visibility.enabled = value;
             })
-            .respond('autoPause', function()
-            {
+            .respond('autoPause', () => {
                 return visibility.enabled;
             });
 
@@ -45,7 +49,7 @@ import PageVisibility from '../utils/PageVisibility';
          */
         Object.defineProperty(this, 'autoPaused',
         {
-            set: function(paused)
+            set(paused)
             {
                 // check if app is manually paused
                 if (!this.paused)
@@ -56,30 +60,13 @@ import PageVisibility from '../utils/PageVisibility';
         });
     };
 
-    /**
-     * Private listener for when the page is hidden.
-     * @method onHidden
-     * @private
-     */
-    var onHidden = function()
-    {
-        this.autoPaused = true;
-    };
-
-    /**
-     * Private listener for when the page is shown.
-     * @method onVisible
-     * @private
-     */
-    var onVisible = function()
-    {
-        this.autoPaused = false;
-    };
-
     // Destroy the animator
     plugin.teardown = function()
     {
-        if (this._visibility) this._visibility.destroy();
+        if (this._visibility)
+        {
+            this._visibility.destroy();
+        }
         this._visibility = null;
     };
 

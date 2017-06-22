@@ -1,10 +1,10 @@
 import './Application.less';
+
 import './mixins';
 import './polyfills';
 import './plugins';
 
 export * from './utils';
-export * from './async';
 export * from './events';
 
 export {default as ApplicationPlugin} from './ApplicationPlugin';

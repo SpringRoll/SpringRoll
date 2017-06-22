@@ -27,23 +27,23 @@ export default class StringFilters
         if (!replace || (typeof replace !== 'string' && replace instanceof RegExp === false))
         {
             // @if DEBUG
-            throw 'replace value must be a valid String or RegExp';
+            throw `replace value must be a valid String or RegExp`;
             // @endif
 
             // @if RELEASE
             // eslint-disable-next-line no-unreachable
-            throw 'invalide replace value';
+            throw `invalide replace value`;
             // @endif
         }
         if (typeof replacement !== 'string')
         {
             // @if DEBUG
-            throw 'replacement value must be astring';
+            throw `replacement value must be astring`;
             // @endif
 
             // @if RELEASE
             // eslint-disable-next-line no-unreachable
-            throw 'invalid replacement value';
+            throw `invalid replacement value`;
             // @endif
         }
 
@@ -54,13 +54,12 @@ export default class StringFilters
                 if (replace.toString() === this._filters[i].replace.toString())
                 {
                     // @if DEBUG
-                    throw "Filter " + replace +
-                        " already exists in this._filters array.";
+                    throw `Filter ${replace} already exists in this._filters array.`;
                     // @endif
 
                     // @if RELEASE
                     // eslint-disable-next-line no-unreachable
-                    throw "Filter already exists.";
+                    throw `Filter already exists`;
                     // @endif
                 }
             }
@@ -84,10 +83,10 @@ export default class StringFilters
         {
             return str;
         }
-        for (var i = this._filters.length - 1; i >= 0; i--)
+        for (let i = this._filters.length - 1; i >= 0; i--)
         {
-            var replace = this._filters[i].replace;
-            var replacement = this._filters[i].replacement;
+            const replace = this._filters[i].replace;
+            const replacement = this._filters[i].replacement;
             str = str.replace(replace, replacement);
         }
         return str;

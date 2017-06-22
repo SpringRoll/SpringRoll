@@ -1,6 +1,5 @@
 import EventDispatcher from './events/EventDispatcher';
 import ApplicationOptions from './ApplicationOptions';
-import DelayedCall from './async/DelayedCall';
 import series from 'async-series';
 
 /**
@@ -29,7 +28,7 @@ class Application extends EventDispatcher
 
         if (Application._instance)
         {
-            throw "Only one Application can be opened at a time";
+            throw `Only one Application can be opened at a time`;
         }
         Application._instance = this;
 
@@ -64,20 +63,6 @@ class Application extends EventDispatcher
         this.pluginLoad = null;
 
         /**
-         * The number of ms since the last frame update
-         * @private
-         * @property {int} _lastFrameTime
-         */
-        this._lastFrameTime = 0;
-
-        /**
-         * The bound callback for listening to tick events
-         * @private
-         * @property {Function} _tickCallback
-         */
-        this._tickCallback = this._tick.bind(this);
-
-        /**
          * If the current application is paused
          * @private
          * @property {Boolean} _paused
@@ -90,28 +75,6 @@ class Application extends EventDispatcher
          * @property {Boolean} _enabled
          */
         this._enabled = true;
-
-        /**
-         * The id of the active requestAnimationFrame or setTimeout call.
-         * @property {Number} _tickId
-         * @private
-         */
-        this._tickId = -1;
-
-        /**
-         * If requestionAnimationFrame should be used
-         * @private
-         * @property {Bool} _useRAF
-         * @default false
-         */
-        this._useRAF = false;
-
-        /**
-         * The number of milliseconds per frame
-         * @property {int} _msPerFrame
-         * @private
-         */
-        this._msPerFrame = 0;
 
         /**
          * The collection of displays
@@ -179,19 +142,12 @@ class Application extends EventDispatcher
      */
     _preInit()
     {
-        if (this.destroyed) return;
+        if (this.destroyed)
+        {
+            return;
+        }
 
         var options = this.options;
-
-        this._useRAF = options.raf;
-        options.on('raf', value => {
-            this._useRAF = value;
-        });
-
-        options.on('fps', value => {
-            if (typeof value !== "number") return;
-            this._msPerFrame = (1000 / value) | 0;
-        });
 
         //add the initial display if specified
         if (options.canvasId && options.display)
@@ -223,7 +179,10 @@ class Application extends EventDispatcher
      */
     _doInit()
     {
-        if (this.destroyed) return;
+        if (this.destroyed)
+        {
+            return;
+        }
 
         this.pluginLoad = null;
 
@@ -236,7 +195,10 @@ class Application extends EventDispatcher
         this.trigger('init');
 
         // Call the init function, bind to app
-        if (this.init) this.init.call(this);
+        if (this.init)
+        {
+            this.init.call(this);
+        }
 
         this.trigger('afterInit');
     }
@@ -285,50 +247,6 @@ class Application extends EventDispatcher
     {
         this.trigger('pause', paused);
         this.trigger(paused ? 'paused' : 'resumed', paused);
-
-        if (paused)
-        {
-            if (this._tickId !== -1)
-            {
-                if (this._useRAF)
-                {
-                    cancelAnimationFrame(this._tickId);
-                }
-                else
-                    clearTimeout(this._tickId);
-                this._tickId = -1;
-            }
-        }
-        else
-        {
-            if (this._tickId === -1 && this._tickCallback)
-            {
-                this._lastFrameTime = performance.now();
-                this._tickId = this._useRAF ?
-                    requestAnimationFrame(this._tickCallback) :
-                    this.requestTimeout(this._tickCallback);
-            }
-        }
-    }
-
-    /**
-     * Makes a setTimeout with a time based on _msPerFrame and the amount of time spent in the
-     * current tick.
-     * @method requestTimeout
-     * @param {Function} callback The tick function to call.
-     * @param {int} timeInFrame=0 The amount of time spent in the current tick in milliseconds.
-     * @private
-     */
-    requestTimeout(callback, timeInFrame)
-    {
-        var timeToCall = this._msPerFrame;
-        //subtract the time spent in the frame to actually hit the target fps
-        if (timeInFrame)
-        {
-            timeToCall = Math.max(0, this._msPerFrame - timeInFrame);
-        }
-
-        return setTimeout(callback, timeToCall);
     }
 
     /**
@@ -346,7 +264,7 @@ class Application extends EventDispatcher
     {
         if (this._displaysMap[id])
         {
-            throw "Display exists with id '" + id + "'";
+            throw `Display exists with id '${id}'`;
         }
         // Creat the display
         var display = new displayConstructor(id, options);
@@ -405,72 +323,19 @@ class Application extends EventDispatcher
     }
 
     /**
-     * _tick would be bound in _tickCallback
-     * @method _tick
-     * @private
+     * Render the displays, if any.
+     * @method render
+     * @param {Number} elapsed Time elapsed since last frame render
      */
-    _tick()
+    render(elapsed)
     {
-        if (this._paused)
-        {
-            this._tickId = -1;
-            return;
-        }
-
-        var now = performance.now();
-        var elapsed = now - this._lastFrameTime;
-        this._lastFrameTime = now;
-
-        //trigger the update event
-        this.trigger('update', elapsed);
-
-        //then update all displays
-        //displays may be null if a tick happens while we are in the process of destroying
         if (this._displays)
         {
-            for (var i = 0; i < this._displays.length; i++)
+            for (let i = 0; i < this._displays.length; i++)
             {
                 this._displays[i].render(elapsed);
             }
         }
-
-        //request the next tick
-        //request the next animation frame
-        if (this._tickCallback)
-        {
-            this._tickId = this._useRAF ?
-                requestAnimationFrame(this._tickCallback) :
-                this.requestTimeout(this._tickCallback, performance.now() - this._lastFrameTime);
-        }
-    }
-
-    /**
-     * Works just like `window.setTimeout` but respects the pause
-     * state of the Application.
-     * @method  setTimeout
-     * @param {Function} callback    The callback function, passes one argument which is the DelayedCall instance
-     * @param {int}   delay       The time in milliseconds or the number of frames (useFrames must be true)
-     * @param {Boolean}   [useFrames=false]   If the delay is frames (true) or millseconds (false)
-     * @param {[type]}   [autoDestroy=true] If the DelayedCall object should be destroyed after completing
-     * @return {springroll.DelayedCall} The object for pausing, restarting, destroying etc.
-     */
-    setTimeout(callback, delay, useFrames, autoDestroy)
-    {
-        return new DelayedCall(callback, delay, false, autoDestroy, useFrames);
-    }
-
-    /**
-     * Works just like `window.setInterval` but respects the pause
-     * state of the Application.
-     * @method  setInterval
-     * @param {Function} callback    The callback function, passes one argument which is the DelayedCall instance
-     * @param {int}   delay       The time in milliseconds or the number of frames (useFrames must be true)
-     * @param {Boolean}   [useFrames=false]   If the delay is frames (true) or millseconds (false)
-     * @return {springroll.DelayedCall} The object for pausing, restarting, destroying etc.
-     */
-    setInterval(callback, delay, useFrames)
-    {
-        return new DelayedCall(callback, delay, true, false, useFrames);
     }
 
     /**
@@ -480,9 +345,13 @@ class Application extends EventDispatcher
     destroy()
     {
         // Only destroy the application once
-        if (this.destroyed) return;
+        if (this.destroyed)
+        {
+            return;
+        }
 
         this.paused = true;
+
         this.trigger('destroy');
 
         // Destroy in the reverse priority order
@@ -499,7 +368,6 @@ class Application extends EventDispatcher
         this._displaysMap = null;
 
         Application._instance = null;
-        this._tickCallback = null;
 
         this.display = null;
         this.options.destroy();
@@ -515,7 +383,7 @@ class Application extends EventDispatcher
      */
     toString()
     {
-        return "[Application name='" + this.name + "']";
+        return `[Application name='${this.name}']`;
     }
 }
 

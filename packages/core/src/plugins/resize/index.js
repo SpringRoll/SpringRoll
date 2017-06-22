@@ -1,57 +1,57 @@
-import include from '../utils/include';
-import ApplicationPlugin from '../ApplicationPlugin';
+import include from '../../utils/include';
+import ApplicationPlugin from '../../ApplicationPlugin';
 
 (function()
 {
-    var devicePixelRatio = include('devicePixelRatio', false);
+    const devicePixelRatio = include('devicePixelRatio', false);
 
     /**
      * @class Application
      */
-    var plugin = new ApplicationPlugin(100);
+    const plugin = new ApplicationPlugin(100);
 
     /**
      * Dom element (or the window) to attach resize listeners and read the size from
-     * @property {DOMElement|Window|null} _resizeElement
+     * @property {DOMElement|Window|null} resizeElement
      * @private
      * @default null
      */
-    var _resizeElement = null;
+    let resizeElement = null;
 
     /**
      * The maximum width of the primary display, compared to the original height.
-     * @property {Number} _maxWidth
+     * @property {Number} maxWidth
      * @private
      */
-    var _maxWidth = 0;
+    let maxWidth = 0;
 
     /**
      * The maximum height of the primary display, compared to the original width.
-     * @property {Number} _maxHeight
+     * @property {Number} maxHeight
      * @private
      */
-    var _maxHeight = 0;
+    let maxHeight = 0;
 
     /**
      * The original width of the primary display, used to calculate the aspect ratio.
-     * @property {int} _originalWidth
+     * @property {int} originalWidth
      * @private
      */
-    var _originalWidth = 0;
+    let originalWidth = 0;
 
     /**
      * The original height of the primary display, used to calculate the aspect ratio.
-     * @property {int} _originalHeight
+     * @property {int} originalHeight
      * @private
      */
-    var _originalHeight = 0;
+    let originalHeight = 0;
 
     /**
      * A helper object to avoid object creation each resize event.
-     * @property {Object} _resizeHelper
+     * @property {Object} resizeHelper
      * @private
      */
-    var _resizeHelper = {
+    let resizeHelper = {
         width: 0,
         height: 0,
         normalWidth: 0,
@@ -60,15 +60,15 @@ import ApplicationPlugin from '../ApplicationPlugin';
 
     /**
      * The timeout when the window is being resized
-     * @property {springroll.DelayedCall} _windowResizer
+     * @property {springroll.DelayedCall} windowResizer
      * @private
      */
-    var _windowResizer = null;
+    let windowResizer = null;
 
     // Init the animator
     plugin.setup = function()
     {
-        var options = this.options;
+        const options = this.options;
 
         /**
          * Fired when a resize is called
@@ -126,26 +126,30 @@ import ApplicationPlugin from '../ApplicationPlugin';
          */
         options.add('enableHiDPI', false);
 
-        options.on('maxWidth', function(value)
-        {
-            _maxWidth = value;
+        options.on('maxWidth', value => {
+            maxWidth = value;
         });
 
-        options.on('maxHeight', function(value)
-        {
-            _maxHeight = value;
+        options.on('maxHeight', value => {
+            maxHeight = value;
         });
 
         // Handle when a display is added, only do it once
         // in order to get the main display
-        this.once('displayAdded', function(display)
-        {
-            _originalWidth = display.width;
-            _originalHeight = display.height;
-            if (!_maxWidth)
-                _maxWidth = _originalWidth;
-            if (!_maxHeight)
-                _maxHeight = _originalHeight;
+        this.once('displayAdded', display => {
+
+            originalWidth = display.width;
+            originalHeight = display.height;
+
+            if (!maxWidth)
+            {
+                maxWidth = originalWidth;
+            }
+
+            if (!maxHeight)
+            {
+                maxHeight = originalHeight;
+            }
         });
 
         /**
@@ -166,24 +170,27 @@ import ApplicationPlugin from '../ApplicationPlugin';
          */
         this.triggerResize = function()
         {
-            if (!_resizeElement) return;
+            if (!resizeElement)
+            {
+                return;
+            }
 
             // window uses innerWidth, DOM elements clientWidth
-            _resizeHelper.width = (_resizeElement.innerWidth || _resizeElement.clientWidth) | 0;
-            _resizeHelper.height = (_resizeElement.innerHeight || _resizeElement.clientHeight) | 0;
+            resizeHelper.width = (resizeElement.innerWidth || resizeElement.clientWidth) | 0;
+            resizeHelper.height = (resizeElement.innerHeight || resizeElement.clientHeight) | 0;
 
-            this.calculateDisplaySize(_resizeHelper);
+            this.calculateDisplaySize(resizeHelper);
 
             // round up, as canvases require integer sizes
             // and canvas should be slightly larger to avoid
             // a hairline around outside of the canvas
-            var width = this.realWidth = _resizeHelper.width;
-            var height = this.realHeight = _resizeHelper.height;
-            var normalWidth = _resizeHelper.normalWidth;
-            var normalHeight = _resizeHelper.normalHeight;
+            let width = this.realWidth = resizeHelper.width;
+            let height = this.realHeight = resizeHelper.height;
+            let normalWidth = resizeHelper.normalWidth;
+            let normalHeight = resizeHelper.normalHeight;
 
-            var responsive = this.options.responsive;
-            var enableHiDPI = this.options.enableHiDPI;
+            let responsive = this.options.responsive;
+            let enableHiDPI = this.options.enableHiDPI;
 
             //resize the displays
             this.displays.forEach(function(display)
@@ -192,8 +199,8 @@ import ApplicationPlugin from '../ApplicationPlugin';
                 {
                     if (enableHiDPI && devicePixelRatio)
                     {
-                        display.canvas.style.width = width + "px";
-                        display.canvas.style.height = height + "px";
+                        display.canvas.style.width = `${width}px`;
+                        display.canvas.style.height = `${height}px`;
                         width *= devicePixelRatio;
                         height *= devicePixelRatio;
                     }
@@ -203,8 +210,8 @@ import ApplicationPlugin from '../ApplicationPlugin';
                 else
                 {
                     // scale the canvas element
-                    display.canvas.style.width = width + "px";
-                    display.canvas.style.height = height + "px";
+                    display.canvas.style.width = `${width}px`;
+                    display.canvas.style.height = `${height}px`;
 
                     if (enableHiDPI && devicePixelRatio)
                     {
@@ -240,15 +247,10 @@ import ApplicationPlugin from '../ApplicationPlugin';
             // this will solve issues where the window doesn't
             // properly get the "full" resize, like on some mobile
             // devices when pulling-down/releasing the HUD
-            _windowResizer = this.setTimeout(
-                function()
-                {
-                    this.triggerResize();
-                    _windowResizer = null;
-                }
-                .bind(this),
-                500
-            );
+            windowResizer = this.setTimeout(() => {
+                this.triggerResize();
+                windowResizer = null;
+            }, 500);
         };
 
         /**
@@ -265,12 +267,15 @@ import ApplicationPlugin from '../ApplicationPlugin';
          */
         this.calculateDisplaySize = function(size)
         {
-            if (!_originalHeight || !this.options.uniformResize) return;
+            if (!originalHeight || !this.options.uniformResize)
+            {
+                return;
+            }
 
-            var maxAspectRatio = _maxWidth / _originalHeight,
-                minAspectRatio = _originalWidth / _maxHeight,
-                originalAspect = _originalWidth / _originalHeight,
-                currentAspect = size.width / size.height;
+            let maxAspectRatio = maxWidth / originalHeight;
+            let minAspectRatio = originalWidth / maxHeight;
+            let originalAspect = originalWidth / originalHeight;
+            let currentAspect = size.width / size.height;
 
             if (currentAspect < minAspectRatio)
             {
@@ -286,16 +291,16 @@ import ApplicationPlugin from '../ApplicationPlugin';
 
             // Calculate the unscale, real-sizes
             currentAspect = size.width / size.height;
-            size.normalWidth = _originalWidth;
-            size.normalHeight = _originalHeight;
+            size.normalWidth = originalWidth;
+            size.normalHeight = originalHeight;
 
             if (currentAspect > originalAspect)
             {
-                size.normalWidth = _originalHeight * currentAspect;
+                size.normalWidth = originalHeight * currentAspect;
             }
             else if (currentAspect < originalAspect)
             {
-                size.normalHeight = _originalWidth / currentAspect;
+                size.normalHeight = originalWidth / currentAspect;
             }
 
             // round up, as canvases require integer sizes
@@ -314,42 +319,42 @@ import ApplicationPlugin from '../ApplicationPlugin';
     // Add common filters interaction
     plugin.preload = function(done)
     {
-        var options = this.options;
+        const options = this.options;
 
         // Convert to DOM element
         options.asDOMElement('resizeElement');
 
         if (options.resizeElement)
         {
-            _resizeElement = options.resizeElement;
+            resizeElement = options.resizeElement;
             this.onWindowResize = this.onWindowResize.bind(this);
-            window.addEventListener("resize", this.onWindowResize);
+            window.addEventListener('resize', this.onWindowResize);
         }
         done();
     };
 
     plugin.teardown = function()
     {
-        if (_windowResizer)
+        if (windowResizer)
         {
-            _windowResizer.destroy();
-            _windowResizer = null;
+            windowResizer.destroy();
+            windowResizer = null;
         }
 
-        if (_resizeElement)
+        if (resizeElement)
         {
-            window.removeEventListener("resize", this.onWindowResize);
+            window.removeEventListener('resize', this.onWindowResize);
         }
-        _resizeElement = null;
 
-        _resizeHelper.width =
-            _resizeHelper.height =
-            _resizeHelper.normalWidth =
-            _resizeHelper.normalHeight =
-            _originalWidth =
-            _originalHeight =
-            _maxHeight =
-            _maxWidth = 0;
+        resizeHelper.width = 0;
+        resizeHelper.height = 0;
+        resizeHelper.normalWidth = 0;
+        resizeHelper.normalHeight = 0;
+        resizeElement = null;
+        originalWidth = 0;
+        originalHeight = 0;
+        maxHeight = 0;
+        maxWidth = 0;
     };
 
 }());

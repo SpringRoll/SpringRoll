@@ -1,28 +1,46 @@
-import include from './include';    
+import include from '../../utils/include';    
 
 /**
- * The SavedData functions use localStorage and sessionStorage, with a cookie fallback.
+ * The PersistentStorage functions use localStorage and sessionStorage, with a cookie fallback.
  *
- * @class SavedData
+ * @class PersistentStorage
  */
-export default class SavedData
+export default class PersistentStorage
 {
+    constructor()
+    {
+        /**
+         * `true` if localStorage is supported, `false` to use cookies
+         * @property {Boolean} supported
+         * @readonly
+         */
+        this.supported = this.storageSupported();
+
+        /**
+         * A constant for cookie fallback for `PersistentStorage.clear()` 
+         * @property {Number} empty
+         * @readonly
+         * @default -1
+         */
+        this.empty = -1;
+    }
+
     /**
      * Remove a saved variable by name.
      * @method remove
      * @static
      * @param {String} name The name of the value to remove
      */
-    static remove(name)
+    remove(name)
     {
-        if (SavedData.WEB_STORAGE_SUPPORT)
+        if (this.supported)
         {
             localStorage.removeItem(name);
             sessionStorage.removeItem(name);
         }
         else
         {
-            SavedData.write(name, '', SavedData.ERASE_COOKIE);
+            this.write(name, '', this.empty);
         }
     }
 
@@ -34,9 +52,9 @@ export default class SavedData
      * @param {mixed} value The value to save. This will be run through JSON.stringify().
      * @param {Boolean} [tempOnly=false] If the value should be saved only in the current browser session.
      */
-    static write(name, value, tempOnly)
+    write(name, value, tempOnly)
     {
-        if (SavedData.WEB_STORAGE_SUPPORT)
+        if (this.supported)
         {
             if (tempOnly)
             {
@@ -49,24 +67,25 @@ export default class SavedData
         }
         else
         {
-            var expires;
+            let expires;
+
             if (tempOnly)
             {
-                if (tempOnly !== SavedData.ERASE_COOKIE)
+                if (tempOnly !== this.empty)
                 {
                     expires = ''; //remove when browser is closed
                 }
                 else
                 {
-                    expires = '; expires=Thu, 01 Jan 1970 00:00:00 GMT'; //save cookie in the past for immediate removal
+                    expires = `; expires=Thu, 01 Jan 1970 00:00:00 GMT`; //save cookie in the past for immediate removal
                 }
             }
             else
             {
-                expires = '; expires=' + new Date(2147483646000).toGMTString(); //THE END OF (32bit UNIX) TIME!
+                expires = `; expires=${new Date(2147483646000).toGMTString()}`; //THE END OF (32bit UNIX) TIME!
             }
 
-            document.cookie = name + '=' + escape(JSON.stringify(value)) + expires + '; path=/';
+            document.cookie = `${name}=${escape(JSON.stringify(value))}${expires}; path=/`;
         }
     }
 
@@ -77,15 +96,15 @@ export default class SavedData
      * @param {String} name The name of the variable
      * @return {mixed} The value (run through `JSON.parse()`) or null if it doesn't exist
      */
-    static read(name)
+    read(name)
     {
-        if (SavedData.WEB_STORAGE_SUPPORT)
+        if (this.supported)
         {
             var value = localStorage.getItem(name) || sessionStorage.getItem(name);
 
             if (value)
             {
-                return JSON.parse(value, SavedData.reviver);
+                return JSON.parse(value, this.reviver);
             }
             else
             {
@@ -94,7 +113,7 @@ export default class SavedData
         }
         else
         {
-            const nameEQ = name + '=';
+            const nameEQ = `${name}=`;
             const ca = document.cookie.split(';');
 
             for (let i = 0, len = ca.length; i < len; i++)
@@ -110,7 +129,7 @@ export default class SavedData
                 {
                     return JSON.parse(
                         unescape(c.substring(nameEQ.length, c.length)),
-                        SavedData.reviver
+                        this.reviver
                     );
                 }
             }
@@ -130,7 +149,7 @@ export default class SavedData
      * @param  {Object} value Object that we wish to restore
      * @return {Object}       The object that was parsed - either cast to a class, or not
      */
-    static reviver(key, value)
+    reviver(key, value)
     {
         if (value && typeof value.__classname === 'string')
         {
@@ -156,12 +175,10 @@ export default class SavedData
     /** 
      * A constant to determine if we can use localStorage and 
      * sessionStorage 
-     * @static
-     * @property {Boolean} WEB_STORAGE_SUPPORT
-     * @private
+     * @method storageSupported
      * @readOnly
      */
-    static get WEB_STORAGE_SUPPORT()
+    storageSupported()
     {
         const hasStorage = typeof Storage !== 'undefined';
 
@@ -171,8 +188,8 @@ export default class SavedData
             // writing to localStorage throws an error.
             try
             {
-                localStorage.setItem('LS_TEST', 'test');
-                localStorage.removeItem('LS_TEST');
+                localStorage.setItem('__hasStorage', '1');
+                localStorage.removeItem('__hasStorage');
                 return true;
             }
             catch (e)
@@ -181,18 +198,5 @@ export default class SavedData
             }
         }
         return false;
-    }
-
-    /**
-     * A constant for cookie fallback for `SavedData.clear()` 
-     * @static
-     * @property {int} ERASE_COOKIE
-     * @private
-     * @readOnly
-     * @default -1
-     */
-    static get ERASE_COOKIE()
-    {
-        return -1;
     }
 }

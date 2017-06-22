@@ -1,4 +1,4 @@
-import Application from '../Application';
+import Application from '../../Application';
 
 /**
  * A class for delaying a call through the Application, instead of relying on setInterval() or
@@ -6,6 +6,7 @@ import Application from '../Application';
  *
  * @class DelayedCall
  * @constructor
+ * @param {springroll.Ticker} ticker Instance of ticker
  * @param {function} callback The function to call when the delay has completed.
  * @param {int} delay The time to delay the call, in milliseconds (or optionally frames).
  * @param {Object|Boolean} [options=false] The options to use or repeat value
@@ -14,29 +15,11 @@ import Application from '../Application';
  * @param {Boolean} [options.autoDestroy=true] If the DelayedCall should clean itself up when completed.
  * @param {Boolean} [options.useFrames=false] If the DelayedCall should use frames instead of
  *                                 milliseconds for the delay.
- * @param {Boolean} [autoDestroy=true] If the DelayedCall should clean itself up when completed.
- * @param {Boolean} [useFrames=false] If the DelayedCall should use frames instead of
- *                                 milliseconds for the delay.
  */
 export default class DelayedCall
 {
-    constructor(callback, delay, options, autoDestroy, useFrames)
+    constructor(ticker, callback, delay, options)
     {
-        if (!Application.instance)
-        {
-            throw 'Application not created';
-        }
-
-        // @deprecate the options as repeat param
-        if (typeof options === 'boolean')
-        {
-            options = {
-                repeat: !!options,
-                autoDestroy: autoDestroy === undefined ? true : !!autoDestroy,
-                useFrames: !!useFrames
-            };
-        }
-
         // Set the default options
         options = Object.assign({
             repeat: false,
@@ -44,6 +27,12 @@ export default class DelayedCall
             useFrames: false
         }, options || {});
 
+        /**
+         * Update ticker
+         * @property {springroll.Ticker} _ticker
+         * @private
+         */
+        this._ticker = ticker;
 
         /**
          * The function to call when the delay is completed.
@@ -101,7 +90,7 @@ export default class DelayedCall
         this._update = this._update.bind(this);
 
         //start the delay
-        Application.instance.on('update', this._update);
+        this._ticker.on('update', this._update);
     }
 
     /**
@@ -119,15 +108,23 @@ export default class DelayedCall
         }
 
         this._timer -= this._useFrames ? 1 : elapsed;
+
         if (this._timer <= 0)
         {
             this._callback(this);
+
             if (this._repeat)
+            {
                 this._timer += this._delay;
+            }
             else if (this._autoDestroy)
+            {
                 this.destroy();
+            }
             else
-                Application.instance.off('update', this._update);
+            {
+                this._ticker.off('update', this._update);
+            }
         }
     }
 
@@ -138,10 +135,16 @@ export default class DelayedCall
      */
     restart()
     {
-        if (!this._callback) return;
-        var app = Application.instance;
-        if (!app.has('update', this._update))
-            app.on('update', this._update);
+        if (!this._callback)
+        {
+            return;
+        }
+
+        if (!this._ticker.has('update', this._update))
+        {
+            this._ticker.on('update', this._update);
+        }
+
         this._timer = this._delay;
         this._paused = false;
     }
@@ -153,7 +156,7 @@ export default class DelayedCall
      */
     stop()
     {
-        Application.instance.off('update', this._update);
+        this._ticker.off('update', this._update);
         this._paused = false;
     }
 
@@ -168,20 +171,26 @@ export default class DelayedCall
     }
     set paused(value)
     {
-        if (!this._callback) return;
-        var app = Application.instance;
+        if (!this._callback)
+        {
+            return;
+        }
+
         if (this._paused && !value)
         {
             this._paused = false;
-            if (!app.has('update', this._update))
-                app.on('update', this._update);
+
+            if (!this._ticker.has('update', this._update))
+            {
+                this._ticker.on('update', this._update);
+            }
         }
         else if (value)
         {
-            if (app.has('update', this._update))
+            if (this._ticker.has('update', this._update))
             {
                 this._paused = true;
-                app.off('update', this._update);
+                this._ticker.off('update', this._update);
             }
         }
     }
@@ -194,7 +203,8 @@ export default class DelayedCall
      */
     destroy()
     {
-        Application.instance.off('update', this._update);
+        this._ticker.off('update', this._update);
         this._callback = null;
+        this._ticker = null;
     }
 }

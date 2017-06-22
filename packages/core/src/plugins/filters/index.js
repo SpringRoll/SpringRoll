@@ -1,12 +1,12 @@
-import ApplicationPlugin from '../ApplicationPlugin';
-import StringFilters from '../utils/StringFilters';
+import ApplicationPlugin from '../../ApplicationPlugin';
+import StringFilters from './StringFilters';
     
 (function()
 {
     /**
      * @class Application
      */
-    var plugin = new ApplicationPlugin(110);
+    const plugin = new ApplicationPlugin(110);
 
     // Init the animator
     plugin.setup = function()
@@ -21,7 +21,10 @@ import StringFilters from '../utils/StringFilters';
     // Destroy the animator
     plugin.teardown = function()
     {
-        if (this.filters) this.filters.destroy();
+        if (this.filters)
+        {
+            this.filters.destroy();
+        }
         this.filters = null;
     };
 

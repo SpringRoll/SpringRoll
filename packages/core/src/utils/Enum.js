@@ -16,45 +16,45 @@ import {Debug} from '@springroll/debug';
  * @param {int} value The integer value of the enum.
  * @param {String} toString A string for toString() to return, instead of the name.
  */
-var EnumValue = function(name, value, toString)
+class EnumValue
 {
-    /**
-     * The name of the value, for reflection or logging purposes.
-     * @property {String} name
-     */
-    this.name = name;
+    constructor(name, value, toString)
+    {
+        /**
+         * The name of the value, for reflection or logging purposes.
+         * @property {String} name
+         */
+        this.name = name;
+
+        /**
+         * The integer value of this enum entry.
+         * @property {int} _value
+         * @private
+         */
+        this._value = value;
+
+        /**
+         * A string for toString() to return, instead of the name.
+         * @property {String} _toString
+         * @private
+         */
+        this._toString = toString || this.name;
+    }
 
     /**
      * The integer value of this enum entry.
-     * @property {int} _value
-     * @private
+     * @property {int} asInt
      */
-    this._value = value;
-
-    /**
-     * A string for toString() to return, instead of the name.
-     * @property {String} _toString
-     * @private
-     */
-    this._toString = toString || this.name;
-};
-
-/**
- * The integer value of this enum entry.
- * @property {int} asInt
- */
-Object.defineProperty(EnumValue.prototype, "asInt",
-{
-    get: function()
+    get asInt()
     {
         return this._value;
     }
-});
 
-EnumValue.prototype.toString = function()
-{
-    return this._toString;
-};
+    toString()
+    {
+        return this._toString;
+    }
+}
 
 /**
  * An enumeration, similar to Enums in C#. Each value is created as an EnumValue on the Enum,
@@ -86,147 +86,155 @@ EnumValue.prototype.toString = function()
  * 'name' and 'value' properties will have the specified
  * numeric value.
  */
-var Enum = function()
+export default class Enum
 {
-    var args = Array.isArray(arguments[0]) ?
-        arguments[0] :
-        Array.prototype.slice.call(arguments);
-
-    /**
-     * A potentially sparse array of each enum value, stored by integer values.
-     * @property {Array} _byValue
-     * @private
-     */
-    Object.defineProperty(this, '_byValue',
+    constructor()
     {
-        enumerable: false,
-        writable: false,
-        value: []
-    });
+        const args = Array.isArray(arguments[0]) ?
+            arguments[0] :
+            Array.prototype.slice.call(arguments);
 
-    /**
-     * The values that this Enum was initialized with. We save this so
-     * that we can potentially pass this via Bellhop and re-initialize.
-     * @public
-     * @property {Array} rawEnumValues
-     */
-    Object.defineProperty(this, 'rawEnumValues',
-    {
-        enumerable: false,
-        writable: false,
-        value: args
-    });
-
-    var counter = 0;
-    var item;
-    var value;
-    var name;
-
-    // Create an EnumValue for each argument provided
-    for (var i = 0, len = args.length; i < len; ++i)
-    {
-        if (typeof args[i] === "string")
+        /**
+         * A potentially sparse array of each enum value, stored by integer values.
+         * @property {Array} _byValue
+         * @private
+         */
+        Object.defineProperty(this, '_byValue',
         {
-            name = args[i];
-        }
-        else
-        {
-            name = args[i].name;
-            value = args[i].value || counter;
-            counter = value;
-        }
+            enumerable: false,
+            writable: false,
+            value: []
+        });
 
-        // if name already exists in Enum
-        if (this[name])
+        /**
+         * The values that this Enum was initialized with. We save this so
+         * that we can potentially pass this via Bellhop and re-initialize.
+         * @public
+         * @property {Array} rawEnumValues
+         */
+        Object.defineProperty(this, 'rawEnumValues',
         {
-            // @if DEBUG
-            Debug.error("Error creating enum value " + name + ": " + value +
-                " - an enum value already exists with that name.");
-            // @endif
-            continue;
-        }
+            enumerable: false,
+            writable: false,
+            value: args
+        });
 
-        item = (typeof args[i] === "string") ?
-            new EnumValue(name, counter, name) :
-            new EnumValue(name, value, args[i].toString || name);
+        let counter = 0;
+        let item;
+        let value;
+        let name;
 
-        this[item.name] = item;
-        if (this._byValue[counter])
+        // Create an EnumValue for each argument provided
+        for (let i = 0, len = args.length; i < len; ++i)
         {
-            if (Array.isArray(this._byValue[counter]))
+            if (typeof args[i] === "string")
             {
-                this._byValue[counter].push(item);
+                name = args[i];
             }
             else
             {
-                this._byValue[counter] = [this._byValue[counter], item];
+                name = args[i].name;
+                value = args[i].value || counter;
+                counter = value;
             }
-        }
-        else
-        {
-            this._byValue[counter] = item;
-        }
-        counter++;
-    }
 
-    /**
-     * The count of values the enum was initialized with.
-     * @public
-     * @property {int} length
-     */
-    Object.defineProperty(this, 'length',
-    {
-        enumerable: false,
-        writable: false,
-        value: args.length
-    });
-
-    /**
-     * Retrieves the next EnumValue in the Enum (loops to first value at end).
-     * @method {EnumValue} next
-     * @param {EnumValue} input An EnumValue to retrieve the value that follows.
-     * @return {EnumValue}
-     */
-    Object.defineProperty(this, 'next',
-    {
-        enumerable: false,
-        writable: false,
-        // {EnumValue} input
-        value: function(input)
-        {
-            var nextInt = input.asInt + 1;
-            if (nextInt >= counter)
+            // if name already exists in Enum
+            if (this[name])
             {
-                return this.first;
+                // @if DEBUG
+                Debug.error("Error creating enum value " + name + ": " + value +
+                    " - an enum value already exists with that name.");
+                // @endif
+                continue;
             }
-            return this.valueFromInt(nextInt);
+
+            if (typeof args[i] === "string")
+            {
+                item = new EnumValue(name, counter, name);
+            }
+            else
+            {
+                item = new EnumValue(name, value, args[i].toString || name);
+            }
+
+            this[item.name] = item;
+            if (this._byValue[counter])
+            {
+                if (Array.isArray(this._byValue[counter]))
+                {
+                    this._byValue[counter].push(item);
+                }
+                else
+                {
+                    this._byValue[counter] = [this._byValue[counter], item];
+                }
+            }
+            else
+            {
+                this._byValue[counter] = item;
+            }
+            counter++;
         }
-    });
 
-    /**
-     * Retrieves the first EnumValue in the Enum
-     * @method {EnumValue} first
-     * @return {EnumValue}
-     */
-    Object.defineProperty(this, 'first',
-    {
-        enumerable: false,
-        writable: false,
-        value: this.valueFromInt(args[0].value || 0)
-    });
+        /**
+         * The count of values the enum was initialized with.
+         * @public
+         * @property {int} length
+         */
+        Object.defineProperty(this, 'length',
+        {
+            enumerable: false,
+            writable: false,
+            value: args.length
+        });
 
-    /**
-     * Retrieves the last EnumValue in the Enum
-     * @method {EnumValue} last
-     * @return {EnumValue}
-     */
-    Object.defineProperty(this, 'last',
-    {
-        enumerable: false,
-        writable: false,
-        value: this.valueFromInt(counter - 1)
-    });
-};
+        /**
+         * Retrieves the next EnumValue in the Enum (loops to first value at end).
+         * @method {EnumValue} next
+         * @param {EnumValue} input An EnumValue to retrieve the value that follows.
+         * @return {EnumValue}
+         */
+        Object.defineProperty(this, 'next',
+        {
+            enumerable: false,
+            writable: false,
+            // {EnumValue} input
+            value: function(input)
+            {
+                var nextInt = input.asInt + 1;
+                if (nextInt >= counter)
+                {
+                    return this.first;
+                }
+                return this.valueFromInt(nextInt);
+            }
+        });
+
+        /**
+         * Retrieves the first EnumValue in the Enum
+         * @method {EnumValue} first
+         * @return {EnumValue}
+         */
+        Object.defineProperty(this, 'first',
+        {
+            enumerable: false,
+            writable: false,
+            value: this.valueFromInt(args[0].value || 0)
+        });
+
+        /**
+         * Retrieves the last EnumValue in the Enum
+         * @method {EnumValue} last
+         * @return {EnumValue}
+         */
+        Object.defineProperty(this, 'last',
+        {
+            enumerable: false,
+            writable: false,
+            value: this.valueFromInt(counter - 1)
+        });
+    }
+}
 
 /**
  * Gets an enum value by integer value. If you have multiple enum values with the same integer
@@ -241,13 +249,11 @@ Object.defineProperty(Enum.prototype, 'valueFromInt',
     writable: false,
     value: function(input)
     {
-        var rtn = this._byValue[input];
-        if (rtn)
+        const result = this._byValue[input];
+        if (result)
         {
-            return Array.isArray(rtn) ? rtn[0] : rtn;
+            return Array.isArray(result) ? result[0] : result;
         }
         return null;
     }
 });
-
-export default Enum;

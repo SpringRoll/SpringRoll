@@ -15,20 +15,17 @@
  */
 export default class WeightedRandom
 {
-    constructor(object)
+    constructor(values)
     {
         this.max = -1;
         this.options = [];
-        var total = 0;
-        for (var key in object)
+        let value = 0;
+
+        for (let key in values)
         {
-            total += object[key];
-            this.options.push(
-            {
-                key: key,
-                value: total
-            });
-            this.max += object[key];
+            value += values[key];
+            this.options.push({ key, value });
+            this.max += values[key];
         }
     }
 
@@ -39,12 +36,16 @@ export default class WeightedRandom
      */
     random()
     {
-        var rand = Math.randomInt(0, this.max);
-        for (var i = 0, options = this.options, length = options.length; i < length; ++i)
+        let rand = Math.randomInt(0, this.max);
+
+        for (let i = 0, options = this.options, length = options.length; i < length; ++i)
         {
             if (rand < options[i].value)
+            {
                 return options[i].key;
+            }
         }
+
         //if we are somehow here, then return null
         return null;
     }
