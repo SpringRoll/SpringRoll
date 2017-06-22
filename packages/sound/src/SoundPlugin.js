@@ -1,20 +1,21 @@
 import {ApplicationPlugin, include} from '@springroll/core';
 import Sound from './Sound';
 import VOPlayer from './VOPlayer';
+import SoundTask from './SoundTask';
 
 (function()
 {
     /**
      * @class Application
      */
-    var plugin = new ApplicationPlugin(90);
+    const plugin = new ApplicationPlugin(90);
 
     //Initialize
     plugin.setup = function()
     {
         //Include classes
-        var WebAudioPlugin = include('createjs.WebAudioPlugin');
-        var FlashAudioPlugin = include('createjs.FlashAudioPlugin', false);
+        const WebAudioPlugin = include('createjs.WebAudioPlugin');
+        const FlashAudioPlugin = include('createjs.FlashAudioPlugin', false);
 
         /**
          * The preferred order of SoundJS audio plugins to use.
@@ -99,7 +100,7 @@ import VOPlayer from './VOPlayer';
         this.sound = null;
 
         //Add new task
-        this.assetManager.register('springroll.SoundTask');
+        this.assetManager.register(SoundTask);
 
         /**
          * Get or set the current music alias to play
@@ -108,7 +109,7 @@ import VOPlayer from './VOPlayer';
          */
         Object.defineProperty(this, "music",
         {
-            set: function(value)
+            set(value)
             {
                 if (value === this._music)
                 {
@@ -134,7 +135,7 @@ import VOPlayer from './VOPlayer';
                     );
                 }
             },
-            get: function()
+            get()
             {
                 return this._music;
             }
@@ -146,7 +147,7 @@ import VOPlayer from './VOPlayer';
          */
         Object.defineProperty(this, "musicInstance",
         {
-            get: function()
+            get()
             {
                 return this._musicInstance;
             }
@@ -158,6 +159,7 @@ import VOPlayer from './VOPlayer';
             //initialize Sound and load up global sound config
             var sounds = config.sounds;
             var sound = this.sound;
+
             if (sounds)
             {
                 if (sounds.vo)
@@ -190,34 +192,33 @@ import VOPlayer from './VOPlayer';
             plugins: this.options.audioPlugins,
             swfPath: this.options.swfPath,
             types: this.options.audioTypes,
-            ready: function()
+            ready: () => {
+                
+                if (this.destroyed) return;
+
+                var sound = this.sound = Sound.instance;
+
+                if (DEBUG)
                 {
-                    if (this.destroyed) return;
-
-                    var sound = this.sound = Sound.instance;
-
-                    if (DEBUG)
-                    {
-                        //For testing, mute the game if requested
-                        sound.muteAll = !!this.options.mute;
-                    }
-                    //Add listeners to pause and resume the sounds
-                    this.on(
-                    {
-                        paused: function()
-                        {
-                            sound.pauseAll();
-                        },
-                        resumed: function()
-                        {
-                            sound.resumeAll();
-                        }
-                    });
-
-                    this.trigger(SOUND_READY);
-                    done();
+                    //For testing, mute the game if requested
+                    sound.muteAll = !!this.options.mute;
                 }
-                .bind(this)
+                //Add listeners to pause and resume the sounds
+                this.on(
+                {
+                    paused: function()
+                    {
+                        sound.pauseAll();
+                    },
+                    resumed: function()
+                    {
+                        sound.resumeAll();
+                    }
+                });
+
+                this.trigger(SOUND_READY);
+                done();
+            }
         });
     };
 

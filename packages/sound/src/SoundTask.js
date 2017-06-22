@@ -14,63 +14,61 @@ import {Task} from '@springroll/loaders';
  * @param {String} [asset.id] Id of asset
  * @param {Function} [asset.complete] The event to call when done
  */
-var SoundTask = function(asset)
+export default class SoundTask extends Task
 {
-    Task.call(this, asset, asset.sounds[0]);
+    constructor(asset)
+    {
+        super(asset, asset.sounds[0]);
+
+        /**
+         * The path to the list of sound aliases
+         * @property {Array} sounds
+         */
+        this.sounds = asset.sounds;
+    }
 
     /**
-     * The path to the list of sound aliases
-     * @property {Array} sounds
+     * Test if we should run this task
+     * @method test
+     * @static
+     * @param {Object} asset The asset to check
+     * @return {Boolean} If the asset is compatible with this asset
      */
-    this.sounds = asset.sounds;
-};
-
-// Reference to prototype
-SoundTask.prototype = Object.create(Task.prototype);
-
-/**
- * Test if we should run this task
- * @method test
- * @static
- * @param {Object} asset The asset to check
- * @return {Boolean} If the asset is compatible with this asset
- */
-SoundTask.test = function(asset)
-{
-    return !!asset.sounds && Array.isArray(asset.sounds);
-};
-
-/**
- * Start the task
- * @method  start
- * @param  {Function} callback Callback when finished
- */
-SoundTask.prototype.start = function(callback)
-{
-    var sound = Application.instance.sound;
-    var aliases = this.sounds;
-    sound.preload(aliases, function()
+    static test(asset)
     {
-        // Add a destroy function to do the clean-up of aliases
-        // in case we are caching
-        aliases.destroy = function()
+        return !!asset.sounds && Array.isArray(asset.sounds);
+    }
+
+    /**
+     * Start the task
+     * @method  start
+     * @param  {Function} callback Callback when finished
+     */
+    start(callback)
+    {
+        var sound = Application.instance.sound;
+        var aliases = this.sounds;
+        sound.preload(aliases, function()
         {
-            sound.unload(this);
-            this.length = 0;
-            delete this.destroy;
-        };
-        callback(aliases);
-    });
-};
+            // Add a destroy function to do the clean-up of aliases
+            // in case we are caching
+            aliases.destroy = function()
+            {
+                sound.unload(this);
+                this.length = 0;
+                delete this.destroy;
+            };
+            callback(aliases);
+        });
+    }
 
-/**
- * Destroy and don't use after this
- * @method destroy
- */
-SoundTask.prototype.destroy = function()
-{
-    this.sounds = null;
-    Task.prototype.destroy.call(this);
-};
-
-export default SoundTask;
+    /**
+     * Destroy and don't use after this
+     * @method destroy
+     */
+    destroy()
+    {
+        this.sounds = null;
+        super.destroy();
+    }
+}
