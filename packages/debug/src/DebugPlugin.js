@@ -1,6 +1,6 @@
 import {ApplicationPlugin} from '@springroll/core';
 // @if DEBUG
-import {Debug} from '@springroll/debug';
+import Debug from './Debug';
 // @endif
 
 (function()
@@ -8,7 +8,7 @@ import {Debug} from '@springroll/debug';
     /**
      * @class Application
      */
-    var plugin = new ApplicationPlugin();
+    const plugin = new ApplicationPlugin();
 
     // Init the animator
     plugin.setup = function()

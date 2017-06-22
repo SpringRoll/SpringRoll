@@ -8,7 +8,880 @@ import {Enum} from '@springroll/core';
  * @class Debug
  * @static
  */
-var Debug = {};
+export default class Debug
+{
+    /**
+     * Connect to the `WebSocket`
+     * @public
+     * @static
+     * @method connect
+     * @param {String} host The remote address to connect to, IP address or host name
+     * @return {Boolean} If a connection was attempted
+     */
+    static connect(host)
+    {
+        //Make sure WebSocket exists without prefixes for us
+        if (!('WebSocket' in window) && !('MozWebSocket' in window)) return false;
+
+        window.WebSocket = WebSocket || MozWebSocket;
+
+        try
+        {
+            Debug._socket = new WebSocket('ws://' + host + ':' + Debug.NET_PORT);
+            Debug._socket.onopen = Debug._onConnect;
+            Debug._socket.onclose = Debug._onClose;
+            Debug._socket.onerror = Debug._onClose;
+            Debug._socketQueue = [];
+            Debug._useSocket = true;
+        }
+        catch (error)
+        {
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * Disconnect from the `WebSocket`
+     * @public
+     * @static
+     * @method disconnect
+     */
+    static disconnect()
+    {
+        if (Debug._useSocket)
+        {
+            Debug._socket.close();
+            Debug._onClose();
+        }
+    }
+
+    /**
+     * Callback when the `WebSocket` is connected
+     * @private
+     * @static
+     * @method _onConnect
+     */
+    static _onConnect()
+    {
+        //set up a function to handle all messages
+        window.onerror = Debug._manglePeventer.globalErrorHandler;
+
+        //create and send a new session message
+        Debug._socketMessage = {
+            level: 'session',
+            message: '',
+            stack: null,
+            time: 0
+        };
+        Debug._socket.send(JSON.stringify(Debug._socketMessage));
+
+        //send any queued logs
+        for (var i = 0, len = Debug._socketQueue.length; i < len; ++i)
+        {
+            Debug._socket.send(JSON.stringify(Debug._socketQueue[i]));
+        }
+
+        //get rid of this, since we are connected
+        Debug._socketQueue = null;
+    }
+
+
+    /**
+     * Callback for when the websocket is closed
+     * @private
+     * @static
+     * @method _onClose
+     */
+    static _onClose()
+    {
+        window.onerror = null;
+        Debug._useSocket = false;
+        Debug._socket.onopen = null;
+        Debug._socket.onmessage = null;
+        Debug._socket.onclose = null;
+        Debug._socket.onerror = null;
+        Debug._socket = null;
+        Debug._socketMessage = null;
+        Debug._socketQueue = null;
+    }
+
+    /**
+     * Sent to the output
+     * @private
+     * @static
+     * @method _domOutput
+     * @param {String} level The log level
+     * @param {String} args Additional arguments
+     */
+    static _domOutput(level, args)
+    {
+        if (Debug.output)
+        {
+            Debug.output.innerHTML += '<div class="' + level + '">' + args + '</div>';
+        }
+    }
+
+    /**
+     * Send a remote log message using the socket connection
+     * @private
+     * @static
+     * @method _remoteLog
+     * @param {Array} message The message to send
+     * @param {level} [level=0] The log level to send
+     * @param {String} [stack] A stack to use for the message. A stack will be created if stack
+     *                       is omitted.
+     * @return {Debug} The instance of debug for chaining
+     */
+    static _remoteLog(message, level, stack)
+    {
+        level = level || Debug.Levels.GENERAL;
+        if (!Array.isArray(message))
+        {
+            message = [message];
+        }
+        message = Array.prototype.slice.call(message);
+
+        var i, length;
+        // Go through each argument and replace any circular
+        // references with simplified objects
+        for (i = 0, length = message.length; i < length; i++)
+        {
+            if (typeof message[i] === "object")
+            {
+                try
+                {
+                    message[i] = Debug._removeCircular(message[i], 3);
+                }
+                catch (e)
+                {
+                    message[i] = String(message[i]);
+                }
+            }
+        }
+
+        //figure out the stack
+        if (!stack)
+        {
+            stack = new Error().stack;
+        }
+
+        //split stack lines
+        stack = stack ? stack.split("\n") : [];
+        //go through lines, figuring out what to strip out
+        //and standardizing the format for the rest
+        var splitIndex, functionSection, file, lineLocation, functionName, lineSearch,
+            lastToStrip = -1,
+            shouldStrip = true;
+
+        for (i = 0, length = stack.length; i < length; ++i)
+        {
+            var line = stack[i].trim();
+
+            //FF has an empty string at the end
+            if (!line)
+            {
+                if (i === length - 1)
+                {
+                    stack.pop();
+                    break;
+                }
+                else
+                {
+                    continue;
+                }
+            }
+            //strip out any actual errors in the stack trace, since that is the message
+            //also the 'error' line from our new Error().
+            if (line === "Error" || line.indexOf("Error:") > -1)
+            {
+                lastToStrip = i;
+                continue;
+            }
+
+            // FF/Safari style:
+            // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error/Stack
+            if (line.indexOf("@") > -1)
+            {
+                splitIndex = line.indexOf("@");
+                functionSection = line.substring(0, splitIndex);
+
+                //if we should strip this line out of the stack, we should stop parsing the stack
+                //early
+                if (functionSection.indexOf(".") !== -1)
+                {
+                    functionName = functionSection.substring(functionSection.lastIndexOf(".") + 1);
+                }
+                else
+                {
+                    functionName = functionSection;
+                }
+
+                if (shouldStrip && Debug._methodsToStrip.indexOf(functionName) !== -1)
+                {
+                    lastToStrip = i;
+                    continue;
+                }
+
+                //get the file and line number/column
+                file = line.substring(splitIndex + 1);
+            }
+
+            // Chrome/IE/Opera style:
+            //https://msdn.microsoft.com/en-us/library/windows/apps/hh699850.aspx
+            else
+            {
+                splitIndex = line.indexOf("(");
+
+                //skip the "at " at the beginning of the line and the space at the end
+                functionSection = line.substring(3, splitIndex - 1);
+
+                //if we should strip this line out of the stack, we should stop parsing the stack
+                //early
+                if (functionSection.indexOf(".") !== -1)
+                {
+                    functionName = functionSection.substring(functionSection.lastIndexOf(".") + 1);
+                }
+                else
+                {
+                    functionName = functionSection;
+                }
+
+                if (shouldStrip && Debug._methodsToStrip.indexOf(functionName) !== -1)
+                {
+                    lastToStrip = i;
+                    continue;
+                }
+
+                //get the file and line number/column, dropping the trailing ')'
+                file = line.substring(splitIndex + 1, line.length - 2);
+            }
+
+            //find the line number/column in the combined file string
+            // Regular expression to get the line number and column from a stack trace line.
+            lineSearch = /(:\d+)+/.exec(file);
+
+            //handle browsers not providing proper information (like iOS)
+            if (!lineSearch)
+            {
+                stack[i] = {
+                    "function": "",
+                    "file": "",
+                    lineLocation: ""
+                };
+                continue;
+            }
+
+            //split the file and line number/column from each other
+            file = file.substring(0, lineSearch.index);
+            lineLocation = lineSearch[0].substring(1);
+
+            //If we got here, we got out of the Debug functions and should stop trying to
+            //strip stuff out, in case someone else's functions are named the same
+            shouldStrip = false;
+
+            stack[i] = {
+                "function": functionSection || "<anonymous>",
+                file: file,
+                lineLocation: lineLocation
+            };
+        }
+
+        if (lastToStrip >= 0)
+        {
+            stack = stack.slice(lastToStrip + 1);
+        }
+
+        // If we are still in the process of connecting, queue up the log
+        if (Debug._socketQueue)
+        {
+            Debug._socketQueue.push(
+            {
+                message: message,
+                level: level.name,
+                stack: stack,
+                time: Date.now()
+            });
+        }
+        else // send the log immediately
+        {
+            Debug._socketMessage.level = level.name;
+            Debug._socketMessage.message = message;
+            Debug._socketMessage.stack = stack;
+            Debug._socketMessage.time = Date.now();
+
+            var send;
+
+            try
+            {
+                send = JSON.stringify(Debug._socketMessage);
+            }
+            catch (e)
+            {
+                Debug._socketMessage.message = ["[circular object]"];
+                send = JSON.stringify(Debug._socketMessage);
+            }
+
+            Debug._socket.send(send);
+        }
+
+        return Debug;
+    }
+
+    /**
+     * Strip out known circular references
+     * @method _removeCircular
+     * @private
+     * @param {Object} obj The object to remove references from
+     */
+    static _removeCircular(obj, maxDepth, depth)
+    {
+        if (Array.isArray(obj))
+        {
+            return obj;
+        }
+
+        depth = depth || 0;
+
+        if (depth === 0)
+        {
+            Debug._circularArray.length = 0;
+        }
+
+        Debug._circularArray.push(obj);
+
+        var result = {};
+
+        for (var key in obj)
+        {
+            var value = obj[key];
+
+            // avoid doing properties that are known to be DOM objects,
+            // because those have circular references
+            if (value instanceof Window ||
+                value instanceof Document ||
+                value instanceof HTMLElement ||
+                key === "document" ||
+                key === "window" ||
+                key === "ownerDocument" ||
+                key === "view" ||
+                key === "target" ||
+                key === "currentTarget" ||
+                key === "originalTarget" ||
+                key === "explicitOriginalTarget" ||
+                key === "rangeParent" ||
+                key === "srcElement" ||
+                key === "relatedTarget" ||
+                key === "fromElement" ||
+                key === "toElement")
+            {
+                if (value instanceof HTMLElement)
+                {
+                    var elementString;
+                    elementString = "<" + value.tagName;
+
+                    if (value.id)
+                    {
+                        elementString += " id='" + value.id + "'";
+                    }
+                    if (value.className)
+                    {
+                        elementString += " class='" + value.className + "'";
+                    }
+
+                    result[key] = elementString + " />";
+                }
+                continue;
+            }
+
+            switch (typeof value)
+            {
+                case "object":
+                {
+                    result[key] = (depth > maxDepth || Debug._circularArray.indexOf(value) > -1) ?
+                    String(value) : Debug._removeCircular(value, maxDepth, depth + 1);
+                    break;
+                }
+                case "function":
+                {
+                    result[key] = "[function]";
+                    break;
+                }
+                case "string":
+                case "number":
+                case "boolean":
+                case "bool":
+                {
+                    result[key] = value;
+                    break;
+                }
+                default:
+                {
+                    result[key] = value;
+                    break;
+                }
+            }
+        }
+        return result;
+    }
+
+    /**
+     * Log something in the console or remote
+     * @static
+     * @public
+     * @method log
+     * @param {*} params The statement or object to log
+     * @return {Debug} The instance of debug for chaining
+     */
+    static log(params)
+    {
+        if (!Debug.enabled)
+        {
+            return Debug;
+        }
+
+        if (Debug._useSocket)
+        {
+            Debug._remoteLog(Array.prototype.slice.call(arguments));
+        }
+        else if (Debug.minLogLevel === Debug.Levels.GENERAL)
+        {
+            if (Debug._hasConsole)
+            {
+                if (arguments.length === 1)
+                {
+                    console.log(params);
+                }
+                else
+                {
+                    console.log.apply(console, arguments);
+                }
+            }
+            Debug._domOutput('general', params);
+        }
+        return Debug;
+    }
+
+    /**
+     * Debug something in the console or remote
+     * @static
+     * @public
+     * @method debug
+     * @param {*} params The statement or object to debug
+     * @return {Debug} The instance of debug for chaining
+     */
+    static debug(params)
+    {
+        if (!Debug.enabled)
+        {
+            return Debug;
+        }
+
+        if (Debug._useSocket)
+        {
+            Debug._remoteLog(Array.prototype.slice.call(arguments), Debug.Levels.DEBUG);
+        }
+        else if (Debug.minLogLevel.asInt <= Debug.Levels.DEBUG.asInt)
+        {
+            // debug() is officially deprecated
+            if (Debug._hasConsole)
+            {
+                if (console.debug)
+                {
+                    if (arguments.length === 1)
+                    {
+                        console.debug(params);
+                    }
+                    else
+                    {
+                        console.debug.apply(console, arguments);
+                    }
+                }
+                else
+                {
+                    if (arguments.length === 1)
+                    {
+                        console.log(params);
+                    }
+                    else
+                    {
+                        console.log.apply(console, arguments);
+                    }
+                }
+            }
+            Debug._domOutput('debug', params);
+        }
+
+        return Debug;
+    }
+
+    /**
+     * Info something in the console or remote
+     * @static
+     * @public
+     * @method info
+     * @param {*} params The statement or object to info
+     * @return {Debug} The instance of debug for chaining
+     */
+    static info(params)
+    {
+        if (!Debug.enabled)
+        {
+            return Debug;
+        }
+
+        if (Debug._useSocket)
+        {
+            Debug._remoteLog(Array.prototype.slice.call(arguments), Debug.Levels.INFO);
+        }
+        else if (Debug.minLogLevel.asInt <= Debug.Levels.INFO.asInt)
+        {
+            if (Debug._hasConsole)
+            {
+                if (arguments.length === 1)
+                {
+                    console.info(params);
+                }
+                else
+                {
+                    console.info.apply(console, arguments);
+                }
+            }
+
+            Debug._domOutput('info', params);
+        }
+        return Debug;
+    }
+
+    /**
+     * Warn something in the console or remote
+     * @static
+     * @public
+     * @method warn
+     * @param {*} params The statement or object to warn
+     * @return {Debug} The instance of debug for chaining
+     */
+    static warn(params)
+    {
+        if (!Debug.enabled)
+        {
+            return Debug;
+        }
+
+        if (Debug._useSocket)
+        {
+            Debug._remoteLog(Array.prototype.slice.call(arguments), Debug.Levels.WARN);
+        }
+        else if (Debug.minLogLevel.asInt <= Debug.Levels.WARN.asInt)
+        {
+            if (Debug._hasConsole)
+            {
+                if (arguments.length === 1)
+                {
+                    console.warn(params);
+                }
+                else
+                {
+                    console.warn.apply(console, arguments);
+                }
+            }
+            Debug._domOutput('warn', params);
+        }
+        return Debug;
+    }
+
+    /**
+     * Error something in the console or remote
+     * @static
+     * @public
+     * @method error
+     * @param {*} params The statement or object to error
+     */
+    static error(params)
+    {
+        if (!Debug.enabled)
+        {
+            return Debug;
+        }
+
+        if (Debug._useSocket)
+        {
+            Debug._remoteLog(Array.prototype.slice.call(arguments), Debug.Levels.ERROR);
+        }
+        else
+        {
+            if (Debug._hasConsole)
+            {
+                if (arguments.length === 1)
+                {
+                    console.error(params);
+                }
+                else
+                {
+                    console.error.apply(console, arguments);
+                }
+            }
+            Debug._domOutput('error', params);
+        }
+        return Debug;
+    }
+
+    /**
+     * Assert that something is true
+     * @static
+     * @public
+     * @method assert
+     * @param {Boolean} truth As statement that is assumed true
+     * @param {*} params The message to error if the assert is false
+     * @return {Debug} The instance of debug for chaining
+     */
+    static assert(truth, params)
+    {
+        if (!Debug.enabled)
+        {
+            return Debug;
+        }
+
+        if (!truth)
+        {
+            Debug._domOutput('error', params);
+
+            if (Debug._useSocket)
+            {
+                Debug._remoteLog(params, Debug.Levels.ERROR);
+            }
+        }
+
+        if (Debug._hasConsole && console.assert)
+        {
+            console.assert(truth, params);
+        }
+        
+        return Debug;
+    }
+
+    /**
+     * Method to describe an object in the console
+     * @static
+     * @method dir
+     * @public
+     * @param {Object} params The object to describe in the console
+     * @return {Debug} The instance of debug for chaining
+     */
+    static dir(params)
+    {
+        if (!Debug.enabled)
+        {
+            return Debug;
+        }
+
+        if (Debug._useSocket)
+        {
+            Debug._remoteLog(Array.prototype.slice.call(arguments), Debug.Levels.GENERAL);
+        }
+        else if (Debug._hasConsole)
+        {
+            if (arguments.length === 1)
+            {
+                console.dir(params);
+            }
+            else
+            {
+                console.dir.apply(console, arguments);
+            }
+        }
+    
+        return Debug;
+    }
+
+    /**
+     * Method to clear the console
+     * @static
+     * @public
+     * @method clear
+     * @return {Debug} The instance of debug for chaining
+     */
+    static clear()
+    {
+        if (!Debug.enabled)
+        {
+            return Debug;
+        }
+
+        if (Debug._useSocket)
+        {
+            Debug._remoteLog("", "clear");
+        }
+
+        if (Debug._hasConsole)
+        {
+            console.clear();
+        }
+
+        if (Debug.output)
+        {
+            Debug.output.innerHTML = "";
+        }
+        
+        return Debug;
+    }
+
+    /**
+     * Generate a stack track in the output
+     * @static
+     * @public
+     * @method trace
+     * @param {*} params Optional parameters to log
+     * @return {Debug} The instance of debug for chaining
+     */
+    static trace(params)
+    {
+        if (!Debug.enabled)
+        {
+            return Debug;
+        }
+
+        if (Debug._useSocket)
+        {
+            Debug._remoteLog(Array.prototype.slice.call(arguments), Debug.Levels.GENERAL);
+        }
+        else if (Debug._hasConsole)
+        {
+            if (arguments.length === 1)
+            {
+                console.trace(params);
+            }
+            else
+            {
+                console.trace.apply(console, arguments);
+            }
+        }
+
+        return Debug;
+    }
+
+    /**
+     * Starts a new logging group with an optional title. All console output that
+     * occurs after calling this method and calling `Debug.groupEnd()` appears in
+     * the same visual group.
+     * @static
+     * @public
+     * @method group
+     * @param {*} params Optional parameters to log
+     * @return {Debug} The instance of debug for chaining
+     */
+    static group(params)
+    {
+        if (!Debug.enabled)
+        {
+            return Debug;
+        }
+        if (Debug._useSocket)
+        {
+            Debug._remoteLog(Array.prototype.slice.call(arguments), "group");
+        }
+        else if (Debug._hasConsole && console.group)
+        {
+            console.group.apply(console, arguments);
+        }
+
+        return Debug;
+    }
+
+    /**
+     * Creates a new logging group that is initially collapsed instead of open,
+     * as with `Debug.group()`.
+     * @static
+     * @public
+     * @method groupCollapsed
+     * @param {*} params Optional parameters to log
+     * @return {Debug} The instance of debug for chaining
+     */
+    static groupCollapsed(params)
+    {
+        if (!Debug.enabled)
+        {
+            return Debug;
+        }
+
+        if (Debug._useSocket)
+        {
+            Debug._remoteLog(Array.prototype.slice.call(arguments), "groupCollapsed");
+        }
+        else if (Debug._hasConsole && console.groupCollapsed)
+        {
+            console.groupCollapsed.apply(console, arguments);
+        }
+        return Debug;
+    }
+
+    /**
+     * Starts a new logging group with an optional title. All console output that
+     * occurs after calling this method and calling console.groupEnd() appears in
+     * the same visual group.
+     * @static
+     * @public
+     * @method groupEnd
+     * @return {Debug} The instance of debug for chaining
+     */
+    static groupEnd()
+    {
+        if (!Debug.enabled)
+        {
+            return Debug;
+        }
+
+        if (Debug._useSocket)
+        {
+            Debug._remoteLog(Array.prototype.slice.call(arguments), "groupEnd");
+        }
+        else if (Debug._hasConsole && console.groupEnd)
+        {
+            console.groupEnd();
+        }
+        
+        return Debug;
+    }
+
+    /**
+     * Due to the way closures and variables work, _colorClosure returns
+     * the color logging function needed for the color that you pass it.
+     *
+     * @method _colorClosure
+     * @private
+     * @param {String} hex Hex value to apply to CSS color
+     * @return {Function}
+     */
+    static _colorClosure(hex)
+    {
+        var colorString = 'color:' + hex;
+
+        return function(message)
+        {
+            if (arguments.length > 1)
+            {
+                var params = Array.prototype.slice.call(arguments);
+                if (typeof params[0] === "object")
+                {
+                    params.unshift(colorString);
+                    params.unshift('%c%o');
+                }
+                else
+                {
+                    var first = '%c' + params[0];
+                    params[0] = colorString;
+                    params.unshift(first);
+                }
+                return Debug.log.apply(Debug, params);
+            }
+            if (typeof arguments[0] === "object")
+            {
+                return Debug.log('%c%o', colorString, message);
+            }
+            return Debug.log('%c' + message, colorString);
+        };
+    }
+}
 
 /**
  * If we have a console
@@ -73,7 +946,7 @@ if (Debug._hasConsole)
  * @property {springroll.Enum} Levels
  * @static
  */
-var Levels = Debug.Levels = new Enum(
+Debug.Levels = new Enum(
 
     /**
      * The most basic general log level
@@ -118,7 +991,7 @@ var Levels = Debug.Levels = new Enum(
  * @static
  * @property {int} minLogLevel
  */
-Debug.minLogLevel = Levels.GENERAL;
+Debug.minLogLevel = Debug.Levels.GENERAL;
 
 /**
  * Boolean to turn on or off the debugging
@@ -230,80 +1103,12 @@ Debug._methodsToStrip = [
 ];
 
 /**
- * Connect to the `WebSocket`
- * @public
+ * An array for preventing circular references
  * @static
- * @method connect
- * @param {String} host The remote address to connect to, IP address or host name
- * @return {Boolean} If a connection was attempted
- */
-Debug.connect = function(host)
-{
-    //Make sure WebSocket exists without prefixes for us
-    if (!('WebSocket' in window) && !('MozWebSocket' in window)) return false;
-
-    window.WebSocket = WebSocket || MozWebSocket;
-
-    try
-    {
-        Debug._socket = new WebSocket('ws://' + host + ':' + Debug.NET_PORT);
-        Debug._socket.onopen = Debug._onConnect;
-        Debug._socket.onclose = Debug._onClose;
-        Debug._socket.onerror = Debug._onClose;
-        Debug._socketQueue = [];
-        Debug._useSocket = true;
-    }
-    catch (error)
-    {
-        return false;
-    }
-    return true;
-};
-
-/**
- * Disconnect from the `WebSocket`
- * @public
- * @static
- * @method disconnect
- */
-Debug.disconnect = function()
-{
-    if (Debug._useSocket)
-    {
-        Debug._socket.close();
-        Debug._onClose();
-    }
-};
-
-/**
- * Callback when the `WebSocket` is connected
  * @private
- * @static
- * @method _onConnect
+ * @property {Array} _circularArray
  */
-Debug._onConnect = function()
-{
-    //set up a function to handle all messages
-    window.onerror = Debug._manglePeventer.globalErrorHandler;
-
-    //create and send a new session message
-    Debug._socketMessage = {
-        level: 'session',
-        message: '',
-        stack: null,
-        time: 0
-    };
-    Debug._socket.send(JSON.stringify(Debug._socketMessage));
-
-    //send any queued logs
-    for (var i = 0, len = Debug._socketQueue.length; i < len; ++i)
-    {
-        Debug._socket.send(JSON.stringify(Debug._socketQueue[i]));
-    }
-
-    //get rid of this, since we are connected
-    Debug._socketQueue = null;
-};
+Debug._circularArray = [];
 
 /**
  * Global window error handler, used for remote connections.
@@ -318,645 +1123,9 @@ Debug._onConnect = function()
  */
 Debug._manglePeventer.globalErrorHandler = function(message, file, line, column, error)
 {
-    Debug._remoteLog(message, Levels.ERROR, error ? error.stack : null);
+    Debug._remoteLog(message, Debug.Levels.ERROR, error ? error.stack : null);
     //let the error do the normal behavior
     return false;
-};
-
-/**
- * Callback for when the websocket is closed
- * @private
- * @static
- * @method _onClose
- */
-Debug._onClose = function()
-{
-    window.onerror = null;
-    Debug._useSocket = false;
-    Debug._socket.onopen = null;
-    Debug._socket.onmessage = null;
-    Debug._socket.onclose = null;
-    Debug._socket.onerror = null;
-    Debug._socket = null;
-    Debug._socketMessage = null;
-    Debug._socketQueue = null;
-};
-
-/**
- * Sent to the output
- * @private
- * @static
- * @method _domOutput
- * @param {String} level The log level
- * @param {String} args Additional arguments
- */
-Debug._domOutput = function(level, args)
-{
-    if (Debug.output)
-    {
-        Debug.output.innerHTML += '<div class="' + level + '">' + args + '</div>';
-    }
-};
-
-/**
- * Send a remote log message using the socket connection
- * @private
- * @static
- * @method _remoteLog
- * @param {Array} message The message to send
- * @param {level} [level=0] The log level to send
- * @param {String} [stack] A stack to use for the message. A stack will be created if stack
- *                       is omitted.
- * @return {Debug} The instance of debug for chaining
- */
-Debug._remoteLog = function(message, level, stack)
-{
-    level = level || Levels.GENERAL;
-    if (!Array.isArray(message))
-        message = [message];
-    message = Array.prototype.slice.call(message);
-
-    var i, length;
-    // Go through each argument and replace any circular
-    // references with simplified objects
-    for (i = 0, length = message.length; i < length; i++)
-    {
-        if (typeof message[i] === "object")
-        {
-            try
-            {
-                message[i] = Debug._removeCircular(message[i], 3);
-            }
-            catch (e)
-            {
-                message[i] = String(message[i]);
-            }
-            /*console.log(message[i]);*/
-        }
-    }
-
-    //figure out the stack
-    if (!stack)
-        stack = new Error().stack;
-    //split stack lines
-    stack = stack ? stack.split("\n") : [];
-    //go through lines, figuring out what to strip out
-    //and standardizing the format for the rest
-    var splitIndex, functionSection, file, lineLocation, functionName, lineSearch,
-        lastToStrip = -1,
-        shouldStrip = true;
-    for (i = 0, length = stack.length; i < length; ++i)
-    {
-        var line = stack[i].trim();
-        //FF has an empty string at the end
-        if (!line)
-        {
-            if (i === length - 1)
-            {
-                stack.pop();
-                break;
-            }
-            else
-                continue;
-        }
-        //strip out any actual errors in the stack trace, since that is the message
-        //also the 'error' line from our new Error().
-        if (line === "Error" || line.indexOf("Error:") > -1)
-        {
-            lastToStrip = i;
-            continue;
-        }
-        // FF/Safari style:
-        // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error/Stack
-        if (line.indexOf("@") > -1)
-        {
-            splitIndex = line.indexOf("@");
-            functionSection = line.substring(0, splitIndex);
-            //if we should strip this line out of the stack, we should stop parsing the stack
-            //early
-            if (functionSection.indexOf(".") !== -1)
-                functionName = functionSection.substring(functionSection.lastIndexOf(".") + 1);
-            else
-                functionName = functionSection;
-            if (shouldStrip && Debug._methodsToStrip.indexOf(functionName) !== -1)
-            {
-                lastToStrip = i;
-                continue;
-            }
-            //get the file and line number/column
-            file = line.substring(splitIndex + 1);
-        }
-        // Chrome/IE/Opera style:
-        //https://msdn.microsoft.com/en-us/library/windows/apps/hh699850.aspx
-        else
-        {
-            splitIndex = line.indexOf("(");
-            //skip the "at " at the beginning of the line and the space at the end
-            functionSection = line.substring(3, splitIndex - 1);
-            //if we should strip this line out of the stack, we should stop parsing the stack
-            //early
-            if (functionSection.indexOf(".") !== -1)
-                functionName = functionSection.substring(functionSection.lastIndexOf(".") + 1);
-            else
-                functionName = functionSection;
-            if (shouldStrip && Debug._methodsToStrip.indexOf(functionName) !== -1)
-            {
-                lastToStrip = i;
-                continue;
-            }
-            //get the file and line number/column, dropping the trailing ')'
-            file = line.substring(splitIndex + 1, line.length - 2);
-        }
-        //find the line number/column in the combined file string
-        // Regular expression to get the line number and column from a stack trace line.
-        lineSearch = /(:\d+)+/.exec(file);
-        //handle browsers not providing proper information (like iOS)
-        if (!lineSearch)
-        {
-            stack[i] = {
-                "function": "",
-                "file": "",
-                lineLocation: ""
-            };
-            continue;
-        }
-        //split the file and line number/column from each other
-        file = file.substring(0, lineSearch.index);
-        lineLocation = lineSearch[0].substring(1);
-        //If we got here, we got out of the Debug functions and should stop trying to
-        //strip stuff out, in case someone else's functions are named the same
-        shouldStrip = false;
-        stack[i] = {
-            "function": functionSection || "<anonymous>",
-            file: file,
-            lineLocation: lineLocation
-        };
-    }
-    if (lastToStrip >= 0)
-    {
-        stack = stack.slice(lastToStrip + 1);
-    }
-
-    // If we are still in the process of connecting, queue up the log
-    if (Debug._socketQueue)
-    {
-        Debug._socketQueue.push(
-        {
-            message: message,
-            level: level.name,
-            stack: stack,
-            time: Date.now()
-        });
-    }
-    else // send the log immediately
-    {
-        Debug._socketMessage.level = level.name;
-        Debug._socketMessage.message = message;
-        Debug._socketMessage.stack = stack;
-        Debug._socketMessage.time = Date.now();
-        var send;
-        try
-        {
-            send = JSON.stringify(Debug._socketMessage);
-        }
-        catch (e)
-        {
-            Debug._socketMessage.message = ["[circular object]"];
-            send = JSON.stringify(Debug._socketMessage);
-        }
-        Debug._socket.send(send);
-    }
-    return Debug;
-};
-
-/**
- * An array for preventing circular references
- * @static
- * @private
- * @property {Array} _circularArray
- */
-Debug._circularArray = [];
-
-/**
- * Strip out known circular references
- * @method _removeCircular
- * @private
- * @param {Object} obj The object to remove references from
- */
-Debug._removeCircular = function(obj, maxDepth, depth)
-{
-    if (Array.isArray(obj)) return obj;
-
-    depth = depth || 0;
-    if (depth === 0)
-        Debug._circularArray.length = 0;
-
-    Debug._circularArray.push(obj);
-
-    var result = {};
-    for (var key in obj)
-    {
-        var value = obj[key];
-        // avoid doing properties that are known to be DOM objects,
-        // because those have circular references
-        if (value instanceof Window ||
-            value instanceof Document ||
-            value instanceof HTMLElement ||
-            key === "document" ||
-            key === "window" ||
-            key === "ownerDocument" ||
-            key === "view" ||
-            key === "target" ||
-            key === "currentTarget" ||
-            key === "originalTarget" ||
-            key === "explicitOriginalTarget" ||
-            key === "rangeParent" ||
-            key === "srcElement" ||
-            key === "relatedTarget" ||
-            key === "fromElement" ||
-            key === "toElement")
-        {
-            if (value instanceof HTMLElement)
-            {
-                var elementString;
-                elementString = "<" + value.tagName;
-                if (value.id)
-                    elementString += " id='" + value.id + "'";
-                if (value.className)
-                    elementString += " class='" + value.className + "'";
-                result[key] = elementString + " />";
-            }
-            continue;
-        }
-
-        switch (typeof value)
-        {
-            case "object":
-                {
-                    result[key] = (depth > maxDepth || Debug._circularArray.indexOf(value) > -1) ?
-                    String(value) : Debug._removeCircular(value, maxDepth, depth + 1);
-                    break;
-                }
-            case "function":
-                {
-                    result[key] = "[function]";
-                    break;
-                }
-            case "string":
-            case "number":
-            case "boolean":
-            case "bool":
-                {
-                    result[key] = value;
-                    break;
-                }
-            default:
-                {
-                    result[key] = value;
-                    break;
-                }
-        }
-    }
-    return result;
-};
-
-/**
- * Log something in the console or remote
- * @static
- * @public
- * @method log
- * @param {*} params The statement or object to log
- * @return {Debug} The instance of debug for chaining
- */
-Debug.log = function(params)
-{
-    if (!Debug.enabled) return Debug;
-
-    if (Debug._useSocket)
-    {
-        Debug._remoteLog(Array.prototype.slice.call(arguments));
-    }
-    else if (Debug.minLogLevel === Levels.GENERAL)
-    {
-        if (Debug._hasConsole)
-        {
-            if (arguments.length === 1)
-                console.log(params);
-            else
-                console.log.apply(console, arguments);
-        }
-        Debug._domOutput('general', params);
-    }
-    return Debug;
-};
-
-/**
- * Debug something in the console or remote
- * @static
- * @public
- * @method debug
- * @param {*} params The statement or object to debug
- * @return {Debug} The instance of debug for chaining
- */
-Debug.debug = function(params)
-{
-    if (!Debug.enabled) return Debug;
-
-    if (Debug._useSocket)
-    {
-        Debug._remoteLog(Array.prototype.slice.call(arguments), Levels.DEBUG);
-    }
-    else if (Debug.minLogLevel.asInt <= Levels.DEBUG.asInt)
-    {
-        // debug() is officially deprecated
-        if (Debug._hasConsole)
-        {
-            if (console.debug)
-            {
-                if (arguments.length === 1)
-                    console.debug(params);
-                else
-                    console.debug.apply(console, arguments);
-            }
-            else
-            {
-                if (arguments.length === 1)
-                    console.log(params);
-                else
-                    console.log.apply(console, arguments);
-            }
-        }
-        Debug._domOutput('debug', params);
-    }
-    return Debug;
-};
-
-/**
- * Info something in the console or remote
- * @static
- * @public
- * @method info
- * @param {*} params The statement or object to info
- * @return {Debug} The instance of debug for chaining
- */
-Debug.info = function(params)
-{
-    if (!Debug.enabled) return Debug;
-
-    if (Debug._useSocket)
-    {
-        Debug._remoteLog(Array.prototype.slice.call(arguments), Levels.INFO);
-    }
-    else if (Debug.minLogLevel.asInt <= Levels.INFO.asInt)
-    {
-        if (Debug._hasConsole)
-        {
-            if (arguments.length === 1)
-                console.info(params);
-            else
-                console.info.apply(console, arguments);
-        }
-        Debug._domOutput('info', params);
-    }
-    return Debug;
-};
-
-/**
- * Warn something in the console or remote
- * @static
- * @public
- * @method warn
- * @param {*} params The statement or object to warn
- * @return {Debug} The instance of debug for chaining
- */
-Debug.warn = function(params)
-{
-    if (!Debug.enabled) return Debug;
-
-    if (Debug._useSocket)
-    {
-        Debug._remoteLog(Array.prototype.slice.call(arguments), Levels.WARN);
-    }
-    else if (Debug.minLogLevel.asInt <= Levels.WARN.asInt)
-    {
-        if (Debug._hasConsole)
-        {
-            if (arguments.length === 1)
-                console.warn(params);
-            else
-                console.warn.apply(console, arguments);
-        }
-        Debug._domOutput('warn', params);
-    }
-    return Debug;
-};
-
-/**
- * Error something in the console or remote
- * @static
- * @public
- * @method error
- * @param {*} params The statement or object to error
- */
-Debug.error = function(params)
-{
-    if (!Debug.enabled) return;
-
-    if (Debug._useSocket)
-    {
-        Debug._remoteLog(Array.prototype.slice.call(arguments), Levels.ERROR);
-    }
-    else
-    {
-        if (Debug._hasConsole)
-        {
-            if (arguments.length === 1)
-                console.error(params);
-            else
-                console.error.apply(console, arguments);
-        }
-        Debug._domOutput('error', params);
-    }
-    return Debug;
-};
-
-/**
- * Assert that something is true
- * @static
- * @public
- * @method assert
- * @param {Boolean} truth As statement that is assumed true
- * @param {*} params The message to error if the assert is false
- * @return {Debug} The instance of debug for chaining
- */
-Debug.assert = function(truth, params)
-{
-    if (Debug.enabled)
-    {
-        if (!truth)
-        {
-            Debug._domOutput('error', params);
-            if (Debug._useSocket)
-            {
-                Debug._remoteLog(params, Levels.ERROR);
-            }
-        }
-
-        if (Debug._hasConsole && console.assert)
-            console.assert(truth, params);
-    }
-    return Debug;
-};
-
-/**
- * Method to describe an object in the console
- * @static
- * @method dir
- * @public
- * @param {Object} params The object to describe in the console
- * @return {Debug} The instance of debug for chaining
- */
-Debug.dir = function(params)
-{
-    if (Debug.enabled)
-    {
-        if (Debug._useSocket)
-        {
-            Debug._remoteLog(Array.prototype.slice.call(arguments), Levels.GENERAL);
-        }
-        else if (Debug._hasConsole)
-        {
-            if (arguments.length === 1)
-                console.dir(params);
-            else
-                console.dir.apply(console, arguments);
-        }
-    }
-    return Debug;
-};
-
-/**
- * Method to clear the console
- * @static
- * @public
- * @method clear
- * @return {Debug} The instance of debug for chaining
- */
-Debug.clear = function()
-{
-    if (Debug.enabled)
-    {
-        if (Debug._useSocket)
-        {
-            Debug._remoteLog("", "clear");
-        }
-
-        if (Debug._hasConsole)
-            console.clear();
-
-        if (Debug.output)
-        {
-            Debug.output.innerHTML = "";
-        }
-    }
-    return Debug;
-};
-
-/**
- * Generate a stack track in the output
- * @static
- * @public
- * @method trace
- * @param {*} params Optional parameters to log
- * @return {Debug} The instance of debug for chaining
- */
-Debug.trace = function(params)
-{
-    if (Debug.enabled)
-    {
-        if (Debug._useSocket)
-        {
-            Debug._remoteLog(Array.prototype.slice.call(arguments), Levels.GENERAL);
-        }
-        else if (Debug._hasConsole)
-        {
-            if (arguments.length === 1)
-                console.trace(params);
-            else
-                console.trace.apply(console, arguments);
-        }
-    }
-    return Debug;
-};
-
-/**
- * Starts a new logging group with an optional title. All console output that
- * occurs after calling this method and calling `Debug.groupEnd()` appears in
- * the same visual group.
- * @static
- * @public
- * @method group
- * @param {*} params Optional parameters to log
- * @return {Debug} The instance of debug for chaining
- */
-Debug.group = function(params)
-{
-    if (Debug.enabled)
-    {
-        if (Debug._useSocket)
-        {
-            Debug._remoteLog(Array.prototype.slice.call(arguments), "group");
-        }
-        else if (Debug._hasConsole && console.group)
-            console.group.apply(console, arguments);
-    }
-    return Debug;
-};
-
-/**
- * Creates a new logging group that is initially collapsed instead of open,
- * as with `Debug.group()`.
- * @static
- * @public
- * @method groupCollapsed
- * @param {*} params Optional parameters to log
- * @return {Debug} The instance of debug for chaining
- */
-Debug.groupCollapsed = function(params)
-{
-    if (Debug.enabled)
-    {
-        if (Debug._useSocket)
-        {
-            Debug._remoteLog(Array.prototype.slice.call(arguments), "groupCollapsed");
-        }
-        else if (Debug._hasConsole && console.groupCollapsed)
-            console.groupCollapsed.apply(console, arguments);
-    }
-    return Debug;
-};
-
-/**
- * Starts a new logging group with an optional title. All console output that
- * occurs after calling this method and calling console.groupEnd() appears in
- * the same visual group.
- * @static
- * @public
- * @method groupEnd
- * @return {Debug} The instance of debug for chaining
- */
-Debug.groupEnd = function()
-{
-    if (Debug.enabled)
-    {
-        if (Debug._useSocket)
-        {
-            Debug._remoteLog(Array.prototype.slice.call(arguments), "groupEnd");
-        }
-        else if (Debug._hasConsole && console.groupEnd)
-            console.groupEnd();
-    }
-    return Debug;
 };
 
 /**
@@ -1107,51 +1276,18 @@ Debug._palette = {
     gray: '#aaa'
 };
 
-/**
- * Due to the way closures and variables work, _colorClosure returns
- * the color logging function needed for the color that you pass it.
- *
- * @method _colorClosure
- * @private
- * @param {String} hex Hex value to apply to CSS color
- * @return {Function}
- */
-Debug._colorClosure = function(hex)
-{
-    var colorString = 'color:' + hex;
-    return function(message)
-    {
-        if (arguments.length > 1)
-        {
-            var params = Array.prototype.slice.call(arguments);
-            if (typeof params[0] === "object")
-            {
-                params.unshift(colorString);
-                params.unshift('%c%o');
-            }
-            else
-            {
-                var first = '%c' + params[0];
-                params[0] = colorString;
-                params.unshift(first);
-            }
-            return Debug.log.apply(Debug, params);
-        }
-        if (typeof arguments[0] === "object")
-            return Debug.log('%c%o', colorString, message);
-        return Debug.log('%c' + message, colorString);
-    };
-}
 
 // Loop through each item in the _palette object and create
 // a static function in Debug via the key (the color name) that
 // outputs a message to the console in key's value (a hex color).
-for (var key in Debug._palette)
+for (let key in Debug._palette)
 {
     if (Debug._consoleSupportsColors)
+    {
         Debug[key] = Debug._colorClosure(Debug._palette[key]);
+    }
     else
+    {
         Debug[key] = Debug.log;
+    }
 }
-
-export default Debug;
