@@ -39,7 +39,7 @@ export default class EventDispatcher
      * @param {String} type The type of event to trigger
      * @param {*} arguments Additional parameters for the listener functions.
      */
-    trigger(type)
+    trigger(type, ...args)
     {
         if (this._destroyed)
         {
@@ -51,23 +51,24 @@ export default class EventDispatcher
             // copy the listeners array
             let listeners = this._listeners[type].slice();
 
-            let args;
-
-            if (arguments.length > 1)
-            {
-                args = Array.prototype.slice.call(arguments, 1);
-            }
-
             for (let i = listeners.length - 1; i >= 0; --i)
             {
                 let listener = listeners[i];
-                
+
                 if (listener._eventDispatcherOnce)
                 {
                     delete listener._eventDispatcherOnce;
                     this.off(type, listener);
                 }
-                listener.apply(this, args);
+                
+                if (args.length)
+                {
+                    listener.apply(this, args);
+                }
+                else
+                {
+                    listener.call(this);
+                }
             }
         }
     }

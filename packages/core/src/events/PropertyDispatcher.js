@@ -30,12 +30,12 @@ class PropertyDispatcher extends EventDispatcher
      */
     _set(name, value)
     {
-        var prop = this._properties[name];
+        let prop = this._properties[name];
         if (prop.readOnly)
         {
             throw "Property '" + name + "' is read-only";
         }
-        var oldValue = prop.value;
+        let oldValue = prop.value;
         prop.value = value;
         if (oldValue !== value)
         {
@@ -52,10 +52,10 @@ class PropertyDispatcher extends EventDispatcher
      */
     _get(name)
     {
-        var prop = this._properties[name];
+        let prop = this._properties[name];
         if (prop.responder)
         {
-            var value = prop.responder();
+            let value = prop.responder();
             prop.value = value;
             return value;
         }
@@ -72,8 +72,8 @@ class PropertyDispatcher extends EventDispatcher
      */
     add(name, value, readOnly)
     {
-        var props = this._properties;
-        var prop = props[name];
+        let props = this._properties;
+        let prop = props[name];
 
         if (prop !== undefined)
         {
@@ -106,7 +106,7 @@ class PropertyDispatcher extends EventDispatcher
      */
     respond(name, responder)
     {
-        var prop = this._properties[name];
+        let prop = this._properties[name];
         if (prop === undefined)
         {
             // @if DEBUG
@@ -131,15 +131,15 @@ class PropertyDispatcher extends EventDispatcher
      */
     destroy()
     {
-        var prop;
-        for (var name in this._properties)
+        let prop;
+        for (let name in this._properties)
         {
             prop = this._properties[name];
             prop.value = null;
             prop.responder = null;
         }
         this._properties = null;
-        EventDispatcher.prototype.destroy.call(this);
+        super.destroy();
     }
 }
 
@@ -167,9 +167,9 @@ class Property
      * @method setValue
      * @param {*} [value=null] The value to set
      */
-    setValue(value)
+    setValue(value = null)
     {
-        this.value = value === undefined ? null : value;
+        this.value = value;
     }
 
     /**
@@ -177,9 +177,9 @@ class Property
      * @method setReadOnly
      * @param {Boolean} [readOnly=false] The readOnly status
      */
-    setReadOnly(readOnly)
+    setReadOnly(readOnly = false)
     {
-        this.readOnly = readOnly === undefined ? false : !!readOnly;
+        this.readOnly = !!readOnly;
     }
 }
 
