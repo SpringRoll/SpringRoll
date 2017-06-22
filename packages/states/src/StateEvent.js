@@ -8,28 +8,31 @@
  * @param {BaseState} visibleState The current state being transitioned or changing visibility,
  *                               default to currentState
  */
-var StateEvent = function(type, currentState, visibleState)
+export default class StateEvent
 {
-    /**
-     * A reference to the current state of the state manager
-     *
-     * @property {BaseState} currentState
-     */
-    this.currentState = currentState;
+    constructor(type, currentState, visibleState)
+    {
+        /**
+         * A reference to the current state of the state manager
+         *
+         * @property {BaseState} currentState
+         */
+        this.currentState = currentState;
 
-    /**
-     * A reference to the state who's actually being transitioned or being changed
-     *
-     * @property {BaseState} visibleState
-     */
-    this.visibleState = visibleState === undefined ? currentState : visibleState;
+        /**
+         * A reference to the state who's actually being transitioned or being changed
+         *
+         * @property {BaseState} visibleState
+         */
+        this.visibleState = visibleState === undefined ? currentState : visibleState;
 
-    /** The type of event
-     *
-     * @property {String} type
-     */
-    this.type = type;
-};
+        /** The type of event
+         *
+         * @property {String} type
+         */
+        this.type = type;
+    }
+}
 
 /**
  * When the state besome visible
@@ -44,5 +47,3 @@ StateEvent.VISIBLE = "onVisible";
  * @event {String} onHidden
  */
 StateEvent.HIDDEN = "onHidden";
-
-export default StateEvent;

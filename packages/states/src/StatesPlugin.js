@@ -10,7 +10,7 @@ import {Debug} from '@springroll/debug';
     /**
      * @class Application
      */
-    var plugin = new ApplicationPlugin();
+    const plugin = new ApplicationPlugin();
 
     plugin.setup = function()
     {
@@ -47,7 +47,7 @@ import {Debug} from '@springroll/debug';
          */
         Object.defineProperty(this, "transition",
         {
-            set: function(transition)
+            set(transition)
             {
                 if (!this.display)
                 {
@@ -72,7 +72,7 @@ import {Debug} from '@springroll/debug';
                 }
 
                 // Remove the old transition
-                var stage = this.display.stage;
+                const stage = this.display.stage;
                 if (this._transition)
                 {
                     stage.removeChild(this._transition);
@@ -98,7 +98,7 @@ import {Debug} from '@springroll/debug';
                     stage.addChild(transition);
                 }
             },
-            get: function()
+            get()
             {
                 return this._transition;
             }
@@ -148,7 +148,7 @@ import {Debug} from '@springroll/debug';
          */
         Object.defineProperty(this, "states",
         {
-            set: function(states)
+            set(states)
             {
                 if (this.manager)
                 {
@@ -173,7 +173,7 @@ import {Debug} from '@springroll/debug';
                 }
 
                 // Create the state manager
-                var manager = this.manager = new StateManager(
+                const manager = this.manager = new StateManager(
                     this.options.transitionSounds
                 );
 
@@ -181,16 +181,14 @@ import {Debug} from '@springroll/debug';
                 manager.animator = this.animator;
 
                 // Add a handler to enable to disable the display
-                manager.on('enabled', function(enabled)
-                    {
-                        this.display.enabled = enabled;
-                    }
-                    .bind(this));
+                manager.on('enabled', enabled => {
+                    this.display.enabled = enabled;
+                });
 
-                var stage = this.display.stage;
+                const stage = this.display.stage;
 
                 //create states
-                for (var alias in states)
+                for (let alias in states)
                 {
                     // Add to the manager
                     manager.addState(alias, states[alias]);
@@ -204,7 +202,7 @@ import {Debug} from '@springroll/debug';
                 this._states = states;
 
                 // Get the transition from either the transition manual set or the options
-                var transition = this._transition || this.options.transition;
+                const transition = this._transition || this.options.transition;
 
                 //if the transition is a EaselJS movieclip, start it out
                 //at the end of the transition out animation. If it has a
@@ -227,7 +225,7 @@ import {Debug} from '@springroll/debug';
                     manager.state = this.options.state;
                 }
             },
-            get: function()
+            get()
             {
                 return this._states;
             }
