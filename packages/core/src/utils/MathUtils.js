@@ -1,10 +1,9 @@
-(function(Math)
+/**
+ * Add methods to Math
+ * @class MathUtils
+ */
+export default class MathUtils
 {
-    /**
-     * Add methods to Math
-     * @class Math
-     */
-
     /**
      * Return a random int between minimum and maximum values.
      * If a single value is supplied, it will return a number between 0 and the supplied value.
@@ -14,7 +13,7 @@
      * @param {int} max Highest number.
      * @return {int} The random value
      */
-    Math.randomInt = function(min, max)
+    static randomInt(min, max)
     {
         if (max === undefined)
         {
@@ -22,7 +21,7 @@
             min = 0;
         }
         return Math.floor(Math.random() * (max - min + 1)) + min;
-    };
+    }
 
     /**
      * Return a random float between minimum and maximum values.
@@ -33,7 +32,7 @@
      * @param {Number} max Highest number.
      * @return {Number} The random value
      */
-    Math.randomFloat = function(min, max)
+    static randomFloat(min, max)
     {
         if (max === undefined)
         {
@@ -41,7 +40,7 @@
             min = 0;
         }
         return Math.random() * (max - min) + min;
-    };
+    }
 
     /**
      * Return distance between two points
@@ -66,10 +65,10 @@
      * @param {Number} p2.y The y position of the second point
      * @return {Number} The distance
      */
-    Math.dist = function(x, y, x0, y0)
+    static dist(x, y, x0, y0)
     {
-        return Math.sqrt(Math.distSq(x, y, x0, y0));
-    };
+        return Math.sqrt(MathUtils.distSq(x, y, x0, y0));
+    }
 
     /**
      * Return squared distance between two points
@@ -94,7 +93,7 @@
      * @param {Number} p2.y The y position of the second point
      * @return {Number} The distance
      */
-    Math.distSq = function(x, y, x0, y0)
+    static distSq(x, y, x0, y0)
     {
         //see if the first parameter is a point
         if (typeof x.x === "number" && x.x === x.x) //faster !isNaN
@@ -113,7 +112,7 @@
             x0 = x0.x;
         }
         return (x - x0) * (x - x0) + (y - y0) * (y - y0);
-    };
+    }
 
     /**
      * Constrain a number between 0 and a max value.
@@ -133,7 +132,7 @@
      * @param {Number} max Highest number.
      * @return {Number} The constrained value
      */
-    Math.clamp = function(value, min, max)
+    static clamp(value, min, max)
     {
         if (max === undefined)
         {
@@ -152,7 +151,7 @@
         }
 
         return value;
-    };
+    }
 
     /**
      * Round a number to the nearest increment.
@@ -161,9 +160,8 @@
      * @param  {Number} increment Increment to round by
      * @return {Number}           Rounded value
      */
-    Math.roundDecimal = function(val, increment)
+    static roundDecimal(val, increment)
     {
         return Math.round(val / increment) * increment;
-    };
-
-}(Math));
+    }
+}

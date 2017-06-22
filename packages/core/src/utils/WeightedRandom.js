@@ -1,3 +1,5 @@
+import MathUtils from './MathUtils';
+
 /**
  * A class for generating weighted random values. Input objects are dictionary objects
  * where the keys are the strings to be picked from, and the values are the corresponding
@@ -36,7 +38,7 @@ export default class WeightedRandom
      */
     random()
     {
-        let rand = Math.randomInt(0, this.max);
+        let rand = MathUtils.randomInt(0, this.max);
 
         for (let i = 0, options = this.options, length = options.length; i < length; ++i)
         {

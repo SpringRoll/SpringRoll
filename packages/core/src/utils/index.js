@@ -5,3 +5,5 @@ export {default as namespace} from './namespace';
 export {default as WeightedRandom} from './WeightedRandom';
 export {default as name} from './name';
 export {default as expose} from './expose';
+export {default as MathUtils} from './MathUtils';
+export {default as StringUtils} from './StringUtils';

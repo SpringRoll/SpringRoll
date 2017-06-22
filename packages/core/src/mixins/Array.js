@@ -79,7 +79,7 @@
      */
     if (!Array.prototype.append)
     {
-        Object.defineProperty(Array.prototype, "append",
+        Object.defineProperty(Array.prototype, 'append',
         {
             enumerable: false,
             writable: false,
