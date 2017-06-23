@@ -28,6 +28,8 @@
     "@springroll/build": "^2.0.0"
   },
   "dependencies": {
-    "async-series": "0.0.1"
+    "async-series": "0.0.1",
+    "eventemitter3": "^2.0.3",
+    "sequencify": "0.0.7"
   }
 }

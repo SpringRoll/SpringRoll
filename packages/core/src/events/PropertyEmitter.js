@@ -1,13 +1,13 @@
-import EventDispatcher from './EventDispatcher';
+import EventEmitter from './EventEmitter';
 
 /**
  * Event dispatcher with ability to detect whenever a property
  * is changed.
- * @class PropertyDispatcher
- * @extends springroll.EventDispatcher
+ * @class PropertyEmitter
+ * @extends springroll.EventEmitter
  * @constructor {Object} [overrides] The supplied options
  */
-class PropertyDispatcher extends EventDispatcher
+class PropertyEmitter extends EventEmitter
 {
     constructor()
     {
@@ -33,13 +33,13 @@ class PropertyDispatcher extends EventDispatcher
         let prop = this._properties[name];
         if (prop.readOnly)
         {
-            throw "Property '" + name + "' is read-only";
+            throw `Property '${name}' is read-only`;
         }
         let oldValue = prop.value;
         prop.value = value;
         if (oldValue !== value)
         {
-            this.trigger(name, value);
+            this.emit(name, value);
         }
     }
 
@@ -68,7 +68,7 @@ class PropertyDispatcher extends EventDispatcher
      * @param {string} prop The property name
      * @param {mixed} [value=null] The default value
      * @param {Boolean} [readOnly=false] If the property is readonly
-     * @return {PropertyDispatcher} The instance for chaining
+     * @return {PropertyEmitter} The instance for chaining
      */
     add(name, value, readOnly)
     {
@@ -84,7 +84,7 @@ class PropertyDispatcher extends EventDispatcher
 
         if (this.hasOwnProperty(name))
         {
-            throw "Object already has property " + name;
+            throw `Object already has property '${name}'`;
         }
 
         props[name] = new Property(name, value, readOnly);
@@ -102,7 +102,7 @@ class PropertyDispatcher extends EventDispatcher
      * @method respond
      * @param {String} name The property name
      * @param {Function} responder Function to call when getting property
-     * @return {PropertyDispatcher} The instance for chaining
+     * @return {PropertyEmitter} The instance for chaining
      */
     respond(name, responder)
     {
@@ -110,11 +110,11 @@ class PropertyDispatcher extends EventDispatcher
         if (prop === undefined)
         {
             // @if DEBUG
-            throw "Property " + name + " does not exist, you must add(name, value) first before adding responder";
+            throw `Property '${name}' does not exist, you must add(name, value) first before adding responder"`
             // @endif
             // @if RELEASE
             // eslint-disable-next-line no-unreachable
-            throw "Property " + name + " does not exist";
+            throw `Property '${name}' does not exist"`;
             // @endif
         }
         prop.responder = responder;
@@ -183,4 +183,4 @@ class Property
     }
 }
 
-export default PropertyDispatcher;
+export default PropertyEmitter;

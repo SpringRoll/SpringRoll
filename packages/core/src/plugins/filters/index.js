@@ -6,7 +6,7 @@ import StringFilters from './StringFilters';
     /**
      * @class Application
      */
-    const plugin = new ApplicationPlugin(110);
+    const plugin = new ApplicationPlugin('filters');
 
     // Init the animator
     plugin.setup = function()

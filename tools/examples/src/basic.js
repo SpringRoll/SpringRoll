@@ -2,8 +2,7 @@
 // import '@springroll/captions';
 // import '@springroll/container-client';
 // import '@springroll/core';
-// import '@springroll/debug';
-
+import '@springroll/debug';
 import {Application} from '@springroll/core/lib/core';
 
 // import '@springroll/display';
@@ -17,8 +16,22 @@ import {Application} from '@springroll/core/lib/core';
 // import '@springroll/ui';
 
 /// eslint-disable-next-line no-undef
-console.log('springroll.Application', new Application({}));
-console.log(springroll);
+const app = new Application();
+console.log(app);
+
+console.groupCollapsed(`SpringRoll APIs (${Object.keys(springroll).length})`);
+for (const api in springroll) {
+    console.log(api);
+}
+console.groupEnd();
+
+app.on('ready', () => {
+    console.log('Application is ready');
+});
+
+app.on('pause', paused => {
+    console.log('Application is paused:', paused);
+});
 
 // // Include classes
 // var Application = include('springroll.Application'),

@@ -6,7 +6,7 @@ import PersistentStorage from './PersistentStorage';
     /**
      * @class Application
      */
-    const plugin = new ApplicationPlugin();
+    const plugin = new ApplicationPlugin('storage');
 
     // Init the animator
     plugin.setup = function()

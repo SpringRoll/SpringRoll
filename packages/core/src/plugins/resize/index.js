@@ -8,7 +8,7 @@ import ApplicationPlugin from '../../ApplicationPlugin';
     /**
      * @class Application
      */
-    const plugin = new ApplicationPlugin(100);
+    const plugin = new ApplicationPlugin('resize', ['display']);
 
     /**
      * Dom element (or the window) to attach resize listeners and read the size from
@@ -224,7 +224,7 @@ import ApplicationPlugin from '../../ApplicationPlugin';
             });
 
             //send out the resize event
-            this.trigger('resize', (responsive ? width : normalWidth), (responsive ? height : normalHeight));
+            this.emit('resize', (responsive ? width : normalWidth), (responsive ? height : normalHeight));
 
             //redraw all displays
             this.displays.forEach(function(display)
@@ -313,7 +313,7 @@ import ApplicationPlugin from '../../ApplicationPlugin';
         };
 
         // Do an initial resize to make sure everything is positioned correctly
-        this.once('beforeInit', this.triggerResize);
+        this.once('beforeReady', this.triggerResize);
     };
 
     // Add common filters interaction

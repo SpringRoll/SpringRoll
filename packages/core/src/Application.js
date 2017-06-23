@@ -1,6 +1,7 @@
-import EventDispatcher from './events/EventDispatcher';
+import EventEmitter from './events/EventEmitter';
 import ApplicationOptions from './ApplicationOptions';
 import series from 'async-series';
+import sequencify from 'sequencify';
 
 /**
  * Application is the main entry point for using SpringRoll, creating
@@ -10,27 +11,27 @@ import series from 'async-series';
  * and pause. Any update, Ticker-type functions, should use the Applications
  * update event.
  *
- *    var app = new Application();
+ *    const app = new Application({});
  *
  * @class Application
- * @extends springroll.EventDispatcher
+ * @extends springroll.EventEmitter
  * @constructor
  * @param {Object} [options] The options for creating the application,
  *         see `springroll.ApplicationOptions` for the specific options
  *        that can be overridden and set.
- * @param {Function} [init=null] The callback when initialized
+ * @param {Function} [ready=null] The callback when initialized
  */
-export default class Application extends EventDispatcher
+export default class Application extends EventEmitter
 {
-    constructor(options, init)
+    constructor(options, ready)
     {
         super();
 
-        if (Application._instance)
+        if (Application.instance)
         {
             throw `Only one Application can be opened at a time`;
         }
-        Application._instance = this;
+        Application.instance = this;
 
         /**
          * Initialization options/query string parameters, these properties are read-only
@@ -42,16 +43,9 @@ export default class Application extends EventDispatcher
 
         /**
          * Override this to do post constructor initialization
-         * @property {Function} init
+         * @property {Function} ready
          */
-        this.init = init || null;
-
-        /**
-         * The preload progress
-         * @property {springroll.AssetLoad} pluginLoad
-         * @protected
-         */
-        this.pluginLoad = null;
+        this.ready = ready || null;
 
         /**
          * If the current application is paused
@@ -67,8 +61,16 @@ export default class Application extends EventDispatcher
          */
         this._enabled = true;
 
+        /**
+         * The collection of function references to call when initializing the application
+         * these are registered by external modules.
+         * @property {Array<springroll.ApplicationPlugin>} _plugins
+         * @private
+         */
+        this._plugins = Application.sortPlugins();
+
         // Call any global libraries to initialize
-        Application._plugins.forEach(plugin => {
+        this._plugins.forEach(plugin => {
             plugin.setup.call(this);
         });
 
@@ -87,7 +89,7 @@ export default class Application extends EventDispatcher
         //if there are some specific properties on the options, use them to make a display
         //call init after handling loading up a versions file or any other needed asynchronous
         //stuff?
-        setTimeout(this._preInit.bind(this), 0);
+        setTimeout(this._preload.bind(this), 0);
     }
 
     /**
@@ -102,72 +104,74 @@ export default class Application extends EventDispatcher
     }
 
     /**
-     * Get the singleton instance of the application
-     * @property {Application} instance
-     * @static
-     * @public
-     */
-    static get instance()
-    {
-        return Application._instance;
-    }
-
-    /**
      * The internal initialization
-     * @method _preInit
+     * @method _preload
      * @private
      */
-    _preInit()
+    _preload()
     {
         if (this.destroyed)
         {
             return;
         }
 
-        this.trigger('beforePreload');
+        /**
+         * Before preload of plugins begin.
+         * @event beforePreload
+         */
+        this.emit('beforePreload');
 
         const tasks = [];
 
-        Application._plugins.forEach(plugin => {
+        this._plugins.forEach(plugin => {
             if (plugin.preload)
             {
                 tasks.push(plugin.preload.bind(this));
             }
         });
 
-        series(tasks, this._doInit.bind(this));
+        series(tasks, this._ready.bind(this));
     }
 
 
     /**
      * Initialize the application
-     * @method _doInit
+     * @method _ready
      * @protected
      */
-    _doInit()
+    _ready()
     {
         if (this.destroyed)
         {
             return;
         }
 
-        this.pluginLoad = null;
-
-        this.trigger('beforeInit');
+        /**
+         * Fired when before initialization of the application
+         * @event beforeReady
+         */
+        this.emit('beforeReady');
 
         //start update loop
         this.paused = false;
 
-        // Dispatch the init event
-        this.trigger('init');
+        /**
+         * Fired when initialization of the application is ready
+         * @event ready
+         */
+        this.emit('ready');
 
         // Call the init function, bind to app
-        if (this.init)
+        if (this.ready)
         {
-            this.init.call(this);
+            this.ready(this);
         }
 
-        this.trigger('afterInit');
+        /**
+         * Fired when initialization of the application is done
+         * @event afterReady
+         */
+        this.emit('afterReady');
     }
 
     /**
@@ -179,8 +183,8 @@ export default class Application extends EventDispatcher
     set enabled(enabled)
     {
         this._enabled = enabled;
-        this.trigger('enable', enabled);
-        this.trigger(enabled ? 'enabled' : 'disabled', enabled);
+        this.emit('enable', enabled);
+        this.emit(enabled ? 'enabled' : 'disabled', enabled);
     }
     get enabled()
     {
@@ -211,8 +215,23 @@ export default class Application extends EventDispatcher
      */
     internalPaused(paused)
     {
-        this.trigger('pause', paused);
-        this.trigger(paused ? 'paused' : 'resumed', paused);
+        /**
+         * Fired when the pause state is toggled
+         * @event pause
+         * @param {boolean} paused If the application is now paused
+         */
+        this.emit('pause', paused);
+
+        /**
+         * Fired when the application becomes paused
+         * @event paused
+         */
+
+        /**
+         * Fired when the application resumes from a paused state
+         * @event resumed
+         */
+        this.emit(paused ? 'paused' : 'resumed');
     }
 
     /**
@@ -221,7 +240,6 @@ export default class Application extends EventDispatcher
      */
     destroy()
     {
-        // Only destroy the application once
         if (this.destroyed)
         {
             return;
@@ -229,16 +247,22 @@ export default class Application extends EventDispatcher
 
         this.paused = true;
 
-        this.trigger('destroy');
+        /**
+         * Fired when the application is destroyed
+         * @event destroy
+         */
+        this.emit('destroy');
 
         // Destroy in the reverse priority order
-        const plugins = Application._plugins.slice().reverse();
+        const plugins = this._plugins.slice().reverse();
 
         plugins.forEach(plugin => {
             plugin.teardown.call(this);
         });
 
-        Application._instance = null;
+        this._plugins = null;
+
+        Application.instance = null;
 
         this.options.destroy();
         this.options = null;
@@ -255,73 +279,64 @@ export default class Application extends EventDispatcher
     {
         return `[Application name='${this.name}']`;
     }
+
+    /**
+     * Register a plugin with the application. This is done before
+     * constructing an Application object.
+     * @static
+     * @method register
+     */
+    static register(plugin)
+    {
+        const {plugins} = Application;
+
+        if (!plugin || !plugin.name)
+        {
+            throw `Plugin does not contain a valid "name"`;
+        }
+        else if (plugins[plugin.name])
+        {
+            throw `Plugin is already registered with name "${plugin.name}"`;
+        }
+
+        plugins[plugin.name] = plugin;
+    }
+
+    /**
+     * Internal method to sort the plugins by dependencies.
+     * @static
+     * @method sortPlugins
+     * @private
+     * @return {Array<springroll.ApplicationPlugin} List of plugins correctly sorted
+     */
+    static sortPlugins()
+    {
+        // Create the sequence based off the plugins
+        const results = [];
+        const {plugins} = Application;
+
+        sequencify(plugins, Object.keys(plugins), results);
+
+        // Resort the plugins by results
+        results.forEach((name, i) => {
+            results[i] = plugins[name];
+        });
+
+        return results;
+    }
 }
 
 /**
- * The collection of function references to call when initializing the application
- * these are registered by external modules.
- * @property {Array} _plugins
- * @private
+ * Map of all plugins
+ * @property {Object{string, springroll.ApplicationPlugin}} plugins
  * @static
  */
-Application._plugins = [];
+Application.plugins = {};
 
 /**
- * Get the singleton instance of the application
- * @property {Application} _instance
+ * Get the singleton instance of the application.
+ * @property {springroll.Application} instance
  * @static
- * @private
+ * @readonly
  */
-Application._instance = null;
-
-/**
- * Fired when initialization of the application is ready
- * @event init
- */
-
-/**
- * The handler for the plugin progress
- * @event pluginProgress
- */
-
-/**
- * Before preload of plugins begin.
- * @event beforePreload
- */
-
-/**
- * Fired when initialization of the application is done
- * @event afterInit
- */
-
-/**
- * Fired when before initialization of the application
- * @event beforeInit
- */
-
-/**
- * Fired when an update is called, every frame update
- * @event update
- * @param {int} elasped The number of milliseconds since the last frame update
- */
-
-/**
- * Fired when the pause state is toggled
- * @event pause
- * @param {boolean} paused If the application is now paused
- */
-
-/**
- * Fired when the application becomes paused
- * @event paused
- */
-
-/**
- * Fired when the application resumes from a paused state
- * @event resumed
- */
-
-/**
- * Fired when the application is destroyed
- * @event destroy
- */
+Application.instance = null;

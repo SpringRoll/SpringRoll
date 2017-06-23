@@ -1,2 +1,2 @@
-export {default as EventDispatcher} from './EventDispatcher';
-export {default as PropertyDispatcher} from './PropertyDispatcher';
+export {default as EventEmitter} from './EventEmitter';
+export {default as PropertyEmitter} from './PropertyEmitter';

@@ -1,12 +1,12 @@
-import PropertyDispatcher from './events/PropertyDispatcher';
+import PropertyEmitter from './events/PropertyEmitter';
 
 /**
  * Manage the Application options
  * @class ApplicationOptions
- * @extends springroll.PropertyDispatcher
+ * @extends springroll.PropertyEmitter
  * @constructor {Object} [overrides] The supplied options
  */
-export default class ApplicationOptions extends PropertyDispatcher
+export default class ApplicationOptions extends PropertyEmitter
 {
     constructor(app, options)
     {
@@ -25,6 +25,24 @@ export default class ApplicationOptions extends PropertyDispatcher
          * @private
          */
         this._app = app;
+
+        /**
+         * Use the query string parameters for options overrides
+         * @property {Boolean} options.useQueryString
+         * @default false
+         */
+        let useQueryString = false;
+        // @if DEBUG
+        useQueryString = true;
+        // @endif
+        this.add('useQueryString', useQueryString, true);
+
+        /**
+         * The name of the application
+         * @property {String} options.name
+         * @default ''
+         */
+        this.add('name', '', true);
     }
 
     /**
@@ -56,7 +74,7 @@ export default class ApplicationOptions extends PropertyDispatcher
         let properties = this._properties;
         for (let id in properties)
         {
-            this.trigger(id, properties[id].value);
+            this.emit(id, properties[id].value);
         }
     }
 

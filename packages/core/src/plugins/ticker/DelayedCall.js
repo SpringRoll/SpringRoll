@@ -90,7 +90,7 @@ export default class DelayedCall
         this._update = this._update.bind(this);
 
         //start the delay
-        this._ticker.on('update', this._update);
+        this._ticker.on('update', this._update, this);
     }
 
     /**
@@ -123,7 +123,7 @@ export default class DelayedCall
             }
             else
             {
-                this._ticker.off('update', this._update);
+                this._ticker.off('update', this._update, this);
             }
         }
     }
@@ -142,7 +142,7 @@ export default class DelayedCall
 
         if (!this._ticker.has('update', this._update))
         {
-            this._ticker.on('update', this._update);
+            this._ticker.on('update', this._update, this);
         }
 
         this._timer = this._delay;
@@ -156,7 +156,7 @@ export default class DelayedCall
      */
     stop()
     {
-        this._ticker.off('update', this._update);
+        this._ticker.off('update', this._update, this);
         this._paused = false;
     }
 
@@ -175,14 +175,14 @@ export default class DelayedCall
         {
             return;
         }
-
+        
         if (this._paused && !value)
         {
             this._paused = false;
 
             if (!this._ticker.has('update', this._update))
             {
-                this._ticker.on('update', this._update);
+                this._ticker.on('update', this._update, this);
             }
         }
         else if (value)
@@ -190,7 +190,7 @@ export default class DelayedCall
             if (this._ticker.has('update', this._update))
             {
                 this._paused = true;
-                this._ticker.off('update', this._update);
+                this._ticker.off('update', this._update, this);
             }
         }
     }
@@ -203,7 +203,7 @@ export default class DelayedCall
      */
     destroy()
     {
-        this._ticker.off('update', this._update);
+        this._ticker.off('update', this._update, this);
         this._callback = null;
         this._ticker = null;
     }

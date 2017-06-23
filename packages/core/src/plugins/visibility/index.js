@@ -6,7 +6,7 @@ import PageVisibility from './PageVisibility';
     /**
      * @class Application
      */
-    const plugin = new ApplicationPlugin();
+    const plugin = new ApplicationPlugin('visibility');
 
     // Init the animator
     plugin.setup = function()

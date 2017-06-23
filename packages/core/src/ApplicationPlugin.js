@@ -4,7 +4,7 @@ import Application from './Application';
  * Responsible for creating properties, methods to 
  * the SpringRoll Application when it's created.
  *
- *    var plugin = new ApplicationPlugin();
+ *    var plugin = new ApplicationPlugin('custom');
  *    plugin.setup = function()
  *    {
  *        this.options.add('customOption', null);
@@ -12,13 +12,18 @@ import Application from './Application';
  *
  * @class ApplicationPlugin
  * @constructor
- * @param {int} [priority=0] The priority, higher priority
- *        plugins are setup, preloaded and destroyed first.
+ * @param {String} name The unique name for the plugin
+ * @param {Array<String>} [dependencies] Other plugins depending on this.
  */
 export default class ApplicationPlugin
 {
-    constructor(priority)
-    {        
+    constructor(name, dep)
+    {
+        if (!name || typeof name !== 'string')
+        {
+            throw 'ApplicationPlugin first argument must be a name (string)';
+        }
+
         /**
          * The priority of the plugin. Higher numbers handled first. This should be set
          * in the constructor of the extending ApplicationPlugin.
@@ -26,8 +31,14 @@ export default class ApplicationPlugin
          * @default 0
          * @private
          */
-        this.priority = priority || 0;
+        this.name = name;
 
+        /**
+         * The list of dependencies.
+         * @property {Array<String>} dep
+         * @private
+         */
+        this.dep = dep || [];
 
         /**
          * When the application is being initialized. This function 
@@ -35,6 +46,13 @@ export default class ApplicationPlugin
          * @method setup
          */
         this.setup = () => {};
+
+        /**
+         * When the application is being destroyed. This function 
+         * is bound to the Application. This should be overridden.
+         * @method teardown
+         */
+        this.teardown = () => {};
 
         /**
          * The function to call right before the application is initailized. 
@@ -46,18 +64,7 @@ export default class ApplicationPlugin
          */
         this.preload = null;
 
-        /**
-         * When the application is being destroyed. This function 
-         * is bound to the Application. This should be overridden.
-         * @method teardown
-         */
-        this.teardown = () => {};
-
         // Add the plugin to application
-        Application._plugins.push(this);
-        Application._plugins.sort(function(a, b)
-        {
-            return b.priority - a.priority;
-        });
+        Application.register(this);
     }
 }

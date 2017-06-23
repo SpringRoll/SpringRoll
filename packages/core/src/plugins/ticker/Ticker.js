@@ -1,15 +1,15 @@
-import EventDispatcher from '../../events/EventDispatcher';
+import EventEmitter from '../../events/EventEmitter';
 import DelayedCall from './DelayedCall';
 
 /**
  * Handle frame update ticks.
  * @class Ticker
  * @namespace springroll
- * @extends springroll.EventDispatcher
+ * @extends springroll.EventEmitter
  * @param {Number} fps - Frames per second
  * @param {Boolean} raf - `true` to use `requestAnimationFrame`, `false` for `setTimeout`
  */
-export default class Ticker extends EventDispatcher
+export default class Ticker extends EventEmitter
 {
     constructor(fps, raf)
     {
@@ -35,13 +35,6 @@ export default class Ticker extends EventDispatcher
          * @private
          */
         this._tickId = -1;
-
-        /**
-         * If requestionAnimationFrame should be used
-         * @property {Boolean} raf
-         * @default false
-         */
-        this.raf = raf;
 
         /**
          * Set the frames per second.
@@ -96,15 +89,7 @@ export default class Ticker extends EventDispatcher
         if (this._tickId === -1)
         {
             this._lastFrameTime = performance.now();
-
-            if (this.raf)
-            {
-                this._tickId = requestAnimationFrame(this._tick);
-            }
-            else
-            {
-                this._tickId = this.requestTimeout(this._tick);
-            } 
+            this._tickId = requestAnimationFrame(this._tick);
         }
     }
 
@@ -118,37 +103,9 @@ export default class Ticker extends EventDispatcher
 
         if (this._tickId !== -1)
         {
-            if (this.raf)
-            {
-                cancelAnimationFrame(this._tickId);
-            }
-            else
-            {
-                clearTimeout(this._tickId);
-            }
+            cancelAnimationFrame(this._tickId);
             this._tickId = -1;
         }
-    }
-
-    /**
-     * Makes a setTimeout with a time based on _msPerFrame and the amount of time spent in the
-     * current tick.
-     * @method requestTimeout
-     * @param {Function} callback The tick function to call.
-     * @param {int} timeInFrame=0 The amount of time spent in the current tick in milliseconds.
-     * @private
-     */
-    requestTimeout(callback, timeInFrame)
-    {
-        let timeToCall = this._msPerFrame;
-
-        //subtract the time spent in the frame to actually hit the target fps
-        if (timeInFrame)
-        {
-            timeToCall = Math.max(0, this._msPerFrame - timeInFrame);
-        }
-
-        return setTimeout(callback, timeToCall);
     }
 
     /**
@@ -173,21 +130,10 @@ export default class Ticker extends EventDispatcher
          * @event update
          * @param {number} elapsed - Time elapsed since last frame in milliseconds
          */
-        this.trigger('update', elapsed);
+        this.emit('update', elapsed);
 
         //request the next animation frame
-        
-        if (this.raf)
-        {
-            this._tickId = requestAnimationFrame(this._tick)
-        }
-        else
-        {
-            this._tickId = this.requestTimeout(
-                this._tick,
-                now - this._lastFrameTime
-            );
-        }
+        this._tickId = requestAnimationFrame(this._tick);
     }
 
     /**

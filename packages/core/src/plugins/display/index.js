@@ -5,7 +5,7 @@ import ApplicationPlugin from '../../ApplicationPlugin';
     /**
      * @class Application
      */
-    const plugin = new ApplicationPlugin(119);
+    const plugin = new ApplicationPlugin('display', ['ticker']);
 
     // Init the animator
     plugin.setup = function()
@@ -91,7 +91,7 @@ import ApplicationPlugin from '../../ApplicationPlugin';
              * @event displayAdded
              * @param {springroll.AbstractDisplay} [display] The current display being added
              */
-            this.trigger('displayAdded', display);
+            this.emit('displayAdded', display);
             return display;
         };
 
@@ -135,7 +135,7 @@ import ApplicationPlugin from '../../ApplicationPlugin';
                  * @event displayRemoved
                  * @param {string} [displayId] The display alias
                  */
-                this.trigger('displayRemoved', id);
+                this.emit('displayRemoved', id);
             }
         };
 
@@ -153,6 +153,12 @@ import ApplicationPlugin from '../../ApplicationPlugin';
                 }
             }
         }
+
+        // Ticker handle updates
+        // added to the ticker directly and not the application
+        // so that it will always run after the Application's
+        // update event.
+        this.ticker.on('update', this.render, this);
 
         // Handle enabled
         this.on('enable', enabled => {
@@ -177,6 +183,7 @@ import ApplicationPlugin from '../../ApplicationPlugin';
     // Destroy the animator
     plugin.teardown = function()
     {
+        this.ticker.off('update', this.render, this);
         this._displays.forEach(display => {
             display.destroy();
         });

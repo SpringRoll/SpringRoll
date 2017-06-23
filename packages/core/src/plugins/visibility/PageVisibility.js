@@ -148,7 +148,10 @@ export default class PageVisibility
     destroy()
     {
         // If this browser doesn't support visibility
-        if (!this._visibilityChange || !this._onToggle) return;
+        if (!this._visibilityChange || !this._onToggle)
+        {
+            return;
+        }
 
         this.enabled = false;
         this._onToggle = null;

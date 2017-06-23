@@ -6,19 +6,12 @@ import Ticker from './Ticker';
     /**
      * @class Application
      */
-    const plugin = new ApplicationPlugin(115);
+    const plugin = new ApplicationPlugin('ticker');
 
     // Init the animator
     plugin.setup = function()
     {
         const options = this.options;
-
-        /**
-         * Use Request Animation Frame API
-         * @property {Boolean} options.raf
-         * @default true
-         */
-        options.add('raf', true);
 
         /**
          * The framerate to use for rendering the stage
@@ -33,19 +26,19 @@ import Ticker from './Ticker';
          */
         const ticker = this.ticker = new Ticker(options.fps, options.raf);
 
-        // Handle changes to the options
-        this.options.on('raf', raf => {
-            ticker.raf = raf;
-        });
-
         this.options.on('fps', fps => {
             ticker.fps = fps;
         });
 
         // Fire an update event on the application
         ticker.on('update', elapsed => {
-            this.trigger('update', elapsed);
-            this.render(elapsed);
+            
+            /**
+             * Fired when an update is called, every frame update
+             * @event update
+             * @param {int} elasped The number of milliseconds since the last frame update
+             */
+            this.emit('update', elapsed);
         });
 
         // Handle the pause state
