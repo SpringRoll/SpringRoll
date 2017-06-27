@@ -66,7 +66,7 @@ export default class Task
         // We're trying to cache but we don't have an ID
         if (this.cache && !this.id)
         {
-            if (fallbackId && typeof fallbackId === "string")
+            if (fallbackId && typeof fallbackId === 'string')
             {
                 // Remove the file extension
                 var extIndex = fallbackId.lastIndexOf('.');
@@ -90,7 +90,7 @@ export default class Task
             if (!this.id)
             {
                 // @if DEBUG
-                Debug.error("Caching an asset requires an id, none set", asset);
+                Debug.error('Caching an asset requires an id, none set', asset);
                 // @endif
                 this.cache = false;
             }

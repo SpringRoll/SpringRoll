@@ -101,12 +101,12 @@ import {ApplicationPlugin} from '@springroll/core';
         if (configPath)
         {
             assets.push(
-            {
-                id: 'config',
-                src: configPath,
-                cache: false,
-                complete: onConfigLoaded.bind(this)
-            });
+                {
+                    id: 'config',
+                    src: configPath,
+                    cache: false,
+                    complete: onConfigLoaded.bind(this)
+                });
         }
         else
         {
@@ -118,11 +118,11 @@ import {ApplicationPlugin} from '@springroll/core';
         if (assets.length)
         {
             this._assetLoad = this.load(assets,
-            {
-                complete: callback,
-                progress: onProgress.bind(this),
-                cacheAll: true
-            });
+                {
+                    complete: callback,
+                    progress: onProgress.bind(this),
+                    cacheAll: true
+                });
         }
         else
         {

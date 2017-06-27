@@ -143,7 +143,9 @@ export default class Sound extends EventDispatcher
                 instance._updatePan();
                 //double check that the position is a valid thing
                 if (instance._position < 0 || instance._position === undefined)
+                {
                     instance._position = 0;
+                }
             }
         }
     }
@@ -168,7 +170,7 @@ export default class Sound extends EventDispatcher
         var appOptions = Application.instance.options;
 
         //First argument is function
-        if (typeof options === "function")
+        if (typeof options === 'function')
         {
             options = {
                 ready: options
@@ -206,7 +208,7 @@ export default class Sound extends EventDispatcher
             {
                 if (DEBUG && Debug)
                 {
-                    Debug.error("springroll.Sound.init cannot access window.top. Check for cross-origin permissions.");
+                    Debug.error('springroll.Sound.init cannot access window.top. Check for cross-origin permissions.');
                 }
             }
         }
@@ -217,14 +219,14 @@ export default class Sound extends EventDispatcher
 
         if (!options.ready)
         {
-            throw "springroll.Sound.init requires a ready callback";
+            throw 'springroll.Sound.init requires a ready callback';
         }
 
         if (FlashAudioPlugin)
         {
             //Apply the base path if available
             var basePath = appOptions.basePath;
-            FlashAudioPlugin.swfPath = (basePath || "") + options.swfPath;
+            FlashAudioPlugin.swfPath = (basePath || '') + options.swfPath;
         }
 
         SoundJS.registerPlugins(options.plugins);
@@ -234,11 +236,11 @@ export default class Sound extends EventDispatcher
         //We cannot use touchstart in iOS 9.0 - http://www.holovaty.com/writing/ios9-web-audio/
         if (createjs.BrowserDetect.isIOS &&
             SoundJS.activePlugin instanceof WebAudioPlugin &&
-            SoundJS.activePlugin.context.state !== "running")
+            SoundJS.activePlugin.context.state !== 'running')
         {
-            document.addEventListener("touchstart", Sound._playEmpty);
-            document.addEventListener("touchend", Sound._playEmpty);
-            document.addEventListener("mousedown", Sound._playEmpty);
+            document.addEventListener('touchstart', Sound._playEmpty);
+            document.addEventListener('touchend', Sound._playEmpty);
+            document.addEventListener('mousedown', Sound._playEmpty);
         }
         else
         {
@@ -257,7 +259,7 @@ export default class Sound extends EventDispatcher
         {
             if (DEBUG && Debug)
             {
-                Debug.log("SoundJS Plugin " + SoundJS.activePlugin + " was not ready, waiting until it is");
+                Debug.log('SoundJS Plugin ' + SoundJS.activePlugin + ' was not ready, waiting until it is');
             }
             //if the sound plugin is not ready, then just wait until it is
             var waitFunction;
@@ -277,7 +279,7 @@ export default class Sound extends EventDispatcher
                         {
                             waitResult = result;
 
-                            Application.instance.off("update", waitFunction);
+                            Application.instance.off('update', waitFunction);
                             Sound._instance._initComplete(options.types, options.ready);
                         }, function(result)
                         {
@@ -285,7 +287,7 @@ export default class Sound extends EventDispatcher
 
                             if (DEBUG && Debug)
                             {
-                                Debug.error("Unable to get capabilities from Cordova Native Audio Plugin");
+                                Debug.error('Unable to get capabilities from Cordova Native Audio Plugin');
                             }
                         });
                     }
@@ -294,18 +296,18 @@ export default class Sound extends EventDispatcher
                 {
                     if (DEBUG && Debug)
                     {
-                        Debug.error("Cannot access window.top. Check for cross-origin permissions.");
+                        Debug.error('Cannot access window.top. Check for cross-origin permissions.');
                     }
                 }
             };
 
-            Application.instance.on("update", waitFunction);
+            Application.instance.on('update', waitFunction);
         }
         else
         {
             if (DEBUG && Debug)
             {
-                Debug.error("Unable to initialize SoundJS with a plugin!");
+                Debug.error('Unable to initialize SoundJS with a plugin!');
             }
             Sound._instance.isSupported = false;
             if (options.ready)
@@ -325,7 +327,7 @@ export default class Sound extends EventDispatcher
     static _playEmpty(ev)
     {
         WebAudioPlugin.playEmptySound();
-        if (WebAudioPlugin.context.state === "running" ||
+        if (WebAudioPlugin.context.state === 'running' ||
             WebAudioPlugin.context.state === undefined)
         {
             if (Sound._instance.preventDefaultOnUnmute)
@@ -333,12 +335,12 @@ export default class Sound extends EventDispatcher
                 ev.preventDefault();
             }
 
-            document.removeEventListener("touchstart", Sound._playEmpty);
-            document.removeEventListener("touchend", Sound._playEmpty);
-            document.removeEventListener("mousedown", Sound._playEmpty);
+            document.removeEventListener('touchstart', Sound._playEmpty);
+            document.removeEventListener('touchend', Sound._playEmpty);
+            document.removeEventListener('mousedown', Sound._playEmpty);
 
             Sound._instance.systemMuted = false;
-            Sound._instance.trigger("systemUnmuted");
+            Sound._instance.trigger('systemUnmuted');
         }
     }
 
@@ -353,7 +355,7 @@ export default class Sound extends EventDispatcher
     {
         if (FlashAudioPlugin && SoundJS.activePlugin instanceof FlashAudioPlugin)
         {
-            Sound._instance.supportedSound = ".mp3";
+            Sound._instance.supportedSound = '.mp3';
         }
         else
         {
@@ -363,7 +365,7 @@ export default class Sound extends EventDispatcher
                 type = filetypeOrder[i];
                 if (SoundJS.getCapability(type))
                 {
-                    Sound._instance.supportedSound = "." + type;
+                    Sound._instance.supportedSound = '.' + type;
                     break;
                 }
             }
@@ -373,8 +375,8 @@ export default class Sound extends EventDispatcher
         //bug in Chrome where the AudioContext is not restarted after too much silence
         this._fixAndroidAudio = createjs.BrowserDetect.isAndroid &&
             SoundJS.activePlugin instanceof WebAudioPlugin &&
-            !(navigator.userAgent.indexOf("Gecko") > -1 &&
-                navigator.userAgent.indexOf("Firefox") > -1);
+            !(navigator.userAgent.indexOf('Gecko') > -1 &&
+                navigator.userAgent.indexOf('Firefox') > -1);
         if (this._fixAndroidAudio)
         {
             this._numPlayingAudio = 0;
@@ -426,12 +428,12 @@ export default class Sound extends EventDispatcher
         {
             if (DEBUG && Debug)
             {
-                Debug.warn("Warning - springroll.Sound was told to load a null config");
+                Debug.warn('Warning - springroll.Sound was told to load a null config');
             }
             return;
         }
         var list = config.soundManifest || config.sounds || [];
-        var path = config.path || "";
+        var path = config.path || '';
         var preloadAll = config.preload === true || false;
         var defaultContext = config.context;
 
@@ -440,7 +442,7 @@ export default class Sound extends EventDispatcher
         for (var i = 0, len = list.length; i < len; ++i)
         {
             s = list[i];
-            if (typeof s === "string")
+            if (typeof s === 'string')
             {
                 s = {
                     id: s
@@ -492,7 +494,9 @@ export default class Sound extends EventDispatcher
     linkContexts(parent, subContext)
     {
         if (!this._contexts[parent])
+        {
             this._contexts[parent] = new SoundContext(parent);
+        }
         parent = this._contexts[parent];
 
         if (Array.isArray(subContext))
@@ -500,13 +504,17 @@ export default class Sound extends EventDispatcher
             for (var i = 0; i < subContext.length; ++i)
             {
                 if (parent.subContexts.indexOf(subContext[i]) < 0)
+                {
                     parent.subContexts.push(subContext[i]);
+                }
             }
         }
         else
         {
             if (parent.subContexts.indexOf(subContext) < 0)
+            {
                 parent.subContexts.push(subContext);
+            }
         }
     }
 
@@ -599,7 +607,10 @@ export default class Sound extends EventDispatcher
     {
         var sound = this._sounds[alias];
 
-        if (!sound) return null;
+        if (!sound) 
+        {
+            return null;
+        }
 
         if (!sound.duration) //sound hasn't been loaded yet
         {
@@ -630,11 +641,13 @@ export default class Sound extends EventDispatcher
     fadeIn(aliasOrInst, duration, targetVol, startVol)
     {
         var sound, inst;
-        if (typeof aliasOrInst === "string")
+        if (typeof aliasOrInst === 'string')
         {
             sound = this._sounds[aliasOrInst];
             if (!sound)
+            {
                 return;
+            }
             if (sound.playing.length)
             {
                 inst = sound.playing[sound.playing.length - 1]; //fade the last played instance
@@ -646,7 +659,9 @@ export default class Sound extends EventDispatcher
             sound = this._sounds[inst.alias];
         }
         if (!inst || !inst._channel)
+        {
             return;
+        }
         inst._fTime = 0;
         inst._fDur = duration > 0 ? duration : 500;
         inst._fEnd = targetVol || inst.curVol;
@@ -658,7 +673,7 @@ export default class Sound extends EventDispatcher
             this._fades.push(inst);
             if (this._fades.length === 1)
             {
-                Application.instance.on("update", this._update);
+                Application.instance.on('update', this._update);
             }
         }
     }
@@ -680,7 +695,7 @@ export default class Sound extends EventDispatcher
     fadeOut(aliasOrInst, duration, targetVol, startVol, stopAtEnd)
     {
         var sound, inst;
-        if (typeof aliasOrInst === "string")
+        if (typeof aliasOrInst === 'string')
         {
             sound = this._sounds[aliasOrInst];
             if (!sound)
@@ -702,7 +717,10 @@ export default class Sound extends EventDispatcher
         {
             inst = aliasOrInst;
         }
-        if (!inst || !inst._channel) return;
+        if (!inst || !inst._channel) 
+        {
+            return;
+        }
         inst._fTime = 0;
         inst._fDur = duration > 0 ? duration : 500;
         if (startVol > 0)
@@ -722,7 +740,7 @@ export default class Sound extends EventDispatcher
             this._fades.push(inst);
             if (this._fades.length === 1)
             {
-                Application.instance.on("update", this._update);
+                Application.instance.on('update', this._update);
             }
         }
     }
@@ -742,14 +760,19 @@ export default class Sound extends EventDispatcher
         {
             inst = fades[i];
             if (inst.paused)
+            {
                 continue;
+            }
             time = inst._fTime += elapsed;
             if (time >= inst._fDur)
             {
                 if (inst._fStop)
                 {
                     sound = this._sounds[inst.alias];
-                    if (sound) sound.playing.splice(sound.playing.indexOf(inst), 1);
+                    if (sound) 
+                    {
+                        sound.playing.splice(sound.playing.indexOf(inst), 1);
+                    }
                     this._stopInst(inst);
                 }
                 else
@@ -776,7 +799,7 @@ export default class Sound extends EventDispatcher
         }
         if (fades.length === 0)
         {
-            Application.instance.off("update", this._update);
+            Application.instance.off('update', this._update);
         }
     }
 
@@ -809,7 +832,7 @@ export default class Sound extends EventDispatcher
     play(alias, options, startCallback, interrupt, delay, offset, loop, volume, pan)
     {
         var completeCallback;
-        if (options && typeof options === "function")
+        if (options && typeof options === 'function')
         {
             completeCallback = options;
             options = null;
@@ -842,7 +865,7 @@ export default class Sound extends EventDispatcher
         {
             if (DEBUG && Debug)
             {
-                Debug.error("springroll.Sound: alias '" + alias + "' not found!");
+                Debug.error('springroll.Sound: alias \'' + alias + '\' not found!');
             }
             if (completeCallback)
             {
@@ -856,7 +879,7 @@ export default class Sound extends EventDispatcher
             loop = -1;
         }
         //check for sound volume settings
-        volume = (typeof(volume) === "number") ? volume : sound.volume;
+        volume = (typeof(volume) === 'number') ? volume : sound.volume;
         //take action based on the sound state
         var loadState = sound.loadState;
         var inst, arr;
@@ -872,7 +895,9 @@ export default class Sound extends EventDispatcher
                 else
                 {
                     if (Date.now() - this._lastAudioTime >= 30000)
+                    {
                         Sound._fixAudioContext();
+                    }
                     this._numPlayingAudio = 1;
                     this._lastAudioTime = -1;
                 }
@@ -905,7 +930,7 @@ export default class Sound extends EventDispatcher
                 {
                     sound.duration = inst.length;
                 }
-                inst._channel.addEventListener("complete", inst._endFunc);
+                inst._channel.addEventListener('complete', inst._endFunc);
                 if (startCallback)
                 {
                     setTimeout(startCallback, 0);
@@ -931,7 +956,9 @@ export default class Sound extends EventDispatcher
                 arr[3] = loop;
             }
             else
+            {
                 inst._startParams = [interrupt, delay, offset, loop];
+            }
             this.preload(sound.id);
             return inst;
         }
@@ -954,7 +981,9 @@ export default class Sound extends EventDispatcher
                 arr[3] = loop;
             }
             else
+            {
                 inst._startParams = [interrupt, delay, offset, loop];
+            }
             return inst;
         }
     }
@@ -972,7 +1001,9 @@ export default class Sound extends EventDispatcher
     {
         var rtn;
         if (this._pool.length)
+        {
             rtn = this._pool.pop();
+        }
         else
         {
             rtn = new SoundInstance();
@@ -993,12 +1024,15 @@ export default class Sound extends EventDispatcher
      */
     _playAfterLoad(result)
     {
-        var alias = typeof result === "string" ? result : result.data.id;
+        var alias = typeof result === 'string' ? result : result.data.id;
         var sound = this._sounds[alias];
         sound.loadState = Sound.LoadStates.loaded;
 
         //If the sound was stopped before it finished loading, then don't play anything
-        if (!sound.playAfterLoad) return;
+        if (!sound.playAfterLoad) 
+        {
+            return;
+        }
 
         if (this._fixAndroidAudio)
         {
@@ -1032,10 +1066,12 @@ export default class Sound extends EventDispatcher
             {
                 if (DEBUG && Debug)
                 {
-                    Debug.error("Play failed for sound '%s'", alias);
+                    Debug.error('Play failed for sound \'%s\'', alias);
                 }
                 if (inst._endCallback)
+                {
                     inst._endCallback();
+                }
                 this._poolInst(inst);
             }
             else
@@ -1057,16 +1093,24 @@ export default class Sound extends EventDispatcher
                 sound.playing.push(inst);
                 inst._channel = channel;
                 if (channel.handleExtraData)
+                {
                     channel.handleExtraData(sound.data);
+                }
                 inst.length = channel.getDuration();
                 if (!sound.duration)
+                {
                     sound.duration = inst.length;
+                }
                 inst.updateVolume();
-                channel.addEventListener("complete", inst._endFunc);
+                channel.addEventListener('complete', inst._endFunc);
                 if (inst._startFunc)
+                {
                     inst._startFunc();
+                }
                 if (inst.paused) //if the sound got paused while loading, then pause it
+                {
                     channel.pause();
+                }
             }
         }
         waiting.length = 0;
@@ -1085,18 +1129,24 @@ export default class Sound extends EventDispatcher
             if (this._fixAndroidAudio)
             {
                 if (--this._numPlayingAudio === 0)
+                {
                     this._lastAudioTime = Date.now();
+                }
             }
 
-            inst._channel.removeEventListener("complete", inst._endFunc);
+            inst._channel.removeEventListener('complete', inst._endFunc);
             var sound = this._sounds[inst.alias];
             var index = sound.playing.indexOf(inst);
             if (index > -1)
+            {
                 sound.playing.splice(index, 1);
+            }
             var callback = inst._endCallback;
             this._poolInst(inst);
             if (callback)
+            {
                 callback();
+            }
         }
     }
 
@@ -1109,9 +1159,14 @@ export default class Sound extends EventDispatcher
     stop(alias)
     {
         var s = this._sounds[alias];
-        if (!s) return;
+        if (!s) 
+        {
+            return;
+        }
         if (s.playing.length)
+        {
             this._stopSound(s);
+        }
         else if (s.loadState === Sound.LoadStates.loading)
         {
             s.playAfterLoad = false;
@@ -1155,13 +1210,18 @@ export default class Sound extends EventDispatcher
             if (!inst.paused && this._fixAndroidAudio)
             {
                 if (--this._numPlayingAudio === 0)
+                {
                     this._lastAudioTime = Date.now();
+                }
             }
-            inst._channel.removeEventListener("complete", inst._endFunc);
+            inst._channel.removeEventListener('complete', inst._endFunc);
             inst._channel.stop();
         }
         var fadeIdx = this._fades.indexOf(inst);
-        if (fadeIdx > -1) this._fades.splice(fadeIdx, 1);
+        if (fadeIdx > -1) 
+        {
+            this._fades.splice(fadeIdx, 1);
+        }
         this._poolInst(inst);
     }
 
@@ -1182,9 +1242,13 @@ export default class Sound extends EventDispatcher
             {
                 s = arr[i];
                 if (s.playing.length)
+                {
                     this._stopSound(s);
+                }
                 else if (s.loadState === Sound.LoadStates.loading)
+                {
                     s.playAfterLoad = false;
+                }
             }
             for (i = 0; i < context.subContexts.length; ++i)
             {
@@ -1214,8 +1278,10 @@ export default class Sound extends EventDispatcher
      */
     pause(sound, isGlobal)
     {
-        if (typeof sound === "string" )
+        if (typeof sound === 'string' )
+        {
             sound = this._sounds[sound];
+        }
         isGlobal = !!isGlobal;
         var arr = sound.playing;
         var i;
@@ -1247,20 +1313,26 @@ export default class Sound extends EventDispatcher
      */
     resume(sound, isGlobal)
     {
-        if (typeof sound === "string")
+        if (typeof sound === 'string')
+        {
             sound = this._sounds[sound];
+        }
         var arr = sound.playing;
         var i;
         for (i = arr.length - 1; i >= 0; --i)
         {
             if (arr[i].globallyPaused === isGlobal)
+            {
                 arr[i].resume();
+            }
         }
         arr = sound.waitingToPlay;
         for (i = arr.length - 1; i >= 0; --i)
         {
             if (arr[i].globallyPaused === isGlobal)
+            {
                 arr[i].resume();
+            }
         }
     }
 
@@ -1282,9 +1354,13 @@ export default class Sound extends EventDispatcher
                 s = arr[i];
                 var j;
                 for (j = s.playing.length - 1; j >= 0; --j)
+                {
                     s.playing[j].pause();
+                }
                 for (j = s.waitingToPlay.length - 1; j >= 0; --j)
+                {
                     s.waitingToPlay[j].pause();
+                }
             }
             for (i = 0; i < context.subContexts.length; ++i)
             {
@@ -1310,9 +1386,13 @@ export default class Sound extends EventDispatcher
                 s = arr[i];
                 var j;
                 for (j = s.playing.length - 1; j >= 0; --j)
+                {
                     s.playing[j].resume();
+                }
                 for (j = s.waitingToPlay.length - 1; j >= 0; --j)
+                {
                     s.waitingToPlay[j].resume();
+                }
             }
             for (i = 0; i < context.subContexts.length; ++i)
             {
@@ -1330,7 +1410,9 @@ export default class Sound extends EventDispatcher
     {
         var arr = this._sounds;
         for (var i in arr)
+        {
             this.pause(arr[i], true);
+        }
     }
 
     /**
@@ -1343,7 +1425,9 @@ export default class Sound extends EventDispatcher
     {
         var arr = this._sounds;
         for (var i in arr)
+        {
             this.resume(arr[i], true);
+        }
     }
 
     _onInstancePaused()
@@ -1351,7 +1435,9 @@ export default class Sound extends EventDispatcher
         if (this._fixAndroidAudio)
         {
             if (--this._numPlayingAudio === 0)
+            {
                 this._lastAudioTime = Date.now();
+            }
         }
     }
 
@@ -1360,7 +1446,9 @@ export default class Sound extends EventDispatcher
         if (this._fixAndroidAudio)
         {
             if (this._lastAudioTime > 0 && Date.now() - this._lastAudioTime > 30000)
+            {
                 Sound._fixAudioContext();
+            }
 
             this._numPlayingAudio++;
             this._lastAudioTime = -1;
@@ -1462,14 +1550,17 @@ export default class Sound extends EventDispatcher
             return;
         }
 
-        if (typeof list === "string")
+        if (typeof list === 'string')
         {
             list = [list];
         }
 
         if (!list || list.length === 0)
         {
-            if (callback) callback();
+            if (callback) 
+            {
+                callback();
+            }
             return;
         }
 
@@ -1486,18 +1577,18 @@ export default class Sound extends EventDispatcher
 
                     //sound is passed last so that SoundJS gets the sound ID
                     assets.push(
-                    {
-                        id: sound.id,
-                        src: sound.src,
-                        complete: this._markLoaded,
-                        data: sound,
-                        advanced: true
-                    });
+                        {
+                            id: sound.id,
+                            src: sound.src,
+                            complete: this._markLoaded,
+                            data: sound,
+                            advanced: true
+                        });
                 }
             }
             else if (DEBUG && Debug)
             {
-                Debug.error("springroll.Sound was asked to preload " + list[i] + " but it is not a registered sound!");
+                Debug.error('springroll.Sound was asked to preload ' + list[i] + ' but it is not a registered sound!');
             }
         }
         if (assets.length > 0)
@@ -1525,7 +1616,9 @@ export default class Sound extends EventDispatcher
         {
             sound.loadState = Sound.LoadStates.loaded;
             if (sound.playAfterLoad)
+            {
                 this._playAfterLoad(alias);
+            }
         }
         var callback = sound.preloadCallback;
         if (callback)
@@ -1544,7 +1637,10 @@ export default class Sound extends EventDispatcher
      */
     unload(list)
     {
-        if (!list) return;
+        if (!list) 
+        {
+            return;
+        }
 
         var sound;
         for (var i = 0, len = list.length; i < len; ++i)
@@ -1608,7 +1704,7 @@ export default class Sound extends EventDispatcher
         //Remove the SWF from the page
         if (FlashAudioPlugin && SoundJS.activePlugin instanceof FlashAudioPlugin)
         {
-            var swf = document.getElementById("SoundJSFlashContainer");
+            var swf = document.getElementById('SoundJSFlashContainer');
             if (swf && swf.parentNode)
             {
                 swf.parentNode.removeChild(swf);
@@ -1628,4 +1724,4 @@ export default class Sound extends EventDispatcher
 }
 
 //sound states
-Sound.LoadStates = new Enum("unloaded", "loading", "loaded");
+Sound.LoadStates = new Enum('unloaded', 'loading', 'loaded');

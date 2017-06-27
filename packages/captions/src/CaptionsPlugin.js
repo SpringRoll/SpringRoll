@@ -53,7 +53,8 @@ import {Debug} from '@springroll/debug';
         var captionsPath = this.options.captionsPath;
         if (captionsPath)
         {
-            this.load(captionsPath, data => {
+            this.load(captionsPath, data => 
+            {
                 this.captions.data = data;
                 done();
             });
@@ -61,7 +62,7 @@ import {Debug} from '@springroll/debug';
         else
         {
             // @if DEBUG
-            Debug.info("Application option 'captionsPath' is empty, set to automatically load captions JSON");
+            Debug.info('Application option \'captionsPath\' is empty, set to automatically load captions JSON');
             // @endif
             done();
         }

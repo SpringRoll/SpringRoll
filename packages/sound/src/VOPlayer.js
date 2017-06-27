@@ -235,11 +235,11 @@ export default class VOPlayer extends EventDispatcher
         for (i = 0; i < this._listCounter; ++i)
         {
             item = this.voList[i];
-            if (typeof item === "string")
+            if (typeof item === 'string')
             {
                 total += Sound.instance.getDuration(item);
             }
-            else if (typeof item === "number")
+            else if (typeof item === 'number')
             {
                 total += item;
             }
@@ -250,11 +250,11 @@ export default class VOPlayer extends EventDispatcher
         if (i < this.voList.length)
         {
             item = this.voList[i];
-            if (typeof item === "string")
+            if (typeof item === 'string')
             {
                 total += this._soundInstance.position;
             }
-            else if (typeof item === "number")
+            else if (typeof item === 'number')
             {
                 total += item - this._timer;
             }
@@ -283,7 +283,7 @@ export default class VOPlayer extends EventDispatcher
         }
 
         //remove any update callback
-        Application.instance.off("update", [
+        Application.instance.off('update', [
             this._updateSoloCaption,
             this._syncCaptionToSound,
             this._updateSilence
@@ -316,17 +316,17 @@ export default class VOPlayer extends EventDispatcher
         {
             if (this._soundInstance)
             {
-                app.on("update", this._syncCaptionToSound);
+                app.on('update', this._syncCaptionToSound);
             }
             else
             {
-                app.on("update", this._updateSoloCaption);
+                app.on('update', this._updateSoloCaption);
             }
         }
         //timer
         else
         {
-            app.on("update", this._updateSilence);
+            app.on('update', this._updateSilence);
         }
     }
 
@@ -357,7 +357,7 @@ export default class VOPlayer extends EventDispatcher
 
         this._listCounter = -1;
 
-        if (typeof idOrList === "string")
+        if (typeof idOrList === 'string')
         {
             this._listHelper.length = 0;
             this._listHelper[0] = idOrList;
@@ -382,11 +382,11 @@ export default class VOPlayer extends EventDispatcher
     {
         if (this._listCounter >= 0)
         {
-            this.trigger("end", this._currentVO);
+            this.trigger('end', this._currentVO);
         }
 
         //remove any update callback
-        Application.instance.off("update", [
+        Application.instance.off('update', [
             this._updateSoloCaption,
             this._syncCaptionToSound,
             this._updateSilence
@@ -424,14 +424,14 @@ export default class VOPlayer extends EventDispatcher
         {
             this._currentVO = this.voList[this._listCounter];
             
-            if (typeof this._currentVO === "string")
+            if (typeof this._currentVO === 'string')
             {
                 //If the sound doesn't exist, then we play it and let it fail,
                 //an error should be shown and playback will continue
                 this._playSound();
-                this.trigger("start", this._currentVO);
+                this.trigger('start', this._currentVO);
             }
-            else if (typeof this._currentVO === "function")
+            else if (typeof this._currentVO === 'function')
             {
                 this._currentVO(); //call function
                 this._onSoundFinished(); //immediately continue
@@ -440,8 +440,8 @@ export default class VOPlayer extends EventDispatcher
             {
                 this._timer = this._currentVO; //set up a timer to wait
                 this._currentVO = null;
-                Application.instance.on("update", this._updateSilence);
-                this.trigger("start", null);
+                Application.instance.on('update', this._updateSilence);
+                this.trigger('start', null);
             }
         }
     }
@@ -490,7 +490,10 @@ export default class VOPlayer extends EventDispatcher
      */
     _syncCaptionToSound(elapsed)
     {
-        if (!this._soundInstance) return;
+        if (!this._soundInstance) 
+        {
+            return;
+        }
 
         this._captions.seek(this._soundInstance.position);
     }
@@ -514,7 +517,7 @@ export default class VOPlayer extends EventDispatcher
         {
             this._captions.play(this._currentVO);
             this._timer = 0;
-            Application.instance.on("update", this._updateSoloCaption);
+            Application.instance.on('update', this._updateSoloCaption);
         }
         else
         {
@@ -522,7 +525,7 @@ export default class VOPlayer extends EventDispatcher
             if (this._captions)
             {
                 this._captions.play(this._currentVO);
-                Application.instance.on("update", this._syncCaptionToSound);
+                Application.instance.on('update', this._syncCaptionToSound);
             }
         }
         var len = this.voList.length;
@@ -530,7 +533,7 @@ export default class VOPlayer extends EventDispatcher
         for (var i = this._listCounter + 1; i < len; ++i)
         {
             next = this.voList[i];
-            if (typeof next === "string")
+            if (typeof next === 'string')
             {
                 if (s.exists(next) && !s.isLoaded(next))
                 {

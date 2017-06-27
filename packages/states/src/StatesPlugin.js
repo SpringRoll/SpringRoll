@@ -45,64 +45,64 @@ import {Debug} from '@springroll/debug';
          * The transition animation to use between the StateManager state changes
          * @property {createjs.MovieClip|springroll.easeljs.BitmapMovieClip|PIXI.Spine} transition
          */
-        Object.defineProperty(this, "transition",
-        {
-            set(transition)
+        Object.defineProperty(this, 'transition',
             {
-                if (!this.display)
+                set(transition)
                 {
-                    // @if DEBUG
-                    throw "No default display is available to set the states. Use the display application option";
-                    // @endif
-                    // @if DEBUG
-                    // eslint-disable-next-line no-unreachable
-                    throw "No default display";
-                    // @endif
-                }
-
-                if (transition && !this.animator)
-                {
-                    // @if DEBUG
-                    throw "Use of a transition requires the animation module, please include";
-                    // @endif
-                    // @if DEBUG
-                    // eslint-disable-next-line no-unreachable
-                    throw "No animation module";
-                    // @endif
-                }
-
-                // Remove the old transition
-                const stage = this.display.stage;
-                if (this._transition)
-                {
-                    stage.removeChild(this._transition);
-                }
-
-                // Save the transtion reference
-                this._transition = transition;
-
-                // Add to the manager
-                if (this.manager)
-                {
-                    this.manager.transition = transition;
-                }
-
-                // Add to the stage
-                if (transition)
-                {
-                    // Stop the transition from playing
-                    if (transition.stop)
+                    if (!this.display)
                     {
-                        transition.stop();
+                    // @if DEBUG
+                        throw 'No default display is available to set the states. Use the display application option';
+                        // @endif
+                        // @if DEBUG
+                        // eslint-disable-next-line no-unreachable
+                        throw 'No default display';
+                    // @endif
                     }
-                    stage.addChild(transition);
+
+                    if (transition && !this.animator)
+                    {
+                    // @if DEBUG
+                        throw 'Use of a transition requires the animation module, please include';
+                        // @endif
+                        // @if DEBUG
+                        // eslint-disable-next-line no-unreachable
+                        throw 'No animation module';
+                    // @endif
+                    }
+
+                    // Remove the old transition
+                    const stage = this.display.stage;
+                    if (this._transition)
+                    {
+                        stage.removeChild(this._transition);
+                    }
+
+                    // Save the transtion reference
+                    this._transition = transition;
+
+                    // Add to the manager
+                    if (this.manager)
+                    {
+                        this.manager.transition = transition;
+                    }
+
+                    // Add to the stage
+                    if (transition)
+                    {
+                    // Stop the transition from playing
+                        if (transition.stop)
+                        {
+                            transition.stop();
+                        }
+                        stage.addChild(transition);
+                    }
+                },
+                get()
+                {
+                    return this._transition;
                 }
-            },
-            get()
-            {
-                return this._transition;
-            }
-        });
+            });
 
         /**
          * The initial state to go to when everything is finished
@@ -136,100 +136,101 @@ import {Debug} from '@springroll/debug';
          * @readOnly
          */
         this.options.add('transitionSounds',
-        {
-            'in': null,
-            'out': null
-        }, true);
+            {
+                'in': null,
+                'out': null
+            }, true);
 
         /**
          * The collection of states where the key is the state alias and value is the state display object
          * @property {Object} states
          * @default null
          */
-        Object.defineProperty(this, "states",
-        {
-            set(states)
+        Object.defineProperty(this, 'states',
             {
-                if (this.manager)
+                set(states)
                 {
-                    // @if DEBUG
-                    throw "StateManager has already been initialized, cannot set states multiple times";
-                    // @endif
-                    // @if RELEASE
-                    // eslint-disable-next-line no-unreachable
-                    throw "States already set";
-                    // @endif
-                }
-
-                if (!this.display)
-                {
-                    // @if DEBUG
-                    throw "No default display is available to set the states. Use the display application option";
-                    // @endif
-                    // @if RELEASE
-                    // eslint-disable-next-line no-unreachable
-                    throw "No default display";
-                    // @endif
-                }
-
-                // Create the state manager
-                const manager = this.manager = new StateManager(
-                    this.options.transitionSounds
-                );
-
-                // Pass the animator reference
-                manager.animator = this.animator;
-
-                // Add a handler to enable to disable the display
-                manager.on('enabled', enabled => {
-                    this.display.enabled = enabled;
-                });
-
-                const stage = this.display.stage;
-
-                //create states
-                for (let alias in states)
-                {
-                    // Add to the manager
-                    manager.addState(alias, states[alias]);
-
-                    // Add the state display object to the main display
-                    stage.addChild(states[alias].panel);
-
-                    this.trigger('stateAdded', alias, states[alias]);
-                }
-
-                this._states = states;
-
-                // Get the transition from either the transition manual set or the options
-                const transition = this._transition || this.options.transition;
-
-                //if the transition is a EaselJS movieclip, start it out
-                //at the end of the transition out animation. If it has a
-                //'transitionLoop' animation, that will be played as soon as a state is set
-                if (transition)
-                {
-                    // Add the transition this will addChild on top of all the panels
-                    this.transition = transition;
-
-                    // Goto the fully covered state
-                    if (transition.gotoAndStop)
+                    if (this.manager)
                     {
-                        transition.gotoAndStop("onTransitionOut_stop");
+                    // @if DEBUG
+                        throw 'StateManager has already been initialized, cannot set states multiple times';
+                        // @endif
+                        // @if RELEASE
+                        // eslint-disable-next-line no-unreachable
+                        throw 'States already set';
+                    // @endif
                     }
-                }
 
-                // Goto the first state
-                if (this.options.state)
+                    if (!this.display)
+                    {
+                    // @if DEBUG
+                        throw 'No default display is available to set the states. Use the display application option';
+                        // @endif
+                        // @if RELEASE
+                        // eslint-disable-next-line no-unreachable
+                        throw 'No default display';
+                    // @endif
+                    }
+
+                    // Create the state manager
+                    const manager = this.manager = new StateManager(
+                        this.options.transitionSounds
+                    );
+
+                    // Pass the animator reference
+                    manager.animator = this.animator;
+
+                    // Add a handler to enable to disable the display
+                    manager.on('enabled', enabled => 
+                    {
+                        this.display.enabled = enabled;
+                    });
+
+                    const stage = this.display.stage;
+
+                    //create states
+                    for (let alias in states)
+                    {
+                    // Add to the manager
+                        manager.addState(alias, states[alias]);
+
+                        // Add the state display object to the main display
+                        stage.addChild(states[alias].panel);
+
+                        this.trigger('stateAdded', alias, states[alias]);
+                    }
+
+                    this._states = states;
+
+                    // Get the transition from either the transition manual set or the options
+                    const transition = this._transition || this.options.transition;
+
+                    //if the transition is a EaselJS movieclip, start it out
+                    //at the end of the transition out animation. If it has a
+                    //'transitionLoop' animation, that will be played as soon as a state is set
+                    if (transition)
+                    {
+                    // Add the transition this will addChild on top of all the panels
+                        this.transition = transition;
+
+                        // Goto the fully covered state
+                        if (transition.gotoAndStop)
+                        {
+                            transition.gotoAndStop('onTransitionOut_stop');
+                        }
+                    }
+
+                    // Goto the first state
+                    if (this.options.state)
+                    {
+                        manager.state = this.options.state;
+                    }
+                },
+                get()
                 {
-                    manager.state = this.options.state;
+                    return this._states;
                 }
-            },
-            get()
-            {
-                return this._states;
-            }
-        });
+            });
     };
 
     plugin.teardown = function()

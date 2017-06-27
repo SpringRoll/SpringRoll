@@ -180,9 +180,12 @@ export default class Captions
     {
         this._data = dict;
 
-        if (!dict) return;
+        if (!dict) 
+        {
+            return;
+        }
 
-        var timeFormat = /[0-9]+\:[0-9]{2}\:[0-9]{2}\.[0-9]{3}/;
+        var timeFormat = /[0-9]+:[0-9]{2}:[0-9]{2}\.[0-9]{3}/;
 
         //Loop through each line and make sure the times are formatted correctly
         var lines, i, l, len;
@@ -200,7 +203,7 @@ export default class Captions
             if (!lines)
             {
                 // @if DEBUG
-                Debug.log("alias '" + alias + "' has no lines!");
+                Debug.log('alias \'' + alias + '\' has no lines!');
                 // @endif
                 continue;
             }
@@ -208,7 +211,7 @@ export default class Captions
             for (i = 0; i < len; ++i)
             {
                 l = lines[i];
-                if (typeof l.start === "string")
+                if (typeof l.start === 'string')
                 {
                     if (timeFormat.test(l.start))
                     {
@@ -219,7 +222,7 @@ export default class Captions
                         l.start = parseInt(l.start, 10);
                     }
                 }
-                if (typeof l.end === "string")
+                if (typeof l.end === 'string')
                 {
                     if (timeFormat.test(l.end))
                     {
@@ -245,7 +248,7 @@ export default class Captions
     set textField(field)
     {
         Captions._setText(this._textField, '');
-        this._textField = (typeof field === "string" ?
+        this._textField = (typeof field === 'string' ?
             document.getElementById(field) :
             (field || null));
     }
@@ -265,7 +268,10 @@ export default class Captions
      */
     static _setText(field, text)
     {
-        if (!field) return;
+        if (!field) 
+        {
+            return;
+        }
 
         //DOM element
         if (field.nodeName)
@@ -273,15 +279,15 @@ export default class Captions
             field.innerHTML = text;
         }
         //the EaselJS/PIXI v3 style text setting
-        else if (field.constructor.prototype.hasOwnProperty("text") ||
-            field.hasOwnProperty("text"))
+        else if (field.constructor.prototype.hasOwnProperty('text') ||
+            field.hasOwnProperty('text'))
         {
             field.text = text;
         }
         //unsupported field type, oops!
         else
         {
-            throw "Unrecognizable captions text field";
+            throw 'Unrecognizable captions text field';
         }
         return field;
     }
@@ -309,9 +315,12 @@ export default class Captions
      */
     getFullCaption(alias, separator)
     {
-        if (!this._data) return;
+        if (!this._data) 
+        {
+            return;
+        }
 
-        separator = separator || " ";
+        separator = separator || ' ';
 
         var result,
             content,
@@ -339,7 +348,9 @@ export default class Captions
         {
             //return name if no caption so as not to break lists of mixed SFX and VO
             if (!this._data[alias])
+            {
                 return alias;
+            }
 
             var lines = this._data[alias].lines;
             for (i = 0; i < lines.length; i++)
@@ -367,7 +378,10 @@ export default class Captions
      */
     _load(data)
     {
-        if (this._destroyed) return;
+        if (this._destroyed) 
+        {
+            return;
+        }
 
         //Set the current playhead time
         this._reset();
@@ -402,9 +416,9 @@ export default class Captions
      */
     _timeCodeToMilliseconds(input)
     {
-        var lastPeriodIndex = input.lastIndexOf(".");
+        var lastPeriodIndex = input.lastIndexOf('.');
         var ms = parseInt(input.substr(lastPeriodIndex + 1), 10);
-        var parts = input.substr(0, lastPeriodIndex).split(":");
+        var parts = input.substr(0, lastPeriodIndex).split(':');
         var h = parseInt(parts[0], 10) * 3600000; //* 60 * 60 * 1000;
         var m = parseInt(parts[1], 10) * 6000; //* 60 * 1000;
         var s = parseInt(parts[2], 10) * 1000;
@@ -549,7 +563,9 @@ export default class Captions
     _updatePercent(progress)
     {
         if (this._destroyed)
+        {
             return;
+        }
         this._currentTime = progress * this._currentDuration;
         this._calcUpdate();
     }
@@ -564,7 +580,9 @@ export default class Captions
     update(elapsed)
     {
         if (this._destroyed || !this._playing)
+        {
             return;
+        }
         this._currentTime += elapsed;
         this._calcUpdate();
     }
@@ -578,7 +596,9 @@ export default class Captions
     {
         var lines = this._lines;
         if (!lines)
+        {
             return;
+        }
 
         //Check for the end of the captions
         var len = lines.length;
@@ -647,7 +667,9 @@ export default class Captions
         else
         {
             if (!this._data[alias])
+            {
                 return length;
+            }
 
             var lines = this._data[alias].lines;
             length += lines[lines.length - 1].end;
@@ -663,7 +685,9 @@ export default class Captions
     destroy()
     {
         if (this._destroyed)
+        {
             return;
+        }
 
         this._destroyed = true;
 

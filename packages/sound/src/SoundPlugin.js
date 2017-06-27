@@ -59,7 +59,7 @@ import SoundTask from './SoundTask';
          * @default ['ogg','mp3']
          * @readOnly
          */
-        this.options.add('audioTypes', ["ogg", "mp3"], true);
+        this.options.add('audioTypes', ['ogg', 'mp3'], true);
 
         if (DEBUG)
         {
@@ -107,51 +107,51 @@ import SoundTask from './SoundTask';
          * @property {String} music
          * @default null
          */
-        Object.defineProperty(this, "music",
-        {
-            set(value)
+        Object.defineProperty(this, 'music',
             {
-                if (value === this._music)
+                set(value)
                 {
-                    return;
-                }
-                var sound = this.sound;
+                    if (value === this._music)
+                    {
+                        return;
+                    }
+                    var sound = this.sound;
 
-                if (this._music)
-                {
-                    sound.fadeOut(this._music);
-                    this._musicInstance = null;
-                }
-                this._music = value;
+                    if (this._music)
+                    {
+                        sound.fadeOut(this._music);
+                        this._musicInstance = null;
+                    }
+                    this._music = value;
 
-                if (value)
+                    if (value)
+                    {
+                        this._musicInstance = sound.play(
+                            this._music,
+                            {
+                                start: sound.fadeIn.bind(sound, value),
+                                loop: -1
+                            }
+                        );
+                    }
+                },
+                get()
                 {
-                    this._musicInstance = sound.play(
-                        this._music,
-                        {
-                            start: sound.fadeIn.bind(sound, value),
-                            loop: -1
-                        }
-                    );
+                    return this._music;
                 }
-            },
-            get()
-            {
-                return this._music;
-            }
-        });
+            });
 
         /**
          * The SoundInstance for the current music, for adjusting volume.
          * @property {SoundInstance} musicInstance
          */
-        Object.defineProperty(this, "musicInstance",
-        {
-            get()
+        Object.defineProperty(this, 'musicInstance',
             {
-                return this._musicInstance;
-            }
-        });
+                get()
+                {
+                    return this._musicInstance;
+                }
+            });
 
         //Add the listener for the config loader to autoload the sounds
         this.once('configLoaded', function(config)
@@ -188,38 +188,42 @@ import SoundTask from './SoundTask';
     plugin.preload = function(done)
     {
         Sound.init(
-        {
-            plugins: this.options.audioPlugins,
-            swfPath: this.options.swfPath,
-            types: this.options.audioTypes,
-            ready: () => {
+            {
+                plugins: this.options.audioPlugins,
+                swfPath: this.options.swfPath,
+                types: this.options.audioTypes,
+                ready: () => 
+                {
                 
-                if (this.destroyed) return;
-
-                var sound = this.sound = Sound.instance;
-
-                if (DEBUG)
-                {
-                    //For testing, mute the game if requested
-                    sound.muteAll = !!this.options.mute;
-                }
-                //Add listeners to pause and resume the sounds
-                this.on(
-                {
-                    paused: function()
+                    if (this.destroyed) 
                     {
-                        sound.pauseAll();
-                    },
-                    resumed: function()
-                    {
-                        sound.resumeAll();
+                        return;
                     }
-                });
 
-                this.trigger(SOUND_READY);
-                done();
-            }
-        });
+                    var sound = this.sound = Sound.instance;
+
+                    if (DEBUG)
+                    {
+                    //For testing, mute the game if requested
+                        sound.muteAll = !!this.options.mute;
+                    }
+                    //Add listeners to pause and resume the sounds
+                    this.on(
+                        {
+                            paused: function()
+                            {
+                                sound.pauseAll();
+                            },
+                            resumed: function()
+                            {
+                                sound.resumeAll();
+                            }
+                        });
+
+                    this.trigger(SOUND_READY);
+                    done();
+                }
+            });
     };
 
     //Destroy the animator

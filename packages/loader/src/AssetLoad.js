@@ -34,7 +34,7 @@ export default class AssetLoad extends EventEmitter
          * @property {int} mode
          * @default 1
          */
-        this.mode = MAP_MODE;
+        this.mode = AssetLoad.MAP_MODE;
 
         /**
          * If we should run the tasks in parallel (true) or serial (false)
@@ -180,7 +180,7 @@ export default class AssetLoad extends EventEmitter
         });
         this.total = 0;
         this.numLoaded = 0;
-        this.mode = MAP_MODE;
+        this.mode = AssetLoad.MAP_MODE;
         this.tasks.length = 0;
         this.results = null;
         this.type = null;
@@ -404,7 +404,10 @@ export default class AssetLoad extends EventEmitter
                 task.start(this.taskDone.bind(this, task));
 
                 // If we aren't running in parallel, then stop
-                if (!this.startAll) return;
+                if (!this.startAll) 
+                {
+                    return;
+                }
             }
         }
     }
@@ -419,7 +422,10 @@ export default class AssetLoad extends EventEmitter
     taskDone(task, result)
     {
         // Ignore if we're destroyed
-        if (!this.running) return;
+        if (!this.running) 
+        {
+            return;
+        }
 
         // Default to null
         result = result || null;

@@ -157,15 +157,22 @@ export default class SoundInstance
         {
             var sound = s._sounds[this.alias];
             //in case this SoundInstance is not valid any more for some reason
-            if (!sound) return;
+            if (!sound) 
+            {
+                return;
+            }
 
             var index = sound.playing.indexOf(this);
             if (index > -1)
+            {
                 sound.playing.splice(index, 1);
+            }
 
             index = sound.waitingToPlay.indexOf(this);
             if (index > -1)
+            {
                 sound.waitingToPlay.splice(index, 1);
+            }
 
             s._stopInst(this);
         }
@@ -195,7 +202,9 @@ export default class SoundInstance
                 contextVol = context.muted ? 0 : context.volume;
             }
             else
+            {
                 contextVol = 1;
+            }
         }
         this._channel.setVolume(contextVol * this.curVol);
     }

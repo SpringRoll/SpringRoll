@@ -31,13 +31,13 @@ export default class ScaleManager
     constructor(options)
     {
         options = Object.assign(
-        {
-            enabled: false,
-            size: null,
-            items: null,
-            display: null,
-            container: null
-        }, options);
+            {
+                enabled: false,
+                size: null,
+                items: null,
+                display: null,
+                container: null
+            }, options);
 
         /**
          * The configuration for each items
@@ -94,7 +94,7 @@ export default class ScaleManager
         {
             if (!options.container)
             {
-                throw "ScaleManager requires container to add items";
+                throw 'ScaleManager requires container to add items';
             }
             this.addItems(options.container, options.items);
         }
@@ -119,17 +119,20 @@ export default class ScaleManager
             display = Application.instance.display;
         }
 
-        if (!display) return null;
+        if (!display) 
+        {
+            return null;
+        }
 
         // Check for a displayadpater, doesn't work with generic display
         if (!display.adapter)
         {
             // @if DEBUG
-            throw "The display specified is incompatible with ScaleManager because it doesn't contain an adapter";
+            throw 'The display specified is incompatible with ScaleManager because it doesn\'t contain an adapter';
             // @endif
             // @if RELEASE
             // eslint-disable-next-line no-unreachable
-            throw "ScaleManager incompatible display";
+            throw 'ScaleManager incompatible display';
             // @endif
         }
         return display.adapter;
@@ -171,17 +174,20 @@ export default class ScaleManager
     {
         this._size = size;
 
-        if (!size) return;
+        if (!size) 
+        {
+            return;
+        }
 
         if (!size.width || !size.height)
         {
             // @if DEBUG
             Debug.error(size);
-            throw "Designed size parameter must be a plain object with 'width' & 'height' properties";
+            throw 'Designed size parameter must be a plain object with \'width\' & \'height\' properties';
             // @endif
             // @if RELEASE
             // eslint-disable-next-line no-unreachable
-            throw "Invalid design settings";
+            throw 'Invalid design settings';
             // @endif
         }
 
@@ -273,7 +279,7 @@ export default class ScaleManager
         {
             // @deprecated implementation
             // @if DEBUG
-            console.warn("ScaleManager.removeItems should have a second parameter which is the items dictionary e.g., removeItems(panel, items)");
+            console.warn('ScaleManager.removeItems should have a second parameter which is the items dictionary e.g., removeItems(panel, items)');
             // @endif
             return this.removeItemsByContainer(parent);
         }
@@ -360,7 +366,7 @@ export default class ScaleManager
                 // @if DEBUG
                 if (this.verbose)
                 {
-                    Debug.info("ScaleManager: could not find object '" + name + "'");
+                    Debug.info('ScaleManager: could not find object \'' + name + '\'');
                 }
                 // @endif
                 continue;
@@ -425,13 +431,13 @@ export default class ScaleManager
             };
         }
 
-        if (settings === "cover-image")
+        if (settings === 'cover-image')
         {
             this._items.push(new ScaleImage(displayObject, this._size, this._adapter));
         }
         else
         {
-            if (typeof settings === "string")
+            if (typeof settings === 'string')
             {
                 settings = {
                     align: settings
@@ -444,19 +450,19 @@ export default class ScaleManager
             {
                 case ScaleManager.ALIGN_CENTER:
                 {
-                    align = align + "-" + align;
+                    align = align + '-' + align;
                     break;
                 }
                 case ScaleManager.ALIGN_LEFT:
                 case ScaleManager.ALIGN_RIGHT:
                 {
-                    align = ScaleManager.ALIGN_CENTER + "-" + align;
+                    align = ScaleManager.ALIGN_CENTER + '-' + align;
                     break;
                 }
                 case ScaleManager.ALIGN_TOP:
                 case ScaleManager.ALIGN_BOTTOM:
                 {
-                    align = align + "-" + ScaleManager.ALIGN_CENTER;
+                    align = align + '-' + ScaleManager.ALIGN_CENTER;
                     break;
                 }
             }
@@ -464,7 +470,7 @@ export default class ScaleManager
             // Error check the alignment value input
             if (!/^(center|top|bottom)\-(left|right|center)$/.test(align))
             {
-                throw "Item align '" + align + "' is invalid for " + displayObject;
+                throw 'Item align \'' + align + '\' is invalid for ' + displayObject;
             }
 
             // Do the intial positioning of the display object
@@ -473,7 +479,7 @@ export default class ScaleManager
             // Create the item settings
             var item = new ScaleItem(displayObject, align, this._size, this._adapter);
 
-            item.titleSafe = settings.titleSafe === "all" ? true : settings.titleSafe;
+            item.titleSafe = settings.titleSafe === 'all' ? true : settings.titleSafe;
             item.maxScale = settings.maxScale || NaN;
             item.minScale = settings.minScale || NaN;
             item.centeredHorizontally = !!settings.centeredHorizontally;
@@ -502,7 +508,7 @@ export default class ScaleManager
         if (!_size)
         {
             // @if DEBUG
-            Debug.warn("Unable to resize scaling because the scaling size hasn't been set.");
+            Debug.warn('Unable to resize scaling because the scaling size hasn\'t been set.');
             // @endif
             return;
         }
@@ -547,7 +553,7 @@ export default class ScaleManager
  * @readOnly
  * @default "top"
  */
-ScaleManager.ALIGN_TOP = "top";
+ScaleManager.ALIGN_TOP = 'top';
 
 /**
  * Vertically align to the bottom
@@ -557,7 +563,7 @@ ScaleManager.ALIGN_TOP = "top";
  * @readOnly
  * @default "bottom"
  */
-ScaleManager.ALIGN_BOTTOM = "bottom";
+ScaleManager.ALIGN_BOTTOM = 'bottom';
 
 /**
  * Horizontally align to the left
@@ -567,7 +573,7 @@ ScaleManager.ALIGN_BOTTOM = "bottom";
  * @readOnly
  * @default "left"
  */
-ScaleManager.ALIGN_LEFT = "left";
+ScaleManager.ALIGN_LEFT = 'left';
 
 /**
  * Horizontally align to the right
@@ -577,7 +583,7 @@ ScaleManager.ALIGN_LEFT = "left";
  * @readOnly
  * @default "right"
  */
-ScaleManager.ALIGN_RIGHT = "right";
+ScaleManager.ALIGN_RIGHT = 'right';
 
 /**
  * Vertically or horizontally align to the center
@@ -587,4 +593,4 @@ ScaleManager.ALIGN_RIGHT = "right";
  * @readOnly
  * @default "center"
  */
-ScaleManager.ALIGN_CENTER = "center";
+ScaleManager.ALIGN_CENTER = 'center';

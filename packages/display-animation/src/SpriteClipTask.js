@@ -53,7 +53,8 @@ export default class SpriteClipTask extends TextureAtlasTask
      */
     start(callback)
     {
-        this.loadAtlas({ _anim: this.anim }, (textureAtlas, results) => {
+        this.loadAtlas({ _anim: this.anim }, (textureAtlas, results) => 
+        {
 
             const clip = new SpriteClip(results._anim, textureAtlas);
             //override destroy on clip to destroy textureAtlas as well

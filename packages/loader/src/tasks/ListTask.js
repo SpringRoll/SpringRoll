@@ -59,11 +59,11 @@ export default class ListTask extends Task
     start(callback)
     {
         this.load(this.assets,
-        {
-            complete: callback,
-            progress: this.progress,
-            cacheAll: this.cacheAll
-        });
+            {
+                complete: callback,
+                progress: this.progress,
+                cacheAll: this.cacheAll
+            });
     }
 
     /**

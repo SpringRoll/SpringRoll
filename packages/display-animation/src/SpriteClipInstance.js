@@ -76,7 +76,7 @@ export default class SpriteClipInstance extends AnimatorInstance
             last = -1,
             loop = false;
 
-        if (anim === "*")
+        if (anim === '*')
         {
             first = 0;
             last = this.clip.totalFrames - 1;
@@ -86,8 +86,8 @@ export default class SpriteClipInstance extends AnimatorInstance
         {
             var labels = this.clip.getLabels();
             //go through the list of labels (they are sorted by frame number)
-            var stopLabel = anim + "_stop";
-            var loopLabel = anim + "_loop";
+            var stopLabel = anim + '_stop';
+            var loopLabel = anim + '_loop';
 
             for (var i = 0, len = labels.length; i < len; ++i)
             {
@@ -117,7 +117,9 @@ export default class SpriteClipInstance extends AnimatorInstance
         this.startTime = this.firstFrame / fps;
         this.duration = this.length / fps;
         if (isRepeat)
+        {
             this.position = 0;
+        }
         else
         {
             var animStart = animObj.start || 0;
@@ -171,7 +173,7 @@ export default class SpriteClipInstance extends AnimatorInstance
     static hasAnimation(clip, event)
     {
         //the wildcard event plays the entire timeline
-        if (event === "*")
+        if (event === '*')
         {
             return true;
         }
@@ -179,8 +181,8 @@ export default class SpriteClipInstance extends AnimatorInstance
         var labels = clip.getLabels();
         var startFrame = -1,
             stopFrame = -1;
-        var stopLabel = event + "_stop";
-        var loopLabel = event + "_loop";
+        var stopLabel = event + '_stop';
+        var loopLabel = event + '_loop';
         var l;
         for (var i = 0, len = labels.length; i < len; ++i)
         {
@@ -215,7 +217,7 @@ export default class SpriteClipInstance extends AnimatorInstance
         }
 
         //the wildcard event plays the entire timeline
-        if (event === "*")
+        if (event === '*')
         {
             return clip.totalFrames / clip.framerate;
         }
@@ -223,8 +225,8 @@ export default class SpriteClipInstance extends AnimatorInstance
         var labels = clip.getLabels();
         var startFrame = -1,
             stopFrame = -1;
-        var stopLabel = event + "_stop";
-        var loopLabel = event + "_loop";
+        var stopLabel = event + '_stop';
+        var loopLabel = event + '_loop';
         var l;
         for (var i = 0, labelsLength = labels.length; i < labelsLength; ++i)
         {

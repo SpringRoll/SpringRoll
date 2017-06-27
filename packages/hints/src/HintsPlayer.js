@@ -291,7 +291,10 @@ export default class HintsPlayer extends EventDispatcher
      */
     _update(elapsed)
     {
-        if (this._playing) return;
+        if (this._playing) 
+        {
+            return;
+        }
 
         if (this._timer > 0)
         {

@@ -39,7 +39,7 @@ import {Debug} from '@springroll/debug';
             else
             {
                 // @if DEBUG
-                Debug.warn("Recommended that config contains 'scalingSize' object with keys 'width' and 'height' an optionally 'maxWidth' and 'maxHeight'.");
+                Debug.warn('Recommended that config contains \'scalingSize\' object with keys \'width\' and \'height\' an optionally \'maxWidth\' and \'maxHeight\'.');
                 // @endif
             }
         });
@@ -49,7 +49,10 @@ import {Debug} from '@springroll/debug';
         {
             var config = this.config;
 
-            if (!config) return;
+            if (!config) 
+            {
+                return;
+            }
 
             if (config.scaling)
             {
@@ -69,7 +72,10 @@ import {Debug} from '@springroll/debug';
     //Clean up
     plugin.teardown = function()
     {
-        if (this.scaling) this.scaling.destroy();
+        if (this.scaling) 
+        {
+            this.scaling.destroy();
+        }
         this.scaling = null;
     };
 

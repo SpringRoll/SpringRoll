@@ -205,7 +205,7 @@ export default class SpriteClip extends PIXI.Sprite
     gotoAndStop(positionOrLabel)
     {
         var pos = null;
-        if (typeof positionOrLabel === "string")
+        if (typeof positionOrLabel === 'string')
         {
             var labels = this._labels;
             for (var i = 0, len = labels.length; i < len; ++i)
@@ -349,8 +349,7 @@ export default class SpriteClip extends PIXI.Sprite
         var name;
         if (data.labels)
         {
-            var positions = {},
-                position;
+            var positions = {};
 
             for (name in data.labels)
             {
@@ -393,10 +392,12 @@ export default class SpriteClip extends PIXI.Sprite
             var frameSet = data.frames[i];
 
             name = frameSet.name;
-            index = name.lastIndexOf("/");
+            index = name.lastIndexOf('/');
             //strip off any folder structure included in the name
             if (index >= 0)
+            {
                 name = name.substring(index + 1);
+            }
 
             if (atlas)
             {
@@ -471,11 +472,11 @@ export default class SpriteClip extends PIXI.Sprite
         var i, c;
         for (i = 1; i < maxDigits; ++i)
         {
-            var s = "";
+            var s = '';
             c = 1;
             for (var j = 0; j < i; ++j)
             {
-                s += "0";
+                s += '0';
                 c *= 10;
             }
             zeros.unshift(s);
@@ -501,12 +502,14 @@ export default class SpriteClip extends PIXI.Sprite
                 }
             }
             if (!num)
+            {
                 num = i.toString();
+            }
 
             //If the texture doesn't exist, use the previous texture - this should allow us to use
             //fewer textures that are in fact the same, if those textures were removed before
             //making the spritesheet
-            var texName = name.replace("#", num);
+            var texName = name.replace('#', num);
             var tex = fromFrame(texName, true);
             if (tex)
             {

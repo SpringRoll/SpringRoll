@@ -144,9 +144,8 @@ export default class LoaderItem extends LoadQueue
     /**
      * Start the loading
      * @method  start
-     * @param {int} maxCurrentLoads The max number of simultaneous load
      */
-    start(maxCurrentLoads)
+    start()
     {
         // @if DEBUG
         if (LoaderItem.verbose)
@@ -189,7 +188,7 @@ export default class LoaderItem extends LoadQueue
      * @private
      * @param {object} event The progress event
      */
-    _onProgress(event)
+    _onProgress()
     {
         if (this.onProgress)
         {

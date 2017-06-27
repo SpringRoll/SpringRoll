@@ -24,31 +24,31 @@ import HintsPlayer from './HintsPlayer';
         if (!this.animator)
         {
             // @if DEBUG
-            throw "Hints requires the Animator to run";
+            throw 'Hints requires the Animator to run';
             // @endif
             // @if RELEASE
             // eslint-disable-next-line no-unreachable
-            throw "No animator";
+            throw 'No animator';
             // @endif
         }
 
         if (!this.voPlayer)
         {
             // @if DEBUG
-            throw "Hints requires the Sound module to be included";
+            throw 'Hints requires the Sound module to be included';
             // @endif
             // @if RELEASE
             // eslint-disable-next-line no-unreachable
-            throw "No sound";
+            throw 'No sound';
             // @endif
         }
 
         // Listen for events
         this.hints.on(
-        {
-            vo: onVOHint.bind(this),
-            anim: onAnimatorHint.bind(this)
-        });
+            {
+                vo: onVOHint.bind(this),
+                anim: onAnimatorHint.bind(this)
+            });
 
         // Send messages to the container
         if (this.container)
@@ -57,7 +57,8 @@ import HintsPlayer from './HintsPlayer';
             this.container.on('playHelp', this.hints.play);
 
             // Listen whtn the hint changes
-            this.hints.on('enabled', enabled => {
+            this.hints.on('enabled', enabled => 
+            {
                 this.container.send('helpEnabled', enabled);
             });
         }
@@ -72,7 +73,7 @@ import HintsPlayer from './HintsPlayer';
      */
     var onVOHint = function(data)
     {
-        if (!!this.media)
+        if (this.media)
         {
             this.media.playInstruction(
                 data.events,
@@ -98,7 +99,7 @@ import HintsPlayer from './HintsPlayer';
      */
     var onAnimatorHint = function(data)
     {
-        if (!!this.media)
+        if (this.media)
         {
             this.media.playInstruction(
                 data.instance,

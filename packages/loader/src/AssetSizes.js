@@ -125,7 +125,7 @@ export default class AssetSizes
         // either the current size or any of the fallbacks
         if (!size)
         {
-            throw "Asset does not support any valid size";
+            throw 'Asset does not support any valid size';
         }
         return size;
     }
@@ -177,4 +177,4 @@ export default class AssetSizes
  * @static
  * @default  "%SIZE%"
  */
-AssetSizes.SIZE_TOKEN = "%SIZE%";
+AssetSizes.SIZE_TOKEN = '%SIZE%';

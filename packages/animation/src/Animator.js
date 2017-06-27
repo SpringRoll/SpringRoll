@@ -63,10 +63,10 @@ export default class Animator
             //which version of iOS is being used, there isn't much of a choice.
             this._timelineMap = new Map([]);
             //ensure that all the Map features we need are supported
-            if (typeof this._timelineMap.delete !== "function" ||
-                typeof this._timelineMap.has !== "function" ||
-                typeof this._timelineMap.set !== "function" ||
-                typeof this._timelineMap.get !== "function")
+            if (typeof this._timelineMap.delete !== 'function' ||
+                typeof this._timelineMap.has !== 'function' ||
+                typeof this._timelineMap.set !== 'function' ||
+                typeof this._timelineMap.get !== 'function')
             {
                 this._timelineMap = null;
             }
@@ -158,8 +158,6 @@ export default class Animator
      */
     play(clip, eventList, onComplete, onCancelled)
     {
-        var audio, options;
-
         if (onCancelled === true)
         {
             onCancelled = onComplete;
@@ -212,10 +210,10 @@ export default class Animator
             clip.id ||
             clip.toString() ||
             clip;
-        Debug.groupCollapsed("No valid animation label \"" + label + "\" in MovieClip " + readableInstance);
-        Debug.red("eventList:", eventList);
-        Debug.red("instance:", clip);
-        Debug.trace("Animator.play");
+        Debug.groupCollapsed('No valid animation label "' + label + '" in MovieClip ' + readableInstance);
+        Debug.red('eventList:', eventList);
+        Debug.red('instance:', clip);
+        Debug.trace('Animator.play');
         Debug.groupEnd();
         // @endif
 
@@ -246,44 +244,47 @@ export default class Animator
             new AnimatorTimeline();
 
         var Definition = this.getDefinitionByClip(clip);
-        if (!Definition) return timeline;
+        if (!Definition) 
+        {
+            return timeline;
+        }
         var instance = Definition.create(clip);
 
         if (!instance)
         {
             // @if DEBUG
-            Debug.warn("Attempting to use Animator to play something that is not compatible: ", clip);
+            Debug.warn('Attempting to use Animator to play something that is not compatible: ', clip);
             // @endif
             return timeline;
         }
-
-        var fps;
 
         timeline.instance = instance;
         timeline.eventList = []; //create a duplicate event list with specific info
         timeline.onComplete = onComplete;
         timeline.onCancelled = onCancelled;
         timeline.speed = speed;
-        var anim, audio, start, speed, alias;
+        var audio, start, speed, alias;
 
         for (var j = 0, jLen = eventList.length; j < jLen; ++j)
         {
             var listItem = eventList[j];
 
-            if (typeof listItem === "string")
+            if (typeof listItem === 'string')
             {
                 if (!Definition.hasAnimation(clip, listItem))
+                {
                     continue;
+                }
 
                 timeline.eventList.push(
-                {
-                    anim: listItem,
-                    audio: null,
-                    start: 0,
-                    speed: 1
-                });
+                    {
+                        anim: listItem,
+                        audio: null,
+                        start: 0,
+                        speed: 1
+                    });
             }
-            else if (typeof listItem === "object")
+            else if (typeof listItem === 'object')
             {
                 if (!Definition.hasAnimation(clip, listItem.anim))
                 {
@@ -293,7 +294,7 @@ export default class Animator
                 var animData = {
                     anim: listItem.anim,
                     //convert into seconds, as that is what the time uses internally
-                    start: typeof listItem.start === "number" ? listItem.start * 0.001 : 0,
+                    start: typeof listItem.start === 'number' ? listItem.start * 0.001 : 0,
                     speed: listItem.speed > 0 ? listItem.speed : 1,
                     loop: listItem.loop
                 };
@@ -301,7 +302,7 @@ export default class Animator
                 //figure out audio stuff if it is okay to use
                 if (audio && this._app.sound)
                 {
-                    if (typeof audio === "string")
+                    if (typeof audio === 'string')
                     {
                         start = 0;
                         alias = audio;
@@ -323,12 +324,12 @@ export default class Animator
                 }
                 timeline.eventList.push(animData);
             }
-            else if (typeof listItem === "number")
+            else if (typeof listItem === 'number')
             {
                 //convert to seconds
                 timeline.eventList.push(listItem * 0.001);
             }
-            else if (typeof listItem === "function")
+            else if (typeof listItem === 'function')
             {
                 //add functions directly
                 timeline.eventList.push(listItem);
@@ -417,15 +418,15 @@ export default class Animator
         for (var i = 0; i < event.length; ++i)
         {
             var item = event[i];
-            if (typeof item === "number")
+            if (typeof item === 'number')
             {
                 duration += item;
             }
-            else if (typeof item === "string")
+            else if (typeof item === 'string')
             {
                 duration += Definition.getDuration(clip, item);
             }
-            else if (typeof item === "object" && item.anim)
+            else if (typeof item === 'object' && item.anim)
             {
                 duration += Definition.getDuration(clip, item.anim);
             }
@@ -681,7 +682,7 @@ export default class Animator
      */
     _startUpdate()
     {
-        this._app.on("update", this._update);
+        this._app.on('update', this._update);
     }
 
     /**
@@ -691,7 +692,7 @@ export default class Animator
      */
     _stopUpdate()
     {
-        this._app.off("update", this._update);
+        this._app.off('update', this._update);
     }
 
     /**
@@ -705,7 +706,6 @@ export default class Animator
         var delta = elapsed * 0.001; //ms -> sec
 
         var t;
-        var instance;
         var audioPos;
         var position;
         for (var i = this._timelines.length - 1; i >= 0; --i)
@@ -715,7 +715,6 @@ export default class Animator
             {
                 return; //error checking or stopping of all timelines during update
             }
-            instance = t.instance;
             if (t.paused)
             {
                 continue;
@@ -768,7 +767,9 @@ export default class Animator
                         }
                         //call the on complete function each time
                         if (t.onComplete)
+                        {
                             t.onComplete();
+                        }
                     }
                     t._nextItem();
                     if (t.complete)

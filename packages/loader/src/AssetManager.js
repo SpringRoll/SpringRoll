@@ -61,30 +61,28 @@ export default class AssetManager
      * Register new tasks types, these tasks must extend Task
      * @method register
      * @private
-     * @param {Function|String} TaskClass The class task reference
+     * @param {Function} TaskClass The class task reference
      * @param {int} [priority=0] The priority. Higher priority tasks
      *      are tested first. More general tasks should be lower
      *      and more specific tasks should be higher.
      */
     register(TaskClass, priority)
     {
-        if (typeof TaskClass === "string")
+        if (!TaskClass) 
         {
-            TaskClass = include(TaskClass, false);
+            return;
         }
-
-        if (!TaskClass) return;
 
         TaskClass.priority = priority || 0;
 
         // @if DEBUG
         if (!(TaskClass.prototype instanceof Task))
         {
-            Debug.error("Registering task much extend Task", TaskClass);
+            Debug.error('Registering task much extend Task', TaskClass);
         }
         else if (!TaskClass.test)
         {
-            Debug.error("Registering task much have test method");
+            Debug.error('Registering task much have test method');
         }
         // @endif
 
@@ -115,14 +113,14 @@ export default class AssetManager
     {
         // Apply defaults to options
         options = Object.assign(
-        {
-            complete: null,
-            progress: null,
-            taskDone: null,
-            cacheAll: false,
-            startAll: true,
-            autoStart: true
-        }, options);
+            {
+                complete: null,
+                progress: null,
+                taskDone: null,
+                cacheAll: false,
+                startAll: true,
+                autoStart: true
+            }, options);
 
         var load = this.getLoad();
 
@@ -142,11 +140,15 @@ export default class AssetManager
 
         // Optional loaded amount event
         if (options.progress)
+        {
             load.on('progress', options.progress);
+        }
 
         // Called when a task is complete
         if (options.taskDone)
+        {
             load.on('taskDone', options.taskDone);
+        }
 
         // Start the load
         load.setup(assets, options);
@@ -197,7 +199,10 @@ export default class AssetManager
         {
             this.loads.splice(index, 1);
         }
-        if (complete) complete(results);
+        if (complete) 
+        {
+            complete(results);
+        }
         this.poolLoad(load);
     }
 

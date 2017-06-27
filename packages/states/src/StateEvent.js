@@ -39,11 +39,11 @@ export default class StateEvent
  *
  * @event {String} onVisible
  */
-StateEvent.VISIBLE = "onVisible";
+StateEvent.VISIBLE = 'onVisible';
 
 /**
  * When the state becomes hidden
  *
  * @event {String} onHidden
  */
-StateEvent.HIDDEN = "onHidden";
+StateEvent.HIDDEN = 'onHidden';

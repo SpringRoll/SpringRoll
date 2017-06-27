@@ -32,11 +32,11 @@ export default class VOHint extends AbstractHint
     {
         this._hints.enabled = false;
         this._hints.trigger('vo',
-        {
-            events: this.idOrList,
-            complete: this._onPlayComplete.bind(this, this.onComplete, false),
-            cancel: this._onPlayComplete.bind(this, this.onCancel, true)
-        });
+            {
+                events: this.idOrList,
+                complete: this._onPlayComplete.bind(this, this.onComplete, false),
+                cancel: this._onPlayComplete.bind(this, this.onCancel, true)
+            });
     }
 
     /**

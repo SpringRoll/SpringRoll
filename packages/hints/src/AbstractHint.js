@@ -39,7 +39,7 @@ export default class AbstractHint
     {
         this._done(cancelled);
         
-        if (typeof original == 'function')
+        if (typeof original === 'function')
         {
             original();
         }

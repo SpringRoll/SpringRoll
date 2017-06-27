@@ -40,7 +40,7 @@ import Loader from '../../Loader';
             })
             .on('cacheBust', function(value)
             {
-                loader.cacheManager.cacheBust = (value === "true" || !!value);
+                loader.cacheManager.cacheBust = (value === 'true' || !!value);
             });
 
         /**

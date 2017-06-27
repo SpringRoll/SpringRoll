@@ -113,15 +113,15 @@ import Bellhop from 'bellhop-iframe';
 
             // Add the features that are enabled
             this.container.send('features',
-            {
-                sound: hasSound,
-                hints: !!this.hints,
-                music: hasSound && this.sound.contextExists('music'),
-                vo: hasSound && this.sound.contextExists('vo'),
-                sfx: hasSound && this.sound.contextExists('sfx'),
-                captions: !!this.captions,
-                disablePause: !!this.options.disablePause
-            });
+                {
+                    sound: hasSound,
+                    hints: !!this.hints,
+                    music: hasSound && this.sound.contextExists('music'),
+                    vo: hasSound && this.sound.contextExists('vo'),
+                    sfx: hasSound && this.sound.contextExists('sfx'),
+                    captions: !!this.captions,
+                    disablePause: !!this.options.disablePause
+                });
         });
 
         if (container.supported)
@@ -162,9 +162,15 @@ import Bellhop from 'bellhop-iframe';
         // then handle the errors and pass to the container
         if (this.container.supported)
         {
-            if (DEBUG && window.console) console.error(error);
+            // @if DEBUG
+            if (window.console) 
+            {
+                // eslint-disable-next-line no-console
+                console.error(error);
+            }
+            // @endif
             this.container.send('localError', String(error));
-            return RELEASE; // handle gracefully in release mode
+            return /* @echo RELEASE */; // handle gracefully in release mode
         }
     };
 
@@ -173,14 +179,14 @@ import Bellhop from 'bellhop-iframe';
     {
         if (!this.name)
         {
-            if (DEBUG)
-            {
-                throw "Application name is empty, please add a Application option of 'name'";
-            }
-            else
-            {
-                throw "Application name is empty";
-            }
+            // @if DEBUG
+            throw 'Application name is empty, please add a Application option of \'name\'';
+            // @endif
+
+            // @if RELEASE
+            // eslint-disable-next-line
+            throw 'Application name is empty';
+            // @endif
         }
 
         // Connect the user data to container
@@ -192,16 +198,16 @@ import Bellhop from 'bellhop-iframe';
         {
             //Setup the container listeners for site soundMute and captionsMute events
             this.container.on(
-            {
-                soundMuted: onSoundMuted.bind(this),
-                captionsMuted: onCaptionsMuted.bind(this),
-                musicMuted: onContextMuted.bind(this, 'music'),
-                voMuted: onContextMuted.bind(this, 'vo'),
-                sfxMuted: onContextMuted.bind(this, 'sfx'),
-                captionsStyles: onCaptionsStyles.bind(this),
-                pause: onPause.bind(this),
-                close: onClose.bind(this)
-            });
+                {
+                    soundMuted: onSoundMuted.bind(this),
+                    captionsMuted: onCaptionsMuted.bind(this),
+                    musicMuted: onContextMuted.bind(this, 'music'),
+                    voMuted: onContextMuted.bind(this, 'vo'),
+                    sfxMuted: onContextMuted.bind(this, 'sfx'),
+                    captionsStyles: onCaptionsStyles.bind(this),
+                    pause: onPause.bind(this),
+                    close: onClose.bind(this)
+                });
 
             // Turn off the page hide and show auto pausing the App
             this.options.autoPause = false;
@@ -290,12 +296,12 @@ import Bellhop from 'bellhop-iframe';
         // Make sure we have a text field and a DOM object
         if (textField && textField.nodeName)
         {
-            textField.className = "size-" + styles.size + " " +
-                "bg-" + styles.background + " " +
-                "color-" + styles.color + " " +
-                "edge-" + styles.edge + " " +
-                "font-" + styles.font + " " +
-                "align-" + styles.align;
+            textField.className = 'size-' + styles.size + ' ' +
+                'bg-' + styles.background + ' ' +
+                'color-' + styles.color + ' ' +
+                'edge-' + styles.edge + ' ' +
+                'font-' + styles.font + ' ' +
+                'align-' + styles.align;
         }
     };
 

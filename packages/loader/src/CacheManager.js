@@ -59,20 +59,20 @@ export default class CacheManager
      */
     get cacheBust()
     {
-        return !!(this._globalVersion && this._globalVersion.indexOf("cb=") === 0);
+        return !!(this._globalVersion && this._globalVersion.indexOf('cb=') === 0);
     }
     set cacheBust(value)
     {
         if (value)
         {
-            this._globalVersion = "cb=" + Date.now();
+            this._globalVersion = 'cb=' + Date.now();
             this.unregisterURLFilter(this._applySpecificVersion);
             this.registerURLFilter(this._applyGlobalVersion);
         }
         else
         {
             var version = this._app.options.version;
-            this._globalVersion = version ? "v=" + version : null;
+            this._globalVersion = version ? 'v=' + version : null;
             if (this._globalVersion)
             {
                 this.unregisterURLFilter(this._applySpecificVersion);
@@ -111,13 +111,16 @@ export default class CacheManager
     addVersionsFile(url, callback, baseUrl)
     {
         // @if DEBUG
-        Debug.assert(/^.*\.txt$/.test(url), "The versions file must be a *.txt file");
+        Debug.assert(/^.*\.txt$/.test(url), 'The versions file must be a *.txt file');
         // @endif
 
         // If we already cache busting, we can ignore this
         if (this.cacheBust)
         {
-            if (callback) callback();
+            if (callback) 
+            {
+                callback();
+            }
             return;
         }
 
@@ -136,26 +139,35 @@ export default class CacheManager
             if (versions)
             {
                 // Remove carrage returns and split on newlines
-                var lines = versions.replace(/\r/g, '').split("\n");
-                var i, parts;
+                var lines = versions.replace(/\r/g, '').split('\n');
+                var i, parts, len;
 
                 // Go line by line
                 for (i = 0, len = lines.length; i < len; i++)
                 {
                     // Check for a valid line
-                    if (!lines[i]) continue;
+                    if (!lines[i]) 
+                    {
+                        continue;
+                    }
 
                     // Split lines
                     parts = lines[i].split(' ');
 
                     // Add the parts
-                    if (parts.length !== 2) continue;
+                    if (parts.length !== 2) 
+                    {
+                        continue;
+                    }
 
                     // Add the versioning
-                    cm.addVersion((baseUrl || "") + parts[0], parts[1]);
+                    cm.addVersion((baseUrl || '') + parts[0], parts[1]);
                 }
             }
-            if (callback) callback();
+            if (callback) 
+            {
+                callback();
+            }
         });
     }
 
@@ -169,7 +181,9 @@ export default class CacheManager
     addVersion(url, version)
     {
         if (!this._versions[url])
+        {
             this._versions[url] = version;
+        }
     }
 
     /**
@@ -183,7 +197,9 @@ export default class CacheManager
     registerURLFilter(filter)
     {
         if (this._filters.indexOf(filter) === -1)
+        {
             this._filters.push(filter);
+        }
     }
 
     /**
@@ -196,7 +212,9 @@ export default class CacheManager
     {
         var index = this._filters.indexOf(filter);
         if (index > -1)
+        {
             this._filters.splice(index, 1);
+        }
     }
 
     /**
@@ -210,14 +228,17 @@ export default class CacheManager
     {
         //don't apply versioning if the asset is retrieved from a php service
         var basePath = this._app.options.basePath;
-        if (basePath && basePath.indexOf("?") > 0) return url;
+        if (basePath && basePath.indexOf('?') > 0) 
+        {
+            return url;
+        }
 
         var ver = this._versions[url];
         //if a version exists for this url, and the url doesn't already have 'v=' in it
         //then apply the url specific version.
-        if (ver && /(\?|\&)v\=[0-9]*/.test(url) === false)
+        if (ver && /(\?|&)v=[0-9]*/.test(url) === false)
         {
-            url = url + (url.indexOf("?") < 0 ? "?" : "&") + "v=" + ver.version;
+            url = url + (url.indexOf('?') < 0 ? '?' : '&') + 'v=' + ver.version;
         }
         return url;
     }
@@ -231,17 +252,23 @@ export default class CacheManager
      */
     _applyGlobalVersion(url)
     {
-        if (!this._globalVersion) return url;
+        if (!this._globalVersion) 
+        {
+            return url;
+        }
         //don't apply versioning if the asset is retrieved from a php service
         var basePath = this._app.options.basePath;
-        if (basePath && basePath.indexOf("?") > 0) return url;
+        if (basePath && basePath.indexOf('?') > 0) 
+        {
+            return url;
+        }
 
         //apply the versioning if it isn't already on the url
-        var test = this._globalVersion.indexOf("cb=") === 0 ?
-            (/(\?|\&)cb\=[0-9]*/) : (/(\?|\&)v\=/);
+        var test = this._globalVersion.indexOf('cb=') === 0 ?
+            (/(\?|&)cb=[0-9]*/) : (/(\?|&)v=/);
         if (test.test(url) === false)
         {
-            url = url + (url.indexOf("?") < 0 ? "?" : "&") + this._globalVersion;
+            url = url + (url.indexOf('?') < 0 ? '?' : '&') + this._globalVersion;
         }
         return url;
     }
@@ -258,7 +285,7 @@ export default class CacheManager
     _applyBasePath(url)
     {
         var basePath = this._app.options.basePath;
-        if (basePath && /^http(s)?\:/.test(url) === false && url.search(basePath) === -1)
+        if (basePath && /^http(s)?:/.test(url) === false && url.search(basePath) === -1)
         {
             url = basePath + url;
         }

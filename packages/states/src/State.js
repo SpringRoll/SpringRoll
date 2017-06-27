@@ -30,19 +30,19 @@ export default class State extends EventDispatcher
         // @if DEBUG
         if (!panel)
         {
-            Debug.error("State requires a panel display object as the first constructor argument");
+            Debug.error('State requires a panel display object as the first constructor argument');
         }
         // @endif
 
         // Construct the options
         options = Object.assign(
-        {
-            next: null,
-            previous: null,
-            delayLoad: 0,
-            preload: [],
-            scaling: null
-        }, options ||
+            {
+                next: null,
+                previous: null,
+                delayLoad: 0,
+                preload: [],
+                scaling: null
+            }, options ||
         {});
 
         /**
@@ -209,7 +209,8 @@ export default class State extends EventDispatcher
         this.panel.visible = false;
 
         // create empty function to avoid a lot of if checks
-        function empty() {};
+        function empty() 
+        {}
 
         /**
          * When the state is exited. Override this to provide state cleanup.
@@ -313,15 +314,15 @@ export default class State extends EventDispatcher
         if (!this._nextState)
         {
             // @if DEBUG
-            Debug.info("'next' is undefined in current state, ignoring");
+            Debug.info('\'next\' is undefined in current state, ignoring');
             // @endif
             return;
         }
-        else if (type === "function")
+        else if (type === 'function')
         {
             this._nextState();
         }
-        else if (type === "string")
+        else if (type === 'string')
         {
             this.manager.state = this._nextState;
         }
@@ -339,15 +340,15 @@ export default class State extends EventDispatcher
         if (!this._prevState)
         {
             // @if DEBUG
-            Debug.info("'prevState' is undefined in current state, ignoring");
+            Debug.info('\'prevState\' is undefined in current state, ignoring');
             // @endif
             return;
         }
-        else if (type === "function")
+        else if (type === 'function')
         {
             this._prevState();
         }
-        else if (type === "string")
+        else if (type === 'string')
         {
             this.manager.state = this._prevState;
         }
@@ -362,7 +363,10 @@ export default class State extends EventDispatcher
     {
         if (this._isLoading)
         {
-            if (DEBUG && Debug) Debug.warn("loadingStart() was called while we're already loading");
+            if (DEBUG && Debug) 
+            {
+                Debug.warn('loadingStart() was called while we\'re already loading');
+            }
             return;
         }
 
@@ -395,12 +399,12 @@ export default class State extends EventDispatcher
         if (!this._isLoading)
         {
             // @if DEBUG
-            Debug.warn("loadingDone() was called without a load started, call loadingStart() first");
+            Debug.warn('loadingDone() was called without a load started, call loadingStart() first');
             // @endif
             return;
         }
 
-        if (delay && typeof delay === "number")
+        if (delay && typeof delay === 'number')
         {
             //allow the renderer to figure out that any images on stage need decoding during the
             //delay, not during the transition in
@@ -484,7 +488,7 @@ export default class State extends EventDispatcher
         //remove scaling objects that we added
         if (scaling && items)
         {
-            if (items === "panel")
+            if (items === 'panel')
             {
                 scaling.removeItem(panel);
             }
@@ -547,11 +551,11 @@ export default class State extends EventDispatcher
         if (assets.length)
         {
             this.app.load(assets,
-            {
-                complete: this._onLoaded.bind(this),
-                progress: this._onProgress.bind(this),
-                cacheAll: true
-            });
+                {
+                    complete: this._onLoaded.bind(this),
+                    progress: this._onProgress.bind(this),
+                    cacheAll: true
+                });
         }
         // No files to load, just continue
         else
@@ -591,7 +595,7 @@ export default class State extends EventDispatcher
 
             if (items)
             {
-                if (items === "panel")
+                if (items === 'panel')
                 {
                     // Reset the panel scale & position, to ensure
                     // that the panel is scaled properly
@@ -600,10 +604,10 @@ export default class State extends EventDispatcher
                     this.panel.scaleX = this.panel.scaleY = 1;
 
                     this.scaling.addItem(this.panel,
-                    {
-                        align: "top-left",
-                        titleSafe: true
-                    });
+                        {
+                            align: 'top-left',
+                            titleSafe: true
+                        });
                 }
                 else
                 {
@@ -678,7 +682,10 @@ export default class State extends EventDispatcher
      */
     _internalEnterDone()
     {
-        if (this._canceled) return;
+        if (this._canceled) 
+        {
+            return;
+        }
 
         this.enabled = true;
         this.enterDone();
@@ -692,7 +699,10 @@ export default class State extends EventDispatcher
     destroy()
     {
         // Only destroy once!
-        if (this._destroyed) return;
+        if (this._destroyed) 
+        {
+            return;
+        }
 
         this.trigger('destroy');
 

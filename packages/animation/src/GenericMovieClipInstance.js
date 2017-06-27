@@ -71,7 +71,7 @@ export default class GenericMovieClipInstance extends AnimatorInstance
             last = -1,
             loop = false;
         //the wildcard event plays the entire timeline
-        if (anim === "*" && !this.clip.timeline.resolve(anim))
+        if (anim === '*' && !this.clip.timeline.resolve(anim))
         {
             first = 0;
             last = this.clip.timeline.duration - 1;
@@ -81,8 +81,8 @@ export default class GenericMovieClipInstance extends AnimatorInstance
         {
             var labels = this.clip.getLabels();
             //go through the list of labels (they are sorted by frame number)
-            var stopLabel = anim + "_stop";
-            var loopLabel = anim + "_loop";
+            var stopLabel = anim + '_stop';
+            var loopLabel = anim + '_loop';
 
             for (var i = 0, len = labels.length; i < len; ++i)
             {
@@ -179,7 +179,7 @@ export default class GenericMovieClipInstance extends AnimatorInstance
     static hasAnimation(clip, event)
     {
         //the wildcard event plays the entire timeline
-        if (event === "*" && !clip.timeline.resolve(event))
+        if (event === '*' && !clip.timeline.resolve(event))
         {
             return true;
         }
@@ -187,8 +187,8 @@ export default class GenericMovieClipInstance extends AnimatorInstance
         var labels = clip.getLabels();
         var startFrame = -1;
         var stopFrame = -1;
-        var stopLabel = event + "_stop";
-        var loopLabel = event + "_loop";
+        var stopLabel = event + '_stop';
+        var loopLabel = event + '_loop';
         var l;
         for (var i = 0, len = labels.length; i < len; ++i)
         {
@@ -223,7 +223,7 @@ export default class GenericMovieClipInstance extends AnimatorInstance
         }
 
         //the wildcard event plays the entire timeline
-        if (event === "*" && !clip.timeline.resolve(event))
+        if (event === '*' && !clip.timeline.resolve(event))
         {
             return clip.timeline.duration / clip.framerate * 1000;
         }
@@ -231,8 +231,8 @@ export default class GenericMovieClipInstance extends AnimatorInstance
         var labels = clip.getLabels();
         var startFrame = -1;
         var stopFrame = -1;
-        var stopLabel = event + "_stop";
-        var loopLabel = event + "_loop";
+        var stopLabel = event + '_stop';
+        var loopLabel = event + '_loop';
         var l;
         for (var i = 0, labelsLength = labels.length; i < labelsLength; ++i)
         {

@@ -137,7 +137,9 @@ export default class AnimatorTimeline
     set paused(value)
     {
         if (value === this._paused)
+        {
             return;
+        }
 
         this._paused = !!value;
         var sound = this.soundInst;
@@ -154,7 +156,7 @@ export default class AnimatorTimeline
         }
     }
 
-      /**
+    /**
      * Reset the timeline so we can reuse
      * @method reset
      * @private
@@ -209,7 +211,10 @@ export default class AnimatorTimeline
     _nextItem()
     {
         var repeat = false;
-        if (this.soundInst) this.soundInst._endCallback = null;
+        if (this.soundInst) 
+        {
+            this.soundInst._endCallback = null;
+        }
         //if on a looping animation, set up the animation to be replayed
         //(this will only happen on looping animations with audio)
         if (this.isLooping)
@@ -229,7 +234,9 @@ export default class AnimatorTimeline
         else
         {
             if (!this.isTimer)
+            {
                 this.instance.endAnim();
+            }
             //reset variables
             this.soundEnd = this.soundStart = 0;
             this.isLooping = this.playSound = this.useCaptions = false;
@@ -247,7 +254,7 @@ export default class AnimatorTimeline
 
         switch (typeof listItem)
         {
-            case "object":
+            case 'object':
             {
                 this.isTimer = false;
                 var instance = this.instance;
@@ -266,14 +273,14 @@ export default class AnimatorTimeline
                 }
                 break;
             }
-            case "number":
+            case 'number':
             {
                 this.isTimer = true;
                 this.duration = listItem;
                 this._position = 0;
                 break;
             }
-            case "function":
+            case 'function':
             {
                 listItem();
                 this._nextItem();

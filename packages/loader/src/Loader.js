@@ -104,7 +104,7 @@ export default class Loader
 
         var basePath = options.basePath;
         if (basePath !== undefined &&
-            /^http(s)?\:/.test(url) === false &&
+            /^http(s)?:/.test(url) === false &&
             url.search(basePath) === -1)
         {
             item.basePath = basePath;

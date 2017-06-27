@@ -1,5 +1,3 @@
-import {Application} from '@springroll/core';
-
 /**
  * Animator Instance is a wrapper for different types of media
  * files. They need to extend some basic methods.
@@ -56,13 +54,15 @@ export default class AnimatorInstance
      * @param {Object} animObj The animation data object.
      * @param {Boolean} isRepeat If this animation is restarting a loop.
      */
-    beginAnim(animObj, isRepeat) {}
+    beginAnim(/*animObj, isRepeat*/) 
+    {}
 
     /**
      * Ends animation playback.
      * @method endAnim
      */
-    endAnim() {}
+    endAnim() 
+    {}
 
     /**
      * Updates position to a new value, and does anything that the clip needs, like updating
@@ -70,7 +70,8 @@ export default class AnimatorInstance
      * @method setPosition
      * @param  {Number} newPos The new position in the animation.
      */
-    setPosition(newPos) {}
+    setPosition(/*newPos*/) 
+    {}
 
     /**
      * Check to see if a clip is compatible with this
@@ -78,7 +79,7 @@ export default class AnimatorInstance
      * @static
      * @return {Boolean} if the clip is supported by this instance
      */
-    static test(clip)
+    static test(/*clip*/)
     {
         return false;
     }
@@ -91,7 +92,7 @@ export default class AnimatorInstance
      * @param  {String|Object} event The animation.
      * @return {Boolean} If the clip has the animation.
      */
-    static hasAnimation(clip, event)
+    static hasAnimation(/*clip, event*/)
     {
         return false;
     }
@@ -104,7 +105,7 @@ export default class AnimatorInstance
      * @param  {String|Object|Array} event The animation or animation list.
      * @return {Number} Animation duration in milliseconds.
      */
-    static getDuration(clip, event)
+    static getDuration(/*clip, event*/)
     {
         return 0;
     }
@@ -156,7 +157,8 @@ export default class AnimatorInstance
         };
 
         //Extend the parent class
-        return extend(InstanceClass, ParentClass || AnimatorInstance);
+        InstanceClass.prototype = Object.create((ParentClass || AnimatorInstance).prototype);
+        return InstanceClass.prototype;
     }
 
     /**

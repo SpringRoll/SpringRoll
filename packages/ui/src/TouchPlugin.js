@@ -42,8 +42,9 @@ import {DebugOptions} from '@springroll/debug';
          * @default false
          */
         this.options.add('forceTouch', false)
-            .on('forceTouch', value => {
-                if (value === "true" || value === true)
+            .on('forceTouch', value => 
+            {
+                if (value === 'true' || value === true)
                 {
                     this.hasTouch = true;
                 }
@@ -58,7 +59,7 @@ import {DebugOptions} from '@springroll/debug';
     {
         // @if DEBUG
         var value = this.options.forceTouch;
-        if (value === "true" || value === true)
+        if (value === 'true' || value === true)
         {
             this.hasTouch = true;
         }
@@ -67,7 +68,7 @@ import {DebugOptions} from '@springroll/debug';
         // Add the interaction filters, must have interface module MobilePlugin
         if (this.filters)
         {
-            var ui = !!this.hasTouch ? '_touch' : '_mouse';
+            var ui = this.hasTouch ? '_touch' : '_mouse';
             this.filters.add('%INTERACTION%', ui);
             this.filters.add('%UI%', ui);
         }

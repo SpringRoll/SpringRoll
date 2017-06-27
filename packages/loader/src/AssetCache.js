@@ -65,7 +65,10 @@ export default class AssetCache
         var id = typeof asset === 'string' ? asset : asset.id;
 
         // If we don't have an ID, stop
-        if (!id) return;
+        if (!id) 
+        {
+            return;
+        }
 
         var result = this._cache[id];
         if (result)
@@ -101,7 +104,10 @@ export default class AssetCache
     _destroyResult(result)
     {
         // Ignore null results or empty objects
-        if (!result) return;
+        if (!result) 
+        {
+            return;
+        }
 
         // Destroy any objects with a destroy function
         if (result.destroy)

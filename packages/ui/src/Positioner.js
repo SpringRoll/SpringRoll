@@ -59,8 +59,8 @@ export default class Positioner
 
         if (pt)
         {
-            adapter.setScale(displayObject, pt.x * scale.x, "x");
-            adapter.setScale(displayObject, pt.y * scale.y, "y");
+            adapter.setScale(displayObject, pt.x * scale.x, 'x');
+            adapter.setScale(displayObject, pt.y * scale.y, 'y');
         }
         pt = settings.pivot;
 
@@ -150,7 +150,7 @@ export default class Positioner
                 return new adapter.Polygon(temp);
             }
         }
-        else if (hitArea.type === "rect" || !hitArea.type)
+        else if (hitArea.type === 'rect' || !hitArea.type)
         {
             return new adapter.Rectangle(
                 hitArea.x * scale,
@@ -159,7 +159,7 @@ export default class Positioner
                 hitArea.h * scale
             );
         }
-        else if (hitArea.type === "ellipse")
+        else if (hitArea.type === 'ellipse')
         {
             // Convert center to upper left corner
             return new adapter.Ellipse(
@@ -168,7 +168,7 @@ export default class Positioner
                 hitArea.h * scale
             );
         }
-        else if (hitArea.type === "circle")
+        else if (hitArea.type === 'circle')
         {
             return new adapter.Circle(
                 hitArea.x * scale,
@@ -176,7 +176,7 @@ export default class Positioner
                 hitArea.r * scale
             );
         }
-        else if (hitArea.type === "sector")
+        else if (hitArea.type === 'sector')
         {
             return new adapter.Sector(
                 hitArea.x * scale,

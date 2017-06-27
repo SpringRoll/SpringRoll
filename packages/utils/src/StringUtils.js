@@ -49,7 +49,8 @@ export default class StringUtils
         }
 
         return str
-            .replace(/([^%]|^)%(?:(\d+)\$)?s/g, (p0, p, position) => {
+            .replace(/([^%]|^)%(?:(\d+)\$)?s/g, (p0, p, position) => 
+            {
                 if (position)
                 {
                     return p + args[parseInt(position) - 1];

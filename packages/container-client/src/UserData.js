@@ -30,7 +30,7 @@ export default class UserData
          * @property {String} id
          * @default ""
          */
-        this.id = "";
+        this.id = '';
     }
 
     /**
@@ -68,14 +68,20 @@ export default class UserData
         if (!this.container.supported)
         {
             SavedData.write(this.id + prop, value);
-            if (callback) callback();
+            if (callback) 
+            {
+                callback();
+            }
             return;
         }
         this.container.fetch(
             'userDataWrite',
-            function(event)
+            function()
             {
-                if (callback) callback();
+                if (callback) 
+                {
+                    callback();
+                }
             },
             {
                 name: this.id + prop,
@@ -96,14 +102,20 @@ export default class UserData
         if (!this.container.supported)
         {
             SavedData.remove(this.id + prop);
-            if (callback) callback();
+            if (callback) 
+            {
+                callback();
+            }
             return;
         }
         this.container.fetch(
             'userDataRemove',
-            function(event)
+            function()
             {
-                if (callback) callback();
+                if (callback) 
+                {
+                    callback();
+                }
             },
             this.id + prop,
             true // run-once

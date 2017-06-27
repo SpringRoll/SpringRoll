@@ -120,7 +120,7 @@ export default class Button extends PIXI.Container
         // @if DEBUG
         if (!imageSettings)
         {
-            throw "springroll.Button requires image as first parameter";
+            throw 'springroll.Button requires image as first parameter';
         }
         // @endif
 
@@ -131,7 +131,7 @@ export default class Button extends PIXI.Container
          * @property {PIXI.Sprite} back
          * @readOnly
          */
-        this.back = new Sprite();
+        this.back = new PIXI.Sprite();
 
         /**
          * The text field of the button. The label is centered by both width and height on the
@@ -214,21 +214,25 @@ export default class Button extends PIXI.Container
             delete labelData.text;
             delete labelData.type;
             if (labelData.x === undefined)
-                labelData.x = "center";
+            {
+                labelData.x = 'center';
+            }
             if (labelData.y === undefined)
-                labelData.y = "center";
+            {
+                labelData.y = 'center';
+            }
             //clone the style object and set up the defaults from PIXI.Text or PIXI.BitmapText
             var style = labelData.style = Button._cloneElement(label.style);
-            if (label.type === "bitmap")
+            if (label.type === 'bitmap')
             {
-                style.align = style.align || "left";
+                style.align = style.align || 'left';
             }
             else
             {
-                style.font = style.font || "bold 20pt Arial";
-                style.fill = style.fill || "black";
-                style.align = style.align || "left";
-                style.stroke = style.stroke || "black";
+                style.font = style.font || 'bold 20pt Arial';
+                style.fill = style.fill || 'black';
+                style.align = style.align || 'left';
+                style.stroke = style.stroke || 'black';
                 style.strokeThickness = style.strokeThickness || 0;
                 style.wordWrap = style.wordWrap || false;
                 style.wordWrapWidth = style.wordWrapWidth || 100;
@@ -243,7 +247,7 @@ export default class Button extends PIXI.Container
             // - the function will ignore reserved states
             this._addProperty(state);
             //set the default value for the state flag
-            if (state !== "disabled" && state !== "up")
+            if (state !== 'disabled' && state !== 'up')
             {
                 this._stateFlags[state] = false;
             }
@@ -267,7 +271,7 @@ export default class Button extends PIXI.Container
                     };
                 }
 
-                if (typeof _stateData[state].tex === "string")
+                if (typeof _stateData[state].tex === 'string')
                 {
                     _stateData[state].tex = PIXI.Texture.fromImage(_stateData[state].tex);
                 }
@@ -301,7 +305,7 @@ export default class Button extends PIXI.Container
         if (!_stateData.up)
         {
             // @if DEBUG
-            Debug.error("Button lacks an up state! This is a serious problem! Input data follows:");
+            Debug.error('Button lacks an up state! This is a serious problem! Input data follows:');
             Debug.error(imageSettings);
             // @endif
         }
@@ -336,7 +340,7 @@ export default class Button extends PIXI.Container
 
         if (label)
         {
-            this.label = (label.type === "bitmap" && BitmapText) ?
+            this.label = (label.type === 'bitmap' && PIXI.BitmapText) ?
                 new PIXI.BitmapText(label.text, labelData.style) :
                 new PIXI.Text(label.text, labelData.style);
             this.label.setPivotToAlign = true;
@@ -409,22 +413,24 @@ export default class Button extends PIXI.Container
                 }
             }
             if (!data)
+            {
                 data = this._stateData.up;
+            }
             data = data.label;
-            if (data.x === "center")
+            if (data.x === 'center')
             {
                 var bW = this.back.width,
                     lW = this.label.width;
                 switch (this._currentLabelStyle.align)
                 {
-                    case "center":
+                    case 'center':
                     {
                         this.label.position.x = bW * 0.5;
                         break;
                     }
-                    case "right":
+                    case 'right':
                     {
-                        this.label.position.x = bw - (bW - lW) * 0.5;
+                        this.label.position.x = bW - (bW - lW) * 0.5;
                         break;
                     }
                     default: //left or null (defaults to left)
@@ -439,7 +445,7 @@ export default class Button extends PIXI.Container
                 this.label.position.x = data.x + this._offset.x;
             }
 
-            if (data.y === "center")
+            if (data.y === 'center')
             {
                 this.label.position.y = (this.back.height - this.label.height) * 0.5;
             }
@@ -465,25 +471,25 @@ export default class Button extends PIXI.Container
         this.buttonMode = value;
         this.interactive = value;
 
-        this.off("mousedown", this._onDown);
-        this.off("touchstart", this._onDown);
-        this.off("mouseover", this._onOver);
-        this.off("mouseout", this._onOut);
+        this.off('mousedown', this._onDown);
+        this.off('touchstart', this._onDown);
+        this.off('mouseover', this._onOver);
+        this.off('mouseout', this._onOut);
 
         //make sure interaction callbacks are properly set
         if (value)
         {
-            this.on("mousedown", this._onDown);
-            this.on("touchstart", this._onDown);
-            this.on("mouseover", this._onOver);
-            this.on("mouseout", this._onOut);
+            this.on('mousedown', this._onDown);
+            this.on('touchstart', this._onDown);
+            this.on('mouseover', this._onOver);
+            this.on('mouseout', this._onOut);
         }
         else
         {
-            this.off("mouseupoutside", this._onUpOutside);
-            this.off("touchendoutside", this._onUpOutside);
-            this.off("mouseup", this._onUp);
-            this.off("touchend", this._onUp);
+            this.off('mouseupoutside', this._onUpOutside);
+            this.off('touchendoutside', this._onUpOutside);
+            this.off('mouseup', this._onUp);
+            this.off('touchend', this._onUp);
             this._stateFlags.down = this._stateFlags.over = false;
             //also turn off pixi values so that re-enabling button works properly
             this._over = false;
@@ -503,27 +509,30 @@ export default class Button extends PIXI.Container
     _addProperty(propertyName)
     {
         //check to make sure we don't add reserved names
-        if (Button.RESERVED_STATES.indexOf(propertyName) >= 0) return;
+        if (Button.RESERVED_STATES.indexOf(propertyName) >= 0) 
+        {
+            return;
+        }
 
         // @if DEBUG
         if (this[propertyName] !== undefined)
         {
-            Debug.error("Adding property %s to button is dangerous, as property already exists with that name!", propertyName);
+            Debug.error('Adding property %s to button is dangerous, as property already exists with that name!', propertyName);
         }
         // @endif
 
         Object.defineProperty(this, propertyName,
-        {
-            get()
             {
-                return this._stateFlags[propertyName];
-            },
-            set(value)
-            {
-                this._stateFlags[propertyName] = value;
-                this._updateState();
-            }
-        });
+                get()
+                {
+                    return this._stateFlags[propertyName];
+                },
+                set(value)
+                {
+                    this._stateFlags[propertyName] = value;
+                    this._updateState();
+                }
+            });
     }
 
     /**
@@ -535,7 +544,10 @@ export default class Button extends PIXI.Container
      */
     _updateState()
     {
-        if (!this.back) return;
+        if (!this.back) 
+        {
+            return;
+        }
 
         var data;
         //use the highest priority state
@@ -567,23 +579,27 @@ export default class Button extends PIXI.Container
                 this._currentLabelStyle = lData.style;
                 //make the text update so we can figure out the size for positioning
                 if (label instanceof PIXI.Text)
+                {
                     label.updateText();
+                }
                 else
+                {
                     label.validate();
+                }
             }
             //position the text
-            if (lData.x === "center")
+            if (lData.x === 'center')
             {
                 var bW = this.back.width,
                     lW = label.width;
                 switch (this._currentLabelStyle.align)
                 {
-                    case "center":
+                    case 'center':
                     {
                         label.position.x = bW * 0.5;
                         break;
                     }
-                    case "right":
+                    case 'right':
                     {
                         label.position.x = bW - (bW - lW) * 0.5;
                         break;
@@ -599,7 +615,7 @@ export default class Button extends PIXI.Container
             {
                 label.position.x = lData.x + this._offset.x;
             }
-            if (lData.y === "center")
+            if (lData.y === 'center')
             {
                 label.position.y = (this.back.height - label.height) * 0.5;
             }
@@ -616,7 +632,7 @@ export default class Button extends PIXI.Container
      * @private
      * @method _onOver
      */
-    _onOver(event)
+    _onOver()
     {
         this._stateFlags.over = true;
         this._updateState();
@@ -628,7 +644,7 @@ export default class Button extends PIXI.Container
      * @private
      * @method _onOut
      */
-    _onOut(event)
+    _onOut()
     {
         this._stateFlags.over = false;
         this._updateState();
@@ -640,15 +656,15 @@ export default class Button extends PIXI.Container
      * @private
      * @method _onDown
      */
-    _onDown(event)
+    _onDown()
     {
         this._stateFlags.down = true;
         this._updateState();
 
-        this.on("mouseupoutside", this._onUpOutside);
-        this.on("touchendoutside", this._onUpOutside);
-        this.on("mouseup", this._onUp);
-        this.on("touchend", this._onUp);
+        this.on('mouseupoutside', this._onUpOutside);
+        this.on('touchendoutside', this._onUpOutside);
+        this.on('mouseup', this._onUp);
+        this.on('touchend', this._onUp);
     }
 
     /**
@@ -657,13 +673,13 @@ export default class Button extends PIXI.Container
      * @private
      * @method _onUp
      */
-    _onUp(event)
+    _onUp()
     {
         this._stateFlags.down = false;
-        this.off("mouseupoutside", this._onUpOutside);
-        this.off("touchendoutside", this._onUpOutside);
-        this.off("mouseup", this._onUp);
-        this.off("touchend", this._onUp);
+        this.off('mouseupoutside', this._onUpOutside);
+        this.off('touchendoutside', this._onUpOutside);
+        this.off('mouseup', this._onUp);
+        this.off('touchend', this._onUp);
 
         this._updateState();
 
@@ -683,13 +699,13 @@ export default class Button extends PIXI.Container
      * @private
      * @method _onUpOutside
      */
-    _onUpOutside(event)
+    _onUpOutside()
     {
         this._stateFlags.down = false;
-        this.off("mouseupoutside", this._onUpOutside);
-        this.off("touchendoutside", this._onUpOutside);
-        this.off("mouseup", this._onUp);
-        this.off("touchend", this._onUp);
+        this.off('mouseupoutside', this._onUpOutside);
+        this.off('touchendoutside', this._onUpOutside);
+        this.off('mouseup', this._onUp);
+        this.off('touchend', this._onUp);
 
         this._updateState();
     }
@@ -737,7 +753,7 @@ export default class Button extends PIXI.Container
      */
     static _cloneElement(obj)
     {
-        if (!obj || "object" !== typeof obj)
+        if (!obj || 'object' !== typeof obj)
         {
             return null;
         }
@@ -746,7 +762,10 @@ export default class Button extends PIXI.Container
 
         for (var attr in obj)
         {
-            if (obj.hasOwnProperty(attr)) copy[attr] = obj[attr];
+            if (obj.hasOwnProperty(attr)) 
+            {
+                copy[attr] = obj[attr];
+            }
         }
 
         return copy;
@@ -758,21 +777,21 @@ export default class Button extends PIXI.Container
  * @static
  * @property {String} BUTTON_PRESS
  */
-Button.BUTTON_PRESS = "buttonPress";
+Button.BUTTON_PRESS = 'buttonPress';
 
 /**
  * An event for when the button is moused over (while enabled).
  * @static
  * @property {String} BUTTON_OVER
  */
-Button.BUTTON_OVER = "buttonOver";
+Button.BUTTON_OVER = 'buttonOver';
 
 /**
  * An event for when the button is moused out (while enabled).
  * @static
  * @property {String} BUTTON_OUT
  */
-Button.BUTTON_OUT = "buttonOut";
+Button.BUTTON_OUT = 'buttonOut';
 
 /*
  * A list of state names that should not have properties autogenerated.
@@ -780,7 +799,7 @@ Button.BUTTON_OUT = "buttonOut";
  * @static
  * @property {Array} RESERVED_STATES
  */
-Button.RESERVED_STATES = ["disabled", "enabled", "up", "over", "down"];
+Button.RESERVED_STATES = ['disabled', 'enabled', 'up', 'over', 'down'];
 
 /*
  * A state priority list to use as the default.
@@ -788,4 +807,4 @@ Button.RESERVED_STATES = ["disabled", "enabled", "up", "over", "down"];
  * @static
  * @property {Array} DEFAULT_PRIORITY
  */
-Button.DEFAULT_PRIORITY = ["disabled", "down", "over", "up"];
+Button.DEFAULT_PRIORITY = ['disabled', 'down', 'over', 'up'];

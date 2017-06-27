@@ -42,7 +42,8 @@ import {Debug} from '@springroll/debug';
         
         if (languagesConfig)
         {
-            this.load(languagesConfig, config => {
+            this.load(languagesConfig, config => 
+            {
                 this.languages.setConfig(config);
                 var lang = this.options.language;
                 if (lang)
@@ -55,7 +56,7 @@ import {Debug} from '@springroll/debug';
         else
         {
             // @if DEBUG
-            Debug.info("Application option 'languagesPath' is empty, set to automatically load languages configuration.");
+            Debug.info('Application option \'languagesPath\' is empty, set to automatically load languages configuration.');
             // @endif
             done();
         }

@@ -64,7 +64,7 @@ export default class ColorAlphaTask extends Task
                     results._color,
                     results._alpha
                 ));
-                results._color.src = results._alpha.src = "";
+                results._color.src = results._alpha.src = '';
             }
         );
     }
@@ -89,14 +89,14 @@ export default class ColorAlphaTask extends Task
     {
         if (!canvas)
         {
-            canvas = document.createElement("canvas");
+            canvas = document.createElement('canvas');
         }
         canvas.width = Math.max(alphaImage.width, rgbImage.width);
         canvas.height = Math.max(alphaImage.height, rgbImage.height);
-        var ctx = canvas.getContext("2d");
+        var ctx = canvas.getContext('2d');
         ctx.save();
         ctx.drawImage(rgbImage, 0, 0);
-        ctx.globalCompositeOperation = "destination-in";
+        ctx.globalCompositeOperation = 'destination-in';
         ctx.drawImage(alphaImage, 0, 0);
         ctx.restore();
         return canvas;

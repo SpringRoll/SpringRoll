@@ -7,18 +7,10 @@ import {Application, EventDispatcher} from '@springroll/core';
  * @class Languages
  * @extends springroll.EventDispatcher
  * @constructor
- * @param {Object} config The language settings to be used.
- * @param {String} config.default The default language name to use if asked for one that is
- *                             not present.
- * @param {Array} config.languages An array of all supported languages, with entries being
- *                              locale ids (dialects allowed). Locale ids should be lower
- *                              case.
- * @param {String} [config.replace="%LANG%"] A string to replace in urls with the current
- *                                        language.
  */
 export default class Languages extends EventDispatcher
 {
-    constructor(config)
+    constructor()
     {
         super();
 
@@ -28,7 +20,7 @@ export default class Languages extends EventDispatcher
          * @private
          * @default "%LANG%"
          */
-        this._replace = "%LANG%";
+        this._replace = '%LANG%';
 
         /**
          * The current language.
@@ -81,7 +73,7 @@ export default class Languages extends EventDispatcher
     {
         if (!config.languages || !config.default)
         {
-            throw "Languages requires a language dictionary and a default language!";
+            throw 'Languages requires a language dictionary and a default language!';
         }
 
         this._replace = config.replace || this._replace;
@@ -161,10 +153,10 @@ export default class Languages extends EventDispatcher
                 chosen = language;
                 break;
             }
-            else if (language.indexOf("-") >= 0)
+            else if (language.indexOf('-') >= 0)
             {
                 //check to see if we have the language without the dialect
-                language = language.split("-")[0].toLowerCase();
+                language = language.split('-')[0].toLowerCase();
                 if (this.languages.indexOf(language) >= 0)
                 {
                     chosen = language;

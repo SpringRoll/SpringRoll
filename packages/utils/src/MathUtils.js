@@ -96,7 +96,7 @@ export default class MathUtils
     static distSq(x, y, x0, y0)
     {
         //see if the first parameter is a point
-        if (typeof x.x === "number" && x.x === x.x) //faster !isNaN
+        if (typeof x.x === 'number' && x.x === x.x) //faster !isNaN
         {
             //shift later parameters back
             y0 = x0;
@@ -106,7 +106,7 @@ export default class MathUtils
             x = x.x;
         }
         //see if the 2nd parameter is a point
-        if (typeof x0.x === "number" && x0.x === x0.x)
+        if (typeof x0.x === 'number' && x0.x === x0.x)
         {
             y0 = x0.y;
             x0 = x0.x;

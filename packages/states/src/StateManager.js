@@ -196,7 +196,10 @@ export default class StateManager extends EventDispatcher
      */
     loadingStart()
     {
-        if (this._destroyed) return;
+        if (this._destroyed) 
+        {
+            return;
+        }
 
         this.trigger(StateManager.LOADING_START);
 
@@ -211,7 +214,10 @@ export default class StateManager extends EventDispatcher
      */
     loadingDone()
     {
-        if (this._destroyed) return;
+        if (this._destroyed) 
+        {
+            return;
+        }
 
         this.trigger(StateManager.LOADING_DONE);
     }
@@ -240,7 +246,7 @@ export default class StateManager extends EventDispatcher
     refresh()
     {
         // @if DEBUG
-        Debug.assert(!!this._state, "No current state to refresh!");
+        Debug.assert(!!this._state, 'No current state to refresh!');
         // @endif
         this.state = this._stateId;
     }
@@ -275,7 +281,9 @@ export default class StateManager extends EventDispatcher
             // state we're loading
             this._isTransitioning = true;
             if (this.transition)
+            {
                 this.transition.visible = true;
+            }
             this._onTransitionLoading();
             this.trigger(StateManager.TRANSITION_INIT_DONE);
             this._isLoading = true;
@@ -348,7 +356,9 @@ export default class StateManager extends EventDispatcher
         this._isTransitioning = true;
 
         if (this.has(StateEvent.VISIBLE))
+        {
             this.trigger(StateEvent.VISIBLE, new StateEvent(StateEvent.VISIBLE, this._state));
+        }
         this._state.panel.visible = true;
 
         if (this.waitForLoadingComplete && this.animator.hasAnimation(this.transition, StateManager.TRANSITION_LOADING))
@@ -396,7 +406,10 @@ export default class StateManager extends EventDispatcher
     _onTransitionLoading()
     {
         // Ignore if no transition
-        if (!this.transition) return;
+        if (!this.transition) 
+        {
+            return;
+        }
 
         var audio;
         var sounds = this._transitionSounds;
@@ -442,10 +455,13 @@ export default class StateManager extends EventDispatcher
     {
         this.enabled = false;
         this._transitioning(StateManager.TRANSITION_OUT, function()
+        {
+            this._onTransitionLoading();
+            if (callback) 
             {
-                this._onTransitionLoading();
-                if (callback) callback();
+                callback();
             }
+        }
             .bind(this));
     }
 
@@ -458,11 +474,14 @@ export default class StateManager extends EventDispatcher
     showTransitionIn(callback)
     {
         this._transitioning(StateManager.TRANSITION_IN, function()
+        {
+            this.enabled = true;
+            this.transition.visible = false;
+            if (callback) 
             {
-                this.enabled = true;
-                this.transition.visible = false;
-                if (callback) callback();
+                callback();
             }
+        }
             .bind(this));
     }
 
@@ -543,7 +562,7 @@ export default class StateManager extends EventDispatcher
  *
  * @event onTransitionIn
  */
-StateManager.TRANSITION_IN = "onTransitionIn";
+StateManager.TRANSITION_IN = 'onTransitionIn';
 
 /**
  * The name of the Animator label and event for loading between state change.
@@ -552,46 +571,46 @@ StateManager.TRANSITION_IN = "onTransitionIn";
  *
  * @event onTransitionLoading
  */
-StateManager.TRANSITION_LOADING = "onTransitionLoading";
+StateManager.TRANSITION_LOADING = 'onTransitionLoading';
 
 /**
  * The name of the event for completing transitioning into a state.
  *
  * @event onTransitionInDone
  */
-StateManager.TRANSITION_IN_DONE = "onTransitionInDone";
+StateManager.TRANSITION_IN_DONE = 'onTransitionInDone';
 
 /**
  * The name of the Animator label and event for transitioning out of a state.
  *
  * @event onTransitionOut
  */
-StateManager.TRANSITION_OUT = "onTransitionOut";
+StateManager.TRANSITION_OUT = 'onTransitionOut';
 
 /**
  * The name of the event for completing transitioning out of a state.
  *
  * @event onTransitionOutDone
  */
-StateManager.TRANSITION_OUT_DONE = "onTransitionOutDone";
+StateManager.TRANSITION_OUT_DONE = 'onTransitionOutDone';
 
 /**
  * The name of the event for initialization complete - the first state is then being entered.
  *
  * @event onInitDone
  */
-StateManager.TRANSITION_INIT_DONE = "onInitDone";
+StateManager.TRANSITION_INIT_DONE = 'onInitDone';
 
 /**
  * Event when the state begins loading assets when it is entered.
  *
  * @event onLoadingStart
  */
-StateManager.LOADING_START = "onLoadingStart";
+StateManager.LOADING_START = 'onLoadingStart';
 
 /**
  * Event when the state finishes loading assets when it is entered.
  *
  * @event onLoadingDone
  */
-StateManager.LOADING_DONE = "onLoadingDone";
+StateManager.LOADING_DONE = 'onLoadingDone';
