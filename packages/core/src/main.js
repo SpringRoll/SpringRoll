@@ -1,6 +1,3 @@
-import './Application.less';
-
-import './mixins';
 import './polyfills';
 import './plugins';
 

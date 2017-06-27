@@ -13,7 +13,7 @@ import Application from './Application';
  * @class ApplicationPlugin
  * @constructor
  * @param {String} name The unique name for the plugin
- * @param {Array<String>} [dependencies] Other plugins depending on this.
+ * @param {String|Array<String>} [dep] Other plugins names that are required for this plugin.
  */
 export default class ApplicationPlugin
 {
@@ -32,6 +32,12 @@ export default class ApplicationPlugin
          * @private
          */
         this.name = name;
+
+        // Convert single deep to array
+        if (typeof dep === 'string')
+        {
+            dep = [dep];
+        }
 
         /**
          * The list of dependencies.

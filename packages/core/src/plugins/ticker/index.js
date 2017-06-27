@@ -31,14 +31,15 @@ import Ticker from './Ticker';
         });
 
         // Fire an update event on the application
-        ticker.on('update', elapsed => {
+        ticker.on('update', (elapsed, time) => {
             
             /**
              * Fired when an update is called, every frame update
              * @event update
              * @param {int} elasped The number of milliseconds since the last frame update
+             * @param {Number} time - Current player time
              */
-            this.emit('update', elapsed);
+            this.emit('update', elapsed, time);
         });
 
         // Handle the pause state

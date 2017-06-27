@@ -129,8 +129,9 @@ export default class Ticker extends EventEmitter
          * Frame is updated.
          * @event update
          * @param {number} elapsed - Time elapsed since last frame in milliseconds
+         * @param {number} time - Current time in micromilliseconds
          */
-        this.emit('update', elapsed);
+        this.emit('update', elapsed, now);
 
         //request the next animation frame
         this._tickId = requestAnimationFrame(this._tick);

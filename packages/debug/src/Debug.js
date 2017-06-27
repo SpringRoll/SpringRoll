@@ -608,7 +608,7 @@ export default class Debug
         {
             Debug._remoteLog(Array.prototype.slice.call(arguments), Debug.Levels.ERROR);
         }
-        else
+        else if (Debug.minLogLevel.asInt <= Debug.Levels.ERROR.asInt)
         {
             if (Debug._hasConsole)
             {
@@ -981,7 +981,14 @@ Debug.Levels = new Enum(
      * @property {int} Levels.ERROR
      * @static
      */
-    'ERROR'
+    'ERROR',
+
+    /**
+     * Hide all debug messages, including errors.
+     * @property {int} Levels.NONE
+     * @static
+     */
+    'NONE'
 );
 
 /**

@@ -18,7 +18,8 @@
     "build": "build"
   },
   "files": [
-    "lib"
+    "lib",
+    "index.js"
   ],
   "license": "MIT",
   "dependencies": {

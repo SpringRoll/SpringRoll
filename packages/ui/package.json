@@ -1,7 +1,7 @@
 {
   "name": "@springroll/ui",
   "version": "2.0.0",
-  "main": "lib/ui.min.js",
+  "main": "index.js",
   "author": "CloudKid <tools@cloudkid.com>",
   "repository": {
     "type": "git",
@@ -18,7 +18,8 @@
     "build": "build"
   },
   "files": [
-    "lib"
+    "lib",
+    "index.js"
   ],
   "license": "MIT",
   "dependencies": {

@@ -112,11 +112,6 @@ export default class ApplicationOptions extends PropertyEmitter
             {
                 value = false;
             }
-
-            // @if DEBUG
-            Debug.log(myVar[0] + " -> " + value);
-            // @endif
-
             output[myVar[0]] = value;
         }
         return output;
@@ -133,7 +128,9 @@ export default class ApplicationOptions extends PropertyEmitter
 
         if (prop && prop.value && typeof prop.value === "string")
         {
-            prop.value = document.getElementById(prop.value);
+            prop.value = /^[\#\.]/.test(prop.value) ?
+                document.querySelector(prop.value):
+                document.getElementById(prop.value);
         }
     }
 

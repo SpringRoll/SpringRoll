@@ -4,13 +4,12 @@
 const rollup = require('rollup');
 const path = require('path');
 const fs = require('fs');
-const less = require('rollup-plugin-less');
+const sass = require('rollup-plugin-sass');
 const resolve = require('rollup-plugin-node-resolve');
 const preprocess = require('rollup-plugin-preprocess').default;
-const CleanCSS = require('less-plugin-clean-css');
 const uglify = require('rollup-plugin-uglify');
 const eslint = require('rollup-plugin-eslint');
-const babel = require('rollup-plugin-babel');
+const buble = require('rollup-plugin-buble');
 const watch = require('rollup-watch');
 const rimraf = require('rimraf');
 const mkdirp = require('mkdirp');
@@ -18,13 +17,19 @@ const chalk = require('chalk');
 
 if (!process.stderr.isTTY) chalk.enabled = false;
 
+const production = process.env.NODE_ENV === 'production';
 const pkg = require(path.resolve('package'));
 const eslintConfig = require('./eslintConfig');
-const babelrc = require('./babelrc');
 const name = path.basename(pkg.name);
 const banner = `/*! ${pkg.name} - v${pkg.version} */\n`;
 const format = 'cjs';
 const entry = 'src/index.js';
+const bubleConfig = {
+    exclude: [
+        'node_modules/**',
+        '**/*.sass'
+    ]
+};
 
 // Add the dependencies to externals
 // needed to work with Lerna's internal symlinking
@@ -80,7 +85,11 @@ function onwarn(warning) {
 
 function onerror(error) {
     const errorSymbol = process.stderr.isTTY ? '🚨   ' : 'Error: ';
-    console.log(errorSymbol, chalk.bold.red(error), '\n');
+    console.log(errorSymbol, chalk.bold.red(error));
+    if (!production) {
+        console.log(chalk.gray(error.stack.replace(/^.*\n/, '')));
+    }
+    console.log();
 }
 
 function clean() {
@@ -97,6 +106,7 @@ function devWatch() {
         format,
         banner,
         external,
+        sourceMap: true,
         dest: `lib/${name}.js`,
         plugins: [
             resolve(),
@@ -111,8 +121,8 @@ function devWatch() {
                     VERSION: pkg.version
                 }
             }),
-            babel(babelrc),
-            less({
+            buble(bubleConfig),
+            sass({
                 output: `lib/${name}.css`
             })
         ]
@@ -134,10 +144,6 @@ function dev() {
         external,
         plugins: [
             resolve(),
-            eslint(Object.assign({
-                include: 'src/**/*.js',
-                fix: true
-            }, eslintConfig)),
             preprocess({
                 context: {
                     DEBUG: true,
@@ -145,14 +151,19 @@ function dev() {
                     VERSION: pkg.version
                 }
             }),
-            babel(babelrc),
-            less({
+            eslint(Object.assign({
+                include: 'src/**/*.js',
+                fix: true
+            }, eslintConfig)),
+            buble(bubleConfig),
+            sass({
                 output: `lib/${name}.css`
             })
         ],
     }).then(bundle => bundle.write({
         format,
         banner,
+        sourceMap: true,
         dest: `lib/${name}.js`
     }));
 }
@@ -171,7 +182,7 @@ function prod() {
                     VERSION: pkg.version
                 }
             }),
-            babel(babelrc),
+            buble(bubleConfig),
             uglify({
                 mangle: true,
                 compress: true,
@@ -185,16 +196,17 @@ function prod() {
                     }
                 }
             }),
-            less({
+            sass({
                 output: `lib/${name}.min.css`,
-                plugins: [new CleanCSS({
-                    advanced: true
-                })]
+                options: {
+                    outputStyle: 'compressed'
+                }
             })
         ]
     }).then(bundle => bundle.write({
         format,
         banner,
+        sourceMap: true,
         dest: `lib/${name}.min.js`
     }));
 }

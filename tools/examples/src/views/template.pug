@@ -1,0 +1,32 @@
+doctype html
+html
+  head
+    meta(charset='utf-8')
+    meta(http-equiv='X-UA-Compatible', content='IE=edge,chrome=1')
+    title
+      block title
+      |  | SpringRoll Examples
+    meta(name='description', content='#{description}')
+    meta(name='viewport', content='width=device-width')
+    link(rel='stylesheet', href='css/common.css')
+    link(rel='stylesheet' href='//fonts.googleapis.com/css?family=Titillium+Web:300')
+    block head
+  body.md
+    nav#list
+      img.logo(src='assets/images/logo.png' alt="SpringRoll Logo")
+      h1 SpringRoll Examples
+      ul
+        li: a(href='index.html') Basic
+        li: a(href='display.html') Display
+        li: a(href='tween.html') Tween
+    div#code
+      label.section-label Code
+      pre.prettyprint.linenums.lang-js
+        block code
+    div#display: #springroll-frame
+      label.section-label Preview
+      #springroll-display
+        block display
+      script(src='js/common.js')
+      block scripts
+        

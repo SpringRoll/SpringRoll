@@ -1,10 +1,12 @@
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const {DefinePlugin} = require('webpack');
 
 // const extractCSS = new ExtractTextPlugin('[name].css');
 // const extractHTML = new ExtractTextPlugin('[name].html');
 const path = require('path');
+const pkg = require('./package');
 
 const paths = {
     entries: path.join(__dirname, 'src'),
@@ -21,22 +23,7 @@ function html(name) {
     });
 }
 
-const examples = [
-    // 'asset-caching',
-    'basic',
-    // 'captions-sound',
-    // 'captions',
-    // 'color-alpha',
-    // 'cutscene',
-    // 'index',
-    // 'loader',
-    // 'max-width',
-    // 'multiple-displays',
-    // 'sound',
-    // 'states',
-    // 'tween',
-    // 'ui'
-];
+console.log('NODE_ENV', process.env.NODE_ENV);
 
 const config = {
     resolve: {
@@ -53,17 +40,28 @@ const config = {
         path: paths.output,
         filename: 'js/[name].js'
     },
+    // devtool: 'source-map',
     module: {
         rules: [
             {
                 test: /\.js$/,
                 loader: 'eslint-loader',
-                include: path.resolve('src'),
+                include: paths.entries,
                 enforce: 'pre',
                 options: {
                     failOnError: true,
                     fix: true
                 }
+            },
+            {
+                test: /\.map$/,
+                loader: 'source-map-loader',
+                enforce: 'pre'
+            },
+            {
+                test: /\.js$/,
+                loader: 'buble-loader',
+                include: paths.entries
             },
             {
                 test: /\.pug$/,
@@ -75,7 +73,6 @@ const config = {
             },
             {
                 test: /\.css$/,
-                // exclude: /node_modules/,
                 loader: ExtractTextPlugin.extract({
                     use: 'css-loader'
                 })
@@ -84,6 +81,11 @@ const config = {
     },
     plugins: [
         html('index'),
+        new DefinePlugin({
+            'process.env': {
+                'NODE_ENV': JSON.stringify(process.env.NODE_ENV)
+            }
+        }),
         new ExtractTextPlugin('css/[name].css'),
         new CopyWebpackPlugin([
             {
@@ -94,7 +96,7 @@ const config = {
     ]
 };
 
-examples.forEach(name => {
+pkg.examples.forEach(name => {
     config.entry[name] = `${paths.entries}/${name}.js`;
     config.plugins.push(html(name));
 });

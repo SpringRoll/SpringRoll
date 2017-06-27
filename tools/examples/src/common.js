@@ -1,29 +1,21 @@
+import '@springroll/debug/lib/debug.css';
+import '@springroll/display/lib/display.css';
+
 import 'code-prettify/src/prettify.css';
+import 'code-prettify/styles/sons-of-obsidian.css';
 import './styles/main.css';
 import 'code-prettify';
 
-var $ = document.querySelector.bind(document);
-var content = $('#content');
+const links = document.querySelectorAll('#list a')
 
-$('#canvas').addEventListener('click', function()
-{
-    content.className = 'canvas';
-    // window.app.paused = false;
+links.forEach(function(link) {
+    let href = document.location.href;
+    if (!/\.html$/.test(href)) {
+        href += 'index.html';
+    }
+    if (link.href === href) {
+        link.className = 'active';
+    }
 });
 
-$('#code').addEventListener('click', function()
-{
-    content.className = 'code';
-    // window.app.paused = true;
-});
-
-$('#back').addEventListener('click', function()
-{
-    document.location.href = "index.html";
-});
-
-var codeContent = content.getElementsByTagName('script')[0].innerHTML;
-var codeDisplay = $('#codeDisplay');
-codeDisplay.className = 'prettyprint';
-codeDisplay.innerHTML = codeContent.replace(/^[\n\r]+/, '');
 PR.prettyPrint();

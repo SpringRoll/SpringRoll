@@ -1,5 +1,3 @@
-import Application from '../../Application';
-
 /**
  * A class for delaying a call through the Application, instead of relying on setInterval() or
  * setTimeout().

@@ -1,201 +1,156 @@
 body, html {
     margin: 0;
     padding: 0;
-    font-family:Helvetica, sans-serif;
-    background:#bebebe;
+    font-family: 'Titillium Web', Helvetica, sans-serif;
     position: absolute;
     width: 100%;
     height: 100%;
-}
-
-.sm {
-    min-height: 432px;
-    min-width: 800px;
-}
-
-.md {
-    min-height: 532px;
-    min-width: 800px;
-}
-
-.md2 {
-    min-height: 566px;
-    min-width: 800px;
-}
-
-.lg {
-    min-height: 692px;
-    min-width: 1024px;
-}
-
-#index {
-    min-height: 452px;
-    min-width: 700px;
-}
-
-#frame {
-    position:absolute;
-    height:100%;
-    width:100%;
-    
-}
-
-#content.index {
-    background:#fff;
-    box-shadow: 0px 2px 20px 0px rgba(0,0,0,0.15);
-    padding:20px 40px;
-    line-height:1.6;
-}
-
-#content {
-    position:absolute;
-    left:50%;
-    top:50%;
-    -webkit-transform: translate(-50%, -50%);
-    -moz-transform: translate(-50%, -50%);
-    -ms-transform: translate(-50%, -50%);
-    transform: translate(-50%, -50%);
-}
-
-#content h1 {
-    font-size:150%;
-}
-
-#content nav {
-    height:30px;
-    position:absolute;
-    top:0;
-    padding:0 10px;
-    width:100%;
-    box-sizing:border-box;
-}
-
-#content nav button {
-    border:1px solid #999;
-    background:#ccc;
-    padding:6px 10px;
-    border-radius: 4px;
-    border-bottom-left-radius: 0;
-    border-bottom-right-radius: 0;
-    border-bottom:0;
-    font-size:90%;
-    outline:0;
-    color:#666;
-}
-#content nav button:hover {
-    background:#ddd;
-    border-color: #666;
-    color:#333;
-}
-#content.code nav #code,
-#content.canvas nav #canvas {
-    background:#fff;
-    border-color: #fff;
-    color:#333;
-}
-
-#content.canvas canvas {
-    opacity:1;
-    box-shadow: 0px 2px 20px 0px rgba(0,0,0,0.15);
-}
-#content.code canvas {
-    opacity:0;
-}
-
-#content.code #codeDisplay {
-    display:block;
-    position: absolute;
-    top: 30px;
-    padding: 0;
-    margin: 0;
-    border: 0;
-    background: #fff;
-    width: 100%;
-    padding: 20px;
-    box-sizing: border-box;
-    bottom:0;
-    overflow: auto;
-    -moz-tab-size: 4;
-    -o-tab-size: 4;
-    -webkit-tab-size: 4;
-    tab-size: 4;
-}
-#content.canvas #codeDisplay {
-    display:none;
-}
-
-#content nav #back {
-    float:right;
-}
-
-#content canvas {
-    margin-top:30px;
-    background:#fff;
+    color: #a3b1bb;
+    font-weight: 300;
+    background-color: #e2e6e9;
+    font-size: 14px;
 }
 
 a {
-    color:#0080FF;
+    cursor: pointer;
+    text-decoration: none;
+    color: #06aad4;
 }
 a:hover {
-    color:#084B8A;
-    text-decoration: none;
+    color: #a3b1bb;
 }
 
-#framerate {
-    position:absolute;
-    right:0;
-    top:30px;
-    padding:5px;
-    color:#fff;
-    background:rgba(0,0,0,0.5);
-    font-family:"Lucida Console",Monaco,monospace;
-    font-size:12px;
-    z-index:1;
-    overflow: hidden;
+.logo {
+    display: block;
+    margin:0 auto 20px;
+    width:100px;
 }
 
-#stageContainer {
+#display {
+    background-color:#000;
+    border-top:2px solid #e2e6e9;
     position:absolute;
-    top:30px;
-    left:0;
+    top:50%;
+    left:240px;
     right:0;
     bottom:0;
-    background-color: #999;
-    background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
-    background-size: 40px 40px;
-}
-.fullscreen #content {
-    top:20px;
-    left:20px;
-    bottom:20px;
-    right:20px;
-    -webkit-transform:none;
-    -moz-transform:none;
-    -ms-transform:none;
-    transform:none;
-    margin:0;
-
-    /** Important to not get flickering on resize */
     overflow: hidden;
 }
-.fullscreen #content canvas{
-    margin:0;
-    position:absolute;
-    left:50%;
-    top:50%;
-    -webkit-transform: translate(-50%, -50%);
-    -moz-transform: translate(-50%, -50%);
-    -ms-transform: translate(-50%, -50%);
-    transform: translate(-50%, -50%);
-    background:transparent;
+
+.no-display {
+    font-size: 150%;
 }
 
-#captions {
-    position: absolute;
-    top: 40px;
-    width: 100%;
+#list {
+    position:absolute;
+    top:0;
+    width:240px;
+    left:0;
+    bottom:0;
+    overflow: auto;
+    padding:10px;
+    z-index: 1;
+    box-sizing: border-box;
+    background: #ffffff;
+    background: -moz-linear-gradient(top, #ffffff 0%, #e2e6e9 100px);
+    background: -webkit-linear-gradient(top, #ffffff 0%,#e2e6e9 100px);
+    background: linear-gradient(to bottom, #ffffff 0%,#e2e6e9 100px);
+}
+
+.section-label {
+    position:absolute;
+    top:0;
+    right:10px;
+    font-size:14px;
+    padding:8px 16px;
+    background:rgba(128, 128, 128, 0.5);
+    color:#fff;
+    border-bottom-right-radius: 6px;
+    border-bottom-left-radius: 6px;
+    z-index: 100;
+}
+
+#list h1 {
+    padding:0;
+    margin:0 0 20px;
+    letter-spacing: -0.05em;
+    color:#a3b1bb;
     text-align: center;
-    font-size: 150%;
-    pointer-events: none;
-    -webkit-user-select:none;
+    font-family: 'Titillium Web',sans-serif;
+    font-weight: 300;
+    font-size: 180%;
+}
+
+#list ul {
+    list-style: none;
+    margin:0;
+    padding:0;
+}
+#list a {
+    font-size:16px;
+    display:block;
+    padding:6px;
+}
+#list a.active {
+    background-color:#fff;
+    border-radius: 4px;
+    color: #a3b1bb;
+}
+
+#code {
+    position:absolute;
+    top:0;
+    left:240px;
+    right:0;
+    bottom:50%;
+    background-color:#000;
+    padding:10px;
+    overflow: auto;
+    font-size: 14px;
+    line-height: 1.4;
+}
+
+#code pre {
+    margin:0;
+    border:0;
+}
+
+::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+
+::-webkit-scrollbar-button {
+  width: 0px;
+  height: 0px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #e1e1e1;
+  border-radius: 0;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #999;
+}
+
+::-webkit-scrollbar-thumb:active {
+  background: #000000;
+}
+
+::-webkit-scrollbar-track {
+  background: #000000;
+  border-radius: 0;
+}
+
+::-webkit-scrollbar-track:hover {
+  background: #666666;
+}
+
+::-webkit-scrollbar-track:active {
+  background: #333333;
+}
+
+::-webkit-scrollbar-corner {
+  background: transparent;
 }

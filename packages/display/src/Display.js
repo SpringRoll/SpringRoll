@@ -1,4 +1,5 @@
 import DisplayAdapter from './DisplayAdapter';
+import {EventEmitter} from '@springroll/core';
 
 /**
  * Display is a display plugin for the springroll Framework
@@ -6,41 +7,32 @@ import DisplayAdapter from './DisplayAdapter';
  *
  * @class Display
  * @constructor
- * @param {String} id The id of the canvas element on the page to draw to.
- * @param {Object} options The setup data for the Pixi stage.
+ * @param {Object} [options] Include all renderer option for PIXI renderers. See
+ *        http://pixijs.download/release/docs/PIXI.html#.autoDetectRenderer for more info.
  * @param {String} [options.forceContext=null] If a specific renderer should be used instead
- *                                             of WebGL falling back to Canvas. Use "webgl" or
- *                                             "canvas2d" to specify a renderer.
- * @param {Boolean} [options.clearView=false] If the canvas should be wiped between renders.
- * @param {uint} [options.backgroundColor=0x000000] The background color of the stage (if
- *                                                  it is not transparent).
- * @param {Boolean} [options.transparent=false] If the stage should be transparent.
- * @param {Boolean} [options.antiAlias=false] If the WebGL renderer should use anti-aliasing.
- * @param {Boolean} [options.preMultAlpha=false] If the WebGL renderer should draw with all
- *                                               images as pre-multiplied alpha. In most
- *                                               cases, you probably do not want to set this
- *                                               option to true.
- * @param {Boolean} [options.preserveDrawingBuffer=false] Set this to true if you want to call
- *                                                        toDataUrl on the WebGL rendering
- *                                                        context.
- * @param {Boolean} [options.autoPreventDefault=true] If preventDefault() should be called on
- *                                                    all touch events and mousedown events.
+ *        of WebGL falling back to Canvas. Use "webgl" or "canvas2d" to specify a renderer.
+ * @param {Boolean} [options.autoPreventDefault=true] `true` to call preventDefault() on
+ *        all touch events and mousedown events.
  */
-export default class Display extends EventDispatcher
+export default class Display extends EventEmitter
 {
     constructor(id, options)
     {
         super();
 
-        options = options || {};
+        options = Object.assign({
+            forceContext: null, // force context 
+            autoPreventDefault: true, // specific to springroll
+            width: 800,
+            height: 600
+        }, options || {});
 
-        /**
-         * the canvas managed by this display
-         * @property {DOMElement} canvas
-         * @readOnly
-         * @public
-         */
-        this.canvas = document.getElementById(id);
+        const container = document.getElementById(id);
+
+        if (!container)
+        {
+            throw `No <div> element found matching id "${id}"`;
+        }
 
         /**
          * The DOM id for the canvas
@@ -52,21 +44,21 @@ export default class Display extends EventDispatcher
 
         /**
          * Convenience method for getting the width of the canvas element
-         * would be the same thing as canvas.width
+         * would be the same thing as view.width
          * @property {int} width
          * @readOnly
          * @public
          */
-        this.width = this.canvas.width;
+        this.width = options.width;
 
         /**
          * Convenience method for getting the height of the canvas element
-         * would be the same thing as canvas.height
+         * would be the same thing as view.height
          * @property {int} height
          * @readOnly
          * @public
          */
-        this.height = this.canvas.height;
+        this.height = options.height;
 
         /**
          * The main rendering context or the root display object or stage.
@@ -96,14 +88,7 @@ export default class Display extends EventDispatcher
          * @property {Boolean} _visible
          * @private
          */
-        this._visible = this.canvas.style.display !== "none";
-
-        /**
-         * If the display should keep mouse move events running when the display is disabled.
-         * @property {Boolean} keepMouseover
-         * @public
-         */
-        this.keepMouseover = options.keepMouseover || false;
+        this._visible = true;
 
         /**
          * If preventDefault() should be called on all touch events and mousedown events. Defaults
@@ -111,8 +96,7 @@ export default class Display extends EventDispatcher
          * @property {Boolean} _autoPreventDefault
          * @private
          */
-        this._autoPreventDefault = options.autoPreventDefault !== undefined ?
-            options.autoPreventDefault : true;
+        this._autoPreventDefault = options.autoPreventDefault;
 
         /**
          * The rendering library's stage element, the root display object
@@ -123,6 +107,13 @@ export default class Display extends EventDispatcher
         this.stage = new PIXI.Container();
 
         /**
+         * Normalizes the interactions with the PIXI renderer
+         * @property {springroll.DisplayAdapter}
+         * @readonly
+         */
+        this.adapter = DisplayAdapter;
+
+        /**
          * The Pixi renderer.
          * @property {PIXI.CanvasRenderer|PIXI.WebGLRenderer} renderer
          * @readOnly
@@ -130,49 +121,41 @@ export default class Display extends EventDispatcher
          */
         this.renderer = null;
 
-        //make the renderer
-        var rendererOptions = {
-            view: this.canvas,
-            transparent: !!options.transparent,
-            antialias: !!options.antiAlias,
-            preserveDrawingBuffer: !!options.preserveDrawingBuffer,
-            clearBeforeRender: !!options.clearView,
-            backgroundColor: options.backgroundColor || 0,
-            // this defaults to false, but we never want it to auto resize.
-            autoResize: false
-        };
-
-        var preMultAlpha = !!options.preMultAlpha;
-
-        if (rendererOptions.transparent && !preMultAlpha)
-        {
-            rendererOptions.transparent = "notMultiplied";
-        }
-
         //check for IE11 because it tends to have WebGL problems (especially older versions)
         //if we find it, then make Pixi use to the canvas renderer instead
-        if (options.forceContext !== "webgl")
+        if (navigator.userAgent.indexOf('Trident/7.0') > -1)
         {
-            var ua = window.navigator.userAgent;
-
-            if (ua.indexOf("Trident/7.0") > 0)
-            {
-                options.forceContext = "canvas2d";
-            }
+            options.forceContext = 'canvas2d';
         }
 
-        if (options.forceContext === "canvas2d")
+        if (options.forceContext === 'canvas2d')
         {
-            this.renderer = new PIXI.CanvasRenderer(this.width, this.height, rendererOptions);
+            this.renderer = new PIXI.CanvasRenderer(
+                this.width, 
+                this.height,
+                options
+            );
         }
-        else if (options.forceContext === "webgl")
+        else if (options.forceContext === 'webgl')
         {
-            this.renderer = new PIXI.WebGLRenderer(this.width, this.height, rendererOptions);
+            this.renderer = new PIXI.WebGLRenderer(
+                this.width, 
+                this.height,
+                options
+            );
         }
         else
         {
-            this.renderer = PIXI.autoDetectRenderer(this.width, this.height, rendererOptions);
+            this.renderer = PIXI.autoDetectRenderer(
+                this.width, 
+                this.height,
+                options
+            );
         }
+
+        // View should be created by the renderer here
+        // especially if it's not passed in through the options
+        container.appendChild(this.view);
 
         /**
          * If Pixi is being rendered with WebGL.
@@ -181,9 +164,6 @@ export default class Display extends EventDispatcher
          * @public
          */
         this.isWebGL = this.renderer instanceof PIXI.WebGLRenderer;
-
-        // Set display adapter classes
-        this.adapter = DisplayAdapter;
 
         // Initialize the autoPreventDefault
         this.autoPreventDefault = this._autoPreventDefault;
@@ -203,49 +183,28 @@ export default class Display extends EventDispatcher
         var oldEnabled = this._enabled;
         this._enabled = value;
 
-        if (oldEnabled !== value)
+        if (oldEnabled === value)
         {
-            var interactionManager = this.renderer.plugins.interaction;
-
-            if (interactionManager)
-            {
-                if (value)
-                {
-                    //add events to the interaction manager's target
-                    interactionManager.setTargetElement(this.canvas);
-                }
-                else
-                {
-                    //remove event listeners
-                    if (this.keepMouseover)
-                    {
-                        interactionManager.removeClickEvents();
-                    }
-                    else
-                    {
-                        interactionManager.removeEvents();
-                    }
-                }
-            }
-
-            /**
-             * If the display becomes enabled
-             * @event enabled
-             */
-
-            /**
-             * If the display becomes disabled
-             * @event disabled
-             */
-            this.trigger(value ? 'enabled' : 'disabled');
-
-            /**
-             * Enabled state changed on the display
-             * @event enable
-             * @param {Boolean} enabled Current state of enabled
-             */
-            this.trigger('enable', value);
+            return;
         }
+
+        /**
+         * If the display becomes enabled
+         * @event enabled
+         */
+
+        /**
+         * If the display becomes disabled
+         * @event disabled
+         */
+        this.emit(value ? 'enabled' : 'disabled');
+
+        /**
+         * Enabled state changed on the display
+         * @event enable
+         * @param {Boolean} enabled Current state of enabled
+         */
+        this.emit('enable', value);
     }
 
     /**
@@ -261,7 +220,8 @@ export default class Display extends EventDispatcher
     set autoPreventDefault(value)
     {
         this._autoPreventDefault = !!value;
-        var interactionManager = this.renderer.plugins.interaction;
+
+        const interactionManager = this.renderer.plugins.interaction;
 
         if (interactionManager)
         {
@@ -277,8 +237,9 @@ export default class Display extends EventDispatcher
      */
     resize(width, height)
     {
-        this.width = this.canvas.width = width;
-        this.height = this.canvas.height = height;
+        this.width = this.view.width = width;
+        this.height = this.view.height = height;
+
         this.renderer.resize(width, height);
     }
 
@@ -289,7 +250,7 @@ export default class Display extends EventDispatcher
      * @param {int} elapsed
      * @param {Boolean} [force=false] Will re-render even if the game is paused or not visible
      */
-    render(elapsed, force)
+    render(elapsed, force = false)
     {
         if (force || (!this.paused && this._visible))
         {
@@ -308,28 +269,29 @@ export default class Display extends EventDispatcher
         this.stage = null;
 
         this.enabled = false;
-        this.adapter = null;
-        this.stage = null;
-
-        if (this.canvas.parentNode)
-        {
-            this.canvas.parentNode.removeChild(this.canvas);
-        }
-
-        this.canvas.onmousedown = null;
-        this.canvas = null;
+        this.view = null;
 
         super.destroy();
 
-        this.renderer.destroy();
+        this.renderer.destroy(true);
         this.renderer = null;
+    }
+
+    /**
+     * Canvas element which renders the display.
+     * @property {HTMLCanvasElement} view
+     * @readonly
+     */
+    get view()
+    {
+        return this.renderer.view;
     }
 
     /**
      * If the display is visible, using "display: none" css on the canvas. Invisible displays won't render.
      * @property {Boolean} visible
      * @public
- */
+     */
     get visible()
     {
         return this._visible;
@@ -339,27 +301,28 @@ export default class Display extends EventDispatcher
     {
         var oldVisible = this._visible;
         this._visible = value;
-        this.canvas.style.display = value ? "block" : "none";
+        this.view.style.display = value ? 'block' : 'none';
 
-        if (oldVisible !== value)
+        if (oldVisible === value)
         {
-            /**
-             * If the display becomes visible
-             * @event visible
-             */
-
-            /**
-             * If the display becomes hidden
-             * @event hidden
-             */
-            this.trigger(value ? 'visible' : 'hidden');
-
-            /**
-             * Visibility changed on the display
-             * @event visibility
-             * @param {Boolean} visible Current state of the visibility
-             */
-            this.trigger('visibility', value);
+            return
         }
+        /**
+         * If the display becomes visible
+         * @event visible
+         */
+
+        /**
+         * If the display becomes hidden
+         * @event hidden
+         */
+        this.emit(value ? 'visible' : 'hidden');
+
+        /**
+         * Visibility changed on the display
+         * @event visibility
+         * @param {Boolean} visible Current state of the visibility
+         */
+        this.emit('visibility', value);
     }
 }

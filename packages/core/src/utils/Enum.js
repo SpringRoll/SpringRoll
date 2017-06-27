@@ -1,12 +1,3 @@
-// @if DEBUG
-import {Debug} from '@springroll/debug';
-// @endif
-
-/**
-* @module Core
-* @namespace springroll
-*/
-
 /**
  * An enumeration value. This class is private, and is only used by Enum.
  * @class EnumValue
@@ -142,8 +133,7 @@ export default class Enum
             if (this[name])
             {
                 // @if DEBUG
-                Debug.error("Error creating enum value " + name + ": " + value +
-                    " - an enum value already exists with that name.");
+                throw `Error creating enum value ${name}: ${value} - an enum value already exists with that name.`;
                 // @endif
                 continue;
             }
