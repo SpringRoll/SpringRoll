@@ -11,20 +11,6 @@ export default class ApplicationOptions extends PropertyEmitter {
         super();
 
         /**
-         * The user input options
-         * @property {Object} _options
-         * @private
-         */
-        this._options = options || {};
-
-        /**
-         * Reference to the application
-         * @property {springroll.Application} _app
-         * @private
-         */
-        this._app = app;
-
-        /**
          * Use the query string parameters for options overrides
          * @property {Boolean} options.useQueryString
          * @default false
@@ -33,14 +19,23 @@ export default class ApplicationOptions extends PropertyEmitter {
         // @if DEBUG
         useQueryString = true;
         // @endif
-        this.add('useQueryString', useQueryString, true);
 
         /**
-         * The name of the application
-         * @property {String} options.name
-         * @default ''
+         * The user input options
+         * @property {Object} _options
+         * @private
          */
-        this.add('name', '', true);
+        this._options = Object.assign({
+            useQueryString,
+            name: ''
+        }, options);
+
+        /**
+         * Reference to the application
+         * @property {springroll.Application} _app
+         * @private
+         */
+        this._app = app;
     }
 
     /**
@@ -48,10 +43,8 @@ export default class ApplicationOptions extends PropertyEmitter {
      * @method init
      */
     init() {
-        let options = this._options;
 
-        // Create the options overrides
-        options = Object.assign({}, options);
+        const options = this._options;
 
         // If parse querystring is turned on, we'll
         // override with any of the query string parameters

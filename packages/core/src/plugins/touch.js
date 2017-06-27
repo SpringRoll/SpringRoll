@@ -1,7 +1,4 @@
-import {ApplicationPlugin} from '@springroll/core';
-// @if DEBUG
-import {DebugOptions} from '@springroll/debug';
-// @endif
+import ApplicationPlugin from '../ApplicationPlugin';
 
 (function(window) {
     /**
@@ -32,22 +29,6 @@ import {DebugOptions} from '@springroll/debug';
         this.hasTouch = !!(('ontouchstart' in window) || // iOS & Android
             (navigator.msPointerEnabled && navigator.msMaxTouchPoints > 0) || // IE10
             (navigator.pointerEnabled && navigator.maxTouchPoints > 0)); // IE11+
-
-        // @if DEBUG
-        /**
-         * Manually override the check for hasTouch (unminifed library version only)
-         * @property {Boolean} options.forceTouch
-         * @default false
-         */
-        this.options.add('forceTouch', false)
-            .on('forceTouch', value => {
-                if (value === 'true' || value === true) {
-                    this.hasTouch = true;
-                }
-            });
-
-        DebugOptions.boolean('forceTouch', 'Force hasTouch to true');        
-        // @endif
     };
 
     // Add common filteres interaction
