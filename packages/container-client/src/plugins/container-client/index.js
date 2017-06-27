@@ -1,5 +1,4 @@
 import {ApplicationPlugin, PageVisibility} from '@springroll/core';
-import UserData from './UserData';
 import Bellhop from 'bellhop-iframe';
 
 (function(undefined)
@@ -7,7 +6,7 @@ import Bellhop from 'bellhop-iframe';
     /**
      * @class Application
      */
-    var plugin = new ApplicationPlugin(200);
+    var plugin = new ApplicationPlugin('container-client');
 
     // Init the animator
     plugin.setup = function()
@@ -21,14 +20,6 @@ import Bellhop from 'bellhop-iframe';
          */
         var container = this.container = new Bellhop();
         container.connect();
-
-        /**
-         * The API for saving user data, default is to save
-         * data to the container, if not connected, it will
-         * save user data to local cookies
-         * @property {springroll.UserData} userData
-         */
-        this.userData = new UserData(container);
 
         /**
          * This option tells the container to always keep focus on the iframe even
@@ -177,21 +168,6 @@ import Bellhop from 'bellhop-iframe';
     // Check for application name
     plugin.preload = function(done)
     {
-        if (!this.name)
-        {
-            // @if DEBUG
-            throw 'Application name is empty, please add a Application option of \'name\'';
-            // @endif
-
-            // @if RELEASE
-            // eslint-disable-next-line
-            throw 'Application name is empty';
-            // @endif
-        }
-
-        // Connect the user data to container
-        this.userData.id = this.name;
-
         // Merge the container options with the current
         // application options
         if (this.container.supported)
@@ -347,12 +323,6 @@ import Bellhop from 'bellhop-iframe';
         {
             this._pageVisibility.destroy();
             this._pageVisibility = null;
-        }
-
-        if (this.userData)
-        {
-            this.userData.destroy();
-            this.userData = null;
         }
 
         // Send the end application event to the container

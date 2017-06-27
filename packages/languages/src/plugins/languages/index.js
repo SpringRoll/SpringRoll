@@ -1,5 +1,5 @@
 import {ApplicationPlugin} from '@springroll/core';
-import Languages from './Languages';
+import Languages from '../../Languages';
 // @if DEBUG
 import {Debug} from '@springroll/debug';
 // @endif
@@ -9,7 +9,7 @@ import {Debug} from '@springroll/debug';
     /**
      * @class Application
      */
-    const plugin = new ApplicationPlugin(95);
+    const plugin = new ApplicationPlugin('languages');
 
     // Init the animator
     plugin.setup = function()
