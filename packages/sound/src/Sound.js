@@ -18,10 +18,8 @@ const BrowserDetect = include('createjs.BrowserDetect');
  * @class Sound
  * @extends springroll.EventEmitter
  */
-export default class Sound extends EventEmitter
-{
-    constructor()
-    {
+export default class Sound extends EventEmitter {
+    constructor() {
         super();
 
         /**
@@ -96,21 +94,19 @@ export default class Sound extends EventEmitter
      * (or already has been fired).
      * @event systemUnmuted
      */
-    static _fixAudioContext()
-    {
-        var activePlugin = SoundJS.activePlugin;
+    static _fixAudioContext() {
+        let activePlugin = SoundJS.activePlugin;
         //save audio data
-        var _audioSources = activePlugin._audioSources;
-        var _soundInstances = activePlugin._soundInstances;
-        var _loaders = activePlugin._loaders;
+        let _audioSources = activePlugin._audioSources;
+        let _soundInstances = activePlugin._soundInstances;
+        let _loaders = activePlugin._loaders;
 
         //close old context
-        if (WebAudioPlugin.context.close)
-        {
+        if (WebAudioPlugin.context.close) {
             WebAudioPlugin.context.close();
         }
 
-        var AudioContext = window.AudioContext || window.webkitAudioContext;
+        let AudioContext = window.AudioContext || window.webkitAudioContext;
         // Reset context
         WebAudioPlugin.context = new AudioContext();
 
@@ -127,12 +123,10 @@ export default class Sound extends EventEmitter
         //faster to go through SoundJS's stuff, as well as catching any cases where a
         //naughty person went over springroll.Sound's head and played audio through SoundJS
         //directly
-        for (var url in _soundInstances)
-        {
-            var instances = _soundInstances[url];
-            for (var i = 0; i < instances.length; ++i)
-            {
-                var instance = instances[i];
+        for (let url in _soundInstances) {
+            let instances = _soundInstances[url];
+            for (let i = 0; i < instances.length; ++i) {
+                let instance = instances[i];
                 //clean up old nodes
                 instance.panNode.disconnect(0);
                 instance.gainNode.disconnect(0);
@@ -143,8 +137,7 @@ export default class Sound extends EventEmitter
                 instance.panNode.connect(instance.gainNode);
                 instance._updatePan();
                 //double check that the position is a valid thing
-                if (instance._position < 0 || instance._position === undefined)
-                {
+                if (instance._position < 0 || instance._position === undefined) {
                     instance._position = 0;
                 }
             }
@@ -166,19 +159,17 @@ export default class Sound extends EventEmitter
      * @param {Function} [options.ready] A function to call when initialization is complete.
      * @return {Sound} The new instance of the sound object
      */
-    static init(options, readyCallback)
-    {
-        var appOptions = Application.instance.options;
+    static init(options, readyCallback) {
+        let appOptions = Application.instance.options;
 
         //First argument is function
-        if (typeof options === 'function')
-        {
+        if (typeof options === 'function') {
             options = {
                 ready: options
             };
         }
 
-        var defaultOptions = {
+        let defaultOptions = {
             plugins: FlashAudioPlugin ? [WebAudioPlugin, FlashAudioPlugin] : [WebAudioPlugin],
             types: ['ogg', 'mp3'],
             swfPath: 'assets/swfs/',
@@ -187,26 +178,21 @@ export default class Sound extends EventEmitter
 
         options = Object.assign({}, defaultOptions, options);
 
-        if (appOptions.forceFlashAudio)
-        {
+        if (appOptions.forceFlashAudio) {
             options.plugins = [FlashAudioPlugin];
         }
 
-        if (CordovaAudioPlugin && (appOptions.forceNativeAudio || options.plugins.indexOf(CordovaAudioPlugin) >= 0))
-        {
+        if (CordovaAudioPlugin && (appOptions.forceNativeAudio || options.plugins.indexOf(CordovaAudioPlugin) >= 0)) {
             // Security CORS error can be thrown when attempting to access window.top, wrapping the check in a try/catch block to prevent
             // the game from crashing where there is no CORS policy setup.
-            try
-            {
-                var forceNativeAudio = (window.top) ? window.top.springroll.forceNativeAudio : window.springroll.forceNativeAudio;
+            try {
+                let forceNativeAudio = (window.top) ? window.top.springroll.forceNativeAudio : window.springroll.forceNativeAudio;
 
-                if (forceNativeAudio)
-                {
+                if (forceNativeAudio) {
                     options.plugins = [CordovaAudioPlugin];
                 }
             }
-            catch (e)
-            {
+            catch (e) {
                 // @if DEBUG
                 Debug.error('springroll.Sound.init cannot access window.top. Check for cross-origin permissions.');
                 // @endif
@@ -217,15 +203,13 @@ export default class Sound extends EventEmitter
         //this is deprecated
         options.ready = options.ready || readyCallback;
 
-        if (!options.ready)
-        {
+        if (!options.ready) {
             throw 'springroll.Sound.init requires a ready callback';
         }
 
-        if (FlashAudioPlugin)
-        {
+        if (FlashAudioPlugin) {
             //Apply the base path if available
-            var basePath = appOptions.basePath;
+            let basePath = appOptions.basePath;
             FlashAudioPlugin.swfPath = (basePath || '') + options.swfPath;
         }
 
@@ -236,14 +220,12 @@ export default class Sound extends EventEmitter
         //We cannot use touchstart in iOS 9.0 - http://www.holovaty.com/writing/ios9-web-audio/
         if (BrowserDetect.isIOS &&
             SoundJS.activePlugin instanceof WebAudioPlugin &&
-            SoundJS.activePlugin.context.state !== 'running')
-        {
+            SoundJS.activePlugin.context.state !== 'running') {
             document.addEventListener('touchstart', Sound._playEmpty);
             document.addEventListener('touchend', Sound._playEmpty);
             document.addEventListener('mousedown', Sound._playEmpty);
         }
-        else
-        {
+        else {
             this.systemMuted = false;
         }
 
@@ -251,43 +233,35 @@ export default class Sound extends EventEmitter
         Sound._instance = new Sound();
 
         //make sure the capabilities are ready (looking at you, Cordova plugin)
-        if (SoundJS.getCapabilities())
-        {
+        if (SoundJS.getCapabilities()) {
             Sound._instance._initComplete(options.types, options.ready);
         }
-        else if (SoundJS.activePlugin)
-        {
+        else if (SoundJS.activePlugin) {
             // @if DEBUG
             Debug.log('SoundJS Plugin ' + SoundJS.activePlugin + ' was not ready, waiting until it is');
             // @endif
 
             //if the sound plugin is not ready, then just wait until it is
-            var waitFunction;
+            let waitFunction;
 
-            waitFunction = function()
-            {
+            waitFunction = function() {
                 // Security CORS error can be thrown when attempting to access window.top, wrapping the check in a try/catch block to prevent
                 // the game from crashing where there is no CORS policy setup.
-                try
-                {
-                    var NativeAudio = window.plugins.NativeAudio || window.top.plugins.NativeAudio || null;
+                try {
+                    let NativeAudio = window.plugins.NativeAudio || window.top.plugins.NativeAudio || null;
 
-                    if (NativeAudio)
-                    {
-                        NativeAudio.getCapabilities(function()
-                        {
+                    if (NativeAudio) {
+                        NativeAudio.getCapabilities(function() {
                             Application.instance.off('update', waitFunction);
                             Sound._instance._initComplete(options.types, options.ready);
-                        }, function()
-                        {
+                        }, function() {
                             // @if DEBUG
                             Debug.error('Unable to get capabilities from Cordova Native Audio Plugin');
                             // @endif
                         });
                     }
                 }
-                catch (e)
-                {
+                catch (e) {
                     // @if DEBUG
                     Debug.error('Cannot access window.top. Check for cross-origin permissions.');
                     // @endif
@@ -296,14 +270,12 @@ export default class Sound extends EventEmitter
 
             Application.instance.on('update', waitFunction);
         }
-        else
-        {
+        else {
             // @if DEBUG
             Debug.error('Unable to initialize SoundJS with a plugin!');
             // @endif
             Sound._instance.isSupported = false;
-            if (options.ready)
-            {
+            if (options.ready) {
                 options.ready();
             }
         }
@@ -316,14 +288,11 @@ export default class Sound extends EventEmitter
      * @private
      * @method _playEmpty
      */
-    static _playEmpty(ev)
-    {
+    static _playEmpty(ev) {
         WebAudioPlugin.playEmptySound();
         if (WebAudioPlugin.context.state === 'running' ||
-            WebAudioPlugin.context.state === undefined)
-        {
-            if (Sound._instance.preventDefaultOnUnmute)
-            {
+            WebAudioPlugin.context.state === undefined) {
+            if (Sound._instance.preventDefaultOnUnmute) {
                 ev.preventDefault();
             }
 
@@ -343,20 +312,15 @@ export default class Sound extends EventEmitter
      * @param {Array} filetypeOrder The list of files types
      * @param {Function} callback The callback function
      */
-    _initComplete(filetypeOrder, callback)
-    {
-        if (FlashAudioPlugin && SoundJS.activePlugin instanceof FlashAudioPlugin)
-        {
+    _initComplete(filetypeOrder, callback) {
+        if (FlashAudioPlugin && SoundJS.activePlugin instanceof FlashAudioPlugin) {
             Sound._instance.supportedSound = '.mp3';
         }
-        else
-        {
-            var type;
-            for (var i = 0, len = filetypeOrder.length; i < len; ++i)
-            {
+        else {
+            let type;
+            for (let i = 0, len = filetypeOrder.length; i < len; ++i) {
                 type = filetypeOrder[i];
-                if (SoundJS.getCapability(type))
-                {
+                if (SoundJS.getCapability(type)) {
                     Sound._instance.supportedSound = '.' + type;
                     break;
                 }
@@ -369,14 +333,12 @@ export default class Sound extends EventEmitter
             SoundJS.activePlugin instanceof WebAudioPlugin &&
             !(navigator.userAgent.indexOf('Gecko') > -1 &&
                 navigator.userAgent.indexOf('Firefox') > -1);
-        if (this._fixAndroidAudio)
-        {
+        if (this._fixAndroidAudio) {
             this._numPlayingAudio = 0;
             this._lastAudioTime = Date.now();
         }
 
-        if (callback)
-        {
+        if (callback) {
             callback();
         }
     }
@@ -387,8 +349,7 @@ export default class Sound extends EventEmitter
      * @public
      * @static
      */
-    get instance()
-    {
+    get instance() {
         return Sound._instance;
     }
 
@@ -414,27 +375,23 @@ export default class Sound extends EventEmitter
      * @param {Boolean} [config.sounds.listItem.preload] If the sound should be preloaded immediately.
      * @return {Sound} The sound object for chaining
      */
-    addContext(config)
-    {
-        if (!config)
-        {
+    addContext(config) {
+        if (!config) {
             // @if DEBUG
             Debug.warn('Warning - springroll.Sound was told to load a null config');
             // @endif
             return;
         }
-        var list = config.soundManifest || config.sounds || [];
-        var path = config.path || '';
-        var preloadAll = config.preload === true || false;
-        var defaultContext = config.context;
+        let list = config.soundManifest || config.sounds || [];
+        let path = config.path || '';
+        let preloadAll = config.preload === true || false;
+        let defaultContext = config.context;
 
-        var s;
-        var temp = {};
-        for (var i = 0, len = list.length; i < len; ++i)
-        {
+        let s;
+        let temp = {};
+        for (let i = 0, len = list.length; i < len; ++i) {
             s = list[i];
-            if (typeof s === 'string')
-            {
+            if (typeof s === 'string') {
                 s = {
                     id: s
                 };
@@ -453,17 +410,14 @@ export default class Sound extends EventEmitter
                 data: s, //save data for potential use by SoundJS plugins
                 duration: 0
             };
-            if (temp.context)
-            {
-                if (!this._contexts[temp.context])
-                {
+            if (temp.context) {
+                if (!this._contexts[temp.context]) {
                     this._contexts[temp.context] = new SoundContext(temp.context);
                 }
                 this._contexts[temp.context].sounds.push(temp);
             }
             //preload the sound for immediate-ish use
-            if (preloadAll || s.preload === true)
-            {
+            if (preloadAll || s.preload === true) {
                 this.preload(temp.id);
             }
         }
@@ -482,28 +436,21 @@ export default class Sound extends EventEmitter
      *                                  sub-context, or an array of ids.
      * @return {Boolean} true if the sound exists, false otherwise.
      */
-    linkContexts(parent, subContext)
-    {
-        if (!this._contexts[parent])
-        {
+    linkContexts(parent, subContext) {
+        if (!this._contexts[parent]) {
             this._contexts[parent] = new SoundContext(parent);
         }
         parent = this._contexts[parent];
 
-        if (Array.isArray(subContext))
-        {
-            for (var i = 0; i < subContext.length; ++i)
-            {
-                if (parent.subContexts.indexOf(subContext[i]) < 0)
-                {
+        if (Array.isArray(subContext)) {
+            for (let i = 0; i < subContext.length; ++i) {
+                if (parent.subContexts.indexOf(subContext[i]) < 0) {
                     parent.subContexts.push(subContext[i]);
                 }
             }
         }
-        else
-        {
-            if (parent.subContexts.indexOf(subContext) < 0)
-            {
+        else {
+            if (parent.subContexts.indexOf(subContext) < 0) {
                 parent.subContexts.push(subContext);
             }
         }
@@ -516,8 +463,7 @@ export default class Sound extends EventEmitter
      * @param {String} alias The alias of the sound to look for.
      * @return {Boolean} true if the sound exists, false otherwise.
      */
-    exists(alias)
-    {
+    exists(alias) {
         return !!this._sounds[alias];
     }
 
@@ -528,8 +474,7 @@ export default class Sound extends EventEmitter
      * @param {String} context The name of context to look for.
      * @return {Boolean} true if the context exists, false otherwise.
      */
-    contextExists(context)
-    {
+    contextExists(context) {
         return !!this._contexts[context];
     }
 
@@ -540,8 +485,7 @@ export default class Sound extends EventEmitter
      * @param {String} alias The alias of the sound to look for.
      * @return {Boolean} true if the sound is unloaded, false if it is loaded, loading, or does not exist.
      */
-    isUnloaded(alias)
-    {
+    isUnloaded(alias) {
         return this._sounds[alias] ? this._sounds[alias].loadState === Sound.LoadStates.unloaded : false;
     }
 
@@ -552,8 +496,7 @@ export default class Sound extends EventEmitter
      * @param {String} alias The alias of the sound to look for.
      * @return {Boolean} true if the sound is loaded, false if it is not loaded or does not exist.
      */
-    isLoaded(alias)
-    {
+    isLoaded(alias) {
         return this._sounds[alias] ? this._sounds[alias].loadState === Sound.LoadStates.loaded : false;
     }
 
@@ -565,8 +508,7 @@ export default class Sound extends EventEmitter
      * @return {Boolean} A value of true if the sound is currently loading, false if
      * it is loaded, unloaded, or does not exist.
      */
-    isLoading(alias)
-    {
+    isLoading(alias) {
         return this._sounds[alias] ? this._sounds[alias].loadState === Sound.LoadStates.loading : false;
     }
 
@@ -578,9 +520,8 @@ export default class Sound extends EventEmitter
      * @return {Boolean} A value of true if the sound is currently playing or loading
      * with an intent to play, false if it is not playing or does not exist.
      */
-    isPlaying(alias)
-    {
-        var sound = this._sounds[alias];
+    isPlaying(alias) {
+        let sound = this._sounds[alias];
         return sound ?
             sound.playing.length + sound.waitingToPlay.length > 0 :
             false;
@@ -594,21 +535,18 @@ export default class Sound extends EventEmitter
      * @return {int|null} The duration of the sound in milliseconds. If the sound has
      * not been loaded, 0 is returned. If no sound exists by that alias, null is returned.
      */
-    getDuration(alias)
-    {
-        var sound = this._sounds[alias];
+    getDuration(alias) {
+        let sound = this._sounds[alias];
 
-        if (!sound) 
-        {
+        if (!sound) {
             return null;
         }
 
-        if (!sound.duration) //sound hasn't been loaded yet
-        {
-            if (sound.loadState === Sound.LoadStates.loaded)
-            {
+        // sound hasn't been loaded yet
+        if (!sound.duration) {
+            if (sound.loadState === Sound.LoadStates.loaded) {
                 //play the sound once to get the duration of it
-                var channel = SoundJS.play(alias, null, null, null, null, /*volume*/ 0);
+                let channel = SoundJS.play(alias, null, null, null, null, /*volume*/ 0);
                 sound.duration = channel.getDuration();
                 //stop the sound
                 channel.stop();
@@ -629,41 +567,33 @@ export default class Sound extends EventEmitter
      * @param {Number} [targetVol] The volume to fade to. The default is the sound's default volume.
      * @param {Number} [startVol=0] The volume to start from. The default is 0.
      */
-    fadeIn(aliasOrInst, duration, targetVol, startVol)
-    {
-        var sound, inst;
-        if (typeof aliasOrInst === 'string')
-        {
+    fadeIn(aliasOrInst, duration, targetVol, startVol) {
+        let sound, inst;
+        if (typeof aliasOrInst === 'string') {
             sound = this._sounds[aliasOrInst];
-            if (!sound)
-            {
+            if (!sound) {
                 return;
             }
-            if (sound.playing.length)
-            {
+            if (sound.playing.length) {
                 inst = sound.playing[sound.playing.length - 1]; //fade the last played instance
             }
         }
-        else
-        {
+        else {
             inst = aliasOrInst;
             sound = this._sounds[inst.alias];
         }
-        if (!inst || !inst._channel)
-        {
+        if (!inst || !inst._channel) {
             return;
         }
         inst._fTime = 0;
         inst._fDur = duration > 0 ? duration : 500;
         inst._fEnd = targetVol || inst.curVol;
         inst._fStop = false;
-        var v = startVol > 0 ? startVol : 0;
+        let v = startVol > 0 ? startVol : 0;
         inst.volume = inst._fStart = v;
-        if (this._fades.indexOf(inst) === -1)
-        {
+        if (this._fades.indexOf(inst) === -1) {
             this._fades.push(inst);
-            if (this._fades.length === 1)
-            {
+            if (this._fades.length === 1) {
                 Application.instance.on('update', this._update);
             }
         }
@@ -683,54 +613,43 @@ export default class Sound extends EventEmitter
      * @param {Boolean} [stopAtEnd] If the sound should be stopped when the fade completes. The
      *                              default is to stop it if the fade completes at a volume of 0.
      */
-    fadeOut(aliasOrInst, duration, targetVol, startVol, stopAtEnd)
-    {
-        var sound, inst;
-        if (typeof aliasOrInst === 'string')
-        {
+    fadeOut(aliasOrInst, duration, targetVol, startVol, stopAtEnd) {
+        let sound, inst;
+        if (typeof aliasOrInst === 'string') {
             sound = this._sounds[aliasOrInst];
-            if (!sound)
-            {
+            if (!sound) {
                 return;
             }
-            if (sound.playing.length)
-            {
+            if (sound.playing.length) {
                 //fade the last played instance
                 inst = sound.playing[sound.playing.length - 1];
             }
-            else if (sound.loadState === Sound.LoadStates.loading)
-            {
+            else if (sound.loadState === Sound.LoadStates.loading) {
                 this.stop(aliasOrInst);
                 return;
             }
         }
-        else
-        {
+        else {
             inst = aliasOrInst;
         }
-        if (!inst || !inst._channel) 
-        {
+        if (!inst || !inst._channel) {
             return;
         }
         inst._fTime = 0;
         inst._fDur = duration > 0 ? duration : 500;
-        if (startVol > 0)
-        {
+        if (startVol > 0) {
             inst.volume = startVol;
             inst._fStart = startVol;
         }
-        else
-        {
+        else {
             inst._fStart = inst.volume;
         }
         inst._fEnd = targetVol || 0;
         stopAtEnd = stopAtEnd === undefined ? inst._fEnd === 0 : !!stopAtEnd;
         inst._fStop = stopAtEnd;
-        if (this._fades.indexOf(inst) === -1)
-        {
+        if (this._fades.indexOf(inst) === -1) {
             this._fades.push(inst);
-            if (this._fades.length === 1)
-            {
+            if (this._fades.length === 1) {
                 Application.instance.on('update', this._update);
             }
         }
@@ -742,54 +661,43 @@ export default class Sound extends EventEmitter
      * @private
      * @param {int} elapsed The time elapsed since the previous frame, in milliseconds.
      */
-    _update(elapsed)
-    {
-        var fades = this._fades;
+    _update(elapsed) {
+        let fades = this._fades;
 
-        var inst, time, sound, lerp, vol;
-        for (var i = fades.length - 1; i >= 0; --i)
-        {
+        let inst, time, sound, lerp, vol;
+        for (let i = fades.length - 1; i >= 0; --i) {
             inst = fades[i];
-            if (inst.paused)
-            {
+            if (inst.paused) {
                 continue;
             }
             time = inst._fTime += elapsed;
-            if (time >= inst._fDur)
-            {
-                if (inst._fStop)
-                {
+            if (time >= inst._fDur) {
+                if (inst._fStop) {
                     sound = this._sounds[inst.alias];
-                    if (sound) 
-                    {
+                    if (sound) {
                         sound.playing.splice(sound.playing.indexOf(inst), 1);
                     }
                     this._stopInst(inst);
                 }
-                else
-                {
+                else {
                     inst.curVol = inst._fEnd;
                     inst.updateVolume();
                     fades.splice(i, 1);
                 }
             }
-            else
-            {
+            else {
                 lerp = time / inst._fDur;
-                if (inst._fEnd > inst._fStart)
-                {
+                if (inst._fEnd > inst._fStart) {
                     vol = inst._fStart + (inst._fEnd - inst._fStart) * lerp;
                 }
-                else
-                {
+                else {
                     vol = inst._fEnd + (inst._fStart - inst._fEnd) * lerp;
                 }
                 inst.curVol = vol;
                 inst.updateVolume();
             }
         }
-        if (fades.length === 0)
-        {
+        if (fades.length === 0) {
             Application.instance.off('update', this._update);
         }
     }
@@ -820,11 +728,9 @@ export default class Sound extends EventEmitter
      * @return {SoundInstance} An internal SoundInstance object that can be used for
      * fading in/out as well as pausing and getting the sound's current position.
      */
-    play(alias, options, startCallback, interrupt, delay, offset, loop, volume, pan)
-    {
-        var completeCallback;
-        if (options && typeof options === 'function')
-        {
+    play(alias, options, startCallback, interrupt, delay, offset, loop, volume, pan) {
+        let completeCallback;
+        if (options && typeof options === 'function') {
             completeCallback = options;
             options = null;
         }
@@ -837,55 +743,44 @@ export default class Sound extends EventEmitter
         volume = (options ? options.volume : volume);
         pan = (options ? options.pan : pan) || 0;
 
-        if (!this.isSupported)
-        {
-            if (completeCallback)
-            {
+        if (!this.isSupported) {
+            if (completeCallback) {
                 setTimeout(completeCallback, 0);
             }
             return;
         }
 
         //Replace with correct infinite looping.
-        if (loop === true)
-        {
+        if (loop === true) {
             loop = -1;
         }
-        var sound = this._sounds[alias];
-        if (!sound)
-        {
+        let sound = this._sounds[alias];
+        if (!sound) {
             // @if DEBUG
             Debug.error('springroll.Sound: alias \'' + alias + '\' not found!');
             // @endif
-            if (completeCallback)
-            {
+            if (completeCallback) {
                 completeCallback();
             }
             return;
         }
         //check for sound loop settings
-        if (sound.loop && loop === undefined || loop === null)
-        {
+        if (sound.loop && loop === undefined || loop === null) {
             loop = -1;
         }
         //check for sound volume settings
         volume = (typeof(volume) === 'number') ? volume : sound.volume;
         //take action based on the sound state
-        var loadState = sound.loadState;
-        var inst, arr;
-        if (loadState === Sound.LoadStates.loaded)
-        {
-            if (this._fixAndroidAudio)
-            {
-                if (this._numPlayingAudio)
-                {
+        let loadState = sound.loadState;
+        let inst, arr;
+        if (loadState === Sound.LoadStates.loaded) {
+            if (this._fixAndroidAudio) {
+                if (this._numPlayingAudio) {
                     this._numPlayingAudio++;
                     this._lastAudioTime = -1;
                 }
-                else
-                {
-                    if (Date.now() - this._lastAudioTime >= 30000)
-                    {
+                else {
+                    if (Date.now() - this._lastAudioTime >= 30000) {
                         Sound._fixAudioContext();
                     }
                     this._numPlayingAudio = 1;
@@ -893,21 +788,17 @@ export default class Sound extends EventEmitter
                 }
             }
             //have Sound manage the playback of the sound
-            var channel = SoundJS.play(alias, interrupt, delay, offset, loop, volume, pan);
+            let channel = SoundJS.play(alias, interrupt, delay, offset, loop, volume, pan);
 
-            if (!channel || channel.playState === SoundJS.PLAY_FAILED)
-            {
-                if (completeCallback)
-                {
+            if (!channel || channel.playState === SoundJS.PLAY_FAILED) {
+                if (completeCallback) {
                     completeCallback();
                 }
                 return null;
             }
-            else
-            {
+            else {
                 inst = this._getSoundInst(channel, sound.id);
-                if (channel.handleExtraData)
-                {
+                if (channel.handleExtraData) {
                     channel.handleExtraData(sound.data);
                 }
                 inst.curVol = volume;
@@ -916,20 +807,17 @@ export default class Sound extends EventEmitter
                 inst._endCallback = completeCallback;
                 inst.updateVolume();
                 inst.length = channel.getDuration();
-                if (!sound.duration)
-                {
+                if (!sound.duration) {
                     sound.duration = inst.length;
                 }
                 inst._channel.addEventListener('complete', inst._endFunc);
-                if (startCallback)
-                {
+                if (startCallback) {
                     setTimeout(startCallback, 0);
                 }
                 return inst;
             }
         }
-        else if (loadState === Sound.LoadStates.unloaded)
-        {
+        else if (loadState === Sound.LoadStates.unloaded) {
             sound.playAfterLoad = true;
             inst = this._getSoundInst(null, sound.id);
             inst.curVol = volume;
@@ -937,23 +825,20 @@ export default class Sound extends EventEmitter
             sound.waitingToPlay.push(inst);
             inst._endCallback = completeCallback;
             inst._startFunc = startCallback;
-            if (inst._startParams)
-            {
+            if (inst._startParams) {
                 arr = inst._startParams;
                 arr[0] = interrupt;
                 arr[1] = delay;
                 arr[2] = offset;
                 arr[3] = loop;
             }
-            else
-            {
+            else {
                 inst._startParams = [interrupt, delay, offset, loop];
             }
             this.preload(sound.id);
             return inst;
         }
-        else if (loadState === Sound.LoadStates.loading)
-        {
+        else if (loadState === Sound.LoadStates.loading) {
             //tell the sound to play after loading
             sound.playAfterLoad = true;
             inst = this._getSoundInst(null, sound.id);
@@ -962,16 +847,14 @@ export default class Sound extends EventEmitter
             sound.waitingToPlay.push(inst);
             inst._endCallback = completeCallback;
             inst._startFunc = startCallback;
-            if (inst._startParams)
-            {
+            if (inst._startParams) {
                 arr = inst._startParams;
                 arr[0] = interrupt;
                 arr[1] = delay;
                 arr[2] = offset;
                 arr[3] = loop;
             }
-            else
-            {
+            else {
                 inst._startParams = [interrupt, delay, offset, loop];
             }
             return inst;
@@ -987,15 +870,12 @@ export default class Sound extends EventEmitter
      * @param {String} id The alias of the sound that is going to be used.
      * @return {SoundInstance} The SoundInstance that is ready to use.
      */
-    _getSoundInst(channel, id)
-    {
-        var rtn;
-        if (this._pool.length)
-        {
+    _getSoundInst(channel, id) {
+        let rtn;
+        if (this._pool.length) {
             rtn = this._pool.pop();
         }
-        else
-        {
+        else {
             rtn = new SoundInstance();
             rtn._endFunc = this._onSoundComplete.bind(this, rtn);
         }
@@ -1012,32 +892,27 @@ export default class Sound extends EventEmitter
      * @private
      * @param {String|Object} result The sound to play as an alias or load manifest.
      */
-    _playAfterLoad(result)
-    {
-        var alias = typeof result === 'string' ? result : result.data.id;
-        var sound = this._sounds[alias];
+    _playAfterLoad(result) {
+        let alias = typeof result === 'string' ? result : result.data.id;
+        let sound = this._sounds[alias];
         sound.loadState = Sound.LoadStates.loaded;
 
         //If the sound was stopped before it finished loading, then don't play anything
-        if (!sound.playAfterLoad) 
-        {
+        if (!sound.playAfterLoad) {
             return;
         }
 
-        if (this._fixAndroidAudio)
-        {
-            if (this._lastAudioTime > 0 && Date.now() - this._lastAudioTime >= 30000)
-            {
+        if (this._fixAndroidAudio) {
+            if (this._lastAudioTime > 0 && Date.now() - this._lastAudioTime >= 30000) {
                 Sound._fixAudioContext();
             }
         }
 
         //Go through the list of sound instances that are waiting to start and start them
-        var waiting = sound.waitingToPlay;
+        let waiting = sound.waitingToPlay;
 
-        var inst, startParams, volume, channel, pan;
-        for (var i = 0, len = waiting.length; i < len; ++i)
-        {
+        let inst, startParams, volume, channel, pan;
+        for (let i = 0, len = waiting.length; i < len; ++i) {
             inst = waiting[i];
             startParams = inst._startParams;
             volume = inst.curVol;
@@ -1052,29 +927,23 @@ export default class Sound extends EventEmitter
                 pan
             );
 
-            if (!channel || channel.playState === SoundJS.PLAY_FAILED)
-            {
+            if (!channel || channel.playState === SoundJS.PLAY_FAILED) {
                 // @if DEBUG
                 Debug.error('Play failed for sound \'%s\'', alias);
                 // @endif
 
-                if (inst._endCallback)
-                {
+                if (inst._endCallback) {
                     inst._endCallback();
                 }
                 this._poolInst(inst);
             }
-            else
-            {
-                if (this._fixAndroidAudio)
-                {
-                    if (this._numPlayingAudio)
-                    {
+            else {
+                if (this._fixAndroidAudio) {
+                    if (this._numPlayingAudio) {
                         this._numPlayingAudio++;
                         this._lastAudioTime = -1;
                     }
-                    else
-                    {
+                    else {
                         this._numPlayingAudio = 1;
                         this._lastAudioTime = -1;
                     }
@@ -1082,23 +951,20 @@ export default class Sound extends EventEmitter
 
                 sound.playing.push(inst);
                 inst._channel = channel;
-                if (channel.handleExtraData)
-                {
+                if (channel.handleExtraData) {
                     channel.handleExtraData(sound.data);
                 }
                 inst.length = channel.getDuration();
-                if (!sound.duration)
-                {
+                if (!sound.duration) {
                     sound.duration = inst.length;
                 }
                 inst.updateVolume();
                 channel.addEventListener('complete', inst._endFunc);
-                if (inst._startFunc)
-                {
+                if (inst._startFunc) {
                     inst._startFunc();
                 }
-                if (inst.paused) //if the sound got paused while loading, then pause it
-                {
+                //if the sound got paused while loading, then pause it
+                if (inst.paused) {
                     channel.pause();
                 }
             }
@@ -1112,29 +978,23 @@ export default class Sound extends EventEmitter
      * @private
      * @param {SoundInstance} inst The SoundInstance that is complete.s
      */
-    _onSoundComplete(inst)
-    {
-        if (inst._channel)
-        {
-            if (this._fixAndroidAudio)
-            {
-                if (--this._numPlayingAudio === 0)
-                {
+    _onSoundComplete(inst) {
+        if (inst._channel) {
+            if (this._fixAndroidAudio) {
+                if (--this._numPlayingAudio === 0) {
                     this._lastAudioTime = Date.now();
                 }
             }
 
             inst._channel.removeEventListener('complete', inst._endFunc);
-            var sound = this._sounds[inst.alias];
-            var index = sound.playing.indexOf(inst);
-            if (index > -1)
-            {
+            let sound = this._sounds[inst.alias];
+            let index = sound.playing.indexOf(inst);
+            if (index > -1) {
                 sound.playing.splice(index, 1);
             }
-            var callback = inst._endCallback;
+            let callback = inst._endCallback;
             this._poolInst(inst);
-            if (callback)
-            {
+            if (callback) {
                 callback();
             }
         }
@@ -1146,24 +1006,19 @@ export default class Sound extends EventEmitter
      * @public
      * @param {String} alias The alias of the sound to stop.
      */
-    stop(alias)
-    {
-        var s = this._sounds[alias];
-        if (!s) 
-        {
+    stop(alias) {
+        let s = this._sounds[alias];
+        if (!s) {
             return;
         }
-        if (s.playing.length)
-        {
+        if (s.playing.length) {
             this._stopSound(s);
         }
-        else if (s.loadState === Sound.LoadStates.loading)
-        {
+        else if (s.loadState === Sound.LoadStates.loading) {
             s.playAfterLoad = false;
-            var waiting = s.waitingToPlay;
-            var inst;
-            for (var i = 0, len = waiting.length; i < len; ++i)
-            {
+            let waiting = s.waitingToPlay;
+            let inst;
+            for (let i = 0, len = waiting.length; i < len; ++i) {
                 inst = waiting[i];
                 this._poolInst(inst);
             }
@@ -1177,11 +1032,9 @@ export default class Sound extends EventEmitter
      * @private
      * @param {Object} s The sound (from the _sounds dictionary) to stop.
      */
-    _stopSound(s)
-    {
-        var arr = s.playing;
-        for (var i = arr.length - 1; i >= 0; --i)
-        {
+    _stopSound(s) {
+        let arr = s.playing;
+        for (let i = arr.length - 1; i >= 0; --i) {
             this._stopInst(arr[i]);
         }
         arr.length = 0;
@@ -1193,23 +1046,18 @@ export default class Sound extends EventEmitter
      * @private
      * @param {SoundInstance} inst The SoundInstance to stop.
      */
-    _stopInst(inst)
-    {
-        if (inst._channel)
-        {
-            if (!inst.paused && this._fixAndroidAudio)
-            {
-                if (--this._numPlayingAudio === 0)
-                {
+    _stopInst(inst) {
+        if (inst._channel) {
+            if (!inst.paused && this._fixAndroidAudio) {
+                if (--this._numPlayingAudio === 0) {
                     this._lastAudioTime = Date.now();
                 }
             }
             inst._channel.removeEventListener('complete', inst._endFunc);
             inst._channel.stop();
         }
-        var fadeIdx = this._fades.indexOf(inst);
-        if (fadeIdx > -1) 
-        {
+        let fadeIdx = this._fades.indexOf(inst);
+        if (fadeIdx > -1) {
             this._fades.splice(fadeIdx, 1);
         }
         this._poolInst(inst);
@@ -1221,27 +1069,21 @@ export default class Sound extends EventEmitter
      * @public
      * @param {String} context The name of the context to stop.
      */
-    stopContext(context)
-    {
+    stopContext(context) {
         context = this._contexts[context];
-        if (context)
-        {
-            var arr = context.sounds;
-            var s, i;
-            for (i = arr.length - 1; i >= 0; --i)
-            {
+        if (context) {
+            let arr = context.sounds;
+            let s, i;
+            for (i = arr.length - 1; i >= 0; --i) {
                 s = arr[i];
-                if (s.playing.length)
-                {
+                if (s.playing.length) {
                     this._stopSound(s);
                 }
-                else if (s.loadState === Sound.LoadStates.loading)
-                {
+                else if (s.loadState === Sound.LoadStates.loading) {
                     s.playAfterLoad = false;
                 }
             }
-            for (i = 0; i < context.subContexts.length; ++i)
-            {
+            for (i = 0; i < context.subContexts.length; ++i) {
                 this.stopContext(context.subContexts[i]);
             }
         }
@@ -1251,10 +1093,8 @@ export default class Sound extends EventEmitter
      * Stop all sounds that are playing, regardless of context.
      * @method stopAll
      */
-    stopAll()
-    {
-        for (var alias in this._sounds)
-        {
+    stopAll() {
+        for (let alias in this._sounds) {
             this.stop(alias);
         }
     }
@@ -1266,28 +1106,22 @@ export default class Sound extends EventEmitter
      * @param {String} alias The alias of the sound to pause.
      *     Internally, this can also be the object from the _sounds dictionary directly.
      */
-    pause(sound, isGlobal)
-    {
-        if (typeof sound === 'string' )
-        {
+    pause(sound, isGlobal) {
+        if (typeof sound === 'string' ) {
             sound = this._sounds[sound];
         }
         isGlobal = !!isGlobal;
-        var arr = sound.playing;
-        var i;
-        for (i = arr.length - 1; i >= 0; --i)
-        {
-            if (!arr[i].paused)
-            {
+        let arr = sound.playing;
+        let i;
+        for (i = arr.length - 1; i >= 0; --i) {
+            if (!arr[i].paused) {
                 arr[i].pause();
                 arr[i].globallyPaused = isGlobal;
             }
         }
         arr = sound.waitingToPlay;
-        for (i = arr.length - 1; i >= 0; --i)
-        {
-            if (!arr[i].paused)
-            {
+        for (i = arr.length - 1; i >= 0; --i) {
+            if (!arr[i].paused) {
                 arr[i].pause();
                 arr[i].globallyPaused = isGlobal;
             }
@@ -1301,26 +1135,20 @@ export default class Sound extends EventEmitter
      * @param {String} alias The alias of the sound to pause.
      *     Internally, this can also be the object from the _sounds dictionary directly.
      */
-    resume(sound, isGlobal)
-    {
-        if (typeof sound === 'string')
-        {
+    resume(sound, isGlobal) {
+        if (typeof sound === 'string') {
             sound = this._sounds[sound];
         }
-        var arr = sound.playing;
-        var i;
-        for (i = arr.length - 1; i >= 0; --i)
-        {
-            if (arr[i].globallyPaused === isGlobal)
-            {
+        let arr = sound.playing;
+        let i;
+        for (i = arr.length - 1; i >= 0; --i) {
+            if (arr[i].globallyPaused === isGlobal) {
                 arr[i].resume();
             }
         }
         arr = sound.waitingToPlay;
-        for (i = arr.length - 1; i >= 0; --i)
-        {
-            if (arr[i].globallyPaused === isGlobal)
-            {
+        for (i = arr.length - 1; i >= 0; --i) {
+            if (arr[i].globallyPaused === isGlobal) {
                 arr[i].resume();
             }
         }
@@ -1332,28 +1160,22 @@ export default class Sound extends EventEmitter
      * @method pauseContext
      * @param {String} context The name of the context to pause.
      */
-    pauseContext(context)
-    {
+    pauseContext(context) {
         context = this._contexts[context];
-        if (context)
-        {
-            var arr = context.sounds;
-            var s, i;
-            for (i = arr.length - 1; i >= 0; --i)
-            {
+        if (context) {
+            let arr = context.sounds;
+            let s, i;
+            for (i = arr.length - 1; i >= 0; --i) {
                 s = arr[i];
-                var j;
-                for (j = s.playing.length - 1; j >= 0; --j)
-                {
+                let j;
+                for (j = s.playing.length - 1; j >= 0; --j) {
                     s.playing[j].pause();
                 }
-                for (j = s.waitingToPlay.length - 1; j >= 0; --j)
-                {
+                for (j = s.waitingToPlay.length - 1; j >= 0; --j) {
                     s.waitingToPlay[j].pause();
                 }
             }
-            for (i = 0; i < context.subContexts.length; ++i)
-            {
+            for (i = 0; i < context.subContexts.length; ++i) {
                 this.pauseContext(context.subContexts[i]);
             }
         }
@@ -1364,28 +1186,22 @@ export default class Sound extends EventEmitter
      * @method pauseContext
      * @param {String} context The name of the context to pause.
      */
-    resumeContext(context)
-    {
+    resumeContext(context) {
         context = this._contexts[context];
-        if (context)
-        {
-            var arr = context.sounds;
-            var s, i;
-            for (i = arr.length - 1; i >= 0; --i)
-            {
+        if (context) {
+            let arr = context.sounds;
+            let s, i;
+            for (i = arr.length - 1; i >= 0; --i) {
                 s = arr[i];
-                var j;
-                for (j = s.playing.length - 1; j >= 0; --j)
-                {
+                let j;
+                for (j = s.playing.length - 1; j >= 0; --j) {
                     s.playing[j].resume();
                 }
-                for (j = s.waitingToPlay.length - 1; j >= 0; --j)
-                {
+                for (j = s.waitingToPlay.length - 1; j >= 0; --j) {
                     s.waitingToPlay[j].resume();
                 }
             }
-            for (i = 0; i < context.subContexts.length; ++i)
-            {
+            for (i = 0; i < context.subContexts.length; ++i) {
                 this.resumeContext(context.subContexts[i]);
             }
         }
@@ -1396,11 +1212,9 @@ export default class Sound extends EventEmitter
      * @method pauseAll
      * @public
      */
-    pauseAll()
-    {
-        var arr = this._sounds;
-        for (var i in arr)
-        {
+    pauseAll() {
+        let arr = this._sounds;
+        for (let i in arr) {
             this.pause(arr[i], true);
         }
     }
@@ -1411,32 +1225,24 @@ export default class Sound extends EventEmitter
      * @method resumeAll
      * @public
      */
-    resumeAll()
-    {
-        var arr = this._sounds;
-        for (var i in arr)
-        {
+    resumeAll() {
+        let arr = this._sounds;
+        for (let i in arr) {
             this.resume(arr[i], true);
         }
     }
 
-    _onInstancePaused()
-    {
-        if (this._fixAndroidAudio)
-        {
-            if (--this._numPlayingAudio === 0)
-            {
+    _onInstancePaused() {
+        if (this._fixAndroidAudio) {
+            if (--this._numPlayingAudio === 0) {
                 this._lastAudioTime = Date.now();
             }
         }
     }
 
-    _onInstanceResume()
-    {
-        if (this._fixAndroidAudio)
-        {
-            if (this._lastAudioTime > 0 && Date.now() - this._lastAudioTime > 30000)
-            {
+    _onInstanceResume() {
+        if (this._fixAndroidAudio) {
+            if (this._lastAudioTime > 0 && Date.now() - this._lastAudioTime > 30000) {
                 Sound._fixAudioContext();
             }
 
@@ -1452,30 +1258,24 @@ export default class Sound extends EventEmitter
      * @param {String} context The name of the context to modify.
      * @param {Boolean} muted If the context should be muted.
      */
-    setContextMute(context, muted)
-    {
+    setContextMute(context, muted) {
         context = this._contexts[context];
-        if (context)
-        {
+        if (context) {
             context.muted = muted;
-            var volume = context.volume;
-            var arr = context.sounds;
+            let volume = context.volume;
+            let arr = context.sounds;
 
-            var s, playing, j, i;
-            for (i = arr.length - 1; i >= 0; --i)
-            {
+            let s, playing, j, i;
+            for (i = arr.length - 1; i >= 0; --i) {
                 s = arr[i];
-                if (s.playing.length)
-                {
+                if (s.playing.length) {
                     playing = s.playing;
-                    for (j = playing.length - 1; j >= 0; --j)
-                    {
+                    for (j = playing.length - 1; j >= 0; --j) {
                         playing[j].updateVolume(muted ? 0 : volume);
                     }
                 }
             }
-            for (i = 0; i < context.subContexts.length; ++i)
-            {
+            for (i = 0; i < context.subContexts.length; ++i) {
                 this.setContextMute(context.subContexts[i], muted);
             }
         }
@@ -1485,8 +1285,7 @@ export default class Sound extends EventEmitter
      * Set the mute status of all sounds
      * @property {Boolean} muteAll
      */
-    set muteAll(muted)
-    {
+    set muteAll(muted) {
         SoundJS.setMute(!!muted);
     }
 
@@ -1497,23 +1296,18 @@ export default class Sound extends EventEmitter
      * @param {String} context The name of the context to modify.
      * @param {Number} volume The volume for the context (0 to 1).
      */
-    setContextVolume(context, volume)
-    {
+    setContextVolume(context, volume) {
         context = this._contexts[context];
-        if (context)
-        {
-            var muted = context.muted;
+        if (context) {
+            let muted = context.muted;
             context.volume = volume;
-            var arr = context.sounds;
-            var s, playing, j;
-            for (var i = arr.length - 1; i >= 0; --i)
-            {
+            let arr = context.sounds;
+            let s, playing, j;
+            for (let i = arr.length - 1; i >= 0; --i) {
                 s = arr[i];
-                if (s.playing.length)
-                {
+                if (s.playing.length) {
                     playing = s.playing;
-                    for (j = playing.length - 1; j >= 0; --j)
-                    {
+                    for (j = playing.length - 1; j >= 0; --j) {
                         playing[j].updateVolume(muted ? 0 : volume);
                     }
                 }
@@ -1529,40 +1323,31 @@ export default class Sound extends EventEmitter
      * @param {function} [callback] The function to call when all
      *      sounds have been loaded.
      */
-    preload(list, callback)
-    {
-        if (!this.isSupported)
-        {
-            if (callback)
-            {
+    preload(list, callback) {
+        if (!this.isSupported) {
+            if (callback) {
                 setTimeout(callback, 0);
             }
             return;
         }
 
-        if (typeof list === 'string')
-        {
+        if (typeof list === 'string') {
             list = [list];
         }
 
-        if (!list || list.length === 0)
-        {
-            if (callback) 
-            {
+        if (!list || list.length === 0) {
+            if (callback) {
                 callback();
             }
             return;
         }
 
-        var assets = [];
-        var sound;
-        for (var i = 0, len = list.length; i < len; ++i)
-        {
+        let assets = [];
+        let sound;
+        for (let i = 0, len = list.length; i < len; ++i) {
             sound = this._sounds[list[i]];
-            if (sound)
-            {
-                if (sound.loadState === Sound.LoadStates.unloaded)
-                {
+            if (sound) {
+                if (sound.loadState === Sound.LoadStates.unloaded) {
                     sound.loadState = Sound.LoadStates.loading;
 
                     //sound is passed last so that SoundJS gets the sound ID
@@ -1576,19 +1361,16 @@ export default class Sound extends EventEmitter
                         });
                 }
             }
-            else
-            {
+            else {
                 // @if DEBUG
                 Debug.error('springroll.Sound was asked to preload ' + list[i] + ' but it is not a registered sound!');
                 // @endif
             }
         }
-        if (assets.length > 0)
-        {
+        if (assets.length > 0) {
             Application.instance.load(assets, callback);
         }
-        else if (callback)
-        {
+        else if (callback) {
             callback();
         }
     }
@@ -1600,21 +1382,17 @@ export default class Sound extends EventEmitter
      * @param {String} alias The alias of the sound to mark.
      * @param {function} callback A function to call to show that the sound is loaded.
      */
-    _markLoaded(result)
-    {
-        var alias = result.data.id;
-        var sound = this._sounds[alias];
-        if (sound)
-        {
+    _markLoaded(result) {
+        let alias = result.data.id;
+        let sound = this._sounds[alias];
+        if (sound) {
             sound.loadState = Sound.LoadStates.loaded;
-            if (sound.playAfterLoad)
-            {
+            if (sound.playAfterLoad) {
                 this._playAfterLoad(alias);
             }
         }
-        var callback = sound.preloadCallback;
-        if (callback)
-        {
+        let callback = sound.preloadCallback;
+        if (callback) {
             sound.preloadCallback = null;
             callback();
         }
@@ -1627,19 +1405,15 @@ export default class Sound extends EventEmitter
      * @public
      * @param {Array} list An array of sound aliases to unload.
      */
-    unload(list)
-    {
-        if (!list) 
-        {
+    unload(list) {
+        if (!list) {
             return;
         }
 
-        var sound;
-        for (var i = 0, len = list.length; i < len; ++i)
-        {
+        let sound;
+        for (let i = 0, len = list.length; i < len; ++i) {
             sound = this._sounds[list[i]];
-            if (sound)
-            {
+            if (sound) {
                 this._stopSound(sound);
                 sound.loadState = Sound.LoadStates.unloaded;
             }
@@ -1653,11 +1427,9 @@ export default class Sound extends EventEmitter
      * @method unloadAll
      * @public
      */
-    unloadAll()
-    {
-        var arr = [];
-        for (var i in this._sounds)
-        {
+    unloadAll() {
+        let arr = [];
+        for (let i in this._sounds) {
             arr.push(i);
         }
         this.unload(arr);
@@ -1669,10 +1441,8 @@ export default class Sound extends EventEmitter
      * @private
      * @param {SoundInstance} inst The instance to repool.
      */
-    _poolInst(inst)
-    {
-        if (this._pool.indexOf(inst) === -1)
-        {
+    _poolInst(inst) {
+        if (this._pool.indexOf(inst) === -1) {
             inst._endCallback = inst.alias = inst._channel = inst._startFunc = null;
             inst.curVol = 0;
             inst.globallyPaused = inst.paused = inst.isValid = false;
@@ -1685,8 +1455,7 @@ export default class Sound extends EventEmitter
      * @method destroy
      * @public
      */
-    destroy()
-    {
+    destroy() {
         //Stop all sounds
         this.stopAll();
 
@@ -1694,11 +1463,9 @@ export default class Sound extends EventEmitter
         SoundJS.removeAllSounds();
 
         //Remove the SWF from the page
-        if (FlashAudioPlugin && SoundJS.activePlugin instanceof FlashAudioPlugin)
-        {
-            var swf = document.getElementById('SoundJSFlashContainer');
-            if (swf && swf.parentNode)
-            {
+        if (FlashAudioPlugin && SoundJS.activePlugin instanceof FlashAudioPlugin) {
+            let swf = document.getElementById('SoundJSFlashContainer');
+            if (swf && swf.parentNode) {
                 swf.parentNode.removeChild(swf);
             }
         }

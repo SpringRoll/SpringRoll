@@ -14,10 +14,8 @@ import Task from './Task';
  * @param {Function} [asset.complete=null] The event to call when done
  * @param {Function} [asset.progress=null] The event to call when progress is updated
  */
-export default class ListTask extends Task
-{
-    constructor(asset)
-    {
+export default class ListTask extends Task {
+    constructor(asset) {
         super(asset);
 
         /**
@@ -46,8 +44,7 @@ export default class ListTask extends Task
      * @param {Object} asset The asset to check
      * @return {Boolean} If the asset is compatible with this asset
      */
-    static test(asset)
-    {
+    static test(asset) {
         return !!asset.assets && (Array.isArray(asset.assets) || Object.isPlain(asset.assets));
     }
 
@@ -56,8 +53,7 @@ export default class ListTask extends Task
      * @method  start
      * @param  {Function} callback Callback when finished
      */
-    start(callback)
-    {
+    start(callback) {
         this.load(this.assets,
             {
                 complete: callback,
@@ -70,8 +66,7 @@ export default class ListTask extends Task
      * Destroy this and discard
      * @method destroy
      */
-    destroy()
-    {
+    destroy() {
         super.destroy();
         this.assets = null;
     }

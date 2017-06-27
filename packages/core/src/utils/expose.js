@@ -20,7 +20,6 @@ import name from './name';
  * @param {object} assign Map of things to assign
  * @return {object} The springroll window object
  */
-export default function expose(assign)
-{
+export default function expose(assign) {
     return Object.assign(namespace(name), assign);
 }

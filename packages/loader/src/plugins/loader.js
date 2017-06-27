@@ -5,16 +5,14 @@ import Loader from '../Loader';
  * @module Core
  * @namespace springroll
  */
-(function()
-{
+(function() {
     /**
      * @class Application
      */
     const plugin = new ApplicationPlugin('loader');
 
     // Init the animator
-    plugin.setup = function()
-    {
+    plugin.setup = function() {
         /**
          * Reference to the loader.
          * @property {springroll.Loader} loader
@@ -34,12 +32,10 @@ import Loader from '../Loader';
         cacheBust = true;
         // @endif
         options.add('cacheBust', cacheBust)
-            .respond('cacheBust', function()
-            {
+            .respond('cacheBust', function() {
                 return loader.cacheManager.cacheBust;
             })
-            .on('cacheBust', function(value)
-            {
+            .on('cacheBust', function(value) {
                 loader.cacheManager.cacheBust = (value === 'true' || !!value);
             });
 
@@ -73,26 +69,21 @@ import Loader from '../Loader';
     };
 
     // Preload task
-    plugin.preload = function(done)
-    {
-        var versionsFile = this.options.versionsFile;
+    plugin.preload = function(done) {
+        let versionsFile = this.options.versionsFile;
 
-        if (versionsFile)
-        {
+        if (versionsFile) {
             // Try to load the default versions file
             this.loader.cacheManager.addVersionsFile(versionsFile, done);
         }
-        else
-        {
+        else {
             done();
         }
     };
 
     // Destroy the animator
-    plugin.teardown = function()
-    {
-        if (this.loader)
-        {
+    plugin.teardown = function() {
+        if (this.loader) {
             this.loader.destroy();
             this.loader = null;
         }

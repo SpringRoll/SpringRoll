@@ -8,10 +8,8 @@ import DelayedCall from './DelayedCall';
  * @extends springroll.EventEmitter
  * @param {Number} fps - Frames per second
  */
-export default class Ticker extends EventEmitter
-{
-    constructor(fps)
-    {
+export default class Ticker extends EventEmitter {
+    constructor(fps) {
         super();
 
         /**
@@ -64,16 +62,13 @@ export default class Ticker extends EventEmitter
      * Se the frames per second.
      * @property {Number} fps
      */
-    set fps(fps)
-    {
-        if (typeof fps === 'number')
-        {
+    set fps(fps) {
+        if (typeof fps === 'number') {
             this._msPerFrame = (1000 / fps) | 0;
             this._fps = fps;
         }
     }
-    get fps()
-    {
+    get fps() {
         return this._fps;
     }
 
@@ -81,12 +76,10 @@ export default class Ticker extends EventEmitter
      * Begin the ticker.
      * @method
      */
-    start()
-    {
+    start() {
         this._running = true;
 
-        if (this._tickId === -1)
-        {
+        if (this._tickId === -1) {
             this._lastFrameTime = performance.now();
             this._tickId = requestAnimationFrame(this._tick);
         }
@@ -96,12 +89,10 @@ export default class Ticker extends EventEmitter
      * Stop or pause the ticker.
      * @method
      */
-    stop()
-    {
+    stop() {
         this._running = false;
 
-        if (this._tickId !== -1)
-        {
+        if (this._tickId !== -1) {
             cancelAnimationFrame(this._tickId);
             this._tickId = -1;
         }
@@ -112,10 +103,8 @@ export default class Ticker extends EventEmitter
      * @method _tick
      * @private
      */
-    _tick()
-    {
-        if (!this._running)
-        {
+    _tick() {
+        if (!this._running) {
             this._tickId = -1;
             return;
         }
@@ -146,8 +135,7 @@ export default class Ticker extends EventEmitter
      * @param {[type]}   [autoDestroy=true] If the DelayedCall object should be destroyed after completing
      * @return {springroll.DelayedCall} The object for pausing, restarting, destroying etc.
      */
-    setTimeout(callback, delay, useFrames, autoDestroy)
-    {
+    setTimeout(callback, delay, useFrames, autoDestroy) {
         return new DelayedCall(this, callback, delay, false, autoDestroy, useFrames);
     }
 
@@ -160,8 +148,7 @@ export default class Ticker extends EventEmitter
      * @param {Boolean}   [useFrames=false]   If the delay is frames (true) or millseconds (false)
      * @return {springroll.DelayedCall} The object for pausing, restarting, destroying etc.
      */
-    setInterval(callback, delay, useFrames)
-    {
+    setInterval(callback, delay, useFrames) {
         return new DelayedCall(this, callback, delay, true, false, useFrames);
     }
 
@@ -169,8 +156,7 @@ export default class Ticker extends EventEmitter
      * Destroy and don't use after this.
      * @method
      */
-    destroy()
-    {
+    destroy() {
         this.stop();
         this._tick = null;
         super.destroy();

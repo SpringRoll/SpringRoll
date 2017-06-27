@@ -21,14 +21,11 @@ import sequencify from 'sequencify';
  *        that can be overridden and set.
  * @param {Function} [ready=null] The callback when initialized
  */
-export default class Application extends EventEmitter
-{
-    constructor(options, ready)
-    {
+export default class Application extends EventEmitter {
+    constructor(options, ready) {
         super();
 
-        if (Application.instance)
-        {
+        if (Application.instance) {
             throw 'Only one Application can be opened at a time';
         }
         Application.instance = this;
@@ -70,8 +67,7 @@ export default class Application extends EventEmitter
         this._plugins = Application.sortPlugins();
 
         // Call any global libraries to initialize
-        this._plugins.forEach(plugin => 
-        {
+        this._plugins.forEach(plugin => {
             plugin.setup.call(this);
         });
 
@@ -99,8 +95,7 @@ export default class Application extends EventEmitter
      * @static
      * @readOnly
      */
-    static get version()
-    {
+    static get version() {
         return '/* @echo VERSION */';
     }
 
@@ -109,10 +104,8 @@ export default class Application extends EventEmitter
      * @method _preload
      * @private
      */
-    _preload()
-    {
-        if (this.destroyed)
-        {
+    _preload() {
+        if (this.destroyed) {
             return;
         }
 
@@ -124,10 +117,8 @@ export default class Application extends EventEmitter
 
         const tasks = [];
 
-        this._plugins.forEach(plugin => 
-        {
-            if (plugin.preload)
-            {
+        this._plugins.forEach(plugin => {
+            if (plugin.preload) {
                 tasks.push(plugin.preload.bind(this));
             }
         });
@@ -141,10 +132,8 @@ export default class Application extends EventEmitter
      * @method _ready
      * @protected
      */
-    _ready()
-    {
-        if (this.destroyed)
-        {
+    _ready() {
+        if (this.destroyed) {
             return;
         }
 
@@ -157,6 +146,9 @@ export default class Application extends EventEmitter
         //start update loop
         this.paused = false;
 
+        // Call ready on each plugin
+        this._plugins.forEach(plugin => plugin.ready.call(this));
+
         /**
          * Fired when initialization of the application is ready
          * @event ready
@@ -164,8 +156,7 @@ export default class Application extends EventEmitter
         this.emit('ready');
 
         // Call the init function, bind to app
-        if (this.ready)
-        {
+        if (this.ready) {
             this.ready(this);
         }
 
@@ -182,14 +173,12 @@ export default class Application extends EventEmitter
      * @property {Boolean} enabled
      * @default true
      */
-    set enabled(enabled)
-    {
+    set enabled(enabled) {
         this._enabled = enabled;
         this.emit('enable', enabled);
         this.emit(enabled ? 'enabled' : 'disabled', enabled);
     }
-    get enabled()
-    {
+    get enabled() {
         return this._enabled;
     }
 
@@ -199,12 +188,10 @@ export default class Application extends EventEmitter
      * Animator, Captions, Sound and other media playback.
      * @property {Boolean} paused
      */
-    get paused()
-    {
+    get paused() {
         return this._paused;
     }
-    set paused(value)
-    {
+    set paused(value) {
         this._paused = !!value;
         this.internalPaused(this._paused);
     }
@@ -215,8 +202,7 @@ export default class Application extends EventEmitter
      * @method internalPaused
      * @param  {Boolean} paused If the application should be paused or not
      */
-    internalPaused(paused)
-    {
+    internalPaused(paused) {
         /**
          * Fired when the pause state is toggled
          * @event pause
@@ -240,10 +226,8 @@ export default class Application extends EventEmitter
      * Destroys the application and all active displays and plugins
      * @method destroy
      */
-    destroy()
-    {
-        if (this.destroyed)
-        {
+    destroy() {
+        if (this.destroyed) {
             return;
         }
 
@@ -258,8 +242,7 @@ export default class Application extends EventEmitter
         // Destroy in the reverse priority order
         const plugins = this._plugins.slice().reverse();
 
-        plugins.forEach(plugin => 
-        {
+        plugins.forEach(plugin => {
             plugin.teardown.call(this);
         });
 
@@ -278,8 +261,7 @@ export default class Application extends EventEmitter
      * @method toString
      * @return {String} The reprsentation of this class
      */
-    toString()
-    {
+    toString() {
         return `[Application name='${this.name}']`;
     }
 
@@ -289,16 +271,13 @@ export default class Application extends EventEmitter
      * @static
      * @method register
      */
-    static register(plugin)
-    {
+    static register(plugin) {
         const {plugins} = Application;
 
-        if (!plugin || !plugin.name)
-        {
+        if (!plugin || !plugin.name) {
             throw 'Plugin does not contain a valid "name"';
         }
-        else if (plugins[plugin.name])
-        {
+        else if (plugins[plugin.name]) {
             throw `Plugin is already registered with name "${plugin.name}"`;
         }
 
@@ -312,8 +291,7 @@ export default class Application extends EventEmitter
      * @private
      * @return {Array<springroll.ApplicationPlugin} List of plugins correctly sorted
      */
-    static sortPlugins()
-    {
+    static sortPlugins() {
         // Create the sequence based off the plugins
         const results = [];
         const {plugins} = Application;
@@ -321,8 +299,7 @@ export default class Application extends EventEmitter
         sequencify(plugins, Object.keys(plugins), results);
 
         // Resort the plugins by results
-        results.forEach((name, i) => 
-        {
+        results.forEach((name, i) => {
             results[i] = plugins[name];
         });
 

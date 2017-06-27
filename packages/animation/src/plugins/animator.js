@@ -2,16 +2,14 @@ import {ApplicationPlugin} from '@springroll/core';
 import Animator from '../Animator';
 import GenericMovieClipInstance from '../GenericMovieClipInstance';
 
-(function()
-{
+(function() {
     /**
      * @class Application
      */
-    var plugin = new ApplicationPlugin('animator');
+    let plugin = new ApplicationPlugin('animator');
 
     //init the animator
-    plugin.setup = function()
-    {
+    plugin.setup = function() {
         /**
          * The class for playing animation
          * @property {springroll.Animator} animator
@@ -22,10 +20,8 @@ import GenericMovieClipInstance from '../GenericMovieClipInstance';
     };
 
     //destroy the animator
-    plugin.teardown = function()
-    {
-        if (this.animator)
-        {
+    plugin.teardown = function() {
+        if (this.animator) {
             this.animator.destroy();
             this.animator = null;
         }

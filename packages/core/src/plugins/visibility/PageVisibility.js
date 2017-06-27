@@ -8,10 +8,8 @@
  * @param {Function} onFocus Callback when the page becomes visible
  * @param {Function} onBlur Callback when the page loses visibility
  */
-export default class PageVisibility
-{
-    constructor(onFocus, onBlur)
-    {
+export default class PageVisibility {
+    constructor(onFocus, onBlur) {
         /**
          * Callback when the page becomes visible
          * @property {Function} _onFocus
@@ -42,28 +40,23 @@ export default class PageVisibility
         this._visibilityChange = null;
 
         // Select the visiblity change event name
-        if (document.hidden !== undefined)
-        {
+        if (document.hidden !== undefined) {
             this._visibilityChange = 'visibilitychange';
         }
-        else if (document.mozHidden !== undefined)
-        {
+        else if (document.mozHidden !== undefined) {
             this._visibilityChange = 'mozvisibilitychange';
         }
-        else if (document.msHidden !== undefined)
-        {
+        else if (document.msHidden !== undefined) {
             this._visibilityChange = 'msvisibilitychange';
         }
-        else if (document.webkitHidden !== undefined)
-        {
+        else if (document.webkitHidden !== undefined) {
             this._visibilityChange = 'webkitvisibilitychange';
         }
 
         this.isIE9 = !this._visibilityChange && document.onfocusin !== undefined;
 
         // If this browser doesn't support visibility
-        if (!this._visibilityChange && document.onfocusin === undefined)
-        {
+        if (!this._visibilityChange && document.onfocusin === undefined) {
             return;  
         }
 
@@ -72,15 +65,12 @@ export default class PageVisibility
          * @property {Function} _onToggle
          * @private
          */
-        this._onToggle = () => 
-        {
+        this._onToggle = () => {
 
-            if (document.hidden || document.webkitHidden || document.msHidden || document.mozHidden)
-            {
+            if (document.hidden || document.webkitHidden || document.msHidden || document.mozHidden) {
                 this._onBlur();
             }
-            else
-            {
+            else {
                 this._onFocus();
             }
         };
@@ -93,16 +83,13 @@ export default class PageVisibility
      * @property {Function} enabled
      * @private
      */
-    get enabled()
-    {
+    get enabled() {
         return this._enabled;
     }
-    set enabled(value)
-    {
+    set enabled(value) {
         value = !!value;
 
-        if (this._enabled === value)
-        {
+        if (this._enabled === value) {
             return;
         }
 
@@ -115,14 +102,12 @@ export default class PageVisibility
         window.removeEventListener('visibilitychange', this._onToggle);
         document.removeEventListener(this._visibilityChange, this._onToggle, false);
 
-        if (this.isIE9)
-        {
+        if (this.isIE9) {
             document.removeEventListener('focusin', this._onFocus);
             document.removeEventListener('focusout', this._onBlur);
         }
 
-        if (value)
-        {
+        if (value) {
             // Listen to visibility change
             // see https://developer.mozilla.org/en/API/PageVisibility/Page_Visibility_API
             document.addEventListener(this._visibilityChange, this._onToggle, false);
@@ -134,8 +119,7 @@ export default class PageVisibility
             window.addEventListener('visibilitychange', this._onToggle, false);
             
             //IE9 is old and uses its own events
-            if (this.isIE9)
-            {
+            if (this.isIE9) {
                 document.addEventListener('focusin', this._onFocus);
                 document.addEventListener('focusout', this._onBlur);
             }
@@ -146,11 +130,9 @@ export default class PageVisibility
      * Disable the detection
      * @method destroy
      */
-    destroy()
-    {
+    destroy() {
         // If this browser doesn't support visibility
-        if (!this._visibilityChange || !this._onToggle)
-        {
+        if (!this._visibilityChange || !this._onToggle) {
             return;
         }
 

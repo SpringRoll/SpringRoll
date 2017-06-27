@@ -22,15 +22,12 @@ import {Debug} from '@springroll/debug';
  *       item. See `ScaleManager.addItems` for more information about the
  *       format of the scaling objects. (UI Module only)
  */
-export default class State extends EventEmitter
-{
-    constructor(panel, options)
-    {
+export default class State extends EventEmitter {
+    constructor(panel, options) {
         super();
 
         // @if DEBUG
-        if (!panel)
-        {
+        if (!panel) {
             Debug.error('State requires a panel display object as the first constructor argument');
         }
         // @endif
@@ -51,7 +48,7 @@ export default class State extends EventEmitter
          * @property {Application} app
          * @readOnly
          */
-        var app = this.app = Application.instance;
+        let app = this.app = Application.instance;
 
         /**
          * The instance of the VOPlayer, Sound module required
@@ -210,8 +207,7 @@ export default class State extends EventEmitter
         this.panel.visible = false;
 
         // create empty function to avoid a lot of if checks
-        function empty() 
-        {}
+        function empty() {}
 
         /**
          * When the state is exited. Override this to provide state cleanup.
@@ -308,23 +304,19 @@ export default class State extends EventEmitter
      * @method nextState
      * @final
      */
-    nextState()
-    {
-        var type = typeof this._nextState;
+    nextState() {
+        let type = typeof this._nextState;
 
-        if (!this._nextState)
-        {
+        if (!this._nextState) {
             // @if DEBUG
             Debug.info('\'next\' is undefined in current state, ignoring');
             // @endif
             return;
         }
-        else if (type === 'function')
-        {
+        else if (type === 'function') {
             this._nextState();
         }
-        else if (type === 'string')
-        {
+        else if (type === 'string') {
             this.manager.state = this._nextState;
         }
     }
@@ -334,23 +326,19 @@ export default class State extends EventEmitter
      * @method previousState
      * @final
      */
-    previousState()
-    {
-        var type = typeof this._prevState;
+    previousState() {
+        let type = typeof this._prevState;
 
-        if (!this._prevState)
-        {
+        if (!this._prevState) {
             // @if DEBUG
             Debug.info('\'prevState\' is undefined in current state, ignoring');
             // @endif
             return;
         }
-        else if (type === 'function')
-        {
+        else if (type === 'function') {
             this._prevState();
         }
-        else if (type === 'string')
-        {
+        else if (type === 'string') {
             this.manager.state = this._prevState;
         }
     }
@@ -360,10 +348,8 @@ export default class State extends EventEmitter
      * @method loadingStart
      * @final
      */
-    loadingStart()
-    {
-        if (this._isLoading)
-        {
+    loadingStart() {
+        if (this._isLoading) {
             // @if DEBUG
             Debug.warn('loadingStart() was called while we\'re already loading');
             // @endif
@@ -389,23 +375,19 @@ export default class State extends EventEmitter
      * @param {int} [delay] Frames to delay the load completion to allow the framerate to
      *   stabilize. If not delay is set, defaults to the `delayLoad` property.
      */
-    loadingDone(delay)
-    {
-        if (delay === undefined)
-        {
+    loadingDone(delay) {
+        if (delay === undefined) {
             delay = this.delayLoad;
         }
 
-        if (!this._isLoading)
-        {
+        if (!this._isLoading) {
             // @if DEBUG
             Debug.warn('loadingDone() was called without a load started, call loadingStart() first');
             // @endif
             return;
         }
 
-        if (delay && typeof delay === 'number')
-        {
+        if (delay && typeof delay === 'number') {
             //allow the renderer to figure out that any images on stage need decoding during the
             //delay, not during the transition in
             this.panel.visible = true;
@@ -416,8 +398,7 @@ export default class State extends EventEmitter
         this._isLoading = false;
         this.manager.loadingDone();
 
-        if (this._onLoadingComplete)
-        {
+        if (this._onLoadingComplete) {
             this._onLoadingComplete();
             this._onLoadingComplete = null;
         }
@@ -428,8 +409,7 @@ export default class State extends EventEmitter
      * @property {Boolean} canceled
      * @readOnly
      */
-    get canceled()
-    {
+    get canceled() {
         return this._canceled;
     }
 
@@ -438,8 +418,7 @@ export default class State extends EventEmitter
      * @property {Boolean} active
      * @readOnly
      */
-    get active()
-    {
+    get active() {
         return this._active;
     }
 
@@ -447,16 +426,13 @@ export default class State extends EventEmitter
      * If the state is enabled, meaning that it is click ready
      * @property {Boolean} enabled
      */
-    get enabled()
-    {
+    get enabled() {
         return this._enabled;
     }
-    set enabled(value)
-    {
-        var oldEnabled = this._enabled;
+    set enabled(value) {
+        let oldEnabled = this._enabled;
         this._enabled = value;
-        if (oldEnabled !== value)
-        {
+        if (oldEnabled !== value) {
             this.emit('enabled', value);
         }
     }
@@ -466,8 +442,7 @@ export default class State extends EventEmitter
      * @property {Boolean} destroyed
      * @readOnly
      */
-    get destroyed()
-    {
+    get destroyed() {
         return this._destroyed;
     }
 
@@ -476,39 +451,32 @@ export default class State extends EventEmitter
      * @method _internalExit
      * @protected
      */
-    _internalExit()
-    {
+    _internalExit() {
         this.preloaded = false;
 
         // local variables
-        var panel = this.panel;
-        var items = this.scalingItems;
-        var scaling = this.scaling;
+        let panel = this.panel;
+        let items = this.scalingItems;
+        let scaling = this.scaling;
 
         //remove scaling objects that we added
-        if (scaling && items)
-        {
-            if (items === 'panel')
-            {
+        if (scaling && items) {
+            if (items === 'panel') {
                 scaling.removeItem(panel);
             }
-            else
-            {
+            else {
                 scaling.removeItems(panel, items);
             }
         }
 
         // Clean any assets loaded by the manifest
-        if (this.preload.length)
-        {
+        if (this.preload.length) {
             this.app.unload(this.preload);
         }
 
-        if (this._isTransitioning)
-        {
+        if (this._isTransitioning) {
             this._isTransitioning = false;
-            if (this.manager.animator)
-            {
+            if (this.manager.animator) {
                 this.manager.animator.stop(panel);
             }
         }
@@ -526,8 +494,7 @@ export default class State extends EventEmitter
      * @param {Function} proceed The function to call after enter has been called
      * @protected
      */
-    _internalEntering()
-    {
+    _internalEntering() {
         this.enter();
 
         this.emit('enter');
@@ -538,18 +505,16 @@ export default class State extends EventEmitter
         // Boolean to see if we've preloaded assests
         this.preloaded = false;
 
-        var assets = [];
+        let assets = [];
 
         this.emit('loading', assets);
 
-        if (this.preload.length)
-        {
+        if (this.preload.length) {
             assets = this.preload.concat(assets);
         }
 
         // Start loading assets if we have some
-        if (assets.length)
-        {
+        if (assets.length) {
             this.app.load(assets,
                 {
                     complete: this._onLoaded.bind(this),
@@ -558,8 +523,7 @@ export default class State extends EventEmitter
                 });
         }
         // No files to load, just continue
-        else
-        {
+        else {
             this._onLoaded(null);
         }
     }
@@ -570,8 +534,7 @@ export default class State extends EventEmitter
      * @private
      * @param {Number} progress The amount preloaded from zero to 1
      */
-    _onProgress(progress)
-    {
+    _onProgress(progress) {
         this.emit('progress', progress);
         this.manager.emit('progress', progress);
     }
@@ -582,21 +545,17 @@ export default class State extends EventEmitter
      * @private
      * @param {Object|null} assets The assets result of the load
      */
-    _onLoaded(assets)
-    {
+    _onLoaded(assets) {
         this.assets = assets;
         this.preloaded = true;
 
         this.emit('loaded', assets);
 
-        if (this.scaling)
-        {
-            var items = this.scalingItems;
+        if (this.scaling) {
+            let items = this.scalingItems;
 
-            if (items)
-            {
-                if (items === 'panel')
-                {
+            if (items) {
+                if (items === 'panel') {
                     // Reset the panel scale & position, to ensure
                     // that the panel is scaled properly
                     // upon state re-entry
@@ -609,8 +568,7 @@ export default class State extends EventEmitter
                             titleSafe: true
                         });
                 }
-                else
-                {
+                else {
                     this.scaling.addItems(this.panel, items);
                 }
             }
@@ -623,8 +581,7 @@ export default class State extends EventEmitter
      * @method _internalExitStart
      * @protected
      */
-    _internalExitStart()
-    {
+    _internalExitStart() {
         this.exitStart();
         this.emit('exitStart');
     }
@@ -635,13 +592,10 @@ export default class State extends EventEmitter
      * @param {Function} proceed The function to call after enter has been called
      * @protected
      */
-    _internalEnter(proceed)
-    {
-        if (this._isTransitioning)
-        {
+    _internalEnter(proceed) {
+        if (this._isTransitioning) {
             this._isTransitioning = false;
-            if (this.manager.animator)
-            {
+            if (this.manager.animator) {
                 this.manager.animator.stop(this.panel);
             }
         }
@@ -652,8 +606,7 @@ export default class State extends EventEmitter
         this._onEnterProceed = proceed;
         this._internalEntering();
 
-        if (this._onEnterProceed)
-        {
+        if (this._onEnterProceed) {
             this._onEnterProceed();
             this._onEnterProceed = null;
         }
@@ -664,8 +617,7 @@ export default class State extends EventEmitter
      * @method _internalCancel
      * @protected
      */
-    _internalCancel()
-    {
+    _internalCancel() {
         this._active = false;
         this._canceled = true;
         this._isLoading = false;
@@ -680,10 +632,8 @@ export default class State extends EventEmitter
      * @method _internalEnterDone
      * @private
      */
-    _internalEnterDone()
-    {
-        if (this._canceled) 
-        {
+    _internalEnterDone() {
+        if (this._canceled) {
             return;
         }
 
@@ -696,11 +646,9 @@ export default class State extends EventEmitter
      * Don't use the state object after this
      * @method destroy
      */
-    destroy()
-    {
+    destroy() {
         // Only destroy once!
-        if (this._destroyed) 
-        {
+        if (this._destroyed) {
             return;
         }
 

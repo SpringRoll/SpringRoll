@@ -4,16 +4,14 @@ import Captions from '../Captions';
 import {Debug} from '@springroll/debug';
 // @endif
 
-(function()
-{
+(function() {
     /**
      * @class Application
      */
-    var plugin = new ApplicationPlugin('captions');
+    let plugin = new ApplicationPlugin('captions');
 
     //Initialize
-    plugin.setup = function()
-    {
+    plugin.setup = function() {
         /**
          * The captions text field object to use for the 
          * VOPlayer captions object.
@@ -39,28 +37,23 @@ import {Debug} from '@springroll/debug';
     };
 
     //Preload the captions
-    plugin.preload = function(done)
-    {
+    plugin.preload = function(done) {
         //Give the player a reference
-        if (this.voPlayer)
-        {
+        if (this.voPlayer) {
             this.voPlayer.captions = this.captions;
         }
 
         //Setup the text field
         this.captions.textField = this.options.captions;
 
-        var captionsPath = this.options.captionsPath;
-        if (captionsPath)
-        {
-            this.load(captionsPath, data => 
-            {
+        let captionsPath = this.options.captionsPath;
+        if (captionsPath) {
+            this.load(captionsPath, data => {
                 this.captions.data = data;
                 done();
             });
         }
-        else
-        {
+        else {
             // @if DEBUG
             Debug.info('Application option \'captionsPath\' is empty, set to automatically load captions JSON');
             // @endif
@@ -69,10 +62,8 @@ import {Debug} from '@springroll/debug';
     };
 
     //Destroy the animator
-    plugin.teardown = function()
-    {
-        if (this.captions)
-        {
+    plugin.teardown = function() {
+        if (this.captions) {
             this.captions.destroy();
             this.captions = null;
         }

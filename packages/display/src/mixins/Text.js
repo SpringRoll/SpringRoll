@@ -12,16 +12,13 @@ PIXI.Text.prototype.pivotAlign = false;
 //save a copy of the super function so that we can override it safely
 PIXI.Text.prototype._origUpdateText = PIXI.Text.prototype.updateText;
 
-PIXI.Text.prototype.updateText = function()
-{
+PIXI.Text.prototype.updateText = function() {
     this._origUpdateText();
 
-    if (this.pivotAlign)
-    {
+    if (this.pivotAlign) {
         //have the entire text area be positioned based on the alignment, to make it easy to
         //center or right-align text with other elements
-        switch (this.style.align)
-        {
+        switch (this.style.align) {
             case 'center':
                 this.pivot.x = this._width / 2;
                 break;

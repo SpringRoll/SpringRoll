@@ -6,10 +6,8 @@
  * @param {String} url The url that was loaded
  * @param {*} [data] Optional data associated with object
  */
-export default class LoaderResult
-{
-    constructor(content, url, data)
-    {
+export default class LoaderResult {
+    constructor(content, url, data) {
         /**
          * The contents of the load
          * @property {*} content
@@ -41,8 +39,7 @@ export default class LoaderResult
      * @method toString
      * @return {String} A string rep of the object
      */
-    toString()
-    {
+    toString() {
         return `[LoaderResult(url: '${this.url}')]`;
     }
 
@@ -50,8 +47,7 @@ export default class LoaderResult
      * Reset to the original state
      * @method reset
      */
-    reset()
-    {
+    reset() {
         this.content =
             this.url =
             this.data =
@@ -62,8 +58,7 @@ export default class LoaderResult
      * Destroy this result
      * @method destroy
      */
-    destroy()
-    {
+    destroy() {
         this.reset();
     }
 }

@@ -5,10 +5,8 @@ import {include} from '@springroll/core';
  * @class AssetSizes
  * @private
  */
-export default class AssetSizes
-{
-    constructor()
-    {
+export default class AssetSizes {
+    constructor() {
         /**
          * The collection of size objects
          * @property {Array} _sizes
@@ -35,8 +33,7 @@ export default class AssetSizes
      * Removes all currently defined sizes.
      * @method  reset
      */
-    reset()
-    {
+    reset() {
         this._sizes.length = 0;
         this._sizesMap = {};
     }
@@ -50,9 +47,8 @@ export default class AssetSizes
      * @param {Array} fallback The size fallbacks if this size isn't available
      *      for the current asset request.
      */
-    define(id, maxSize, scale, fallback)
-    {
-        var size = {
+    define(id, maxSize, scale, fallback) {
+        let size = {
             id: id,
             maxSize: maxSize,
             scale: scale,
@@ -63,8 +59,7 @@ export default class AssetSizes
         this._sizes.push(size);
 
         // Sor from smallest to largest maxSize
-        this._sizes.sort(function(a, b)
-        {
+        this._sizes.sort(function(a, b) {
             return a.maxSize - b.maxSize;
         });
     }
@@ -77,8 +72,7 @@ export default class AssetSizes
      * @param {Object} [size.id] The name of the current size
      * @return {String} The formatted url
      */
-    filter(url, size)
-    {
+    filter(url, size) {
         size = size || this._preferredSize;
         return url.replace(AssetSizes.SIZE_TOKEN, size.id);
     }
@@ -89,8 +83,7 @@ export default class AssetSizes
      * @param  {String}  url The URL to test
      * @return {Boolean} If we have the token
      */
-    test(url)
-    {
+    test(url) {
         return url.indexOf(AssetSizes.SIZE_TOKEN) > -1;
     }
 
@@ -100,22 +93,18 @@ export default class AssetSizes
      * @param  {Object} [supported] Return the preferred size if nothing is set
      * @return {Object} Return the size object with id, scale, maxSize and fallback keys
      */
-    size(supported)
-    {
-        var size = this._preferredSize;
-        var fallback = size.fallback;
+    size(supported) {
+        let size = this._preferredSize;
+        let fallback = size.fallback;
 
         // There's custom support and it says we don't support
         // the default size.
-        if (supported && !supported[size.id])
-        {
-            for (var i = 0, len = fallback.length; i < len; i++)
-            {
-                var alt = fallback[i];
+        if (supported && !supported[size.id]) {
+            for (let i = 0, len = fallback.length; i < len; i++) {
+                let alt = fallback[i];
 
                 // Undefined means we support it, or true
-                if (supported[alt] !== false)
-                {
+                if (supported[alt] !== false) {
                     size = this._sizesMap[alt];
                     break;
                 }
@@ -123,8 +112,7 @@ export default class AssetSizes
         }
         // Umm something's wrong, the asset doesn't support
         // either the current size or any of the fallbacks
-        if (!size)
-        {
+        if (!size) {
             throw 'Asset does not support any valid size';
         }
         return size;
@@ -137,22 +125,18 @@ export default class AssetSizes
      * @param  {Number} height The height of the stage
      * @return {Object} The size
      */
-    refresh(width, height)
-    {
-        var minSize = Math.min(width, height);
-        var size = null;
-        var sizes = this._sizes;
-        var devicePixelRatio = include('devicePixelRatio', false) || 1;
+    refresh(width, height) {
+        let minSize = Math.min(width, height);
+        let size = null;
+        let sizes = this._sizes;
+        let devicePixelRatio = include('devicePixelRatio', false) || 1;
 
         // Check the largest first
-        for (var i = sizes.length - 1; i >= 0; --i)
-        {
-            if (sizes[i].maxSize / devicePixelRatio > minSize)
-            {
+        for (let i = sizes.length - 1; i >= 0; --i) {
+            if (sizes[i].maxSize / devicePixelRatio > minSize) {
                 size = sizes[i];
             }
-            else
-            {
+            else {
                 break;
             }
         }
@@ -163,8 +147,7 @@ export default class AssetSizes
      * Destroy and don't use after this
      * @method destroy
      */
-    destroy()
-    {
+    destroy() {
         this._preferredSize = null;
         this._sizes = null;
         this._sizesMap = null;

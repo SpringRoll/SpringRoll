@@ -15,10 +15,8 @@ import Task from './Task';
  * @param {Function} [asset.complete] The event to call when done
  * @param {Object} [asset.sizes=null] Define if certain sizes are not supported
  */
-export default class ColorAlphaTask extends Task
-{
-    constructor(asset)
-    {
+export default class ColorAlphaTask extends Task {
+    constructor(asset) {
         super(asset, asset.color);
 
         /**
@@ -41,8 +39,7 @@ export default class ColorAlphaTask extends Task
      * @param {Object} asset The asset to check
      * @return {Boolean} If the asset is compatible with this asset
      */
-    static test(asset)
-    {
+    static test(asset) {
         return !!asset.color && !!asset.alpha;
     }
 
@@ -51,15 +48,13 @@ export default class ColorAlphaTask extends Task
      * @method  start
      * @param  {Function} callback Callback when finished
      */
-    start(callback)
-    {
+    start(callback) {
         this.load(
             {
                 _alpha: this.alpha,
                 _color: this.color
             },
-            function(results)
-            {
+            function(results) {
                 callback(ColorAlphaTask.mergeAlpha(
                     results._color,
                     results._alpha
@@ -85,15 +80,13 @@ export default class ColorAlphaTask extends Task
      * @return {Canvas} A canvas with the combined image data. This can be used as a source for a
      *              Texture.
      */
-    static mergeAlpha(rgbImage, alphaImage, canvas)
-    {
-        if (!canvas)
-        {
+    static mergeAlpha(rgbImage, alphaImage, canvas) {
+        if (!canvas) {
             canvas = document.createElement('canvas');
         }
         canvas.width = Math.max(alphaImage.width, rgbImage.width);
         canvas.height = Math.max(alphaImage.height, rgbImage.height);
-        var ctx = canvas.getContext('2d');
+        let ctx = canvas.getContext('2d');
         ctx.save();
         ctx.drawImage(rgbImage, 0, 0);
         ctx.globalCompositeOperation = 'destination-in';

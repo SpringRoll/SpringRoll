@@ -4,16 +4,14 @@ import Languages from '../Languages';
 import {Debug} from '@springroll/debug';
 // @endif
 
-(function()
-{
+(function() {
     /**
      * @class Application
      */
     const plugin = new ApplicationPlugin('languages');
 
     // Init the animator
-    plugin.setup = function()
-    {
+    plugin.setup = function() {
         /**
          * The StringFilters instance
          * @property {springroll.Languages} languages
@@ -36,25 +34,20 @@ import {Debug} from '@springroll/debug';
     };
 
     // preload the language configuration
-    plugin.preload = function(done)
-    {
+    plugin.preload = function(done) {
         const languagesConfig = this.options.languagesPath;
         
-        if (languagesConfig)
-        {
-            this.load(languagesConfig, config => 
-            {
+        if (languagesConfig) {
+            this.load(languagesConfig, config => {
                 this.languages.setConfig(config);
-                var lang = this.options.language;
-                if (lang)
-                {
+                let lang = this.options.language;
+                if (lang) {
                     this.languages.setLanguage(lang);
                 }
                 done();
             });
         }
-        else
-        {
+        else {
             // @if DEBUG
             Debug.info('Application option \'languagesPath\' is empty, set to automatically load languages configuration.');
             // @endif
@@ -63,10 +56,8 @@ import {Debug} from '@springroll/debug';
     };
 
     // Destroy the animator
-    plugin.teardown = function()
-    {
-        if (this.languages)
-        {
+    plugin.teardown = function() {
+        if (this.languages) {
             this.languages.destroy();
         }
         this.languages = null;

@@ -1,16 +1,14 @@
 import {ApplicationPlugin} from '@springroll/core';
 import UserData from '../UserData';
 
-(function()
-{
+(function() {
     /**
      * @class Application
      */
-    var plugin = new ApplicationPlugin('user-data', 'container-client');
+    let plugin = new ApplicationPlugin('user-data', 'container-client');
 
     // Init the animator
-    plugin.setup = function()
-    {
+    plugin.setup = function() {
         /**
          * The API for saving user data, default is to save
          * data to the container, if not connected, it will
@@ -21,10 +19,8 @@ import UserData from '../UserData';
     };
 
     // Check for application name
-    plugin.preload = function(done)
-    {
-        if (!this.name)
-        {
+    plugin.preload = function(done) {
+        if (!this.name) {
             // @if DEBUG
             throw 'Application name is empty, please add a Application option of \'name\'';
             // @endif
@@ -42,10 +38,8 @@ import UserData from '../UserData';
     };
 
     // Destroy the animator
-    plugin.teardown = function()
-    {
-        if (this.userData)
-        {
+    plugin.teardown = function() {
+        if (this.userData) {
             this.userData.destroy();
             this.userData = null;
         }

@@ -6,10 +6,8 @@ import PropertyEmitter from './events/PropertyEmitter';
  * @extends springroll.PropertyEmitter
  * @constructor {Object} [overrides] The supplied options
  */
-export default class ApplicationOptions extends PropertyEmitter
-{
-    constructor(app, options)
-    {
+export default class ApplicationOptions extends PropertyEmitter {
+    constructor(app, options) {
         super();
 
         /**
@@ -49,8 +47,7 @@ export default class ApplicationOptions extends PropertyEmitter
      * Initialize the values in the options
      * @method init
      */
-    init()
-    {
+    init() {
         let options = this._options;
 
         // Create the options overrides
@@ -58,22 +55,19 @@ export default class ApplicationOptions extends PropertyEmitter
 
         // If parse querystring is turned on, we'll
         // override with any of the query string parameters
-        if (options.useQueryString)
-        {
+        if (options.useQueryString) {
             Object.assign(options, this.getQueryString());
         }
 
         // Create getter and setters for all properties
         // this is so we can dispatch events when the property changes
-        for (let name in options)
-        {
+        for (let name in options) {
             this.add(name, options[name]);
         }
 
         //trigger all of the initial values, because otherwise they don't take effect.
         let properties = this._properties;
-        for (let id in properties)
-        {
+        for (let id in properties) {
             this.emit(id, properties[id].value);
         }
     }
@@ -83,13 +77,12 @@ export default class ApplicationOptions extends PropertyEmitter
      * @property {Object} getQueryString
      * @private
      */
-    getQueryString()
-    {
+    getQueryString() {
         let output = {};
         let href = window.location.search;
 
-        if (!href) //empty string is false
-        {
+        //empty string is false
+        if (!href) {
             return output;
         }
 
@@ -99,17 +92,14 @@ export default class ApplicationOptions extends PropertyEmitter
         let splitFlashVars = vars.split('&');
         let myVar;
 
-        for (let i = 0, len = splitFlashVars.length; i < len; i++)
-        {
+        for (let i = 0, len = splitFlashVars.length; i < len; i++) {
             myVar = splitFlashVars[i].split('=');
             let value = myVar[1];
 
-            if (value === 'true' || value === undefined)
-            {
+            if (value === 'true' || value === undefined) {
                 value = true;
             }
-            else if (value === 'false')
-            {
+            else if (value === 'false') {
                 value = false;
             }
             output[myVar[0]] = value;
@@ -122,12 +112,10 @@ export default class ApplicationOptions extends PropertyEmitter
      * @method asDOMElement
      * @param {String} name The property name to fetch
      */
-    asDOMElement(name)
-    {
+    asDOMElement(name) {
         let prop = this._properties[name];
 
-        if (prop && prop.value && typeof prop.value === 'string')
-        {
+        if (prop && prop.value && typeof prop.value === 'string') {
             prop.value = /^[#.]/.test(prop.value) ?
                 document.querySelector(prop.value):
                 document.getElementById(prop.value);
@@ -141,12 +129,10 @@ export default class ApplicationOptions extends PropertyEmitter
      * @param {*} value The value
      * @return {springroll.ApplicationOptions} Instance of this options for chaining
      */
-    override(name, value)
-    {
+    override(name, value) {
         let prop = this._properties[name];
 
-        if (prop === undefined)
-        {
+        if (prop === undefined) {
             // @if DEBUG
             throw 'Unable to override a property that doesn\'t exist \'' + name + '\'';
             // @endif

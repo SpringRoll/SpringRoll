@@ -26,10 +26,8 @@ import {Debug} from '@springroll/debug';
  * @param {Object} [options.display] The current display
  * @param {Boolean} [options.enabled=false] If the scaler is enabled
  */
-export default class ScaleManager
-{
-    constructor(options)
-    {
+export default class ScaleManager {
+    constructor(options) {
         options = Object.assign(
             {
                 enabled: false,
@@ -90,10 +88,8 @@ export default class ScaleManager
         // Set the display so we can get an adapter
         this.display = options.display;
 
-        if (options.items)
-        {
-            if (!options.container)
-            {
+        if (options.items) {
+            if (!options.container) {
                 throw 'ScaleManager requires container to add items';
             }
             this.addItems(options.container, options.items);
@@ -112,21 +108,17 @@ export default class ScaleManager
      * @private
      * @param {object} display The canvas renderer display
      */
-    static _getAdapter(display)
-    {
-        if (!display)
-        {
+    static _getAdapter(display) {
+        if (!display) {
             display = Application.instance.display;
         }
 
-        if (!display) 
-        {
+        if (!display) {
             return null;
         }
 
         // Check for a displayadpater, doesn't work with generic display
-        if (!display.adapter)
-        {
+        if (!display.adapter) {
             // @if DEBUG
             throw 'The display specified is incompatible with ScaleManager because it doesn\'t contain an adapter';
             // @endif
@@ -142,8 +134,7 @@ export default class ScaleManager
      * Set the display
      * @property {springroll.AbstractDisplay} display
      */
-    set display(display)
-    {
+    set display(display) {
         this._adapter = ScaleManager._getAdapter(display);
     }
 
@@ -170,17 +161,14 @@ export default class ScaleManager
      * @property {Number} size.maxHeight
      * @default  size.height
      */
-    set size(size)
-    {
+    set size(size) {
         this._size = size;
 
-        if (!size) 
-        {
+        if (!size) {
             return;
         }
 
-        if (!size.width || !size.height)
-        {
+        if (!size.width || !size.height) {
             // @if DEBUG
             Debug.error(size);
             throw 'Designed size parameter must be a plain object with \'width\' & \'height\' properties';
@@ -192,20 +180,17 @@ export default class ScaleManager
         }
 
         // Allow for responsive designs if they're a max width
-        var options = Application.instance.options;
-        if (size.maxWidth)
-        {
+        let options = Application.instance.options;
+        if (size.maxWidth) {
             // Set the max width so that Application can limit the aspect ratio properly
             options.maxWidth = size.maxWidth;
         }
-        if (size.maxHeight)
-        {
+        if (size.maxHeight) {
             // Set the max height so that Application can limit the aspect ratio properly
             options.maxHeight = size.maxHeight;
         }
     }
-    get size()
-    {
+    get size() {
         return this._size;
     }
 
@@ -214,8 +199,7 @@ export default class ScaleManager
      * @property {Number} scale
      * @readOnly
      */
-    get scale()
-    {
+    get scale() {
         return this._scale;
     }
 
@@ -224,8 +208,7 @@ export default class ScaleManager
      * @property {Number} numItems
      * @readOnly
      */
-    get numItems()
-    {
+    get numItems() {
         return this._items.length;
     }
 
@@ -235,18 +218,15 @@ export default class ScaleManager
      * @property {boolean} enabled
      * @default true
      */
-    get enabled()
-    {
+    get enabled() {
         return this._enabled;
     }
-    set enabled(enabled)
-    {
+    set enabled(enabled) {
         this._enabled = enabled;
-        var app = Application.instance;
+        let app = Application.instance;
 
         app.off('resize', this._resize);
-        if (enabled)
-        {
+        if (enabled) {
             app.on('resize', this._resize);
 
             // Refresh the resize event
@@ -261,22 +241,17 @@ export default class ScaleManager
      * @param {Object} items The items that was passed to `addItems`
      * @return {springroll.ScaleManager} The ScaleManager for chaining
      */
-    removeItems(parent, items)
-    {
-        var children = [];
-        if (items)
-        {
+    removeItems(parent, items) {
+        let children = [];
+        if (items) {
             // Get the list of children to remove
-            for (var name in items)
-            {
-                if (parent[name])
-                {
+            for (let name in items) {
+                if (parent[name]) {
                     children.push(parent[name]);
                 }
             }
         }
-        else
-        {
+        else {
             // @deprecated implementation
             // @if DEBUG
             // eslint-disable-next-line no-console
@@ -286,14 +261,11 @@ export default class ScaleManager
         }
 
         // Remove the items by children's list
-        if (children.length)
-        {
-            var _itemsCopy = this._items.slice();
-            var _items = this._items;
-            _itemsCopy.forEach(function(item)
-            {
-                if (children.indexOf(item.display) > -1)
-                {
+        if (children.length) {
+            let _itemsCopy = this._items.slice();
+            let _items = this._items;
+            _itemsCopy.forEach(function(item) {
+                if (children.indexOf(item.display) > -1) {
                     _items.splice(_items.indexOf(item), 1);
                 }
             });
@@ -307,13 +279,10 @@ export default class ScaleManager
      * @param  {createjs.Container|PIXI.DisplayObjectContainer} container The container to remove items from
      * @return {springroll.ScaleManager} The ScaleManager for chaining
      */
-    removeItemsByContainer(container)
-    {
-        var adapter = this._adapter;
-        this._items.forEach(function(item, i, items)
-        {
-            if (adapter.contains(container, item.display))
-            {
+    removeItemsByContainer(container) {
+        let adapter = this._adapter;
+        this._items.forEach(function(item, i, items) {
+            if (adapter.contains(container, item.display)) {
                 items.splice(i, 1);
             }
         });
@@ -326,13 +295,10 @@ export default class ScaleManager
      * @param  {createjs.Bitmap|PIXI.Sprite|createjs.Container|PIXI.DisplayObjectContainer} display The object to remove
      * @return {springroll.ScaleManager} The ScaleManager for chaining
      */
-    removeItem(display)
-    {
-        var items = this._items;
-        for (var i = 0, len = items.length; i < len; i++)
-        {
-            if (items[i].display === display)
-            {
+    removeItem(display) {
+        let items = this._items;
+        for (let i = 0, len = items.length; i < len; i++) {
+            if (items[i].display === display) {
                 items.splice(i, 1);
                 break;
             }
@@ -350,23 +316,19 @@ export default class ScaleManager
      *                     description of the different keys.
      * @return {springroll.ScaleManager} The instance of this ScaleManager for chaining
      */
-    addItems(parent, items)
-    {
+    addItems(parent, items) {
         // Temp variables
-        var settings;
-        var name;
+        let settings;
+        let name;
 
         // Loop through all the items and register
         // Each dpending on the settings
-        for (name in items)
-        {
+        for (name in items) {
             settings = items[name];
 
-            if (!parent[name])
-            {
+            if (!parent[name]) {
                 // @if DEBUG
-                if (this.verbose)
-                {
+                if (this.verbose) {
                     Debug.info('ScaleManager: could not find object \'' + name + '\'');
                 }
                 // @endif
@@ -419,36 +381,29 @@ export default class ScaleManager
      * @param {String} settings      Must be 'cover-image'
      * @return {springroll.ScaleManager} The instance of this ScaleManager for chaining
      */
-    addItem(displayObject, settings, doResize)
-    {
-        if (doResize === undefined)
-        {
+    addItem(displayObject, settings, doResize) {
+        if (doResize === undefined) {
             doResize = true;
         }
-        if (!settings)
-        {
+        if (!settings) {
             settings = {
                 align: ScaleManager.ALIGN_CENTER
             };
         }
 
-        if (settings === 'cover-image')
-        {
+        if (settings === 'cover-image') {
             this._items.push(new ScaleImage(displayObject, this._size, this._adapter));
         }
-        else
-        {
-            if (typeof settings === 'string')
-            {
+        else {
+            if (typeof settings === 'string') {
                 settings = {
                     align: settings
                 };
             }
-            var align = settings.align || ScaleManager.ALIGN_CENTER;
+            let align = settings.align || ScaleManager.ALIGN_CENTER;
 
             // Interpret short handed versions
-            switch (align)
-            {
+            switch (align) {
                 case ScaleManager.ALIGN_CENTER:
                     align = align + '-' + align;
                     break;
@@ -463,8 +418,7 @@ export default class ScaleManager
             }
 
             // Error check the alignment value input
-            if (!/^(center|top|bottom)-(left|right|center)$/.test(align))
-            {
+            if (!/^(center|top|bottom)-(left|right|center)$/.test(align)) {
                 throw 'Item align \'' + align + '\' is invalid for ' + displayObject;
             }
 
@@ -472,7 +426,7 @@ export default class ScaleManager
             Positioner.init(displayObject, settings, this._adapter);
 
             // Create the item settings
-            var item = new ScaleItem(displayObject, align, this._size, this._adapter);
+            let item = new ScaleItem(displayObject, align, this._size, this._adapter);
 
             item.titleSafe = settings.titleSafe === 'all' ? true : settings.titleSafe;
             item.maxScale = settings.maxScale || NaN;
@@ -481,8 +435,7 @@ export default class ScaleManager
 
             this._items.push(item);
         }
-        if (doResize)
-        {
+        if (doResize) {
             Application.instance.triggerResize();
         }
         return this;
@@ -495,28 +448,25 @@ export default class ScaleManager
      * @param {Number} w The current width of the application
      * @param {Number} h The current height of the application
      */
-    _resize(w, h)
-    {
-        var _size = this._size;
+    _resize(w, h) {
+        let _size = this._size;
 
         // Size hasn't been setup yet
-        if (!_size)
-        {
+        if (!_size) {
             // @if DEBUG
             Debug.warn('Unable to resize scaling because the scaling size hasn\'t been set.');
             // @endif
             return;
         }
 
-        var defaultRatio = _size.width / _size.height;
-        var currentRatio = w / h;
+        let defaultRatio = _size.width / _size.height;
+        let currentRatio = w / h;
         this._scale = currentRatio > defaultRatio ?
             h / _size.height :
             w / _size.width;
 
         // Resize all the items
-        this._items.forEach(function(item)
-        {
+        this._items.forEach(function(item) {
             item.resize(w, h);
         });
     }
@@ -525,12 +475,10 @@ export default class ScaleManager
      * Destroy the scaler object
      * @method destroy
      */
-    destroy()
-    {
+    destroy() {
         this.enabled = false;
 
-        this._items.forEach(function(item)
-        {
+        this._items.forEach(function(item) {
             item.destroy();
         });
 

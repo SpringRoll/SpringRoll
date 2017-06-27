@@ -7,10 +7,8 @@ import {Debug} from '@springroll/debug';
  * @class AssetCache
  * @private
  */
-export default class AssetCache
-{
-    constructor()
-    {
+export default class AssetCache {
+    constructor() {
         /**
          * The cache containing assets
          * @property {Object} _cache
@@ -24,11 +22,9 @@ export default class AssetCache
      * @method read
      * @param {String} id The asset to get.
      */
-    read(id)
-    {
+    read(id) {
         // @if DEBUG
-        if (!this._cache[id])
-        {
+        if (!this._cache[id]) {
             Debug.warn(`AssetCache: no asset matching id: "${id}"`);
         }
         // @endif
@@ -41,10 +37,8 @@ export default class AssetCache
      * @param {String} id The id to save the asset as.
      * @param {*} content The asset content to save.
      */
-    write(id, content)
-    {
-        if (this._cache[id])
-        {
+    write(id, content) {
+        if (this._cache[id]) {
             // @if DEBUG
             Debug.warn(`AssetCache: overwriting existing asset: "${id}"`);
             // @endif
@@ -60,35 +54,28 @@ export default class AssetCache
      * @method delete
      * @param {Object|String} asset The asset to remove.
      */
-    delete(asset)
-    {
-        var id = typeof asset === 'string' ? asset : asset.id;
+    delete(asset) {
+        let id = typeof asset === 'string' ? asset : asset.id;
 
         // If we don't have an ID, stop
-        if (!id) 
-        {
+        if (!id) {
             return;
         }
 
-        var result = this._cache[id];
-        if (result)
-        {
+        let result = this._cache[id];
+        if (result) {
             // Destroy mapped result
-            if (Object.isPlain(result))
-            {
-                for (var key in result)
-                {
+            if (Object.isPlain(result)) {
+                for (let key in result) {
                     this._destroyResult(result[key]);
                 }
             }
             // Destroy list of results
-            else if (Array.isArray(result))
-            {
+            else if (Array.isArray(result)) {
                 result.forEach(this._destroyResult);
             }
             // Destory single
-            else
-            {
+            else {
                 this._destroyResult(result);
             }
             delete this._cache[id];
@@ -101,23 +88,19 @@ export default class AssetCache
      * @private
      * @param  {*} result The object to destroy.
      */
-    _destroyResult(result)
-    {
+    _destroyResult(result) {
         // Ignore null results or empty objects
-        if (!result) 
-        {
+        if (!result) {
             return;
         }
 
         // Destroy any objects with a destroy function
-        if (result.destroy)
-        {
+        if (result.destroy) {
             result.destroy();
         }
 
         // Clear images if we have an HTML node
-        if (result.tagName === 'IMG')
-        {
+        if (result.tagName === 'IMG') {
             result.src = '';
         }
     }
@@ -126,10 +109,8 @@ export default class AssetCache
      * Removes all assets from the cache.
      * @method empty
      */
-    empty()
-    {
-        for (var id in this._cache)
-        {
+    empty() {
+        for (let id in this._cache) {
             this.delete(id);
         }
     }
@@ -138,8 +119,7 @@ export default class AssetCache
      * Destroy the cache. Don't use after this.
      * @method destroy
      */
-    destroy()
-    {
+    destroy() {
         this.empty();
         this._cache = null;
     }

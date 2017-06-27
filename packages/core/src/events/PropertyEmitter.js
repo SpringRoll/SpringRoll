@@ -7,10 +7,8 @@ import EventEmitter from './EventEmitter';
  * @extends springroll.EventEmitter
  * @constructor {Object} [overrides] The supplied options
  */
-class PropertyEmitter extends EventEmitter
-{
-    constructor()
-    {
+class PropertyEmitter extends EventEmitter {
+    constructor() {
         super();
 
         /**
@@ -28,17 +26,14 @@ class PropertyEmitter extends EventEmitter
      * @param {string} prop The property name
      * @param {mixed} value The value to set
      */
-    _set(name, value)
-    {
+    _set(name, value) {
         let prop = this._properties[name];
-        if (prop.readOnly)
-        {
+        if (prop.readOnly) {
             throw `Property '${name}' is read-only`;
         }
         let oldValue = prop.value;
         prop.value = value;
-        if (oldValue !== value)
-        {
+        if (oldValue !== value) {
             this.emit(name, value);
         }
     }
@@ -50,11 +45,9 @@ class PropertyEmitter extends EventEmitter
      * @param {string} prop The option name
      * @return {mixed} The value of the option
      */
-    _get(name)
-    {
+    _get(name) {
         let prop = this._properties[name];
-        if (prop.responder)
-        {
+        if (prop.responder) {
             let value = prop.responder();
             prop.value = value;
             return value;
@@ -70,20 +63,17 @@ class PropertyEmitter extends EventEmitter
      * @param {Boolean} [readOnly=false] If the property is readonly
      * @return {PropertyEmitter} The instance for chaining
      */
-    add(name, value, readOnly)
-    {
+    add(name, value, readOnly) {
         let props = this._properties;
         let prop = props[name];
 
-        if (prop !== undefined)
-        {
+        if (prop !== undefined) {
             prop.setValue(value);
             prop.setReadOnly(readOnly === undefined ? prop.readOnly : readOnly);
             return this;
         }
 
-        if (this.hasOwnProperty(name))
-        {
+        if (this.hasOwnProperty(name)) {
             throw `Object already has property '${name}'`;
         }
 
@@ -104,11 +94,9 @@ class PropertyEmitter extends EventEmitter
      * @param {Function} responder Function to call when getting property
      * @return {PropertyEmitter} The instance for chaining
      */
-    respond(name, responder)
-    {
+    respond(name, responder) {
         let prop = this._properties[name];
-        if (prop === undefined)
-        {
+        if (prop === undefined) {
             // @if DEBUG
             throw `Property '${name}' does not exist, you must add(name, value) first before adding responder"`;
             // @endif
@@ -129,11 +117,9 @@ class PropertyEmitter extends EventEmitter
      * Clean-up all references, don't use after this
      * @method destroy
      */
-    destroy()
-    {
+    destroy() {
         let prop;
-        for (let name in this._properties)
-        {
+        for (let name in this._properties) {
             prop = this._properties[name];
             prop.value = null;
             prop.responder = null;
@@ -152,10 +138,8 @@ class PropertyEmitter extends EventEmitter
  * @param {*} [value=null] The initial value
  * @param {Boolean} [readOnly=false] If property is read-only
  */
-class Property 
-{
-    constructor(name, value, readOnly)
-    {
+class Property {
+    constructor(name, value, readOnly) {
         this.name = name;
         this.setValue(value);
         this.setReadOnly(readOnly);
@@ -167,8 +151,7 @@ class Property
      * @method setValue
      * @param {*} [value=null] The value to set
      */
-    setValue(value = null)
-    {
+    setValue(value = null) {
         this.value = value;
     }
 
@@ -177,8 +160,7 @@ class Property
      * @method setReadOnly
      * @param {Boolean} [readOnly=false] The readOnly status
      */
-    setReadOnly(readOnly = false)
-    {
+    setReadOnly(readOnly = false) {
         this.readOnly = !!readOnly;
     }
 }

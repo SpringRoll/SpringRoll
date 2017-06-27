@@ -6,16 +6,14 @@ import {LoadTask, ListTask, FunctionTask, ColorAlphaTask} from '../tasks';
  * @module Core
  * @namespace springroll
  */
-(function()
-{
+(function() {
     /**
      * @class Application
      */
     const plugin = new ApplicationPlugin('asset-manager', 'loader');
 
     // Init the animator
-    plugin.setup = function()
-    {
+    plugin.setup = function() {
         /**
          * Reference to the asset manager.
          * @property {springroll.AssetManager} assetManager
@@ -93,14 +91,12 @@ import {LoadTask, ListTask, FunctionTask, ColorAlphaTask} from '../tasks';
          * @param {Boolean} [options.startAll=true] If tasks should be run in parallel
          * @param {String} [options.type] The default asset type of load, gets attached to each asset
          */
-        this.load = function(source, complete, progress, cache, data)
-        {
+        this.load = function(source, complete, progress, cache, data) {
             let options;
 
             // If the load arguments are setup like the Loader.load call
             // then we'll convert to an object that we can use
-            if (typeof source === 'string')
-            {
+            if (typeof source === 'string') {
                 source = {
                     src: source,
                     progress: progress || null,
@@ -109,14 +105,12 @@ import {LoadTask, ListTask, FunctionTask, ColorAlphaTask} from '../tasks';
                     data: data || null
                 };
             }
-            else
-            {
+            else {
                 // Presume complete is an options object
                 options = complete;
 
                 // Second argument is callback
-                if (typeof complete === 'function')
-                {
+                if (typeof complete === 'function') {
                     options = {
                         complete: complete
                     };
@@ -132,15 +126,12 @@ import {LoadTask, ListTask, FunctionTask, ColorAlphaTask} from '../tasks';
          *      single asset id. As an array, it can be a manifest
          *      with objects that contain an ID, or an array of multiple strings.
          */
-        this.unload = function(assets)
-        {
-            if (typeof assets === 'string')
-            {
+        this.unload = function(assets) {
+            if (typeof assets === 'string') {
                 assets = Array.prototype.slice.call(arguments);
             }
 
-            for (let i = 0; i < assets.length; i++)
-            {
+            for (let i = 0; i < assets.length; i++) {
                 assetManager.cache.delete(assets[i]);
             }
         };
@@ -149,8 +140,7 @@ import {LoadTask, ListTask, FunctionTask, ColorAlphaTask} from '../tasks';
          * Unload all assets from the assets cache
          * @method unloadAll
          */
-        this.unloadAll = function()
-        {
+        this.unloadAll = function() {
             assetManager.cache.empty();
         };
 
@@ -160,15 +150,12 @@ import {LoadTask, ListTask, FunctionTask, ColorAlphaTask} from '../tasks';
          * @param {String} id The asset to fetch
          * @return {*|null} The cached object or null if empty
          */
-        this.getCache = function(id)
-        {
+        this.getCache = function(id) {
             return assetManager.cache.read(id);
         };
 
-        if (this.display)
-        {
-            const refresh = () => 
-            {
+        if (this.display) {
+            const refresh = () => {
                 // Use the actual canvas size regard
                 assetManager.sizes.refresh(
                     this.realWidth,
@@ -185,10 +172,8 @@ import {LoadTask, ListTask, FunctionTask, ColorAlphaTask} from '../tasks';
     };
 
     // Destroy the animator
-    plugin.teardown = function()
-    {
-        if (this.assetManager)
-        {
+    plugin.teardown = function() {
+        if (this.assetManager) {
             this.assetManager.destroy();
             this.assetManager = null;
         }

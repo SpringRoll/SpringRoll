@@ -9,10 +9,8 @@ import {SavedData} from '@springroll/core';
  * @constructor
  * @param {Bellhop} container The container instance
  */
-export default class UserData
-{
-    constructor(container)
-    {
+export default class UserData {
+    constructor(container) {
         /**
          * Reference to the container. If the app is not connected
          * to the Container (running standalone) then the container
@@ -39,16 +37,13 @@ export default class UserData
      * @param  {String}   prop The property name
      * @param  {Function} callback Callback when save completes, returns the value
      */
-    read(prop, callback)
-    {
-        if (!this.container.supported)
-        {
+    read(prop, callback) {
+        if (!this.container.supported) {
             return callback(SavedData.read(this.id + prop));
         }
         this.container.fetch(
             'userDataRead',
-            function(event)
-            {
+            function(event) {
                 callback(event.data);
             },
             this.id + prop,
@@ -63,23 +58,18 @@ export default class UserData
      * @param  {*}   value The property value to save
      * @param  {Function} [callback] Callback when write completes
      */
-    write(prop, value, callback)
-    {
-        if (!this.container.supported)
-        {
+    write(prop, value, callback) {
+        if (!this.container.supported) {
             SavedData.write(this.id + prop, value);
-            if (callback) 
-            {
+            if (callback) {
                 callback();
             }
             return;
         }
         this.container.fetch(
             'userDataWrite',
-            function()
-            {
-                if (callback) 
-                {
+            function() {
+                if (callback) {
                     callback();
                 }
             },
@@ -97,23 +87,18 @@ export default class UserData
      * @param  {String}   prop The property name
      * @param  {Function} [callback] Callback when remove completes
      */
-    remove(prop, callback)
-    {
-        if (!this.container.supported)
-        {
+    remove(prop, callback) {
+        if (!this.container.supported) {
             SavedData.remove(this.id + prop);
-            if (callback) 
-            {
+            if (callback) {
                 callback();
             }
             return;
         }
         this.container.fetch(
             'userDataRemove',
-            function()
-            {
-                if (callback) 
-                {
+            function() {
+                if (callback) {
                     callback();
                 }
             },
@@ -126,8 +111,7 @@ export default class UserData
      * Destroy and don't use after this
      * @method destroy
      */
-    destroy()
-    {
+    destroy() {
         this.id = null;
         this.container = null;
     }

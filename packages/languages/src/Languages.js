@@ -8,10 +8,8 @@ import {Application, EventDispatcher} from '@springroll/core';
  * @extends springroll.EventDispatcher
  * @constructor
  */
-export default class Languages extends EventDispatcher
-{
-    constructor()
-    {
+export default class Languages extends EventDispatcher {
+    constructor() {
         super();
 
         /**
@@ -69,10 +67,8 @@ export default class Languages extends EventDispatcher
      * @param {String} [config.replace="%LANG%"] A string to replace in urls with the current
      *                                          language.
      */
-    setConfig(config)
-    {
-        if (!config.languages || !config.default)
-        {
+    setConfig(config) {
+        if (!config.languages || !config.default) {
             throw 'Languages requires a language dictionary and a default language!';
         }
 
@@ -94,8 +90,7 @@ export default class Languages extends EventDispatcher
      * @readOnly
      * @public
      */
-    get current()
-    {
+    get current() {
         return this._current;
     }
 
@@ -104,22 +99,18 @@ export default class Languages extends EventDispatcher
      * @method getPreferredLanguages
      * @return {Array} The list of preferred languages in order of preference.
      */
-    getPreferredLanguages()
-    {
+    getPreferredLanguages() {
         let result;
         const navigator = window.navigator;
-        if (navigator.languages)
-        {
+        if (navigator.languages) {
             //use the newer Firefox and Chrome language list if available.
             result = navigator.languages;
         }
-        else if (navigator.language)
-        {
+        else if (navigator.language) {
             //fall back to the browser's UI language
             result = [navigator.language || navigator.userLanguage];
         }
-        else
-        {
+        else {
             result = [];
         }
         return result;
@@ -131,45 +122,36 @@ export default class Languages extends EventDispatcher
      * @param {Array|String} languageList The list of preferred languages in order of preference,
      *                                or a single language.
      */
-    setLanguage(languageList)
-    {
-        if (!languageList)
-        {
+    setLanguage(languageList) {
+        if (!languageList) {
             return;
         }
 
-        if (!Array.isArray(languageList))
-        {
+        if (!Array.isArray(languageList)) {
             languageList = [languageList];
         }
 
-        var chosen;
-        for (var i = 0, len = languageList.length; i < len; ++i)
-        {
-            var language = languageList[i].toLowerCase();
-            if (this.languages.indexOf(language) >= 0)
-            {
+        let chosen;
+        for (let i = 0, len = languageList.length; i < len; ++i) {
+            let language = languageList[i].toLowerCase();
+            if (this.languages.indexOf(language) >= 0) {
                 //check to see if we have the full language and dialect (if included)
                 chosen = language;
                 break;
             }
-            else if (language.indexOf('-') >= 0)
-            {
+            else if (language.indexOf('-') >= 0) {
                 //check to see if we have the language without the dialect
                 language = language.split('-')[0].toLowerCase();
-                if (this.languages.indexOf(language) >= 0)
-                {
+                if (this.languages.indexOf(language) >= 0) {
                     chosen = language;
                     break;
                 }
             }
         }
-        if (!chosen)
-        {
+        if (!chosen) {
             chosen = this._default;
         }
-        if (chosen !== this._current)
-        {
+        if (chosen !== this._current) {
             this._current = chosen;
             this.trigger('changed', chosen);
         }
@@ -181,8 +163,7 @@ export default class Languages extends EventDispatcher
      * @param {Dictionary} dictionary The string table, with keys that you would use to reference
      *                            the translations.
      */
-    setStringTable(dictionary)
-    {
+    setStringTable(dictionary) {
         this._stringTable = dictionary;
     }
 
@@ -192,8 +173,7 @@ export default class Languages extends EventDispatcher
      * @param {String} key The key of the string to get.
      * @return {String} The translated string.
      */
-    getString(key)
-    {
+    getString(key) {
         return this._stringTable ? this._stringTable[key] : null;
     }
 
@@ -205,15 +185,12 @@ export default class Languages extends EventDispatcher
      * @param {Array|*} args An array or list of arguments for formatting.
      * @return {String} The translated string.
      */
-    getFormattedString(key)
-    {
-        var string = this._stringTable ? this._stringTable[key] : null;
-        if (string)
-        {
+    getFormattedString(key) {
+        let string = this._stringTable ? this._stringTable[key] : null;
+        if (string) {
             return string.format(Array.prototype.slice.call(arguments, 1));
         }
-        else
-        {
+        else {
             return null;
         }
     }
@@ -223,10 +200,8 @@ export default class Languages extends EventDispatcher
      * @method modifyUrl
      * @param {String} url The url to modify to a language specific version.
      */
-    modifyUrl(url)
-    {
-        while (url.indexOf(this._replace) >= 0)
-        {
+    modifyUrl(url) {
+        while (url.indexOf(this._replace) >= 0) {
             url = url.replace(this._replace, this._current);
         }
         return url;
@@ -236,11 +211,9 @@ export default class Languages extends EventDispatcher
      * Destroys the Languages object.
      * @method destroy
      */
-    destroy()
-    {
-        var loader = Application.instance.loader;
-        if (loader)
-        {
+    destroy() {
+        let loader = Application.instance.loader;
+        if (loader) {
             loader.cacheManager.unregisterURLFilter(this.modifyUrl);
         }
         this.modifyUrl = this.languages = null;

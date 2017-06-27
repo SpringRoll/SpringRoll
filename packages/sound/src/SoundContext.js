@@ -5,10 +5,8 @@
  * @private
  * @param {String} id The name of the sound context.
  */
-export default class SoundContext
-{
-    constructor(id)
-    {
+export default class SoundContext {
+    constructor(id) {
         /**
          * The name of the sound context.
          * @property {String} id

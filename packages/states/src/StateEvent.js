@@ -8,10 +8,8 @@
  * @param {BaseState} visibleState The current state being transitioned or changing visibility,
  *                               default to currentState
  */
-export default class StateEvent
-{
-    constructor(type, currentState, visibleState)
-    {
+export default class StateEvent {
+    constructor(type, currentState, visibleState) {
         /**
          * A reference to the current state of the state manager
          *

@@ -7,10 +7,8 @@
  * @param {int} value The integer value of the enum.
  * @param {String} toString A string for toString() to return, instead of the name.
  */
-class EnumValue
-{
-    constructor(name, value, toString)
-    {
+class EnumValue {
+    constructor(name, value, toString) {
         /**
          * The name of the value, for reflection or logging purposes.
          * @property {String} name
@@ -36,13 +34,11 @@ class EnumValue
      * The integer value of this enum entry.
      * @property {int} asInt
      */
-    get asInt()
-    {
+    get asInt() {
         return this._value;
     }
 
-    toString()
-    {
+    toString() {
         return this._toString;
     }
 }
@@ -77,10 +73,8 @@ class EnumValue
  * 'name' and 'value' properties will have the specified
  * numeric value.
  */
-export default class Enum
-{
-    constructor()
-    {
+export default class Enum {
+    constructor() {
         const args = Array.isArray(arguments[0]) ?
             arguments[0] :
             Array.prototype.slice.call(arguments);
@@ -116,22 +110,18 @@ export default class Enum
         let name;
 
         // Create an EnumValue for each argument provided
-        for (let i = 0, len = args.length; i < len; ++i)
-        {
-            if (typeof args[i] === 'string')
-            {
+        for (let i = 0, len = args.length; i < len; ++i) {
+            if (typeof args[i] === 'string') {
                 name = args[i];
             }
-            else
-            {
+            else {
                 name = args[i].name;
                 value = args[i].value || counter;
                 counter = value;
             }
 
             // if name already exists in Enum
-            if (this[name])
-            {
+            if (this[name]) {
                 // @if DEBUG
                 throw `Error creating enum value ${name}: ${value} - an enum value already exists with that name.`;
                 // @endif
@@ -139,29 +129,23 @@ export default class Enum
                 continue;
             }
 
-            if (typeof args[i] === 'string')
-            {
+            if (typeof args[i] === 'string') {
                 item = new EnumValue(name, counter, name);
             }
-            else
-            {
+            else {
                 item = new EnumValue(name, value, args[i].toString || name);
             }
 
             this[item.name] = item;
-            if (this._byValue[counter])
-            {
-                if (Array.isArray(this._byValue[counter]))
-                {
+            if (this._byValue[counter]) {
+                if (Array.isArray(this._byValue[counter])) {
                     this._byValue[counter].push(item);
                 }
-                else
-                {
+                else {
                     this._byValue[counter] = [this._byValue[counter], item];
                 }
             }
-            else
-            {
+            else {
                 this._byValue[counter] = item;
             }
             counter++;
@@ -190,11 +174,9 @@ export default class Enum
                 enumerable: false,
                 writable: false,
                 // {EnumValue} input
-                value: function(input)
-                {
-                    var nextInt = input.asInt + 1;
-                    if (nextInt >= counter)
-                    {
+                value: function(input) {
+                    let nextInt = input.asInt + 1;
+                    if (nextInt >= counter) {
                         return this.first;
                     }
                     return this.valueFromInt(nextInt);
@@ -238,11 +220,9 @@ Object.defineProperty(Enum.prototype, 'valueFromInt',
     {
         enumerable: false,
         writable: false,
-        value: function(input)
-        {
+        value: function(input) {
             const result = this._byValue[input];
-            if (result)
-            {
+            if (result) {
                 return Array.isArray(result) ? result[0] : result;
             }
             return null;

@@ -3,8 +3,7 @@
  * nicely in the console.
  * @class DebugOptions
  */
-export default class DebugOptions 
-{
+export default class DebugOptions {
 
     /**
      * Define a int query parameter.
@@ -14,8 +13,7 @@ export default class DebugOptions
      * @static
      * @return {springroll.DebugOptions} instance of this DebugOptions for chaining
      */
-    static int(label, desc)
-    {
+    static int(label, desc) {
         return DebugOptions.add(label, DebugOptions.TYPES.INT, desc);
     }
 
@@ -27,8 +25,7 @@ export default class DebugOptions
      * @static
      * @return {springroll.DebugOptions} instance of this DebugOptions for chaining
      */
-    static boolean(label, desc)
-    {
+    static boolean(label, desc) {
         return DebugOptions.add(label, DebugOptions.TYPES.BOOLEAN, desc);
     }
 
@@ -40,8 +37,7 @@ export default class DebugOptions
      * @static
      * @return {springroll.DebugOptions} instance of this DebugOptions for chaining
      */
-    static string(label, desc)
-    {
+    static string(label, desc) {
         return DebugOptions.add(label, DebugOptions.TYPES.STRING, desc);
     }
 
@@ -53,8 +49,7 @@ export default class DebugOptions
      * @static
      * @return {springroll.DebugOptions} instance of this DebugOptions for chaining
      */
-    static number(label, desc)
-    {
+    static number(label, desc) {
         return DebugOptions.add(label, DebugOptions.TYPES.NUMBER, desc);
     }
 
@@ -67,8 +62,7 @@ export default class DebugOptions
      * @static
      * @return {springroll.DebugOptions} instance of this DebugOptions for chaining
      */
-    static add(label, type, desc)
-    {
+    static add(label, type, desc) {
         DebugOptions._maxLabel = Math.max(label.length, DebugOptions._maxLabel);
         DebugOptions._maxType = Math.max(type.length, DebugOptions._maxType);
         DebugOptions._options.push(
@@ -86,13 +80,12 @@ export default class DebugOptions
      * @method log
      * @static
      */
-    static log()
-    {
+    static log() {
         // The concatinated output string
-        var output = DebugOptions.HEADER;
+        let output = DebugOptions.HEADER;
 
         // The CSS options to pass to console.log
-        var css = [
+        let css = [
             // The style for the header's text
             DebugOptions.CSS.HEADER,
             // A 'reset' CSS that prevents the color/size of the header
@@ -104,21 +97,19 @@ export default class DebugOptions
         // and type lengths
         DebugOptions._maxLabel += DebugOptions.COLUMN_BUFFER;
         DebugOptions._maxType += DebugOptions.COLUMN_BUFFER;
-        var newLineSpacer = DebugOptions._spacer(DebugOptions._maxLabel + DebugOptions._maxType + DebugOptions.COLUMN_BUFFER);
+        let newLineSpacer = DebugOptions._spacer(DebugOptions._maxLabel + DebugOptions._maxType + DebugOptions.COLUMN_BUFFER);
 
-        var option;
-        var len = DebugOptions._options.length;
+        let option;
+        let len = DebugOptions._options.length;
 
-        for (var i = 0; i < len; i++)
-        {
+        for (let i = 0; i < len; i++) {
             option = DebugOptions._options[i];
             // tab label
             output += '\t%c' + DebugOptions._spacer(DebugOptions._maxLabel, option.label);
             // tab type
             output += '%c' + DebugOptions._spacer(DebugOptions._maxType, option.type);
             // null-string if no desc
-            if (option.desc)
-            {
+            if (option.desc) {
                 option.desc = option.desc.replace(
                     /(\r\n|\n|\r)/gm,
                     '\n' + newLineSpacer);
@@ -131,8 +122,7 @@ export default class DebugOptions
 
             // only push the CSS for the description
             // if the description exists
-            if (option.desc)
-            {
+            if (option.desc) {
                 css.push(DebugOptions.CSS.DESC);
             }
         }
@@ -151,8 +141,7 @@ export default class DebugOptions
      * @static
      * @return {springroll.DebugOptions} instance of this DebugOptions for chaining
      */
-    static reset()
-    {
+    static reset() {
         DebugOptions._options.length = [];
         DebugOptions._maxLabel = 0;
         DebugOptions._maxType = 0;
@@ -169,20 +158,15 @@ export default class DebugOptions
      * @param {string} str The input string to add spaces to
      * @return {string}
      */
-    static _spacer(count, str)
-    {
-        if (str)
-        {
-            while (str.length < count)
-            {
+    static _spacer(count, str) {
+        if (str) {
+            while (str.length < count) {
                 str += ' '; //space
             }
         }
-        else
-        {
+        else {
             str = ' '; //initial space is necessary?
-            while (--count)
-            {
+            while (--count) {
                 str += ' '; //space
             }
         }

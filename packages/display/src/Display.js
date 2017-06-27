@@ -14,10 +14,8 @@ import {EventEmitter} from '@springroll/core';
  * @param {Boolean} [options.autoPreventDefault=true] `true` to call preventDefault() on
  *        all touch events and mousedown events.
  */
-export default class Display extends EventEmitter
-{
-    constructor(id, options)
-    {
+export default class Display extends EventEmitter {
+    constructor(id, options) {
         super();
 
         options = Object.assign({
@@ -29,8 +27,7 @@ export default class Display extends EventEmitter
 
         const container = document.getElementById(id);
 
-        if (!container)
-        {
+        if (!container) {
             throw `No <div> element found matching id "${id}"`;
         }
 
@@ -123,29 +120,25 @@ export default class Display extends EventEmitter
 
         //check for IE11 because it tends to have WebGL problems (especially older versions)
         //if we find it, then make Pixi use to the canvas renderer instead
-        if (navigator.userAgent.indexOf('Trident/7.0') > -1)
-        {
+        if (navigator.userAgent.indexOf('Trident/7.0') > -1) {
             options.forceContext = 'canvas2d';
         }
 
-        if (options.forceContext === 'canvas2d')
-        {
+        if (options.forceContext === 'canvas2d') {
             this.renderer = new PIXI.CanvasRenderer(
                 this.width, 
                 this.height,
                 options
             );
         }
-        else if (options.forceContext === 'webgl')
-        {
+        else if (options.forceContext === 'webgl') {
             this.renderer = new PIXI.WebGLRenderer(
                 this.width, 
                 this.height,
                 options
             );
         }
-        else
-        {
+        else {
             this.renderer = PIXI.autoDetectRenderer(
                 this.width, 
                 this.height,
@@ -174,17 +167,14 @@ export default class Display extends EventEmitter
      * @property {Boolean} enabled
      * @public
      */
-    get enabled()
-    {
+    get enabled() {
         return this._enabled;
     }
-    set enabled(value)
-    {
-        var oldEnabled = this._enabled;
+    set enabled(value) {
+        let oldEnabled = this._enabled;
         this._enabled = value;
 
-        if (oldEnabled === value)
-        {
+        if (oldEnabled === value) {
             return;
         }
 
@@ -213,18 +203,15 @@ export default class Display extends EventEmitter
      * @property {Boolean} autoPreventDefault
      * @public
      */
-    get autoPreventDefault()
-    {
+    get autoPreventDefault() {
         return this._autoPreventDefault;
     }
-    set autoPreventDefault(value)
-    {
+    set autoPreventDefault(value) {
         this._autoPreventDefault = !!value;
 
         const interactionManager = this.renderer.plugins.interaction;
 
-        if (interactionManager)
-        {
+        if (interactionManager) {
             interactionManager.autoPreventDefault = this._autoPreventDefault;
         }
     }
@@ -235,8 +222,7 @@ export default class Display extends EventEmitter
      * @param {int} width The width that the display should be
      * @param {int} height The height that the display should be
      */
-    resize(width, height)
-    {
+    resize(width, height) {
         this.width = this.view.width = width;
         this.height = this.view.height = height;
 
@@ -250,10 +236,8 @@ export default class Display extends EventEmitter
      * @param {int} elapsed
      * @param {Boolean} [force=false] Will re-render even if the game is paused or not visible
      */
-    render(elapsed, force = false)
-    {
-        if (force || (!this.paused && this._visible))
-        {
+    render(elapsed, force = false) {
+        if (force || (!this.paused && this._visible)) {
             this.renderer.render(this.stage);
         }
     }
@@ -263,8 +247,7 @@ export default class Display extends EventEmitter
      * not be called directly, use Application.removeDisplay(id).
      * @method destroy
      */
-    destroy()
-    {
+    destroy() {
         this.stage.destroy(true);
         this.stage = null;
 
@@ -282,8 +265,7 @@ export default class Display extends EventEmitter
      * @property {HTMLCanvasElement} view
      * @readonly
      */
-    get view()
-    {
+    get view() {
         return this.renderer.view;
     }
 
@@ -292,19 +274,16 @@ export default class Display extends EventEmitter
      * @property {Boolean} visible
      * @public
      */
-    get visible()
-    {
+    get visible() {
         return this._visible;
     }
     // visible setter
-    set visible(value)
-    {
-        var oldVisible = this._visible;
+    set visible(value) {
+        let oldVisible = this._visible;
         this._visible = value;
         this.view.style.display = value ? 'block' : 'none';
 
-        if (oldVisible === value)
-        {
+        if (oldVisible === value) {
             return;
         }
         /**

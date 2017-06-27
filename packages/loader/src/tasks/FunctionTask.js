@@ -12,10 +12,8 @@ import Task from './Task';
  * @param {Function} [asset.complete] The function to call when we're done
  * @param {String} [asset.id] The task id for mapping the result, if any
  */
-export default class FunctionTask extends Task
-{
-    constructor(asset)
-    {
+export default class FunctionTask extends Task {
+    constructor(asset) {
         super(asset);
 
         /**
@@ -32,8 +30,7 @@ export default class FunctionTask extends Task
      * @param {Object} asset The asset to check
      * @return {Boolean} If the asset is compatible with this asset
      */
-    static test(asset)
-    {
+    static test(asset) {
         return !!asset.async;
     }
 
@@ -42,8 +39,7 @@ export default class FunctionTask extends Task
      * @method start
      * @param {Function} callback Callback when done
      */
-    start(callback)
-    {
+    start(callback) {
         this.async(callback);
     }
 
@@ -51,8 +47,7 @@ export default class FunctionTask extends Task
      * Destroy this and discard
      * @method destroy
      */
-    destroy()
-    {
+    destroy() {
         super.destroy();
         this.async = null;
     }

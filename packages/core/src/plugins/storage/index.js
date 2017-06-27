@@ -1,16 +1,14 @@
 import ApplicationPlugin from '../../ApplicationPlugin';
 import PersistentStorage from './PersistentStorage';
     
-(function()
-{
+(function() {
     /**
      * @class Application
      */
     const plugin = new ApplicationPlugin('storage');
 
     // Init the animator
-    plugin.setup = function()
-    {
+    plugin.setup = function() {
         /**
          * The data instance
          * @property {springroll.Storage} data
@@ -19,8 +17,7 @@ import PersistentStorage from './PersistentStorage';
     };
 
     // Destroy the animator
-    plugin.teardown = function()
-    {
+    plugin.teardown = function() {
         this.data = null;
     };
 

@@ -51,10 +51,8 @@
  *                                                frames are pulled from Pixi's global texture
  *                                                cache.
  */
-export default class SpriteClip extends PIXI.Sprite
-{
-    constructor(data, atlas)
-    {
+export default class SpriteClip extends PIXI.Sprite {
+    constructor(data, atlas) {
         super();
 
         //==== Public properties =====
@@ -122,8 +120,7 @@ export default class SpriteClip extends PIXI.Sprite
          */
         this._textures = null;
 
-        if (data)
-        {
+        if (data) {
             this.init(data, atlas);
         }
     }
@@ -134,19 +131,15 @@ export default class SpriteClip extends PIXI.Sprite
      * @type {Number}
      * @default 0
      */
-    get framerate()
-    {
+    get framerate() {
         return this._framerate;
     }
-    set framerate(value)
-    {
-        if (value > 0)
-        {
+    set framerate(value) {
+        if (value > 0) {
             this._framerate = value;
             this._duration = value ? this._textures.length / value : 0;
         }
-        else
-        {
+        else {
             this._framerate = this._duration = 0;
         }
     }
@@ -159,24 +152,20 @@ export default class SpriteClip extends PIXI.Sprite
      * @default 0
      * @public
      */
-    get elapsedTime()
-    {
+    get elapsedTime() {
         return this._t;
     }
-    set elapsedTime(value)
-    {
+    set elapsedTime(value) {
         this._t = value;
 
-        if (this._t > this._duration)
-        {
+        if (this._t > this._duration) {
             this._t = this._duration;
         }
 
         //add a tiny amount to stop floating point errors in their tracks
         this.currentFrame = Math.floor(this._t * this._framerate + 0.0000001);
 
-        if (this.currentFrame >= this._textures.length)
-        {
+        if (this.currentFrame >= this._textures.length) {
             this.currentFrame = this._textures.length - 1;
         }
 
@@ -190,8 +179,7 @@ export default class SpriteClip extends PIXI.Sprite
      * @default 0
      * @readOnly
      */
-    get totalFrames()
-    {
+    get totalFrames() {
         return this._textures.length;
     }
 
@@ -202,44 +190,35 @@ export default class SpriteClip extends PIXI.Sprite
      * @method gotoAndStop
      * @param {String|Number} positionOrLabel The animation or frame name to go to.
      */
-    gotoAndStop(positionOrLabel)
-    {
-        var pos = null;
-        if (typeof positionOrLabel === 'string')
-        {
-            var labels = this._labels;
-            for (var i = 0, len = labels.length; i < len; ++i)
-            {
-                if (labels[i].label === positionOrLabel)
-                {
+    gotoAndStop(positionOrLabel) {
+        let pos = null;
+        if (typeof positionOrLabel === 'string') {
+            let labels = this._labels;
+            for (let i = 0, len = labels.length; i < len; ++i) {
+                if (labels[i].label === positionOrLabel) {
                     pos = labels[i].position;
                     break;
                 }
             }
         }
-        else
-        {
+        else {
             pos = positionOrLabel;
         }
 
-        if (pos === null)
-        {
+        if (pos === null) {
             return;
         }
 
-        if (pos >= this._textures.length)
-        {
+        if (pos >= this._textures.length) {
             pos = this._textures.length - 1;
         }
 
         this.currentFrame = pos;
 
-        if (this._framerate > 0)
-        {
+        if (this._framerate > 0) {
             this._t = pos / this._framerate;
         }
-        else
-        {
+        else {
             this._t = 0;
         }
 
@@ -251,20 +230,16 @@ export default class SpriteClip extends PIXI.Sprite
      * @param [time] {Number} The amount of time in milliseconds to advance by.
      * @method advance
      */
-    advance(time)
-    {
-        if (this._framerate > 0 && time)
-        {
+    advance(time) {
+        if (this._framerate > 0 && time) {
             this._t += time * 0.001; //milliseconds -> seconds
-            if (this._t > this._duration)
-            {
+            if (this._t > this._duration) {
                 this._t = this._duration;
             }
             //add a tiny amount to stop floating point errors in their tracks
             this.currentFrame = Math.floor(this._t * this._framerate + 0.0000001);
 
-            if (this.currentFrame >= this._textures.length)
-            {
+            if (this.currentFrame >= this._textures.length) {
                 this.currentFrame = this._textures.length - 1;
             }
 
@@ -278,8 +253,7 @@ export default class SpriteClip extends PIXI.Sprite
      * @return {Array[Object]} A sorted array of objects with label and position (aka frame)
      *                        properties.
      */
-    getLabels()
-    {
+    getLabels() {
         return this._labels;
     }
 
@@ -289,8 +263,7 @@ export default class SpriteClip extends PIXI.Sprite
      * @return {Array} A sorted array of objects with label, length and position (aka frame)
      *    properties.
      */
-    getEvents()
-    {
+    getEvents() {
         return this._events;
     }
 
@@ -299,18 +272,14 @@ export default class SpriteClip extends PIXI.Sprite
      * @method getCurrentLabel
      * @return {String} The name of the current label or null if there is no label.
      */
-    getCurrentLabel()
-    {
-        var labels = this._labels;
-        var current = null;
-        for (var i = 0, len = labels.length; i < len; ++i)
-        {
-            if (labels[i].position <= this.currentFrame)
-            {
+    getCurrentLabel() {
+        let labels = this._labels;
+        let current = null;
+        for (let i = 0, len = labels.length; i < len; ++i) {
+            if (labels[i].position <= this.currentFrame) {
                 current = labels[i].label;
             }
-            else
-            {
+            else {
                 break;
             }
         }
@@ -340,20 +309,17 @@ export default class SpriteClip extends PIXI.Sprite
      *                                               frames are pulled from Pixi's global texture
      *                                               cache.
      */
-    init(data, atlas)
-    {
+    init(data, atlas) {
         //collect the frame labels
-        var labels = this._labels = [];
-        var events = this._events = [];
+        let labels = this._labels = [];
+        let events = this._events = [];
 
-        var name;
-        if (data.labels)
-        {
-            var positions = {};
+        let name;
+        if (data.labels) {
+            let positions = {};
 
-            for (name in data.labels)
-            {
-                var label = {
+            for (name in data.labels) {
+                let label = {
                     label: name,
                     position: data.labels[name],
                     length: 1
@@ -362,17 +328,15 @@ export default class SpriteClip extends PIXI.Sprite
                 positions[name] = label.position;
 
                 // Exclude animation-end tags
-                if (!/_(loop|stop)$/.test(name))
-                {
+                if (!/_(loop|stop)$/.test(name)) {
                     events.push(label);
                 }
                 labels.push(label);
             }
             // Calculate the lengths for all the event labels
-            var start = null;
-            for (var j = 0; j < events.length; j++)
-            {
-                var event = events[j];
+            let start = null;
+            for (let j = 0; j < events.length; j++) {
+                let event = events[j];
                 start = event.position;
                 event.length =
                     positions[name + '_stop'] - start ||
@@ -386,21 +350,18 @@ export default class SpriteClip extends PIXI.Sprite
         //collect the frames
         this._textures = [];
 
-        var index;
-        for (var i = 0; i < data.frames.length; ++i)
-        {
-            var frameSet = data.frames[i];
+        let index;
+        for (let i = 0; i < data.frames.length; ++i) {
+            let frameSet = data.frames[i];
 
             name = frameSet.name;
             index = name.lastIndexOf('/');
             //strip off any folder structure included in the name
-            if (index >= 0)
-            {
+            if (index >= 0) {
                 name = name.substring(index + 1);
             }
 
-            if (atlas)
-            {
+            if (atlas) {
                 atlas.getFrames(
                     name,
                     frameSet.min,
@@ -409,8 +370,7 @@ export default class SpriteClip extends PIXI.Sprite
                     this._textures
                 );
             }
-            else
-            {
+            else {
                 this._getFrames(
                     name,
                     frameSet.min,
@@ -422,102 +382,85 @@ export default class SpriteClip extends PIXI.Sprite
         }
 
         //set up the framerate
-        if (data.fps)
-        {
+        if (data.fps) {
             this.framerate = data.fps;
         }
-        else if (this._framerate)
-        {
+        else if (this._framerate) {
             this.framerate = this._framerate;
         }
 
-        if (data.origin)
-        {
+        if (data.origin) {
             this.pivot.x = data.origin.x;
             this.pivot.y = data.origin.y;
         }
-        else
-        {
+        else {
             this.pivot.x = this.pivot.y = 0;
         }
 
         this.gotoAndStop(0);
     }
 
-    _labelSorter(a, b)
-    {
+    _labelSorter(a, b) {
         return a.position - b.position;
     }
 
-    _getFrames(name, numberMin, numberMax, maxDigits, outArray)
-    {
-        if (maxDigits === undefined)
-        {
+    _getFrames(name, numberMin, numberMax, maxDigits, outArray) {
+        if (maxDigits === undefined) {
             maxDigits = 4;
         }
 
-        if (maxDigits < 0)
-        {
+        if (maxDigits < 0) {
             maxDigits = 0;
         }
 
-        if (!outArray)
-        {
+        if (!outArray) {
             outArray = [];
         }
 
         //set up strings to add the correct number of zeros ahead of time to avoid creating even more strings.
-        var zeros = []; //preceding zeroes array
-        var compares = []; //powers of 10 array for determining how many preceding zeroes to use
-        var i, c;
-        for (i = 1; i < maxDigits; ++i)
-        {
-            var s = '';
+        let zeros = []; //preceding zeroes array
+        let compares = []; //powers of 10 array for determining how many preceding zeroes to use
+        let i, c;
+        for (i = 1; i < maxDigits; ++i) {
+            let s = '';
             c = 1;
-            for (var j = 0; j < i; ++j)
-            {
+            for (let j = 0; j < i; ++j) {
                 s += '0';
                 c *= 10;
             }
             zeros.unshift(s);
             compares.push(c);
         }
-        var compareLength = compares.length; //the length of the compare
+        let compareLength = compares.length; //the length of the compare
 
         //the previous Texture, so we can place the same object in multiple times to control
         //animation rate
-        var prevTex;
-        var len;
-        var fromFrame = PIXI.Texture.fromFrame;
-        for (i = numberMin, len = numberMax; i <= len; ++i)
-        {
-            var num = null;
+        let prevTex;
+        let len;
+        let fromFrame = PIXI.Texture.fromFrame;
+        for (i = numberMin, len = numberMax; i <= len; ++i) {
+            let num = null;
             //calculate the number of preceding zeroes needed, then create the full number string.
-            for (c = 0; c < compareLength; ++c)
-            {
-                if (i < compares[c])
-                {
+            for (c = 0; c < compareLength; ++c) {
+                if (i < compares[c]) {
                     num = zeros[c] + i;
                     break;
                 }
             }
-            if (!num)
-            {
+            if (!num) {
                 num = i.toString();
             }
 
             //If the texture doesn't exist, use the previous texture - this should allow us to use
             //fewer textures that are in fact the same, if those textures were removed before
             //making the spritesheet
-            var texName = name.replace('#', num);
-            var tex = fromFrame(texName, true);
-            if (tex)
-            {
+            let texName = name.replace('#', num);
+            let tex = fromFrame(texName, true);
+            if (tex) {
                 prevTex = tex;
             }
 
-            if (prevTex)
-            {
+            if (prevTex) {
                 outArray.push(prevTex);
             }
         }
@@ -531,8 +474,7 @@ export default class SpriteClip extends PIXI.Sprite
      * @method copyFrom
      * @param {SpriteClip} other The movieclip to copy data from.
      */
-    copyFrom(other)
-    {
+    copyFrom(other) {
         this._textures = other._textures;
         this._labels = other._labels;
         this._events = other._events;
@@ -546,8 +488,7 @@ export default class SpriteClip extends PIXI.Sprite
      * Destroys the SpriteClip.
      * @method destroy
      */
-    destroy(options)
-    {
+    destroy(options) {
         this._labels = this._events = null;
         super.destroy(options);
     }

@@ -1,16 +1,14 @@
 import {ApplicationPlugin} from '@springroll/core';
 import HintsPlayer from '../HintsPlayer';
 
-(function()
-{
+(function() {
     /**
      * @class Application
      */
     const plugin = new ApplicationPlugin('hints');
 
     // Init the animator
-    plugin.setup = function()
-    {
+    plugin.setup = function() {
         /**
          * The hint player API
          * @property {springroll.HintsPlayer} hints
@@ -19,10 +17,8 @@ import HintsPlayer from '../HintsPlayer';
     };
 
     // Check for dependencies
-    plugin.preload = function(done)
-    {
-        if (!this.animator)
-        {
+    plugin.preload = function(done) {
+        if (!this.animator) {
             // @if DEBUG
             throw 'Hints requires the Animator to run';
             // @endif
@@ -33,8 +29,7 @@ import HintsPlayer from '../HintsPlayer';
             // @endif
         }
 
-        if (!this.voPlayer)
-        {
+        if (!this.voPlayer) {
             // @if DEBUG
             throw 'Hints requires the Sound module to be included';
             // @endif
@@ -50,14 +45,12 @@ import HintsPlayer from '../HintsPlayer';
         this.hints.on('anim', onAnimatorHint, this);
 
         // Send messages to the container
-        if (this.container)
-        {
+        if (this.container) {
             // Listen for manual help clicks
             this.container.on('playHelp', this.hints.play);
 
             // Listen whtn the hint changes
-            this.hints.on('enabled', enabled => 
-            {
+            this.hints.on('enabled', enabled => {
                 this.container.send('helpEnabled', enabled);
             });
         }
@@ -70,25 +63,22 @@ import HintsPlayer from '../HintsPlayer';
      * @private
      * @param {object} data The VO data
      */
-    var onVOHint = function(data)
-    {
-        if (this.media)
-        {
+    function onVOHint(data) {
+        if (this.media) {
             this.media.playInstruction(
                 data.events,
                 data.complete,
                 data.cancel
             );
         }
-        else
-        {
+        else {
             this.voPlayer.play(
                 data.events,
                 data.complete,
                 data.cancel
             );
         }
-    };
+    }
 
     /**
      * Handle the animator event
@@ -96,10 +86,8 @@ import HintsPlayer from '../HintsPlayer';
      * @private
      * @param {object} data The animator data
      */
-    var onAnimatorHint = function(data)
-    {
-        if (this.media)
-        {
+    function onAnimatorHint(data) {
+        if (this.media) {
             this.media.playInstruction(
                 data.instance,
                 data.events,
@@ -107,8 +95,7 @@ import HintsPlayer from '../HintsPlayer';
                 data.cancel
             );
         }
-        else
-        {
+        else {
             this.animator.play(
                 data.instance,
                 data.events,
@@ -116,17 +103,14 @@ import HintsPlayer from '../HintsPlayer';
                 data.cancel
             );
         }
-    };
+    }
 
     // Destroy the animator
-    plugin.teardown = function()
-    {
-        if (this.container)
-        {
+    plugin.teardown = function() {
+        if (this.container) {
             this.container.off('playHelp');
         }
-        if (this.hints)
-        {
+        if (this.hints) {
             this.hints.off('enabled vo anim');
             this.hints.destroy();
             this.hints = null;

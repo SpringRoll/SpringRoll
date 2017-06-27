@@ -1,5 +1,4 @@
-export default class StringUtils
-{
+export default class StringUtils {
     /**
      * Returns a string of the number as an integer with leading zeros to fill the string out
      * to a certain number of digits.
@@ -7,25 +6,21 @@ export default class StringUtils
      * @param {Number} [totalDigits=2] The total number of digits to be displayed.
      * @return {String} The number string.
      */
-    static numberPadding(num, totalDigits = 2)
-    {
+    static numberPadding(num, totalDigits = 2) {
         let leader;
 
-        if (num < 0)
-        {
+        if (num < 0) {
             num *= -1;
             leader = '-';
         }
 
-        var s = String(Math.floor(num));
+        let s = String(Math.floor(num));
 
-        while (s.length < totalDigits)
-        {
+        while (s.length < totalDigits) {
             s = `0${s}`;
         }
 
-        if (leader)
-        {
+        if (leader) {
             s = leader + s;
         }
 
@@ -41,18 +36,14 @@ export default class StringUtils
      * @param {Array|*} args An array or list of arguments for formatting.
      * @return {String} The substituted string.
      */
-    static format(str, ...args)
-    {
-        if (args.length < 1)
-        {
+    static format(str, ...args) {
+        if (args.length < 1) {
             return str;
         }
 
         return str
-            .replace(/([^%]|^)%(?:(\d+)\$)?s/g, (p0, p, position) => 
-            {
-                if (position)
-                {
+            .replace(/([^%]|^)%(?:(\d+)\$)?s/g, (p0, p, position) => {
+                if (position) {
                     return p + args[parseInt(position) - 1];
                 }
                 return p + args.shift();
@@ -67,12 +58,10 @@ export default class StringUtils
      * @param {String} str String to reverse.
      * @return {String} The reversed string.
      */
-    static reverse(str)
-    {
+    static reverse(str) {
         let o = '';
 
-        for (let i = str.length - 1; i >= 0; i--)
-        {
+        for (let i = str.length - 1; i >= 0; i--) {
             o += str[i];
         }
 

@@ -3,10 +3,8 @@
  * files. They need to extend some basic methods.
  * @class AnimatorTimeline
  */
-export default class AnimatorInstance
-{
-    constructor()
-    {
+export default class AnimatorInstance {
+    constructor() {
         /**
          * The animation clip to play
          * @property {*} clip
@@ -43,8 +41,7 @@ export default class AnimatorInstance
      * @method init
      * @param  {*} clip The movieclip
      */
-    init(clip)
-    {
+    init(clip) {
         this.clip = clip;
     }
 
@@ -54,15 +51,13 @@ export default class AnimatorInstance
      * @param {Object} animObj The animation data object.
      * @param {Boolean} isRepeat If this animation is restarting a loop.
      */
-    beginAnim(/*animObj, isRepeat*/) 
-    {}
+    beginAnim(/*animObj, isRepeat*/) {}
 
     /**
      * Ends animation playback.
      * @method endAnim
      */
-    endAnim() 
-    {}
+    endAnim() {}
 
     /**
      * Updates position to a new value, and does anything that the clip needs, like updating
@@ -70,8 +65,7 @@ export default class AnimatorInstance
      * @method setPosition
      * @param  {Number} newPos The new position in the animation.
      */
-    setPosition(/*newPos*/) 
-    {}
+    setPosition(/*newPos*/) {}
 
     /**
      * Check to see if a clip is compatible with this
@@ -79,8 +73,7 @@ export default class AnimatorInstance
      * @static
      * @return {Boolean} if the clip is supported by this instance
      */
-    static test(/*clip*/)
-    {
+    static test(/*clip*/) {
         return false;
     }
 
@@ -92,8 +85,7 @@ export default class AnimatorInstance
      * @param  {String|Object} event The animation.
      * @return {Boolean} If the clip has the animation.
      */
-    static hasAnimation(/*clip, event*/)
-    {
+    static hasAnimation(/*clip, event*/) {
         return false;
     }
 
@@ -105,8 +97,7 @@ export default class AnimatorInstance
      * @param  {String|Object|Array} event The animation or animation list.
      * @return {Number} Animation duration in milliseconds.
      */
-    static getDuration(/*clip, event*/)
-    {
+    static getDuration(/*clip, event*/) {
         return 0;
     }
 
@@ -117,8 +108,7 @@ export default class AnimatorInstance
      * @param {function} [ParentClass=springroll.AnimatorTimeline] The class to extend
      * @return {object} The prototype for new class
      */
-    static extend(InstanceClass, ParentClass)
-    {
+    static extend(InstanceClass, ParentClass) {
         /**
          * The pool of used up instances
          * @property {Array} _pool
@@ -134,9 +124,8 @@ export default class AnimatorInstance
          * @param  {*} clip The animation clip or display object
          * @return {springroll.AnimatorInstance} The new instance
          */
-        InstanceClass.create = function(clip)
-        {
-            var instance = InstanceClass._pool.length > 0 ?
+        InstanceClass.create = function(clip) {
+            let instance = InstanceClass._pool.length > 0 ?
                 InstanceClass._pool.pop() :
                 new InstanceClass();
 
@@ -150,8 +139,7 @@ export default class AnimatorInstance
          * @static
          * @param  {springroll.AnimatorInstance} instance The instance to pool
          */
-        InstanceClass.pool = function(instance)
-        {
+        InstanceClass.pool = function(instance) {
             instance.destroy();
             InstanceClass._pool.push(instance);
         };
@@ -166,8 +154,7 @@ export default class AnimatorInstance
      * so it can be re-used.
      * @method destroy
      */
-    destroy()
-    {
+    destroy() {
         this.clip = null;
     }
 }

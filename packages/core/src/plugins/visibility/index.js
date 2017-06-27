@@ -1,16 +1,14 @@
 import ApplicationPlugin from '../../ApplicationPlugin';
 import PageVisibility from './PageVisibility';
     
-(function()
-{
+(function() {
     /**
      * @class Application
      */
     const plugin = new ApplicationPlugin('visibility');
 
     // Init the animator
-    plugin.setup = function()
-    {
+    plugin.setup = function() {
         /**
          * Handles the page visiblity changes automatically
          * to pause and resume the application
@@ -18,13 +16,11 @@ import PageVisibility from './PageVisibility';
          * @private
          */
         const visibility = this._visibility = new PageVisibility(
-            () => 
-            {
+            () => {
                 // Private listener for when the page is shown.
                 this.autoPaused = false;
             },
-            () => 
-            {
+            () => {
                 // Private listener for when the page is hidden.
                 this.autoPaused = true;
             }
@@ -36,12 +32,10 @@ import PageVisibility from './PageVisibility';
          * @default true
          */
         this.options.add('autoPause', true)
-            .on('autoPause', value => 
-            {
+            .on('autoPause', value => {
                 visibility.enabled = value;
             })
-            .respond('autoPause', () => 
-            {
+            .respond('autoPause', () => {
                 return visibility.enabled;
             });
 
@@ -53,11 +47,9 @@ import PageVisibility from './PageVisibility';
          */
         Object.defineProperty(this, 'autoPaused',
             {
-                set(paused)
-                {
+                set(paused) {
                 // check if app is manually paused
-                    if (!this.paused)
-                    {
+                    if (!this.paused) {
                         this.internalPaused(paused);
                     }
                 }
@@ -65,10 +57,8 @@ import PageVisibility from './PageVisibility';
     };
 
     // Destroy the animator
-    plugin.teardown = function()
-    {
-        if (this._visibility)
-        {
+    plugin.teardown = function() {
+        if (this._visibility) {
             this._visibility.destroy();
         }
         this._visibility = null;

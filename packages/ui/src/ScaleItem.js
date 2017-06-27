@@ -11,10 +11,8 @@ import ScaleManager from './ScaleManager';
  * @param {Object} size The original screen the item was designed for
  * @param {DisplayAdapter} adapter The display adapter
  */
-export default class ScaleItem
-{
-    constructor(display, align, size, adapter)
-    {
+export default class ScaleItem {
+    constructor(display, align, size, adapter) {
         // Break align into parts
         align = align.split('-');
 
@@ -81,22 +79,22 @@ export default class ScaleItem
          */
         this._adapter = adapter;
 
-        var scale = adapter.getScale(display);
-        var position = adapter.getPosition(display);
+        let scale = adapter.getScale(display);
+        let position = adapter.getPosition(display);
 
         /**
          * Original X scale of the item
          * @property {Number} origScaleX
          * @default 0
          */
-        var origScaleX = this.origScaleX = scale.x || 1;
+        let origScaleX = this.origScaleX = scale.x || 1;
 
         /**
          * The original Y scale of the item
          * @property {Number} origScaleY
          * @default 0
          */
-        var origScaleY = this.origScaleY = scale.y || 1;
+        let origScaleY = this.origScaleY = scale.y || 1;
 
         /**
          * The original bounds of the item with x, y, right, bottom, width,
@@ -105,29 +103,25 @@ export default class ScaleItem
          */
         this.origBounds = adapter.getLocalBounds(display);
         //convert bounds to something more usable
-        var temp, bounds = this.origBounds;
-        if (this.origScaleX < 0)
-        {
+        let temp, bounds = this.origBounds;
+        if (this.origScaleX < 0) {
             temp = bounds.x;
             bounds.x = bounds.right * origScaleX;
             bounds.right = temp * origScaleX;
             bounds.width *= Math.abs(origScaleX);
         }
-        else
-        {
+        else {
             bounds.x *= origScaleX;
             bounds.right *= origScaleX;
             bounds.width *= origScaleX;
         }
-        if (this.origScaleY < 0)
-        {
+        if (this.origScaleY < 0) {
             temp = bounds.y;
             bounds.y = bounds.bottom * origScaleY;
             bounds.bottom = temp * origScaleY;
             bounds.height *= Math.abs(origScaleY);
         }
-        else
-        {
+        else {
             bounds.y *= origScaleY;
             bounds.bottom *= origScaleY;
             bounds.height *= origScaleY;
@@ -147,8 +141,7 @@ export default class ScaleItem
          */
         this.origMarginVert = 0;
 
-        switch (this.vertAlign)
-        {
+        switch (this.vertAlign) {
             case ScaleManager.ALIGN_TOP:
                 this.origMarginVert = position.y + this.origBounds.y;
                 break;
@@ -160,8 +153,7 @@ export default class ScaleItem
                 break;
         }
 
-        switch (this.horiAlign)
-        {
+        switch (this.horiAlign) {
             case ScaleManager.ALIGN_LEFT:
                 this.origMarginHori = position.x + this.origBounds.x;
                 break;
@@ -175,8 +167,7 @@ export default class ScaleItem
     }
 
     // @if DEBUG
-    toString()
-    {
+    toString() {
         return '[ScaleItem (vertAlign=\'' + this.vertAlign + '\', horiAlign=\'' + this.horiAlign + '\')]';
     }
     // @endif
@@ -186,8 +177,7 @@ export default class ScaleItem
      * @property {PIXI.DisplayObject|createjs.DisplayObject} display
      * @readOnly
      */
-    get display()
-    {
+    get display() {
         return this._display;
     }
 
@@ -197,40 +187,35 @@ export default class ScaleItem
      * @param {Number} displayWidth The current screen width
      * @param {Number} displayHeight The current screen height
      */
-    resize(displayWidth, displayHeight)
-    {
-        var adapter = this._adapter;
-        var _display = this._display;
-        var _size = this._size;
-        var origBounds = this.origBounds;
-        var origScaleX = this.origScaleX;
-        var origScaleY = this.origScaleY;
-        var defaultRatio = _size.width / _size.height;
-        var currentRatio = displayWidth / displayHeight;
-        var overallScale = currentRatio >= defaultRatio ?
+    resize(displayWidth, displayHeight) {
+        let adapter = this._adapter;
+        let _display = this._display;
+        let _size = this._size;
+        let origBounds = this.origBounds;
+        let origScaleX = this.origScaleX;
+        let origScaleY = this.origScaleY;
+        let defaultRatio = _size.width / _size.height;
+        let currentRatio = displayWidth / displayHeight;
+        let overallScale = currentRatio >= defaultRatio ?
             displayHeight / _size.height :
             displayWidth / _size.width;
-        var scaleToHeight = currentRatio >= defaultRatio;
-        var letterBoxWidth = 0;
-        var letterBoxHeight = 0;
+        let scaleToHeight = currentRatio >= defaultRatio;
+        let letterBoxWidth = 0;
+        let letterBoxHeight = 0;
 
-        if (scaleToHeight)
-        {
+        if (scaleToHeight) {
             letterBoxWidth = (displayWidth - _size.width * overallScale) / 2;
         }
-        else
-        {
+        else {
             letterBoxHeight = (displayHeight - _size.height * overallScale) / 2;
         }
 
         // Optional clamps on the min and max scale of the item
-        var itemScale = overallScale;
-        if (this.minScale && itemScale < this.minScale)
-        {
+        let itemScale = overallScale;
+        if (this.minScale && itemScale < this.minScale) {
             itemScale = this.minScale;
         }
-        else if (this.maxScale && itemScale > this.maxScale)
-        {
+        else if (this.maxScale && itemScale > this.maxScale) {
             itemScale = this.maxScale;
         }
 
@@ -238,25 +223,22 @@ export default class ScaleItem
         adapter.setScale(_display, origScaleY * itemScale, 'y');
 
         // Positioning
-        var m;
-        var x;
-        var y;
+        let m;
+        let x;
+        let y;
 
         // Vertical margin
         m = this.origMarginVert * overallScale;
 
         // Determine if vertical alignment should be title safe
-        var titleSafe = this.titleSafe === true || this.titleSafe === 'vertical';
+        let titleSafe = this.titleSafe === true || this.titleSafe === 'vertical';
 
-        switch (this.vertAlign)
-        {
+        switch (this.vertAlign) {
             case ScaleManager.ALIGN_TOP:
-                if (titleSafe)
-                {
+                if (titleSafe) {
                     y = letterBoxHeight + m - origBounds.y * itemScale;
                 }
-                else
-                {
+                else {
                     y = m - origBounds.y * itemScale;
                 }
                 break;
@@ -264,20 +246,17 @@ export default class ScaleItem
                 y = displayHeight * 0.5 - m;
                 break;
             case ScaleManager.ALIGN_BOTTOM:
-                if (titleSafe)
-                {
+                if (titleSafe) {
                     y = displayHeight - letterBoxHeight - m - origBounds.bottom * itemScale;
                 }
-                else
-                {
+                else {
                     y = displayHeight - m - origBounds.bottom * itemScale;
                 }
                 break;
         }
 
         // Set the position
-        if (y !== null)
-        {
+        if (y !== null) {
             adapter.setPosition(_display, y, 'y');
         }
 
@@ -287,43 +266,35 @@ export default class ScaleItem
         // Determine if horizontal alignment should be title safe
         titleSafe = this.titleSafe === true || this.titleSafe === 'horizontal';
 
-        switch (this.horiAlign)
-        {
+        switch (this.horiAlign) {
             case ScaleManager.ALIGN_LEFT:
-                if (titleSafe)
-                {
+                if (titleSafe) {
                     x = letterBoxWidth + m - origBounds.x * itemScale;
                 }
-                else
-                {
+                else {
                     x = m - origBounds.x * itemScale;
                 }
                 break;
             case ScaleManager.ALIGN_CENTER:
-                if (this.centeredHorizontally)
-                {
+                if (this.centeredHorizontally) {
                     x = (displayWidth - _display.width) * 0.5;
                 }
-                else
-                {
+                else {
                     x = displayWidth * 0.5 - m;
                 }
                 break;
             case ScaleManager.ALIGN_RIGHT:
-                if (titleSafe)
-                {
+                if (titleSafe) {
                     x = displayWidth - letterBoxWidth - m - origBounds.right * itemScale;
                 }
-                else
-                {
+                else {
                     x = displayWidth - m - origBounds.right * itemScale;
                 }
                 break;
         }
 
         // Set the position
-        if (x !== null)
-        {
+        if (x !== null) {
             adapter.setPosition(_display, x, 'x');
         }
     }
@@ -332,8 +303,7 @@ export default class ScaleItem
      * Destroy this item, don't use after this
      * @method destroy
      */
-    destroy()
-    {
+    destroy() {
         this._adapter = null;
         this.origBounds = null;
         this._display = null;

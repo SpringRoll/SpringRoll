@@ -19,10 +19,8 @@ import TextureTask from './TextureTask';
  * @param {Function} [asset.complete] The event to call when done
  * @param {Object} [asset.sizes=null] Define if certain sizes are not supported
  */
-export default class TextureAtlasTask extends TextureTask
-{
-    constructor(asset, fallbackId)
-    {
+export default class TextureAtlasTask extends TextureTask {
+    constructor(asset, fallbackId) {
         super(asset, fallbackId || asset.atlas);
 
         /**
@@ -39,8 +37,7 @@ export default class TextureAtlasTask extends TextureTask
      * @param {Object} asset The asset to check
      * @return {Boolean} If the asset is compatible with this asset
      */
-    static test(asset)
-    {
+    static test(asset) {
         // atlas data and an image or color/alpha split
         return !!asset.atlas && TextureTask.test(asset);
     }
@@ -50,8 +47,7 @@ export default class TextureAtlasTask extends TextureTask
      * @method  start
      * @param  {Function} callback Callback when finished
      */
-    start(callback)
-    {
+    start(callback) {
         this.loadAtlas({}, callback);
     }
 
@@ -64,22 +60,19 @@ export default class TextureAtlasTask extends TextureTask
      *                                       because this task is still returning stuff to another
      *                                       task.
      */
-    loadAtlas(assets, done, ignoreCacheSetting)
-    {
+    loadAtlas(assets, done, ignoreCacheSetting) {
         assets._atlas = this.atlas;
 
-        this.loadImage(assets, (texture, results) => 
-        {
-            var data = results._atlas;
-            var atlas = new TextureAtlas(
+        this.loadImage(assets, (texture, results) => {
+            let data = results._atlas;
+            let atlas = new TextureAtlas(
                 texture,
                 data,
                 this.cache && !ignoreCacheSetting
             );
             //if the spritesheet JSON had a scale in it, use that to override
             //whatever settings came from loading, as the texture atlas size is more important
-            if (data.meta && data.meta.scale && parseFloat(data.meta.scale) !== 1)
-            {
+            if (data.meta && data.meta.scale && parseFloat(data.meta.scale) !== 1) {
                 texture.baseTexture.resolution = parseFloat(results._atlas.meta.scale);
                 texture.baseTexture.update();
             }

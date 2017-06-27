@@ -16,10 +16,8 @@ import Task from './Task';
  * @param {Function} [asset.progress=null] The event to call on load progress
  * @param {Object} [asset.sizes=null] Define if certain sizes are not supported
  */
-export default class LoadTask extends Task
-{
-    constructor(asset)
-    {
+export default class LoadTask extends Task {
+    constructor(asset) {
         super(asset, asset.src);
 
         /**
@@ -56,8 +54,7 @@ export default class LoadTask extends Task
      * @param {Object} asset The asset to check
      * @return {Boolean} If the asset is compatible with this asset
      */
-    static test(asset)
-    {
+    static test(asset) {
         return !!asset.src;
     }
 
@@ -66,16 +63,13 @@ export default class LoadTask extends Task
      * @method  start
      * @param  {Function} callback Callback when finished
      */
-    start(callback)
-    {
-        var advanced = this.advanced;
+    start(callback) {
+        let advanced = this.advanced;
         this.simpleLoad(
             this.src,
-            function(result)
-            {
-                var content = result;
-                if (content && !advanced)
-                {
+            function(result) {
+                let content = result;
+                if (content && !advanced) {
                     content = result.content;
                     result.destroy();
                 }
@@ -90,8 +84,7 @@ export default class LoadTask extends Task
      * Destroy this and discard
      * @method destroy
      */
-    destroy()
-    {
+    destroy() {
         super.destroy();
         this.data = null;
         this.progress = null;

@@ -1,7 +1,6 @@
 import {expose} from '@springroll/core';
 
-if (typeof PIXI === 'undefined')
-{
+if (typeof PIXI === 'undefined') {
     throw 'pixi.js is not found';
 }
 

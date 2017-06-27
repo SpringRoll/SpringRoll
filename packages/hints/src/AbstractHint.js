@@ -6,10 +6,8 @@
  * @param {springroll.HintsPlayer} hints The instance of the hints
  * @param {Function} done called on hint complete
  */
-export default class AbstractHint
-{
-    constructor(hints, done)
-    {
+export default class AbstractHint {
+    constructor(hints, done) {
         /**
          * The reference to the hint play
          * @property {springroll.HintsPlayer} _hints
@@ -22,8 +20,7 @@ export default class AbstractHint
      * Run the hint
      * @method play
      */
-    play()
-    {
+    play() {
         // @if DEBUG
         throw 'Must override AbstractHint.play';
         // @endif
@@ -35,12 +32,10 @@ export default class AbstractHint
      * @private
      * @param {function} original The original callback, either complete or cancelled
      */
-    _onPlayComplete(original, cancelled)
-    {
+    _onPlayComplete(original, cancelled) {
         this._done(cancelled);
         
-        if (typeof original === 'function')
-        {
+        if (typeof original === 'function') {
             original();
         }
     }
@@ -49,8 +44,7 @@ export default class AbstractHint
      * Clean-up the hint, don't use after this
      * @method destroy
      */
-    destroy()
-    {
+    destroy() {
         this._done = null;
         this._hints = null;
     }

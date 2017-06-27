@@ -15,16 +15,13 @@ import MathUtils from './MathUtils';
  * @constructor
  * @param {Object} object The configuration object for this weighted value generator.
  */
-export default class WeightedRandom
-{
-    constructor(values)
-    {
+export default class WeightedRandom {
+    constructor(values) {
         this.max = -1;
         this.options = [];
         let value = 0;
 
-        for (let key in values)
-        {
+        for (let key in values) {
             value += values[key];
             this.options.push({ key, value });
             this.max += values[key];
@@ -36,14 +33,11 @@ export default class WeightedRandom
      * @method random
      * @return {String} The randomly chosen value.
      */
-    random()
-    {
+    random() {
         let rand = MathUtils.randomInt(0, this.max);
 
-        for (let i = 0, options = this.options, length = options.length; i < length; ++i)
-        {
-            if (rand < options[i].value)
-            {
+        for (let i = 0, options = this.options, length = options.length; i < length; ++i) {
+            if (rand < options[i].value) {
                 return options[i].key;
             }
         }

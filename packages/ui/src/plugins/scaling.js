@@ -5,8 +5,7 @@ import ScaleManager from '../ScaleManager';
 import {Debug} from '@springroll/debug';
 // @endif
 
-(function()
-{
+(function() {
     /**
      * @class Application
      */
@@ -15,8 +14,7 @@ import {Debug} from '@springroll/debug';
     const plugin = new ApplicationPlugin('scaling', ['config', 'display']);
 
     //Init the scaling
-    plugin.setup = function()
-    {
+    plugin.setup = function() {
         /**
          * The main ScaleManager for any display object references
          * in the main game.
@@ -28,16 +26,13 @@ import {Debug} from '@springroll/debug';
         this.options.override('responsive', true);
 
         //Add the scaling size
-        this.once('configLoaded', function(config)
-        {
+        this.once('configLoaded', function(config) {
             const scalingSize = config.scalingSize;
             
-            if (scalingSize)
-            {
+            if (scalingSize) {
                 this.scaling.size = scalingSize;
             }
-            else
-            {
+            else {
                 // @if DEBUG
                 Debug.warn('Recommended that config contains \'scalingSize\' object with keys \'width\' and \'height\' an optionally \'maxWidth\' and \'maxHeight\'.');
                 // @endif
@@ -45,35 +40,29 @@ import {Debug} from '@springroll/debug';
         });
 
         //Add the display
-        this.once('afterReady', function()
-        {
-            var config = this.config;
+        this.once('afterReady', function() {
+            let config = this.config;
 
-            if (!config) 
-            {
+            if (!config) {
                 return;
             }
 
-            if (config.scaling)
-            {
+            if (config.scaling) {
                 this.scaling.addItems(this, config.scaling);
             }
         });
     };
 
     //Setup the display
-    plugin.preload = function(done)
-    {
+    plugin.preload = function(done) {
         this.scaling.display = this.display;
         this.scaling.enabled = true;
         done();
     };
 
     //Clean up
-    plugin.teardown = function()
-    {
-        if (this.scaling) 
-        {
+    plugin.teardown = function() {
+        if (this.scaling) {
             this.scaling.destroy();
         }
         this.scaling = null;

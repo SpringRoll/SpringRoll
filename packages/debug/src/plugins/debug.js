@@ -1,16 +1,14 @@
 import {ApplicationPlugin} from '@springroll/core';
 import Debug from '../Debug';
 
-(function()
-{
+(function() {
     /**
      * @class Application
      */
     const plugin = new ApplicationPlugin('debug');
 
     // Init the animator
-    plugin.setup = function()
-    {
+    plugin.setup = function() {
         const options = this.options;
 
         /**
@@ -38,34 +36,28 @@ import Debug from '../Debug';
          */
         options.add('debugRemote', null)
             .respond('debug', () => Debug.enabled)
-            .on('debug', value => 
-            {
+            .on('debug', value => {
                 Debug.enabled = value;
             })
-            .on('debugRemote', value => 
-            {
+            .on('debugRemote', value => {
                 Debug.disconnect();
-                if (value)
-                {
+                if (value) {
                     Debug.connect(value);
                 }
             })
             .respond('minLogLevel', () => Debug.minLogLevel.asInt)
-            .on('minLogLevel', value => 
-            {
+            .on('minLogLevel', value => {
                 Debug.minLogLevel = Debug.Levels.valueFromInt(
                     parseInt(value, 10)
                 );
-                if (!Debug.minLogLevel)
-                {
+                if (!Debug.minLogLevel) {
                     Debug.minLogLevel = Debug.Levels.GENERAL;
                 }
             });
     };
 
     // Destroy the animator
-    plugin.teardown = function()
-    {
+    plugin.teardown = function() {
         Debug.disconnect();
     };
 

@@ -17,21 +17,17 @@
  *         For classes that aren't found and are required, an error is thrown.
  * @return {object|function} The object attached at the given namespace
  */
-export default function include(namespaceString, required)
-{
-    var parts = namespaceString.split('.'),
+export default function include(namespaceString, required) {
+    let parts = namespaceString.split('.'),
         parent = window,
         currentPart = '';
 
     required = required !== undefined ? !!required : true;
 
-    for (var i = 0, length = parts.length; i < length; i++)
-    {
+    for (let i = 0, length = parts.length; i < length; i++) {
         currentPart = parts[i];
-        if (!parent[currentPart])
-        {
-            if (!required)
-            {
+        if (!parent[currentPart]) {
+            if (!required) {
                 return null;
             }
             // @if DEBUG

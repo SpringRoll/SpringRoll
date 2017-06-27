@@ -18,10 +18,8 @@ import {Task, ColorAlphaTask} from '@springroll/loaders';
  * @param {Function} [asset.complete] The callback to call when the load is completed.
  * @param {Object} [asset.sizes=null] Define if certain sizes are not supported
  */
-export default class TextureTask extends Task
-{
-    constructor(asset, fallbackId)
-    {
+export default class TextureTask extends Task {
+    constructor(asset, fallbackId) {
         super(asset, fallbackId || asset.image);
 
         /**
@@ -56,8 +54,7 @@ export default class TextureTask extends Task
      * @param {Object} asset The asset to test
      * @return {Boolean} If this qualifies for this task
      */
-    static test(asset)
-    {
+    static test(asset) {
         return asset.type === 'pixi' && (!!asset.image || (!!asset.alpha && !!asset.color));
     }
 
@@ -66,8 +63,7 @@ export default class TextureTask extends Task
      * @method start
      * @param callback Callback to call when the load is done
      */
-    start(callback)
-    {
+    start(callback) {
         this.loadImage({}, callback);
     }
 
@@ -80,29 +76,23 @@ export default class TextureTask extends Task
      *                                       because this task is still returning stuff to another
      *                                       task.
      */
-    loadImage(assets, done, ignoreCacheSetting)
-    {
-        if (this.image)
-        {
+    loadImage(assets, done, ignoreCacheSetting) {
+        if (this.image) {
             assets._image = this.image;
         }
-        else
-        {
+        else {
             assets._color = this.color;
             assets._alpha = this.alpha;
         }
 
         // Do the load
-        this.load(assets, results => 
-        {
+        this.load(assets, results => {
 
-            var image;
-            if (results._image)
-            {
+            let image;
+            if (results._image) {
                 image = results._image;
             }
-            else
-            {
+            else {
                 image = ColorAlphaTask.mergeAlpha(
                     results._color,
                     results._alpha
@@ -110,26 +100,23 @@ export default class TextureTask extends Task
             }
 
             //determine scale using SpringRoll's scale management
-            var scale = this.original.scale;
+            let scale = this.original.scale;
             //if the scale doesn't exist, or is 1, then see if the devs are trying to use Pixi's
             //built in scale recognition
-            if (!scale || scale === 1)
-            {
+            if (!scale || scale === 1) {
                 scale = PIXI.utils.getResolutionOfUrl(this.image || this.color);
             }
             //create the Texture and BaseTexture
-            var texture = new PIXI.Texture(new PIXI.BaseTexture(image, null, scale));
+            let texture = new PIXI.Texture(new PIXI.BaseTexture(image, null, scale));
             texture.baseTexture.imageUrl = this.image;
 
-            if (this.cache && !ignoreCacheSetting)
-            {
+            if (this.cache && !ignoreCacheSetting) {
                 //for cache id, prefer task id, but if Pixi global texture cache is using urls, then
                 //use that
-                var id = this.id;
+                let id = this.id;
 
                 //if pixi is expecting URLs, then use the URL
-                if (!PIXI.utils.useFilenamesForTextures)
-                {
+                if (!PIXI.utils.useFilenamesForTextures) {
                     //use color image if regular image is not available
                     id = this.image || this.color;
                 }
@@ -142,10 +129,8 @@ export default class TextureTask extends Task
                 //works properly to completely unload it
                 texture.__origDestroy = texture.destroy;
 
-                texture.destroy = function()
-                {
-                    if (this.__destroyed)
-                    {
+                texture.destroy = function() {
+                    if (this.__destroyed) {
                         return;
                     }
 
@@ -155,15 +140,13 @@ export default class TextureTask extends Task
                     this.__origDestroy(true);
 
                     //remove it from the global texture cache, if relevant
-                    if (PIXI.utils.TextureCache[id] === this)
-                    {
+                    if (PIXI.utils.TextureCache[id] === this) {
                         delete PIXI.utils.TextureCache[id];
                     }
                 };
             }
 
-            if (this.uploadToGPU)
-            {
+            if (this.uploadToGPU) {
                 Application.instance.display.renderer.updateTexture(texture);
             }
             done(texture, results);

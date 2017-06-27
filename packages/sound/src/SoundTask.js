@@ -14,10 +14,8 @@ import {Task} from '@springroll/loaders';
  * @param {String} [asset.id] Id of asset
  * @param {Function} [asset.complete] The event to call when done
  */
-export default class SoundTask extends Task
-{
-    constructor(asset)
-    {
+export default class SoundTask extends Task {
+    constructor(asset) {
         super(asset, asset.sounds[0]);
 
         /**
@@ -34,8 +32,7 @@ export default class SoundTask extends Task
      * @param {Object} asset The asset to check
      * @return {Boolean} If the asset is compatible with this asset
      */
-    static test(asset)
-    {
+    static test(asset) {
         return !!asset.sounds && Array.isArray(asset.sounds);
     }
 
@@ -44,16 +41,13 @@ export default class SoundTask extends Task
      * @method  start
      * @param  {Function} callback Callback when finished
      */
-    start(callback)
-    {
-        var sound = Application.instance.sound;
-        var aliases = this.sounds;
-        sound.preload(aliases, function()
-        {
+    start(callback) {
+        let sound = Application.instance.sound;
+        let aliases = this.sounds;
+        sound.preload(aliases, function() {
             // Add a destroy function to do the clean-up of aliases
             // in case we are caching
-            aliases.destroy = function()
-            {
+            aliases.destroy = function() {
                 sound.unload(this);
                 this.length = 0;
                 delete this.destroy;
@@ -66,8 +60,7 @@ export default class SoundTask extends Task
      * Destroy and don't use after this
      * @method destroy
      */
-    destroy()
-    {
+    destroy() {
         this.sounds = null;
         super.destroy();
     }

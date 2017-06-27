@@ -18,10 +18,8 @@ import TextureTask from './TextureTask';
  * @param {Function} [asset.complete] The event to call when done
  * @param {Object} [asset.sizes=null] Define if certain sizes are not supported
  */
-export default class BitmapFontTask extends TextureTask
-{
-    constructor(asset)
-    {
+export default class BitmapFontTask extends TextureTask {
+    constructor(asset) {
         super(asset, asset.font);
 
         /**
@@ -38,8 +36,7 @@ export default class BitmapFontTask extends TextureTask
      * @param {Object} asset The asset to check
      * @return {Boolean} If the asset is compatible with this asset
      */
-    static test(asset)
-    {
+    static test(asset) {
         // atlas data and an image or color/alpha split
         return !!asset.font && TextureTask.test(asset);
     }
@@ -49,17 +46,15 @@ export default class BitmapFontTask extends TextureTask
      * @method  start
      * @param  {Function} callback Callback when finished
      */
-    start(callback)
-    {
-        this.loadImage({ _font: this.font }, (texture, results) => 
-        {
+    start(callback) {
+        this.loadImage({ _font: this.font }, (texture, results) => {
 
-            var data = results._font;
+            let data = results._font;
 
-            var font = {};
+            let font = {};
 
-            var info = data.getElementsByTagName('info')[0];
-            var common = data.getElementsByTagName('common')[0];
+            let info = data.getElementsByTagName('info')[0];
+            let common = data.getElementsByTagName('common')[0];
 
             font.font = info.getAttribute('face');
             font.size = parseInt(info.getAttribute('size'), 10);
@@ -67,15 +62,14 @@ export default class BitmapFontTask extends TextureTask
             font.chars = {};
 
             //parse letters
-            var letters = data.getElementsByTagName('char');
+            let letters = data.getElementsByTagName('char');
 
-            var i;
-            for (i = 0; i < letters.length; i++)
-            {
-                var l = letters[i];
-                var charCode = parseInt(l.getAttribute('id'), 10);
+            let i;
+            for (i = 0; i < letters.length; i++) {
+                let l = letters[i];
+                let charCode = parseInt(l.getAttribute('id'), 10);
 
-                var textureRect = new PIXI.Rectangle(
+                let textureRect = new PIXI.Rectangle(
                     parseInt(l.getAttribute('x'), 10) + texture.frame.x,
                     parseInt(l.getAttribute('y'), 10) + texture.frame.y,
                     parseInt(l.getAttribute('width'), 10),
@@ -93,27 +87,24 @@ export default class BitmapFontTask extends TextureTask
             }
 
             //parse kernings
-            var kernings = data.getElementsByTagName('kerning');
-            for (i = 0; i < kernings.length; i++)
-            {
-                var k = kernings[i];
-                var first = parseInt(k.getAttribute('first'), 10);
-                var second = parseInt(k.getAttribute('second'), 10);
-                var amount = parseInt(k.getAttribute('amount'), 10);
+            let kernings = data.getElementsByTagName('kerning');
+            for (i = 0; i < kernings.length; i++) {
+                let k = kernings[i];
+                let first = parseInt(k.getAttribute('first'), 10);
+                let second = parseInt(k.getAttribute('second'), 10);
+                let amount = parseInt(k.getAttribute('amount'), 10);
 
                 font.chars[second].kerning[first] = amount;
             }
 
             // I'm leaving this as a temporary fix so we can test the bitmap fonts in v3
             // but it's very likely to change
-            if (this.cache && PIXI.BitmapText.fonts)
-            {
+            if (this.cache && PIXI.BitmapText.fonts) {
                 PIXI.BitmapText.fonts[font.font] = font;
             }
 
             //add a cleanup function
-            font.destroy = function()
-            {
+            font.destroy = function() {
                 font.chars = null;
                 texture.destroy();
             };

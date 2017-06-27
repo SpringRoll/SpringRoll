@@ -1,7 +1,6 @@
 import {ApplicationPlugin} from '@springroll/core';
 
-(function()
-{
+(function() {
     /**
      * @class Application
      */
@@ -33,8 +32,7 @@ import {ApplicationPlugin} from '@springroll/core';
      */
 
     // Init the animator
-    plugin.setup = function()
-    {
+    plugin.setup = function() {
         const options = this.options;
 
         /**
@@ -92,14 +90,12 @@ import {ApplicationPlugin} from '@springroll/core';
     };
 
     // async
-    plugin.preload = function(done)
-    {
-        var assets = [];
-        var configPath = this.options.configPath;
+    plugin.preload = function(done) {
+        let assets = [];
+        let configPath = this.options.configPath;
 
         // If there's a config path then add it
-        if (configPath)
-        {
+        if (configPath) {
             assets.push(
                 {
                     id: 'config',
@@ -108,15 +104,13 @@ import {ApplicationPlugin} from '@springroll/core';
                     complete: onConfigLoaded.bind(this)
                 });
         }
-        else
-        {
+        else {
             addPreloadAssets(this, assets);
         }
 
-        var callback = onLoadComplete.bind(this, done);
+        let callback = onLoadComplete.bind(this, done);
 
-        if (assets.length)
-        {
+        if (assets.length) {
             this._assetLoad = this.load(assets,
                 {
                     complete: callback,
@@ -124,8 +118,7 @@ import {ApplicationPlugin} from '@springroll/core';
                     cacheAll: true
                 });
         }
-        else
-        {
+        else {
             callback();
         }
     };
@@ -136,18 +129,15 @@ import {ApplicationPlugin} from '@springroll/core';
      * @private
      * @param {Number} progress The amount loaded from 0 to 1
      */
-    function onProgress()
-    {
-        if (this._assetLoad)
-        {
+    function onProgress() {
+        if (this._assetLoad) {
             this._numLoaded = this._assetLoad.numLoaded;
             this._total = this._assetLoad.total;
         }
-        var numLoaded = (this._numLoaded + this.pluginLoad.numLoaded);
-        var total = (this._total + this.pluginLoad.total);
-        var progress = numLoaded / total;
-        if (progress > this._progress)
-        {
+        let numLoaded = (this._numLoaded + this.pluginLoad.numLoaded);
+        let total = (this._total + this.pluginLoad.total);
+        let progress = numLoaded / total;
+        if (progress > this._progress) {
             this._progress = progress;
             this.emit('progress', progress);
         }
@@ -160,8 +150,7 @@ import {ApplicationPlugin} from '@springroll/core';
      * @param {springroll.Application} app Reference to the application
      * @param {Array} assets The array to add new load tasks to
      */
-    function addPreloadAssets(app, assets)
-    {
+    function addPreloadAssets(app, assets) {
         assets.append(app.options.preload);
 
         // Allow extending game to add additional tasks
@@ -176,8 +165,7 @@ import {ApplicationPlugin} from '@springroll/core';
      * @param {Object} asset Original asset data
      * @param {Array} assets The array to add new load tasks to
      */
-    function onConfigLoaded(config, asset, assets)
-    {
+    function onConfigLoaded(config, asset, assets) {
         this.config = config;
         this.emit('configLoaded', config, assets);
         addPreloadAssets(this, assets);
@@ -190,16 +178,14 @@ import {ApplicationPlugin} from '@springroll/core';
      * @param {function} done Call when we're done
      * @param {Array} results The collection of final LoaderResult objects
      */
-    function onLoadComplete(done, results)
-    {
+    function onLoadComplete(done, results) {
         this._assetLoad = null;
         this.emit('loaded', results);
         done();
     }
 
     // Destroy the animator
-    plugin.teardown = function()
-    {
+    plugin.teardown = function() {
         this.config = null;
     };
 

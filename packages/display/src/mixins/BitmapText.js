@@ -13,16 +13,13 @@ PIXI.extras.BitmapText.prototype.pivotAlign = false;
 //save a copy of the super function so that we can override it safely
 PIXI.extras.BitmapText.prototype._origUpdateText = PIXI.extras.BitmapText.prototype.updateText;
 
-PIXI.extras.BitmapText.prototype.updateText = function()
-{
+PIXI.extras.BitmapText.prototype.updateText = function() {
     this._origUpdateText();
 
-    if (this.pivotAlign)
-    {
+    if (this.pivotAlign) {
         //have the entire text area be positioned based on the alignment, to make it easy to
         //center or right-align text with other elements
-        switch (this.align)
-        {
+        switch (this.align) {
             case 'center':
                 this.pivot.x = this.textWidth / 2;
                 break;

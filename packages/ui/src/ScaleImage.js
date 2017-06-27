@@ -9,30 +9,24 @@ import {include} from '@springroll/core';
  * @param {Object} size The original screen the item was designed for
  * @param {DisplayAdapter} adapter The display adapter
  */
-export default class ScaleImage
-{
-    constructor(image, size, adapter)
-    {
-        var valid = false;
+export default class ScaleImage {
+    constructor(image, size, adapter) {
+        let valid = false;
         
-        var Bitmap = include('createjs.Bitmap', false);
-        var Sprite = include('PIXI.Sprite', false);
+        let Bitmap = include('createjs.Bitmap', false);
+        let Sprite = include('PIXI.Sprite', false);
 
-        if (!image)
-        {
+        if (!image) {
             valid = false;
         }
-        else if (Bitmap && image instanceof Bitmap)
-        {
+        else if (Bitmap && image instanceof Bitmap) {
             valid = true;
         }
-        else if (Sprite && image instanceof Sprite)
-        {
+        else if (Sprite && image instanceof Sprite) {
             valid = true;
         }
 
-        if (!valid)
-        {
+        if (!valid) {
             // @if DEBUG
             throw 'The image is an invalid cover image, must be a PIXI.Sprite or createjs.Bitmap';
             // @endif
@@ -70,33 +64,31 @@ export default class ScaleImage
      * @param  {Number} w  The stage height
      * @param  {Number} h The stage width
      */
-    resize(w, h)
-    {
-        var _size = this._size;
-        var _adapter = this._adapter;
-        var _image = this._image;
+    resize(w, h) {
+        let _size = this._size;
+        let _adapter = this._adapter;
+        let _image = this._image;
 
-        var defaultRatio = _size.width / _size.height;
-        var currentRatio = w / h;
-        var scaleToHeight = currentRatio >= defaultRatio;
+        let defaultRatio = _size.width / _size.height;
+        let currentRatio = w / h;
+        let scaleToHeight = currentRatio >= defaultRatio;
 
-        var size = _adapter.getBitmapSize(_image);
-        var expectedBGWidth = _size.maxWidth || _size.width;
+        let size = _adapter.getBitmapSize(_image);
+        let expectedBGWidth = _size.maxWidth || _size.width;
 
         // A double resolution image would have a bgScale of 2
-        var bgScale = size.w / expectedBGWidth;
+        let bgScale = size.w / expectedBGWidth;
         //if the app only expands horizontally, then we shouldn't use the expected width
         //in case the image's aspect ratio isn't the one we expect for any reason
-        if (!_size.maxHeight)
-        {
+        if (!_size.maxHeight) {
             bgScale = size.h / _size.height;
         }
 
         // Determine the size of the active dimension, width or height
-        var activeBGSize = bgScale * (scaleToHeight ? _size.height : _size.width);
+        let activeBGSize = bgScale * (scaleToHeight ? _size.height : _size.width);
 
         // Determine scale the bg should be used at to fill the display properly
-        var scale = (scaleToHeight ? h : w) / activeBGSize;
+        let scale = (scaleToHeight ? h : w) / activeBGSize;
 
         // Scale the background
         _adapter.setScale(this._image, scale);
@@ -114,8 +106,7 @@ export default class ScaleImage
      * @property {PIXI.Sprite|createjs.Bitmap} display
      * @readOnly
      */
-    get display()
-    {
+    get display() {
         return this._image;
     }
 
@@ -123,8 +114,7 @@ export default class ScaleImage
      * Destroy and don't use after this
      * @method destroy
      */
-    destroy()
-    {
+    destroy() {
         this._adapter = null;
         this._size = null;
         this._image = null;

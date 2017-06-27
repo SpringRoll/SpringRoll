@@ -1,15 +1,13 @@
 import {ApplicationPlugin} from '@springroll/core';
 import StateManager from '../StateManager';
 
-(function()
-{
+(function() {
     /**
      * @class Application
      */
     const plugin = new ApplicationPlugin('states', 'display');
 
-    plugin.setup = function()
-    {
+    plugin.setup = function() {
         /**
          * Fired when an event has been added
          * @event stateAdded
@@ -43,10 +41,8 @@ import StateManager from '../StateManager';
          */
         Object.defineProperty(this, 'transition',
             {
-                set(transition)
-                {
-                    if (!this.display)
-                    {
+                set(transition) {
+                    if (!this.display) {
                         // @if DEBUG
                         throw 'No default display is available to set the states. Use the display application option';
                         // @endif
@@ -57,8 +53,7 @@ import StateManager from '../StateManager';
                         // @endif
                     }
 
-                    if (transition && !this.animator)
-                    {
+                    if (transition && !this.animator) {
                         // @if DEBUG
                         throw 'Use of a transition requires the animation module, please include';
                         // @endif
@@ -71,8 +66,7 @@ import StateManager from '../StateManager';
 
                     // Remove the old transition
                     const stage = this.display.stage;
-                    if (this._transition)
-                    {
+                    if (this._transition) {
                         stage.removeChild(this._transition);
                     }
 
@@ -80,24 +74,20 @@ import StateManager from '../StateManager';
                     this._transition = transition;
 
                     // Add to the manager
-                    if (this.manager)
-                    {
+                    if (this.manager) {
                         this.manager.transition = transition;
                     }
 
                     // Add to the stage
-                    if (transition)
-                    {
+                    if (transition) {
                     // Stop the transition from playing
-                        if (transition.stop)
-                        {
+                        if (transition.stop) {
                             transition.stop();
                         }
                         stage.addChild(transition);
                     }
                 },
-                get()
-                {
+                get() {
                     return this._transition;
                 }
             });
@@ -146,10 +136,8 @@ import StateManager from '../StateManager';
          */
         Object.defineProperty(this, 'states',
             {
-                set(states)
-                {
-                    if (this.manager)
-                    {
+                set(states) {
+                    if (this.manager) {
                         // @if DEBUG
                         throw 'StateManager has already been initialized, cannot set states multiple times';
                         // @endif
@@ -160,8 +148,7 @@ import StateManager from '../StateManager';
                         // @endif
                     }
 
-                    if (!this.display)
-                    {
+                    if (!this.display) {
                         // @if DEBUG
                         throw 'No default display is available to set the states. Use the display application option';
                         // @endif
@@ -181,16 +168,14 @@ import StateManager from '../StateManager';
                     manager.animator = this.animator;
 
                     // Add a handler to enable to disable the display
-                    manager.on('enabled', enabled => 
-                    {
+                    manager.on('enabled', enabled => {
                         this.display.enabled = enabled;
                     });
 
                     const stage = this.display.stage;
 
                     //create states
-                    for (let alias in states)
-                    {
+                    for (let alias in states) {
                     // Add to the manager
                         manager.addState(alias, states[alias]);
 
@@ -208,46 +193,38 @@ import StateManager from '../StateManager';
                     //if the transition is a EaselJS movieclip, start it out
                     //at the end of the transition out animation. If it has a
                     //'transitionLoop' animation, that will be played as soon as a state is set
-                    if (transition)
-                    {
+                    if (transition) {
                     // Add the transition this will addChild on top of all the panels
                         this.transition = transition;
 
                         // Goto the fully covered state
-                        if (transition.gotoAndStop)
-                        {
+                        if (transition.gotoAndStop) {
                             transition.gotoAndStop('onTransitionOut_stop');
                         }
                     }
 
                     // Goto the first state
-                    if (this.options.state)
-                    {
+                    if (this.options.state) {
                         manager.state = this.options.state;
                     }
                 },
-                get()
-                {
+                get() {
                     return this._states;
                 }
             });
     };
 
-    plugin.teardown = function()
-    {
+    plugin.teardown = function() {
         // @if DEBUG
         window.onkeyup = null;
         // @endif
         this._state = null;
-        if (this.manager)
-        {
+        if (this.manager) {
             this.manager.destroy();
             this.manager = null;
         }
-        if (this.transition)
-        {
-            if (this.display)
-            {
+        if (this.transition) {
+            if (this.display) {
                 this.display.adapter.removeChildren(this.transition);
             }
             this.transition = null;

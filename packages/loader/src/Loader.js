@@ -8,10 +8,8 @@ import CacheManager from './CacheManager';
  * in the browser using dynamic query string parameters.
  * @class Loader
  */
-export default class Loader
-{
-    constructor(app)
-    {
+export default class Loader {
+    constructor(app) {
         /**
          * The current application
          * @property {springroll.Application} app
@@ -55,8 +53,7 @@ export default class Loader
      * @property {Boolean} verbose
      * @default  false
      */
-    set verbose(verbose)
-    {
+    set verbose(verbose) {
         LoaderItem.verbose = verbose;
     }
     // @endif
@@ -66,19 +63,15 @@ export default class Loader
      * @public
      * @method destroy
      */
-    destroy()
-    {
-        if (this.itemPool)
-        {
-            this.itemPool.forEach(function(item)
-            {
+    destroy() {
+        if (this.itemPool) {
+            this.itemPool.forEach(function(item) {
                 item.clear();
             });
         }
         this.itemPool = null;
 
-        if (this.cacheManager)
-        {
+        if (this.cacheManager) {
             this.cacheManager.destroy();
         }
         this.cacheManager = null;
@@ -95,18 +88,16 @@ export default class Loader
      * @param {*} [data] optional data
      * @return {createjs.LoadQueue} The load queue item
      */
-    load(url, complete, progress, data)
-    {
-        var options = this.app.options;
+    load(url, complete, progress, data) {
+        let options = this.app.options;
 
         // Get a new loader object
-        var item = this._getItem();
+        let item = this._getItem();
 
-        var basePath = options.basePath;
+        let basePath = options.basePath;
         if (basePath !== undefined &&
             /^http(s)?:/.test(url) === false &&
-            url.search(basePath) === -1)
-        {
+            url.search(basePath) === -1) {
             item.basePath = basePath;
         }
         item.crossOrigin = options.crossOrigin;
@@ -132,10 +123,8 @@ export default class Loader
      * @param  {springroll.LoaderItem} item The LoadQueue
      * @param  {null|*} result   [description]
      */
-    _onComplete(complete, item, result)
-    {
-        if (result)
-        {
+    _onComplete(complete, item, result) {
+        if (result) {
             result = new LoaderResult(
                 result,
                 item.url,
@@ -153,12 +142,10 @@ export default class Loader
      * @param {string} url The url
      * @return {bool} If canceled returns true, false if not canceled
      */
-    cancel(url)
-    {
-        var item = this.items[url];
+    cancel(url) {
+        let item = this.items[url];
 
-        if (item)
-        {
+        if (item) {
             item.clear();
             this._putItem(item);
             return true;
@@ -172,9 +159,8 @@ export default class Loader
      * @private
      * @return  {springroll.LoaderItem} The Queue item to use
      */
-    _getItem()
-    {
-        var itemPool = this.itemPool;
+    _getItem() {
+        let itemPool = this.itemPool;
         return itemPool.length ? itemPool.pop() : new LoaderItem();
     }
 
@@ -184,8 +170,7 @@ export default class Loader
      * @private
      * @param  {springroll.LoaderItem} item Loader item that's done
      */
-    _putItem(item)
-    {
+    _putItem(item) {
         delete this.items[item.url];
         item.clear();
         this.itemPool.push(item);

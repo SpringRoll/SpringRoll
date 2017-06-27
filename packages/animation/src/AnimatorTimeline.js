@@ -3,10 +3,8 @@
  * base animation functionality
  * @class AnimatorTimeline
  */
-export default class AnimatorTimeline
-{
-    constructor()
-    {
+export default class AnimatorTimeline {
+    constructor() {
         /**
          * The function to call when we're done
          * @property {Function} onComplete
@@ -117,12 +115,10 @@ export default class AnimatorTimeline
      * The position of the current animation, or the current pause timer, in milliseconds.
      * @property {Number} time
      */
-    get time()
-    {
+    get time() {
         return this.position * 1000;
     }
-    set time(value)
-    {
+    set time(value) {
         this.position = value * 0.001;
     }
 
@@ -130,27 +126,21 @@ export default class AnimatorTimeline
      * Sets and gets the animation's paused status.
      * @property {Boolean} paused
      */
-    get paused()
-    {
+    get paused() {
         return this._paused;
     }
-    set paused(value)
-    {
-        if (value === this._paused)
-        {
+    set paused(value) {
+        if (value === this._paused) {
             return;
         }
 
         this._paused = !!value;
-        var sound = this.soundInst;
-        if (sound)
-        {
-            if (this.paused)
-            {
+        let sound = this.soundInst;
+        if (sound) {
+            if (this.paused) {
                 sound.pause();
             }
-            else
-            {
+            else {
                 sound.resume();
             }
         }
@@ -162,10 +152,8 @@ export default class AnimatorTimeline
      * @private
      * @return {springroll.AnimatorTimeline} Instance of timeline
      */
-    reset()
-    {
-        if (this.instance)
-        {
+    reset() {
+        if (this.instance) {
             this.instance.destroy();
             this.instance = null;
         }
@@ -190,15 +178,12 @@ export default class AnimatorTimeline
     }
 
 
-    get position()
-    {
+    get position() {
         return this._position;
     }
-    set position(value)
-    {
+    set position(value) {
         this._position = value;
-        if (!this.isTimer)
-        {
+        if (!this.isTimer) {
             this.instance.setPosition(value);
         }
     }
@@ -208,22 +193,18 @@ export default class AnimatorTimeline
      * @method _nextItem
      * @private
      */
-    _nextItem()
-    {
-        var repeat = false;
-        if (this.soundInst) 
-        {
+    _nextItem() {
+        let repeat = false;
+        if (this.soundInst) {
             this.soundInst._endCallback = null;
         }
         //if on a looping animation, set up the animation to be replayed
         //(this will only happen on looping animations with audio)
-        if (this.isLooping)
-        {
+        if (this.isLooping) {
             //if sound is playing, we need to stop it immediately
             //otherwise it can interfere with replaying the audio
-            var sound = this.soundInst;
-            if (sound)
-            {
+            let sound = this.soundInst;
+            if (sound) {
                 sound.stop();
                 this.soundInst = null;
             }
@@ -231,10 +212,8 @@ export default class AnimatorTimeline
             //in case it started part way in
             repeat = true;
         }
-        else
-        {
-            if (!this.isTimer)
-            {
+        else {
+            if (!this.isTimer) {
                 this.instance.endAnim();
             }
             //reset variables
@@ -243,28 +222,24 @@ export default class AnimatorTimeline
             this.soundInst = this.soundAlias = null;
 
             //see if the animation list is complete
-            if (++this.listIndex >= this.eventList.length)
-            {
+            if (++this.listIndex >= this.eventList.length) {
                 this.complete = true;
                 return;
             }
         }
         //take action based on the type of item in the list
-        var listItem = this.eventList[this.listIndex];
+        let listItem = this.eventList[this.listIndex];
 
-        switch (typeof listItem)
-        {
+        switch (typeof listItem) {
             case 'object':
                 this.isTimer = false;
-                var instance = this.instance;
-                instance.beginAnim(listItem, repeat);
-                this.duration = instance.duration;
+                this.instance.beginAnim(listItem, repeat);
+                this.duration = this.instance.duration;
                 this.speed = listItem.speed;
-                this.isLooping = instance.isLooping || listItem.loop;
-                this._position = instance.position;
+                this.isLooping = this.instance.isLooping || listItem.loop;
+                this._position = this.instance.position;
 
-                if (listItem.alias)
-                {
+                if (listItem.alias) {
                     this.soundAlias = listItem.alias;
                     this.soundStart = listItem.audioStart;
                     this.playSound = true;

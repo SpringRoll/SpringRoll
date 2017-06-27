@@ -51,9 +51,9 @@ import {DebugOptions} from '@springroll/debug';
     };
 
     // Add common filteres interaction
-    plugin.preload = function(done) {
+    plugin.ready = function() {
         // @if DEBUG
-        let value = this.options.forceTouch;
+        const value = this.options.forceTouch;
         if (value === 'true' || value === true) {
             this.hasTouch = true;
         }
@@ -65,7 +65,6 @@ import {DebugOptions} from '@springroll/debug';
             this.filters.add('%INTERACTION%', ui);
             this.filters.add('%UI%', ui);
         }
-        done();
     };
 
 }(window));

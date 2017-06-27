@@ -14,10 +14,8 @@
  * @param {Boolean} [options.useFrames=false] If the DelayedCall should use frames instead of
  *                                 milliseconds for the delay.
  */
-export default class DelayedCall
-{
-    constructor(ticker, callback, delay, options)
-    {
+export default class DelayedCall {
+    constructor(ticker, callback, delay, options) {
         // Set the default options
         options = Object.assign({
             repeat: false,
@@ -97,30 +95,24 @@ export default class DelayedCall
      * @method _update
      * @param {int} elapsed The time elapsed since the previous frame.
      */
-    _update(elapsed)
-    {
-        if (!this._callback)
-        {
+    _update(elapsed) {
+        if (!this._callback) {
             this.destroy();
             return;
         }
 
         this._timer -= this._useFrames ? 1 : elapsed;
 
-        if (this._timer <= 0)
-        {
+        if (this._timer <= 0) {
             this._callback(this);
 
-            if (this._repeat)
-            {
+            if (this._repeat) {
                 this._timer += this._delay;
             }
-            else if (this._autoDestroy)
-            {
+            else if (this._autoDestroy) {
                 this.destroy();
             }
-            else
-            {
+            else {
                 this._ticker.off('update', this._update, this);
             }
         }
@@ -131,15 +123,12 @@ export default class DelayedCall
      * @public
      * @method restart
      */
-    restart()
-    {
-        if (!this._callback)
-        {
+    restart() {
+        if (!this._callback) {
             return;
         }
 
-        if (!this._ticker.has('update', this._update))
-        {
+        if (!this._ticker.has('update', this._update)) {
             this._ticker.on('update', this._update, this);
         }
 
@@ -152,8 +141,7 @@ export default class DelayedCall
      * @public
      * @method stop
      */
-    stop()
-    {
+    stop() {
         this._ticker.off('update', this._update, this);
         this._paused = false;
     }
@@ -163,30 +151,23 @@ export default class DelayedCall
      * @public
      * @property {Boolean} paused
      */
-    get paused()
-    {
+    get paused() {
         return this._paused;
     }
-    set paused(value)
-    {
-        if (!this._callback)
-        {
+    set paused(value) {
+        if (!this._callback) {
             return;
         }
         
-        if (this._paused && !value)
-        {
+        if (this._paused && !value) {
             this._paused = false;
 
-            if (!this._ticker.has('update', this._update))
-            {
+            if (!this._ticker.has('update', this._update)) {
                 this._ticker.on('update', this._update, this);
             }
         }
-        else if (value)
-        {
-            if (this._ticker.has('update', this._update))
-            {
+        else if (value) {
+            if (this._ticker.has('update', this._update)) {
                 this._paused = true;
                 this._ticker.off('update', this._update, this);
             }
@@ -199,8 +180,7 @@ export default class DelayedCall
      * @public
      * @method destroy
      */
-    destroy()
-    {
+    destroy() {
         this._ticker.off('update', this._update, this);
         this._callback = null;
         this._ticker = null;

@@ -11,10 +11,8 @@
  * @param {Boolean} [useGlobalCache] If sub-textures should be placed in Pixi's global
  *                                   texture cache.
  */
-export default class TextureAtlas
-{
-    constructor(texture, data, useGlobalCache)
-    {
+export default class TextureAtlas {
+    constructor(texture, data, useGlobalCache) {
         this.baseTexture = texture.baseTexture;
         this.texture = texture;
 
@@ -26,50 +24,43 @@ export default class TextureAtlas
 
         //TexturePacker outputs frames with (not) swapped width & height when rotated, so we need to
         //swap them ourselves - Flash exported textures do not require width & height to swap
-        var swapFrameSize = data.meta && data.meta.app === 'http://www.codeandweb.com/texturepacker';
+        let swapFrameSize = data.meta && data.meta.app === 'http://www.codeandweb.com/texturepacker';
 
-        var frames = data.frames;
+        let frames = data.frames;
 
         //parse the spritesheet
-        for (var name in frames)
-        {
-            var frame = frames[name];
+        for (let name in frames) {
+            let frame = frames[name];
 
-            var index = name.lastIndexOf('.');
+            let index = name.lastIndexOf('.');
             
             //strip off any ".png" or ".jpg" at the end
-            if (index > 0)
-            {
+            if (index > 0) {
                 name = name.substring(0, index);
             }
 
             index = name.lastIndexOf('/');
 
             //strip off any folder structure included in the name
-            if (index >= 0)
-            {
+            if (index >= 0) {
                 name = name.substring(index + 1);
             }
 
-            var rect = frame.frame;
+            let rect = frame.frame;
 
-            if (rect)
-            {
-                var size = null;
-                var trim = null;
+            if (rect) {
+                let size = null;
+                let trim = null;
 
-                if (frame.rotated && swapFrameSize)
-                {
+                if (frame.rotated && swapFrameSize) {
                     size = new PIXI.Rectangle(rect.x, rect.y, rect.h, rect.w);
                 }
-                else
-                {
+                else {
                     size = new PIXI.Rectangle(rect.x, rect.y, rect.w, rect.h);
                 }
 
                 //  Check to see if the sprite is trimmed
-                if (frame.trimmed)
-                {
+                if (frame.trimmed) {
                     trim = new PIXI.Rectangle(
                         frame.spriteSourceSize.x, // / resolution,
                         frame.spriteSourceSize.y, // / resolution,
@@ -91,8 +82,7 @@ export default class TextureAtlas
                     frame.rotated
                 );
 
-                if (useGlobalCache)
-                {
+                if (useGlobalCache) {
                     // lets also add the frame to pixi's global cache for fromFrame and fromImage
                     // functions
                     PIXI.utils.TextureCache[name] = this.frames[name];
@@ -108,8 +98,7 @@ export default class TextureAtlas
      * @return {createjs.TextureAtlas.Texture} The texture by that name, or null if it doesn't
      *                                         exist.
      */
-    getFrame(name)
-    {
+    getFrame(name) {
         return this.frames[name] || null;
     }
 
@@ -130,77 +119,65 @@ export default class TextureAtlas
      *                           new one.
      * @return {Array} The collection of createjs.TextureAtlas.Textures.
      */
-    getFrames(name, numberMin, numberMax, maxDigits, outArray)
-    {
-        if (maxDigits === undefined)
-        {
+    getFrames(name, numberMin, numberMax, maxDigits, outArray) {
+        if (maxDigits === undefined) {
             maxDigits = 4;
         }
 
-        if (maxDigits < 0)
-        {
+        if (maxDigits < 0) {
             maxDigits = 0;
         }
 
-        if (!outArray)
-        {
+        if (!outArray) {
             outArray = [];
         }
 
         //set up strings to add the correct number of zeros ahead of time to avoid
         //creating even more strings.
-        var zeros = []; //preceding zeroes array
-        var compares = []; //powers of 10 array for determining how many preceding zeroes to use
-        var i, c;
+        let zeros = []; //preceding zeroes array
+        let compares = []; //powers of 10 array for determining how many preceding zeroes to use
+        let i, c;
 
-        for (i = 1; i < maxDigits; ++i)
-        {
-            var s = '';
+        for (i = 1; i < maxDigits; ++i) {
+            let s = '';
             c = 1;
-            for (var j = 0; j < i; ++j)
-            {
+            for (let j = 0; j < i; ++j) {
                 s += '0';
                 c *= 10;
             }
             zeros.unshift(s);
             compares.push(c);
         }
-        var compareLength = compares.length; //the length of the compar
+        let compareLength = compares.length; //the length of the compar
 
         //the previous Texture, so we can place the same object in multiple times to control
         //animation rate
-        var prevTex;
-        var len;
-        for (i = numberMin, len = numberMax; i <= len; ++i)
-        {
-            var num = null;
+        let prevTex;
+        let len;
+        for (i = numberMin, len = numberMax; i <= len; ++i) {
+            let num = null;
             //calculate the number of preceding zeroes needed, then create the full number string.
-            for (c = 0; c < compareLength; ++c)
-            {
-                if (i < compares[c])
-                {
+            for (c = 0; c < compareLength; ++c) {
+                if (i < compares[c]) {
                     num = zeros[c] + i;
                     break;
                 }
             }
-            if (!num)
-            {
+            if (!num) {
                 num = i.toString();
             }
 
             //If the texture doesn't exist, use the previous texture - this should allow us to
             //use fewer textures that are in fact the same, if those textures were removed before
             //making the spritesheet
-            var texName = name.replace('#', num);
-            var tex = this.frames[texName];
+            let texName = name.replace('#', num);
+            let tex = this.frames[texName];
 
-            if (tex)
-            {
+            if (tex) {
                 prevTex = tex;
             }
 
-            if (prevTex)
-            {
+            if (prevTex) {
                 outArray.push(prevTex);
             }
         }
@@ -211,8 +188,7 @@ export default class TextureAtlas
      * Destroys the TextureAtlas by nulling the image and frame dictionary references.
      * @method destroy
      */
-    destroy()
-    {
+    destroy() {
         this.texture.destroy(true);
         this.texture = null;
         this.baseTexture = null;

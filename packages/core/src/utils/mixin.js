@@ -17,24 +17,20 @@
  * @param {*} [args] Any additional arguments to pass to the constructor of the superClass
  * @return {*} Return reference to target
  */
-export default function mixin(target, superClass)
-{
+export default function mixin(target, superClass) {
     // @if DEBUG
-    if (!superClass)
-    {
+    if (!superClass) {
         throw 'Did not supply a valid mixin class';
     }
     // @endif
 
     // Include using string
-    if (typeof superClass === 'string')
-    {
+    if (typeof superClass === 'string') {
         superClass = window.include(superClass);
     }
 
     // Check for existence of prototype
-    if (!superClass.prototype)
-    {
+    if (!superClass.prototype) {
         // @if DEBUG
         throw 'The mixin class does not have a valid protoype';
         // @endif
@@ -45,20 +41,17 @@ export default function mixin(target, superClass)
         // @endif
     }
     //loop over mixin prototype to add functions
-    var p = superClass.prototype;
+    let p = superClass.prototype;
 
-    for (var prop in p)
-    {
+    for (let prop in p) {
         // For things that we set using Object.defineProperty
         // very important that enumerable:true for the 
         // defineProperty options
-        var propDesc = Object.getOwnPropertyDescriptor(p, prop);
-        if (propDesc)
-        {
+        let propDesc = Object.getOwnPropertyDescriptor(p, prop);
+        if (propDesc) {
             Object.defineProperty(target, prop, propDesc);
         }
-        else
-        {
+        else {
             // Should cover all other prototype methods/properties
             target[prop] = p[prop];
         }

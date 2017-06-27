@@ -1,24 +1,22 @@
 import {ApplicationPlugin, PageVisibility} from '@springroll/core';
 import Bellhop from 'bellhop-iframe';
 
-(function(undefined)
-{
+(function(undefined) {
     /**
      * @class Application
      */
-    var plugin = new ApplicationPlugin('container-client');
+    let plugin = new ApplicationPlugin('container-client');
 
     // Init the animator
-    plugin.setup = function()
-    {
-        var options = this.options;
+    plugin.setup = function() {
+        let options = this.options;
 
         /**
          * Send a message to let the site know that this has
          * been loaded, if the site is there
          * @property {Bellhop} container
          */
-        var container = this.container = new Bellhop();
+        let container = this.container = new Bellhop();
         container.connect();
 
         /**
@@ -28,20 +26,17 @@ import Bellhop from 'bellhop-iframe';
          * @property {Boolean} options.keepFocus
          */
         options.add('keepFocus', false)
-            .on('keepFocus', function(data)
-            {
+            .on('keepFocus', function(data) {
                 container.send('keepFocus', data);
             });
 
         // Pass along preloading progress
-        this.on('progress', function(e)
-        {
+        this.on('progress', function(e) {
             this.container.send('progress', e);
         });
 
         // When the preloading is done
-        this.once('beforeInit', function()
-        {
+        this.once('beforeInit', function() {
             container.send('loaded');
         });
 
@@ -76,10 +71,8 @@ import Bellhop from 'bellhop-iframe';
          * @method singlePlayEnd
          * @return {Boolean} If endGame is called
          */
-        this.singlePlayEnd = function()
-        {
-            if (this.singlePlay)
-            {
+        this.singlePlayEnd = function() {
+            if (this.singlePlay) {
                 this.endGame();
                 return true;
             }
@@ -91,16 +84,14 @@ import Bellhop from 'bellhop-iframe';
          * @method endGame
          * @param {String} [exitType='game_completed'] The type of exit
          */
-        this.endGame = function(exitType)
-        {
+        this.endGame = function(exitType) {
             this.trigger('endGame', exitType || 'game_completed');
             this.destroy();
         };
 
         // Dispatch the features
-        this.once('beforeInit', function()
-        {
-            var hasSound = !!this.sound;
+        this.once('beforeInit', function() {
+            let hasSound = !!this.sound;
 
             // Add the features that are enabled
             this.container.send('features',
@@ -115,8 +106,7 @@ import Bellhop from 'bellhop-iframe';
                 });
         });
 
-        if (container.supported)
-        {
+        if (container.supported) {
             container.fetch('singlePlay', onSinglePlay.bind(this));
             container.fetch('playOptions', onPlayOptions.bind(this));
         }
@@ -133,8 +123,7 @@ import Bellhop from 'bellhop-iframe';
      * @method  onWindowUnload
      * @private
      */
-    var onWindowUnload = function()
-    {
+    let onWindowUnload = function() {
         // Remove listener to not trigger twice
         window.onunload = window.onbeforeunload = null;
         this.endGame('left_site');
@@ -147,15 +136,12 @@ import Bellhop from 'bellhop-iframe';
      * @private
      * @param  {Error} error Uncaught Error
      */
-    var onWindowError = function(error)
-    {
+    let onWindowError = function(error) {
         // If the container is supported
         // then handle the errors and pass to the container
-        if (this.container.supported)
-        {
+        if (this.container.supported) {
             // @if DEBUG
-            if (window.console) 
-            {
+            if (window.console) {
                 // eslint-disable-next-line no-console
                 console.error(error);
             }
@@ -166,12 +152,10 @@ import Bellhop from 'bellhop-iframe';
     };
 
     // Check for application name
-    plugin.preload = function(done)
-    {
+    plugin.preload = function(done) {
         // Merge the container options with the current
         // application options
-        if (this.container.supported)
-        {
+        if (this.container.supported) {
             //Setup the container listeners for site soundMute and captionsMute events
             this.container.on(
                 {
@@ -189,7 +173,7 @@ import Bellhop from 'bellhop-iframe';
             this.options.autoPause = false;
 
             //handle detecting and sending blur/focus events
-            var container = this.container;
+            let container = this.container;
             this._pageVisibility = new PageVisibility(
                 container.send.bind(container, 'focus', true),
                 container.send.bind(container, 'focus', false)
@@ -204,14 +188,13 @@ import Bellhop from 'bellhop-iframe';
      * @private
      * @param {event} e The Bellhop event
      */
-    var onPause = function(e)
-    {
-        var paused = !!e.data;
+    function onPause(e) {
+        let paused = !!e.data;
         // container pause events are also considered "autoPause" events
         // event if the event was fired by the container's pauseButton
         this.autoPaused = paused;
         this.enabled = !paused;
-    };
+    }
 
     /**
      * Handler when the sound is muted
@@ -219,13 +202,11 @@ import Bellhop from 'bellhop-iframe';
      * @private
      * @param {Event} e The bellhop event
      */
-    var onSoundMuted = function(e)
-    {
-        if (this.sound)
-        {
+    function onSoundMuted(e) {
+        if (this.sound) {
             this.sound.muteAll = !!e.data;
         }
-    };
+    }
 
     /**
      * Handler when the captions are muted
@@ -233,13 +214,11 @@ import Bellhop from 'bellhop-iframe';
      * @private
      * @param {Event} e The bellhop event
      */
-    var onCaptionsMuted = function(e)
-    {
-        if (this.captions)
-        {
+    function onCaptionsMuted(e) {
+        if (this.captions) {
             this.captions.mute = !!e.data;
         }
-    };
+    }
 
     /**
      * Handler when the context is muted
@@ -248,13 +227,11 @@ import Bellhop from 'bellhop-iframe';
      * @param {String} context The name of the sound context
      * @param {Event} e The bellhop event
      */
-    var onContextMuted = function(context, e)
-    {
-        if (this.sound)
-        {
+    function onContextMuted(context, e) {
+        if (this.sound) {
             this.sound.setContextMute(context, !!e.data);
         }
-    };
+    }
 
     /**
      * The captions style is being set
@@ -262,16 +239,14 @@ import Bellhop from 'bellhop-iframe';
      * @private
      * @param {Event} e The bellhop event
      */
-    var onCaptionsStyles = function(e)
-    {
-        var styles = e.data;
-        var captions = this.captions ||
+    function onCaptionsStyles(e) {
+        let styles = e.data;
+        let captions = this.captions ||
         {};
-        var textField = captions.textField || null;
+        let textField = captions.textField || null;
 
         // Make sure we have a text field and a DOM object
-        if (textField && textField.nodeName)
-        {
+        if (textField && textField.nodeName) {
             textField.className = 'size-' + styles.size + ' ' +
                 'bg-' + styles.background + ' ' +
                 'color-' + styles.color + ' ' +
@@ -279,7 +254,7 @@ import Bellhop from 'bellhop-iframe';
                 'font-' + styles.font + ' ' +
                 'align-' + styles.align;
         }
-    };
+    }
 
     /**
      * Handler when a application enters single play mode
@@ -287,11 +262,10 @@ import Bellhop from 'bellhop-iframe';
      * @private
      * @param {event} e The Bellhop event
      */
-    var onPlayOptions = function(e)
-    {
+    function onPlayOptions(e) {
         Object.assign(this.playOptions, e.data ||
         {});
-    };
+    }
 
     /**
      * Handler when a application enters single play mode
@@ -299,35 +273,30 @@ import Bellhop from 'bellhop-iframe';
      * @private
      * @param {event} e The Bellhop event
      */
-    var onSinglePlay = function(e)
-    {
+    function onSinglePlay(e) {
         this.singlePlay = !!e.data;
-    };
+    }
 
     /**
      * Game container requests closing the application
      * @method onClose
      * @private
      */
-    var onClose = function()
-    {
+    function onClose() {
         this.endGame('closed_container');
-    };
+    }
 
     // Destroy the animator
-    plugin.teardown = function()
-    {
+    plugin.teardown = function() {
         window.onerror = null;
 
-        if (this._pageVisibility)
-        {
+        if (this._pageVisibility) {
             this._pageVisibility.destroy();
             this._pageVisibility = null;
         }
 
         // Send the end application event to the container
-        if (this.container)
-        {
+        if (this.container) {
             this.container.send('endGame');
             this.container.destroy();
             this.container = null;

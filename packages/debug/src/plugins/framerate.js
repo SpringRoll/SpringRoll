@@ -1,15 +1,13 @@
 import {ApplicationPlugin} from '@springroll/core';
 
-(function()
-{
+(function() {
     /**
      * @class Application
      */
     const plugin = new ApplicationPlugin('framerate', ['ticker']);
 
     // Init the animator
-    plugin.setup = function()
-    {
+    plugin.setup = function() {
         /**
          * The framerate container
          * @property {DOMElement} _framerate
@@ -33,14 +31,12 @@ import {ApplicationPlugin} from '@springroll/core';
     let frameCount = 0;
     let framerateTimer = 0;
 
-    function onUpdate(elapsed)
-    {
+    function onUpdate(elapsed) {
         frameCount++;
         framerateTimer += elapsed;
 
         // Only update the framerate every second
-        if (framerateTimer >= 1000)
-        {
+        if (framerateTimer >= 1000) {
             let fps = 1000 / framerateTimer * frameCount;
             this._framerate.innerHTML = `FPS: ${fps.toFixed(3)}`;
             framerateTimer = 0;
@@ -50,14 +46,12 @@ import {ApplicationPlugin} from '@springroll/core';
 
     // On resumed application
     // reset the temp variables to not take the framerate display
-    function onResume()
-    {
+    function onResume() {
         frameCount = framerateTimer = 0;
     }
 
     // Destroy the animator
-    plugin.teardown = function()
-    {
+    plugin.teardown = function() {
         this.off('update', onUpdate, this);
         this.off('resumed', onResume);
 

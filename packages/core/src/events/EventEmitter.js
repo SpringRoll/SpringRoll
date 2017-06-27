@@ -22,8 +22,7 @@ EventEmitter.prototype.destroyed = false;
  * @param {Function} [callback] The listener function to check for. If omitted, checks for any listener.
  * @return {Boolean} If the EventEmitter has the specified listener.
  */
-EventEmitter.prototype.has = function has(event, fn)
-{
+EventEmitter.prototype.has = function has(event, fn) {
     const listeners = this.listeners(event);
     return listeners.indexOf(fn) >= 0;
 };
@@ -33,8 +32,7 @@ EventEmitter.prototype.has = function has(event, fn)
  *
  * @method destroy
  */
-EventEmitter.prototype.destroy = function destroy()
-{
+EventEmitter.prototype.destroy = function destroy() {
     this.removeAllListeners();
     this.destroyed = true;
 };

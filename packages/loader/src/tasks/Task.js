@@ -16,10 +16,8 @@ import {Debug} from '@springroll/debug';
  *      this can be used for caching something that has no id
  * @param {Object} [asset.sizes=null] Define if certain sizes are not supported.
  */
-export default class Task
-{
-    constructor(asset, fallbackId)
-    {
+export default class Task {
+    constructor(asset, fallbackId) {
         /**
          * The current status of the task (waiting, running, etc)
          * @property {int} status
@@ -64,21 +62,17 @@ export default class Task
         this.original = asset;
 
         // We're trying to cache but we don't have an ID
-        if (this.cache && !this.id)
-        {
-            if (fallbackId && typeof fallbackId === 'string')
-            {
+        if (this.cache && !this.id) {
+            if (fallbackId && typeof fallbackId === 'string') {
                 // Remove the file extension
-                var extIndex = fallbackId.lastIndexOf('.');
-                if (extIndex > -1)
-                {
+                let extIndex = fallbackId.lastIndexOf('.');
+                if (extIndex > -1) {
                     fallbackId = fallbackId.substr(0, extIndex);
                 }
 
                 // Check for the last folder slash then remove it
-                var slashIndex = fallbackId.lastIndexOf('/');
-                if (slashIndex > -1)
-                {
+                let slashIndex = fallbackId.lastIndexOf('/');
+                if (slashIndex > -1) {
                     fallbackId = fallbackId.substr(slashIndex + 1);
                 }
 
@@ -87,8 +81,7 @@ export default class Task
             }
 
             // Check for ID if we're caching
-            if (!this.id)
-            {
+            if (!this.id) {
                 // @if DEBUG
                 Debug.error('Caching an asset requires an id, none set', asset);
                 // @endif
@@ -105,8 +98,7 @@ export default class Task
      * @final
      * @default 0
      */
-    static get WAITING()
-    {
+    static get WAITING() {
         return 0;
     }
 
@@ -118,8 +110,7 @@ export default class Task
      * @final
      * @default 1
      */
-    static get RUNNING()
-    {
+    static get RUNNING() {
         return 1;
     }
 
@@ -131,8 +122,7 @@ export default class Task
      * @final
      * @default 2
      */
-    static get FINISHED()
-    {
+    static get FINISHED() {
         return 2;
     }
 
@@ -141,8 +131,7 @@ export default class Task
      * @method  start
      * @param  {Function} callback Callback when finished
      */
-    start(callback)
-    {
+    start(callback) {
         callback();
     }
 
@@ -152,15 +141,13 @@ export default class Task
      * @protected
      * @param {String} url The url to filter
      */
-    filter(url)
-    {
-        var sizes = Application.instance.assetManager.sizes;
+    filter(url) {
+        let sizes = Application.instance.assetManager.sizes;
 
         // See if we should add sizing
-        if (url && sizes.test(url))
-        {
+        if (url && sizes.test(url)) {
             // Get the current size supported by this asset
-            var size = sizes.size(this.original.sizes);
+            let size = sizes.size(this.original.sizes);
 
             // Update the URL size token
             url = sizes.filter(url, size);
@@ -178,8 +165,7 @@ export default class Task
      * @param {String|Array|Object} source The source to load
      * @param {Object|Function} [options] The load options or callback function
      */
-    load(source, options)
-    {
+    load(source, options) {
         return Application.instance.load(source, options);
     }
 
@@ -192,8 +178,7 @@ export default class Task
      * @param {Function} [progress] The load progress
      * @param {Object} [data] Additiona data
      */
-    simpleLoad(url, complete, progress, data)
-    {
+    simpleLoad(url, complete, progress, data) {
         return Application.instance.loader.load(url, complete, progress, data);
     }
 
@@ -201,8 +186,7 @@ export default class Task
      * Destroy this and discard
      * @method destroy
      */
-    destroy()
-    {
+    destroy() {
         this.status = Task.FINISHED;
         this.id = null;
         this.type = null;

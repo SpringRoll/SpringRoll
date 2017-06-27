@@ -27,10 +27,8 @@ import {Debug} from '@springroll/debug';
  * @param {String|DOMElement} [textField=null] The output text field
  * @param {Boolean} [selfUpdate=true] If the captions playback should update itself
  */
-export default class Captions
-{
-    constructor(data, textField, selfUpdate)
-    {
+export default class Captions {
+    constructor(data, textField, selfUpdate) {
         /**
          * An object used as a dictionary with keys that should be the same as sound aliases
          * @private
@@ -139,12 +137,10 @@ export default class Captions
      * @property {Boolean} mute
      * @default false
      */
-    get mute()
-    {
+    get mute() {
         return this._mute;
     }
-    set mute(mute)
-    {
+    set mute(mute) {
         this._mute = mute;
         this._updateCaptions();
     }
@@ -156,18 +152,15 @@ export default class Captions
      * @property {Boolean} selfUpdate
      * @default true
      */
-    set selfUpdate(selfUpdate)
-    {
+    set selfUpdate(selfUpdate) {
         this._selfUpdate = !!selfUpdate;
         Application.instance.off('update', this.update);
 
-        if (this._selfUpdate)
-        {
+        if (this._selfUpdate) {
             Application.instance.on('update', this.update);
         }
     }
-    get selfUpdate()
-    {
+    get selfUpdate() {
         return this._selfUpdate;
     }
 
@@ -176,68 +169,55 @@ export default class Captions
      * dictionary, if present.
      * @property {Object} data
      */
-    set data(dict)
-    {
+    set data(dict) {
         this._data = dict;
 
-        if (!dict) 
-        {
+        if (!dict) {
             return;
         }
 
-        var timeFormat = /[0-9]+:[0-9]{2}:[0-9]{2}\.[0-9]{3}/;
+        let timeFormat = /[0-9]+:[0-9]{2}:[0-9]{2}\.[0-9]{3}/;
 
         //Loop through each line and make sure the times are formatted correctly
-        var lines, i, l, len;
-        for (var alias in dict)
-        {
+        let lines, i, l, len;
+        for (let alias in dict) {
             //account for a compressed format that is just an array of lines
             //and convert it to an object with a lines property.
-            if (Array.isArray(dict[alias]))
-            {
+            if (Array.isArray(dict[alias])) {
                 dict[alias] = {
                     lines: dict[alias]
                 };
             }
             lines = dict[alias].lines;
-            if (!lines)
-            {
+            if (!lines) {
                 // @if DEBUG
                 Debug.log('alias \'' + alias + '\' has no lines!');
                 // @endif
                 continue;
             }
             len = lines.length;
-            for (i = 0; i < len; ++i)
-            {
+            for (i = 0; i < len; ++i) {
                 l = lines[i];
-                if (typeof l.start === 'string')
-                {
-                    if (timeFormat.test(l.start))
-                    {
+                if (typeof l.start === 'string') {
+                    if (timeFormat.test(l.start)) {
                         l.start = Captions._timeCodeToMilliseconds(l.start);
                     }
-                    else
-                    {
+                    else {
                         l.start = parseInt(l.start, 10);
                     }
                 }
-                if (typeof l.end === 'string')
-                {
-                    if (timeFormat.test(l.end))
-                    {
+                if (typeof l.end === 'string') {
+                    if (timeFormat.test(l.end)) {
                         l.end = Captions._timeCodeToMilliseconds(l.end);
                     }
-                    else
-                    {
+                    else {
                         l.end = parseInt(l.end, 10);
                     }
                 }
             }
         }
     }
-    get data()
-    {
+    get data() {
         return this._data;
     }
 
@@ -245,15 +225,13 @@ export default class Captions
      * The text field that the captions uses to update.
      * @property {String|createjs.Text|PIXI.Text|PIXI.BitmapText|DOMElement} textField
      */
-    set textField(field)
-    {
+    set textField(field) {
         Captions._setText(this._textField, '');
         this._textField = (typeof field === 'string' ?
             document.getElementById(field) :
             (field || null));
     }
-    get textField()
-    {
+    get textField() {
         return this._textField;
     }
 
@@ -266,27 +244,22 @@ export default class Captions
      * @param {String} text The text to set it to
      * @return {createjs.Text|PIXI.Text|PIXI.BitmapText|DOMElement} The text field
      */
-    static _setText(field, text)
-    {
-        if (!field) 
-        {
+    static _setText(field, text) {
+        if (!field) {
             return;
         }
 
         //DOM element
-        if (field.nodeName)
-        {
+        if (field.nodeName) {
             field.innerHTML = text;
         }
         //the EaselJS/PIXI v3 style text setting
         else if (field.constructor.prototype.hasOwnProperty('text') ||
-            field.hasOwnProperty('text'))
-        {
+            field.hasOwnProperty('text')) {
             field.text = text;
         }
         //unsupported field type, oops!
-        else
-        {
+        else {
             throw 'Unrecognizable captions text field';
         }
         return field;
@@ -298,8 +271,7 @@ export default class Captions
      * @param {String} alias The alias to check against
      * @return {Boolean} Whether the caption was found or not
      */
-    hasCaption(alias)
-    {
+    hasCaption(alias) {
         return this._data ? !!this._data[alias] : false;
     }
 
@@ -313,56 +285,44 @@ export default class Captions
      * @param {String} [separator=" "] The separation between each line.
      * @return {String} The entire caption, concatinated by the separator.
      */
-    getFullCaption(alias, separator)
-    {
-        if (!this._data) 
-        {
+    getFullCaption(alias, separator) {
+        if (!this._data) {
             return;
         }
 
         separator = separator || ' ';
 
-        var result,
+        let result,
             content,
             i;
 
-        if (Array.isArray(alias))
-        {
-            for (i = 0; i < alias.length; i++)
-            {
-                if (typeof alias[i] === 'string')
-                {
+        if (Array.isArray(alias)) {
+            for (i = 0; i < alias.length; i++) {
+                if (typeof alias[i] === 'string') {
                     content = this.getFullCaption(alias[i], separator);
-                    if (!result)
-                    {
+                    if (!result) {
                         result = content;
                     }
-                    else
-                    {
+                    else {
                         result += separator + content;
                     }
                 }
             }
         }
-        else
-        {
+        else {
             //return name if no caption so as not to break lists of mixed SFX and VO
-            if (!this._data[alias])
-            {
+            if (!this._data[alias]) {
                 return alias;
             }
 
-            var lines = this._data[alias].lines;
-            for (i = 0; i < lines.length; i++)
-            {
+            let lines = this._data[alias].lines;
+            for (i = 0; i < lines.length; i++) {
                 content = lines[i].content;
 
-                if (!result)
-                {
+                if (!result) {
                     result = content;
                 }
-                else
-                {
+                else {
                     result += separator + content;
                 }
             }
@@ -376,10 +336,8 @@ export default class Captions
      * @method _load
      * @param {String} data The string
      */
-    _load(data)
-    {
-        if (this._destroyed) 
-        {
+    _load(data) {
+        if (this._destroyed) {
             return;
         }
 
@@ -387,8 +345,7 @@ export default class Captions
         this._reset();
 
         //make sure there is data to load, otherwise take it as an empty initialization
-        if (!data)
-        {
+        if (!data) {
             this._lines = null;
             return;
         }
@@ -400,8 +357,7 @@ export default class Captions
      * @private
      * @method _reset
      */
-    _reset()
-    {
+    _reset() {
         this._currentLine = -1;
         this._lastActiveLine = -1;
     }
@@ -414,14 +370,13 @@ export default class Captions
      * @param {String} input The input string of the format
      * @return {int} Time in milliseconds
      */
-    _timeCodeToMilliseconds(input)
-    {
-        var lastPeriodIndex = input.lastIndexOf('.');
-        var ms = parseInt(input.substr(lastPeriodIndex + 1), 10);
-        var parts = input.substr(0, lastPeriodIndex).split(':');
-        var h = parseInt(parts[0], 10) * 3600000; //* 60 * 60 * 1000;
-        var m = parseInt(parts[1], 10) * 6000; //* 60 * 1000;
-        var s = parseInt(parts[2], 10) * 1000;
+    _timeCodeToMilliseconds(input) {
+        let lastPeriodIndex = input.lastIndexOf('.');
+        let ms = parseInt(input.substr(lastPeriodIndex + 1), 10);
+        let parts = input.substr(0, lastPeriodIndex).split(':');
+        let h = parseInt(parts[0], 10) * 3600000; //* 60 * 60 * 1000;
+        let m = parseInt(parts[1], 10) * 6000; //* 60 * 1000;
+        let s = parseInt(parts[2], 10) * 1000;
 
         return h + m + s + ms;
     }
@@ -432,8 +387,7 @@ export default class Captions
      * @property {Boolean} playing
      * @readOnly
      */
-    get playing()
-    {
+    get playing() {
         return this._playing;
     }
 
@@ -442,9 +396,8 @@ export default class Captions
      * @private
      * @method _getTotalDuration
      */
-    _getTotalDuration()
-    {
-        var lines = this._lines;
+    _getTotalDuration() {
+        let lines = this._lines;
         return lines ? lines[lines.length - 1].end : 0;
     }
 
@@ -453,8 +406,7 @@ export default class Captions
      * @property {int} currentDuration
      * @readOnly
      */
-    get currentDuration()
-    {
+    get currentDuration() {
         return this._currentDuration;
     }
 
@@ -463,8 +415,7 @@ export default class Captions
      * @property {String} currentAlias
      * @readOnly
      */
-    get currentAlias()
-    {
+    get currentAlias() {
         return this._currentAlias;
     }
 
@@ -475,8 +426,7 @@ export default class Captions
      * @param {String} alias The desired caption's alias
      * @param {function} callback The function to call when the caption is finished playing
      */
-    play(alias, callback)
-    {
+    play(alias, callback) {
         this.stop();
         this._completeCallback = callback;
         this._playing = true;
@@ -492,8 +442,7 @@ export default class Captions
      * @public
      * @method stop
      */
-    stop()
-    {
+    stop() {
         this._playing = false;
         this._currentAlias = null;
         this._lines = null;
@@ -508,44 +457,37 @@ export default class Captions
      * @method seek
      * @param {int} time The time in milliseconds to seek to in the captions
      */
-    seek(time)
-    {
+    seek(time) {
         //Update the current time
-        var currentTime = this._currentTime = time;
+        let currentTime = this._currentTime = time;
 
-        var lines = this._lines;
-        if (!lines)
-        {
+        let lines = this._lines;
+        if (!lines) {
             this._updateCaptions();
             return;
         }
 
-        if (currentTime < lines[0].start)
-        {
+        if (currentTime < lines[0].start) {
             this._currentLine = this._lastActiveLine = -1;
             this._updateCaptions();
             return;
         }
 
-        var len = lines.length;
-        for (var i = 0; i < len; i++)
-        {
-            if (currentTime >= lines[i].start && currentTime <= lines[i].end)
-            {
+        let len = lines.length;
+        for (let i = 0; i < len; i++) {
+            if (currentTime >= lines[i].start && currentTime <= lines[i].end) {
                 this._currentLine = this._lastActiveLine = i;
                 this._updateCaptions();
                 break;
             }
-            else if (currentTime > lines[i].end)
-            {
+            else if (currentTime > lines[i].end) {
                 //this elseif helps us if there was no line at seek time,
                 //so we can still keep track of the last active line
                 this._lastActiveLine = i;
                 this._currentLine = -1;
                 this._updateCaptions();
             }
-            else if (currentTime < lines[i].start)
-            {
+            else if (currentTime < lines[i].start) {
                 //in between lines or before the first one
                 this._lastActiveLine = i - 1;
                 this._currentLine = -1;
@@ -560,10 +502,8 @@ export default class Captions
      * @method _updatePercent
      * @param {number} progress The progress in the current sound as a percentage (0-1)
      */
-    _updatePercent(progress)
-    {
-        if (this._destroyed)
-        {
+    _updatePercent(progress) {
+        if (this._destroyed) {
             return;
         }
         this._currentTime = progress * this._currentDuration;
@@ -577,10 +517,8 @@ export default class Captions
      * @method update
      * @param {int} progress The time elapsed since the last frame in milliseconds
      */
-    update(elapsed)
-    {
-        if (this._destroyed || !this._playing)
-        {
+    update(elapsed) {
+        if (this._destroyed || !this._playing) {
             return;
         }
         this._currentTime += elapsed;
@@ -592,35 +530,30 @@ export default class Captions
      * @private
      * @method _calcUpdate
      */
-    _calcUpdate()
-    {
-        var lines = this._lines;
-        if (!lines)
-        {
+    _calcUpdate() {
+        let lines = this._lines;
+        if (!lines) {
             return;
         }
 
         //Check for the end of the captions
-        var len = lines.length;
-        var nextLine = this._lastActiveLine + 1;
-        var lastLine = len - 1;
-        var currentTime = this._currentTime;
+        let len = lines.length;
+        let nextLine = this._lastActiveLine + 1;
+        let lastLine = len - 1;
+        let currentTime = this._currentTime;
 
         //If we are outside of the bounds of captions, stop
-        if (currentTime >= lines[lastLine].end)
-        {
+        if (currentTime >= lines[lastLine].end) {
             this.stop();
         }
         else if (nextLine <= lastLine &&
             currentTime >= lines[nextLine].start &&
-            currentTime <= lines[nextLine].end)
-        {
+            currentTime <= lines[nextLine].end) {
             this._currentLine = this._lastActiveLine = nextLine;
             this._updateCaptions();
         }
         else if (this._currentLine !== -1 &&
-            currentTime > lines[this._currentLine].end)
-        {
+            currentTime > lines[this._currentLine].end) {
             this._lastActiveLine = this._currentLine;
             this._currentLine = -1;
             this._updateCaptions();
@@ -632,8 +565,7 @@ export default class Captions
      * @private
      * @method _updateCaptions
      */
-    _updateCaptions()
-    {
+    _updateCaptions() {
         Captions._setText(
             this._textField, //
             (this._currentLine === -1 || this._mute) ? '' : this._lines[this._currentLine].content
@@ -647,31 +579,24 @@ export default class Captions
      *  Array may contain integers (milliseconds) to account for un-captioned gaps.
      * @return {int} Length/duration of caption in milliseconds.
      */
-    getLength(alias)
-    {
-        var length = 0;
-        if (Array.isArray(alias))
-        {
-            for (var i = 0, len = alias.length; i < len; i++)
-            {
-                if (typeof alias[i] === 'string')
-                {
+    getLength(alias) {
+        let length = 0;
+        if (Array.isArray(alias)) {
+            for (let i = 0, len = alias.length; i < len; i++) {
+                if (typeof alias[i] === 'string') {
                     length += this.getLength(alias[i]);
                 }
-                else if (typeof alias[i] === 'number')
-                {
+                else if (typeof alias[i] === 'number') {
                     length += alias[i];
                 }
             }
         }
-        else
-        {
-            if (!this._data[alias])
-            {
+        else {
+            if (!this._data[alias]) {
                 return length;
             }
 
-            var lines = this._data[alias].lines;
+            let lines = this._data[alias].lines;
             length += lines[lines.length - 1].end;
         }
 
@@ -682,10 +607,8 @@ export default class Captions
      * Destroy this load task and don't use after this
      * @method destroy
      */
-    destroy()
-    {
-        if (this._destroyed)
-        {
+    destroy() {
+        if (this._destroyed) {
             return;
         }
 

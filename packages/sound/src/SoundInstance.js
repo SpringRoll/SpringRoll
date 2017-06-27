@@ -5,10 +5,8 @@ import Sound from './Sound';
  * be created through springroll.Sound.instance.play().
  * @class SoundInstance
  */
-export default class SoundInstance
-{
-    constructor()
-    {
+export default class SoundInstance {
+    constructor() {
         /**
          * SoundJS SoundInstance, essentially a sound channel.
          * @property {createjs.SoundInstance} _channel
@@ -139,8 +137,7 @@ export default class SoundInstance
      * @public
      * @readOnly
      */
-    get position()
-    {
+    get position() {
         return this._channel ? this._channel.getPosition() : 0;
     }
 
@@ -149,28 +146,23 @@ export default class SoundInstance
      * @method stop
      * @public
      */
-    stop()
-    {
-        var s = Sound.instance;
+    stop() {
+        let s = Sound.instance;
 
-        if (s)
-        {
-            var sound = s._sounds[this.alias];
+        if (s) {
+            let sound = s._sounds[this.alias];
             //in case this SoundInstance is not valid any more for some reason
-            if (!sound) 
-            {
+            if (!sound) {
                 return;
             }
 
-            var index = sound.playing.indexOf(this);
-            if (index > -1)
-            {
+            let index = sound.playing.indexOf(this);
+            if (index > -1) {
                 sound.playing.splice(index, 1);
             }
 
             index = sound.waitingToPlay.indexOf(this);
-            if (index > -1)
-            {
+            if (index > -1) {
                 sound.waitingToPlay.splice(index, 1);
             }
 
@@ -185,24 +177,19 @@ export default class SoundInstance
      * @param {Number} contextVol The volume of the sound context that the sound belongs to. If
      *                          omitted, the volume is automatically collected.
      */
-    updateVolume(contextVol)
-    {
-        if (!this._channel)
-        {
+    updateVolume(contextVol) {
+        if (!this._channel) {
             return;
         }
 
-        if (contextVol === undefined)
-        {
-            var s = Sound.instance;
-            var sound = s._sounds[this.alias];
-            if (sound.context)
-            {
-                var context = s._contexts[sound.context];
+        if (contextVol === undefined) {
+            let s = Sound.instance;
+            let sound = s._sounds[this.alias];
+            if (sound.context) {
+                let context = s._contexts[sound.context];
                 contextVol = context.muted ? 0 : context.volume;
             }
-            else
-            {
+            else {
                 contextVol = 1;
             }
         }
@@ -215,12 +202,10 @@ export default class SoundInstance
      * @property {Number} volume
      * @public
      */
-    get volume()
-    {
+    get volume() {
         return this.curVol;
     }
-    set volume(value)
-    {
+    set volume(value) {
         this.curVol = value;
         this.updateVolume();
     }
@@ -230,15 +215,12 @@ export default class SoundInstance
      * @property {Number} pan
      * @public
      */
-    get pan()
-    {
+    get pan() {
         return this._pan;
     }
-    set pan(value)
-    {
+    set pan(value) {
         this._pan = value;
-        if (this._channel)
-        {
+        if (this._channel) {
             this._channel.pan = value;
         }
     }
@@ -248,20 +230,17 @@ export default class SoundInstance
      * @method pause
      * @public
      */
-    pause()
-    {
+    pause() {
         //ensure that this is marked as a manual pause
         this.globallyPaused = false;
 
-        if (this.paused)
-        {
+        if (this.paused) {
             return;
         }
 
         this.paused = true;
 
-        if (!this._channel)
-        {
+        if (!this._channel) {
             return;
         }
 
@@ -275,17 +254,14 @@ export default class SoundInstance
      * @method resume
      * @public
      */
-    resume()
-    {
-        if (!this.paused)
-        {
+    resume() {
+        if (!this.paused) {
             return;
         }
 
         this.paused = false;
 
-        if (!this._channel)
-        {
+        if (!this._channel) {
             return;
         }
 
@@ -293,8 +269,7 @@ export default class SoundInstance
         
         this._channel.paused = false;
 
-        if (this._channel.gainNode)
-        {
+        if (this._channel.gainNode) {
             //reset values on the channel to ensure that the volume update takes -
             //the default volume on the audio after playing/resuming will be 1
             this._channel._volume = -1;

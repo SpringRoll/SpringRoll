@@ -1,16 +1,14 @@
 import ApplicationPlugin from '../../ApplicationPlugin';
 import StringFilters from './StringFilters';
     
-(function()
-{
+(function() {
     /**
      * @class Application
      */
     const plugin = new ApplicationPlugin('filters');
 
     // Init the animator
-    plugin.setup = function()
-    {
+    plugin.setup = function() {
         /**
          * The StringFilters instance
          * @property {springroll.StringFilters} filters
@@ -19,10 +17,8 @@ import StringFilters from './StringFilters';
     };
 
     // Destroy the animator
-    plugin.teardown = function()
-    {
-        if (this.filters)
-        {
+    plugin.teardown = function() {
+        if (this.filters) {
             this.filters.destroy();
         }
         this.filters = null;

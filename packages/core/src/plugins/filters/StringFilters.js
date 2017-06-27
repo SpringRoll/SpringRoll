@@ -3,10 +3,8 @@
  * @constructor
  * @class StringFilters
  */
-export default class StringFilters
-{
-    constructor()
-    {
+export default class StringFilters {
+    constructor() {
         /**
          * Dictionary of filters
          * @property {Array} _filters
@@ -22,10 +20,8 @@ export default class StringFilters
      * @param {String} replacement String to repalce with
      * @static
      */
-    add(replace, replacement)
-    {
-        if (!replace || (typeof replace !== 'string' && replace instanceof RegExp === false))
-        {
+    add(replace, replacement) {
+        if (!replace || (typeof replace !== 'string' && replace instanceof RegExp === false)) {
             // @if DEBUG
             throw 'replace value must be a valid String or RegExp';
             // @endif
@@ -35,8 +31,7 @@ export default class StringFilters
             throw 'invalide replace value';
             // @endif
         }
-        if (typeof replacement !== 'string')
-        {
+        if (typeof replacement !== 'string') {
             // @if DEBUG
             throw 'replacement value must be astring';
             // @endif
@@ -47,12 +42,9 @@ export default class StringFilters
             // @endif
         }
 
-        if (this._filters)
-        {
-            for (var i = this._filters.length - 1; i >= 0; i--)
-            {
-                if (replace.toString() === this._filters[i].replace.toString())
-                {
+        if (this._filters) {
+            for (let i = this._filters.length - 1; i >= 0; i--) {
+                if (replace.toString() === this._filters[i].replace.toString()) {
                     // @if DEBUG
                     throw `Filter ${replace} already exists in this._filters array.`;
                     // @endif
@@ -77,14 +69,11 @@ export default class StringFilters
      * @param {String} str The string to check
      * @static
      */
-    filter(str)
-    {
-        if (!this._filters)
-        {
+    filter(str) {
+        if (!this._filters) {
             return str;
         }
-        for (let i = this._filters.length - 1; i >= 0; i--)
-        {
+        for (let i = this._filters.length - 1; i >= 0; i--) {
             const replace = this._filters[i].replace;
             const replacement = this._filters[i].replacement;
             str = str.replace(replace, replacement);
@@ -96,8 +85,7 @@ export default class StringFilters
      * @method destroy
      * @static
      */
-    destroy()
-    {
+    destroy() {
         this._filters = null;
     }
 }

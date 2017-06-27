@@ -3,7 +3,6 @@
 
 const rollup = require('rollup');
 const path = require('path');
-const fs = require('fs');
 const sass = require('rollup-plugin-sass');
 const resolve = require('rollup-plugin-node-resolve');
 const preprocess = require('rollup-plugin-preprocess').default;
@@ -15,7 +14,9 @@ const rimraf = require('rimraf');
 const mkdirp = require('mkdirp');
 const chalk = require('chalk');
 
-if (!process.stderr.isTTY) chalk.enabled = false;
+if (!process.stderr.isTTY) {
+    chalk.enabled = false;
+}
 
 const production = process.env.NODE_ENV === 'production';
 const pkg = require(path.resolve('package'));
@@ -43,7 +44,8 @@ let result;
 
 switch(command) {
     case 'watch': {
-        return devWatch();
+        devWatch();
+        break;
     }
     case 'prod':{
         result = prod();
@@ -70,13 +72,17 @@ switch(command) {
 
 // Swallow errors, typically these are 
 // ESLint errors which are printed out
-result.catch((err) => {
-    onerror(err);
-    process.exit(1);
-});
+if (result) {
+    result.catch((err) => {
+        onerror(err);
+        process.exit(1);
+    });
+}
 
 function onwarn(warning) {
-    if (warning.message.indexOf('external dependency') > -1) return;
+    if (warning.message.indexOf('external dependency') > -1) {
+        return;
+    }
     const warnSymbol = process.stderr.isTTY ? '⚠️   ' : 'Warning: ';
     console.log(warnSymbol, chalk.bold(warning.message));
     console.log(chalk.cyan(warning.url), '\n');
@@ -187,7 +193,7 @@ function prod() {
                     // Ignore the banner comment
                     comments: function(node, comment) {
                         const {value, type} = comment;
-                        if (type == 'comment2') {
+                        if (type === 'comment2') {
                             return value[0] === '!';
                         }
                     }

@@ -7,10 +7,8 @@ import {Application, EventEmitter} from '@springroll/core';
  * @class VOPlayer
  * @extends springroll.EventEmitter
  */
-export default class VOPlayer extends EventEmitter
-{
-    constructor()
-    {
+export default class VOPlayer extends EventEmitter {
+    constructor() {
         super();
 
         //Bound method calls
@@ -128,8 +126,7 @@ export default class VOPlayer extends EventEmitter
      * @public
      * @readOnly
      */
-    get playing()
-    {
+    get playing() {
         return this._currentVO !== null || this._timer > 0;
     }
 
@@ -140,8 +137,7 @@ export default class VOPlayer extends EventEmitter
      * @public
      * @readOnly
      */
-    get currentVO()
-    {
+    get currentVO() {
         return this._currentVO;
     }
 
@@ -152,17 +148,14 @@ export default class VOPlayer extends EventEmitter
      * @property {Captions} captions
      * @public
      */
-    set captions(captions)
-    {
+    set captions(captions) {
         this._captions = captions;
 
-        if (captions)
-        {
+        if (captions) {
             captions.selfUpdate = false;
         }
     }
-    get captions()
-    {
+    get captions() {
         return this._captions;
     }
 
@@ -170,23 +163,21 @@ export default class VOPlayer extends EventEmitter
      * The amount of time elapsed in the currently playing item of audio/silence in milliseconds
      * @property {int} currentPosition
      */
-    get currentPosition()
-    {
-        if (!this.playing)
-        {
+    get currentPosition() {
+        if (!this.playing) {
             return 0;
         }
 
-        if (this._soundInstance) //active audio
-        {
+        //active audio
+        if (this._soundInstance) {
             return this._soundInstance.position;
         }
-        else if (this._currentVO) //captions only
-        {
+        //captions only
+        else if (this._currentVO) {
             return this._timer;
         }
-        else //silence timer
-        {
+        //silence timer
+        else {
             return this.voList[this._listCounter] - this._timer;
         }
     }
@@ -197,23 +188,21 @@ export default class VOPlayer extends EventEmitter
      * data to give.
      * @property {int} currentDuration
      */
-    get currentDuration()
-    {
-        if (!this.playing)
-        {
+    get currentDuration() {
+        if (!this.playing) {
             return 0;
         }
         
-        if (this._soundInstance) //active audio
-        {
+        if (this._soundInstance) {
+            //active audio
             return Sound.instance.getDuration(this._soundInstance.alias);
         }
-        else if (this._currentVO && this._captions) //captions only
-        {
+        else if (this._currentVO && this._captions) {
+            //captions only
             return this._captions.currentDuration;
         }
-        else //silence timer
-        {
+        else {
+            //silence timer
             return this.voList[this._listCounter];
         }
     }
@@ -223,40 +212,32 @@ export default class VOPlayer extends EventEmitter
      * @method getElapsed
      * @return {int} The elapsed time in milliseconds.
      */
-    getElapsed()
-    {
-        var total = 0,
+    getElapsed() {
+        let total = 0,
             item, i;
 
-        if (!this.voList)
-        {
+        if (!this.voList) {
             return 0;
         }
 
-        for (i = 0; i < this._listCounter; ++i)
-        {
+        for (i = 0; i < this._listCounter; ++i) {
             item = this.voList[i];
-            if (typeof item === 'string')
-            {
+            if (typeof item === 'string') {
                 total += Sound.instance.getDuration(item);
             }
-            else if (typeof item === 'number')
-            {
+            else if (typeof item === 'number') {
                 total += item;
             }
         }
         //get the current item
         i = this._listCounter;
 
-        if (i < this.voList.length)
-        {
+        if (i < this.voList.length) {
             item = this.voList[i];
-            if (typeof item === 'string')
-            {
+            if (typeof item === 'string') {
                 total += this._soundInstance.position;
             }
-            else if (typeof item === 'number')
-            {
+            else if (typeof item === 'number') {
                 total += item - this._timer;
             }
         }
@@ -269,17 +250,14 @@ export default class VOPlayer extends EventEmitter
      * @method pause
      * @public
      */
-    pause()
-    {
-        if (this.paused || !this.playing)
-        {
+    pause() {
+        if (this.paused || !this.playing) {
             return;
         }
 
         this.paused = true;
 
-        if (this._soundInstance)
-        {
+        if (this._soundInstance) {
             this._soundInstance.pause();
         }
 
@@ -296,37 +274,30 @@ export default class VOPlayer extends EventEmitter
      * @method resume
      * @public
      */
-    resume()
-    {
-        if (!this.paused)
-        {
+    resume() {
+        if (!this.paused) {
             return;
         }
 
         this.paused = false;
 
-        if (this._soundInstance)
-        {
+        if (this._soundInstance) {
             this._soundInstance.resume();
         }
 
         const app = Application.instance;
 
         //captions for solo captions or VO
-        if (this._captions.playing)
-        {
-            if (this._soundInstance)
-            {
+        if (this._captions.playing) {
+            if (this._soundInstance) {
                 app.on('update', this._syncCaptionToSound);
             }
-            else
-            {
+            else {
                 app.on('update', this._updateSoloCaption);
             }
         }
         //timer
-        else
-        {
+        else {
             app.on('update', this._updateSilence);
         }
     }
@@ -344,28 +315,24 @@ export default class VOPlayer extends EventEmitter
      * is interrupted with a stop() or play() call. If this value is a boolean
      * <code>true</code> then callback will be used instead.
      */
-    play(idOrList, callback, cancelledCallback)
-    {
+    play(idOrList, callback, cancelledCallback) {
         this.stop();
 
         //Handle the case where a cancel callback starts
         //A new VO play. Inline VO call should take priority
         //over the cancelled callback VO play.
-        if (this.playing)
-        {
+        if (this.playing) {
             this.stop();
         }
 
         this._listCounter = -1;
 
-        if (typeof idOrList === 'string')
-        {
+        if (typeof idOrList === 'string') {
             this._listHelper.length = 0;
             this._listHelper[0] = idOrList;
             this.voList = this._listHelper;
         }
-        else
-        {
+        else {
             this.voList = idOrList;
         }
 
@@ -379,10 +346,8 @@ export default class VOPlayer extends EventEmitter
      * @method _onSoundFinished
      * @private
      */
-    _onSoundFinished()
-    {
-        if (this._listCounter >= 0)
-        {
+    _onSoundFinished() {
+        if (this._listCounter >= 0) {
             this.emit('end', this._currentVO);
         }
 
@@ -394,8 +359,7 @@ export default class VOPlayer extends EventEmitter
         ]);
 
         //if we have captions and an audio instance, set the caption time to the length of the audio
-        if (this._captions && this._soundInstance)
-        {
+        if (this._captions && this._soundInstance) {
             this._captions.seek(this._soundInstance.length);
         }
 
@@ -403,42 +367,35 @@ export default class VOPlayer extends EventEmitter
         this._listCounter++; //advance list
 
         //if the list is complete
-        if (this._listCounter >= this.voList.length)
-        {
-            if (this._captions)
-            {
+        if (this._listCounter >= this.voList.length) {
+            if (this._captions) {
                 this._captions.stop();
             }
 
             this._currentVO = null;
             this._cancelledCallback = null;
 
-            var c = this._callback;
+            let c = this._callback;
             this._callback = null;
 
-            if (c)
-            {
+            if (c) {
                 c();
             }
         }
-        else
-        {
+        else {
             this._currentVO = this.voList[this._listCounter];
             
-            if (typeof this._currentVO === 'string')
-            {
+            if (typeof this._currentVO === 'string') {
                 //If the sound doesn't exist, then we play it and let it fail,
                 //an error should be shown and playback will continue
                 this._playSound();
                 this.emit('start', this._currentVO);
             }
-            else if (typeof this._currentVO === 'function')
-            {
+            else if (typeof this._currentVO === 'function') {
                 this._currentVO(); //call function
                 this._onSoundFinished(); //immediately continue
             }
-            else
-            {
+            else {
                 this._timer = this._currentVO; //set up a timer to wait
                 this._currentVO = null;
                 Application.instance.on('update', this._updateSilence);
@@ -454,12 +411,10 @@ export default class VOPlayer extends EventEmitter
      * @private
      * @param {int} elapsed The time elapsed since the previous frame, in milliseconds.
      */
-    _updateSilence(elapsed)
-    {
+    _updateSilence(elapsed) {
         this._timer -= elapsed;
 
-        if (this._timer <= 0)
-        {
+        if (this._timer <= 0) {
             this._onSoundFinished();
         }
     }
@@ -471,13 +426,11 @@ export default class VOPlayer extends EventEmitter
      * @private
      * @param {int} elapsed The time elapsed since the previous frame, in milliseconds.
      */
-    _updateSoloCaption(elapsed)
-    {
+    _updateSoloCaption(elapsed) {
         this._timer += elapsed;
         this._captions.seek(this._timer);
 
-        if (this._timer >= this._captions.currentDuration)
-        {
+        if (this._timer >= this._captions.currentDuration) {
             this._onSoundFinished();
         }
     }
@@ -489,10 +442,8 @@ export default class VOPlayer extends EventEmitter
      * @private
      * @param {int} elapsed The time elapsed since the previous frame, in milliseconds.
      */
-    _syncCaptionToSound()
-    {
-        if (!this._soundInstance) 
-        {
+    _syncCaptionToSound() {
+        if (!this._soundInstance) {
             return;
         }
 
@@ -504,40 +455,32 @@ export default class VOPlayer extends EventEmitter
      * @method _playSound
      * @private
      */
-    _playSound()
-    {
+    _playSound() {
         // Only add a sound once
-        if (this.trackSound && this._trackedSounds.indexOf(this._currentVO) === -1)
-        {
+        if (this.trackSound && this._trackedSounds.indexOf(this._currentVO) === -1) {
             this._trackedSounds.push(this._currentVO);
         }
-        var s = Sound.instance;
+        let s = Sound.instance;
         if (!s.exists(this._currentVO) &&
             this._captions &&
-            this._captions.hasCaption(this._currentVO))
-        {
+            this._captions.hasCaption(this._currentVO)) {
             this._captions.play(this._currentVO);
             this._timer = 0;
             Application.instance.on('update', this._updateSoloCaption);
         }
-        else
-        {
+        else {
             this._soundInstance = s.play(this._currentVO, this._onSoundFinished);
-            if (this._captions)
-            {
+            if (this._captions) {
                 this._captions.play(this._currentVO);
                 Application.instance.on('update', this._syncCaptionToSound);
             }
         }
-        var len = this.voList.length;
-        var next;
-        for (var i = this._listCounter + 1; i < len; ++i)
-        {
+        let len = this.voList.length;
+        let next;
+        for (let i = this._listCounter + 1; i < len; ++i) {
             next = this.voList[i];
-            if (typeof next === 'string')
-            {
-                if (s.exists(next) && !s.isLoaded(next))
-                {
+            if (typeof next === 'string') {
+                if (s.exists(next) && !s.isLoaded(next)) {
                     s.preload(next);
                 }
                 break;
@@ -550,17 +493,14 @@ export default class VOPlayer extends EventEmitter
      * @method stop
      * @public
      */
-    stop()
-    {
+    stop() {
         this.paused = false;
-        if (this._soundInstance)
-        {
+        if (this._soundInstance) {
             this._soundInstance.stop();
             this._soundInstance = null;
         }
         this._currentVO = null;
-        if (this._captions)
-        {
+        if (this._captions) {
             this._captions.stop();
         }
         Application.instance.off('update', [
@@ -572,10 +512,9 @@ export default class VOPlayer extends EventEmitter
         this._timer = 0;
         this._callback = null;
 
-        var c = this._cancelledCallback;
+        let c = this._cancelledCallback;
         this._cancelledCallback = null;
-        if (c)
-        {
+        if (c) {
             c();
         }
     }
@@ -585,8 +524,7 @@ export default class VOPlayer extends EventEmitter
      * @method unloadSound
      * @public
      */
-    unloadSound()
-    {
+    unloadSound() {
         Sound.instance.unload(this._trackedSounds);
         this._trackedSounds.length = 0;
     }
@@ -596,8 +534,7 @@ export default class VOPlayer extends EventEmitter
      * @method destroy
      * @public
      */
-    destroy()
-    {
+    destroy() {
         this.stop();
         this.voList = null;
         this._listHelper = null;

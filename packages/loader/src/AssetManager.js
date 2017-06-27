@@ -12,10 +12,8 @@ import {Debug} from '@springroll/debug';
  * @class AssetManager
  * @constructor
  */
-export default class AssetManager
-{
-    constructor()
-    {
+export default class AssetManager {
+    constructor() {
         /**
          * The collection of current multiloads
          * @property {Array} loads
@@ -66,22 +64,18 @@ export default class AssetManager
      *      are tested first. More general tasks should be lower
      *      and more specific tasks should be higher.
      */
-    register(TaskClass, priority)
-    {
-        if (!TaskClass) 
-        {
+    register(TaskClass, priority) {
+        if (!TaskClass) {
             return;
         }
 
         TaskClass.priority = priority || 0;
 
         // @if DEBUG
-        if (!(TaskClass.prototype instanceof Task))
-        {
+        if (!(TaskClass.prototype instanceof Task)) {
             Debug.error('Registering task much extend Task', TaskClass);
         }
-        else if (!TaskClass.test)
-        {
+        else if (!TaskClass.test) {
             Debug.error('Registering task much have test method');
         }
         // @endif
@@ -90,8 +84,7 @@ export default class AssetManager
 
         // Sort definitions by priority
         // where the higher priorities are first
-        this.taskDefs.sort(function(a, b)
-        {
+        this.taskDefs.sort(function(a, b) {
             return b.priority - a.priority;
         });
     }
@@ -109,8 +102,7 @@ export default class AssetManager
      * @param {Boolean} [options.cacheAll=false] If we should cache all files
      * @return {springroll.AssetLoad} The reference to the current load
      */
-    load(assets, options)
-    {
+    load(assets, options) {
         // Apply defaults to options
         options = Object.assign(
             {
@@ -122,7 +114,7 @@ export default class AssetManager
                 autoStart: true
             }, options);
 
-        var load = this.getLoad();
+        let load = this.getLoad();
 
         // Add to the stack of current loads
         this.loads.push(load);
@@ -139,14 +131,12 @@ export default class AssetManager
         load.once('complete', options.complete);
 
         // Optional loaded amount event
-        if (options.progress)
-        {
+        if (options.progress) {
             load.on('progress', options.progress);
         }
 
         // Called when a task is complete
-        if (options.taskDone)
-        {
+        if (options.taskDone) {
             load.on('taskDone', options.taskDone);
         }
 
@@ -162,8 +152,7 @@ export default class AssetManager
      * @private
      * @param {springroll.AssetLoad} load The load to recycle
      */
-    poolLoad(load)
-    {
+    poolLoad(load) {
         load.off('complete progress taskDone');
         load.reset();
         this.loadPool.push(load);
@@ -175,10 +164,8 @@ export default class AssetManager
      * @private
      * @return {springroll.AssetLoad} The load to use
      */
-    getLoad()
-    {
-        if (this.loadPool.length > 0)
-        {
+    getLoad() {
+        if (this.loadPool.length > 0) {
             return this.loadPool.pop();
         }
         return new AssetLoad(this);
@@ -192,15 +179,12 @@ export default class AssetManager
      * @param {springroll.AssetLoad} load The current load
      * @param {*} The returned results
      */
-    _onLoaded(complete, load, results)
-    {
-        var index = this.loads.indexOf(load);
-        if (index > -1)
-        {
+    _onLoaded(complete, load, results) {
+        let index = this.loads.indexOf(load);
+        if (index > -1) {
             this.loads.splice(index, 1);
         }
-        if (complete) 
-        {
+        if (complete) {
             complete(results);
         }
         this.poolLoad(load);
@@ -210,8 +194,7 @@ export default class AssetManager
      * Destroy the AssetManager
      * @method destroy
      */
-    destroy()
-    {
+    destroy() {
         this.sizes.destroy();
         this.sizes = null;
 

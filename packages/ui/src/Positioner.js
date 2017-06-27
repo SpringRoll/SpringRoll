@@ -6,10 +6,8 @@ import ScaleManager from './ScaleManager';
  * @static
  * @private
  */
-export default class Positioner
-{
-    static get DEG_TO_RAD()
-    {
+export default class Positioner {
+    static get DEG_TO_RAD() {
         return Math.PI / 180;
     }
 
@@ -36,50 +34,41 @@ export default class Positioner
      * @param {DisplayAdapter} [adapter] The adapter for the display being positioned
      *                                 in. If omitted, uses the Application's default display.
      */
-    static init(displayObject, settings, adapter)
-    {
+    static init(displayObject, settings, adapter) {
         //get the default adapter if not specified
-        if (!adapter)
-        {
+        if (!adapter) {
             adapter = ScaleManager._getAdapter();
         }
 
-        if (settings.x !== undefined)
-        {
+        if (settings.x !== undefined) {
             adapter.setPosition(displayObject, settings.x, 'x');
         }
 
-        if (settings.y !== undefined)
-        {
+        if (settings.y !== undefined) {
             adapter.setPosition(displayObject, settings.y, 'y');
         }
 
-        var pt = settings.scale;
-        var scale = adapter.getScale(displayObject);
+        let pt = settings.scale;
+        let scale = adapter.getScale(displayObject);
 
-        if (pt)
-        {
+        if (pt) {
             adapter.setScale(displayObject, pt.x * scale.x, 'x');
             adapter.setScale(displayObject, pt.y * scale.y, 'y');
         }
         pt = settings.pivot;
 
-        if (pt)
-        {
+        if (pt) {
             adapter.setPivot(displayObject, pt);
         }
 
-        if (settings.rotation !== undefined)
-        {
+        if (settings.rotation !== undefined) {
             displayObject.rotation = settings.rotation;
-            if (adapter.useRadians)
-            {
+            if (adapter.useRadians) {
                 displayObject.rotation *= Positioner.DEG_TO_RAD;
             }
         }
 
-        if (settings.hitArea)
-        {
+        if (settings.hitArea) {
             adapter.setHitArea(
                 displayObject,
                 Positioner.generateHitArea(
@@ -118,30 +107,23 @@ export default class Positioner
      *                Rectangle, Ellipse, Circle, or Sector, depending on the hitArea object.
      *                The shape will have a contains() function for hit testing.
      */
-    static generateHitArea(hitArea, scale, adapter)
-    {
+    static generateHitArea(hitArea, scale, adapter) {
         //get the default adapter if not specified
-        if (!adapter)
-        {
+        if (!adapter) {
             adapter = ScaleManager._getAdapter();
         }
 
-        if (!scale)
-        {
+        if (!scale) {
             scale = 1;
         }
 
-        if (Array.isArray(hitArea))
-        {
-            if (scale === 1)
-            {
+        if (Array.isArray(hitArea)) {
+            if (scale === 1) {
                 return new adapter.Polygon(hitArea);
             }
-            else
-            {
-                var temp = [];
-                for (var i = 0, len = hitArea.length; i < len; ++i)
-                {
+            else {
+                let temp = [];
+                for (let i = 0, len = hitArea.length; i < len; ++i) {
                     temp.push(new adapter.Point(
                         hitArea[i].x * scale,
                         hitArea[i].y * scale
@@ -150,8 +132,7 @@ export default class Positioner
                 return new adapter.Polygon(temp);
             }
         }
-        else if (hitArea.type === 'rect' || !hitArea.type)
-        {
+        else if (hitArea.type === 'rect' || !hitArea.type) {
             return new adapter.Rectangle(
                 hitArea.x * scale,
                 hitArea.y * scale,
@@ -159,8 +140,7 @@ export default class Positioner
                 hitArea.h * scale
             );
         }
-        else if (hitArea.type === 'ellipse')
-        {
+        else if (hitArea.type === 'ellipse') {
             // Convert center to upper left corner
             return new adapter.Ellipse(
                 (hitArea.x - hitArea.w * 0.5) * scale, (hitArea.y - hitArea.h * 0.5) * scale,
@@ -168,16 +148,14 @@ export default class Positioner
                 hitArea.h * scale
             );
         }
-        else if (hitArea.type === 'circle')
-        {
+        else if (hitArea.type === 'circle') {
             return new adapter.Circle(
                 hitArea.x * scale,
                 hitArea.y * scale,
                 hitArea.r * scale
             );
         }
-        else if (hitArea.type === 'sector')
-        {
+        else if (hitArea.type === 'sector') {
             return new adapter.Sector(
                 hitArea.x * scale,
                 hitArea.y * scale,

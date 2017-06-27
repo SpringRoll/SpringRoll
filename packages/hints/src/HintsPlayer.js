@@ -10,10 +10,8 @@ import GroupHint from './GroupHint';
  * @constructor
  * @param {springroll.Application} app Reference to the current app
  */
-export default class HintsPlayer extends EventDispatcher
-{
-    constructor(app)
-    {
+export default class HintsPlayer extends EventDispatcher {
+    constructor(app) {
         super();
 
         /**
@@ -112,8 +110,7 @@ export default class HintsPlayer extends EventDispatcher
      *       a value of true sets onComplete to also be the onCancelled callback.
      * @return {springroll.VOHint} The newly added hint
      */
-    vo(idOrList, onComplete, onCancel)
-    {
+    vo(idOrList, onComplete, onCancel) {
         return this.set(new VOHint(
             this,
             this._done,
@@ -133,8 +130,7 @@ export default class HintsPlayer extends EventDispatcher
      *       a value of true sets onComplete to also be the onCancelled callback.
      * @return {springroll.AnimatorHint} The newly added hint
      */
-    anim(instance, events, onComplete, onCancel)
-    {
+    anim(instance, events, onComplete, onCancel) {
         return this.set(new AnimatorHint(
             this,
             this._done,
@@ -155,8 +151,7 @@ export default class HintsPlayer extends EventDispatcher
      *                           and call them when complete or cancelled
      * @return {springroll.FunctionHint} The newly added hint
      */
-    func(onStart)
-    {
+    func(onStart) {
         return this.set(new FunctionHint(this, this._done, onStart));
     }
 
@@ -166,8 +161,7 @@ export default class HintsPlayer extends EventDispatcher
      * @method group
      * @return {springroll.GroupHint} The new group hint
      */
-    group()
-    {
+    group() {
         return this.set(new GroupHint(this, this._done));
     }
 
@@ -177,8 +171,7 @@ export default class HintsPlayer extends EventDispatcher
      * @param {springroll.AbstractHint} hint The new hint to add
      * @return {springroll.AbstractHint} Instance of the player, for chaining
      */
-    set(hint)
-    {
+    set(hint) {
         //Remove any existing hint
         this.clear();
         this.enabled = true;
@@ -190,13 +183,11 @@ export default class HintsPlayer extends EventDispatcher
      * Removes the current hint
      * @method clear
      */
-    clear()
-    {
+    clear() {
         this._playing = false;
         this.removeTimer();
         this.enabled = false;
-        if (this._hint)
-        {
+        if (this._hint) {
             this._oldHints.push(this._hint); //we'll destroy these when it's safe
         }
         this._hint = null;
@@ -207,10 +198,8 @@ export default class HintsPlayer extends EventDispatcher
      * @method play
      * @return {springroll.HintsPlayer} instance of the player for chaining
      */
-    play()
-    {
-        if (this._hint)
-        {
+    play() {
+        if (this._hint) {
             // Keep track of the playing status
             this._playing = true;
 
@@ -233,8 +222,7 @@ export default class HintsPlayer extends EventDispatcher
      * @param {int} [duration=12000] The number of milliseconds before playing hint
      * @return {springroll.HintsPlayer} instance of the player for chaining
      */
-    startTimer(duration)
-    {
+    startTimer(duration) {
         this._timer = this._duration = duration || this.timerDuration;
         this._app.off('update', this._update).on('update', this._update);
         return this;
@@ -252,10 +240,8 @@ export default class HintsPlayer extends EventDispatcher
      * @method removeTimer
      * @return {springroll.HintsPlayer} instance of the player for chaining
      */
-    stopTimer()
-    {
-        if (this._app)
-        {
+    stopTimer() {
+        if (this._app) {
             this._app.off('update', this._update);
         }
         this._timer = this._duration = 0;
@@ -267,8 +253,7 @@ export default class HintsPlayer extends EventDispatcher
      * @method resetTimer
      * @return {springroll.HintsPlayer} instance of the player for chaining
      */
-    resetTimer()
-    {
+    resetTimer() {
         this._app.off('update', this._update).on('update', this._update);
         this._timer = this._duration;
         return this;
@@ -278,8 +263,7 @@ export default class HintsPlayer extends EventDispatcher
      * If the help button is enabled
      * @property {Boolean} enabled
      */
-    set enabled(enabled)
-    {
+    set enabled(enabled) {
         this.emit('enabled', enabled);
     }
 
@@ -289,19 +273,15 @@ export default class HintsPlayer extends EventDispatcher
      * @private
      * @param {int} elapsed Number of milliseconds since the last update
      */
-    _update(elapsed)
-    {
-        if (this._playing) 
-        {
+    _update(elapsed) {
+        if (this._playing) {
             return;
         }
 
-        if (this._timer > 0)
-        {
+        if (this._timer > 0) {
             this._timer -= elapsed;
 
-            if (this._timer <= 0)
-            {
+            if (this._timer <= 0) {
                 this._app.off('update', this._update);
                 this.play();
             }
@@ -319,8 +299,7 @@ export default class HintsPlayer extends EventDispatcher
      * @private
      * @param {Boolean} [cancelled=false] If the function was interrupted by the user or something else.
      */
-    funcDone(cancelled)
-    {
+    funcDone(cancelled) {
         this._playing = false;
         this.resetTimer();
 
@@ -328,14 +307,12 @@ export default class HintsPlayer extends EventDispatcher
         this.enabled = !cancelled;
 
         //After playing the current tier, goto the next tier
-        if (this._hint instanceof GroupHint)
-        {
+        if (this._hint instanceof GroupHint) {
             this._hint.nextTier();
         }
     }
 
-    _done(cancelled)
-    {
+    _done(cancelled) {
         this.funcDone(cancelled);
     }
 
@@ -344,12 +321,9 @@ export default class HintsPlayer extends EventDispatcher
      * @method _clearOldHints
      * @private
      */
-    _clearOldHints()
-    {
-        if (this._oldHints.length)
-        {
-            for (var i = 0; i < this._oldHints.length; i++)
-            {
+    _clearOldHints() {
+        if (this._oldHints.length) {
+            for (let i = 0; i < this._oldHints.length; i++) {
                 this._oldHints[i].destroy();
             }
             this._oldHints.length = 0;
@@ -360,8 +334,7 @@ export default class HintsPlayer extends EventDispatcher
      * Destroy, don't use after this
      * @method destroy
      */
-    destroy()
-    {
+    destroy() {
         this.clear();
         this._clearOldHints();
         this._app = null;

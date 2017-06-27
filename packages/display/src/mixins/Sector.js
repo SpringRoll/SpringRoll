@@ -11,8 +11,7 @@
  * @param startAngle {Number} The starting angle of the sector, in degrees
  * @param endAngle {Number} The ending angle of the sector, in degrees
  */
-PIXI.Sector = function(x, y, radius, startAngle, endAngle)
-{
+PIXI.Sector = function(x, y, radius, startAngle, endAngle) {
     /**
      * @property x
      * @type Number
@@ -42,8 +41,7 @@ PIXI.Sector = function(x, y, radius, startAngle, endAngle)
     this.startAngle = startAngle || 0;
 
     //for math purposes, ensure that this is greater than 0
-    while (this.startAngle < 0)
-    {
+    while (this.startAngle < 0) {
         this.startAngle += 360;
     }
 
@@ -55,8 +53,7 @@ PIXI.Sector = function(x, y, radius, startAngle, endAngle)
     this.endAngle = endAngle || 0;
 
     //for math purposes, ensure that this is greater than startAngle
-    if (this.endAngle < this.startAngle)
-    {
+    if (this.endAngle < this.startAngle) {
         this.endAngle += 360;
     }
 };
@@ -67,8 +64,7 @@ PIXI.Sector = function(x, y, radius, startAngle, endAngle)
  * @method clone
  * @return {Sector} a copy of the polygon
  */
-PIXI.Sector.prototype.clone = function()
-{
+PIXI.Sector.prototype.clone = function() {
     return new PIXI.Sector(this.x, this.y, this.radius, this.startAngle, this.endAngle);
 };
 
@@ -80,29 +76,25 @@ PIXI.Sector.prototype.clone = function()
  * @param y {Number} The Y coord of the point to test
  * @return {Boolean} if the x/y coords are within this polygon
  */
-PIXI.Sector.prototype.contains = function(x, y)
-{
-    if (this.radius <= 0)
-    {
+PIXI.Sector.prototype.contains = function(x, y) {
+    if (this.radius <= 0) {
         return false;
     }
 
-    var dx = (this.x - x),
+    let dx = (this.x - x),
         dy = (this.y - y),
         r2 = this.radius * this.radius;
 
     dx *= dx;
     dy *= dy;
 
-    if (dx + dy > r2) 
-    {
+    if (dx + dy > r2) {
         return false;
     }
 
-    var angle = Math.atan2(y - this.y, x - this.x) * PIXI.RAD_TO_DEG;
+    let angle = Math.atan2(y - this.y, x - this.x) * PIXI.RAD_TO_DEG;
     //make the angle in the same space as the sector
-    while (angle < this.startAngle) 
-    {
+    while (angle < this.startAngle) {
         angle += 360;
     }
     return angle >= this.startAngle && angle <= this.endAngle;

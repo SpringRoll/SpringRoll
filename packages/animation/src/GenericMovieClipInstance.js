@@ -6,10 +6,8 @@ import AnimatorInstance from './AnimatorInstance';
  * files. They need to extend some basic methods.
  * @class AnimatorTimeline
  */
-export default class GenericMovieClipInstance extends AnimatorInstance
-{
-    constructor()
-    {
+export default class GenericMovieClipInstance extends AnimatorInstance {
+    constructor() {
         super();
 
         /**
@@ -43,11 +41,9 @@ export default class GenericMovieClipInstance extends AnimatorInstance
      * @method init
      * @param  {*} clip The movieclip
      */
-    init(clip)
-    {
+    init(clip) {
         //make sure the movieclip is framerate independent
-        if (!clip.framerate)
-        {
+        if (!clip.framerate) {
             clip.framerate = Application.instance.options.fps || 15;
         }
         clip.tickEnabled = false;
@@ -61,43 +57,36 @@ export default class GenericMovieClipInstance extends AnimatorInstance
         this.lastFrame = clip.currentFrame;
     }
 
-    beginAnim(animObj, isRepeat)
-    {
+    beginAnim(animObj, isRepeat) {
         //calculate frames, duration, etc
         //then gotoAndPlay on the first frame
-        var anim = this.currentName = animObj.anim;
+        let anim = this.currentName = animObj.anim;
 
-        var l, first = -1,
+        let l, first = -1,
             last = -1,
             loop = false;
         //the wildcard event plays the entire timeline
-        if (anim === '*' && !this.clip.timeline.resolve(anim))
-        {
+        if (anim === '*' && !this.clip.timeline.resolve(anim)) {
             first = 0;
             last = this.clip.timeline.duration - 1;
             loop = !!animObj.loop;
         }
-        else
-        {
-            var labels = this.clip.getLabels();
+        else {
+            let labels = this.clip.getLabels();
             //go through the list of labels (they are sorted by frame number)
-            var stopLabel = anim + '_stop';
-            var loopLabel = anim + '_loop';
+            let stopLabel = anim + '_stop';
+            let loopLabel = anim + '_loop';
 
-            for (var i = 0, len = labels.length; i < len; ++i)
-            {
+            for (let i = 0, len = labels.length; i < len; ++i) {
                 l = labels[i];
-                if (l.label === anim)
-                {
+                if (l.label === anim) {
                     first = l.position;
                 }
-                else if (l.label === stopLabel)
-                {
+                else if (l.label === stopLabel) {
                     last = l.position;
                     break;
                 }
-                else if (l.label === loopLabel)
-                {
+                else if (l.label === loopLabel) {
                     last = l.position;
                     loop = true;
                     break;
@@ -109,16 +98,14 @@ export default class GenericMovieClipInstance extends AnimatorInstance
         this.lastFrame = last;
         this.length = last - first;
         this.isLooping = loop;
-        var fps = this.clip.framerate;
+        let fps = this.clip.framerate;
         this.startTime = this.firstFrame / fps;
         this.duration = this.length / fps;
-        if (isRepeat)
-        {
+        if (isRepeat) {
             this.position = 0;
         }
-        else
-        {
-            var animStart = animObj.start || 0;
+        else {
+            let animStart = animObj.start || 0;
             this.position = animStart < 0 ? Math.random() * this.duration : animStart;
         }
 
@@ -131,8 +118,7 @@ export default class GenericMovieClipInstance extends AnimatorInstance
      * Ends animation playback.
      * @method endAnim
      */
-    endAnim()
-    {
+    endAnim() {
         this.clip.gotoAndStop(this.lastFrame);
     }
 
@@ -142,8 +128,7 @@ export default class GenericMovieClipInstance extends AnimatorInstance
      * @method setPosition
      * @param  {Number} newPos The new position in the animation.
      */
-    setPosition(newPos)
-    {
+    setPosition(newPos) {
         this.position = newPos;
         this.clip.elapsedTime = this.startTime + newPos;
         //because the movieclip only checks the elapsed time here (tickEnabled is false),
@@ -157,8 +142,7 @@ export default class GenericMovieClipInstance extends AnimatorInstance
      * @static
      * @return {Boolean} if the clip is supported by this instance
      */
-    static test(clip)
-    {
+    static test(clip) {
         return clip.framerate !== undefined &&
             clip.getLabels !== undefined &&
             clip.elapsedTime !== undefined &&
@@ -176,29 +160,24 @@ export default class GenericMovieClipInstance extends AnimatorInstance
      * @param {String} event The frame label event (e.g. "onClose" to "onClose_stop")
      * @return {Boolean} does this animation exist?
      */
-    static hasAnimation(clip, event)
-    {
+    static hasAnimation(clip, event) {
         //the wildcard event plays the entire timeline
-        if (event === '*' && !clip.timeline.resolve(event))
-        {
+        if (event === '*' && !clip.timeline.resolve(event)) {
             return true;
         }
 
-        var labels = clip.getLabels();
-        var startFrame = -1;
-        var stopFrame = -1;
-        var stopLabel = event + '_stop';
-        var loopLabel = event + '_loop';
-        var l;
-        for (var i = 0, len = labels.length; i < len; ++i)
-        {
+        let labels = clip.getLabels();
+        let startFrame = -1;
+        let stopFrame = -1;
+        let stopLabel = event + '_stop';
+        let loopLabel = event + '_loop';
+        let l;
+        for (let i = 0, len = labels.length; i < len; ++i) {
             l = labels[i];
-            if (l.label === event)
-            {
+            if (l.label === event) {
                 startFrame = l.position;
             }
-            else if (l.label === stopLabel || l.label === loopLabel)
-            {
+            else if (l.label === stopLabel || l.label === loopLabel) {
                 stopFrame = l.position;
                 break;
             }
@@ -214,45 +193,37 @@ export default class GenericMovieClipInstance extends AnimatorInstance
      * @param  {String} event The animation or animation list.
      * @return {Number} Animation duration in milliseconds.
      */
-    static getDuration(clip, event)
-    {
+    static getDuration(clip, event) {
         //make sure the movieclip has a framerate
-        if (!clip.framerate)
-        {
+        if (!clip.framerate) {
             clip.framerate = Application.instance.options.fps || 15;
         }
 
         //the wildcard event plays the entire timeline
-        if (event === '*' && !clip.timeline.resolve(event))
-        {
+        if (event === '*' && !clip.timeline.resolve(event)) {
             return clip.timeline.duration / clip.framerate * 1000;
         }
 
-        var labels = clip.getLabels();
-        var startFrame = -1;
-        var stopFrame = -1;
-        var stopLabel = event + '_stop';
-        var loopLabel = event + '_loop';
-        var l;
-        for (var i = 0, labelsLength = labels.length; i < labelsLength; ++i)
-        {
+        let labels = clip.getLabels();
+        let startFrame = -1;
+        let stopFrame = -1;
+        let stopLabel = event + '_stop';
+        let loopLabel = event + '_loop';
+        let l;
+        for (let i = 0, labelsLength = labels.length; i < labelsLength; ++i) {
             l = labels[i];
-            if (l.label === event)
-            {
+            if (l.label === event) {
                 startFrame = l.position;
             }
-            else if (l.label === stopLabel || l.label === loopLabel)
-            {
+            else if (l.label === stopLabel || l.label === loopLabel) {
                 stopFrame = l.position;
                 break;
             }
         }
-        if (startFrame >= 0 && stopFrame > 0)
-        {
+        if (startFrame >= 0 && stopFrame > 0) {
             return (stopFrame - startFrame) / clip.framerate * 1000;
         }
-        else
-        {
+        else {
             return 0;
         }
     }
@@ -262,8 +233,7 @@ export default class GenericMovieClipInstance extends AnimatorInstance
      * so it can be re-used.
      * @method destroy
      */
-    destroy()
-    {
+    destroy() {
         this.clip = null;
     }
 }

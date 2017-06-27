@@ -21,10 +21,8 @@ import {TextureAtlasTask} from '@springroll/display';
  * @param {Function} [asset.complete] The event to call when done
  * @param {Object} [asset.sizes=null] Define if certain sizes are not supported
  */
-export default class SpriteClipTask extends TextureAtlasTask
-{
-    constructor(asset)
-    {
+export default class SpriteClipTask extends TextureAtlasTask {
+    constructor(asset) {
         super(asset, asset.anim);
 
         /**
@@ -41,8 +39,7 @@ export default class SpriteClipTask extends TextureAtlasTask
      * @param {Object} asset The asset to check
      * @return {Boolean} If the asset is compatible with this asset
      */
-    static test(asset)
-    {
+    static test(asset) {
         return !!asset.anim && TextureAtlasTask.test(asset);
     }
 
@@ -51,16 +48,13 @@ export default class SpriteClipTask extends TextureAtlasTask
      * @method  start
      * @param  {Function} callback Callback when finished
      */
-    start(callback)
-    {
-        this.loadAtlas({ _anim: this.anim }, (textureAtlas, results) => 
-        {
+    start(callback) {
+        this.loadAtlas({ _anim: this.anim }, (textureAtlas, results) => {
 
             const clip = new SpriteClip(results._anim, textureAtlas);
             //override destroy on clip to destroy textureAtlas as well
             clip.__AMC_destroy = clip.destroy;
-            clip.destroy = function()
-            {
+            clip.destroy = function() {
                 clip.__AMC_destroy();
                 textureAtlas.destroy();
             };

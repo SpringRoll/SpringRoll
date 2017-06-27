@@ -18,10 +18,8 @@ import VOHint from './VOHint';
  * @param {springroll.HintsPlayer} hints The instance of the hints
  * @param {Function} done called on hint done
  */
-export default class GroupHint extends AbstractHint
-{
-    constructor(hints, done)
-    {
+export default class GroupHint extends AbstractHint {
+    constructor(hints, done) {
         super(hints, done);
 
         /**
@@ -55,10 +53,9 @@ export default class GroupHint extends AbstractHint
      * Run the hint
      * @method play
      */
-    play()
-    {
+    play() {
         //play random hint from current tier
-        var hint = this._tier.random();
+        let hint = this._tier.random();
         hint.play();
     }
 
@@ -71,8 +68,7 @@ export default class GroupHint extends AbstractHint
      *      a value of true sets onComplete to also be the onCancelled callback.
      * @return {springroll.VOHint} The newly added hint
      */
-    vo(idOrList, onComplete, onCancel)
-    {
+    vo(idOrList, onComplete, onCancel) {
         this.tier.push(new VOHint(
             this._hints,
             this._done,
@@ -93,8 +89,7 @@ export default class GroupHint extends AbstractHint
      *      a value of true sets onComplete to also be the onCancelled callback.
      * @return {springroll.AnimatorHint} The newly added hint
      */
-    anim(instance, events, onComplete, onCancel)
-    {
+    anim(instance, events, onComplete, onCancel) {
         this.tier.push(new AnimatorHint(
             this._hints,
             this._done,
@@ -114,8 +109,7 @@ export default class GroupHint extends AbstractHint
      * @param {function} onStart The instance of the clip to play with Animator
      * @return {springroll.FunctionHint} The newly added hint
      */
-    func(onStart)
-    {
+    func(onStart) {
         this.tier.push(new FunctionHint(
             this._hints,
             this._done,
@@ -128,8 +122,7 @@ export default class GroupHint extends AbstractHint
      * @method addTier
      * @return {springroll.GroupHint} The instance of the group hint, for chaining
      */
-    addTier()
-    {
+    addTier() {
         this._tier = [];
         this._tiers.push(this._tier);
         return this;
@@ -140,14 +133,12 @@ export default class GroupHint extends AbstractHint
      * @method nextTier
      * @return {springroll.GroupHint} The instance of the group hint, for chaining
      */
-    nextTier()
-    {
-        var len = this._tiers.length;
+    nextTier() {
+        let len = this._tiers.length;
         this._current++;
 
         //Make sure we don't go past the last tier
-        if (this._current >= len)
-        {
+        if (this._current >= len) {
             this._current = len - 1;
         }
         this._tier = this._tiers[this._current];
@@ -159,8 +150,7 @@ export default class GroupHint extends AbstractHint
      * @method reset
      * @return {[type]} [description]
      */
-    reset()
-    {
+    reset() {
         this._current = -1;
         this.nextTier();
     }
@@ -169,8 +159,7 @@ export default class GroupHint extends AbstractHint
      * Clean-up the hint, don't use after this
      * @method destroy
      */
-    destroy()
-    {
+    destroy() {
         this._tiers = null;
         this._tier = null;
         this._current = -1;

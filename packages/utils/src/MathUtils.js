@@ -2,8 +2,7 @@
  * Add methods to Math
  * @class MathUtils
  */
-export default class MathUtils
-{
+export default class MathUtils {
     /**
      * Return a random int between minimum and maximum values.
      * If a single value is supplied, it will return a number between 0 and the supplied value.
@@ -13,10 +12,8 @@ export default class MathUtils
      * @param {int} max Highest number.
      * @return {int} The random value
      */
-    static randomInt(min, max)
-    {
-        if (max === undefined)
-        {
+    static randomInt(min, max) {
+        if (max === undefined) {
             max = min;
             min = 0;
         }
@@ -32,10 +29,8 @@ export default class MathUtils
      * @param {Number} max Highest number.
      * @return {Number} The random value
      */
-    static randomFloat(min, max)
-    {
-        if (max === undefined)
-        {
+    static randomFloat(min, max) {
+        if (max === undefined) {
             max = min;
             min = 0;
         }
@@ -65,8 +60,7 @@ export default class MathUtils
      * @param {Number} p2.y The y position of the second point
      * @return {Number} The distance
      */
-    static dist(x, y, x0, y0)
-    {
+    static dist(x, y, x0, y0) {
         return Math.sqrt(MathUtils.distSq(x, y, x0, y0));
     }
 
@@ -93,11 +87,10 @@ export default class MathUtils
      * @param {Number} p2.y The y position of the second point
      * @return {Number} The distance
      */
-    static distSq(x, y, x0, y0)
-    {
+    static distSq(x, y, x0, y0) {
         //see if the first parameter is a point
-        if (typeof x.x === 'number' && x.x === x.x) //faster !isNaN
-        {
+        //faster !isNaNinde
+        if (typeof x.x === 'number' && x.x === x.x) {
             //shift later parameters back
             y0 = x0;
             x0 = y;
@@ -106,8 +99,7 @@ export default class MathUtils
             x = x.x;
         }
         //see if the 2nd parameter is a point
-        if (typeof x0.x === 'number' && x0.x === x0.x)
-        {
+        if (typeof x0.x === 'number' && x0.x === x0.x) {
             y0 = x0.y;
             x0 = x0.x;
         }
@@ -132,21 +124,17 @@ export default class MathUtils
      * @param {Number} max Highest number.
      * @return {Number} The constrained value
      */
-    static clamp(value, min, max)
-    {
-        if (max === undefined)
-        {
+    static clamp(value, min, max) {
+        if (max === undefined) {
             max = min;
             min = 0;
         }
         
-        if (value > max)
-        {
+        if (value > max) {
             return max;
         }
 
-        if (value < min)
-        {
+        if (value < min) {
             return min;
         }
 
@@ -160,8 +148,7 @@ export default class MathUtils
      * @param  {Number} increment Increment to round by
      * @return {Number}           Rounded value
      */
-    static roundDecimal(val, increment)
-    {
+    static roundDecimal(val, increment) {
         return Math.round(val / increment) * increment;
     }
 }

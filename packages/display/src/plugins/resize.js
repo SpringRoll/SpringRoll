@@ -3,8 +3,7 @@ import {include} from '@springroll/core';
 
 import {ApplicationPlugin} from '@springroll/core';
 
-(function()
-{
+(function() {
     const devicePixelRatio = include('devicePixelRatio', false);
 
     /**
@@ -68,8 +67,7 @@ import {ApplicationPlugin} from '@springroll/core';
     let windowResizer = null;
 
     // Init the animator
-    plugin.setup = function()
-    {
+    plugin.setup = function() {
         const options = this.options;
 
         /**
@@ -128,13 +126,11 @@ import {ApplicationPlugin} from '@springroll/core';
          */
         options.add('retina', false);
 
-        options.on('maxWidth', value => 
-        {
+        options.on('maxWidth', value => {
             maxWidth = value;
         });
 
-        options.on('maxHeight', value => 
-        {
+        options.on('maxHeight', value => {
             maxHeight = value;
         });
 
@@ -154,10 +150,8 @@ import {ApplicationPlugin} from '@springroll/core';
          * Fire a resize event with the current width and height of the display
          * @method triggerResize
          */
-        this.triggerResize = function()
-        {
-            if (!resizeElement)
-            {
+        this.triggerResize = function() {
+            if (!resizeElement) {
                 return;
             }
 
@@ -178,10 +172,8 @@ import {ApplicationPlugin} from '@springroll/core';
             let responsive = this.options.responsive;
             let retina = this.options.retina;
 
-            if (responsive)
-            {
-                if (retina && devicePixelRatio)
-                {
+            if (responsive) {
+                if (retina && devicePixelRatio) {
                     this.display.view.style.width = `${width}px`;
                     this.display.view.style.height = `${height}px`;
 
@@ -191,14 +183,12 @@ import {ApplicationPlugin} from '@springroll/core';
                 // update the dimensions of the canvas
                 this.display.resize(width, height);
             }
-            else
-            {
+            else {
                 // scale the canvas element
                 this.display.view.style.width = `${width}px`;
                 this.display.view.style.height = `${height}px`;
 
-                if (retina && devicePixelRatio)
-                {
+                if (retina && devicePixelRatio) {
                     normalWidth *= devicePixelRatio;
                     normalHeight *= devicePixelRatio;
                 }
@@ -218,8 +208,7 @@ import {ApplicationPlugin} from '@springroll/core';
          * @method onWindowResize
          * @protected
          */
-        this.onWindowResize = function()
-        {
+        this.onWindowResize = function() {
             // Call the resize once
             this.triggerResize();
 
@@ -227,8 +216,7 @@ import {ApplicationPlugin} from '@springroll/core';
             // this will solve issues where the window doesn't
             // properly get the "full" resize, like on some mobile
             // devices when pulling-down/releasing the HUD
-            windowResizer = this.setTimeout(() => 
-            {
+            windowResizer = this.setTimeout(() => {
                 this.triggerResize();
                 windowResizer = null;
             }, 500);
@@ -246,10 +234,8 @@ import {ApplicationPlugin} from '@springroll/core';
          * @param {int} size.width The width of the resized container.
          * @param {int} size.height The height of the resized container.
          */
-        this.calculateDisplaySize = function(size)
-        {
-            if (!originalHeight || !this.options.uniformResize)
-            {
+        this.calculateDisplaySize = function(size) {
+            if (!originalHeight || !this.options.uniformResize) {
                 return;
             }
 
@@ -258,13 +244,11 @@ import {ApplicationPlugin} from '@springroll/core';
             let originalAspect = originalWidth / originalHeight;
             let currentAspect = size.width / size.height;
 
-            if (currentAspect < minAspectRatio)
-            {
+            if (currentAspect < minAspectRatio) {
                 //limit to the narrower width
                 size.height = size.width / minAspectRatio;
             }
-            else if (currentAspect > maxAspectRatio)
-            {
+            else if (currentAspect > maxAspectRatio) {
                 //limit to the shorter height
                 size.width = size.height * maxAspectRatio;
             }
@@ -275,12 +259,10 @@ import {ApplicationPlugin} from '@springroll/core';
             size.normalWidth = originalWidth;
             size.normalHeight = originalHeight;
 
-            if (currentAspect > originalAspect)
-            {
+            if (currentAspect > originalAspect) {
                 size.normalWidth = originalHeight * currentAspect;
             }
-            else if (currentAspect < originalAspect)
-            {
+            else if (currentAspect < originalAspect) {
                 size.normalHeight = originalWidth / currentAspect;
             }
 
@@ -294,19 +276,16 @@ import {ApplicationPlugin} from '@springroll/core';
         };
 
         // Do an initial resize to make sure everything is positioned correctly
-        this.once('beforeReady', () => 
-        {
+        this.once('beforeReady', () => {
 
             originalWidth = this.display.width;
             originalHeight = this.display.height;
 
-            if (!maxWidth)
-            {
+            if (!maxWidth) {
                 maxWidth = originalWidth;
             }
 
-            if (!maxHeight)
-            {
+            if (!maxHeight) {
                 maxHeight = originalHeight;
             }
 
@@ -315,15 +294,13 @@ import {ApplicationPlugin} from '@springroll/core';
     };
 
     // Add common filters interaction
-    plugin.preload = function(done)
-    {
+    plugin.preload = function(done) {
         const options = this.options;
 
         // Convert to DOM element
         options.asDOMElement('resizeElement');
 
-        if (options.resizeElement)
-        {
+        if (options.resizeElement) {
             resizeElement = options.resizeElement;
             this.onWindowResize = this.onWindowResize.bind(this);
             window.addEventListener('resize', this.onWindowResize);
@@ -331,16 +308,13 @@ import {ApplicationPlugin} from '@springroll/core';
         done();
     };
 
-    plugin.teardown = function()
-    {
-        if (windowResizer)
-        {
+    plugin.teardown = function() {
+        if (windowResizer) {
             windowResizer.destroy();
             windowResizer = null;
         }
 
-        if (resizeElement)
-        {
+        if (resizeElement) {
             window.removeEventListener('resize', this.onWindowResize);
         }
 

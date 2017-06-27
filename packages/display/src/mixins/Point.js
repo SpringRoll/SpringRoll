@@ -4,8 +4,7 @@
  * @param other {Point} The point to form a dot product with
  * @return The dot product between the two points.
  */
-PIXI.Point.prototype.dotProd = function(other)
-{
+PIXI.Point.prototype.dotProd = function(other) {
     return this.x * other.x + this.y * other.y;
 };
 
@@ -14,8 +13,7 @@ PIXI.Point.prototype.dotProd = function(other)
  * @method length
  * @return The length of this point.
  */
-PIXI.Point.prototype.length = function()
-{
+PIXI.Point.prototype.length = function() {
     return Math.sqrt(this.x * this.x + this.y * this.y);
 };
 
@@ -24,8 +22,7 @@ PIXI.Point.prototype.length = function()
  * @method lengthSq
  * @return The length squared of this point.
  */
-PIXI.Point.prototype.lengthSq = function()
-{
+PIXI.Point.prototype.lengthSq = function() {
     return this.x * this.x + this.y * this.y;
 };
 
@@ -33,9 +30,8 @@ PIXI.Point.prototype.lengthSq = function()
  * Reduces the point to a length of 1.
  * @method normalize
  */
-PIXI.Point.prototype.normalize = function()
-{
-    var oneOverLen = 1 / this.length();
+PIXI.Point.prototype.normalize = function() {
+    let oneOverLen = 1 / this.length();
     this.x *= oneOverLen;
     this.y *= oneOverLen;
 };
@@ -45,8 +41,7 @@ PIXI.Point.prototype.normalize = function()
  * @method subtract
  * @param other {Point} The point to subtract from this one
  */
-PIXI.Point.prototype.subtract = function(other)
-{
+PIXI.Point.prototype.subtract = function(other) {
     this.x -= other.x;
     this.y -= other.y;
 };
@@ -56,8 +51,7 @@ PIXI.Point.prototype.subtract = function(other)
  * @method add
  * @param other {Point} The point to add to this one
  */
-PIXI.Point.prototype.add = function(other)
-{
+PIXI.Point.prototype.add = function(other) {
     this.x += other.x;
     this.y += other.y;
 };
@@ -67,12 +61,10 @@ PIXI.Point.prototype.add = function(other)
  * @method truncate
  * @param maxLength {Number} The maximum length to allow in this point.
  */
-PIXI.Point.prototype.truncate = function(maxLength)
-{
-    var l = this.length();
-    if (l > maxLength)
-    {
-        var maxOverLen = maxLength / l;
+PIXI.Point.prototype.truncate = function(maxLength) {
+    let l = this.length();
+    if (l > maxLength) {
+        let maxOverLen = maxLength / l;
         this.x *= maxOverLen;
         this.y *= maxOverLen;
     }
@@ -83,8 +75,7 @@ PIXI.Point.prototype.truncate = function(maxLength)
  * @method scaleBy
  * @param value {Number} The value to scale by.
  */
-PIXI.Point.prototype.scaleBy = function(value)
-{
+PIXI.Point.prototype.scaleBy = function(value) {
     this.x *= value;
     this.y *= value;
 };
@@ -95,10 +86,9 @@ PIXI.Point.prototype.scaleBy = function(value)
  * @param other {Point} The point to calculate the distance to.
  * @return {Number} The distance.
  */
-PIXI.Point.prototype.distance = function(other)
-{
-    var xDiff = this.x - other.x;
-    var yDiff = this.y - other.y;
+PIXI.Point.prototype.distance = function(other) {
+    let xDiff = this.x - other.x;
+    let yDiff = this.y - other.y;
     return Math.sqrt(xDiff * xDiff + yDiff * yDiff);
 };
 
@@ -108,17 +98,14 @@ PIXI.Point.prototype.distance = function(other)
  * @param other {Point} The point to calculate the distance to.
  * @return {Number} The distance squared.
  */
-PIXI.Point.prototype.distanceSq = function(other)
-{
-    var xDiff = this.x - other.x;
-    var yDiff = this.y - other.y;
+PIXI.Point.prototype.distanceSq = function(other) {
+    let xDiff = this.x - other.x;
+    let yDiff = this.y - other.y;
     return xDiff * xDiff + yDiff * yDiff;
 };
 
-PIXI.Point.localToGlobal = function(displayObject, localX, localY, outPoint)
-{
-    if (!outPoint)
-    {
+PIXI.Point.localToGlobal = function(displayObject, localX, localY, outPoint) {
+    if (!outPoint) {
         outPoint = new PIXI.Point();
     }
     outPoint.x = localX;
@@ -126,10 +113,8 @@ PIXI.Point.localToGlobal = function(displayObject, localX, localY, outPoint)
     return displayObject.toGlobal(outPoint, outPoint);
 };
 
-PIXI.Point.globalToLocal = function(displayObject, globalX, globalY, outPoint)
-{
-    if (!outPoint)
-    {
+PIXI.Point.globalToLocal = function(displayObject, globalX, globalY, outPoint) {
+    if (!outPoint) {
         outPoint = new PIXI.Point();
     }
     outPoint.x = globalX;
@@ -137,10 +122,8 @@ PIXI.Point.globalToLocal = function(displayObject, globalX, globalY, outPoint)
     return displayObject.toLocal(outPoint, null, outPoint);
 };
 
-PIXI.Point.localToLocal = function(sourceDisplayObject, targetDisplayObject, x, y, outPoint)
-{
-    if (!outPoint)
-    {
+PIXI.Point.localToLocal = function(sourceDisplayObject, targetDisplayObject, x, y, outPoint) {
+    if (!outPoint) {
         outPoint = new PIXI.Point();
     }
     outPoint.x = x;
@@ -148,7 +131,6 @@ PIXI.Point.localToLocal = function(sourceDisplayObject, targetDisplayObject, x, 
     return targetDisplayObject.toLocal(outPoint, sourceDisplayObject, outPoint);
 };
 
-PIXI.Point.prototype.toString = function()
-{
+PIXI.Point.prototype.toString = function() {
     return '(' + this.x + ', ' + this.y + ')';
 };

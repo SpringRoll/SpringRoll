@@ -10,7 +10,8 @@
     "test": "lerna run test",
     "clean": "lerna clean",
     "predocs": "rimraf docs/**",
-    "docs": "jsdoc -c jsdoc.config.json -R README.md"
+    "docs": "jsdoc -c jsdoc.config.json -R README.md",
+    "lint": "lerna exec -- eslint src index.js --fix"
   },
   "devDependencies": {
     "gh-pages": "^1.0.0",

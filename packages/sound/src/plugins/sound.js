@@ -3,16 +3,14 @@ import Sound from '../Sound';
 import VOPlayer from '../VOPlayer';
 import SoundTask from '../SoundTask';
 
-(function()
-{
+(function() {
     /**
      * @class Application
      */
     const plugin = new ApplicationPlugin('sound');
 
     //Initialize
-    plugin.setup = function()
-    {
+    plugin.setup = function() {
         //Include classes
         const WebAudioPlugin = include('createjs.WebAudioPlugin');
         const FlashAudioPlugin = include('createjs.FlashAudioPlugin', false);
@@ -108,23 +106,19 @@ import SoundTask from '../SoundTask';
          */
         Object.defineProperty(this, 'music',
             {
-                set(value)
-                {
-                    if (value === this._music)
-                    {
+                set(value) {
+                    if (value === this._music) {
                         return;
                     }
-                    var sound = this.sound;
+                    let sound = this.sound;
 
-                    if (this._music)
-                    {
+                    if (this._music) {
                         sound.fadeOut(this._music);
                         this._musicInstance = null;
                     }
                     this._music = value;
 
-                    if (value)
-                    {
+                    if (value) {
                         this._musicInstance = sound.play(
                             this._music,
                             {
@@ -134,8 +128,7 @@ import SoundTask from '../SoundTask';
                         );
                     }
                 },
-                get()
-                {
+                get() {
                     return this._music;
                 }
             });
@@ -146,31 +139,25 @@ import SoundTask from '../SoundTask';
          */
         Object.defineProperty(this, 'musicInstance',
             {
-                get()
-                {
+                get() {
                     return this._musicInstance;
                 }
             });
 
         //Add the listener for the config loader to autoload the sounds
-        this.once('configLoaded', function(config)
-        {
+        this.once('configLoaded', function(config) {
             //initialize Sound and load up global sound config
-            var sounds = config.sounds;
-            var sound = this.sound;
+            let sounds = config.sounds;
+            let sound = this.sound;
 
-            if (sounds)
-            {
-                if (sounds.vo)
-                {
+            if (sounds) {
+                if (sounds.vo) {
                     sound.addContext(sounds.vo);
                 }
-                if (sounds.sfx)
-                {
+                if (sounds.sfx) {
                     sound.addContext(sounds.sfx);
                 }
-                if (sounds.music)
-                {
+                if (sounds.music) {
                     sound.addContext(sounds.music);
                 }
             }
@@ -181,25 +168,22 @@ import SoundTask from '../SoundTask';
      * The sound is ready to use
      * @event soundReady
      */
-    var SOUND_READY = 'soundReady';
+    let SOUND_READY = 'soundReady';
 
     //Start the initialization of the sound
-    plugin.preload = function(done)
-    {
+    plugin.preload = function(done) {
         Sound.init(
             {
                 plugins: this.options.audioPlugins,
                 swfPath: this.options.swfPath,
                 types: this.options.audioTypes,
-                ready: () => 
-                {
+                ready: () => {
                 
-                    if (this.destroyed) 
-                    {
+                    if (this.destroyed) {
                         return;
                     }
 
-                    var sound = this.sound = Sound.instance;
+                    let sound = this.sound = Sound.instance;
 
                     // @if DEBUG
                     //For testing, mute the game if requested
@@ -216,15 +200,12 @@ import SoundTask from '../SoundTask';
     };
 
     //Destroy the animator
-    plugin.teardown = function()
-    {
-        if (this.voPlayer)
-        {
+    plugin.teardown = function() {
+        if (this.voPlayer) {
             this.voPlayer.destroy();
             this.voPlayer = null;
         }
-        if (this.sound)
-        {
+        if (this.sound) {
             this.sound.destroy();
             this.sound = null;
         }

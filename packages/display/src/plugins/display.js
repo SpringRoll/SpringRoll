@@ -3,16 +3,14 @@ import Display from '../Display';
 
 // import {TextureTask, TextureAtlasTask, BitmapFontTask} from '../../tasks';
     
-(function()
-{
+(function() {
     /**
      * @class Application
      */
     const plugin = new ApplicationPlugin('display', 'ticker');
 
     // Init the animator
-    plugin.setup = function()
-    {
+    plugin.setup = function() {
         // this.assetManager.register(TextureTask, 60);
         // this.assetManager.register(TextureAtlasTask, 70);
         // this.assetManager.register(BitmapFontTask, 80);
@@ -47,10 +45,8 @@ import Display from '../Display';
          * @param {Number} elapsed Time elapsed since last frame render
          * @param {Boolean} [force=false] For update, regardless if visible/paused state.
          */
-        this.render = (elapsed, force = false) => 
-        {
-            if (this.display)
-            {
+        this.render = (elapsed, force = false) => {
+            if (this.display) {
                 this.display.render(elapsed, force);
             }
         };
@@ -60,26 +56,22 @@ import Display from '../Display';
         this.ticker.on('update', this.render, this);
 
         // Handle enabled
-        this.on('enable', enabled => 
-        {
+        this.on('enable', enabled => {
             this.display.enabled = enabled;
         });
 
         // add the initial display if specified
-        this.once('beforePreload', () => 
-        {
+        this.once('beforePreload', () => {
             this.display = new Display(options.displayElement, options.display);
         });
     };
 
     // Destroy the animator
-    plugin.teardown = function()
-    {
+    plugin.teardown = function() {
         this.ticker.off('update', this.render, this);
         this.render = null;
 
-        if (this.display)
-        {
+        if (this.display) {
             this.display.destroy();
             this.display = null;
         }

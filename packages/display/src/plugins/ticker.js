@@ -1,7 +1,6 @@
 import {ApplicationPlugin} from '@springroll/core';
 
-(function()
-{
+(function() {
     /**
      *  @class Application
      */
@@ -15,8 +14,7 @@ import {ApplicationPlugin} from '@springroll/core';
      */
     let time = 0;
 
-    plugin.setup = function()
-    {
+    plugin.setup = function() {
         // Stop the pixi ticker
         PIXI.ticker.shared.stop();
 
@@ -26,14 +24,12 @@ import {ApplicationPlugin} from '@springroll/core';
         this.on('update', updateTicker);
     };
 
-    plugin.teardown = function()
-    {
+    plugin.teardown = function() {
         this.off('update', updateTicker);
         PIXI.ticker.shared.start();
     };
 
-    function updateTicker(elapsed)
-    {
+    function updateTicker(elapsed) {
         time += elapsed;
         PIXI.ticker.shared.update(time);
     }

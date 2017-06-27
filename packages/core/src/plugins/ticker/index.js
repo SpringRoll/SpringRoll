@@ -1,16 +1,14 @@
 import ApplicationPlugin from '../../ApplicationPlugin';
 import Ticker from './Ticker';
     
-(function()
-{
+(function() {
     /**
      * @class Application
      */
     const plugin = new ApplicationPlugin('ticker');
 
     // Init the animator
-    plugin.setup = function()
-    {
+    plugin.setup = function() {
         const options = this.options;
 
         /**
@@ -26,14 +24,12 @@ import Ticker from './Ticker';
          */
         const ticker = this.ticker = new Ticker(options.fps, options.raf);
 
-        this.options.on('fps', fps => 
-        {
+        this.options.on('fps', fps => {
             ticker.fps = fps;
         });
 
         // Fire an update event on the application
-        ticker.on('update', (elapsed, time) => 
-        {
+        ticker.on('update', (elapsed, time) => {
             
             /**
              * Fired when an update is called, every frame update
@@ -45,14 +41,11 @@ import Ticker from './Ticker';
         });
 
         // Handle the pause state
-        this.on('pause', paused => 
-        {
-            if (paused)
-            {
+        this.on('pause', paused => {
+            if (paused) {
                 ticker.stop();
             }
-            else
-            {
+            else {
                 ticker.start();
             }
         });
@@ -82,10 +75,8 @@ import Ticker from './Ticker';
     };
 
     // Destroy the animator
-    plugin.teardown = function()
-    {
-        if (this.ticker)
-        {
+    plugin.teardown = function() {
+        if (this.ticker) {
             this.ticker.destroy();
         }
         this.ticker = null;

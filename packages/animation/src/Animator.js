@@ -12,10 +12,8 @@ import Debug from '@springroll/debug';
  * @constructor
  * @param {springroll.Application} app Reference to the application
  */
-export default class Animator
-{
-    constructor(app)
-    {
+export default class Animator {
+    constructor(app) {
         /**
          * If we fire debug statements
          * @property {Boolean} debug
@@ -55,8 +53,7 @@ export default class Animator
          * @property {Map} _timelineMap
          * @private
          */
-        try
-        {
+        try {
             //having a parameter causes an error in non-fully compliant implementations,
             //like iOS 8.X - there is a serious issue that sometimes happens in iOS 8.0-8.2
             //This prevents 8.3 from using the faster map, but beyond attempting to detect exactly
@@ -66,13 +63,11 @@ export default class Animator
             if (typeof this._timelineMap.delete !== 'function' ||
                 typeof this._timelineMap.has !== 'function' ||
                 typeof this._timelineMap.set !== 'function' ||
-                typeof this._timelineMap.get !== 'function')
-            {
+                typeof this._timelineMap.get !== 'function') {
                 this._timelineMap = null;
             }
         }
-        catch (e)
-        {
+        catch (e) {
             // no catch
         }
 
@@ -107,17 +102,14 @@ export default class Animator
      * @param {String} qualifiedClassName The class name
      * @param {int} priority The priority order for definition
      */
-    register(qualifiedClassName, priority)
-    {
-        var plugin = include(qualifiedClassName, false);
-        if (!plugin)
-        {
+    register(qualifiedClassName, priority) {
+        let plugin = include(qualifiedClassName, false);
+        if (!plugin) {
             return;
         }
         plugin.priority = priority;
         this._definitions.push(plugin);
-        this._definitions.sort(function(a, b)
-        {
+        this._definitions.sort(function(a, b) {
             return b.priority - a.priority;
         });
     }
@@ -156,20 +148,17 @@ export default class Animator
      *        onCancelled.
      * @return {springroll.AnimatorTimeline} The Timeline object that represents this play() call.
      */
-    play(clip, eventList, onComplete, onCancelled)
-    {
-        if (onCancelled === true)
-        {
+    play(clip, eventList, onComplete, onCancelled) {
+        if (onCancelled === true) {
             onCancelled = onComplete;
         }
-        if (!Array.isArray(eventList))
-        {
+        if (!Array.isArray(eventList)) {
             eventList = [eventList];
         }
 
         this.stop(clip);
 
-        var timeline = this._makeTimeline(
+        let timeline = this._makeTimeline(
             clip,
             eventList,
             onComplete,
@@ -177,20 +166,17 @@ export default class Animator
         );
 
         //if the animation is present and complete
-        if (timeline.eventList && timeline.eventList.length >= 1)
-        {
+        if (timeline.eventList && timeline.eventList.length >= 1) {
             timeline._nextItem(); //advance the timeline to the first item
 
             //Before we add the timeline, we should check to see
             //if there are no timelines, then start the enter frame
             //updating
-            if (!this._hasTimelines)
-            {
+            if (!this._hasTimelines) {
                 this._startUpdate();
             }
 
-            if (this._timelineMap)
-            {
+            if (this._timelineMap) {
                 this._timelineMap.set(clip, timeline);
             }
             this._timelines.push(timeline);
@@ -200,11 +186,11 @@ export default class Animator
         }
 
         // @if DEBUG
-        var label = eventList[0].anim ||
+        let label = eventList[0].anim ||
             eventList[0].audio ||
             eventList[0] ||
             '<label unknown>';
-        var readableInstance = clip.name ||
+        let readableInstance = clip.name ||
             clip.key ||
             clip.label ||
             clip.id ||
@@ -220,8 +206,7 @@ export default class Animator
         //reset the timeline and add to the pool of timeline objects
         this._timelinePool.push(timeline.reset());
 
-        if (onComplete)
-        {
+        if (onComplete) {
             onComplete();
         }
         return null;
@@ -237,21 +222,18 @@ export default class Animator
      * @return {springroll.AnimatorTimeline} The Timeline object
      * @private
      */
-    _makeTimeline(clip, eventList, onComplete, onCancelled)
-    {
-        var timeline = this._timelinePool.length ?
+    _makeTimeline(clip, eventList, onComplete, onCancelled) {
+        let timeline = this._timelinePool.length ?
             this._timelinePool.pop() :
             new AnimatorTimeline();
 
-        var Definition = this.getDefinitionByClip(clip);
-        if (!Definition) 
-        {
+        let Definition = this.getDefinitionByClip(clip);
+        if (!Definition) {
             return timeline;
         }
-        var instance = Definition.create(clip);
+        let instance = Definition.create(clip);
 
-        if (!instance)
-        {
+        if (!instance) {
             // @if DEBUG
             Debug.warn('Attempting to use Animator to play something that is not compatible: ', clip);
             // @endif
@@ -263,16 +245,13 @@ export default class Animator
         timeline.onComplete = onComplete;
         timeline.onCancelled = onCancelled;
         timeline.speed = speed;
-        var audio, start, speed, alias;
+        let audio, start, speed, alias;
 
-        for (var j = 0, jLen = eventList.length; j < jLen; ++j)
-        {
-            var listItem = eventList[j];
+        for (let j = 0, jLen = eventList.length; j < jLen; ++j) {
+            let listItem = eventList[j];
 
-            if (typeof listItem === 'string')
-            {
-                if (!Definition.hasAnimation(clip, listItem))
-                {
+            if (typeof listItem === 'string') {
+                if (!Definition.hasAnimation(clip, listItem)) {
                     continue;
                 }
 
@@ -284,14 +263,12 @@ export default class Animator
                         speed: 1
                     });
             }
-            else if (typeof listItem === 'object')
-            {
-                if (!Definition.hasAnimation(clip, listItem.anim))
-                {
+            else if (typeof listItem === 'object') {
+                if (!Definition.hasAnimation(clip, listItem.anim)) {
                     continue;
                 }
 
-                var animData = {
+                let animData = {
                     anim: listItem.anim,
                     //convert into seconds, as that is what the time uses internally
                     start: typeof listItem.start === 'number' ? listItem.start * 0.001 : 0,
@@ -300,21 +277,17 @@ export default class Animator
                 };
                 audio = listItem.audio;
                 //figure out audio stuff if it is okay to use
-                if (audio && this._app.sound)
-                {
-                    if (typeof audio === 'string')
-                    {
+                if (audio && this._app.sound) {
+                    if (typeof audio === 'string') {
                         start = 0;
                         alias = audio;
                     }
-                    else
-                    {
+                    else {
                         start = audio.start > 0 ? audio.start * 0.001 : 0; //seconds
                         alias = audio.alias;
                     }
                     if (this._app.sound.isSupported && !this._app.sound.systemMuted &&
-                        this._app.sound.exists(alias))
-                    {
+                        this._app.sound.exists(alias)) {
                         this._app.sound.preload(alias);
                         animData.alias = alias;
                         animData.audioStart = start;
@@ -324,13 +297,11 @@ export default class Animator
                 }
                 timeline.eventList.push(animData);
             }
-            else if (typeof listItem === 'number')
-            {
+            else if (typeof listItem === 'number') {
                 //convert to seconds
                 timeline.eventList.push(listItem * 0.001);
             }
-            else if (typeof listItem === 'function')
-            {
+            else if (typeof listItem === 'function') {
                 //add functions directly
                 timeline.eventList.push(listItem);
             }
@@ -347,10 +318,8 @@ export default class Animator
      * @param {*} clip The object to check for animation properties.
      * @return {Boolean} If the instance can be animated or not.
      */
-    canAnimate(clip)
-    {
-        if (!clip)
-        {
+    canAnimate(clip) {
+        if (!clip) {
             return false;
         }
         return !!this.getDefinitionByClip(clip);
@@ -363,13 +332,10 @@ export default class Animator
      * @param  {*} clip The animation clip
      * @return {function|null} The new definition
      */
-    getDefinitionByClip(clip)
-    {
-        for (var Definition, i = 0, len = this._definitions.length; i < len; i++)
-        {
+    getDefinitionByClip(clip) {
+        for (let Definition, i = 0, len = this._definitions.length; i < len; i++) {
             Definition = this._definitions[i];
-            if (Definition.test(clip))
-            {
+            if (Definition.test(clip)) {
                 return Definition;
             }
         }
@@ -384,11 +350,9 @@ export default class Animator
      * @public
      * @return {Boolean} does this animation exist?
      */
-    hasAnimation(clip, event)
-    {
-        var Definition = this.getDefinitionByClip(clip);
-        if (!Definition)
-        {
+    hasAnimation(clip, event) {
+        let Definition = this.getDefinitionByClip(clip);
+        if (!Definition) {
             return false;
         }
         return Definition.hasAnimation(clip, event);
@@ -402,32 +366,25 @@ export default class Animator
      * @public
      * @return {Number} Duration of animation event in milliseconds
      */
-    getDuration(clip, event)
-    {
-        var Definition = this.getDefinitionByClip(clip);
-        if (!Definition)
-        {
+    getDuration(clip, event) {
+        let Definition = this.getDefinitionByClip(clip);
+        if (!Definition) {
             return 0;
         }
-        if (!Array.isArray(event))
-        {
+        if (!Array.isArray(event)) {
             return Definition.getDuration(clip, event.anim || event);
         }
 
-        var duration = 0;
-        for (var i = 0; i < event.length; ++i)
-        {
-            var item = event[i];
-            if (typeof item === 'number')
-            {
+        let duration = 0;
+        for (let i = 0; i < event.length; ++i) {
+            let item = event[i];
+            if (typeof item === 'number') {
                 duration += item;
             }
-            else if (typeof item === 'string')
-            {
+            else if (typeof item === 'string') {
                 duration += Definition.getDuration(clip, item);
             }
-            else if (typeof item === 'object' && item.anim)
-            {
+            else if (typeof item === 'object' && item.anim) {
                 duration += Definition.getDuration(clip, item.anim);
             }
         }
@@ -441,15 +398,12 @@ export default class Animator
      * @param {Boolean} [removeCallbacks=false] Completely disregard the on complete
      * or on cancelled callback of this animation.
      */
-    stop(clip, removeCallbacks)
-    {
-        var timeline = this.getTimelineByClip(clip);
-        if (!timeline)
-        {
+    stop(clip, removeCallbacks) {
+        let timeline = this.getTimelineByClip(clip);
+        if (!timeline) {
             return;
         }
-        if (removeCallbacks)
-        {
+        if (removeCallbacks) {
             timeline.onComplete = timeline.onCancelled = null;
         }
         this._remove(timeline, true);
@@ -464,22 +418,17 @@ export default class Animator
      * @param {Boolean} [removeCallbacks=false] Completely disregard the on complete
      * or on cancelled callback of the current animations.
      */
-    stopAll(container, removeCallbacks)
-    {
-        if (!this._hasTimelines)
-        {
+    stopAll(container, removeCallbacks) {
+        if (!this._hasTimelines) {
             return;
         }
 
-        var timeline;
-        for (var i = this._timelines.length - 1; i >= 0; --i)
-        {
+        let timeline;
+        for (let i = this._timelines.length - 1; i >= 0; --i) {
             timeline = this._timelines[i];
 
-            if (!container || container.contains(timeline.instance.clip))
-            {
-                if (removeCallbacks)
-                {
+            if (!container || container.contains(timeline.instance.clip)) {
+                if (removeCallbacks) {
                     timeline.onComplete = timeline.onCancelled = null;
                 }
                 this._remove(timeline, true);
@@ -494,45 +443,38 @@ export default class Animator
      * @param {Boolean} doCancelled If we do the on complete callback
      * @private
      */
-    _remove(timeline, doCancelled)
-    {
-        var index = this._timelines.indexOf(timeline);
+    _remove(timeline, doCancelled) {
+        let index = this._timelines.indexOf(timeline);
 
         //We can't remove an animation twice
-        if (index < 0)
-        {
+        if (index < 0) {
             return;
         }
 
-        var onComplete = timeline.onComplete,
+        let onComplete = timeline.onComplete,
             onCancelled = timeline.onCancelled;
 
         //in most cases, if doOnComplete is true, it's a natural stop and
         //the audio can be allowed to continue
-        if (doCancelled && timeline.soundInst)
-        {
+        if (doCancelled && timeline.soundInst) {
             timeline.soundInst.stop(); //stop the sound from playing
         }
 
-        if (this._timelineMap)
-        {
+        if (this._timelineMap) {
             this._timelineMap.delete(timeline.instance.clip);
         }
 
         //Remove from the stack
-        if (index === this._timelines.length - 1)
-        {
+        if (index === this._timelines.length - 1) {
             this._timelines.pop();
         }
-        else
-        {
+        else {
             this._timelines.splice(index, 1);
         }
         this._hasTimelines = this._timelines.length > 0;
 
         //stop the captions, if relevant
-        if (timeline.useCaptions)
-        {
+        if (timeline.useCaptions) {
             this.captions.stop();
         }
 
@@ -541,21 +483,17 @@ export default class Animator
         this._timelinePool.push(timeline.reset());
 
         //Check if we should stop the update
-        if (!this._hasTimelines)
-        {
+        if (!this._hasTimelines) {
             this._stopUpdate();
         }
 
         //call the appropriate callback
-        if (doCancelled)
-        {
-            if (onCancelled)
-            {
+        if (doCancelled) {
+            if (onCancelled) {
                 onCancelled();
             }
         }
-        else if (onComplete)
-        {
+        else if (onComplete) {
             onComplete();
         }
     }
@@ -564,16 +502,13 @@ export default class Animator
      * Pause all tweens which have been excuted by `play()`
      * @method pause
      */
-    pause()
-    {
-        if (this._paused)
-        {
+    pause() {
+        if (this._paused) {
             return;
         }
         this._paused = true;
 
-        for (var i = this._timelines.length - 1; i >= 0; --i)
-        {
+        for (let i = this._timelines.length - 1; i >= 0; --i) {
             this._timelines[i].paused = true;
         }
         this._stopUpdate();
@@ -583,21 +518,17 @@ export default class Animator
      * Resumes all tweens executed by the `play()`
      * @method resume
      */
-    resume()
-    {
-        if (!this._paused)
-        {
+    resume() {
+        if (!this._paused) {
             return;
         }
         this._paused = false;
 
         //Resume playing of all the instances
-        for (var i = this._timelines.length - 1; i >= 0; --i)
-        {
+        for (let i = this._timelines.length - 1; i >= 0; --i) {
             this._timelines[i].paused = false;
         }
-        if (this._hasTimelines)
-        {
+        if (this._hasTimelines) {
             this._startUpdate();
         }
     }
@@ -608,16 +539,12 @@ export default class Animator
      * @param {Boolean} paused If this should be paused or unpaused
      * @param {createjs.Container} container The container to stop timelines contained within
      */
-    pauseInGroup(paused, container)
-    {
-        if (!this._hasTimelines || !container)
-        {
+    pauseInGroup(paused, container) {
+        if (!this._hasTimelines || !container) {
             return;
         }
-        for (var i = this._timelines.length - 1; i >= 0; --i)
-        {
-            if (container.contains(this._timelines[i].instance.clip))
-            {
+        for (let i = this._timelines.length - 1; i >= 0; --i) {
+            if (container.contains(this._timelines[i].instance.clip)) {
                 this._timelines[i].paused = paused;
             }
         }
@@ -629,10 +556,8 @@ export default class Animator
      * @param {*} clip The animation clip
      * @return {springroll.AnimatorTimeline} The timeline
      */
-    getTimeline(clip)
-    {
-        if (!this._hasTimelines)
-        {
+    getTimeline(clip) {
+        if (!this._hasTimelines) {
             return null;
         }
         return this.getTimelineByClip(clip);
@@ -645,18 +570,13 @@ export default class Animator
      * @param {*} clip The clip to check
      * @return {springroll.AnimatorTimeline} The timeline for clip
      */
-    getTimelineByClip(clip)
-    {
-        if (this._timelineMap)
-        {
+    getTimelineByClip(clip) {
+        if (this._timelineMap) {
             return this._timelineMap.has(clip) ? this._timelineMap.get(clip) : null;
         }
-        else
-        {
-            for (var i = this._timelines.length - 1; i >= 0; --i)
-            {
-                if (this._timelines[i].instance.clip === clip)
-                {
+        else {
+            for (let i = this._timelines.length - 1; i >= 0; --i) {
+                if (this._timelines[i].instance.clip === clip) {
                     return this._timelines[i];
                 }
             }
@@ -669,8 +589,7 @@ export default class Animator
      * @property {Boolean} paused
      * @readOnly
      */
-    get paused()
-    {
+    get paused() {
         return this._paused;
     }
 
@@ -680,8 +599,7 @@ export default class Animator
      * @method _startUpdate
      * @private
      */
-    _startUpdate()
-    {
+    _startUpdate() {
         this._app.on('update', this._update);
     }
 
@@ -690,8 +608,7 @@ export default class Animator
      * @method _stopUpdate
      * @private
      */
-    _stopUpdate()
-    {
+    _stopUpdate() {
         this._app.off('update', this._update);
     }
 
@@ -701,22 +618,18 @@ export default class Animator
      * @param {int} elapsed The time in milliseconds since the last frame
      * @private
      */
-    _update(elapsed)
-    {
-        var delta = elapsed * 0.001; //ms -> sec
+    _update(elapsed) {
+        let delta = elapsed * 0.001; //ms -> sec
 
-        var t;
-        var audioPos;
-        var position;
-        for (var i = this._timelines.length - 1; i >= 0; --i)
-        {
+        let t;
+        let audioPos;
+        let position;
+        for (let i = this._timelines.length - 1; i >= 0; --i) {
             t = this._timelines[i];
-            if (!t)
-            {
+            if (!t) {
                 return; //error checking or stopping of all timelines during update
             }
-            if (t.paused)
-            {
+            if (t.paused) {
                 continue;
             }
 
@@ -724,68 +637,54 @@ export default class Animator
             //to avoid code repetition
             position = 0;
 
-            if (t.soundInst)
-            {
-                if (t.soundInst.isValid)
-                {
+            if (t.soundInst) {
+                if (t.soundInst.isValid) {
                     //convert sound position ms -> sec
                     audioPos = t.soundInst.position * 0.001;
-                    if (audioPos < 0)
-                    {
+                    if (audioPos < 0) {
                         audioPos = 0;
                     }
                     position = t.soundStart + audioPos;
 
-                    if (t.useCaptions)
-                    {
+                    if (t.useCaptions) {
                         this.captions.seek(t.soundInst.position);
                     }
                 }
                 //if sound is no longer valid, stop animation playback immediately
-                else
-                {
+                else {
                     position = t.duration;
                 }
             }
-            else
-            {
+            else {
                 position = t.position + delta * t.speed;
             }
 
-            if (position >= t.duration)
-            {
-                while (position >= t.duration)
-                {
+            if (position >= t.duration) {
+                while (position >= t.duration) {
                     position -= t.duration;
-                    if (t.isLooping)
-                    {
+                    if (t.isLooping) {
                         //error checking
-                        if (!t.duration)
-                        {
+                        if (!t.duration) {
                             t.complete = true;
                             break;
                         }
                         //call the on complete function each time
-                        if (t.onComplete)
-                        {
+                        if (t.onComplete) {
                             t.onComplete();
                         }
                     }
                     t._nextItem();
-                    if (t.complete)
-                    {
+                    if (t.complete) {
                         break;
                     }
                 }
-                if (t.complete)
-                {
+                if (t.complete) {
                     this._remove(t);
                     continue;
                 }
             }
 
-            if (t.playSound && position >= t.soundStart)
-            {
+            if (t.playSound && position >= t.soundStart) {
                 t.position = t.soundStart;
                 t.playSound = false;
                 t.soundInst = this._app.sound.play(
@@ -793,13 +692,11 @@ export default class Animator
                     this._onSoundDone.bind(this, t, t.listIndex, t.soundAlias),
                     this._onSoundStarted.bind(null, t, t.listIndex)
                 );
-                if (t.useCaptions)
-                {
+                if (t.useCaptions) {
                     this.captions.play(t.soundAlias);
                 }
             }
-            else
-            {
+            else {
                 t.position = position;
             }
         }
@@ -812,10 +709,8 @@ export default class Animator
      * @param {springroll.AnimatorTimeline} timeline
      * @param {int} playIndex
      */
-    _onSoundStarted(timeline, playIndex)
-    {
-        if (timeline.listIndex !== playIndex)
-        {
+    _onSoundStarted(timeline, playIndex) {
+        if (timeline.listIndex !== playIndex) {
             return;
         }
         //convert sound length to seconds
@@ -830,20 +725,16 @@ export default class Animator
      * @param {int} playIndex
      * @param {String} soundAlias
      */
-    _onSoundDone(timeline, playIndex, soundAlias)
-    {
-        if (this.captions && this.captions.currentAlias === soundAlias)
-        {
+    _onSoundDone(timeline, playIndex, soundAlias) {
+        if (this.captions && this.captions.currentAlias === soundAlias) {
             this.captions.stop();
         }
 
-        if (timeline.listIndex !== playIndex)
-        {
+        if (timeline.listIndex !== playIndex) {
             return;
         }
 
-        if (timeline.soundEnd > timeline.position)
-        {
+        if (timeline.soundEnd > timeline.position) {
             timeline.position = timeline.soundEnd;
         }
         timeline.soundInst = null;
@@ -853,8 +744,7 @@ export default class Animator
      * Stops all animations and cleans up the variables used.
      * @method destroy
      */
-    destroy()
-    {
+    destroy() {
         this.stopAll(null, true);
         this.captions = null;
         this._app = null;

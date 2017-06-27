@@ -27,7 +27,7 @@
         ],
         "brace-style": [
             "error",
-            "allman",
+            "stroustrup",
             { "allowSingleLine": false }
         ],
         "indent": [
@@ -38,6 +38,9 @@
         "eqeqeq": [
             "error",
             "always"
+        ],
+        "no-var": [
+            "error"
         ]
     }
 }

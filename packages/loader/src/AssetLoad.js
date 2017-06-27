@@ -13,10 +13,8 @@ import {Debug} from '@springroll/debug';
  * @constructor
  * @param {springroll.AssetManager} manager Reference to the manager
  */
-export default class AssetLoad extends EventEmitter
-{
-    constructor(manager)
-    {
+export default class AssetLoad extends EventEmitter {
+    constructor(manager) {
         super();
 
         /**
@@ -116,8 +114,7 @@ export default class AssetLoad extends EventEmitter
      * Debugging purposes
      * @method toString
      */
-    toString()
-    {
+    toString() {
         return `[AssetLoad (index: "${this.id}")]`;
     }
     // @endif
@@ -132,8 +129,7 @@ export default class AssetLoad extends EventEmitter
      * @param {Boolean} [options.cacheAll=false] If we should run the tasks in order
      * @param {String} [options.type] The default asset type of load, gets attached to each asset
      */
-    setup(assets, options)
-    {
+    setup(assets, options) {
         // Save options to load
         this.startAll = options.startAll;
         this.cacheAll = options.cacheAll;
@@ -146,8 +142,7 @@ export default class AssetLoad extends EventEmitter
         this.results = this._getAssetsContainer(this.mode);
 
         // Start running
-        if (options.autoStart)
-        {
+        if (options.autoStart) {
             this.start();
         }
     }
@@ -156,8 +151,7 @@ export default class AssetLoad extends EventEmitter
      * Start the load process
      * @method start
      */
-    start()
-    {
+    start() {
         // Empty load percentage
         this.emit('progress', 0);
 
@@ -170,11 +164,9 @@ export default class AssetLoad extends EventEmitter
      * Set back to the original state
      * @method reset
      */
-    reset()
-    {
+    reset() {
         // Cancel any tasks
-        this.tasks.forEach(function(task)
-        {
+        this.tasks.forEach(function(task) {
             task.status = Task.FINISHED;
             task.destroy();
         });
@@ -197,8 +189,7 @@ export default class AssetLoad extends EventEmitter
      * @static
      * @default 0
      */
-    static get SINGLE_MODE()
-    {
+    static get SINGLE_MODE() {
         return 0;
     }
 
@@ -210,8 +201,7 @@ export default class AssetLoad extends EventEmitter
      * @static
      * @default 1
      */
-    static get MAP_MODE()
-    {
+    static get MAP_MODE() {
         return 1;
     }
 
@@ -223,8 +213,7 @@ export default class AssetLoad extends EventEmitter
      * @static
      * @default 2
      */
-    static get LIST_MODE()
-    {
+    static get LIST_MODE() {
         return 2;
     }
 
@@ -234,10 +223,9 @@ export default class AssetLoad extends EventEmitter
      * @private
      * @param  {Object|Array} assets The assets to load
      */
-    addTasks(assets)
-    {
-        var asset;
-        var mode = AssetLoad.MAP_MODE;
+    addTasks(assets) {
+        let asset;
+        let mode = AssetLoad.MAP_MODE;
 
         // Apply the defaults incase this is a single
         // thing that we're trying to load
@@ -245,53 +233,42 @@ export default class AssetLoad extends EventEmitter
 
         // Check for a task definition on the asset
         // add default type for proper task recognition
-        if (assets.type === undefined && this.type)
-        {
+        if (assets.type === undefined && this.type) {
             assets.type = this.type;
         }
-        var isSingle = this.getTaskByAsset(assets);
+        let isSingle = this.getTaskByAsset(assets);
 
-        if (isSingle)
-        {
+        if (isSingle) {
             this.addTask(assets);
             return AssetLoad.SINGLE_MODE;
         }
-        else
-        {
+        else {
             //if we added a default type for task recognition, remove it
-            if (assets.type === this.type && this.type)
-            {
+            if (assets.type === this.type && this.type) {
                 delete assets.type;
             }
-            var task;
-            if (Array.isArray(assets))
-            {
-                for (var i = 0; i < assets.length; i++)
-                {
+            let task;
+            if (Array.isArray(assets)) {
+                for (let i = 0; i < assets.length; i++) {
                     asset = this._applyDefaults(assets[i]);
                     task = this.addTask(asset);
-                    if (!task.id)
-                    {
+                    if (!task.id) {
                         // If we don't have the id to return
                         // a mapped result, we'll fallback to array results
                         mode = AssetLoad.LIST_MODE;
                     }
                 }
             }
-            else if (Object.isPlain(assets))
-            {
-                for (var id in assets)
-                {
+            else if (Object.isPlain(assets)) {
+                for (let id in assets) {
                     asset = this._applyDefaults(assets[id]);
                     task = this.addTask(asset);
-                    if (!task.id)
-                    {
+                    if (!task.id) {
                         task.id = id;
                     }
                 }
             }
-            else
-            {
+            else {
                 // @if DEBUG
                 Debug.error('Asset type unsupported', asset);
                 // @endif
@@ -308,18 +285,15 @@ export default class AssetLoad extends EventEmitter
      * @param  {*} asset The function to convert
      * @return {Object} The object asset to use
      */
-    _applyDefaults(asset)
-    {
+    _applyDefaults(asset) {
         // convert to a LoadTask
-        if (typeof asset === 'string')
-        {
+        if (typeof asset === 'string') {
             return {
                 src: asset
             };
         }
         // convert to a FunctionTask
-        else if (typeof asset === 'function')
-        {
+        else if (typeof asset === 'function') {
             return {
                 async: asset
             };
@@ -334,26 +308,21 @@ export default class AssetLoad extends EventEmitter
      * @param {Object} asset The asset to load,
      *      can either be an object, URL/path, or async function.
      */
-    addTask(asset)
-    {
-        if (asset.type === undefined && this.type)
-        {
+    addTask(asset) {
+        if (asset.type === undefined && this.type) {
             asset.type = this.type;
         }
-        var TaskClass = this.getTaskByAsset(asset);
-        var task;
-        if (TaskClass)
-        {
-            if (asset.cache === undefined && this.cacheAll)
-            {
+        let TaskClass = this.getTaskByAsset(asset);
+        let task;
+        if (TaskClass) {
+            if (asset.cache === undefined && this.cacheAll) {
                 asset.cache = true;
             }
             task = new TaskClass(asset);
             this.tasks.push(task);
             ++this.total;
         }
-        else
-        {
+        else {
             // @if DEBUG
             Debug.error('Unable to find a task definition for asset', asset);
             // @endif
@@ -369,18 +338,15 @@ export default class AssetLoad extends EventEmitter
      * @param  {Object} asset The asset to check
      * @return {Function} The Task class
      */
-    getTaskByAsset(asset)
-    {
-        var TaskClass;
-        var taskDefs = this.manager.taskDefs;
+    getTaskByAsset(asset) {
+        let TaskClass;
+        let taskDefs = this.manager.taskDefs;
 
         // Loop backwards to get the registered tasks first
         // then will default to the basic Loader task
-        for (var i = 0, len = taskDefs.length; i < len; i++)
-        {
+        for (let i = 0, len = taskDefs.length; i < len; i++) {
             TaskClass = taskDefs[i];
-            if (TaskClass.test(asset))
-            {
+            if (TaskClass.test(asset)) {
                 return TaskClass;
             }
         }
@@ -392,20 +358,16 @@ export default class AssetLoad extends EventEmitter
      * @method  nextTask
      * @private
      */
-    nextTask()
-    {
-        var tasks = this.tasks;
-        for (var i = 0; i < tasks.length; i++)
-        {
-            var task = tasks[i];
-            if (task.status === Task.WAITING)
-            {
+    nextTask() {
+        let tasks = this.tasks;
+        for (let i = 0; i < tasks.length; i++) {
+            let task = tasks[i];
+            if (task.status === Task.WAITING) {
                 task.status = Task.RUNNING;
                 task.start(this.taskDone.bind(this, task));
 
                 // If we aren't running in parallel, then stop
-                if (!this.startAll) 
-                {
+                if (!this.startAll) {
                     return;
                 }
             }
@@ -419,22 +381,19 @@ export default class AssetLoad extends EventEmitter
      * @param  {springroll.Task} task Reference to original task
      * @param  {*} [result] The result of load
      */
-    taskDone(task, result)
-    {
+    taskDone(task, result) {
         // Ignore if we're destroyed
-        if (!this.running) 
-        {
+        if (!this.running) {
             return;
         }
 
         // Default to null
         result = result || null;
 
-        var index = this.tasks.indexOf(task);
+        let index = this.tasks.indexOf(task);
 
         // Task was already removed, because a clear
-        if (index === -1)
-        {
+        if (index === -1) {
             return;
         }
 
@@ -442,14 +401,12 @@ export default class AssetLoad extends EventEmitter
         this.tasks.splice(index, 1);
 
         // Assets
-        var assets = [];
+        let assets = [];
 
         // Handle the file load tasks
-        if (result)
-        {
+        if (result) {
             // Handle the result
-            switch (this.mode)
-            {
+            switch (this.mode) {
                 case AssetLoad.SINGLE_MODE:
                     this.results = result;
                     break;
@@ -462,8 +419,7 @@ export default class AssetLoad extends EventEmitter
             }
 
             // Should we cache the task?
-            if (task.cache)
-            {
+            if (task.cache) {
                 this.manager.cache.write(task.id, result);
             }
         }
@@ -472,8 +428,7 @@ export default class AssetLoad extends EventEmitter
         // we'll make sure that gets called
         // with a reference to the tasks
         // can potentially add more
-        if (task.complete)
-        {
+        if (task.complete) {
             task.complete(result, task.original, assets);
         }
 
@@ -483,15 +438,14 @@ export default class AssetLoad extends EventEmitter
         task.destroy();
 
         // Add new assets to the things to load
-        var mode = this.addTasks(assets);
+        let mode = this.addTasks(assets);
 
         // Update the progress total
         this.emit('progress', ++this.numLoaded / this.total);
 
         // Check to make sure if we're in
         // map mode, we keep it that way
-        if (this.mode === AssetLoad.MAP_MODE && mode !== this.mode)
-        {
+        if (this.mode === AssetLoad.MAP_MODE && mode !== this.mode) {
             // @if DEBUG
             Debug.error('Load assets require IDs to return mapped results', assets);
             return;
@@ -503,13 +457,11 @@ export default class AssetLoad extends EventEmitter
             // @endif
         }
 
-        if (this.tasks.length)
-        {
+        if (this.tasks.length) {
             // Run the next task
             this.nextTask();
         }
-        else
-        {
+        else {
             // We're finished!
             this.emit('complete', this.results);
         }
@@ -522,10 +474,8 @@ export default class AssetLoad extends EventEmitter
      * @param {int} mode The mode
      * @return {Array|Object|null} Empty container for assets
      */
-    _getAssetsContainer(mode)
-    {
-        switch (mode)
-        {
+    _getAssetsContainer(mode) {
+        switch (mode) {
             case AssetLoad.SINGLE_MODE:
                 return null;
             case AssetLoad.LIST_MODE:
@@ -539,8 +489,7 @@ export default class AssetLoad extends EventEmitter
      * Destroy this and discard
      * @method destroy
      */
-    destroy()
-    {
+    destroy() {
         super.destroy();
         this.reset();
         this.tasks = null;

@@ -12,10 +12,8 @@ import {Debug} from '@springroll/debug';
  * @constructor
  * @param {springroll.Application} app Reference to application
  */
-export default class CacheManager
-{
-    constructor(app)
-    {
+export default class CacheManager {
+    constructor(app) {
         /**
          * The current application
          * @protected
@@ -57,29 +55,23 @@ export default class CacheManager
      * @public
      * @default false
      */
-    get cacheBust()
-    {
+    get cacheBust() {
         return !!(this._globalVersion && this._globalVersion.indexOf('cb=') === 0);
     }
-    set cacheBust(value)
-    {
-        if (value)
-        {
+    set cacheBust(value) {
+        if (value) {
             this._globalVersion = 'cb=' + Date.now();
             this.unregisterURLFilter(this._applySpecificVersion);
             this.registerURLFilter(this._applyGlobalVersion);
         }
-        else
-        {
-            var version = this._app.options.version;
+        else {
+            let version = this._app.options.version;
             this._globalVersion = version ? 'v=' + version : null;
-            if (this._globalVersion)
-            {
+            if (this._globalVersion) {
                 this.unregisterURLFilter(this._applySpecificVersion);
                 this.registerURLFilter(this._applyGlobalVersion);
             }
-            else
-            {
+            else {
                 this.unregisterURLFilter(this._applyGlobalVersion);
                 this.registerURLFilter(this._applySpecificVersion);
             }
@@ -91,8 +83,7 @@ export default class CacheManager
      * @public
      * @method destroy
      */
-    destroy()
-    {
+    destroy() {
         this._app = null;
         this._versions = null;
         this._filters = null;
@@ -108,17 +99,14 @@ export default class CacheManager
      * @param {Function} callback Callback when the versions file has been loaded.
      * @param {String} baseUrl A base url to prepend all lines of the file.
      */
-    addVersionsFile(url, callback, baseUrl)
-    {
+    addVersionsFile(url, callback, baseUrl) {
         // @if DEBUG
         Debug.assert(/^.*\.txt$/.test(url), 'The versions file must be a *.txt file');
         // @endif
 
         // If we already cache busting, we can ignore this
-        if (this.cacheBust)
-        {
-            if (callback) 
-            {
+        if (this.cacheBust) {
+            if (callback) {
                 callback();
             }
             return;
@@ -130,24 +118,20 @@ export default class CacheManager
         //ensure that that cache busting version is applied
         url = this._applySpecificVersion(url);
 
-        var cm = this;
+        let cm = this;
 
         // Load the version
-        this._app.load(url, function(versions)
-        {
+        this._app.load(url, function(versions) {
             // check for a valid result content
-            if (versions)
-            {
+            if (versions) {
                 // Remove carrage returns and split on newlines
-                var lines = versions.replace(/\r/g, '').split('\n');
-                var i, parts, len;
+                let lines = versions.replace(/\r/g, '').split('\n');
+                let i, parts, len;
 
                 // Go line by line
-                for (i = 0, len = lines.length; i < len; i++)
-                {
+                for (i = 0, len = lines.length; i < len; i++) {
                     // Check for a valid line
-                    if (!lines[i]) 
-                    {
+                    if (!lines[i]) {
                         continue;
                     }
 
@@ -155,8 +139,7 @@ export default class CacheManager
                     parts = lines[i].split(' ');
 
                     // Add the parts
-                    if (parts.length !== 2) 
-                    {
+                    if (parts.length !== 2) {
                         continue;
                     }
 
@@ -164,8 +147,7 @@ export default class CacheManager
                     cm.addVersion((baseUrl || '') + parts[0], parts[1]);
                 }
             }
-            if (callback) 
-            {
+            if (callback) {
                 callback();
             }
         });
@@ -178,10 +160,8 @@ export default class CacheManager
      * @param {String} url The url of the object
      * @param {String} version Version number or has of file
      */
-    addVersion(url, version)
-    {
-        if (!this._versions[url])
-        {
+    addVersion(url, version) {
+        if (!this._versions[url]) {
             this._versions[url] = version;
         }
     }
@@ -194,10 +174,8 @@ export default class CacheManager
      * @public
      * @param {Function} filter The function that will handle urls.
      */
-    registerURLFilter(filter)
-    {
-        if (this._filters.indexOf(filter) === -1)
-        {
+    registerURLFilter(filter) {
+        if (this._filters.indexOf(filter) === -1) {
             this._filters.push(filter);
         }
     }
@@ -208,11 +186,9 @@ export default class CacheManager
      * @public
      * @param {Function} filter The function to remove.
      */
-    unregisterURLFilter(filter)
-    {
-        var index = this._filters.indexOf(filter);
-        if (index > -1)
-        {
+    unregisterURLFilter(filter) {
+        let index = this._filters.indexOf(filter);
+        if (index > -1) {
             this._filters.splice(index, 1);
         }
     }
@@ -224,20 +200,17 @@ export default class CacheManager
      * @param {String} url The url to apply versioning to.
      * @return {String} The modified url.
      */
-    _applySpecificVersion(url)
-    {
+    _applySpecificVersion(url) {
         //don't apply versioning if the asset is retrieved from a php service
-        var basePath = this._app.options.basePath;
-        if (basePath && basePath.indexOf('?') > 0) 
-        {
+        let basePath = this._app.options.basePath;
+        if (basePath && basePath.indexOf('?') > 0) {
             return url;
         }
 
-        var ver = this._versions[url];
+        let ver = this._versions[url];
         //if a version exists for this url, and the url doesn't already have 'v=' in it
         //then apply the url specific version.
-        if (ver && /(\?|&)v=[0-9]*/.test(url) === false)
-        {
+        if (ver && /(\?|&)v=[0-9]*/.test(url) === false) {
             url = url + (url.indexOf('?') < 0 ? '?' : '&') + 'v=' + ver.version;
         }
         return url;
@@ -250,24 +223,20 @@ export default class CacheManager
      * @param {String} url The url to apply versioning to.
      * @return {String} The modified url.
      */
-    _applyGlobalVersion(url)
-    {
-        if (!this._globalVersion) 
-        {
+    _applyGlobalVersion(url) {
+        if (!this._globalVersion) {
             return url;
         }
         //don't apply versioning if the asset is retrieved from a php service
-        var basePath = this._app.options.basePath;
-        if (basePath && basePath.indexOf('?') > 0) 
-        {
+        let basePath = this._app.options.basePath;
+        if (basePath && basePath.indexOf('?') > 0) {
             return url;
         }
 
         //apply the versioning if it isn't already on the url
-        var test = this._globalVersion.indexOf('cb=') === 0 ?
+        let test = this._globalVersion.indexOf('cb=') === 0 ?
             (/(\?|&)cb=[0-9]*/) : (/(\?|&)v=/);
-        if (test.test(url) === false)
-        {
+        if (test.test(url) === false) {
             url = url + (url.indexOf('?') < 0 ? '?' : '&') + this._globalVersion;
         }
         return url;
@@ -282,11 +251,9 @@ export default class CacheManager
      * @param {String} url The url to prepend the base path to.
      * @return {String} The modified url.
      */
-    _applyBasePath(url)
-    {
-        var basePath = this._app.options.basePath;
-        if (basePath && /^http(s)?:/.test(url) === false && url.search(basePath) === -1)
-        {
+    _applyBasePath(url) {
+        let basePath = this._app.options.basePath;
+        if (basePath && /^http(s)?:/.test(url) === false && url.search(basePath) === -1) {
             url = basePath + url;
         }
         return url;
@@ -303,16 +270,13 @@ export default class CacheManager
      *        expression checks, particularly with PreloadJS
      * @return {String} The final url with version/cache and basePath added
      */
-    prepare(url, applyBasePath)
-    {
+    prepare(url, applyBasePath) {
         //apply first in case the base path is strange and makes the rest of the path a query string
-        if (applyBasePath)
-        {
+        if (applyBasePath) {
             url = this._applyBasePath(url);
         }
 
-        for (var i = 0, len = this._filters.length; i < len; ++i)
-        {
+        for (let i = 0, len = this._filters.length; i < len; ++i) {
             url = this._filters[i](url);
         }
         return url;

@@ -5,10 +5,8 @@
  * @constructor
  * @param {*} obj The object to drag
  */
-export default class DragData
-{
-    constructor(obj)
-    {
+export default class DragData {
+    constructor(obj) {
         this.obj = obj;
         this.mouseDownObjPos = {
             x: 0,

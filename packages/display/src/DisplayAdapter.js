@@ -76,13 +76,11 @@ export default {
      * @param {PIXI.DisplayObject} object The createjs display object
      * @return {PIXI.Rectangle} A rectangle with additional right and bottom properties.
      */
-    getLocalBounds: function(object)
-    {
-        var bounds;
-        var width = object.width;
-        var height = object.height;
-        if (width && height)
-        {
+    getLocalBounds: function(object) {
+        let bounds;
+        let width = object.width;
+        let height = object.height;
+        if (width && height) {
             bounds = new PIXI.Rectangle(
                 -object.pivot.x,
                 -object.pivot.y,
@@ -90,8 +88,7 @@ export default {
                 height / object.scale.y
             );
         }
-        else
-        {
+        else {
             bounds = new PIXI.Rectangle();
         }
         bounds.right = bounds.x + bounds.width;
@@ -107,10 +104,8 @@ export default {
      * @param {String} [direction] Either "x" or "y" to return a specific value
      * @return {object|Number} A scale object with x and y keys or a single number if direction is set
      */
-    getScale: function(object, direction)
-    {
-        if (direction !== undefined)
-        {
+    getScale: function(object, direction) {
+        if (direction !== undefined) {
             return object.scale[direction];
         }
         return object.scale;
@@ -128,20 +123,15 @@ export default {
      * @param {String} [direction] Either "x" or "y" value
      * @return {PIXI.DisplayObject} Return the object for chaining
      */
-    setPosition: function(object, position, direction)
-    {
-        if (direction !== undefined)
-        {
+    setPosition: function(object, position, direction) {
+        if (direction !== undefined) {
             object.position[direction] = position;
         }
-        else
-        {
-            if (position.x !== undefined) 
-            {
+        else {
+            if (position.x !== undefined) {
                 object.position.x = position.x;
             }
-            if (position.y !== undefined) 
-            {
+            if (position.y !== undefined) {
                 object.position.y = position.y;
             }
         }
@@ -157,10 +147,8 @@ export default {
      * @return {Object|Number} The position as an object with x and y keys if no direction
      *        value is set, or the value of the specific direction
      */
-    getPosition: function(object, direction)
-    {
-        if (direction !== undefined)
-        {
+    getPosition: function(object, direction) {
+        if (direction !== undefined) {
             return object.position[direction];
         }
         return object.position;
@@ -176,14 +164,11 @@ export default {
      *         sets both the scale x and scale y.
      * @return {PIXI.DisplayObject} Return the object for chaining
      */
-    setScale: function(object, scale, direction)
-    {
-        if (direction !== undefined)
-        {
+    setScale: function(object, scale, direction) {
+        if (direction !== undefined) {
             object.scale[direction] = scale;
         }
-        else
-        {
+        else {
             object.scale.x = object.scale.y = scale;
         }
         return object;
@@ -201,10 +186,8 @@ export default {
      *         will set using the object.
      * @return {PIXI.DisplayObject} Return the object for chaining
      */
-    setPivot: function(object, pivot, direction)
-    {
-        if (direction !== undefined)
-        {
+    setPivot: function(object, pivot, direction) {
+        if (direction !== undefined) {
             object.pivot[direction] = pivot;
         }
         object.pivot = pivot;
@@ -219,8 +202,7 @@ export default {
      * @param {Object} shape The geometry object
      * @return {PIXI.DisplayObject} Return the object for chaining
      */
-    setHitArea: function(object, shape)
-    {
+    setHitArea: function(object, shape) {
         object.hitArea = shape;
         return object;
     },
@@ -232,8 +214,7 @@ export default {
      * @param {PIXI.Bitmap} bitmap The bitmap to measure
      * @return {object} The width (w) and height (h) of the actual bitmap size
      */
-    getBitmapSize: function(bitmap)
-    {
+    getBitmapSize: function(bitmap) {
         return {
             h: bitmap.height / bitmap.scale.y,
             w: bitmap.width / bitmap.scale.x
@@ -246,8 +227,7 @@ export default {
      * @static
      * @param {PIXI.DisplayObjectContainer} container The display object container
      */
-    removeChildren: function(container)
-    {
+    removeChildren: function(container) {
         container.removeChildren();
     },
 
@@ -259,12 +239,9 @@ export default {
      * @param  {PIXI.DisplayObject} child  The object to test
      * @return {Boolean} If the child contained within the container
      */
-    contains: function(container, child)
-    {
-        while (child)
-        {
-            if (child === container)
-            {
+    contains: function(container, child) {
+        while (child) {
+            if (child === container) {
                 return true;
             }
             child = child.parent;

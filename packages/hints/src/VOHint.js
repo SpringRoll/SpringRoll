@@ -13,10 +13,8 @@ import AbstractHint from './AbstractHint';
  * @param {Function} onComplete
  * @param {Function} onCancel
  */
-export default class VOHint extends AbstractHint
-{
-    constructor(hints, done, idOrList, onComplete, onCancel)
-    {
+export default class VOHint extends AbstractHint {
+    constructor(hints, done, idOrList, onComplete, onCancel) {
         super(hints, done);
 
         this.idOrList = idOrList;
@@ -28,8 +26,7 @@ export default class VOHint extends AbstractHint
      * Run the hint
      * @method play
      */
-    play()
-    {
+    play() {
         this._hints.enabled = false;
         this._hints.emit('vo',
             {
@@ -43,8 +40,7 @@ export default class VOHint extends AbstractHint
      * Clean-up the hint, don't use after this
      * @method destroy
      */
-    destroy()
-    {
+    destroy() {
         this.idOrList = null;
         this.onComplete = null;
         this.onCancel = null;

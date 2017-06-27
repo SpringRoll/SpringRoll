@@ -20,10 +20,8 @@ import {Debug} from '@springroll/debug';
  * @param {Object|String} [transitionSounds.out] The sound to play for transition out
  * @param {Object|String} [transitionSounds.loading] The sound to play for loading
  */
-export default class StateManager extends EventEmitter
-{
-    constructor(transitionSounds)
-    {
+export default class StateManager extends EventEmitter {
+    constructor(transitionSounds) {
         super();
 
         /**
@@ -136,8 +134,7 @@ export default class StateManager extends EventEmitter
      * @param {String} id The string alias for a state
      * @param {springroll.State} state State object reference
      */
-    addState(id, state)
-    {
+    addState(id, state) {
         // @if DEBUG
         Debug.assert(state instanceof State, `State (${id}) needs to subclass springroll.State`);
         // @endif
@@ -157,8 +154,7 @@ export default class StateManager extends EventEmitter
      * @property {springroll.State} currentState
      * @readOnly
      */
-    get currentState()
-    {
+    get currentState() {
         return this._state;
     }
 
@@ -169,8 +165,7 @@ export default class StateManager extends EventEmitter
      * @param {String} id State alias
      * @return {springroll.State} The base State object
      */
-    getStateById(id)
-    {
+    getStateById(id) {
         // @if DEBUG
         Debug.assert(this._states[id] !== undefined, `No alias matching "${id}"`);
         // @endif
@@ -183,8 +178,7 @@ export default class StateManager extends EventEmitter
      * @method isBusy
      * @return {Boolean} If StateManager is busy
      */
-    isBusy()
-    {
+    isBusy() {
         return this._isLoading || this._isTransitioning;
     }
 
@@ -194,10 +188,8 @@ export default class StateManager extends EventEmitter
      *
      * @method loadingStart
      */
-    loadingStart()
-    {
-        if (this._destroyed) 
-        {
+    loadingStart() {
+        if (this._destroyed) {
             return;
         }
 
@@ -212,10 +204,8 @@ export default class StateManager extends EventEmitter
      *
      * @method loadingDone
      */
-    loadingDone()
-    {
-        if (this._destroyed) 
-        {
+    loadingDone() {
+        if (this._destroyed) {
             return;
         }
 
@@ -227,8 +217,7 @@ export default class StateManager extends EventEmitter
      * @private
      * @property {Boolean} enabled
      */
-    set enabled(enabled)
-    {
+    set enabled(enabled) {
         /**
          * If the state manager is enabled, used internally
          * @event enabled
@@ -243,8 +232,7 @@ export default class StateManager extends EventEmitter
      *
      * @method refresh
      */
-    refresh()
-    {
+    refresh() {
         // @if DEBUG
         Debug.assert(!!this._state, 'No current state to refresh!');
         // @endif
@@ -255,8 +243,7 @@ export default class StateManager extends EventEmitter
      * Get or change the current state, using the state id.
      * @property {String} state
      */
-    set state(id)
-    {
+    set state(id) {
         // @if DEBUG
         Debug.assert(this._states[id] !== undefined, `No current state mattching id "${id}"`);
         // @endif
@@ -264,8 +251,7 @@ export default class StateManager extends EventEmitter
         // If we try to transition while the transition or state
         // is transition, then we queue the state and proceed
         // after an animation has played out, to avoid abrupt changes
-        if (this._isTransitioning)
-        {
+        if (this._isTransitioning) {
             return;
         }
 
@@ -274,14 +260,12 @@ export default class StateManager extends EventEmitter
         this._oldState = this._state;
         this._state = this._states[id];
 
-        if (!this._oldState)
-        {
+        if (!this._oldState) {
             // There is not current state
             // this is only possible if this is the first
             // state we're loading
             this._isTransitioning = true;
-            if (this.transition)
-            {
+            if (this.transition) {
                 this.transition.visible = true;
             }
             this._onTransitionLoading();
@@ -289,18 +273,15 @@ export default class StateManager extends EventEmitter
             this._isLoading = true;
             this._state._internalEnter(this._onStateLoaded);
         }
-        else
-        {
+        else {
             // Check to see if the state is currently in a load
             // if so cancel the state
-            if (this._isLoading)
-            {
+            if (this._isLoading) {
                 this._oldState._internalCancel();
                 this._isLoading = false;
                 this._state._internalEnter(this._onStateLoaded);
             }
-            else
-            {
+            else {
                 this._isTransitioning = true;
                 this._oldState._internalExitStart();
                 this.enabled = false;
@@ -311,8 +292,7 @@ export default class StateManager extends EventEmitter
             }
         }
     }
-    get state()
-    {
+    get state() {
         return this._stateId;
     }
 
@@ -321,14 +301,12 @@ export default class StateManager extends EventEmitter
      * @method _onTransitionOut
      * @private
      */
-    _onTransitionOut()
-    {
+    _onTransitionOut() {
         this.emit(StateManager.TRANSITION_OUT_DONE);
 
         this._isTransitioning = false;
 
-        if (this.has(StateEvent.HIDDEN))
-        {
+        if (this.has(StateEvent.HIDDEN)) {
             this.emit(
                 StateEvent.HIDDEN,
                 new StateEvent(StateEvent.HIDDEN, this._state, this._oldState));
@@ -350,29 +328,24 @@ export default class StateManager extends EventEmitter
      * @method _onStateLoaded
      * @private
      */
-    _onStateLoaded()
-    {
+    _onStateLoaded() {
         this._isLoading = false;
         this._isTransitioning = true;
 
-        if (this.has(StateEvent.VISIBLE))
-        {
+        if (this.has(StateEvent.VISIBLE)) {
             this.emit(StateEvent.VISIBLE, new StateEvent(StateEvent.VISIBLE, this._state));
         }
         this._state.panel.visible = true;
 
-        if (this.waitForLoadingComplete && this.animator.hasAnimation(this.transition, StateManager.TRANSITION_LOADING))
-        {
-            var timeline = this.animator.getTimeline(this.transition);
-            timeline.onComplete = function()
-            {
+        if (this.waitForLoadingComplete && this.animator.hasAnimation(this.transition, StateManager.TRANSITION_LOADING)) {
+            let timeline = this.animator.getTimeline(this.transition);
+            timeline.onComplete = function() {
                 this.emit(StateManager.TRANSITION_IN);
                 this._transitioning(StateManager.TRANSITION_IN, this._onTransitionIn);
             }.bind(this);
             timeline.isLooping = false;
         }
-        else
-        {
+        else {
             this.emit(StateManager.TRANSITION_IN);
             this._transitioning(StateManager.TRANSITION_IN, this._onTransitionIn);
         }
@@ -383,10 +356,8 @@ export default class StateManager extends EventEmitter
      * @method _onTransitionIn
      * @private
      */
-    _onTransitionIn()
-    {
-        if (this.transition)
-        {
+    _onTransitionIn() {
+        if (this.transition) {
             this.transition.visible = false;
         }
         this.emit(StateManager.TRANSITION_IN_DONE);
@@ -403,23 +374,19 @@ export default class StateManager extends EventEmitter
      * @method _onTransitionLoading
      * @private
      */
-    _onTransitionLoading()
-    {
+    _onTransitionLoading() {
         // Ignore if no transition
-        if (!this.transition) 
-        {
+        if (!this.transition) {
             return;
         }
 
-        var audio;
-        var sounds = this._transitionSounds;
-        if (sounds)
-        {
+        let audio;
+        let sounds = this._transitionSounds;
+        if (sounds) {
             audio = sounds.loading;
         }
-        var animator = this.animator;
-        if (animator.hasAnimation(this.transition, StateManager.TRANSITION_LOADING))
-        {
+        let animator = this.animator;
+        if (animator.hasAnimation(this.transition, StateManager.TRANSITION_LOADING)) {
             this.emit(StateManager.TRANSITION_LOADING);
             animator.play(
                 this.transition,
@@ -438,14 +405,11 @@ export default class StateManager extends EventEmitter
      * @method showTransitionOut
      * @param {function} callback The function to call when the animation is complete.
      */
-    showTransitionOut(callback)
-    {
+    showTransitionOut(callback) {
         this.enabled = false;
-        this._transitioning(StateManager.TRANSITION_OUT, function()
-        {
+        this._transitioning(StateManager.TRANSITION_OUT, function() {
             this._onTransitionLoading();
-            if (callback) 
-            {
+            if (callback) {
                 callback();
             }
         }
@@ -458,14 +422,11 @@ export default class StateManager extends EventEmitter
      * @method showTransitionIn
      * @param {function} callback The function to call when the animation is complete.
      */
-    showTransitionIn(callback)
-    {
-        this._transitioning(StateManager.TRANSITION_IN, function()
-        {
+    showTransitionIn(callback) {
+        this._transitioning(StateManager.TRANSITION_IN, function() {
             this.enabled = true;
             this.transition.visible = false;
-            if (callback) 
-            {
+            if (callback) {
                 callback();
             }
         }
@@ -480,22 +441,19 @@ export default class StateManager extends EventEmitter
      * @param {Function} The callback function after transition is done
      * @private
      */
-    _transitioning(event, callback)
-    {
-        var transition = this.transition;
-        var sounds = this._transitionSounds;
+    _transitioning(event, callback) {
+        let transition = this.transition;
+        let sounds = this._transitionSounds;
 
         // Ignore with no transition
-        if (!transition)
-        {
+        if (!transition) {
             return callback();
         }
 
         transition.visible = true;
 
-        var audio;
-        if (sounds)
-        {
+        let audio;
+        if (sounds) {
             audio = (event === StateManager.TRANSITION_IN) ? sounds.in : sounds.out;
         }
         this.animator.play(
@@ -512,26 +470,21 @@ export default class StateManager extends EventEmitter
      * Remove the state manager
      * @method destroy
      */
-    destroy()
-    {
+    destroy() {
         this._destroyed = true;
 
         this.off();
 
-        if (this.transition)
-        {
+        if (this.transition) {
             this.animator.stop(this.transition);
         }
 
-        if (this._state)
-        {
+        if (this._state) {
             this._state._internalExit();
         }
 
-        if (this._states)
-        {
-            for (var id in this._states)
-            {
+        if (this._states) {
+            for (let id in this._states) {
                 this._states[id].destroy();
                 delete this._states[id];
             }

@@ -5,10 +5,8 @@ import include from '../../utils/include';
  *
  * @class PersistentStorage
  */
-export default class PersistentStorage
-{
-    constructor()
-    {
+export default class PersistentStorage {
+    constructor() {
         /**
          * `true` if localStorage is supported, `false` to use cookies
          * @property {Boolean} supported
@@ -31,15 +29,12 @@ export default class PersistentStorage
      * @static
      * @param {String} name The name of the value to remove
      */
-    remove(name)
-    {
-        if (this.supported)
-        {
+    remove(name) {
+        if (this.supported) {
             localStorage.removeItem(name);
             sessionStorage.removeItem(name);
         }
-        else
-        {
+        else {
             this.write(name, '', this.empty);
         }
     }
@@ -52,36 +47,27 @@ export default class PersistentStorage
      * @param {mixed} value The value to save. This will be run through JSON.stringify().
      * @param {Boolean} [tempOnly=false] If the value should be saved only in the current browser session.
      */
-    write(name, value, tempOnly)
-    {
-        if (this.supported)
-        {
-            if (tempOnly)
-            {
+    write(name, value, tempOnly) {
+        if (this.supported) {
+            if (tempOnly) {
                 sessionStorage.setItem(name, JSON.stringify(value));
             }
-            else
-            {
+            else {
                 localStorage.setItem(name, JSON.stringify(value));
             }
         }
-        else
-        {
+        else {
             let expires;
 
-            if (tempOnly)
-            {
-                if (tempOnly !== this.empty)
-                {
+            if (tempOnly) {
+                if (tempOnly !== this.empty) {
                     expires = ''; //remove when browser is closed
                 }
-                else
-                {
+                else {
                     expires = '; expires=Thu, 01 Jan 1970 00:00:00 GMT'; //save cookie in the past for immediate removal
                 }
             }
-            else
-            {
+            else {
                 expires = `; expires=${new Date(2147483646000).toGMTString()}`; //THE END OF (32bit UNIX) TIME!
             }
 
@@ -96,37 +82,29 @@ export default class PersistentStorage
      * @param {String} name The name of the variable
      * @return {mixed} The value (run through `JSON.parse()`) or null if it doesn't exist
      */
-    read(name)
-    {
-        if (this.supported)
-        {
-            var value = localStorage.getItem(name) || sessionStorage.getItem(name);
+    read(name) {
+        if (this.supported) {
+            let value = localStorage.getItem(name) || sessionStorage.getItem(name);
 
-            if (value)
-            {
+            if (value) {
                 return JSON.parse(value, this.reviver);
             }
-            else
-            {
+            else {
                 return null;
             }
         }
-        else
-        {
+        else {
             const nameEQ = `${name}=`;
             const ca = document.cookie.split(';');
 
-            for (let i = 0, len = ca.length; i < len; i++)
-            {
+            for (let i = 0, len = ca.length; i < len; i++) {
                 let c = ca[i];
 
-                while (c.charAt(0) === ' ') 
-                {
+                while (c.charAt(0) === ' ') {
                     c = c.substring(1, c.length);
                 }
 
-                if (c.indexOf(nameEQ) === 0) 
-                {
+                if (c.indexOf(nameEQ) === 0) {
                     return JSON.parse(
                         unescape(c.substring(nameEQ.length, c.length)),
                         this.reviver
@@ -149,19 +127,15 @@ export default class PersistentStorage
      * @param  {Object} value Object that we wish to restore
      * @return {Object}       The object that was parsed - either cast to a class, or not
      */
-    reviver(key, value)
-    {
-        if (value && typeof value.__classname === 'string')
-        {
+    reviver(key, value) {
+        if (value && typeof value.__classname === 'string') {
             const ClassReference = include(value.__classname, false);
 
-            if (ClassReference)
-            {
+            if (ClassReference) {
                 const result = new ClassReference();
 
                 //if we may call fromJSON, do so
-                if (result.fromJSON)
-                {
+                if (result.fromJSON) {
                     result.fromJSON(value);
                     //return the cast Object
                     return result;
@@ -178,22 +152,18 @@ export default class PersistentStorage
      * @method storageSupported
      * @readOnly
      */
-    storageSupported()
-    {
+    storageSupported() {
         const hasStorage = typeof Storage !== 'undefined';
 
-        if (hasStorage)
-        {
+        if (hasStorage) {
             // in iOS, if the user is in Private Browsing
             // writing to localStorage throws an error.
-            try
-            {
+            try {
                 localStorage.setItem('__hasStorage', '1');
                 localStorage.removeItem('__hasStorage');
                 return true;
             }
-            catch (e)
-            {
+            catch (e) {
                 return false;
             }
         }

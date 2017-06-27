@@ -13,10 +13,8 @@ import AbstractHint from './AbstractHint';
  *                           onComplete and onCancelled
  *                           and call them when complete or cancelled
  */
-export default class FunctionHint extends AbstractHint
-{
-    constructor(hints, done, onStart)
-    {
+export default class FunctionHint extends AbstractHint {
+    constructor(hints, done, onStart) {
         super(hints, done);
         this.onStart = onStart;
     }
@@ -28,8 +26,7 @@ export default class FunctionHint extends AbstractHint
      * Start function hint
      * @method play
      */
-    play()
-    {
+    play() {
         this._hints.enabled = false;
         this.onStart(
             this._onPlayComplete.bind(this, null, false),
@@ -41,8 +38,7 @@ export default class FunctionHint extends AbstractHint
      * Clean-up the hint, don't use after this
      * @method destroy
      */
-    destroy()
-    {
+    destroy() {
         this.onStart = null;
         super.destroy();
     }

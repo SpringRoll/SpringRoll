@@ -15,10 +15,8 @@ import AbstractHint from './AbstractHint';
  * @param {function|boolean} onCancel If the call is cancelled, true set onComplete
  *      to also be the cancelled callback
  */
-export default class AnimatorHint extends AbstractHint
-{
-    constructor(hints, done, instance, events, onComplete, onCancel)
-    {
+export default class AnimatorHint extends AbstractHint {
+    constructor(hints, done, instance, events, onComplete, onCancel) {
         super(hints, done);
 
         this.instance = instance;
@@ -31,8 +29,7 @@ export default class AnimatorHint extends AbstractHint
      * Run the hint
      * @method play
      */
-    play()
-    {
+    play() {
         this._hints.enabled = false;
         this._hints.emit('anim',
             {
@@ -47,8 +44,7 @@ export default class AnimatorHint extends AbstractHint
      * Clean-up the hint, don't use after this
      * @method destroy
      */
-    destroy()
-    {
+    destroy() {
         this.instance = null;
         this.events = null;
         this.onComplete = null;

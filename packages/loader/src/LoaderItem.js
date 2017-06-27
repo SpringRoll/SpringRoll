@@ -4,17 +4,15 @@ import {include} from '@springroll/core';
 import {Debug} from '@springroll/debug';
 // @endif
 
-var LoadQueue = include('createjs.LoadQueue');
+let LoadQueue = include('createjs.LoadQueue');
 
 /**
  * Represents a single item in the loader queue 
  * @class LoaderItem
  * @extends createjs.LoadQueue
  */
-export default class LoaderItem extends LoadQueue
-{
-    constructor()
-    {
+export default class LoaderItem extends LoadQueue {
+    constructor() {
         super(true); // preferXHR is always true!
 
         /**
@@ -84,8 +82,7 @@ export default class LoaderItem extends LoadQueue
         // Install the sound plugin if we have sound module
         const Sound = include('createjs.Sound', false);
 
-        if (Sound)
-        {
+        if (Sound) {
             this.installPlugin(Sound);
         }
     }
@@ -96,8 +93,7 @@ export default class LoaderItem extends LoadQueue
      * @method toString
      * @return {string} The string representation of this object
      */
-    toString()
-    {
+    toString() {
         return `[LoaderItem(url:'${this.url}')]`;
     }
 
@@ -106,8 +102,7 @@ export default class LoaderItem extends LoadQueue
      * @property {String} basePath
      * @default null
      */
-    set basePath(basePath)
-    {
+    set basePath(basePath) {
         this._basePath = basePath;
     }
 
@@ -116,8 +111,7 @@ export default class LoaderItem extends LoadQueue
      * @property {Boolean} crossOrigin
      * @default false
      */
-    set crossOrigin(crossOrigin)
-    {
+    set crossOrigin(crossOrigin) {
         this._crossOrigin = crossOrigin;
     }
 
@@ -125,8 +119,7 @@ export default class LoaderItem extends LoadQueue
      * Clear all the data
      * @method clear
      */
-    clear()
-    {
+    clear() {
         this.basePath = '';
         this.crossOrigin = false;
         this.retries = 0;
@@ -145,11 +138,9 @@ export default class LoaderItem extends LoadQueue
      * Start the loading
      * @method  start
      */
-    start()
-    {
+    start() {
         // @if DEBUG
-        if (LoaderItem.verbose)
-        {
+        if (LoaderItem.verbose) {
             Debug.log(`Attempting to load file '${this.url}'`);
         }
         // @endif
@@ -164,13 +155,11 @@ export default class LoaderItem extends LoadQueue
      * @method  _internalStart
      * @private
      */
-    _internalStart()
-    {
-        var url = this.preparedUrl;
+    _internalStart() {
+        let url = this.preparedUrl;
 
         // Special loading for the Sound, requires the ID
-        if (this.data && this.data.id)
-        {
+        if (this.data && this.data.id) {
             url = {
                 id: this.data.id,
                 src: url,
@@ -188,10 +177,8 @@ export default class LoaderItem extends LoadQueue
      * @private
      * @param {object} event The progress event
      */
-    _onProgress()
-    {
-        if (this.onProgress)
-        {
+    _onProgress() {
+        if (this.onProgress) {
             this.onProgress(this.progress);
         }
     }
@@ -201,8 +188,7 @@ export default class LoaderItem extends LoadQueue
      * @private
      * @method _onFailed
      */
-    _onFailed(event)
-    {
+    _onFailed(event) {
         // @if DEBUG
         Debug.error(`Unable to load file: ${this.url} - reason: ${event.error}`);
         // @endif
@@ -215,16 +201,13 @@ export default class LoaderItem extends LoadQueue
      * Retry the current load
      * @method  retry
      */
-    retry()
-    {
+    retry() {
         this.retries++;
         
-        if (this.retries > LoaderItem.MAX_RETRIES)
-        {
+        if (this.retries > LoaderItem.MAX_RETRIES) {
             this.onComplete(this, null);
         }
-        else
-        {
+        else {
             this._internalStart();
         }
     }
@@ -235,11 +218,9 @@ export default class LoaderItem extends LoadQueue
      * @method _onCompleted
      * @param {object} ev The load event
      */
-    _onCompleted(ev)
-    {
+    _onCompleted(ev) {
         // @if DEBUG
-        if (LoaderItem.verbose)
-        {
+        if (LoaderItem.verbose) {
             Debug.log(`File loaded successfully from ${this.url}`);
         }
         // @endif

@@ -3,16 +3,13 @@
  * @class ArrayUtils
  * @namespace springroll
  */
-export default class ArrayUtils
-{
+export default class ArrayUtils {
     /**
      * Shuffles the array
      * @method shuffle
      */
-    static shuffle(arr)
-    {
-        for (let j, x, i = arr.length; i; )
-        {
+    static shuffle(arr) {
+        for (let j, x, i = arr.length; i; ) {
             j = Math.floor(Math.random() * i);
             x = arr[--i];
             arr[i] = arr[j];
@@ -27,8 +24,7 @@ export default class ArrayUtils
      * @param {Array} array The array
      * @return {*} The random item
      */
-    static random(arr)
-    {
+    static random(arr) {
         return arr[Math.floor(Math.random() * arr.length)];
     }
 
@@ -38,8 +34,7 @@ export default class ArrayUtils
      * @param {Array} array The array
      * @return {*} The last item
      */
-    static list(arr)
-    {
+    static list(arr) {
         return arr[arr.length - 1];
     }
 
@@ -51,21 +46,16 @@ export default class ArrayUtils
      * @param {*} arguments A list of arrays or individual items.
      * @return {Array} This array.
      */
-    static append(arr, ...additional)
-    {
-        for (let i = 1, length = additional.length; i < length; ++i)
-        {
+    static append(arr, ...additional) {
+        for (let i = 1, length = additional.length; i < length; ++i) {
             let add = additional[i];
 
-            if (Array.isArray(add))
-            {
-                for (let j = 0, jLength = add.length; j < jLength; ++j)
-                {
+            if (Array.isArray(add)) {
+                for (let j = 0, jLength = add.length; j < jLength; ++j) {
                     arr.push(add[j]);
                 }
             }
-            else
-            {
+            else {
                 arr.push(add);
             }
         }

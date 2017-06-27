@@ -7,16 +7,14 @@ import SpriteClipInstance from '../SpriteClipInstance';
  * @namespace springroll
  * @requires  Core, PIXI Display, Animation
  */
-(function()
-{
+(function() {
     /**
      * @class Application
      */
     const plugin = new ApplicationPlugin('display/animator', ['animator', 'asset-manager']);
 
     // Init the animator
-    plugin.setup = function()
-    {
+    plugin.setup = function() {
         this.assetManager.register(SpriteClipTask, 80);
         this.animator.register(SpriteClipInstance, 10);
     };
