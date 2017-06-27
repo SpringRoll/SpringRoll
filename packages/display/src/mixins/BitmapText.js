@@ -24,21 +24,15 @@ PIXI.extras.BitmapText.prototype.updateText = function()
         switch (this.align)
         {
             case 'center':
-            {
                 this.pivot.x = this.textWidth / 2;
                 break;
-            }
             case 'right':
-            {
                 this.pivot.x = this.textWidth;
                 break;
-            }
             default:
-            {
                 //left or unspecified
                 this.pivot.x = 0;
                 break;
-            } 
         }
     }
 };

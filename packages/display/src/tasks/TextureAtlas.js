@@ -26,7 +26,7 @@ export default class TextureAtlas
 
         //TexturePacker outputs frames with (not) swapped width & height when rotated, so we need to
         //swap them ourselves - Flash exported textures do not require width & height to swap
-        var swapFrameSize = data.meta && data.meta.app === "http://www.codeandweb.com/texturepacker";
+        var swapFrameSize = data.meta && data.meta.app === 'http://www.codeandweb.com/texturepacker';
 
         var frames = data.frames;
 
@@ -35,7 +35,7 @@ export default class TextureAtlas
         {
             var frame = frames[name];
 
-            var index = name.lastIndexOf(".");
+            var index = name.lastIndexOf('.');
             
             //strip off any ".png" or ".jpg" at the end
             if (index > 0)
@@ -43,7 +43,7 @@ export default class TextureAtlas
                 name = name.substring(0, index);
             }
 
-            index = name.lastIndexOf("/");
+            index = name.lastIndexOf('/');
 
             //strip off any folder structure included in the name
             if (index >= 0)
@@ -155,11 +155,11 @@ export default class TextureAtlas
 
         for (i = 1; i < maxDigits; ++i)
         {
-            var s = "";
+            var s = '';
             c = 1;
             for (var j = 0; j < i; ++j)
             {
-                s += "0";
+                s += '0';
                 c *= 10;
             }
             zeros.unshift(s);
@@ -191,7 +191,7 @@ export default class TextureAtlas
             //If the texture doesn't exist, use the previous texture - this should allow us to
             //use fewer textures that are in fact the same, if those textures were removed before
             //making the spritesheet
-            var texName = name.replace("#", num);
+            var texName = name.replace('#', num);
             var tex = this.frames[texName];
 
             if (tex)

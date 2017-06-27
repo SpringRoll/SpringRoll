@@ -77,7 +77,7 @@ export default class PersistentStorage
                 }
                 else
                 {
-                    expires = `; expires=Thu, 01 Jan 1970 00:00:00 GMT`; //save cookie in the past for immediate removal
+                    expires = '; expires=Thu, 01 Jan 1970 00:00:00 GMT'; //save cookie in the past for immediate removal
                 }
             }
             else

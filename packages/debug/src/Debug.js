@@ -21,7 +21,10 @@ export default class Debug
     static connect(host)
     {
         //Make sure WebSocket exists without prefixes for us
-        if (!('WebSocket' in window) && !('MozWebSocket' in window)) return false;
+        if (!('WebSocket' in window) && !('MozWebSocket' in window)) 
+        {
+            return false;
+        }
 
         window.WebSocket = WebSocket || MozWebSocket;
 
@@ -147,7 +150,7 @@ export default class Debug
         // references with simplified objects
         for (i = 0, length = message.length; i < length; i++)
         {
-            if (typeof message[i] === "object")
+            if (typeof message[i] === 'object')
             {
                 try
                 {
@@ -167,7 +170,7 @@ export default class Debug
         }
 
         //split stack lines
-        stack = stack ? stack.split("\n") : [];
+        stack = stack ? stack.split('\n') : [];
         //go through lines, figuring out what to strip out
         //and standardizing the format for the rest
         var splitIndex, functionSection, file, lineLocation, functionName, lineSearch,
@@ -193,7 +196,7 @@ export default class Debug
             }
             //strip out any actual errors in the stack trace, since that is the message
             //also the 'error' line from our new Error().
-            if (line === "Error" || line.indexOf("Error:") > -1)
+            if (line === 'Error' || line.indexOf('Error:') > -1)
             {
                 lastToStrip = i;
                 continue;
@@ -201,16 +204,16 @@ export default class Debug
 
             // FF/Safari style:
             // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error/Stack
-            if (line.indexOf("@") > -1)
+            if (line.indexOf('@') > -1)
             {
-                splitIndex = line.indexOf("@");
+                splitIndex = line.indexOf('@');
                 functionSection = line.substring(0, splitIndex);
 
                 //if we should strip this line out of the stack, we should stop parsing the stack
                 //early
-                if (functionSection.indexOf(".") !== -1)
+                if (functionSection.indexOf('.') !== -1)
                 {
-                    functionName = functionSection.substring(functionSection.lastIndexOf(".") + 1);
+                    functionName = functionSection.substring(functionSection.lastIndexOf('.') + 1);
                 }
                 else
                 {
@@ -231,16 +234,16 @@ export default class Debug
             //https://msdn.microsoft.com/en-us/library/windows/apps/hh699850.aspx
             else
             {
-                splitIndex = line.indexOf("(");
+                splitIndex = line.indexOf('(');
 
                 //skip the "at " at the beginning of the line and the space at the end
                 functionSection = line.substring(3, splitIndex - 1);
 
                 //if we should strip this line out of the stack, we should stop parsing the stack
                 //early
-                if (functionSection.indexOf(".") !== -1)
+                if (functionSection.indexOf('.') !== -1)
                 {
-                    functionName = functionSection.substring(functionSection.lastIndexOf(".") + 1);
+                    functionName = functionSection.substring(functionSection.lastIndexOf('.') + 1);
                 }
                 else
                 {
@@ -265,9 +268,9 @@ export default class Debug
             if (!lineSearch)
             {
                 stack[i] = {
-                    "function": "",
-                    "file": "",
-                    lineLocation: ""
+                    'function': '',
+                    'file': '',
+                    lineLocation: ''
                 };
                 continue;
             }
@@ -281,7 +284,7 @@ export default class Debug
             shouldStrip = false;
 
             stack[i] = {
-                "function": functionSection || "<anonymous>",
+                'function': functionSection || '<anonymous>',
                 file: file,
                 lineLocation: lineLocation
             };
@@ -296,12 +299,12 @@ export default class Debug
         if (Debug._socketQueue)
         {
             Debug._socketQueue.push(
-            {
-                message: message,
-                level: level.name,
-                stack: stack,
-                time: Date.now()
-            });
+                {
+                    message: message,
+                    level: level.name,
+                    stack: stack,
+                    time: Date.now()
+                });
         }
         else // send the log immediately
         {
@@ -318,7 +321,7 @@ export default class Debug
             }
             catch (e)
             {
-                Debug._socketMessage.message = ["[circular object]"];
+                Debug._socketMessage.message = ['[circular object]'];
                 send = JSON.stringify(Debug._socketMessage);
             }
 
@@ -361,65 +364,57 @@ export default class Debug
             if (value instanceof Window ||
                 value instanceof Document ||
                 value instanceof HTMLElement ||
-                key === "document" ||
-                key === "window" ||
-                key === "ownerDocument" ||
-                key === "view" ||
-                key === "target" ||
-                key === "currentTarget" ||
-                key === "originalTarget" ||
-                key === "explicitOriginalTarget" ||
-                key === "rangeParent" ||
-                key === "srcElement" ||
-                key === "relatedTarget" ||
-                key === "fromElement" ||
-                key === "toElement")
+                key === 'document' ||
+                key === 'window' ||
+                key === 'ownerDocument' ||
+                key === 'view' ||
+                key === 'target' ||
+                key === 'currentTarget' ||
+                key === 'originalTarget' ||
+                key === 'explicitOriginalTarget' ||
+                key === 'rangeParent' ||
+                key === 'srcElement' ||
+                key === 'relatedTarget' ||
+                key === 'fromElement' ||
+                key === 'toElement')
             {
                 if (value instanceof HTMLElement)
                 {
                     var elementString;
-                    elementString = "<" + value.tagName;
+                    elementString = '<' + value.tagName;
 
                     if (value.id)
                     {
-                        elementString += " id='" + value.id + "'";
+                        elementString += ' id=\'' + value.id + '\'';
                     }
                     if (value.className)
                     {
-                        elementString += " class='" + value.className + "'";
+                        elementString += ' class=\'' + value.className + '\'';
                     }
 
-                    result[key] = elementString + " />";
+                    result[key] = elementString + ' />';
                 }
                 continue;
             }
 
             switch (typeof value)
             {
-                case "object":
-                {
+                case 'object':
                     result[key] = (depth > maxDepth || Debug._circularArray.indexOf(value) > -1) ?
-                    String(value) : Debug._removeCircular(value, maxDepth, depth + 1);
+                        String(value) : Debug._removeCircular(value, maxDepth, depth + 1);
                     break;
-                }
-                case "function":
-                {
-                    result[key] = "[function]";
+                case 'function':
+                    result[key] = '[function]';
                     break;
-                }
-                case "string":
-                case "number":
-                case "boolean":
-                case "bool":
-                {
+                case 'string':
+                case 'number':
+                case 'boolean':
+                case 'bool':
                     result[key] = value;
                     break;
-                }
                 default:
-                {
                     result[key] = value;
                     break;
-                }
             }
         }
         return result;
@@ -710,7 +705,7 @@ export default class Debug
 
         if (Debug._useSocket)
         {
-            Debug._remoteLog("", "clear");
+            Debug._remoteLog('', 'clear');
         }
 
         if (Debug._hasConsole)
@@ -720,7 +715,7 @@ export default class Debug
 
         if (Debug.output)
         {
-            Debug.output.innerHTML = "";
+            Debug.output.innerHTML = '';
         }
         
         return Debug;
@@ -770,7 +765,7 @@ export default class Debug
      * @param {*} params Optional parameters to log
      * @return {Debug} The instance of debug for chaining
      */
-    static group(params)
+    static group(...params)
     {
         if (!Debug.enabled)
         {
@@ -778,11 +773,11 @@ export default class Debug
         }
         if (Debug._useSocket)
         {
-            Debug._remoteLog(Array.prototype.slice.call(arguments), "group");
+            Debug._remoteLog(params, 'group');
         }
         else if (Debug._hasConsole && console.group)
         {
-            console.group.apply(console, arguments);
+            console.group.apply(console, params);
         }
 
         return Debug;
@@ -797,7 +792,7 @@ export default class Debug
      * @param {*} params Optional parameters to log
      * @return {Debug} The instance of debug for chaining
      */
-    static groupCollapsed(params)
+    static groupCollapsed(...params)
     {
         if (!Debug.enabled)
         {
@@ -806,11 +801,11 @@ export default class Debug
 
         if (Debug._useSocket)
         {
-            Debug._remoteLog(Array.prototype.slice.call(arguments), "groupCollapsed");
+            Debug._remoteLog(params, 'groupCollapsed');
         }
         else if (Debug._hasConsole && console.groupCollapsed)
         {
-            console.groupCollapsed.apply(console, arguments);
+            console.groupCollapsed.apply(console, params);
         }
         return Debug;
     }
@@ -833,7 +828,7 @@ export default class Debug
 
         if (Debug._useSocket)
         {
-            Debug._remoteLog(Array.prototype.slice.call(arguments), "groupEnd");
+            Debug._remoteLog(Array.prototype.slice.call(arguments), 'groupEnd');
         }
         else if (Debug._hasConsole && console.groupEnd)
         {
@@ -861,7 +856,7 @@ export default class Debug
             if (arguments.length > 1)
             {
                 var params = Array.prototype.slice.call(arguments);
-                if (typeof params[0] === "object")
+                if (typeof params[0] === 'object')
                 {
                     params.unshift(colorString);
                     params.unshift('%c%o');
@@ -874,7 +869,7 @@ export default class Debug
                 }
                 return Debug.log.apply(Debug, params);
             }
-            if (typeof arguments[0] === "object")
+            if (typeof arguments[0] === 'object')
             {
                 return Debug.log('%c%o', colorString, message);
             }
@@ -889,7 +884,7 @@ export default class Debug
  * @private
  * @property {Boolean} _hasConsole
  */
-Debug._hasConsole = (typeof console !== "undefined");
+Debug._hasConsole = (typeof console !== 'undefined');
 
 /**
  * If the console supports coloring
@@ -906,7 +901,7 @@ if (Debug._hasConsole)
     try
     {
         // detect IE9's issue with apply on console functions
-        console.assert.apply(console, [true, "IE9 test"]);
+        console.assert.apply(console, [true, 'IE9 test']);
     }
     catch (error)
     {

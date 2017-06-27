@@ -136,8 +136,14 @@ export default {
         }
         else
         {
-            if (position.x !== undefined) object.position.x = position.x;
-            if (position.y !== undefined) object.position.y = position.y;
+            if (position.x !== undefined) 
+            {
+                object.position.x = position.x;
+            }
+            if (position.y !== undefined) 
+            {
+                object.position.y = position.y;
+            }
         }
         return object;
     },

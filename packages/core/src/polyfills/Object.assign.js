@@ -1,9 +1,10 @@
-(function() {
+(function() 
+{
 
     // From: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/assign
     if (typeof Object.assign !== 'function')
     {
-        Object.assign = function(target, varArgs) // .length of function is 2
+        Object.assign = function(target, ...varArgs) // .length of function is 2
         {
             if (target === null) // TypeError if undefined or null
             {
@@ -12,9 +13,9 @@
 
             const to = Object(target);
 
-            for (let index = 1; index < arguments.length; index++)
+            for (let index = 0; index < varArgs.length; index++)
             {
-                let nextSource = arguments[index];
+                let nextSource = varArgs[index];
 
                 if (nextSource !== null) // Skip over if undefined or null
                 {

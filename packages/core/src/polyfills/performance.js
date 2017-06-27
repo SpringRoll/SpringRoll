@@ -1,11 +1,12 @@
-(function(){
+(function()
+{
 
-    if ("performance" in window === false)
+    if ('performance' in window === false)
     {
         window.performance = {};
     }
 
-    if ("now" in window.performance === false)
+    if ('now' in window.performance === false)
     {
         var nowOffset = Date.now();
 

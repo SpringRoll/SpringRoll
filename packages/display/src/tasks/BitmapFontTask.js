@@ -51,7 +51,8 @@ export default class BitmapFontTask extends TextureTask
      */
     start(callback)
     {
-        this.loadImage({ _font: this.font }, (texture, results) => {
+        this.loadImage({ _font: this.font }, (texture, results) => 
+        {
 
             var data = results._font;
 
@@ -106,7 +107,9 @@ export default class BitmapFontTask extends TextureTask
             // I'm leaving this as a temporary fix so we can test the bitmap fonts in v3
             // but it's very likely to change
             if (this.cache && PIXI.BitmapText.fonts)
+            {
                 PIXI.BitmapText.fonts[font.font] = font;
+            }
 
             //add a cleanup function
             font.destroy = function()

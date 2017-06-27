@@ -14,7 +14,7 @@
             "./packages/display-ui/src/",
             "./packages/hints/src/",
             "./packages/languages/src/",
-            "./packages/loaders/src/",
+            "./packages/loader/src/",
             "./packages/sound/src/",
             "./packages/states/src/",
             "./packages/ui/src/",

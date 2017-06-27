@@ -35,12 +35,12 @@ export default function include(namespaceString, required)
                 return null;
             }
             // @if DEBUG
-            throw "Unable to include '" + namespaceString + "' because the code is not included or the class needs to loaded sooner.";
+            throw 'Unable to include \'' + namespaceString + '\' because the code is not included or the class needs to loaded sooner.';
             // @endif
             
             // @if RELEASE
             // eslint-disable-next-line no-unreachable
-            throw "Unable to include '" + namespaceString + "'";
+            throw 'Unable to include \'' + namespaceString + '\'';
             // @endif
         }
         parent = parent[currentPart];

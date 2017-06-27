@@ -93,22 +93,22 @@ export default class ApplicationOptions extends PropertyEmitter
             return output;
         }
 
-        let vars = href.substr(href.indexOf("?") + 1);
+        let vars = href.substr(href.indexOf('?') + 1);
         let pound = vars.indexOf('#');
         vars = pound < 0 ? vars : vars.substring(0, pound);
-        let splitFlashVars = vars.split("&");
+        let splitFlashVars = vars.split('&');
         let myVar;
 
         for (let i = 0, len = splitFlashVars.length; i < len; i++)
         {
-            myVar = splitFlashVars[i].split("=");
+            myVar = splitFlashVars[i].split('=');
             let value = myVar[1];
 
-            if (value === "true" || value === undefined)
+            if (value === 'true' || value === undefined)
             {
                 value = true;
             }
-            else if (value === "false")
+            else if (value === 'false')
             {
                 value = false;
             }
@@ -126,9 +126,9 @@ export default class ApplicationOptions extends PropertyEmitter
     {
         let prop = this._properties[name];
 
-        if (prop && prop.value && typeof prop.value === "string")
+        if (prop && prop.value && typeof prop.value === 'string')
         {
-            prop.value = /^[\#\.]/.test(prop.value) ?
+            prop.value = /^[#.]/.test(prop.value) ?
                 document.querySelector(prop.value):
                 document.getElementById(prop.value);
         }
@@ -148,12 +148,12 @@ export default class ApplicationOptions extends PropertyEmitter
         if (prop === undefined)
         {
             // @if DEBUG
-            throw "Unable to override a property that doesn't exist '" + name + "'";
+            throw 'Unable to override a property that doesn\'t exist \'' + name + '\'';
             // @endif
 
             // @if RELEASE
             // eslint-disable-next-line no-unreachable
-            throw "Invalid override " + name;
+            throw 'Invalid override ' + name;
             // @endif
         }
         prop.setValue(value);

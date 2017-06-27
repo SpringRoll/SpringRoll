@@ -7,11 +7,10 @@ import DelayedCall from './DelayedCall';
  * @namespace springroll
  * @extends springroll.EventEmitter
  * @param {Number} fps - Frames per second
- * @param {Boolean} raf - `true` to use `requestAnimationFrame`, `false` for `setTimeout`
  */
 export default class Ticker extends EventEmitter
 {
-    constructor(fps, raf)
+    constructor(fps)
     {
         super();
 
@@ -67,7 +66,7 @@ export default class Ticker extends EventEmitter
      */
     set fps(fps)
     {
-        if (typeof fps === "number")
+        if (typeof fps === 'number')
         {
             this._msPerFrame = (1000 / fps) | 0;
             this._fps = fps;

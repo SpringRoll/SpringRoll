@@ -68,7 +68,8 @@ export default class TextureAtlasTask extends TextureTask
     {
         assets._atlas = this.atlas;
 
-        this.loadImage(assets, (texture, results) => {
+        this.loadImage(assets, (texture, results) => 
+        {
             var data = results._atlas;
             var atlas = new TextureAtlas(
                 texture,

@@ -52,13 +52,6 @@ export default class AssetManager
          */
         this.sizes = new AssetSizes();
 
-        /**
-         * The default asset type
-         * @property {String} defaultType
-         * @readOnly
-         */
-        this.defaultType = null;
-
         // Add the default built-in sizes for "half" and "full"
         this.sizes.define('half', 400, 0.5, ['full']);
         this.sizes.define('full', 10000, 1, ['half']);
@@ -116,7 +109,6 @@ export default class AssetManager
      * @param {Boolean} [options.autoStart=true] If we should start running right away
      * @param {Boolean} [options.startAll=true] If we should run all the tasks at once, in parallel
      * @param {Boolean} [options.cacheAll=false] If we should cache all files
-     * @param {String} [options.type] The type of assets to load, defaults to AssetManager.prototype.defaultType
      * @return {springroll.AssetLoad} The reference to the current load
      */
     load(assets, options)
@@ -129,8 +121,7 @@ export default class AssetManager
             taskDone: null,
             cacheAll: false,
             startAll: true,
-            autoStart: true,
-            type: this.defaultType
+            autoStart: true
         }, options);
 
         var load = this.getLoad();

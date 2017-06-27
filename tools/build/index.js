@@ -19,7 +19,6 @@ if (!process.stderr.isTTY) chalk.enabled = false;
 
 const production = process.env.NODE_ENV === 'production';
 const pkg = require(path.resolve('package'));
-const eslintConfig = require('./eslintConfig');
 const name = path.basename(pkg.name);
 const banner = `/*! ${pkg.name} - v${pkg.version} */\n`;
 const format = 'cjs';
@@ -110,10 +109,9 @@ function devWatch() {
         dest: `lib/${name}.js`,
         plugins: [
             resolve(),
-            eslint(Object.assign({
+            eslint({
                 include: 'src/**/*.js',
-                fix: true
-            }, eslintConfig)),
+            }),
             preprocess({
                 context: {
                     DEBUG: true,
@@ -151,10 +149,9 @@ function dev() {
                     VERSION: pkg.version
                 }
             }),
-            eslint(Object.assign({
-                include: 'src/**/*.js',
-                fix: true
-            }, eslintConfig)),
+            eslint({
+                include: 'src/**/*.js'
+            }),
             buble(bubleConfig),
             sass({
                 output: `lib/${name}.css`

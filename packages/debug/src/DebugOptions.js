@@ -3,7 +3,8 @@
  * nicely in the console.
  * @class DebugOptions
  */
-export default class DebugOptions {
+export default class DebugOptions 
+{
 
     /**
      * Define a int query parameter.
@@ -71,11 +72,11 @@ export default class DebugOptions {
         DebugOptions._maxLabel = Math.max(label.length, DebugOptions._maxLabel);
         DebugOptions._maxType = Math.max(type.length, DebugOptions._maxType);
         DebugOptions._options.push(
-        {
-            label: label,
-            type: type,
-            desc: desc
-        });
+            {
+                label: label,
+                type: type,
+                desc: desc
+            });
         return DebugOptions;
     }
 
@@ -103,7 +104,7 @@ export default class DebugOptions {
         // and type lengths
         DebugOptions._maxLabel += DebugOptions.COLUMN_BUFFER;
         DebugOptions._maxType += DebugOptions.COLUMN_BUFFER;
-        var newLineSpacer = DebugOptions._spacer(DebugOptions._maxLabel + _maxType + DebugOptions.COLUMN_BUFFER);
+        var newLineSpacer = DebugOptions._spacer(DebugOptions._maxLabel + DebugOptions._maxType + DebugOptions.COLUMN_BUFFER);
 
         var option;
         var len = DebugOptions._options.length;

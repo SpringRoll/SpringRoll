@@ -1,7 +1,6 @@
-import './LoaderPlugin';
-import './ConfigPlugin';
+import './plugins';
 
-export * from './tasks/index';
+export * from './tasks';
 export {default as Loader} from './Loader';
 export {default as LoaderResult} from './LoaderResult';
 export {default as LoaderItem} from './LoaderItem';

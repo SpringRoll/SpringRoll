@@ -83,7 +83,9 @@ PIXI.Sector.prototype.clone = function()
 PIXI.Sector.prototype.contains = function(x, y)
 {
     if (this.radius <= 0)
+    {
         return false;
+    }
 
     var dx = (this.x - x),
         dy = (this.y - y),
@@ -92,10 +94,16 @@ PIXI.Sector.prototype.contains = function(x, y)
     dx *= dx;
     dy *= dy;
 
-    if (dx + dy > r2) return false;
+    if (dx + dy > r2) 
+    {
+        return false;
+    }
 
     var angle = Math.atan2(y - this.y, x - this.x) * PIXI.RAD_TO_DEG;
     //make the angle in the same space as the sector
-    while (angle < this.startAngle) angle += 360;
+    while (angle < this.startAngle) 
+    {
+        angle += 360;
+    }
     return angle >= this.startAngle && angle <= this.endAngle;
 };

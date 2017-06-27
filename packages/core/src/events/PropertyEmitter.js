@@ -90,10 +90,10 @@ class PropertyEmitter extends EventEmitter
         props[name] = new Property(name, value, readOnly);
 
         Object.defineProperty(this, name,
-        {
-            get: this._get.bind(this, name),
-            set: this._set.bind(this, name)
-        });
+            {
+                get: this._get.bind(this, name),
+                set: this._set.bind(this, name)
+            });
         return this;
     }
 
@@ -110,7 +110,7 @@ class PropertyEmitter extends EventEmitter
         if (prop === undefined)
         {
             // @if DEBUG
-            throw `Property '${name}' does not exist, you must add(name, value) first before adding responder"`
+            throw `Property '${name}' does not exist, you must add(name, value) first before adding responder"`;
             // @endif
             // @if RELEASE
             // eslint-disable-next-line no-unreachable

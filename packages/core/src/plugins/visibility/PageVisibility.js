@@ -72,7 +72,8 @@ export default class PageVisibility
          * @property {Function} _onToggle
          * @private
          */
-        this._onToggle = () => {
+        this._onToggle = () => 
+        {
 
             if (document.hidden || document.webkitHidden || document.msHidden || document.mozHidden)
             {

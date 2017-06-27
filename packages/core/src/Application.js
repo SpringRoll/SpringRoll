@@ -29,7 +29,7 @@ export default class Application extends EventEmitter
 
         if (Application.instance)
         {
-            throw `Only one Application can be opened at a time`;
+            throw 'Only one Application can be opened at a time';
         }
         Application.instance = this;
 
@@ -70,7 +70,8 @@ export default class Application extends EventEmitter
         this._plugins = Application.sortPlugins();
 
         // Call any global libraries to initialize
-        this._plugins.forEach(plugin => {
+        this._plugins.forEach(plugin => 
+        {
             plugin.setup.call(this);
         });
 
@@ -123,7 +124,8 @@ export default class Application extends EventEmitter
 
         const tasks = [];
 
-        this._plugins.forEach(plugin => {
+        this._plugins.forEach(plugin => 
+        {
             if (plugin.preload)
             {
                 tasks.push(plugin.preload.bind(this));
@@ -256,7 +258,8 @@ export default class Application extends EventEmitter
         // Destroy in the reverse priority order
         const plugins = this._plugins.slice().reverse();
 
-        plugins.forEach(plugin => {
+        plugins.forEach(plugin => 
+        {
             plugin.teardown.call(this);
         });
 
@@ -292,7 +295,7 @@ export default class Application extends EventEmitter
 
         if (!plugin || !plugin.name)
         {
-            throw `Plugin does not contain a valid "name"`;
+            throw 'Plugin does not contain a valid "name"';
         }
         else if (plugins[plugin.name])
         {
@@ -318,7 +321,8 @@ export default class Application extends EventEmitter
         sequencify(plugins, Object.keys(plugins), results);
 
         // Resort the plugins by results
-        results.forEach((name, i) => {
+        results.forEach((name, i) => 
+        {
             results[i] = plugins[name];
         });
 

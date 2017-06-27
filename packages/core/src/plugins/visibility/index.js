@@ -18,11 +18,13 @@ import PageVisibility from './PageVisibility';
          * @private
          */
         const visibility = this._visibility = new PageVisibility(
-            () => {
+            () => 
+            {
                 // Private listener for when the page is shown.
                 this.autoPaused = false;
             },
-            () => {
+            () => 
+            {
                 // Private listener for when the page is hidden.
                 this.autoPaused = true;
             }
@@ -34,10 +36,12 @@ import PageVisibility from './PageVisibility';
          * @default true
          */
         this.options.add('autoPause', true)
-            .on('autoPause', value => {
+            .on('autoPause', value => 
+            {
                 visibility.enabled = value;
             })
-            .respond('autoPause', () => {
+            .respond('autoPause', () => 
+            {
                 return visibility.enabled;
             });
 
@@ -48,16 +52,16 @@ import PageVisibility from './PageVisibility';
          * @protected
          */
         Object.defineProperty(this, 'autoPaused',
-        {
-            set(paused)
             {
-                // check if app is manually paused
-                if (!this.paused)
+                set(paused)
                 {
-                    this.internalPaused(paused);
+                // check if app is manually paused
+                    if (!this.paused)
+                    {
+                        this.internalPaused(paused);
+                    }
                 }
-            }
-        });
+            });
     };
 
     // Destroy the animator

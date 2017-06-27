@@ -58,7 +58,7 @@ export default class TextureTask extends Task
      */
     static test(asset)
     {
-        return asset.type === "pixi" && (!!asset.image || (!!asset.alpha && !!asset.color));
+        return asset.type === 'pixi' && (!!asset.image || (!!asset.alpha && !!asset.color));
     }
 
     /**
@@ -93,7 +93,8 @@ export default class TextureTask extends Task
         }
 
         // Do the load
-        this.load(assets, results => {
+        this.load(assets, results => 
+        {
 
             var image;
             if (results._image)

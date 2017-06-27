@@ -51,14 +51,16 @@ export default class ApplicationPlugin
          * is bound to the Application. This should be overridden.
          * @method setup
          */
-        this.setup = () => {};
+        this.setup = () => 
+        {};
 
         /**
          * When the application is being destroyed. This function 
          * is bound to the Application. This should be overridden.
          * @method teardown
          */
-        this.teardown = () => {};
+        this.teardown = () => 
+        {};
 
         /**
          * The function to call right before the application is initailized. 

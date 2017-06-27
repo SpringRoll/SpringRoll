@@ -1,5 +1,5 @@
 import Task from './tasks/Task';
-import {EventDispatcher} from '@springroll/core';
+import {EventEmitter} from '@springroll/core';
 
 // @if DEBUG
 import {Debug} from '@springroll/debug';
@@ -9,11 +9,11 @@ import {Debug} from '@springroll/debug';
  * Class that represents a single multi load
  * @class AssetLoad
  * @private
- * @extends springroll.EventDispatcher
+ * @extends springroll.EventEmitter
  * @constructor
  * @param {springroll.AssetManager} manager Reference to the manager
  */
-export default class AssetLoad extends EventDispatcher
+export default class AssetLoad extends EventEmitter
 {
     constructor(manager)
     {
@@ -159,7 +159,7 @@ export default class AssetLoad extends EventDispatcher
     start()
     {
         // Empty load percentage
-        this.trigger('progress', 0);
+        this.emit('progress', 0);
 
         // Keep track if we're currently running
         this.running = true;
@@ -472,7 +472,7 @@ export default class AssetLoad extends EventDispatcher
         }
 
         // Asset is finished
-        this.trigger('taskDone', result, task.original, assets);
+        this.emit('taskDone', result, task.original, assets);
 
         task.destroy();
 
@@ -480,7 +480,7 @@ export default class AssetLoad extends EventDispatcher
         var mode = this.addTasks(assets);
 
         // Update the progress total
-        this.trigger('progress', ++this.numLoaded / this.total);
+        this.emit('progress', ++this.numLoaded / this.total);
 
         // Check to make sure if we're in
         // map mode, we keep it that way
@@ -505,7 +505,7 @@ export default class AssetLoad extends EventDispatcher
         else
         {
             // We're finished!
-            this.trigger('complete', this.results);
+            this.emit('complete', this.results);
         }
     }
 

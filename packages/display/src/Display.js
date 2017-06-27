@@ -305,7 +305,7 @@ export default class Display extends EventEmitter
 
         if (oldVisible === value)
         {
-            return
+            return;
         }
         /**
          * If the display becomes visible

@@ -26,12 +26,14 @@ import Ticker from './Ticker';
          */
         const ticker = this.ticker = new Ticker(options.fps, options.raf);
 
-        this.options.on('fps', fps => {
+        this.options.on('fps', fps => 
+        {
             ticker.fps = fps;
         });
 
         // Fire an update event on the application
-        ticker.on('update', (elapsed, time) => {
+        ticker.on('update', (elapsed, time) => 
+        {
             
             /**
              * Fired when an update is called, every frame update
@@ -43,7 +45,8 @@ import Ticker from './Ticker';
         });
 
         // Handle the pause state
-        this.on('pause', paused => {
+        this.on('pause', paused => 
+        {
             if (paused)
             {
                 ticker.stop();

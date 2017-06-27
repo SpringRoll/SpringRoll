@@ -118,7 +118,9 @@ PIXI.Point.prototype.distanceSq = function(other)
 PIXI.Point.localToGlobal = function(displayObject, localX, localY, outPoint)
 {
     if (!outPoint)
+    {
         outPoint = new PIXI.Point();
+    }
     outPoint.x = localX;
     outPoint.y = localY;
     return displayObject.toGlobal(outPoint, outPoint);
@@ -127,7 +129,9 @@ PIXI.Point.localToGlobal = function(displayObject, localX, localY, outPoint)
 PIXI.Point.globalToLocal = function(displayObject, globalX, globalY, outPoint)
 {
     if (!outPoint)
+    {
         outPoint = new PIXI.Point();
+    }
     outPoint.x = globalX;
     outPoint.y = globalY;
     return displayObject.toLocal(outPoint, null, outPoint);
@@ -136,7 +140,9 @@ PIXI.Point.globalToLocal = function(displayObject, globalX, globalY, outPoint)
 PIXI.Point.localToLocal = function(sourceDisplayObject, targetDisplayObject, x, y, outPoint)
 {
     if (!outPoint)
+    {
         outPoint = new PIXI.Point();
+    }
     outPoint.x = x;
     outPoint.y = y;
     return targetDisplayObject.toLocal(outPoint, sourceDisplayObject, outPoint);
@@ -144,5 +150,5 @@ PIXI.Point.localToLocal = function(sourceDisplayObject, targetDisplayObject, x, 
 
 PIXI.Point.prototype.toString = function()
 {
-    return "(" + this.x + ", " + this.y + ")";
+    return '(' + this.x + ', ' + this.y + ')';
 };

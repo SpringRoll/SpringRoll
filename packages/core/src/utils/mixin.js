@@ -27,7 +27,7 @@ export default function mixin(target, superClass)
     // @endif
 
     // Include using string
-    if (typeof superClass === "string")
+    if (typeof superClass === 'string')
     {
         superClass = window.include(superClass);
     }

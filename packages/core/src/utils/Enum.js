@@ -91,11 +91,11 @@ export default class Enum
          * @private
          */
         Object.defineProperty(this, '_byValue',
-        {
-            enumerable: false,
-            writable: false,
-            value: []
-        });
+            {
+                enumerable: false,
+                writable: false,
+                value: []
+            });
 
         /**
          * The values that this Enum was initialized with. We save this so
@@ -104,11 +104,11 @@ export default class Enum
          * @property {Array} rawEnumValues
          */
         Object.defineProperty(this, 'rawEnumValues',
-        {
-            enumerable: false,
-            writable: false,
-            value: args
-        });
+            {
+                enumerable: false,
+                writable: false,
+                value: args
+            });
 
         let counter = 0;
         let item;
@@ -118,7 +118,7 @@ export default class Enum
         // Create an EnumValue for each argument provided
         for (let i = 0, len = args.length; i < len; ++i)
         {
-            if (typeof args[i] === "string")
+            if (typeof args[i] === 'string')
             {
                 name = args[i];
             }
@@ -135,10 +135,11 @@ export default class Enum
                 // @if DEBUG
                 throw `Error creating enum value ${name}: ${value} - an enum value already exists with that name.`;
                 // @endif
+                // eslint-disable-next-line no-unreachable
                 continue;
             }
 
-            if (typeof args[i] === "string")
+            if (typeof args[i] === 'string')
             {
                 item = new EnumValue(name, counter, name);
             }
@@ -172,11 +173,11 @@ export default class Enum
          * @property {int} length
          */
         Object.defineProperty(this, 'length',
-        {
-            enumerable: false,
-            writable: false,
-            value: args.length
-        });
+            {
+                enumerable: false,
+                writable: false,
+                value: args.length
+            });
 
         /**
          * Retrieves the next EnumValue in the Enum (loops to first value at end).
@@ -185,20 +186,20 @@ export default class Enum
          * @return {EnumValue}
          */
         Object.defineProperty(this, 'next',
-        {
-            enumerable: false,
-            writable: false,
-            // {EnumValue} input
-            value: function(input)
             {
-                var nextInt = input.asInt + 1;
-                if (nextInt >= counter)
+                enumerable: false,
+                writable: false,
+                // {EnumValue} input
+                value: function(input)
                 {
-                    return this.first;
+                    var nextInt = input.asInt + 1;
+                    if (nextInt >= counter)
+                    {
+                        return this.first;
+                    }
+                    return this.valueFromInt(nextInt);
                 }
-                return this.valueFromInt(nextInt);
-            }
-        });
+            });
 
         /**
          * Retrieves the first EnumValue in the Enum
@@ -206,11 +207,11 @@ export default class Enum
          * @return {EnumValue}
          */
         Object.defineProperty(this, 'first',
-        {
-            enumerable: false,
-            writable: false,
-            value: this.valueFromInt(args[0].value || 0)
-        });
+            {
+                enumerable: false,
+                writable: false,
+                value: this.valueFromInt(args[0].value || 0)
+            });
 
         /**
          * Retrieves the last EnumValue in the Enum
@@ -218,11 +219,11 @@ export default class Enum
          * @return {EnumValue}
          */
         Object.defineProperty(this, 'last',
-        {
-            enumerable: false,
-            writable: false,
-            value: this.valueFromInt(counter - 1)
-        });
+            {
+                enumerable: false,
+                writable: false,
+                value: this.valueFromInt(counter - 1)
+            });
     }
 }
 
@@ -234,16 +235,16 @@ export default class Enum
  * @return {EnumValue} The EnumValue that represents the input integer.
  */
 Object.defineProperty(Enum.prototype, 'valueFromInt',
-{
-    enumerable: false,
-    writable: false,
-    value: function(input)
     {
-        const result = this._byValue[input];
-        if (result)
+        enumerable: false,
+        writable: false,
+        value: function(input)
         {
-            return Array.isArray(result) ? result[0] : result;
+            const result = this._byValue[input];
+            if (result)
+            {
+                return Array.isArray(result) ? result[0] : result;
+            }
+            return null;
         }
-        return null;
-    }
-});
+    });

@@ -27,23 +27,23 @@ export default class StringFilters
         if (!replace || (typeof replace !== 'string' && replace instanceof RegExp === false))
         {
             // @if DEBUG
-            throw `replace value must be a valid String or RegExp`;
+            throw 'replace value must be a valid String or RegExp';
             // @endif
 
             // @if RELEASE
             // eslint-disable-next-line no-unreachable
-            throw `invalide replace value`;
+            throw 'invalide replace value';
             // @endif
         }
         if (typeof replacement !== 'string')
         {
             // @if DEBUG
-            throw `replacement value must be astring`;
+            throw 'replacement value must be astring';
             // @endif
 
             // @if RELEASE
             // eslint-disable-next-line no-unreachable
-            throw `invalid replacement value`;
+            throw 'invalid replacement value';
             // @endif
         }
 
@@ -59,15 +59,15 @@ export default class StringFilters
 
                     // @if RELEASE
                     // eslint-disable-next-line no-unreachable
-                    throw `Filter already exists`;
+                    throw 'Filter already exists';
                     // @endif
                 }
             }
             this._filters.push(
-            {
-                replace: replace,
-                replacement: replacement
-            });
+                {
+                    replace: replace,
+                    replacement: replacement
+                });
         }
     }
 

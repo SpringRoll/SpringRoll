@@ -47,24 +47,27 @@ import Display from '../../Display';
          * @param {Number} elapsed Time elapsed since last frame render
          * @param {Boolean} [force=false] For update, regardless if visible/paused state.
          */
-        this.render = (elapsed, force = false) => {
+        this.render = (elapsed, force = false) => 
+        {
             if (this.display)
             {
                 this.display.render(elapsed, force);
             }
-        }
+        };
 
         // Ticker handle updates added to the ticker directly and not the Application
         // so that it will always run after the Application's update event.
         this.ticker.on('update', this.render, this);
 
         // Handle enabled
-        this.on('enable', enabled => {
+        this.on('enable', enabled => 
+        {
             this.display.enabled = enabled;
         });
 
         // add the initial display if specified
-        this.once('beforePreload', () => {
+        this.once('beforePreload', () => 
+        {
             this.display = new Display(options.displayElement, options.display);
         });
     };

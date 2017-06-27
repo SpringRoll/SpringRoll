@@ -5,7 +5,7 @@ import {ApplicationPlugin} from '@springroll/core';
     /**
      * @class Application
      */
-    const plugin = new ApplicationPlugin(80);
+    const plugin = new ApplicationPlugin('config', 'asset-manager');
 
     /**
      * The game has finished loading
@@ -149,7 +149,7 @@ import {ApplicationPlugin} from '@springroll/core';
         if (progress > this._progress)
         {
             this._progress = progress;
-            this.trigger('progress', progress);
+            this.emit('progress', progress);
         }
     }
 
@@ -165,7 +165,7 @@ import {ApplicationPlugin} from '@springroll/core';
         assets.append(app.options.preload);
 
         // Allow extending game to add additional tasks
-        app.trigger('loading', assets);
+        app.emit('loading', assets);
     }
 
     /**
@@ -179,7 +179,7 @@ import {ApplicationPlugin} from '@springroll/core';
     function onConfigLoaded(config, asset, assets)
     {
         this.config = config;
-        this.trigger('configLoaded', config, assets);
+        this.emit('configLoaded', config, assets);
         addPreloadAssets(this, assets);
     }
 
@@ -193,7 +193,7 @@ import {ApplicationPlugin} from '@springroll/core';
     function onLoadComplete(done, results)
     {
         this._assetLoad = null;
-        this.trigger('loaded', results);
+        this.emit('loaded', results);
         done();
     }
 

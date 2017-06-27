@@ -128,11 +128,13 @@ import {ApplicationPlugin} from '@springroll/core';
          */
         options.add('retina', false);
 
-        options.on('maxWidth', value => {
+        options.on('maxWidth', value => 
+        {
             maxWidth = value;
         });
 
-        options.on('maxHeight', value => {
+        options.on('maxHeight', value => 
+        {
             maxHeight = value;
         });
 
@@ -225,7 +227,8 @@ import {ApplicationPlugin} from '@springroll/core';
             // this will solve issues where the window doesn't
             // properly get the "full" resize, like on some mobile
             // devices when pulling-down/releasing the HUD
-            windowResizer = this.setTimeout(() => {
+            windowResizer = this.setTimeout(() => 
+            {
                 this.triggerResize();
                 windowResizer = null;
             }, 500);
@@ -291,7 +294,8 @@ import {ApplicationPlugin} from '@springroll/core';
         };
 
         // Do an initial resize to make sure everything is positioned correctly
-        this.once('beforeReady', () => {
+        this.once('beforeReady', () => 
+        {
 
             originalWidth = this.display.width;
             originalHeight = this.display.height;

@@ -1,5 +1,5 @@
 {
-  "name": "@springroll/loaders",
+  "name": "@springroll/loader",
   "version": "2.0.0",
   "main": "index.js",
   "author": "CloudKid <tools@cloudkid.com>",
@@ -23,7 +23,8 @@
   ],
   "license": "MIT",
   "dependencies": {
-    "@springroll/core": "^2.0.0"
+    "@springroll/core": "^2.0.0",
+    "resource-loader": "^2.0.8"
   },
   "optionalDependencies": {
     "@springroll/debug": "^2.0.0"

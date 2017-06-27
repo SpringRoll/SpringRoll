@@ -23,21 +23,15 @@ PIXI.Text.prototype.updateText = function()
         switch (this.style.align)
         {
             case 'center':
-            {
                 this.pivot.x = this._width / 2;
                 break;
-            }
             case 'right':
-            {
                 this.pivot.x = this._width;
                 break;
-            }
             default:
-            {
                 //left or unspecified
                 this.pivot.x = 0;
                 break;
-            }
         }
     }
 };

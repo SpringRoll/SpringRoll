@@ -38,10 +38,12 @@ import Debug from '../../Debug';
          */
         options.add('debugRemote', null)
             .respond('debug', () => Debug.enabled)
-            .on('debug', value => {
+            .on('debug', value => 
+            {
                 Debug.enabled = value;
             })
-            .on('debugRemote', value => {
+            .on('debugRemote', value => 
+            {
                 Debug.disconnect();
                 if (value)
                 {
@@ -49,7 +51,8 @@ import Debug from '../../Debug';
                 }
             })
             .respond('minLogLevel', () => Debug.minLogLevel.asInt)
-            .on('minLogLevel', value => {
+            .on('minLogLevel', value => 
+            {
                 Debug.minLogLevel = Debug.Levels.valueFromInt(
                     parseInt(value, 10)
                 );

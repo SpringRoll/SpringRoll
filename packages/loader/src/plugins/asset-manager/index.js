@@ -1,6 +1,6 @@
 import {ApplicationPlugin} from '@springroll/core';
-import Loader from './Loader';
-import AssetManager from './AssetManager';
+import AssetManager from '../../AssetManager';
+import {LoadTask, ListTask, FunctionTask, ColorAlphaTask} from '../../tasks';
 
 /**
  * @module Core
@@ -11,17 +11,11 @@ import AssetManager from './AssetManager';
     /**
      * @class Application
      */
-    const plugin = new ApplicationPlugin(100);
+    const plugin = new ApplicationPlugin('asset-manager', 'loader');
 
     // Init the animator
     plugin.setup = function()
     {
-        /**
-         * Reference to the loader.
-         * @property {springroll.Loader} loader
-         */
-        const loader = this.loader = new Loader(this);
-
         /**
          * Reference to the asset manager.
          * @property {springroll.AssetManager} assetManager
@@ -30,74 +24,10 @@ import AssetManager from './AssetManager';
         const assetManager = this.assetManager = new AssetManager();
 
         // Register the default tasks
-        assetManager.register('springroll.LoadTask');
-        assetManager.register('springroll.ListTask');
-        assetManager.register('springroll.FunctionTask', 10);
-        assetManager.register('springroll.ColorAlphaTask', 20);
-
-        /**
-         * Override the end-user browser cache by adding
-         * "?cb=" to the end of each file path requested. Use
-         * for development, debugging only!
-         * @property {Boolean} options.cacheBust
-         * @default DEBUG
-         */
-        const options = this.options;
-        let cacheBust = false;
-        // @if DEBUG
-        cacheBust = true;
-        // @endif
-        options.add('cacheBust', cacheBust)
-            .respond('cacheBust', function()
-            {
-                return loader.cacheManager.cacheBust;
-            })
-            .on('cacheBust', function(value)
-            {
-                loader.cacheManager.cacheBust = (value === "true" || !!value);
-            });
-
-        /**
-         * The optional file path to prefix to any relative file
-         * requests. This is a great way to load all load requests
-         * with a CDN path.
-         * @property {String} options.basePath
-         */
-        options.add('basePath');
-
-        /**
-         * The current version number for your application. This
-         * number will automatically be appended to all file
-         * requests. For instance, if the version is "0.0.1" all
-         * file requests will be appended with "?v=0.0.1"
-         * @property {String} options.version
-         */
-        options.add('version', null, true);
-
-        /**
-         * Path to a text file which contains explicit version
-         * numbers for each asset. This is useful for controlling
-         * the live browser cache. For instance, this text file
-         * would have an asset on each line followed by a number:
-         * `assets/config/config.json 2` would load
-         * `assets/config/config.json?v=2`
-         * @property {String} options.versionsFile
-         */
-        options.add('versionsFile', null, true);
-
-        /**
-         * Different displays offer flavors of the same asset definition.
-         * Instead of repeatedly defining the asset type property,
-         * it's possible to define a global default. If PIXI
-         * is your default display "pixi" is recommended as a value.
-         * If EaselJS is your default display "easeljs" is recommended.
-         * @property {String} options.defaultAssetType
-         */
-        options.add('defaultAssetType')
-            .on('defaultAssetType', function(value)
-            {
-                assetManager.defaultType = value;
-            });
+        assetManager.register(LoadTask);
+        assetManager.register(ListTask);
+        assetManager.register(FunctionTask, 10);
+        assetManager.register(ColorAlphaTask, 20);
 
         /**
          * Simple load of a single file.
@@ -235,57 +165,27 @@ import AssetManager from './AssetManager';
             return assetManager.cache.read(id);
         };
 
-        // Refresh the default size whenever the app resizes
-        this.on('resize', function()
+        if (this.display)
         {
-            // Use the actual canvas size regard
-            assetManager.sizes.refresh(
-                this.realWidth,
-                this.realHeight
-            );
-        });
-
-        // Make sure we refresh the sizes for non resizing application
-        this.once('beforeInit', function()
-        {
-            if (this.display)
-            {
+            const refresh = () => {
+                // Use the actual canvas size regard
                 assetManager.sizes.refresh(
                     this.realWidth,
                     this.realHeight
                 );
-            }
-        });
-    };
+            };
 
-    // Preload task
-    plugin.preload = function(done)
-    {
-        // This is to make sure that sizes are set before anything
-        // gets preloaded by the ConfigPlugin
-        this.triggerResize();
+            // Refresh the default size whenever the app resizes
+            this.on('resize', refresh);
 
-        var versionsFile = this.options.versionsFile;
-        if (versionsFile)
-        {
-            // Try to load the default versions file
-            this.loader.cacheManager.addVersionsFile(versionsFile, done);
-        }
-        else
-        {
-            done();
+            // Make sure we refresh the sizes for non resizing application
+            this.once('beforeReady', refresh);
         }
     };
 
     // Destroy the animator
     plugin.teardown = function()
     {
-        if (this.loader)
-        {
-            this.loader.destroy();
-            this.loader = null;
-        }
-
         if (this.assetManager)
         {
             this.assetManager.destroy();
