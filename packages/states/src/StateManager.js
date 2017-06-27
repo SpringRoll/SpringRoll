@@ -1,4 +1,4 @@
-import {EventDispatcher} from '@springroll/core';
+import {EventEmitter} from '@springroll/core';
 import State from './State';
 import StateEvent from './StateEvent';
 
@@ -10,7 +10,7 @@ import {Debug} from '@springroll/debug';
  * The State Manager used for managing the different states of a game or site
  *
  * @class StateManager
- * @extends springroll.EventDispatcher
+ * @extends springroll.EventEmitter
  * @constructor
  * @param {Object} [transitionSounds] Data object with aliases and start times (seconds) for
  *     transition in, loop and out sounds. Example: `{in:{alias:"myAlias", start:0.2}}`.
@@ -20,7 +20,7 @@ import {Debug} from '@springroll/debug';
  * @param {Object|String} [transitionSounds.out] The sound to play for transition out
  * @param {Object|String} [transitionSounds.loading] The sound to play for loading
  */
-export default class StateManager extends EventDispatcher
+export default class StateManager extends EventEmitter
 {
     constructor(transitionSounds)
     {
@@ -201,7 +201,7 @@ export default class StateManager extends EventDispatcher
             return;
         }
 
-        this.trigger(StateManager.LOADING_START);
+        this.emit(StateManager.LOADING_START);
 
         this._onTransitionLoading();
     }
@@ -219,7 +219,7 @@ export default class StateManager extends EventDispatcher
             return;
         }
 
-        this.trigger(StateManager.LOADING_DONE);
+        this.emit(StateManager.LOADING_DONE);
     }
 
     /**
@@ -234,7 +234,7 @@ export default class StateManager extends EventDispatcher
          * @event enabled
          * @param {Boolean} enabled
          */
-        this.trigger('enabled', enabled);
+        this.emit('enabled', enabled);
     }
 
     /**
@@ -285,7 +285,7 @@ export default class StateManager extends EventDispatcher
                 this.transition.visible = true;
             }
             this._onTransitionLoading();
-            this.trigger(StateManager.TRANSITION_INIT_DONE);
+            this.emit(StateManager.TRANSITION_INIT_DONE);
             this._isLoading = true;
             this._state._internalEnter(this._onStateLoaded);
         }
@@ -305,7 +305,7 @@ export default class StateManager extends EventDispatcher
                 this._oldState._internalExitStart();
                 this.enabled = false;
 
-                this.trigger(StateManager.TRANSITION_OUT);
+                this.emit(StateManager.TRANSITION_OUT);
 
                 this._transitioning(StateManager.TRANSITION_OUT, this._onTransitionOut);
             }
@@ -323,13 +323,13 @@ export default class StateManager extends EventDispatcher
      */
     _onTransitionOut()
     {
-        this.trigger(StateManager.TRANSITION_OUT_DONE);
+        this.emit(StateManager.TRANSITION_OUT_DONE);
 
         this._isTransitioning = false;
 
         if (this.has(StateEvent.HIDDEN))
         {
-            this.trigger(
+            this.emit(
                 StateEvent.HIDDEN,
                 new StateEvent(StateEvent.HIDDEN, this._state, this._oldState));
         }
@@ -357,7 +357,7 @@ export default class StateManager extends EventDispatcher
 
         if (this.has(StateEvent.VISIBLE))
         {
-            this.trigger(StateEvent.VISIBLE, new StateEvent(StateEvent.VISIBLE, this._state));
+            this.emit(StateEvent.VISIBLE, new StateEvent(StateEvent.VISIBLE, this._state));
         }
         this._state.panel.visible = true;
 
@@ -366,14 +366,14 @@ export default class StateManager extends EventDispatcher
             var timeline = this.animator.getTimeline(this.transition);
             timeline.onComplete = function()
             {
-                this.trigger(StateManager.TRANSITION_IN);
+                this.emit(StateManager.TRANSITION_IN);
                 this._transitioning(StateManager.TRANSITION_IN, this._onTransitionIn);
             }.bind(this);
             timeline.isLooping = false;
         }
         else
         {
-            this.trigger(StateManager.TRANSITION_IN);
+            this.emit(StateManager.TRANSITION_IN);
             this._transitioning(StateManager.TRANSITION_IN, this._onTransitionIn);
         }
     }
@@ -389,7 +389,7 @@ export default class StateManager extends EventDispatcher
         {
             this.transition.visible = false;
         }
-        this.trigger(StateManager.TRANSITION_IN_DONE);
+        this.emit(StateManager.TRANSITION_IN_DONE);
         this._isTransitioning = false;
         this.enabled = true;
 
@@ -415,29 +415,16 @@ export default class StateManager extends EventDispatcher
         var sounds = this._transitionSounds;
         if (sounds)
         {
-            // @deprecate the use of 'loop' sound property in favor of 'loading'
-            audio = sounds.loading || sounds.loop;
+            audio = sounds.loading;
         }
         var animator = this.animator;
         if (animator.hasAnimation(this.transition, StateManager.TRANSITION_LOADING))
         {
-            this.trigger(StateManager.TRANSITION_LOADING);
+            this.emit(StateManager.TRANSITION_LOADING);
             animator.play(
                 this.transition,
                 {
                     anim: StateManager.TRANSITION_LOADING,
-                    audio: audio
-                }
-            );
-        }
-        // @deprecate the use of 'transitionLoop' in favor of 'onTransitionLoading'
-        else if (animator.hasAnimation(this.transition, 'transitionLoop'))
-        {
-            this.trigger(StateManager.TRANSITION_LOADING);
-            animator.play(
-                this.transition,
-                {
-                    anim: 'transitionLoop',
                     audio: audio
                 }
             );

@@ -255,7 +255,6 @@ export default class AnimatorTimeline
         switch (typeof listItem)
         {
             case 'object':
-            {
                 this.isTimer = false;
                 var instance = this.instance;
                 instance.beginAnim(listItem, repeat);
@@ -272,20 +271,15 @@ export default class AnimatorTimeline
                     this.useCaptions = listItem.useCaptions;
                 }
                 break;
-            }
             case 'number':
-            {
                 this.isTimer = true;
                 this.duration = listItem;
                 this._position = 0;
                 break;
-            }
             case 'function':
-            {
                 listItem();
                 this._nextItem();
                 break;
-            }
         }
     }
 }

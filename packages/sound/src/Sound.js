@@ -1,4 +1,4 @@
-import {Application, include, EventDispatcher, Enum} from '@springroll/core';
+import {Application, include, EventEmitter, Enum} from '@springroll/core';
 import SoundContext from './SoundContext';
 import SoundInstance from './SoundInstance';
 // @if DEBUG
@@ -9,15 +9,16 @@ const WebAudioPlugin = include('createjs.WebAudioPlugin');
 const CordovaAudioPlugin = include('createjs.CordovaAudioPlugin', false);
 const FlashAudioPlugin = include('createjs.FlashAudioPlugin', false);
 const SoundJS = include('createjs.Sound');
+const BrowserDetect = include('createjs.BrowserDetect');
 
 /**
  * Acts as a wrapper for SoundJS as well as adding lots of other functionality
  * for managing sounds.
  *
  * @class Sound
- * @extends springroll.EventDispatcher
+ * @extends springroll.EventEmitter
  */
-export default class Sound extends EventDispatcher
+export default class Sound extends EventEmitter
 {
     constructor()
     {
@@ -78,7 +79,7 @@ export default class Sound extends EventDispatcher
          * @property {Boolean} systemMuted
          * @readOnly
          */
-        this.systemMuted = createjs.BrowserDetect.isIOS;
+        this.systemMuted = BrowserDetect.isIOS;
 
         /**
          * If preventDefault should be called on the interaction event that unmutes the audio.
@@ -206,10 +207,9 @@ export default class Sound extends EventDispatcher
             }
             catch (e)
             {
-                if (DEBUG && Debug)
-                {
-                    Debug.error('springroll.Sound.init cannot access window.top. Check for cross-origin permissions.');
-                }
+                // @if DEBUG
+                Debug.error('springroll.Sound.init cannot access window.top. Check for cross-origin permissions.');
+                // @endif
             }
         }
 
@@ -234,7 +234,7 @@ export default class Sound extends EventDispatcher
         //If on iOS, then we need to add a touch listener to unmute sounds.
         //playback pretty much has to be createjs.WebAudioPlugin for iOS
         //We cannot use touchstart in iOS 9.0 - http://www.holovaty.com/writing/ios9-web-audio/
-        if (createjs.BrowserDetect.isIOS &&
+        if (BrowserDetect.isIOS &&
             SoundJS.activePlugin instanceof WebAudioPlugin &&
             SoundJS.activePlugin.context.state !== 'running')
         {
@@ -257,13 +257,12 @@ export default class Sound extends EventDispatcher
         }
         else if (SoundJS.activePlugin)
         {
-            if (DEBUG && Debug)
-            {
-                Debug.log('SoundJS Plugin ' + SoundJS.activePlugin + ' was not ready, waiting until it is');
-            }
+            // @if DEBUG
+            Debug.log('SoundJS Plugin ' + SoundJS.activePlugin + ' was not ready, waiting until it is');
+            // @endif
+
             //if the sound plugin is not ready, then just wait until it is
             var waitFunction;
-            var waitResult;
 
             waitFunction = function()
             {
@@ -275,29 +274,23 @@ export default class Sound extends EventDispatcher
 
                     if (NativeAudio)
                     {
-                        NativeAudio.getCapabilities(function(result)
+                        NativeAudio.getCapabilities(function()
                         {
-                            waitResult = result;
-
                             Application.instance.off('update', waitFunction);
                             Sound._instance._initComplete(options.types, options.ready);
-                        }, function(result)
+                        }, function()
                         {
-                            waitResult = result;
-
-                            if (DEBUG && Debug)
-                            {
-                                Debug.error('Unable to get capabilities from Cordova Native Audio Plugin');
-                            }
+                            // @if DEBUG
+                            Debug.error('Unable to get capabilities from Cordova Native Audio Plugin');
+                            // @endif
                         });
                     }
                 }
                 catch (e)
                 {
-                    if (DEBUG && Debug)
-                    {
-                        Debug.error('Cannot access window.top. Check for cross-origin permissions.');
-                    }
+                    // @if DEBUG
+                    Debug.error('Cannot access window.top. Check for cross-origin permissions.');
+                    // @endif
                 }
             };
 
@@ -305,10 +298,9 @@ export default class Sound extends EventDispatcher
         }
         else
         {
-            if (DEBUG && Debug)
-            {
-                Debug.error('Unable to initialize SoundJS with a plugin!');
-            }
+            // @if DEBUG
+            Debug.error('Unable to initialize SoundJS with a plugin!');
+            // @endif
             Sound._instance.isSupported = false;
             if (options.ready)
             {
@@ -340,7 +332,7 @@ export default class Sound extends EventDispatcher
             document.removeEventListener('mousedown', Sound._playEmpty);
 
             Sound._instance.systemMuted = false;
-            Sound._instance.trigger('systemUnmuted');
+            Sound._instance.emit('systemUnmuted');
         }
     }
 
@@ -373,7 +365,7 @@ export default class Sound extends EventDispatcher
         //if on Android, using WebAudioPlugin, and the userAgent does not signify Firefox,
         //assume a Chrome based browser, so consider it a potential liability for the
         //bug in Chrome where the AudioContext is not restarted after too much silence
-        this._fixAndroidAudio = createjs.BrowserDetect.isAndroid &&
+        this._fixAndroidAudio = BrowserDetect.isAndroid &&
             SoundJS.activePlugin instanceof WebAudioPlugin &&
             !(navigator.userAgent.indexOf('Gecko') > -1 &&
                 navigator.userAgent.indexOf('Firefox') > -1);
@@ -426,10 +418,9 @@ export default class Sound extends EventDispatcher
     {
         if (!config)
         {
-            if (DEBUG && Debug)
-            {
-                Debug.warn('Warning - springroll.Sound was told to load a null config');
-            }
+            // @if DEBUG
+            Debug.warn('Warning - springroll.Sound was told to load a null config');
+            // @endif
             return;
         }
         var list = config.soundManifest || config.sounds || [];
@@ -707,7 +698,7 @@ export default class Sound extends EventDispatcher
                 //fade the last played instance
                 inst = sound.playing[sound.playing.length - 1];
             }
-            else if (s.loadState === Sound.LoadStates.loading)
+            else if (sound.loadState === Sound.LoadStates.loading)
             {
                 this.stop(aliasOrInst);
                 return;
@@ -863,10 +854,9 @@ export default class Sound extends EventDispatcher
         var sound = this._sounds[alias];
         if (!sound)
         {
-            if (DEBUG && Debug)
-            {
-                Debug.error('springroll.Sound: alias \'' + alias + '\' not found!');
-            }
+            // @if DEBUG
+            Debug.error('springroll.Sound: alias \'' + alias + '\' not found!');
+            // @endif
             if (completeCallback)
             {
                 completeCallback();
@@ -1064,10 +1054,10 @@ export default class Sound extends EventDispatcher
 
             if (!channel || channel.playState === SoundJS.PLAY_FAILED)
             {
-                if (DEBUG && Debug)
-                {
-                    Debug.error('Play failed for sound \'%s\'', alias);
-                }
+                // @if DEBUG
+                Debug.error('Play failed for sound \'%s\'', alias);
+                // @endif
+
                 if (inst._endCallback)
                 {
                     inst._endCallback();
@@ -1586,9 +1576,11 @@ export default class Sound extends EventDispatcher
                         });
                 }
             }
-            else if (DEBUG && Debug)
+            else
             {
+                // @if DEBUG
                 Debug.error('springroll.Sound was asked to preload ' + list[i] + ' but it is not a registered sound!');
+                // @endif
             }
         }
         if (assets.length > 0)

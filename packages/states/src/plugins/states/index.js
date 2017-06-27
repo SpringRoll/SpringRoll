@@ -1,16 +1,12 @@
 import {ApplicationPlugin} from '@springroll/core';
-import StateManager from './StateManager';
-
-// @if DEBUG
-import {Debug} from '@springroll/debug';
-// @endif
+import StateManager from '../../StateManager';
 
 (function()
 {
     /**
      * @class Application
      */
-    const plugin = new ApplicationPlugin();
+    const plugin = new ApplicationPlugin('states', 'display');
 
     plugin.setup = function()
     {
@@ -51,24 +47,26 @@ import {Debug} from '@springroll/debug';
                 {
                     if (!this.display)
                     {
-                    // @if DEBUG
+                        // @if DEBUG
                         throw 'No default display is available to set the states. Use the display application option';
                         // @endif
-                        // @if DEBUG
+
+                        // @if RELEASE
                         // eslint-disable-next-line no-unreachable
                         throw 'No default display';
-                    // @endif
+                        // @endif
                     }
 
                     if (transition && !this.animator)
                     {
-                    // @if DEBUG
+                        // @if DEBUG
                         throw 'Use of a transition requires the animation module, please include';
                         // @endif
-                        // @if DEBUG
+
+                        // @if RELEASE
                         // eslint-disable-next-line no-unreachable
                         throw 'No animation module';
-                    // @endif
+                        // @endif
                     }
 
                     // Remove the old transition
@@ -152,24 +150,26 @@ import {Debug} from '@springroll/debug';
                 {
                     if (this.manager)
                     {
-                    // @if DEBUG
+                        // @if DEBUG
                         throw 'StateManager has already been initialized, cannot set states multiple times';
                         // @endif
+
                         // @if RELEASE
                         // eslint-disable-next-line no-unreachable
                         throw 'States already set';
-                    // @endif
+                        // @endif
                     }
 
                     if (!this.display)
                     {
-                    // @if DEBUG
+                        // @if DEBUG
                         throw 'No default display is available to set the states. Use the display application option';
                         // @endif
+                        
                         // @if RELEASE
                         // eslint-disable-next-line no-unreachable
                         throw 'No default display';
-                    // @endif
+                        // @endif
                     }
 
                     // Create the state manager
@@ -197,7 +197,7 @@ import {Debug} from '@springroll/debug';
                         // Add the state display object to the main display
                         stage.addChild(states[alias].panel);
 
-                        this.trigger('stateAdded', alias, states[alias]);
+                        this.emit('stateAdded', alias, states[alias]);
                     }
 
                     this._states = states;

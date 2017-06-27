@@ -527,17 +527,11 @@ export default class AssetLoad extends EventEmitter
         switch (mode)
         {
             case AssetLoad.SINGLE_MODE:
-            {
                 return null;
-            }
             case AssetLoad.LIST_MODE:
-            {
                 return [];
-            }
             case AssetLoad.MAP_MODE:
-            {
                 return {};
-            }
         }
     }
 

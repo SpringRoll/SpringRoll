@@ -1,4 +1,4 @@
-import {Application, EventDispatcher} from '@springroll/core';
+import {Application, EventEmitter} from '@springroll/core';
 // @if DEBUG
 import {Debug} from '@springroll/debug';
 // @endif
@@ -7,6 +7,7 @@ import {Debug} from '@springroll/debug';
  * Defines the base functionality for a state used by the state manager
  *
  * @class State
+ * @extends springroll.EventEmitter
  * @constructor
  * @param {createjs.Container|PIXI.DisplayObjectContainer} panel The panel to associate with
  *     this state.
@@ -21,7 +22,7 @@ import {Debug} from '@springroll/debug';
  *       item. See `ScaleManager.addItems` for more information about the
  *       format of the scaling objects. (UI Module only)
  */
-export default class State extends EventDispatcher
+export default class State extends EventEmitter
 {
     constructor(panel, options)
     {
@@ -363,10 +364,9 @@ export default class State extends EventDispatcher
     {
         if (this._isLoading)
         {
-            if (DEBUG && Debug) 
-            {
-                Debug.warn('loadingStart() was called while we\'re already loading');
-            }
+            // @if DEBUG
+            Debug.warn('loadingStart() was called while we\'re already loading');
+            // @endif
             return;
         }
 
@@ -457,7 +457,7 @@ export default class State extends EventDispatcher
         this._enabled = value;
         if (oldEnabled !== value)
         {
-            this.trigger('enabled', value);
+            this.emit('enabled', value);
         }
     }
 
@@ -517,7 +517,7 @@ export default class State extends EventDispatcher
         this._active = false;
         this.exit();
 
-        this.trigger('exit');
+        this.emit('exit');
     }
 
     /**
@@ -530,7 +530,7 @@ export default class State extends EventDispatcher
     {
         this.enter();
 
-        this.trigger('enter');
+        this.emit('enter');
 
         // Start prealoading assets
         this.loadingStart();
@@ -540,7 +540,7 @@ export default class State extends EventDispatcher
 
         var assets = [];
 
-        this.trigger('loading', assets);
+        this.emit('loading', assets);
 
         if (this.preload.length)
         {
@@ -572,8 +572,8 @@ export default class State extends EventDispatcher
      */
     _onProgress(progress)
     {
-        this.trigger('progress', progress);
-        this.manager.trigger('progress', progress);
+        this.emit('progress', progress);
+        this.manager.emit('progress', progress);
     }
 
     /**
@@ -587,7 +587,7 @@ export default class State extends EventDispatcher
         this.assets = assets;
         this.preloaded = true;
 
-        this.trigger('loaded', assets);
+        this.emit('loaded', assets);
 
         if (this.scaling)
         {
@@ -626,7 +626,7 @@ export default class State extends EventDispatcher
     _internalExitStart()
     {
         this.exitStart();
-        this.trigger('exitStart');
+        this.emit('exitStart');
     }
 
     /**
@@ -672,7 +672,7 @@ export default class State extends EventDispatcher
 
         this._internalExit();
         this.cancel();
-        this.trigger('cancel');
+        this.emit('cancel');
     }
 
     /**
@@ -689,7 +689,7 @@ export default class State extends EventDispatcher
 
         this.enabled = true;
         this.enterDone();
-        this.trigger('enterDone');
+        this.emit('enterDone');
     }
 
     /**
@@ -704,7 +704,7 @@ export default class State extends EventDispatcher
             return;
         }
 
-        this.trigger('destroy');
+        this.emit('destroy');
 
         this.app = null;
         this.scaling = null;

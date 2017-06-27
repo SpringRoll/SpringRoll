@@ -61,17 +61,16 @@ import SoundTask from './SoundTask';
          */
         this.options.add('audioTypes', ['ogg', 'mp3'], true);
 
-        if (DEBUG)
-        {
-            /**
-             * Set the initial mute state of the all the audio
-             * (unminifed library version only)
-             * @property {Boolean} options.mute
-             * @default false
-             * @readOnly
-             */
-            this.options.add('mute', false, true);
-        }
+        // @if DEBUG
+        /**
+         * Set the initial mute state of the all the audio
+         * (unminifed library version only)
+         * @property {Boolean} options.mute
+         * @default false
+         * @readOnly
+         */
+        this.options.add('mute', false, true);
+        // @endif
 
         /**
          * The current music alias playing
@@ -202,25 +201,15 @@ import SoundTask from './SoundTask';
 
                     var sound = this.sound = Sound.instance;
 
-                    if (DEBUG)
-                    {
+                    // @if DEBUG
                     //For testing, mute the game if requested
-                        sound.muteAll = !!this.options.mute;
-                    }
+                    sound.muteAll = !!this.options.mute;
+                    // @endif
+                    
                     //Add listeners to pause and resume the sounds
-                    this.on(
-                        {
-                            paused: function()
-                            {
-                                sound.pauseAll();
-                            },
-                            resumed: function()
-                            {
-                                sound.resumeAll();
-                            }
-                        });
-
-                    this.trigger(SOUND_READY);
+                    this.on('paused', () => sound.pauseAll());
+                    this.on('resumed', () => sound.resumeAll());
+                    this.emit(SOUND_READY);
                     done();
                 }
             });

@@ -150,39 +150,27 @@ export default class ScaleItem
         switch (this.vertAlign)
         {
             case ScaleManager.ALIGN_TOP:
-            {
                 this.origMarginVert = position.y + this.origBounds.y;
                 break;
-            }
             case ScaleManager.ALIGN_CENTER:
-            {
                 this.origMarginVert = size.height * 0.5 - position.y;
                 break;
-            }
             case ScaleManager.ALIGN_BOTTOM:
-            {
                 this.origMarginVert = size.height - (position.y + this.origBounds.bottom);
                 break;
-            }
         }
 
         switch (this.horiAlign)
         {
             case ScaleManager.ALIGN_LEFT:
-            {
                 this.origMarginHori = position.x + this.origBounds.x;
                 break;
-            }
             case ScaleManager.ALIGN_CENTER:
-            {
                 this.origMarginHori = size.width * 0.5 - position.x;
                 break;
-            }
             case ScaleManager.ALIGN_RIGHT:
-            {
                 this.origMarginHori = size.width - (position.x + this.origBounds.right);
                 break;
-            }
         }
     }
 
@@ -263,7 +251,6 @@ export default class ScaleItem
         switch (this.vertAlign)
         {
             case ScaleManager.ALIGN_TOP:
-            {
                 if (titleSafe)
                 {
                     y = letterBoxHeight + m - origBounds.y * itemScale;
@@ -273,14 +260,10 @@ export default class ScaleItem
                     y = m - origBounds.y * itemScale;
                 }
                 break;
-            }
             case ScaleManager.ALIGN_CENTER:
-            {
                 y = displayHeight * 0.5 - m;
                 break;
-            }
             case ScaleManager.ALIGN_BOTTOM:
-            {
                 if (titleSafe)
                 {
                     y = displayHeight - letterBoxHeight - m - origBounds.bottom * itemScale;
@@ -290,7 +273,6 @@ export default class ScaleItem
                     y = displayHeight - m - origBounds.bottom * itemScale;
                 }
                 break;
-            }
         }
 
         // Set the position
@@ -308,7 +290,6 @@ export default class ScaleItem
         switch (this.horiAlign)
         {
             case ScaleManager.ALIGN_LEFT:
-            {
                 if (titleSafe)
                 {
                     x = letterBoxWidth + m - origBounds.x * itemScale;
@@ -318,9 +299,7 @@ export default class ScaleItem
                     x = m - origBounds.x * itemScale;
                 }
                 break;
-            }
             case ScaleManager.ALIGN_CENTER:
-            {
                 if (this.centeredHorizontally)
                 {
                     x = (displayWidth - _display.width) * 0.5;
@@ -330,9 +309,7 @@ export default class ScaleItem
                     x = displayWidth * 0.5 - m;
                 }
                 break;
-            }
             case ScaleManager.ALIGN_RIGHT:
-            {
                 if (titleSafe)
                 {
                     x = displayWidth - letterBoxWidth - m - origBounds.right * itemScale;
@@ -342,7 +319,6 @@ export default class ScaleItem
                     x = displayWidth - m - origBounds.right * itemScale;
                 }
                 break;
-            }
         }
 
         // Set the position

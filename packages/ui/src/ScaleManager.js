@@ -279,6 +279,7 @@ export default class ScaleManager
         {
             // @deprecated implementation
             // @if DEBUG
+            // eslint-disable-next-line no-console
             console.warn('ScaleManager.removeItems should have a second parameter which is the items dictionary e.g., removeItems(panel, items)');
             // @endif
             return this.removeItemsByContainer(parent);
@@ -449,26 +450,20 @@ export default class ScaleManager
             switch (align)
             {
                 case ScaleManager.ALIGN_CENTER:
-                {
                     align = align + '-' + align;
                     break;
-                }
                 case ScaleManager.ALIGN_LEFT:
                 case ScaleManager.ALIGN_RIGHT:
-                {
                     align = ScaleManager.ALIGN_CENTER + '-' + align;
                     break;
-                }
                 case ScaleManager.ALIGN_TOP:
                 case ScaleManager.ALIGN_BOTTOM:
-                {
                     align = align + '-' + ScaleManager.ALIGN_CENTER;
                     break;
-                }
             }
 
             // Error check the alignment value input
-            if (!/^(center|top|bottom)\-(left|right|center)$/.test(align))
+            if (!/^(center|top|bottom)-(left|right|center)$/.test(align))
             {
                 throw 'Item align \'' + align + '\' is invalid for ' + displayObject;
             }

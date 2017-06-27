@@ -1,12 +1,13 @@
 import Sound from './Sound';
-import {Application, EventDispatcher} from '@springroll/core';
+import {Application, EventEmitter} from '@springroll/core';
 
 /**
  * A class for managing audio by only playing one at a time, playing a list,
  * and even managing captions (Captions library) at the same time.
  * @class VOPlayer
+ * @extends springroll.EventEmitter
  */
-export default class VOPlayer extends EventDispatcher
+export default class VOPlayer extends EventEmitter
 {
     constructor()
     {
@@ -382,7 +383,7 @@ export default class VOPlayer extends EventDispatcher
     {
         if (this._listCounter >= 0)
         {
-            this.trigger('end', this._currentVO);
+            this.emit('end', this._currentVO);
         }
 
         //remove any update callback
@@ -429,7 +430,7 @@ export default class VOPlayer extends EventDispatcher
                 //If the sound doesn't exist, then we play it and let it fail,
                 //an error should be shown and playback will continue
                 this._playSound();
-                this.trigger('start', this._currentVO);
+                this.emit('start', this._currentVO);
             }
             else if (typeof this._currentVO === 'function')
             {
@@ -441,7 +442,7 @@ export default class VOPlayer extends EventDispatcher
                 this._timer = this._currentVO; //set up a timer to wait
                 this._currentVO = null;
                 Application.instance.on('update', this._updateSilence);
-                this.trigger('start', null);
+                this.emit('start', null);
             }
         }
     }
@@ -488,7 +489,7 @@ export default class VOPlayer extends EventDispatcher
      * @private
      * @param {int} elapsed The time elapsed since the previous frame, in milliseconds.
      */
-    _syncCaptionToSound(elapsed)
+    _syncCaptionToSound()
     {
         if (!this._soundInstance) 
         {
