@@ -3,6 +3,9 @@
   "scripts": {
     "postinstall": "lerna bootstrap",
     "build": "lerna run build",
+    "build:dev": "lerna run build:dev",
+    "build:prod": "lerna run build:prod",
+    "build:clean": "lerna run clean",
     "pretest": "npm run build",
     "test": "lerna run test",
     "clean": "lerna clean",

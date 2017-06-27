@@ -17,7 +17,8 @@
             "./packages/loaders/src/",
             "./packages/sound/src/",
             "./packages/states/src/",
-            "./packages/ui/src/"
+            "./packages/ui/src/",
+            "./packages/utils/src/"
         ],
         "includePattern": ".+\\.js(doc)?$",
         "excludePattern": "(^|\\/|\\\\)_"
