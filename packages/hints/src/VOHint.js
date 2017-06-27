@@ -31,7 +31,7 @@ export default class VOHint extends AbstractHint
     play()
     {
         this._hints.enabled = false;
-        this._hints.trigger('vo',
+        this._hints.emit('vo',
             {
                 events: this.idOrList,
                 complete: this._onPlayComplete.bind(this, this.onComplete, false),

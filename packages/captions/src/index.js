@@ -1,4 +1,8 @@
-import * as main from './main';
 import {expose} from '@springroll/core';
-expose(main);
-export * from './main';
+
+import './Captions.sass';
+import './plugins';
+import Captions from './Captions';
+
+expose({ Captions });
+export { Captions };

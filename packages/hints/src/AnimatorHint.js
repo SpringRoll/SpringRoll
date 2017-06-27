@@ -34,7 +34,7 @@ export default class AnimatorHint extends AbstractHint
     play()
     {
         this._hints.enabled = false;
-        this._hints.trigger('anim',
+        this._hints.emit('anim',
             {
                 instance: this.instance,
                 events: this.events,

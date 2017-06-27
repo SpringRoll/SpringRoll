@@ -1,4 +1,7 @@
-import * as main from './main';
 import {expose} from '@springroll/core';
-expose(main);
-export * from './main';
+
+import './plugins';
+
+import Languages from './Languages';
+expose({ Languages });
+export { Languages };

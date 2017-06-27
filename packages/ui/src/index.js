@@ -1,4 +1,22 @@
-import * as main from './main';
 import {expose} from '@springroll/core';
-expose(main);
-export * from './main';
+
+import './plugins';
+
+import Positioner from './Positioner';
+import ScaleImage from './ScaleImage';
+import ScaleItem from './ScaleItem';
+import ScaleManager from './ScaleManager';
+
+expose({
+    Positioner,
+    ScaleImage,
+    ScaleItem,
+    ScaleManager
+});
+
+export {
+    Positioner,
+    ScaleImage,
+    ScaleItem,
+    ScaleManager
+};

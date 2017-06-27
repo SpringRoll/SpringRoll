@@ -222,7 +222,7 @@ export default class HintsPlayer extends EventDispatcher
             this._clearOldHints();
 
             // Trigger start event
-            this.trigger('start', this._hint);
+            this.emit('start', this._hint);
         }
         return this;
     }
@@ -280,7 +280,7 @@ export default class HintsPlayer extends EventDispatcher
      */
     set enabled(enabled)
     {
-        this.trigger('enabled', enabled);
+        this.emit('enabled', enabled);
     }
 
     /**

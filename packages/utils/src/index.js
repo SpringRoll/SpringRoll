@@ -1,4 +1,20 @@
-import * as main from './main';
 import {expose} from '@springroll/core';
-expose(main);
-export * from './main';
+
+import MathUtils from './MathUtils';
+import StringUtils from './StringUtils';
+import WeightedRandom from './WeightedRandom';
+import ArrayUtils from './ArrayUtils';
+
+expose({
+    MathUtils,
+    StringUtils,
+    WeightedRandom,
+    ArrayUtils
+});
+
+export {
+    MathUtils,
+    StringUtils,
+    WeightedRandom,
+    ArrayUtils
+};

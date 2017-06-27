@@ -1,4 +1,19 @@
-import * as main from './main';
 import {expose} from '@springroll/core';
-expose(main);
-export * from './main';
+
+import './plugins';
+
+import SpriteClip from './SpriteClip';
+import SpriteClipInstance from './SpriteClipInstance';
+import SpriteClipTask from './SpriteClipTask';
+
+expose({
+    SpriteClip,
+    SpriteClipInstance,
+    SpriteClipTask
+});
+
+export {
+    SpriteClip,
+    SpriteClipInstance,
+    SpriteClipTask
+};

@@ -1,4 +1,17 @@
-import * as main from './main';
 import {expose} from '@springroll/core';
-expose(main);
-export * from './main';
+
+import DragManager from './DragManager';
+import DragData from './DragData';
+import Button from './Button';
+
+expose({
+    DragManager,
+    DragData,
+    Button
+});
+
+export {
+    DragManager,
+    DragData,
+    Button
+};

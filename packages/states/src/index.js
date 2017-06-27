@@ -1,4 +1,19 @@
-import * as main from './main';
 import {expose} from '@springroll/core';
-expose(main);
-export * from './main';
+
+import './plugins';
+
+import State from './State';
+import StateEvent from './StateEvent';
+import StateManager from './StateManager';
+
+expose({
+    State,
+    StateEvent,
+    StateManager
+});
+
+export {
+    State,
+    StateEvent,
+    StateManager
+};
