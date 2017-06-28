@@ -2,9 +2,7 @@ import ApplicationPlugin from '../../ApplicationPlugin';
 import PageVisibility from './PageVisibility';
     
 (function() {
-    /**
-     * @class Application
-     */
+
     const plugin = new ApplicationPlugin('visibility');
 
     // Init the animator
@@ -12,7 +10,7 @@ import PageVisibility from './PageVisibility';
         /**
          * Handles the page visiblity changes automatically
          * to pause and resume the application
-         * @property {springroll.PageVisibility} _visibility
+         * @memberof {springroll.PageVisibility} springroll.Application#_visibility
          * @private
          */
         const visibility = this._visibility = new PageVisibility(
@@ -28,7 +26,7 @@ import PageVisibility from './PageVisibility';
 
         /**
          * The application pauses automatically when the window loses focus.
-         * @property {Boolean} options.autoPause
+         * @member {Boolean} springroll.ApplicationOptions#autoPause
          * @default true
          */
         this.options.add('autoPause', true)
@@ -42,7 +40,7 @@ import PageVisibility from './PageVisibility';
         /**
          * Setter for if the application is being automatically paused, 
          * usually by the PageVisibility plugin or the ContainerClient plugin.
-         * @property {Boolean} autoPaused 
+         * @member {Boolean} springroll.ApplicationOptions#autoPaused 
          * @protected
          */
         Object.defineProperty(this, 'autoPaused',

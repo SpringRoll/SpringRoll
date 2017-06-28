@@ -1,13 +1,16 @@
 /**
- * Class for filtering strings
- * @constructor
- * @class StringFilters
+ * Class for storing tokens that can be replaced within strings.
+ * This can be useful for things like localizing assets paths, or providing
+ * scale suffix to images.
+ * ### module: @springroll/core
+ * @class
+ * @memberof springroll
  */
 export default class StringFilters {
     constructor() {
         /**
          * Dictionary of filters
-         * @property {Array} _filters
+         * @member {Array}
          * @private
          */
         this._filters = [];
@@ -15,10 +18,8 @@ export default class StringFilters {
 
     /**
      * Register a filter
-     * @method add
      * @param {String|RegExp} replace The string or regex to replace
      * @param {String} replacement String to repalce with
-     * @static
      */
     add(replace, replacement) {
         if (!replace || (typeof replace !== 'string' && replace instanceof RegExp === false)) {
@@ -65,9 +66,7 @@ export default class StringFilters {
 
     /**
      * Test a string against all registered filters
-     * @method filter
      * @param {String} str The string to check
-     * @static
      */
     filter(str) {
         if (!this._filters) {
@@ -82,8 +81,6 @@ export default class StringFilters {
     }
 
     /**
-     * @method destroy
-     * @static
      */
     destroy() {
         this._filters = null;

@@ -1,11 +1,15 @@
 import EventEmitter from 'eventemitter3';
+import {mixin} from '../utils';
 
 /**
  * The EventEmitter is the npm module `eventemitter3` but mixes in two additional
  * convenience APIs: `has` and `destroy`.
+ * ### module: @springroll/core
  *
  * @class EventEmitter
- * @namespace springroll
+ * @extends eventemitter3
+ * @memberof springroll
+ * @see https://github.com/primus/eventemitter3
  */
 
 /**
@@ -16,8 +20,7 @@ EventEmitter.prototype.destroyed = false;
 
 /**
  * Checks if the EventEmitter has a specific listener or any listener for a given event.
- *
- * @method has
+ * @method springroll.EventEmitter#has
  * @param {String} name The name of the single event type to check for
  * @param {Function} [callback] The listener function to check for. If omitted, checks for any listener.
  * @return {Boolean} If the EventEmitter has the specified listener.
@@ -29,8 +32,7 @@ EventEmitter.prototype.has = function has(event, fn) {
 
 /**
  * Destroy and don't use after this
- *
- * @method destroy
+ * @method springroll.EventEmitter#destroy
  */
 EventEmitter.prototype.destroy = function destroy() {
     this.removeAllListeners();

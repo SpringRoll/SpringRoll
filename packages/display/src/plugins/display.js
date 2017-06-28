@@ -4,9 +4,7 @@ import Display from '../Display';
 // import {TextureTask, TextureAtlasTask, BitmapFontTask} from '../../tasks';
     
 (function() {
-    /**
-     * @class Application
-     */
+
     const plugin = new ApplicationPlugin('display', 'ticker');
 
     // Init the animator
@@ -19,29 +17,35 @@ import Display from '../Display';
 
         /**
          * The default display DOM ID name
-         * @property {String} options.displayElement
+         * ### module: @springroll/display
+         * @member {String} displayElement
+         * @memberof springroll.ApplicationOptions#
          * @default 'springroll-display'
          */
         options.add('displayElement', 'springroll-display', true);
 
         /**
          * Display specific setup options
-         * @property {Object} options.display
+         * ### module: @springroll/display
+         * @member {Object} display
+         * @memberof springroll.ApplicationOptions#
          */
         options.add('display', null, true);
 
         /**
          * Primary renderer for the application, for simply accessing
-         * Application.instance.display.stage;
-         * The first display added becomes the primary display automatically.
-         * @property {springroll.Display} display
-         * @public
+         * `Application.instance.display.stage`
+         * ### module: @springroll/display
+         * @member {springroll.Display} display
+         * @memberof springroll.Application#
          */
         this.display = null;
 
         /**
          * Render the displays, if any.
+         * ### module: @springroll/display
          * @method render
+         * @memberof springroll.Application#
          * @param {Number} elapsed Time elapsed since last frame render
          * @param {Boolean} [force=false] For update, regardless if visible/paused state.
          */

@@ -1,13 +1,16 @@
 /**
  * Provide a normalized way to get size, position, scale values
  * as well as provide reference for different geometry classes.
+ * ### module: @springroll/display
  * @class DisplayAdapter
+ * @memberof springroll
  */
 export default {
     
     /**
      * The geometry class for Circle
-     * @property {Function} Circle
+     * @member {Function}
+     * @memberof springroll.DisplayAdapter
      * @readOnly
      * @static
      * @default PIXI.Circle
@@ -16,7 +19,8 @@ export default {
 
     /**
      * The geometry class for Ellipse
-     * @property {Function} Ellipse
+     * @member {Function}
+     * @memberof springroll.DisplayAdapter
      * @readOnly
      * @static
      * @default PIXI.Ellipse
@@ -25,7 +29,8 @@ export default {
 
     /**
      * The geometry class for Rectangle
-     * @property {Function} Rectangle
+     * @member {Function}
+     * @memberof springroll.DisplayAdapter
      * @readOnly
      * @static
      * @default PIXI.Rectangle
@@ -34,7 +39,8 @@ export default {
 
     /**
      * The geometry class for Sector
-     * @property {Function} Sector
+     * @member {Function}
+     * @memberof springroll.DisplayAdapter
      * @readOnly
      * @static
      * @default PIXI.Sector
@@ -43,7 +49,8 @@ export default {
 
     /**
      * The geometry class for point
-     * @property {Function} Point
+     * @member {Function}
+     * @memberof springroll.DisplayAdapter
      * @readOnly
      * @static
      * @default PIXI.Point
@@ -52,7 +59,8 @@ export default {
 
     /**
      * The geometry class for Polygon
-     * @property {Function} Polygon
+     * @member {Function}
+     * @memberof springroll.DisplayAdapter
      * @readOnly
      * @static
      * @default PIXI.Polygon
@@ -61,7 +69,8 @@ export default {
 
     /**
      * If the rotation is expressed in radians
-     * @property {Boolean} useRadians
+     * @member {Boolean}
+     * @memberof springroll.DisplayAdapter
      * @readOnly
      * @static
      * @default true
@@ -71,8 +80,7 @@ export default {
     /**
      * Gets the object's boundaries in its local coordinate space, without any scaling or
      * rotation applied.
-     * @method getLocalBounds
-     * @static
+     * @memberof springroll.DisplayAdapter
      * @param {PIXI.DisplayObject} object The createjs display object
      * @return {PIXI.Rectangle} A rectangle with additional right and bottom properties.
      */
@@ -98,8 +106,7 @@ export default {
 
     /**
      * Normalize the object scale
-     * @method getScale
-     * @static
+     * @memberof springroll.DisplayAdapter
      * @param {PIXI.DisplayObject} object The PIXI display object
      * @param {String} [direction] Either "x" or "y" to return a specific value
      * @return {object|Number} A scale object with x and y keys or a single number if direction is set
@@ -113,8 +120,7 @@ export default {
 
     /**
      * Normalize the object position setting
-     * @method setPosition
-     * @static
+     * @memberof springroll.DisplayAdapter
      * @param {PIXI.DisplayObject} object The PIXI display object
      * @param {object|Number} position The position object or the value
      *         if the direction is set.
@@ -140,8 +146,7 @@ export default {
 
     /**
      * Normalize the object position getting
-     * @method getPosition
-     * @static
+     * @memberof springroll.DisplayAdapter
      * @param {PIXI.DisplayObject} object The PIXI display object
      * @param {String} [direction] Either "x" or "y", default is an object of both
      * @return {Object|Number} The position as an object with x and y keys if no direction
@@ -156,8 +161,7 @@ export default {
 
     /**
      * Normalize the object scale setting
-     * @method setScale
-     * @static
+     * @memberof springroll.DisplayAdapter
      * @param {PIXI.DisplayObject} object The PIXI Display object
      * @param {Number} scale The scaling object or scale value for x and y
      * @param {String} [direction] Either "x" or "y" if setting a specific value, default
@@ -176,8 +180,7 @@ export default {
 
     /**
      * Set the pivot or registration point of an object
-     * @method setPivot
-     * @static
+     * @memberof springroll.DisplayAdapter
      * @param {PIXI.DisplayObject} object The PIXI Display object
      * @param {object|Number} pivot The object pivot point or the value if the direction is set
      * @param {Number} [pivot.x] The x position of the pivot point
@@ -196,8 +199,7 @@ export default {
 
     /**
      * Set the hit area of the shape
-     * @method setHitArea
-     * @static
+     * @memberof springroll.DisplayAdapter
      * @param {PIXI.DisplayObject} object The PIXI Display object
      * @param {Object} shape The geometry object
      * @return {PIXI.DisplayObject} Return the object for chaining
@@ -209,8 +211,7 @@ export default {
 
     /**
      * Get the original size of a bitmap
-     * @method getBitmapSize
-     * @static
+     * @memberof springroll.DisplayAdapter
      * @param {PIXI.Bitmap} bitmap The bitmap to measure
      * @return {object} The width (w) and height (h) of the actual bitmap size
      */
@@ -223,8 +224,7 @@ export default {
 
     /**
      * Remove all children from a display object
-     * @method removeChildren
-     * @static
+     * @memberof springroll.DisplayAdapter
      * @param {PIXI.DisplayObjectContainer} container The display object container
      */
     removeChildren: function(container) {
@@ -233,8 +233,7 @@ export default {
 
     /**
      * If a container contains a child
-     * @method contains
-     * @static
+     * @memberof springroll.DisplayAdapter
      * @param  {PIXI.DisplayObjectContainer} container The container
      * @param  {PIXI.DisplayObject} child  The object to test
      * @return {Boolean} If the child contained within the container

@@ -4,7 +4,9 @@ import AnimatorInstance from './AnimatorInstance';
 /**
  * Animator Instance is a wrapper for different types of media
  * files. They need to extend some basic methods.
- * @class AnimatorTimeline
+ * ### module: @springroll/animation
+ * @class
+ * @memberof springroll
  */
 export default class GenericMovieClipInstance extends AnimatorInstance {
     constructor() {
@@ -12,33 +14,32 @@ export default class GenericMovieClipInstance extends AnimatorInstance {
 
         /**
          * The start time of the current animation on the movieclip's timeline.
-         * @property {Number} startTime
+         * @member {Number}
          */
         this.startTime = 0;
 
         /**
          * Length of current animation in frames.
-         * @property {int} length
+         * @member {int}
          */
         this.length = 0;
 
         /**
          * The frame number of the first frame of the current animation. If this is -1, then the
          * animation is currently a pause instead of an animation.
-         * @property {int} firstFrame
+         * @member {int}
          */
         this.firstFrame = -1;
 
         /**
          * The frame number of the last frame of the current animation.
-         * @property {int} lastFrame
+         * @member {int}
          */
         this.lastFrame = -1;
     }
 
     /**
      * The initialization method
-     * @method init
      * @param  {*} clip The movieclip
      */
     init(clip) {
@@ -116,7 +117,6 @@ export default class GenericMovieClipInstance extends AnimatorInstance {
 
     /**
      * Ends animation playback.
-     * @method endAnim
      */
     endAnim() {
         this.clip.gotoAndStop(this.lastFrame);
@@ -125,7 +125,6 @@ export default class GenericMovieClipInstance extends AnimatorInstance {
     /**
      * Updates position to a new value, and does anything that the clip needs, like updating
      * timelines.
-     * @method setPosition
      * @param  {Number} newPos The new position in the animation.
      */
     setPosition(newPos) {
@@ -138,7 +137,6 @@ export default class GenericMovieClipInstance extends AnimatorInstance {
 
     /**
      * Check to see if a clip is compatible with this
-     * @method test
      * @static
      * @return {Boolean} if the clip is supported by this instance
      */
@@ -154,7 +152,6 @@ export default class GenericMovieClipInstance extends AnimatorInstance {
 
     /**
      * Checks if animation exists
-     * @method hasAnimation
      * @static
      * @param {*} clip The clip to check for an animation.
      * @param {String} event The frame label event (e.g. "onClose" to "onClose_stop")
@@ -187,7 +184,6 @@ export default class GenericMovieClipInstance extends AnimatorInstance {
 
     /**
      * Calculates the duration of an animation or list of animations.
-     * @method getDuration
      * @static
      * @param  {*} clip The clip to check.
      * @param  {String} event The animation or animation list.
@@ -231,7 +227,6 @@ export default class GenericMovieClipInstance extends AnimatorInstance {
     /**
      * Reset this animator instance
      * so it can be re-used.
-     * @method destroy
      */
     destroy() {
         this.clip = null;

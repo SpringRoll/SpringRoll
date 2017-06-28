@@ -4,16 +4,15 @@ import {Enum} from '@springroll/core';
  * A static closure to provide easy access to the console
  * without having errors if the console doesn't exist
  * to use call: Debug.log('Your log here')
- *
- * @class Debug
- * @static
+ * ### module: @springroll/debug
+ * @class
+ * @memberof springroll
  */
 export default class Debug {
     /**
      * Connect to the `WebSocket`
      * @public
      * @static
-     * @method connect
      * @param {String} host The remote address to connect to, IP address or host name
      * @return {Boolean} If a connection was attempted
      */
@@ -43,7 +42,6 @@ export default class Debug {
      * Disconnect from the `WebSocket`
      * @public
      * @static
-     * @method disconnect
      */
     static disconnect() {
         if (Debug._useSocket) {
@@ -56,7 +54,6 @@ export default class Debug {
      * Callback when the `WebSocket` is connected
      * @private
      * @static
-     * @method _onConnect
      */
     static _onConnect() {
         //set up a function to handle all messages
@@ -85,7 +82,6 @@ export default class Debug {
      * Callback for when the websocket is closed
      * @private
      * @static
-     * @method _onClose
      */
     static _onClose() {
         window.onerror = null;
@@ -103,7 +99,6 @@ export default class Debug {
      * Sent to the output
      * @private
      * @static
-     * @method _domOutput
      * @param {String} level The log level
      * @param {String} args Additional arguments
      */
@@ -117,7 +112,6 @@ export default class Debug {
      * Send a remote log message using the socket connection
      * @private
      * @static
-     * @method _remoteLog
      * @param {Array} message The message to send
      * @param {level} [level=0] The log level to send
      * @param {String} [stack] A stack to use for the message. A stack will be created if stack
@@ -295,7 +289,6 @@ export default class Debug {
 
     /**
      * Strip out known circular references
-     * @method _removeCircular
      * @private
      * @param {Object} obj The object to remove references from
      */
@@ -377,8 +370,7 @@ export default class Debug {
      * Log something in the console or remote
      * @static
      * @public
-     * @method log
-     * @param {*} params The statement or object to log
+     * @param {mixed} params The statement or object to log
      * @return {Debug} The instance of debug for chaining
      */
     static log(params) {
@@ -407,8 +399,7 @@ export default class Debug {
      * Debug something in the console or remote
      * @static
      * @public
-     * @method debug
-     * @param {*} params The statement or object to debug
+     * @param {mixed} params The statement or object to debug
      * @return {Debug} The instance of debug for chaining
      */
     static debug(params) {
@@ -449,8 +440,7 @@ export default class Debug {
      * Info something in the console or remote
      * @static
      * @public
-     * @method info
-     * @param {*} params The statement or object to info
+     * @param {mixed} params The statement or object to info
      * @return {Debug} The instance of debug for chaining
      */
     static info(params) {
@@ -480,8 +470,7 @@ export default class Debug {
      * Warn something in the console or remote
      * @static
      * @public
-     * @method warn
-     * @param {*} params The statement or object to warn
+     * @param {mixed} params The statement or object to warn
      * @return {Debug} The instance of debug for chaining
      */
     static warn(params) {
@@ -510,8 +499,7 @@ export default class Debug {
      * Error something in the console or remote
      * @static
      * @public
-     * @method error
-     * @param {*} params The statement or object to error
+     * @param {mixed} params The statement or object to error
      */
     static error(params) {
         if (!Debug.enabled) {
@@ -539,9 +527,8 @@ export default class Debug {
      * Assert that something is true
      * @static
      * @public
-     * @method assert
      * @param {Boolean} truth As statement that is assumed true
-     * @param {*} params The message to error if the assert is false
+     * @param {mixed} params The message to error if the assert is false
      * @return {Debug} The instance of debug for chaining
      */
     static assert(truth, params) {
@@ -567,7 +554,6 @@ export default class Debug {
     /**
      * Method to describe an object in the console
      * @static
-     * @method dir
      * @public
      * @param {Object} params The object to describe in the console
      * @return {Debug} The instance of debug for chaining
@@ -596,7 +582,6 @@ export default class Debug {
      * Method to clear the console
      * @static
      * @public
-     * @method clear
      * @return {Debug} The instance of debug for chaining
      */
     static clear() {
@@ -623,8 +608,7 @@ export default class Debug {
      * Generate a stack track in the output
      * @static
      * @public
-     * @method trace
-     * @param {*} params Optional parameters to log
+     * @param {mixed} params Optional parameters to log
      * @return {Debug} The instance of debug for chaining
      */
     static trace(params) {
@@ -653,8 +637,7 @@ export default class Debug {
      * the same visual group.
      * @static
      * @public
-     * @method group
-     * @param {*} params Optional parameters to log
+     * @param {mixed} params Optional parameters to log
      * @return {Debug} The instance of debug for chaining
      */
     static group(...params) {
@@ -676,8 +659,7 @@ export default class Debug {
      * as with `Debug.group()`.
      * @static
      * @public
-     * @method groupCollapsed
-     * @param {*} params Optional parameters to log
+     * @param {mixed} params Optional parameters to log
      * @return {Debug} The instance of debug for chaining
      */
     static groupCollapsed(...params) {
@@ -700,7 +682,6 @@ export default class Debug {
      * the same visual group.
      * @static
      * @public
-     * @method groupEnd
      * @return {Debug} The instance of debug for chaining
      */
     static groupEnd() {
@@ -722,7 +703,6 @@ export default class Debug {
      * Due to the way closures and variables work, _colorClosure returns
      * the color logging function needed for the color that you pass it.
      *
-     * @method _colorClosure
      * @private
      * @param {String} hex Hex value to apply to CSS color
      * @return {Function}
@@ -756,7 +736,7 @@ export default class Debug {
  * If we have a console
  *
  * @private
- * @property {Boolean} _hasConsole
+ * @member {Boolean}
  */
 Debug._hasConsole = (typeof console !== 'undefined');
 
@@ -764,7 +744,7 @@ Debug._hasConsole = (typeof console !== 'undefined');
  * If the console supports coloring
  *
  * @private
- * @property {Boolean} _consoleSupportsColors
+ * @member {Boolean}
  */
 //document.documentMode is an IE only property specifying what version of IE the document is
 //being displayed for
@@ -807,51 +787,21 @@ if (Debug._hasConsole) {
 
 /**
  * The levels of logging
- * @property {springroll.Enum} Levels
+ * @member {springroll.Enum}
  * @static
+ * @property {int} GENERAL - The most basic general log level
+ * @property {int} DEBUG - The debug log level, more priority than GENERAL
+ * @property {int} INFO - The info log level, more priority than DEBUG
+ * @property {int} WARN - The warn log level, more priority than WARN
+ * @property {int} ERROR - The error log level, the most priority log level
+ * @property {int} NONE - Hide all debug messages, including errors.
  */
 Debug.Levels = new Enum(
-
-    /**
-     * The most basic general log level
-     * @property {int} Levels.GENERAL
-     * @static
-     */
     'GENERAL',
-
-    /**
-     * The debug log level, more priority than GENERAL
-     * @property {int} Levels.DEBUG
-     * @static
-     */
     'DEBUG',
-
-    /**
-     * The info log level, more priority than DEBUG
-     * @property {int} Levels.DEBUG
-     * @static
-     */
     'INFO',
-
-    /**
-     * The warn log level, more priority than WARN
-     * @property {int} Levels.WARN
-     * @static
-     */
     'WARN',
-
-    /**
-     * The error log level, the most priority log level
-     * @property {int} Levels.ERROR
-     * @static
-     */
     'ERROR',
-
-    /**
-     * Hide all debug messages, including errors.
-     * @property {int} Levels.NONE
-     * @static
-     */
     'NONE'
 );
 
@@ -860,7 +810,7 @@ Debug.Levels = new Enum(
  * show all levels of logging.
  * @public
  * @static
- * @property {int} minLogLevel
+ * @member {int}
  */
 Debug.minLogLevel = Debug.Levels.GENERAL;
 
@@ -868,7 +818,7 @@ Debug.minLogLevel = Debug.Levels.GENERAL;
  * Boolean to turn on or off the debugging
  * @public
  * @static
- * @property {Boolean} enabled
+ * @member {Boolean}
  */
 Debug.enabled = true;
 
@@ -877,7 +827,7 @@ Debug.enabled = true;
  *
  * @public
  * @static
- * @property {DOMElement} output
+ * @member {DOMElement}
  */
 Debug.output = null;
 
@@ -885,7 +835,7 @@ Debug.output = null;
  * Browser port for the websocket - browsers tend to block lower ports
  * @static
  * @private
- * @property {int} NET_PORT
+ * @member {int}
  * @default 1026
  */
 Debug.NET_PORT = 1026;
@@ -895,7 +845,7 @@ Debug.NET_PORT = 1026;
  * @static
  * @private
  * @default false
- * @property {Boolean} _useSocket
+ * @member {Boolean}
  */
 Debug._useSocket = false;
 
@@ -903,7 +853,7 @@ Debug._useSocket = false;
  * The socket connection
  * @static
  * @private
- * @property {WebSocket} _socket
+ * @member {WebSocket}
  */
 Debug._socket = null;
 
@@ -911,7 +861,7 @@ Debug._socket = null;
  * The current message object being sent to the `WebSocket`
  * @static
  * @private
- * @property {Object} _socketMessage
+ * @member {Object}
  */
 Debug._socketMessage = null;
 
@@ -919,15 +869,14 @@ Debug._socketMessage = null;
  * The `WebSocket` message queue
  * @static
  * @private
- * @property {Array} _socketQueue
+ * @member {Array}
  */
 Debug._socketQueue = null;
-
 
 /*
  * Prevents uglify from mangling function names attached to it so we can strip
  * out of a stack trace for logging purpose.
- * @property {Object} _manglePeventer
+ * @member {Object}
  * @private
  */
 Debug._manglePeventer = {};
@@ -937,7 +886,7 @@ Debug._manglePeventer = {};
  * in remote logging.
  * @static
  * @private
- * @property {Array} _methodsToStrip
+ * @member {Array}
  */
 Debug._methodsToStrip = [
     //general logging
@@ -977,7 +926,7 @@ Debug._methodsToStrip = [
  * An array for preventing circular references
  * @static
  * @private
- * @property {Array} _circularArray
+ * @member {Array}
  */
 Debug._circularArray = [];
 
@@ -985,7 +934,6 @@ Debug._circularArray = [];
  * Global window error handler, used for remote connections.
  * @static
  * @private
- * @method globalErrorHandler
  * @param {String} message The error message
  * @param {String} file The url of the file
  * @param {int} line The line within the file
@@ -1007,140 +955,125 @@ Debug._manglePeventer.globalErrorHandler = function(message, file, line, column,
  * (https://github.com/mrmrs/colors)
  *
  * @private
- * @property {Object} _palette
+ * @member {Object}
  */
 Debug._palette = {
 
     /**
      * Output a general log colored as navy
-     * @method navy
      * @static
-     * @param {*} message The message to log
+     * @param {mixed} message The message to log
      * @return {Debug} The instance of debug for chaining
      */
     navy: '#001F3F',
 
     /**
      * Output a general log colored as blue
-     * @method blue
      * @static
-     * @param {*} message The message to log
+     * @param {mixed} message The message to log
      * @return {Debug} The instance of debug for chaining
      */
     blue: '#0074D9',
 
     /**
      * Output a general log colored as aqua
-     * @method aqua
      * @static
-     * @param {*} message The message to log
+     * @param {mixed} message The message to log
      * @return {Debug} The instance of debug for chaining
      */
     aqua: '#7FDBFF',
 
     /**
      * Output a general log colored as teal
-     * @method teal
      * @static
-     * @param {*} message The message to log
+     * @param {mixed} message The message to log
      * @return {Debug} The instance of debug for chaining
      */
     teal: '#39CCCC',
 
     /**
      * Output a general log colored as olive
-     * @method olive
-     * @param {*} message The message to log
+     * @param {mixed} message The message to log
      * @return {Debug} The instance of debug for chaining
      */
     olive: '#3D9970',
 
     /**
      * Output a general log colored as green
-     * @method green
      * @static
-     * @param {*} message The message to log
+     * @param {mixed} message The message to log
      * @return {Debug} The instance of debug for chaining
      */
     green: '#2ECC40',
 
     /**
      * Output a general log colored as lime
-     * @method lime
      * @static
-     * @param {*} message The message to log
+     * @param {mixed} message The message to log
      * @return {Debug} The instance of debug for chaining
      */
     lime: '#01FF70',
 
     /**
      * Output a general log colored as yellow
-     * @method yellow
      * @static
-     * @param {*} message The message to log
+     * @param {mixed} message The message to log
      * @return {Debug} The instance of debug for chaining
      */
     yellow: '#FFDC00',
 
     /**
      * Output a general log colored as orange
-     * @method orange
      * @static
-     * @param {*} message The message to log
+     * @param {mixed} message The message to log
      * @return {Debug} The instance of debug for chaining
      */
     orange: '#FF851B',
 
     /**
      * Output a general log colored as red
-     * @method red
      * @static
-     * @param {*} message The message to log
+     * @param {mixed} message The message to log
      * @return {Debug} The instance of debug for chaining
      */
     red: '#FF4136',
 
     /**
      * Output a general log colored as pink
-     * @method pink
      * @static
-     * @param {*} message The message to log
+     * @param {mixed} message The message to log
      * @return {Debug} The instance of debug for chaining
      */
     pink: '#F012BE',
 
     /**
      * Output a general log colored as purple
-     * @method purple
      * @static
-     * @param {*} message The message to log
+     * @param {mixed} message The message to log
      * @return {Debug} The instance of debug for chaining
      */
     purple: '#B10DC9',
 
     /**
      * Output a general log colored as maroon
-     * @method maroon
      * @static
-     * @param {*} message The message to log
+     * @param {mixed} message The message to log
      * @return {Debug} The instance of debug for chaining
      */
     maroon: '#85144B',
 
     /**
      * Output a general log colored as silver
-     * @method silver
      * @static
-     * @param {*} message The message to log
+     * @param {mixed} message The message to log
      * @return {Debug} The instance of debug for chaining
      */
     silver: '#ddd',
 
     /**
      * Output a general log colored as gray
-     * @method gray
      * @static
-     * @param {*} message The message to log
+     * @param {mixed} message The message to log
      * @return {Debug} The instance of debug for chaining
      */
     gray: '#aaa'

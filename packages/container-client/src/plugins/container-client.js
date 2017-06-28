@@ -2,28 +2,30 @@ import {ApplicationPlugin, PageVisibility} from '@springroll/core';
 import Bellhop from 'bellhop-iframe';
 
 (function(undefined) {
-    /**
-     * @class Application
-     */
-    let plugin = new ApplicationPlugin('container-client');
+    
+    const plugin = new ApplicationPlugin('container-client');
 
     // Init the animator
     plugin.setup = function() {
-        let options = this.options;
+        const options = this.options;
 
         /**
          * Send a message to let the site know that this has
-         * been loaded, if the site is there
-         * @property {Bellhop} container
+         * been loaded, if the site is there.
+         * ### module: @springroll/container-client
+         * @member {Bellhop} container
+         * @memberof springroll.Application#
          */
-        let container = this.container = new Bellhop();
+        const container = this.container = new Bellhop();
         container.connect();
 
         /**
          * This option tells the container to always keep focus on the iframe even
          * when the focus is lost. This is useful mostly if your Application
          * requires keyboard input.
-         * @property {Boolean} options.keepFocus
+         * ### module: @springroll/container-client
+         * @member {Boolean} keepFocus
+         * @memberof springroll.ApplicationOptions#
          */
         options.add('keepFocus', false)
             .on('keepFocus', function(data) {
@@ -47,7 +49,9 @@ import Bellhop from 'bellhop-iframe';
          * The default play-mode for the application is continuous, if the application is
          * running as part of a sequence is it considered in "single play" mode
          * and the application will therefore close itself.
-         * @property {Boolean} singlePlay
+         * ### module: @springroll/container-client
+         * @member {Boolean}
+         * @memberof springroll.Application#
          * @readOnly
          * @default false
          */
@@ -59,7 +63,9 @@ import Bellhop from 'bellhop-iframe';
          * options that are used for this single play session. For instance,
          * if you want the single play to focus on a certain level or curriculum
          * such as `{ "shape": "square" }`
-         * @property {Object} playOptions
+         * ### module: @springroll/container-client
+         * @member {Object}
+         * @memberof springroll.Application#
          * @readOnly
          */
         this.playOptions = {};
@@ -68,7 +74,9 @@ import Bellhop from 'bellhop-iframe';
          * When a application is in singlePlay mode it will end.
          * It's unnecessary to check `if (this.singlePlay)` just
          * call the method and it will end the application if it can.
+         * ### module: @springroll/container-client
          * @method singlePlayEnd
+         * @memberof springroll.Application#
          * @return {Boolean} If endGame is called
          */
         this.singlePlayEnd = function() {
@@ -80,8 +88,10 @@ import Bellhop from 'bellhop-iframe';
         };
 
         /**
-         * Manually close the application, this can happen when playing through once
+         * Manually close the application, this can happen when playing through once.
+         * ### module: @springroll/container-client
          * @method endGame
+         * @memberof springroll.Application#
          * @param {String} [exitType='game_completed'] The type of exit
          */
         this.endGame = function(exitType) {
@@ -123,7 +133,7 @@ import Bellhop from 'bellhop-iframe';
      * @method  onWindowUnload
      * @private
      */
-    let onWindowUnload = function() {
+    function onWindowUnload() {
         // Remove listener to not trigger twice
         window.onunload = window.onbeforeunload = null;
         this.endGame('left_site');
@@ -136,7 +146,7 @@ import Bellhop from 'bellhop-iframe';
      * @private
      * @param  {Error} error Uncaught Error
      */
-    let onWindowError = function(error) {
+    function onWindowError(error) {
         // If the container is supported
         // then handle the errors and pass to the container
         if (this.container.supported) {

@@ -1,10 +1,15 @@
 /**
+ * ### module: @springroll/display
+ * @see http://pixijs.download/release/docs/PIXI.Text.html
+ * @class PIXI.Text
+ */
+/**
  * Determines if the text object's pivot property will reflect the text's alignment, e.g.
  * a Text with align of 'right' will have pivot.x set to the text's width, so that the
  * right edge of the text is at the text's position. Setting to false uses PIXI's default
  * alignment.
- * @property pivotAlign
- * @type {Boolean}
+ * @member {Boolean} pivotAlign
+ * @memberof PIXI.Text#
  * @default false
  */
 PIXI.Text.prototype.pivotAlign = false;

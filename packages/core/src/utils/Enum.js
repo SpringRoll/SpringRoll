@@ -1,30 +1,33 @@
 /**
  * An enumeration value. This class is private, and is only used by Enum.
- * @class EnumValue
- * @private
- * @constructor
- * @param {String} name The name of the enum value.
- * @param {int} value The integer value of the enum.
- * @param {String} toString A string for toString() to return, instead of the name.
+ * ### module: @springroll/core
+ * @class
+ * @memberof springroll
  */
 class EnumValue {
+
+    /**
+     * @param {String} name The name of the enum value.
+     * @param {int} value The integer value of the enum.
+     * @param {String} toString A string for toString() to return, instead of the name.
+     */
     constructor(name, value, toString) {
         /**
          * The name of the value, for reflection or logging purposes.
-         * @property {String} name
+         * @member {String}
          */
         this.name = name;
 
         /**
          * The integer value of this enum entry.
-         * @property {int} _value
+         * @member {int}
          * @private
          */
         this._value = value;
 
         /**
          * A string for toString() to return, instead of the name.
-         * @property {String} _toString
+         * @member {String}
          * @private
          */
         this._toString = toString || this.name;
@@ -32,7 +35,7 @@ class EnumValue {
 
     /**
      * The integer value of this enum entry.
-     * @property {int} asInt
+     * @member {int} springroll.EnumValue#asInt
      */
     get asInt() {
         return this._value;
@@ -45,35 +48,37 @@ class EnumValue {
 
 /**
  * An enumeration, similar to Enums in C#. Each value is created as an EnumValue on the Enum,
- * referenced as a property with the same name as the EnumValue. Examples:
+ * referenced as a property with the same name as the EnumValue.
+ * ### module: @springroll/core
+ * @example
+ * const myEnum = new springroll.Enum(
+ *     "valueOf0",
+ *     "valueOf1",
+ *     "valueOf2");
+ * const myOtherEnum = new springroll.Enum(
+ *     {name: "one", value:"1", toString:"I am the One!"},
+ *     "two",
+ *     {name:"screwSequentialNumbers", value:42});
+ *     
+ * myEnum.valueOf0 !== 0;//enum values are not integers
+ * myEnum.valueOf1 !== myOtherEnum.one;//enum values are not the same as other enums
+ * myEnum.valueOf2.asInt === 2;//enum values can be explicitly compared to integers
+ * myOtherEnum.screwSequentialNumbers === myOtherEnum.valueFromInt(42);//can use ints to get values
+ * console.log(myOtherEnum.one.toString());//outputs "I am the One!"
  *
-    var myEnum = new springroll.Enum(
-        "valueOf0",
-        "valueOf1",
-        "valueOf2");
-    var myOtherEnum = new springroll.Enum(
-        {name: "one", value:"1", toString:"I am the One!"},
-        "two",
-        {name:"screwSequentialNumbers", value:42});
-        
-    myEnum.valueOf0 !== 0;//enum values are not integers
-    myEnum.valueOf1 !== myOtherEnum.one;//enum values are not the same as other enums
-    myEnum.valueOf2.asInt === 2;//enum values can be explicitly compared to integers
-    myOtherEnum.screwSequentialNumbers === myOtherEnum.valueFromInt(42);//can use ints to get values
-    console.log(myOtherEnum.one.toString());//outputs "I am the One!"
-
-    for (var i in myEnum) console.log(i); //outputs "valueOf0","valueOf1","valueOf2"
+ * for (const i in myEnum) console.log(i); //outputs "valueOf0","valueOf1","valueOf2"
  *
- * @class Enum
- * @constructor
- * @param {Array|String|Object} arguments
- * The list of enumeration values. You can pass either an
- * array or a list of parameters. Each string will be
- * the previous value plus one, while objects with
- * 'name' and 'value' properties will have the specified
- * numeric value.
+ * @class
+ * @memberof springroll
  */
 export default class Enum {
+    /**
+     * @param {Array|String|Object} arguments The list of enumeration values. You can pass either an
+     * array or a list of parameters. Each string will be
+     * the previous value plus one, while objects with
+     * 'name' and 'value' properties will have the specified
+     * numeric value.
+     */
     constructor() {
         const args = Array.isArray(arguments[0]) ?
             arguments[0] :
@@ -94,8 +99,7 @@ export default class Enum {
         /**
          * The values that this Enum was initialized with. We save this so
          * that we can potentially pass this via Bellhop and re-initialize.
-         * @public
-         * @property {Array} rawEnumValues
+         * @member {Array} springroll.Enum#rawEnumValues
          */
         Object.defineProperty(this, 'rawEnumValues',
             {
@@ -153,8 +157,7 @@ export default class Enum {
 
         /**
          * The count of values the enum was initialized with.
-         * @public
-         * @property {int} length
+         * @member {int} springroll.Enum#length
          */
         Object.defineProperty(this, 'length',
             {
@@ -165,9 +168,9 @@ export default class Enum {
 
         /**
          * Retrieves the next EnumValue in the Enum (loops to first value at end).
-         * @method {EnumValue} next
-         * @param {EnumValue} input An EnumValue to retrieve the value that follows.
-         * @return {EnumValue}
+         * @method springroll.Enum#next
+         * @param {springroll.EnumValue} input An EnumValue to retrieve the value that follows.
+         * @return {springroll.EnumValue}
          */
         Object.defineProperty(this, 'next',
             {
@@ -185,8 +188,8 @@ export default class Enum {
 
         /**
          * Retrieves the first EnumValue in the Enum
-         * @method {EnumValue} first
-         * @return {EnumValue}
+         * @method springroll.Enum#first
+         * @return {springroll.EnumValue}
          */
         Object.defineProperty(this, 'first',
             {
@@ -197,8 +200,8 @@ export default class Enum {
 
         /**
          * Retrieves the last EnumValue in the Enum
-         * @method {EnumValue} last
-         * @return {EnumValue}
+         * @method springroll.Enum#last
+         * @return {springroll.EnumValue}
          */
         Object.defineProperty(this, 'last',
             {
@@ -212,9 +215,9 @@ export default class Enum {
 /**
  * Gets an enum value by integer value. If you have multiple enum values with the same integer
  * value, this will always retrieve the first enum value.
- * @method {Array} valueFromInt
+ * @method springroll.Enum#valueFromInt
  * @param {int} input The integer value to get an enum value for.
- * @return {EnumValue} The EnumValue that represents the input integer.
+ * @return {springroll.EnumValue} The EnumValue that represents the input integer.
  */
 Object.defineProperty(Enum.prototype, 'valueFromInt',
     {

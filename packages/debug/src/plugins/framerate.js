@@ -1,16 +1,16 @@
 import {ApplicationPlugin} from '@springroll/core';
 
 (function() {
-    /**
-     * @class Application
-     */
+    
     const plugin = new ApplicationPlugin('framerate', ['ticker']);
 
     // Init the animator
     plugin.setup = function() {
         /**
          * The framerate container
-         * @property {DOMElement} _framerate
+         * ### module: @springroll/debug
+         * @member {DOMElement} _framerate
+         * @memberof springroll.Application#
          * @private
          */
         const framerate = this._framerate = document.createElement('div');

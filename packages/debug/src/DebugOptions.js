@@ -1,13 +1,14 @@
 /**
  * Class for display a list of query string options
  * nicely in the console.
- * @class DebugOptions
+ * ### module: @springroll/debug
+ * @class
+ * @memberof springroll
  */
 export default class DebugOptions {
 
     /**
      * Define a int query parameter.
-     * @method int
      * @param {string} label The label for the options
      * @param {string} desc Description of values the option can accept
      * @static
@@ -19,7 +20,6 @@ export default class DebugOptions {
 
     /**
      * Define a boolean query parameter
-     * @method boolean
      * @param {string} label The label for the options
      * @param {string} desc Description of values the option can accept
      * @static
@@ -31,7 +31,6 @@ export default class DebugOptions {
 
     /**
      * Define a string query parameter
-     * @method string
      * @param {string} label The label for the options
      * @param {string} desc Description of values the option can accept
      * @static
@@ -43,7 +42,6 @@ export default class DebugOptions {
 
     /**
      * Define a number query parameter
-     * @method number
      * @param {string} label The label for the options
      * @param {string} desc Description of values the option can accept
      * @static
@@ -55,7 +53,6 @@ export default class DebugOptions {
 
     /**
      * Define a number query parameter
-     * @method add
      * @param {string} label The label for the options
      * @param {string} type The type of value the option accepts
      * @param {string} [desc] Description of values the option can accept
@@ -77,7 +74,6 @@ export default class DebugOptions {
     /**
      * Build the log and final argument array for the
      * options output console.log();
-     * @method log
      * @static
      */
     static log() {
@@ -137,7 +133,6 @@ export default class DebugOptions {
 
     /**
      * Forget all the options that have been remembered
-     * @method reset
      * @static
      * @return {springroll.DebugOptions} instance of this DebugOptions for chaining
      */
@@ -152,7 +147,6 @@ export default class DebugOptions {
     /**
      * Generate a spacer slug. Returned object is concatenated
      * space character, i.e. ' ', to the specified count.
-     * @method _spacer
      * @private
      * @param {int} count How many characters the spacer needs
      * @param {string} str The input string to add spaces to
@@ -176,7 +170,7 @@ export default class DebugOptions {
 
 /**
  * The space between columns
- * @property {int} COLUMN_BUFFER
+ * @member {int}
  * @private
  * @readOnly
  * @final
@@ -185,28 +179,28 @@ DebugOptions.COLUMN_BUFFER = 4;
 
 /**
  * The collections of options
- * @property {array} _options
+ * @member {array}
  * @private
  */
 DebugOptions._options = [];
 
 /**
  * The maximum length of the label column
- * @property {array} _maxLabel
+ * @member {array}
  * @private
  */
 DebugOptions._maxLabel = 0;
 
 /**
  * The maximum length of the type column
- * @property {array} _maxType
+ * @member {array}
  * @private
  */
 DebugOptions._maxType = 0;
 
 /**
  * Config object for the CSS styles throughout
- * @property {Object} CSS
+ * @member {Object}
  * @private
  * @readOnly
  * @final
@@ -220,7 +214,7 @@ DebugOptions.CSS = {
 
 /**
  * The header for the final log
- * @property {String} HEADER
+ * @member {String}
  * @private
  * @readOnly
  * @final
@@ -229,7 +223,7 @@ DebugOptions.HEADER = '\n%cQuery Debug Options:\n%c';
 
 /**
  * The map of different basic types of options.
- * @property {String} TYPES
+ * @member {String}
  * @private
  * @readOnly
  * @final

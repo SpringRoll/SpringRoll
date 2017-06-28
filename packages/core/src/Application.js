@@ -10,18 +10,23 @@ import sequencify from 'sequencify';
  * events should be handled by the Application to control the play
  * and pause. Any update, Ticker-type functions, should use the Applications
  * update event.
- *
- *    const app = new Application({});
- *
- * @class Application
+ * ### module: @springroll/core
+ * @example
+ * const app = new Application();
+ * app.on('ready', () => {
+ *   console.log('Application ready to use!');
+ * });
+ * @class
  * @extends springroll.EventEmitter
- * @constructor
- * @param {Object} [options] The options for creating the application,
- *         see `springroll.ApplicationOptions` for the specific options
- *        that can be overridden and set.
- * @param {Function} [ready=null] The callback when initialized
+ * @memberof springroll
  */
 export default class Application extends EventEmitter {
+    /**
+     * @param {Object} [options={}] The options for creating the application,
+     *         see `springroll.ApplicationOptions` for the specific options
+     *        that can be overridden and set.
+     * @param {Function} [ready=null] The callback when initialized
+     */
     constructor(options, ready) {
         super();
 
@@ -33,35 +38,35 @@ export default class Application extends EventEmitter {
         /**
          * Initialization options/query string parameters, these properties are read-only
          * Application properties like raf, fps, don't have any affect on the options object.
-         * @property {springroll.ApplicationOptions} options
+         * @member {springroll.ApplicationOptions}
          * @readOnly
          */
         this.options = new ApplicationOptions(this, options);
 
         /**
          * Override this to do post constructor initialization
-         * @property {Function} ready
+         * @member {Function}
          */
         this.ready = ready || null;
 
         /**
          * If the current application is paused
          * @private
-         * @property {Boolean} _paused
+         * @member {Boolean}
          */
         this._paused = false;
 
         /**
          * If the current application is enabled
          * @private
-         * @property {Boolean} _enabled
+         * @member {Boolean}
          */
         this._enabled = true;
 
         /**
          * The collection of function references to call when initializing the application
          * these are registered by external modules.
-         * @property {Array<springroll.ApplicationPlugin>} _plugins
+         * @member {Array<springroll.ApplicationPlugin>}
          * @private
          */
         this._plugins = Application.sortPlugins();
@@ -77,7 +82,7 @@ export default class Application extends EventEmitter {
 
         /**
          * The name of the game, useful for debugging purposes
-         * @property {String} name
+         * @member {String}
          * @default ""
          */
         this.name = this.options.name;
@@ -91,7 +96,7 @@ export default class Application extends EventEmitter {
 
     /**
      * The current version of the library
-     * @property {String} version
+     * @member {String}
      * @static
      * @readOnly
      */
@@ -101,7 +106,6 @@ export default class Application extends EventEmitter {
 
     /**
      * The internal initialization
-     * @method _preload
      * @private
      */
     _preload() {
@@ -111,7 +115,7 @@ export default class Application extends EventEmitter {
 
         /**
          * Before preload of plugins begin.
-         * @event beforePreload
+         * @event springroll.Application#beforePreload
          */
         this.emit('beforePreload');
 
@@ -129,7 +133,6 @@ export default class Application extends EventEmitter {
 
     /**
      * Initialize the application
-     * @method _ready
      * @protected
      */
     _ready() {
@@ -139,7 +142,7 @@ export default class Application extends EventEmitter {
 
         /**
          * Fired when before initialization of the application
-         * @event beforeReady
+         * @event springroll.Application#beforeReady
          */
         this.emit('beforeReady');
 
@@ -151,7 +154,7 @@ export default class Application extends EventEmitter {
 
         /**
          * Fired when initialization of the application is ready
-         * @event ready
+         * @event springroll.Application#ready
          */
         this.emit('ready');
 
@@ -162,7 +165,7 @@ export default class Application extends EventEmitter {
 
         /**
          * Fired when initialization of the application is done
-         * @event afterReady
+         * @event springroll.Application#afterReady
          */
         this.emit('afterReady');
     }
@@ -170,7 +173,7 @@ export default class Application extends EventEmitter {
     /**
      * Enables at the application level which enables
      * and disables all the displays.
-     * @property {Boolean} enabled
+     * @member {Boolean}
      * @default true
      */
     set enabled(enabled) {
@@ -205,26 +208,25 @@ export default class Application extends EventEmitter {
     internalPaused(paused) {
         /**
          * Fired when the pause state is toggled
-         * @event pause
+         * @event springroll.Application#pause
          * @param {boolean} paused If the application is now paused
          */
         this.emit('pause', paused);
 
         /**
          * Fired when the application becomes paused
-         * @event paused
+         * @event springroll.Application#paused
          */
 
         /**
          * Fired when the application resumes from a paused state
-         * @event resumed
+         * @event springroll.Application#resumed
          */
         this.emit(paused ? 'paused' : 'resumed');
     }
 
     /**
      * Destroys the application and all active displays and plugins
-     * @method destroy
      */
     destroy() {
         if (this.destroyed) {
@@ -235,7 +237,7 @@ export default class Application extends EventEmitter {
 
         /**
          * Fired when the application is destroyed
-         * @event destroy
+         * @event springroll.Application#destroy
          */
         this.emit('destroy');
 
@@ -258,7 +260,6 @@ export default class Application extends EventEmitter {
 
     /**
      * The toString debugging method
-     * @method toString
      * @return {String} The reprsentation of this class
      */
     toString() {
@@ -269,7 +270,6 @@ export default class Application extends EventEmitter {
      * Register a plugin with the application. This is done before
      * constructing an Application object.
      * @static
-     * @method register
      */
     static register(plugin) {
         const {plugins} = Application;
@@ -287,9 +287,8 @@ export default class Application extends EventEmitter {
     /**
      * Internal method to sort the plugins by dependencies.
      * @static
-     * @method sortPlugins
      * @private
-     * @return {Array<springroll.ApplicationPlugin} List of plugins correctly sorted
+     * @return {Array<springroll.ApplicationPlugin>} List of plugins correctly sorted
      */
     static sortPlugins() {
         // Create the sequence based off the plugins
@@ -309,14 +308,14 @@ export default class Application extends EventEmitter {
 
 /**
  * Map of all plugins
- * @property {Object{string, springroll.ApplicationPlugin}} plugins
+ * @member {Object}
  * @static
  */
 Application.plugins = {};
 
 /**
  * Get the singleton instance of the application.
- * @property {springroll.Application} instance
+ * @member {springroll.Application}
  * @static
  * @readonly
  */

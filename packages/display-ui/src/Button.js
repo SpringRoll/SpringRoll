@@ -9,111 +9,114 @@ import {Debug} from '@springroll/debug';
  * initialization and callbacks.
  * Use the "buttonPress" and "buttonOver" events to know about button clicks and mouse overs,
  * respectively.
+ * ### module: @springroll/display-ui
  *
- * @class Button
+ * @class
  * @extends PIXI.Container
- * @constructor
- * @param {Object} imageSettings Information about the art to be used for button states, as
- *                               well as if the button is selectable or not.
- * @param {Array} [imageSettings.priority=null] The state priority order. If omitted, defaults
- *                                              to ["disabled", "down", "over", "up"]. Previous
- *                                              versions of Button used a hard coded order:
- *                                              ["highlighted", "disabled", "down", "over",
- *                                              "selected", "up"].
- * @param {Object|PIXI.Texture} [imageSettings.up] The texture for the up state of the button.
- *                                                 This can be either the texture itself, or an
- *                                                 object with 'tex' and 'label' properties.
- * @param {PIXI.Texture|String} [imageSettings.up.tex] The texture to use for the up state. If
- *                                                     this is a string, Texture.fromImage()
- *                                                     will be used.
- * @param {Object} [imageSettings.up.label=null] Label information specific to this state.
- *                                               Properties on this parameter override data in
- *                                               the label parameter for this button state
- *                                               only. All values except "text" and "type" from
- *                                               the label parameter may be overridden.
- * @param {Object|PIXI.Texture} [imageSettings.over=null] The texture for the over state of the
- *                                                        button. If omitted, uses the up
- *                                                        state.
- * @param {PIXI.Texture|String} [imageSettings.over.tex] The texture to use for the over state.
- *                                                       If this is a string,
- *                                                       Texture.fromImage() will be used.
- * @param {Object} [imageSettings.over.label=null] Label information specific to this state.
- *                                                 Properties on this parameter override data
- *                                                 in the label parameter for this button state
- *                                                 only. All values except "text" and "type"
- *                                                 from the label parameter may be overridden.
- * @param {Object|PIXI.Texture} [imageSettings.down=null] The texture for the down state of the
- *                                                        button. If omitted, uses the up
- *                                                        state.
- * @param {PIXI.Texture|String} [imageSettings.down.tex] The texture to use for the down state.
- *                                                       If this is a string,
- *                                                       Texture.fromImage() will be used.
- * @param {Object} [imageSettings.down.label=null] Label information specific to this state.
- *                                                 Properties on this parameter override data
- *                                                 in the label parameter for this button state
- *                                                 only. All values except "text" and "type"
- *                                                 from the label parameter may be overridden.
- * @param {Object|PIXI.Texture} [imageSettings.disabled=null] The texture for the disabled
- *                                                            state of the button. If omitted,
- *                                                            uses the up state.
- * @param {PIXI.Texture|String} [imageSettings.disabled.tex] The texture to use for the disabled
- *                                                           state. If this is a string,
- *                                                           Texture.fromImage() will be used.
- * @param {Object} [imageSettings.disabled.label=null] Label information specific to this
- *                                                     state. Properties on this parameter
- *                                                     override data in the label parameter for
- *                                                     this button state only. All values
- *                                                     except "text" and "type" from the label
- *                                                     parameter may be overridden.
- * @param {Object|PIXI.Texture} [imageSettings.<yourCustomState>=null] The visual information
- *                                                                     about a custom state
- *                                                                     found in
- *                                                                     imageSettings.priority.
- *                                                                     Any state added this way
- *                                                                     has a property of the
- *                                                                     same name added to the
- *                                                                     button. Examples of
- *                                                                     previous states that
- *                                                                     have been
- *                                                                     moved to this system are
- *                                                                     "selected" and
- *                                                                     "highlighted".
- * @param {PIXI.Texture|String} [imageSettings.<yourCustomState>.tex] The texture to use for
- *                                                                    your custom state. If
- *                                                                    this is a string,
- *                                                                    Texture.fromImage()
- *                                                                    will be used.
- * @param {Object} [imageSettings.<yourCustomState>.label=null] Label information specific to
- *                                                              this state. Properties on this
- *                                                              parameter override data in the
- *                                                              label parameter for this button
- *                                                              state only. All values except
- *                                                              "text" from the label parameter
- *                                                              may be overridden.
- * @param {PIXI.Point} [imageSettings.origin=null] An optional offset for all button graphics,
- *                                                 in case you want button positioning to not
- *                                                 include a highlight glow, or any other
- *                                                 reason you would want to offset the button
- *                                                 art and label.
- * @param {Number} [imageSettings.scale=1] The scale to use for the textures. This allows
- *                                         smaller art assets than the designed size to be
- *                                         used.
- * @param {Object} [label=null] Information about the text label on the button. Omitting this
- *                              makes the button not use a label.
- * @param {String} [label.type] If label.type is "bitmap", then a PIXI.extras.BitmapText text
- *                              is created, otherwise a PIXI.Text is created for the label.
- * @param {String} [label.text] The text to display on the label.
- * @param {Object} [label.style] The style of the text field, in the format that
- *                               PIXI.extras.BitmapText and PIXI.Text expect.
- * @param {String|Number} [label.x="center"] An x position to place the label text at relative
- *                                           to the button.
- * @param {String|Number} [label.y="center"] A y position to place the label text at relative
- *                                           to the button. If omitted, "center" is used, which
- *                                           attempts to vertically center the label on the
- *                                           button.
- * @param {Boolean} [enabled=true] Whether or not the button is initially enabled.
+ * @memberof springroll
  */
 export default class Button extends PIXI.Container {
+    /**
+     * @param {Object} imageSettings Information about the art to be used for button states, as
+     *        well as if the button is selectable or not.
+     * @param {Array} [imageSettings.priority=null] The state priority order. If omitted, defaults
+     *        to ["disabled", "down", "over", "up"]. Previous
+     *        versions of Button used a hard coded order:
+     *        ["highlighted", "disabled", "down", "over",
+     *        "selected", "up"].
+     * @param {Object|PIXI.Texture} [imageSettings.up] The texture for the up state of the button.
+     *        This can be either the texture itself, or an
+     *        object with 'tex' and 'label' properties.
+     * @param {PIXI.Texture|String} [imageSettings.up.tex] The texture to use for the up state. If
+     *        this is a string, Texture.fromImage()
+     *        will be used.
+     * @param {Object} [imageSettings.up.label=null] Label information specific to this state.
+     *        Properties on this parameter override data in
+     *        the label parameter for this button state
+     *        only. All values except "text" and "type" from
+     *        the label parameter may be overridden.
+     * @param {Object|PIXI.Texture} [imageSettings.over=null] The texture for the over state of the
+     *        button. If omitted, uses the up
+     *        state.
+     * @param {PIXI.Texture|String} [imageSettings.over.tex] The texture to use for the over state.
+     *        If this is a string,
+     *        Texture.fromImage() will be used.
+     * @param {Object} [imageSettings.over.label=null] Label information specific to this state.
+     *        Properties on this parameter override data
+     *        in the label parameter for this button state
+     *        only. All values except "text" and "type"
+     *        from the label parameter may be overridden.
+     * @param {Object|PIXI.Texture} [imageSettings.down=null] The texture for the down state of the
+     *        button. If omitted, uses the up
+     *        state.
+     * @param {PIXI.Texture|String} [imageSettings.down.tex] The texture to use for the down state.
+     *        If this is a string,
+     *        Texture.fromImage() will be used.
+     * @param {Object} [imageSettings.down.label=null] Label information specific to this state.
+     *        Properties on this parameter override data
+     *        in the label parameter for this button state
+     *        only. All values except "text" and "type"
+     *        from the label parameter may be overridden.
+     * @param {Object|PIXI.Texture} [imageSettings.disabled=null] The texture for the disabled
+     *        state of the button. If omitted,
+     *        uses the up state.
+     * @param {PIXI.Texture|String} [imageSettings.disabled.tex] The texture to use for the disabled
+     *        state. If this is a string,
+     *        Texture.fromImage() will be used.
+     * @param {Object} [imageSettings.disabled.label=null] Label information specific to this
+     *        state. Properties on this parameter
+     *        override data in the label parameter for
+     *        this button state only. All values
+     *        except "text" and "type" from the label
+     *        parameter may be overridden.
+     * @param {Object|PIXI.Texture} [imageSettings.<yourCustomState>=null] The visual information
+     *        about a custom state
+     *        found in
+     *        imageSettings.priority.
+     *        Any state added this way
+     *        has a property of the
+     *        same name added to the
+     *        button. Examples of
+     *        previous states that
+     *        have been
+     *        moved to this system are
+     *        "selected" and
+     *        "highlighted".
+     * @param {PIXI.Texture|String} [imageSettings.<yourCustomState>.tex] The texture to use for
+     *        your custom state. If
+     *        this is a string,
+     *        Texture.fromImage()
+     *        will be used.
+     * @param {Object} [imageSettings.<yourCustomState>.label=null] Label information specific to
+     *        this state. Properties on this
+     *        parameter override data in the
+     *        label parameter for this button
+     *        state only. All values except
+     *        "text" from the label parameter
+     *        may be overridden.
+     * @param {PIXI.Point} [imageSettings.origin=null] An optional offset for all button graphics,
+     *        in case you want button positioning to not
+     *        include a highlight glow, or any other
+     *        reason you would want to offset the button
+     *        art and label.
+     * @param {Number} [imageSettings.scale=1] The scale to use for the textures. This allows
+     *        smaller art assets than the designed size to be
+     *        used.
+     * @param {Object} [label=null] Information about the text label on the button. Omitting this
+     *        makes the button not use a label.
+     * @param {String} [label.type] If label.type is "bitmap", then a PIXI.extras.BitmapText text
+     *        is created, otherwise a PIXI.Text is created for the label.
+     * @param {String} [label.text] The text to display on the label.
+     * @param {Object} [label.style] The style of the text field, in the format that
+     *        PIXI.extras.BitmapText and PIXI.Text expect.
+     * @param {String|Number} [label.x="center"] An x position to place the label text at relative
+     *        to the button.
+     * @param {String|Number} [label.y="center"] A y position to place the label text at relative
+     *        to the button. If omitted, "center" is used, which
+     *        attempts to vertically center the label on the
+     *        button.
+     * @param {Boolean} [enabled=true] Whether or not the button is initially enabled.
+     */
     constructor(imageSettings, label, enabled) {
         // @if DEBUG
         if (!imageSettings) {
@@ -125,7 +128,7 @@ export default class Button extends PIXI.Container {
 
         /**
          * The sprite that is the body of the button.
-         * @property {PIXI.Sprite} back
+         * @member {PIXI.Sprite}
          * @readOnly
          */
         this.back = new PIXI.Sprite();
@@ -133,7 +136,7 @@ export default class Button extends PIXI.Container {
         /**
          * The text field of the button. The label is centered by both width and height on the
          * button.
-         * @property {PIXI.Text|PIXI.BitmapText} label
+         * @member {PIXI.Text|PIXI.BitmapText}
          * @readOnly
          */
         this.label = null;
@@ -141,7 +144,7 @@ export default class Button extends PIXI.Container {
         /**
          * A dictionary of state booleans, keyed by state name.
          * @private
-         * @property {Object} _stateFlags
+         * @member {Object}
          */
         this._stateFlags = {};
 
@@ -150,7 +153,7 @@ export default class Button extends PIXI.Container {
          * The standard order previously was ["highlighted", "disabled", "down", "over",
          * "selected", "up"].
          * @private
-         * @property {Array} _statePriority
+         * @member {Array}
          */
         this._statePriority = imageSettings.priority || Button.DEFAULT_PRIORITY;
 
@@ -159,14 +162,14 @@ export default class Button extends PIXI.Container {
          * Each object contains the sourceRect (src) and optionally 'trim', another Rectangle.
          * Additionally, each object will contain a 'label' object if the button has a text label.
          * @private
-         * @property {Object} _stateData
+         * @member {Object}
          */
         this._stateData = null;
 
         /**
          * The current style for the label, to avoid setting this if it is unchanged.
          * @private
-         * @property {Object} _currentLabelStyle
+         * @member {Object}
          */
         this._currentLabelStyle = null;
 
@@ -174,21 +177,21 @@ export default class Button extends PIXI.Container {
          * An offset to button positioning, generally used to adjust for a highlight
          * around the button.
          * @private
-         * @property {PIXI.Point} _offset
+         * @member {PIXI.Point}
          */
         this._offset = new PIXI.Point();
 
         /**
          * The width of the button art, independent of the scaling of the button itself.
          * @private
-         * @property {Number} _width
+         * @member {Number}
          */
         this._width = 0;
 
         /**
          * The height of the button art, independent of the scaling of the button itself.
          * @private
-         * @property {Number} _height
+         * @member {Number}
          */
         this._height = 0;
 
@@ -332,7 +335,7 @@ export default class Button extends PIXI.Container {
 
     /**
      * The width of the button, based on the width of back. This value is affected by scale.
-     * @property {Number} width
+     * @member {Number}
      */
     get width() {
         return this._width * this.scale.x;
@@ -343,7 +346,7 @@ export default class Button extends PIXI.Container {
 
     /**
      * The height of the button, based on the height of back. This value is affected by scale.
-     * @property {Number} height
+     * @member {Number}
      */
     get height() {
         return this._height * this.scale.y;
@@ -355,7 +358,6 @@ export default class Button extends PIXI.Container {
     /**
      * Sets the text of the label. This does nothing if the button was not initialized with a
      * label.
-     * @method setText
      * @param {String} text The text to set the label to.
      */
     setText(text) {
@@ -410,7 +412,7 @@ export default class Button extends PIXI.Container {
 
     /**
      * Whether or not the button is enabled.
-     * @property {Boolean} enabled
+     * @member {Boolean}
      * @default true
      */
     get enabled() {
@@ -451,7 +453,6 @@ export default class Button extends PIXI.Container {
      * Adds a property to the button. Setting the property sets the value in
      * _stateFlags and calls _updateState().
      * @private
-     * @method _addProperty
      * @param {String} propertyName The property name to add to the button.
      */
     _addProperty(propertyName) {
@@ -481,7 +482,6 @@ export default class Button extends PIXI.Container {
     /**
      * Updates back based on the current button state.
      * @private
-     * @method _updateState
      * @return {Object} The state data for the active button state, so that subclasses can use the
      *                  value picked by this function without needing to calculate it themselves.
      */
@@ -553,7 +553,6 @@ export default class Button extends PIXI.Container {
     /**
      * The callback for when the button is moused over.
      * @private
-     * @method _onOver
      */
     _onOver() {
         this._stateFlags.over = true;
@@ -564,7 +563,6 @@ export default class Button extends PIXI.Container {
     /**
      * The callback for when the mouse leaves the button area.
      * @private
-     * @method _onOut
      */
     _onOut() {
         this._stateFlags.over = false;
@@ -575,7 +573,6 @@ export default class Button extends PIXI.Container {
     /**
      * The callback for when the button receives a mouse down event.
      * @private
-     * @method _onDown
      */
     _onDown() {
         this._stateFlags.down = true;
@@ -591,7 +588,6 @@ export default class Button extends PIXI.Container {
      * The callback for when the button for when the mouse/touch is released on the button
      * - only when the button was held down initially.
      * @private
-     * @method _onUp
      */
     _onUp() {
         this._stateFlags.down = false;
@@ -615,7 +611,6 @@ export default class Button extends PIXI.Container {
      * The callback for when the mouse/touch is released outside the button when the button was
      * held down.
      * @private
-     * @method _onUpOutside
      */
     _onUpOutside() {
         this._stateFlags.down = false;
@@ -629,8 +624,6 @@ export default class Button extends PIXI.Container {
 
     /**
      * Destroys the button.
-     * @public
-     * @method destroy
      */
     destroy(options) {
         this.removeAllListeners();
@@ -645,6 +638,7 @@ export default class Button extends PIXI.Container {
 
     /**
      * A simple function for comparing the properties of two objects
+     * @private
      */
     static _compare(obj1, obj2) {
         if (obj1 === obj2) {
@@ -662,6 +656,7 @@ export default class Button extends PIXI.Container {
 
     /**
      * A simple function for making a shallow copy of an object.
+     * @private
      */
     static _cloneElement(obj) {
         if (!obj || 'object' !== typeof obj) {
@@ -683,21 +678,21 @@ export default class Button extends PIXI.Container {
 /**
  * An event for when the button is pressed (while enabled).
  * @static
- * @property {String} BUTTON_PRESS
+ * @member {String}
  */
 Button.BUTTON_PRESS = 'buttonPress';
 
 /**
  * An event for when the button is moused over (while enabled).
  * @static
- * @property {String} BUTTON_OVER
+ * @member {String}
  */
 Button.BUTTON_OVER = 'buttonOver';
 
 /**
  * An event for when the button is moused out (while enabled).
  * @static
- * @property {String} BUTTON_OUT
+ * @member {String}
  */
 Button.BUTTON_OUT = 'buttonOut';
 
@@ -705,7 +700,7 @@ Button.BUTTON_OUT = 'buttonOut';
  * A list of state names that should not have properties autogenerated.
  * @private
  * @static
- * @property {Array} RESERVED_STATES
+ * @member {Array}
  */
 Button.RESERVED_STATES = ['disabled', 'enabled', 'up', 'over', 'down'];
 
@@ -713,6 +708,6 @@ Button.RESERVED_STATES = ['disabled', 'enabled', 'up', 'over', 'down'];
  * A state priority list to use as the default.
  * @private
  * @static
- * @property {Array} DEFAULT_PRIORITY
+ * @member {Array}
  */
 Button.DEFAULT_PRIORITY = ['disabled', 'down', 'over', 'up'];

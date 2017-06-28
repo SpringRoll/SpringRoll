@@ -3,53 +3,56 @@ import DelayedCall from './DelayedCall';
 
 /**
  * Handle frame update ticks.
- * @class Ticker
- * @namespace springroll
+ * ### module: @springroll/core
+ * @class
  * @extends springroll.EventEmitter
- * @param {Number} fps - Frames per second
+ * @memberof springroll
  */
 export default class Ticker extends EventEmitter {
+    /**
+     * @param {Number} fps - Frames per second
+     */
     constructor(fps) {
         super();
 
         /**
          * The number of ms since the last frame update
          * @private
-         * @property {int} _lastFrameTime
+         * @member {int}
          */
         this._lastFrameTime = 0;
 
         /**
          * The bound callback for listening to tick events
          * @private
-         * @property {Function} _tick
+         * @member {Function}
          */
         this._tick = this._tick.bind(this);
 
         /**
          * The id of the active requestAnimationFrame or setTimeout call.
-         * @property {Number} _tickId
+         * @member {Number}
          * @private
          */
         this._tickId = -1;
 
         /**
          * Set the frames per second.
-         * @property {Number} _fps
+         * @member {Number}
          * @private
          */
         this._fps = fps;
 
         /**
          * The number of milliseconds per frame
-         * @property {int} _msPerFrame
+         * @member {int}
          * @private
          */
         this._msPerFrame = 0;
 
         /**
          * If we are currently running
-         * @property {boolean} _running
+         * @member {boolean}
          * @private
          */
         this._running = false;
@@ -60,7 +63,7 @@ export default class Ticker extends EventEmitter {
 
     /**
      * Se the frames per second.
-     * @property {Number} fps
+     * @member {Number}
      */
     set fps(fps) {
         if (typeof fps === 'number') {
@@ -74,7 +77,6 @@ export default class Ticker extends EventEmitter {
 
     /**
      * Begin the ticker.
-     * @method
      */
     start() {
         this._running = true;
@@ -87,7 +89,6 @@ export default class Ticker extends EventEmitter {
 
     /**
      * Stop or pause the ticker.
-     * @method
      */
     stop() {
         this._running = false;
@@ -100,7 +101,6 @@ export default class Ticker extends EventEmitter {
 
     /**
      * _tick would be bound in _tick
-     * @method _tick
      * @private
      */
     _tick() {
@@ -115,7 +115,7 @@ export default class Ticker extends EventEmitter {
 
         /**
          * Frame is updated.
-         * @event update
+         * @event springroll.Ticker#update
          * @param {number} elapsed - Time elapsed since last frame in milliseconds
          * @param {number} time - Current time in micromilliseconds
          */
@@ -128,11 +128,10 @@ export default class Ticker extends EventEmitter {
     /**
      * Works just like `window.setTimeout` but respects the pause
      * state of the Application.
-     * @method  setTimeout
      * @param {Function} callback    The callback function, passes one argument which is the DelayedCall instance
      * @param {int}   delay       The time in milliseconds or the number of frames (useFrames must be true)
      * @param {Boolean}   [useFrames=false]   If the delay is frames (true) or millseconds (false)
-     * @param {[type]}   [autoDestroy=true] If the DelayedCall object should be destroyed after completing
+     * @param {Boolean}   [autoDestroy=true] If the DelayedCall object should be destroyed after completing
      * @return {springroll.DelayedCall} The object for pausing, restarting, destroying etc.
      */
     setTimeout(callback, delay, useFrames, autoDestroy) {
@@ -142,7 +141,6 @@ export default class Ticker extends EventEmitter {
     /**
      * Works just like `window.setInterval` but respects the pause
      * state of the Application.
-     * @method  setInterval
      * @param {Function} callback    The callback function, passes one argument which is the DelayedCall instance
      * @param {int}   delay       The time in milliseconds or the number of frames (useFrames must be true)
      * @param {Boolean}   [useFrames=false]   If the delay is frames (true) or millseconds (false)
@@ -154,7 +152,6 @@ export default class Ticker extends EventEmitter {
 
     /**
      * Destroy and don't use after this.
-     * @method
      */
     destroy() {
         this.stop();

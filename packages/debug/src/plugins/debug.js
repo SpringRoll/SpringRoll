@@ -2,9 +2,7 @@ import {ApplicationPlugin} from '@springroll/core';
 import Debug from '../Debug';
 
 (function() {
-    /**
-     * @class Application
-     */
+
     const plugin = new ApplicationPlugin('debug');
 
     // Init the animator
@@ -14,15 +12,20 @@ import Debug from '../Debug';
         /**
          * Enable the Debug class. After initialization, this
          * is a pass-through to Debug.enabled.
-         * @property {Boolean} options.debug
+         * ### module: @springroll/debug
+         * @member {Boolean} debug
+         * @memberof springroll.ApplicationOptions#
          * @default true
          */
         options.add('debug', true);
 
         /**
          * Minimum log level from 0 (Debug.Levels.GENERAL) to 4 (Debug.Levels.ERROR)
-         * @property {int} options.minLogLevel
+         * ### module: @springroll/debug
+         * @member {int} minLogLevel
+         * @memberof springroll.ApplicationOptions#
          * @default Debug.Levels.GENERAL
+         * @see springroll.Debug.Levels
          */
         options.add('minLogLevel', Debug.Levels.GENERAL);
 
@@ -32,7 +35,9 @@ import Debug from '../Debug';
          * IP address or host name. After initialization, setting
          * this will still connect or disconect Debug for remote
          * debugging. This is a write-only property.
-         * @property {String} options.debugRemote
+         * ### module: @springroll/debug
+         * @member {String} debugRemote
+         * @memberof springroll.ApplicationOptions#
          */
         options.add('debugRemote', null)
             .respond('debug', () => Debug.enabled)

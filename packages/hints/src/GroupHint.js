@@ -11,20 +11,22 @@ import VOHint from './VOHint';
  *      .addTier()
  *      .vo('DetailedSomething', onComplete)
  *      .vo('DetailedAnother', onComplete);
- * @class GroupHint
+ * @class 
+ * @memberof springroll
  * @private
  * @extends springroll.AbstractHint
- * @constructor
- * @param {springroll.HintsPlayer} hints The instance of the hints
- * @param {Function} done called on hint done
  */
 export default class GroupHint extends AbstractHint {
+    /**
+     * @param {springroll.HintsPlayer} hints The instance of the hints
+     * @param {Function} done called on hint done
+     */
     constructor(hints, done) {
         super(hints, done);
 
         /**
          * The collection of tiers
-         * @property {Array} tiers
+         * @member {Array}
          */
         this._tiers = [
             [] //our first tier
@@ -32,14 +34,14 @@ export default class GroupHint extends AbstractHint {
 
         /**
          * The current tier index
-         * @property {int} _current
+         * @member {int}
          * @private
          */
         this._current = -1;
 
         /**
          * The current tier selected
-         * @property {array} _tier
+         * @member {array}
          * @private
          */
         this._tier = null;
@@ -47,11 +49,8 @@ export default class GroupHint extends AbstractHint {
         this.nextTier();
     }
 
-
-
     /**
      * Run the hint
-     * @method play
      */
     play() {
         //play random hint from current tier
@@ -61,7 +60,6 @@ export default class GroupHint extends AbstractHint {
 
     /**
      * Add a VO hint to the player.
-     * @method vo
      * @param {string|array} [idOrList] The list of VO element, see VOPlayer.play
      * @param {function} onComplete Call when the VO is done playing
      * @param {function|boolean} [onCancel] Call when the VO is cancelled playing,
@@ -81,7 +79,6 @@ export default class GroupHint extends AbstractHint {
 
     /**
      * Add an animator hint to the player
-     * @method anim
      * @param {createjs.MovieClip|*} instance The instance of the clip to play with Animator
      * @param {String|Array|Object} events The event aliases to play, see Animator.play
      * @param {function} onComplete Call when the VO is done playing
@@ -105,7 +102,6 @@ export default class GroupHint extends AbstractHint {
      * Add an animator hint to the player. If you use this hinting method, you
      * NEED to re-enable the hinting when it's done. Whereas the VO and ANIM methods
      * with automatically re-enable the hinting button.
-     * @method func
      * @param {function} onStart The instance of the clip to play with Animator
      * @return {springroll.FunctionHint} The newly added hint
      */
@@ -119,7 +115,6 @@ export default class GroupHint extends AbstractHint {
 
     /**
      * Add a new timeout tier of hinting
-     * @method addTier
      * @return {springroll.GroupHint} The instance of the group hint, for chaining
      */
     addTier() {
@@ -130,7 +125,6 @@ export default class GroupHint extends AbstractHint {
 
     /**
      * Advance to the next tier of hints.
-     * @method nextTier
      * @return {springroll.GroupHint} The instance of the group hint, for chaining
      */
     nextTier() {
@@ -147,8 +141,6 @@ export default class GroupHint extends AbstractHint {
 
     /**
      * Reset the current tier to be the first
-     * @method reset
-     * @return {[type]} [description]
      */
     reset() {
         this._current = -1;
@@ -157,7 +149,6 @@ export default class GroupHint extends AbstractHint {
 
     /**
      * Clean-up the hint, don't use after this
-     * @method destroy
      */
     destroy() {
         this._tiers = null;

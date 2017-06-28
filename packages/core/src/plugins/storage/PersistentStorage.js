@@ -2,21 +2,23 @@ import include from '../../utils/include';
 
 /**
  * The PersistentStorage functions use localStorage and sessionStorage, with a cookie fallback.
+ * ### module: @springroll/core
  *
- * @class PersistentStorage
+ * @class
+ * @memberof springroll
  */
 export default class PersistentStorage {
     constructor() {
         /**
          * `true` if localStorage is supported, `false` to use cookies
-         * @property {Boolean} supported
+         * @member {Boolean}
          * @readonly
          */
         this.supported = this.storageSupported();
 
         /**
          * A constant for cookie fallback for `PersistentStorage.clear()` 
-         * @property {Number} empty
+         * @member {Number}
          * @readonly
          * @default -1
          */
@@ -25,8 +27,6 @@ export default class PersistentStorage {
 
     /**
      * Remove a saved variable by name.
-     * @method remove
-     * @static
      * @param {String} name The name of the value to remove
      */
     remove(name) {
@@ -41,8 +41,6 @@ export default class PersistentStorage {
 
     /**
      * Save a variable.
-     * @method write
-     * @static
      * @param {String} name The name of the value to save
      * @param {mixed} value The value to save. This will be run through JSON.stringify().
      * @param {Boolean} [tempOnly=false] If the value should be saved only in the current browser session.
@@ -77,8 +75,6 @@ export default class PersistentStorage {
 
     /**
      * Read the value of a saved variable
-     * @method read
-     * @static
      * @param {String} name The name of the variable
      * @return {mixed} The value (run through `JSON.parse()`) or null if it doesn't exist
      */
@@ -120,8 +116,6 @@ export default class PersistentStorage {
      * In our case, this will check if the object has a specially-named property (`__classname`).
      * If it does, we will attempt to construct a new instance of that class, rather than using a
      * plain old Object. Note that this recurses through the object.
-     * @method reviver
-     * @static
      * @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/parse
      * @param  {String} key   each key name
      * @param  {Object} value Object that we wish to restore
@@ -149,7 +143,6 @@ export default class PersistentStorage {
     /** 
      * A constant to determine if we can use localStorage and 
      * sessionStorage 
-     * @method storageSupported
      * @readOnly
      */
     storageSupported() {

@@ -1,6 +1,13 @@
 /**
+ * ### module: @springroll/display
+ * @see http://pixijs.download/release/docs/PIXI.Point.html
+ * @class PIXI.Point
+ */
+
+/**
  * Returns the dot product between this point and another one.
  * @method dotProd
+ * @memberof PIXI.Point#
  * @param other {Point} The point to form a dot product with
  * @return The dot product between the two points.
  */
@@ -11,6 +18,7 @@ PIXI.Point.prototype.dotProd = function(other) {
 /**
  * Returns the length (or magnitude) of this point.
  * @method length
+ * @memberof PIXI.Point#
  * @return The length of this point.
  */
 PIXI.Point.prototype.length = function() {
@@ -20,6 +28,7 @@ PIXI.Point.prototype.length = function() {
 /**
  * Returns the squared length (or magnitude) of this point. This is faster than length().
  * @method lengthSq
+ * @memberof PIXI.Point#
  * @return The length squared of this point.
  */
 PIXI.Point.prototype.lengthSq = function() {
@@ -29,6 +38,7 @@ PIXI.Point.prototype.lengthSq = function() {
 /**
  * Reduces the point to a length of 1.
  * @method normalize
+ * @memberof PIXI.Point#
  */
 PIXI.Point.prototype.normalize = function() {
     let oneOverLen = 1 / this.length();
@@ -38,7 +48,8 @@ PIXI.Point.prototype.normalize = function() {
 
 /**
  * Subtracts the x and y values of a point from this point.
- * @method subtract
+ * @method substract
+ * @memberof PIXI.Point#
  * @param other {Point} The point to subtract from this one
  */
 PIXI.Point.prototype.subtract = function(other) {
@@ -49,6 +60,7 @@ PIXI.Point.prototype.subtract = function(other) {
 /**
  * Adds the x and y values of a point to this point.
  * @method add
+ * @memberof PIXI.Point#
  * @param other {Point} The point to add to this one
  */
 PIXI.Point.prototype.add = function(other) {
@@ -59,6 +71,7 @@ PIXI.Point.prototype.add = function(other) {
 /**
  * Truncate the length of the point to a maximum.
  * @method truncate
+ * @memberof PIXI.Point#
  * @param maxLength {Number} The maximum length to allow in this point.
  */
 PIXI.Point.prototype.truncate = function(maxLength) {
@@ -73,6 +86,7 @@ PIXI.Point.prototype.truncate = function(maxLength) {
 /**
  * Multiplies the x and y values of this point by a value.
  * @method scaleBy
+ * @memberof PIXI.Point#
  * @param value {Number} The value to scale by.
  */
 PIXI.Point.prototype.scaleBy = function(value) {
@@ -83,6 +97,7 @@ PIXI.Point.prototype.scaleBy = function(value) {
 /**
  * Calculates the distance between this and another point.
  * @method distance
+ * @memberof PIXI.Point#
  * @param other {Point} The point to calculate the distance to.
  * @return {Number} The distance.
  */
@@ -95,6 +110,7 @@ PIXI.Point.prototype.distance = function(other) {
 /**
  * Calculates the squared distance between this and another point.
  * @method distanceSq
+ * @memberof PIXI.Point#
  * @param other {Point} The point to calculate the distance to.
  * @return {Number} The distance squared.
  */
@@ -104,6 +120,16 @@ PIXI.Point.prototype.distanceSq = function(other) {
     return xDiff * xDiff + yDiff * yDiff;
 };
 
+/**
+ * Local to global point.
+ * @method localToGlobal
+ * @memberof PIXI.Point
+ * @param {PIXI.DisplayObject} displayObject - Display object
+ * @param {Number} localX - Local x position
+ * @param {Number} localY - Local y position
+ * @param {PIXI.Point} [outPoint] output
+ * @return {PIXI.Point} Output point
+ */
 PIXI.Point.localToGlobal = function(displayObject, localX, localY, outPoint) {
     if (!outPoint) {
         outPoint = new PIXI.Point();
@@ -113,6 +139,16 @@ PIXI.Point.localToGlobal = function(displayObject, localX, localY, outPoint) {
     return displayObject.toGlobal(outPoint, outPoint);
 };
 
+/**
+ * Global to local coordinate space
+ * @method globalToLocal
+ * @memberof PIXI.Point
+ * @param {PIXI.DisplayObject} displayObject - Display object
+ * @param {Number} globalX - Global x position
+ * @param {Number} globalY - Global y position
+ * @param {PIXI.Point} [outPoint] output
+ * @return {PIXI.Point} Output point
+ */
 PIXI.Point.globalToLocal = function(displayObject, globalX, globalY, outPoint) {
     if (!outPoint) {
         outPoint = new PIXI.Point();
@@ -122,6 +158,17 @@ PIXI.Point.globalToLocal = function(displayObject, globalX, globalY, outPoint) {
     return displayObject.toLocal(outPoint, null, outPoint);
 };
 
+/**
+ * Global to local coordinate space
+ * @method localToLocal
+ * @memberof PIXI.Point
+ * @param {PIXI.DisplayObject} sourceDisplayObject - Source display object
+ * @param {PIXI.DisplayObject} targetDisplayObject - Target display object
+ * @param {Number} x - Local x position in source object
+ * @param {Number} y - Local y position in source object
+ * @param {PIXI.Point} [outPoint] output
+ * @return {PIXI.Point} Output point
+ */
 PIXI.Point.localToLocal = function(sourceDisplayObject, targetDisplayObject, x, y, outPoint) {
     if (!outPoint) {
         outPoint = new PIXI.Point();

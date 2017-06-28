@@ -4,16 +4,19 @@ import {Application, include} from '@springroll/core';
 /**
  * Drag manager is responsible for handling the dragging of stage elements
  * supports click-n-stick and click-n-drag functionality.
+ * ### module: @springroll/display-ui
  *
- * @class DragManager
- * @constructor
- *  @param {PixiDisplay} display The display that this DragManager is handling objects on.
- *                               Optionally, this parameter can be omitted and the Application's
- *                               default display will be used.
- *  @param {Function} startCallback The callback when when starting
- *  @param {Function} endCallback The callback when ending
+ * @class
+ * @memberof springroll
  */
 export default class DragManager {
+    /**
+     * @param {PixiDisplay} display The display that this DragManager is handling objects on.
+     *                              Optionally, this parameter can be omitted and the Application's
+     *                              default display will be used.
+     * @param {Function} startCallback The callback when when starting
+     * @param {Function} endCallback The callback when ending
+     */
     constructor(display, startCallback, endCallback) {
         if (typeof display === 'function' && !endCallback) {
             endCallback = startCallback;
@@ -24,15 +27,13 @@ export default class DragManager {
         /**
          * The object that's being dragged, or a dictionary of DragData being dragged
          * by id if multitouch is true.
-         * @public
          * @readOnly
-         * @property {PIXI.DisplayObject|Dictionary} draggedObj
+         * @member {PIXI.DisplayObject|Dictionary}
          */
         this.draggedObj = null;
 
         /**
          * The radius in pixel to allow for dragging, or else does sticky click
-         * @public
          * @property dragStartThreshold
          * @default 20
          */
@@ -42,7 +43,7 @@ export default class DragManager {
          * The position x, y of the mouse down on the stage. This is only used
          * when multitouch is false - the DragData has it when multitouch is true.
          * @private
-         * @property {PIXI.Point} mouseDownStagePos
+         * @member {PIXI.Point}
          */
         this.mouseDownStagePos = new PIXI.Point(0, 0);
 
@@ -50,41 +51,37 @@ export default class DragManager {
          * The position x, y of the object when interaction with it started. If multitouch is
          * true, then this will only be set during a drag stop callback, for the object that just
          * stopped getting dragged.
-         * @property {PIXI.Point} mouseDownObjPos
+         * @member {PIXI.Point}
          */
         this.mouseDownObjPos = new PIXI.Point(0, 0);
 
         /**
          * If sticky click dragging is allowed.
-         * @public
-         * @property {Bool} allowStickyClick
+         * @member {Bool}
          * @default true
          */
         this.allowStickyClick = true;
 
         /**
          * Is the move touch based
-         * @public
          * @readOnly
-         * @property {Bool} isTouchMove
+         * @member {Bool}
          * @default false
          */
         this.isTouchMove = false;
 
         /**
          * Is the drag being held on mouse down (not sticky clicking)
-         * @public
          * @readOnly
-         * @property {Bool} isHeldDrag
+         * @member {Bool}
          * @default false
          */
         this.isHeldDrag = false;
 
         /**
          * Is the drag a sticky clicking (click on a item, then mouse the mouse)
-         * @public
          * @readOnly
-         * @property {Bool} isStickyClick
+         * @member {Bool}
          * @default false
          */
         this.isStickyClick = false;
@@ -102,8 +99,7 @@ export default class DragManager {
          *        ]
          *    }
          *
-         * @public
-         * @property {Object} snapSettings
+         * @member {Object}
          * @default null
          */
         this.snapSettings = null;
@@ -111,7 +107,7 @@ export default class DragManager {
         /**
          * Reference to the Pixi InteractionManager.
          * @private
-         * @property {PIXI.interaction.InteractionManager} _interaction
+         * @member {PIXI.interaction.InteractionManager}
          */
         this._interaction = display.renderer.plugins.interaction;
 
@@ -120,21 +116,21 @@ export default class DragManager {
          * was at. This is only used when multitouch is false - the DragData has
          * it when multitouch is true.
          * @private
-         * @property {PIXI.Point} _dragOffset
+         * @member {PIXI.Point}
          */
         this._dragOffset = null;
 
         /**
          * External callback when we start dragging
          * @private
-         * @property {Function} _dragStartCallback
+         * @member {Function}
          */
         this._dragStartCallback = startCallback;
 
         /**
          * External callback when we are done dragging
          * @private
-         * @property {Function} _dragEndCallback
+         * @member {Function}
          */
         this._dragEndCallback = endCallback;
 
@@ -146,21 +142,21 @@ export default class DragManager {
         /**
          * The collection of draggable objects
          * @private
-         * @property {Array} _draggableObjects
+         * @member {Array}
          */
         this._draggableObjects = [];
 
         /**
          * If this DragManager is using multitouch for dragging.
          * @private
-         * @property {Boolean} _multitouch
+         * @member {Boolean}
          */
         this._multitouch = false;
 
         /**
          * If this DragManager has added drag listeners to the InteractionManager
          * @private
-         * @property {Boolean} _addedDragListeners
+         * @member {Boolean}
          */
         this._addedDragListeners = false;
 
@@ -170,7 +166,7 @@ export default class DragManager {
     /**
      * If the DragManager allows multitouch dragging. Setting this stops any current
      * drags.
-     * @property {Boolean} multitouch
+     * @member {Boolean}
      */
     get multitouch() {
         return this._multitouch;
@@ -195,8 +191,6 @@ export default class DragManager {
      * as the second argument, it defaults to a held drag, that ends as soon as
      * the mouse is released. When using multitouch, passing a interaction data is
      * required.
-     * @method startDrag
-     * @public
      * @param {PIXI.DisplayObject} object The object that should be dragged.
      * @param {PIXI.InteractionData} interactionData The interaction data about
      *                                            the input event that triggered this.
@@ -207,7 +201,6 @@ export default class DragManager {
 
     /**
      * Mouse down on an object
-     * @method _objMouseDown
      * @private
      * @param {PIXI.DisplayObject} object The object that should be dragged.
      * @param {PIXI.InteractionData} interactionData The interaction data about
@@ -287,7 +280,6 @@ export default class DragManager {
 
     /**
      * Start the sticky click
-     * @method _triggerStickyClick
      * @param {PIXI.InteractionData} interactionData The interaction data about
      *                                            the input event that triggered this.
      * @private
@@ -303,7 +295,6 @@ export default class DragManager {
 
     /**
      * Start hold dragging
-     * @method _triggerHeldDrag
      * @private
      * @param {PIXI.InteractionData} interactionData The ineraction data about the moved mouse
      */
@@ -329,7 +320,6 @@ export default class DragManager {
 
     /**
      * Internal start dragging on the stage
-     * @method _startDrag
      * @param {PIXI.InteractionData} interactionData The ineraction data about the moved mouse
      * @private
      */
@@ -358,8 +348,6 @@ export default class DragManager {
 
     /**
      * Stops dragging the currently dragged object.
-     * @public
-     * @method stopDrag
      * @param {Bool} [doCallback=false] If the drag end callback should be called.
      * @param {PIXI.DisplayObject} [obj] A specific object to stop dragging, if multitouch
      *                                   is true. If this is omitted, it stops all drags.
@@ -380,7 +368,6 @@ export default class DragManager {
 
     /**
      * Internal stop dragging on the stage
-     * @method _stopDrag
      * @private
      * @param {PIXI.InteractionData} interactionData The ineraction data about the moved mouse
      * @param {Bool} doCallback If we should do the callback
@@ -458,7 +445,6 @@ export default class DragManager {
 
     /**
      * Update the object position based on the mouse
-     * @method _updateObjPosition
      * @private
      * @param {PIXI.InteractionData} interactionData Mouse move event
      */
@@ -512,7 +498,6 @@ export default class DragManager {
 
     /**
      * Handles snapping the dragged object to the nearest among a list of points
-     * @method _handlePointSnap
      * @private
      * @param {PIXI.Point} localMousePos The mouse position in the same space as the dragged object.
      * @param {PIXI.Point} dragOffset The drag offset for the dragged object.
@@ -550,8 +535,6 @@ export default class DragManager {
      * _dragBounds (Rectangle), _dragOffset (Point), _onMouseDownListener (Function),
      * _dragMan (springroll.DragManager) reference to the DragManager
      * these will override any existing properties of the same name
-     * @method addObject
-     * @public
      * @param {PIXI.DisplayObject} obj The display object
      * @param {PIXI.Rectangle} [bounds] The rectangle bounds. 'right' and 'bottom' properties
      *                                  will be added to this object.
@@ -595,8 +578,6 @@ export default class DragManager {
 
     /**
      * Removes properties and functions added by addObject().
-     * @public
-     * @method removeObject
      * @param {PIXI.DisplayObject} obj The display object
      */
     removeObject(obj) {
@@ -615,8 +596,6 @@ export default class DragManager {
 
     /**
      * Destroy the manager
-     * @public
-     * @method destroy
      */
     destroy() {
         //clean up dragged obj

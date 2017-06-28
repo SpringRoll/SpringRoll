@@ -8,48 +8,49 @@ import {Debug} from '@springroll/debug';
 
 /**
  * The State Manager used for managing the different states of a game or site
+ * ### module: @springroll/states
  *
- * @class StateManager
+ * @class
+ * @memberof springroll
  * @extends springroll.EventEmitter
- * @constructor
- * @param {Object} [transitionSounds] Data object with aliases and start times (seconds) for
- *     transition in, loop and out sounds. Example: `{in:{alias:"myAlias", start:0.2}}`.
- *     These objects are in the format for Animator from EaselJSDisplay or PixiDisplay,
- *     so they can be just the sound alias instead of an object.
- * @param {Object|String} [transitionSounds.in] The sound to play for transition in
- * @param {Object|String} [transitionSounds.out] The sound to play for transition out
- * @param {Object|String} [transitionSounds.loading] The sound to play for loading
  */
 export default class StateManager extends EventEmitter {
+    /**
+     * @param {Object} [transitionSounds] Data object with aliases and start times (seconds) for
+     *     transition in, loop and out sounds. Example: `{in:{alias:"myAlias", start:0.2}}`.
+     *     These objects are in the format for Animator from EaselJSDisplay or PixiDisplay,
+     *     so they can be just the sound alias instead of an object.
+     * @param {Object|String} [transitionSounds.in] The sound to play for transition in
+     * @param {Object|String} [transitionSounds.out] The sound to play for transition out
+     * @param {Object|String} [transitionSounds.loading] The sound to play for loading
+     */
     constructor(transitionSounds) {
         super();
 
         /**
          * The animator playback.
-         *
-         * @property {springroll.Animator} animator
+         * @member {springroll.Animator}
          * @private
          */
         this.animator = null;
 
         /**
          * The click to play in between transitioning states
-         *
-         * @property {createjs.MovieClip|springroll.easeljs.BitmapMovieClip|PIXI.Spine} transition
+         * @member {createjs.MovieClip|springroll.easeljs.BitmapMovieClip|PIXI.Spine}
          */
         this.transition = null;
 
         /**
          * Wait to fire the onTransitionIn event until the onTransitionLoading
          * loop reaches it’s final frame.
-         * @property {boolean} waitForLoadingComplete
+         * @member {boolean}
          */
         this.waitForLoadingComplete = false;
 
         /**
          * The sounds for the transition
          *
-         * @property {Object} _transitionSounds
+         * @member {Object}
          * @private
          */
         this._transitionSounds = transitionSounds || null;
@@ -57,7 +58,7 @@ export default class StateManager extends EventEmitter {
         /**
          * The collection of states map
          *
-         * @property {Object} _states
+         * @member {Object}
          * @private
          */
         this._states = {};
@@ -65,7 +66,7 @@ export default class StateManager extends EventEmitter {
         /**
          * The currently selected state
          *
-         * @property {springroll.State} _state
+         * @member {springroll.State}
          * @private
          */
         this._state = null;
@@ -73,7 +74,7 @@ export default class StateManager extends EventEmitter {
         /**
          * The currently selected state id
          *
-         * @property {String} _stateID
+         * @member {String}
          * @private
          */
         this._stateId = null;
@@ -81,7 +82,7 @@ export default class StateManager extends EventEmitter {
         /**
          * The old state
          *
-         * @property {springroll.State} _oldState
+         * @member {springroll.State}
          * @private
          */
         this._oldState = null;
@@ -89,7 +90,7 @@ export default class StateManager extends EventEmitter {
         /**
          * If the manager is loading a state
          *
-         * @property {Boolean} name description
+         * @member {Boolean}
          * @private
          */
         this._isLoading = false;
@@ -97,7 +98,7 @@ export default class StateManager extends EventEmitter {
         /**
          * If the state or manager is current transitioning
          *
-         * @property {Boolean} _isTransitioning
+         * @member {Boolean}
          * @private
          */
         this._isTransitioning = false;
@@ -105,7 +106,7 @@ export default class StateManager extends EventEmitter {
         /**
          * If the current object is destroyed
          *
-         * @property {Boolean} _destroyed
+         * @member {Boolean}
          * @private
          */
         this._destroyed = false;
@@ -122,7 +123,7 @@ export default class StateManager extends EventEmitter {
 
     /**
      * The amount of progress while state is being preloaded from zero to 1
-     * @event progress
+     * @event springroll.StateManager#progress
      * @param {Number} percentage The amount loaded
      */
 
@@ -130,7 +131,6 @@ export default class StateManager extends EventEmitter {
     /**
      * Register a state with the state manager, done initially
      *
-     * @method addState
      * @param {String} id The string alias for a state
      * @param {springroll.State} state State object reference
      */
@@ -151,7 +151,7 @@ export default class StateManager extends EventEmitter {
 
     /**
      * Get the current selected state (state object)
-     * @property {springroll.State} currentState
+     * @member {springroll.State}
      * @readOnly
      */
     get currentState() {
@@ -160,8 +160,6 @@ export default class StateManager extends EventEmitter {
 
     /**
      * Access a certain state by the ID
-     *
-     * @method getStateById
      * @param {String} id State alias
      * @return {springroll.State} The base State object
      */
@@ -174,8 +172,6 @@ export default class StateManager extends EventEmitter {
 
     /**
      * If the StateManager is busy because it is currently loading or transitioning.
-     *
-     * @method isBusy
      * @return {Boolean} If StateManager is busy
      */
     isBusy() {
@@ -185,8 +181,6 @@ export default class StateManager extends EventEmitter {
     /**
      * If the state needs to do some asyncronous tasks,
      * The state can tell the manager to stop the animation
-     *
-     * @method loadingStart
      */
     loadingStart() {
         if (this._destroyed) {
@@ -201,8 +195,6 @@ export default class StateManager extends EventEmitter {
     /**
      * If the state has finished it's asyncronous task loading
      * Lets enter the state
-     *
-     * @method loadingDone
      */
     loadingDone() {
         if (this._destroyed) {
@@ -215,12 +207,12 @@ export default class StateManager extends EventEmitter {
     /**
      * Internal setter for the enabled status
      * @private
-     * @property {Boolean} enabled
+     * @member {Boolean}
      */
     set enabled(enabled) {
         /**
          * If the state manager is enabled, used internally
-         * @event enabled
+         * @event springroll.StateManager#enabled
          * @param {Boolean} enabled
          */
         this.emit('enabled', enabled);
@@ -229,8 +221,6 @@ export default class StateManager extends EventEmitter {
     /**
      * This transitions out of the current state and
      * enters it again. Can be useful for clearing a state
-     *
-     * @method refresh
      */
     refresh() {
         // @if DEBUG
@@ -241,7 +231,7 @@ export default class StateManager extends EventEmitter {
 
     /**
      * Get or change the current state, using the state id.
-     * @property {String} state
+     * @member {String}
      */
     set state(id) {
         // @if DEBUG
@@ -298,7 +288,6 @@ export default class StateManager extends EventEmitter {
 
     /**
      * When the transition out of a state has finished playing during a state change.
-     * @method _onTransitionOut
      * @private
      */
     _onTransitionOut() {
@@ -324,8 +313,6 @@ export default class StateManager extends EventEmitter {
     /**
      * When the state has completed its loading sequence.
      * This should be treated as an asynchronous process.
-     *
-     * @method _onStateLoaded
      * @private
      */
     _onStateLoaded() {
@@ -353,7 +340,6 @@ export default class StateManager extends EventEmitter {
 
     /**
      * When the transition into a state has finished playing during a state change.
-     * @method _onTransitionIn
      * @private
      */
     _onTransitionIn() {
@@ -370,8 +356,6 @@ export default class StateManager extends EventEmitter {
     /**
      * Plays the animation "onTransitionLoading" on the transition. Also serves as the animation callback.
      * Manually looping the animation allows the animation to be synced to the audio while looping.
-     *
-     * @method _onTransitionLoading
      * @private
      */
     _onTransitionLoading() {
@@ -401,8 +385,6 @@ export default class StateManager extends EventEmitter {
     /**
      * Displays the transition out animation, without changing states. Upon completion, the
      * transition looping animation automatically starts playing.
-     *
-     * @method showTransitionOut
      * @param {function} callback The function to call when the animation is complete.
      */
     showTransitionOut(callback) {
@@ -418,8 +400,6 @@ export default class StateManager extends EventEmitter {
 
     /**
      * Displays the transition in animation, without changing states.
-     *
-     * @method showTransitionIn
      * @param {function} callback The function to call when the animation is complete.
      */
     showTransitionIn(callback) {
@@ -435,8 +415,6 @@ export default class StateManager extends EventEmitter {
 
     /**
      * Generalized function for transitioning with the manager
-     *
-     * @method _transitioning
      * @param {String} The animator event to play
      * @param {Function} The callback function after transition is done
      * @private
@@ -468,7 +446,6 @@ export default class StateManager extends EventEmitter {
 
     /**
      * Remove the state manager
-     * @method destroy
      */
     destroy() {
         this._destroyed = true;
@@ -499,8 +476,7 @@ export default class StateManager extends EventEmitter {
 
 /**
  * The name of the Animator label and event for transitioning into a state.
- *
- * @event onTransitionIn
+ * @event springroll.StateManager#onTransitionIn
  */
 StateManager.TRANSITION_IN = 'onTransitionIn';
 
@@ -509,48 +485,48 @@ StateManager.TRANSITION_IN = 'onTransitionIn';
  * this event is only dispatched if there is a loading sequence to show in the
  * transition. Recommended to use 'loadingStart' instead for checking.
  *
- * @event onTransitionLoading
+ * @event springroll.StateManager#onTransitionLoading
  */
 StateManager.TRANSITION_LOADING = 'onTransitionLoading';
 
 /**
  * The name of the event for completing transitioning into a state.
  *
- * @event onTransitionInDone
+ * @event springroll.StateManager#onTransitionInDone
  */
 StateManager.TRANSITION_IN_DONE = 'onTransitionInDone';
 
 /**
  * The name of the Animator label and event for transitioning out of a state.
  *
- * @event onTransitionOut
+ * @event springroll.StateManager#onTransitionOut
  */
 StateManager.TRANSITION_OUT = 'onTransitionOut';
 
 /**
  * The name of the event for completing transitioning out of a state.
  *
- * @event onTransitionOutDone
+ * @event springroll.StateManager#onTransitionOutDone
  */
 StateManager.TRANSITION_OUT_DONE = 'onTransitionOutDone';
 
 /**
  * The name of the event for initialization complete - the first state is then being entered.
  *
- * @event onInitDone
+ * @event springroll.StateManager#onInitDone
  */
 StateManager.TRANSITION_INIT_DONE = 'onInitDone';
 
 /**
  * Event when the state begins loading assets when it is entered.
  *
- * @event onLoadingStart
+ * @event springroll.StateManager#onLoadingStart
  */
 StateManager.LOADING_START = 'onLoadingStart';
 
 /**
  * Event when the state finishes loading assets when it is entered.
  *
- * @event onLoadingDone
+ * @event springroll.StateManager#onLoadingDone
  */
 StateManager.LOADING_DONE = 'onLoadingDone';

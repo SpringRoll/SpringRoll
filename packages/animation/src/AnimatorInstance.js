@@ -1,44 +1,45 @@
 /**
  * Animator Instance is a wrapper for different types of media
  * files. They need to extend some basic methods.
- * @class AnimatorTimeline
+ * ### module: @springroll/animation
+ * @class
+ * @memberof springroll
  */
 export default class AnimatorInstance {
     constructor() {
         /**
          * The animation clip to play
-         * @property {*} clip
+         * @member {*}
          */
         this.clip = null;
 
         /**
          * Time, in seconds, of the current animation playback, from 0 -> duration.
-         * @property {Number} position
+         * @member {Number}
          */
         this.position = 0;
 
         /**
          * Duration, in seconds, of the current animation.
-         * @property {Number} duration
+         * @member {Number}
          */
         this.duration = 0;
 
         /**
          * If the current animation is a looping animation.
-         * @property {Boolean} isLooping
+         * @member {Boolean}
          */
         this.isLooping = false;
 
         /**
          * The name of the current animation.
-         * @property {String} currentName
+         * @member {String}
          */
         this.currentName = null;
     }
 
     /**
      * The initialization method
-     * @method init
      * @param  {*} clip The movieclip
      */
     init(clip) {
@@ -47,7 +48,6 @@ export default class AnimatorInstance {
 
     /**
      * Sets up variables that are needed (including duration), and does any other setup else needed.
-     * @method beginAnim
      * @param {Object} animObj The animation data object.
      * @param {Boolean} isRepeat If this animation is restarting a loop.
      */
@@ -55,21 +55,18 @@ export default class AnimatorInstance {
 
     /**
      * Ends animation playback.
-     * @method endAnim
      */
     endAnim() {}
 
     /**
      * Updates position to a new value, and does anything that the clip needs, like updating
      * timelines.
-     * @method setPosition
      * @param  {Number} newPos The new position in the animation.
      */
     setPosition(/*newPos*/) {}
 
     /**
      * Check to see if a clip is compatible with this
-     * @method test
      * @static
      * @return {Boolean} if the clip is supported by this instance
      */
@@ -79,7 +76,6 @@ export default class AnimatorInstance {
 
     /**
      * Determines if a clip has an animation.
-     * @method hasAnimation
      * @static
      * @param  {*} clip The clip to check for an animation.
      * @param  {String|Object} event The animation.
@@ -91,7 +87,6 @@ export default class AnimatorInstance {
 
     /**
      * Calculates the duration of an animation or list of animations.
-     * @method getDuration
      * @static
      * @param  {*} clip The clip to check.
      * @param  {String|Object|Array} event The animation or animation list.
@@ -103,7 +98,6 @@ export default class AnimatorInstance {
 
     /**
      * Create pool and add create and remove functions
-     * @method extend
      * @param {function} InstanceClass The instance class
      * @param {function} [ParentClass=springroll.AnimatorTimeline] The class to extend
      * @return {object} The prototype for new class
@@ -111,7 +105,7 @@ export default class AnimatorInstance {
     static extend(InstanceClass, ParentClass) {
         /**
          * The pool of used up instances
-         * @property {Array} _pool
+         * @member {Array}
          * @static
          * @protected
          */
@@ -119,7 +113,6 @@ export default class AnimatorInstance {
 
         /**
          * Get an instance either from a recycled pool or new
-         * @method create
          * @static
          * @param  {*} clip The animation clip or display object
          * @return {springroll.AnimatorInstance} The new instance
@@ -135,7 +128,6 @@ export default class AnimatorInstance {
 
         /**
          * Recycle an instance to the class's pool
-         * @method pool
          * @static
          * @param  {springroll.AnimatorInstance} instance The instance to pool
          */
@@ -152,7 +144,6 @@ export default class AnimatorInstance {
     /**
      * Reset this animator instance
      * so it can be re-used.
-     * @method destroy
      */
     destroy() {
         this.clip = null;

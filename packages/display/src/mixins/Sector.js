@@ -2,9 +2,9 @@
  * The Sector object can be used to specify a hit area for display objects.
  * It represents a sector of a circle, with angles expressed in degrees going
  * counterclockwise.
+ * ### module: @springroll/display
  *
- * @class Sector
- * @constructor
+ * @class
  * @param x {Number} The X coord of the center of the circle this sector is on
  * @param y {Number} The Y coord of the center of the circle this sector is on
  * @param radius {Number} The radius of the circle
@@ -61,7 +61,6 @@ PIXI.Sector = function(x, y, radius, startAngle, endAngle) {
 /**
  * Creates a clone of this Sector instance
  *
- * @method clone
  * @return {Sector} a copy of the polygon
  */
 PIXI.Sector.prototype.clone = function() {
@@ -71,7 +70,6 @@ PIXI.Sector.prototype.clone = function() {
 /**
  * Checks if the x, and y coords passed to this function are contained within this circle
  *
- * @method contains
  * @param x {Number} The X coord of the point to test
  * @param y {Number} The Y coord of the point to test
  * @return {Boolean} if the x/y coords are within this polygon

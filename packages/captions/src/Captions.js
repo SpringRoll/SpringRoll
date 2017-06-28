@@ -6,33 +6,38 @@ import {Debug} from '@springroll/debug';
 /**
  * A class that creates captioning for multimedia content. Captions are
  * created from a dictionary of captions and can be played by alias.
+ * ### module: @springroll/captions
  * @example
-    var captionsData = {
-        "Alias1": [
-            {"start":0, "end":2000, "content":"Ohh that looks awesome!"}
-        ],
-        "Alias2": [
-            {"start":0, "end":2000, "content":"Love it, absolutely love it!"}
-        ]
-    };
-
-    //initialize the captions
-    var captions = new springroll.Captions();
-    captions.data = captionsData;
-    captions.textField = document.getElementById("captions");
-    captions.play("Alias1");
- * @class Captions
- * @constructor
- * @param {Object} [data=null] The captions dictionary
- * @param {String|DOMElement} [textField=null] The output text field
- * @param {Boolean} [selfUpdate=true] If the captions playback should update itself
+ * import {Captions} from '@springroll/captions';
+ * const captionsData = {
+ *     "Alias1": [
+ *         {"start":0, "end":2000, "content":"Ohh that looks awesome!"}
+ *     ],
+ *     "Alias2": [
+ *         {"start":0, "end":2000, "content":"Love it, absolutely love it!"}
+ *     ]
+ * };
+ *
+ * //initialize the captions
+ * const captions = new Captions();
+ * captions.data = captionsData;
+ * captions.textField = document.getElementById("captions");
+ * captions.play("Alias1");
+ * @class
+ * @memberof springroll
+ * @see springroll.Application#captions
  */
 export default class Captions {
+    /**
+     * @param {Object} [data=null] The captions dictionary
+     * @param {String|DOMElement} [textField=null] The output text field
+     * @param {Boolean} [selfUpdate=true] If the captions playback should update itself
+     */
     constructor(data, textField, selfUpdate) {
         /**
          * An object used as a dictionary with keys that should be the same as sound aliases
          * @private
-         * @property {Object} _data
+         * @member {Object}
          */
         this._data = null;
 
@@ -40,76 +45,76 @@ export default class Captions {
          * A reference to the Text object that Captions should be controlling.
          * Only one text field can be controlled at a time.
          * @private
-         * @property {createjs.Text|PIXI.Text|PIXI.BitmapText|DOMElement} _textField
+         * @member {PIXI.Text|PIXI.BitmapText|DOMElement}
          */
         this._textField = null;
 
         /**
          * The function to call when playback is complete.
          * @private
-         * @property {Function} _completeCallback
+         * @member {Function}
          */
         this._completeCallback = null;
 
         /**
          * The collection of line objects - {start:0, end:0, content:""}
          * @private
-         * @property {Array} _lines
+         * @member {Array}
          */
         this._lines = [];
 
         /**
          * The alias of the current caption.
          * @private
-         * @property {String} _currentAlias
+         * @member {String}
          */
         this._currentAlias = 0;
 
         /**
          * The duration in milliseconds of the current caption.
          * @private
-         * @property {int} _currentDuration
+         * @member {int}
          */
         this._currentDuration = 0;
 
         /**
          * The current playback time, in milliseconds.
          * @private
-         * @property {int} _currentTime
+         * @member {int}
          */
         this._currentTime = 0;
 
         /**
          * The current line index.
          * @private
-         * @property {int} _currentLine
+         * @member {int}
          */
         this._currentLine = -1;
 
         /**
          * The last active line index.
          * @private
-         * @property {int} _lastActiveLine
+         * @member {int}
          */
         this._lastActiveLine = -1;
 
         /**
          * If we're playing.
          * @private
-         * @property {Boolean} _playing
+         * @member {Boolean}
          */
         this._playing = false;
 
         /**
          * If this instance has been destroyed already.
          * @private
-         * @property {Boolean} _destroyed
+         * @member {Boolean}
          */
         this._destroyed = false;
 
         /**
          * If the captions object should do its own update.
-         * @property {Boolean} _selfUpdate
+         * @member {Boolean}
          * @private
          * @default true
          */
@@ -117,7 +122,7 @@ export default class Captions {
 
         /**
          * If the captions are muted
-         * @property {Boolean} _mute
+         * @member {Boolean}
          * @private
          * @default false
          */
@@ -134,7 +139,7 @@ export default class Captions {
 
     /**
      * Set if all captions are currently muted.
-     * @property {Boolean} mute
+     * @member {Boolean}
      * @default false
      */
     get mute() {
@@ -149,9 +154,12 @@ export default class Captions {
      * If the captions object should do it's own updating unless you want to manuall
      * seek. In general, self-updating should not be set to false unless the sync
      * of the captions needs to be exact with something else.
-     * @property {Boolean} selfUpdate
+     * @member {Boolean}
      * @default true
      */
+    get selfUpdate() {
+        return this._selfUpdate;
+    }
     set selfUpdate(selfUpdate) {
         this._selfUpdate = !!selfUpdate;
         Application.instance.off('update', this.update);
@@ -160,14 +168,11 @@ export default class Captions {
             Application.instance.on('update', this.update);
         }
     }
-    get selfUpdate() {
-        return this._selfUpdate;
-    }
 
     /**
      * Sets the dictionary object to use for captions. This overrides the current
      * dictionary, if present.
-     * @property {Object} data
+     * @member {Object}
      */
     set data(dict) {
         this._data = dict;
@@ -223,7 +228,8 @@ export default class Captions {
 
     /**
      * The text field that the captions uses to update.
-     * @property {String|createjs.Text|PIXI.Text|PIXI.BitmapText|DOMElement} textField
+     * @member {String|PIXI.Text|PIXI.BitmapText|DOMElement} textField
+     * @memberof springroll.Captions#
      */
     set textField(field) {
         Captions._setText(this._textField, '');
@@ -237,12 +243,11 @@ export default class Captions {
 
     /**
      * Automatically determine how to set the text field text
-     * @method _setText
      * @private
      * @static
-     * @param {createjs.Text|PIXI.Text|PIXI.BitmapText|DOMElement} field The text field to change
+     * @param {PIXI.Text|PIXI.BitmapText|DOMElement} field The text field to change
      * @param {String} text The text to set it to
-     * @return {createjs.Text|PIXI.Text|PIXI.BitmapText|DOMElement} The text field
+     * @return {PIXI.Text|PIXI.BitmapText|DOMElement} The text field
      */
     static _setText(field, text) {
         if (!field) {
@@ -267,7 +272,6 @@ export default class Captions {
 
     /**
      * Returns if there is a caption under that alias or not.
-     * @method  hasCaption
      * @param {String} alias The alias to check against
      * @return {Boolean} Whether the caption was found or not
      */
@@ -278,7 +282,6 @@ export default class Captions {
     /**
      * A utility function for getting the full text of a caption by alias
      * this can be useful for debugging or tracking purposes.
-     * @method  getFullCaption
      * @param {String|Array} alias The alias or Array of aliases for which to get the text.
      *                           Any non-String values in this Array are silently and
      *                           harmlessly ignored.
@@ -333,7 +336,6 @@ export default class Captions {
     /**
      * Sets an array of line data as the current caption data to play.
      * @private
-     * @method _load
      * @param {String} data The string
      */
     _load(data) {
@@ -355,7 +357,6 @@ export default class Captions {
     /**
      * Reset the captions
      * @private
-     * @method _reset
      */
     _reset() {
         this._currentLine = -1;
@@ -366,7 +367,6 @@ export default class Captions {
      * Take the captions timecode and convert to milliseconds
      * format is in HH:MM:ss:mmm
      * @private
-     * @method _timeCodeToMilliseconds
      * @param {String} input The input string of the format
      * @return {int} Time in milliseconds
      */
@@ -383,8 +383,7 @@ export default class Captions {
 
     /**
      * The playing status.
-     * @public
-     * @property {Boolean} playing
+     * @member {Boolean}
      * @readOnly
      */
     get playing() {
@@ -394,7 +393,6 @@ export default class Captions {
     /**
      * Calculate the total duration of the current caption
      * @private
-     * @method _getTotalDuration
      */
     _getTotalDuration() {
         let lines = this._lines;
@@ -403,7 +401,7 @@ export default class Captions {
 
     /**
      * Get the current duration of the current caption
-     * @property {int} currentDuration
+     * @member {int}
      * @readOnly
      */
     get currentDuration() {
@@ -412,7 +410,7 @@ export default class Captions {
 
     /**
      * Get the current caption alias.
-     * @property {String} currentAlias
+     * @member {String}
      * @readOnly
      */
     get currentAlias() {
@@ -421,8 +419,6 @@ export default class Captions {
 
     /**
      * Start the caption playback.
-     * @public
-     * @method play
      * @param {String} alias The desired caption's alias
      * @param {function} callback The function to call when the caption is finished playing
      */
@@ -439,8 +435,6 @@ export default class Captions {
 
     /**
      * Convience function for stopping captions.
-     * @public
-     * @method stop
      */
     stop() {
         this._playing = false;
@@ -453,8 +447,6 @@ export default class Captions {
 
     /**
      * Goto a specific time.
-     * @public
-     * @method seek
      * @param {int} time The time in milliseconds to seek to in the captions
      */
     seek(time) {
@@ -499,7 +491,6 @@ export default class Captions {
     /**
      * Callback for when a frame is entered.
      * @private
-     * @method _updatePercent
      * @param {number} progress The progress in the current sound as a percentage (0-1)
      */
     _updatePercent(progress) {
@@ -513,8 +504,6 @@ export default class Captions {
     /**
      * Function to update the amount of time elapsed for the caption playback.
      * Call this to advance the caption by a given amount of time.
-     * @public
-     * @method update
      * @param {int} progress The time elapsed since the last frame in milliseconds
      */
     update(elapsed) {
@@ -528,7 +517,6 @@ export default class Captions {
     /**
      * Calculates the captions after increasing the current time.
      * @private
-     * @method _calcUpdate
      */
     _calcUpdate() {
         let lines = this._lines;
@@ -563,7 +551,6 @@ export default class Captions {
     /**
      * Updates the text in the managed text field.
      * @private
-     * @method _updateCaptions
      */
     _updateCaptions() {
         Captions._setText(
@@ -574,7 +561,6 @@ export default class Captions {
 
     /**
      * Returns duration in milliseconds of given captioned sound alias or alias list.
-     * @method getLength
      * @param {String|Array} alias The alias or array of aliases for which to get duration.
      *  Array may contain integers (milliseconds) to account for un-captioned gaps.
      * @return {int} Length/duration of caption in milliseconds.
@@ -605,7 +591,6 @@ export default class Captions {
 
     /**
      * Destroy this load task and don't use after this
-     * @method destroy
      */
     destroy() {
         if (this._destroyed) {

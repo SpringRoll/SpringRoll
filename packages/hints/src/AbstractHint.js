@@ -1,16 +1,18 @@
 /**
  * Abstract base class for hints used by HintPlayer
- * @class AbstractHint
- * @constructor
+ * @class
+ * @memberof springroll
  * @private
- * @param {springroll.HintsPlayer} hints The instance of the hints
- * @param {Function} done called on hint complete
  */
 export default class AbstractHint {
+    /**
+     * @param {springroll.HintsPlayer} hints The instance of the hints
+     * @param {Function} done called on hint complete
+     */
     constructor(hints, done) {
         /**
          * The reference to the hint play
-         * @property {springroll.HintsPlayer} _hints
+         * @member {springroll.HintsPlayer}
          */
         this._hints = hints;
         this._done = done;
@@ -18,7 +20,6 @@ export default class AbstractHint {
 
     /**
      * Run the hint
-     * @method play
      */
     play() {
         // @if DEBUG
@@ -28,7 +29,6 @@ export default class AbstractHint {
 
     /**
      * Handle when the media completes
-     * @method _onPlayComplete
      * @private
      * @param {function} original The original callback, either complete or cancelled
      */
@@ -42,7 +42,6 @@ export default class AbstractHint {
 
     /**
      * Clean-up the hint, don't use after this
-     * @method destroy
      */
     destroy() {
         this._done = null;

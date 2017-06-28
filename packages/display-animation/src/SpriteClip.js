@@ -1,64 +1,66 @@
 /**
- *  A class similar to PIXI.extras.MovieClip, but made to play animations _exclusively_ using
- *  the Animator, with data exported by the BitmapMovieClip exporter.
+ * A class similar to PIXI.extras.MovieClip, but made to play animations _exclusively_ using
+ * the Animator, with data exported by the BitmapMovieClip exporter.
  *
- *  Format for SpriteClip data (the same as BitmapMovieClip):
- *
- *    {
- *        fps:30,
- *        labels:
- *        {
- *            animStart:0,
- *            animStart_loop:15
- *        },
- *        origin:{ x: 20, y:30 },
- *        frames:
- *        [
- *            {
- *                name:"myAnim#",
- *                min:1,
- *                max:20,
- *                digits:4
- *            }
- *        ],
- *        scale:1
- *    }
- *
- *  The example object describes a 30 fps animation that is 20 frames long, and was originally
- *  myAnim0001.png->myAnim0020.png, with frame labels on the first and 16th frames. 'digits' is
- *  optional, and defaults to 4.
- *
- *  @class SpriteClip
- *  @extends PIXI.Sprite
- *  @constructor
- *  @param {Object} [data] Initialization data
- *  @param {int} [data.fps] Framerate to play the movieclip at. Omitting this will use the
- *                          current framerate.
- *  @param {Object} [data.labels] A dictionary of the labels in the movieclip to assist in
- *                                playing animations.
- *  @param {Object} [data.origin={x:0,y:0}] The origin of the movieclip.
- *  @param {Array} [data.frames] An array of frame sequences to pull from the texture atlas.
- *  @param {String} [data.frames.name] The name to use for the frame sequence. This should
- *                                     include a "#" to be replaced with the image number.
- *  @param {int} [data.frames.min] The first frame number in the frame sequence.
- *  @param {int} [data.frames.max] The last frame number in the frame sequence.
- *  @param {int} [data.frames.digits=4] The maximum number of digits in the names of the frames,
- *                                      e.g. myAnim0001 has 4 digits.
- *  @param {Number} [data.scale=1] The scale at which the art was exported, e.g. a scale of 1.4
- *                                 means the art was increased in size to 140% before exporting
- *                                 and should be scaled back down before drawing to the screen.
- *  @param {springroll.pixi.TextureAtlas} [atlas] A TextureAtlas to pull frames from. If omitted,
- *                                                frames are pulled from Pixi's global texture
- *                                                cache.
+ * Format for SpriteClip data (the same as BitmapMovieClip):
+ * ```
+ * {
+ *     fps:30,
+ *     labels:
+ *     {
+ *         animStart:0,
+ *         animStart_loop:15
+ *     },
+ *     origin:{ x: 20, y:30 },
+ *     frames:
+ *     [
+ *         {
+ *             name:"myAnim#",
+ *             min:1,
+ *             max:20,
+ *             digits:4
+ *         }
+ *     ],
+ *     scale:1
+ * }
+ * ```
+ * The example object describes a 30 fps animation that is 20 frames long, and was originally
+ * myAnim0001.png->myAnim0020.png, with frame labels on the first and 16th frames. 'digits' is
+ * optional, and defaults to 4.
+ * ### module: @springroll/display-animation
+ * @class
+ * @extends PIXI.Sprite
+ * @memberof springroll
  */
 export default class SpriteClip extends PIXI.Sprite {
+    /**
+     * @param {Object} [data] Initialization data
+     * @param {int} [data.fps] Framerate to play the movieclip at. Omitting this will use the
+     *                         current framerate.
+     * @param {Object} [data.labels] A dictionary of the labels in the movieclip to assist in
+     *                               playing animations.
+     * @param {Object} [data.origin={x:0,y:0}] The origin of the movieclip.
+     * @param {Array} [data.frames] An array of frame sequences to pull from the texture atlas.
+     * @param {String} [data.frames.name] The name to use for the frame sequence. This should
+     *                                    include a "#" to be replaced with the image number.
+     * @param {int} [data.frames.min] The first frame number in the frame sequence.
+     * @param {int} [data.frames.max] The last frame number in the frame sequence.
+     * @param {int} [data.frames.digits=4] The maximum number of digits in the names of the frames,
+     *                                     e.g. myAnim0001 has 4 digits.
+     * @param {Number} [data.scale=1] The scale at which the art was exported, e.g. a scale of 1.4
+     *                                means the art was increased in size to 140% before exporting
+     *                                and should be scaled back down before drawing to the screen.
+     * @param {springroll.TextureAtlas} [atlas] A TextureAtlas to pull frames from. If omitted,
+     *                                               frames are pulled from Pixi's global texture
+     *                                               cache.
+     */
     constructor(data, atlas) {
         super();
 
         //==== Public properties =====
         /**
          * The current frame of the movieclip.
-         * @property currentFrame
+         * @member currentFrame
          * @type Number
          * @default 0
          * @readonly
@@ -70,8 +72,7 @@ export default class SpriteClip extends PIXI.Sprite {
         /**
          * The speed at which the SpriteClip should play.
          *
-         * @property _framerate
-         * @type {Number}
+         * @member {Number}
          * @default 0
          * @private
          */
@@ -80,8 +81,7 @@ export default class SpriteClip extends PIXI.Sprite {
         /**
          * The total time in seconds for the animation.
          *
-         * @property _duration
-         * @type Number
+         * @member {Number}
          * @default 0
          * @private
          */
@@ -89,8 +89,7 @@ export default class SpriteClip extends PIXI.Sprite {
 
         /**
          * The time elapsed from frame 0 in seconds.
-         * @property _t
-         * @type Number
+         * @member {Number}
          * @default 0
          * @private
          */
@@ -98,25 +97,22 @@ export default class SpriteClip extends PIXI.Sprite {
 
         /**
          * An array of frame labels.
-         * @property _labels
-         * @type Array
+         * @member {Array}
          * @private
          */
         this._labels = 0;
 
         /**
          * An array of event labels.
-         * @property _events
-         * @type Array
+         * @member {Array}
          * @private
          */
         this._events = 0;
 
         /**
          * The array of Textures that are the MovieClip's frames.
-         * @property _textures
+         * @member {Array}
          * @private
-         * @type Array
          */
         this._textures = null;
 
@@ -127,8 +123,7 @@ export default class SpriteClip extends PIXI.Sprite {
 
     /**
      * The speed at which the SpriteClip should play.
-     * @property framerate
-     * @type {Number}
+     * @member {Number}
      * @default 0
      */
     get framerate() {
@@ -147,10 +142,8 @@ export default class SpriteClip extends PIXI.Sprite {
     /**
      * When the BitmapMovieClip is framerate independent, this is the time elapsed from frame 0 in
      * seconds.
-     * @property elapsedTime
-     * @type Number
+     * @member {Number}
      * @default 0
-     * @public
      */
     get elapsedTime() {
         return this._t;
@@ -174,8 +167,7 @@ export default class SpriteClip extends PIXI.Sprite {
 
     /**
      * (Read-Only) The total number of frames in the timeline
-     * @property totalFrames
-     * @type Int
+     * @member {int}
      * @default 0
      * @readOnly
      */
@@ -187,7 +179,6 @@ export default class SpriteClip extends PIXI.Sprite {
 
     /**
      * Advances this movie clip to the specified position or label.
-     * @method gotoAndStop
      * @param {String|Number} positionOrLabel The animation or frame name to go to.
      */
     gotoAndStop(positionOrLabel) {
@@ -228,7 +219,6 @@ export default class SpriteClip extends PIXI.Sprite {
     /**
      * Advances the playhead. This occurs automatically each tick by default.
      * @param [time] {Number} The amount of time in milliseconds to advance by.
-     * @method advance
      */
     advance(time) {
         if (this._framerate > 0 && time) {
@@ -249,8 +239,7 @@ export default class SpriteClip extends PIXI.Sprite {
 
     /**
      * Returns a sorted list of the labels defined on this SpriteClip.
-     * @method getLabels
-     * @return {Array[Object]} A sorted array of objects with label and position (aka frame)
+     * @return {Array<Object>} A sorted array of objects with label and position (aka frame)
      *                        properties.
      */
     getLabels() {
@@ -259,7 +248,6 @@ export default class SpriteClip extends PIXI.Sprite {
 
     /**
      * Returns a sorted list of the labels which can be played with Animator.
-     * @method getEvents
      * @return {Array} A sorted array of objects with label, length and position (aka frame)
      *    properties.
      */
@@ -269,7 +257,6 @@ export default class SpriteClip extends PIXI.Sprite {
 
     /**
      * Returns the name of the label on or immediately before the current frame.
-     * @method getCurrentLabel
      * @return {String} The name of the current label or null if there is no label.
      */
     getCurrentLabel() {
@@ -288,7 +275,6 @@ export default class SpriteClip extends PIXI.Sprite {
 
     /**
      * Initializes or re-initializes the SpriteClip.
-     * @method init
      * @param {Object} data Initialization data
      * @param {int} [data.fps] Framerate to play the movieclip at. Omitting this will use the
      *                         current framerate.
@@ -471,7 +457,6 @@ export default class SpriteClip extends PIXI.Sprite {
     /**
      * Copies the labels, textures, origin, and framerate from another SpriteClip.
      * The labels and textures are copied by reference, instead of a deep copy.
-     * @method copyFrom
      * @param {SpriteClip} other The movieclip to copy data from.
      */
     copyFrom(other) {
@@ -486,7 +471,6 @@ export default class SpriteClip extends PIXI.Sprite {
 
     /**
      * Destroys the SpriteClip.
-     * @method destroy
      */
     destroy(options) {
         this._labels = this._events = null;

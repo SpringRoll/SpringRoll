@@ -3,20 +3,15 @@ import name from './name';
 
 /**
  * Assign members to the springroll global window object.
- * classes to it.
- * @class expose
- * @static
- */
-
-/**
- * Assign members to the springroll global window object.
+ * ### module: @springroll/core
  *
  * @example
-    var SpriteUtils = function(){};
-    springroll.expose({ SpriteUtils });
+ * import {expose} from '@springroll/core';
+ * var SpriteUtils = function(){};
+ * expose({ SpriteUtils });
  *
- * @constructor
- * @method namespace
+ * @memberof springroll
+ * @method expose
  * @param {object} assign Map of things to assign
  * @return {object} The springroll window object
  */

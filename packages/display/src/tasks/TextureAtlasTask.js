@@ -3,36 +3,38 @@ import TextureTask from './TextureTask';
 
 /**
  * Internal class for loading a texture atlas for Pixi.
- * @class TextureAtlasTask
- * @extends springroll.pixi.TextureTask
- * @constructor
+ * ### module: @springroll/display
+ * @class
+ * @extends springroll.TextureTask
+ * @memberof springroll
  * @private
- * @param {Object} asset The data properties
- * @param {String} asset.type Must be "pixi" to signify that this asset should be parsed
- *                            specifically for Pixi.
- * @param {String} asset.atlas The TextureAtlas source data
- * @param {Boolean} [asset.cache=false] If we should cache the result
- * @param {String} [asset.image] The atlas image path
- * @param {String} [asset.color] The color image path, if not using image property
- * @param {String} [asset.alpha] The alpha image path, if not using image property
- * @param {String} [asset.id] Id of asset
- * @param {Function} [asset.complete] The event to call when done
- * @param {Object} [asset.sizes=null] Define if certain sizes are not supported
  */
 export default class TextureAtlasTask extends TextureTask {
+    /**
+     * @param {Object} asset The data properties
+     * @param {String} asset.type Must be "pixi" to signify that this asset should be parsed
+     *                            specifically for Pixi.
+     * @param {String} asset.atlas The TextureAtlas source data
+     * @param {Boolean} [asset.cache=false] If we should cache the result
+     * @param {String} [asset.image] The atlas image path
+     * @param {String} [asset.color] The color image path, if not using image property
+     * @param {String} [asset.alpha] The alpha image path, if not using image property
+     * @param {String} [asset.id] Id of asset
+     * @param {Function} [asset.complete] The event to call when done
+     * @param {Object} [asset.sizes=null] Define if certain sizes are not supported
+     */
     constructor(asset, fallbackId) {
         super(asset, fallbackId || asset.atlas);
 
         /**
          * The TextureAtlas data source path
-         * @property {String} atlas
+         * @member {String}
          */
         this.atlas = this.filter(asset.atlas);
     }
 
     /**
      * Test if we should run this task
-     * @method test
      * @static
      * @param {Object} asset The asset to check
      * @return {Boolean} If the asset is compatible with this asset
@@ -44,7 +46,6 @@ export default class TextureAtlasTask extends TextureTask {
 
     /**
      * Start the task
-     * @method  start
      * @param  {Function} callback Callback when finished
      */
     start(callback) {
@@ -53,7 +54,6 @@ export default class TextureAtlasTask extends TextureTask {
 
     /**
      * Load a texture atlas from the properties
-     * @method loadAtlas
      * @param {Object} assets The assets object to load
      * @param {Function} done Callback when complete, returns new TextureAtlas
      * @param {Boolean} [ignoreCacheSetting] If the setting to cache results should be ignored

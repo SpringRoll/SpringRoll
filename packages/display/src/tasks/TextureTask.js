@@ -3,53 +3,56 @@ import {Task, ColorAlphaTask} from '@springroll/loaders';
 
 /**
  * TextureTask loads an image and sets it up for Pixi to use as a PIXI.Texture.
- * @class TextureTask
- * @constructor
+ * ### module: @springroll/display
+ * @class
  * @private
- * @param {String} asset.type Must be "pixi" to signify that this asset should be parsed
- *                            specifically for Pixi.
- * @param {String} [asset.image] The texture image path.
- * @param {String} [asset.color] The color image path, if not using image property.
- * @param {String} [asset.alpha] The alpha image path, if not using image property.
- * @param {Boolean} [asset.cache=false] If we should cache the result - caching results in
- *                                      caching in the global Pixi texture cache as well as
- *                                      Application's asset cache.
- * @param {String} [asset.id] The id of the task.
- * @param {Function} [asset.complete] The callback to call when the load is completed.
- * @param {Object} [asset.sizes=null] Define if certain sizes are not supported
+ * @memberof springroll
+ * @extends springroll.Task
  */
 export default class TextureTask extends Task {
+    /**
+     * @param {String} asset.type Must be "pixi" to signify that this asset should be parsed
+     *                            specifically for Pixi.
+     * @param {String} [asset.image] The texture image path.
+     * @param {String} [asset.color] The color image path, if not using image property.
+     * @param {String} [asset.alpha] The alpha image path, if not using image property.
+     * @param {Boolean} [asset.cache=false] If we should cache the result - caching results in
+     *                                      caching in the global Pixi texture cache as well as
+     *                                      Application's asset cache.
+     * @param {String} [asset.id] The id of the task.
+     * @param {Function} [asset.complete] The callback to call when the load is completed.
+     * @param {Object} [asset.sizes=null] Define if certain sizes are not supported
+     */
     constructor(asset, fallbackId) {
         super(asset, fallbackId || asset.image);
 
         /**
          * The atlas source path
-         * @property {String} image
+         * @member {String}
          */
         this.image = this.filter(asset.image);
 
         /**
          * The atlas color source path
-         * @property {String} color
+         * @member {String}
          */
         this.color = this.filter(asset.color);
 
         /**
          * The atlas alpha source path
-         * @property {String} alpha
+         * @member {String}
          */
         this.alpha = this.filter(asset.alpha);
 
         /**
          * If the texture should be uploaded to the GPU immediately.
-         * @property {Boolean} uploadToGPU
+         * @member {Boolean}
          */
         this.uploadToGPU = !!asset.uploadToGPU;
     }
 
     /**
      * Test to see if we should load an asset
-     * @method test
      * @static
      * @param {Object} asset The asset to test
      * @return {Boolean} If this qualifies for this task
@@ -60,7 +63,6 @@ export default class TextureTask extends Task {
 
     /**
      * Start the load
-     * @method start
      * @param callback Callback to call when the load is done
      */
     start(callback) {
@@ -69,7 +71,6 @@ export default class TextureTask extends Task {
 
     /**
      * Load the texture from the properties
-     * @method loadImage
      * @param {Object} assets The assets object to load
      * @param {Function} done Callback when complete, returns new TextureAtlas
      * @param {Boolean} [ignoreCacheSetting] If the setting to cache results should be ignored

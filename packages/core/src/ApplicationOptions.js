@@ -1,10 +1,11 @@
 import PropertyEmitter from './events/PropertyEmitter';
 
 /**
- * Manage the Application options
- * @class ApplicationOptions
+ * Manage the Application options.
+ * ### module: @springroll/core
+ * @class
+ * @memberof springroll
  * @extends springroll.PropertyEmitter
- * @constructor {Object} [overrides] The supplied options
  */
 export default class ApplicationOptions extends PropertyEmitter {
     constructor(app, options) {
@@ -12,7 +13,7 @@ export default class ApplicationOptions extends PropertyEmitter {
 
         /**
          * Use the query string parameters for options overrides
-         * @property {Boolean} options.useQueryString
+         * @member {Boolean}
          * @default false
          */
         let useQueryString = false;
@@ -22,7 +23,7 @@ export default class ApplicationOptions extends PropertyEmitter {
 
         /**
          * The user input options
-         * @property {Object} _options
+         * @member {Object}
          * @private
          */
         this._options = Object.assign({
@@ -32,7 +33,7 @@ export default class ApplicationOptions extends PropertyEmitter {
 
         /**
          * Reference to the application
-         * @property {springroll.Application} _app
+         * @member {springroll.Application}
          * @private
          */
         this._app = app;
@@ -40,7 +41,6 @@ export default class ApplicationOptions extends PropertyEmitter {
 
     /**
      * Initialize the values in the options
-     * @method init
      */
     init() {
 
@@ -67,8 +67,6 @@ export default class ApplicationOptions extends PropertyEmitter {
 
     /**
      * Get the query string as an object
-     * @property {Object} getQueryString
-     * @private
      */
     getQueryString() {
         let output = {};
@@ -102,7 +100,6 @@ export default class ApplicationOptions extends PropertyEmitter {
 
     /**
      * Convert a string into a DOM Element
-     * @method asDOMElement
      * @param {String} name The property name to fetch
      */
     asDOMElement(name) {
@@ -117,9 +114,8 @@ export default class ApplicationOptions extends PropertyEmitter {
 
     /**
      * Override a default value
-     * @method override
      * @param {String} name The property name to fetch
-     * @param {*} value The value
+     * @param {mixed} value The value
      * @return {springroll.ApplicationOptions} Instance of this options for chaining
      */
     override(name, value) {

@@ -3,16 +3,15 @@ import Animator from '../Animator';
 import GenericMovieClipInstance from '../GenericMovieClipInstance';
 
 (function() {
-    /**
-     * @class Application
-     */
-    let plugin = new ApplicationPlugin('animator');
+
+    const plugin = new ApplicationPlugin('animator');
 
     //init the animator
     plugin.setup = function() {
         /**
-         * The class for playing animation
-         * @property {springroll.Animator} animator
+         * Property for playing animations.
+         * ### module: @springroll/animation
+         * @member {springroll.Animator} springroll.Application#animator
          */
         this.animator = new Animator(this);
         this.animator.captions = this.captions || null;

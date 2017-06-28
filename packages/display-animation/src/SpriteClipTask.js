@@ -3,38 +3,39 @@ import {TextureAtlasTask} from '@springroll/display';
 
 /**
  * Internal class for loading and instantiating an SpriteClip.
- * @class SpriteClipTask
+ * ### module: @springroll/display-animation
+ * @class
  * @extends springroll.TextureAtlasTask
- * @constructor
  * @private
- * @param {Object} asset The data properties
- * @param {String} asset.type This must be "pixi" to signify that this asset should be
- *                            handled as an SpriteClip, instead of the otherwise
- *                            identical BitmapMovieClip.
- * @param {String} asset.anim Path to the JSON configuration for SpriteClip
- * @param {String} asset.atlas The TextureAtlas source data
- * @param {Boolean} [asset.cache=false] If we should cache the result
- * @param {String} [asset.image] The atlas image path
- * @param {String} [asset.color] The color image path, if not using image property
- * @param {String} [asset.alpha] The alpha image path, if not using image property
- * @param {String} [asset.id] Id of asset
- * @param {Function} [asset.complete] The event to call when done
- * @param {Object} [asset.sizes=null] Define if certain sizes are not supported
  */
 export default class SpriteClipTask extends TextureAtlasTask {
+    /**
+     * @param {Object} asset The data properties
+     * @param {String} asset.type This must be "pixi" to signify that this asset should be
+     *                            handled as an SpriteClip, instead of the otherwise
+     *                            identical BitmapMovieClip.
+     * @param {String} asset.anim Path to the JSON configuration for SpriteClip
+     * @param {String} asset.atlas The TextureAtlas source data
+     * @param {Boolean} [asset.cache=false] If we should cache the result
+     * @param {String} [asset.image] The atlas image path
+     * @param {String} [asset.color] The color image path, if not using image property
+     * @param {String} [asset.alpha] The alpha image path, if not using image property
+     * @param {String} [asset.id] Id of asset
+     * @param {Function} [asset.complete] The event to call when done
+     * @param {Object} [asset.sizes=null] Define if certain sizes are not supported
+     */
     constructor(asset) {
         super(asset, asset.anim);
 
         /**
          * The SpriteClip data source path
-         * @property {String} anim
+         * @member {String}
          */
         this.anim = this.filter(asset.anim);
     }
 
     /**
      * Test if we should run this task
-     * @method test
      * @static
      * @param {Object} asset The asset to check
      * @return {Boolean} If the asset is compatible with this asset
@@ -45,7 +46,6 @@ export default class SpriteClipTask extends TextureAtlasTask {
 
     /**
      * Start the task
-     * @method  start
      * @param  {Function} callback Callback when finished
      */
     start(callback) {

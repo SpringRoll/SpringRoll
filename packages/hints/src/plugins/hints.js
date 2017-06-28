@@ -2,21 +2,19 @@ import {ApplicationPlugin} from '@springroll/core';
 import HintsPlayer from '../HintsPlayer';
 
 (function() {
-    /**
-     * @class Application
-     */
+
     const plugin = new ApplicationPlugin('hints');
 
-    // Init the animator
     plugin.setup = function() {
         /**
-         * The hint player API
-         * @property {springroll.HintsPlayer} hints
+         * The hint player API.
+         * ### module: @springroll/hints
+         * @member {springroll.HintsPlayer} hints
+         * @memberof springroll.Application#
          */
         this.hints = new HintsPlayer(this);
     };
 
-    // Check for dependencies
     plugin.preload = function(done) {
         if (!this.animator) {
             // @if DEBUG

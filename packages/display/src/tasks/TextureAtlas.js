@@ -1,24 +1,27 @@
 /**
  * Handles a spritesheet. File extensions and folder paths are dropped from frame names upon
  * loading.
+ * ### module: @springroll/display
  *
- * @class TextureAtlas
- * @constructor
- * @param {PIXI.Texture} texture The PIXI Texture that all sub-textures pull from.
- * @param {Object} data The JSON object describing the frames in the atlas. This
- *                      is expected to fit the JSON Hash format as exported from
- *                      TexturePacker.
- * @param {Boolean} [useGlobalCache] If sub-textures should be placed in Pixi's global
- *                                   texture cache.
+ * @class
+ * @memberof springroll
  */
 export default class TextureAtlas {
+    /**
+     * @param {PIXI.Texture} texture The PIXI Texture that all sub-textures pull from.
+     * @param {Object} data The JSON object describing the frames in the atlas. This
+     *                      is expected to fit the JSON Hash format as exported from
+     *                      TexturePacker.
+     * @param {Boolean} [useGlobalCache] If sub-textures should be placed in Pixi's global
+     *                                   texture cache.
+     */
     constructor(texture, data, useGlobalCache) {
         this.baseTexture = texture.baseTexture;
         this.texture = texture;
 
         /**
          * The dictionary of Textures that this atlas consists of.
-         * @property {Object} frames
+         * @member {Object}
          */
         this.frames = {};
 
@@ -93,7 +96,6 @@ export default class TextureAtlas {
 
     /**
      * Gets a frame by name.
-     * @method getFrame
      * @param {String} name The frame name to get.
      * @return {createjs.TextureAtlas.Texture} The texture by that name, or null if it doesn't
      *                                         exist.
@@ -105,7 +107,6 @@ export default class TextureAtlas {
     /**
      * Get an array of Textures that match a specific name. If a frame in a sequence is not in the
      * atlas, the previous frame in the sequence is used in place of it.
-     * @method getFrames
      * @param {String} name The base name of all frames to look for, like "anim_#" to search for an
      *                      animation exported as anim_0001.png (the ".png" is dropped when the
      *                      TextureAtlas is loaded).
@@ -186,7 +187,6 @@ export default class TextureAtlas {
 
     /**
      * Destroys the TextureAtlas by nulling the image and frame dictionary references.
-     * @method destroy
      */
     destroy() {
         this.texture.destroy(true);

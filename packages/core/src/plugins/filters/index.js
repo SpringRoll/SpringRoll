@@ -2,16 +2,14 @@ import ApplicationPlugin from '../../ApplicationPlugin';
 import StringFilters from './StringFilters';
     
 (function() {
-    /**
-     * @class Application
-     */
+
     const plugin = new ApplicationPlugin('filters');
 
     // Init the animator
     plugin.setup = function() {
         /**
          * The StringFilters instance
-         * @property {springroll.StringFilters} filters
+         * @member {springroll.StringFilters} springroll.Application#filters
          */
         this.filters = new StringFilters();
     };

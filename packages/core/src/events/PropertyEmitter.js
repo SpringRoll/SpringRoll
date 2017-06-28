@@ -3,9 +3,10 @@ import EventEmitter from './EventEmitter';
 /**
  * Event dispatcher with ability to detect whenever a property
  * is changed.
- * @class PropertyEmitter
+ * ### module: @springroll/core
+ * @class
  * @extends springroll.EventEmitter
- * @constructor {Object} [overrides] The supplied options
+ * @memberof springroll
  */
 class PropertyEmitter extends EventEmitter {
     constructor() {
@@ -14,7 +15,7 @@ class PropertyEmitter extends EventEmitter {
         /**
          * The map of property values to store
          * @private
-         * @property {Object} _properties
+         * @type {Object}
          */
         this._properties = {};
     }
@@ -22,7 +23,6 @@ class PropertyEmitter extends EventEmitter {
     /**
      * Generic setter for an option
      * @private
-     * @method _set
      * @param {string} prop The property name
      * @param {mixed} value The value to set
      */
@@ -41,7 +41,6 @@ class PropertyEmitter extends EventEmitter {
     /**
      * Generic setter for an option
      * @private
-     * @method _get
      * @param {string} prop The option name
      * @return {mixed} The value of the option
      */
@@ -57,7 +56,6 @@ class PropertyEmitter extends EventEmitter {
 
     /**
      * Add a new property to allow deteching
-     * @method add
      * @param {string} prop The property name
      * @param {mixed} [value=null] The default value
      * @param {Boolean} [readOnly=false] If the property is readonly
@@ -89,7 +87,6 @@ class PropertyEmitter extends EventEmitter {
 
     /**
      * Whenever a property is get a responder is called
-     * @method respond
      * @param {String} name The property name
      * @param {Function} responder Function to call when getting property
      * @return {PropertyEmitter} The instance for chaining
@@ -115,7 +112,6 @@ class PropertyEmitter extends EventEmitter {
 
     /**
      * Clean-up all references, don't use after this
-     * @method destroy
      */
     destroy() {
         let prop;
@@ -131,14 +127,15 @@ class PropertyEmitter extends EventEmitter {
 
 /**
  * Internal class for managing the property
- * @class Property
+ * @class
  * @private
- * @constructor
- * @param {String} name The name of the property
- * @param {*} [value=null] The initial value
- * @param {Boolean} [readOnly=false] If property is read-only
  */
 class Property {
+    /**
+     * @param {String} name The name of the property
+     * @param {mixed} [value=null] The initial value
+     * @param {Boolean} [readOnly=false] If property is read-only
+     */
     constructor(name, value, readOnly) {
         this.name = name;
         this.setValue(value);
@@ -149,7 +146,7 @@ class Property {
     /**
      * Set the value of the property
      * @method setValue
-     * @param {*} [value=null] The value to set
+     * @param {mixed} [value=null] The value to set
      */
     setValue(value = null) {
         this.value = value;

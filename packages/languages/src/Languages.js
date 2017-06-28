@@ -3,10 +3,10 @@ import {Application, EventDispatcher} from '@springroll/core';
 /**
  * Keeps track of the user locale, by auto-detecting the browser language, allowing a user
  * selection, and automatically modifying any url that runs through the CacheManager.
- *
- * @class Languages
- * @extends springroll.EventDispatcher
- * @constructor
+ * ### module: @springroll/languages
+ * @class
+ * @memberof springroll
+ * @extends springroll.EventEmitter
  */
 export default class Languages extends EventDispatcher {
     constructor() {
@@ -14,7 +14,7 @@ export default class Languages extends EventDispatcher {
 
         /**
          * The value to replace with the current language in URLS.
-         * @property {String} _replace
+         * @member {String}
          * @private
          * @default "%LANG%"
          */
@@ -22,28 +22,27 @@ export default class Languages extends EventDispatcher {
 
         /**
          * The current language.
-         * @property {String} _current
+         * @member {String}
          * @private
          */
         this._current = null;
 
         /**
          * The default language.
-         * @property {String} _default
+         * @member {String}
          * @private
          */
         this._default = null;
 
         /**
          * Available languages.
-         * @property {Array} languages
-         * @public
+         * @member {Array}
          */
         this.languages = null;
 
         /**
          * A dictionary of translated strings, set with setStringTable().
-         * @property {Dictionary} _stringTable
+         * @member {Dictionary}
          * @private
          */
         this._stringTable = null;
@@ -51,13 +50,12 @@ export default class Languages extends EventDispatcher {
 
     /**
      * Fired when the chosen language has changed.
-     * @event changed
+     * @event springroll.Languages#changed
      * @param {String} language The newly chosen language.
      */
 
     /**
      * Configure 
-     * @method setConfig
      * @param {Object} config The language settings to be used.
      * @param {String} config.default The default language name to use if asked for one that is
      *                              not present.
@@ -86,9 +84,8 @@ export default class Languages extends EventDispatcher {
 
     /**
      * The current language.
-     * @property {String} current
+     * @member {String}
      * @readOnly
-     * @public
      */
     get current() {
         return this._current;
@@ -96,7 +93,6 @@ export default class Languages extends EventDispatcher {
 
     /**
      * Gets the preferred languages from the browser.
-     * @method getPreferredLanguages
      * @return {Array} The list of preferred languages in order of preference.
      */
     getPreferredLanguages() {
@@ -118,7 +114,6 @@ export default class Languages extends EventDispatcher {
 
     /**
      * Sets the current language, based on specified preferences and what is available.
-     * @method setLanguage
      * @param {Array|String} languageList The list of preferred languages in order of preference,
      *                                or a single language.
      */
@@ -159,7 +154,6 @@ export default class Languages extends EventDispatcher {
 
     /**
      * Sets the string table for later reference.
-     * @method setStringTable
      * @param {Dictionary} dictionary The string table, with keys that you would use to reference
      *                            the translations.
      */
@@ -169,7 +163,6 @@ export default class Languages extends EventDispatcher {
 
     /**
      * Gets a string from the current string table.
-     * @method getString
      * @param {String} key The key of the string to get.
      * @return {String} The translated string.
      */
@@ -180,7 +173,6 @@ export default class Languages extends EventDispatcher {
     /**
      * Gets a formatted string from the current string table. See String.format() in the Core
      * module.
-     * @method getFormattedString
      * @param {String} key The key of the string to get.
      * @param {Array|*} args An array or list of arguments for formatting.
      * @return {String} The translated string.
@@ -197,7 +189,6 @@ export default class Languages extends EventDispatcher {
 
     /**
      * Modifies a url, replacing a specified value with the current language.
-     * @method modifyUrl
      * @param {String} url The url to modify to a language specific version.
      */
     modifyUrl(url) {
@@ -209,7 +200,6 @@ export default class Languages extends EventDispatcher {
 
     /**
      * Destroys the Languages object.
-     * @method destroy
      */
     destroy() {
         let loader = Application.instance.loader;

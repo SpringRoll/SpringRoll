@@ -5,17 +5,20 @@ import {SavedData} from '@springroll/core';
  * within an Application. This can be player-progress data, high
  * score information, or other data that needs be saved between
  * sessions of running an app.
- * @class UserData
- * @constructor
- * @param {Bellhop} container The container instance
+ * ### module: @springroll/container-client
+ * @class
+ * @memberof springroll
  */
 export default class UserData {
+    /**
+     * @param {Bellhop} container The container instance
+     */
     constructor(container) {
         /**
          * Reference to the container. If the app is not connected
          * to the Container (running standalone) then the container
          * is set to be `null`.
-         * @property {Bellhop} container
+         * @member {Bellhop}
          * @default  null
          * @readOnly
          */
@@ -25,7 +28,7 @@ export default class UserData {
          * The name to preprend to each property name, this is set
          * by default as the Application's name, which is required
          * for the Container Client module.
-         * @property {String} id
+         * @member {String}
          * @default ""
          */
         this.id = '';
@@ -33,7 +36,6 @@ export default class UserData {
 
     /**
      * Read a saved setting
-     * @method read
      * @param  {String}   prop The property name
      * @param  {Function} callback Callback when save completes, returns the value
      */
@@ -53,7 +55,6 @@ export default class UserData {
 
     /**
      * Write a setting
-     * @method write
      * @param  {String}   prop The property name
      * @param  {*}   value The property value to save
      * @param  {Function} [callback] Callback when write completes
@@ -83,7 +84,6 @@ export default class UserData {
 
     /**
      * Delete a saved setting by name
-     * @method remove
      * @param  {String}   prop The property name
      * @param  {Function} [callback] Callback when remove completes
      */
@@ -109,7 +109,6 @@ export default class UserData {
 
     /**
      * Destroy and don't use after this
-     * @method destroy
      */
     destroy() {
         this.id = null;

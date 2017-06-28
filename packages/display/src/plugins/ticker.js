@@ -1,14 +1,12 @@
 import {ApplicationPlugin} from '@springroll/core';
 
 (function() {
-    /**
-     *  @class Application
-     */
+
     const plugin = new ApplicationPlugin('display/ticker', 'ticker');
 
     /**
      *  Keep track of total time elapsed to feed to the Ticker
-     *  @property {Number} _time
+     *  @member {Number}
      *  @private
      *  @default 0
      */

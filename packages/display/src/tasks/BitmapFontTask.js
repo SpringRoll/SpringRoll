@@ -2,36 +2,37 @@ import TextureTask from './TextureTask';
 
 /**
  * Internal class for loading a bitmap font for Pixi.
- * @class BitmapFontTask
+ * ### module: @springroll/display
+ * @class
  * @extends springroll.pixi.TextureTask
- * @constructor
  * @private
- * @param {Object} asset The data properties
- * @param {String} asset.type Must be "pixi" to signify that this asset should be parsed
- *                            specifically for Pixi.
- * @param {String} asset.font The BitmapFont source data
- * @param {Boolean} [asset.cache=false] If we should cache the result
- * @param {String} [asset.image] The atlas image path
- * @param {String} [asset.color] The color image path, if not using image property
- * @param {String} [asset.alpha] The alpha image path, if not using image property
- * @param {String} [asset.id] Id of asset
- * @param {Function} [asset.complete] The event to call when done
- * @param {Object} [asset.sizes=null] Define if certain sizes are not supported
  */
 export default class BitmapFontTask extends TextureTask {
+    /**
+     * @param {Object} asset The data properties
+     * @param {String} asset.type Must be "pixi" to signify that this asset should be parsed
+     *                            specifically for Pixi.
+     * @param {String} asset.font The BitmapFont source data
+     * @param {Boolean} [asset.cache=false] If we should cache the result
+     * @param {String} [asset.image] The atlas image path
+     * @param {String} [asset.color] The color image path, if not using image property
+     * @param {String} [asset.alpha] The alpha image path, if not using image property
+     * @param {String} [asset.id] Id of asset
+     * @param {Function} [asset.complete] The event to call when done
+     * @param {Object} [asset.sizes=null] Define if certain sizes are not supported
+     */
     constructor(asset) {
         super(asset, asset.font);
 
         /**
          * The BitmapFont data source path
-         * @property {String} font
+         * @member {String}
          */
         this.font = this.filter(asset.font);
     }
 
     /**
      * Test if we should run this task
-     * @method test
      * @static
      * @param {Object} asset The asset to check
      * @return {Boolean} If the asset is compatible with this asset
@@ -43,7 +44,6 @@ export default class BitmapFontTask extends TextureTask {
 
     /**
      * Start the task
-     * @method  start
      * @param  {Function} callback Callback when finished
      */
     start(callback) {

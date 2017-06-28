@@ -1,11 +1,12 @@
 /**
  * The data for the drag manager
- * @class DragData
+ * @class
  * @private
- * @constructor
- * @param {*} obj The object to drag
  */
 export default class DragData {
+    /**
+     * @param {mixed} obj The object to drag
+     */
     constructor(obj) {
         this.obj = obj;
         this.mouseDownObjPos = {

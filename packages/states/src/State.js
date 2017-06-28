@@ -4,11 +4,15 @@ import {Debug} from '@springroll/debug';
 // @endif
 
 /**
- * Defines the base functionality for a state used by the state manager
+ * Defines the base functionality for a state used by the state manager.
+ * ### module: @springroll/states
  *
- * @class State
+ * @class
+ * @memberof springroll
  * @extends springroll.EventEmitter
- * @constructor
+ */
+export default class State extends EventEmitter {
+/**
  * @param {createjs.Container|PIXI.DisplayObjectContainer} panel The panel to associate with
  *     this state.
  * @param {Object} [options] The list of options
@@ -22,7 +26,7 @@ import {Debug} from '@springroll/debug';
  *       item. See `ScaleManager.addItems` for more information about the
  *       format of the scaling objects. (UI Module only)
  */
-export default class State extends EventEmitter {
+
     constructor(panel, options) {
         super();
 
@@ -45,35 +49,35 @@ export default class State extends EventEmitter {
 
         /**
          * Reference to the main app
-         * @property {Application} app
+         * @member {Application}
          * @readOnly
          */
         let app = this.app = Application.instance;
 
         /**
          * The instance of the VOPlayer, Sound module required
-         * @property {springroll.VOPlayer} voPlayer
+         * @member {springroll.VOPlayer}
          * @readOnly
          */
         this.voPlayer = app.voPlayer || null;
 
         /**
          * The instance of the Sound, Sound module required
-         * @property {springroll.Sound} sound
+         * @member {springroll.Sound}
          * @readOnly
          */
         this.sound = app.sound || null;
 
         /**
          * Reference to the main config object
-         * @property {Object} config
+         * @member {Object}
          * @readOnly
          */
         this.config = app.config || null;
 
         /**
          * Reference to the scaling object, UI module required
-         * @property {springroll.ScaleManager} scaling
+         * @member {springroll.ScaleManager}
          * @readOnly
          */
         this.scaling = app.scaling || null;
@@ -85,7 +89,7 @@ export default class State extends EventEmitter {
          * matching the same state alias. For instance `config.scaling.title` if
          * `title` is the state alias. If no scalingItems are set, will scale
          * and position the panal itself.
-         * @property {Object} scalingItems
+         * @member {Object}
          * @readOnly
          * @default null
          */
@@ -93,31 +97,31 @@ export default class State extends EventEmitter {
 
         /**
          * The id reference
-         * @property {String} stateId
+         * @member {String}
          */
         this.stateId = null;
 
         /**
          * A reference to the state manager
-         * @property {springroll.StateManager} manager
+         * @member {springroll.StateManager}
          */
         this.manager = null;
 
         /**
          * The panel for the state.
-         * @property {createjs.Container|PIXI.DisplayObjectContainer} panel
+         * @member {createjs.Container|PIXI.DisplayObjectContainer}
          */
         this.panel = panel;
 
         /**
          * The assets to load each time
-         * @property {Array} preload
+         * @member {Array}
          */
         this.preload = options.preload;
 
         /**
          * Check to see if the assets have finished loading
-         * @property {Boolean} preloaded
+         * @member {Boolean}
          * @protected
          * @readOnly
          */
@@ -125,56 +129,56 @@ export default class State extends EventEmitter {
 
         /**
          * The collection of assets loaded
-         * @property {Array|Object} assets
+         * @member {Array|Object}
          * @protected
          */
         this.assets = null;
 
         /**
          * If the state has been destroyed.
-         * @property {Boolean} _destroyed
+         * @member {Boolean}
          * @private
          */
         this._destroyed = false;
 
         /**
          * If the manager considers this the active panel
-         * @property {Boolean} _active
+         * @member {Boolean}
          * @private
          */
         this._active = false;
 
         /**
          * If we are pre-loading the state
-         * @property {Boolean} _isLoading
+         * @member {Boolean}
          * @private
          */
         this._isLoading = false;
 
         /**
          * If we canceled entering the state
-         * @property {Boolean} _canceled
+         * @member {Boolean}
          * @private
          */
         this._canceled = false;
 
         /**
          * When we're finishing loading
-         * @property {Function} _onEnterProceed
+         * @member {Function}
          * @private
          */
         this._onEnterProceed = null;
 
         /**
          * If we start doing a load in enter, assign the onEnterComplete here
-         * @property {Function} _onLoadingComplete
+         * @member {Function}
          * @private
          */
         this._onLoadingComplete = null;
 
         /**
          * If the state is enabled, meaning that it is click ready
-         * @property {Boolean} _enabled
+         * @member {Boolean}
          * @private
          */
         this._enabled = false;
@@ -182,7 +186,7 @@ export default class State extends EventEmitter {
         /**
          * Either the alias of the next state or a function
          * to call when going to the next state.
-         * @property {String|Function} _nextState
+         * @member {String|Function}
          * @private
          */
         this._nextState = options.next;
@@ -190,7 +194,7 @@ export default class State extends EventEmitter {
         /**
          * Either the alias of the previous state or a function
          * to call when going to the previous state.
-         * @property {String|Function} _prevState
+         * @member {String|Function}
          * @private
          */
         this._prevState = options.previous;
@@ -198,7 +202,7 @@ export default class State extends EventEmitter {
         /**
          * The number of frames to delay the transition in after loading, to allow the framerate
          * to stablize after heavy art instantiation.
-         * @property {int} delayLoad
+         * @member {int}
          * @protected
          */
         this.delayLoad = options.delayLoad;
@@ -211,7 +215,7 @@ export default class State extends EventEmitter {
 
         /**
          * When the state is exited. Override this to provide state cleanup.
-         * @property {function} exit
+         * @member {function}
          * @default null
          */
         this.exit = empty;
@@ -219,7 +223,7 @@ export default class State extends EventEmitter {
         /**
          * When the state has requested to be exit, pre-transition. Override this to ensure
          * that animation/audio is stopped when leaving the state.
-         * @property {function} exitStart
+         * @member {function}
          * @default null
          */
         this.exitStart = empty;
@@ -227,7 +231,7 @@ export default class State extends EventEmitter {
         /**
          * Cancel the load, implementation-specific.
          * This is where any async actions should be removed.
-         * @property {function} cancel
+         * @member {function}
          * @default null
          */
         this.cancel = empty;
@@ -235,7 +239,7 @@ export default class State extends EventEmitter {
         /**
          * When the state is entered. Override this to start loading assets - call loadingStart()
          * to tell the StateManager that that is going on.
-         * @property {function} enter
+         * @member {function}
          * @default null
          */
         this.enter = empty;
@@ -243,7 +247,7 @@ export default class State extends EventEmitter {
         /**
          * When the state is visually entered fully - after the transition is done.
          * Override this to begin your state's activities.
-         * @property {function} enterDone
+         * @member {function}
          * @default null
          */
         this.enterDone = empty;
@@ -251,57 +255,56 @@ export default class State extends EventEmitter {
 
     /**
      * Event when the state finishes exiting. Nothing is showing at this point.
-     * @event exit
+     * @event springroll.State#exit
      */
 
     /**
      * Event when the state is being destroyed.
-     * @event destroy
+     * @event springroll.State#destroy
      */
 
     /**
      * Event when the transition is finished the state is fully entered.
-     * @event enterDone
+     * @event springroll.State#enterDone
      */
 
     /**
      * Event when the loading of a state was canceled.
-     * @event cancel
+     * @event springroll.State#cancel
      */
 
     /**
      * Event when the state starts exiting, everything is showing at this point.
-     * @event exitStart
+     * @event springroll.State#exitStart
      */
 
     /**
      * Event when the preload of assets is finished. If no assets are loaded, the `assets` parameter is null.
-     * @event loaded
+     * @event springroll.State#loaded
      * @param {Object|Array|null} asset The collection of assets loaded
      */
 
     /**
      * When there has been a change in how much has been preloaded
-     * @event progress
+     * @event springroll.State#progress
      * @param {Number} percentage The amount preloaded from zero to 1
      */
 
     /**
      * Event when the assets are starting to load.
-     * @event loading
+     * @event springroll.State#loading
      * @param {Array} asset An empty array that additional assets can be added to, if needed. Any dynamic
      *                      assets that are added need to be manually unloaded when the state exits.
      */
 
     /**
      * Event when the state is enabled status changes. Enable is when the state is mouse enabled or not.
-     * @event enabled
+     * @event springroll.State#enabled
      * @param {Boolean} enable The enabled status of the state
      */
 
     /**
      * Goto the next state
-     * @method nextState
      * @final
      */
     nextState() {
@@ -323,7 +326,6 @@ export default class State extends EventEmitter {
 
     /**
      * Goto the previous state
-     * @method previousState
      * @final
      */
     previousState() {
@@ -345,7 +347,6 @@ export default class State extends EventEmitter {
 
     /**
      * Manual call to signal the start of preloading
-     * @method loadingStart
      * @final
      */
     loadingStart() {
@@ -370,7 +371,6 @@ export default class State extends EventEmitter {
 
     /**
      * Manual call to signal the end of preloading
-     * @method loadingDone
      * @final
      * @param {int} [delay] Frames to delay the load completion to allow the framerate to
      *   stabilize. If not delay is set, defaults to the `delayLoad` property.
@@ -406,7 +406,7 @@ export default class State extends EventEmitter {
 
     /**
      * Status of whether the panel load was canceled
-     * @property {Boolean} canceled
+     * @member {Boolean}
      * @readOnly
      */
     get canceled() {
@@ -415,7 +415,7 @@ export default class State extends EventEmitter {
 
     /**
      * Get if this is the active state
-     * @property {Boolean} active
+     * @member {Boolean}
      * @readOnly
      */
     get active() {
@@ -424,7 +424,7 @@ export default class State extends EventEmitter {
 
     /**
      * If the state is enabled, meaning that it is click ready
-     * @property {Boolean} enabled
+     * @member {Boolean}
      */
     get enabled() {
         return this._enabled;
@@ -439,7 +439,7 @@ export default class State extends EventEmitter {
 
     /**
      * If the state has been destroyed.
-     * @property {Boolean} destroyed
+     * @member {Boolean}
      * @readOnly
      */
     get destroyed() {
@@ -448,8 +448,7 @@ export default class State extends EventEmitter {
 
     /**
      * This is called by the State Manager to exit the state
-     * @method _internalExit
-     * @protected
+     * @private
      */
     _internalExit() {
         this.preloaded = false;
@@ -490,9 +489,8 @@ export default class State extends EventEmitter {
 
     /**
      * When the state is entering
-     * @method _internalEntering
      * @param {Function} proceed The function to call after enter has been called
-     * @protected
+     * @private
      */
     _internalEntering() {
         this.enter();
@@ -530,7 +528,6 @@ export default class State extends EventEmitter {
 
     /**
      * Handle the load progress and pass to the manager
-     * @method _onProgress
      * @private
      * @param {Number} progress The amount preloaded from zero to 1
      */
@@ -541,7 +538,6 @@ export default class State extends EventEmitter {
 
     /**
      * The internal call for on assets loaded
-     * @method _onLoaded
      * @private
      * @param {Object|null} assets The assets result of the load
      */
@@ -578,8 +574,7 @@ export default class State extends EventEmitter {
 
     /**
      * Exit the state start, called by the State Manager
-     * @method _internalExitStart
-     * @protected
+     * @private
      */
     _internalExitStart() {
         this.exitStart();
@@ -588,9 +583,8 @@ export default class State extends EventEmitter {
 
     /**
      * Exit the state start, called by the State Manager
-     * @method _internalEnter
      * @param {Function} proceed The function to call after enter has been called
-     * @protected
+     * @private
      */
     _internalEnter(proceed) {
         if (this._isTransitioning) {
@@ -614,8 +608,7 @@ export default class State extends EventEmitter {
 
     /**
      * Cancel the loading of this state
-     * @method _internalCancel
-     * @protected
+     * @private
      */
     _internalCancel() {
         this._active = false;
@@ -629,7 +622,6 @@ export default class State extends EventEmitter {
 
     /**
      * Exit the state start, called by the State Manager
-     * @method _internalEnterDone
      * @private
      */
     _internalEnterDone() {
@@ -644,7 +636,6 @@ export default class State extends EventEmitter {
 
     /**
      * Don't use the state object after this
-     * @method destroy
      */
     destroy() {
         // Only destroy once!

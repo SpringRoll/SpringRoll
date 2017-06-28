@@ -2,18 +2,18 @@ import {ApplicationPlugin} from '@springroll/core';
 import UserData from '../UserData';
 
 (function() {
-    /**
-     * @class Application
-     */
-    let plugin = new ApplicationPlugin('user-data', 'container-client');
+    
+    const plugin = new ApplicationPlugin('user-data', 'container-client');
 
     // Init the animator
     plugin.setup = function() {
         /**
          * The API for saving user data, default is to save
          * data to the container, if not connected, it will
-         * save user data to local cookies
-         * @property {springroll.UserData} userData
+         * save user data to local cookies.
+         * ### module: @springroll/container-client
+         * @member {springroll.UserData} userData
+         * @memberof springroll.Application#
          */
         this.userData = new UserData(this.container);
     };

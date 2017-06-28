@@ -24,7 +24,8 @@
         "excludePattern": "(^|\\/|\\\\)_"
     },
     "plugins": [
-        "./node_modules/jsdoc/plugins/markdown"
+        "./node_modules/jsdoc/plugins/markdown",
+        "./scripts/jsdoc-es6-fix.js"
     ],
     "templates": {
         "cleverLinks": false,

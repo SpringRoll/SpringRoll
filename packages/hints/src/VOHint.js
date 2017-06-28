@@ -3,17 +3,19 @@ import AbstractHint from './AbstractHint';
 /**
  * A hint designed to be played with the VOPlayer, typically
  * off-screen voice-over.
- * @class VOHint
+ * @class 
+ * @memberof springroll
  * @extends springroll.AbstractHint
- * @constructor
  * @private
- * @param {springroll.Application} hints The instance of the hints
- * @param {Function} done called on hint complete
- * @param {String|Array} idOrList
- * @param {Function} onComplete
- * @param {Function} onCancel
  */
 export default class VOHint extends AbstractHint {
+    /**
+     * @param {springroll.Application} hints The instance of the hints
+     * @param {Function} done called on hint complete
+     * @param {String|Array} idOrList
+     * @param {Function} onComplete
+     * @param {Function} onCancel
+     */
     constructor(hints, done, idOrList, onComplete, onCancel) {
         super(hints, done);
 
@@ -24,7 +26,6 @@ export default class VOHint extends AbstractHint {
 
     /**
      * Run the hint
-     * @method play
      */
     play() {
         this._hints.enabled = false;
@@ -38,7 +39,6 @@ export default class VOHint extends AbstractHint {
 
     /**
      * Clean-up the hint, don't use after this
-     * @method destroy
      */
     destroy() {
         this.idOrList = null;

@@ -1,11 +1,16 @@
+/**
+ * ### module: @springroll/display
+ * @see http://pixijs.download/release/docs/PIXI.extras.BitmapText.html
+ * @class PIXI.extras.BitmapText
+ */
 
 /**
  * Determines if the text object's pivot property will reflect the text's alignment, e.g.
  * a BitmapText with align of 'right' will have pivot.x set to the text's width, so that the
  * right edge of the text is at the text's position. Setting to false uses PIXI's default
  * alignment.
- * @property pivotAlign
- * @type {Boolean}
+ * @memberof PIXI.extras.BitmapText#
+ * @member {Boolean} pivotAlign
  * @default false
  */
 PIXI.extras.BitmapText.prototype.pivotAlign = false;

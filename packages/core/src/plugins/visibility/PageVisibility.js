@@ -2,39 +2,40 @@
  * Handle the page visiblity change, if supported. Application uses one of these to
  * monitor page visibility. It is suggested that you listen to `pause`, `paused`,
  * or `resumed` events on the Application instead of using one of these yourself.
- *
- * @class PageVisibility
- * @constructor
- * @param {Function} onFocus Callback when the page becomes visible
- * @param {Function} onBlur Callback when the page loses visibility
+ * ### module: @springroll/core
+ * @class
+ * @memberof springroll
  */
 export default class PageVisibility {
+    /**
+     * @param {Function} onFocus Callback when the page becomes visible
+     * @param {Function} onBlur Callback when the page loses visibility
+     */
     constructor(onFocus, onBlur) {
         /**
          * Callback when the page becomes visible
-         * @property {Function} _onFocus
+         * @member {Function}
          * @private
          */
         this._onFocus = onFocus;
 
         /**
          * Callback when the page loses visibility
-         * @property {Function} _onBlur
+         * @member {Function}
          * @private
          */
         this._onBlur = onBlur;
 
         /**
          * If this object is enabled.
-         * @property {Function} _enabled
+         * @member {Function}
          * @private
          */
         this._enabled = false;
 
         /**
          * The name of the visibility change event for the browser
-         *
-         * @property {String} _visibilityChange
+         * @member {String}
          * @private
          */
         this._visibilityChange = null;
@@ -62,7 +63,7 @@ export default class PageVisibility {
 
         /**
          * The visibility toggle listener function
-         * @property {Function} _onToggle
+         * @member {Function}
          * @private
          */
         this._onToggle = () => {
@@ -80,7 +81,7 @@ export default class PageVisibility {
 
     /**
      * If this object is enabled.
-     * @property {Function} enabled
+     * @member {Function}
      * @private
      */
     get enabled() {
@@ -128,7 +129,6 @@ export default class PageVisibility {
 
     /**
      * Disable the detection
-     * @method destroy
      */
     destroy() {
         // If this browser doesn't support visibility

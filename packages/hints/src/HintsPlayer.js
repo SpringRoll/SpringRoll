@@ -5,46 +5,49 @@ import VOHint from './VOHint';
 import GroupHint from './GroupHint';
 
 /**
- * Design to handle the setting and playing of hints
- * @class HintsPlayer
- * @constructor
- * @param {springroll.Application} app Reference to the current app
+ * Design to handle the setting and playing of hints.
+ * ### module: @springroll/hints
+ * @class
+ * @memberof springroll
  */
 export default class HintsPlayer extends EventDispatcher {
+    /** 
+     * @param {springroll.Application} app Reference to the current app
+     */
     constructor(app) {
         super();
 
         /**
          * Reference to the current app
-         * @property {springroll.Application} _app
+         * @member {springroll.Application} 
          * @private
          */
         this._app = app;
 
         /**
          * The currently selected hint
-         * @property {springroll.AbstractHint} _hint
+         * @member {springroll.AbstractHint} 
          * @private
          */
         this._hint = null;
 
         /**
          * The total number of milliseconds until playing
-         * @property {int} _duration
+         * @member {int}
          * @private
          */
         this._duration = 0;
 
         /**
          * The countdown in milliseconds
-         * @property {int} _timer
+         * @member {int}
          * @private
          */
         this._timer = 0;
 
         /**
          * Time in ms between timeout lines
-         * @property {Number} timerDuration
+         * @member {Number}
          * @default  12000
          */
         this.timerDuration = 12000;
@@ -56,7 +59,7 @@ export default class HintsPlayer extends EventDispatcher {
 
         /**
          * If a hint is currently playing
-         * @property {Boolean} _playing
+         * @member {Boolean}
          * @default false
          * @private
          */
@@ -65,20 +68,21 @@ export default class HintsPlayer extends EventDispatcher {
         /**
          * Contains previously set hints to be cleaned up after the new hint plays,
          * to prevent erasing callbacks too soon.
-         * @property {Array} _oldHints
+         * @member {Array}
+         * @private
          */
         this._oldHints = [];
     }
 
     /**
      * Play an animation event
-     * @event start
+     * @event springroll.HintsPlayer#start
      * @param {springroll.AbstractHint} hint The hint being played
      */
 
     /**
      * Play an animation event
-     * @event anim
+     * @event springroll.HintsPlayer#anim
      * @param {Object} data The event data
      * @param {createjs.MovieClip} data.instance The movieclip instance
      * @param {String|Array} data.events The Animator events
@@ -88,7 +92,7 @@ export default class HintsPlayer extends EventDispatcher {
 
     /**
      * Play an Voice-Over event
-     * @event vo
+     * @event springroll.HintsPlayer#vo
      * @param {Object} data The event data
      * @param {String|Array} data.events The VO alias or array of aliases/times/etc
      * @param {Function} data.complete Callback when complete
@@ -97,13 +101,12 @@ export default class HintsPlayer extends EventDispatcher {
 
     /**
      * Event when the enabled status of the hint changes
-     * @event enabled
+     * @event springroll.HintsPlayer#enabled
      * @param {Boolean} enabled If the player is enabled
      */
 
     /**
      * Add a VO hint to the player.
-     * @method vo
      * @param {String|Array} idOrList The list of VO element, see VOPlayer.play
      * @param {Function} onComplete Call when the VO is done playing
      * @param {Function|Boolean} [onCancel] Call when the VO is cancelled playing,
@@ -122,7 +125,6 @@ export default class HintsPlayer extends EventDispatcher {
 
     /**
      * Add an animator hint to the player
-     * @method anim
      * @param {createjs.MovieClip|*} instance The instance of the clip to play with Animator
      * @param {String|Array|Object} events The event aliases to play, see Animator.play
      * @param {Function} onComplete Call when the VO is done playing
@@ -145,7 +147,6 @@ export default class HintsPlayer extends EventDispatcher {
      * Add an animator hint to the player. If you use this hinting method, you
      * NEED to re-enable the hinting when it's done. Whereas the VO and ANIM methods
      * with automatically re-enable the hinting button.
-     * @method func
      * @param {Function} onStart The function to call when hint is played.
      *                           Should accept 2 arguments (callbacks): onComplete, onCancelled
      *                           and call them when complete or cancelled
@@ -158,7 +159,6 @@ export default class HintsPlayer extends EventDispatcher {
     /**
      * Create the new group hint for randomizing hints or for tiered hinting.
      * You can save this group hint for later and assign using HintsPlayer.set()
-     * @method group
      * @return {springroll.GroupHint} The new group hint
      */
     group() {
@@ -167,7 +167,6 @@ export default class HintsPlayer extends EventDispatcher {
 
     /**
      * Set the current method to use
-     * @method set
      * @param {springroll.AbstractHint} hint The new hint to add
      * @return {springroll.AbstractHint} Instance of the player, for chaining
      */
@@ -181,7 +180,6 @@ export default class HintsPlayer extends EventDispatcher {
 
     /**
      * Removes the current hint
-     * @method clear
      */
     clear() {
         this._playing = false;
@@ -195,7 +193,6 @@ export default class HintsPlayer extends EventDispatcher {
 
     /**
      * Manually play the current hint
-     * @method play
      * @return {springroll.HintsPlayer} instance of the player for chaining
      */
     play() {
@@ -218,7 +215,6 @@ export default class HintsPlayer extends EventDispatcher {
 
     /**
      * Start a timer
-     * @method startTimer
      * @param {int} [duration=12000] The number of milliseconds before playing hint
      * @return {springroll.HintsPlayer} instance of the player for chaining
      */
@@ -230,14 +226,12 @@ export default class HintsPlayer extends EventDispatcher {
 
     /**
      * Stop the timer and remove update listener
-     * @method stopTimer
      * @return {springroll.HintsPlayer} instance of the player for chaining
      */
 
     /**
      * Stop the timer and remove update listener.
      * Alias for stopTimer
-     * @method removeTimer
      * @return {springroll.HintsPlayer} instance of the player for chaining
      */
     stopTimer() {
@@ -250,7 +244,6 @@ export default class HintsPlayer extends EventDispatcher {
 
     /**
      * Reset the timer to start over
-     * @method resetTimer
      * @return {springroll.HintsPlayer} instance of the player for chaining
      */
     resetTimer() {
@@ -261,7 +254,7 @@ export default class HintsPlayer extends EventDispatcher {
 
     /**
      * If the help button is enabled
-     * @property {Boolean} enabled
+     * @member {Boolean}
      */
     set enabled(enabled) {
         this.emit('enabled', enabled);
@@ -269,7 +262,6 @@ export default class HintsPlayer extends EventDispatcher {
 
     /**
      * Handle the update function
-     * @method _update
      * @private
      * @param {int} elapsed Number of milliseconds since the last update
      */
@@ -290,12 +282,10 @@ export default class HintsPlayer extends EventDispatcher {
 
     /**
      * Call this when a FunctionHint is done playing to reset HintsPlayer
-     * @method funcDone
      * @param {Boolean} [cancelled=false] If the function was interrupted by the user or something else.
      */
     /**
      * Internal callback when a hint is done playing
-     * @method _done
      * @private
      * @param {Boolean} [cancelled=false] If the function was interrupted by the user or something else.
      */
@@ -318,7 +308,6 @@ export default class HintsPlayer extends EventDispatcher {
 
     /**
      * Destroys old hints
-     * @method _clearOldHints
      * @private
      */
     _clearOldHints() {
@@ -332,7 +321,6 @@ export default class HintsPlayer extends EventDispatcher {
 
     /**
      * Destroy, don't use after this
-     * @method destroy
      */
     destroy() {
         this.clear();

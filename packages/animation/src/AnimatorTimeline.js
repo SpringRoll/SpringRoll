@@ -1,107 +1,109 @@
 /**
  * Animator Timeline is a class designed to provide
- * base animation functionality
- * @class AnimatorTimeline
+ * base animation functionality.
+ * ### module: @springroll/animation
+ * @class
+ * @memberof springroll
  */
 export default class AnimatorTimeline {
     constructor() {
         /**
          * The function to call when we're done
-         * @property {Function} onComplete
+         * @member {Function}
          */
         this.onComplete = null;
 
         /**
          * The function to call when stopped early.
-         * @property {Function} onCancelled
+         * @member {Function}
          */
         this.onCancelled = null;
 
         /**
          * An array of animations and pauses.
-         * @property {Array} eventList
+         * @member {Array}
          */
         this.eventList = null;
 
         /**
          * The index of the active animation in eventList.
-         * @property {int} listIndex
+         * @member {int}
          */
         this.listIndex = -1;
 
         /**
          * The instance of the timeline to animate
-         * @property {springroll.AnimatorInstance} instance
+         * @member {springroll.AnimatorInstance}
          */
         this.instance = null;
 
         /**
          * If the current animation loops - determined by looking to see if it ends
          * in "_stop" or "_loop"
-         * @property {Boolean} isLooping
+         * @member {Boolean}
          */
         this.isLooping = false;
 
         /**
          * If this timeline plays captions for the current sound.
-         * @property {Boolean} useCaptions
+         * @member {Boolean}
          * @readOnly
          */
         this.useCaptions = false;
 
         /**
          * If the timeline is paused.
-         * @property {Boolean} _paused
+         * @member {Boolean}
          * @private
          */
         this._paused = false;
 
         /**
          * The current animation duration in seconds.
-         * @property {Number} duration
+         * @member {Number}
          */
         this.duration = 0;
 
         /**
          * The animation speed for the current animation. Default is 1.
-         * @property {Number} speed
+         * @member {Number}
          */
         this.speed = 1;
 
         /**
          * Sound alias to sync to during the current animation.
-         * @property {String} soundAlias
+         * @member {String}
          */
         this.soundAlias = null;
 
         /**
          * A sound instance object from springroll.Sound, used for tracking sound
          * position for the current animation.
-         * @property {Object} soundInst
+         * @member {Object}
          */
         this.soundInst = null;
 
         /**
          * If the timeline will, but has yet to play a sound for the current animation.
-         * @property {Boolean} playSound
+         * @member {Boolean}
          */
         this.playSound = false;
 
         /**
          * The time (seconds) into the current animation that the sound starts.
-         * @property {Number} soundStart
+         * @member {Number}
          */
         this.soundStart = 0;
 
         /**
          * The time (seconds) into the animation that the sound ends
-         * @property {Number} soundEnd
+         * @member {Number}
          */
         this.soundEnd = 0;
 
         /**
          * If the timeline is complete. Looping timelines will never complete.
-         * @property {Boolean} complete
+         * @member {Boolean}
          * @readOnly
          */
         this.complete = false;
@@ -113,7 +115,8 @@ export default class AnimatorTimeline {
 
     /**
      * The position of the current animation, or the current pause timer, in milliseconds.
-     * @property {Number} time
+     * @member {Number} time
+     * @memberof springroll.AnimatorTimeline#
      */
     get time() {
         return this.position * 1000;
@@ -124,7 +127,8 @@ export default class AnimatorTimeline {
 
     /**
      * Sets and gets the animation's paused status.
-     * @property {Boolean} paused
+     * @member {Boolean} paused
+     * @memberof springroll.AnimatorTimeline#
      */
     get paused() {
         return this._paused;
@@ -148,7 +152,6 @@ export default class AnimatorTimeline {
 
     /**
      * Reset the timeline so we can reuse
-     * @method reset
      * @private
      * @return {springroll.AnimatorTimeline} Instance of timeline
      */
@@ -177,7 +180,11 @@ export default class AnimatorTimeline {
         return this;
     }
 
-
+    /**
+     * The current playback time in seconds.
+     * @member {Number} position
+     * @memberof springroll.AnimatorTimeline#
+     */
     get position() {
         return this._position;
     }
@@ -190,7 +197,6 @@ export default class AnimatorTimeline {
 
     /**
      * Advances to the next item in the list of things to play.
-     * @method _nextItem
      * @private
      */
     _nextItem() {

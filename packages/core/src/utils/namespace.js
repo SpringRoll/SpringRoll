@@ -1,18 +1,13 @@
 /**
- * Static class for namespacing objects and adding
- * classes to it.
- * @class namespace
- * @static
- */
-
-/**
- * Create the namespace and assing to the window
+ * Create the namespace and assing to the window.
+ * ### module: @springroll/core
  *
  * @example
-    var SpriteUtils = function(){};
-    namespace('springroll').SpriteUtils = SpriteUtils;
+ * import {namespace} from '@springroll/core';
+ * const SpriteUtils = function(){};
+ * namespace('springroll').SpriteUtils = SpriteUtils;
  *
- * @constructor
+ * @memberof springroll
  * @method namespace
  * @param {string} namespaceString Name space, for instance 'springroll.utils'
  * @param {object} [assign] Map of classes/properties to assign to namespace

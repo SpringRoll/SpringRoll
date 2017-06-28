@@ -1,21 +1,19 @@
-/**
- * Static class for mixing in functionality into objects.
- * @class mixin
- * @static
- */
+import include from './include';
 
 /**
- * Mixin functionality to an object
+ * Mixin functionality to an object.
+ * ### module: @springroll/core
  *
  * @example
-    mixin(instance, MyClass);
+ * import {mixin} from '@springroll/core';
+ * mixin(instance, MyClass);
  *
- * @constructor
+ * @memberof springroll
  * @method mixin
- * @param {*} target The instance object to add functionality to
+ * @param {mixed} target The instance object to add functionality to
  * @param {function|String} superClass The parent reference or full classname
- * @param {*} [args] Any additional arguments to pass to the constructor of the superClass
- * @return {*} Return reference to target
+ * @param {mixed} [args] Any additional arguments to pass to the constructor of the superClass
+ * @return {mixed} Return reference to target
  */
 export default function mixin(target, superClass) {
     // @if DEBUG
@@ -26,7 +24,7 @@ export default function mixin(target, superClass) {
 
     // Include using string
     if (typeof superClass === 'string') {
-        superClass = window.include(superClass);
+        superClass = include(superClass);
     }
 
     // Check for existence of prototype

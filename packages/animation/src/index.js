@@ -1,3 +1,7 @@
+/**
+ * Contains Animation playback APIs.
+ * @module @springroll/animation
+ */
 import {expose} from '@springroll/core';
 
 import './plugins';

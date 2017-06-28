@@ -6,14 +6,11 @@ import {ApplicationPlugin} from '@springroll/core';
 (function() {
     const devicePixelRatio = include('devicePixelRatio', false);
 
-    /**
-     * @class Application
-     */
     const plugin = new ApplicationPlugin('resize', 'display');
 
     /**
      * Dom element (or the window) to attach resize listeners and read the size from
-     * @property {DOMElement|Window|null} resizeElement
+     * @member {DOMElement|Window|null}
      * @private
      * @default null
      */
@@ -21,35 +18,35 @@ import {ApplicationPlugin} from '@springroll/core';
 
     /**
      * The maximum width of the primary display, compared to the original height.
-     * @property {Number} maxWidth
+     * @member {Number}
      * @private
      */
     let maxWidth = 0;
 
     /**
      * The maximum height of the primary display, compared to the original width.
-     * @property {Number} maxHeight
+     * @member {Number}
      * @private
      */
     let maxHeight = 0;
 
     /**
      * The original width of the primary display, used to calculate the aspect ratio.
-     * @property {int} originalWidth
+     * @member {int}
      * @private
      */
     let originalWidth = 0;
 
     /**
      * The original height of the primary display, used to calculate the aspect ratio.
-     * @property {int} originalHeight
+     * @member {int}
      * @private
      */
     let originalHeight = 0;
 
     /**
      * A helper object to avoid object creation each resize event.
-     * @property {Object} resizeHelper
+     * @member {Object}
      * @private
      */
     let resizeHelper = {
@@ -61,7 +58,7 @@ import {ApplicationPlugin} from '@springroll/core';
 
     /**
      * The timeout when the window is being resized
-     * @property {springroll.DelayedCall} windowResizer
+     * @member {springroll.DelayedCall}
      * @private
      */
     let windowResizer = null;
@@ -72,7 +69,8 @@ import {ApplicationPlugin} from '@springroll/core';
 
         /**
          * Fired when a resize is called
-         * @event resize
+         * ### module: @springroll/display
+         * @event springroll.Application#resize
          * @param {int} width The width of the resize element
          * @param {int} height The height of the resize element
          */
@@ -82,7 +80,9 @@ import {ApplicationPlugin} from '@springroll/core';
          * a maximum width relative to the original height. This
          * allows for "title-safe" responsiveness. Must be greater
          * than the original width of the canvas.
-         * @property {int} options.maxWidth
+         * ### module: @springroll/display
+         * @member {int} maxWidth
+         * @memberof springroll.ApplicationOptions#
          */
         options.add('maxWidth', 0);
 
@@ -91,13 +91,17 @@ import {ApplicationPlugin} from '@springroll/core';
          * a maximum height relative to the original width. This
          * allows for "title-safe" responsiveness. Must be greater
          * than the original height of the canvas.
-         * @property {int} options.maxHeight
+         * ### module: @springroll/display
+         * @member {int} maxHeight
+         * @memberof springroll.ApplicationOptions#
          */
         options.add('maxHeight', 0);
 
         /**
          * Whether to resize the displays to the original aspect ratio
-         * @property {Boolean} options.uniformResize
+         * ### module: @springroll/display
+         * @member {Boolean} uniformResize
+         * @memberof springroll.ApplicationOptions#
          * @default true
          */
         options.add('uniformResize', true);
@@ -107,21 +111,27 @@ import {ApplicationPlugin} from '@springroll/core';
          * are adjusted on the `<canvas>` element. It's assumed that
          * responsive applications will adjust their own elements.
          * If responsive is false then the style properties are changed.
-         * @property {Boolean} options.responsive
+         * ### module: @springroll/display
+         * @member {Boolean} responsive
+         * @memberof springroll.ApplicationOptions#
          * @default false
          */
         options.add('responsive', false, true);
 
         /**
          * The element that the canvas is resized to fit.
-         * @property {DOMElement|String} options.resizeElement
+         * ### module: @springroll/display
+         * @member {DOMElement|String} resizeElement
+         * @memberof springroll.ApplicationOptions#
          * @default 'springroll-frame'
          */
         options.add('resizeElement', 'springroll-frame', true);
 
         /**
          * Whether to account for devicePixelRatio when rendering game
-         * @property {Boolean} options.retina
+         * ### module: @springroll/display
+         * @member {Boolean} retina
+         * @memberof springroll.ApplicationOptions#
          * @default false
          */
         options.add('retina', false);
@@ -136,19 +146,25 @@ import {ApplicationPlugin} from '@springroll/core';
 
         /**
          * The current width of the application, in real point values
-         * @property {int} realWidth
+         * ### module: @springroll/display
+         * @member {int} realWidth
+         * @memberof springroll.Application#
          */
         this.realWidth = 0;
 
         /**
          * The current height of the application, in real point values
-         * @property {int} realHeight
+         * ### module: @springroll/display
+         * @member {int} realHeight
+         * @memberof springroll.Application#
          */
         this.realHeight = 0;
 
         /**
          * Fire a resize event with the current width and height of the display
+         * ### module: @springroll/display
          * @method triggerResize
+         * @memberof springroll.Application#
          */
         this.triggerResize = function() {
             if (!resizeElement) {
@@ -204,9 +220,8 @@ import {ApplicationPlugin} from '@springroll/core';
         };
 
         /**
-         * Handle the window resize events
-         * @method onWindowResize
-         * @protected
+         * Handle the window resize events.
+         * @private
          */
         this.onWindowResize = function() {
             // Call the resize once
@@ -226,8 +241,9 @@ import {ApplicationPlugin} from '@springroll/core';
          * Calculates the resizing of displays. By default, this limits the new size
          * to the initial aspect ratio of the primary display. Override this function
          * if you need variable aspect ratios.
+         * ### module: @springroll/display
          * @method calculateDisplaySize
-         * @protected
+         * @memberof springroll.Application#
          * @param {Object} size A size object containing the width and height of the resized container.
          *                     The size parameter is also the output of the function, so the size
          *                     properties are edited in place.

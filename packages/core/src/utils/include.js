@@ -1,16 +1,13 @@
 /**
- * Used to include required classes by name
- * @class include
- * @static
- */
- 
-/**
- * Import a class
+ * Import a class by the full qualified namespace on the window. If the class
+ * is not found it will throw an error.
+ * ### module: @springroll/core
  *
  * @example
-    var Application = include('springroll.Application');
+ * import {include} from '@springroll/core';
+ * const Application = include('springroll.Application');
  *
- * @constructor
+ * @memberof springroll
  * @method include
  * @param {string} namespaceString Name space, for instance 'springroll.Application'
  * @param {Boolean} [required=true] If the class we're trying to include is required.

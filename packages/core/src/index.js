@@ -1,3 +1,17 @@
+/**
+ * All classes for SpringRoll are available within the "springroll" window
+ * namespace. All SpringRoll modules can either be included and used with the namespace
+ * or are accessible through importing specific classes. For instance:
+ * @example
+ * // Import using namespace
+ * import '@springroll/core';
+ * const app = springroll.Application();
+ *
+ * // Import using classes
+ * import {Application} from '@springroll/core';
+ * const app = new Application();
+ * @namespace springroll
+ */
 import './polyfills';
 import './plugins';
 

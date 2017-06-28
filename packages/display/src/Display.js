@@ -4,17 +4,20 @@ import {EventEmitter} from '@springroll/core';
 /**
  * Display is a display plugin for the springroll Framework
  * that uses the Pixi library for rendering.
- *
- * @class Display
- * @constructor
- * @param {Object} [options] Include all renderer option for PIXI renderers. See
- *        http://pixijs.download/release/docs/PIXI.html#.autoDetectRenderer for more info.
- * @param {String} [options.forceContext=null] If a specific renderer should be used instead
- *        of WebGL falling back to Canvas. Use "webgl" or "canvas2d" to specify a renderer.
- * @param {Boolean} [options.autoPreventDefault=true] `true` to call preventDefault() on
- *        all touch events and mousedown events.
+ * ### module: @springroll/display
+ * @class
+ * @extends springroll.EventEmitter
+ * @memberof springroll
  */
 export default class Display extends EventEmitter {
+    /**
+     * @param {Object} [options] Include all renderer option for PIXI renderers. See
+     *        http://pixijs.download/release/docs/PIXI.html#.autoDetectRenderer for more info.
+     * @param {String} [options.forceContext=null] If a specific renderer should be used instead
+     *        of WebGL falling back to Canvas. Use "webgl" or "canvas2d" to specify a renderer.
+     * @param {Boolean} [options.autoPreventDefault=true] `true` to call preventDefault() on
+     *        all touch events and mousedown events.
+     */
     constructor(id, options) {
         super();
 
@@ -33,56 +36,51 @@ export default class Display extends EventEmitter {
 
         /**
          * The DOM id for the canvas
-         * @property {String} id
+         * @member {String}
          * @readOnly
-         * @public
          */
         this.id = id;
 
         /**
          * Convenience method for getting the width of the canvas element
          * would be the same thing as view.width
-         * @property {int} width
+         * @member {int}
          * @readOnly
-         * @public
          */
         this.width = options.width;
 
         /**
          * Convenience method for getting the height of the canvas element
          * would be the same thing as view.height
-         * @property {int} height
+         * @member {int}
          * @readOnly
-         * @public
          */
         this.height = options.height;
 
         /**
          * The main rendering context or the root display object or stage.
-         * @property {mixed} stage
+         * @member {mixed}
          * @readOnly
-         * @public
          */
         this.stage = null;
 
         /**
          * If rendering is paused on this display only. Pausing all displays can be done
          * using Application.paused setter.
-         * @property {Boolean} paused
-         * @public
+         * @member {Boolean}
          */
         this.paused = false;
 
         /**
          * If input is enabled on the stage.
-         * @property {Boolean} _enabled
+         * @member {Boolean}
          * @private
          */
         this._enabled = false;
 
         /**
          * If the display is visible.
-         * @property {Boolean} _visible
+         * @member {Boolean}
          * @private
          */
         this._visible = true;
@@ -90,31 +88,29 @@ export default class Display extends EventEmitter {
         /**
          * If preventDefault() should be called on all touch events and mousedown events. Defaults
          * to true.
-         * @property {Boolean} _autoPreventDefault
+         * @member {Boolean}
          * @private
          */
         this._autoPreventDefault = options.autoPreventDefault;
 
         /**
          * The rendering library's stage element, the root display object
-         * @property {PIXI.Stage} stage
+         * @member {PIXI.Stage}
          * @readOnly
-         * @public
          */
         this.stage = new PIXI.Container();
 
         /**
          * Normalizes the interactions with the PIXI renderer
-         * @property {springroll.DisplayAdapter}
+         * @member {springroll.DisplayAdapter}
          * @readonly
          */
         this.adapter = DisplayAdapter;
 
         /**
          * The Pixi renderer.
-         * @property {PIXI.CanvasRenderer|PIXI.WebGLRenderer} renderer
+         * @member {PIXI.CanvasRenderer|PIXI.WebGLRenderer}
          * @readOnly
-         * @public
          */
         this.renderer = null;
 
@@ -152,9 +148,8 @@ export default class Display extends EventEmitter {
 
         /**
          * If Pixi is being rendered with WebGL.
-         * @property {Boolean} isWebGL
+         * @member {Boolean}
          * @readOnly
-         * @public
          */
         this.isWebGL = this.renderer instanceof PIXI.WebGLRenderer;
 
@@ -164,8 +159,7 @@ export default class Display extends EventEmitter {
 
     /**
      * If input is enabled on the stage for this display. The default is true.
-     * @property {Boolean} enabled
-     * @public
+     * @member {Boolean}
      */
     get enabled() {
         return this._enabled;
@@ -200,8 +194,7 @@ export default class Display extends EventEmitter {
     /**
      * If preventDefault() should be called on all touch events and mousedown events. Defaults
      * to true.
-     * @property {Boolean} autoPreventDefault
-     * @public
+     * @member {Boolean}
      */
     get autoPreventDefault() {
         return this._autoPreventDefault;
@@ -218,7 +211,6 @@ export default class Display extends EventEmitter {
 
     /**
      * Resizes the canvas and the renderer. This is only called by the Application.
-     * @method resize
      * @param {int} width The width that the display should be
      * @param {int} height The height that the display should be
      */
@@ -232,7 +224,6 @@ export default class Display extends EventEmitter {
     /**
      * Updates the stage and draws it. This is only called by the Application.
      * This method does nothing if paused is true or visible is false.
-     * @method render
      * @param {int} elapsed
      * @param {Boolean} [force=false] Will re-render even if the game is paused or not visible
      */
@@ -245,7 +236,6 @@ export default class Display extends EventEmitter {
     /**
      * Destroys the display. This method is called by the Application and should
      * not be called directly, use Application.removeDisplay(id).
-     * @method destroy
      */
     destroy() {
         this.stage.destroy(true);
@@ -262,7 +252,7 @@ export default class Display extends EventEmitter {
 
     /**
      * Canvas element which renders the display.
-     * @property {HTMLCanvasElement} view
+     * @member {HTMLCanvasElement}
      * @readonly
      */
     get view() {
@@ -271,8 +261,7 @@ export default class Display extends EventEmitter {
 
     /**
      * If the display is visible, using "display: none" css on the canvas. Invisible displays won't render.
-     * @property {Boolean} visible
-     * @public
+     * @member {Boolean}
      */
     get visible() {
         return this._visible;

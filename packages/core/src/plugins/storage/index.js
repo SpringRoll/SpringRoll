@@ -2,16 +2,14 @@ import ApplicationPlugin from '../../ApplicationPlugin';
 import PersistentStorage from './PersistentStorage';
     
 (function() {
-    /**
-     * @class Application
-     */
+
     const plugin = new ApplicationPlugin('storage');
 
     // Init the animator
     plugin.setup = function() {
         /**
          * The data instance
-         * @property {springroll.Storage} data
+         * @member {springroll.PersistentStorage} springroll.Application#data
          */
         this.storage = new PersistentStorage();
     };

@@ -1,9 +1,7 @@
 import ApplicationPlugin from '../ApplicationPlugin';
 
 (function(window) {
-    /**
-     * @class Application
-     */
+
     const plugin = new ApplicationPlugin('touch', 'filters');
 
     // Init the animator
@@ -12,19 +10,19 @@ import ApplicationPlugin from '../ApplicationPlugin';
 
         /**
          * If the current brower is iOS
-         * @property {Boolean} isIOS
+         * @member {Boolean} springroll.Application#isIOS
          */
         this.isIOS = navigator.userAgent.search(/iPhone|iPad|iPod/) > -1;
 
         /**
          * If the current brower is Android
-         * @property {Boolean} isAndroid
+         * @member {Boolean} springroll.Application#isAndroid
          */
         this.isAndroid = navigator.userAgent.search(/Android/) > -1;
 
         /**
          * If the current brower has touch input available
-         * @property {Boolean} hasTouch
+         * @member {Boolean} springroll.Application#hasTouch
          */
         this.hasTouch = !!(('ontouchstart' in window) || // iOS & Android
             (navigator.msPointerEnabled && navigator.msMaxTouchPoints > 0) || // IE10
@@ -40,7 +38,7 @@ import ApplicationPlugin from '../ApplicationPlugin';
         }
         // @endif
 
-        // Add the interaction filters, must have interface module MobilePlugin
+        // Add the interaction filters
         if (this.filters) {
             let ui = this.hasTouch ? '_touch' : '_mouse';
             this.filters.add('%INTERACTION%', ui);

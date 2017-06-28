@@ -2,42 +2,49 @@ import {ApplicationPlugin} from '@springroll/core';
 import StateManager from '../StateManager';
 
 (function() {
-    /**
-     * @class Application
-     */
+
     const plugin = new ApplicationPlugin('states', 'display');
 
     plugin.setup = function() {
         /**
          * Fired when an event has been added
-         * @event stateAdded
+         * ### module: @springroll/states
+         * @event springroll.Application#stateAdded
          * @param {String} alias The state alias
          * @param {springroll.State} state The State object
          */
 
         /**
          * The collection of states
-         * @property {Object} _states
+         * ### module: @springroll/states
+         * @member {Object} _states
+         * @memberof springroll.Application#
          * @private
          */
         this._states = null;
 
         /**
-         * The state manager
-         * @property {springroll.StateManager} manager
+         * The state manager, for managing visual and loading states in the game.
+         * ### module: @springroll/states
+         * @member {springroll.StateManager} manager
+         * @memberof springroll.Application#
          */
         this.manager = null;
 
         /**
          * The transition animation to use between the StateManager state changes
-         * @property {createjs.MovieClip|springroll.easeljs.BitmapMovieClip|PIXI.Spine} _transition
+         * ### module: @springroll/states
+         * @member {springroll.easeljs.BitmapMovieClip|PIXI.Spine} _transition
+         * @memberof springroll.Application#
          * @private
          */
         this._transition = null;
 
         /**
          * The transition animation to use between the StateManager state changes
-         * @property {createjs.MovieClip|springroll.easeljs.BitmapMovieClip|PIXI.Spine} transition
+         * ### module: @springroll/states
+         * @member {springroll.easeljs.BitmapMovieClip|PIXI.Spine} transition
+         * @memberof springroll.Application#
          */
         Object.defineProperty(this, 'transition',
             {
@@ -94,7 +101,9 @@ import StateManager from '../StateManager';
 
         /**
          * The initial state to go to when everything is finished
-         * @property {Boolean} options.state
+         * ### module: @springroll/states
+         * @member {Boolean} state
+         * @memberof springroll.ApplicationOptions#
          * @default null
          * @readOnly
          */
@@ -102,25 +111,19 @@ import StateManager from '../StateManager';
 
         /**
          * The animation to use for the StateManager
-         * @property {createjs.MovieClip|PIXI.Spine} options.transition
+         * ### module: @springroll/states
+         * @member {PIXI.Spine} transition
+         * @memberof springroll.ApplicationOptions#
          */
         this.options.add('transition');
 
         /**
          * The transition sounds to use for the state transition
-         * @property {Object} options.transitionSounds
-         * @readOnly
-         */
-        /**
-         * The transition in sound alias or sound object
-         * @property {Object} options.transitionSounds.in
-         * @default null
-         * @readOnly
-         */
-        /**
-         * The transition out sound alias or sound object
-         * @property {Object} options.transitionSounds.out
-         * @default null
+         * ### module: @springroll/states
+         * @member {Object} transitionSounds
+         * @memberof springroll.ApplicationOptions#
+         * @property {Object} [in=null] - The transition in sound alias or sound object
+         * @property {Object} [out=null] - The transition out sound alias or sound object
          * @readOnly
          */
         this.options.add('transitionSounds',
@@ -131,7 +134,9 @@ import StateManager from '../StateManager';
 
         /**
          * The collection of states where the key is the state alias and value is the state display object
-         * @property {Object} states
+         * ### module: @springroll/states
+         * @member {Object} states
+         * @memberof springroll.Application#
          * @default null
          */
         Object.defineProperty(this, 'states',
