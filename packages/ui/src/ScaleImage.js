@@ -1,34 +1,21 @@
-import {include} from '@springroll/core';
-
 /**
  * A bitmap to scale with the ScaleManager
  *
- * @class ScaleImage
+ * @class
+ * @memberof springroll
  * @private
- * @param {PIXI.Sprite|createjs.Bitmap} image The image to resize
- * @param {Object} size The original screen the item was designed for
- * @param {DisplayAdapter} adapter The display adapter
  */
 export default class ScaleImage {
+    /**
+     * @param {PIXI.Sprite} image The image to resize
+     * @param {Object} size The original screen the item was designed for
+     * @param {DisplayAdapter} adapter The display adapter
+     */
     constructor(image, size, adapter) {
-        let valid = false;
-        
-        let Bitmap = include('createjs.Bitmap', false);
-        let Sprite = include('PIXI.Sprite', false);
 
-        if (!image) {
-            valid = false;
-        }
-        else if (Bitmap && image instanceof Bitmap) {
-            valid = true;
-        }
-        else if (Sprite && image instanceof Sprite) {
-            valid = true;
-        }
-
-        if (!valid) {
+        if (!(image instanceof PIXI.Sprite)) {
             // @if DEBUG
-            throw 'The image is an invalid cover image, must be a PIXI.Sprite or createjs.Bitmap';
+            throw 'The image is an invalid cover image, must be a PIXI.Sprite';
             // @endif
             // @if RELEASE
             // eslint-disable-next-line no-unreachable
@@ -38,7 +25,7 @@ export default class ScaleImage {
 
         /**
          * The image to resize
-         * @property {PIXI.Sprite|createjs.Bitmap} image
+         * @member {PIXI.Sprite}
          * @private
          */
         this._image = image;
@@ -46,13 +33,13 @@ export default class ScaleImage {
         /**
          * The original screen the item was designed for
          * @private
-         * @property {Object} _size
+         * @member {Object}
          */
         this._size = size;
 
         /**
          * The adapter for universal scale, rotation size access
-         * @property {Object} _adapter
+         * @member {Object}
          * @private
          */
         this._adapter = adapter;
@@ -60,9 +47,8 @@ export default class ScaleImage {
 
     /**
      * Resize the current image
-     * @method resize
-     * @param  {Number} w  The stage height
-     * @param  {Number} h The stage width
+     * @param {Number} w  The stage height
+     * @param {Number} h The stage width
      */
     resize(w, h) {
         let _size = this._size;
@@ -103,7 +89,7 @@ export default class ScaleImage {
 
     /**
      * Get the current display item
-     * @property {PIXI.Sprite|createjs.Bitmap} display
+     * @member {PIXI.Sprite}
      * @readOnly
      */
     get display() {
@@ -112,7 +98,6 @@ export default class ScaleImage {
 
     /**
      * Destroy and don't use after this
-     * @method destroy
      */
     destroy() {
         this._adapter = null;

@@ -2,20 +2,22 @@ import ScaleManager from './ScaleManager';
 
 /**
  * Initially layouts all interface elements
- * @class Positioner
- * @static
+ * @class
+ * @memberof springroll
  * @private
  */
 export default class Positioner {
+    /**
+     * Degrees to radians constant
+     * @member {Number}
+     */
     static get DEG_TO_RAD() {
         return Math.PI / 180;
     }
 
     /**
      * Initial position a single display object
-     * @method init
-     * @static
-     * @param {createjs.DisplayObject|PIXI.DisplayObject} display The display object to scale
+     * @param {PIXI.DisplayObject} display The display object to scale
      * @param {Object} settings The values for setting
      * @param {Number} [settings.x] The initial X position of the item
      * @param {Number} [settings.y] The initial Y position of the item
@@ -80,8 +82,6 @@ export default class Positioner {
 
     /**
      * Create the polygon hit area for interface elements
-     * @static
-     * @method generateHitArea
      * @param {Object|Array} hitArea One of the following:
      *
      *   // An array of points for a polygon.

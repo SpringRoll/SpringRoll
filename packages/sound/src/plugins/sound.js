@@ -4,9 +4,7 @@ import VOPlayer from '../VOPlayer';
 import SoundTask from '../SoundTask';
 
 (function() {
-    /**
-     * @class Application
-     */
+
     const plugin = new ApplicationPlugin('sound');
 
     //Initialize
@@ -15,84 +13,106 @@ import SoundTask from '../SoundTask';
         const WebAudioPlugin = include('createjs.WebAudioPlugin');
         const FlashAudioPlugin = include('createjs.FlashAudioPlugin', false);
 
-        /**
-         * The preferred order of SoundJS audio plugins to use.
-         * @property {Array} options.audioPlugins
-         * @default [WebAudioPlugin,FlashAudioPlugin]
-         * @readOnly
-         */
-        this.options.add('audioPlugins', FlashAudioPlugin ? [WebAudioPlugin, FlashAudioPlugin] : [WebAudioPlugin], true);
+        const options = this.options;
 
         /**
-         * The relative location to the FlashPlugin swf for SoundJS
-         * @property {String} options.swfPath
+         * The preferred order of SoundJS audio plugins to use.
+         * ### module: @springroll/sound
+         * @member {Array} audioPlugins
+         * @memberof springroll.ApplicationOptions#
+         * @default [WebAudioPlugin, FlashAudioPlugin]
+         * @readOnly
+         */
+        options.add('audioPlugins', FlashAudioPlugin ? [WebAudioPlugin, FlashAudioPlugin] : [WebAudioPlugin], true);
+
+        /**
+         * The relative location to the FlashPlugin swf for SoundJS.
+         * ### module: @springroll/sound
+         * @member {String} swfPath
+         * @memberof springroll.ApplicationOptions#
          * @default 'assets/swfs/'
          * @readOnly
          */
-        this.options.add('swfPath', 'assets/swfs/', true);
+        options.add('swfPath', 'assets/swfs/', true);
 
         /**
-         * For the Sound class to use the Flash plugin shim
-         * @property {Boolean} options.forceFlashAudio
+         * For the Sound class to use the Flash plugin shim.
+         * ### module: @springroll/sound
+         * @member {Boolean} forceFlashAudio
+         * @memberof springroll.ApplicationOptions#
          * @default false
          * @readOnly
          */
-        this.options.add('forceFlashAudio', false, true);
+        options.add('forceFlashAudio', false, true);
 
         /**
          * For the Sound class to use Native Audio Plugin if Cordova is detected. Only applicable to games that require native audio.
          * If set to true, use Native Audio in Cordova if the plugin is available.
          * If set to false, then Sound will fall back to the standard plugins as set either by plugin options or in sound class.
-         * @property {Boolean} options.forceNativeAudio
+         * ### module: @springroll/sound
+         * @member {Boolean} forceNativeAudio
+         * @memberof springroll.ApplicationOptions#
          * @default false
          * @readOnly
          */
-        this.options.add('forceNativeAudio', false, true);
+        options.add('forceNativeAudio', false, true);
 
         /**
          * The order in which file types are
          * preferred, where "ogg" becomes a ".ogg"
          * extension on all sound file urls.
-         * @property {Array} options.audioTypes
+         * ### module: @springroll/sound
+         * @member {Array} audioTypes
+         * @memberof springroll.ApplicationOptions#
          * @default ['ogg','mp3']
          * @readOnly
          */
-        this.options.add('audioTypes', ['ogg', 'mp3'], true);
+        options.add('audioTypes', ['ogg', 'mp3'], true);
 
         // @if DEBUG
         /**
          * Set the initial mute state of the all the audio
          * (unminifed library version only)
-         * @property {Boolean} options.mute
+         * ### module: @springroll/sound
+         * @member {Boolean} mute
+         * @memberof springroll.ApplicationOptions#
          * @default false
          * @readOnly
          */
-        this.options.add('mute', false, true);
+        options.add('mute', false, true);
         // @endif
 
         /**
          * The current music alias playing
-         * @property {String} _music
+         * ### module: @springroll/sound
+         * @member {String} _music
+         * @memberof springroll.Application#
          * @private
          */
         this._music = null;
 
         /**
          * The current music SoundInstance playing
-         * @property {SoundInstance} _musicInstance
+         * ### module: @springroll/sound
+         * @member {SoundInstance} _musicInstance
+         * @memberof springroll.Application#
          * @private
          */
         this._musicInstance = null;
 
         /**
          * The global player for playing voice over
-         * @property {springroll.VOPlayer} voPlayer
+         * ### module: @springroll/sound
+         * @member {springroll.VOPlayer} voPlayer
+         * @memberof springroll.Application#
          */
         this.voPlayer = new VOPlayer();
 
         /**
          * The global player for all audio, also accessible through singleton
-         * @property {springroll.Sound} sound
+         * ### module: @springroll/sound
+         * @member {springroll.Sound} sound
+         * @memberof springroll.Application#
          */
         this.sound = null;
 
@@ -101,7 +121,9 @@ import SoundTask from '../SoundTask';
 
         /**
          * Get or set the current music alias to play
-         * @property {String} music
+         * ### module: @springroll/sound
+         * @member {String} music
+         * @memberof springroll.Application#
          * @default null
          */
         Object.defineProperty(this, 'music',
@@ -135,7 +157,9 @@ import SoundTask from '../SoundTask';
 
         /**
          * The SoundInstance for the current music, for adjusting volume.
-         * @property {SoundInstance} musicInstance
+         * ### module: @springroll/sound
+         * @member {springroll.SoundInstance} musicInstance
+         * @memberof springroll.Application#
          */
         Object.defineProperty(this, 'musicInstance',
             {
@@ -166,7 +190,8 @@ import SoundTask from '../SoundTask';
 
     /**
      * The sound is ready to use
-     * @event soundReady
+     * ### module: @springroll/sound
+     * @event springroll.Application#soundReady
      */
     let SOUND_READY = 'soundReady';
 

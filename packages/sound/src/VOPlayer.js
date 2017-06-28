@@ -4,7 +4,9 @@ import {Application, EventEmitter} from '@springroll/core';
 /**
  * A class for managing audio by only playing one at a time, playing a list,
  * and even managing captions (Captions library) at the same time.
- * @class VOPlayer
+ * ### module: @springroll/sound
+ * @class
+ * @memberof springroll
  * @extends springroll.EventEmitter
  */
 export default class VOPlayer extends EventEmitter {
@@ -19,7 +21,7 @@ export default class VOPlayer extends EventEmitter {
 
         /**
          * An Array used when play() is called to avoid creating lots of Array objects.
-         * @property {Array} _listHelper
+         * @member {Array}
          * @private
          */
         this._listHelper = [];
@@ -27,16 +29,14 @@ export default class VOPlayer extends EventEmitter {
         /**
          * If the VOPlayer should keep a list of all audio it plays for unloading
          * later. Default is false.
-         * @property {Boolean} trackSound
-         * @public
+         * @member {Boolean}
          */
         this.trackSound = false;
 
         /**
          * If the sound is currently paused. Setting this has no effect - use pause()
          * and resume().
-         * @property {Boolean} paused
-         * @public
+         * @member {Boolean}
          * @readOnly
          */
         this.paused = false;
@@ -44,63 +44,62 @@ export default class VOPlayer extends EventEmitter {
         /**
          * The current list of audio/silence times/functions.
          * Generally you will not need to modify this.
-         * @property {Array} voList
-         * @public
+         * @member {Array}
          */
         this.voList = null;
 
         /**
          * The current position in voList.
-         * @property {int} _listCounter
+         * @member {int}
          * @private
          */
         this._listCounter = 0;
 
         /**
          * The current audio alias being played.
-         * @property {String} _currentVO
+         * @member {String}
          * @private
          */
         this._currentVO = null;
 
         /**
          * The current audio instance being played.
-         * @property {SoundInstance} _soundInstance
+         * @member {SoundInstance}
          * @private
          */
         this._soundInstance = null;
 
         /**
          * The callback for when the list is finished.
-         * @property {Function} _callback
+         * @member {Function}
          * @private
          */
         this._callback = null;
 
         /**
          * The callback for when the list is interrupted for any reason.
-         * @property {Function} _cancelledCallback
+         * @member {Function}
          * @private
          */
         this._cancelledCallback = null;
 
         /**
          * A list of audio file played by this, so that they can be unloaded later.
-         * @property {Array} _trackedSounds
+         * @member {Array}
          * @private
          */
         this._trackedSounds = [];
 
         /**
          * A timer for silence entries in the list, in milliseconds.
-         * @property {int} _timer
+         * @member {int}
          * @private
          */
         this._timer = 0;
 
         /**
          * The captions object
-         * @property {springroll.Captions} _captions
+         * @member {springroll.Captions}
          * @private
          */
         this._captions = null;
@@ -122,8 +121,7 @@ export default class VOPlayer extends EventEmitter {
 
     /**
      * If VOPlayer is currently playing (audio or silence).
-     * @property {Boolean} playing
-     * @public
+     * @member {Boolean}
      * @readOnly
      */
     get playing() {
@@ -133,8 +131,7 @@ export default class VOPlayer extends EventEmitter {
     /**
      * The current VO alias that is playing, even if it is just a caption. If a silence timer
      * is running, currentVO will be null.
-     * @property {Boolean} currentVO
-     * @public
+     * @member {Boolean}
      * @readOnly
      */
     get currentVO() {
@@ -145,8 +142,7 @@ export default class VOPlayer extends EventEmitter {
      * The springroll.Captions object used for captions. The developer is responsible
      * for initializing this with a captions dictionary config file and a reference
      * to a text field.
-     * @property {Captions} captions
-     * @public
+     * @member {springroll.Captions}
      */
     set captions(captions) {
         this._captions = captions;
@@ -161,7 +157,7 @@ export default class VOPlayer extends EventEmitter {
 
     /**
      * The amount of time elapsed in the currently playing item of audio/silence in milliseconds
-     * @property {int} currentPosition
+     * @member {int}
      */
     get currentPosition() {
         if (!this.playing) {
@@ -186,7 +182,7 @@ export default class VOPlayer extends EventEmitter {
      * The duration of the currently playing item of audio/silence in milliseconds. If this is
      * waiting on an audio file to load for the first time, it will be 0, as there is no duration
      * data to give.
-     * @property {int} currentDuration
+     * @member {int}
      */
     get currentDuration() {
         if (!this.playing) {
@@ -209,7 +205,6 @@ export default class VOPlayer extends EventEmitter {
 
     /**
      * Calculates the amount of time elapsed in the current playlist of audio/silence.
-     * @method getElapsed
      * @return {int} The elapsed time in milliseconds.
      */
     getElapsed() {
@@ -247,8 +242,6 @@ export default class VOPlayer extends EventEmitter {
 
     /**
      * Pauses the current VO, caption, or silence timer if the VOPlayer is playing.
-     * @method pause
-     * @public
      */
     pause() {
         if (this.paused || !this.playing) {
@@ -271,8 +264,6 @@ export default class VOPlayer extends EventEmitter {
 
     /**
      * Resumes the current VO, caption, or silence timer if the VOPlayer was paused.
-     * @method resume
-     * @public
      */
     resume() {
         if (!this.paused) {
@@ -306,8 +297,6 @@ export default class VOPlayer extends EventEmitter {
      * Plays a single audio alias, interrupting any current playback.
      * Alternatively, plays a list of audio files, timers, and/or functions.
      * Audio in the list will be preloaded to minimize pauses for loading.
-     * @method play
-     * @public
      * @param {String|Array} idOrList The alias of the audio file to play or the
      * array of items to play/call in order.
      * @param {Function} [callback] The function to call when playback is complete.
@@ -343,7 +332,6 @@ export default class VOPlayer extends EventEmitter {
 
     /**
      * Callback for when audio/timer is finished to advance to the next item in the list.
-     * @method _onSoundFinished
      * @private
      */
     _onSoundFinished() {
@@ -407,7 +395,6 @@ export default class VOPlayer extends EventEmitter {
     /**
      * The update callback used for silence timers.
      * This method is bound to the VOPlayer instance.
-     * @method _updateSilence
      * @private
      * @param {int} elapsed The time elapsed since the previous frame, in milliseconds.
      */
@@ -422,7 +409,6 @@ export default class VOPlayer extends EventEmitter {
     /**
      * The update callback used for updating captions without active audio.
      * This method is bound to the VOPlayer instance.
-     * @method _updateSoloCaption
      * @private
      * @param {int} elapsed The time elapsed since the previous frame, in milliseconds.
      */
@@ -438,7 +424,6 @@ export default class VOPlayer extends EventEmitter {
     /**
      * The update callback used for updating captions with active audio.
      * This method is bound to the VOPlayer instance.
-     * @method _syncCaptionToSound
      * @private
      * @param {int} elapsed The time elapsed since the previous frame, in milliseconds.
      */
@@ -452,7 +437,6 @@ export default class VOPlayer extends EventEmitter {
 
     /**
      * Plays the current audio item and begins preloading the next item.
-     * @method _playSound
      * @private
      */
     _playSound() {
@@ -490,8 +474,6 @@ export default class VOPlayer extends EventEmitter {
 
     /**
      * Stops playback of any audio/timer.
-     * @method stop
-     * @public
      */
     stop() {
         this.paused = false;
@@ -521,8 +503,6 @@ export default class VOPlayer extends EventEmitter {
 
     /**
      * Unloads all audio this VOPlayer has played. If trackSound is false, this won't do anything.
-     * @method unloadSound
-     * @public
      */
     unloadSound() {
         Sound.instance.unload(this._trackedSounds);
@@ -531,8 +511,6 @@ export default class VOPlayer extends EventEmitter {
 
     /**
      * Cleans up this VOPlayer.
-     * @method destroy
-     * @public
      */
     destroy() {
         this.stop();

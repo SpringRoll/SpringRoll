@@ -6,9 +6,7 @@ import {Debug} from '@springroll/debug';
 // @endif
 
 (function() {
-    /**
-     * @class Application
-     */
+
     //ScalingPlugin needs to be destroyed after StatesPlugin from the States module,
     //so it gets a slightly higher priority
     const plugin = new ApplicationPlugin('scaling', ['config', 'display']);
@@ -17,8 +15,10 @@ import {Debug} from '@springroll/debug';
     plugin.setup = function() {
         /**
          * The main ScaleManager for any display object references
+         * ### module: @springroll/ui
          * in the main game.
-         * @property {springroll.ScaleManager} scaling
+         * @member {springroll.ScaleManager} scaling
+         * @memberof springroll.Application#
          */
         this.scaling = new ScaleManager();
 

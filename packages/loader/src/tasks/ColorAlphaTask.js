@@ -3,9 +3,9 @@ import Task from './Task';
 /**
  * Internal class for loading an image that has been split into an alpha channel image and a
  * RGB only color image.
- * @class ColorAlphaTask
+ * @class
+ * @memberof springroll
  * @extends springroll.Task
- * @constructor
  * @private
  * @param {Object} asset The data properties
  * @param {String} asset.color The source path to the color image
@@ -21,20 +21,19 @@ export default class ColorAlphaTask extends Task {
 
         /**
          * The atlas color source path
-         * @property {String} color
+         * @member {String}
          */
         this.color = this.filter(asset.color);
 
         /**
          * The atlas alpha source path
-         * @property {String} alpha
+         * @member {String}
          */
         this.alpha = this.filter(asset.alpha);
     }
 
     /**
      * Test if we should run this task
-     * @method test
      * @static
      * @param {Object} asset The asset to check
      * @return {Boolean} If the asset is compatible with this asset
@@ -45,7 +44,6 @@ export default class ColorAlphaTask extends Task {
 
     /**
      * Start the task
-     * @method  start
      * @param  {Function} callback Callback when finished
      */
     start(callback) {
@@ -71,7 +69,6 @@ export default class ColorAlphaTask extends Task {
      * containing alpha data. With certain types of images (those with detail that lend itself to
      * JPEG compression) this can provide significant file size savings versus a single RGBA PNG32.
      * This method is very fast (generally on the order of 1-2 ms to run).
-     * @method mergeAlpha
      * @static
      * @param {Image} rbgImage The image (or canvas) containing the RGB channels to use.
      * @param {Image} alphaImage The image (or canvas) containing the alpha channel to use.

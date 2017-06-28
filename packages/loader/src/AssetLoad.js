@@ -7,10 +7,10 @@ import {Debug} from '@springroll/debug';
 
 /**
  * Class that represents a single multi load
- * @class AssetLoad
+ * @class
+ * @memberof springroll
  * @private
  * @extends springroll.EventEmitter
- * @constructor
  * @param {springroll.AssetManager} manager Reference to the manager
  */
 export default class AssetLoad extends EventEmitter {
@@ -19,7 +19,7 @@ export default class AssetLoad extends EventEmitter {
 
         /**
          * Reference to the Task Manager
-         * @property {springroll.AssetManager} manager
+         * @member {springroll.AssetManager}
          */
         this.manager = manager;
 
@@ -29,61 +29,61 @@ export default class AssetLoad extends EventEmitter {
 
         /**
          * How to display the results, either as single (0), map (1) or list (2)
-         * @property {int} mode
+         * @member {int}
          * @default 1
          */
         this.mode = AssetLoad.MAP_MODE;
 
         /**
          * If we should run the tasks in parallel (true) or serial (false)
-         * @property {Boolean} startAll
+         * @member {Boolean}
          * @default true
          */
         this.startAll = true;
 
         /**
          * If we should try to cache all items in the load
-         * @property {Boolean} cacheAll
+         * @member {Boolean}
          * @default false
          */
         this.cacheAll = false;
 
         /**
          * The list of tasks to load
-         * @property {Array} tasks
+         * @member {Array}
          */
         this.tasks = [];
 
         /**
          * The results to return when we're done
-         * @property {Array|Object} results
+         * @member {Array|Object}
          */
         this.results = null;
 
         /**
          * If the load is currently running
-         * @property {Boolean} running
+         * @member {Boolean}
          * @default false
          */
         this.running = false;
 
         /**
          * The total number of assets loaded
-         * @property {int} numLoaded
+         * @member {int}
          * @default 0
          */
         this.numLoaded = 0;
 
         /**
          * The total number of assets
-         * @property {int} total
+         * @member {int}
          * @default 0
          */
         this.total = 0;
 
         /**
          * The default asset type if not defined
-         * @property {String} type
+         * @member {String}
          * @default null
          */
         this.type = null;
@@ -92,7 +92,7 @@ export default class AssetLoad extends EventEmitter {
     /**
      * When an asset is finished
      * @event taskDone
-     * @param {*} result The loader result
+     * @param {mixed} result The loader result
      * @param {Object} originalAsset The original load asset
      * @param {Array} assets Collection to add additional assets to
      */
@@ -112,7 +112,6 @@ export default class AssetLoad extends EventEmitter {
     // @if DEBUG
     /**
      * Debugging purposes
-     * @method toString
      */
     toString() {
         return `[AssetLoad (index: "${this.id}")]`;
@@ -121,7 +120,6 @@ export default class AssetLoad extends EventEmitter {
 
     /**
      * Initialize the Load
-     * @method setup
      * @param {Object|Array} assets The collection of assets to load
      * @param {Object} [options] The loading options
      * @param {Boolean} [options.startAll=true] If we should run the tasks in order
@@ -149,7 +147,6 @@ export default class AssetLoad extends EventEmitter {
 
     /**
      * Start the load process
-     * @method start
      */
     start() {
         // Empty load percentage
@@ -162,7 +159,6 @@ export default class AssetLoad extends EventEmitter {
 
     /**
      * Set back to the original state
-     * @method reset
      */
     reset() {
         // Cancel any tasks
@@ -183,7 +179,7 @@ export default class AssetLoad extends EventEmitter {
 
     /**
      * The result is a single result
-     * @property {int} SINGLE_MODE
+     * @member {int}
      * @private
      * @final
      * @static
@@ -195,7 +191,7 @@ export default class AssetLoad extends EventEmitter {
 
     /**
      * The result is a map of result objects
-     * @property {int} MAP_MODE
+     * @member {int}
      * @private
      * @final
      * @static
@@ -207,7 +203,7 @@ export default class AssetLoad extends EventEmitter {
 
     /**
      * The result is an array of result objects
-     * @property {int} LIST_MODE
+     * @member {int}
      * @private
      * @final
      * @static
@@ -219,7 +215,6 @@ export default class AssetLoad extends EventEmitter {
 
     /**
      * Create a list of tasks from assets
-     * @method  addTasks
      * @private
      * @param  {Object|Array} assets The assets to load
      */
@@ -279,10 +274,9 @@ export default class AssetLoad extends EventEmitter {
 
     /**
      * Convert assets into object defaults
-     * @method _applyDefaults
      * @private
      * @static
-     * @param  {*} asset The function to convert
+     * @param  {mixed} asset The function to convert
      * @return {Object} The object asset to use
      */
     _applyDefaults(asset) {
@@ -303,7 +297,6 @@ export default class AssetLoad extends EventEmitter {
 
     /**
      * Load a single asset
-     * @method addTask
      * @private
      * @param {Object} asset The asset to load,
      *      can either be an object, URL/path, or async function.
@@ -332,7 +325,6 @@ export default class AssetLoad extends EventEmitter {
 
     /**
      * Get the Task definition for an asset
-     * @method  getTaskByAsset
      * @private
      * @static
      * @param  {Object} asset The asset to check
@@ -355,7 +347,6 @@ export default class AssetLoad extends EventEmitter {
 
     /**
      * Run the next task that's waiting
-     * @method  nextTask
      * @private
      */
     nextTask() {
@@ -376,10 +367,9 @@ export default class AssetLoad extends EventEmitter {
 
     /**
      * Handler when a task has completed
-     * @method  taskDone
      * @private
      * @param  {springroll.Task} task Reference to original task
-     * @param  {*} [result] The result of load
+     * @param  {mixed} [result] The result of load
      */
     taskDone(task, result) {
         // Ignore if we're destroyed
@@ -469,7 +459,6 @@ export default class AssetLoad extends EventEmitter {
 
     /**
      * Get an empty assets collection
-     * @method getAssetsContainer
      * @private
      * @param {int} mode The mode
      * @return {Array|Object|null} Empty container for assets
@@ -487,7 +476,6 @@ export default class AssetLoad extends EventEmitter {
 
     /**
      * Destroy this and discard
-     * @method destroy
      */
     destroy() {
         super.destroy();
@@ -500,7 +488,7 @@ export default class AssetLoad extends EventEmitter {
 // @if DEBUG
 /**
  * Debugging Keep track of how many we've created
- * @property {int} ID
+ * @member {int}
  * @static
  * @private
  */

@@ -1,12 +1,12 @@
 /**
- * Convenience utilitys for Arrays
- * @class ArrayUtils
- * @namespace springroll
+ * Convenience utilitys for Arrays.
+ * ### module: @springroll/utils
+ * @class
+ * @memberof springroll
  */
 export default class ArrayUtils {
     /**
      * Shuffles the array
-     * @method shuffle
      */
     static shuffle(arr) {
         for (let j, x, i = arr.length; i; ) {
@@ -20,9 +20,8 @@ export default class ArrayUtils {
 
     /**
      * Get a random item from an array
-     * @method random
-     * @param {Array} array The array
-     * @return {*} The random item
+     * @param {Array<mixed>} array The array
+     * @return {mixed} The random item
      */
     static random(arr) {
         return arr[Math.floor(Math.random() * arr.length)];
@@ -30,9 +29,8 @@ export default class ArrayUtils {
 
     /**
      * Get the last item in the array
-     * @method last
-     * @param {Array} array The array
-     * @return {*} The last item
+     * @param {Array<mixed>} array The array
+     * @return {mixed} The last item
      */
     static list(arr) {
         return arr[arr.length - 1];
@@ -41,10 +39,9 @@ export default class ArrayUtils {
     /**
      * Appends a list of items or list of arrays to the end of this array. This functions
      * like concat(), but works on the original array instead of making a copy.
-     * @method append
-     * @param {Array} arr - Source arry to add to
-     * @param {*} arguments A list of arrays or individual items.
-     * @return {Array} This array.
+     * @param {Array<mixed>} arr - Source arry to add to
+     * @param {mixed} arguments A list of arrays or individual items.
+     * @return {Array<mixed>} This array.
      */
     static append(arr, ...additional) {
         for (let i = 1, length = additional.length; i < length; ++i) {

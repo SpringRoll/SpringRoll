@@ -5,8 +5,8 @@ import {Debug} from '@springroll/debug';
 
 /**
  * Internal class for dealing with async load assets
- * @class Task
- * @constructor
+ * @class
+ * @memberof springroll
  * @private
  * @param {Object} asset The asset data
  * @param {String} [asset.id=null] The task ID
@@ -20,7 +20,7 @@ export default class Task {
     constructor(asset, fallbackId) {
         /**
          * The current status of the task (waiting, running, etc)
-         * @property {int} status
+         * @member {int}
          * @default 0
          */
         this.status = Task.WAITING;
@@ -28,7 +28,7 @@ export default class Task {
         /**
          * The user call to fire when completed, returns the arguments
          * result, original, and additionalAssets
-         * @property {Function} complete
+         * @member {Function}
          * @default null
          * @readOnly
          */
@@ -36,7 +36,7 @@ export default class Task {
 
         /**
          * If we should cache the load and use later
-         * @property {Boolean} cache
+         * @member {Boolean}
          * @default false
          * @readOnly
          */
@@ -44,19 +44,19 @@ export default class Task {
 
         /**
          * The task id
-         * @property {String} id
+         * @member {String}
          */
         this.id = asset.id || null;
 
         /**
          * The task type for display filter
-         * @property {String} type
+         * @member {String}
          */
         this.type = asset.type || null;
 
         /**
          * Reference to the original asset data
-         * @property {Object} original
+         * @member {Object}
          * @readOnly
          */
         this.original = asset;
@@ -92,7 +92,7 @@ export default class Task {
 
     /**
      * Status for waiting to be run
-     * @property {int} WAITING
+     * @member {int}
      * @static
      * @readOnly
      * @final
@@ -104,7 +104,7 @@ export default class Task {
 
     /**
      * Task is currently being run
-     * @property {int} RUNNING
+     * @member {int}
      * @static
      * @readOnly
      * @final
@@ -116,7 +116,7 @@ export default class Task {
 
     /**
      * Status for task is finished
-     * @property {int} FINISHED
+     * @member {int}
      * @static
      * @readOnly
      * @final
@@ -128,7 +128,6 @@ export default class Task {
 
     /**
      * Start the task
-     * @method  start
      * @param  {Function} callback Callback when finished
      */
     start(callback) {
@@ -137,7 +136,6 @@ export default class Task {
 
     /**
      * Add the sizing to each filter
-     * @method filter
      * @protected
      * @param {String} url The url to filter
      */
@@ -160,7 +158,6 @@ export default class Task {
 
     /**
      * Pass-through to the Application load method
-     * @method load
      * @protected
      * @param {String|Array|Object} source The source to load
      * @param {Object|Function} [options] The load options or callback function
@@ -171,7 +168,6 @@ export default class Task {
 
     /**
      * Pass-through to the Application Loader.load
-     * @method simpleLoad
      * @protected
      * @param {String} url Path to file to load
      * @param {Function} complete The callback
@@ -184,7 +180,6 @@ export default class Task {
 
     /**
      * Destroy this and discard
-     * @method destroy
      */
     destroy() {
         this.status = Task.FINISHED;

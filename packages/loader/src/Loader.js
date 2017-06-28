@@ -6,43 +6,46 @@ import CacheManager from './CacheManager';
  * The Loader is the singular loader for loading all assets
  * including images, data, code and sounds. Loader supports cache-busting
  * in the browser using dynamic query string parameters.
- * @class Loader
+ * ### module: @springroll/loader
+ * @class
+ * @memberof springroll
  */
 export default class Loader {
+    /**
+     * @param {springroll.Application} app - Instance of application
+     */
     constructor(app) {
         /**
          * The current application
-         * @property {springroll.Application} app
+         * @member {springroll.Application}
          * @private
          */
         this.app = app;
 
         /**
          * The maximum number of simulaneous loads
-         * @public
-         * @property {int} maxCurrentLoads
+         * @member {int}
          * @default 2
          */
         this.maxCurrentLoads = 2;
 
         /**
          * The reference to the cache manager
-         * @public
-         * @property {CacheManager} cacheManager
+         * @member {CacheManager}
          */
         this.cacheManager = new CacheManager(app);
 
         /**
          * The collection of LoaderItems by url
          * @private
-         * @property {Object} items
+         * @member {Object}
          */
         this.items = {};
 
         /**
          * The pool of LoaderItems
          * @private
-         * @property {array} itemPool
+         * @member {array}
          */
         this.itemPool = [];
     }
@@ -50,7 +53,7 @@ export default class Loader {
     // @if DEBUG
     /**
      * If the logging should be verbose (unminified library only)
-     * @property {Boolean} verbose
+     * @member {Boolean}
      * @default  false
      */
     set verbose(verbose) {
@@ -60,8 +63,6 @@ export default class Loader {
 
     /**
      * Destroy the Loader singleton, don't use after this
-     * @public
-     * @method destroy
      */
     destroy() {
         if (this.itemPool) {
@@ -80,12 +81,10 @@ export default class Loader {
 
     /**
      * Load a file
-     * @method load
-     * @public
      * @param {string} url The file path to load
      * @param {function} complete The callback function when completed
      * @param {function} [progress] The callback for load progress update, passes 0-1 as param
-     * @param {*} [data] optional data
+     * @param {mixed} [data] optional data
      * @return {createjs.LoadQueue} The load queue item
      */
     load(url, complete, progress, data) {
@@ -117,7 +116,6 @@ export default class Loader {
 
     /**
      * Handler for the file complete
-     * @method _onComplete
      * @private
      * @param  {function} complete Callback function when done
      * @param  {springroll.LoaderItem} item The LoadQueue
@@ -137,8 +135,6 @@ export default class Loader {
 
     /**
      * Cancel a load that's currently in progress
-     * @public
-     * @method cancel
      * @param {string} url The url
      * @return {bool} If canceled returns true, false if not canceled
      */
@@ -155,7 +151,6 @@ export default class Loader {
 
     /**
      * Get a Queue item from the pool or new
-     * @method  _getItem
      * @private
      * @return  {springroll.LoaderItem} The Queue item to use
      */
@@ -166,7 +161,6 @@ export default class Loader {
 
     /**
      * Pool the loader queue item
-     * @method  _putItem
      * @private
      * @param  {springroll.LoaderItem} item Loader item that's done
      */

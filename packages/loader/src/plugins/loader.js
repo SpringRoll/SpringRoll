@@ -1,21 +1,17 @@
 import {ApplicationPlugin} from '@springroll/core';
 import Loader from '../Loader';
 
-/**
- * @module Core
- * @namespace springroll
- */
 (function() {
-    /**
-     * @class Application
-     */
+
     const plugin = new ApplicationPlugin('loader');
 
     // Init the animator
     plugin.setup = function() {
         /**
          * Reference to the loader.
-         * @property {springroll.Loader} loader
+         * ### module: @springroll/loader
+         * @member {springroll.Loader} loader
+         * @memberof springroll.Application#
          */
         const loader = this.loader = new Loader(this);
 
@@ -23,8 +19,9 @@ import Loader from '../Loader';
          * Override the end-user browser cache by adding
          * "?cb=" to the end of each file path requested. Use
          * for development, debugging only!
-         * @property {Boolean} options.cacheBust
-         * @default DEBUG
+         * ### module: @springroll/loader
+         * @member {Boolean} cacheBust
+         * @memberof springroll.ApplicationOptions#
          */
         const options = this.options;
         let cacheBust = false;
@@ -43,7 +40,9 @@ import Loader from '../Loader';
          * The optional file path to prefix to any relative file
          * requests. This is a great way to load all load requests
          * with a CDN path.
-         * @property {String} options.basePath
+         * ### module: @springroll/loader
+         * @member {String} basePath
+         * @memberof springroll.ApplicationOptions#
          */
         options.add('basePath');
 
@@ -52,7 +51,9 @@ import Loader from '../Loader';
          * number will automatically be appended to all file
          * requests. For instance, if the version is "0.0.1" all
          * file requests will be appended with "?v=0.0.1"
-         * @property {String} options.version
+         * ### module: @springroll/loader
+         * @member {String} version
+         * @memberof springroll.ApplicationOptions#
          */
         options.add('version', null, true);
 
@@ -63,7 +64,9 @@ import Loader from '../Loader';
          * would have an asset on each line followed by a number:
          * `assets/config/config.json 2` would load
          * `assets/config/config.json?v=2`
-         * @property {String} options.versionsFile
+         * ### module: @springroll/loader
+         * @member {String} versionsFile
+         * @memberof springroll.ApplicationOptions#
          */
         options.add('versionsFile', null, true);
     };

@@ -1,13 +1,13 @@
 /**
- * Add methods to Math
- * @class MathUtils
+ * Common methods for Math functions.
+ * ### module: @springroll/utils
+ * @class
+ * @memberof springroll
  */
 export default class MathUtils {
     /**
      * Return a random int between minimum and maximum values.
      * If a single value is supplied, it will return a number between 0 and the supplied value.
-     * @method randomInt
-     * @static
      * @param {int} min Lowest number. If max is omitted, then this becomes max.
      * @param {int} max Highest number.
      * @return {int} The random value
@@ -23,8 +23,6 @@ export default class MathUtils {
     /**
      * Return a random float between minimum and maximum values.
      * If a single value is supplied, it will return a number between 0 and the supplied value.
-     * @method randomFloat
-     * @static
      * @param {Number} min Lowest number. If max is omitted, then this becomes max.
      * @param {Number} max Highest number.
      * @return {Number} The random value
@@ -39,8 +37,7 @@ export default class MathUtils {
 
     /**
      * Return distance between two points
-     * @method dist
-     * @static
+     * @method springroll.MathUtils.dist
      * @param {Number} x The x position of the first point
      * @param {Number} y The y position of the first point
      * @param {Number} x0 The x position of the second point
@@ -50,8 +47,6 @@ export default class MathUtils {
 
     /**
      * Return distance between two points
-     * @method dist
-     * @static
      * @param {Object} p1 The first point
      * @param {Object} p1.x The x position of the first point
      * @param {Object} p1.y The y position of the first point
@@ -66,8 +61,7 @@ export default class MathUtils {
 
     /**
      * Return squared distance between two points
-     * @method distSq
-     * @static
+     * @method springroll.MathUtils.distSq
      * @param {Number} x The x position of the first point
      * @param {Number} y The y position of the first point
      * @param {Number} x0 The x position of the second point
@@ -77,8 +71,6 @@ export default class MathUtils {
 
     /**
      * Return squared distance between two points
-     * @method distSq
-     * @static
      * @param {Object} p1 The first point
      * @param {Object} p1.x The x position of the first point
      * @param {Object} p1.y The y position of the first point
@@ -108,8 +100,7 @@ export default class MathUtils {
 
     /**
      * Constrain a number between 0 and a max value.
-     * @method clamp
-     * @static
+     * @method springroll.MathUtils.clamp
      * @param {Number} value The number to be constrained.
      * @param {Number} max Highest number.
      * @return {Number} The constrained value
@@ -117,8 +108,6 @@ export default class MathUtils {
 
     /**
      * Constrain a number between a minimum and maximum values.
-     * @method clamp
-     * @static
      * @param {Number} value The number to be constrained.
      * @param {Number} min Lowest number to constrain value to.
      * @param {Number} max Highest number.

@@ -4,14 +4,15 @@ import {Debug} from '@springroll/debug';
 
 /**
  * A class that remembers the assets loaded by the AssetManager
- * @class AssetCache
+ * @class
+ * @memberof springroll
  * @private
  */
 export default class AssetCache {
     constructor() {
         /**
          * The cache containing assets
-         * @property {Object} _cache
+         * @member {Object}
          * @private
          */
         this._cache = {};
@@ -19,7 +20,6 @@ export default class AssetCache {
 
     /**
      * Retrieves a single asset from the cache.
-     * @method read
      * @param {String} id The asset to get.
      */
     read(id) {
@@ -33,9 +33,8 @@ export default class AssetCache {
 
     /**
      * Adds a single asset to the cache.
-     * @method write
      * @param {String} id The id to save the asset as.
-     * @param {*} content The asset content to save.
+     * @param {mixed} content The asset content to save.
      */
     write(id, content) {
         if (this._cache[id]) {
@@ -51,7 +50,6 @@ export default class AssetCache {
 
     /**
      * Removes a single asset from the cache.
-     * @method delete
      * @param {Object|String} asset The asset to remove.
      */
     delete(asset) {
@@ -84,9 +82,8 @@ export default class AssetCache {
 
     /**
      * Destroy a result object.
-     * @method _destroyResult
      * @private
-     * @param  {*} result The object to destroy.
+     * @param  {mixed} result The object to destroy.
      */
     _destroyResult(result) {
         // Ignore null results or empty objects
@@ -107,7 +104,6 @@ export default class AssetCache {
 
     /**
      * Removes all assets from the cache.
-     * @method empty
      */
     empty() {
         for (let id in this._cache) {
@@ -117,7 +113,6 @@ export default class AssetCache {
 
     /**
      * Destroy the cache. Don't use after this.
-     * @method destroy
      */
     destroy() {
         this.empty();

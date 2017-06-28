@@ -3,27 +3,29 @@ import Sound from './Sound';
 /**
  * A playing instance of a sound (or promise to play as soon as it loads). These can only
  * be created through springroll.Sound.instance.play().
- * @class SoundInstance
+ * ### module: @springroll/sound
+ * @class
+ * @memberof springroll
  */
 export default class SoundInstance {
     constructor() {
         /**
          * SoundJS SoundInstance, essentially a sound channel.
-         * @property {createjs.SoundInstance} _channel
+         * @member {createjs.SoundInstance}
          * @private
          */
         this._channel = null;
 
         /**
          * Internal callback function for when the sound ends.
-         * @property {function} _endFunc
+         * @member {function}
          * @private
          */
         this._endFunc = null;
 
         /**
          * User's callback function for when the sound ends.
-         * @property {function} _endCallback
+         * @member {function}
          * @private
          */
         this._endCallback = null;
@@ -31,7 +33,7 @@ export default class SoundInstance {
         /**
          * User's callback function for when the sound starts.
          * This is only used if the sound wasn't loaded before play() was called.
-         * @property {function} _startFunc
+         * @member {function}
          * @private
          */
         this._startFunc = null;
@@ -39,43 +41,42 @@ export default class SoundInstance {
         /**
          * An array of relevant parameters passed to play(). This is only used if
          * the sound wasn't loaded before play() was called.
-         * @property {Array} _startParams
+         * @member {Array}
          * @private
          */
         this._startParams = null;
 
         /**
          * The alias for the sound that this instance was created from.
-         * @property {String} alias
-         * @public
+         * @member {String}
          * @readOnly
          */
         this.alias = null;
 
         /**
          * The current time in milliseconds for the fade that this sound instance is performing.
-         * @property {Number} _fTime
+         * @member {Number}
          * @private
          */
         this._fTime = 0;
 
         /**
          * The duration in milliseconds for the fade that this sound instance is performing.
-         * @property {Number} _fDur
+         * @member {Number}
          * @private
          */
         this._fDur = 0;
 
         /**
          * The starting volume for the fade that this sound instance is performing.
-         * @property {Number} _fEnd
+         * @member {Number}
          * @private
          */
         this._fStart = 0;
 
         /**
          * The ending volume for the fade that this sound instance is performing.
-         * @property {Number} _fEnd
+         * @member {Number}
          * @private
          */
         this._fEnd = 0;
@@ -83,7 +84,7 @@ export default class SoundInstance {
         /**
          * The current sound volume (0 to 1). This is multiplied by the sound context's volume.
          * Setting this won't take effect until updateVolume() is called.
-         * @property {Number} curVol
+         * @member {Number}
          * @protected
          * @readOnly
          */
@@ -91,7 +92,7 @@ export default class SoundInstance {
 
         /**
          * The sound pan value, from -1 (left) to 1 (right).
-         * @property {Number} _pan
+         * @member {Number}
          * @private
          * @readOnly
          */
@@ -99,23 +100,21 @@ export default class SoundInstance {
 
         /**
          * The length of the sound in milliseconds. This is 0 if it hasn't finished loading.
-         * @property {Number} length
-         * @public
+         * @member {Number}
          */
         this.length = 0;
 
         /**
          * If the sound is currently paused. Setting this has no effect - use pause()
          * and resume().
-         * @property {Boolean} paused
-         * @public
+         * @member {Boolean}
          * @readOnly
          */
         this.paused = false;
 
         /**
          * If the sound is paused due to a global pause, probably from the Application.
-         * @property {Boolean} globallyPaused
+         * @member {Boolean}
          * @readOnly
          */
         this.globallyPaused = false;
@@ -124,8 +123,7 @@ export default class SoundInstance {
          * An active SoundInstance should always be valid, but if you keep a reference after a
          * sound stops it will no longer be valid (until the SoundInstance is reused for a
          * new sound).
-         * @property {Boolean} isValid
-         * @public
+         * @member {Boolean}
          * @readOnly
          */
         this.isValid = true;
@@ -133,8 +131,7 @@ export default class SoundInstance {
 
     /**
      * The position of the sound playhead in milliseconds, or 0 if it hasn't started playing yet.
-     * @property {Number} position
-     * @public
+     * @member {Number}
      * @readOnly
      */
     get position() {
@@ -143,8 +140,6 @@ export default class SoundInstance {
 
     /**
      * Stops this SoundInstance.
-     * @method stop
-     * @public
      */
     stop() {
         let s = Sound.instance;
@@ -172,7 +167,6 @@ export default class SoundInstance {
 
     /**
      * Updates the volume of this SoundInstance.
-     * @method updateVolume
      * @protected
      * @param {Number} contextVol The volume of the sound context that the sound belongs to. If
      *                          omitted, the volume is automatically collected.
@@ -199,8 +193,7 @@ export default class SoundInstance {
     /**
      * The current sound volume (0 to 1). This is multiplied by the sound context's volume to
      * get the actual sound volume.
-     * @property {Number} volume
-     * @public
+     * @member {Number}
      */
     get volume() {
         return this.curVol;
@@ -212,8 +205,7 @@ export default class SoundInstance {
 
     /**
      * The sound pan value, from -1 (left) to 1 (right).
-     * @property {Number} pan
-     * @public
+     * @member {Number}
      */
     get pan() {
         return this._pan;
@@ -227,8 +219,6 @@ export default class SoundInstance {
 
     /**
      * Pauses this SoundInstance.
-     * @method pause
-     * @public
      */
     pause() {
         //ensure that this is marked as a manual pause
@@ -251,8 +241,6 @@ export default class SoundInstance {
 
     /**
      * Unpauses this SoundInstance.
-     * @method resume
-     * @public
      */
     resume() {
         if (!this.paused) {

@@ -23,7 +23,8 @@
   ],
   "license": "MIT",
   "dependencies": {
-    "@springroll/core": "^2.0.0"
+    "@springroll/core": "^2.0.0",
+    "pixi.js": "^4.5.3"
   },
   "optionalDependencies": {
     "@springroll/debug": "^2.0.0"

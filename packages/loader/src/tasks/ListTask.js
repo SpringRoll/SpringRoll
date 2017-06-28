@@ -2,9 +2,9 @@ import Task from './Task';
 
 /**
  * Internal class for grouping a list of tasks into one task.
- * @class ListTask
+ * @class
+ * @memberof springroll
  * @extends springroll.Task
- * @constructor
  * @private
  * @param {Object} asset The data properties
  * @param {Array|Object} asset.assets The collection of assets to load
@@ -20,26 +20,25 @@ export default class ListTask extends Task {
 
         /**
          * The collection of assets to load
-         * @property {Array|Object} assets
+         * @member {Array|Object}
          */
         this.assets = asset.assets;
 
         /**
          * If each asset in the collection should be cached.
-         * @property {Boolean} cacheAll
+         * @member {Boolean}
          */
         this.cacheAll = asset.cacheAll;
 
         /**
          * Callback when progress is updated
-         * @property {Function} progress
+         * @member {Function}
          */
         this.progress = asset.progress;
     }
 
     /**
      * Test if we should run this task
-     * @method test
      * @static
      * @param {Object} asset The asset to check
      * @return {Boolean} If the asset is compatible with this asset
@@ -50,7 +49,6 @@ export default class ListTask extends Task {
 
     /**
      * Start the task
-     * @method  start
      * @param  {Function} callback Callback when finished
      */
     start(callback) {
@@ -64,7 +62,6 @@ export default class ListTask extends Task {
 
     /**
      * Destroy this and discard
-     * @method destroy
      */
     destroy() {
         super.destroy();

@@ -1,33 +1,35 @@
 import {ApplicationPlugin} from '@springroll/core';
 
 (function() {
-    /**
-     * @class Application
-     */
+
     const plugin = new ApplicationPlugin('config', 'asset-manager');
 
     /**
      * The game has finished loading
-     * @event loaded
+     * ### module: @springroll/loader
+     * @event springroll.Application#loaded
      */
 
     /**
      * The amount of progress of the preload from 0 to 1
-     * @event progress
+     * ### module: @springroll/loader
+     * @event springroll.Application#progress
      * @param {Number} percentage The amount preloaded
      */
 
     /**
      * The config has finished loading, in case you want to
      * add additional tasks to the manager after this.
-     * @event configLoaded
+     * ### module: @springroll/loader
+     * @event springroll.Application#configLoaded
      * @param {Object} config The JSON object for config
      * @param {Array} assets Container to add additional assets to
      */
 
     /**
-     * The game has started loading
-     * @event loading
+     * The game has started loading.
+     * ### module: @springroll/loader
+     * @event springroll.Application#loading
      * @param {Array} assets The list of tasks to preload
      */
 
@@ -37,7 +39,9 @@ import {ApplicationPlugin} from '@springroll/core';
 
         /**
          * The path to the config file to load
-         * @property {String} options.configPath
+         * ### module: @springroll/loader
+         * @member {String} configPath
+         * @memberof springroll.ApplicationOptions#
          * @default null
          */
         options.add('configPath', null, true);
@@ -45,41 +49,53 @@ import {ApplicationPlugin} from '@springroll/core';
         /**
          * The collection of assets to preload, can be individual
          * URLs or objects with keys `src`, `complete`, `progress`, etc. 
-         * @property {String|Array|Object} options.preload
+         * ### module: @springroll/loader
+         * @member {String|Array|Object} preload
+         * @memberof springroll.ApplicationOptions#
          * @default []
          */
         options.add('preload', [], true);
 
         /**
          * The game configuration loaded from and external JSON file
-         * @property {Object} config
+         * ### module: @springroll/loader
+         * @member {Object} config
+         * @memberof springroll.Application#
          */
         this.config = null;
 
         /**
          * The asset load for preloading
-         * @property {springroll.AssetLoad} _assetLoad
+         * ### module: @springroll/loader
+         * @member {springroll.AssetLoad} _assetLoad
+         * @memberof springroll.Application#
          * @private
          */
         this._assetLoad = null;
 
         /**
          * The total number of assets loaded
-         * @property {int} _numLoaded
+         * ### module: @springroll/loader
+         * @member {int} _numLoaded
+         * @memberof springroll.Application#
          * @private
          */
         this._numLoaded = 0;
 
         /**
          * The total assets to preload
-         * @property {int} _total
+         * ### module: @springroll/loader
+         * @member {int} _total
+         * @memberof springroll.Application#
          * @private
          */
         this._total = 0;
 
         /**
          * The current combined progress with plugin and asset load
-         * @property {Number} _progress
+         * ### module: @springroll/loader
+         * @member {Number} _progress
+         * @memberof springroll.Application#
          * @private
          * @default -1
          */
@@ -125,7 +141,6 @@ import {ApplicationPlugin} from '@springroll/core';
 
     /**
      * Callback when progress is finished
-     * @method onProgress
      * @private
      * @param {Number} progress The amount loaded from 0 to 1
      */
@@ -145,7 +160,6 @@ import {ApplicationPlugin} from '@springroll/core';
 
     /**
      * Add the preload assets to the list of assets to load
-     * @method addPreloadAssets
      * @private
      * @param {springroll.Application} app Reference to the application
      * @param {Array} assets The array to add new load tasks to
@@ -159,7 +173,6 @@ import {ApplicationPlugin} from '@springroll/core';
 
     /**
      * Callback when the config is loaded
-     * @method onConfigLoaded
      * @private
      * @param {Object} config The Loader result from the load
      * @param {Object} asset Original asset data
@@ -173,7 +186,6 @@ import {ApplicationPlugin} from '@springroll/core';
 
     /**
      * Callback when tasks are completed
-     * @method onLoadComplete
      * @private
      * @param {function} done Call when we're done
      * @param {Array} results The collection of final LoaderResult objects

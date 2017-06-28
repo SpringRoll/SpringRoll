@@ -2,9 +2,9 @@ import Task from './Task';
 
 /**
  * Internal class for dealing with async function calls with AssetManager.
- * @class FunctionTask
+ * @class
+ * @memberof springroll
  * @extends springroll.Task
- * @constructor
  * @private
  * @param {Object} asset The data properties
  * @param {Boolean} [asset.cache=false] If we should cache the result
@@ -18,14 +18,13 @@ export default class FunctionTask extends Task {
 
         /**
          * The asynchronous call
-         * @property {Function} async
+         * @member {Function}
          */
         this.async = asset.async;
     }
 
     /**
      * Test if we should run this task
-     * @method test
      * @static
      * @param {Object} asset The asset to check
      * @return {Boolean} If the asset is compatible with this asset
@@ -36,7 +35,6 @@ export default class FunctionTask extends Task {
 
     /**
      * Start the task
-     * @method start
      * @param {Function} callback Callback when done
      */
     start(callback) {
@@ -45,7 +43,6 @@ export default class FunctionTask extends Task {
 
     /**
      * Destroy this and discard
-     * @method destroy
      */
     destroy() {
         super.destroy();

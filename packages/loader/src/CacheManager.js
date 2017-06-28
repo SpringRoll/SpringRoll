@@ -7,37 +7,41 @@ import {Debug} from '@springroll/debug';
  * can easily load version manifest and apply it to the media loader
  * supports cache busting all media load requests
  * uses the query string to bust browser versions.
+ * ### module: @springroll/loader
  *
- * @class CacheManager
- * @constructor
- * @param {springroll.Application} app Reference to application
+ * @class
+ * @memberof springroll
  */
 export default class CacheManager {
+    /**
+     * @param {springroll.Application} app Reference to application
+     */
     constructor(app) {
         /**
          * The current application
-         * @protected
-         * @property {springroll.Application} _app
+         * @private
+         * @member {springroll.Application}
          */
         this._app = app;
 
         /**
          * The collection of version numbers
-         * @protected
-         * @property {Dictionary} _versions
+         * @private
+         * @member {Dictionary}
          */
         this._versions = {};
 
         /**
          * The list of URL filtering functions.
-         * @protected
-         * @property {Array} _filters
+         * @private
+         * @member {Array}
          */
         this._filters = [];
 
         /**
          * A global version or cache busting string to apply to every url.
-         * @property {String} _globalVersion
+         * @private
+         * @member {String}
          */
         this._globalVersion = null;
 
@@ -51,8 +55,7 @@ export default class CacheManager {
 
     /**
      * If we are suppose to cache bust every file
-     * @property {Boolean} cacheBust
-     * @public
+     * @member {Boolean}
      * @default false
      */
     get cacheBust() {
@@ -80,8 +83,6 @@ export default class CacheManager {
 
     /**
      * Destroy the cache manager, don't use after this.
-     * @public
-     * @method destroy
      */
     destroy() {
         this._app = null;
@@ -93,8 +94,6 @@ export default class CacheManager {
 
     /**
      * Adds a versions text file containing versions for different assets.
-     * @public
-     * @method addVersionsFile
      * @param {String} url The url of the versions file.
      * @param {Function} callback Callback when the versions file has been loaded.
      * @param {String} baseUrl A base url to prepend all lines of the file.
@@ -155,8 +154,6 @@ export default class CacheManager {
 
     /**
      * Add a version number for a file
-     * @method addVersion
-     * @public
      * @param {String} url The url of the object
      * @param {String} version Version number or has of file
      */
@@ -170,8 +167,6 @@ export default class CacheManager {
      * Adds a function for running all urls through, to modify them if needed.
      * Functions used should accept one string parameter (the url), and return the
      * modified url.
-     * @method registerURLFilter
-     * @public
      * @param {Function} filter The function that will handle urls.
      */
     registerURLFilter(filter) {
@@ -182,8 +177,6 @@ export default class CacheManager {
 
     /**
      * Removes a function from the list of filtering functions.
-     * @method unregisterURLFilter
-     * @public
      * @param {Function} filter The function to remove.
      */
     unregisterURLFilter(filter) {
@@ -195,7 +188,6 @@ export default class CacheManager {
 
     /**
      * Applies a url specific version to a url from the versions file.
-     * @method _applySpecificVersion
      * @private
      * @param {String} url The url to apply versioning to.
      * @return {String} The modified url.
@@ -218,7 +210,6 @@ export default class CacheManager {
 
     /**
      * Applies cache busting or a global version to a url.
-     * @method _applyGlobalVersion
      * @private
      * @param {String} url The url to apply versioning to.
      * @return {String} The modified url.
@@ -246,7 +237,6 @@ export default class CacheManager {
      * Applies a base path to a relative url. This is not used in the filtering
      * system because PreloadJS has its own method of prepending the base path
      * that we use. Instead, it is used with an extra parameter to prepare().
-     * @method _applyBasePath
      * @private
      * @param {String} url The url to prepend the base path to.
      * @return {String} The modified url.
@@ -262,8 +252,6 @@ export default class CacheManager {
     /**
      * Prepare a URL with the necessary cache busting and/or versioning
      * as well as the base directory.
-     * @public
-     * @method prepare
      * @param {String} url The url to prepare
      * @param {Boolean} [applyBasePath=false] If the global base path should be applied to the url.
      *        This defaults to false because it can potentially interfere with later regular

@@ -4,27 +4,30 @@ import ScaleManager from './ScaleManager';
  * A single UI item that needs to be resized,
  * this is an internal class that you would not need to interact with.
  *
- * @class ScaleItem
+ * @class
+ * @memberof springroll
  * @private
- * @param {PIXI.DisplayObject|createjs.DisplayObject} display The item to affect
- * @param {String} align The vertical-horizontal alignment shorthand
- * @param {Object} size The original screen the item was designed for
- * @param {DisplayAdapter} adapter The display adapter
  */
 export default class ScaleItem {
+    /**
+     * @param {PIXI.DisplayObject} display The item to affect
+     * @param {String} align The vertical-horizontal alignment shorthand
+     * @param {Object} size The original screen the item was designed for
+     * @param {DisplayAdapter} adapter The display adapter
+     */
     constructor(display, align, size, adapter) {
         // Break align into parts
         align = align.split('-');
 
         /**
          * What vertical screen location the item should be aligned to: "top", "center", "bottom"
-         * @property {String} vertAlign
+         * @member {String}
          */
         this.vertAlign = align[0];
 
         /**
          * What horizontal screen location the item should be aligned to: "left", "center", "right"
-         * @property {String} horiAlign
+         * @member {String}
          */
         this.horiAlign = align[1];
 
@@ -32,28 +35,28 @@ export default class ScaleItem {
          * If this element should be aligned to the title safe area, not the actual screen.
          * Values of "horizontal" and "vertical" make the title safe calculations take place only
          * for one direction.
-         * @property {Boolean|String} titleSafe
+         * @member {Boolean|String}
          * @default false
          */
         this.titleSafe = false;
 
         /**
          * Maximum scale allowed in physical size
-         * @property {Number} maxScale
+         * @member {Number}
          * @default 1
          */
         this.maxScale = 1;
 
         /**
          * Minimum scale allowed in physical size
-         * @property {Number} minScale
+         * @member {Number}
          * @default 1
          */
         this.minScale = 1;
 
         /**
          * If the UI element is centered horizontally
-         * @property {Boolean} centeredHorizontally
+         * @member {Boolean}
          * @default false
          */
         this.centeredHorizontally = false;
@@ -61,20 +64,20 @@ export default class ScaleItem {
         /**
          * The reference to the interface item we're scaling
          * @private
-         * @property {PIXI.DisplayObject|createjs.DisplayObject} _display
+         * @member {PIXI.DisplayObject}
          */
         this._display = display;
 
         /**
          * The original screen the item was designed for
          * @private
-         * @property {Object} _size
+         * @member {Object}
          */
         this._size = size;
 
         /**
          * The adapter for universal scale, rotation size access
-         * @property {Object} _adapter
+         * @member {Object}
          * @private
          */
         this._adapter = adapter;
@@ -84,14 +87,14 @@ export default class ScaleItem {
 
         /**
          * Original X scale of the item
-         * @property {Number} origScaleX
+         * @member {Number}
          * @default 0
          */
         let origScaleX = this.origScaleX = scale.x || 1;
 
         /**
          * The original Y scale of the item
-         * @property {Number} origScaleY
+         * @member {Number}
          * @default 0
          */
         let origScaleY = this.origScaleY = scale.y || 1;
@@ -99,7 +102,7 @@ export default class ScaleItem {
         /**
          * The original bounds of the item with x, y, right, bottom, width,
          * height properties. This is converted from local bounds to scaled bounds.
-         * @property {Object} origBounds
+         * @member {Object}
          */
         this.origBounds = adapter.getLocalBounds(display);
         //convert bounds to something more usable
@@ -129,14 +132,14 @@ export default class ScaleItem {
 
         /**
          * Original horizontal margin in pixels
-         * @property {Number} origMarginHori
+         * @member {Number}
          * @default 0
          */
         this.origMarginHori = 0;
 
         /**
          * Original vertical margin in pixels
-         * @property {Number} origMarginVert
+         * @member {Number}
          * @default 0
          */
         this.origMarginVert = 0;
@@ -174,7 +177,7 @@ export default class ScaleItem {
 
     /**
      * Get the current display item
-     * @property {PIXI.DisplayObject|createjs.DisplayObject} display
+     * @member {PIXI.DisplayObject}
      * @readOnly
      */
     get display() {
@@ -183,7 +186,6 @@ export default class ScaleItem {
 
     /**
      * Adjust the item scale and position, to reflect new screen
-     * @method resize
      * @param {Number} displayWidth The current screen width
      * @param {Number} displayHeight The current screen height
      */
@@ -301,7 +303,6 @@ export default class ScaleItem {
 
     /**
      * Destroy this item, don't use after this
-     * @method destroy
      */
     destroy() {
         this._adapter = null;

@@ -14,8 +14,10 @@ const BrowserDetect = include('createjs.BrowserDetect');
 /**
  * Acts as a wrapper for SoundJS as well as adding lots of other functionality
  * for managing sounds.
+ * ### module: @springroll/sound
  *
- * @class Sound
+ * @class
+ * @memberof springroll
  * @extends springroll.EventEmitter
  */
 export default class Sound extends EventEmitter {
@@ -24,35 +26,34 @@ export default class Sound extends EventEmitter {
 
         /**
          * Dictionary of sound objects, containing configuration info and playback objects.
-         * @property {Object} _sounds
+         * @member {Object}
          * @private
          */
         this._sounds = {};
 
         /**
          * Array of SoundInstance objects that are being faded in or out.
-         * @property {Array} _fades
+         * @member {Array}
          * @private
          */
         this._fades = [];
 
         /**
          * Array of SoundInstance objects waiting to be used.
-         * @property {Array} _pool
+         * @member {Array}
          * @private
          */
         this._pool = [];
 
         /**
          * The extension of the supported sound type that will be used.
-         * @property {string} supportedSound
-         * @public
+         * @member {string}
          */
         this.supportedSound = null;
 
         /**
          * Dictionary of SoundContexts.
-         * @property {Object} _contexts
+         * @member {Object}
          * @private
          */
         this._contexts = {};
@@ -65,7 +66,7 @@ export default class Sound extends EventEmitter {
         /**
          * If sound is enabled. This will only be false if Sound was unable to initialize
          * a SoundJS plugin.
-         * @property {Boolean} isSupported
+         * @member {Boolean}
          * @readOnly
          */
         this.isSupported = true;
@@ -74,7 +75,7 @@ export default class Sound extends EventEmitter {
          * If sound is currently muted by the system. This will only be true on iOS until
          * audio has been unmuted during a touch event. Listen for the 'systemUnmuted'
          * event on Sound to be notified when the audio is unmuted on iOS.
-         * @property {Boolean} systemMuted
+         * @member {Boolean}
          * @readOnly
          */
         this.systemMuted = BrowserDetect.isIOS;
@@ -83,7 +84,7 @@ export default class Sound extends EventEmitter {
          * If preventDefault should be called on the interaction event that unmutes the audio.
          * In most cases (games) you would want to leave this, but for a website you may want
          * to disable it.
-         * @property {Boolean} preventDefaultOnUnmute
+         * @member {Boolean}
          * @default true
          */
         this.preventDefaultOnUnmute = true;
@@ -147,7 +148,6 @@ export default class Sound extends EventEmitter {
     /**
      * Initializes the Sound singleton. If using createjs.FlashAudioPlugin, you will
      * be responsible for setting createjs.FlashAudioPlugin.BASE_PATH.
-     * @method init
      * @static
      * @param {Object|Function} options Either the options object or the ready function
      * @param {Array} [options.plugins=createjs.WebAudioPlugin,createjs.FlashAudioPlugin] The SoundJS
@@ -286,7 +286,6 @@ export default class Sound extends EventEmitter {
      * Satisfies the iOS event needed to initialize the audio
      * Note that we listen on touchend as per http://www.holovaty.com/writing/ios9-web-audio/
      * @private
-     * @method _playEmpty
      */
     static _playEmpty(ev) {
         WebAudioPlugin.playEmptySound();
@@ -307,7 +306,6 @@ export default class Sound extends EventEmitter {
 
     /**
      * When the initialization as completed
-     * @method
      * @private
      * @param {Array} filetypeOrder The list of files types
      * @param {Function} callback The callback function
@@ -345,8 +343,7 @@ export default class Sound extends EventEmitter {
 
     /**
      * The singleton instance of Sound.
-     * @property {Sound} instance
-     * @public
+     * @member {Sound}
      * @static
      */
     get instance() {
@@ -355,8 +352,6 @@ export default class Sound extends EventEmitter {
 
     /**
      * Loads a context config object. This should not be called until after Sound.init() is complete.
-     * @method addContext
-     * @public
      * @param {Object} config The config to load.
      * @param {String} [config.context] The optional sound context to load sounds into unless
      * otherwise specified by the individual sound. Sounds do not require a context.
@@ -430,7 +425,6 @@ export default class Sound extends EventEmitter {
      * that the children can be controlled separately, but still be affected by
      * setContextMute(), stopContext(), pauseContext(), etc on the parent.
      * Note that sub-contexts are not currently affected by setContextVolume().
-     * @method linkContexts
      * @param {String} parent The id of the SoundContext that should be the parent.
      * @param {String|Array} subContext The id of a SoundContext to add to parent as a
      *                                  sub-context, or an array of ids.
@@ -458,8 +452,6 @@ export default class Sound extends EventEmitter {
 
     /**
      * If a sound exists in the list of recognized sounds.
-     * @method exists
-     * @public
      * @param {String} alias The alias of the sound to look for.
      * @return {Boolean} true if the sound exists, false otherwise.
      */
@@ -469,8 +461,6 @@ export default class Sound extends EventEmitter {
 
     /**
      * If a context exists
-     * @method contextExists
-     * @public
      * @param {String} context The name of context to look for.
      * @return {Boolean} true if the context exists, false otherwise.
      */
@@ -480,8 +470,6 @@ export default class Sound extends EventEmitter {
 
     /**
      * If a sound is unloaded.
-     * @method isUnloaded
-     * @public
      * @param {String} alias The alias of the sound to look for.
      * @return {Boolean} true if the sound is unloaded, false if it is loaded, loading, or does not exist.
      */
@@ -491,8 +479,6 @@ export default class Sound extends EventEmitter {
 
     /**
      * If a sound is loaded.
-     * @method isLoaded
-     * @public
      * @param {String} alias The alias of the sound to look for.
      * @return {Boolean} true if the sound is loaded, false if it is not loaded or does not exist.
      */
@@ -502,8 +488,6 @@ export default class Sound extends EventEmitter {
 
     /**
      * If a sound is in the process of being loaded
-     * @method isLoading
-     * @public
      * @param {String} alias The alias of the sound to look for.
      * @return {Boolean} A value of true if the sound is currently loading, false if
      * it is loaded, unloaded, or does not exist.
@@ -514,8 +498,6 @@ export default class Sound extends EventEmitter {
 
     /**
      * If a sound is playing.
-     * @method isPlaying
-     * @public
      * @param {String} alias The alias of the sound to look for.
      * @return {Boolean} A value of true if the sound is currently playing or loading
      * with an intent to play, false if it is not playing or does not exist.
@@ -529,8 +511,6 @@ export default class Sound extends EventEmitter {
 
     /**
      * Gets the duration of a sound in milliseconds, if it has been loaded.
-     * @method getDuration
-     * @public
      * @param {String} alias The alias of the sound to look for.
      * @return {int|null} The duration of the sound in milliseconds. If the sound has
      * not been loaded, 0 is returned. If no sound exists by that alias, null is returned.
@@ -558,8 +538,6 @@ export default class Sound extends EventEmitter {
 
     /**
      * Fades a sound from 0 to a specified volume.
-     * @method fadeIn
-     * @public
      * @param {String|SoundInstance} aliasOrInst The alias of the sound to fade the
      * last played instance of, or an instance returned from play().
      * @param {Number} [duration=500] The duration in milliseconds to fade for.
@@ -602,8 +580,6 @@ export default class Sound extends EventEmitter {
     /**
      * Fades a sound from the current volume to a specified volume. A sound that ends
      * at 0 volume is stopped after the fade.
-     * @method fadeOut
-     * @public
      * @param {String|SoundInstance} aliasOrInst The alias of the sound to fade the
      * last played instance of, or an instance returned from play().
      * @param {Number} [duration=500] The duration in milliseconds to fade for.
@@ -657,7 +633,6 @@ export default class Sound extends EventEmitter {
 
     /**
      * The update call, used for fading sounds. This is bound to the instance of Sound
-     * @method _update
      * @private
      * @param {int} elapsed The time elapsed since the previous frame, in milliseconds.
      */
@@ -704,8 +679,6 @@ export default class Sound extends EventEmitter {
 
     /**
      * Plays a sound.
-     * @method play
-     * @public
      * @param {String} alias The alias of the sound to play.
      * @param {Object|function} [options] The object of optional parameters or complete
      * callback function.
@@ -863,7 +836,6 @@ export default class Sound extends EventEmitter {
 
     /**
      * Gets a SoundInstance, from the pool if available or maks a new one if not.
-     * @method _getSoundInst
      * @private
      * @param {createjs.SoundInstance} channel A createjs SoundInstance to initialize the object
      *                                       with.
@@ -888,7 +860,6 @@ export default class Sound extends EventEmitter {
 
     /**
      * Plays a sound after it finishes loading.
-     * @method _playAfterload
      * @private
      * @param {String|Object} result The sound to play as an alias or load manifest.
      */
@@ -974,7 +945,6 @@ export default class Sound extends EventEmitter {
 
     /**
      * The callback used for when a sound instance is complete.
-     * @method _onSoundComplete
      * @private
      * @param {SoundInstance} inst The SoundInstance that is complete.s
      */
@@ -1002,8 +972,6 @@ export default class Sound extends EventEmitter {
 
     /**
      * Stops all playing or loading instances of a given sound.
-     * @method stop
-     * @public
      * @param {String} alias The alias of the sound to stop.
      */
     stop(alias) {
@@ -1028,7 +996,6 @@ export default class Sound extends EventEmitter {
 
     /**
      * Stops all playing SoundInstances for a sound.
-     * @method _stopSound
      * @private
      * @param {Object} s The sound (from the _sounds dictionary) to stop.
      */
@@ -1042,7 +1009,6 @@ export default class Sound extends EventEmitter {
 
     /**
      * Stops and repools a specific SoundInstance.
-     * @method _stopInst
      * @private
      * @param {SoundInstance} inst The SoundInstance to stop.
      */
@@ -1065,8 +1031,6 @@ export default class Sound extends EventEmitter {
 
     /**
      * Stops all sounds in a given context.
-     * @method stopContext
-     * @public
      * @param {String} context The name of the context to stop.
      */
     stopContext(context) {
@@ -1091,7 +1055,6 @@ export default class Sound extends EventEmitter {
 
     /**
      * Stop all sounds that are playing, regardless of context.
-     * @method stopAll
      */
     stopAll() {
         for (let alias in this._sounds) {
@@ -1101,8 +1064,6 @@ export default class Sound extends EventEmitter {
 
     /**
      * Pauses a specific sound.
-     * @method pause
-     * @public
      * @param {String} alias The alias of the sound to pause.
      *     Internally, this can also be the object from the _sounds dictionary directly.
      */
@@ -1130,8 +1091,6 @@ export default class Sound extends EventEmitter {
 
     /**
      * Unpauses a specific sound.
-     * @method resume
-     * @public
      * @param {String} alias The alias of the sound to pause.
      *     Internally, this can also be the object from the _sounds dictionary directly.
      */
@@ -1157,7 +1116,6 @@ export default class Sound extends EventEmitter {
     /**
      * Pauses all sounds in a given context. Audio paused this way will not be resumed with
      * resumeAll(), but must be resumed individually or with resumeContext().
-     * @method pauseContext
      * @param {String} context The name of the context to pause.
      */
     pauseContext(context) {
@@ -1183,7 +1141,6 @@ export default class Sound extends EventEmitter {
 
     /**
      * Resumes all sounds in a given context.
-     * @method pauseContext
      * @param {String} context The name of the context to pause.
      */
     resumeContext(context) {
@@ -1209,8 +1166,6 @@ export default class Sound extends EventEmitter {
 
     /**
      * Pauses all sounds.
-     * @method pauseAll
-     * @public
      */
     pauseAll() {
         let arr = this._sounds;
@@ -1222,8 +1177,6 @@ export default class Sound extends EventEmitter {
     /**
      * Unpauses all sounds that were paused with pauseAll(). This does not unpause audio
      * that was paused individually or with pauseContext().
-     * @method resumeAll
-     * @public
      */
     resumeAll() {
         let arr = this._sounds;
@@ -1253,8 +1206,6 @@ export default class Sound extends EventEmitter {
 
     /**
      * Sets mute status of all sounds in a context
-     * @method setContextMute
-     * @public
      * @param {String} context The name of the context to modify.
      * @param {Boolean} muted If the context should be muted.
      */
@@ -1283,7 +1234,7 @@ export default class Sound extends EventEmitter {
 
     /**
      * Set the mute status of all sounds
-     * @property {Boolean} muteAll
+     * @member {Boolean}
      */
     set muteAll(muted) {
         SoundJS.setMute(!!muted);
@@ -1291,8 +1242,6 @@ export default class Sound extends EventEmitter {
 
     /**
      * Sets volume of a context. Individual sound volumes are multiplied by this value.
-     * @method setContextVolume
-     * @public
      * @param {String} context The name of the context to modify.
      * @param {Number} volume The volume for the context (0 to 1).
      */
@@ -1317,8 +1266,6 @@ export default class Sound extends EventEmitter {
 
     /**
      * Preloads a list of sounds.
-     * @method preload
-     * @public
      * @param {Array|String} list An alias or list of aliases to load.
      * @param {function} [callback] The function to call when all
      *      sounds have been loaded.
@@ -1377,7 +1324,6 @@ export default class Sound extends EventEmitter {
 
     /**
      * Marks a sound as loaded. If it needs to play after the load, then it is played.
-     * @method _markLoaded
      * @private
      * @param {String} alias The alias of the sound to mark.
      * @param {function} callback A function to call to show that the sound is loaded.
@@ -1401,8 +1347,6 @@ export default class Sound extends EventEmitter {
     /**
      * Unloads a list of sounds to reclaim memory if possible.
      * If the sounds are playing, they are stopped.
-     * @method unload
-     * @public
      * @param {Array} list An array of sound aliases to unload.
      */
     unload(list) {
@@ -1424,8 +1368,6 @@ export default class Sound extends EventEmitter {
     /**
      * Unloads all sounds. If any sounds are playing, they are stopped.
      * Internally this calls `unload`.
-     * @method unloadAll
-     * @public
      */
     unloadAll() {
         let arr = [];
@@ -1437,7 +1379,6 @@ export default class Sound extends EventEmitter {
 
     /**
      * Places a SoundInstance back in the pool for reuse.
-     * @method _poolinst
      * @private
      * @param {SoundInstance} inst The instance to repool.
      */
@@ -1452,8 +1393,6 @@ export default class Sound extends EventEmitter {
 
     /**
      * Destroys springroll.Sound. This unloads loaded sounds in SoundJS.
-     * @method destroy
-     * @public
      */
     destroy() {
         //Stop all sounds

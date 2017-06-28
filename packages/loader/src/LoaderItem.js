@@ -7,8 +7,10 @@ import {Debug} from '@springroll/debug';
 let LoadQueue = include('createjs.LoadQueue');
 
 /**
- * Represents a single item in the loader queue 
- * @class LoaderItem
+ * Represents a single item in the loader queue.
+ * ### module: @springroll/loader
+ * @class
+ * @memberof springroll
  * @extends createjs.LoadQueue
  */
 export default class LoaderItem extends LoadQueue {
@@ -17,65 +19,60 @@ export default class LoaderItem extends LoadQueue {
 
         /**
          * The number of times this load has been retried
-         * @property {int} retries
+         * @member {int}
          * @default
          */
         this.retries = 0;
 
         /**
          * The original input url of the load
-         * @public
-         * @property {string} url
+         * @member {string}
          */
         this.url = null;
 
         /**
          * The actual url of the load
-         * @public
-         * @property {string} preparedUrl
+         * @member {string}
          */
         this.preparedUrl = null;
 
         /**
          * Data associate with the load
-         * @public
-         * @property {*} data
+         * @member {mixed}
          */
         this.data = null;
 
         /**
          * The callback function of the load, to call when 
          * the load as finished, takes one argument as result
-         * @public
-         * @property {function} onComplete
+         * @member {function}
          */
         this.onComplete = null;
 
         /**
          * The progress callback
-         * @public
-         * @property {function} onProgress
+         * @member {function}
          */
         this.onProgress = null;
 
         /**
          * The callback when a load queue item fails
          * @private
-         * @property {function} _onFailed
+         * @member {function}
          */
         this._onFailed = this._onFailed.bind(this);
 
         /**
          * The callback when a load queue item progresses
          * @private
-         * @property {function} _onProgress
+         * @member {function}
          */
         this._onProgress = this._onProgress.bind(this);
 
         /**
          * The callback when a load queue item completes
          * @private
-         * @property {function} _onCompleted
+         * @member {function}
          */
         this._onCompleted = this._onCompleted.bind(this);
 
@@ -89,8 +86,6 @@ export default class LoaderItem extends LoadQueue {
 
     /**
      * Represent this object as a string
-     * @public
-     * @method toString
      * @return {string} The string representation of this object
      */
     toString() {
@@ -99,7 +94,7 @@ export default class LoaderItem extends LoadQueue {
 
     /**
      * The base path of the load
-     * @property {String} basePath
+     * @member {String}
      * @default null
      */
     set basePath(basePath) {
@@ -108,7 +103,7 @@ export default class LoaderItem extends LoadQueue {
 
     /**
      * If this load should be cross origin
-     * @property {Boolean} crossOrigin
+     * @member {Boolean}
      * @default false
      */
     set crossOrigin(crossOrigin) {
@@ -117,7 +112,6 @@ export default class LoaderItem extends LoadQueue {
 
     /**
      * Clear all the data
-     * @method clear
      */
     clear() {
         this.basePath = '';
@@ -136,7 +130,6 @@ export default class LoaderItem extends LoadQueue {
 
     /**
      * Start the loading
-     * @method  start
      */
     start() {
         // @if DEBUG
@@ -152,7 +145,6 @@ export default class LoaderItem extends LoadQueue {
 
     /**
      * Start the loading internally
-     * @method  _internalStart
      * @private
      */
     _internalStart() {
@@ -173,7 +165,6 @@ export default class LoaderItem extends LoadQueue {
 
     /**
      * The file load progress event
-     * @method _onProgress
      * @private
      * @param {object} event The progress event
      */
@@ -186,7 +177,6 @@ export default class LoaderItem extends LoadQueue {
     /**
      * There was an error loading the file
      * @private
-     * @method _onFailed
      */
     _onFailed(event) {
         // @if DEBUG
@@ -199,7 +189,6 @@ export default class LoaderItem extends LoadQueue {
 
     /**
      * Retry the current load
-     * @method  retry
      */
     retry() {
         this.retries++;
@@ -215,7 +204,6 @@ export default class LoaderItem extends LoadQueue {
     /**
      * The file was loaded successfully
      * @private
-     * @method _onCompleted
      * @param {object} ev The load event
      */
     _onCompleted(ev) {
@@ -230,7 +218,7 @@ export default class LoaderItem extends LoadQueue {
 
 /**
  * Represent this object as a string
- * @property {int} MAX_RETRIES
+ * @member {int}
  * @static
  * @default 3
  */
@@ -239,7 +227,7 @@ LoaderItem.MAX_RETRIES = 3;
 // @if DEBUG
 /**
  * If the loads should be verbose
- * @property {Boolean} verbose
+ * @member {Boolean}
  * @static
  * @default false
  */

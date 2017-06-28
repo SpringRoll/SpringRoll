@@ -3,19 +3,25 @@ import MathUtils from './MathUtils';
 /**
  * A class for generating weighted random values. Input objects are dictionary objects
  * where the keys are the strings to be picked from, and the values are the corresponding
- * odds as integers. For example:
+ * odds as integers.
+ * ### module: @springroll/utils
+ * @example
+ * import {WeightedRandom} from '@springroll/utils';
  *
- *  {
- *      itemWith25PercentChance: 2,
- *      itemWith50PercentChance: 4,
- *      otherItemWith25PercentChance: 2
- *  }
+ * const weight = new WeightedRandom({
+ *   boots: 2, // 25%
+ *   slippers: 4, // 50%
+ *   shoes: 2 // 25%
+ * });
  *
- * @class WeightedRandom
- * @constructor
- * @param {Object} object The configuration object for this weighted value generator.
+ * console.log(weight.random());
+ * @class
+ * @memberof springroll
  */
 export default class WeightedRandom {
+    /**
+     * @param {Object} object The configuration object for this weighted value generator.
+     */
     constructor(values) {
         this.max = -1;
         this.options = [];

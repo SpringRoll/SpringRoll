@@ -1,7 +1,8 @@
 /**
  * A private class that represents a sound context.
- * @class SoundContext
- * @constructor
+ * ### module: @springroll/sound
+ * @class
+ * @memberof springroll
  * @private
  * @param {String} id The name of the sound context.
  */
@@ -9,36 +10,32 @@ export default class SoundContext {
     constructor(id) {
         /**
          * The name of the sound context.
-         * @property {String} id
-         * @public
+         * @member {String}
          */
         this.id = id;
 
         /**
          * The current volume to apply to all sounds in the context (0 to 1).
-         * @property {Number} volume
-         * @public
+         * @member {Number}
          */
         this.volume = 1;
 
         /**
          * If all sounds in the sound context are muted or not.
-         * @property {bool} muted
-         * @public
+         * @member {bool}
          */
         this.muted = false;
 
         /**
          * The sound objects in this context, from Sound.instance._sounds;
-         * @property {Array} sounds
-         * @public
+         * @member {Array}
          */
         this.sounds = [];
 
         /**
          * A list of context ids of SoundContexts that belong to this one,
          * for example: "game-sfx" and "ui-sfx" being sub-contexts of "sfx".
-         * @property {Array} subContexts
+         * @member {Array}
          */
         this.subContexts = [];
     }

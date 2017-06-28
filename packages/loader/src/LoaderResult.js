@@ -1,42 +1,43 @@
 /**
- * The return result of the Loader load
- * @class LoaderResult
- * @constructor
- * @param {*} content The dynamic content loaded
- * @param {String} url The url that was loaded
- * @param {*} [data] Optional data associated with object
+ * The return result of the Loader load.
+ * ### module: @springroll/loader
+ * @class
+ * @memberof springroll
  */
 export default class LoaderResult {
+    /**
+     * @param {mixed} content The dynamic content loaded
+     * @param {String} url The url that was loaded
+     * @param {mixed} [data] Optional data associated with object
+     */
     constructor(content, url, data) {
         /**
          * The contents of the load
-         * @property {*} content
+         * @member {mixed}
          */
         this.content = content;
 
         /**
          * The url of the load
-         * @property {String} url
+         * @member {String}
          */
         this.url = url;
 
         /**
          * The data for the load item.
-         * @property {*} data
+         * @member {mixed}
          */
         this.data = data;
 
         /**
          * The original asset id, if any
-         * @property {String} id
+         * @member {String}
          */
         this.id = null;
     }
 
     /**
      * A to string method
-     * @public
-     * @method toString
      * @return {String} A string rep of the object
      */
     toString() {
@@ -45,7 +46,6 @@ export default class LoaderResult {
 
     /**
      * Reset to the original state
-     * @method reset
      */
     reset() {
         this.content =
@@ -56,7 +56,6 @@ export default class LoaderResult {
 
     /**
      * Destroy this result
-     * @method destroy
      */
     destroy() {
         this.reset();

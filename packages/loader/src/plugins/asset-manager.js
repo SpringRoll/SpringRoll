@@ -2,21 +2,17 @@ import {ApplicationPlugin} from '@springroll/core';
 import AssetManager from '../AssetManager';
 import {LoadTask, ListTask, FunctionTask, ColorAlphaTask} from '../tasks';
 
-/**
- * @module Core
- * @namespace springroll
- */
 (function() {
-    /**
-     * @class Application
-     */
+
     const plugin = new ApplicationPlugin('asset-manager', 'loader');
 
     // Init the animator
     plugin.setup = function() {
         /**
          * Reference to the asset manager.
-         * @property {springroll.AssetManager} assetManager
+         * ### module: @springroll/loader
+         * @member {springroll.AssetManager} assetManager
+         * @memberof springroll.Application#
          * @private
          */
         const assetManager = this.assetManager = new AssetManager();
@@ -29,24 +25,28 @@ import {LoadTask, ListTask, FunctionTask, ColorAlphaTask} from '../tasks';
 
         /**
          * Simple load of a single file.
+         * ### module: @springroll/loader
          * @method load
+         * @memberof springroll.Application#
          * @param {String} source The file to load
          * @param {Function} complete The completed callback with a single
          *      parameters result object.
          * @param {Function} [progress] Update callback, return 0-1
          * @param {Boolean} [cache=false] Save to the asset cache after load
-         * @param {*} [data] The data to attach to load item
+         * @param {mixed} [data] The data to attach to load item
          */
         /**
          * Load a single file with options.
+         * ### module: @springroll/loader
          * @method load
+         * @memberof springroll.Application#
          * @param {Object} asset The file resource to load
          * @param {String} asset.src The file to load
          * @param {Boolean} [asset.cache=false] If the result should be cached for later
          * @param {Function} [asset.complete=null] Callback when finished
          * @param {Function} [asset.progress=null] Callback on load progress,
          *      has a parameter which is the percentage loaded from 0 to 1.
-         * @param {*} [asset.data] Additional data to attach to load is
+         * @param {mixed} [asset.data] Additional data to attach to load is
          *      accessible in the loader's result.
          * @param {Function} [complete] The completed callback with a single
          *      parameter which is a result object. will
@@ -54,7 +54,9 @@ import {LoadTask, ListTask, FunctionTask, ColorAlphaTask} from '../tasks';
          */
         /**
          * Load a single custom asset with options.
+         * ### module: @springroll/loader
          * @method load
+         * @memberof springroll.Application#
          * @param {Object} asset The single asset resource to load, properties
          *      will depend on the type of asset loading.
          * @param {Function} [asset.complete=null] Callback when finished
@@ -66,7 +68,9 @@ import {LoadTask, ListTask, FunctionTask, ColorAlphaTask} from '../tasks';
          */
         /**
          * Load a map of multiple assets and return mapped result objects.
+         * ### module: @springroll/loader
          * @method load
+         * @memberof springroll.Application#
          * @param {Object} assets Load a map of assets.
          * @param {Function|Object} [options] Callback where the only parameter is the
          *      map of the results by ID, or the collection of load options.
@@ -79,7 +83,9 @@ import {LoadTask, ListTask, FunctionTask, ColorAlphaTask} from '../tasks';
          */
         /**
          * Load a list of multiple assets and return array of result objects.
+         * ### module: @springroll/loader
          * @method load
+         * @memberof springroll.Application#
          * @param {Array} assets The list of assets.
          *      If each object has a `id` the result will be a mapped object.
          * @param {Function|Object} [options] Callback where the only parameter is the
@@ -121,7 +127,9 @@ import {LoadTask, ListTask, FunctionTask, ColorAlphaTask} from '../tasks';
 
         /**
          * Unload an asset or list of assets.
+         * ### module: @springroll/loader
          * @method unload
+         * @memberof springroll.Application#
          * @param {Array|String} assets The collection of asset ids or
          *      single asset id. As an array, it can be a manifest
          *      with objects that contain an ID, or an array of multiple strings.
@@ -137,8 +145,10 @@ import {LoadTask, ListTask, FunctionTask, ColorAlphaTask} from '../tasks';
         };
 
         /**
-         * Unload all assets from the assets cache
+         * Unload all assets from the assets cache.
+         * ### module: @springroll/loader
          * @method unloadAll
+         * @memberof springroll.Application#
          */
         this.unloadAll = function() {
             assetManager.cache.empty();
@@ -146,7 +156,9 @@ import {LoadTask, ListTask, FunctionTask, ColorAlphaTask} from '../tasks';
 
         /**
          * Get an asset from the cache by ID
+         * ### module: @springroll/loader
          * @method getCache
+         * @memberof springroll.Application#
          * @param {String} id The asset to fetch
          * @return {*|null} The cached object or null if empty
          */

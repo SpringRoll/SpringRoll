@@ -2,16 +2,16 @@ import Task from './Task';
 
 /**
  * Internal class for dealing with async load assets through Loader.
- * @class LoadTask
+ * @class
+ * @memberof springroll
  * @extends springroll.Task
- * @constructor
  * @private
  * @param {Object} asset The data properties
  * @param {String} asset.src The source
  * @param {Boolean} [asset.cache=false] If we should cache the result
  * @param {String} [asset.id] Id of asset
  * @param {Boolean} [asset.advanced=false] If we should return the LoaderResult
- * @param {*} [asset.data=null] Optional data
+ * @param {mixed} [asset.data=null] Optional data
  * @param {Function} [asset.complete=null] The event to call when done
  * @param {Function} [asset.progress=null] The event to call on load progress
  * @param {Object} [asset.sizes=null] Define if certain sizes are not supported
@@ -22,26 +22,26 @@ export default class LoadTask extends Task {
 
         /**
          * The source URL to load
-         * @property {String} src
+         * @member {String}
          */
         this.src = this.filter(asset.src);
 
         /**
          * Call on load progress
-         * @property {Function} progress
+         * @member {Function}
          */
         this.progress = asset.progress || null;
 
         /**
          * Optional data to attach to load
-         * @property {*} data
+         * @member {mixed}
          */
         this.data = asset.data || null;
 
         /**
          * If turned on return a springroll.LoaderResult object
          * instead of the content
-         * @property {Boolean} advanced
+         * @member {Boolean}
          * @default false
          */
         this.advanced = !!asset.advanced;
@@ -49,7 +49,6 @@ export default class LoadTask extends Task {
 
     /**
      * Test if we should run this task
-     * @method test
      * @static
      * @param {Object} asset The asset to check
      * @return {Boolean} If the asset is compatible with this asset
@@ -60,7 +59,6 @@ export default class LoadTask extends Task {
 
     /**
      * Start the task
-     * @method  start
      * @param  {Function} callback Callback when finished
      */
     start(callback) {
@@ -82,7 +80,6 @@ export default class LoadTask extends Task {
 
     /**
      * Destroy this and discard
-     * @method destroy
      */
     destroy() {
         super.destroy();

@@ -9,35 +9,36 @@ import {Debug} from '@springroll/debug';
 
 /**
  * Handle the asynchronous loading of multiple assets.
- * @class AssetManager
- * @constructor
+ * ### module: @springroll/loader
+ * @class
+ * @memberof springroll
  */
 export default class AssetManager {
     constructor() {
         /**
          * The collection of current multiloads
-         * @property {Array} loads
+         * @member {Array}
          * @private
          */
         this.loads = [];
 
         /**
          * The expired loads to reuse.
-         * @property {Array} loadPool
+         * @member {Array}
          * @private
          */
         this.loadPool = [];
 
         /**
          * The collection of task definitions
-         * @property {Array} taskDefs
+         * @member {Array}
          * @readOnly
          */
         this.taskDefs = [];
 
         /**
          * The cache of assets
-         * @property {springroll.AssetCache} cache
+         * @member {springroll.AssetCache}
          * @readOnly
          */
         this.cache = new AssetCache();
@@ -45,7 +46,7 @@ export default class AssetManager {
         /**
          * Handle multiple asset sizes. Defaults are 'full' at a scale of 1, and
          * 'half' at a scale of 0.5 (under 400 points).
-         * @property {springroll.AssetSizes} sizes
+         * @member {springroll.AssetSizes}
          * @readOnly
          */
         this.sizes = new AssetSizes();
@@ -57,7 +58,6 @@ export default class AssetManager {
 
     /**
      * Register new tasks types, these tasks must extend Task
-     * @method register
      * @private
      * @param {Function} TaskClass The class task reference
      * @param {int} [priority=0] The priority. Higher priority tasks
@@ -91,7 +91,6 @@ export default class AssetManager {
 
     /**
      * Load a bunch of assets, can only call one load at a time
-     * @method load
      * @param {Object|Array} asset The assets to load
      * @param {Object} [options] The loading options
      * @param {function} [options.complete] The callback when finished
@@ -148,7 +147,6 @@ export default class AssetManager {
 
     /**
      * Stash the load for use later
-     * @method poolLoad
      * @private
      * @param {springroll.AssetLoad} load The load to recycle
      */
@@ -160,7 +158,6 @@ export default class AssetManager {
 
     /**
      * Get either a new AssetLoad or a recycled one
-     * @method getLoad
      * @private
      * @return {springroll.AssetLoad} The load to use
      */
@@ -173,11 +170,10 @@ export default class AssetManager {
 
     /**
      * Handler when a load is finished
-     * @method _onLoaded
      * @private
      * @param {function} complete The function to call when done
      * @param {springroll.AssetLoad} load The current load
-     * @param {*} The returned results
+     * @param {mixed} The returned results
      */
     _onLoaded(complete, load, results) {
         let index = this.loads.indexOf(load);
@@ -192,7 +188,6 @@ export default class AssetManager {
 
     /**
      * Destroy the AssetManager
-     * @method destroy
      */
     destroy() {
         this.sizes.destroy();

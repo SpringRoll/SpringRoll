@@ -11,22 +11,25 @@ import {Debug} from '@springroll/debug';
  * The UI scale is responsible for scaling UI components to help easy the burden of different
  * device aspect ratios. The UI can expand either vertically or horizontally to fill excess
  * space.
+ * ### module: @springroll/ui
  *
- * @class ScaleManager
- * @constructor
- * @param {Object} [options] The options
- * @param {Object} [options.size] The dimensions of the Scaler
- * @param {Number} [options.size.width] The designed width
- * @param {Number} [options.size.height] The designed height
- * @param {Number} [options.size.maxwidth=size.width] The designed max width
- * @param {Number} [options.size.maxheight=size.height] The designed max height
- * @param {Object} [options.items] The items to load
- * @param {PIXI.DisplayObjectContainer|createjs.Container} [options.container] The container if
- *                                                                           adding items
- * @param {Object} [options.display] The current display
- * @param {Boolean} [options.enabled=false] If the scaler is enabled
+ * @class
+ * @memberof springroll
  */
 export default class ScaleManager {
+    /**
+     * @param {Object} [options] The options
+     * @param {Object} [options.size] The dimensions of the Scaler
+     * @param {Number} [options.size.width] The designed width
+     * @param {Number} [options.size.height] The designed height
+     * @param {Number} [options.size.maxwidth=size.width] The designed max width
+     * @param {Number} [options.size.maxheight=size.height] The designed max height
+     * @param {Object} [options.items] The items to load
+     * @param {PIXI.Container} [options.container] The container if
+     *                                                                           adding items
+     * @param {Object} [options.display] The current display
+     * @param {Boolean} [options.enabled=false] If the scaler is enabled
+     */
     constructor(options) {
         options = Object.assign(
             {
@@ -39,21 +42,21 @@ export default class ScaleManager {
 
         /**
          * The configuration for each items
-         * @property {Array} _items
+         * @member {Array}
          * @private
          */
         this._items = [];
 
         /**
          * The screen settings object, contains information about designed size
-         * @property {object} _size
+         * @member {object}
          * @private
          */
         this._size = null;
 
         /**
          * The current overall scale of the game
-         * @property {Number} _scale
+         * @member {Number}
          * @private
          * @default 1
          */
@@ -61,14 +64,14 @@ export default class ScaleManager {
 
         /**
          * The adapter for universal scale, rotation size access
-         * @property {Object} _adapter
+         * @member {Object}
          * @private
          */
         this._adapter = null;
 
         /**
          * The internal enabled
-         * @property {boolean} _enabled
+         * @member {boolean}
          * @private
          */
         this._enabled = options.enabled;
@@ -76,7 +79,7 @@ export default class ScaleManager {
         // @if DEBUG
         /**
          * If we should log verbose messages (unminified module only!)
-         * @property {Boolean} verbose
+         * @member {Boolean}
          * @default false
          */
         this.verbose = false;
@@ -104,7 +107,6 @@ export default class ScaleManager {
 
     /**
      * Get the adapter by display
-     * @method _getAdapter
      * @private
      * @param {object} display The canvas renderer display
      */
@@ -132,7 +134,7 @@ export default class ScaleManager {
 
     /**
      * Set the display
-     * @property {springroll.AbstractDisplay} display
+     * @member {springroll.Display}
      */
     set display(display) {
         this._adapter = ScaleManager._getAdapter(display);
@@ -140,26 +142,13 @@ export default class ScaleManager {
 
     /**
      * The design sized of the application
-     * @property {Object} size
+     * @member {Object} size
+     * @property {Num}
+     * @member {Number} size.width - The designed width of the application
+     * @member {Number} size.height - The designed width of the application
+     * @member {Number} size.maxWidth - The designed max width of the application
+     * @member {Number} size.maxHeight - The designed maxHeight of the application
      * @default null
-     */
-    /**
-     * The designed width of the application
-     * @property {Number} size.width
-     */
-    /**
-     * The designed width of the application
-     * @property {Number} size.height
-     */
-    /**
-     * The designed max width of the application
-     * @property {Number} size.maxWidth
-     * @default  size.width
-     */
-    /**
-     * The designed maxHeight of the application
-     * @property {Number} size.maxHeight
-     * @default  size.height
      */
     set size(size) {
         this._size = size;
@@ -196,7 +185,7 @@ export default class ScaleManager {
 
     /**
      * Get the current scale of the screen relative to the designed screen size
-     * @property {Number} scale
+     * @member {Number}
      * @readOnly
      */
     get scale() {
@@ -205,7 +194,7 @@ export default class ScaleManager {
 
     /**
      * The total number of items
-     * @property {Number} numItems
+     * @member {Number}
      * @readOnly
      */
     get numItems() {
@@ -215,7 +204,7 @@ export default class ScaleManager {
     /**
      * Whether the ScaleManager should listen to the stage resize. Setting to true
      * initialized a resize.
-     * @property {boolean} enabled
+     * @member {boolean}
      * @default true
      */
     get enabled() {
@@ -236,7 +225,6 @@ export default class ScaleManager {
 
     /**
      * Remove all items where the item display is a the container or it contains items
-     * @method removeItems
      * @param  {*} parent The object which contains the items as live variables.
      * @param {Object} items The items that was passed to `addItems`
      * @return {springroll.ScaleManager} The ScaleManager for chaining
@@ -275,8 +263,7 @@ export default class ScaleManager {
 
     /**
      * Remove all items where the item display is a child of the container display
-     * @method removeItemsByParent
-     * @param  {createjs.Container|PIXI.DisplayObjectContainer} container The container to remove items from
+     * @param  {PIXI.Container} container The container to remove items from
      * @return {springroll.ScaleManager} The ScaleManager for chaining
      */
     removeItemsByContainer(container) {
@@ -291,8 +278,7 @@ export default class ScaleManager {
 
     /**
      * Remove a single item from the scaler
-     * @method removeItem
-     * @param  {createjs.Bitmap|PIXI.Sprite|createjs.Container|PIXI.DisplayObjectContainer} display The object to remove
+     * @param  {PIXI.Sprite|PIXI.Container} display The object to remove
      * @return {springroll.ScaleManager} The ScaleManager for chaining
      */
     removeItem(display) {
@@ -308,7 +294,6 @@ export default class ScaleManager {
 
     /**
      * Register a dictionary of items to the ScaleManager to control.
-     * @method addItems
      * @param {*} parent The parent object that contains the items as variables.
      * @param {object} items The items object where the keys are the name of the property on the
      *                     parent and the value is an object with keys of "titleSafe", "minScale",
@@ -342,8 +327,7 @@ export default class ScaleManager {
 
     /**
      * Manually add an item
-     * @method addItem
-     * @param {createjs.DisplayObject|PIXI.DisplayObject} displayObject The display object item
+     * @param {PIXI.DisplayObject} displayObject The display object item
      * @param {object|String} [settings="center"] The collection of settings or the align property
      * @param {String} [settings.align="center"] The vertical alignment ("top", "bottom", "center")
      *      then horizontal alignment ("left", "right" and "center"). Or you can use the short-
@@ -377,7 +361,7 @@ export default class ScaleManager {
     /**
      * Add a bitmap to make be fullscreen
      * @method  addItem
-     * @param {PIXI.Sprite|createjs.Bitmap} bitmap The bitmap to scale
+     * @param {PIXI.Sprite} bitmap The bitmap to scale
      * @param {String} settings      Must be 'cover-image'
      * @return {springroll.ScaleManager} The instance of this ScaleManager for chaining
      */
@@ -443,7 +427,6 @@ export default class ScaleManager {
 
     /**
      * Scale the UI items that have been registered to the current screen
-     * @method _resize
      * @private
      * @param {Number} w The current width of the application
      * @param {Number} h The current height of the application
@@ -473,7 +456,6 @@ export default class ScaleManager {
 
     /**
      * Destroy the scaler object
-     * @method destroy
      */
     destroy() {
         this.enabled = false;
@@ -490,7 +472,7 @@ export default class ScaleManager {
 
 /**
  * Vertically align to the top
- * @property {String} ALIGN_TOP
+ * @member {String}
  * @static
  * @final
  * @readOnly
@@ -500,7 +482,7 @@ ScaleManager.ALIGN_TOP = 'top';
 
 /**
  * Vertically align to the bottom
- * @property {String} ALIGN_BOTTOM
+ * @member {String}
  * @static
  * @final
  * @readOnly
@@ -510,7 +492,7 @@ ScaleManager.ALIGN_BOTTOM = 'bottom';
 
 /**
  * Horizontally align to the left
- * @property {String} ALIGN_LEFT
+ * @member {String}
  * @static
  * @final
  * @readOnly
@@ -520,7 +502,7 @@ ScaleManager.ALIGN_LEFT = 'left';
 
 /**
  * Horizontally align to the right
- * @property {String} ALIGN_RIGHT
+ * @member {String}
  * @static
  * @final
  * @readOnly
@@ -530,7 +512,7 @@ ScaleManager.ALIGN_RIGHT = 'right';
 
 /**
  * Vertically or horizontally align to the center
- * @property {String} ALIGN_CENTER
+ * @member {String}
  * @static
  * @final
  * @readOnly
