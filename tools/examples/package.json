@@ -27,7 +27,7 @@
     "@springroll/display-ui": "^2.0.0",
     "@springroll/hints": "^2.0.0",
     "@springroll/languages": "^2.0.0",
-    "@springroll/loaders": "^2.0.0",
+    "@springroll/loader": "^2.0.0",
     "@springroll/sound": "^2.0.0",
     "@springroll/states": "^2.0.0",
     "@springroll/ui": "^2.0.0",

@@ -138,7 +138,7 @@ import Bellhop from 'bellhop-iframe';
         window.onunload = window.onbeforeunload = null;
         this.endGame('left_site');
         return undefined;
-    };
+    }
 
     /**
      * Handle the window uncaught errors with the container
@@ -159,7 +159,7 @@ import Bellhop from 'bellhop-iframe';
             this.container.send('localError', String(error));
             return /* @echo RELEASE */; // handle gracefully in release mode
         }
-    };
+    }
 
     // Check for application name
     plugin.preload = function(done) {

@@ -1,5 +1,4 @@
 import EventEmitter from 'eventemitter3';
-import {mixin} from '../utils';
 
 /**
  * The EventEmitter is the npm module `eventemitter3` but mixes in two additional
