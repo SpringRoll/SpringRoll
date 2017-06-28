@@ -57,6 +57,13 @@ export default class Ticker extends EventEmitter {
          */
         this._running = false;
 
+        /**
+         * Accumulated number of milliseconds since start.
+         * @member {int}
+         * @private
+         */
+        this._time = performance.now();
+
         // Set the frames
         this.fps = fps;
     }
@@ -80,7 +87,6 @@ export default class Ticker extends EventEmitter {
      */
     start() {
         this._running = true;
-
         if (this._tickId === -1) {
             this._lastFrameTime = performance.now();
             this._tickId = requestAnimationFrame(this._tick);
@@ -119,7 +125,7 @@ export default class Ticker extends EventEmitter {
          * @param {number} elapsed - Time elapsed since last frame in milliseconds
          * @param {number} time - Current time in micromilliseconds
          */
-        this.emit('update', elapsed, now);
+        this.emit('update', elapsed, this._time += elapsed);
 
         //request the next animation frame
         this._tickId = requestAnimationFrame(this._tick);
