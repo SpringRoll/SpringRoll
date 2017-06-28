@@ -37,13 +37,11 @@ block code
   | 
   |     // Basic tween back and forth using
   |     // https://github.com/tweenjs/tween.js
-  |     function beginTween() {
-  |         new TWEEN.Tween(shape)
-  |             .easing(TWEEN.Easing.Quadratic.InOut)
-  |             .to({ x: [750, 50], rotation: [Math.PI * 2, 0] }, 3000)
-  |             .onComplete(beginTween) // loop
-  |             .start();
-  |     }
+  |     new TWEEN.Tween(shape)
+  |         .easing(TWEEN.Easing.Quadratic.InOut)
+  |         .to({ x: [750, 50], rotation: [Math.PI * 2, 0] }, 3000)
+  |         .repeat(Number.MAX_SAFE_INTEGER)
+  |         .start();
   | 
   |     // SpringRoll easily hooks up to any 
   |     // tween library, please use SpringRoll's update
@@ -52,6 +50,4 @@ block code
   |     app.on('update', function(elapsed, time) {
   |         TWEEN.update(time);
   |     });
-  | 
-  |     beginTween();
   | });

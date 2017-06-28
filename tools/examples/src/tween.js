@@ -32,7 +32,7 @@ app.on('ready', function() {
         new TWEEN.Tween(shape)
             .easing(TWEEN.Easing.Quadratic.InOut)
             .to({ x: [750, 50], rotation: [Math.PI * 2, 0] }, 3000)
-            .onComplete(beginTween) // loop
+            .repeat(Number.MAX_SAFE_INTEGER)
             .start();
     }
 
