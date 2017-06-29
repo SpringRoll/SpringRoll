@@ -34,7 +34,7 @@ import StateManager from '../StateManager';
         /**
          * The transition animation to use between the StateManager state changes
          * ### module: @springroll/states
-         * @member {springroll.easeljs.BitmapMovieClip|PIXI.Spine} _transition
+         * @member {PIXI.animate.MovieClip|PIXI.Spine} _transition
          * @memberof springroll.Application#
          * @private
          */
@@ -43,7 +43,7 @@ import StateManager from '../StateManager';
         /**
          * The transition animation to use between the StateManager state changes
          * ### module: @springroll/states
-         * @member {springroll.easeljs.BitmapMovieClip|PIXI.Spine} transition
+         * @member {PIXI.animate.MovieClip|PIXI.Spine} transition
          * @memberof springroll.Application#
          */
         Object.defineProperty(this, 'transition',

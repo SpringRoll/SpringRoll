@@ -44,8 +44,8 @@ export default class State extends EventEmitter {
                 delayLoad: 0,
                 preload: [],
                 scaling: null
-            }, options ||
-        {});
+            }, options || {}
+        );
 
         /**
          * Reference to the main app
@@ -555,8 +555,8 @@ export default class State extends EventEmitter {
                     // Reset the panel scale & position, to ensure
                     // that the panel is scaled properly
                     // upon state re-entry
-                    this.panel.x = this.panel.y = 0;
-                    this.panel.scaleX = this.panel.scaleY = 1;
+                    this.panel.position.set(0);
+                    this.panel.scale.set(1);
 
                     this.scaling.addItem(this.panel,
                         {

@@ -84,7 +84,7 @@ export default class HintsPlayer extends EventDispatcher {
      * Play an animation event
      * @event springroll.HintsPlayer#anim
      * @param {Object} data The event data
-     * @param {createjs.MovieClip} data.instance The movieclip instance
+     * @param {PIXI.animate.MovieClip} data.instance The movieclip instance
      * @param {String|Array} data.events The Animator events
      * @param {Function} data.complete Callback when complete
      * @param {Function} data.cancel Callback when canceled
@@ -125,7 +125,7 @@ export default class HintsPlayer extends EventDispatcher {
 
     /**
      * Add an animator hint to the player
-     * @param {createjs.MovieClip|*} instance The instance of the clip to play with Animator
+     * @param {PIXI.animate.MovieClip|*} instance The instance of the clip to play with Animator
      * @param {String|Array|Object} events The event aliases to play, see Animator.play
      * @param {Function} onComplete Call when the VO is done playing
      * @param {Function|Boolean} [onCancel] Call when the VO is cancelled playing,

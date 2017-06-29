@@ -36,7 +36,7 @@ export default class StateManager extends EventEmitter {
 
         /**
          * The click to play in between transitioning states
-         * @member {createjs.MovieClip|springroll.easeljs.BitmapMovieClip|PIXI.Spine}
+         * @member {PIXI.animate.MovieClip|PIXI.Spine}
          */
         this.transition = null;
 

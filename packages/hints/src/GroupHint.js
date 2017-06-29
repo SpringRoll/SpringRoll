@@ -79,7 +79,7 @@ export default class GroupHint extends AbstractHint {
 
     /**
      * Add an animator hint to the player
-     * @param {createjs.MovieClip|*} instance The instance of the clip to play with Animator
+     * @param {PIXI.animate.MovieClip|*} instance The instance of the clip to play with Animator
      * @param {String|Array|Object} events The event aliases to play, see Animator.play
      * @param {function} onComplete Call when the VO is done playing
      * @param {function|boolean} [onCancel] Call when the VO is cancelled playing,
