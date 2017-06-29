@@ -41,7 +41,7 @@ export default class Display extends EventEmitter {
     }
 
     /**
-     * @psram {HTMLElement} container - Container for the canvas element.
+     * @param {HTMLElement} container - Container for the canvas element.
      * @param {Object} [options] Include all renderer option for PIXI renderers. See
      *        http://pixijs.download/release/docs/PIXI.html#.autoDetectRenderer for more info.
      * @param {String} [options.forceContext=null] If a specific renderer should be used instead

@@ -1,6 +1,3 @@
-import '@springroll/debug/lib/debug.css';
-import '@springroll/display/lib/display.css';
-
 import 'code-prettify/src/prettify.css';
 import 'code-prettify/styles/sons-of-obsidian.css';
 import './styles/main.css';

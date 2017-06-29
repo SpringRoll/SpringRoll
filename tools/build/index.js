@@ -126,9 +126,7 @@ function devWatch() {
                 }
             }),
             buble(bubleConfig),
-            sass({
-                output: `lib/${name}.css`
-            })
+            sass({ insert: true })
         ]
     });
     watcher.on('event', (event) => {
@@ -159,9 +157,7 @@ function dev() {
                 include: 'src/**/*.js'
             }),
             buble(bubleConfig),
-            sass({
-                output: `lib/${name}.css`
-            })
+            sass({ insert: true })
         ],
     }).then(bundle => bundle.write({
         format,
@@ -200,7 +196,7 @@ function prod() {
                 }
             }),
             sass({
-                output: `lib/${name}.min.css`,
+                insert: true,
                 options: {
                     outputStyle: 'compressed'
                 }
