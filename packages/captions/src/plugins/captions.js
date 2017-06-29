@@ -16,10 +16,10 @@ import {Debug} from '@springroll/debug';
          * ### module: @springroll/captions
          * @member {DOMElement|String|PIXI.Text|PIXI.BitmapText} captions
          * @memberof springroll.ApplicationOptions#
-         * @default 'sr-captions'
+         * @default 'springroll-captions'
          * @readOnly
          */
-        this.options.add('captions', 'sr-captions', true);
+        this.options.add('captions', 'springroll-captions', true);
 
         /**
          * The path to the captions file to preload.
