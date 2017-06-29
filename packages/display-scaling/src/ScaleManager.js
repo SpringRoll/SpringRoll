@@ -11,7 +11,7 @@ import {Debug} from '@springroll/debug';
  * The UI scale is responsible for scaling UI components to help easy the burden of different
  * device aspect ratios. The UI can expand either vertically or horizontally to fill excess
  * space.
- * ### module: @springroll/ui
+ * ### module: @springroll/display-scaling
  *
  * @class
  * @memberof springroll

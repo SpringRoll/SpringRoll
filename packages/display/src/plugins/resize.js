@@ -6,15 +6,7 @@ import {ApplicationPlugin} from '@springroll/core';
 (function() {
     const devicePixelRatio = include('devicePixelRatio', false);
 
-    const plugin = new ApplicationPlugin('resize', 'display');
-
-    /**
-     * Dom element (or the window) to attach resize listeners and read the size from
-     * @member {DOMElement|Window|null}
-     * @private
-     * @default null
-     */
-    let resizeElement = null;
+    const plugin = new ApplicationPlugin('resize', ['dom', 'display']);
 
     /**
      * The maximum width of the primary display, compared to the original height.
@@ -65,7 +57,8 @@ import {ApplicationPlugin} from '@springroll/core';
 
     // Init the animator
     plugin.setup = function() {
-        const options = this.options;
+
+        const {options} = this;
 
         /**
          * Fired when a resize is called
@@ -119,15 +112,6 @@ import {ApplicationPlugin} from '@springroll/core';
         options.add('responsive', false, true);
 
         /**
-         * The element that the canvas is resized to fit.
-         * ### module: @springroll/display
-         * @member {DOMElement|String} resizeElement
-         * @memberof springroll.ApplicationOptions#
-         * @default 'springroll-frame'
-         */
-        options.add('resizeElement', 'springroll-frame', true);
-
-        /**
          * Whether to account for devicePixelRatio when rendering game
          * ### module: @springroll/display
          * @member {Boolean} retina
@@ -166,14 +150,13 @@ import {ApplicationPlugin} from '@springroll/core';
          * @method triggerResize
          * @memberof springroll.Application#
          */
-        this.triggerResize = function() {
-            if (!resizeElement) {
-                return;
-            }
+        this.triggerResize = () => {
+
+            const {frameElement} = this;
 
             // window uses innerWidth, DOM elements clientWidth
-            resizeHelper.width = (resizeElement.innerWidth || resizeElement.clientWidth) | 0;
-            resizeHelper.height = (resizeElement.innerHeight || resizeElement.clientHeight) | 0;
+            resizeHelper.width = (frameElement.innerWidth || frameElement.clientWidth) | 0;
+            resizeHelper.height = (frameElement.innerHeight || frameElement.clientHeight) | 0;
 
             this.calculateDisplaySize(resizeHelper);
 
@@ -223,7 +206,7 @@ import {ApplicationPlugin} from '@springroll/core';
          * Handle the window resize events.
          * @private
          */
-        this.onWindowResize = function() {
+        this._onWindowResize = () => {
             // Call the resize once
             this.triggerResize();
 
@@ -311,16 +294,7 @@ import {ApplicationPlugin} from '@springroll/core';
 
     // Add common filters interaction
     plugin.preload = function(done) {
-        const options = this.options;
-
-        // Convert to DOM element
-        options.asDOMElement('resizeElement');
-
-        if (options.resizeElement) {
-            resizeElement = options.resizeElement;
-            this.onWindowResize = this.onWindowResize.bind(this);
-            window.addEventListener('resize', this.onWindowResize);
-        }
+        window.addEventListener('resize', this._onWindowResize);
         done();
     };
 
@@ -329,16 +303,11 @@ import {ApplicationPlugin} from '@springroll/core';
             windowResizer.destroy();
             windowResizer = null;
         }
-
-        if (resizeElement) {
-            window.removeEventListener('resize', this.onWindowResize);
-        }
-
+        window.removeEventListener('resize', this._onWindowResize);
         resizeHelper.width = 0;
         resizeHelper.height = 0;
         resizeHelper.normalWidth = 0;
         resizeHelper.normalHeight = 0;
-        resizeElement = null;
         originalWidth = 0;
         originalHeight = 0;
         maxHeight = 0;

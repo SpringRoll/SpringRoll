@@ -5,24 +5,10 @@ import Display from '../Display';
     
 (function() {
 
-    const plugin = new ApplicationPlugin('display', 'ticker');
+    const plugin = new ApplicationPlugin('display', ['dom', 'ticker']);
 
     // Init the animator
     plugin.setup = function() {
-        // this.assetManager.register(TextureTask, 60);
-        // this.assetManager.register(TextureAtlasTask, 70);
-        // this.assetManager.register(BitmapFontTask, 80);
-
-        const options = this.options;
-
-        /**
-         * The default display DOM ID name
-         * ### module: @springroll/display
-         * @member {String} displayElement
-         * @memberof springroll.ApplicationOptions#
-         * @default 'springroll-display'
-         */
-        options.add('displayElement', 'springroll-display', true);
 
         /**
          * Display specific setup options
@@ -30,7 +16,7 @@ import Display from '../Display';
          * @member {Object} display
          * @memberof springroll.ApplicationOptions#
          */
-        options.add('display', null, true);
+        this.options.add('display', null, true);
 
         /**
          * Primary renderer for the application, for simply accessing
@@ -66,7 +52,10 @@ import Display from '../Display';
 
         // add the initial display if specified
         this.once('beforePreload', () => {
-            this.display = new Display(options.displayElement, options.display);
+            this.display = new Display(
+                this.displayElement,
+                this.options.display
+            );
         });
     };
 

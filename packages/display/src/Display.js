@@ -11,6 +11,37 @@ import {EventEmitter} from '@springroll/core';
  */
 export default class Display extends EventEmitter {
     /**
+     * The ID of the DOM element which contains all of the SpringRoll display elements.
+     * @member {String}
+     * @readOnly
+     * @default 'springroll'
+     */
+    static get FRAME_ID() {
+        return 'springroll';
+    }
+
+    /**
+     * The ID of the DOM element which contains the display's HTMLCanvasElement.
+     * @member {String}
+     * @readOnly
+     * @default 'springroll-display'
+     */
+    static get DISPLAY_ID() {
+        return 'springroll-display';
+    }
+
+    /**
+     * The ID of the HTMLCanvasElement for display.
+     * @member {String}
+     * @readOnly
+     * @default 'springroll-stage'
+     */
+    static get STAGE_ID() {
+        return 'springroll-stage';
+    }
+
+    /**
+     * @psram {HTMLElement} container - Container for the canvas element.
      * @param {Object} [options] Include all renderer option for PIXI renderers. See
      *        http://pixijs.download/release/docs/PIXI.html#.autoDetectRenderer for more info.
      * @param {String} [options.forceContext=null] If a specific renderer should be used instead
@@ -18,7 +49,7 @@ export default class Display extends EventEmitter {
      * @param {Boolean} [options.autoPreventDefault=true] `true` to call preventDefault() on
      *        all touch events and mousedown events.
      */
-    constructor(id, options) {
+    constructor(container, options) {
         super();
 
         options = Object.assign({
@@ -28,18 +59,13 @@ export default class Display extends EventEmitter {
             height: 600
         }, options || {});
 
-        const container = document.getElementById(id);
-
-        if (!container) {
-            throw `No <div> element found matching id "${id}"`;
-        }
 
         /**
          * The DOM id for the canvas
          * @member {String}
          * @readOnly
          */
-        this.id = id;
+        this.id = container.id;
 
         /**
          * Convenience method for getting the width of the canvas element
@@ -145,6 +171,9 @@ export default class Display extends EventEmitter {
         // View should be created by the renderer here
         // especially if it's not passed in through the options
         container.appendChild(this.view);
+
+        // Add ID to the view
+        this.view.id = Display.STAGE_ID;
 
         /**
          * If Pixi is being rendered with WebGL.

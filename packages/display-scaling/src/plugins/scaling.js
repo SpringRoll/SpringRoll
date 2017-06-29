@@ -15,7 +15,7 @@ import {Debug} from '@springroll/debug';
     plugin.setup = function() {
         /**
          * The main ScaleManager for any display object references
-         * ### module: @springroll/ui
+         * ### module: @springroll/display-scaling
          * in the main game.
          * @member {springroll.ScaleManager} scaling
          * @memberof springroll.Application#

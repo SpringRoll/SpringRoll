@@ -28,6 +28,17 @@ import {Debug} from '@springroll/debug';
  * @see springroll.Application#captions
  */
 export default class Captions {
+
+    /**
+     * The ID of the captions DOM element.
+     * @member {String}
+     * @readonly
+     * @default 'springroll-captions'
+     */
+    static get CAPTIONS_ID() {
+        return 'springroll-captions';
+    }
+
     /**
      * @param {Object} [data=null] The captions dictionary
      * @param {String|DOMElement} [textField=null] The output text field
@@ -45,7 +56,7 @@ export default class Captions {
          * A reference to the Text object that Captions should be controlling.
          * Only one text field can be controlled at a time.
          * @private
-         * @member {PIXI.Text|PIXI.BitmapText|DOMElement}
+         * @member {DOMElement}
          */
         this._textField = null;
 
@@ -228,14 +239,12 @@ export default class Captions {
 
     /**
      * The text field that the captions uses to update.
-     * @member {String|PIXI.Text|PIXI.BitmapText|DOMElement} textField
+     * @member {DOMElement} textField
      * @memberof springroll.Captions#
      */
-    set textField(field) {
+    set textField(textField) {
         Captions._setText(this._textField, '');
-        this._textField = (typeof field === 'string' ?
-            document.getElementById(field) :
-            (field || null));
+        this._textField = textField;
     }
     get textField() {
         return this._textField;
@@ -245,9 +254,9 @@ export default class Captions {
      * Automatically determine how to set the text field text
      * @private
      * @static
-     * @param {PIXI.Text|PIXI.BitmapText|DOMElement} field The text field to change
+     * @param {DOMElement} field The text field to change
      * @param {String} text The text to set it to
-     * @return {PIXI.Text|PIXI.BitmapText|DOMElement} The text field
+     * @return {DOMElement} The text field
      */
     static _setText(field, text) {
         if (!field) {

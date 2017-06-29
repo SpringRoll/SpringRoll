@@ -104,12 +104,12 @@ export default class ApplicationOptions extends PropertyEmitter {
      */
     asDOMElement(name) {
         let prop = this._properties[name];
-
         if (prop && prop.value && typeof prop.value === 'string') {
             prop.value = /^[#.]/.test(prop.value) ?
                 document.querySelector(prop.value):
                 document.getElementById(prop.value);
         }
+        return prop.value;
     }
 
     /**

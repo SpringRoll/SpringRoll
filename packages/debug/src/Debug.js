@@ -18,6 +18,16 @@ import {ConsoleTarget, DOMTarget, RemoteTarget} from './targets';
 export default class Debug {
 
     /**
+     * The ID of the DOM element containing the framerate counter.
+     * @member {String}
+     * @readonly
+     * @default 'springroll-framerate'
+     */
+    static get FRAMERATE_ID() {
+        return 'springroll-framerate';
+    }
+
+    /**
      * Connect to the `WebSocket`
      * @public
      * @static

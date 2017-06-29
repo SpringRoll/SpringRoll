@@ -1,5 +1,5 @@
 {
-  "name": "@springroll/ui",
+  "name": "@springroll/display-scaling",
   "version": "2.0.0",
   "main": "index.js",
   "author": "CloudKid <tools@cloudkid.com>",
@@ -24,7 +24,7 @@
   "license": "MIT",
   "dependencies": {
     "@springroll/core": "^2.0.0",
-    "pixi.js": "^4.5.3"
+    "@springroll/display": "^2.0.0"
   },
   "optionalDependencies": {
     "@springroll/debug": "^2.0.0"

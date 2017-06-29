@@ -1,5 +1,5 @@
 /**
- * A class similar to PIXI.extras.MovieClip, but made to play animations _exclusively_ using
+ * A class similar to PIXI.extras.AnimatedSprite, but made to play animations _exclusively_ using
  * the Animator, with data exported by the BitmapMovieClip exporter.
  *
  * Format for SpriteClip data (the same as BitmapMovieClip):
