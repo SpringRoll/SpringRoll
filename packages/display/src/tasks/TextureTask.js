@@ -1,5 +1,5 @@
 import {Application} from '@springroll/core';
-import {Task, ColorAlphaTask} from '@springroll/loaders';
+import {Task, ColorAlphaTask} from '@springroll/loader';
 
 /**
  * TextureTask loads an image and sets it up for Pixi to use as a PIXI.Texture.

@@ -1,5 +1,3 @@
-import {SavedData} from '@springroll/core';
-
 /**
  * This class is responsible for saving the user-specific data
  * within an Application. This can be player-progress data, high
@@ -12,8 +10,9 @@ import {SavedData} from '@springroll/core';
 export default class UserData {
     /**
      * @param {Bellhop} container The container instance
+     * @param {springroll.PersistentStorage} storage Persistent storage saving
      */
-    constructor(container) {
+    constructor(container, storage) {
         /**
          * Reference to the container. If the app is not connected
          * to the Container (running standalone) then the container
@@ -23,6 +22,13 @@ export default class UserData {
          * @readOnly
          */
         this.container = container;
+
+        /**
+         * Reference to the storage object.
+         * @member {springroll.PersistentStorage}
+         * @readOnly
+         */
+        this.storage = storage;
 
         /**
          * The name to preprend to each property name, this is set
@@ -41,7 +47,7 @@ export default class UserData {
      */
     read(prop, callback) {
         if (!this.container.supported) {
-            return callback(SavedData.read(this.id + prop));
+            return callback(this.storage.read(this.id + prop));
         }
         this.container.fetch(
             'userDataRead',
@@ -61,7 +67,7 @@ export default class UserData {
      */
     write(prop, value, callback) {
         if (!this.container.supported) {
-            SavedData.write(this.id + prop, value);
+            this.storage.write(this.id + prop, value);
             if (callback) {
                 callback();
             }
@@ -89,7 +95,7 @@ export default class UserData {
      */
     remove(prop, callback) {
         if (!this.container.supported) {
-            SavedData.remove(this.id + prop);
+            this.storage.remove(this.id + prop);
             if (callback) {
                 callback();
             }
@@ -113,5 +119,6 @@ export default class UserData {
     destroy() {
         this.id = null;
         this.container = null;
+        this.storage = null;
     }
 }

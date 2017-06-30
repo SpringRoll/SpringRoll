@@ -6,7 +6,7 @@ import {Debug} from '@springroll/debug';
 
 (function() {
 
-    const plugin = new ApplicationPlugin('languages');
+    const plugin = new ApplicationPlugin('languages', 'loader');
 
     plugin.setup = function() {
         /**
@@ -15,7 +15,7 @@ import {Debug} from '@springroll/debug';
          * @member {springroll.Languages} languages
          * @memberof springroll.Application#
          */
-        this.languages = new Languages();
+        this.languages = new Languages(this.loader);
 
         /**
          * Force a specific language

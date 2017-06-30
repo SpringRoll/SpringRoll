@@ -2,6 +2,7 @@
   "private": true,
   "scripts": {
     "postinstall": "lerna bootstrap",
+    "watch": "lerna run watch",
     "build": "lerna run build",
     "build:dev": "lerna run build:dev",
     "build:prod": "lerna run build:prod",

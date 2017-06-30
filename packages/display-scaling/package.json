@@ -24,9 +24,7 @@
   "license": "MIT",
   "dependencies": {
     "@springroll/core": "^2.0.0",
-    "@springroll/display": "^2.0.0"
-  },
-  "optionalDependencies": {
+    "@springroll/display": "^2.0.0",
     "@springroll/debug": "^2.0.0"
   },
   "devDependencies": {

@@ -1,4 +1,4 @@
-import {EventDispatcher} from '@springroll/core';
+import {EventEmitter} from '@springroll/core';
 import AnimatorHint from './AnimatorHint';
 import FunctionHint from './FunctionHint';
 import VOHint from './VOHint';
@@ -10,7 +10,7 @@ import GroupHint from './GroupHint';
  * @class
  * @memberof springroll
  */
-export default class HintsPlayer extends EventDispatcher {
+export default class HintsPlayer extends EventEmitter {
     /** 
      * @param {springroll.Application} app Reference to the current app
      */
@@ -183,7 +183,7 @@ export default class HintsPlayer extends EventDispatcher {
      */
     clear() {
         this._playing = false;
-        this.removeTimer();
+        this.stopTimer();
         this.enabled = false;
         if (this._hint) {
             this._oldHints.push(this._hint); //we'll destroy these when it's safe

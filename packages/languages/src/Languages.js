@@ -1,4 +1,5 @@
-import {Application, EventDispatcher} from '@springroll/core';
+import {Application, EventEmitter} from '@springroll/core';
+import {StringUtils} from '@springroll/utils';
 
 /**
  * Keeps track of the user locale, by auto-detecting the browser language, allowing a user
@@ -8,8 +9,11 @@ import {Application, EventDispatcher} from '@springroll/core';
  * @memberof springroll
  * @extends springroll.EventEmitter
  */
-export default class Languages extends EventDispatcher {
-    constructor() {
+export default class Languages extends EventEmitter {
+    /**
+     * @param {springroll.Loader} loader - Instance of springroll's loader
+     */
+    constructor(loader) {
         super();
 
         /**
@@ -46,6 +50,13 @@ export default class Languages extends EventDispatcher {
          * @private
          */
         this._stringTable = null;
+
+        /**
+         * Reference to the springroll Loader
+         * @member {springroll.Loader}
+         * @private
+         */
+        this._loader = loader;
     }
 
     /**
@@ -79,7 +90,7 @@ export default class Languages extends EventDispatcher {
 
         //connect to the CacheManager
         this.modifyUrl = this.modifyUrl.bind(this);
-        Application.instance.loader.cacheManager.registerURLFilter(this.modifyUrl);
+        this._loader.cacheManager.registerURLFilter(this.modifyUrl);
     }
 
     /**
@@ -148,7 +159,7 @@ export default class Languages extends EventDispatcher {
         }
         if (chosen !== this._current) {
             this._current = chosen;
-            this.trigger('changed', chosen);
+            this.emit('changed', chosen);
         }
     }
 
@@ -180,7 +191,7 @@ export default class Languages extends EventDispatcher {
     getFormattedString(key) {
         let string = this._stringTable ? this._stringTable[key] : null;
         if (string) {
-            return string.format(Array.prototype.slice.call(arguments, 1));
+            return StringUtils.format(string, Array.prototype.slice.call(arguments, 1));
         }
         else {
             return null;
@@ -202,11 +213,10 @@ export default class Languages extends EventDispatcher {
      * Destroys the Languages object.
      */
     destroy() {
-        let loader = Application.instance.loader;
-        if (loader) {
-            loader.cacheManager.unregisterURLFilter(this.modifyUrl);
-        }
-        this.modifyUrl = this.languages = null;
+        this._loader.cacheManager.unregisterURLFilter(this.modifyUrl);
+        this.modifyUrl = null;
+        this._loader = null;
+        this.languages = null;
 
         super.destroy();
     }

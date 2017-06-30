@@ -1,4 +1,5 @@
 import {ApplicationPlugin} from '@springroll/core';
+import {ArrayUtils} from '@springroll/utils';
 
 (function() {
 
@@ -165,7 +166,7 @@ import {ApplicationPlugin} from '@springroll/core';
      * @param {Array} assets The array to add new load tasks to
      */
     function addPreloadAssets(app, assets) {
-        assets.append(app.options.preload);
+        ArrayUtils.append(assets, app.options.preload);
 
         // Allow extending game to add additional tasks
         app.emit('loading', assets);

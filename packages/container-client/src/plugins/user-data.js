@@ -3,7 +3,7 @@ import UserData from '../UserData';
 
 (function() {
     
-    const plugin = new ApplicationPlugin('user-data', 'container-client');
+    const plugin = new ApplicationPlugin('user-data', ['container-client', 'storage']);
 
     // Init the animator
     plugin.setup = function() {
@@ -15,7 +15,10 @@ import UserData from '../UserData';
          * @member {springroll.UserData} userData
          * @memberof springroll.Application#
          */
-        this.userData = new UserData(this.container);
+        this.userData = new UserData(
+            this.container,
+            this.storage
+        );
     };
 
     // Check for application name

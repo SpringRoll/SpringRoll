@@ -230,11 +230,11 @@ export default class Sound extends EventEmitter {
         }
 
         //New sound object
-        Sound._instance = new Sound();
+        Sound.instance = new Sound();
 
         //make sure the capabilities are ready (looking at you, Cordova plugin)
         if (SoundJS.getCapabilities()) {
-            Sound._instance._initComplete(options.types, options.ready);
+            Sound.instance._initComplete(options.types, options.ready);
         }
         else if (SoundJS.activePlugin) {
             // @if DEBUG
@@ -253,7 +253,7 @@ export default class Sound extends EventEmitter {
                     if (NativeAudio) {
                         NativeAudio.getCapabilities(function() {
                             Application.instance.off('update', waitFunction);
-                            Sound._instance._initComplete(options.types, options.ready);
+                            Sound.instance._initComplete(options.types, options.ready);
                         }, function() {
                             // @if DEBUG
                             Debug.error('Unable to get capabilities from Cordova Native Audio Plugin');
@@ -274,12 +274,12 @@ export default class Sound extends EventEmitter {
             // @if DEBUG
             Debug.error('Unable to initialize SoundJS with a plugin!');
             // @endif
-            Sound._instance.isSupported = false;
+            Sound.instance.isSupported = false;
             if (options.ready) {
                 options.ready();
             }
         }
-        return Sound._instance;
+        return Sound.instance;
     }
 
     /**
@@ -291,7 +291,7 @@ export default class Sound extends EventEmitter {
         WebAudioPlugin.playEmptySound();
         if (WebAudioPlugin.context.state === 'running' ||
             WebAudioPlugin.context.state === undefined) {
-            if (Sound._instance.preventDefaultOnUnmute) {
+            if (Sound.instance.preventDefaultOnUnmute) {
                 ev.preventDefault();
             }
 
@@ -299,8 +299,8 @@ export default class Sound extends EventEmitter {
             document.removeEventListener('touchend', Sound._playEmpty);
             document.removeEventListener('mousedown', Sound._playEmpty);
 
-            Sound._instance.systemMuted = false;
-            Sound._instance.emit('systemUnmuted');
+            Sound.instance.systemMuted = false;
+            Sound.instance.emit('systemUnmuted');
         }
     }
 
@@ -312,14 +312,14 @@ export default class Sound extends EventEmitter {
      */
     _initComplete(filetypeOrder, callback) {
         if (FlashAudioPlugin && SoundJS.activePlugin instanceof FlashAudioPlugin) {
-            Sound._instance.supportedSound = '.mp3';
+            Sound.instance.supportedSound = '.mp3';
         }
         else {
             let type;
             for (let i = 0, len = filetypeOrder.length; i < len; ++i) {
                 type = filetypeOrder[i];
                 if (SoundJS.getCapability(type)) {
-                    Sound._instance.supportedSound = '.' + type;
+                    Sound.instance.supportedSound = '.' + type;
                     break;
                 }
             }
@@ -339,15 +339,6 @@ export default class Sound extends EventEmitter {
         if (callback) {
             callback();
         }
-    }
-
-    /**
-     * The singleton instance of Sound.
-     * @member {Sound}
-     * @static
-     */
-    get instance() {
-        return Sound._instance;
     }
 
     /**
@@ -1409,7 +1400,7 @@ export default class Sound extends EventEmitter {
             }
         }
 
-        Sound._instance = null;
+        Sound.instance = null;
 
         this._sounds = null;
         this._volumes = null;
@@ -1423,3 +1414,11 @@ export default class Sound extends EventEmitter {
 
 //sound states
 Sound.LoadStates = new Enum('unloaded', 'loading', 'loaded');
+
+/**
+ * The singleton instance of Sound.
+ * @member {Sound}
+ * @static
+ */
+ Sound.instance = null;
+ 

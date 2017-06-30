@@ -68,7 +68,7 @@ export default class CacheManager {
             this.registerURLFilter(this._applyGlobalVersion);
         }
         else {
-            let version = this._app.options.version;
+            const version = this._app.options.version;
             this._globalVersion = version ? 'v=' + version : null;
             if (this._globalVersion) {
                 this.unregisterURLFilter(this._applySpecificVersion);

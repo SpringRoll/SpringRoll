@@ -32,7 +32,7 @@ export default class ArrayUtils {
      * @param {Array<mixed>} array The array
      * @return {any} The last item
      */
-    static list(arr) {
+    static last(arr) {
         return arr[arr.length - 1];
     }
 

@@ -1,0 +1,28 @@
+{
+  "name": "@springroll/test",
+  "version": "2.0.0",
+  "private": true,
+  "scripts": {
+    "test": "floss --path index.js"
+  },
+  "devDependencies": {
+    "@springroll/animation": "^2.0.0",
+    "@springroll/captions": "^2.0.0",
+    "@springroll/container-client": "^2.0.0",
+    "@springroll/core": "^2.0.0",
+    "@springroll/debug": "^2.0.0",
+    "@springroll/display": "^2.0.0",
+    "@springroll/display-animation": "^2.0.0",
+    "@springroll/display-scaling": "^2.0.0",
+    "@springroll/display-ui": "^2.0.0",
+    "@springroll/hints": "^2.0.0",
+    "@springroll/languages": "^2.0.0",
+    "@springroll/loader": "^2.0.0",
+    "@springroll/sound": "^2.0.0",
+    "@springroll/states": "^2.0.0",
+    "@springroll/utils": "^2.0.0",
+    "electron": "^1.6.11",
+    "floss": "^2.1.2",
+    "pixi.js": "^4.5.3"
+  }
+}

@@ -64,7 +64,7 @@ export default class Display extends EventEmitter {
          * @member {string}
          * @readOnly
          */
-        this.id = container.id;
+        this.id = Display.DISPLAY_ID;
 
         /**
          * Convenience method for getting the width of the canvas element
@@ -263,7 +263,6 @@ export default class Display extends EventEmitter {
         this.stage = null;
 
         this.enabled = false;
-        this.view = null;
 
         super.destroy();
 

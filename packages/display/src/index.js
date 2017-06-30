@@ -9,6 +9,20 @@ import './mixins';
 import './plugins';
 
 import Display from './Display';
+import {TextureAtlas, TextureAtlasTask, TextureTask, BitmapFontTask} from './tasks';
 
-expose({ Display });
-export { Display };
+expose({
+    Display,
+    TextureAtlas,
+    TextureAtlasTask,
+    TextureTask,
+    BitmapFontTask
+});
+
+export {
+    Display,
+    TextureAtlas,
+    TextureAtlasTask,
+    TextureTask,
+    BitmapFontTask
+};

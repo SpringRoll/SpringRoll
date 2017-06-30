@@ -21,6 +21,11 @@ import * as events from './events';
 import ApplicationPlugin from './ApplicationPlugin';
 import ApplicationOptions from './ApplicationOptions';
 import Application from './Application';
+import PersistentStorage from './plugins/storage/PersistentStorage';
+import StringFilters from './plugins/filters/StringFilters';
+import DelayedCall from './plugins/ticker/DelayedCall';
+import Ticker from './plugins/ticker/Ticker';
+import PageVisibility from './plugins/visibility/PageVisibility';
 
 expose(utils);
 expose(events);
@@ -28,7 +33,12 @@ expose(events);
 expose({
     ApplicationPlugin,
     ApplicationOptions,
-    Application
+    Application,
+    PersistentStorage,
+    StringFilters,
+    DelayedCall,
+    Ticker,
+    PageVisibility
 });
 
 export * from './utils';
@@ -37,5 +47,10 @@ export * from './events';
 export {
     ApplicationPlugin,
     ApplicationOptions,
-    Application
+    Application,
+    PersistentStorage,
+    StringFilters,
+    DelayedCall,
+    Ticker,
+    PageVisibility
 };

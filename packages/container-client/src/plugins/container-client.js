@@ -1,5 +1,5 @@
-import {ApplicationPlugin, PageVisibility} from '@springroll/core';
-import Bellhop from 'bellhop-iframe';
+import {ApplicationPlugin, PageVisibility, include} from '@springroll/core';
+import 'bellhop-iframe';
 
 (function(undefined) {
     
@@ -16,6 +16,7 @@ import Bellhop from 'bellhop-iframe';
          * @member {Bellhop} container
          * @memberof springroll.Application#
          */
+        const Bellhop = include('Bellhop');
         const container = this.container = new Bellhop();
         container.connect();
 

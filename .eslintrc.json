@@ -41,6 +41,9 @@
         ],
         "no-var": [
             "error"
+        ],
+        "no-console": [
+            "warn"
         ]
     }
 }

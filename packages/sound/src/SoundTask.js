@@ -1,5 +1,5 @@
 import {Application} from '@springroll/core';
-import {Task} from '@springroll/loaders';
+import {Task} from '@springroll/loader';
 
 /**
  * Internal task for preloading a list of sounds. When the result of the load is

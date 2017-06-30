@@ -1,5 +1,5 @@
 import {Application} from '@springroll/core';
-import AnimatorInstance from '@springroll/animation';
+import {AnimatorInstance} from '@springroll/animation';
 import SpriteClip from './SpriteClip';
 
 /**

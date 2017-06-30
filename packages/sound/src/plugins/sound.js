@@ -208,7 +208,7 @@ import SoundTask from '../SoundTask';
                         return;
                     }
 
-                    let sound = this.sound = Sound.instance;
+                    const sound = this.sound = Sound.instance;
 
                     // @if DEBUG
                     //For testing, mute the game if requested

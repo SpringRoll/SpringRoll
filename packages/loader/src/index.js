@@ -2,7 +2,7 @@ import {expose} from '@springroll/core';
 
 import './plugins';
 
-import * as tasks from './tasks';
+import {ColorAlphaTask, FunctionTask, ListTask, LoadTask, Task} from './tasks';
 import Loader from './Loader';
 import LoaderResult from './LoaderResult';
 import LoaderItem from './LoaderItem';
@@ -13,7 +13,11 @@ import AssetLoad from './AssetLoad';
 import AssetCache from './AssetCache';
 
 expose({
-    tasks,
+    ColorAlphaTask,
+    FunctionTask,
+    ListTask,
+    LoadTask,
+    Task,
     Loader,
     LoaderResult,
     LoaderItem,
@@ -25,7 +29,11 @@ expose({
 });
 
 export {
-    tasks,
+    ColorAlphaTask,
+    FunctionTask,
+    ListTask,
+    LoadTask,
+    Task,
     Loader,
     LoaderResult,
     LoaderItem,

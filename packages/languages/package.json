@@ -1,7 +1,7 @@
 {
   "name": "@springroll/languages",
   "version": "2.0.0",
-  "main": "lib/languages.min.js",
+  "main": "index.js",
   "author": "CloudKid <tools@cloudkid.com>",
   "repository": {
     "type": "git",
@@ -25,10 +25,8 @@
   "dependencies": {
     "@springroll/core": "^2.0.0",
     "@springroll/debug": "^2.0.0",
-    "@springroll/loader": "^2.0.0"
-  },
-  "optionalDependencies": {
-    "@springroll/debug": "^2.0.0"
+    "@springroll/loader": "^2.0.0",
+    "@springroll/utils": "^2.0.0"
   },
   "devDependencies": {
     "@springroll/build": "^2.0.0"
