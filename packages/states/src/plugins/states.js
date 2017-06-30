@@ -229,9 +229,7 @@ import StateManager from '../StateManager';
             this.manager = null;
         }
         if (this.transition) {
-            if (this.display) {
-                this.transition.removeChildren();
-            }
+            this.transition.removeChildren();
             this.transition = null;
         }
     };
