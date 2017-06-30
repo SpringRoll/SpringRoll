@@ -1,5 +1,3 @@
-import ScaleManager from './ScaleManager';
-
 /**
  * Initially layouts all interface elements
  * @class
@@ -7,13 +5,6 @@ import ScaleManager from './ScaleManager';
  * @private
  */
 export default class Positioner {
-    /**
-     * Degrees to radians constant
-     * @member {number}
-     */
-    static get DEG_TO_RAD() {
-        return Math.PI / 180;
-    }
 
     /**
      * Initial position a single display object
@@ -33,50 +24,35 @@ export default class Positioner {
      *                                        generateHitArea().
      * @param {string} [settings.hitArea.type] If the hitArea is an object, the type
      *                                       of hit area, "rect", "ellipse", "circle", etc
-     * @param {DisplayAdapter} [adapter] The adapter for the display being positioned
-     *                                 in. If omitted, uses the Application's default display.
      */
-    static init(displayObject, settings, adapter) {
-        //get the default adapter if not specified
-        if (!adapter) {
-            adapter = ScaleManager._getAdapter();
-        }
+    static init(displayObject, settings) {
 
         if (settings.x !== undefined) {
-            adapter.setPosition(displayObject, settings.x, 'x');
+            displayObject.x = settings.x;
         }
 
         if (settings.y !== undefined) {
-            adapter.setPosition(displayObject, settings.y, 'y');
+            displayObject.y = settings.y;
         }
 
         let pt = settings.scale;
-        let scale = adapter.getScale(displayObject);
 
         if (pt) {
-            adapter.setScale(displayObject, pt.x * scale.x, 'x');
-            adapter.setScale(displayObject, pt.y * scale.y, 'y');
+            displayObject.scale.y *= pt.x;
+            displayObject.scale.y *= pt.y;
         }
         pt = settings.pivot;
 
         if (pt) {
-            adapter.setPivot(displayObject, pt);
+            displayObject.pivot.set(pt.x, pt.y);
         }
 
         if (settings.rotation !== undefined) {
-            displayObject.rotation = settings.rotation;
-            if (adapter.useRadians) {
-                displayObject.rotation *= Positioner.DEG_TO_RAD;
-            }
+            displayObject.rotation = settings.rotation * PIXI.DEG_TO_RAD;
         }
 
         if (settings.hitArea) {
-            adapter.setHitArea(
-                displayObject,
-                Positioner.generateHitArea(
-                    settings.hitArea, 1, adapter
-                )
-            );
+            displayObject.hitArea = Positioner.generateHitArea(settings.hitArea);
         }
     }
 
@@ -100,40 +76,30 @@ export default class Positioner {
      *   // and start/end are the start and end angles of the sector in degrees.
      *   {type:"sector", x:0, y:0, r:20, start:0, end:90}
      *
-     * @param {number} scale The size to scale hitArea by
-     * @param {DisplayAdapter} [adapter] The adapter for the display being positioned
-     *                                 in. If omitted, uses the Application's default display.
+     * @param {number} [scale=1] The size to scale hitArea by
      * @return {object} A geometric shape object for hit testing, either a Polygon,
      *                Rectangle, Ellipse, Circle, or Sector, depending on the hitArea object.
      *                The shape will have a contains() function for hit testing.
      */
-    static generateHitArea(hitArea, scale, adapter) {
-        //get the default adapter if not specified
-        if (!adapter) {
-            adapter = ScaleManager._getAdapter();
-        }
-
-        if (!scale) {
-            scale = 1;
-        }
+    static generateHitArea(hitArea, scale = 1) {
 
         if (Array.isArray(hitArea)) {
             if (scale === 1) {
-                return new adapter.Polygon(hitArea);
+                return new PIXI.Polygon(hitArea);
             }
             else {
                 let temp = [];
                 for (let i = 0, len = hitArea.length; i < len; ++i) {
-                    temp.push(new adapter.Point(
+                    temp.push(new PIXI.Point(
                         hitArea[i].x * scale,
                         hitArea[i].y * scale
                     ));
                 }
-                return new adapter.Polygon(temp);
+                return new PIXI.Polygon(temp);
             }
         }
         else if (hitArea.type === 'rect' || !hitArea.type) {
-            return new adapter.Rectangle(
+            return new PIXI.Rectangle(
                 hitArea.x * scale,
                 hitArea.y * scale,
                 hitArea.w * scale,
@@ -142,21 +108,21 @@ export default class Positioner {
         }
         else if (hitArea.type === 'ellipse') {
             // Convert center to upper left corner
-            return new adapter.Ellipse(
+            return new PIXI.Ellipse(
                 (hitArea.x - hitArea.w * 0.5) * scale, (hitArea.y - hitArea.h * 0.5) * scale,
                 hitArea.w * scale,
                 hitArea.h * scale
             );
         }
         else if (hitArea.type === 'circle') {
-            return new adapter.Circle(
+            return new PIXI.Circle(
                 hitArea.x * scale,
                 hitArea.y * scale,
                 hitArea.r * scale
             );
         }
         else if (hitArea.type === 'sector') {
-            return new adapter.Sector(
+            return new PIXI.Sector(
                 hitArea.x * scale,
                 hitArea.y * scale,
                 hitArea.r * scale,

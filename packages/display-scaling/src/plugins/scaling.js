@@ -41,12 +41,10 @@ import {Debug} from '@springroll/debug';
 
         //Add the display
         this.once('afterReady', function() {
-            let config = this.config;
-
+            const {config} = this;
             if (!config) {
                 return;
             }
-
             if (config.scaling) {
                 this.scaling.addItems(this, config.scaling);
             }
@@ -55,7 +53,6 @@ import {Debug} from '@springroll/debug';
 
     //Setup the display
     plugin.preload = function(done) {
-        this.scaling.display = this.display;
         this.scaling.enabled = true;
         done();
     };

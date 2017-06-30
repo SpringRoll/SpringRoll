@@ -18,7 +18,7 @@ export default class StateManager extends EventEmitter {
     /**
      * @param {object} [transitionSounds] Data object with aliases and start times (seconds) for
      *     transition in, loop and out sounds. Example: `{in:{alias:"myAlias", start:0.2}}`.
-     *     These objects are in the format for Animator from EaselJSDisplay or PixiDisplay,
+     *     These objects are in the format for Animator from springroll.Display,
      *     so they can be just the sound alias instead of an object.
      * @param {object|string} [transitionSounds.in] The sound to play for transition in
      * @param {object|string} [transitionSounds.out] The sound to play for transition out

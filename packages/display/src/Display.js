@@ -1,4 +1,3 @@
-import DisplayAdapter from './DisplayAdapter';
 import {EventEmitter} from '@springroll/core';
 
 /**
@@ -125,13 +124,6 @@ export default class Display extends EventEmitter {
          * @readOnly
          */
         this.stage = new PIXI.Container();
-
-        /**
-         * Normalizes the interactions with the PIXI renderer
-         * @member {springroll.DisplayAdapter}
-         * @readonly
-         */
-        this.adapter = DisplayAdapter;
 
         /**
          * The Pixi renderer.

@@ -13,9 +13,8 @@ export default class ScaleItem {
      * @param {PIXI.DisplayObject} display The item to affect
      * @param {string} align The vertical-horizontal alignment shorthand
      * @param {object} size The original screen the item was designed for
-     * @param {DisplayAdapter} adapter The display adapter
      */
-    constructor(display, align, size, adapter) {
+    constructor(display, align, size) {
         // Break align into parts
         align = align.split('-');
 
@@ -75,39 +74,33 @@ export default class ScaleItem {
          */
         this._size = size;
 
-        /**
-         * The adapter for universal scale, rotation size access
-         * @member {object}
-         * @private
-         */
-        this._adapter = adapter;
-
-        let scale = adapter.getScale(display);
-        let position = adapter.getPosition(display);
+        const {scale, position} = display;
 
         /**
          * Original X scale of the item
          * @member {number}
          * @default 0
          */
-        let origScaleX = this.origScaleX = scale.x || 1;
+        const origScaleX = this.origScaleX = scale.x || 1;
 
         /**
          * The original Y scale of the item
          * @member {number}
          * @default 0
          */
-        let origScaleY = this.origScaleY = scale.y || 1;
+        const origScaleY = this.origScaleY = scale.y || 1;
 
         /**
          * The original bounds of the item with x, y, right, bottom, width,
          * height properties. This is converted from local bounds to scaled bounds.
          * @member {object}
          */
-        this.origBounds = adapter.getLocalBounds(display);
+        this.origBounds = this.getLocalBounds(display);
+
         //convert bounds to something more usable
         let temp, bounds = this.origBounds;
-        if (this.origScaleX < 0) {
+        
+        if (origScaleX < 0) {
             temp = bounds.x;
             bounds.x = bounds.right * origScaleX;
             bounds.right = temp * origScaleX;
@@ -118,7 +111,7 @@ export default class ScaleItem {
             bounds.right *= origScaleX;
             bounds.width *= origScaleX;
         }
-        if (this.origScaleY < 0) {
+        if (origScaleY < 0) {
             temp = bounds.y;
             bounds.y = bounds.bottom * origScaleY;
             bounds.bottom = temp * origScaleY;
@@ -169,6 +162,31 @@ export default class ScaleItem {
         }
     }
 
+    /**
+     * Gets the object's boundaries in its local coordinate space, without any scaling or
+     * rotation applied.
+     * @param {PIXI.DisplayObject} object The createjs display object
+     * @return {PIXI.Rectangle} A rectangle with additional right and bottom properties.
+     */
+    getLocalBounds(object) {
+        let bounds;
+        const {width, height} = object;
+        if (width && height) {
+            bounds = new PIXI.Rectangle(
+                -object.pivot.x,
+                -object.pivot.y,
+                width / object.scale.x,
+                height / object.scale.y
+            );
+        }
+        else {
+            bounds = new PIXI.Rectangle();
+        }
+        bounds.right = bounds.x + bounds.width;
+        bounds.bottom = bounds.y + bounds.height;
+        return bounds;
+    }
+
     // @if DEBUG
     toString() {
         return '[ScaleItem (vertAlign=\'' + this.vertAlign + '\', horiAlign=\'' + this.horiAlign + '\')]';
@@ -190,12 +208,7 @@ export default class ScaleItem {
      * @param {number} displayHeight The current screen height
      */
     resize(displayWidth, displayHeight) {
-        let adapter = this._adapter;
-        let _display = this._display;
-        let _size = this._size;
-        let origBounds = this.origBounds;
-        let origScaleX = this.origScaleX;
-        let origScaleY = this.origScaleY;
+        const {origBounds, origScaleX, origScaleY, _size, _display} = this;
         let defaultRatio = _size.width / _size.height;
         let currentRatio = displayWidth / displayHeight;
         let overallScale = currentRatio >= defaultRatio ?
@@ -221,8 +234,10 @@ export default class ScaleItem {
             itemScale = this.maxScale;
         }
 
-        adapter.setScale(_display, origScaleX * itemScale, 'x');
-        adapter.setScale(_display, origScaleY * itemScale, 'y');
+        _display.scale.set(
+            origScaleX * itemScale,
+            origScaleY * itemScale
+        );
 
         // Positioning
         let m;
@@ -259,7 +274,7 @@ export default class ScaleItem {
 
         // Set the position
         if (y !== null) {
-            adapter.setPosition(_display, y, 'y');
+            _display.y = y;
         }
 
         // Horizontal margin
@@ -297,7 +312,7 @@ export default class ScaleItem {
 
         // Set the position
         if (x !== null) {
-            adapter.setPosition(_display, x, 'x');
+            _display.x = x;
         }
     }
 
@@ -305,7 +320,6 @@ export default class ScaleItem {
      * Destroy this item, don't use after this
      */
     destroy() {
-        this._adapter = null;
         this.origBounds = null;
         this._display = null;
         this._size = null;

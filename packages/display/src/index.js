@@ -9,14 +9,6 @@ import './mixins';
 import './plugins';
 
 import Display from './Display';
-import DisplayAdapter from './DisplayAdapter';
 
-expose({
-    Display,
-    DisplayAdapter
-});
-
-export {
-    Display,
-    DisplayAdapter
-};
+expose({ Display });
+export { Display };

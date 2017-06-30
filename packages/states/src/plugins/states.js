@@ -230,7 +230,7 @@ import StateManager from '../StateManager';
         }
         if (this.transition) {
             if (this.display) {
-                this.display.adapter.removeChildren(this.transition);
+                this.transition.removeChildren();
             }
             this.transition = null;
         }

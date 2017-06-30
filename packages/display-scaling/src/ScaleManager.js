@@ -17,28 +17,8 @@ import {Debug} from '@springroll/debug';
  * @memberof springroll
  */
 export default class ScaleManager {
-    /**
-     * @param {object} [options] The options
-     * @param {object} [options.size] The dimensions of the Scaler
-     * @param {number} [options.size.width] The designed width
-     * @param {number} [options.size.height] The designed height
-     * @param {number} [options.size.maxwidth=size.width] The designed max width
-     * @param {number} [options.size.maxheight=size.height] The designed max height
-     * @param {object} [options.items] The items to load
-     * @param {PIXI.Container} [options.container] The container if
-     *                                                                           adding items
-     * @param {object} [options.display] The current display
-     * @param {boolean} [options.enabled=false] If the scaler is enabled
-     */
-    constructor(options) {
-        options = Object.assign(
-            {
-                enabled: false,
-                size: null,
-                items: null,
-                display: null,
-                container: null
-            }, options);
+
+    constructor() {
 
         /**
          * The configuration for each items
@@ -63,18 +43,11 @@ export default class ScaleManager {
         this._scale = 1;
 
         /**
-         * The adapter for universal scale, rotation size access
-         * @member {object}
-         * @private
-         */
-        this._adapter = null;
-
-        /**
          * The internal enabled
          * @member {boolean}
          * @private
          */
-        this._enabled = options.enabled;
+        this._enabled = false;
 
         // @if DEBUG
         /**
@@ -85,59 +58,11 @@ export default class ScaleManager {
         this.verbose = false;
         // @endif
 
-        // Set the designed size
-        this.size = options.size;
-
-        // Set the display so we can get an adapter
-        this.display = options.display;
-
-        if (options.items) {
-            if (!options.container) {
-                throw 'ScaleManager requires container to add items';
-            }
-            this.addItems(options.container, options.items);
-        }
-
         // Setup the resize bind
         this._resize = this._resize.bind(this);
 
         // Set the enabled status
         this.enabled = this._enabled;
-    }
-
-    /**
-     * Get the adapter by display
-     * @private
-     * @param {object} display The canvas renderer display
-     */
-    static _getAdapter(display) {
-        if (!display) {
-            display = Application.instance.display;
-        }
-
-        if (!display) {
-            return null;
-        }
-
-        // Check for a displayadpater, doesn't work with generic display
-        if (!display.adapter) {
-            // @if DEBUG
-            throw 'The display specified is incompatible with ScaleManager because it doesn\'t contain an adapter';
-            // @endif
-            // @if RELEASE
-            // eslint-disable-next-line no-unreachable
-            throw 'ScaleManager incompatible display';
-            // @endif
-        }
-        return display.adapter;
-    }
-
-    /**
-     * Set the display
-     * @member {springroll.Display}
-     */
-    set display(display) {
-        this._adapter = ScaleManager._getAdapter(display);
     }
 
     /**
@@ -267,13 +192,27 @@ export default class ScaleManager {
      * @return {springroll.ScaleManager} The ScaleManager for chaining
      */
     removeItemsByContainer(container) {
-        let adapter = this._adapter;
-        this._items.forEach(function(item, i, items) {
-            if (adapter.contains(container, item.display)) {
+        this._items.forEach((item, i, items) => {
+            if (this.contains(container, item.display)) {
                 items.splice(i, 1);
             }
         });
         return this;
+    }
+
+    /**
+     * Check if a container contains child.
+     * @param  {PIXI.Container} container The container to remove items from
+     * @return {boolean} `true` if container contains child, `false` if not
+     */
+    contains(container, child) {
+        while (child) {
+            if (child === container) {
+                return true;
+            }
+            child = child.parent;
+        }
+        return false;
     }
 
     /**
@@ -376,7 +315,7 @@ export default class ScaleManager {
         }
 
         if (settings === 'cover-image') {
-            this._items.push(new ScaleImage(displayObject, this._size, this._adapter));
+            this._items.push(new ScaleImage(displayObject, this._size));
         }
         else {
             if (typeof settings === 'string') {
@@ -407,10 +346,10 @@ export default class ScaleManager {
             }
 
             // Do the intial positioning of the display object
-            Positioner.init(displayObject, settings, this._adapter);
+            Positioner.init(displayObject, settings);
 
             // Create the item settings
-            let item = new ScaleItem(displayObject, align, this._size, this._adapter);
+            let item = new ScaleItem(displayObject, align, this._size);
 
             item.titleSafe = settings.titleSafe === 'all' ? true : settings.titleSafe;
             item.maxScale = settings.maxScale || NaN;
@@ -464,7 +403,6 @@ export default class ScaleManager {
             item.destroy();
         });
 
-        this._adapter = null;
         this._size = null;
         this._items = null;
     }

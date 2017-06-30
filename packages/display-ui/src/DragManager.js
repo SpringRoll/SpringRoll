@@ -11,7 +11,7 @@ import {Application, include} from '@springroll/core';
  */
 export default class DragManager {
     /**
-     * @param {PixiDisplay} display The display that this DragManager is handling objects on.
+     * @param {springroll.Display} display The display that this DragManager is handling objects on.
      *                              Optionally, this parameter can be omitted and the Application's
      *                              default display will be used.
      * @param {function} startCallback The callback when when starting

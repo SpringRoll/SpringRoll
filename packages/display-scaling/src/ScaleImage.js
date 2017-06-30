@@ -9,9 +9,8 @@ export default class ScaleImage {
     /**
      * @param {PIXI.Sprite} image The image to resize
      * @param {object} size The original screen the item was designed for
-     * @param {DisplayAdapter} adapter The display adapter
      */
-    constructor(image, size, adapter) {
+    constructor(image, size) {
 
         if (!(image instanceof PIXI.Sprite)) {
             // @if DEBUG
@@ -36,13 +35,6 @@ export default class ScaleImage {
          * @member {object}
          */
         this._size = size;
-
-        /**
-         * The adapter for universal scale, rotation size access
-         * @member {object}
-         * @private
-         */
-        this._adapter = adapter;
     }
 
     /**
@@ -51,16 +43,16 @@ export default class ScaleImage {
      * @param {number} h The stage width
      */
     resize(w, h) {
-        let _size = this._size;
-        let _adapter = this._adapter;
-        let _image = this._image;
+        const {_image, _size} = this._image;
+        const defaultRatio = _size.width / _size.height;
+        const currentRatio = w / h;
+        const scaleToHeight = currentRatio >= defaultRatio;
 
-        let defaultRatio = _size.width / _size.height;
-        let currentRatio = w / h;
-        let scaleToHeight = currentRatio >= defaultRatio;
-
-        let size = _adapter.getBitmapSize(_image);
-        let expectedBGWidth = _size.maxWidth || _size.width;
+        const size = {
+            h: _image.height / _image.scale.y,
+            w: _image.width / _image.scale.x
+        };
+        const expectedBGWidth = _size.maxWidth || _size.width;
 
         // A double resolution image would have a bgScale of 2
         let bgScale = size.w / expectedBGWidth;
@@ -71,20 +63,19 @@ export default class ScaleImage {
         }
 
         // Determine the size of the active dimension, width or height
-        let activeBGSize = bgScale * (scaleToHeight ? _size.height : _size.width);
+        const activeBGSize = bgScale * (scaleToHeight ? _size.height : _size.width);
 
         // Determine scale the bg should be used at to fill the display properly
-        let scale = (scaleToHeight ? h : w) / activeBGSize;
+        const scale = (scaleToHeight ? h : w) / activeBGSize;
 
         // Scale the background
-        _adapter.setScale(this._image, scale);
+        this._image.scale.set(scale);
 
         // Center the background
-        _adapter.setPosition(this._image,
-            {
-                x: (w - size.w * scale) * 0.5,
-                y: (h - size.h * scale) * 0.5
-            });
+        this._image.position.set(
+            (w - size.w * scale) * 0.5,
+            (h - size.h * scale) * 0.5
+        );
     }
 
     /**
@@ -100,7 +91,6 @@ export default class ScaleImage {
      * Destroy and don't use after this
      */
     destroy() {
-        this._adapter = null;
         this._size = null;
         this._image = null;
     }
