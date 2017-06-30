@@ -1420,5 +1420,4 @@ Sound.LoadStates = new Enum('unloaded', 'loading', 'loaded');
  * @member {Sound}
  * @static
  */
- Sound.instance = null;
- 
+Sound.instance = null;

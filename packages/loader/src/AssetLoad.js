@@ -1,5 +1,6 @@
 import Task from './tasks/Task';
 import {EventEmitter} from '@springroll/core';
+import {ObjectUtils} from '@springroll/utils';
 
 // @if DEBUG
 import {Debug} from '@springroll/debug';
@@ -254,7 +255,7 @@ export default class AssetLoad extends EventEmitter {
                     }
                 }
             }
-            else if (Object.isPlain(assets)) {
+            else if (ObjectUtils.isPlain(assets)) {
                 for (let id in assets) {
                     asset = this._applyDefaults(assets[id]);
                     task = this.addTask(asset);

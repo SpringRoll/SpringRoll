@@ -1,4 +1,4 @@
-import {Application, EventEmitter} from '@springroll/core';
+import {EventEmitter} from '@springroll/core';
 import {StringUtils} from '@springroll/utils';
 
 /**

@@ -1,3 +1,5 @@
+import {ObjectUtils} from '@springroll/utils';
+
 // @if DEBUG
 import {Debug} from '@springroll/debug';
 // @endif
@@ -63,7 +65,7 @@ export default class AssetCache {
         let result = this._cache[id];
         if (result) {
             // Destroy mapped result
-            if (Object.isPlain(result)) {
+            if (ObjectUtils.isPlain(result)) {
                 for (let key in result) {
                     this._destroyResult(result[key]);
                 }

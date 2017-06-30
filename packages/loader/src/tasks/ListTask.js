@@ -1,3 +1,4 @@
+import {ObjectUtils} from '@springroll/utils';
 import Task from './Task';
 
 /**
@@ -44,7 +45,7 @@ export default class ListTask extends Task {
      * @return {boolean} If the asset is compatible with this asset
      */
     static test(asset) {
-        return !!asset.assets && (Array.isArray(asset.assets) || Object.isPlain(asset.assets));
+        return !!asset.assets && (Array.isArray(asset.assets) || ObjectUtils.isPlain(asset.assets));
     }
 
     /**

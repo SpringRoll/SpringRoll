@@ -1,50 +1,60 @@
-test('Loader', function(assert) {
+const path = require('path');
+const {Application} = springroll;
 
-    //expect(9);
-    let Application = include('springroll.Application');
+describe('springroll.Loader', function() {
 
-    // New Application
-    let basePath = 'http://example.com/';
-    let app = new Application(
-        {
+    before(function(done) {
+        this.basePath = path.resolve(__dirname, '..', 'resources') + path.sep;
+        this.app = new Application({
+            name: 'test',
             cacheBust: true,
-            basePath: basePath
+            basePath: this.basePath
         });
-    let loader = app.loader;
-    let url = 'test.jpg';
-    let cbUrl = loader.cacheManager.prepare(url);
-    let basePathUrl = loader.cacheManager.prepare(url, true);
+        this.app.on('ready', () => {
+            this.loader = this.app.loader;
+            done();
+        });
+    });
 
-    assert.ok(/^test\.jpg\?cb\=[0-9]+$/.test(cbUrl), 'Cache Busting works');
-    assert.equal(basePathUrl.indexOf(basePath + url), 0, 'Found base path');
+    after(function() {
+        this.app.destroy();
+        this.app = null;
+        this.loader = null;
+    });
 
-    // Turn off cache busting and base path
-    app.options.cacheBust = false;
-    app.options.basePath = '';
+    it('should prepare urls', function() {
+        let url = 'test.jpg';
+        let cbUrl = this.loader.cacheManager.prepare(url);
+        let basePathUrl = this.loader.cacheManager.prepare(url, true);
 
-    loader.load('data/nothing.txt', function() {});
-    assert.ok(loader.cancel('data/nothing.txt'), 'Canceling load');
+        assert.ok(/^test\.jpg\?cb\=[0-9]+$/.test(cbUrl), 'Cache Busting works');
+        assert.equal(basePathUrl.indexOf(this.basePath + url), 0, 'Found base path');
+    });
 
-    stop();
-    // Test loading a basic file
-    url = 'data/file.txt';
-    loader.load(url, function(result) {
-        start();
-        assert.strictEqual(result.content, 'info', 'Loaded plain text file');
-        assert.strictEqual(result.url, url, 'Result url is the same');
-        stop();
+    it('should not cacheBust', function() {
+        // Turn off cache busting and base path
+        this.app.options.cacheBust = false;
 
-        loader.load('data/file.json', function(result) {
-            start();
-            assert.ok(typeof result.content === 'object', 'JSON parsed return');
-            assert.strictEqual(result.content.example, 1, 'JSON content return');
-            stop();
+        this.loader.load('nothing.txt', function() {});
+        assert.ok(this.loader.cancel('nothing.txt'), 'Canceling load');
+    });
 
-            loader.load('data/image.png', function(result) {
-                start();
-                assert.equal(result.content.nodeName, 'IMG', 'DOM image element loaded');
-                assert.equal(result.content.width, 15, 'DOM image element width');
+    it('should manage cache', function(done) {
+        // Test loading a basic file
+        const url = 'file.txt';
+        this.loader.load(url, (result) => {
+            assert.strictEqual(result.content, 'info', 'Loaded plain text file');
+            assert.strictEqual(result.url, url, 'Result url is the same');
+            this.loader.load('file.json', (result) => {
+                assert.ok(typeof result.content === 'object', 'JSON parsed return');
+                assert.strictEqual(result.content.example, 1, 'JSON content return');
+                this.loader.load('image.png', (result) => {
+                    assert.equal(result.content.nodeName, 'IMG', 'DOM image element loaded');
+                    assert.equal(result.content.width, 15, 'DOM image element width');
+                    done();
+                });
             });
         });
     });
+    
 });
