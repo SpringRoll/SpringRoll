@@ -11,9 +11,9 @@ import AbstractHint from './AbstractHint';
 export default class AnimatorHint extends AbstractHint {
     /**
      * @param {springroll.HintsPlayer} hints The instance of the hints
-     * @param {Function} done called on hint complete
-     * @param {PIXI.animate.MovieClip|*} instance The media instance to play
-     * @param {String|object|Array} events The event or events to play
+     * @param {function} done called on hint complete
+     * @param {PIXI.animate.MovieClip|any} instance The media instance to play
+     * @param {string|object|Array} events The event or events to play
      * @param {function} onComplete Callback when finished
      * @param {function|boolean} onCancel If the call is cancelled, true set onComplete
      *      to also be the cancelled callback

@@ -10,7 +10,7 @@ export default class RemoteTarget {
     /**
      * Browser port for the websocket - browsers tend to block lower ports
      * @static
-     * @member {int}
+     * @member {number}
      * @readonly
      * @default 1026
      */
@@ -84,7 +84,7 @@ export default class RemoteTarget {
 
     /**
      * Run the target.
-     * @param {String} command - Values include: log, debug, warn, info, error, assert, dir
+     * @param {string} command - Values include: log, debug, warn, info, error, assert, dir
      *        trace, clear, group, groupCollapsed, groupEnd
      * @param {Array<mixed>} [params] - Additional parameters.
      */
@@ -111,7 +111,7 @@ export default class RemoteTarget {
 
     /**
      * Run the target.
-     * @param {String} hexColor - Color to output
+     * @param {string} hexColor - Color to output
      * @param {Array<mixed>} [params] - Additional parameters.
      */
     color(hexColor, params) {
@@ -130,8 +130,8 @@ export default class RemoteTarget {
 
     /**
      * Connect to the `WebSocket`
-     * @param {String} host The remote address to connect to, IP address or host name
-     * @return {Boolean} If a connection was attempted
+     * @param {string} host The remote address to connect to, IP address or host name
+     * @return {boolean} If a connection was attempted
      */
     connect(host) {
         //Make sure WebSocket exists without prefixes for us
@@ -194,10 +194,10 @@ export default class RemoteTarget {
     /**
      * Global window error handler, used for remote connections.
      * @private
-     * @param {String} message The error message
-     * @param {String} file The url of the file
-     * @param {int} line The line within the file
-     * @param {int} column The column within the line
+     * @param {string} message The error message
+     * @param {string} file The url of the file
+     * @param {number} line The line within the file
+     * @param {number} column The column within the line
      * @param {Error} error The error itself
      */
     _globalErrorHandler(message, file, line, column, error) {
@@ -228,7 +228,7 @@ export default class RemoteTarget {
      * @private
      * @param {Array} message The message to send
      * @param {level} [level=0] The log level to send
-     * @param {String} [stack] A stack to use for the message. A stack will be created if stack
+     * @param {string} [stack] A stack to use for the message. A stack will be created if stack
      *                       is omitted.
      * @return {Debug} The instance of debug for chaining
      */
@@ -409,7 +409,7 @@ export default class RemoteTarget {
     /**
      * Strip out known circular references
      * @private
-     * @param {Object} obj The object to remove references from
+     * @param {object} obj The object to remove references from
      */
     _removeCircular(obj, maxDepth, depth) {
         if (Array.isArray(obj)) {

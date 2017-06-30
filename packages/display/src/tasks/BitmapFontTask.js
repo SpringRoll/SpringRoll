@@ -9,24 +9,24 @@ import TextureTask from './TextureTask';
  */
 export default class BitmapFontTask extends TextureTask {
     /**
-     * @param {Object} asset The data properties
-     * @param {String} asset.type Must be "pixi" to signify that this asset should be parsed
+     * @param {object} asset The data properties
+     * @param {string} asset.type Must be "pixi" to signify that this asset should be parsed
      *                            specifically for Pixi.
-     * @param {String} asset.font The BitmapFont source data
-     * @param {Boolean} [asset.cache=false] If we should cache the result
-     * @param {String} [asset.image] The atlas image path
-     * @param {String} [asset.color] The color image path, if not using image property
-     * @param {String} [asset.alpha] The alpha image path, if not using image property
-     * @param {String} [asset.id] Id of asset
-     * @param {Function} [asset.complete] The event to call when done
-     * @param {Object} [asset.sizes=null] Define if certain sizes are not supported
+     * @param {string} asset.font The BitmapFont source data
+     * @param {boolean} [asset.cache=false] If we should cache the result
+     * @param {string} [asset.image] The atlas image path
+     * @param {string} [asset.color] The color image path, if not using image property
+     * @param {string} [asset.alpha] The alpha image path, if not using image property
+     * @param {string} [asset.id] Id of asset
+     * @param {function} [asset.complete] The event to call when done
+     * @param {object} [asset.sizes=null] Define if certain sizes are not supported
      */
     constructor(asset) {
         super(asset, asset.font);
 
         /**
          * The BitmapFont data source path
-         * @member {String}
+         * @member {string}
          */
         this.font = this.filter(asset.font);
     }
@@ -34,8 +34,8 @@ export default class BitmapFontTask extends TextureTask {
     /**
      * Test if we should run this task
      * @static
-     * @param {Object} asset The asset to check
-     * @return {Boolean} If the asset is compatible with this asset
+     * @param {object} asset The asset to check
+     * @return {boolean} If the asset is compatible with this asset
      */
     static test(asset) {
         // atlas data and an image or color/alpha split
@@ -44,7 +44,7 @@ export default class BitmapFontTask extends TextureTask {
 
     /**
      * Start the task
-     * @param  {Function} callback Callback when finished
+     * @param  {function} callback Callback when finished
      */
     start(callback) {
         this.loadImage({ _font: this.font }, (texture, results) => {

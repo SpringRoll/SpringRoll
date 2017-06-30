@@ -11,10 +11,10 @@ import AbstractHint from './AbstractHint';
 export default class VOHint extends AbstractHint {
     /**
      * @param {springroll.Application} hints The instance of the hints
-     * @param {Function} done called on hint complete
-     * @param {String|Array} idOrList
-     * @param {Function} onComplete
-     * @param {Function} onCancel
+     * @param {function} done called on hint complete
+     * @param {string|Array} idOrList
+     * @param {function} onComplete
+     * @param {function} onCancel
      */
     constructor(hints, done, idOrList, onComplete, onCancel) {
         super(hints, done);

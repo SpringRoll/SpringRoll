@@ -41,7 +41,7 @@ export default class CacheManager {
         /**
          * A global version or cache busting string to apply to every url.
          * @private
-         * @member {String}
+         * @member {string}
          */
         this._globalVersion = null;
 
@@ -55,7 +55,7 @@ export default class CacheManager {
 
     /**
      * If we are suppose to cache bust every file
-     * @member {Boolean}
+     * @member {boolean}
      * @default false
      */
     get cacheBust() {
@@ -94,9 +94,9 @@ export default class CacheManager {
 
     /**
      * Adds a versions text file containing versions for different assets.
-     * @param {String} url The url of the versions file.
-     * @param {Function} callback Callback when the versions file has been loaded.
-     * @param {String} baseUrl A base url to prepend all lines of the file.
+     * @param {string} url The url of the versions file.
+     * @param {function} callback Callback when the versions file has been loaded.
+     * @param {string} baseUrl A base url to prepend all lines of the file.
      */
     addVersionsFile(url, callback, baseUrl) {
         // @if DEBUG
@@ -154,8 +154,8 @@ export default class CacheManager {
 
     /**
      * Add a version number for a file
-     * @param {String} url The url of the object
-     * @param {String} version Version number or has of file
+     * @param {string} url The url of the object
+     * @param {string} version Version number or has of file
      */
     addVersion(url, version) {
         if (!this._versions[url]) {
@@ -167,7 +167,7 @@ export default class CacheManager {
      * Adds a function for running all urls through, to modify them if needed.
      * Functions used should accept one string parameter (the url), and return the
      * modified url.
-     * @param {Function} filter The function that will handle urls.
+     * @param {function} filter The function that will handle urls.
      */
     registerURLFilter(filter) {
         if (this._filters.indexOf(filter) === -1) {
@@ -177,7 +177,7 @@ export default class CacheManager {
 
     /**
      * Removes a function from the list of filtering functions.
-     * @param {Function} filter The function to remove.
+     * @param {function} filter The function to remove.
      */
     unregisterURLFilter(filter) {
         let index = this._filters.indexOf(filter);
@@ -189,8 +189,8 @@ export default class CacheManager {
     /**
      * Applies a url specific version to a url from the versions file.
      * @private
-     * @param {String} url The url to apply versioning to.
-     * @return {String} The modified url.
+     * @param {string} url The url to apply versioning to.
+     * @return {string} The modified url.
      */
     _applySpecificVersion(url) {
         //don't apply versioning if the asset is retrieved from a php service
@@ -211,8 +211,8 @@ export default class CacheManager {
     /**
      * Applies cache busting or a global version to a url.
      * @private
-     * @param {String} url The url to apply versioning to.
-     * @return {String} The modified url.
+     * @param {string} url The url to apply versioning to.
+     * @return {string} The modified url.
      */
     _applyGlobalVersion(url) {
         if (!this._globalVersion) {
@@ -238,8 +238,8 @@ export default class CacheManager {
      * system because PreloadJS has its own method of prepending the base path
      * that we use. Instead, it is used with an extra parameter to prepare().
      * @private
-     * @param {String} url The url to prepend the base path to.
-     * @return {String} The modified url.
+     * @param {string} url The url to prepend the base path to.
+     * @return {string} The modified url.
      */
     _applyBasePath(url) {
         let basePath = this._app.options.basePath;
@@ -252,11 +252,11 @@ export default class CacheManager {
     /**
      * Prepare a URL with the necessary cache busting and/or versioning
      * as well as the base directory.
-     * @param {String} url The url to prepare
-     * @param {Boolean} [applyBasePath=false] If the global base path should be applied to the url.
+     * @param {string} url The url to prepare
+     * @param {boolean} [applyBasePath=false] If the global base path should be applied to the url.
      *        This defaults to false because it can potentially interfere with later regular
      *        expression checks, particularly with PreloadJS
-     * @return {String} The final url with version/cache and basePath added
+     * @return {string} The final url with version/cache and basePath added
      */
     prepare(url, applyBasePath) {
         //apply first in case the base path is strange and makes the rest of the path a query string

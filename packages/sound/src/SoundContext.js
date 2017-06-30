@@ -4,19 +4,19 @@
  * @class
  * @memberof springroll
  * @private
- * @param {String} id The name of the sound context.
+ * @param {string} id The name of the sound context.
  */
 export default class SoundContext {
     constructor(id) {
         /**
          * The name of the sound context.
-         * @member {String}
+         * @member {string}
          */
         this.id = id;
 
         /**
          * The current volume to apply to all sounds in the context (0 to 1).
-         * @member {Number}
+         * @member {number}
          */
         this.volume = 1;
 

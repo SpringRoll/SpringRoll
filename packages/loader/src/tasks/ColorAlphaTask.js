@@ -7,13 +7,13 @@ import Task from './Task';
  * @memberof springroll
  * @extends springroll.Task
  * @private
- * @param {Object} asset The data properties
- * @param {String} asset.color The source path to the color image
- * @param {String} asset.alpha The source path to the alpha image
- * @param {Boolean} [asset.cache=false] If we should cache the result
- * @param {String} [asset.id] Id of asset
- * @param {Function} [asset.complete] The event to call when done
- * @param {Object} [asset.sizes=null] Define if certain sizes are not supported
+ * @param {object} asset The data properties
+ * @param {string} asset.color The source path to the color image
+ * @param {string} asset.alpha The source path to the alpha image
+ * @param {boolean} [asset.cache=false] If we should cache the result
+ * @param {string} [asset.id] Id of asset
+ * @param {function} [asset.complete] The event to call when done
+ * @param {object} [asset.sizes=null] Define if certain sizes are not supported
  */
 export default class ColorAlphaTask extends Task {
     constructor(asset) {
@@ -21,13 +21,13 @@ export default class ColorAlphaTask extends Task {
 
         /**
          * The atlas color source path
-         * @member {String}
+         * @member {string}
          */
         this.color = this.filter(asset.color);
 
         /**
          * The atlas alpha source path
-         * @member {String}
+         * @member {string}
          */
         this.alpha = this.filter(asset.alpha);
     }
@@ -35,8 +35,8 @@ export default class ColorAlphaTask extends Task {
     /**
      * Test if we should run this task
      * @static
-     * @param {Object} asset The asset to check
-     * @return {Boolean} If the asset is compatible with this asset
+     * @param {object} asset The asset to check
+     * @return {boolean} If the asset is compatible with this asset
      */
     static test(asset) {
         return !!asset.color && !!asset.alpha;
@@ -44,7 +44,7 @@ export default class ColorAlphaTask extends Task {
 
     /**
      * Start the task
-     * @param  {Function} callback Callback when finished
+     * @param  {function} callback Callback when finished
      */
     start(callback) {
         this.load(

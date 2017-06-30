@@ -13,16 +13,16 @@ import EventEmitter from 'eventemitter3';
 
 /**
  * Flag if this has been destroyed.
- * @property {Boolean} destroyed
+ * @property {boolean} destroyed
  */
 EventEmitter.prototype.destroyed = false;
 
 /**
  * Checks if the EventEmitter has a specific listener or any listener for a given event.
  * @method springroll.EventEmitter#has
- * @param {String} name The name of the single event type to check for
- * @param {Function} [callback] The listener function to check for. If omitted, checks for any listener.
- * @return {Boolean} If the EventEmitter has the specified listener.
+ * @param {string} name The name of the single event type to check for
+ * @param {function} [callback] The listener function to check for. If omitted, checks for any listener.
+ * @return {boolean} If the EventEmitter has the specified listener.
  */
 EventEmitter.prototype.has = function has(event, fn) {
     const listeners = this.listeners(event);

@@ -8,19 +8,19 @@ import {Debug} from '@springroll/debug';
  * @class
  * @memberof springroll
  * @private
- * @param {Object} asset The asset data
- * @param {String} [asset.id=null] The task ID
- * @param {Boolean} [asset.cache=false] If we should cache the result
- * @param {Function} [asset.complete=null] Call when complete
- * @param {String} fallbackId The ID to set if no ID is explicitly set
+ * @param {object} asset The asset data
+ * @param {string} [asset.id=null] The task ID
+ * @param {boolean} [asset.cache=false] If we should cache the result
+ * @param {function} [asset.complete=null] Call when complete
+ * @param {string} fallbackId The ID to set if no ID is explicitly set
  *      this can be used for caching something that has no id
- * @param {Object} [asset.sizes=null] Define if certain sizes are not supported.
+ * @param {object} [asset.sizes=null] Define if certain sizes are not supported.
  */
 export default class Task {
     constructor(asset, fallbackId) {
         /**
          * The current status of the task (waiting, running, etc)
-         * @member {int}
+         * @member {number}
          * @default 0
          */
         this.status = Task.WAITING;
@@ -28,7 +28,7 @@ export default class Task {
         /**
          * The user call to fire when completed, returns the arguments
          * result, original, and additionalAssets
-         * @member {Function}
+         * @member {function}
          * @default null
          * @readOnly
          */
@@ -36,7 +36,7 @@ export default class Task {
 
         /**
          * If we should cache the load and use later
-         * @member {Boolean}
+         * @member {boolean}
          * @default false
          * @readOnly
          */
@@ -44,19 +44,19 @@ export default class Task {
 
         /**
          * The task id
-         * @member {String}
+         * @member {string}
          */
         this.id = asset.id || null;
 
         /**
          * The task type for display filter
-         * @member {String}
+         * @member {string}
          */
         this.type = asset.type || null;
 
         /**
          * Reference to the original asset data
-         * @member {Object}
+         * @member {object}
          * @readOnly
          */
         this.original = asset;
@@ -92,7 +92,7 @@ export default class Task {
 
     /**
      * Status for waiting to be run
-     * @member {int}
+     * @member {number}
      * @static
      * @readOnly
      * @final
@@ -104,7 +104,7 @@ export default class Task {
 
     /**
      * Task is currently being run
-     * @member {int}
+     * @member {number}
      * @static
      * @readOnly
      * @final
@@ -116,7 +116,7 @@ export default class Task {
 
     /**
      * Status for task is finished
-     * @member {int}
+     * @member {number}
      * @static
      * @readOnly
      * @final
@@ -128,7 +128,7 @@ export default class Task {
 
     /**
      * Start the task
-     * @param  {Function} callback Callback when finished
+     * @param  {function} callback Callback when finished
      */
     start(callback) {
         callback();
@@ -137,7 +137,7 @@ export default class Task {
     /**
      * Add the sizing to each filter
      * @protected
-     * @param {String} url The url to filter
+     * @param {string} url The url to filter
      */
     filter(url) {
         let sizes = Application.instance.assetManager.sizes;
@@ -159,8 +159,8 @@ export default class Task {
     /**
      * Pass-through to the Application load method
      * @protected
-     * @param {String|Array|Object} source The source to load
-     * @param {Object|Function} [options] The load options or callback function
+     * @param {string|Array|object} source The source to load
+     * @param {object|function} [options] The load options or callback function
      */
     load(source, options) {
         return Application.instance.load(source, options);
@@ -169,10 +169,10 @@ export default class Task {
     /**
      * Pass-through to the Application Loader.load
      * @protected
-     * @param {String} url Path to file to load
-     * @param {Function} complete The callback
-     * @param {Function} [progress] The load progress
-     * @param {Object} [data] Additiona data
+     * @param {string} url Path to file to load
+     * @param {function} complete The callback
+     * @param {function} [progress] The load progress
+     * @param {object} [data] Additiona data
      */
     simpleLoad(url, complete, progress, data) {
         return Application.instance.loader.load(url, complete, progress, data);

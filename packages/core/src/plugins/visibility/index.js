@@ -26,7 +26,7 @@ import PageVisibility from './PageVisibility';
 
         /**
          * The application pauses automatically when the window loses focus.
-         * @member {Boolean} springroll.ApplicationOptions#autoPause
+         * @member {boolean} springroll.ApplicationOptions#autoPause
          * @default true
          */
         this.options.add('autoPause', true)
@@ -40,7 +40,7 @@ import PageVisibility from './PageVisibility';
         /**
          * Setter for if the application is being automatically paused, 
          * usually by the PageVisibility plugin or the ContainerClient plugin.
-         * @member {Boolean} springroll.ApplicationOptions#autoPaused 
+         * @member {boolean} springroll.ApplicationOptions#autoPaused 
          * @protected
          */
         Object.defineProperty(this, 'autoPaused',

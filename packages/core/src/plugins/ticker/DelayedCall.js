@@ -10,12 +10,12 @@ export default class DelayedCall {
     /**
      * @param {springroll.Ticker} ticker Instance of ticker
      * @param {function} callback The function to call when the delay has completed.
-     * @param {int} delay The time to delay the call, in milliseconds (or optionally frames).
-     * @param {Object|Boolean} [options=false] The options to use or repeat value
-     * @param {Boolean} [options.repeat=false] If the DelayedCall should automatically repeat itself when
+     * @param {number} delay The time to delay the call, in milliseconds (or optionally frames).
+     * @param {object|boolean} [options=false] The options to use or repeat value
+     * @param {boolean} [options.repeat=false] If the DelayedCall should automatically repeat itself when
      *                              completed.
-     * @param {Boolean} [options.autoDestroy=true] If the DelayedCall should clean itself up when completed.
-     * @param {Boolean} [options.useFrames=false] If the DelayedCall should use frames instead of
+     * @param {boolean} [options.autoDestroy=true] If the DelayedCall should clean itself up when completed.
+     * @param {boolean} [options.useFrames=false] If the DelayedCall should use frames instead of
      *                                 milliseconds for the delay.
      */
     constructor(ticker, callback, delay, options) {
@@ -43,21 +43,21 @@ export default class DelayedCall {
         /**
          * The delay time, in milliseconds.
          * @private
-         * @member {int}
+         * @member {number}
          */
         this._delay = delay;
 
         /**
          * The timer counting down from _delay, in milliseconds.
          * @private
-         * @member {int}
+         * @member {number}
          */
         this._timer = delay;
 
         /**
          * If the DelayedCall should repeat itself automatically.
          * @private
-         * @member {Boolean}
+         * @member {boolean}
          * @default false
          */
         this._repeat = options.repeat;
@@ -65,7 +65,7 @@ export default class DelayedCall {
         /**
          * If the DelayedCall should destroy itself after completing
          * @private
-         * @member {Boolean}
+         * @member {boolean}
          * @default true
          */
         this._autoDestroy = options.autoDestroy;
@@ -73,7 +73,7 @@ export default class DelayedCall {
         /**
          * If the DelayedCall should use frames instead of milliseconds for the delay.
          * @private
-         * @member {Boolean}
+         * @member {boolean}
          * @default false
          */
         this._useFrames = options.useFrames;
@@ -81,7 +81,7 @@ export default class DelayedCall {
         /**
          * If the DelayedCall is currently paused (not stopped).
          * @private
-         * @member {Boolean}
+         * @member {boolean}
          */
         this._paused = false;
 
@@ -96,7 +96,7 @@ export default class DelayedCall {
      * The callback supplied to the Application for an update each frame.
      * @private
      * @method
-     * @param {int} elapsed The time elapsed since the previous frame.
+     * @param {number} elapsed The time elapsed since the previous frame.
      */
     _update(elapsed) {
         if (!this._callback) {
@@ -147,7 +147,7 @@ export default class DelayedCall {
 
     /**
      * If the DelayedCall is paused or not.
-     * @member {Boolean}
+     * @member {boolean}
      */
     get paused() {
         return this._paused;

@@ -24,7 +24,7 @@ export default class Loader {
 
         /**
          * The maximum number of simulaneous loads
-         * @member {int}
+         * @member {number}
          * @default 2
          */
         this.maxCurrentLoads = 2;
@@ -38,7 +38,7 @@ export default class Loader {
         /**
          * The collection of LoaderItems by url
          * @private
-         * @member {Object}
+         * @member {object}
          */
         this.items = {};
 
@@ -53,7 +53,7 @@ export default class Loader {
     // @if DEBUG
     /**
      * If the logging should be verbose (unminified library only)
-     * @member {Boolean}
+     * @member {boolean}
      * @default  false
      */
     set verbose(verbose) {
@@ -84,7 +84,7 @@ export default class Loader {
      * @param {string} url The file path to load
      * @param {function} complete The callback function when completed
      * @param {function} [progress] The callback for load progress update, passes 0-1 as param
-     * @param {mixed} [data] optional data
+     * @param {any} [data] optional data
      * @return {createjs.LoadQueue} The load queue item
      */
     load(url, complete, progress, data) {
@@ -119,7 +119,7 @@ export default class Loader {
      * @private
      * @param  {function} complete Callback function when done
      * @param  {springroll.LoaderItem} item The LoadQueue
-     * @param  {null|*} result   [description]
+     * @param  {null|any} result   [description]
      */
     _onComplete(complete, item, result) {
         if (result) {

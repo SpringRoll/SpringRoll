@@ -8,7 +8,7 @@ export default class DOMTarget {
     constructor() {
         /**
          * If the filter is enabled
-         * @member {Boolean}
+         * @member {boolean}
          */
         this._enabled = false;
 
@@ -46,7 +46,7 @@ export default class DOMTarget {
 
     /**
      * Run the target.
-     * @param {String} command - Values include: log, debug, warn, info, error, assert, dir
+     * @param {string} command - Values include: log, debug, warn, info, error, assert, dir
      *        trace, clear, group, groupCollapsed, groupEnd
      * @param {Array<mixed>} [params] - Additional parameters.
      */
@@ -68,7 +68,7 @@ export default class DOMTarget {
 
     /**
      * Run the target.
-     * @param {String} command - Values include: log, debug, warn, info, error, assert, dir
+     * @param {string} command - Values include: log, debug, warn, info, error, assert, dir
      *        trace, clear.
      * @param {Array<mixed>} [params] - Additional parameters.
      */

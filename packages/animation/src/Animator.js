@@ -20,7 +20,7 @@ export default class Animator {
     constructor(app) {
         /**
          * If we fire debug statements
-         * @member {Boolean}
+         * @member {boolean}
          */
         this.debug = false;
 
@@ -84,14 +84,14 @@ export default class Animator {
 
         /**
          * If there are timelines available
-         * @member {Boolean}
+         * @member {boolean}
          * @private
          */
         this._hasTimelines = false;
 
         /**
          * If the Animator is paused
-         * @member {Boolean}
+         * @member {boolean}
          * @private
          */
         this._paused = false;
@@ -102,11 +102,14 @@ export default class Animator {
 
     /**
      * Register an animator instance definition type
-     * @param {String} qualifiedClassName The class name
-     * @param {int} priority The priority order for definition
+     * @param {string} qualifiedClassName The class name
+     * @param {number} priority The priority order for definition
      */
     register(qualifiedClassName, priority) {
-        let plugin = include(qualifiedClassName, false);
+        let plugin = qualifiedClassName;
+        if (typeof qualifiedClassName === 'string') {
+            plugin = include(qualifiedClassName, false);
+        }
         if (!plugin) {
             return;
         }
@@ -119,20 +122,20 @@ export default class Animator {
 
     /**
      * Play an animation for a frame label event, with more verbose play options.
-     * @param {*} clip The display object with the same API to animate.
-     * @param {Object} options One of or an array of the following
-     * @param {String} options.anim the frame label of the animation to play,
+     * @param {any} clip The display object with the same API to animate.
+     * @param {object} options One of or an array of the following
+     * @param {string} options.anim the frame label of the animation to play,
      * e.g. "onClose" to "onClose_stop".
-     * @param {int} [options.start=0] Milliseconds into the animation to start.
+     * @param {number} [options.start=0] Milliseconds into the animation to start.
      * A value of -1 starts from a random time in the animation.
-     * @param {int} [options.speed=1] a multiplier for the animation speed.
-     * @param {Object|String} [options.audio] Audio to sync the animation to using
+     * @param {number} [options.speed=1] a multiplier for the animation speed.
+     * @param {object|string} [options.audio] Audio to sync the animation to using
      * springroll.Sound. audio can be a String if you want the audio to start 0 milliseconds
      * into the animation.
-     * @param {String} [options.audio.alias] The sound alias
-     * @param {int} [options.audio.start] The sound delay
-     * @param {Function} [onComplete] The callback function for when the animation is done.
-     * @param {Function|Boolean} [onCancelled] A callback function for when an animation
+     * @param {string} [options.audio.alias] The sound alias
+     * @param {number} [options.audio.start] The sound delay
+     * @param {function} [onComplete] The callback function for when the animation is done.
+     * @param {function|boolean} [onCancelled] A callback function for when an animation
      * is stopped with Animator.stop() or to play another  animation. A value of 'true'
      * uses onComplete for onCancelled.
      * @return {springroll.AnimatorTimeline} The Timeline object that represents this play() call.
@@ -140,10 +143,10 @@ export default class Animator {
 
     /**
      * Play an animation for a frame label event or events
-     * @param {*} clip The display object with the same API to animate.
-     * @param {String|Array} eventList The name of an event or collection of events
-     * @param {Function} [onComplete] The callback function for when the animation is done.
-     * @param {Function|Boolean} [onCancelled] A callback function for when an animation is
+     * @param {any} clip The display object with the same API to animate.
+     * @param {string|Array} eventList The name of an event or collection of events
+     * @param {function} [onComplete] The callback function for when the animation is done.
+     * @param {function|boolean} [onCancelled] A callback function for when an animation is
      *        stopped with Animator.stop() or to play another
      *        animation. A value of 'true' uses onComplete for
      *        onCancelled.
@@ -215,10 +218,10 @@ export default class Animator {
 
     /**
      * Creates the AnimatorTimeline for a given animation
-     * @param {*} clip The instance to animate
+     * @param {any} clip The instance to animate
      * @param {Array} eventList List of animation events
-     * @param {Function} onComplete The function to callback when we're done
-     * @param {Function} onCancelled The function to callback when cancelled
+     * @param {function} onComplete The function to callback when we're done
+     * @param {function} onCancelled The function to callback when cancelled
      * @return {springroll.AnimatorTimeline} The Timeline object
      * @private
      */
@@ -314,8 +317,8 @@ export default class Animator {
      * with a unique value for each `createjs.DisplayObject`. If a custom object is made that does
      * not inherit from DisplayObject, it needs to not have an id that is identical to anything
      * from EaselJS.
-     * @param {*} clip The object to check for animation properties.
-     * @return {Boolean} If the instance can be animated or not.
+     * @param {any} clip The object to check for animation properties.
+     * @return {boolean} If the instance can be animated or not.
      */
     canAnimate(clip) {
         if (!clip) {
@@ -327,7 +330,7 @@ export default class Animator {
     /**
      * Get a definition by clip
      * @private
-     * @param  {*} clip The animation clip
+     * @param  {any} clip The animation clip
      * @return {function|null} The new definition
      */
     getDefinitionByClip(clip) {
@@ -342,9 +345,9 @@ export default class Animator {
 
     /**
      * Checks if animation exists
-     * @param {*} clip The instance to check
-     * @param {String} event The frame label event (e.g. "onClose" to "onClose_stop")
-     * @return {Boolean} does this animation exist?
+     * @param {any} clip The instance to check
+     * @param {string} event The frame label event (e.g. "onClose" to "onClose_stop")
+     * @return {boolean} does this animation exist?
      */
     hasAnimation(clip, event) {
         let Definition = this.getDefinitionByClip(clip);
@@ -356,9 +359,9 @@ export default class Animator {
 
     /**
      * Get duration of animation event (or sequence of events) in seconds
-     * @param {*} instance The timeline to check
-     * @param {String|Array} event The frame label event or array, in the format that play() uses.
-     * @return {Number} Duration of animation event in milliseconds
+     * @param {any} instance The timeline to check
+     * @param {string|Array} event The frame label event or array, in the format that play() uses.
+     * @return {number} Duration of animation event in milliseconds
      */
     getDuration(clip, event) {
         let Definition = this.getDefinitionByClip(clip);
@@ -387,8 +390,8 @@ export default class Animator {
 
     /**
      * Stop the animation.
-     * @param {*} clip The instance to stop the action on
-     * @param {Boolean} [removeCallbacks=false] Completely disregard the on complete
+     * @param {any} clip The instance to stop the action on
+     * @param {boolean} [removeCallbacks=false] Completely disregard the on complete
      * or on cancelled callback of this animation.
      */
     stop(clip, removeCallbacks) {
@@ -407,7 +410,7 @@ export default class Animator {
      * animation, as it doesn't do a callback on any of them.
      * @param {createjs.Container} [container] Specify a container to stop timelines
      * contained within. This only checks one layer deep.
-     * @param {Boolean} [removeCallbacks=false] Completely disregard the on complete
+     * @param {boolean} [removeCallbacks=false] Completely disregard the on complete
      * or on cancelled callback of the current animations.
      */
     stopAll(container, removeCallbacks) {
@@ -431,7 +434,7 @@ export default class Animator {
     /**
      * Remove a timeline from the stack
      * @param {springroll.AnimatorTimeline} timeline
-     * @param {Boolean} doCancelled If we do the on complete callback
+     * @param {boolean} doCancelled If we do the on complete callback
      * @private
      */
     _remove(timeline, doCancelled) {
@@ -524,7 +527,7 @@ export default class Animator {
 
     /**
      * Pauses or unpauses all timelines that are children of the specified DisplayObjectContainer.
-     * @param {Boolean} paused If this should be paused or unpaused
+     * @param {boolean} paused If this should be paused or unpaused
      * @param {createjs.Container} container The container to stop timelines contained within
      */
     pauseInGroup(paused, container) {
@@ -540,7 +543,7 @@ export default class Animator {
 
     /**
      * Get the timeline object for an instance
-     * @param {*} clip The animation clip
+     * @param {any} clip The animation clip
      * @return {springroll.AnimatorTimeline} The timeline
      */
     getTimeline(clip) {
@@ -553,7 +556,7 @@ export default class Animator {
     /**
      * Loop a clip by timeline
      * @private
-     * @param {*} clip The clip to check
+     * @param {any} clip The clip to check
      * @return {springroll.AnimatorTimeline} The timeline for clip
      */
     getTimelineByClip(clip) {
@@ -572,7 +575,7 @@ export default class Animator {
 
     /**
      * Whether the Animator class is currently paused.
-     * @member {Boolean} paused
+     * @member {boolean} paused
      * @memberof springroll.Animator#
      * @readOnly
      */
@@ -599,7 +602,7 @@ export default class Animator {
 
     /**
      * The update every frame
-     * @param {int} elapsed The time in milliseconds since the last frame
+     * @param {number} elapsed The time in milliseconds since the last frame
      * @private
      */
     _update(elapsed) {
@@ -690,7 +693,7 @@ export default class Animator {
      * The sound has been started
      * @private
      * @param {springroll.AnimatorTimeline} timeline
-     * @param {int} playIndex
+     * @param {number} playIndex
      */
     _onSoundStarted(timeline, playIndex) {
         if (timeline.listIndex !== playIndex) {
@@ -704,8 +707,8 @@ export default class Animator {
      * The sound is done
      * @private
      * @param {springroll.AnimatorTimeline} timeline
-     * @param {int} playIndex
-     * @param {String} soundAlias
+     * @param {number} playIndex
+     * @param {string} soundAlias
      */
     _onSoundDone(timeline, playIndex, soundAlias) {
         if (this.captions && this.captions.currentAlias === soundAlias) {

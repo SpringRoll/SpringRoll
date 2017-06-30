@@ -33,6 +33,11 @@
         "default": {
             "outputSourceFiles" : true
         },
+        "meta": {
+            "title": "SpringRoll API Documentation",
+            "description": "Documentation for the SpringRoll library and modules",
+            "keyword": "springroll, education, pbs kids, pbskids, html5, cross-platform, publishing, documentation, docs"
+        },
         "applicationName": "SpringRoll",
         "copyright": "SpringRoll Copyright © 2013-2017 CloudKid, LLC",
         "linenums": true

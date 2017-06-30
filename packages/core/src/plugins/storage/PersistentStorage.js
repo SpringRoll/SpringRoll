@@ -11,14 +11,14 @@ export default class PersistentStorage {
     constructor() {
         /**
          * `true` if localStorage is supported, `false` to use cookies
-         * @member {Boolean}
+         * @member {boolean}
          * @readonly
          */
         this.supported = this.storageSupported();
 
         /**
          * A constant for cookie fallback for `PersistentStorage.clear()` 
-         * @member {Number}
+         * @member {number}
          * @readonly
          * @default -1
          */
@@ -27,7 +27,7 @@ export default class PersistentStorage {
 
     /**
      * Remove a saved variable by name.
-     * @param {String} name The name of the value to remove
+     * @param {string} name The name of the value to remove
      */
     remove(name) {
         if (this.supported) {
@@ -41,9 +41,9 @@ export default class PersistentStorage {
 
     /**
      * Save a variable.
-     * @param {String} name The name of the value to save
-     * @param {mixed} value The value to save. This will be run through JSON.stringify().
-     * @param {Boolean} [tempOnly=false] If the value should be saved only in the current browser session.
+     * @param {string} name The name of the value to save
+     * @param {any} value The value to save. This will be run through JSON.stringify().
+     * @param {boolean} [tempOnly=false] If the value should be saved only in the current browser session.
      */
     write(name, value, tempOnly) {
         if (this.supported) {
@@ -75,8 +75,8 @@ export default class PersistentStorage {
 
     /**
      * Read the value of a saved variable
-     * @param {String} name The name of the variable
-     * @return {mixed} The value (run through `JSON.parse()`) or null if it doesn't exist
+     * @param {string} name The name of the variable
+     * @return {any} The value (run through `JSON.parse()`) or null if it doesn't exist
      */
     read(name) {
         if (this.supported) {
@@ -117,9 +117,9 @@ export default class PersistentStorage {
      * If it does, we will attempt to construct a new instance of that class, rather than using a
      * plain old Object. Note that this recurses through the object.
      * @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/parse
-     * @param  {String} key   each key name
-     * @param  {Object} value Object that we wish to restore
-     * @return {Object}       The object that was parsed - either cast to a class, or not
+     * @param  {string} key   each key name
+     * @param  {object} value Object that we wish to restore
+     * @return {object}       The object that was parsed - either cast to a class, or not
      */
     reviver(key, value) {
         if (value && typeof value.__classname === 'string') {

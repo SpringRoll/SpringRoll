@@ -20,7 +20,7 @@ import MathUtils from './MathUtils';
  */
 export default class WeightedRandom {
     /**
-     * @param {Object} object The configuration object for this weighted value generator.
+     * @param {object} object The configuration object for this weighted value generator.
      */
     constructor(values) {
         this.max = -1;
@@ -37,7 +37,7 @@ export default class WeightedRandom {
     /**
      * Picks an item at random.
      * @method random
-     * @return {String} The randomly chosen value.
+     * @return {string} The randomly chosen value.
      */
     random() {
         let rand = MathUtils.randomInt(0, this.max);

@@ -20,7 +20,7 @@ import Loader from '../Loader';
          * "?cb=" to the end of each file path requested. Use
          * for development, debugging only!
          * ### module: @springroll/loader
-         * @member {Boolean} cacheBust
+         * @member {boolean} cacheBust
          * @memberof springroll.ApplicationOptions#
          */
         const options = this.options;
@@ -41,7 +41,7 @@ import Loader from '../Loader';
          * requests. This is a great way to load all load requests
          * with a CDN path.
          * ### module: @springroll/loader
-         * @member {String} basePath
+         * @member {string} basePath
          * @memberof springroll.ApplicationOptions#
          */
         options.add('basePath');
@@ -52,7 +52,7 @@ import Loader from '../Loader';
          * requests. For instance, if the version is "0.0.1" all
          * file requests will be appended with "?v=0.0.1"
          * ### module: @springroll/loader
-         * @member {String} version
+         * @member {string} version
          * @memberof springroll.ApplicationOptions#
          */
         options.add('version', null, true);
@@ -65,7 +65,7 @@ import Loader from '../Loader';
          * `assets/config/config.json 2` would load
          * `assets/config/config.json?v=2`
          * ### module: @springroll/loader
-         * @member {String} versionsFile
+         * @member {string} versionsFile
          * @memberof springroll.ApplicationOptions#
          */
         options.add('versionsFile', null, true);

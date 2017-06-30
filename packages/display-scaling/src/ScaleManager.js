@@ -18,17 +18,17 @@ import {Debug} from '@springroll/debug';
  */
 export default class ScaleManager {
     /**
-     * @param {Object} [options] The options
-     * @param {Object} [options.size] The dimensions of the Scaler
-     * @param {Number} [options.size.width] The designed width
-     * @param {Number} [options.size.height] The designed height
-     * @param {Number} [options.size.maxwidth=size.width] The designed max width
-     * @param {Number} [options.size.maxheight=size.height] The designed max height
-     * @param {Object} [options.items] The items to load
+     * @param {object} [options] The options
+     * @param {object} [options.size] The dimensions of the Scaler
+     * @param {number} [options.size.width] The designed width
+     * @param {number} [options.size.height] The designed height
+     * @param {number} [options.size.maxwidth=size.width] The designed max width
+     * @param {number} [options.size.maxheight=size.height] The designed max height
+     * @param {object} [options.items] The items to load
      * @param {PIXI.Container} [options.container] The container if
      *                                                                           adding items
-     * @param {Object} [options.display] The current display
-     * @param {Boolean} [options.enabled=false] If the scaler is enabled
+     * @param {object} [options.display] The current display
+     * @param {boolean} [options.enabled=false] If the scaler is enabled
      */
     constructor(options) {
         options = Object.assign(
@@ -56,7 +56,7 @@ export default class ScaleManager {
 
         /**
          * The current overall scale of the game
-         * @member {Number}
+         * @member {number}
          * @private
          * @default 1
          */
@@ -64,7 +64,7 @@ export default class ScaleManager {
 
         /**
          * The adapter for universal scale, rotation size access
-         * @member {Object}
+         * @member {object}
          * @private
          */
         this._adapter = null;
@@ -79,7 +79,7 @@ export default class ScaleManager {
         // @if DEBUG
         /**
          * If we should log verbose messages (unminified module only!)
-         * @member {Boolean}
+         * @member {boolean}
          * @default false
          */
         this.verbose = false;
@@ -142,12 +142,12 @@ export default class ScaleManager {
 
     /**
      * The design sized of the application
-     * @member {Object} size
+     * @member {object} size
      * @property {Num}
-     * @member {Number} size.width - The designed width of the application
-     * @member {Number} size.height - The designed width of the application
-     * @member {Number} size.maxWidth - The designed max width of the application
-     * @member {Number} size.maxHeight - The designed maxHeight of the application
+     * @member {number} size.width - The designed width of the application
+     * @member {number} size.height - The designed width of the application
+     * @member {number} size.maxWidth - The designed max width of the application
+     * @member {number} size.maxHeight - The designed maxHeight of the application
      * @default null
      */
     set size(size) {
@@ -185,7 +185,7 @@ export default class ScaleManager {
 
     /**
      * Get the current scale of the screen relative to the designed screen size
-     * @member {Number}
+     * @member {number}
      * @readOnly
      */
     get scale() {
@@ -194,7 +194,7 @@ export default class ScaleManager {
 
     /**
      * The total number of items
-     * @member {Number}
+     * @member {number}
      * @readOnly
      */
     get numItems() {
@@ -225,8 +225,8 @@ export default class ScaleManager {
 
     /**
      * Remove all items where the item display is a the container or it contains items
-     * @param  {*} parent The object which contains the items as live variables.
-     * @param {Object} items The items that was passed to `addItems`
+     * @param  {any} parent The object which contains the items as live variables.
+     * @param {object} items The items that was passed to `addItems`
      * @return {springroll.ScaleManager} The ScaleManager for chaining
      */
     removeItems(parent, items) {
@@ -294,7 +294,7 @@ export default class ScaleManager {
 
     /**
      * Register a dictionary of items to the ScaleManager to control.
-     * @param {*} parent The parent object that contains the items as variables.
+     * @param {any} parent The parent object that contains the items as variables.
      * @param {object} items The items object where the keys are the name of the property on the
      *                     parent and the value is an object with keys of "titleSafe", "minScale",
      *                     "maxScale", "centerHorizontally", "align", see ScaleManager.addItem for a
@@ -328,33 +328,33 @@ export default class ScaleManager {
     /**
      * Manually add an item
      * @param {PIXI.DisplayObject} displayObject The display object item
-     * @param {object|String} [settings="center"] The collection of settings or the align property
-     * @param {String} [settings.align="center"] The vertical alignment ("top", "bottom", "center")
+     * @param {object|string} [settings="center"] The collection of settings or the align property
+     * @param {string} [settings.align="center"] The vertical alignment ("top", "bottom", "center")
      *      then horizontal alignment ("left", "right" and "center"). Or you can use the short-
      *      handed versions: "center" = "center-center", "top" = "top-center", 
      *      "bottom" = "bottom-center", "left" = "center-left", "right" = "center-right".
-     * @param {Boolean|String} [settings.titleSafe=false] If the item needs to be in the title safe
+     * @param {Boolean|string} [settings.titleSafe=false] If the item needs to be in the title safe
      *      area. Acceptable values are false, "horizontal", "vertical", "all", and true.
      *      The default is false, and true is the same as "all".
-     * @param {Number} [settings.minScale=NaN] The minimum scale amount (default, scales the same
+     * @param {number} [settings.minScale=NaN] The minimum scale amount (default, scales the same
      *      size as the stage)
-     * @param {Number} [settings.maxScale=NaN] The maximum scale amount (default, scales the same
+     * @param {number} [settings.maxScale=NaN] The maximum scale amount (default, scales the same
      *      size as the stage)
-     * @param {Boolean} [settings.centeredHorizontally=false] Makes sure that the center of the
+     * @param {boolean} [settings.centeredHorizontally=false] Makes sure that the center of the
      *      object is directly in the center of the stage assuming origin point is in
      *      the upper-left corner.
-     * @param {Number} [settings.x] The initial X position of the item
-     * @param {Number} [settings.y] The initial Y position of the item
-     * @param {Object} [settings.scale] The initial scale
-     * @param {Number} [settings.scale.x] The initial scale X value
-     * @param {Number} [settings.scale.y] The initial scale Y value
-     * @param {Object} [settings.pivot] The pivot point
-     * @param {Number} [settings.pivot.x] The pivot point X location
-     * @param {Number} [settings.pivot.y] The pivot point Y location
-     * @param {Number} [settings.rotation] The initial rotation in degrees
-     * @param {Object|Array} [settings.hitArea] An object which describes the hit area of the item
+     * @param {number} [settings.x] The initial X position of the item
+     * @param {number} [settings.y] The initial Y position of the item
+     * @param {object} [settings.scale] The initial scale
+     * @param {number} [settings.scale.x] The initial scale X value
+     * @param {number} [settings.scale.y] The initial scale Y value
+     * @param {object} [settings.pivot] The pivot point
+     * @param {number} [settings.pivot.x] The pivot point X location
+     * @param {number} [settings.pivot.y] The pivot point Y location
+     * @param {number} [settings.rotation] The initial rotation in degrees
+     * @param {object|Array} [settings.hitArea] An object which describes the hit area of the item
      *      or an array of points.
-     * @param {String} [settings.hitArea.type] If the hitArea is an object, the type of hit area,
+     * @param {string} [settings.hitArea.type] If the hitArea is an object, the type of hit area,
      *      "rect", "ellipse", "circle", etc
      * @return {springroll.ScaleManager} The instance of this ScaleManager for chaining
      */
@@ -362,7 +362,7 @@ export default class ScaleManager {
      * Add a bitmap to make be fullscreen
      * @method  addItem
      * @param {PIXI.Sprite} bitmap The bitmap to scale
-     * @param {String} settings      Must be 'cover-image'
+     * @param {string} settings      Must be 'cover-image'
      * @return {springroll.ScaleManager} The instance of this ScaleManager for chaining
      */
     addItem(displayObject, settings, doResize) {
@@ -428,8 +428,8 @@ export default class ScaleManager {
     /**
      * Scale the UI items that have been registered to the current screen
      * @private
-     * @param {Number} w The current width of the application
-     * @param {Number} h The current height of the application
+     * @param {number} w The current width of the application
+     * @param {number} h The current height of the application
      */
     _resize(w, h) {
         let _size = this._size;
@@ -472,7 +472,7 @@ export default class ScaleManager {
 
 /**
  * Vertically align to the top
- * @member {String}
+ * @member {string}
  * @static
  * @final
  * @readOnly
@@ -482,7 +482,7 @@ ScaleManager.ALIGN_TOP = 'top';
 
 /**
  * Vertically align to the bottom
- * @member {String}
+ * @member {string}
  * @static
  * @final
  * @readOnly
@@ -492,7 +492,7 @@ ScaleManager.ALIGN_BOTTOM = 'bottom';
 
 /**
  * Horizontally align to the left
- * @member {String}
+ * @member {string}
  * @static
  * @final
  * @readOnly
@@ -502,7 +502,7 @@ ScaleManager.ALIGN_LEFT = 'left';
 
 /**
  * Horizontally align to the right
- * @member {String}
+ * @member {string}
  * @static
  * @final
  * @readOnly
@@ -512,7 +512,7 @@ ScaleManager.ALIGN_RIGHT = 'right';
 
 /**
  * Vertically or horizontally align to the center
- * @member {String}
+ * @member {string}
  * @static
  * @final
  * @readOnly

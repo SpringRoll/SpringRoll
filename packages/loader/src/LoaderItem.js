@@ -19,7 +19,7 @@ export default class LoaderItem extends LoadQueue {
 
         /**
          * The number of times this load has been retried
-         * @member {int}
+         * @member {number}
          * @default
          */
         this.retries = 0;
@@ -38,7 +38,7 @@ export default class LoaderItem extends LoadQueue {
 
         /**
          * Data associate with the load
-         * @member {mixed}
+         * @member {any}
          */
         this.data = null;
 
@@ -94,7 +94,7 @@ export default class LoaderItem extends LoadQueue {
 
     /**
      * The base path of the load
-     * @member {String}
+     * @member {string}
      * @default null
      */
     set basePath(basePath) {
@@ -103,7 +103,7 @@ export default class LoaderItem extends LoadQueue {
 
     /**
      * If this load should be cross origin
-     * @member {Boolean}
+     * @member {boolean}
      * @default false
      */
     set crossOrigin(crossOrigin) {
@@ -218,7 +218,7 @@ export default class LoaderItem extends LoadQueue {
 
 /**
  * Represent this object as a string
- * @member {int}
+ * @member {number}
  * @static
  * @default 3
  */
@@ -227,7 +227,7 @@ LoaderItem.MAX_RETRIES = 3;
 // @if DEBUG
 /**
  * If the loads should be verbose
- * @member {Boolean}
+ * @member {boolean}
  * @static
  * @default false
  */

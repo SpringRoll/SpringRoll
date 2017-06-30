@@ -7,7 +7,7 @@
  */
 export default class StateEvent {
     /**
-     * @param {String} type The type of event.
+     * @param {string} type The type of event.
      * @param {BaseState} currentState The currentState of the state manager
      * @param {BaseState} visibleState The current state being transitioned or changing visibility,
      *                               default to currentState
@@ -29,7 +29,7 @@ export default class StateEvent {
 
         /** The type of event
          *
-         * @member {String}
+         * @member {string}
          */
         this.type = type;
     }

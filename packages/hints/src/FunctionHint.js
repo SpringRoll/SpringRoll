@@ -9,7 +9,7 @@ import AbstractHint from './AbstractHint';
 export default class FunctionHint extends AbstractHint {
     /**
      * @param {springroll.HintsPlayer} hints The instance of the hints
-     * @param {Function} done called on hint done
+     * @param {function} done called on hint done
      * @param {function} onStart Function to call
      *                           should accept 2 arguments (callbacks: 
      *                           onComplete and onCancelled

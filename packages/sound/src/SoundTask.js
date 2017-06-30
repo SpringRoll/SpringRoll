@@ -12,11 +12,11 @@ import {Task} from '@springroll/loaders';
  */
 export default class SoundTask extends Task {
     /** 
-     * @param {Object} asset The data properties
+     * @param {object} asset The data properties
      * @param {Array} asset.sounds The list of Sound aliases
-     * @param {Boolean} [asset.cache=false] If we should cache the result
-     * @param {String} [asset.id] Id of asset
-     * @param {Function} [asset.complete] The event to call when done
+     * @param {boolean} [asset.cache=false] If we should cache the result
+     * @param {string} [asset.id] Id of asset
+     * @param {function} [asset.complete] The event to call when done
      */
     constructor(asset) {
         super(asset, asset.sounds[0]);
@@ -31,8 +31,8 @@ export default class SoundTask extends Task {
     /**
      * Test if we should run this task
      * @static
-     * @param {Object} asset The asset to check
-     * @return {Boolean} If the asset is compatible with this asset
+     * @param {object} asset The asset to check
+     * @return {boolean} If the asset is compatible with this asset
      */
     static test(asset) {
         return !!asset.sounds && Array.isArray(asset.sounds);
@@ -40,7 +40,7 @@ export default class SoundTask extends Task {
 
     /**
      * Start the task
-     * @param  {Function} callback Callback when finished
+     * @param  {function} callback Callback when finished
      */
     start(callback) {
         let sound = Application.instance.sound;

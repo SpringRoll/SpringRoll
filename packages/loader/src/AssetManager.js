@@ -59,8 +59,8 @@ export default class AssetManager {
     /**
      * Register new tasks types, these tasks must extend Task
      * @private
-     * @param {Function} TaskClass The class task reference
-     * @param {int} [priority=0] The priority. Higher priority tasks
+     * @param {function} TaskClass The class task reference
+     * @param {number} [priority=0] The priority. Higher priority tasks
      *      are tested first. More general tasks should be lower
      *      and more specific tasks should be higher.
      */
@@ -91,14 +91,14 @@ export default class AssetManager {
 
     /**
      * Load a bunch of assets, can only call one load at a time
-     * @param {Object|Array} asset The assets to load
-     * @param {Object} [options] The loading options
+     * @param {object|Array} asset The assets to load
+     * @param {object} [options] The loading options
      * @param {function} [options.complete] The callback when finished
      * @param {function} [options.progress] The callback when loading percentage is updated
      * @param {function} [options.taskDone] The callback when finished with each individual task
-     * @param {Boolean} [options.autoStart=true] If we should start running right away
-     * @param {Boolean} [options.startAll=true] If we should run all the tasks at once, in parallel
-     * @param {Boolean} [options.cacheAll=false] If we should cache all files
+     * @param {boolean} [options.autoStart=true] If we should start running right away
+     * @param {boolean} [options.startAll=true] If we should run all the tasks at once, in parallel
+     * @param {boolean} [options.cacheAll=false] If we should cache all files
      * @return {springroll.AssetLoad} The reference to the current load
      */
     load(assets, options) {
@@ -173,7 +173,7 @@ export default class AssetManager {
      * @private
      * @param {function} complete The function to call when done
      * @param {springroll.AssetLoad} load The current load
-     * @param {mixed} The returned results
+     * @param {any} The returned results
      */
     _onLoaded(complete, load, results) {
         let index = this.loads.indexOf(load);

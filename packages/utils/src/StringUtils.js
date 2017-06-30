@@ -8,8 +8,8 @@ export default class StringUtils {
     /**
      * Returns a string of the number as an integer with leading zeros to fill the string out
      * to a certain number of digits.
-     * @param {Number} [totalDigits=2] The total number of digits to be displayed.
-     * @return {String} The number string.
+     * @param {number} [totalDigits=2] The total number of digits to be displayed.
+     * @return {string} The number string.
      */
     static numberPadding(num, totalDigits = 2) {
         let leader;
@@ -36,9 +36,9 @@ export default class StringUtils {
      * Returns a formatted string, similar to the printf() function in many languages.
      * This simplified version substitutes "%s" with the arguments in order. To escape "%s",
      * use "%%s".
-     * @param {String} str - Input string to format
-     * @param {Array|*} args An array or list of arguments for formatting.
-     * @return {String} The substituted string.
+     * @param {string} str - Input string to format
+     * @param {Array|any} args An array or list of arguments for formatting.
+     * @return {string} The substituted string.
      */
     static format(str, ...args) {
         if (args.length < 1) {
@@ -57,8 +57,8 @@ export default class StringUtils {
 
     /**
      * Returns a reversed copy of the string.
-     * @param {String} str String to reverse.
-     * @return {String} The reversed string.
+     * @param {string} str String to reverse.
+     * @return {string} The reversed string.
      */
     static reverse(str) {
         let o = '';

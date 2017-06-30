@@ -11,42 +11,42 @@ import {Task, ColorAlphaTask} from '@springroll/loaders';
  */
 export default class TextureTask extends Task {
     /**
-     * @param {String} asset.type Must be "pixi" to signify that this asset should be parsed
+     * @param {string} asset.type Must be "pixi" to signify that this asset should be parsed
      *                            specifically for Pixi.
-     * @param {String} [asset.image] The texture image path.
-     * @param {String} [asset.color] The color image path, if not using image property.
-     * @param {String} [asset.alpha] The alpha image path, if not using image property.
-     * @param {Boolean} [asset.cache=false] If we should cache the result - caching results in
+     * @param {string} [asset.image] The texture image path.
+     * @param {string} [asset.color] The color image path, if not using image property.
+     * @param {string} [asset.alpha] The alpha image path, if not using image property.
+     * @param {boolean} [asset.cache=false] If we should cache the result - caching results in
      *                                      caching in the global Pixi texture cache as well as
      *                                      Application's asset cache.
-     * @param {String} [asset.id] The id of the task.
-     * @param {Function} [asset.complete] The callback to call when the load is completed.
-     * @param {Object} [asset.sizes=null] Define if certain sizes are not supported
+     * @param {string} [asset.id] The id of the task.
+     * @param {function} [asset.complete] The callback to call when the load is completed.
+     * @param {object} [asset.sizes=null] Define if certain sizes are not supported
      */
     constructor(asset, fallbackId) {
         super(asset, fallbackId || asset.image);
 
         /**
          * The atlas source path
-         * @member {String}
+         * @member {string}
          */
         this.image = this.filter(asset.image);
 
         /**
          * The atlas color source path
-         * @member {String}
+         * @member {string}
          */
         this.color = this.filter(asset.color);
 
         /**
          * The atlas alpha source path
-         * @member {String}
+         * @member {string}
          */
         this.alpha = this.filter(asset.alpha);
 
         /**
          * If the texture should be uploaded to the GPU immediately.
-         * @member {Boolean}
+         * @member {boolean}
          */
         this.uploadToGPU = !!asset.uploadToGPU;
     }
@@ -54,8 +54,8 @@ export default class TextureTask extends Task {
     /**
      * Test to see if we should load an asset
      * @static
-     * @param {Object} asset The asset to test
-     * @return {Boolean} If this qualifies for this task
+     * @param {object} asset The asset to test
+     * @return {boolean} If this qualifies for this task
      */
     static test(asset) {
         return asset.type === 'pixi' && (!!asset.image || (!!asset.alpha && !!asset.color));
@@ -71,9 +71,9 @@ export default class TextureTask extends Task {
 
     /**
      * Load the texture from the properties
-     * @param {Object} assets The assets object to load
-     * @param {Function} done Callback when complete, returns new TextureAtlas
-     * @param {Boolean} [ignoreCacheSetting] If the setting to cache results should be ignored
+     * @param {object} assets The assets object to load
+     * @param {function} done Callback when complete, returns new TextureAtlas
+     * @param {boolean} [ignoreCacheSetting] If the setting to cache results should be ignored
      *                                       because this task is still returning stuff to another
      *                                       task.
      */

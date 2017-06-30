@@ -16,13 +16,13 @@ import {Debug} from '@springroll/debug';
  */
 export default class StateManager extends EventEmitter {
     /**
-     * @param {Object} [transitionSounds] Data object with aliases and start times (seconds) for
+     * @param {object} [transitionSounds] Data object with aliases and start times (seconds) for
      *     transition in, loop and out sounds. Example: `{in:{alias:"myAlias", start:0.2}}`.
      *     These objects are in the format for Animator from EaselJSDisplay or PixiDisplay,
      *     so they can be just the sound alias instead of an object.
-     * @param {Object|String} [transitionSounds.in] The sound to play for transition in
-     * @param {Object|String} [transitionSounds.out] The sound to play for transition out
-     * @param {Object|String} [transitionSounds.loading] The sound to play for loading
+     * @param {object|string} [transitionSounds.in] The sound to play for transition in
+     * @param {object|string} [transitionSounds.out] The sound to play for transition out
+     * @param {object|string} [transitionSounds.loading] The sound to play for loading
      */
     constructor(transitionSounds) {
         super();
@@ -50,7 +50,7 @@ export default class StateManager extends EventEmitter {
         /**
          * The sounds for the transition
          *
-         * @member {Object}
+         * @member {object}
          * @private
          */
         this._transitionSounds = transitionSounds || null;
@@ -58,7 +58,7 @@ export default class StateManager extends EventEmitter {
         /**
          * The collection of states map
          *
-         * @member {Object}
+         * @member {object}
          * @private
          */
         this._states = {};
@@ -74,7 +74,7 @@ export default class StateManager extends EventEmitter {
         /**
          * The currently selected state id
          *
-         * @member {String}
+         * @member {string}
          * @private
          */
         this._stateId = null;
@@ -90,7 +90,7 @@ export default class StateManager extends EventEmitter {
         /**
          * If the manager is loading a state
          *
-         * @member {Boolean}
+         * @member {boolean}
          * @private
          */
         this._isLoading = false;
@@ -98,7 +98,7 @@ export default class StateManager extends EventEmitter {
         /**
          * If the state or manager is current transitioning
          *
-         * @member {Boolean}
+         * @member {boolean}
          * @private
          */
         this._isTransitioning = false;
@@ -106,7 +106,7 @@ export default class StateManager extends EventEmitter {
         /**
          * If the current object is destroyed
          *
-         * @member {Boolean}
+         * @member {boolean}
          * @private
          */
         this._destroyed = false;
@@ -124,14 +124,14 @@ export default class StateManager extends EventEmitter {
     /**
      * The amount of progress while state is being preloaded from zero to 1
      * @event springroll.StateManager#progress
-     * @param {Number} percentage The amount loaded
+     * @param {number} percentage The amount loaded
      */
 
 
     /**
      * Register a state with the state manager, done initially
      *
-     * @param {String} id The string alias for a state
+     * @param {string} id The string alias for a state
      * @param {springroll.State} state State object reference
      */
     addState(id, state) {
@@ -160,7 +160,7 @@ export default class StateManager extends EventEmitter {
 
     /**
      * Access a certain state by the ID
-     * @param {String} id State alias
+     * @param {string} id State alias
      * @return {springroll.State} The base State object
      */
     getStateById(id) {
@@ -172,7 +172,7 @@ export default class StateManager extends EventEmitter {
 
     /**
      * If the StateManager is busy because it is currently loading or transitioning.
-     * @return {Boolean} If StateManager is busy
+     * @return {boolean} If StateManager is busy
      */
     isBusy() {
         return this._isLoading || this._isTransitioning;
@@ -207,13 +207,13 @@ export default class StateManager extends EventEmitter {
     /**
      * Internal setter for the enabled status
      * @private
-     * @member {Boolean}
+     * @member {boolean}
      */
     set enabled(enabled) {
         /**
          * If the state manager is enabled, used internally
          * @event springroll.StateManager#enabled
-         * @param {Boolean} enabled
+         * @param {boolean} enabled
          */
         this.emit('enabled', enabled);
     }
@@ -231,7 +231,7 @@ export default class StateManager extends EventEmitter {
 
     /**
      * Get or change the current state, using the state id.
-     * @member {String}
+     * @member {string}
      */
     set state(id) {
         // @if DEBUG
@@ -415,8 +415,8 @@ export default class StateManager extends EventEmitter {
 
     /**
      * Generalized function for transitioning with the manager
-     * @param {String} The animator event to play
-     * @param {Function} The callback function after transition is done
+     * @param {string} The animator event to play
+     * @param {function} The callback function after transition is done
      * @private
      */
     _transitioning(event, callback) {

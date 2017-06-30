@@ -31,7 +31,7 @@ export default class Captions {
 
     /**
      * The ID of the captions DOM element.
-     * @member {String}
+     * @member {string}
      * @readonly
      * @default 'springroll-captions'
      */
@@ -40,15 +40,15 @@ export default class Captions {
     }
 
     /**
-     * @param {Object} [data=null] The captions dictionary
-     * @param {String|DOMElement} [textField=null] The output text field
-     * @param {Boolean} [selfUpdate=true] If the captions playback should update itself
+     * @param {object} [data=null] The captions dictionary
+     * @param {string|DOMElement} [textField=null] The output text field
+     * @param {boolean} [selfUpdate=true] If the captions playback should update itself
      */
     constructor(data, textField, selfUpdate) {
         /**
          * An object used as a dictionary with keys that should be the same as sound aliases
          * @private
-         * @member {Object}
+         * @member {object}
          */
         this._data = null;
 
@@ -63,7 +63,7 @@ export default class Captions {
         /**
          * The function to call when playback is complete.
          * @private
-         * @member {Function}
+         * @member {function}
          */
         this._completeCallback = null;
 
@@ -77,55 +77,55 @@ export default class Captions {
         /**
          * The alias of the current caption.
          * @private
-         * @member {String}
+         * @member {string}
          */
         this._currentAlias = 0;
 
         /**
          * The duration in milliseconds of the current caption.
          * @private
-         * @member {int}
+         * @member {number}
          */
         this._currentDuration = 0;
 
         /**
          * The current playback time, in milliseconds.
          * @private
-         * @member {int}
+         * @member {number}
          */
         this._currentTime = 0;
 
         /**
          * The current line index.
          * @private
-         * @member {int}
+         * @member {number}
          */
         this._currentLine = -1;
 
         /**
          * The last active line index.
          * @private
-         * @member {int}
+         * @member {number}
          */
         this._lastActiveLine = -1;
 
         /**
          * If we're playing.
          * @private
-         * @member {Boolean}
+         * @member {boolean}
          */
         this._playing = false;
 
         /**
          * If this instance has been destroyed already.
          * @private
-         * @member {Boolean}
+         * @member {boolean}
          */
         this._destroyed = false;
 
         /**
          * If the captions object should do its own update.
-         * @member {Boolean}
+         * @member {boolean}
          * @private
          * @default true
          */
@@ -133,7 +133,7 @@ export default class Captions {
 
         /**
          * If the captions are muted
-         * @member {Boolean}
+         * @member {boolean}
          * @private
          * @default false
          */
@@ -150,7 +150,7 @@ export default class Captions {
 
     /**
      * Set if all captions are currently muted.
-     * @member {Boolean}
+     * @member {boolean}
      * @default false
      */
     get mute() {
@@ -165,7 +165,7 @@ export default class Captions {
      * If the captions object should do it's own updating unless you want to manuall
      * seek. In general, self-updating should not be set to false unless the sync
      * of the captions needs to be exact with something else.
-     * @member {Boolean}
+     * @member {boolean}
      * @default true
      */
     get selfUpdate() {
@@ -183,7 +183,7 @@ export default class Captions {
     /**
      * Sets the dictionary object to use for captions. This overrides the current
      * dictionary, if present.
-     * @member {Object}
+     * @member {object}
      */
     set data(dict) {
         this._data = dict;
@@ -255,7 +255,7 @@ export default class Captions {
      * @private
      * @static
      * @param {DOMElement} field The text field to change
-     * @param {String} text The text to set it to
+     * @param {string} text The text to set it to
      * @return {DOMElement} The text field
      */
     static _setText(field, text) {
@@ -281,8 +281,8 @@ export default class Captions {
 
     /**
      * Returns if there is a caption under that alias or not.
-     * @param {String} alias The alias to check against
-     * @return {Boolean} Whether the caption was found or not
+     * @param {string} alias The alias to check against
+     * @return {boolean} Whether the caption was found or not
      */
     hasCaption(alias) {
         return this._data ? !!this._data[alias] : false;
@@ -291,11 +291,11 @@ export default class Captions {
     /**
      * A utility function for getting the full text of a caption by alias
      * this can be useful for debugging or tracking purposes.
-     * @param {String|Array} alias The alias or Array of aliases for which to get the text.
+     * @param {string|Array} alias The alias or Array of aliases for which to get the text.
      *                           Any non-String values in this Array are silently and
      *                           harmlessly ignored.
-     * @param {String} [separator=" "] The separation between each line.
-     * @return {String} The entire caption, concatinated by the separator.
+     * @param {string} [separator=" "] The separation between each line.
+     * @return {string} The entire caption, concatinated by the separator.
      */
     getFullCaption(alias, separator) {
         if (!this._data) {
@@ -345,7 +345,7 @@ export default class Captions {
     /**
      * Sets an array of line data as the current caption data to play.
      * @private
-     * @param {String} data The string
+     * @param {string} data The string
      */
     _load(data) {
         if (this._destroyed) {
@@ -376,8 +376,8 @@ export default class Captions {
      * Take the captions timecode and convert to milliseconds
      * format is in HH:MM:ss:mmm
      * @private
-     * @param {String} input The input string of the format
-     * @return {int} Time in milliseconds
+     * @param {string} input The input string of the format
+     * @return {number} Time in milliseconds
      */
     _timeCodeToMilliseconds(input) {
         let lastPeriodIndex = input.lastIndexOf('.');
@@ -392,7 +392,7 @@ export default class Captions {
 
     /**
      * The playing status.
-     * @member {Boolean}
+     * @member {boolean}
      * @readOnly
      */
     get playing() {
@@ -410,7 +410,7 @@ export default class Captions {
 
     /**
      * Get the current duration of the current caption
-     * @member {int}
+     * @member {number}
      * @readOnly
      */
     get currentDuration() {
@@ -419,7 +419,7 @@ export default class Captions {
 
     /**
      * Get the current caption alias.
-     * @member {String}
+     * @member {string}
      * @readOnly
      */
     get currentAlias() {
@@ -428,7 +428,7 @@ export default class Captions {
 
     /**
      * Start the caption playback.
-     * @param {String} alias The desired caption's alias
+     * @param {string} alias The desired caption's alias
      * @param {function} callback The function to call when the caption is finished playing
      */
     play(alias, callback) {
@@ -456,7 +456,7 @@ export default class Captions {
 
     /**
      * Goto a specific time.
-     * @param {int} time The time in milliseconds to seek to in the captions
+     * @param {number} time The time in milliseconds to seek to in the captions
      */
     seek(time) {
         //Update the current time
@@ -513,7 +513,7 @@ export default class Captions {
     /**
      * Function to update the amount of time elapsed for the caption playback.
      * Call this to advance the caption by a given amount of time.
-     * @param {int} progress The time elapsed since the last frame in milliseconds
+     * @param {number} progress The time elapsed since the last frame in milliseconds
      */
     update(elapsed) {
         if (this._destroyed || !this._playing) {
@@ -570,9 +570,9 @@ export default class Captions {
 
     /**
      * Returns duration in milliseconds of given captioned sound alias or alias list.
-     * @param {String|Array} alias The alias or array of aliases for which to get duration.
+     * @param {string|Array} alias The alias or array of aliases for which to get duration.
      *  Array may contain integers (milliseconds) to account for un-captioned gaps.
-     * @return {int} Length/duration of caption in milliseconds.
+     * @return {number} Length/duration of caption in milliseconds.
      */
     getLength(alias) {
         let length = 0;

@@ -14,8 +14,8 @@ export default class DragManager {
      * @param {PixiDisplay} display The display that this DragManager is handling objects on.
      *                              Optionally, this parameter can be omitted and the Application's
      *                              default display will be used.
-     * @param {Function} startCallback The callback when when starting
-     * @param {Function} endCallback The callback when ending
+     * @param {function} startCallback The callback when when starting
+     * @param {function} endCallback The callback when ending
      */
     constructor(display, startCallback, endCallback) {
         if (typeof display === 'function' && !endCallback) {
@@ -99,7 +99,7 @@ export default class DragManager {
          *        ]
          *    }
          *
-         * @member {Object}
+         * @member {object}
          * @default null
          */
         this.snapSettings = null;
@@ -123,14 +123,14 @@ export default class DragManager {
         /**
          * External callback when we start dragging
          * @private
-         * @member {Function}
+         * @member {function}
          */
         this._dragStartCallback = startCallback;
 
         /**
          * External callback when we are done dragging
          * @private
-         * @member {Function}
+         * @member {function}
          */
         this._dragEndCallback = endCallback;
 
@@ -149,14 +149,14 @@ export default class DragManager {
         /**
          * If this DragManager is using multitouch for dragging.
          * @private
-         * @member {Boolean}
+         * @member {boolean}
          */
         this._multitouch = false;
 
         /**
          * If this DragManager has added drag listeners to the InteractionManager
          * @private
-         * @member {Boolean}
+         * @member {boolean}
          */
         this._addedDragListeners = false;
 
@@ -166,7 +166,7 @@ export default class DragManager {
     /**
      * If the DragManager allows multitouch dragging. Setting this stops any current
      * drags.
-     * @member {Boolean}
+     * @member {boolean}
      */
     get multitouch() {
         return this._multitouch;

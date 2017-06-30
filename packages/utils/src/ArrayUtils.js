@@ -21,7 +21,7 @@ export default class ArrayUtils {
     /**
      * Get a random item from an array
      * @param {Array<mixed>} array The array
-     * @return {mixed} The random item
+     * @return {any} The random item
      */
     static random(arr) {
         return arr[Math.floor(Math.random() * arr.length)];
@@ -30,7 +30,7 @@ export default class ArrayUtils {
     /**
      * Get the last item in the array
      * @param {Array<mixed>} array The array
-     * @return {mixed} The last item
+     * @return {any} The last item
      */
     static list(arr) {
         return arr[arr.length - 1];
@@ -40,7 +40,7 @@ export default class ArrayUtils {
      * Appends a list of items or list of arrays to the end of this array. This functions
      * like concat(), but works on the original array instead of making a copy.
      * @param {Array<mixed>} arr - Source arry to add to
-     * @param {mixed} arguments A list of arrays or individual items.
+     * @param {any} arguments A list of arrays or individual items.
      * @return {Array<mixed>} This array.
      */
     static append(arr, ...additional) {

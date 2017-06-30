@@ -9,13 +9,13 @@ export default class AnimatorTimeline {
     constructor() {
         /**
          * The function to call when we're done
-         * @member {Function}
+         * @member {function}
          */
         this.onComplete = null;
 
         /**
          * The function to call when stopped early.
-         * @member {Function}
+         * @member {function}
          */
         this.onCancelled = null;
 
@@ -27,7 +27,7 @@ export default class AnimatorTimeline {
 
         /**
          * The index of the active animation in eventList.
-         * @member {int}
+         * @member {number}
          */
         this.listIndex = -1;
 
@@ -40,70 +40,70 @@ export default class AnimatorTimeline {
         /**
          * If the current animation loops - determined by looking to see if it ends
          * in "_stop" or "_loop"
-         * @member {Boolean}
+         * @member {boolean}
          */
         this.isLooping = false;
 
         /**
          * If this timeline plays captions for the current sound.
-         * @member {Boolean}
+         * @member {boolean}
          * @readOnly
          */
         this.useCaptions = false;
 
         /**
          * If the timeline is paused.
-         * @member {Boolean}
+         * @member {boolean}
          * @private
          */
         this._paused = false;
 
         /**
          * The current animation duration in seconds.
-         * @member {Number}
+         * @member {number}
          */
         this.duration = 0;
 
         /**
          * The animation speed for the current animation. Default is 1.
-         * @member {Number}
+         * @member {number}
          */
         this.speed = 1;
 
         /**
          * Sound alias to sync to during the current animation.
-         * @member {String}
+         * @member {string}
          */
         this.soundAlias = null;
 
         /**
          * A sound instance object from springroll.Sound, used for tracking sound
          * position for the current animation.
-         * @member {Object}
+         * @member {object}
          */
         this.soundInst = null;
 
         /**
          * If the timeline will, but has yet to play a sound for the current animation.
-         * @member {Boolean}
+         * @member {boolean}
          */
         this.playSound = false;
 
         /**
          * The time (seconds) into the current animation that the sound starts.
-         * @member {Number}
+         * @member {number}
          */
         this.soundStart = 0;
 
         /**
          * The time (seconds) into the animation that the sound ends
-         * @member {Number}
+         * @member {number}
          */
         this.soundEnd = 0;
 
         /**
          * If the timeline is complete. Looping timelines will never complete.
-         * @member {Boolean}
+         * @member {boolean}
          * @readOnly
          */
         this.complete = false;
@@ -115,7 +115,7 @@ export default class AnimatorTimeline {
 
     /**
      * The position of the current animation, or the current pause timer, in milliseconds.
-     * @member {Number} time
+     * @member {number} time
      * @memberof springroll.AnimatorTimeline#
      */
     get time() {
@@ -127,7 +127,7 @@ export default class AnimatorTimeline {
 
     /**
      * Sets and gets the animation's paused status.
-     * @member {Boolean} paused
+     * @member {boolean} paused
      * @memberof springroll.AnimatorTimeline#
      */
     get paused() {
@@ -182,7 +182,7 @@ export default class AnimatorTimeline {
 
     /**
      * The current playback time in seconds.
-     * @member {Number} position
+     * @member {number} position
      * @memberof springroll.AnimatorTimeline#
      */
     get position() {

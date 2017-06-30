@@ -5,11 +5,11 @@
  * ### module: @springroll/display
  *
  * @class
- * @param x {Number} The X coord of the center of the circle this sector is on
- * @param y {Number} The Y coord of the center of the circle this sector is on
- * @param radius {Number} The radius of the circle
- * @param startAngle {Number} The starting angle of the sector, in degrees
- * @param endAngle {Number} The ending angle of the sector, in degrees
+ * @param x {number} The X coord of the center of the circle this sector is on
+ * @param y {number} The Y coord of the center of the circle this sector is on
+ * @param radius {number} The radius of the circle
+ * @param startAngle {number} The starting angle of the sector, in degrees
+ * @param endAngle {number} The ending angle of the sector, in degrees
  */
 PIXI.Sector = function(x, y, radius, startAngle, endAngle) {
     /**
@@ -70,9 +70,9 @@ PIXI.Sector.prototype.clone = function() {
 /**
  * Checks if the x, and y coords passed to this function are contained within this circle
  *
- * @param x {Number} The X coord of the point to test
- * @param y {Number} The Y coord of the point to test
- * @return {Boolean} if the x/y coords are within this polygon
+ * @param x {number} The X coord of the point to test
+ * @param y {number} The Y coord of the point to test
+ * @return {boolean} if the x/y coords are within this polygon
  */
 PIXI.Sector.prototype.contains = function(x, y) {
     if (this.radius <= 0) {

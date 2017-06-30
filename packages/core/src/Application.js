@@ -22,10 +22,10 @@ import sequencify from 'sequencify';
  */
 export default class Application extends EventEmitter {
     /**
-     * @param {Object} [options={}] The options for creating the application,
+     * @param {object} [options={}] The options for creating the application,
      *         see `springroll.ApplicationOptions` for the specific options
      *        that can be overridden and set.
-     * @param {Function} [ready=null] The callback when initialized
+     * @param {function} [ready=null] The callback when initialized
      */
     constructor(options, ready) {
         super();
@@ -45,21 +45,21 @@ export default class Application extends EventEmitter {
 
         /**
          * Override this to do post constructor initialization
-         * @member {Function}
+         * @member {function}
          */
         this.ready = ready || null;
 
         /**
          * If the current application is paused
          * @private
-         * @member {Boolean}
+         * @member {boolean}
          */
         this._paused = false;
 
         /**
          * If the current application is enabled
          * @private
-         * @member {Boolean}
+         * @member {boolean}
          */
         this._enabled = true;
 
@@ -82,7 +82,7 @@ export default class Application extends EventEmitter {
 
         /**
          * The name of the game, useful for debugging purposes
-         * @member {String}
+         * @member {string}
          * @default ""
          */
         this.name = this.options.name;
@@ -96,7 +96,7 @@ export default class Application extends EventEmitter {
 
     /**
      * The current version of the library
-     * @member {String}
+     * @member {string}
      * @static
      * @readOnly
      */
@@ -173,7 +173,7 @@ export default class Application extends EventEmitter {
     /**
      * Enables at the application level which enables
      * and disables all the displays.
-     * @member {Boolean}
+     * @member {boolean}
      * @default true
      */
     set enabled(enabled) {
@@ -189,7 +189,7 @@ export default class Application extends EventEmitter {
      * Manual pause for the entire application, this suspends
      * anything driving the the application update events. Include
      * Animator, Captions, Sound and other media playback.
-     * @property {Boolean} paused
+     * @property {boolean} paused
      */
     get paused() {
         return this._paused;
@@ -203,7 +203,7 @@ export default class Application extends EventEmitter {
      * Handle the internal pause of the application
      * @protected
      * @method internalPaused
-     * @param  {Boolean} paused If the application should be paused or not
+     * @param  {boolean} paused If the application should be paused or not
      */
     internalPaused(paused) {
         /**
@@ -260,7 +260,7 @@ export default class Application extends EventEmitter {
 
     /**
      * The toString debugging method
-     * @return {String} The reprsentation of this class
+     * @return {string} The reprsentation of this class
      */
     toString() {
         return `[Application name='${this.name}']`;
@@ -308,7 +308,7 @@ export default class Application extends EventEmitter {
 
 /**
  * Map of all plugins
- * @member {Object}
+ * @member {object}
  * @static
  */
 Application.plugins = {};

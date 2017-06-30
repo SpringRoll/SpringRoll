@@ -8,7 +8,7 @@
  * a Text with align of 'right' will have pivot.x set to the text's width, so that the
  * right edge of the text is at the text's position. Setting to false uses PIXI's default
  * alignment.
- * @member {Boolean} pivotAlign
+ * @member {boolean} pivotAlign
  * @memberof PIXI.Text#
  * @default false
  */

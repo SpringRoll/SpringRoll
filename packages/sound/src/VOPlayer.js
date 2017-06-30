@@ -29,14 +29,14 @@ export default class VOPlayer extends EventEmitter {
         /**
          * If the VOPlayer should keep a list of all audio it plays for unloading
          * later. Default is false.
-         * @member {Boolean}
+         * @member {boolean}
          */
         this.trackSound = false;
 
         /**
          * If the sound is currently paused. Setting this has no effect - use pause()
          * and resume().
-         * @member {Boolean}
+         * @member {boolean}
          * @readOnly
          */
         this.paused = false;
@@ -50,14 +50,14 @@ export default class VOPlayer extends EventEmitter {
 
         /**
          * The current position in voList.
-         * @member {int}
+         * @member {number}
          * @private
          */
         this._listCounter = 0;
 
         /**
          * The current audio alias being played.
-         * @member {String}
+         * @member {string}
          * @private
          */
         this._currentVO = null;
@@ -71,14 +71,14 @@ export default class VOPlayer extends EventEmitter {
 
         /**
          * The callback for when the list is finished.
-         * @member {Function}
+         * @member {function}
          * @private
          */
         this._callback = null;
 
         /**
          * The callback for when the list is interrupted for any reason.
-         * @member {Function}
+         * @member {function}
          * @private
          */
         this._cancelledCallback = null;
@@ -92,7 +92,7 @@ export default class VOPlayer extends EventEmitter {
 
         /**
          * A timer for silence entries in the list, in milliseconds.
-         * @member {int}
+         * @member {number}
          * @private
          */
         this._timer = 0;
@@ -108,20 +108,20 @@ export default class VOPlayer extends EventEmitter {
     /**
      * Fired when a new VO, caption, or silence timer begins
      * @event start
-     * @param {String} currentVO The alias of the VO or caption that has begun, or null if it is
+     * @param {string} currentVO The alias of the VO or caption that has begun, or null if it is
      *                           a silence timer.
      */
 
     /**
      * Fired when a new VO, caption, or silence timer completes
      * @event end
-     * @param {String} currentVO The alias of the VO or caption that has begun, or null if it is
+     * @param {string} currentVO The alias of the VO or caption that has begun, or null if it is
      *                           a silence timer.
      */
 
     /**
      * If VOPlayer is currently playing (audio or silence).
-     * @member {Boolean}
+     * @member {boolean}
      * @readOnly
      */
     get playing() {
@@ -131,7 +131,7 @@ export default class VOPlayer extends EventEmitter {
     /**
      * The current VO alias that is playing, even if it is just a caption. If a silence timer
      * is running, currentVO will be null.
-     * @member {Boolean}
+     * @member {boolean}
      * @readOnly
      */
     get currentVO() {
@@ -157,7 +157,7 @@ export default class VOPlayer extends EventEmitter {
 
     /**
      * The amount of time elapsed in the currently playing item of audio/silence in milliseconds
-     * @member {int}
+     * @member {number}
      */
     get currentPosition() {
         if (!this.playing) {
@@ -182,7 +182,7 @@ export default class VOPlayer extends EventEmitter {
      * The duration of the currently playing item of audio/silence in milliseconds. If this is
      * waiting on an audio file to load for the first time, it will be 0, as there is no duration
      * data to give.
-     * @member {int}
+     * @member {number}
      */
     get currentDuration() {
         if (!this.playing) {
@@ -205,7 +205,7 @@ export default class VOPlayer extends EventEmitter {
 
     /**
      * Calculates the amount of time elapsed in the current playlist of audio/silence.
-     * @return {int} The elapsed time in milliseconds.
+     * @return {number} The elapsed time in milliseconds.
      */
     getElapsed() {
         let total = 0,
@@ -297,10 +297,10 @@ export default class VOPlayer extends EventEmitter {
      * Plays a single audio alias, interrupting any current playback.
      * Alternatively, plays a list of audio files, timers, and/or functions.
      * Audio in the list will be preloaded to minimize pauses for loading.
-     * @param {String|Array} idOrList The alias of the audio file to play or the
+     * @param {string|Array} idOrList The alias of the audio file to play or the
      * array of items to play/call in order.
-     * @param {Function} [callback] The function to call when playback is complete.
-     * @param {Function|Boolean} [cancelledCallback] The function to call when playback
+     * @param {function} [callback] The function to call when playback is complete.
+     * @param {function|boolean} [cancelledCallback] The function to call when playback
      * is interrupted with a stop() or play() call. If this value is a boolean
      * <code>true</code> then callback will be used instead.
      */
@@ -396,7 +396,7 @@ export default class VOPlayer extends EventEmitter {
      * The update callback used for silence timers.
      * This method is bound to the VOPlayer instance.
      * @private
-     * @param {int} elapsed The time elapsed since the previous frame, in milliseconds.
+     * @param {number} elapsed The time elapsed since the previous frame, in milliseconds.
      */
     _updateSilence(elapsed) {
         this._timer -= elapsed;
@@ -410,7 +410,7 @@ export default class VOPlayer extends EventEmitter {
      * The update callback used for updating captions without active audio.
      * This method is bound to the VOPlayer instance.
      * @private
-     * @param {int} elapsed The time elapsed since the previous frame, in milliseconds.
+     * @param {number} elapsed The time elapsed since the previous frame, in milliseconds.
      */
     _updateSoloCaption(elapsed) {
         this._timer += elapsed;
@@ -425,7 +425,7 @@ export default class VOPlayer extends EventEmitter {
      * The update callback used for updating captions with active audio.
      * This method is bound to the VOPlayer instance.
      * @private
-     * @param {int} elapsed The time elapsed since the previous frame, in milliseconds.
+     * @param {number} elapsed The time elapsed since the previous frame, in milliseconds.
      */
     _syncCaptionToSound() {
         if (!this._soundInstance) {

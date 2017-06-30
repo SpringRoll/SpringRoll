@@ -9,7 +9,7 @@ export default {
     
     /**
      * The geometry class for Circle
-     * @member {Function}
+     * @member {function}
      * @memberof springroll.DisplayAdapter
      * @readOnly
      * @static
@@ -19,7 +19,7 @@ export default {
 
     /**
      * The geometry class for Ellipse
-     * @member {Function}
+     * @member {function}
      * @memberof springroll.DisplayAdapter
      * @readOnly
      * @static
@@ -29,7 +29,7 @@ export default {
 
     /**
      * The geometry class for Rectangle
-     * @member {Function}
+     * @member {function}
      * @memberof springroll.DisplayAdapter
      * @readOnly
      * @static
@@ -39,7 +39,7 @@ export default {
 
     /**
      * The geometry class for Sector
-     * @member {Function}
+     * @member {function}
      * @memberof springroll.DisplayAdapter
      * @readOnly
      * @static
@@ -49,7 +49,7 @@ export default {
 
     /**
      * The geometry class for point
-     * @member {Function}
+     * @member {function}
      * @memberof springroll.DisplayAdapter
      * @readOnly
      * @static
@@ -59,7 +59,7 @@ export default {
 
     /**
      * The geometry class for Polygon
-     * @member {Function}
+     * @member {function}
      * @memberof springroll.DisplayAdapter
      * @readOnly
      * @static
@@ -69,7 +69,7 @@ export default {
 
     /**
      * If the rotation is expressed in radians
-     * @member {Boolean}
+     * @member {boolean}
      * @memberof springroll.DisplayAdapter
      * @readOnly
      * @static
@@ -108,8 +108,8 @@ export default {
      * Normalize the object scale
      * @memberof springroll.DisplayAdapter
      * @param {PIXI.DisplayObject} object The PIXI display object
-     * @param {String} [direction] Either "x" or "y" to return a specific value
-     * @return {object|Number} A scale object with x and y keys or a single number if direction is set
+     * @param {string} [direction] Either "x" or "y" to return a specific value
+     * @return {object$number} A scale object with x and y keys or a single number if direction is set
      */
     getScale: function(object, direction) {
         if (direction !== undefined) {
@@ -122,11 +122,11 @@ export default {
      * Normalize the object position setting
      * @memberof springroll.DisplayAdapter
      * @param {PIXI.DisplayObject} object The PIXI display object
-     * @param {object|Number} position The position object or the value
+     * @param {object$number} position The position object or the value
      *         if the direction is set.
-     * @param {Number} [position.x] The x value
-     * @param {Number} [position.y] The y value
-     * @param {String} [direction] Either "x" or "y" value
+     * @param {number} [position.x] The x value
+     * @param {number} [position.y] The y value
+     * @param {string} [direction] Either "x" or "y" value
      * @return {PIXI.DisplayObject} Return the object for chaining
      */
     setPosition: function(object, position, direction) {
@@ -148,8 +148,8 @@ export default {
      * Normalize the object position getting
      * @memberof springroll.DisplayAdapter
      * @param {PIXI.DisplayObject} object The PIXI display object
-     * @param {String} [direction] Either "x" or "y", default is an object of both
-     * @return {Object|Number} The position as an object with x and y keys if no direction
+     * @param {string} [direction] Either "x" or "y", default is an object of both
+     * @return {Object$number} The position as an object with x and y keys if no direction
      *        value is set, or the value of the specific direction
      */
     getPosition: function(object, direction) {
@@ -163,8 +163,8 @@ export default {
      * Normalize the object scale setting
      * @memberof springroll.DisplayAdapter
      * @param {PIXI.DisplayObject} object The PIXI Display object
-     * @param {Number} scale The scaling object or scale value for x and y
-     * @param {String} [direction] Either "x" or "y" if setting a specific value, default
+     * @param {number} scale The scaling object or scale value for x and y
+     * @param {string} [direction] Either "x" or "y" if setting a specific value, default
      *         sets both the scale x and scale y.
      * @return {PIXI.DisplayObject} Return the object for chaining
      */
@@ -182,10 +182,10 @@ export default {
      * Set the pivot or registration point of an object
      * @memberof springroll.DisplayAdapter
      * @param {PIXI.DisplayObject} object The PIXI Display object
-     * @param {object|Number} pivot The object pivot point or the value if the direction is set
-     * @param {Number} [pivot.x] The x position of the pivot point
-     * @param {Number} [pivot.y] The y position of the pivot point
-     * @param {String} [direction] Either "x" or "y" the value for specific direction, default
+     * @param {object$number} pivot The object pivot point or the value if the direction is set
+     * @param {number} [pivot.x] The x position of the pivot point
+     * @param {number} [pivot.y] The y position of the pivot point
+     * @param {string} [direction] Either "x" or "y" the value for specific direction, default
      *         will set using the object.
      * @return {PIXI.DisplayObject} Return the object for chaining
      */
@@ -201,7 +201,7 @@ export default {
      * Set the hit area of the shape
      * @memberof springroll.DisplayAdapter
      * @param {PIXI.DisplayObject} object The PIXI Display object
-     * @param {Object} shape The geometry object
+     * @param {object} shape The geometry object
      * @return {PIXI.DisplayObject} Return the object for chaining
      */
     setHitArea: function(object, shape) {
@@ -236,7 +236,7 @@ export default {
      * @memberof springroll.DisplayAdapter
      * @param  {PIXI.DisplayObjectContainer} container The container
      * @param  {PIXI.DisplayObject} child  The object to test
-     * @return {Boolean} If the child contained within the container
+     * @return {boolean} If the child contained within the container
      */
     contains: function(container, child) {
         while (child) {

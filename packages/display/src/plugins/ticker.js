@@ -6,7 +6,7 @@ import {ApplicationPlugin} from '@springroll/core';
 
     /**
      *  Keep track of total time elapsed to feed to the Ticker
-     *  @member {Number}
+     *  @member {number}
      *  @private
      *  @default 0
      */

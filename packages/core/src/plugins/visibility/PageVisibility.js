@@ -8,34 +8,34 @@
  */
 export default class PageVisibility {
     /**
-     * @param {Function} onFocus Callback when the page becomes visible
-     * @param {Function} onBlur Callback when the page loses visibility
+     * @param {function} onFocus Callback when the page becomes visible
+     * @param {function} onBlur Callback when the page loses visibility
      */
     constructor(onFocus, onBlur) {
         /**
          * Callback when the page becomes visible
-         * @member {Function}
+         * @member {function}
          * @private
          */
         this._onFocus = onFocus;
 
         /**
          * Callback when the page loses visibility
-         * @member {Function}
+         * @member {function}
          * @private
          */
         this._onBlur = onBlur;
 
         /**
          * If this object is enabled.
-         * @member {Function}
+         * @member {function}
          * @private
          */
         this._enabled = false;
 
         /**
          * The name of the visibility change event for the browser
-         * @member {String}
+         * @member {string}
          * @private
          */
         this._visibilityChange = null;
@@ -63,7 +63,7 @@ export default class PageVisibility {
 
         /**
          * The visibility toggle listener function
-         * @member {Function}
+         * @member {function}
          * @private
          */
         this._onToggle = () => {
@@ -81,7 +81,7 @@ export default class PageVisibility {
 
     /**
      * If this object is enabled.
-     * @member {Function}
+     * @member {function}
      * @private
      */
     get enabled() {

@@ -28,7 +28,7 @@ export default class UserData {
          * The name to preprend to each property name, this is set
          * by default as the Application's name, which is required
          * for the Container Client module.
-         * @member {String}
+         * @member {string}
          * @default ""
          */
         this.id = '';
@@ -36,8 +36,8 @@ export default class UserData {
 
     /**
      * Read a saved setting
-     * @param  {String}   prop The property name
-     * @param  {Function} callback Callback when save completes, returns the value
+     * @param  {string}   prop The property name
+     * @param  {function} callback Callback when save completes, returns the value
      */
     read(prop, callback) {
         if (!this.container.supported) {
@@ -55,9 +55,9 @@ export default class UserData {
 
     /**
      * Write a setting
-     * @param  {String}   prop The property name
-     * @param  {*}   value The property value to save
-     * @param  {Function} [callback] Callback when write completes
+     * @param  {string}   prop The property name
+     * @param  {any}   value The property value to save
+     * @param  {function} [callback] Callback when write completes
      */
     write(prop, value, callback) {
         if (!this.container.supported) {
@@ -84,8 +84,8 @@ export default class UserData {
 
     /**
      * Delete a saved setting by name
-     * @param  {String}   prop The property name
-     * @param  {Function} [callback] Callback when remove completes
+     * @param  {string}   prop The property name
+     * @param  {function} [callback] Callback when remove completes
      */
     remove(prop, callback) {
         if (!this.container.supported) {

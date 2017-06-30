@@ -33,21 +33,21 @@ export default class HintsPlayer extends EventDispatcher {
 
         /**
          * The total number of milliseconds until playing
-         * @member {int}
+         * @member {number}
          * @private
          */
         this._duration = 0;
 
         /**
          * The countdown in milliseconds
-         * @member {int}
+         * @member {number}
          * @private
          */
         this._timer = 0;
 
         /**
          * Time in ms between timeout lines
-         * @member {Number}
+         * @member {number}
          * @default  12000
          */
         this.timerDuration = 12000;
@@ -59,7 +59,7 @@ export default class HintsPlayer extends EventDispatcher {
 
         /**
          * If a hint is currently playing
-         * @member {Boolean}
+         * @member {boolean}
          * @default false
          * @private
          */
@@ -83,33 +83,33 @@ export default class HintsPlayer extends EventDispatcher {
     /**
      * Play an animation event
      * @event springroll.HintsPlayer#anim
-     * @param {Object} data The event data
+     * @param {object} data The event data
      * @param {PIXI.animate.MovieClip} data.instance The movieclip instance
-     * @param {String|Array} data.events The Animator events
-     * @param {Function} data.complete Callback when complete
-     * @param {Function} data.cancel Callback when canceled
+     * @param {string|Array} data.events The Animator events
+     * @param {function} data.complete Callback when complete
+     * @param {function} data.cancel Callback when canceled
      */
 
     /**
      * Play an Voice-Over event
      * @event springroll.HintsPlayer#vo
-     * @param {Object} data The event data
-     * @param {String|Array} data.events The VO alias or array of aliases/times/etc
-     * @param {Function} data.complete Callback when complete
-     * @param {Function} data.cancel Callback when canceled
+     * @param {object} data The event data
+     * @param {string|Array} data.events The VO alias or array of aliases/times/etc
+     * @param {function} data.complete Callback when complete
+     * @param {function} data.cancel Callback when canceled
      */
 
     /**
      * Event when the enabled status of the hint changes
      * @event springroll.HintsPlayer#enabled
-     * @param {Boolean} enabled If the player is enabled
+     * @param {boolean} enabled If the player is enabled
      */
 
     /**
      * Add a VO hint to the player.
-     * @param {String|Array} idOrList The list of VO element, see VOPlayer.play
-     * @param {Function} onComplete Call when the VO is done playing
-     * @param {Function|Boolean} [onCancel] Call when the VO is cancelled playing,
+     * @param {string|Array} idOrList The list of VO element, see VOPlayer.play
+     * @param {function} onComplete Call when the VO is done playing
+     * @param {function|boolean} [onCancel] Call when the VO is cancelled playing,
      *       a value of true sets onComplete to also be the onCancelled callback.
      * @return {springroll.VOHint} The newly added hint
      */
@@ -125,10 +125,10 @@ export default class HintsPlayer extends EventDispatcher {
 
     /**
      * Add an animator hint to the player
-     * @param {PIXI.animate.MovieClip|*} instance The instance of the clip to play with Animator
-     * @param {String|Array|Object} events The event aliases to play, see Animator.play
-     * @param {Function} onComplete Call when the VO is done playing
-     * @param {Function|Boolean} [onCancel] Call when the VO is cancelled playing,
+     * @param {PIXI.animate.MovieClip|any} instance The instance of the clip to play with Animator
+     * @param {string|Array|object} events The event aliases to play, see Animator.play
+     * @param {function} onComplete Call when the VO is done playing
+     * @param {function|boolean} [onCancel] Call when the VO is cancelled playing,
      *       a value of true sets onComplete to also be the onCancelled callback.
      * @return {springroll.AnimatorHint} The newly added hint
      */
@@ -147,7 +147,7 @@ export default class HintsPlayer extends EventDispatcher {
      * Add an animator hint to the player. If you use this hinting method, you
      * NEED to re-enable the hinting when it's done. Whereas the VO and ANIM methods
      * with automatically re-enable the hinting button.
-     * @param {Function} onStart The function to call when hint is played.
+     * @param {function} onStart The function to call when hint is played.
      *                           Should accept 2 arguments (callbacks): onComplete, onCancelled
      *                           and call them when complete or cancelled
      * @return {springroll.FunctionHint} The newly added hint
@@ -215,7 +215,7 @@ export default class HintsPlayer extends EventDispatcher {
 
     /**
      * Start a timer
-     * @param {int} [duration=12000] The number of milliseconds before playing hint
+     * @param {number} [duration=12000] The number of milliseconds before playing hint
      * @return {springroll.HintsPlayer} instance of the player for chaining
      */
     startTimer(duration) {
@@ -254,7 +254,7 @@ export default class HintsPlayer extends EventDispatcher {
 
     /**
      * If the help button is enabled
-     * @member {Boolean}
+     * @member {boolean}
      */
     set enabled(enabled) {
         this.emit('enabled', enabled);
@@ -263,7 +263,7 @@ export default class HintsPlayer extends EventDispatcher {
     /**
      * Handle the update function
      * @private
-     * @param {int} elapsed Number of milliseconds since the last update
+     * @param {number} elapsed Number of milliseconds since the last update
      */
     _update(elapsed) {
         if (this._playing) {
@@ -282,12 +282,12 @@ export default class HintsPlayer extends EventDispatcher {
 
     /**
      * Call this when a FunctionHint is done playing to reset HintsPlayer
-     * @param {Boolean} [cancelled=false] If the function was interrupted by the user or something else.
+     * @param {boolean} [cancelled=false] If the function was interrupted by the user or something else.
      */
     /**
      * Internal callback when a hint is done playing
      * @private
-     * @param {Boolean} [cancelled=false] If the function was interrupted by the user or something else.
+     * @param {boolean} [cancelled=false] If the function was interrupted by the user or something else.
      */
     funcDone(cancelled) {
         this._playing = false;

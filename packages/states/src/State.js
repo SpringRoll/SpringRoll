@@ -15,13 +15,13 @@ export default class State extends EventEmitter {
 /**
  * @param {createjs.Container|PIXI.DisplayObjectContainer} panel The panel to associate with
  *     this state.
- * @param {Object} [options] The list of options
- * @param {String|Function} [options.next=null] The next state alias or function to call when going to the next state.
- * @param {String|Function} [options.previous=null] The previous state alias to call when going to the previous state.
- * @param {int} [options.delayLoad=0] The number of frames to delay the loading for cases where
+ * @param {object} [options] The list of options
+ * @param {string|function} [options.next=null] The next state alias or function to call when going to the next state.
+ * @param {string|function} [options.previous=null] The previous state alias to call when going to the previous state.
+ * @param {number} [options.delayLoad=0] The number of frames to delay the loading for cases where
  *  heavy object instaniation slow the game dramatically.
  * @param {Array} [options.preload=[]] The assets to preload before the state loads
- * @param {Object|String} [options.scaling=null] The scaling items to use with the ScaleManager.
+ * @param {object|string} [options.scaling=null] The scaling items to use with the ScaleManager.
  *       If options.scaling is `"panel"` then the entire panel will be scaled as a title-safe
  *       item. See `ScaleManager.addItems` for more information about the
  *       format of the scaling objects. (UI Module only)
@@ -70,7 +70,7 @@ export default class State extends EventEmitter {
 
         /**
          * Reference to the main config object
-         * @member {Object}
+         * @member {object}
          * @readOnly
          */
         this.config = app.config || null;
@@ -89,7 +89,7 @@ export default class State extends EventEmitter {
          * matching the same state alias. For instance `config.scaling.title` if
          * `title` is the state alias. If no scalingItems are set, will scale
          * and position the panal itself.
-         * @member {Object}
+         * @member {object}
          * @readOnly
          * @default null
          */
@@ -97,7 +97,7 @@ export default class State extends EventEmitter {
 
         /**
          * The id reference
-         * @member {String}
+         * @member {string}
          */
         this.stateId = null;
 
@@ -121,7 +121,7 @@ export default class State extends EventEmitter {
 
         /**
          * Check to see if the assets have finished loading
-         * @member {Boolean}
+         * @member {boolean}
          * @protected
          * @readOnly
          */
@@ -129,56 +129,56 @@ export default class State extends EventEmitter {
 
         /**
          * The collection of assets loaded
-         * @member {Array|Object}
+         * @member {Array|object}
          * @protected
          */
         this.assets = null;
 
         /**
          * If the state has been destroyed.
-         * @member {Boolean}
+         * @member {boolean}
          * @private
          */
         this._destroyed = false;
 
         /**
          * If the manager considers this the active panel
-         * @member {Boolean}
+         * @member {boolean}
          * @private
          */
         this._active = false;
 
         /**
          * If we are pre-loading the state
-         * @member {Boolean}
+         * @member {boolean}
          * @private
          */
         this._isLoading = false;
 
         /**
          * If we canceled entering the state
-         * @member {Boolean}
+         * @member {boolean}
          * @private
          */
         this._canceled = false;
 
         /**
          * When we're finishing loading
-         * @member {Function}
+         * @member {function}
          * @private
          */
         this._onEnterProceed = null;
 
         /**
          * If we start doing a load in enter, assign the onEnterComplete here
-         * @member {Function}
+         * @member {function}
          * @private
          */
         this._onLoadingComplete = null;
 
         /**
          * If the state is enabled, meaning that it is click ready
-         * @member {Boolean}
+         * @member {boolean}
          * @private
          */
         this._enabled = false;
@@ -186,7 +186,7 @@ export default class State extends EventEmitter {
         /**
          * Either the alias of the next state or a function
          * to call when going to the next state.
-         * @member {String|Function}
+         * @member {string|function}
          * @private
          */
         this._nextState = options.next;
@@ -194,7 +194,7 @@ export default class State extends EventEmitter {
         /**
          * Either the alias of the previous state or a function
          * to call when going to the previous state.
-         * @member {String|Function}
+         * @member {string|function}
          * @private
          */
         this._prevState = options.previous;
@@ -202,7 +202,7 @@ export default class State extends EventEmitter {
         /**
          * The number of frames to delay the transition in after loading, to allow the framerate
          * to stablize after heavy art instantiation.
-         * @member {int}
+         * @member {number}
          * @protected
          */
         this.delayLoad = options.delayLoad;
@@ -281,13 +281,13 @@ export default class State extends EventEmitter {
     /**
      * Event when the preload of assets is finished. If no assets are loaded, the `assets` parameter is null.
      * @event springroll.State#loaded
-     * @param {Object|Array|null} asset The collection of assets loaded
+     * @param {object|Array|null} asset The collection of assets loaded
      */
 
     /**
      * When there has been a change in how much has been preloaded
      * @event springroll.State#progress
-     * @param {Number} percentage The amount preloaded from zero to 1
+     * @param {number} percentage The amount preloaded from zero to 1
      */
 
     /**
@@ -300,7 +300,7 @@ export default class State extends EventEmitter {
     /**
      * Event when the state is enabled status changes. Enable is when the state is mouse enabled or not.
      * @event springroll.State#enabled
-     * @param {Boolean} enable The enabled status of the state
+     * @param {boolean} enable The enabled status of the state
      */
 
     /**
@@ -372,7 +372,7 @@ export default class State extends EventEmitter {
     /**
      * Manual call to signal the end of preloading
      * @final
-     * @param {int} [delay] Frames to delay the load completion to allow the framerate to
+     * @param {number} [delay] Frames to delay the load completion to allow the framerate to
      *   stabilize. If not delay is set, defaults to the `delayLoad` property.
      */
     loadingDone(delay) {
@@ -406,7 +406,7 @@ export default class State extends EventEmitter {
 
     /**
      * Status of whether the panel load was canceled
-     * @member {Boolean}
+     * @member {boolean}
      * @readOnly
      */
     get canceled() {
@@ -415,7 +415,7 @@ export default class State extends EventEmitter {
 
     /**
      * Get if this is the active state
-     * @member {Boolean}
+     * @member {boolean}
      * @readOnly
      */
     get active() {
@@ -424,7 +424,7 @@ export default class State extends EventEmitter {
 
     /**
      * If the state is enabled, meaning that it is click ready
-     * @member {Boolean}
+     * @member {boolean}
      */
     get enabled() {
         return this._enabled;
@@ -439,7 +439,7 @@ export default class State extends EventEmitter {
 
     /**
      * If the state has been destroyed.
-     * @member {Boolean}
+     * @member {boolean}
      * @readOnly
      */
     get destroyed() {
@@ -489,7 +489,7 @@ export default class State extends EventEmitter {
 
     /**
      * When the state is entering
-     * @param {Function} proceed The function to call after enter has been called
+     * @param {function} proceed The function to call after enter has been called
      * @private
      */
     _internalEntering() {
@@ -529,7 +529,7 @@ export default class State extends EventEmitter {
     /**
      * Handle the load progress and pass to the manager
      * @private
-     * @param {Number} progress The amount preloaded from zero to 1
+     * @param {number} progress The amount preloaded from zero to 1
      */
     _onProgress(progress) {
         this.emit('progress', progress);
@@ -539,7 +539,7 @@ export default class State extends EventEmitter {
     /**
      * The internal call for on assets loaded
      * @private
-     * @param {Object|null} assets The assets result of the load
+     * @param {object|null} assets The assets result of the load
      */
     _onLoaded(assets) {
         this.assets = assets;
@@ -583,7 +583,7 @@ export default class State extends EventEmitter {
 
     /**
      * Exit the state start, called by the State Manager
-     * @param {Function} proceed The function to call after enter has been called
+     * @param {function} proceed The function to call after enter has been called
      * @private
      */
     _internalEnter(proceed) {

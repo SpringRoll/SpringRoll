@@ -13,7 +13,7 @@ export default class ApplicationOptions extends PropertyEmitter {
 
         /**
          * Use the query string parameters for options overrides
-         * @member {Boolean}
+         * @member {boolean}
          * @default false
          */
         let useQueryString = false;
@@ -23,7 +23,7 @@ export default class ApplicationOptions extends PropertyEmitter {
 
         /**
          * The user input options
-         * @member {Object}
+         * @member {object}
          * @private
          */
         this._options = Object.assign({
@@ -100,7 +100,7 @@ export default class ApplicationOptions extends PropertyEmitter {
 
     /**
      * Convert a string into a DOM Element
-     * @param {String} name The property name to fetch
+     * @param {string} name The property name to fetch
      */
     asDOMElement(name) {
         let prop = this._properties[name];
@@ -114,8 +114,8 @@ export default class ApplicationOptions extends PropertyEmitter {
 
     /**
      * Override a default value
-     * @param {String} name The property name to fetch
-     * @param {mixed} value The value
+     * @param {string} name The property name to fetch
+     * @param {any} value The value
      * @return {springroll.ApplicationOptions} Instance of this options for chaining
      */
     override(name, value) {

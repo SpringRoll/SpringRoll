@@ -10,7 +10,7 @@
  * right edge of the text is at the text's position. Setting to false uses PIXI's default
  * alignment.
  * @memberof PIXI.extras.BitmapText#
- * @member {Boolean} pivotAlign
+ * @member {boolean} pivotAlign
  * @default false
  */
 PIXI.extras.BitmapText.prototype.pivotAlign = false;

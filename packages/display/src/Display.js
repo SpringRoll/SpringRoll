@@ -12,7 +12,7 @@ import {EventEmitter} from '@springroll/core';
 export default class Display extends EventEmitter {
     /**
      * The ID of the DOM element which contains all of the SpringRoll display elements.
-     * @member {String}
+     * @member {string}
      * @readOnly
      * @default 'springroll'
      */
@@ -22,7 +22,7 @@ export default class Display extends EventEmitter {
 
     /**
      * The ID of the DOM element which contains the display's HTMLCanvasElement.
-     * @member {String}
+     * @member {string}
      * @readOnly
      * @default 'springroll-display'
      */
@@ -32,7 +32,7 @@ export default class Display extends EventEmitter {
 
     /**
      * The ID of the HTMLCanvasElement for display.
-     * @member {String}
+     * @member {string}
      * @readOnly
      * @default 'springroll-stage'
      */
@@ -42,11 +42,11 @@ export default class Display extends EventEmitter {
 
     /**
      * @param {HTMLElement} container - Container for the canvas element.
-     * @param {Object} [options] Include all renderer option for PIXI renderers. See
+     * @param {object} [options] Include all renderer option for PIXI renderers. See
      *        http://pixijs.download/release/docs/PIXI.html#.autoDetectRenderer for more info.
-     * @param {String} [options.forceContext=null] If a specific renderer should be used instead
+     * @param {string} [options.forceContext=null] If a specific renderer should be used instead
      *        of WebGL falling back to Canvas. Use "webgl" or "canvas2d" to specify a renderer.
-     * @param {Boolean} [options.autoPreventDefault=true] `true` to call preventDefault() on
+     * @param {boolean} [options.autoPreventDefault=true] `true` to call preventDefault() on
      *        all touch events and mousedown events.
      */
     constructor(container, options) {
@@ -62,7 +62,7 @@ export default class Display extends EventEmitter {
 
         /**
          * The DOM id for the canvas
-         * @member {String}
+         * @member {string}
          * @readOnly
          */
         this.id = container.id;
@@ -70,7 +70,7 @@ export default class Display extends EventEmitter {
         /**
          * Convenience method for getting the width of the canvas element
          * would be the same thing as view.width
-         * @member {int}
+         * @member {number}
          * @readOnly
          */
         this.width = options.width;
@@ -78,14 +78,14 @@ export default class Display extends EventEmitter {
         /**
          * Convenience method for getting the height of the canvas element
          * would be the same thing as view.height
-         * @member {int}
+         * @member {number}
          * @readOnly
          */
         this.height = options.height;
 
         /**
          * The main rendering context or the root display object or stage.
-         * @member {mixed}
+         * @member {any}
          * @readOnly
          */
         this.stage = null;
@@ -93,20 +93,20 @@ export default class Display extends EventEmitter {
         /**
          * If rendering is paused on this display only. Pausing all displays can be done
          * using Application.paused setter.
-         * @member {Boolean}
+         * @member {boolean}
          */
         this.paused = false;
 
         /**
          * If input is enabled on the stage.
-         * @member {Boolean}
+         * @member {boolean}
          * @private
          */
         this._enabled = false;
 
         /**
          * If the display is visible.
-         * @member {Boolean}
+         * @member {boolean}
          * @private
          */
         this._visible = true;
@@ -114,7 +114,7 @@ export default class Display extends EventEmitter {
         /**
          * If preventDefault() should be called on all touch events and mousedown events. Defaults
          * to true.
-         * @member {Boolean}
+         * @member {boolean}
          * @private
          */
         this._autoPreventDefault = options.autoPreventDefault;
@@ -177,7 +177,7 @@ export default class Display extends EventEmitter {
 
         /**
          * If Pixi is being rendered with WebGL.
-         * @member {Boolean}
+         * @member {boolean}
          * @readOnly
          */
         this.isWebGL = this.renderer instanceof PIXI.WebGLRenderer;
@@ -188,7 +188,7 @@ export default class Display extends EventEmitter {
 
     /**
      * If input is enabled on the stage for this display. The default is true.
-     * @member {Boolean}
+     * @member {boolean}
      */
     get enabled() {
         return this._enabled;
@@ -215,7 +215,7 @@ export default class Display extends EventEmitter {
         /**
          * Enabled state changed on the display
          * @event enable
-         * @param {Boolean} enabled Current state of enabled
+         * @param {boolean} enabled Current state of enabled
          */
         this.emit('enable', value);
     }
@@ -223,7 +223,7 @@ export default class Display extends EventEmitter {
     /**
      * If preventDefault() should be called on all touch events and mousedown events. Defaults
      * to true.
-     * @member {Boolean}
+     * @member {boolean}
      */
     get autoPreventDefault() {
         return this._autoPreventDefault;
@@ -240,8 +240,8 @@ export default class Display extends EventEmitter {
 
     /**
      * Resizes the canvas and the renderer. This is only called by the Application.
-     * @param {int} width The width that the display should be
-     * @param {int} height The height that the display should be
+     * @param {number} width The width that the display should be
+     * @param {number} height The height that the display should be
      */
     resize(width, height) {
         this.width = this.view.width = width;
@@ -253,8 +253,8 @@ export default class Display extends EventEmitter {
     /**
      * Updates the stage and draws it. This is only called by the Application.
      * This method does nothing if paused is true or visible is false.
-     * @param {int} elapsed
-     * @param {Boolean} [force=false] Will re-render even if the game is paused or not visible
+     * @param {number} elapsed
+     * @param {boolean} [force=false] Will re-render even if the game is paused or not visible
      */
     render(elapsed, force = false) {
         if (force || (!this.paused && this._visible)) {
@@ -290,7 +290,7 @@ export default class Display extends EventEmitter {
 
     /**
      * If the display is visible, using "display: none" css on the canvas. Invisible displays won't render.
-     * @member {Boolean}
+     * @member {boolean}
      */
     get visible() {
         return this._visible;
@@ -318,7 +318,7 @@ export default class Display extends EventEmitter {
         /**
          * Visibility changed on the display
          * @event visibility
-         * @param {Boolean} visible Current state of the visibility
+         * @param {boolean} visible Current state of the visibility
          */
         this.emit('visibility', value);
     }

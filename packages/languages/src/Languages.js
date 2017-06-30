@@ -14,7 +14,7 @@ export default class Languages extends EventDispatcher {
 
         /**
          * The value to replace with the current language in URLS.
-         * @member {String}
+         * @member {string}
          * @private
          * @default "%LANG%"
          */
@@ -22,14 +22,14 @@ export default class Languages extends EventDispatcher {
 
         /**
          * The current language.
-         * @member {String}
+         * @member {string}
          * @private
          */
         this._current = null;
 
         /**
          * The default language.
-         * @member {String}
+         * @member {string}
          * @private
          */
         this._default = null;
@@ -51,18 +51,18 @@ export default class Languages extends EventDispatcher {
     /**
      * Fired when the chosen language has changed.
      * @event springroll.Languages#changed
-     * @param {String} language The newly chosen language.
+     * @param {string} language The newly chosen language.
      */
 
     /**
      * Configure 
-     * @param {Object} config The language settings to be used.
-     * @param {String} config.default The default language name to use if asked for one that is
+     * @param {object} config The language settings to be used.
+     * @param {string} config.default The default language name to use if asked for one that is
      *                              not present.
      * @param {Array} config.languages An array of all supported languages, with entries being
      *                               locale ids (dialects allowed). Locale ids should be lower
      *                               case.
-     * @param {String} [config.replace="%LANG%"] A string to replace in urls with the current
+     * @param {string} [config.replace="%LANG%"] A string to replace in urls with the current
      *                                          language.
      */
     setConfig(config) {
@@ -84,7 +84,7 @@ export default class Languages extends EventDispatcher {
 
     /**
      * The current language.
-     * @member {String}
+     * @member {string}
      * @readOnly
      */
     get current() {
@@ -114,7 +114,7 @@ export default class Languages extends EventDispatcher {
 
     /**
      * Sets the current language, based on specified preferences and what is available.
-     * @param {Array|String} languageList The list of preferred languages in order of preference,
+     * @param {Array|string} languageList The list of preferred languages in order of preference,
      *                                or a single language.
      */
     setLanguage(languageList) {
@@ -163,8 +163,8 @@ export default class Languages extends EventDispatcher {
 
     /**
      * Gets a string from the current string table.
-     * @param {String} key The key of the string to get.
-     * @return {String} The translated string.
+     * @param {string} key The key of the string to get.
+     * @return {string} The translated string.
      */
     getString(key) {
         return this._stringTable ? this._stringTable[key] : null;
@@ -173,9 +173,9 @@ export default class Languages extends EventDispatcher {
     /**
      * Gets a formatted string from the current string table. See String.format() in the Core
      * module.
-     * @param {String} key The key of the string to get.
-     * @param {Array|*} args An array or list of arguments for formatting.
-     * @return {String} The translated string.
+     * @param {string} key The key of the string to get.
+     * @param {Array|any} args An array or list of arguments for formatting.
+     * @return {string} The translated string.
      */
     getFormattedString(key) {
         let string = this._stringTable ? this._stringTable[key] : null;
@@ -189,7 +189,7 @@ export default class Languages extends EventDispatcher {
 
     /**
      * Modifies a url, replacing a specified value with the current language.
-     * @param {String} url The url to modify to a language specific version.
+     * @param {string} url The url to modify to a language specific version.
      */
     modifyUrl(url) {
         while (url.indexOf(this._replace) >= 0) {

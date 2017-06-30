@@ -9,10 +9,10 @@
 export default class TextureAtlas {
     /**
      * @param {PIXI.Texture} texture The PIXI Texture that all sub-textures pull from.
-     * @param {Object} data The JSON object describing the frames in the atlas. This
+     * @param {object} data The JSON object describing the frames in the atlas. This
      *                      is expected to fit the JSON Hash format as exported from
      *                      TexturePacker.
-     * @param {Boolean} [useGlobalCache] If sub-textures should be placed in Pixi's global
+     * @param {boolean} [useGlobalCache] If sub-textures should be placed in Pixi's global
      *                                   texture cache.
      */
     constructor(texture, data, useGlobalCache) {
@@ -21,7 +21,7 @@ export default class TextureAtlas {
 
         /**
          * The dictionary of Textures that this atlas consists of.
-         * @member {Object}
+         * @member {object}
          */
         this.frames = {};
 
@@ -96,7 +96,7 @@ export default class TextureAtlas {
 
     /**
      * Gets a frame by name.
-     * @param {String} name The frame name to get.
+     * @param {string} name The frame name to get.
      * @return {createjs.TextureAtlas.Texture} The texture by that name, or null if it doesn't
      *                                         exist.
      */
@@ -107,14 +107,14 @@ export default class TextureAtlas {
     /**
      * Get an array of Textures that match a specific name. If a frame in a sequence is not in the
      * atlas, the previous frame in the sequence is used in place of it.
-     * @param {String} name The base name of all frames to look for, like "anim_#" to search for an
+     * @param {string} name The base name of all frames to look for, like "anim_#" to search for an
      *                      animation exported as anim_0001.png (the ".png" is dropped when the
      *                      TextureAtlas is loaded).
-     * @param {int} numberMin The number to start on while looking for frames. Flash PNG sequences
+     * @param {number} numberMin The number to start on while looking for frames. Flash PNG sequences
      *                        generally start at 1.
-     * @param {int} numberMax The number to go until while looking for frames. If your animation
+     * @param {number} numberMax The number to go until while looking for frames. If your animation
      *                        runs from frame 0001 to frame 0014, numberMax would be 14.
-     * @param {int} [maxDigits=4] Maximum number of digits, like 4 for an animation exported as
+     * @param {number} [maxDigits=4] Maximum number of digits, like 4 for an animation exported as
      *                            anim_0001.png
      * @param {Array} [outArray] If already using an array, this can fill it instead of creating a
      *                           new one.

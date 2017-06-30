@@ -1,7 +1,7 @@
 /**
  * Name of the window global object.
  * @memberof springroll
- * @member {String} name
+ * @member {string} name
  * @default 'springroll'
  * @readonly
  */

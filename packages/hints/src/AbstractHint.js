@@ -7,7 +7,7 @@
 export default class AbstractHint {
     /**
      * @param {springroll.HintsPlayer} hints The instance of the hints
-     * @param {Function} done called on hint complete
+     * @param {function} done called on hint complete
      */
     constructor(hints, done) {
         /**

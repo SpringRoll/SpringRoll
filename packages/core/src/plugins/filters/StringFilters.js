@@ -18,8 +18,8 @@ export default class StringFilters {
 
     /**
      * Register a filter
-     * @param {String|RegExp} replace The string or regex to replace
-     * @param {String} replacement String to repalce with
+     * @param {string|RegExp} replace The string or regex to replace
+     * @param {string} replacement String to repalce with
      */
     add(replace, replacement) {
         if (!replace || (typeof replace !== 'string' && replace instanceof RegExp === false)) {
@@ -66,7 +66,7 @@ export default class StringFilters {
 
     /**
      * Test a string against all registered filters
-     * @param {String} str The string to check
+     * @param {string} str The string to check
      */
     filter(str) {
         if (!this._filters) {

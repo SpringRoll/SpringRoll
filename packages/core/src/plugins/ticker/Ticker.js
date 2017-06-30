@@ -10,7 +10,7 @@ import DelayedCall from './DelayedCall';
  */
 export default class Ticker extends EventEmitter {
     /**
-     * @param {Number} fps - Frames per second
+     * @param {number} fps - Frames per second
      */
     constructor(fps) {
         super();
@@ -18,34 +18,34 @@ export default class Ticker extends EventEmitter {
         /**
          * The number of ms since the last frame update
          * @private
-         * @member {int}
+         * @member {number}
          */
         this._lastFrameTime = 0;
 
         /**
          * The bound callback for listening to tick events
          * @private
-         * @member {Function}
+         * @member {function}
          */
         this._tick = this._tick.bind(this);
 
         /**
          * The id of the active requestAnimationFrame or setTimeout call.
-         * @member {Number}
+         * @member {number}
          * @private
          */
         this._tickId = -1;
 
         /**
          * Set the frames per second.
-         * @member {Number}
+         * @member {number}
          * @private
          */
         this._fps = fps;
 
         /**
          * The number of milliseconds per frame
-         * @member {int}
+         * @member {number}
          * @private
          */
         this._msPerFrame = 0;
@@ -59,7 +59,7 @@ export default class Ticker extends EventEmitter {
 
         /**
          * Accumulated number of milliseconds since start.
-         * @member {int}
+         * @member {number}
          * @private
          */
         this._time = performance.now();
@@ -70,7 +70,7 @@ export default class Ticker extends EventEmitter {
 
     /**
      * Se the frames per second.
-     * @member {Number}
+     * @member {number}
      */
     set fps(fps) {
         if (typeof fps === 'number') {
@@ -134,10 +134,10 @@ export default class Ticker extends EventEmitter {
     /**
      * Works just like `window.setTimeout` but respects the pause
      * state of the Application.
-     * @param {Function} callback    The callback function, passes one argument which is the DelayedCall instance
-     * @param {int}   delay       The time in milliseconds or the number of frames (useFrames must be true)
-     * @param {Boolean}   [useFrames=false]   If the delay is frames (true) or millseconds (false)
-     * @param {Boolean}   [autoDestroy=true] If the DelayedCall object should be destroyed after completing
+     * @param {function} callback    The callback function, passes one argument which is the DelayedCall instance
+     * @param {number}   delay       The time in milliseconds or the number of frames (useFrames must be true)
+     * @param {boolean}   [useFrames=false]   If the delay is frames (true) or millseconds (false)
+     * @param {boolean}   [autoDestroy=true] If the DelayedCall object should be destroyed after completing
      * @return {springroll.DelayedCall} The object for pausing, restarting, destroying etc.
      */
     setTimeout(callback, delay, useFrames, autoDestroy) {
@@ -147,9 +147,9 @@ export default class Ticker extends EventEmitter {
     /**
      * Works just like `window.setInterval` but respects the pause
      * state of the Application.
-     * @param {Function} callback    The callback function, passes one argument which is the DelayedCall instance
-     * @param {int}   delay       The time in milliseconds or the number of frames (useFrames must be true)
-     * @param {Boolean}   [useFrames=false]   If the delay is frames (true) or millseconds (false)
+     * @param {function} callback    The callback function, passes one argument which is the DelayedCall instance
+     * @param {number}   delay       The time in milliseconds or the number of frames (useFrames must be true)
+     * @param {boolean}   [useFrames=false]   If the delay is frames (true) or millseconds (false)
      * @return {springroll.DelayedCall} The object for pausing, restarting, destroying etc.
      */
     setInterval(callback, delay, useFrames) {

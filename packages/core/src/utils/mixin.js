@@ -10,10 +10,10 @@ import include from './include';
  *
  * @memberof springroll
  * @method mixin
- * @param {mixed} target The instance object to add functionality to
- * @param {function|String} superClass The parent reference or full classname
- * @param {mixed} [args] Any additional arguments to pass to the constructor of the superClass
- * @return {mixed} Return reference to target
+ * @param {any} target The instance object to add functionality to
+ * @param {function|string} superClass The parent reference or full classname
+ * @param {any} [args] Any additional arguments to pass to the constructor of the superClass
+ * @return {any} Return reference to target
  */
 export default function mixin(target, superClass) {
     // @if DEBUG

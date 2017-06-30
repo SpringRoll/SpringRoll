@@ -8,9 +8,9 @@ export default class MathUtils {
     /**
      * Return a random int between minimum and maximum values.
      * If a single value is supplied, it will return a number between 0 and the supplied value.
-     * @param {int} min Lowest number. If max is omitted, then this becomes max.
-     * @param {int} max Highest number.
-     * @return {int} The random value
+     * @param {number} min Lowest number. If max is omitted, then this becomes max.
+     * @param {number} max Highest number.
+     * @return {number} The random value
      */
     static randomInt(min, max) {
         if (max === undefined) {
@@ -23,9 +23,9 @@ export default class MathUtils {
     /**
      * Return a random float between minimum and maximum values.
      * If a single value is supplied, it will return a number between 0 and the supplied value.
-     * @param {Number} min Lowest number. If max is omitted, then this becomes max.
-     * @param {Number} max Highest number.
-     * @return {Number} The random value
+     * @param {number} min Lowest number. If max is omitted, then this becomes max.
+     * @param {number} max Highest number.
+     * @return {number} The random value
      */
     static randomFloat(min, max) {
         if (max === undefined) {
@@ -38,22 +38,22 @@ export default class MathUtils {
     /**
      * Return distance between two points
      * @method springroll.MathUtils.dist
-     * @param {Number} x The x position of the first point
-     * @param {Number} y The y position of the first point
-     * @param {Number} x0 The x position of the second point
-     * @param {Number} y0 The y position of the second point
-     * @return {Number} The distance
+     * @param {number} x The x position of the first point
+     * @param {number} y The y position of the first point
+     * @param {number} x0 The x position of the second point
+     * @param {number} y0 The y position of the second point
+     * @return {number} The distance
      */
 
     /**
      * Return distance between two points
-     * @param {Object} p1 The first point
-     * @param {Object} p1.x The x position of the first point
-     * @param {Object} p1.y The y position of the first point
-     * @param {Object} p2 The second point
-     * @param {Object} p2.x The x position of the second point
-     * @param {Number} p2.y The y position of the second point
-     * @return {Number} The distance
+     * @param {object} p1 The first point
+     * @param {object} p1.x The x position of the first point
+     * @param {object} p1.y The y position of the first point
+     * @param {object} p2 The second point
+     * @param {object} p2.x The x position of the second point
+     * @param {number} p2.y The y position of the second point
+     * @return {number} The distance
      */
     static dist(x, y, x0, y0) {
         return Math.sqrt(MathUtils.distSq(x, y, x0, y0));
@@ -62,22 +62,22 @@ export default class MathUtils {
     /**
      * Return squared distance between two points
      * @method springroll.MathUtils.distSq
-     * @param {Number} x The x position of the first point
-     * @param {Number} y The y position of the first point
-     * @param {Number} x0 The x position of the second point
-     * @param {Number} y0 The y position of the second point
-     * @return {Number} The distance
+     * @param {number} x The x position of the first point
+     * @param {number} y The y position of the first point
+     * @param {number} x0 The x position of the second point
+     * @param {number} y0 The y position of the second point
+     * @return {number} The distance
      */
 
     /**
      * Return squared distance between two points
-     * @param {Object} p1 The first point
-     * @param {Object} p1.x The x position of the first point
-     * @param {Object} p1.y The y position of the first point
-     * @param {Object} p2 The second point
-     * @param {Object} p2.x The x position of the second point
-     * @param {Number} p2.y The y position of the second point
-     * @return {Number} The distance
+     * @param {object} p1 The first point
+     * @param {object} p1.x The x position of the first point
+     * @param {object} p1.y The y position of the first point
+     * @param {object} p2 The second point
+     * @param {object} p2.x The x position of the second point
+     * @param {number} p2.y The y position of the second point
+     * @return {number} The distance
      */
     static distSq(x, y, x0, y0) {
         //see if the first parameter is a point
@@ -101,17 +101,17 @@ export default class MathUtils {
     /**
      * Constrain a number between 0 and a max value.
      * @method springroll.MathUtils.clamp
-     * @param {Number} value The number to be constrained.
-     * @param {Number} max Highest number.
-     * @return {Number} The constrained value
+     * @param {number} value The number to be constrained.
+     * @param {number} max Highest number.
+     * @return {number} The constrained value
      */
 
     /**
      * Constrain a number between a minimum and maximum values.
-     * @param {Number} value The number to be constrained.
-     * @param {Number} min Lowest number to constrain value to.
-     * @param {Number} max Highest number.
-     * @return {Number} The constrained value
+     * @param {number} value The number to be constrained.
+     * @param {number} min Lowest number to constrain value to.
+     * @param {number} max Highest number.
+     * @return {number} The constrained value
      */
     static clamp(value, min, max) {
         if (max === undefined) {
@@ -133,9 +133,9 @@ export default class MathUtils {
     /**
      * Round a number to the nearest increment.
      * For example, 1.4 rounded to the nearest 0.5 is 1.5.
-     * @param  {Number} val       Value to round
-     * @param  {Number} increment Increment to round by
-     * @return {Number}           Rounded value
+     * @param  {number} val       Value to round
+     * @param  {number} increment Increment to round by
+     * @return {number}           Rounded value
      */
     static roundDecimal(val, increment) {
         return Math.round(val / increment) * increment;

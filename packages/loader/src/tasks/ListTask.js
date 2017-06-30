@@ -6,13 +6,13 @@ import Task from './Task';
  * @memberof springroll
  * @extends springroll.Task
  * @private
- * @param {Object} asset The data properties
- * @param {Array|Object} asset.assets The collection of assets to load
- * @param {Boolean} [asset.cacheAll=false] If we should cache each item in assets.
- * @param {Boolean} [asset.cache=false] If we should cache the result
- * @param {String} [asset.id] Id of asset
- * @param {Function} [asset.complete=null] The event to call when done
- * @param {Function} [asset.progress=null] The event to call when progress is updated
+ * @param {object} asset The data properties
+ * @param {Array|object} asset.assets The collection of assets to load
+ * @param {boolean} [asset.cacheAll=false] If we should cache each item in assets.
+ * @param {boolean} [asset.cache=false] If we should cache the result
+ * @param {string} [asset.id] Id of asset
+ * @param {function} [asset.complete=null] The event to call when done
+ * @param {function} [asset.progress=null] The event to call when progress is updated
  */
 export default class ListTask extends Task {
     constructor(asset) {
@@ -20,19 +20,19 @@ export default class ListTask extends Task {
 
         /**
          * The collection of assets to load
-         * @member {Array|Object}
+         * @member {Array|object}
          */
         this.assets = asset.assets;
 
         /**
          * If each asset in the collection should be cached.
-         * @member {Boolean}
+         * @member {boolean}
          */
         this.cacheAll = asset.cacheAll;
 
         /**
          * Callback when progress is updated
-         * @member {Function}
+         * @member {function}
          */
         this.progress = asset.progress;
     }
@@ -40,8 +40,8 @@ export default class ListTask extends Task {
     /**
      * Test if we should run this task
      * @static
-     * @param {Object} asset The asset to check
-     * @return {Boolean} If the asset is compatible with this asset
+     * @param {object} asset The asset to check
+     * @return {boolean} If the asset is compatible with this asset
      */
     static test(asset) {
         return !!asset.assets && (Array.isArray(asset.assets) || Object.isPlain(asset.assets));
@@ -49,7 +49,7 @@ export default class ListTask extends Task {
 
     /**
      * Start the task
-     * @param  {Function} callback Callback when finished
+     * @param  {function} callback Callback when finished
      */
     start(callback) {
         this.load(this.assets,

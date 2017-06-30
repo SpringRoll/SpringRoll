@@ -24,7 +24,7 @@ import Bellhop from 'bellhop-iframe';
          * when the focus is lost. This is useful mostly if your Application
          * requires keyboard input.
          * ### module: @springroll/container-client
-         * @member {Boolean} keepFocus
+         * @member {boolean} keepFocus
          * @memberof springroll.ApplicationOptions#
          */
         options.add('keepFocus', false)
@@ -50,7 +50,7 @@ import Bellhop from 'bellhop-iframe';
          * running as part of a sequence is it considered in "single play" mode
          * and the application will therefore close itself.
          * ### module: @springroll/container-client
-         * @member {Boolean}
+         * @member {boolean}
          * @memberof springroll.Application#
          * @readOnly
          * @default false
@@ -64,7 +64,7 @@ import Bellhop from 'bellhop-iframe';
          * if you want the single play to focus on a certain level or curriculum
          * such as `{ "shape": "square" }`
          * ### module: @springroll/container-client
-         * @member {Object}
+         * @member {object}
          * @memberof springroll.Application#
          * @readOnly
          */
@@ -77,7 +77,7 @@ import Bellhop from 'bellhop-iframe';
          * ### module: @springroll/container-client
          * @method singlePlayEnd
          * @memberof springroll.Application#
-         * @return {Boolean} If endGame is called
+         * @return {boolean} If endGame is called
          */
         this.singlePlayEnd = function() {
             if (this.singlePlay) {
@@ -92,7 +92,7 @@ import Bellhop from 'bellhop-iframe';
          * ### module: @springroll/container-client
          * @method endGame
          * @memberof springroll.Application#
-         * @param {String} [exitType='game_completed'] The type of exit
+         * @param {string} [exitType='game_completed'] The type of exit
          */
         this.endGame = function(exitType) {
             this.trigger('endGame', exitType || 'game_completed');
@@ -234,7 +234,7 @@ import Bellhop from 'bellhop-iframe';
      * Handler when the context is muted
      * @method onContextMuted
      * @private
-     * @param {String} context The name of the sound context
+     * @param {string} context The name of the sound context
      * @param {Event} e The bellhop event
      */
     function onContextMuted(context, e) {

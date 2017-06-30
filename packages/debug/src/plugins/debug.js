@@ -13,7 +13,7 @@ import Debug from '../Debug';
          * Enable the Debug class. After initialization, this
          * is a pass-through to Debug.enabled.
          * ### module: @springroll/debug
-         * @member {Boolean} debug
+         * @member {boolean} debug
          * @memberof springroll.ApplicationOptions#
          * @default true
          */
@@ -22,7 +22,7 @@ import Debug from '../Debug';
         /**
          * Minimum log level from 0 (Debug.Levels.GENERAL) to 4 (Debug.Levels.ERROR)
          * ### module: @springroll/debug
-         * @member {int} minLogLevel
+         * @member {number} minLogLevel
          * @memberof springroll.ApplicationOptions#
          * @default Debug.Levels.GENERAL
          * @see springroll.Debug.Levels
@@ -36,7 +36,7 @@ import Debug from '../Debug';
          * this will still connect or disconect Debug for remote
          * debugging. This is a write-only property.
          * ### module: @springroll/debug
-         * @member {String} debugRemote
+         * @member {string} debugRemote
          * @memberof springroll.ApplicationOptions#
          */
         options.add('debugRemote', null)

@@ -6,15 +6,15 @@ import Task from './Task';
  * @memberof springroll
  * @extends springroll.Task
  * @private
- * @param {Object} asset The data properties
- * @param {String} asset.src The source
- * @param {Boolean} [asset.cache=false] If we should cache the result
- * @param {String} [asset.id] Id of asset
- * @param {Boolean} [asset.advanced=false] If we should return the LoaderResult
- * @param {mixed} [asset.data=null] Optional data
- * @param {Function} [asset.complete=null] The event to call when done
- * @param {Function} [asset.progress=null] The event to call on load progress
- * @param {Object} [asset.sizes=null] Define if certain sizes are not supported
+ * @param {object} asset The data properties
+ * @param {string} asset.src The source
+ * @param {boolean} [asset.cache=false] If we should cache the result
+ * @param {string} [asset.id] Id of asset
+ * @param {boolean} [asset.advanced=false] If we should return the LoaderResult
+ * @param {any} [asset.data=null] Optional data
+ * @param {function} [asset.complete=null] The event to call when done
+ * @param {function} [asset.progress=null] The event to call on load progress
+ * @param {object} [asset.sizes=null] Define if certain sizes are not supported
  */
 export default class LoadTask extends Task {
     constructor(asset) {
@@ -22,26 +22,26 @@ export default class LoadTask extends Task {
 
         /**
          * The source URL to load
-         * @member {String}
+         * @member {string}
          */
         this.src = this.filter(asset.src);
 
         /**
          * Call on load progress
-         * @member {Function}
+         * @member {function}
          */
         this.progress = asset.progress || null;
 
         /**
          * Optional data to attach to load
-         * @member {mixed}
+         * @member {any}
          */
         this.data = asset.data || null;
 
         /**
          * If turned on return a springroll.LoaderResult object
          * instead of the content
-         * @member {Boolean}
+         * @member {boolean}
          * @default false
          */
         this.advanced = !!asset.advanced;
@@ -50,8 +50,8 @@ export default class LoadTask extends Task {
     /**
      * Test if we should run this task
      * @static
-     * @param {Object} asset The asset to check
-     * @return {Boolean} If the asset is compatible with this asset
+     * @param {object} asset The asset to check
+     * @return {boolean} If the asset is compatible with this asset
      */
     static test(asset) {
         return !!asset.src;
@@ -59,7 +59,7 @@ export default class LoadTask extends Task {
 
     /**
      * Start the task
-     * @param  {Function} callback Callback when finished
+     * @param  {function} callback Callback when finished
      */
     start(callback) {
         let advanced = this.advanced;

@@ -11,7 +11,7 @@ import Ticker from './Ticker';
 
         /**
          * The framerate to use for rendering the stage
-         * @member {int} springroll.ApplicationOptions#fps
+         * @member {number} springroll.ApplicationOptions#fps
          * @default 60
          */
         options.add('fps', 60);
@@ -32,8 +32,8 @@ import Ticker from './Ticker';
             /**
              * Fired when an update is called, every frame update
              * @event springroll.Application#update
-             * @param {int} elasped - The number of milliseconds since the last frame update
-             * @param {Number} time - Current player time
+             * @param {number} elasped - The number of milliseconds since the last frame update
+             * @param {number} time - Current player time
              */
             this.emit('update', elapsed, time);
         });
@@ -52,10 +52,10 @@ import Ticker from './Ticker';
          * Works just like `window.setTimeout` but respects the pause
          * state of the Application.
          * @method springroll.Application#setTimeout
-         * @param {Function} callback    The callback function, passes one argument which is the DelayedCall instance
-         * @param {int}   delay       The time in milliseconds or the number of frames (useFrames must be true)
-         * @param {Boolean}   [useFrames=false]   If the delay is frames (true) or millseconds (false)
-         * @param {Boolean}   [autoDestroy=true] If the DelayedCall object should be destroyed after completing
+         * @param {function} callback    The callback function, passes one argument which is the DelayedCall instance
+         * @param {number}   delay       The time in milliseconds or the number of frames (useFrames must be true)
+         * @param {boolean}   [useFrames=false]   If the delay is frames (true) or millseconds (false)
+         * @param {boolean}   [autoDestroy=true] If the DelayedCall object should be destroyed after completing
          * @return {springroll.DelayedCall} The object for pausing, restarting, destroying etc.
          */
         this.setTimeout = ticker.setTimeout.bind(ticker);
@@ -64,9 +64,9 @@ import Ticker from './Ticker';
          * Works just like `window.setInterval` but respects the pause
          * state of the Application.
          * @method springroll.Application#setInterval
-         * @param {Function} callback    The callback function, passes one argument which is the DelayedCall instance
-         * @param {int}   delay       The time in milliseconds or the number of frames (useFrames must be true)
-         * @param {Boolean}   [useFrames=false]   If the delay is frames (true) or millseconds (false)
+         * @param {function} callback    The callback function, passes one argument which is the DelayedCall instance
+         * @param {number}   delay       The time in milliseconds or the number of frames (useFrames must be true)
+         * @param {boolean}   [useFrames=false]   If the delay is frames (true) or millseconds (false)
          * @return {springroll.DelayedCall} The object for pausing, restarting, destroying etc.
          */
         this.setInterval = ticker.setInterval.bind(ticker);

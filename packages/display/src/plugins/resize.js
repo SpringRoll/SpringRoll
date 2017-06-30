@@ -10,35 +10,35 @@ import {ApplicationPlugin} from '@springroll/core';
 
     /**
      * The maximum width of the primary display, compared to the original height.
-     * @member {Number}
+     * @member {number}
      * @private
      */
     let maxWidth = 0;
 
     /**
      * The maximum height of the primary display, compared to the original width.
-     * @member {Number}
+     * @member {number}
      * @private
      */
     let maxHeight = 0;
 
     /**
      * The original width of the primary display, used to calculate the aspect ratio.
-     * @member {int}
+     * @member {number}
      * @private
      */
     let originalWidth = 0;
 
     /**
      * The original height of the primary display, used to calculate the aspect ratio.
-     * @member {int}
+     * @member {number}
      * @private
      */
     let originalHeight = 0;
 
     /**
      * A helper object to avoid object creation each resize event.
-     * @member {Object}
+     * @member {object}
      * @private
      */
     let resizeHelper = {
@@ -64,8 +64,8 @@ import {ApplicationPlugin} from '@springroll/core';
          * Fired when a resize is called
          * ### module: @springroll/display
          * @event springroll.Application#resize
-         * @param {int} width The width of the resize element
-         * @param {int} height The height of the resize element
+         * @param {number} width The width of the resize element
+         * @param {number} height The height of the resize element
          */
 
         /**
@@ -74,7 +74,7 @@ import {ApplicationPlugin} from '@springroll/core';
          * allows for "title-safe" responsiveness. Must be greater
          * than the original width of the canvas.
          * ### module: @springroll/display
-         * @member {int} maxWidth
+         * @member {number} maxWidth
          * @memberof springroll.ApplicationOptions#
          */
         options.add('maxWidth', 0);
@@ -85,7 +85,7 @@ import {ApplicationPlugin} from '@springroll/core';
          * allows for "title-safe" responsiveness. Must be greater
          * than the original height of the canvas.
          * ### module: @springroll/display
-         * @member {int} maxHeight
+         * @member {number} maxHeight
          * @memberof springroll.ApplicationOptions#
          */
         options.add('maxHeight', 0);
@@ -93,7 +93,7 @@ import {ApplicationPlugin} from '@springroll/core';
         /**
          * Whether to resize the displays to the original aspect ratio
          * ### module: @springroll/display
-         * @member {Boolean} uniformResize
+         * @member {boolean} uniformResize
          * @memberof springroll.ApplicationOptions#
          * @default true
          */
@@ -105,7 +105,7 @@ import {ApplicationPlugin} from '@springroll/core';
          * responsive applications will adjust their own elements.
          * If responsive is false then the style properties are changed.
          * ### module: @springroll/display
-         * @member {Boolean} responsive
+         * @member {boolean} responsive
          * @memberof springroll.ApplicationOptions#
          * @default false
          */
@@ -114,7 +114,7 @@ import {ApplicationPlugin} from '@springroll/core';
         /**
          * Whether to account for devicePixelRatio when rendering game
          * ### module: @springroll/display
-         * @member {Boolean} retina
+         * @member {boolean} retina
          * @memberof springroll.ApplicationOptions#
          * @default false
          */
@@ -131,7 +131,7 @@ import {ApplicationPlugin} from '@springroll/core';
         /**
          * The current width of the application, in real point values
          * ### module: @springroll/display
-         * @member {int} realWidth
+         * @member {number} realWidth
          * @memberof springroll.Application#
          */
         this.realWidth = 0;
@@ -139,7 +139,7 @@ import {ApplicationPlugin} from '@springroll/core';
         /**
          * The current height of the application, in real point values
          * ### module: @springroll/display
-         * @member {int} realHeight
+         * @member {number} realHeight
          * @memberof springroll.Application#
          */
         this.realHeight = 0;
@@ -227,11 +227,11 @@ import {ApplicationPlugin} from '@springroll/core';
          * ### module: @springroll/display
          * @method calculateDisplaySize
          * @memberof springroll.Application#
-         * @param {Object} size A size object containing the width and height of the resized container.
+         * @param {object} size A size object containing the width and height of the resized container.
          *                     The size parameter is also the output of the function, so the size
          *                     properties are edited in place.
-         * @param {int} size.width The width of the resized container.
-         * @param {int} size.height The height of the resized container.
+         * @param {number} size.width The width of the resized container.
+         * @param {number} size.height The height of the resized container.
          */
         this.calculateDisplaySize = function(size) {
             if (!originalHeight || !this.options.uniformResize) {

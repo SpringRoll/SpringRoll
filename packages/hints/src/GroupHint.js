@@ -19,7 +19,7 @@ import VOHint from './VOHint';
 export default class GroupHint extends AbstractHint {
     /**
      * @param {springroll.HintsPlayer} hints The instance of the hints
-     * @param {Function} done called on hint done
+     * @param {function} done called on hint done
      */
     constructor(hints, done) {
         super(hints, done);
@@ -34,7 +34,7 @@ export default class GroupHint extends AbstractHint {
 
         /**
          * The current tier index
-         * @member {int}
+         * @member {number}
          * @private
          */
         this._current = -1;
@@ -79,8 +79,8 @@ export default class GroupHint extends AbstractHint {
 
     /**
      * Add an animator hint to the player
-     * @param {PIXI.animate.MovieClip|*} instance The instance of the clip to play with Animator
-     * @param {String|Array|Object} events The event aliases to play, see Animator.play
+     * @param {PIXI.animate.MovieClip|any} instance The instance of the clip to play with Animator
+     * @param {string|Array|object} events The event aliases to play, see Animator.play
      * @param {function} onComplete Call when the VO is done playing
      * @param {function|boolean} [onCancel] Call when the VO is cancelled playing,
      *      a value of true sets onComplete to also be the onCancelled callback.

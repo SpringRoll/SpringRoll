@@ -10,19 +10,19 @@ import ApplicationPlugin from '../ApplicationPlugin';
 
         /**
          * If the current brower is iOS
-         * @member {Boolean} springroll.Application#isIOS
+         * @member {boolean} springroll.Application#isIOS
          */
         this.isIOS = navigator.userAgent.search(/iPhone|iPad|iPod/) > -1;
 
         /**
          * If the current brower is Android
-         * @member {Boolean} springroll.Application#isAndroid
+         * @member {boolean} springroll.Application#isAndroid
          */
         this.isAndroid = navigator.userAgent.search(/Android/) > -1;
 
         /**
          * If the current brower has touch input available
-         * @member {Boolean} springroll.Application#hasTouch
+         * @member {boolean} springroll.Application#hasTouch
          */
         this.hasTouch = !!(('ontouchstart' in window) || // iOS & Android
             (navigator.msPointerEnabled && navigator.msMaxTouchPoints > 0) || // IE10

@@ -10,14 +10,14 @@ import StateManager from '../StateManager';
          * Fired when an event has been added
          * ### module: @springroll/states
          * @event springroll.Application#stateAdded
-         * @param {String} alias The state alias
+         * @param {string} alias The state alias
          * @param {springroll.State} state The State object
          */
 
         /**
          * The collection of states
          * ### module: @springroll/states
-         * @member {Object} _states
+         * @member {object} _states
          * @memberof springroll.Application#
          * @private
          */
@@ -102,7 +102,7 @@ import StateManager from '../StateManager';
         /**
          * The initial state to go to when everything is finished
          * ### module: @springroll/states
-         * @member {Boolean} state
+         * @member {boolean} state
          * @memberof springroll.ApplicationOptions#
          * @default null
          * @readOnly
@@ -120,10 +120,10 @@ import StateManager from '../StateManager';
         /**
          * The transition sounds to use for the state transition
          * ### module: @springroll/states
-         * @member {Object} transitionSounds
+         * @member {object} transitionSounds
          * @memberof springroll.ApplicationOptions#
-         * @property {Object} [in=null] - The transition in sound alias or sound object
-         * @property {Object} [out=null] - The transition out sound alias or sound object
+         * @property {object} [in=null] - The transition in sound alias or sound object
+         * @property {object} [out=null] - The transition out sound alias or sound object
          * @readOnly
          */
         this.options.add('transitionSounds',
@@ -135,7 +135,7 @@ import StateManager from '../StateManager';
         /**
          * The collection of states where the key is the state alias and value is the state display object
          * ### module: @springroll/states
-         * @member {Object} states
+         * @member {object} states
          * @memberof springroll.Application#
          * @default null
          */

@@ -11,8 +11,8 @@ import ScaleManager from './ScaleManager';
 export default class ScaleItem {
     /**
      * @param {PIXI.DisplayObject} display The item to affect
-     * @param {String} align The vertical-horizontal alignment shorthand
-     * @param {Object} size The original screen the item was designed for
+     * @param {string} align The vertical-horizontal alignment shorthand
+     * @param {object} size The original screen the item was designed for
      * @param {DisplayAdapter} adapter The display adapter
      */
     constructor(display, align, size, adapter) {
@@ -21,13 +21,13 @@ export default class ScaleItem {
 
         /**
          * What vertical screen location the item should be aligned to: "top", "center", "bottom"
-         * @member {String}
+         * @member {string}
          */
         this.vertAlign = align[0];
 
         /**
          * What horizontal screen location the item should be aligned to: "left", "center", "right"
-         * @member {String}
+         * @member {string}
          */
         this.horiAlign = align[1];
 
@@ -35,28 +35,28 @@ export default class ScaleItem {
          * If this element should be aligned to the title safe area, not the actual screen.
          * Values of "horizontal" and "vertical" make the title safe calculations take place only
          * for one direction.
-         * @member {Boolean|String}
+         * @member {Boolean|string}
          * @default false
          */
         this.titleSafe = false;
 
         /**
          * Maximum scale allowed in physical size
-         * @member {Number}
+         * @member {number}
          * @default 1
          */
         this.maxScale = 1;
 
         /**
          * Minimum scale allowed in physical size
-         * @member {Number}
+         * @member {number}
          * @default 1
          */
         this.minScale = 1;
 
         /**
          * If the UI element is centered horizontally
-         * @member {Boolean}
+         * @member {boolean}
          * @default false
          */
         this.centeredHorizontally = false;
@@ -71,13 +71,13 @@ export default class ScaleItem {
         /**
          * The original screen the item was designed for
          * @private
-         * @member {Object}
+         * @member {object}
          */
         this._size = size;
 
         /**
          * The adapter for universal scale, rotation size access
-         * @member {Object}
+         * @member {object}
          * @private
          */
         this._adapter = adapter;
@@ -87,14 +87,14 @@ export default class ScaleItem {
 
         /**
          * Original X scale of the item
-         * @member {Number}
+         * @member {number}
          * @default 0
          */
         let origScaleX = this.origScaleX = scale.x || 1;
 
         /**
          * The original Y scale of the item
-         * @member {Number}
+         * @member {number}
          * @default 0
          */
         let origScaleY = this.origScaleY = scale.y || 1;
@@ -102,7 +102,7 @@ export default class ScaleItem {
         /**
          * The original bounds of the item with x, y, right, bottom, width,
          * height properties. This is converted from local bounds to scaled bounds.
-         * @member {Object}
+         * @member {object}
          */
         this.origBounds = adapter.getLocalBounds(display);
         //convert bounds to something more usable
@@ -132,14 +132,14 @@ export default class ScaleItem {
 
         /**
          * Original horizontal margin in pixels
-         * @member {Number}
+         * @member {number}
          * @default 0
          */
         this.origMarginHori = 0;
 
         /**
          * Original vertical margin in pixels
-         * @member {Number}
+         * @member {number}
          * @default 0
          */
         this.origMarginVert = 0;
@@ -186,8 +186,8 @@ export default class ScaleItem {
 
     /**
      * Adjust the item scale and position, to reflect new screen
-     * @param {Number} displayWidth The current screen width
-     * @param {Number} displayHeight The current screen height
+     * @param {number} displayWidth The current screen width
+     * @param {number} displayHeight The current screen height
      */
     resize(displayWidth, displayHeight) {
         let adapter = this._adapter;

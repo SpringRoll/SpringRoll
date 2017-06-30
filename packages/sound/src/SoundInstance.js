@@ -48,35 +48,35 @@ export default class SoundInstance {
 
         /**
          * The alias for the sound that this instance was created from.
-         * @member {String}
+         * @member {string}
          * @readOnly
          */
         this.alias = null;
 
         /**
          * The current time in milliseconds for the fade that this sound instance is performing.
-         * @member {Number}
+         * @member {number}
          * @private
          */
         this._fTime = 0;
 
         /**
          * The duration in milliseconds for the fade that this sound instance is performing.
-         * @member {Number}
+         * @member {number}
          * @private
          */
         this._fDur = 0;
 
         /**
          * The starting volume for the fade that this sound instance is performing.
-         * @member {Number}
+         * @member {number}
          * @private
          */
         this._fStart = 0;
 
         /**
          * The ending volume for the fade that this sound instance is performing.
-         * @member {Number}
+         * @member {number}
          * @private
          */
         this._fEnd = 0;
@@ -84,7 +84,7 @@ export default class SoundInstance {
         /**
          * The current sound volume (0 to 1). This is multiplied by the sound context's volume.
          * Setting this won't take effect until updateVolume() is called.
-         * @member {Number}
+         * @member {number}
          * @protected
          * @readOnly
          */
@@ -92,7 +92,7 @@ export default class SoundInstance {
 
         /**
          * The sound pan value, from -1 (left) to 1 (right).
-         * @member {Number}
+         * @member {number}
          * @private
          * @readOnly
          */
@@ -100,21 +100,21 @@ export default class SoundInstance {
 
         /**
          * The length of the sound in milliseconds. This is 0 if it hasn't finished loading.
-         * @member {Number}
+         * @member {number}
          */
         this.length = 0;
 
         /**
          * If the sound is currently paused. Setting this has no effect - use pause()
          * and resume().
-         * @member {Boolean}
+         * @member {boolean}
          * @readOnly
          */
         this.paused = false;
 
         /**
          * If the sound is paused due to a global pause, probably from the Application.
-         * @member {Boolean}
+         * @member {boolean}
          * @readOnly
          */
         this.globallyPaused = false;
@@ -123,7 +123,7 @@ export default class SoundInstance {
          * An active SoundInstance should always be valid, but if you keep a reference after a
          * sound stops it will no longer be valid (until the SoundInstance is reused for a
          * new sound).
-         * @member {Boolean}
+         * @member {boolean}
          * @readOnly
          */
         this.isValid = true;
@@ -131,7 +131,7 @@ export default class SoundInstance {
 
     /**
      * The position of the sound playhead in milliseconds, or 0 if it hasn't started playing yet.
-     * @member {Number}
+     * @member {number}
      * @readOnly
      */
     get position() {
@@ -168,7 +168,7 @@ export default class SoundInstance {
     /**
      * Updates the volume of this SoundInstance.
      * @protected
-     * @param {Number} contextVol The volume of the sound context that the sound belongs to. If
+     * @param {number} contextVol The volume of the sound context that the sound belongs to. If
      *                          omitted, the volume is automatically collected.
      */
     updateVolume(contextVol) {
@@ -193,7 +193,7 @@ export default class SoundInstance {
     /**
      * The current sound volume (0 to 1). This is multiplied by the sound context's volume to
      * get the actual sound volume.
-     * @member {Number}
+     * @member {number}
      */
     get volume() {
         return this.curVol;
@@ -205,7 +205,7 @@ export default class SoundInstance {
 
     /**
      * The sound pan value, from -1 (left) to 1 (right).
-     * @member {Number}
+     * @member {number}
      */
     get pan() {
         return this._pan;

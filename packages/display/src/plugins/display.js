@@ -13,7 +13,7 @@ import Display from '../Display';
         /**
          * Display specific setup options
          * ### module: @springroll/display
-         * @member {Object} display
+         * @member {object} display
          * @memberof springroll.ApplicationOptions#
          */
         this.options.add('display', null, true);
@@ -32,8 +32,8 @@ import Display from '../Display';
          * ### module: @springroll/display
          * @method render
          * @memberof springroll.Application#
-         * @param {Number} elapsed Time elapsed since last frame render
-         * @param {Boolean} [force=false] For update, regardless if visible/paused state.
+         * @param {number} elapsed Time elapsed since last frame render
+         * @param {boolean} [force=false] For update, regardless if visible/paused state.
          */
         this.render = (elapsed, force = false) => {
             if (this.display) {

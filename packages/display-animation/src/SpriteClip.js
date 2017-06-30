@@ -34,20 +34,20 @@
  */
 export default class SpriteClip extends PIXI.Sprite {
     /**
-     * @param {Object} [data] Initialization data
-     * @param {int} [data.fps] Framerate to play the movieclip at. Omitting this will use the
+     * @param {object} [data] Initialization data
+     * @param {number} [data.fps] Framerate to play the movieclip at. Omitting this will use the
      *                         current framerate.
-     * @param {Object} [data.labels] A dictionary of the labels in the movieclip to assist in
+     * @param {object} [data.labels] A dictionary of the labels in the movieclip to assist in
      *                               playing animations.
-     * @param {Object} [data.origin={x:0,y:0}] The origin of the movieclip.
+     * @param {object} [data.origin={x:0,y:0}] The origin of the movieclip.
      * @param {Array} [data.frames] An array of frame sequences to pull from the texture atlas.
-     * @param {String} [data.frames.name] The name to use for the frame sequence. This should
+     * @param {string} [data.frames.name] The name to use for the frame sequence. This should
      *                                    include a "#" to be replaced with the image number.
-     * @param {int} [data.frames.min] The first frame number in the frame sequence.
-     * @param {int} [data.frames.max] The last frame number in the frame sequence.
-     * @param {int} [data.frames.digits=4] The maximum number of digits in the names of the frames,
+     * @param {number} [data.frames.min] The first frame number in the frame sequence.
+     * @param {number} [data.frames.max] The last frame number in the frame sequence.
+     * @param {number} [data.frames.digits=4] The maximum number of digits in the names of the frames,
      *                                     e.g. myAnim0001 has 4 digits.
-     * @param {Number} [data.scale=1] The scale at which the art was exported, e.g. a scale of 1.4
+     * @param {number} [data.scale=1] The scale at which the art was exported, e.g. a scale of 1.4
      *                                means the art was increased in size to 140% before exporting
      *                                and should be scaled back down before drawing to the screen.
      * @param {springroll.TextureAtlas} [atlas] A TextureAtlas to pull frames from. If omitted,
@@ -72,7 +72,7 @@ export default class SpriteClip extends PIXI.Sprite {
         /**
          * The speed at which the SpriteClip should play.
          *
-         * @member {Number}
+         * @member {number}
          * @default 0
          * @private
          */
@@ -81,7 +81,7 @@ export default class SpriteClip extends PIXI.Sprite {
         /**
          * The total time in seconds for the animation.
          *
-         * @member {Number}
+         * @member {number}
          * @default 0
          * @private
          */
@@ -89,7 +89,7 @@ export default class SpriteClip extends PIXI.Sprite {
 
         /**
          * The time elapsed from frame 0 in seconds.
-         * @member {Number}
+         * @member {number}
          * @default 0
          * @private
          */
@@ -123,7 +123,7 @@ export default class SpriteClip extends PIXI.Sprite {
 
     /**
      * The speed at which the SpriteClip should play.
-     * @member {Number}
+     * @member {number}
      * @default 0
      */
     get framerate() {
@@ -142,7 +142,7 @@ export default class SpriteClip extends PIXI.Sprite {
     /**
      * When the BitmapMovieClip is framerate independent, this is the time elapsed from frame 0 in
      * seconds.
-     * @member {Number}
+     * @member {number}
      * @default 0
      */
     get elapsedTime() {
@@ -167,7 +167,7 @@ export default class SpriteClip extends PIXI.Sprite {
 
     /**
      * (Read-Only) The total number of frames in the timeline
-     * @member {int}
+     * @member {number}
      * @default 0
      * @readOnly
      */
@@ -179,7 +179,7 @@ export default class SpriteClip extends PIXI.Sprite {
 
     /**
      * Advances this movie clip to the specified position or label.
-     * @param {String|Number} positionOrLabel The animation or frame name to go to.
+     * @param {string$number} positionOrLabel The animation or frame name to go to.
      */
     gotoAndStop(positionOrLabel) {
         let pos = null;
@@ -218,7 +218,7 @@ export default class SpriteClip extends PIXI.Sprite {
 
     /**
      * Advances the playhead. This occurs automatically each tick by default.
-     * @param [time] {Number} The amount of time in milliseconds to advance by.
+     * @param [time] {number} The amount of time in milliseconds to advance by.
      */
     advance(time) {
         if (this._framerate > 0 && time) {
@@ -257,7 +257,7 @@ export default class SpriteClip extends PIXI.Sprite {
 
     /**
      * Returns the name of the label on or immediately before the current frame.
-     * @return {String} The name of the current label or null if there is no label.
+     * @return {string} The name of the current label or null if there is no label.
      */
     getCurrentLabel() {
         let labels = this._labels;
@@ -275,20 +275,20 @@ export default class SpriteClip extends PIXI.Sprite {
 
     /**
      * Initializes or re-initializes the SpriteClip.
-     * @param {Object} data Initialization data
-     * @param {int} [data.fps] Framerate to play the movieclip at. Omitting this will use the
+     * @param {object} data Initialization data
+     * @param {number} [data.fps] Framerate to play the movieclip at. Omitting this will use the
      *                         current framerate.
-     * @param {Object} [data.labels] A dictionary of the labels in the movieclip to assist in
+     * @param {object} [data.labels] A dictionary of the labels in the movieclip to assist in
      *                               playing animations.
-     * @param {Object} [data.origin={x:0,y:0}] The origin of the movieclip.
+     * @param {object} [data.origin={x:0,y:0}] The origin of the movieclip.
      * @param {Array} [data.frames] An array of frame sequences to pull from the texture atlas.
-     * @param {String} [data.frames.name] The name to use for the frame sequence. This should
+     * @param {string} [data.frames.name] The name to use for the frame sequence. This should
      *                                    include a "#" to be replaced with the image number.
-     * @param {int} [data.frames.min] The first frame number in the frame sequence.
-     * @param {int} [data.frames.max] The last frame number in the frame sequence.
-     * @param {int} [data.frames.digits=4] The maximum number of digits in the names of the frames,
+     * @param {number} [data.frames.min] The first frame number in the frame sequence.
+     * @param {number} [data.frames.max] The last frame number in the frame sequence.
+     * @param {number} [data.frames.digits=4] The maximum number of digits in the names of the frames,
      *                                     e.g. myAnim0001 has 4 digits.
-     * @param {Number} [data.scale=1] The scale at which the art was exported, e.g. a scale of 1.4
+     * @param {number} [data.scale=1] The scale at which the art was exported, e.g. a scale of 1.4
      *                                means the art was increased in size to 140% before exporting
      *                                and should be scaled back down before drawing to the screen.
      * @param {springroll.pixi.TextureAtlas} [atlas] A TextureAtlas to pull frames from. If omitted,

@@ -14,33 +14,33 @@ export default class GenericMovieClipInstance extends AnimatorInstance {
 
         /**
          * The start time of the current animation on the movieclip's timeline.
-         * @member {Number}
+         * @member {number}
          */
         this.startTime = 0;
 
         /**
          * Length of current animation in frames.
-         * @member {int}
+         * @member {number}
          */
         this.length = 0;
 
         /**
          * The frame number of the first frame of the current animation. If this is -1, then the
          * animation is currently a pause instead of an animation.
-         * @member {int}
+         * @member {number}
          */
         this.firstFrame = -1;
 
         /**
          * The frame number of the last frame of the current animation.
-         * @member {int}
+         * @member {number}
          */
         this.lastFrame = -1;
     }
 
     /**
      * The initialization method
-     * @param  {*} clip The movieclip
+     * @param  {any} clip The movieclip
      */
     init(clip) {
         //make sure the movieclip is framerate independent
@@ -125,7 +125,7 @@ export default class GenericMovieClipInstance extends AnimatorInstance {
     /**
      * Updates position to a new value, and does anything that the clip needs, like updating
      * timelines.
-     * @param  {Number} newPos The new position in the animation.
+     * @param  {number} newPos The new position in the animation.
      */
     setPosition(newPos) {
         this.position = newPos;
@@ -138,7 +138,7 @@ export default class GenericMovieClipInstance extends AnimatorInstance {
     /**
      * Check to see if a clip is compatible with this
      * @static
-     * @return {Boolean} if the clip is supported by this instance
+     * @return {boolean} if the clip is supported by this instance
      */
     static test(clip) {
         return clip.framerate !== undefined &&
@@ -153,9 +153,9 @@ export default class GenericMovieClipInstance extends AnimatorInstance {
     /**
      * Checks if animation exists
      * @static
-     * @param {*} clip The clip to check for an animation.
-     * @param {String} event The frame label event (e.g. "onClose" to "onClose_stop")
-     * @return {Boolean} does this animation exist?
+     * @param {any} clip The clip to check for an animation.
+     * @param {string} event The frame label event (e.g. "onClose" to "onClose_stop")
+     * @return {boolean} does this animation exist?
      */
     static hasAnimation(clip, event) {
         //the wildcard event plays the entire timeline
@@ -185,9 +185,9 @@ export default class GenericMovieClipInstance extends AnimatorInstance {
     /**
      * Calculates the duration of an animation or list of animations.
      * @static
-     * @param  {*} clip The clip to check.
-     * @param  {String} event The animation or animation list.
-     * @return {Number} Animation duration in milliseconds.
+     * @param  {any} clip The clip to check.
+     * @param  {string} event The animation or animation list.
+     * @return {number} Animation duration in milliseconds.
      */
     static getDuration(clip, event) {
         //make sure the movieclip has a framerate

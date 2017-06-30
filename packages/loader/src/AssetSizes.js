@@ -17,14 +17,14 @@ export default class AssetSizes {
 
         /**
          * The map of size objects
-         * @member {_sizesMap}
+         * @member {object}
          * @private
          */
         this._sizesMap = {};
 
         /**
          * The preferred size
-         * @member {Object}
+         * @member {object}
          * @readOnly
          */
         this._preferredSize = null;
@@ -40,9 +40,9 @@ export default class AssetSizes {
 
     /**
      * Adds a new size definition.
-     * @param {String} id The name of the folder which contains assets of this size.
-     * @param {int} maxSize The maximum size in points capable of using this size.
-     * @param {Number} scale The scale of assets
+     * @param {string} id The name of the folder which contains assets of this size.
+     * @param {number} maxSize The maximum size in points capable of using this size.
+     * @param {number} scale The scale of assets
      * @param {Array} fallback The size fallbacks if this size isn't available
      *      for the current asset request.
      */
@@ -65,10 +65,10 @@ export default class AssetSizes {
 
     /**
      * Update a URL by size
-     * @param  {String} url The asset to load
-     * @param {Object} [size] The currrent size object
-     * @param {Object} [size.id] The name of the current size
-     * @return {String} The formatted url
+     * @param  {string} url The asset to load
+     * @param {object} [size] The currrent size object
+     * @param {object} [size.id] The name of the current size
+     * @return {string} The formatted url
      */
     filter(url, size) {
         size = size || this._preferredSize;
@@ -77,8 +77,8 @@ export default class AssetSizes {
 
     /**
      * Make sure we have a token
-     * @param  {String}  url The URL to test
-     * @return {Boolean} If we have the token
+     * @param  {string}  url The URL to test
+     * @return {boolean} If we have the token
      */
     test(url) {
         return url.indexOf(AssetSizes.SIZE_TOKEN) > -1;
@@ -86,8 +86,8 @@ export default class AssetSizes {
 
     /**
      * Get a size based on the current asset sizes supported
-     * @param  {Object} [supported] Return the preferred size if nothing is set
-     * @return {Object} Return the size object with id, scale, maxSize and fallback keys
+     * @param  {object} [supported] Return the preferred size if nothing is set
+     * @return {object} Return the size object with id, scale, maxSize and fallback keys
      */
     size(supported) {
         let size = this._preferredSize;
@@ -116,9 +116,9 @@ export default class AssetSizes {
 
     /**
      * Recalculate the current preferred size based on width and height
-     * @param  {Number} width  The width of the stage
-     * @param  {Number} height The height of the stage
-     * @return {Object} The size
+     * @param  {number} width  The width of the stage
+     * @param  {number} height The height of the stage
+     * @return {object} The size
      */
     refresh(width, height) {
         let minSize = Math.min(width, height);
@@ -150,7 +150,7 @@ export default class AssetSizes {
 
 /**
  * The URL substitution string.
- * @member {String}
+ * @member {string}
  * @static
  * @default  "%SIZE%"
  */

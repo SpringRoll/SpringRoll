@@ -15,7 +15,7 @@ class PropertyEmitter extends EventEmitter {
         /**
          * The map of property values to store
          * @private
-         * @type {Object}
+         * @type {object}
          */
         this._properties = {};
     }
@@ -24,7 +24,7 @@ class PropertyEmitter extends EventEmitter {
      * Generic setter for an option
      * @private
      * @param {string} prop The property name
-     * @param {mixed} value The value to set
+     * @param {any} value The value to set
      */
     _set(name, value) {
         let prop = this._properties[name];
@@ -42,7 +42,7 @@ class PropertyEmitter extends EventEmitter {
      * Generic setter for an option
      * @private
      * @param {string} prop The option name
-     * @return {mixed} The value of the option
+     * @return {any} The value of the option
      */
     _get(name) {
         let prop = this._properties[name];
@@ -57,8 +57,8 @@ class PropertyEmitter extends EventEmitter {
     /**
      * Add a new property to allow deteching
      * @param {string} prop The property name
-     * @param {mixed} [value=null] The default value
-     * @param {Boolean} [readOnly=false] If the property is readonly
+     * @param {any} [value=null] The default value
+     * @param {boolean} [readOnly=false] If the property is readonly
      * @return {PropertyEmitter} The instance for chaining
      */
     add(name, value, readOnly) {
@@ -87,8 +87,8 @@ class PropertyEmitter extends EventEmitter {
 
     /**
      * Whenever a property is get a responder is called
-     * @param {String} name The property name
-     * @param {Function} responder Function to call when getting property
+     * @param {string} name The property name
+     * @param {function} responder Function to call when getting property
      * @return {PropertyEmitter} The instance for chaining
      */
     respond(name, responder) {
@@ -132,9 +132,9 @@ class PropertyEmitter extends EventEmitter {
  */
 class Property {
     /**
-     * @param {String} name The name of the property
-     * @param {mixed} [value=null] The initial value
-     * @param {Boolean} [readOnly=false] If property is read-only
+     * @param {string} name The name of the property
+     * @param {any} [value=null] The initial value
+     * @param {boolean} [readOnly=false] If property is read-only
      */
     constructor(name, value, readOnly) {
         this.name = name;
@@ -146,7 +146,7 @@ class Property {
     /**
      * Set the value of the property
      * @method setValue
-     * @param {mixed} [value=null] The value to set
+     * @param {any} [value=null] The value to set
      */
     setValue(value = null) {
         this.value = value;
@@ -155,7 +155,7 @@ class Property {
     /**
      * Set the value of the property
      * @method setReadOnly
-     * @param {Boolean} [readOnly=false] The readOnly status
+     * @param {boolean} [readOnly=false] The readOnly status
      */
     setReadOnly(readOnly = false) {
         this.readOnly = !!readOnly;

@@ -28,7 +28,7 @@ import SoundTask from '../SoundTask';
         /**
          * The relative location to the FlashPlugin swf for SoundJS.
          * ### module: @springroll/sound
-         * @member {String} swfPath
+         * @member {string} swfPath
          * @memberof springroll.ApplicationOptions#
          * @default 'assets/swfs/'
          * @readOnly
@@ -38,7 +38,7 @@ import SoundTask from '../SoundTask';
         /**
          * For the Sound class to use the Flash plugin shim.
          * ### module: @springroll/sound
-         * @member {Boolean} forceFlashAudio
+         * @member {boolean} forceFlashAudio
          * @memberof springroll.ApplicationOptions#
          * @default false
          * @readOnly
@@ -50,7 +50,7 @@ import SoundTask from '../SoundTask';
          * If set to true, use Native Audio in Cordova if the plugin is available.
          * If set to false, then Sound will fall back to the standard plugins as set either by plugin options or in sound class.
          * ### module: @springroll/sound
-         * @member {Boolean} forceNativeAudio
+         * @member {boolean} forceNativeAudio
          * @memberof springroll.ApplicationOptions#
          * @default false
          * @readOnly
@@ -74,7 +74,7 @@ import SoundTask from '../SoundTask';
          * Set the initial mute state of the all the audio
          * (unminifed library version only)
          * ### module: @springroll/sound
-         * @member {Boolean} mute
+         * @member {boolean} mute
          * @memberof springroll.ApplicationOptions#
          * @default false
          * @readOnly
@@ -85,7 +85,7 @@ import SoundTask from '../SoundTask';
         /**
          * The current music alias playing
          * ### module: @springroll/sound
-         * @member {String} _music
+         * @member {string} _music
          * @memberof springroll.Application#
          * @private
          */
@@ -122,7 +122,7 @@ import SoundTask from '../SoundTask';
         /**
          * Get or set the current music alias to play
          * ### module: @springroll/sound
-         * @member {String} music
+         * @member {string} music
          * @memberof springroll.Application#
          * @default null
          */

@@ -5,7 +5,7 @@
  */
 export default class DragData {
     /**
-     * @param {mixed} obj The object to drag
+     * @param {any} obj The object to drag
      */
     constructor(obj) {
         this.obj = obj;

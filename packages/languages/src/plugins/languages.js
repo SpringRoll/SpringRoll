@@ -20,7 +20,7 @@ import {Debug} from '@springroll/debug';
         /**
          * Force a specific language
          * ### module: @springroll/languages
-         * @member {String} language
+         * @member {string} language
          * @memberof springroll.ApplicationOptions#
          * @default null
          */
@@ -29,7 +29,7 @@ import {Debug} from '@springroll/debug';
         /**
          * The path to the languages configuration file
          * ### module: @springroll/languages
-         * @member {String} languagesPath
+         * @member {string} languagesPath
          * @memberof springroll.ApplicationOptions#
          * @default null
          */

@@ -12,7 +12,7 @@ export default class AssetCache {
     constructor() {
         /**
          * The cache containing assets
-         * @member {Object}
+         * @member {object}
          * @private
          */
         this._cache = {};
@@ -20,7 +20,7 @@ export default class AssetCache {
 
     /**
      * Retrieves a single asset from the cache.
-     * @param {String} id The asset to get.
+     * @param {string} id The asset to get.
      */
     read(id) {
         // @if DEBUG
@@ -33,8 +33,8 @@ export default class AssetCache {
 
     /**
      * Adds a single asset to the cache.
-     * @param {String} id The id to save the asset as.
-     * @param {mixed} content The asset content to save.
+     * @param {string} id The id to save the asset as.
+     * @param {any} content The asset content to save.
      */
     write(id, content) {
         if (this._cache[id]) {
@@ -50,7 +50,7 @@ export default class AssetCache {
 
     /**
      * Removes a single asset from the cache.
-     * @param {Object|String} asset The asset to remove.
+     * @param {object|string} asset The asset to remove.
      */
     delete(asset) {
         let id = typeof asset === 'string' ? asset : asset.id;
@@ -83,7 +83,7 @@ export default class AssetCache {
     /**
      * Destroy a result object.
      * @private
-     * @param  {mixed} result The object to destroy.
+     * @param  {any} result The object to destroy.
      */
     _destroyResult(result) {
         // Ignore null results or empty objects

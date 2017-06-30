@@ -8,7 +8,7 @@
 export default class ScaleImage {
     /**
      * @param {PIXI.Sprite} image The image to resize
-     * @param {Object} size The original screen the item was designed for
+     * @param {object} size The original screen the item was designed for
      * @param {DisplayAdapter} adapter The display adapter
      */
     constructor(image, size, adapter) {
@@ -33,13 +33,13 @@ export default class ScaleImage {
         /**
          * The original screen the item was designed for
          * @private
-         * @member {Object}
+         * @member {object}
          */
         this._size = size;
 
         /**
          * The adapter for universal scale, rotation size access
-         * @member {Object}
+         * @member {object}
          * @private
          */
         this._adapter = adapter;
@@ -47,8 +47,8 @@ export default class ScaleImage {
 
     /**
      * Resize the current image
-     * @param {Number} w  The stage height
-     * @param {Number} h The stage width
+     * @param {number} w  The stage height
+     * @param {number} h The stage width
      */
     resize(w, h) {
         let _size = this._size;

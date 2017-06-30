@@ -9,38 +9,38 @@ export default class AnimatorInstance {
     constructor() {
         /**
          * The animation clip to play
-         * @member {*}
+         * @member {any}
          */
         this.clip = null;
 
         /**
          * Time, in seconds, of the current animation playback, from 0 -> duration.
-         * @member {Number}
+         * @member {number}
          */
         this.position = 0;
 
         /**
          * Duration, in seconds, of the current animation.
-         * @member {Number}
+         * @member {number}
          */
         this.duration = 0;
 
         /**
          * If the current animation is a looping animation.
-         * @member {Boolean}
+         * @member {boolean}
          */
         this.isLooping = false;
 
         /**
          * The name of the current animation.
-         * @member {String}
+         * @member {string}
          */
         this.currentName = null;
     }
 
     /**
      * The initialization method
-     * @param  {*} clip The movieclip
+     * @param  {any} clip The movieclip
      */
     init(clip) {
         this.clip = clip;
@@ -48,8 +48,8 @@ export default class AnimatorInstance {
 
     /**
      * Sets up variables that are needed (including duration), and does any other setup else needed.
-     * @param {Object} animObj The animation data object.
-     * @param {Boolean} isRepeat If this animation is restarting a loop.
+     * @param {object} animObj The animation data object.
+     * @param {boolean} isRepeat If this animation is restarting a loop.
      */
     beginAnim(/*animObj, isRepeat*/) {}
 
@@ -61,14 +61,14 @@ export default class AnimatorInstance {
     /**
      * Updates position to a new value, and does anything that the clip needs, like updating
      * timelines.
-     * @param  {Number} newPos The new position in the animation.
+     * @param  {number} newPos The new position in the animation.
      */
     setPosition(/*newPos*/) {}
 
     /**
      * Check to see if a clip is compatible with this
      * @static
-     * @return {Boolean} if the clip is supported by this instance
+     * @return {boolean} if the clip is supported by this instance
      */
     static test(/*clip*/) {
         return false;
@@ -77,9 +77,9 @@ export default class AnimatorInstance {
     /**
      * Determines if a clip has an animation.
      * @static
-     * @param  {*} clip The clip to check for an animation.
-     * @param  {String|Object} event The animation.
-     * @return {Boolean} If the clip has the animation.
+     * @param  {any} clip The clip to check for an animation.
+     * @param  {string|object} event The animation.
+     * @return {boolean} If the clip has the animation.
      */
     static hasAnimation(/*clip, event*/) {
         return false;
@@ -88,9 +88,9 @@ export default class AnimatorInstance {
     /**
      * Calculates the duration of an animation or list of animations.
      * @static
-     * @param  {*} clip The clip to check.
-     * @param  {String|Object|Array} event The animation or animation list.
-     * @return {Number} Animation duration in milliseconds.
+     * @param  {any} clip The clip to check.
+     * @param  {string|object|Array} event The animation or animation list.
+     * @return {number} Animation duration in milliseconds.
      */
     static getDuration(/*clip, event*/) {
         return 0;
@@ -114,7 +114,7 @@ export default class AnimatorInstance {
         /**
          * Get an instance either from a recycled pool or new
          * @static
-         * @param  {*} clip The animation clip or display object
+         * @param  {any} clip The animation clip or display object
          * @return {springroll.AnimatorInstance} The new instance
          */
         InstanceClass.create = function(clip) {

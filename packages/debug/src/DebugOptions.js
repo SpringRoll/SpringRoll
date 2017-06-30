@@ -148,7 +148,7 @@ export default class DebugOptions {
      * Generate a spacer slug. Returned object is concatenated
      * space character, i.e. ' ', to the specified count.
      * @private
-     * @param {int} count How many characters the spacer needs
+     * @param {number} count How many characters the spacer needs
      * @param {string} str The input string to add spaces to
      * @return {string}
      */
@@ -170,7 +170,7 @@ export default class DebugOptions {
 
 /**
  * The space between columns
- * @member {int}
+ * @member {number}
  * @private
  * @readOnly
  * @final
@@ -200,7 +200,7 @@ DebugOptions._maxType = 0;
 
 /**
  * Config object for the CSS styles throughout
- * @member {Object}
+ * @member {object}
  * @private
  * @readOnly
  * @final
@@ -214,7 +214,7 @@ DebugOptions.CSS = {
 
 /**
  * The header for the final log
- * @member {String}
+ * @member {string}
  * @private
  * @readOnly
  * @final
@@ -223,7 +223,7 @@ DebugOptions.HEADER = '\n%cQuery Debug Options:\n%c';
 
 /**
  * The map of different basic types of options.
- * @member {String}
+ * @member {string}
  * @private
  * @readOnly
  * @final

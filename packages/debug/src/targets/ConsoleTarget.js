@@ -9,7 +9,7 @@ export default class ConsoleTarget {
 
         /**
          * `true` if the filter is enabled
-         * @member {Boolean}
+         * @member {boolean}
          * @private
          * @default
          */
@@ -17,7 +17,7 @@ export default class ConsoleTarget {
 
         /**
          * `true` if colors are supported
-         * @member {Boolean}
+         * @member {boolean}
          * @private
          * @default
          */
@@ -63,7 +63,7 @@ export default class ConsoleTarget {
 
     /**
      * Run the target.
-     * @param {String} command - Values include: log, debug, warn, info, error, assert, dir
+     * @param {string} command - Values include: log, debug, warn, info, error, assert, dir
      *        trace, clear, group, groupCollapsed, groupEnd
      * @param {Array<mixed>} [params] - Additional parameters.
      */
@@ -86,7 +86,7 @@ export default class ConsoleTarget {
 
     /**
      * Run the target.
-     * @param {String} hexColor - Color to output
+     * @param {string} hexColor - Color to output
      * @param {Array<mixed>} [params] - Additional parameters.
      */
     color(hexColor, params) {

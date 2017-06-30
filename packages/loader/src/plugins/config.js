@@ -14,7 +14,7 @@ import {ApplicationPlugin} from '@springroll/core';
      * The amount of progress of the preload from 0 to 1
      * ### module: @springroll/loader
      * @event springroll.Application#progress
-     * @param {Number} percentage The amount preloaded
+     * @param {number} percentage The amount preloaded
      */
 
     /**
@@ -22,7 +22,7 @@ import {ApplicationPlugin} from '@springroll/core';
      * add additional tasks to the manager after this.
      * ### module: @springroll/loader
      * @event springroll.Application#configLoaded
-     * @param {Object} config The JSON object for config
+     * @param {object} config The JSON object for config
      * @param {Array} assets Container to add additional assets to
      */
 
@@ -40,7 +40,7 @@ import {ApplicationPlugin} from '@springroll/core';
         /**
          * The path to the config file to load
          * ### module: @springroll/loader
-         * @member {String} configPath
+         * @member {string} configPath
          * @memberof springroll.ApplicationOptions#
          * @default null
          */
@@ -50,7 +50,7 @@ import {ApplicationPlugin} from '@springroll/core';
          * The collection of assets to preload, can be individual
          * URLs or objects with keys `src`, `complete`, `progress`, etc. 
          * ### module: @springroll/loader
-         * @member {String|Array|Object} preload
+         * @member {string|Array|object} preload
          * @memberof springroll.ApplicationOptions#
          * @default []
          */
@@ -59,7 +59,7 @@ import {ApplicationPlugin} from '@springroll/core';
         /**
          * The game configuration loaded from and external JSON file
          * ### module: @springroll/loader
-         * @member {Object} config
+         * @member {object} config
          * @memberof springroll.Application#
          */
         this.config = null;
@@ -76,7 +76,7 @@ import {ApplicationPlugin} from '@springroll/core';
         /**
          * The total number of assets loaded
          * ### module: @springroll/loader
-         * @member {int} _numLoaded
+         * @member {number} _numLoaded
          * @memberof springroll.Application#
          * @private
          */
@@ -85,7 +85,7 @@ import {ApplicationPlugin} from '@springroll/core';
         /**
          * The total assets to preload
          * ### module: @springroll/loader
-         * @member {int} _total
+         * @member {number} _total
          * @memberof springroll.Application#
          * @private
          */
@@ -94,7 +94,7 @@ import {ApplicationPlugin} from '@springroll/core';
         /**
          * The current combined progress with plugin and asset load
          * ### module: @springroll/loader
-         * @member {Number} _progress
+         * @member {number} _progress
          * @memberof springroll.Application#
          * @private
          * @default -1
@@ -142,7 +142,7 @@ import {ApplicationPlugin} from '@springroll/core';
     /**
      * Callback when progress is finished
      * @private
-     * @param {Number} progress The amount loaded from 0 to 1
+     * @param {number} progress The amount loaded from 0 to 1
      */
     function onProgress() {
         if (this._assetLoad) {
@@ -174,8 +174,8 @@ import {ApplicationPlugin} from '@springroll/core';
     /**
      * Callback when the config is loaded
      * @private
-     * @param {Object} config The Loader result from the load
-     * @param {Object} asset Original asset data
+     * @param {object} config The Loader result from the load
+     * @param {object} asset Original asset data
      * @param {Array} assets The array to add new load tasks to
      */
     function onConfigLoaded(config, asset, assets) {

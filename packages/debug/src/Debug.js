@@ -19,7 +19,7 @@ export default class Debug {
 
     /**
      * The ID of the DOM element containing the framerate counter.
-     * @member {String}
+     * @member {string}
      * @readonly
      * @default 'springroll-framerate'
      */
@@ -31,8 +31,8 @@ export default class Debug {
      * Connect to the `WebSocket`
      * @public
      * @static
-     * @param {String} host The remote address to connect to, IP address or host name
-     * @return {Boolean} If a connection was attempted
+     * @param {string} host The remote address to connect to, IP address or host name
+     * @return {boolean} If a connection was attempted
      */
     static connect(host) {
         Debug.remote.connect(host);
@@ -65,7 +65,7 @@ export default class Debug {
     /**
      * Log something in the console or remote
      * @static
-     * @param {mixed} params The statement or object to log
+     * @param {any} params The statement or object to log
      * @return {Debug} The instance of debug for chaining
      */
     static log(...params) {
@@ -75,7 +75,7 @@ export default class Debug {
     /**
      * Debug something in the console or remote
      * @static
-     * @param {mixed} params The statement or object to debug
+     * @param {any} params The statement or object to debug
      * @return {Debug} The instance of debug for chaining
      */
     static debug(...params) {
@@ -85,7 +85,7 @@ export default class Debug {
     /**
      * Info something in the console or remote
      * @static
-     * @param {mixed} params The statement or object to info
+     * @param {any} params The statement or object to info
      * @return {Debug} The instance of debug for chaining
      */
     static info(...params) {
@@ -95,7 +95,7 @@ export default class Debug {
     /**
      * Warn something in the console or remote
      * @static
-     * @param {mixed} params The statement or object to warn
+     * @param {any} params The statement or object to warn
      * @return {Debug} The instance of debug for chaining
      */
     static warn(...params) {
@@ -105,7 +105,7 @@ export default class Debug {
     /**
      * Error something in the console or remote
      * @static
-     * @param {mixed} params The statement or object to error
+     * @param {any} params The statement or object to error
      */
     static error(...params) {
         return Debug.run('error', params, Debug.Levels.ERROR);
@@ -114,8 +114,8 @@ export default class Debug {
     /**
      * Assert that something is true
      * @static
-     * @param {Boolean} truth As statement that is assumed true
-     * @param {mixed} params The message to error if the assert is false
+     * @param {boolean} truth As statement that is assumed true
+     * @param {any} params The message to error if the assert is false
      * @return {Debug} The instance of debug for chaining
      */
     static assert(truth, ...params) {
@@ -125,7 +125,7 @@ export default class Debug {
     /**
      * Method to describe an object in the console
      * @static
-     * @param {Object} params The object to describe in the console
+     * @param {object} params The object to describe in the console
      * @return {Debug} The instance of debug for chaining
      */
     static dir(...params) {
@@ -144,7 +144,7 @@ export default class Debug {
     /**
      * Generate a stack track in the output
      * @static
-     * @param {mixed} params Optional parameters to log
+     * @param {any} params Optional parameters to log
      * @return {Debug} The instance of debug for chaining
      */
     static trace(...params) {
@@ -156,7 +156,7 @@ export default class Debug {
      * occurs after calling this method and calling `Debug.groupEnd()` appears in
      * the same visual group.
      * @static
-     * @param {mixed} params Optional parameters to log
+     * @param {any} params Optional parameters to log
      * @return {Debug} The instance of debug for chaining
      */
     static group(...params) {
@@ -167,7 +167,7 @@ export default class Debug {
      * Creates a new logging group that is initially collapsed instead of open,
      * as with `Debug.group()`.
      * @static
-     * @param {mixed} params Optional parameters to log
+     * @param {any} params Optional parameters to log
      * @return {Debug} The instance of debug for chaining
      */
     static groupCollapsed(...params) {
@@ -189,8 +189,8 @@ export default class Debug {
      * Due to the way closures and variables work, _color returns
      * the color logging function needed for the color that you pass it.
      * @private
-     * @param {String} hex Hex value to apply to CSS color
-     * @return {Function}
+     * @param {string} hex Hex value to apply to CSS color
+     * @return {function}
      */
     static _color(hexColor) {
         return function(...params) {
@@ -222,12 +222,12 @@ export default class Debug {
  * The levels of logging
  * @member {springroll.Enum}
  * @static
- * @property {int} GENERAL - The most basic general log level
- * @property {int} DEBUG - The debug log level, more priority than GENERAL
- * @property {int} INFO - The info log level, more priority than DEBUG
- * @property {int} WARN - The warn log level, more priority than WARN
- * @property {int} ERROR - The error log level, the most priority log level
- * @property {int} NONE - Hide all debug messages, including errors.
+ * @property {number} GENERAL - The most basic general log level
+ * @property {number} DEBUG - The debug log level, more priority than GENERAL
+ * @property {number} INFO - The info log level, more priority than DEBUG
+ * @property {number} WARN - The warn log level, more priority than WARN
+ * @property {number} ERROR - The error log level, the most priority log level
+ * @property {number} NONE - Hide all debug messages, including errors.
  */
 Debug.Levels = new Enum(
     'GENERAL',
@@ -286,7 +286,7 @@ Debug.targets = [
 /**
  * Boolean to turn on or off the debugging
  * @static
- * @member {Boolean}
+ * @member {boolean}
  */
 Debug.enabled = true;
 
@@ -299,7 +299,7 @@ Debug.enabled = true;
  * (https://github.com/mrmrs/colors)
  *
  * @private
- * @member {Object}
+ * @member {object}
  */
 Debug._palette = {
 
@@ -307,7 +307,7 @@ Debug._palette = {
      * Output a general log colored as navy
      * @method
      * @memberof springroll.Debug
-     * @param {mixed} message The message to log
+     * @param {any} message The message to log
      * @return {Debug} The instance of debug for chaining
      */
     navy: '#001F3F',
@@ -316,7 +316,7 @@ Debug._palette = {
      * Output a general log colored as blue
      * @method
      * @memberof springroll.Debug
-     * @param {mixed} message The message to log
+     * @param {any} message The message to log
      * @return {Debug} The instance of debug for chaining
      */
     blue: '#0074D9',
@@ -325,7 +325,7 @@ Debug._palette = {
      * Output a general log colored as aqua
      * @method
      * @memberof springroll.Debug
-     * @param {mixed} message The message to log
+     * @param {any} message The message to log
      * @return {Debug} The instance of debug for chaining
      */
     aqua: '#7FDBFF',
@@ -334,7 +334,7 @@ Debug._palette = {
      * Output a general log colored as teal
      * @method
      * @memberof springroll.Debug
-     * @param {mixed} message The message to log
+     * @param {any} message The message to log
      * @return {Debug} The instance of debug for chaining
      */
     teal: '#39CCCC',
@@ -343,7 +343,7 @@ Debug._palette = {
      * Output a general log colored as olive
      * @method
      * @memberof springroll.Debug
-     * @param {mixed} message The message to log
+     * @param {any} message The message to log
      * @return {Debug} The instance of debug for chaining
      */
     olive: '#3D9970',
@@ -352,7 +352,7 @@ Debug._palette = {
      * Output a general log colored as green
      * @method
      * @memberof springroll.Debug
-     * @param {mixed} message The message to log
+     * @param {any} message The message to log
      * @return {Debug} The instance of debug for chaining
      */
     green: '#2ECC40',
@@ -361,7 +361,7 @@ Debug._palette = {
      * Output a general log colored as lime
      * @method
      * @memberof springroll.Debug
-     * @param {mixed} message The message to log
+     * @param {any} message The message to log
      * @return {Debug} The instance of debug for chaining
      */
     lime: '#01FF70',
@@ -370,7 +370,7 @@ Debug._palette = {
      * Output a general log colored as yellow
      * @method
      * @memberof springroll.Debug
-     * @param {mixed} message The message to log
+     * @param {any} message The message to log
      * @return {Debug} The instance of debug for chaining
      */
     yellow: '#FFDC00',
@@ -379,7 +379,7 @@ Debug._palette = {
      * Output a general log colored as orange
      * @method
      * @memberof springroll.Debug
-     * @param {mixed} message The message to log
+     * @param {any} message The message to log
      * @return {Debug} The instance of debug for chaining
      */
     orange: '#FF851B',
@@ -388,7 +388,7 @@ Debug._palette = {
      * Output a general log colored as red
      * @method
      * @memberof springroll.Debug
-     * @param {mixed} message The message to log
+     * @param {any} message The message to log
      * @return {Debug} The instance of debug for chaining
      */
     red: '#FF4136',
@@ -397,7 +397,7 @@ Debug._palette = {
      * Output a general log colored as pink
      * @method
      * @memberof springroll.Debug
-     * @param {mixed} message The message to log
+     * @param {any} message The message to log
      * @return {Debug} The instance of debug for chaining
      */
     pink: '#F012BE',
@@ -406,7 +406,7 @@ Debug._palette = {
      * Output a general log colored as purple
      * @method
      * @memberof springroll.Debug
-     * @param {mixed} message The message to log
+     * @param {any} message The message to log
      * @return {Debug} The instance of debug for chaining
      */
     purple: '#B10DC9',
@@ -415,7 +415,7 @@ Debug._palette = {
      * Output a general log colored as maroon
      * @method
      * @memberof springroll.Debug
-     * @param {mixed} message The message to log
+     * @param {any} message The message to log
      * @return {Debug} The instance of debug for chaining
      */
     maroon: '#85144B',
@@ -424,7 +424,7 @@ Debug._palette = {
      * Output a general log colored as silver
      * @method
      * @memberof springroll.Debug
-     * @param {mixed} message The message to log
+     * @param {any} message The message to log
      * @return {Debug} The instance of debug for chaining
      */
     silver: '#ddd',
@@ -433,7 +433,7 @@ Debug._palette = {
      * Output a general log colored as gray
      * @method
      * @memberof springroll.Debug
-     * @param {mixed} message The message to log
+     * @param {any} message The message to log
      * @return {Debug} The instance of debug for chaining
      */
     gray: '#aaa'
