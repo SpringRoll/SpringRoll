@@ -5,6 +5,7 @@
     "source": {
         "include": [
             "./packages/animation/src/",
+            "./packages/bellhop/src/",
             "./packages/captions/src/",
             "./packages/container-client/src/",
             "./packages/core/src/",

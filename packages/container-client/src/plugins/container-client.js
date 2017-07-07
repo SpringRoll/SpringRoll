@@ -1,5 +1,5 @@
-import {ApplicationPlugin, PageVisibility, include} from '@springroll/core';
-import 'bellhop-iframe';
+import {ApplicationPlugin, PageVisibility} from '@springroll/core';
+import {Bellhop} from '@springroll/bellhop';
 
 (function(undefined) {
     
@@ -16,7 +16,6 @@ import 'bellhop-iframe';
          * @member {Bellhop} container
          * @memberof springroll.Application#
          */
-        const Bellhop = include('Bellhop');
         const container = this.container = new Bellhop();
         container.connect();
 
@@ -96,7 +95,7 @@ import 'bellhop-iframe';
          * @param {string} [exitType='game_completed'] The type of exit
          */
         this.endGame = function(exitType) {
-            this.trigger('endGame', exitType || 'game_completed');
+            this.emit('endGame', exitType || 'game_completed');
             this.destroy();
         };
 

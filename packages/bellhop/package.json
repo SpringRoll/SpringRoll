@@ -1,5 +1,5 @@
 {
-  "name": "@springroll/container-client",
+  "name": "@springroll/bellhop",
   "version": "2.0.0",
   "main": "index.js",
   "author": "CloudKid <tools@cloudkid.com>",
@@ -23,8 +23,7 @@
   ],
   "license": "MIT",
   "dependencies": {
-    "@springroll/core": "^2.0.0",
-    "@springroll/bellhop": "^2.0.0"
+    "@springroll/core": "^2.0.0"
   },
   "devDependencies": {
     "@springroll/build": "^2.0.0"

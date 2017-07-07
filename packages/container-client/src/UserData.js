@@ -9,7 +9,7 @@
  */
 export default class UserData {
     /**
-     * @param {Bellhop} container The container instance
+     * @param {springroll.Bellhop} container The container instance
      * @param {springroll.PersistentStorage} storage Persistent storage saving
      */
     constructor(container, storage) {
@@ -17,7 +17,7 @@ export default class UserData {
          * Reference to the container. If the app is not connected
          * to the Container (running standalone) then the container
          * is set to be `null`.
-         * @member {Bellhop}
+         * @member {springroll.Bellhop}
          * @default  null
          * @readOnly
          */

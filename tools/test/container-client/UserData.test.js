@@ -1,4 +1,4 @@
-const {UserData, PersistentStorage} = springroll;
+const {UserData, PersistentStorage, Bellhop} = springroll;
 
 describe('springroll.UserData', function() {
     

@@ -7,6 +7,7 @@
   },
   "devDependencies": {
     "@springroll/animation": "^2.0.0",
+    "@springroll/bellhop": "^2.0.0",
     "@springroll/captions": "^2.0.0",
     "@springroll/container-client": "^2.0.0",
     "@springroll/core": "^2.0.0",
