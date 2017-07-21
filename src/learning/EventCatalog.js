@@ -70,7 +70,8 @@
 	EventCatalog.globals = [
 		'game_time',
 		'level',
-		'round'
+		'round',
+        'event_count'
 	];
 
 	/**

@@ -856,6 +856,13 @@
 			data.round = this._round;
 		}
 
+        //Initialize the event counter
+		this._eventCounter = this._eventCounter || 0;
+
+		//Increase the event counter
+		this._eventCounter++;
+		data.event_count = this._eventCounter;
+
 		//Get the current game time since the start
 		//this gets applyed to all events being sent
 		data.game_time = this.gameTime();
