@@ -1,0 +1,8 @@
+{
+    "globals": {
+        "MozWebSocket": true
+    },
+    "rules": {
+        "no-console": 0
+    }
+}

@@ -1,5 +1,4 @@
 docs
-components
 node_modules
-.grunt
-docs.zip
+lib
+*.log

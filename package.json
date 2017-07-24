@@ -1,41 +1,24 @@
 {
-	"name": "springroll",
-	"version": "1.0.3",
-	"main": "dist/core.min.js",
-	"author": "CloudKid <tools@cloudkid.com>",
-	"dependencies":
-	{
-		"bellhop-iframe": "*"
-	},
-	"devDependencies":
-	{
-		"grunt": "~0.4.5",
-		"grunt-file-creator": "^0.1.3",
-		"library-grunt": "~0.6.0",
-		"grunt-jsbeautifier": "~0.2.10"
-	},
-	"repository":
-	{
-		"type": "git",
-		"url": "https://github.com/SpringRoll/SpringRoll"
-	},
-	"bugs":
-	{
-		"url": "https://github.com/SpringRoll/SpringRoll/issues"
-	},
-	"scripts":
-	{
-		"test": "grunt default test --verbose"
-	},
-	"keywords": [
-		"webgl",
-		"pixi",
-		"pixi.js",
-		"createjs",
-		"easeljs",
-		"educational",
-		"cross-browser",
-		"webaudio"
-	],
-	"license": "MIT"
+  "private": true,
+  "scripts": {
+    "postinstall": "lerna bootstrap",
+    "watch": "lerna run watch",
+    "build": "lerna run build",
+    "build:dev": "lerna run build:dev",
+    "build:prod": "lerna run build:prod",
+    "build:clean": "lerna run clean",
+    "pretest": "npm run build",
+    "test": "lerna run test",
+    "clean": "lerna clean",
+    "predocs": "rimraf docs/**",
+    "docs": "jsdoc -c jsdoc.config.json -R README.md",
+    "lint": "lerna exec -- eslint src index.js --fix"
+  },
+  "devDependencies": {
+    "gh-pages": "^1.0.0",
+    "jaguarjs-jsdoc": "^1.0.2",
+    "jsdoc": "^3.4.3",
+    "lerna": "^2.0.0-rc.5",
+    "rimraf": "^2.6.1"
+  }
 }

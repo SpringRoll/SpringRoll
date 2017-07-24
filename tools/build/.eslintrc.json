@@ -1,0 +1,8 @@
+{
+    "globals": {
+        "Promise": true
+    },
+    "rules": {
+        "no-console": 0
+    }
+}
