@@ -93,14 +93,6 @@
 		if (rendererOptions.transparent && !preMultAlpha)
 			rendererOptions.transparent = "notMultiplied";
 
-		//check for IE11 because it tends to have WebGL problems (especially older versions)
-		//if we find it, then make Pixi use to the canvas renderer instead
-		if (options.forceContext != "webgl")
-		{
-			var ua = window.navigator.userAgent;
-			if (ua.indexOf("Trident/7.0") > 0)
-				options.forceContext = "canvas2d";
-		}
 		if (options.forceContext == "canvas2d")
 		{
 			this.renderer = new CanvasRenderer(this.width, this.height, rendererOptions);
