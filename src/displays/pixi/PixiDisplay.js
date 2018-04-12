@@ -1,16 +1,17 @@
 /**
+ * @description Pixi 4 display adapter
  * @module PIXI Display
  * @namespace springroll.pixi
  * @requires Core
  */
 (function(undefined)
 {
-
-	var AbstractDisplay = include('springroll.AbstractDisplay'),
-		Container = include('PIXI.Container'),
-		CanvasRenderer = include('PIXI.CanvasRenderer'),
-		WebGLRenderer = include('PIXI.WebGLRenderer'),
-		autoDetectRenderer = include('PIXI.autoDetectRenderer');
+	var AbstractDisplay = include("springroll.AbstractDisplay"),
+		Container = include("PIXI.Container"),
+		CanvasRenderer = include("PIXI.CanvasRenderer"),
+		WebGLRenderer = include("PIXI.WebGLRenderer"),
+		autoDetectRenderer = include("PIXI.autoDetectRenderer"),
+		enableLegacy = include("springroll.pixi.enableLegacy");
 
 	/**
 	 * PixiDisplay is a display plugin for the springroll Framework
@@ -38,6 +39,8 @@
 	 *                                                        context.
 	 * @param {Boolean} [options.autoPreventDefault=true] If preventDefault() should be called on
 	 *                                                    all touch events and mousedown events.
+	 * @param {Boolean} [options.legacy=false] If WebGL's 'legacy' rendering options should be
+	 *                                         enabled.
 	 */
 	var PixiDisplay = function(id, options)
 	{
@@ -60,7 +63,8 @@
 		 * @private
 		 */
 		this._autoPreventDefault = options.hasOwnProperty("autoPreventDefault") ?
-			options.autoPreventDefault : true;
+			options.autoPreventDefault :
+			true;
 
 		/**
 		 * The rendering library's stage element, the root display object
@@ -87,7 +91,8 @@
 			clearBeforeRender: !!options.clearView,
 			backgroundColor: options.backgroundColor || 0,
 			//this defaults to false, but we never want it to auto resize.
-			autoResize: false
+			autoResize: false,
+			legacy: !!options.legacy
 		};
 		var preMultAlpha = !!options.preMultAlpha;
 		if (rendererOptions.transparent && !preMultAlpha)
@@ -98,20 +103,31 @@
 		if (options.forceContext != "webgl")
 		{
 			var ua = window.navigator.userAgent;
-			if (ua.indexOf("Trident/7.0") > 0)
-				options.forceContext = "canvas2d";
+			if (ua.indexOf("Trident/7.0") > 0) options.forceContext = "canvas2d";
 		}
 		if (options.forceContext == "canvas2d")
 		{
-			this.renderer = new CanvasRenderer(this.width, this.height, rendererOptions);
+			this.renderer = new CanvasRenderer(
+				this.width,
+				this.height,
+				rendererOptions
+			);
 		}
 		else if (options.forceContext == "webgl")
 		{
-			this.renderer = new WebGLRenderer(this.width, this.height, rendererOptions);
+			this.renderer = new WebGLRenderer(
+				this.width,
+				this.height,
+				rendererOptions
+			);
 		}
 		else
 		{
-			this.renderer = autoDetectRenderer(this.width, this.height, rendererOptions);
+			this.renderer = autoDetectRenderer(
+				this.width,
+				this.height,
+				rendererOptions
+			);
 		}
 
 		/**
@@ -123,10 +139,15 @@
 		this.isWebGL = this.renderer instanceof WebGLRenderer;
 
 		// Set display adapter classes
-		this.adapter = include('springroll.pixi.DisplayAdapter');
+		this.adapter = include("springroll.pixi.DisplayAdapter");
 
 		// Initialize the autoPreventDefault
 		this.autoPreventDefault = this._autoPreventDefault;
+
+		if (options.legacy)
+		{
+			enableLegacy(this.renderer);
+		}
 	};
 
 	var s = AbstractDisplay.prototype;
@@ -145,7 +166,7 @@
 		},
 		set: function(value)
 		{
-			Object.getOwnPropertyDescriptor(s, 'enabled').set.call(this, value);
+			Object.getOwnPropertyDescriptor(s, "enabled").set.call(this, value);
 
 			var interactionManager = this.renderer.plugins.interaction;
 			if (!interactionManager) return;
@@ -157,10 +178,8 @@
 			else
 			{
 				//remove event listeners
-				if (this.keepMouseover)
-					interactionManager.removeClickEvents();
-				else
-					interactionManager.removeEvents();
+				if (this.keepMouseover) interactionManager.removeClickEvents();
+				else interactionManager.removeEvents();
 			}
 		}
 	});
@@ -229,7 +248,6 @@
 	};
 
 	// Assign to the global namespace
-	namespace('springroll').PixiDisplay = PixiDisplay;
-	namespace('springroll.pixi').PixiDisplay = PixiDisplay;
-
-}());
+	namespace("springroll").PixiDisplay = PixiDisplay;
+	namespace("springroll.pixi").PixiDisplay = PixiDisplay;
+})();

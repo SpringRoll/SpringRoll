@@ -504,25 +504,22 @@
 			this.buttonMode = value;
 			this.interactive = value;
 
-			this.off("mousedown", this._onDown);
-			this.off("touchstart", this._onDown);
-			this.off("mouseover", this._onOver);
-			this.off("mouseout", this._onOut);
+			this.off("pointerdown", this._onDown);
+			this.off("pointerover", this._onOver);
+			this.off("pointerout", this._onOut);
 
 			//make sure interaction callbacks are properly set
 			if (value)
 			{
-				this.on("mousedown", this._onDown);
-				this.on("touchstart", this._onDown);
-				this.on("mouseover", this._onOver);
-				this.on("mouseout", this._onOut);
+				this.on("pointerdown", this._onDown);
+				this.on("pointerover", this._onOver);
+				this.on("pointerout", this._onOut);
 			}
 			else
 			{
-				this.off("mouseupoutside", this._onUpOutside);
-				this.off("touchendoutside", this._onUpOutside);
-				this.off("mouseup", this._onUp);
-				this.off("touchend", this._onUp);
+				this.off("pointerupoutside", this._onUpOutside);
+				this.off("pointercancel", this._onUpOutside);
+				this.off("pointerup", this._onUp);
 				this._stateFlags.down = this._stateFlags.over = false;
 				//also turn off pixi values so that re-enabling button works properly
 				this._over = false;
@@ -687,10 +684,9 @@
 		this._stateFlags.down = true;
 		this._updateState();
 
-		this.on("mouseupoutside", this._onUpOutside);
-		this.on("touchendoutside", this._onUpOutside);
-		this.on("mouseup", this._onUp);
-		this.on("touchend", this._onUp);
+		this.on("pointerupoutside", this._onUpOutside);
+		this.on("pointercancel", this._onUpOutside);
+		this.on("pointerup", this._onUp);
 	};
 
 	/**
@@ -702,10 +698,9 @@
 	p._onUp = function(event)
 	{
 		this._stateFlags.down = false;
-		this.off("mouseupoutside", this._onUpOutside);
-		this.off("touchendoutside", this._onUpOutside);
-		this.off("mouseup", this._onUp);
-		this.off("touchend", this._onUp);
+		this.off("pointerupoutside", this._onUpOutside);
+		this.off("pointercancel", this._onUpOutside);
+		this.off("pointerup", this._onUp);
 
 		this._updateState();
 
@@ -728,10 +723,9 @@
 	p._onUpOutside = function(event)
 	{
 		this._stateFlags.down = false;
-		this.off("mouseupoutside", this._onUpOutside);
-		this.off("touchendoutside", this._onUpOutside);
-		this.off("mouseup", this._onUp);
-		this.off("touchend", this._onUp);
+		this.off("pointerupoutside", this._onUpOutside);
+		this.off("pointercancel", this._onUpOutside);
+		this.off("pointerup", this._onUp);
 
 		this._updateState();
 	};
@@ -1016,12 +1010,12 @@
 	 * @method startDrag
 	 * @public
 	 * @param {PIXI.DisplayObject} object The object that should be dragged.
-	 * @param {PIXI.InteractionData} interactionData The interaction data about
-	 *                                            the input event that triggered this.
+	 * @param {PIXI.InteractionEvent} event The interaction data about the input event that
+	 *                                      triggered this.
 	 */
-	p.startDrag = function(object, interactionData)
+	p.startDrag = function(object, event)
 	{
-		this._objMouseDown(object, interactionData);
+		this._objMouseDown(object, event);
 	};
 
 	/**
@@ -1029,14 +1023,12 @@
 	 * @method _objMouseDown
 	 * @private
 	 * @param {PIXI.DisplayObject} object The object that should be dragged.
-	 * @param {PIXI.InteractionData} interactionData The interaction data about
-	 *                                            the input event that triggered this.
+	 * @param {PIXI.InteractionEvent} event The interaction data about the input event that
+	 *                                      triggered this.
 	 */
-	p._objMouseDown = function(obj, interactionData)
+	p._objMouseDown = function(obj, event)
 	{
-		//get the InteractionData we want from the Pixi v3 events
-		if (interactionData.data && interactionData.data.global)
-			interactionData = interactionData.data;
+		var interactionData = event.data;
 		// if we are dragging something, then ignore any mouse downs
 		// until we release the currently dragged stuff
 		if ((!this._multitouch && this.draggedObj) ||
@@ -1094,9 +1086,9 @@
 			mouseDownStagePos.x = interactionData.global.x;
 			mouseDownStagePos.y = interactionData.global.y;
 			//if it is a touch event, force it to be the held drag type
-			if (!this.allowStickyClick || interactionData.originalEvent.type == "touchstart")
+			if (!this.allowStickyClick || interactionData.pointerType == "touch")
 			{
-				this.isTouchMove = interactionData.originalEvent.type == "touchstart";
+				this.isTouchMove = interactionData.pointerType == "touch";
 				this.isHeldDrag = true;
 				this._startDrag(interactionData);
 			}
@@ -1104,8 +1096,8 @@
 			//held drag or a sticky click drag
 			else
 			{
-				this._interaction.on("stagemove", this._triggerHeldDrag);
-				this._interaction.on("stageup", this._triggerStickyClick);
+				this._interaction.on("pointermove", this._triggerHeldDrag);
+				this._interaction.on("pointerup", this._triggerStickyClick);
 			}
 		}
 	};
@@ -1113,20 +1105,19 @@
 	/**
 	 * Start the sticky click
 	 * @method _triggerStickyClick
-	 * @param {PIXI.InteractionData} interactionData The interaction data about
-	 *                                            the input event that triggered this.
+	 * @param {PIXI.InteractionEvent} event The interaction data about the input event that
+	 *                                      triggered this.
 	 * @private
 	 */
-	p._triggerStickyClick = function(interactionData)
+	p._triggerStickyClick = function(event)
 	{
-		//get the InteractionData we want from the Pixi v3 events
-		interactionData = interactionData.data;
+		var interactionData = event.data;
 		this.isStickyClick = true;
 		var draggedObj = this._multitouch ?
 			this.draggedObj[interactionData.identifier].obj :
 			this.draggedObj;
-		this._interaction.off("stagemove", this._triggerHeldDrag);
-		this._interaction.off("stageup", this._triggerStickyClick);
+		this._interaction.off("pointermove", this._triggerHeldDrag);
+		this._interaction.off("pointerup", this._triggerStickyClick);
 		this._startDrag(interactionData);
 	};
 
@@ -1134,12 +1125,11 @@
 	 * Start hold dragging
 	 * @method _triggerHeldDrag
 	 * @private
-	 * @param {PIXI.InteractionData} interactionData The ineraction data about the moved mouse
+	 * @param {PIXI.InteractionEvent} event The ineraction data about the moved mouse
 	 */
-	p._triggerHeldDrag = function(interactionData)
+	p._triggerHeldDrag = function(event)
 	{
-		//get the InteractionData we want from the Pixi v3 events
-		interactionData = interactionData.data;
+		var interactionData = event.data;
 		var mouseDownStagePos, draggedObj;
 		if (this._multitouch)
 		{
@@ -1156,8 +1146,8 @@
 		if (xDiff * xDiff + yDiff * yDiff >= this.dragStartThreshold * this.dragStartThreshold)
 		{
 			this.isHeldDrag = true;
-			this._interaction.off("stagemove", this._triggerHeldDrag);
-			this._interaction.off("stageup", this._triggerStickyClick);
+			this._interaction.off("pointermove", this._triggerHeldDrag);
+			this._interaction.off("pointerup", this._triggerStickyClick);
 			this._startDrag(interactionData);
 		}
 	};
@@ -1184,8 +1174,10 @@
 		if (!this._addedDragListeners)
 		{
 			this._addedDragListeners = true;
-			this._interaction.on("stagemove", this._updateObjPosition);
-			this._interaction.on("stageup", this._stopDrag);
+			this._interaction.on("pointermove", this._updateObjPosition);
+			this._interaction.on("pointerup", this._stopDrag);
+			this._interaction.on("pointerupoutside", this._stopDrag);
+			this._interaction.on("pointerupcancel", this._stopDrag);
 		}
 
 		this._dragStartCallback(draggedObj);
@@ -1221,22 +1213,19 @@
 	 * Internal stop dragging on the stage
 	 * @method _stopDrag
 	 * @private
-	 * @param {PIXI.InteractionData} interactionData The ineraction data about the moved mouse
+	 * @param {PIXI.InteractionEvent|number} event The ineraction data about the moved mouse, or
+	 *                                             interaction id
 	 * @param {Bool} doCallback If we should do the callback
 	 */
-	p._stopDrag = function(interactionData, doCallback)
+	p._stopDrag = function(event, doCallback)
 	{
 		var obj, id = null;
 		//if touch id was passed directly
-		if (typeof interactionData == "number")
-			id = interactionData;
-		else if (interactionData)
+		if (typeof event == "number")
+			id = event;
+		else if (event)
 		{
-			//get the InteractionData we want from the Pixi v3 events
-			if (interactionData.data && interactionData.data.global)
-				id = interactionData.data.identifier;
-			else if (interactionData instanceof PIXI.interaction.InteractionData)
-				id = interactionData.identifier;
+			id = event.data.identifier;
 		}
 		if (this._multitouch)
 		{
@@ -1285,8 +1274,10 @@
 		if (removeGlobalListeners && this._addedDragListeners)
 		{
 			this._addedDragListeners = false;
-			this._interaction.off("stagemove", this._updateObjPosition);
-			this._interaction.off("stageup", this._stopDrag);
+			this._interaction.off("pointermove", this._updateObjPosition);
+			this._interaction.off("pointerup", this._stopDrag);
+			this._interaction.off("pointerupoutside", this._stopDrag);
+			this._interaction.off("pointerupcancel", this._stopDrag);
 		}
 
 		this.isTouchMove = false;
@@ -1301,12 +1292,11 @@
 	 * Update the object position based on the mouse
 	 * @method _updateObjPosition
 	 * @private
-	 * @param {PIXI.InteractionData} interactionData Mouse move event
+	 * @param {PIXI.InteractionEvent} event Mouse move event
 	 */
-	p._updateObjPosition = function(interactionData)
+	p._updateObjPosition = function(event)
 	{
-		//get the InteractionData we want from the Pixi v3 events
-		interactionData = interactionData.data;
+		var interactionData = event.data;
 
 		//if(!this.isTouchMove && !this._theStage.interactionManager.mouseInStage) return;
 
@@ -1395,15 +1385,13 @@
 	//=== Giving functions and properties to draggable objects objects
 	var enableDrag = function()
 	{
-		this.on("touchstart", this._onMouseDownListener);
-		this.on("mousedown", this._onMouseDownListener);
+		this.on("pointerdown", this._onMouseDownListener);
 		this.buttonMode = this.interactive = true;
 	};
 
 	var disableDrag = function()
 	{
-		this.off("touchstart", this._onMouseDownListener);
-		this.off("mousedown", this._onMouseDownListener);
+		this.off("pointerdown", this._onMouseDownListener);
 		this.buttonMode = this.interactive = false;
 	};
 

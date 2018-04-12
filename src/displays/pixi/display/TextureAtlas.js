@@ -5,7 +5,7 @@
  */
 (function(undefined)
 {
-	var Rectangle = include('PIXI.Rectangle'),
+	var Spritesheet = include('PIXI.Spritesheet'),
 		Texture = include('PIXI.Texture'),
 		PixiUtils = include('PIXI.utils');
 
@@ -19,88 +19,53 @@
 	 * @param {Object} data The JSON object describing the frames in the atlas. This
 	 *                      is expected to fit the JSON Hash format as exported from
 	 *                      TexturePacker.
-	 * @param {Boolean} [useGlobalCache] If sub-textures should be placed in Pixi's global
-	 *                                   texture cache.
 	 */
-	var TextureAtlas = function(texture, data, useGlobalCache)
+	var TextureAtlas = function(texture, data)
 	{
-		this.baseTexture = texture.baseTexture;
-		this.texture = texture;
+		this.spritesheet = new Spritesheet(texture.baseTexture, data);
 
 		/**
 		 * The dictionary of Textures that this atlas consists of.
 		 * @property {Object} frames
 		 */
 		this.frames = {};
-
-		//TexturePacker outputs frames with (not) swapped width & height when rotated, so we need to
-		//swap them ourselves - Flash exported textures do not require width & height to swap
-		var swapFrameSize = data.meta &&
-			data.meta.app == "http://www.codeandweb.com/texturepacker";
-
-		var frames = data.frames;
-
-		//parse the spritesheet
-		for (var name in frames)
-		{
-			var frame = frames[name];
-
-			var index = name.lastIndexOf(".");
-			//strip off any ".png" or ".jpg" at the end
-			if (index > 0)
-				name = name.substring(0, index);
-			index = name.lastIndexOf("/");
-			//strip off any folder structure included in the name
-			if (index >= 0)
-				name = name.substring(index + 1);
-
-			var rect = frame.frame;
-
-			if (rect)
-			{
-				var size = null;
-				var trim = null;
-
-				if (frame.rotated && swapFrameSize)
-				{
-					size = new Rectangle(rect.x, rect.y, rect.h, rect.w);
-				}
-				else
-				{
-					size = new Rectangle(rect.x, rect.y, rect.w, rect.h);
-				}
-
-				//  Check to see if the sprite is trimmed
-				if (frame.trimmed)
-				{
-					trim = new Rectangle(
-						frame.spriteSourceSize.x, // / resolution,
-						frame.spriteSourceSize.y, // / resolution,
-						frame.sourceSize.w, // / resolution,
-						frame.sourceSize.h // / resolution
-					);
-				}
-
-				/*size.x /= resolution;
-				size.y /= resolution;
-				size.width /= resolution;
-				size.height /= resolution;*/
-
-				this.frames[name] = new Texture(this.baseTexture, size, size.clone(), trim,
-					frame.rotated);
-
-				if (useGlobalCache)
-				{
-					// lets also add the frame to pixi's global cache for fromFrame and fromImage
-					// functions
-					PixiUtils.TextureCache[name] = this.frames[name];
-				}
-			}
-		}
 	};
 
 	// Extend Object
 	var p = extend(TextureAtlas);
+
+	/**
+	 * Parses the texture. May be asynchronous in very large atlases.
+	 * @method parse
+	 * @param {Function} callback Function to call when parse is complete.
+	 */
+	p.parse = function(callback)
+	{
+		this.spritesheet.parse(function(textures)
+		{
+			//copy over the textures into our array
+			for (var name in textures)
+			{
+				var origName = name;
+				var texture = textures[name];
+				var index = name.lastIndexOf(".");
+				//strip off any ".png" or ".jpg" at the end
+				if (index > 0)
+					name = name.substring(0, index);
+				index = name.lastIndexOf("/");
+				//strip off any folder structure included in the name
+				if (index >= 0)
+					name = name.substring(index + 1);
+				this.frames[name] = texture;
+				if (origName != name)
+				{
+					//add to cache under changed name
+					Texture.addToCache(texture, name);
+				}
+			}
+			callback();
+		}.bind(this));
+	};
 
 	/**
 	 * Gets a frame by name.
@@ -197,9 +162,8 @@
 	 */
 	p.destroy = function()
 	{
-		this.texture.destroy(true);
-		this.texture = null;
-		this.baseTexture = null;
+		this.spritesheet.destroy(true);
+		this.spritesheet = null;
 		this.frames = null;
 	};
 

@@ -27,7 +27,8 @@
 			return;
 		}
 
-		//core.ticker.shared.remove(this.update);
+		//not strictly necessary for disabling click events, but don't want to add a duplicate later
+		core.ticker.shared.remove(this.update, this);
 
 		if (window.navigator.msPointerEnabled)
 		{
@@ -35,20 +36,16 @@
 			this.interactionDOMElement.style['-ms-touch-action'] = '';
 		}
 
-		//window.document.removeEventListener('mousemove', this.onMouseMove, true);
-		this.interactionDOMElement.removeEventListener('mousedown', this.onMouseDown, true);
-		//this.interactionDOMElement.removeEventListener('mouseout',  this.onMouseOut, true);
-		//this.interactionDOMElement.removeEventListener('mouseover', this.onMouseOver, true);
+		this.interactionDOMElement.removeEventListener('mousedown', this.onPointerDown, true);
+		window.removeEventListener('mouseup', this.onPointerUp, true);
 
-		this.interactionDOMElement.removeEventListener('touchstart', this.onTouchStart, true);
-		this.interactionDOMElement.removeEventListener('touchend', this.onTouchEnd, true);
-		this.interactionDOMElement.removeEventListener('touchmove', this.onTouchMove, true);
+		this.interactionDOMElement.removeEventListener('touchstart', this.onPointerDown, true);
+		this.interactionDOMElement.removeEventListener('touchcancel', this.onPointerCancel, true);
+		this.interactionDOMElement.removeEventListener('touchend', this.onPointerUp, true);
 
-		//this.interactionDOMElement = null;
-
-		window.removeEventListener('mouseup', this.onMouseUp, true);
-
-		//this.eventsAdded = false;
+		this.interactionDOMElement.removeEventListener('pointerdown', this.onPointerDown, true);
+		window.removeEventListener('pointercancel', this.onPointerCancel, true);
+		window.removeEventListener('pointerup', this.onPointerUp, true);
 	};
 
 }());

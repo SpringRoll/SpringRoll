@@ -503,25 +503,22 @@
 			this.buttonMode = value;
 			this.interactive = value;
 
-			this.off("mousedown", this._onDown);
-			this.off("touchstart", this._onDown);
-			this.off("mouseover", this._onOver);
-			this.off("mouseout", this._onOut);
+			this.off("pointerdown", this._onDown);
+			this.off("pointerover", this._onOver);
+			this.off("pointerout", this._onOut);
 
 			//make sure interaction callbacks are properly set
 			if (value)
 			{
-				this.on("mousedown", this._onDown);
-				this.on("touchstart", this._onDown);
-				this.on("mouseover", this._onOver);
-				this.on("mouseout", this._onOut);
+				this.on("pointerdown", this._onDown);
+				this.on("pointerover", this._onOver);
+				this.on("pointerout", this._onOut);
 			}
 			else
 			{
-				this.off("mouseupoutside", this._onUpOutside);
-				this.off("touchendoutside", this._onUpOutside);
-				this.off("mouseup", this._onUp);
-				this.off("touchend", this._onUp);
+				this.off("pointerupoutside", this._onUpOutside);
+				this.off("pointercancel", this._onUpOutside);
+				this.off("pointerup", this._onUp);
 				this._stateFlags.down = this._stateFlags.over = false;
 				//also turn off pixi values so that re-enabling button works properly
 				this._over = false;
@@ -686,10 +683,9 @@
 		this._stateFlags.down = true;
 		this._updateState();
 
-		this.on("mouseupoutside", this._onUpOutside);
-		this.on("touchendoutside", this._onUpOutside);
-		this.on("mouseup", this._onUp);
-		this.on("touchend", this._onUp);
+		this.on("pointerupoutside", this._onUpOutside);
+		this.on("pointercancel", this._onUpOutside);
+		this.on("pointerup", this._onUp);
 	};
 
 	/**
@@ -701,10 +697,9 @@
 	p._onUp = function(event)
 	{
 		this._stateFlags.down = false;
-		this.off("mouseupoutside", this._onUpOutside);
-		this.off("touchendoutside", this._onUpOutside);
-		this.off("mouseup", this._onUp);
-		this.off("touchend", this._onUp);
+		this.off("pointerupoutside", this._onUpOutside);
+		this.off("pointercancel", this._onUpOutside);
+		this.off("pointerup", this._onUp);
 
 		this._updateState();
 
@@ -727,10 +722,9 @@
 	p._onUpOutside = function(event)
 	{
 		this._stateFlags.down = false;
-		this.off("mouseupoutside", this._onUpOutside);
-		this.off("touchendoutside", this._onUpOutside);
-		this.off("mouseup", this._onUp);
-		this.off("touchend", this._onUp);
+		this.off("pointerupoutside", this._onUpOutside);
+		this.off("pointercancel", this._onUpOutside);
+		this.off("pointerup", this._onUp);
 
 		this._updateState();
 	};
