@@ -138,21 +138,32 @@
 
 			if (this.cache && !ignoreCacheSetting)
 			{
-				//for cache id, use task id
+				//for cache id, prefer task id, but if Pixi global texture cache is using urls, then
+				//use that
 				var id = this.id;
-
+				//if pixi is expecting URLs, then use the URL
+				if (!PixiUtils.useFilenamesForTextures)
+				{
+					//use color image if regular image is not available
+					id = this.image || this.color;
+				}
 				//also add the frame to Pixi's global cache for fromFrame and fromImage functions
-				Texture.addToCache(texture, this.id);
-				BaseTexture.addToCache(texture.baseTexture, this.id);
+				PixiUtils.TextureCache[id] = texture;
+				PixiUtils.BaseTextureCache[id] = texture.baseTexture;
 
 				//set up a special destroy wrapper for this texture so that Application.instance.unload
 				//works properly to completely unload it
 				texture.__T_destroy = texture.destroy;
 				texture.destroy = function()
 				{
-					this.destroy = this.__T_destroy;
+					if (this.__destroyed) return;
+					this.__destroyed = true;
 					//destroy the base texture as well
-					this.destroy(true);
+					this.__T_destroy(true);
+
+					//remove it from the global texture cache, if relevant
+					if (PixiUtils.TextureCache[id] == this)
+						delete PixiUtils.TextureCache[id];
 				};
 			}
 			if (this.uploadToGPU)

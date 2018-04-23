@@ -1,4 +1,4 @@
-/*! SpringRoll 1.0.3 */
+/*! SpringRoll 1.0.4 */
 /**
  * @module Core
  * @namespace window
@@ -182,7 +182,7 @@
 		for (var prop in p)
 		{
 			// For things that we set using Object.defineProperty
-			// very important that enumerable:true for the 
+			// very important that enumerable:true for the
 			// defineProperty options
 			var propDesc = Object.getOwnPropertyDescriptor(p, prop);
 			if (propDesc)
@@ -1147,7 +1147,7 @@
 			{name: "one", value:"1", toString:"I am the One!"},
 			"two",
 			{name:"screwSequentialNumbers", value:42});
-			
+
 		myEnum.valueOf0 != 0;//enum values are not integers
 		myEnum.valueOf1 != myOtherEnum.one;//enum values are not the same as other enums
 		myEnum.valueOf2.asInt == 2;//enum values can be explicitly compared to integers
@@ -1348,9 +1348,9 @@
 	 */
 	var SavedData = {};
 
-	/** 
-	 * A constant to determine if we can use localStorage and 
-	 * sessionStorage 
+	/**
+	 * A constant to determine if we can use localStorage and
+	 * sessionStorage
 	 * @static
 	 * @property {Boolean} WEB_STORAGE_SUPPORT
 	 * @private
@@ -1359,7 +1359,7 @@
 	var WEB_STORAGE_SUPPORT = window.Storage !== undefined;
 
 	/**
-	 * A constant for cookie fallback for `SavedData.clear()` 
+	 * A constant for cookie fallback for `SavedData.clear()`
 	 * @static
 	 * @property {int} ERASE_COOKIE
 	 * @private
@@ -1536,7 +1536,7 @@
 	/**
 	 * This method gets timestamp in micromilliseconds for doing performance
 	 * intense operations. Fallback support is to `Date.now()`. We aren't overridding
-	 * `performance.now()` incase dependencies on this actually demand 
+	 * `performance.now()` incase dependencies on this actually demand
 	 * the optimization and accuracy that performance actually provides.
 	 * @static
 	 * @method now
@@ -2288,7 +2288,7 @@
 	var Application;
 
 	/**
-	 * Responsible for creating properties, methods to 
+	 * Responsible for creating properties, methods to
 	 * the SpringRoll Application when it's created.
 	 *
 	 *	var plugin = new ApplicationPlugin();
@@ -2319,24 +2319,24 @@
 		this.priority = priority || 0;
 
 		/**
-		 * When the application is being initialized. This function 
+		 * When the application is being initialized. This function
 		 * is bound to the Application. This should be overridden.
 		 * @method setup
 		 */
 		this.setup = function() {};
 
 		/**
-		 * The function to call right before the application is initailized. 
+		 * The function to call right before the application is initailized.
 		 * This function is bound to the Application. `preload` takes
 		 * a single parameter which is a call back to call when
 		 * the asyncronous event is completed.
-		 * @method preload 
+		 * @method preload
 		 * @param {function} done The event to call when complete
 		 */
 		this.preload = null;
 
 		/**
-		 * When the application is being destroyed. This function 
+		 * When the application is being destroyed. This function
 		 * is bound to the Application. This should be overridden.
 		 * @method teardown
 		 */
@@ -3288,9 +3288,9 @@
 			});
 
 		/**
-		 * Setter for if the application is being automatically paused, 
+		 * Setter for if the application is being automatically paused,
 		 * usually by the PageVisibility plugin or the ContainerClient plugin.
-		 * @property {Boolean} autoPaused 
+		 * @property {Boolean} autoPaused
 		 * @protected
 		 */
 		Object.defineProperty(this, 'autoPaused',
@@ -4749,7 +4749,7 @@
 		Sound = include('createjs.Sound', false);
 
 	/**
-	 * Represents a single item in the loader queue 
+	 * Represents a single item in the loader queue
 	 * @class LoaderItem
 	 * @extends createjs.LoadQueue
 	 */
@@ -4791,7 +4791,7 @@
 		this.data = null;
 
 		/**
-		 * The callback function of the load, to call when 
+		 * The callback function of the load, to call when
 		 * the load as finished, takes one argument as result
 		 * @public
 		 * @property {function} onComplete
@@ -6821,7 +6821,7 @@
 
 		/**
 		 * The collection of assets to preload, can be individual
-		 * URLs or objects with keys `src`, `complete`, `progress`, etc. 
+		 * URLs or objects with keys `src`, `complete`, `progress`, etc.
 		 * @property {String|Array|Object} options.preload
 		 * @default []
 		 */

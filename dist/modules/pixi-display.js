@@ -7,52 +7,6 @@
 (function(undefined)
 {
 	/**
-	 *  Mixins for the PIXI BaseTexture class
-	 *  @class BaseTexture
-	 */
-
-	var BaseTexture = include("PIXI.BaseTexture", false);
-	if (!BaseTexture) return;
-
-	var p = BaseTexture.prototype;
-
-	var orig_destroy = p.destroy;
-	p.destroy = function()
-	{
-		if (this._destroyed) return;
-
-		orig_destroy.call(this);
-
-		setTimeout(function()
-		{
-			//go through and destroy any textures that use this as the base texture
-			//that way a destroyed spritesheet cleans up all the sprite frames
-			var TextureCache = PIXI.utils.TextureCache;
-			for (var id in TextureCache)
-			{
-				var texture = TextureCache[id];
-				if (!texture)
-				{
-					delete TextureCache[id];
-					continue;
-				}
-				if (texture.baseTexture === this)
-				{
-					texture.destroy();
-				}
-			}
-		}, 0);
-	};
-
-}());
-/**
- * @module PIXI Display
- * @namespace PIXI
- * @requires Core
- */
-(function(undefined)
-{
-	/**
 	 *  Mixins for the PIXI BitmapText class
 	 *  @class BitmapText
 	 */
@@ -225,8 +179,7 @@
 			return;
 		}
 
-		//not strictly necessary for disabling click events, but don't want to add a duplicate later
-		core.ticker.shared.remove(this.update, this);
+		//core.ticker.shared.remove(this.update);
 
 		if (window.navigator.msPointerEnabled)
 		{
@@ -234,16 +187,20 @@
 			this.interactionDOMElement.style['-ms-touch-action'] = '';
 		}
 
-		this.interactionDOMElement.removeEventListener('mousedown', this.onPointerDown, true);
-		window.removeEventListener('mouseup', this.onPointerUp, true);
+		//window.document.removeEventListener('mousemove', this.onMouseMove, true);
+		this.interactionDOMElement.removeEventListener('mousedown', this.onMouseDown, true);
+		//this.interactionDOMElement.removeEventListener('mouseout',  this.onMouseOut, true);
+		//this.interactionDOMElement.removeEventListener('mouseover', this.onMouseOver, true);
 
-		this.interactionDOMElement.removeEventListener('touchstart', this.onPointerDown, true);
-		this.interactionDOMElement.removeEventListener('touchcancel', this.onPointerCancel, true);
-		this.interactionDOMElement.removeEventListener('touchend', this.onPointerUp, true);
+		this.interactionDOMElement.removeEventListener('touchstart', this.onTouchStart, true);
+		this.interactionDOMElement.removeEventListener('touchend', this.onTouchEnd, true);
+		this.interactionDOMElement.removeEventListener('touchmove', this.onTouchMove, true);
 
-		this.interactionDOMElement.removeEventListener('pointerdown', this.onPointerDown, true);
-		window.removeEventListener('pointercancel', this.onPointerCancel, true);
-		window.removeEventListener('pointerup', this.onPointerUp, true);
+		//this.interactionDOMElement = null;
+
+		window.removeEventListener('mouseup', this.onMouseUp, true);
+
+		//this.eventsAdded = false;
 	};
 
 }());
@@ -722,21 +679,32 @@
 
 			if (this.cache && !ignoreCacheSetting)
 			{
-				//for cache id, use task id
+				//for cache id, prefer task id, but if Pixi global texture cache is using urls, then
+				//use that
 				var id = this.id;
-
+				//if pixi is expecting URLs, then use the URL
+				if (!PixiUtils.useFilenamesForTextures)
+				{
+					//use color image if regular image is not available
+					id = this.image || this.color;
+				}
 				//also add the frame to Pixi's global cache for fromFrame and fromImage functions
-				Texture.addToCache(texture, this.id);
-				BaseTexture.addToCache(texture.baseTexture, this.id);
+				PixiUtils.TextureCache[id] = texture;
+				PixiUtils.BaseTextureCache[id] = texture.baseTexture;
 
 				//set up a special destroy wrapper for this texture so that Application.instance.unload
 				//works properly to completely unload it
 				texture.__T_destroy = texture.destroy;
 				texture.destroy = function()
 				{
-					this.destroy = this.__T_destroy;
+					if (this.__destroyed) return;
+					this.__destroyed = true;
 					//destroy the base texture as well
-					this.destroy(true);
+					this.__T_destroy(true);
+
+					//remove it from the global texture cache, if relevant
+					if (PixiUtils.TextureCache[id] == this)
+						delete PixiUtils.TextureCache[id];
 				};
 			}
 			if (this.uploadToGPU)
@@ -776,7 +744,7 @@
  */
 (function(undefined)
 {
-	var Spritesheet = include('PIXI.Spritesheet'),
+	var Rectangle = include('PIXI.Rectangle'),
 		Texture = include('PIXI.Texture'),
 		PixiUtils = include('PIXI.utils');
 
@@ -790,53 +758,88 @@
 	 * @param {Object} data The JSON object describing the frames in the atlas. This
 	 *                      is expected to fit the JSON Hash format as exported from
 	 *                      TexturePacker.
+	 * @param {Boolean} [useGlobalCache] If sub-textures should be placed in Pixi's global
+	 *                                   texture cache.
 	 */
-	var TextureAtlas = function(texture, data)
+	var TextureAtlas = function(texture, data, useGlobalCache)
 	{
-		this.spritesheet = new Spritesheet(texture.baseTexture, data);
+		this.baseTexture = texture.baseTexture;
+		this.texture = texture;
 
 		/**
 		 * The dictionary of Textures that this atlas consists of.
 		 * @property {Object} frames
 		 */
 		this.frames = {};
+
+		//TexturePacker outputs frames with (not) swapped width & height when rotated, so we need to
+		//swap them ourselves - Flash exported textures do not require width & height to swap
+		var swapFrameSize = data.meta &&
+			data.meta.app == "http://www.codeandweb.com/texturepacker";
+
+		var frames = data.frames;
+
+		//parse the spritesheet
+		for (var name in frames)
+		{
+			var frame = frames[name];
+
+			var index = name.lastIndexOf(".");
+			//strip off any ".png" or ".jpg" at the end
+			if (index > 0)
+				name = name.substring(0, index);
+			index = name.lastIndexOf("/");
+			//strip off any folder structure included in the name
+			if (index >= 0)
+				name = name.substring(index + 1);
+
+			var rect = frame.frame;
+
+			if (rect)
+			{
+				var size = null;
+				var trim = null;
+
+				if (frame.rotated && swapFrameSize)
+				{
+					size = new Rectangle(rect.x, rect.y, rect.h, rect.w);
+				}
+				else
+				{
+					size = new Rectangle(rect.x, rect.y, rect.w, rect.h);
+				}
+
+				//  Check to see if the sprite is trimmed
+				if (frame.trimmed)
+				{
+					trim = new Rectangle(
+						frame.spriteSourceSize.x, // / resolution,
+						frame.spriteSourceSize.y, // / resolution,
+						frame.sourceSize.w, // / resolution,
+						frame.sourceSize.h // / resolution
+					);
+				}
+
+				/*size.x /= resolution;
+				size.y /= resolution;
+				size.width /= resolution;
+				size.height /= resolution;*/
+
+				this.frames[name] = new Texture(this.baseTexture, size, size.clone(), trim,
+					frame.rotated);
+
+				if (useGlobalCache)
+				{
+					// lets also add the frame to pixi's global cache for fromFrame and fromImage
+					// functions
+					PixiUtils.TextureCache[name] = this.frames[name];
+				}
+			}
+		}
 	};
 
 	// Extend Object
 	var p = extend(TextureAtlas);
-
-	/**
-	 * Parses the texture. May be asynchronous in very large atlases.
-	 * @method parse
-	 * @param {Function} callback Function to call when parse is complete.
-	 */
-	p.parse = function(callback)
-	{
-		this.spritesheet.parse(function(textures)
-		{
-			//copy over the textures into our array
-			for (var name in textures)
-			{
-				var origName = name;
-				var texture = textures[name];
-				var index = name.lastIndexOf(".");
-				//strip off any ".png" or ".jpg" at the end
-				if (index > 0)
-					name = name.substring(0, index);
-				index = name.lastIndexOf("/");
-				//strip off any folder structure included in the name
-				if (index >= 0)
-					name = name.substring(index + 1);
-				this.frames[name] = texture;
-				if (origName != name)
-				{
-					//add to cache under changed name
-					Texture.addToCache(texture, name);
-				}
-			}
-			callback();
-		}.bind(this));
-	};
 
 	/**
 	 * Gets a frame by name.
@@ -933,8 +936,9 @@
 	 */
 	p.destroy = function()
 	{
-		this.spritesheet.destroy(true);
-		this.spritesheet = null;
+		this.texture.destroy(true);
+		this.texture = null;
+		this.baseTexture = null;
 		this.frames = null;
 	};
 
@@ -1029,10 +1033,14 @@
 				data,
 				this.cache && !ignoreCacheSetting
 			);
-			atlas.parse(function()
+			//if the spritesheet JSON had a scale in it, use that to override
+			//whatever settings came from loading, as the texture atlas size is more important
+			if (data.meta && data.meta.scale && parseFloat(data.meta.scale) != 1)
 			{
-				done(atlas, results);
-			});
+				texture.baseTexture.resolution = parseFloat(results._atlas.meta.scale);
+				texture.baseTexture.update();
+			}
+			done(atlas, results);
 		}.bind(this), true);
 	};
 
@@ -1104,7 +1112,7 @@
     NOTE: PixiV2 did the following to ensure successful getting of XML data in all situations
     we may need to have PreloadJS do something similar, or perhaps have it recognize .fnt as .xml
     at least
-
+	
     var responseXML = this.ajaxRequest.responseXML || this.ajaxRequest.response || this.ajaxRequest.responseText;
     if(typeof responseXML === 'string')
     {
@@ -1142,14 +1150,62 @@
 		{
 			var data = results._font;
 
-			var font = BitmapText.registerFont(data, texture);
+			var font = {};
+
+			var info = data.getElementsByTagName('info')[0];
+			var common = data.getElementsByTagName('common')[0];
+
+			font.font = info.getAttribute('face');
+			font.size = parseInt(info.getAttribute('size'), 10);
+			font.lineHeight = parseInt(common.getAttribute('lineHeight'), 10);
+			font.chars = {};
+
+			//parse letters
+			var letters = data.getElementsByTagName('char');
+
+			var i;
+			for (i = 0; i < letters.length; i++)
+			{
+				var l = letters[i];
+				var charCode = parseInt(l.getAttribute('id'), 10);
+
+				var textureRect = new Rectangle(
+					parseInt(l.getAttribute('x'), 10) + texture.frame.x,
+					parseInt(l.getAttribute('y'), 10) + texture.frame.y,
+					parseInt(l.getAttribute('width'), 10),
+					parseInt(l.getAttribute('height'), 10)
+				);
+
+				font.chars[charCode] = {
+					xOffset: parseInt(l.getAttribute('xoffset'), 10),
+					yOffset: parseInt(l.getAttribute('yoffset'), 10),
+					xAdvance: parseInt(l.getAttribute('xadvance'), 10),
+					kerning:
+					{},
+					texture: new Texture(texture.baseTexture, textureRect)
+				};
+			}
+
+			//parse kernings
+			var kernings = data.getElementsByTagName('kerning');
+			for (i = 0; i < kernings.length; i++)
+			{
+				var k = kernings[i];
+				var first = parseInt(k.getAttribute('first'), 10);
+				var second = parseInt(k.getAttribute('second'), 10);
+				var amount = parseInt(k.getAttribute('amount'), 10);
+
+				font.chars[second].kerning[first] = amount;
+			}
+
+			// I'm leaving this as a temporary fix so we can test the bitmap fonts in v3
+			// but it's very likely to change
+			if (this.cache && BitmapText.fonts)
+				BitmapText.fonts[font.font] = font;
 
 			//add a cleanup function
 			font.destroy = function()
 			{
-				//remove from global cache
-				delete BitmapText.fonts[font.font];
-				//clean up stuff
 				font.chars = null;
 				texture.destroy();
 			};
@@ -1471,19 +1527,18 @@
 
 }());
 /**
- * @description Pixi 4 display adapter
  * @module PIXI Display
  * @namespace springroll.pixi
  * @requires Core
  */
 (function(undefined)
 {
-	var AbstractDisplay = include("springroll.AbstractDisplay"),
-		Container = include("PIXI.Container"),
-		CanvasRenderer = include("PIXI.CanvasRenderer"),
-		WebGLRenderer = include("PIXI.WebGLRenderer"),
-		autoDetectRenderer = include("PIXI.autoDetectRenderer"),
-		enableLegacy = include("springroll.pixi.enableLegacy");
+
+	var AbstractDisplay = include('springroll.AbstractDisplay'),
+		Container = include('PIXI.Container'),
+		CanvasRenderer = include('PIXI.CanvasRenderer'),
+		WebGLRenderer = include('PIXI.WebGLRenderer'),
+		autoDetectRenderer = include('PIXI.autoDetectRenderer');
 
 	/**
 	 * PixiDisplay is a display plugin for the springroll Framework
@@ -1511,8 +1566,6 @@
 	 *                                                        context.
 	 * @param {Boolean} [options.autoPreventDefault=true] If preventDefault() should be called on
 	 *                                                    all touch events and mousedown events.
-	 * @param {Boolean} [options.legacy=false] If WebGL's 'legacy' rendering options should be
-	 *                                         enabled.
 	 */
 	var PixiDisplay = function(id, options)
 	{
@@ -1535,8 +1588,7 @@
 		 * @private
 		 */
 		this._autoPreventDefault = options.hasOwnProperty("autoPreventDefault") ?
-			options.autoPreventDefault :
-			true;
+			options.autoPreventDefault : true;
 
 		/**
 		 * The rendering library's stage element, the root display object
@@ -1563,8 +1615,7 @@
 			clearBeforeRender: !!options.clearView,
 			backgroundColor: options.backgroundColor || 0,
 			//this defaults to false, but we never want it to auto resize.
-			autoResize: false,
-			legacy: !!options.legacy
+			autoResize: false
 		};
 		var preMultAlpha = !!options.preMultAlpha;
 		if (rendererOptions.transparent && !preMultAlpha)
@@ -1575,31 +1626,20 @@
 		if (options.forceContext != "webgl")
 		{
 			var ua = window.navigator.userAgent;
-			if (ua.indexOf("Trident/7.0") > 0) options.forceContext = "canvas2d";
+			if (ua.indexOf("Trident/7.0") > 0)
+				options.forceContext = "canvas2d";
 		}
 		if (options.forceContext == "canvas2d")
 		{
-			this.renderer = new CanvasRenderer(
-				this.width,
-				this.height,
-				rendererOptions
-			);
+			this.renderer = new CanvasRenderer(this.width, this.height, rendererOptions);
 		}
 		else if (options.forceContext == "webgl")
 		{
-			this.renderer = new WebGLRenderer(
-				this.width,
-				this.height,
-				rendererOptions
-			);
+			this.renderer = new WebGLRenderer(this.width, this.height, rendererOptions);
 		}
 		else
 		{
-			this.renderer = autoDetectRenderer(
-				this.width,
-				this.height,
-				rendererOptions
-			);
+			this.renderer = autoDetectRenderer(this.width, this.height, rendererOptions);
 		}
 
 		/**
@@ -1611,15 +1651,10 @@
 		this.isWebGL = this.renderer instanceof WebGLRenderer;
 
 		// Set display adapter classes
-		this.adapter = include("springroll.pixi.DisplayAdapter");
+		this.adapter = include('springroll.pixi.DisplayAdapter');
 
 		// Initialize the autoPreventDefault
 		this.autoPreventDefault = this._autoPreventDefault;
-
-		if (options.legacy)
-		{
-			enableLegacy(this.renderer);
-		}
 	};
 
 	var s = AbstractDisplay.prototype;
@@ -1638,7 +1673,7 @@
 		},
 		set: function(value)
 		{
-			Object.getOwnPropertyDescriptor(s, "enabled").set.call(this, value);
+			Object.getOwnPropertyDescriptor(s, 'enabled').set.call(this, value);
 
 			var interactionManager = this.renderer.plugins.interaction;
 			if (!interactionManager) return;
@@ -1650,8 +1685,10 @@
 			else
 			{
 				//remove event listeners
-				if (this.keepMouseover) interactionManager.removeClickEvents();
-				else interactionManager.removeEvents();
+				if (this.keepMouseover)
+					interactionManager.removeClickEvents();
+				else
+					interactionManager.removeEvents();
 			}
 		}
 	});
@@ -1720,9 +1757,10 @@
 	};
 
 	// Assign to the global namespace
-	namespace("springroll").PixiDisplay = PixiDisplay;
-	namespace("springroll.pixi").PixiDisplay = PixiDisplay;
-})();
+	namespace('springroll').PixiDisplay = PixiDisplay;
+	namespace('springroll.pixi').PixiDisplay = PixiDisplay;
+
+}());
 /**
  * @module PIXI Display
  * @namespace springroll
