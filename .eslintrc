@@ -16,6 +16,7 @@
     "semi": ["error", "always"],
     "no-console": [0],
     "quotes": [2, "single"],
-    "curly": ["error", "all"]
+    "curly": ["error", "all"],
+    "no-var": "error"
   }
 }
