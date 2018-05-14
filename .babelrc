@@ -1,0 +1,15 @@
+{
+  "presets": [
+    [
+      "env",
+      {
+        "targets": {
+          "browsers": [
+            "Explorer 11"
+          ]
+        },
+        "modules": false
+      }
+    ]
+  ]
+}
