@@ -8,7 +8,7 @@ import babel from 'rollup-plugin-babel';
 
 export default [
   {
-    input: 'src/main.js',
+    input: 'src/index.js',
     external: ['ms'],
     output: [
       {
@@ -24,13 +24,13 @@ export default [
         module: true,
         jsnext: true,
         main: true,
-        browser: true,
+        browser: true
       }),
       commonjs(),
       babel(),
       uglify({
         sourceMap: true
-      }),
+      })
     ]
   }
 ];

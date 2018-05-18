@@ -7,7 +7,7 @@
     "build": "rollup -c -m",
     "dev": "rollup -c -w",
     "test": "mocha --recursive",
-    "docs": "jsdoc ./src/main.js"
+    "docs": "jsdoc ./src/index.js"
   },
   "author": "",
   "license": "ISC",
