@@ -5,6 +5,10 @@
     "es6": true,
     "mocha": true
   },
+  "globals": {
+    "assert": true,
+    "expect": true
+  },
   "plugins": ["node"],
   "extends": ["eslint:recommended"],
   "parserOptions": {
@@ -18,14 +22,17 @@
     "quotes": [2, "single"],
     "curly": ["error", "all"],
     "no-var": "error",
-    "require-jsdoc": ["error", {
-      "require": {
+    "require-jsdoc": [
+      "error",
+      {
+        "require": {
           "FunctionDeclaration": true,
           "MethodDefinition": true,
           "ClassDeclaration": true,
           "ArrowFunctionExpression": false,
           "FunctionExpression": true
+        }
       }
-    }]
+    ]
   }
 }
