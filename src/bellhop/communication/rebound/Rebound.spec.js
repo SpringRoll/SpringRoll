@@ -7,21 +7,9 @@ describe('Rebound', () => {
 
   const rebound = new Rebound();
 
-  it('Should have default settings', () => {
-    expect(rebound.id).to.be.string;
+  it('Default Settings', () => {
+    expect(rebound.randId).to.be.undefined;
     expect(rebound.isChild).to.be.a('boolean');
-
-    expect(rebound.receiver).to.equal(window);
+    expect(rebound.receiver).to.undefined;
   });
-
-  // it('setIFrame should not update update receiver when isChild is true', () => {
-  //   const iframe = document.createElement('iframe');
-  //   const iFrameID = 'iTest';
-  //   iframe.src = 'about:blank';
-  //   iframe.id = iFrameID;
-  //   document.body.appendChild(iframe);
-
-  //   rebound.setIFrame(iFrameID);
-  //   expect(rebound.receiver).to.equal(window);
-  // });
 });

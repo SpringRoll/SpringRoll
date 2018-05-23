@@ -5,7 +5,7 @@
  * @class Rebound
  * @property {window | contentWindow} receiver The object that
  * @property {boolean} isChild
- * @property {string} id The id for the instance of rebound
+ * @property {string} iFrameId The id for the instance of rebound
  * @property {Client} client the client object instance used by Rebound
  */
 export default class Rebound {
@@ -14,26 +14,24 @@ export default class Rebound {
    * @memberof Rebound
    */
   constructor({
-    iframe = undefined,
+    iFrameId = undefined,
     client = undefined,
     autoConnect = false
   } = {}) {
     this.isChild = !window.frames.length;
-    this.id = 'Rebound_' + Math.random().toString();
-    this.receiver = window;
-
-    if (iframe) {
-      this.setIFrame(iframe);
+    if ('string' === typeof iFrameId) {
+      this.setIFrame(iFrameId);
     }
-    if (client) {
+    if ('undefined' !== typeof client) {
       this.setClient(client);
     }
 
     if (this.isChild && autoConnect) {
-      this.dispatch({ event: 'connected', id: this.id });
+      this.randId = 'Rebound_' + Math.random().toString();
+      this.receiver = parent;
+      this.dispatch({ event: 'connected', id: this.randId });
     }
-
-    this.receiver.addEventListener('message', this.onMessage.bind(this));
+    window.addEventListener('message', this.onMessage.bind(this));
   }
 
   /**
@@ -43,7 +41,7 @@ export default class Rebound {
    * @memberof Rebound
    */
   connect() {
-    this.dispatch({ event: 'connected', id: this.id });
+    this.dispatch({ event: 'connected', id: this.randId });
   }
 
   /**
@@ -88,7 +86,7 @@ export default class Rebound {
       this.receiver.focus();
     }
 
-    event.id = this.id;
+    event.id = this.randId;
 
     console.log(this.receiver);
 
@@ -109,10 +107,10 @@ export default class Rebound {
     }
 
     if (data.event === 'connected') {
-      this.id = data.id;
+      this.randId = data.id;
     }
 
-    if (data.id === this.id) {
+    if (data.id === this.randId) {
       this.client.dispatch(data.event, data.value, true);
     }
   }
