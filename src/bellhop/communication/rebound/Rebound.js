@@ -6,6 +6,7 @@
  * @property {window | contentWindow} receiver The object that
  * @property {boolean} isChild
  * @property {string} id The id for the instance of rebound
+ * @property {Client} client the client object instance used by Rebound
  */
 export default class Rebound {
   /**
@@ -88,6 +89,8 @@ export default class Rebound {
     }
 
     event.id = this.id;
+
+    console.log(this.receiver);
 
     this.receiver.postMessage(event, '*');
   }
