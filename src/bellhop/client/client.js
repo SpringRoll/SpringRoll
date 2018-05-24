@@ -1,36 +1,37 @@
 /**
- *
- *
  * @export
  * @class Client
- * @property {object} events Stores all callback functions, organized by event name
- * @property {Rebound} rebound the instance of that interacts with the Client
+ *
+ * @property {object} events
+ * @property {Rebound} rebound
  */
-export default class Client {
+export class Client {
   /**
-   * An object used to keep track of all of the events
-   * @property {Object} events
-   * @private
+   * Creates an instance of Client.
+   * @memberof Client
    */
-  constructor({ events = {}, rebound = undefined } = {}) {
-    this.events = events;
-    this.rebound = rebound;
+  constructor() {
+    this.events = {};
+    this.rebound = undefined;
   }
 
   /**
    * If eventName is an available event, the cb function will be attached to the
    * events object to then be used at a later time
-   * @private
+   *
    * @method on
-   * @param name string to specify what event to use
-   * @param callback function to handle request returns
+   * @param {string} name string to specify what event to use
+   * @param {Function} callback function to handle request returns
    */
   on(name, callback) {
-    if ('string' !== typeof name) {
+    let invalidName = typeof name === 'undefined';
+    let noEventsObj = typeof this.events === 'undefined';
+
+    if (noEventsObj || invalidName || !this.events.hasOwnProperty(name)) {
       return;
     }
 
-    if ('undefined' === typeof this.events[name]) {
+    if (typeof this.events[name] === 'undefined') {
       this.events[name] = callback;
     }
   }
@@ -38,28 +39,28 @@ export default class Client {
   /**
    * If eventName is an event that is currently in the events object then it
    * will be removed and set as undefined
-   * @private
+   *
    * @method off
-   * @param name string to specify what event to remove
+   * @param {string} name string to specify what event to remove
    */
   off(name) {
-    if (!this.events || !name) {
+    if (typeof this.events === 'undefined' || typeof name === 'undefined') {
       return;
     }
 
-    if ('undefined' !== typeof this.events[name]) {
+    if (typeof this.events[name] !== 'undefined') {
       this.events[name] = undefined;
     }
   }
 
   /**
    * Set rebound to this.rebound if it is not already set
-   * @private
+   *
    * @method setRebound
-   * @param rebound object that references the current copy of rebound
+   * @param { Rebound } rebound object that references the current copy of rebound
    */
   setRebound(rebound) {
-    if ('undefined' !== typeof rebound && 'undefined' === typeof this.rebound) {
+    if (typeof rebound !== 'undefined' && typeof this.rebound === 'undefined') {
       this.rebound = rebound;
     }
   }
@@ -67,20 +68,20 @@ export default class Client {
   /**
    * If eventName is an event that is currently in the events object then the
    * attached cb function will be dispatched
-   * @private
+   *
    * @method dispatch
    * @param {string} name string to specify what event to dispatch
-   * @param {object} data,
-   * @param {boolean} isRebound
+   * @param {object} data string to specify what event to dispatch
+   * @param {boolean} isRebound string to specify what event to dispatch
    */
-  dispatch(name, data = {}, isRebound = false) {
-    if (!this.events || !name) {
+  dispatch(name, data, isRebound) {
+    if (typeof this.events === 'undefined' || typeof name === 'undefined') {
       return;
     }
 
-    if ('function' === typeof this.events[name]) {
+    if (typeof this.events[name] !== 'undefined') {
       this.events[name](data);
-    } else if ('undefined' !== typeof this.rebound && !isRebound) {
+    } else if (typeof this.rebound !== 'undefined' && !isRebound) {
       this.rebound.dispatch({ event: name, value: data });
     }
   }
@@ -88,11 +89,11 @@ export default class Client {
   /**
    * If eventName is an event or array of events then they will try to be added
    * to the events Array
-   * @private
+   *
    * @method addEvent
    * @param {string | string[]} name string or array of strings to specify what events to add
    */
-  addEvent(name) {
+  addEvents(name) {
     if (typeof this.events === 'undefined' || typeof name === 'undefined') {
       return;
     }
@@ -109,7 +110,7 @@ export default class Client {
   /**
    * If eventName is an event that is not currently in the events object and is
    * typeof string then it will be added to the possible events
-   * @private
+   *
    * @method addToEventsArray
    * @param {string} name string to specify what event to add
    */
@@ -125,7 +126,6 @@ export default class Client {
 
   /**
    * Sets the events object to undefined
-   * @private
    * @method destroy
    */
   destroy() {
