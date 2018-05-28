@@ -1,2 +1,4 @@
-import * as Communication from './communication';
-export { Communication };
+import { Client } from './client/client';
+import { Rebound } from './rebound/rebound';
+
+export { Rebound, Client };
