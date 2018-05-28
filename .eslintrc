@@ -16,12 +16,11 @@
   },
   "rules": {
     "indent": ["error", 2],
-    "linebreak-style": ["error", "unix"],
     "semi": ["error", "always"],
     "no-console": [0],
     "quotes": [2, "single"],
     "curly": ["error", "all"],
-    "no-var": "error",
+    "no-var": "warn",
     "require-jsdoc": [
       "error",
       {

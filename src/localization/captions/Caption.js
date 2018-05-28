@@ -5,23 +5,18 @@
 export default class Caption {
   /**
    * Creates an instance of Caption.
-   * @param {Object} data
-   * @param {Object[]} data.lines
+   * @param {TimedLine} - array of Lines to be used for caption
    * @memberof Caption
    */
-  constructor({ lines = [] } = {}) {
+  constructor(lines) {
     this.lines = lines;
-
-    if (this.lines.length < 1) {
-      //TODO: Warning empty caption.
-    }
 
     // Sort by end time, this ensures proper exicution order of lines.
     this.lines.sort(function(a, b) {
-      if (a.end < b.end) {
+      if (a.endTime < b.endTime) {
         return -1;
       }
-      if (a.end > b.end) {
+      if (a.endTime > b.endTime) {
         return 1;
       }
       return 0;
@@ -31,84 +26,76 @@ export default class Caption {
   }
 
   /**
-   * 
-   * 
+   * resets time, lineIndex and content fields
+   * @private
    * @memberof Caption
    */
-  reset()
-  {
+  reset() {
     this.time = 0;
     this.lineIndex = 0;
-    this.line = null;
-    this.text = '';
+    this.content = '';
   }
 
   /**
    *
    *
-   * @param {any} deltaTime
+   * @param {Number} deltaTime - time in seconds since last frame
    * @memberof Caption
    */
   update(deltaTime) {
-    this.time += deltaTime;
-
-    if (this.time > this.lines[this.lineIndex].end) {
-      this.lineIndex++;
-      this.line = this.lines[this.lineIndex];
-    }
-    
-    if(this.lineIndex >= this.lines.length)
-    {
-      //STOP;
-    }
-
-    if (this.time < this.line.end) 
-    {
-      if (this.time > this.line.start) 
-      {
-        this.text = this.line.content;
-      } 
-      else 
-      {
-        this.text = '';
-      }
+    this.time += deltaTime * 1000;
+    this.incrementLineIndex(this.time);
+    if (!this.isFinished()) {
+      this.content = this.lines[this.lineIndex].getContent(this.time);
     }
   }
 
   /**
-   *
-   *
-   * @param {number} [time=0]
+   * increments lineIndex if time is greater than the end time of the current line.
+   * @private
+   * @param {Number} time - time in milliseconds
    * @memberof Caption
    */
-  start(time = 0) 
-  {
+  incrementLineIndex(time) {
+    if (time > this.lines[this.lineIndex].endTime) {
+      this.lineIndex++;
+    }
+  }
+
+  /**
+   * Checks if caption has completed
+   * @returns {Boolean}
+   * @memberof Caption
+   */
+  isFinished() {
+    return this.lineIndex >= this.lines.length;
+  }
+
+  /**
+   * sets time and line index of caption;
+   *
+   * @param {Number} [time=0] - time in milliseconds
+   * @memberof Caption
+   */
+  start(time = 0) {
     this.reset();
-    if(time > 0)
-    {
+    if (time > 0) {
       this.lineIndex = this.findClosestIndex(time);
     }
   }
 
   /**
-   * 
-   * @param {*} time 
+   *
+   * @private
+   * @param {any} time - time in milliseconds
+   * @returns {Number} index of line with endTime less than time
+   * @memberof Caption
    */
-  findClosestIndex(time)
-  {
-    for(let i = 0; i < this.lines.length; i ++)
-    {
-      if(time < this.lines[i].end)
-      {
+  findClosestIndex(time) {
+    for (let i = 0; i < this.lines.length; i++) {
+      if (time < this.lines[i].endTime) {
         return i;
       }
     }
   }
-
-  /**
-   *
-   *
-   * @memberof Caption
-   */
-  stop() {}
 }
