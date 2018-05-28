@@ -12,7 +12,7 @@ export default [
     external: ['ms'],
     output: [
       {
-        file: pkg.esm,
+        file: pkg.main,
         format: 'es',
         sourceMap: true
       }
