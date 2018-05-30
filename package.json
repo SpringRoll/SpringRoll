@@ -36,5 +36,8 @@
     "rollup-plugin-node-resolve": "^3.3.0",
     "rollup-plugin-prettier": "^0.4.0",
     "rollup-plugin-uglify": "^3.0.0"
+  },
+  "dependencies": {
+    "webpack": "^4.9.1"
   }
 }

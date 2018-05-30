@@ -1,6 +1,6 @@
 /**
- * 
- * 
+ *
+ *
  * @export
  * @class Line
  */
@@ -12,8 +12,7 @@ export default class TimedLine {
    * @param {any} endTime - end time in milliseconds reletive to caption
    * @memberof TimedLine
    */
-  constructor(content, startTime, endTime)
-  {
+  constructor(content, startTime, endTime) {
     this.startTime = startTime;
     this.endTime = endTime;
     this.content = content;
@@ -25,14 +24,12 @@ export default class TimedLine {
    * @returns {String} content if time is between startTime and endTime, other wise returns and empty string
    * @memberof TimedLine
    */
-  getContent(time)
-  {
-    if (time < this.endTime) {
+  getContent(time) {
+    if (time <= this.endTime) {
       if (time >= this.startTime) {
         return this.content;
-      } else {
-        return '';
       }
     }
+    return '';
   }
 }

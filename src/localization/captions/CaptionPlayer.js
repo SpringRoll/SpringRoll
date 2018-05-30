@@ -1,15 +1,17 @@
 /**
- *  TODO:(Better Desciptions on functions.)
- *  TODO:(CaptionPlayer is written for playing a single caption at a time, minor rework would be required for multiple captions)
+ *  CaptionPlayer is used to start, stop and update captions.
+ *  it applies the content of an active caption to a given HTML Element.
  *
  * @export
  * @class CaptionPlayer
  */
 export default class CaptionPlayer {
+  // Maybe:(CaptionPlayer is written for playing a single caption at a time, minor rework would be required for multiple captions)
+  
   /**
    * Creates an instance of CaptionPlayer.
-   * @param {Object} captions
-   * @param {HTMLElement} element DOM element that text is written too. TODO:(specifiy element type. p, div, textarea?);
+   * @param {Object} captions - Object of Key:Name Value:Caption
+   * @param {HTMLElement} element DOM element that content is written too.
    * @memberof CaptionPlayer
    */
   constructor(captions, element) {
@@ -17,15 +19,14 @@ export default class CaptionPlayer {
     this.captions = captions;
 
     this.activeCaption = null;
-    this.callback = null;
 
-    this.hideElement();
+    this.setElementContent('');
   }
 
   /**
    * updates any currently playing caption
-   * This should be called every frame.
-   *
+   * This ~should~ be called every frame.
+   * 
    * @param {any} deltaTime Time passed in seconds since last update call.
    * @memberof CaptionPlayer
    */
@@ -33,7 +34,7 @@ export default class CaptionPlayer {
     if (this.activeCaption) {
       this.activeCaption.update(deltaTime);
       if (!this.activeCaption.isFinished()) {
-        this.element.innerHTML = this.activeCaption.content; // <-- TODO: not sure if this is the proper way to set a DOM element.
+        this.setElementContent(this.activeCaption.getContent());
       } else {
         this.stop();
       }
@@ -45,7 +46,6 @@ export default class CaptionPlayer {
    *
    * @param {String} name name of caption
    * @param {number} [time=0] start time in milliseconds
-   * @param {any} [callback=null] callback when caption is complete.
    * @returns {boolean} true is caption started
    * @memberof CaptionPlayer
    */
@@ -54,9 +54,9 @@ export default class CaptionPlayer {
     this.activeCaption = this.captions[name];
     if (this.activeCaption) {
       this.activeCaption.start(time);
-      this.showElement();
+      this.update(0);
     } else {
-      //TODO: Log Warning 'Caption -NAME- not found'
+      //TODO: Log Warning '[CaptionPlayer.Start()] caption #NAME not found'
     }
   }
 
@@ -67,26 +67,21 @@ export default class CaptionPlayer {
   stop() {
     if (this.activeCaption) {
       this.activeCaption = null;
-      if (this.callback) {
-        this.hideElement();
-        this.callback();
-      }
+      this.setElementContent('');
+
+      //Maybe: add onStopCallback?
     }
   }
 
   /**
-   * sets element to be visible
+   * sets content of HTML element.
+   * 
+   * @private
+   * @param {String} content 
    * @memberof CaptionPlayer
    */
-  showElement() {
-    this.element.style.visibility = 'visible';
-  }
-
-  /**
-   * sets element to be hidden
-   * @memberof CaptionPlayer
-   */
-  hideElement() {
-    this.element.style.visibility = 'hidden';
+  setElementContent(content)
+  {
+    this.element.innerHTML = content; // <-- TODO: not sure if this is the proper way to set a DOM element.
   }
 }

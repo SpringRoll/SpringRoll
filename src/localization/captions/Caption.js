@@ -37,8 +37,9 @@ export default class Caption {
   }
 
   /**
-   *
-   *
+   * Updates content based on time passed.
+   * This ~should~ be called every frame that the caption is active.
+   * 
    * @param {Number} deltaTime - time in seconds since last frame
    * @memberof Caption
    */
@@ -48,6 +49,21 @@ export default class Caption {
     if (!this.isFinished()) {
       this.content = this.lines[this.lineIndex].getContent(this.time);
     }
+    else
+    {
+      this.content = '';
+    }
+  }
+
+  /**
+   * Returns current content;
+   * 
+   * @returns {string} content
+   * @memberof Caption
+   */
+  getContent()
+  {
+    return this.content;
   }
 
   /**
@@ -57,8 +73,12 @@ export default class Caption {
    * @memberof Caption
    */
   incrementLineIndex(time) {
-    if (time > this.lines[this.lineIndex].endTime) {
+    while (time > this.lines[this.lineIndex].endTime) {
       this.lineIndex++;
+      if(this.isFinished())
+      {
+        break;
+      }
     }
   }
 
@@ -79,23 +99,6 @@ export default class Caption {
    */
   start(time = 0) {
     this.reset();
-    if (time > 0) {
-      this.lineIndex = this.findClosestIndex(time);
-    }
-  }
-
-  /**
-   *
-   * @private
-   * @param {any} time - time in milliseconds
-   * @returns {Number} index of line with endTime less than time
-   * @memberof Caption
-   */
-  findClosestIndex(time) {
-    for (let i = 0; i < this.lines.length; i++) {
-      if (time < this.lines[i].endTime) {
-        return i;
-      }
-    }
+    this.update(time / 1000);
   }
 }
