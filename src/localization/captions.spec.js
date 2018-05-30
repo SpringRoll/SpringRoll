@@ -35,16 +35,12 @@ describe('CaptionFactory', function() {
   let line = CaptionFactory.createLine(lineData);
 
   describe('#createLine()', function() {
-    it('should error if data.start is not a number', function() {
-      should.Throw(function() {
-        CaptionFactory.createLine({ end: 1000, content: 'hello' });
-      });
+    it('should return undefined if data.start is not a number', function() {
+      expect(CaptionFactory.createLine({ start: 0, content: 'hello' })).to.be.undefined;
     });
 
-    it('should error if data.end is not a number', function() {
-      should.Throw(function() {
-        CaptionFactory.createLine({ start: 0, content: 'hello' });
-      });
+    it('should return undefined if data.end is not a number', function() {
+      expect(CaptionFactory.createLine({ end: 1000, content: 'hello' })).to.be.undefined;
     });
 
     it('should return instanceOf TimedLine', function() {
@@ -73,6 +69,10 @@ describe('CaptionFactory', function() {
 
     it('should have the correct number of lines', function() {
       expect(caption.lines.length).to.equal(testData.HelloWorld.length);
+    });
+
+    it('should return undefined if number of lines is 0', function() {
+      expect(CaptionFactory.createLine([])).to.be.undefined;
     });
   });
 

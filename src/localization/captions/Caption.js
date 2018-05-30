@@ -73,6 +73,11 @@ export default class Caption {
    * @memberof Caption
    */
   incrementLineIndex(time) {
+
+    if(this.isFinished()) // <-- this will make sure it doesn't throw an error if this.lines is empty
+    {
+      return;
+    }
     while (time > this.lines[this.lineIndex].endTime) {
       this.lineIndex++;
       if(this.isFinished())
