@@ -28,4 +28,13 @@ describe('Debugger', () => {
   it('assert should call false callback if truthiness of argument is false', done => {
     bugger.assert(true !== true, () => done(Error), () => done());
   });
+
+  it('Nothing should run if global flag is set to false', () => {
+    Debugger.enable(false);
+    expect(bugger.log('general', 'test general')).to.be.undefined;
+    expect(bugger.log('debug', 'test debug')).to.be.undefined;
+    expect(bugger.log('info', 'test info')).to.be.undefined;
+    expect(bugger.log('warn', 'test warn')).to.be.undefined;
+    expect(bugger.log('error', 'test error')).to.be.undefined;
+  });
 });
