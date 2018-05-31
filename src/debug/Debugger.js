@@ -121,44 +121,46 @@ export default class Debugger {
    * @param {'log' | 'general' | 'warn'| 'error' | 'debug' | 'info'} [type='log']
    */
   log(type = 'log', ...args) {
-    switch (type.toLowerCase()) {
-    case 'info':
-      if (this.meetsLevelRequirement('INFO') && Debugger.isEnabled()) {
-        console.info(...args);
-        this.emit();
-        return true;
+    if (Debugger.isEnabled()) {
+      switch (type.toLowerCase()) {
+      case 'info':
+        if (this.meetsLevelRequirement('INFO')) {
+          console.info(...args);
+          this.emit();
+          return true;
+        }
+        return false;
+      case 'debug':
+        if (this.meetsLevelRequirement('DEBUG')) {
+          console.debug(...args);
+          this.emit();
+          return true;
+        }
+        return false;
+      case 'error':
+        if (this.meetsLevelRequirement('ERROR')) {
+          console.error(...args);
+          this.emit();
+          return true;
+        }
+        return false;
+      case 'warn':
+        if (this.meetsLevelRequirement('WARN')) {
+          console.warn(...args);
+          this.emit();
+          return true;
+        }
+        return false;
+      case 'log':
+      case 'general':
+      default:
+        if (this.meetsLevelRequirement('GENERAL')) {
+          console.log(...args);
+          this.emit();
+          return true;
+        }
+        return false;
       }
-      return false;
-    case 'debug':
-      if (this.meetsLevelRequirement('DEBUG') && Debugger.isEnabled()) {
-        console.debug(...args);
-        this.emit();
-        return true;
-      }
-      return false;
-    case 'error':
-      if (this.meetsLevelRequirement('ERROR') && Debugger.isEnabled()) {
-        console.error(...args);
-        this.emit();
-        return true;
-      }
-      return false;
-    case 'warn':
-      if (this.meetsLevelRequirement('WARN') && Debugger.isEnabled()) {
-        console.warn(...args);
-        this.emit();
-        return true;
-      }
-      return false;
-    case 'log':
-    case 'general':
-    default:
-      if (this.meetsLevelRequirement('GENERAL') && Debugger.isEnabled()) {
-        console.log(...args);
-        this.emit();
-        return true;
-      }
-      return false;
     }
   }
 
