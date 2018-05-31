@@ -13,7 +13,12 @@ export default class Debugger {
    * @memberof Tester
    */
   constructor({ emitEnabled = false, minLevel = 'GENERAL' } = {}) {
+    this.flag = Debugger.flagKey();
     this.emitEnabled = emitEnabled;
+
+    if ('undefined' === typeof window[this.flag]) {
+      window[this.flag] = true;
+    }
 
     this.LEVEL = {
       GENERAL: 1,
@@ -100,11 +105,13 @@ export default class Debugger {
    * @memberof Tester
    */
   static assert(isTrue, success = () => {}, reject = () => {}) {
-    if (isTrue) {
-      return success(isTrue);
+    if (Debugger.isEnabled()) {
+      if (isTrue) {
+        return success(isTrue);
+      }
+      // this.emit('assert');
+      return reject(isTrue);
     }
-    // this.emit('assert');
-    return reject(isTrue);
   }
 
   /**
@@ -116,28 +123,28 @@ export default class Debugger {
   log(type = 'log', ...args) {
     switch (type.toLowerCase()) {
     case 'info':
-      if (this.meetsLevelRequirement('INFO')) {
+      if (this.meetsLevelRequirement('INFO') && Debugger.isEnabled()) {
         console.info(...args);
         this.emit();
         return true;
       }
       return false;
     case 'debug':
-      if (this.meetsLevelRequirement('DEBUG')) {
+      if (this.meetsLevelRequirement('DEBUG') && Debugger.isEnabled()) {
         console.debug(...args);
         this.emit();
         return true;
       }
       return false;
     case 'error':
-      if (this.meetsLevelRequirement('ERROR')) {
+      if (this.meetsLevelRequirement('ERROR') && Debugger.isEnabled()) {
         console.error(...args);
         this.emit();
         return true;
       }
       return false;
     case 'warn':
-      if (this.meetsLevelRequirement('WARN')) {
+      if (this.meetsLevelRequirement('WARN') && Debugger.isEnabled()) {
         console.warn(...args);
         this.emit();
         return true;
@@ -146,7 +153,7 @@ export default class Debugger {
     case 'log':
     case 'general':
     default:
-      if (this.meetsLevelRequirement('GENERAL')) {
+      if (this.meetsLevelRequirement('GENERAL') && Debugger.isEnabled()) {
         console.log(...args);
         this.emit();
         return true;
@@ -165,5 +172,37 @@ export default class Debugger {
     if (this.emitEnabled) {
       window.dispatchEvent(new Event(eventName));
     }
+  }
+
+  /**
+   *
+   * @static
+   * @returns
+   * @memberof Debugger
+   */
+  static isEnabled() {
+    return window[Debugger.flagKey()];
+  }
+
+  /**
+   *
+   *
+   * @static
+   * @param {any} flag
+   * @memberof Debugger
+   */
+  static enable(flag) {
+    window[Debugger.flagKey()] = flag;
+  }
+
+  /**
+   *
+   *
+   * @static
+   * @returns
+   * @memberof Debugger
+   */
+  static flagKey() {
+    return '__spring_roll_debugger_enabled__';
   }
 }
