@@ -15,15 +15,15 @@ export default class SavedData {
    */
   constructor() {
     /**
-     * A constant for cookie fallback for `SavedData.clear()`
-     * @static
-     * @property {int} ERASE_COOKIE
-     * @private
-     * @readOnly
-     * @default -1
+     * A constant for cookie fallback for `SavedData.remove()`
+     * @property {Boolean} [ERASE_COOKIE=false]
      */
     this.ERASE_COOKIE = false;
 
+    /**
+     * A constant for if if the user is in Private Browsing, writing to localStorage throws an error
+     * @property {Boolean} [WEB_STORAGE_SUPPORT=true]
+     */
     this.WEB_STORAGE_SUPPORT = true;
 
     //in iOS, if the user is in Private Browsing, writing to localStorage throws an error.
@@ -40,7 +40,6 @@ export default class SavedData {
   /**
    * Remove a saved variable by name.
    * @method remove
-   * @static
    * @param {String} name The name of the value to remove
    */
   remove(name) {
@@ -55,12 +54,11 @@ export default class SavedData {
   /**
    * Save a variable.
    * @method write
-   * @static
    * @param {String} name The name of the value to save
    * @param {*} value The value to save. This will be run through JSON.stringify().
    * @param {Boolean} [tempOnly=false] If the value should be saved only in the current browser session.
    */
-  write(name, value, tempOnly) {
+  write(name, value, tempOnly = false) {
     if (this.WEB_STORAGE_SUPPORT) {
       if (tempOnly) {
         sessionStorage.setItem(name, JSON.stringify(value));
@@ -79,7 +77,6 @@ export default class SavedData {
   /**
    * Read the value of a saved variable
    * @method read
-   * @static
    * @param {String} name The name of the variable
    * @return {*} The value (run through `JSON.parse()`) or null if it doesn't exist
    */

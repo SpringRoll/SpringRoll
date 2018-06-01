@@ -41,8 +41,8 @@ export default class PageVisibility {
   }
 
   /**
-   *
-   *
+   * Enables the event listeners
+   * @method enable
    * @memberof PageVisibility
    */
   enable() {
@@ -55,8 +55,8 @@ export default class PageVisibility {
   }
 
   /**
-   *
-   *
+   * Disables the event listeners
+   * @method disable
    * @memberof PageVisibility
    */
   disable() {
@@ -71,6 +71,7 @@ export default class PageVisibility {
   /**
    * Disable the detection
    * @method destroy
+   * @memberof PageVisibility
    */
   destroy() {
     this.disable();
