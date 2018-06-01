@@ -17,7 +17,7 @@ describe('SavedData', () => {
     expect(SD.read('test')).to.be.null;
   });
 
-  it('Should be able to read/write to a cooking', () => {
+  it('Should be able to read/write to a cookie', () => {
     SD.WEB_STORAGE_SUPPORT = false;
 
     const test = { foo: 'bar' };
