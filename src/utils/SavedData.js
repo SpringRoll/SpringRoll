@@ -27,13 +27,11 @@ export default class SavedData {
     this.WEB_STORAGE_SUPPORT = true;
 
     //in iOS, if the user is in Private Browsing, writing to localStorage throws an error.
-    if (this.WEB_STORAGE_SUPPORT) {
-      try {
-        localStorage.setItem('LS_TEST', 'test');
-        localStorage.removeItem('LS_TEST');
-      } catch (e) {
-        this.WEB_STORAGE_SUPPORT = false;
-      }
+    try {
+      localStorage.setItem('LS_TEST', 'test');
+      localStorage.removeItem('LS_TEST');
+    } catch (e) {
+      this.WEB_STORAGE_SUPPORT = false;
     }
   }
 
@@ -60,11 +58,9 @@ export default class SavedData {
    */
   write(name, value, tempOnly = false) {
     if (this.WEB_STORAGE_SUPPORT) {
-      if (tempOnly) {
-        sessionStorage.setItem(name, JSON.stringify(value));
-      } else {
-        localStorage.setItem(name, JSON.stringify(value));
-      }
+      tempOnly
+        ? sessionStorage.setItem(name, JSON.stringify(value))
+        : localStorage.setItem(name, JSON.stringify(value));
     } else {
       document.cookie = `${name}=${escape(JSON.stringify(value))}; expires=${
         tempOnly
