@@ -16,4 +16,18 @@ describe('SavedData', () => {
 
     expect(SD.read('test')).to.be.null;
   });
+
+  it('Should be able to read/write to a cooking', () => {
+    SD.WEB_STORAGE_SUPPORT = false;
+
+    const test = { foo: 'bar' };
+    SD.write('test', test);
+    expect(SD.read('test')).to.deep.equal(test);
+
+    expect(SD.read('test')).to.be.not.undefined;
+
+    SD.remove('test');
+
+    expect(SD.read('test')).to.be.empty.string;
+  });
 });

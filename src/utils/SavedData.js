@@ -68,21 +68,11 @@ export default class SavedData {
         localStorage.setItem(name, JSON.stringify(value));
       }
     } else {
-      let expires;
-      if (tempOnly) {
-        if (tempOnly !== this.ERASE_COOKIE) {
-          expires = '';
-        }
-        //remove when browser is closed
-        else {
-          expires = '; expires=Thu, 01 Jan 1970 00:00:00 GMT';
-        } //save cookie in the past for immediate removal
-      } else {
-        expires = '; expires=' + new Date(2147483646000).toUTCString();
-      } //THE END OF (32bit UNIX) TIME!
-
-      document.cookie =
-        name + '=' + escape(JSON.stringify(value)) + expires + '; path=/';
+      document.cookie = `${name}=${escape(JSON.stringify(value))}; expires=${
+        tempOnly
+          ? 'Thu, 01 Jan 1970 00:00:00 GMT'
+          : new Date(2147483646000).toUTCString()
+      }; path=/`;
     }
   }
 
@@ -102,21 +92,23 @@ export default class SavedData {
         return item;
       }
     } else {
-      let nameEQ = name + '=',
-        ca = document.cookie.split(';'),
-        i = 0,
-        c,
-        len;
+      const nameEQ = name + '=';
+      const ca = document.cookie.split(';');
 
-      for (i = 0, len = ca.length; i < len; i++) {
-        c = ca[i];
+      for (let i = 0, len = ca.length; i < len; i++) {
+        let c = ca[i];
 
         while (c.charAt(0) == ' ') {
           c = c.substring(1, c.length);
         }
 
         if (c.indexOf(nameEQ) === 0) {
-          return unescape(c.substring(nameEQ.length, c.length));
+          const data = unescape(c.substring(nameEQ.length, c.length));
+          try {
+            return JSON.parse(data);
+          } catch (err) {
+            return data;
+          }
         }
       }
 
