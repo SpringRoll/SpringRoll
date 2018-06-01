@@ -95,7 +95,12 @@ export default class SavedData {
    */
   read(name) {
     if (this.WEB_STORAGE_SUPPORT) {
-      return localStorage.getItem(name) || sessionStorage.getItem(name);
+      const item = localStorage.getItem(name) || sessionStorage.getItem(name);
+      try {
+        return JSON.parse(item);
+      } catch (err) {
+        return item;
+      }
     } else {
       let nameEQ = name + '=',
         ca = document.cookie.split(';'),
