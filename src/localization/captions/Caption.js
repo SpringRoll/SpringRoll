@@ -39,7 +39,7 @@ export default class Caption {
   /**
    * Updates content based on time passed.
    * This ~should~ be called every frame that the caption is active.
-   * 
+   *
    * @param {Number} deltaTime - time in seconds since last frame
    * @memberof Caption
    */
@@ -48,21 +48,18 @@ export default class Caption {
     this.incrementLineIndex(this.time);
     if (!this.isFinished()) {
       this.content = this.lines[this.lineIndex].getContent(this.time);
-    }
-    else
-    {
+    } else {
       this.content = '';
     }
   }
 
   /**
    * Returns current content;
-   * 
+   *
    * @returns {string} content
    * @memberof Caption
    */
-  getContent()
-  {
+  getContent() {
     return this.content;
   }
 
@@ -73,15 +70,13 @@ export default class Caption {
    * @memberof Caption
    */
   incrementLineIndex(time) {
-
-    if(this.isFinished()) // <-- this will make sure it doesn't throw an error if this.lines is empty
-    {
+    if (this.isFinished()) {
+      // <-- this will make sure it doesn't throw an error if this.lines is empty
       return;
     }
     while (time > this.lines[this.lineIndex].endTime) {
       this.lineIndex++;
-      if(this.isFinished())
-      {
+      if (this.isFinished()) {
         break;
       }
     }
