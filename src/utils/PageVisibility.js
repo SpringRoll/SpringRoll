@@ -11,33 +11,33 @@ export default class PageVisibility {
    * @param {Function} onFocus Callback when the page becomes visible
    * @param {Function} onBlur Callback when the page loses visibility
    */
-  constructor(onFocus = () => {}, onBlur = () => {}) {
+  constructor(onFocus = function() {}, onBlur = function() {}) {
     /**
      * Callback when the page becomes visible
      * @property {Function} onFocus
      * @private
      */
-    this.onFocus = onFocus;
+    this.onFocus = onFocus.bind(this);
 
     /**
      * Callback when the page loses visibility
      * @property {Function} onBlur
      * @private
      */
-    this.onBlur = onBlur;
-  }
+    this.onBlur = onBlur.bind(this);
 
-  /**
-   * The visibility toggle listener function
-   * @property {Function} onToggle
-   * @private
-   */
-  onToggle() {
-    if (document.hidden) {
-      this._onBlur();
-    } else {
-      this._onFocus();
-    }
+    /**
+     * The visibility toggle listener function
+     * @property {Function} onToggle
+     * @private
+     */
+    this.onToggle = function() {
+      if (document.hidden) {
+        this.onBlur();
+      } else {
+        this.onFocus();
+      }
+    }.bind(this);
   }
 
   /**
@@ -78,7 +78,7 @@ export default class PageVisibility {
 
     this.enabled = false;
     this.onToggle = null;
-    this._onFocus = null;
-    this._onBlur = null;
+    this.onFocus = null;
+    this.onBlur = null;
   }
 }
