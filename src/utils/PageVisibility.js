@@ -10,6 +10,11 @@
  * @property {Function} onToggle the visibility toggle listener function
  */
 export default class PageVisibility {
+  /**
+   *Creates an instance of PageVisibility.
+   * @param {*} [onFocus=function() {}]
+   * @param {*} [onBlur=function() {}]
+   */
   constructor(onFocus = function() {}, onBlur = function() {}) {
     this.onFocus = onFocus.bind(this);
     this.onBlur = onBlur.bind(this);

@@ -6,6 +6,9 @@
  * in iOS, if the user is in Private Browsing, writing to localStorage throws an error. In this case WEB_STORAGE_SUPPORT is set to false
  */
 export default class SavedData {
+  /**
+   *Creates an instance of SavedData.
+   */
   constructor() {
     this.ERASE_COOKIE = false;
     this.WEB_STORAGE_SUPPORT = true;

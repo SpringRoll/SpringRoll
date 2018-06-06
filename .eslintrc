@@ -9,7 +9,7 @@
     "assert": true,
     "expect": true
   },
-  "plugins": ["node", "require-jsdoc-except"],
+  "plugins": ["node"],
   "extends": ["eslint:recommended"],
   "parserOptions": {
     "sourceType": "module"
@@ -28,11 +28,10 @@
         "require": {
           "FunctionDeclaration": true,
           "MethodDefinition": true,
-          "ClassDeclaration": true,
+          "ClassDeclaration": false,
           "ArrowFunctionExpression": false,
           "FunctionExpression": true
-        },
-        "ignore": ["constructor"]
+        }
       }
     ]
   }

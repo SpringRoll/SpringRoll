@@ -6,6 +6,9 @@
  * @param {'GENERAL' | 'DEBUG' | 'INFO' | 'WARN' | 'ERROR'} [params.minLevel='GENERAL'] The starting log level for the logger
  */
 export default class Debugger {
+  /**
+   *Creates an instance of Debugger.
+   */
   constructor({ emitEnabled = false, minLevel = 'GENERAL' } = {}) {
     this.flag = Debugger.flagKey;
     this.emitEnabled = emitEnabled;
@@ -78,7 +81,7 @@ export default class Debugger {
    * Is also only called when Debugging is enabled
    * @param {boolean} isTrue the expression to evaluate
    * @param {Function} [success=() => {}] success callback
-   * @param {function} [reject=() => {}] reject callback
+   * @param {Function} [reject=() => {}] reject callback
    * @returns
    */
   assert(isTrue, success = () => {}, reject = () => {}) {
@@ -94,43 +97,43 @@ export default class Debugger {
   log(type = 'log', ...args) {
     if (Debugger.isEnabled()) {
       switch (type.toLowerCase()) {
-        case 'info':
-          if (this.meetsLevelRequirement('INFO')) {
-            console.info(...args);
-            this.emit();
-            return true;
-          }
-          return false;
-        case 'debug':
-          if (this.meetsLevelRequirement('DEBUG')) {
-            console.debug(...args);
-            this.emit();
-            return true;
-          }
-          return false;
-        case 'error':
-          if (this.meetsLevelRequirement('ERROR')) {
-            console.error(...args);
-            this.emit();
-            return true;
-          }
-          return false;
-        case 'warn':
-          if (this.meetsLevelRequirement('WARN')) {
-            console.warn(...args);
-            this.emit();
-            return true;
-          }
-          return false;
-        case 'log':
-        case 'general':
-        default:
-          if (this.meetsLevelRequirement('GENERAL')) {
-            console.log(...args);
-            this.emit();
-            return true;
-          }
-          return false;
+      case 'info':
+        if (this.meetsLevelRequirement('INFO')) {
+          console.info(...args);
+          this.emit();
+          return true;
+        }
+        return false;
+      case 'debug':
+        if (this.meetsLevelRequirement('DEBUG')) {
+          console.debug(...args);
+          this.emit();
+          return true;
+        }
+        return false;
+      case 'error':
+        if (this.meetsLevelRequirement('ERROR')) {
+          console.error(...args);
+          this.emit();
+          return true;
+        }
+        return false;
+      case 'warn':
+        if (this.meetsLevelRequirement('WARN')) {
+          console.warn(...args);
+          this.emit();
+          return true;
+        }
+        return false;
+      case 'log':
+      case 'general':
+      default:
+        if (this.meetsLevelRequirement('GENERAL')) {
+          console.log(...args);
+          this.emit();
+          return true;
+        }
+        return false;
       }
     }
   }

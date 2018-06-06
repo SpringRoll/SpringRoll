@@ -2,7 +2,7 @@
   "name": "Springroll-2",
   "version": "1.0.0",
   "description": "",
-  "main": "dist/Springroll.js",
+  "module": "dist/Springroll.js",
   "scripts": {
     "build": "rollup -c -m",
     "dev": "rollup -c -w",
@@ -22,7 +22,6 @@
     "eslint": "^4.19.1",
     "eslint-plugin-import": "^2.11.0",
     "eslint-plugin-node": "^6.0.1",
-    "eslint-plugin-require-jsdoc-except": "^1.1.0",
     "karma": "^2.0.2",
     "karma-chai": "^0.1.0",
     "karma-chrome-launcher": "^2.2.0",
