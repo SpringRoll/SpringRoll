@@ -6,7 +6,6 @@ describe('Utility PageVisibility', () => {
    * Function for testing the event listeners
    */
   function callTest() {
-    console.log('did call');
     this.callCount++;
   }
 
