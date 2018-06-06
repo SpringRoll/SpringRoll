@@ -3,27 +3,15 @@
  *
  * @export
  * @class PageVisibility
+ * @param {Function} onFocus Callback when the page becomes focused
+ * @param {Function} onBlur Callback when the page loses visibility
+ * @property {Function} onFocus Callback for when the page becomes visible
+ * @property {Function} onBlur Callback for when the page loses visibility
+ * @property {Function} onToggle the visibility toggle listener function
  */
 export default class PageVisibility {
-  /**
-   * @class PageVisibility
-   * @constructor
-   * @param {Function} onFocus Callback when the page becomes visible
-   * @param {Function} onBlur Callback when the page loses visibility
-   */
   constructor(onFocus = function() {}, onBlur = function() {}) {
-    /**
-     * Callback when the page becomes visible
-     * @property {Function} onFocus
-     * @private
-     */
     this.onFocus = onFocus.bind(this);
-
-    /**
-     * Callback when the page loses visibility
-     * @property {Function} onBlur
-     * @private
-     */
     this.onBlur = onBlur.bind(this);
 
     /**
@@ -42,8 +30,6 @@ export default class PageVisibility {
 
   /**
    * Enables the event listeners
-   * @method enable
-   * @memberof PageVisibility
    */
   enable() {
     this.enabled = true;
@@ -56,8 +42,6 @@ export default class PageVisibility {
 
   /**
    * Disables the event listeners
-   * @method disable
-   * @memberof PageVisibility
    */
   disable() {
     this.enabled = false;
@@ -70,8 +54,6 @@ export default class PageVisibility {
 
   /**
    * Disable the detection
-   * @method destroy
-   * @memberof PageVisibility
    */
   destroy() {
     this.disable();

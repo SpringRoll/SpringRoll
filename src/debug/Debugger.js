@@ -1,19 +1,13 @@
 /**
- *
- *
  * @export
- * @class Tester
+ * @class Debugger
+ * @param {Object} params - options
+ * @param {boolean} [params.emitEnabled=false] If this should emit events to the window
+ * @param {'GENERAL' | 'DEBUG' | 'INFO' | 'WARN' | 'ERROR'} [params.minLevel='GENERAL'] The starting log level for the logger
  */
 export default class Debugger {
-  /**
-   * Creates an instance of Tester.
-   * @param {object} options
-   * @param {boolean} [options.emitEnabled=false]
-   * @param {'GENERAL' | 'DEBUG' | 'INFO' | 'WARN' | 'ERROR'} [options.minLevel='GENERAL']
-   * @memberof Tester
-   */
   constructor({ emitEnabled = false, minLevel = 'GENERAL' } = {}) {
-    this.flag = Debugger.flagKey();
+    this.flag = Debugger.flagKey;
     this.emitEnabled = emitEnabled;
 
     if ('undefined' === typeof window[this.flag]) {
@@ -31,10 +25,10 @@ export default class Debugger {
   }
 
   /**
-   *
-   *
-   * @param {any} level
-   * @memberof Debugger
+   * Checks to see if the string argument is a valid level name
+   * @param {string} level the level name
+   * @return {boolean}
+   * @private
    */
   isValidLevelName(level) {
     if (
@@ -51,11 +45,10 @@ export default class Debugger {
   }
 
   /**
-   *
-   *
+   * Function to test if level meets requirements
    * @param {string} [level='GENERAL']
-   * @returns
-   * @memberof Debugger
+   * @returns {boolean}
+   * @private
    */
   meetsLevelRequirement(level = 'GENERAL') {
     if (this.isValidLevelName(level)) {
@@ -67,10 +60,9 @@ export default class Debugger {
   }
 
   /**
-   *
-   *
-   * @param {string} level
-   * @memberof Debugger
+   * Sets the logging level of the debugger
+   * @param {string} level the name of the level
+   * @return {void}
    */
   setLevel(level) {
     level = level.toUpperCase();
@@ -82,13 +74,12 @@ export default class Debugger {
   }
 
   /**
-   *
-   *
-   * @param {any} isTrue
-   * @param {any} [success=() => {}]
-   * @param {any} [reject=() => {}]
+   * Will call the first or second supplied function depending if the isTrue argument passes.
+   * Is also only called when Debugging is enabled
+   * @param {boolean} isTrue the expression to evaluate
+   * @param {Function} [success=() => {}] success callback
+   * @param {function} [reject=() => {}] reject callback
    * @returns
-   * @memberof Tester
    */
   assert(isTrue, success = () => {}, reject = () => {}) {
     Debugger.assert(isTrue, success, reject);
@@ -96,13 +87,62 @@ export default class Debugger {
 
   /**
    *
-   *
-   * @param {any} isTrue
-   * @param {any} [success=() => {}]
-   * @param {any} [reject=() => {}]
-   * @returns
+   * Console logs all supplied arguments if the log level is low enough for them to be logged
+   * @param {'log' | 'general' | 'warn'| 'error' | 'debug' | 'info'} [type='log'] minimum level for this log to run at
+   * @param {*[]} args arguments you wish to log
+   */
+  log(type = 'log', ...args) {
+    if (Debugger.isEnabled()) {
+      switch (type.toLowerCase()) {
+        case 'info':
+          if (this.meetsLevelRequirement('INFO')) {
+            console.info(...args);
+            this.emit();
+            return true;
+          }
+          return false;
+        case 'debug':
+          if (this.meetsLevelRequirement('DEBUG')) {
+            console.debug(...args);
+            this.emit();
+            return true;
+          }
+          return false;
+        case 'error':
+          if (this.meetsLevelRequirement('ERROR')) {
+            console.error(...args);
+            this.emit();
+            return true;
+          }
+          return false;
+        case 'warn':
+          if (this.meetsLevelRequirement('WARN')) {
+            console.warn(...args);
+            this.emit();
+            return true;
+          }
+          return false;
+        case 'log':
+        case 'general':
+        default:
+          if (this.meetsLevelRequirement('GENERAL')) {
+            console.log(...args);
+            this.emit();
+            return true;
+          }
+          return false;
+      }
+    }
+  }
+
+  /**
+   * Will call the first or second supplied function depending if the isTrue argument passes.
+   * Is also only called when Debugging is enabled
    * @static
-   * @memberof Tester
+   * @param {boolean} isTrue the expression to evaluate
+   * @param {Function} [success=() => {}] success callback
+   * @param {function} [reject=() => {}] reject callback
+   * @returns
    */
   static assert(isTrue, success = () => {}, reject = () => {}) {
     if (Debugger.isEnabled()) {
@@ -115,60 +155,8 @@ export default class Debugger {
   }
 
   /**
-   *
-   *
-   * @export
-   * @param {'log' | 'general' | 'warn'| 'error' | 'debug' | 'info'} [type='log']
-   */
-  log(type = 'log', ...args) {
-    if (Debugger.isEnabled()) {
-      switch (type.toLowerCase()) {
-      case 'info':
-        if (this.meetsLevelRequirement('INFO')) {
-          console.info(...args);
-          this.emit();
-          return true;
-        }
-        return false;
-      case 'debug':
-        if (this.meetsLevelRequirement('DEBUG')) {
-          console.debug(...args);
-          this.emit();
-          return true;
-        }
-        return false;
-      case 'error':
-        if (this.meetsLevelRequirement('ERROR')) {
-          console.error(...args);
-          this.emit();
-          return true;
-        }
-        return false;
-      case 'warn':
-        if (this.meetsLevelRequirement('WARN')) {
-          console.warn(...args);
-          this.emit();
-          return true;
-        }
-        return false;
-      case 'log':
-      case 'general':
-      default:
-        if (this.meetsLevelRequirement('GENERAL')) {
-          console.log(...args);
-          this.emit();
-          return true;
-        }
-        return false;
-      }
-    }
-  }
-
-  /**
-   *
-   *
-   * @param {string} [eventName='']
-   * @memberof Tester
+   * If emitting is enabled for this instance than it will dispatch a event on the window
+   * @param {string} [eventName='Debugger'] Name of the event
    */
   emit(eventName = 'Debugger') {
     if (this.emitEnabled) {
@@ -177,34 +165,31 @@ export default class Debugger {
   }
 
   /**
-   *
+   * returns a boolean indicating if the debugger has been enabled or not
    * @static
-   * @returns
-   * @memberof Debugger
+   * @returns {boolean}
    */
   static isEnabled() {
-    return window[Debugger.flagKey()];
+    return window[Debugger.flagKey];
   }
 
   /**
-   *
-   *
+   * Disabled or enables all debugger instances
    * @static
-   * @param {any} flag
-   * @memberof Debugger
+   * @param {boolean} flag
+   * @returns {void}
    */
   static enable(flag) {
-    window[Debugger.flagKey()] = flag;
+    window[Debugger.flagKey] = flag;
   }
 
   /**
-   *
-   *
+   * returns the global debugger flag key name
    * @static
-   * @returns
-   * @memberof Debugger
+   * @private
+   * @returns {string}
    */
-  static flagKey() {
+  static get flagKey() {
     return '__spring_roll_debugger_enabled__';
   }
 }

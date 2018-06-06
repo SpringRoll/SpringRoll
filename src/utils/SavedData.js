@@ -1,29 +1,13 @@
 /**
- * @module Core
- * @namespace springroll
- */
-
-/**
- * The SavedData functions use localStorage and sessionStorage, with a cookie fallback.
- *
+ * The SavedData Class use localStorage and sessionStorage to save data, with a cookie fallback for legacy support.
  * @class SavedData
+ * @property {Boolean} [ERASE_COOKIE=false] A constant for cookie fallback for `SavedData.remove()`
+ * @property {Boolean} [WEB_STORAGE_SUPPORT=true] A constant for if if the user is in Private Browsing, writing to localStorage throws an error
+ * in iOS, if the user is in Private Browsing, writing to localStorage throws an error. In this case WEB_STORAGE_SUPPORT is set to false
  */
 export default class SavedData {
-  /**
-   * Creates an instance of SavedData.
-   * @memberof SavedData
-   */
   constructor() {
-    /**
-     * A constant for cookie fallback for `SavedData.remove()`
-     * @property {Boolean} [ERASE_COOKIE=false]
-     */
     this.ERASE_COOKIE = false;
-
-    /**
-     * A constant for if if the user is in Private Browsing, writing to localStorage throws an error
-     * @property {Boolean} [WEB_STORAGE_SUPPORT=true]
-     */
     this.WEB_STORAGE_SUPPORT = true;
 
     //in iOS, if the user is in Private Browsing, writing to localStorage throws an error.
@@ -37,7 +21,6 @@ export default class SavedData {
 
   /**
    * Remove a saved variable by name.
-   * @method remove
    * @param {String} name The name of the value to remove
    */
   remove(name) {
@@ -51,9 +34,8 @@ export default class SavedData {
 
   /**
    * Save a variable.
-   * @method write
-   * @param {String} name The name of the value to save
-   * @param {*} value The value to save. This will be run through JSON.stringify().
+   * @param {String} name The name/location of where you would like to save
+   * @param {Object} value The value to save.
    * @param {Boolean} [tempOnly=false] If the value should be saved only in the current browser session.
    */
   write(name, value, tempOnly = false) {
@@ -72,9 +54,8 @@ export default class SavedData {
 
   /**
    * Read the value of a saved variable
-   * @method read
    * @param {String} name The name of the variable
-   * @return {*} The value (run through `JSON.parse()`) or null if it doesn't exist
+   * @return {Object} Data saved at that location
    */
   read(name) {
     if (this.WEB_STORAGE_SUPPORT) {
