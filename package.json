@@ -8,6 +8,7 @@
     "dev": "rollup -c -w",
     "test": "karma start karma.conf.js",
     "docs": "documentation build ./src/index.js -f html -o docs",
+    "readme": "documentation build ./src/index.js -f md -o README.md",
     "docs:serve": "documentation serve --watch ./src/index.js"
   },
   "sideEffects": false,
