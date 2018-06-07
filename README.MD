@@ -36,7 +36,7 @@
 
 ### Parameters
 
--   `params` **[Object][30]** options
+-   `params` **[Object][30]** options (optional, default `{}`)
     -   `params.emitEnabled` **[boolean][31]** If this should emit events to the window (optional, default `false`)
     -   `params.minLevel` **(`"GENERAL"` \| `"DEBUG"` \| `"INFO"` \| `"WARN"` \| `"ERROR"`)** The starting log level for the logger (optional, default `'GENERAL'`)
 
@@ -59,7 +59,7 @@ Is also only called when Debugging is enabled
 
 -   `isTrue` **[boolean][31]** the expression to evaluate
 -   `success` **[Function][33]** success callback (optional, default `()=>{}`)
--   `reject` **[function][33]** reject callback (optional, default `()=>{}`)
+-   `reject` **[Function][33]** reject callback (optional, default `()=>{}`)
 
 ### log
 
@@ -109,8 +109,8 @@ Returns **void**
 
 ### Parameters
 
--   `onFocus` **[Function][33]** Callback when the page becomes focused
--   `onBlur` **[Function][33]** Callback when the page loses visibility
+-   `onFocus` **[Function][33]**  (optional, default `function(){}`)
+-   `onBlur` **[Function][33]**  (optional, default `function(){}`)
 
 ### Properties
 

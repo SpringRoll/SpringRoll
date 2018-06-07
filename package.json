@@ -4,7 +4,7 @@
   "description": "",
   "module": "dist/Springroll.js",
   "scripts": {
-    "build": "rollup -c -m",
+    "build": "rollup -c -m && npm run readme",
     "dev": "rollup -c -w",
     "test": "karma start karma.conf.js",
     "docs": "documentation build ./src/index.js -f html -o docs",
