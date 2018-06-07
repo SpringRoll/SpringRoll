@@ -12,7 +12,7 @@ export class ScaleManager {
     this.currentHeight = 1;
     this.callback = undefined;
 
-    if (this.isFunction(callback)) {
+    if (callback instanceof Function) {
       this.enable(callback);
     }
 
@@ -52,7 +52,7 @@ export class ScaleManager {
    * @param {Function} callback the function to be called on resize events
    */
   enable(callback = undefined) {
-    if (this.isFunction(callback)) {
+    if (callback instanceof Function) {
       this.callback = callback;
       window.addEventListener('resize', this.onResize);
     } else {
@@ -65,15 +65,5 @@ export class ScaleManager {
    */
   disable() {
     window.removeEventListener('resize', this.onResize);
-  }
-
-  /**
-   * Helper function to test if arg is a function or not
-   * @param {Function} func
-   * @private
-   * @returns {boolean}
-   */
-  isFunction(func) {
-    return func && 'function' === typeof func ? true : false;
   }
 }
