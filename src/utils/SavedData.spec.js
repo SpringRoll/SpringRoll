@@ -1,4 +1,4 @@
-import SavedData from './SavedData';
+import { SavedData } from './SavedData';
 
 const SD = new SavedData();
 

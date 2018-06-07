@@ -1,11 +1,9 @@
 /**
- * @export
- * @class Debugger
  * @param {Object} params - options
  * @param {boolean} [params.emitEnabled=false] If this should emit events to the window
  * @param {'GENERAL' | 'DEBUG' | 'INFO' | 'WARN' | 'ERROR'} [params.minLevel='GENERAL'] The starting log level for the logger
  */
-export default class Debugger {
+export class Debugger {
   /**
    *Creates an instance of Debugger.
    */

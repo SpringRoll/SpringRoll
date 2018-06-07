@@ -1,4 +1,5 @@
-import PageVisibility from './PageVisibility';
-import SavedData from './SavedData';
-
-export { PageVisibility, SavedData };
+/**
+ @namespace Util
+*/
+export * from './PageVisibility';
+export * from './SavedData';

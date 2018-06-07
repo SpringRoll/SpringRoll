@@ -1,4 +1,4 @@
-import Debugger from './Debugger';
+import { Debugger } from './Debugger';
 
 describe('Debugger', () => {
   const bugger = new Debugger({

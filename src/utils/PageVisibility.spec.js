@@ -1,4 +1,4 @@
-import PageVisibility from './PageVisibility';
+import { PageVisibility } from './PageVisibility';
 
 describe('Utility PageVisibility', () => {
   /**

@@ -1,2 +1,1 @@
-import Debugger from './Debugger';
-export { Debugger };
+export * from './Debugger';

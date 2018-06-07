@@ -1,11 +1,10 @@
 /**
  * The SavedData Class use localStorage and sessionStorage to save data, with a cookie fallback for legacy support.
- * @class SavedData
  * @property {Boolean} [ERASE_COOKIE=false] A constant for cookie fallback for `SavedData.remove()`
  * @property {Boolean} [WEB_STORAGE_SUPPORT=true] A constant for if if the user is in Private Browsing, writing to localStorage throws an error
  * in iOS, if the user is in Private Browsing, writing to localStorage throws an error. In this case WEB_STORAGE_SUPPORT is set to false
  */
-export default class SavedData {
+export class SavedData {
   /**
    *Creates an instance of SavedData.
    */

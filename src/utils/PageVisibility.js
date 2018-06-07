@@ -1,19 +1,15 @@
 /**
- *
- *
- * @export
- * @class PageVisibility
  * @param {Function} onFocus Callback when the page becomes focused
  * @param {Function} onBlur Callback when the page loses visibility
  * @property {Function} onFocus Callback for when the page becomes visible
  * @property {Function} onBlur Callback for when the page loses visibility
  * @property {Function} onToggle the visibility toggle listener function
  */
-export default class PageVisibility {
+export class PageVisibility {
   /**
    *Creates an instance of PageVisibility.
-   * @param {*} [onFocus=function() {}]
-   * @param {*} [onBlur=function() {}]
+   * @param {Function} [onFocus=function() {}]
+   * @param {Function} [onBlur=function() {}]
    */
   constructor(onFocus = function() {}, onBlur = function() {}) {
     this.onFocus = onFocus.bind(this);
