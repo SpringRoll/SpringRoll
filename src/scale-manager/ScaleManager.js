@@ -8,8 +8,8 @@ export class ScaleManager {
    *Creates an instance of ScaleManager.
    */
   constructor(callback = undefined) {
-    this.currentWidth = 1;
-    this.currentHeight = 1;
+    this.width = 1;
+    this.height = 1;
     this.callback = undefined;
 
     if (callback instanceof Function) {
