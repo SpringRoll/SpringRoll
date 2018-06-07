@@ -1,3 +1,2 @@
-import * as Log from './log';
-
-export { Log };
+import Debugger from './Debugger';
+export { Debugger };
