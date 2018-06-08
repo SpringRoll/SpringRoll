@@ -78,23 +78,22 @@
 		var result = this._cache[id];
 		if (result)
 		{
-			// Destroy mapped result
-			if (Object.isPlain(result))
-			{
-				for (var key in result)
+			//attempt to destroy it as a single thing that we can handle
+			if (!destroyResult(result)) {
+				//if we didn't handle it, see if it is a collection of things
+				// Destroy list of results
+				if (Array.isArray(result))
 				{
-					destroyResult(result[key]);
+					result.forEach(destroyResult);
 				}
-			}
-			// Destroy list of results
-			else if (Array.isArray(result))
-			{
-				result.forEach(destroyResult);
-			}
-			// Destory single
-			else
-			{
-				destroyResult(result);
+				// Destroy mapped result
+				else if (Object.isPlain(result))
+				{
+					for (var key in result)
+					{
+						destroyResult(result[key]);
+					}
+				}
 			}
 			delete this._cache[id];
 		}
@@ -105,23 +104,28 @@
 	 * @method destroyResult
 	 * @private
 	 * @param  {*} result The object to destroy.
+	 * @returns {boolean} True if the object was cleaned up (destroy() called, or src set to null on an IMG element).
 	 */
 	function destroyResult(result)
 	{
 		// Ignore null results or empty objects
-		if (!result) return;
+		if (!result) return false;
 
+		var handled = false;
 		// Destroy any objects with a destroy function
-		if (result.destroy)
+		if (typeof result.destroy === 'function')
 		{
 			result.destroy();
+			handled = true;
 		}
 
 		// Clear images if we have an HTML node
 		if (result.tagName == "IMG")
 		{
 			result.src = "";
+			handled = true;
 		}
+		return handled;
 	}
 
 	/**
