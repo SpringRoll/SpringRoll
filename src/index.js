@@ -1,3 +1,2 @@
-import * as Debug from './debug';
-
-export { Debug };
+export * from './debug';
+export * from './utils';
