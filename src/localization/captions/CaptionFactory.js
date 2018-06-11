@@ -1,5 +1,7 @@
+import { Debugger } from './../../debug/Debugger';
 import Caption from './Caption';
 import TimedLine from './TimedLine';
+
 /**
  * Collection of functions for creating Captions
  *
@@ -16,11 +18,12 @@ export default class CaptionFactory {
    * @memberof CaptionFactory
    */
   static createCaptionMap(data) {
+    
     let captions = {};
     for (let key in data) {
       let caption = this.createCaption(data[key]);
       if (!caption) {
-        //TODO: Log Warning '[CaptionFactory.createCaptionMap] failed to create caption #Key'
+        Debugger.log('error', '[CaptionFactory.createCaptionMap] failed to create caption:', key);
       } else {
         captions[key] = caption;
       }
@@ -46,7 +49,7 @@ export default class CaptionFactory {
     }
 
     if (lines.length <= 0) {
-      // TODO: Log warning '[CaptionFactory.createCaption] captions should not have 0 lines.'
+      Debugger.log('error', '[CaptionFactory.createCaption] captions should not have 0 lines.');
       return;
     }
 
@@ -63,12 +66,12 @@ export default class CaptionFactory {
    */
   static createLine(lineData) {
     if (typeof lineData.start !== 'number') {
-      // TODO: Log warning '[CaptionFactory.createLine] lineData.start must be defined as a number'
+      Debugger.log('error', '[CaptionFactory.createLine] lineData.start must be defined as a number');
       return;
     }
 
     if (typeof lineData.end !== 'number') {
-      // TODO: Log warning '[CaptionFactory.createLine] lineData.end must be defined as a number'
+      Debugger.log('error', '[CaptionFactory.createLine] lineData.end must be defined as a number');
       return;
     }
 

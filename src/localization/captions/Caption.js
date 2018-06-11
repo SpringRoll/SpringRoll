@@ -11,7 +11,7 @@ export default class Caption {
   constructor(lines) {
     this.lines = lines;
 
-    // Sort by end time, this ensures proper exicution order of lines.
+    // Sort by end time, this ensures proper execution order of lines.
     this.lines.sort(function(a, b) {
       if (a.endTime < b.endTime) {
         return -1;

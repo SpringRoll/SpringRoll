@@ -1,4 +1,4 @@
-
+import { Debugger } from './../../debug/Debugger';
 /**
  *  CaptionPlayer is used to start, stop and update captions.
  *  it applies the content of an active caption to a given HTML Element.
@@ -57,7 +57,7 @@ export default class CaptionPlayer {
       this.activeCaption.start(time);
       this.update(0);
     } else {
-      //TODO: Log Warning '[CaptionPlayer.Start()] caption #NAME not found'
+      Debugger.log('warn', '[CaptionPlayer.Start()] caption ' + name + ' not found');
     }
   }
 

@@ -7,9 +7,9 @@
 export default class TimedLine {
   /**
    * Creates an instance of TimedLine.
-   * @param {string} content - Formatted string content to show during timespan
-   * @param {Number} startTime - start time in milliseconds reletive to caption
-   * @param {Number} endTime - end time in milliseconds reletive to caption
+   * @param {string} content - Formatted string content to show during time-span
+   * @param {Number} startTime - start time in milliseconds relative to caption
+   * @param {Number} endTime - end time in milliseconds relative to caption
    * @memberof TimedLine
    */
   constructor(content, startTime, endTime) {
