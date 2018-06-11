@@ -1,6 +1,6 @@
 /**
- * @typedef {{name: string, path: string}} Locale
- * @typedef {{default: string, locales: Locale[]}} Localizer.Config
+ * @typedef {{path: string}} Locale
+ * @typedef {{default: string, locales: { name: Locale}} Localizer.Config
  * @typedef {{language: string, fallback: string}} Localizer.Options
  */
 
@@ -12,13 +12,13 @@
 export default class Localizer {
   /**
    * Creates an instance of Localizer.
-   * @param {Object} iFileLoader
+   * @param {Object} loadCallback
    * @param {Localizer.Config} config
    * @param {Localizer.Options} options
    * @memberof Localizer
    */
-  constructor(iFileLoader, config, options) {
-    this.iFileLoader = iFileLoader;
+  constructor(loadCallback, config, options = {}) {
+    this.loadCallback = loadCallback;
     this.locales = config.locales;
 
     this.setPrimaryLocale(
@@ -34,17 +34,25 @@ export default class Localizer {
    * @param  {Localizer.Options} options
    * @return {void}@memberof Localizer
    */
-  load(path, key, options) {
-    let language = this.getLocaleKey(options.language);
-    let fallback = this.getLocaleKey(options.fallback);
+  load(path, key, options = {}) {
+    let language = this.primaryLanguage;
+    if (options.language) {
+      language = this.getLocaleKey(options.language);
+    }
+    let fallback = this.getLocaleKey(options.fallback) || this.fallbackLanguage;
 
-    let primaryLocale = this.locales[language] || this.primaryLocale;
-    let fallbackLocale = this.locales[fallback] || this.fallbackLocale;
+    let primaryLocale = this.locales[language];
+    let fallbackLocale = this.locales[fallback];
+
+    // forward language options to load interface
+    // in case load fails, loader can decide to try loading from fallback.
+    options.language = language;
+    options.fallback = fallback;
 
     if (primaryLocale) {
-      this.iFileLoader.load(primaryLocale.path + path, key, options);
+      this.loadCallback(primaryLocale.path + path, key, options);
     } else if (fallbackLocale) {
-      this.iFileLoader.load(fallbackLocale.path + path, key, options);
+      this.loadCallback(fallbackLocale.path + path, key, options);
     } else {
       //TODO: warn Locale not defined.
     }
@@ -58,7 +66,7 @@ export default class Localizer {
   setPrimaryLocale(localeKey) {
     let key = this.getLocaleKey(localeKey);
     if (key) {
-      this.primaryLocale = this.locales[key];
+      this.primaryLanguage = key;
       return true;
     }
     return false;
@@ -72,7 +80,7 @@ export default class Localizer {
   setFallbackLocale(localeKey) {
     let key = this.getLocaleKey(localeKey);
     if (key) {
-      this.fallbackLocale = this.locales[key];
+      this.fallbackLanguage = key;
       return true;
     }
     return false;
@@ -85,24 +93,20 @@ export default class Localizer {
    * @memberof Localizer
    */
   getLocaleKey(localeKey) {
-    if (localeKey) 
-    {
+    if (localeKey) {
       let key = localeKey.toLowerCase();
-      if (this.locales[key]) 
-      {
+      if (this.locales[key]) {
         return key;
-      } 
-      else if (key.indexOf('-') > 0) 
-      {
+      } else if (key.indexOf('-') > 0) {
         key = key.split('-')[0];
-        return this.getLocale(key);
+        return this.getLocaleKey(key);
       }
     }
     return undefined;
   }
 
   /**
-   *
+   * @private
    * @return {void}@memberof Localizer
    */
   getBrowsersLocaleKey() {
