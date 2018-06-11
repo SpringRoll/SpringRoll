@@ -10,7 +10,7 @@
  */
 export class Debugger {
   /**
-   *
+   * returns the params of the debugger
    * @returns {DebuggerParams}
    * @readonly
    * @static
@@ -42,8 +42,8 @@ export class Debugger {
   }
 
   /**
-   *
-   *
+   * Setup the params if not set
+   * @private
    * @static
    * @memberof Debugger
    */
@@ -69,9 +69,9 @@ export class Debugger {
   }
 
   /**
-   *
-   *
+   * Returns logging levels
    * @readonly
+   * @returns {object}
    * @static
    * @memberof Debugger
    */
@@ -102,7 +102,6 @@ export class Debugger {
   }
 
   /**
-   *
    * Console logs all supplied arguments if the log level is low enough for them to be logged
    * @param {'log' | 'general' | 'warn'| 'error' | 'debug' | 'info'} [type='log'] minimum level for this log to run at
    * @param {*[]} args arguments you wish to log
