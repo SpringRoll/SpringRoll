@@ -1,28 +1,155 @@
 /**
+ * @typedef {object} DebuggerParams
+ * @property {boolean} emitEnabled
+ * @property {boolean} enabled
+ * @property {number} minLevel
+ *
  * @param {Object} params - options
  * @param {boolean} [params.emitEnabled=false] If this should emit events to the window
  * @param {'GENERAL' | 'DEBUG' | 'INFO' | 'WARN' | 'ERROR'} [params.minLevel='GENERAL'] The starting log level for the logger
  */
 export class Debugger {
   /**
-   *Creates an instance of Debugger.
+   *
+   * @returns {DebuggerParams}
+   * @readonly
+   * @static
+   * @memberof Debugger
    */
-  constructor({ emitEnabled = false, minLevel = 'GENERAL' } = {}) {
-    this.flag = Debugger.flagKey;
-    this.emitEnabled = emitEnabled;
+  static get params() {
+    Debugger.initParams();
+    return window[Debugger.paramKey];
+  }
 
-    if ('undefined' === typeof window[this.flag]) {
-      window[this.flag] = true;
+  /**
+   * Sets the logging level of the debugger
+   * @param {string | number} level the name of the level
+   * @return {void}
+   */
+  static minLevel(level) {
+    Debugger.initParams();
+    if ('number' === typeof level) {
+      window[Debugger.paramKey].minLevel = level;
+      return;
     }
 
-    this.LEVEL = {
+    level = level.toUpperCase();
+    if (Debugger.isValidLevelName(level)) {
+      window[Debugger.paramKey].minLevel = Debugger.LEVEL[level];
+    } else {
+      window[Debugger.paramKey].minLevel = Debugger.LEVEL['GENERAL'];
+    }
+  }
+
+  /**
+   *
+   *
+   * @static
+   * @memberof Debugger
+   */
+  static initParams() {
+    if (!window[Debugger.paramKey]) {
+      window[Debugger.paramKey] = {
+        emitEnabled: false,
+        enabled: true,
+        minLevel: 1
+      };
+    }
+  }
+
+  /**
+   * If emitting is enabled for this instance than it will dispatch a event on the window
+   * @param {string} [eventName='Debugger'] Name of the event
+   */
+  static emit(eventName = 'Debugger') {
+    Debugger.initParams();
+    if (Debugger.params.emitEnabled) {
+      window.dispatchEvent(new Event(eventName));
+    }
+  }
+
+  /**
+   *
+   *
+   * @readonly
+   * @static
+   * @memberof Debugger
+   */
+  static get LEVEL() {
+    return {
       GENERAL: 1,
       DEBUG: 2,
       INFO: 3,
       WARN: 4,
       ERROR: 5
     };
-    this.setLevel(minLevel);
+  }
+
+  /**
+   * Function to test if level meets requirements
+   * @param {string} [level='GENERAL']
+   * @returns {boolean}
+   * @private
+   */
+  static meetsLevelRequirement(level = 'GENERAL') {
+    Debugger.initParams();
+    if (Debugger.isValidLevelName(level)) {
+      if (Debugger.LEVEL[level] >= Debugger.params.minLevel) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  /**
+   *
+   * Console logs all supplied arguments if the log level is low enough for them to be logged
+   * @param {'log' | 'general' | 'warn'| 'error' | 'debug' | 'info'} [type='log'] minimum level for this log to run at
+   * @param {*[]} args arguments you wish to log
+   */
+  static log(type = 'log', ...args) {
+    Debugger.initParams();
+    if (Debugger.isEnabled()) {
+      switch (type.toLowerCase()) {
+      case 'info':
+        if (Debugger.meetsLevelRequirement('INFO')) {
+          console.info(...args);
+          Debugger.emit();
+          return true;
+        }
+        return false;
+      case 'debug':
+        if (Debugger.meetsLevelRequirement('DEBUG')) {
+          console.debug(...args);
+          Debugger.emit();
+          return true;
+        }
+        return false;
+      case 'error':
+        if (Debugger.meetsLevelRequirement('ERROR')) {
+          console.error(...args);
+          Debugger.emit();
+          return true;
+        }
+        return false;
+      case 'warn':
+        if (Debugger.meetsLevelRequirement('WARN')) {
+          console.warn(...args);
+          Debugger.emit();
+          return true;
+        }
+        return false;
+      case 'log':
+      case 'general':
+      default:
+        if (Debugger.meetsLevelRequirement('GENERAL')) {
+          console.log(...args);
+          Debugger.emit();
+          return true;
+        }
+        return false;
+      }
+    }
   }
 
   /**
@@ -31,7 +158,8 @@ export class Debugger {
    * @return {boolean}
    * @private
    */
-  isValidLevelName(level) {
+  static isValidLevelName(level) {
+    Debugger.initParams();
     if (
       'GENERAL' == level ||
       'DEBUG' == level ||
@@ -46,111 +174,15 @@ export class Debugger {
   }
 
   /**
-   * Function to test if level meets requirements
-   * @param {string} [level='GENERAL']
-   * @returns {boolean}
-   * @private
-   */
-  meetsLevelRequirement(level = 'GENERAL') {
-    if (this.isValidLevelName(level)) {
-      if (this.LEVEL[level] >= this.minLevel) {
-        return true;
-      }
-    }
-    return false;
-  }
-
-  /**
-   * Sets the logging level of the debugger
-   * @param {string} level the name of the level
-   * @return {void}
-   */
-  setLevel(level) {
-    level = level.toUpperCase();
-    if (this.isValidLevelName(level)) {
-      this.minLevel = this.LEVEL[level];
-    } else {
-      this.minLevel = this.LEVEL['GENERAL'];
-    }
-  }
-
-  /**
-   * Will throw if statement is false
-   * @param {boolean} isTrue the expression to evaluate
-   */
-  assert(isTrue) {
-    Debugger.assert(isTrue);
-  }
-
-  /**
-   *
-   * Console logs all supplied arguments if the log level is low enough for them to be logged
-   * @param {'log' | 'general' | 'warn'| 'error' | 'debug' | 'info'} [type='log'] minimum level for this log to run at
-   * @param {*[]} args arguments you wish to log
-   */
-  log(type = 'log', ...args) {
-    if (Debugger.isEnabled()) {
-      switch (type.toLowerCase()) {
-      case 'info':
-        if (this.meetsLevelRequirement('INFO')) {
-          console.info(...args);
-          this.emit();
-          return true;
-        }
-        return false;
-      case 'debug':
-        if (this.meetsLevelRequirement('DEBUG')) {
-          console.debug(...args);
-          this.emit();
-          return true;
-        }
-        return false;
-      case 'error':
-        if (this.meetsLevelRequirement('ERROR')) {
-          console.error(...args);
-          this.emit();
-          return true;
-        }
-        return false;
-      case 'warn':
-        if (this.meetsLevelRequirement('WARN')) {
-          console.warn(...args);
-          this.emit();
-          return true;
-        }
-        return false;
-      case 'log':
-      case 'general':
-      default:
-        if (this.meetsLevelRequirement('GENERAL')) {
-          console.log(...args);
-          this.emit();
-          return true;
-        }
-        return false;
-      }
-    }
-  }
-
-  /**
    * Will throw if statement is false
    * @static
    * @param {boolean} isTrue the expression to evaluate
    * @returns
    */
   static assert(isTrue) {
+    Debugger.initParams();
     if (!isTrue) {
       throw `Assert Error: ${isTrue}`;
-    }
-  }
-
-  /**
-   * If emitting is enabled for this instance than it will dispatch a event on the window
-   * @param {string} [eventName='Debugger'] Name of the event
-   */
-  emit(eventName = 'Debugger') {
-    if (this.emitEnabled) {
-      window.dispatchEvent(new Event(eventName));
     }
   }
 
@@ -160,7 +192,7 @@ export class Debugger {
    * @returns {boolean}
    */
   static isEnabled() {
-    return window[Debugger.flagKey];
+    return window[Debugger.paramKey].enabled;
   }
 
   /**
@@ -170,16 +202,17 @@ export class Debugger {
    * @returns {void}
    */
   static enable(flag) {
-    window[Debugger.flagKey] = flag;
+    Debugger.initParams();
+    window[Debugger.paramKey].enabled = flag;
   }
 
   /**
-   * returns the global debugger flag key name
+   * returns the global params key
+   * @readonly
    * @static
-   * @private
-   * @returns {string}
+   * @memberof Debugger
    */
-  static get flagKey() {
-    return '__spring_roll_debugger_enabled__';
+  static get paramKey() {
+    return '__spring_roll_debugger_params__';
   }
 }
