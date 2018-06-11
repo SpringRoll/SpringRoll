@@ -1,2 +1,4 @@
-import * as Caption from './captions';
-export { Caption };
+export * from './Caption';
+export * from './CaptionFactory';
+export * from './CaptionPlayer';
+export * from './TimedLine';
