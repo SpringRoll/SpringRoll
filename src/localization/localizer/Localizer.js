@@ -1,3 +1,4 @@
+import Debugger from './../../debug/Debugger';
 /**
  * @typedef {{path: string}} Locale
  * @typedef {{default: string, locales: { name: Locale}} Localizer.Config
@@ -54,7 +55,7 @@ export default class Localizer {
     } else if (fallbackLocale) {
       this.loadCallback(fallbackLocale.path + path, key, options);
     } else {
-      //TODO: warn Locale not defined.
+      Debugger.log('warn', '[Localizer.load] Locale ' + language + ' not found');
     }
   }
 
