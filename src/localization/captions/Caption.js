@@ -5,7 +5,7 @@
 export default class Caption {
   /**
    * Creates an instance of Caption.
-   * @param {TimedLine} - array of Lines to be used for caption
+   * @param {TimedLine[]} lines - array of Lines to be used for caption
    * @memberof Caption
    */
   constructor(lines) {

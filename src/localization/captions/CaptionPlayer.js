@@ -1,3 +1,4 @@
+
 /**
  *  CaptionPlayer is used to start, stop and update captions.
  *  it applies the content of an active caption to a given HTML Element.
@@ -10,7 +11,7 @@ export default class CaptionPlayer {
   
   /**
    * Creates an instance of CaptionPlayer.
-   * @param {Object} captions - Object of Key:Name Value:Caption
+   * @param {Object.<string, Caption>} captions - captions map.
    * @param {HTMLElement} element DOM element that content is written too.
    * @memberof CaptionPlayer
    */
@@ -27,7 +28,7 @@ export default class CaptionPlayer {
    * updates any currently playing caption
    * This ~should~ be called every frame.
    * 
-   * @param {any} deltaTime Time passed in seconds since last update call.
+   * @param {Number} deltaTime Time passed in seconds since last update call.
    * @memberof CaptionPlayer
    */
   update(deltaTime) {
