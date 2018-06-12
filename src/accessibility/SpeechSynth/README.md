@@ -1,4 +1,5 @@
 # SpeechSynth
+## Note: This class uses experimental browser features and might not be consistent across all browsers.
 
 SpeechSynth is a Class to make it easy to generate voice for text for when you don't already have voice files to accompany the text.
 
@@ -31,4 +32,9 @@ speaker.rate = 10;
 speaker.pitch = 2;
 speaker.volume  = 0.5;
 speaker.voice = 30; //Note this one is browser specific and won't work in all cases
+```
+
+- If you would like to know what voice options are available for your browser the class instance contains a reference to all options.
+```
+speaker.voiceOptions // [Object]
 ```
