@@ -18,12 +18,15 @@ export default class CaptionFactory {
    * @memberof CaptionFactory
    */
   static createCaptionMap(data) {
-    
-    let captions = {};
+    const captions = {};
     for (let key in data) {
-      let caption = this.createCaption(data[key]);
+      const caption = this.createCaption(data[key]);
       if (!caption) {
-        Debugger.log('error', '[CaptionFactory.createCaptionMap] failed to create caption:', key);
+        Debugger.log(
+          'error',
+          '[CaptionFactory.createCaptionMap] failed to create caption:',
+          key
+        );
       } else {
         captions[key] = caption;
       }
@@ -40,16 +43,19 @@ export default class CaptionFactory {
    * @memberof CaptionFactory
    */
   static createCaption(captionData) {
-    let lines = [];
+    const lines = [];
     for (let i = 0; i < captionData.length; i++) {
-      let line = this.createLine(captionData[i]);
+      const line = this.createLine(captionData[i]);
       if (line) {
         lines.push(line);
       }
     }
 
     if (lines.length <= 0) {
-      Debugger.log('error', '[CaptionFactory.createCaption] captions should not have 0 lines.');
+      Debugger.log(
+        'error',
+        '[CaptionFactory.createCaption] captions should not have 0 lines.'
+      );
       return;
     }
 
@@ -66,12 +72,35 @@ export default class CaptionFactory {
    */
   static createLine(lineData) {
     if (typeof lineData.start !== 'number') {
-      Debugger.log('error', '[CaptionFactory.createLine] lineData.start must be defined as a number');
+      Debugger.log(
+        'error',
+        '[CaptionFactory.createLine] lineData.start must be defined as a number'
+      );
       return;
     }
 
     if (typeof lineData.end !== 'number') {
-      Debugger.log('error', '[CaptionFactory.createLine] lineData.end must be defined as a number');
+      Debugger.log(
+        'error',
+        '[CaptionFactory.createLine] lineData.end must be defined as a number'
+      );
+      return;
+    }
+
+    if (typeof lineData.content !== 'string') {
+      Debugger.log(
+        'error',
+        '[CaptionFactory.createLine] lineData.string must be defined as a string'
+      );
+      return;
+    }
+
+    if (lineData.content === '') {
+      Debugger.log(
+        'warn',
+        '[CaptionFactory.createLine] lineData.string should not be empty',
+        'It\'s recommended to add time to the start of the next line to add delays.'
+      );
       return;
     }
 

@@ -25,10 +25,8 @@ export default class TimedLine {
    * @memberof TimedLine
    */
   getContent(time) {
-    if (time <= this.endTime) {
-      if (time >= this.startTime) {
-        return this.content;
-      }
+    if (time <= this.endTime && time >= this.startTime) {
+      return this.content;
     }
     return '';
   }

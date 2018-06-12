@@ -8,7 +8,7 @@ import { Debugger } from './../../debug/Debugger';
  */
 export default class CaptionPlayer {
   // Maybe:(CaptionPlayer is written for playing a single caption at a time, minor rework would be required for multiple captions)
-  
+
   /**
    * Creates an instance of CaptionPlayer.
    * @param {Object.<string, Caption>} captions - captions map.
@@ -20,14 +20,12 @@ export default class CaptionPlayer {
     this.captions = captions;
 
     this.activeCaption = null;
-
-    this.setElementContent('');
   }
 
   /**
    * updates any currently playing caption
    * This ~should~ be called every frame.
-   * 
+   *
    * @param {Number} deltaTime Time passed in seconds since last update call.
    * @memberof CaptionPlayer
    */
@@ -36,9 +34,9 @@ export default class CaptionPlayer {
       this.activeCaption.update(deltaTime);
       if (!this.activeCaption.isFinished()) {
         this.setElementContent(this.activeCaption.getContent());
-      } else {
-        this.stop();
+        return;
       }
+      this.stop();
     }
   }
 
@@ -57,7 +55,7 @@ export default class CaptionPlayer {
       this.activeCaption.start(time);
       this.update(0);
     } else {
-      Debugger.log('warn', '[CaptionPlayer.Start()] caption ' + name + ' not found');
+      Debugger.log('warn', `[CaptionPlayer.Start()] caption ${name} not found`);
     }
   }
 
@@ -66,23 +64,19 @@ export default class CaptionPlayer {
    * @memberof CaptionPlayer
    */
   stop() {
-    if (this.activeCaption) {
-      this.activeCaption = null;
-      this.setElementContent('');
-
-      //Maybe: add onStopCallback?
-    }
+    this.activeCaption = null;
+    this.setElementContent('');
+    //Maybe: add onStopCallback?
   }
 
   /**
    * sets content of HTML element.
-   * 
+   *
    * @private
-   * @param {String} content 
+   * @param {String} content
    * @memberof CaptionPlayer
    */
-  setElementContent(content)
-  {
-    this.element.innerHTML = content; // <-- TODO: not sure if this is the proper way to set a DOM element.
+  setElementContent(content) {
+    this.element.innerHTML = content;
   }
 }
