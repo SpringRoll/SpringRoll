@@ -9,6 +9,7 @@ export class ColorFilter {
    * @memberof ColorFilter
    */
   constructor() {
+    this.element = null;
     if (null === document.getElementById('color__filter__svg')) {
       document.head.innerHTML += `<svg
       id="color__filter__svg" xmlns="http://www.w3.org/2000/svg"
@@ -93,33 +94,38 @@ export class ColorFilter {
   }
 
   /**
-   *
-   *
+   * Applies the specified filter to the element
    * @param {HTMLElement} element
    * @param {string} type
    * @memberof ColorFilter
    */
   applyFilter(element, type) {
-    if (this.types[type]) {
-      element.style.filter = `url(#color__filter__${type})`;
-    } else {
-      console.warn('A invalid filter was givin to the color filter');
+    this.element = element;
+    this.changeFilter(type);
+  }
+
+  /**
+   * Changes the currently applied filter to the element if the color filter has that filter
+   * @param {string} type
+   * @returns
+   * @memberof ColorFilter
+   */
+  changeFilter(type) {
+    if (null !== this.element && this.types[type]) {
+      this.element.style.filter = `url(#color__filter__${type})`;
     }
   }
 
   /**
-   *
-   *
-   * @param {HTMLElement} element
+   * Removes the filter from the element
    * @memberof ColorFilter
    */
-  removeFilter(element) {
-    element.style.filter = null;
+  removeFilter() {
+    this.element.style.filter = null;
   }
 
   /**
-   *
-   *
+   * Supported filter types
    * @readonly
    * @memberof ColorFilter
    */
