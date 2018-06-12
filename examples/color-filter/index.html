@@ -30,7 +30,6 @@
     const dropDown = document.getElementById('options');
     const button = document.getElementById('clear');
     dropDown.onchange = e => {
-      console.log('did call');
       cf.changeFilter(dropDown.value)
     };
     for (let i = 0, l = keys.length; i < l; i++) {
