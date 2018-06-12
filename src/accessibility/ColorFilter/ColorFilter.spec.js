@@ -19,7 +19,7 @@ describe('ColorFilter', () => {
       'url("#color__filter__protanopia")'
     );
 
-    cf.removeFilter(document.body);
+    cf.removeFilter();
 
     expect(document.body.style.filter).to.equal('');
   });
