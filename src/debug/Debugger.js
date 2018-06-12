@@ -75,15 +75,11 @@ export class Debugger {
   }
 
   /**
-   * Will call the first or second supplied function depending if the isTrue argument passes.
-   * Is also only called when Debugging is enabled
+   * Will throw if statement is false
    * @param {boolean} isTrue the expression to evaluate
-   * @param {Function} [success=() => {}] success callback
-   * @param {Function} [reject=() => {}] reject callback
-   * @returns
    */
-  assert(isTrue, success = () => {}, reject = () => {}) {
-    Debugger.assert(isTrue, success, reject);
+  assert(isTrue) {
+    Debugger.assert(isTrue);
   }
 
   /**
@@ -137,21 +133,14 @@ export class Debugger {
   }
 
   /**
-   * Will call the first or second supplied function depending if the isTrue argument passes.
-   * Is also only called when Debugging is enabled
+   * Will throw if statement is false
    * @static
    * @param {boolean} isTrue the expression to evaluate
-   * @param {Function} [success=() => {}] success callback
-   * @param {function} [reject=() => {}] reject callback
    * @returns
    */
-  static assert(isTrue, success = () => {}, reject = () => {}) {
-    if (Debugger.isEnabled()) {
-      if (isTrue) {
-        return success(isTrue);
-      }
-      // this.emit('assert');
-      return reject(isTrue);
+  static assert(isTrue) {
+    if (!isTrue) {
+      throw `Assert Error: ${isTrue}`;
     }
   }
 
