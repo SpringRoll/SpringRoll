@@ -16,21 +16,23 @@
 
 <body>
   <div class="container">
-    <img src="example.png" width="400" alt="example">
+    <img id="target" src="./example.png" width="400" alt="example">
     <select id="options" style="width: 25rem;"></select>
   </div>
 
 
 
   <script type="module">
-    import { ColorFilter } from '../../src/accessibility/ColorFilter.js';
+    import { ColorFilter } from '../../src/accessibility/ColorFilter/ColorFilter.js';
     const cf = new ColorFilter();
     const keys = Object.keys(cf.types);
-    const jpeg = document.getElementById('jpeg')
+    const jpeg = document.getElementById('target')
     const dropDown = document.getElementById('options');
     const button = document.getElementById('clear');
-    button.onclick = cf.removeFilter(jpeg);
-    dropDown.onchange = e => cf.applyFilter(jpeg, dropDown.value);
+    dropDown.onchange = e => {
+      console.log('did call');
+      cf.changeFilter(dropDown.value)
+    };
     for (let i = 0, l = keys.length; i < l; i++) {
       const option = document.createElement('option');
       option.value = keys[i];
@@ -40,7 +42,7 @@
 
 
 
-    cf.applyFilter(document.body, 'protanopia');
+    cf.applyFilter(jpeg, 'protanopia');
   </script>
 </body>
 
