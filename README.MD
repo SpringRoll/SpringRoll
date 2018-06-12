@@ -31,13 +31,35 @@
         -   [Parameters][27]
     -   [read][28]
         -   [Parameters][29]
+-   [SpeechSynth][30]
+    -   [Parameters][31]
+    -   [pause][32]
+    -   [resume][33]
+    -   [cancel][34]
+    -   [say][35]
+        -   [Parameters][36]
+    -   [voice][37]
+        -   [Parameters][38]
+    -   [voice][39]
+    -   [lang][40]
+        -   [Parameters][41]
+    -   [lang][42]
+    -   [rate][43]
+        -   [Parameters][44]
+    -   [rate][45]
+    -   [pitch][46]
+        -   [Parameters][47]
+    -   [pitch][48]
+    -   [volume][49]
+        -   [Parameters][50]
+    -   [volume][51]
 
 ## Debugger
 
 ### Parameters
 
--   `params` **[Object][30]** options (optional, default `{}`)
-    -   `params.emitEnabled` **[boolean][31]** If this should emit events to the window (optional, default `false`)
+-   `params` **[Object][52]** options (optional, default `{}`)
+    -   `params.emitEnabled` **[boolean][53]** If this should emit events to the window (optional, default `false`)
     -   `params.minLevel` **(`"GENERAL"` \| `"DEBUG"` \| `"INFO"` \| `"WARN"` \| `"ERROR"`)** The starting log level for the logger (optional, default `'GENERAL'`)
 
 ### setLevel
@@ -46,20 +68,17 @@ Sets the logging level of the debugger
 
 #### Parameters
 
--   `level` **[string][32]** the name of the level
+-   `level` **[string][54]** the name of the level
 
 Returns **void** 
 
 ### assert
 
-Will call the first or second supplied function depending if the isTrue argument passes.
-Is also only called when Debugging is enabled
+Will throw if statement is false
 
 #### Parameters
 
--   `isTrue` **[boolean][31]** the expression to evaluate
--   `success` **[Function][33]** success callback (optional, default `()=>{}`)
--   `reject` **[Function][33]** reject callback (optional, default `()=>{}`)
+-   `isTrue` **[boolean][53]** the expression to evaluate
 
 ### log
 
@@ -68,7 +87,7 @@ Console logs all supplied arguments if the log level is low enough for them to b
 #### Parameters
 
 -   `type` **(`"log"` \| `"general"` \| `"warn"` \| `"error"` \| `"debug"` \| `"info"`)** minimum level for this log to run at (optional, default `'log'`)
--   `args` **[Array][34]&lt;any>** arguments you wish to log
+-   `args` **[Array][55]&lt;any>** arguments you wish to log
 
 ### emit
 
@@ -76,24 +95,21 @@ If emitting is enabled for this instance than it will dispatch a event on the wi
 
 #### Parameters
 
--   `eventName` **[string][32]** Name of the event (optional, default `'Debugger'`)
+-   `eventName` **[string][54]** Name of the event (optional, default `'Debugger'`)
 
 ### assert
 
-Will call the first or second supplied function depending if the isTrue argument passes.
-Is also only called when Debugging is enabled
+Will throw if statement is false
 
 #### Parameters
 
--   `isTrue` **[boolean][31]** the expression to evaluate
--   `success` **[Function][33]** success callback (optional, default `()=>{}`)
--   `reject` **[function][33]** reject callback (optional, default `()=>{}`)
+-   `isTrue` **[boolean][53]** the expression to evaluate
 
 ### isEnabled
 
 returns a boolean indicating if the debugger has been enabled or not
 
-Returns **[boolean][31]** 
+Returns **[boolean][53]** 
 
 ### enable
 
@@ -101,7 +117,7 @@ Disabled or enables all debugger instances
 
 #### Parameters
 
--   `flag` **[boolean][31]** 
+-   `flag` **[boolean][53]** 
 
 Returns **void** 
 
@@ -109,14 +125,14 @@ Returns **void**
 
 ### Parameters
 
--   `onFocus` **[Function][33]**  (optional, default `function(){}`)
--   `onBlur` **[Function][33]**  (optional, default `function(){}`)
+-   `onFocus` **[Function][56]**  (optional, default `function(){}`)
+-   `onBlur` **[Function][56]**  (optional, default `function(){}`)
 
 ### Properties
 
--   `onFocus` **[Function][33]** Callback for when the page becomes visible
--   `onBlur` **[Function][33]** Callback for when the page loses visibility
--   `onToggle` **[Function][33]** the visibility toggle listener function
+-   `onFocus` **[Function][56]** Callback for when the page becomes visible
+-   `onBlur` **[Function][56]** Callback for when the page loses visibility
+-   `onToggle` **[Function][56]** the visibility toggle listener function
 
 ### enable
 
@@ -136,8 +152,8 @@ The SavedData Class use localStorage and sessionStorage to save data, with a coo
 
 ### Properties
 
--   `ERASE_COOKIE` **[Boolean][31]?** A constant for cookie fallback for `SavedData.remove()`
--   `WEB_STORAGE_SUPPORT` **[Boolean][31]?** A constant for if if the user is in Private Browsing, writing to localStorage throws an error
+-   `ERASE_COOKIE` **[Boolean][53]?** A constant for cookie fallback for `SavedData.remove()`
+-   `WEB_STORAGE_SUPPORT` **[Boolean][53]?** A constant for if if the user is in Private Browsing, writing to localStorage throws an error
     in iOS, if the user is in Private Browsing, writing to localStorage throws an error. In this case WEB_STORAGE_SUPPORT is set to false
 
 ### remove
@@ -146,7 +162,7 @@ Remove a saved variable by name.
 
 #### Parameters
 
--   `name` **[String][32]** The name of the value to remove
+-   `name` **[String][54]** The name of the value to remove
 
 ### write
 
@@ -154,9 +170,9 @@ Save a variable.
 
 #### Parameters
 
--   `name` **[String][32]** The name/location of where you would like to save
--   `value` **[Object][30]** The value to save.
--   `tempOnly` **[Boolean][31]** If the value should be saved only in the current browser session. (optional, default `false`)
+-   `name` **[String][54]** The name/location of where you would like to save
+-   `value` **[Object][52]** The value to save.
+-   `tempOnly` **[Boolean][53]** If the value should be saved only in the current browser session. (optional, default `false`)
 
 ### read
 
@@ -164,9 +180,112 @@ Read the value of a saved variable
 
 #### Parameters
 
--   `name` **[String][32]** The name of the variable
+-   `name` **[String][54]** The name of the variable
 
-Returns **[Object][30]** Data saved at that location
+Returns **[Object][52]** Data saved at that location
+
+## SpeechSynth
+
+SpeechSync makes it easy to convert text to speech
+
+### Parameters
+
+-   `params` **[object][52]** 
+    -   `params.voice` **[number][57]** Indicates what voice to use. This does not work on Chrome (optional, default `0`)
+    -   `params.rate` **[number][57]** The rate at which the text is said. Supports a range from 0.1 to 10. (optional, default `1`)
+    -   `params.pitch` **[number][57]** Voice Pitch. Supports a pitch from 0 to 2 (optional, default `0`)
+    -   `params.volume` **[number][57]** Volume. Supports 0 to 1. (optional, default `1`)
+
+### pause
+
+Pauses the announcer
+
+### resume
+
+Resumes the announcer
+
+### cancel
+
+Pauses the announcer and clears the queue
+
+### say
+
+Causes the announcer to say whatever message is passed to it.
+If the announcer is already saying something then it will be added to a queue.
+
+#### Parameters
+
+-   `message` **[string][54]** 
+
+### voice
+
+Sets the voice by array index. Note the implementation of this is non-standard, and currently Chrome only has 1 voice.
+
+#### Parameters
+
+-   `index` **[number][57]** 
+
+### voice
+
+Returns the voice object. Will return null on Chrome.
+
+Returns **([object][52] | null)** 
+
+### lang
+
+Will set the language for the announcer. If not pull the language from the html tag or browser.
+
+#### Parameters
+
+-   `lang` **[string][54]** e.g 'en-US'
+
+### lang
+
+Will return the language string if manually set
+
+Returns **[string][54]** 
+
+### rate
+
+Rate at which text is spoken
+
+#### Parameters
+
+-   `rate` **[number][57]** 
+
+### rate
+
+Returns rate which text is spoken
+
+Returns **[number][57]** 
+
+### pitch
+
+Sets the pitch at which text is spoken
+
+#### Parameters
+
+-   `pitch` **[number][57]** 
+
+### pitch
+
+Returns the pitch at which text is spoken
+
+Returns **[number][57]** 
+
+### volume
+
+Sets the current volume of the announcer
+
+#### Parameters
+
+-   `volume` **[number][57]** 
+
+### volume
+
+Returns the current volume of the announcer
+
+Returns **[number][57]** 
 
 [1]: #debugger
 
@@ -226,12 +345,58 @@ Returns **[Object][30]** Data saved at that location
 
 [29]: #parameters-10
 
-[30]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object
+[30]: #speechsynth
 
-[31]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean
+[31]: #parameters-11
 
-[32]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String
+[32]: #pause
 
-[33]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function
+[33]: #resume
 
-[34]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array
+[34]: #cancel
+
+[35]: #say
+
+[36]: #parameters-12
+
+[37]: #voice
+
+[38]: #parameters-13
+
+[39]: #voice-1
+
+[40]: #lang
+
+[41]: #parameters-14
+
+[42]: #lang-1
+
+[43]: #rate
+
+[44]: #parameters-15
+
+[45]: #rate-1
+
+[46]: #pitch
+
+[47]: #parameters-16
+
+[48]: #pitch-1
+
+[49]: #volume
+
+[50]: #parameters-17
+
+[51]: #volume-1
+
+[52]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object
+
+[53]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean
+
+[54]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String
+
+[55]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array
+
+[56]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function
+
+[57]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number
