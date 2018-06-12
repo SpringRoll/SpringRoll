@@ -35,10 +35,10 @@ export default class Localizer {
   resolve(path, options = {}) {
     return new Promise((resolve, reject) => {
       const language = options.language ? this.getLocaleKey(options.language): this.primaryLanguage;
-      const fallback = this.getLocaleKey(options.fallback) || this.fallbackLanguage;
-
-      let primaryLocale = this.locales[language];
-      let fallbackLocale = this.locales[fallback];
+      const fallback = this.getLocaleKey(options.fallback) || this.fallbackLanguage;\
+      
+      const primaryLocale = this.locales[language];
+      const fallbackLocale = this.locales[fallback];
 
       if (primaryLocale) {
         resolve({ 
