@@ -1,19 +1,14 @@
 /**
- *
- *
- * @export
- * @class Tester
+ * @param {Object} params - options
+ * @param {boolean} [params.emitEnabled=false] If this should emit events to the window
+ * @param {'GENERAL' | 'DEBUG' | 'INFO' | 'WARN' | 'ERROR'} [params.minLevel='GENERAL'] The starting log level for the logger
  */
-export default class Debugger {
+export class Debugger {
   /**
-   * Creates an instance of Tester.
-   * @param {object} options
-   * @param {boolean} [options.emitEnabled=false]
-   * @param {'GENERAL' | 'DEBUG' | 'INFO' | 'WARN' | 'ERROR'} [options.minLevel='GENERAL']
-   * @memberof Tester
+   *Creates an instance of Debugger.
    */
   constructor({ emitEnabled = false, minLevel = 'GENERAL' } = {}) {
-    this.flag = Debugger.flagKey();
+    this.flag = Debugger.flagKey;
     this.emitEnabled = emitEnabled;
 
     if ('undefined' === typeof window[this.flag]) {
@@ -31,10 +26,10 @@ export default class Debugger {
   }
 
   /**
-   *
-   *
-   * @param {any} level
-   * @memberof Debugger
+   * Checks to see if the string argument is a valid level name
+   * @param {string} level the level name
+   * @return {boolean}
+   * @private
    */
   isValidLevelName(level) {
     if (
@@ -51,11 +46,10 @@ export default class Debugger {
   }
 
   /**
-   *
-   *
+   * Function to test if level meets requirements
    * @param {string} [level='GENERAL']
-   * @returns
-   * @memberof Debugger
+   * @returns {boolean}
+   * @private
    */
   meetsLevelRequirement(level = 'GENERAL') {
     if (this.isValidLevelName(level)) {
@@ -67,10 +61,9 @@ export default class Debugger {
   }
 
   /**
-   *
-   *
-   * @param {string} level
-   * @memberof Debugger
+   * Sets the logging level of the debugger
+   * @param {string} level the name of the level
+   * @return {void}
    */
   setLevel(level) {
     level = level.toUpperCase();
@@ -82,43 +75,18 @@ export default class Debugger {
   }
 
   /**
-   *
-   *
-   * @param {any} isTrue
-   * @param {any} [success=() => {}]
-   * @param {any} [reject=() => {}]
-   * @returns
-   * @memberof Tester
+   * Will throw if statement is false
+   * @param {boolean} isTrue the expression to evaluate
    */
-  assert(isTrue, success = () => {}, reject = () => {}) {
-    Debugger.assert(isTrue, success, reject);
+  assert(isTrue) {
+    Debugger.assert(isTrue);
   }
 
   /**
    *
-   *
-   * @param {any} isTrue
-   * @param {any} [success=() => {}]
-   * @param {any} [reject=() => {}]
-   * @returns
-   * @static
-   * @memberof Tester
-   */
-  static assert(isTrue, success = () => {}, reject = () => {}) {
-    if (Debugger.isEnabled()) {
-      if (isTrue) {
-        return success(isTrue);
-      }
-      // this.emit('assert');
-      return reject(isTrue);
-    }
-  }
-
-  /**
-   *
-   *
-   * @export
-   * @param {'log' | 'general' | 'warn'| 'error' | 'debug' | 'info'} [type='log']
+   * Console logs all supplied arguments if the log level is low enough for them to be logged
+   * @param {'log' | 'general' | 'warn'| 'error' | 'debug' | 'info'} [type='log'] minimum level for this log to run at
+   * @param {*[]} args arguments you wish to log
    */
   log(type = 'log', ...args) {
     if (Debugger.isEnabled()) {
@@ -165,10 +133,20 @@ export default class Debugger {
   }
 
   /**
-   *
-   *
-   * @param {string} [eventName='']
-   * @memberof Tester
+   * Will throw if statement is false
+   * @static
+   * @param {boolean} isTrue the expression to evaluate
+   * @returns
+   */
+  static assert(isTrue) {
+    if (!isTrue) {
+      throw `Assert Error: ${isTrue}`;
+    }
+  }
+
+  /**
+   * If emitting is enabled for this instance than it will dispatch a event on the window
+   * @param {string} [eventName='Debugger'] Name of the event
    */
   emit(eventName = 'Debugger') {
     if (this.emitEnabled) {
@@ -177,34 +155,31 @@ export default class Debugger {
   }
 
   /**
-   *
+   * returns a boolean indicating if the debugger has been enabled or not
    * @static
-   * @returns
-   * @memberof Debugger
+   * @returns {boolean}
    */
   static isEnabled() {
-    return window[Debugger.flagKey()];
+    return window[Debugger.flagKey];
   }
 
   /**
-   *
-   *
+   * Disabled or enables all debugger instances
    * @static
-   * @param {any} flag
-   * @memberof Debugger
+   * @param {boolean} flag
+   * @returns {void}
    */
   static enable(flag) {
-    window[Debugger.flagKey()] = flag;
+    window[Debugger.flagKey] = flag;
   }
 
   /**
-   *
-   *
+   * returns the global debugger flag key name
    * @static
-   * @returns
-   * @memberof Debugger
+   * @private
+   * @returns {string}
    */
-  static flagKey() {
+  static get flagKey() {
     return '__spring_roll_debugger_enabled__';
   }
 }

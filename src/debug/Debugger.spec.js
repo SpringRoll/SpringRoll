@@ -1,4 +1,4 @@
-import Debugger from './Debugger';
+import { Debugger } from './Debugger';
 
 describe('Debugger', () => {
   const bugger = new Debugger({
@@ -21,12 +21,17 @@ describe('Debugger', () => {
     expect(bugger.log('error', 'test error')).to.be.true;
   });
 
-  it('assert should test truthiness of argument', done => {
-    bugger.assert(true === true, () => done(), () => done(Error));
+  it('assert should do nothing if true', () => {
+    bugger.assert(true === true);
   });
 
-  it('assert should call false callback if truthiness of argument is false', done => {
-    bugger.assert(true !== true, () => done(Error), () => done());
+  it('assert should throw if false ', done => {
+    try {
+      bugger.assert(true !== true);
+      done(new Error());
+    } catch (err) {
+      done();
+    }
   });
 
   it('Nothing should run if global flag is set to false', () => {
