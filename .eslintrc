@@ -21,7 +21,7 @@
     "no-console": [0],
     "quotes": [2, "single"],
     "curly": ["error", "all"],
-    "no-var": "warn",
+    "no-var": "error",
     "require-jsdoc": [
       "error",
       {
