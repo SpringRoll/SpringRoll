@@ -44,7 +44,7 @@ export default class CaptionFactory {
    */
   static createCaption(captionData) {
     const lines = [];
-    for (let i = 0; i < captionData.length; i++) {
+    for (let i = 0, length = captionData.length; i < length; i++) {
       const line = this.createLine(captionData[i]);
       if (line) {
         lines.push(line);

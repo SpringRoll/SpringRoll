@@ -1,7 +1,7 @@
-import CaptionFactory from './captions/CaptionFactory';
-import CaptionPlayer from './captions/CaptionPlayer';
-import Caption from './captions/Caption';
-import TimedLine from './captions/TimedLine';
+import CaptionFactory from './CaptionFactory';
+import CaptionPlayer from './CaptionPlayer';
+import Caption from './Caption';
+import TimedLine from './TimedLine';
 
 const testData = {
   HelloWorld: [
