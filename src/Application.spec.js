@@ -1,5 +1,5 @@
 import { Application } from './Application';
-import { ApplicationPlugin } from './ApplicationPlugin';
+import { ApplicationPlugin } from './plugins/ApplicationPlugin';
 
 describe('Application', () => {
   beforeEach(() => {

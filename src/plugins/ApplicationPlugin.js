@@ -1,5 +1,3 @@
-import { Application } from './Application';
-
 /**
  * Represents a single plugin for applications. Allows developers to inject code in the start up process of an
  * application providing new features to the application
