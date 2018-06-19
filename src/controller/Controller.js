@@ -1,8 +1,8 @@
 /**
- *
- *
+ * Controller interface class to simplify working with key presses
  * @export
  * @class Controller
+ * @param {Object} [buttons={}] a object containing all keys you want to watch and their functions. e.g. {enter: () => {}}. See https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/key/Key_Values for potential values
  */
 export class Controller {
   /**
@@ -30,8 +30,7 @@ export class Controller {
   }
 
   /**
-   *
-   * Updates Controller values
+   * Calls all functions for buttons that are currently set to enabled
    * @memberof Controller
    */
   update() {
@@ -43,8 +42,7 @@ export class Controller {
   }
 
   /**
-   *
-   *
+   * Called on keyup. Sets flag to true if key is being watched
    * @param {KeyboardEvent} e
    * @memberof Controller
    */
@@ -53,8 +51,8 @@ export class Controller {
   }
 
   /**
-   *
-   *
+   * Called on keyup. Sets flag to false if key is being watched
+   * @param {KeyboardEvent} e
    * @memberof Controller
    */
   onKeyUp(e) {
@@ -62,7 +60,7 @@ export class Controller {
   }
 
   /**
-   *
+   * Helper class to reduce code between event functions
    * @private
    * @param {*} event
    * @param {*} enable
