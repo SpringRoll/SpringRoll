@@ -22,7 +22,7 @@ export class Application {
    */
   on(eventName, method) {
     if(!Array.isArray(this.listeners[eventName])) {
-      this.listeners[eventName] = this.listeners[eventName] || [];
+      this.listeners[eventName] = [];
     }
 
     this.listeners[eventName].push(method);
