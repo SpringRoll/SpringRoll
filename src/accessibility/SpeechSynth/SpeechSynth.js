@@ -93,7 +93,6 @@ export class SpeechSynth {
     this.speaking = true;
 
     this.speaker.text = message;
-    console.log('did speak');
     window.speechSynthesis.speak(this.speaker);
   }
 
