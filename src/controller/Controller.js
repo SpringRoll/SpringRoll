@@ -10,20 +10,7 @@ export class Controller {
    * @memberof Controller
    */
   constructor(buttons = {}) {
-    this.options = {};
-
-    this.keys = Object.keys(buttons)
-      .filter(key => 'function' === typeof buttons[key])
-      .map(key => key.toLowerCase());
-
-    this.buttons = {};
-
-    for (let i = 0, l = this.keys.length; i < l; i++) {
-      this.buttons[this.keys[i]] = {
-        enabled: false,
-        action: buttons[this.keys[i]]
-      };
-    }
+    this.assignButtons(buttons);
 
     window.addEventListener('keydown', this.onKeyDown.bind(this));
     window.addEventListener('keyup', this.onKeyUp.bind(this));
@@ -57,6 +44,26 @@ export class Controller {
    */
   onKeyUp(e) {
     this.onKey(e, false);
+  }
+
+  /**
+   * Sets a object of button functions to the controller function to be called
+   * @param {object} buttons
+   * @memberof Controller
+   */
+  assignButtons(buttons) {
+    this.keys = Object.keys(buttons)
+      .filter(key => 'function' === typeof buttons[key])
+      .map(key => key.toLowerCase());
+
+    this.buttons = {};
+
+    for (let i = 0, l = this.keys.length; i < l; i++) {
+      this.buttons[this.keys[i]] = {
+        enabled: false,
+        action: buttons[this.keys[i]]
+      };
+    }
   }
 
   /**
