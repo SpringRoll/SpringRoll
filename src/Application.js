@@ -44,18 +44,18 @@ export class Application {
   /**
    * Converts a callback-based or synchronous function into a promise. This method is used for massaging plugin preload
    * methods before they are executed.
-   * @param {Function} f A function that takes either a callback, or returns a promise
+   * @param {Function} callback A function that takes either a callback, or returns a promise
    * @return Promise A promise that resolves when the function finishes executing (whether it is asynchronous or not)
    */
-  promisify(f) {
+  promisify(callback) {
     // if it takes no argument, assume that it's synchronous or returns a Promise
-    if(f.length === 0) {
-      return Promise.resolve(f.call(this));
+    if(callback.length === 0) {
+      return Promise.resolve(callback.call(this));
     }
     
     // if it has an argument, that means it uses a callback structure    
     return new Promise((resolve, reject) => {
-      f.call(this, function(error) {
+      callback.call(this, function(error) {
         if(error) {
           reject(error);
         } else {
