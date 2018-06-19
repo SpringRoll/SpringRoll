@@ -34,7 +34,7 @@ export class Application {
    * @param {Object} data The data to emit along with the event
    */
   emit(eventName, data) {
-    if(this.listeners[eventName] instanceof Array) {
+    if(Array.isArray(this.listeners[eventName])) {
       this.listeners[eventName].forEach(function(callback) {
         callback(data);
       });
