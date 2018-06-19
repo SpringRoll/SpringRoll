@@ -10,7 +10,7 @@ export class Application {
     this.listeners = {};
     Application._plugins.forEach(plugin => plugin.setup.call(this));
     
-    let preloads = Application._plugins
+    const preloads = Application._plugins
       .map(plugin => this.promisify(plugin.preload))
     Promise.all(preloads).then(() => this.emit('init'));
   }
