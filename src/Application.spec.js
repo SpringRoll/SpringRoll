@@ -31,6 +31,17 @@ describe('Application', () => {
     });
   });
 
+  describe('event emitting', () => {
+    it('should call a callback if it is registered for an event', (done) => {
+      var app = new Application();
+      app.on('hello', function(data) {
+        expect(data).to.equal('world');
+        done();
+      });
+      app.emit('hello', 'world');
+    });
+  });
+
   describe('promisify', () => {
     it('should properly map preload methods that use a callback with success', (done) => {
       var app = new Application();
