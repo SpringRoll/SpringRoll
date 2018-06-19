@@ -21,7 +21,10 @@ export class Application {
    * @param {Function} method The function to call when the event is emitted
    */
   on(eventName, method) {
-    this.listeners[eventName] = this.listeners[eventName] || [];
+    if(!Array.isArray(this.listeners[eventName])) {
+      this.listeners[eventName] = this.listeners[eventName] || [];
+    }
+
     this.listeners[eventName].push(method);
   }
 
