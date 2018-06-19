@@ -12,6 +12,7 @@ describe('Application', () => {
       var plugin = new ApplicationPlugin();
       plugin.called = false;
       plugin.setup = () => plugin.called = true;
+      Application.uses(plugin);
 
       var app = new Application();
 
@@ -22,6 +23,7 @@ describe('Application', () => {
       var plugin = new ApplicationPlugin();
       plugin.called = false;
       plugin.preload = () => plugin.called = true;
+      Application.uses(plugin);
 
       var app = new Application();
       app.on('init', function() {

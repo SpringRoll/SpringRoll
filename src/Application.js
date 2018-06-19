@@ -71,3 +71,12 @@ export class Application {
  * @static
  */
 Application._plugins = [];
+
+/**
+ * Registers a plugin to be used by applications, sorting it by priority order
+ * @param {ApplicationPlugin} plugin The plugin to register
+ */
+Application.uses = function(plugin) {
+  Application._plugins.push(plugin);
+  Application._plugins.sort((p1, p2) => p2.priority - p1.priority);
+};
