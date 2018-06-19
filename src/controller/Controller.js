@@ -12,25 +12,21 @@ export class Controller {
   constructor(buttons = {}) {
     this.options = {};
 
-    this.keys = Object.keys(buttons);
+    this.keys = Object.keys(buttons)
+      .filter(key => 'function' === typeof buttons[key])
+      .map(key => key.toLowerCase());
 
-    this.buttonActions = {};
-    this.availableButtons = {};
+    this.buttons = {};
+
     for (let i = 0, l = this.keys.length; i < l; i++) {
-      if ('function' === typeof buttons[this.keys[i]]) {
-        this.availableButtons[this.keys[i]] = false;
-        this.buttonActions[this.keys[i]] = buttons[this.keys[i]];
-      } else {
-        console.warn(
-          `Controller: Warning ${this.keys[i]}'s property was not a function`
-        );
-      }
+      this.buttons[this.keys[i]] = {
+        enabled: false,
+        action: buttons[this.keys[i]]
+      };
     }
 
     window.addEventListener('keydown', this.onKeyDown.bind(this));
     window.addEventListener('keyup', this.onKeyUp.bind(this));
-
-    this.buttons = buttons;
   }
 
   /**
@@ -40,8 +36,8 @@ export class Controller {
    */
   update() {
     for (let i = 0, l = this.keys.length; i < l; i++) {
-      if (this.availableButtons[this.keys[i]]) {
-        this.buttonActions[this.keys[i]]();
+      if (this.buttons[this.keys[i]].enabled) {
+        this.buttons[this.keys[i]].action();
       }
     }
   }
@@ -49,12 +45,11 @@ export class Controller {
   /**
    *
    *
+   * @param {KeyboardEvent} e
    * @memberof Controller
    */
   onKeyDown(e) {
-    if (this.keys.includes(e.keyCode)) {
-      this.availableButtons[e.keyCode] = true;
-    }
+    this.onKey(e, true);
   }
 
   /**
@@ -63,8 +58,20 @@ export class Controller {
    * @memberof Controller
    */
   onKeyUp(e) {
-    if (this.keys.includes(e.keyCode)) {
-      this.availableButtons[e.keyCode] = false;
+    this.onKey(e, false);
+  }
+
+  /**
+   *
+   * @private
+   * @param {*} event
+   * @param {*} enable
+   * @memberof Controller
+   */
+  onKey(event, enable) {
+    const key = event.key.toLocaleLowerCase();
+    if (this.keys.includes(key)) {
+      this.buttons[key].enabled = enable;
     }
   }
 }
