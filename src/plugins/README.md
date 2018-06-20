@@ -5,22 +5,24 @@ Here's an example of a plugin:
 ```javascript
 import { ApplicationPlugin } from 'springroll/plugins/ApplicationPlugin';
 
-let priority = 20;
-let CustomPlugin = new ApplicationPlugin(priority); // higher priority plugins execute sooner
+export default class CustomPlugin extends ApplicationPlugin {
+  constructor() {
+    let priority = 20;
+    super(priority);
+  }
 
-CustomPlugin.setup = function() {
-  // custom synchronous code. `this` is bound to the current Application
-  this.customContent = {};
-};
+  setup() {
+    // custom synchronous code. `this` is bound to the current Application
+    this.customContent = {};
+  }
 
-CustomPlugin.preload = function() {
-  // custom asynchronous code. Expected to return a Promise.
-  return fetch(someApiEndpoint)
-    .then(response => response.json())
-    .then(json => this.customContent = json);
-};
-
-export default CustomPlugin
+  preload() {
+    // custom asynchronous code. Expected to return a Promise.
+    return fetch(someApiEndpoint)
+      .then(response => response.json())
+      .then(json => this.customContent = json);
+  }
+}
 ```
 
 Once you've created a plugin, you'll need to register it before instantiating the application:
@@ -29,7 +31,7 @@ Once you've created a plugin, you'll need to register it before instantiating th
 import { Application } from 'springroll';
 import CustomPlugin from './CustomPlugin';
 
-Application.uses(CustomPlugin);
+Application.uses(new CustomPlugin());
 
 const myApp = new Application();
 myApp.on('init', function() {
