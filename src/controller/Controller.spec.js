@@ -1,25 +1,31 @@
 import { Controller } from './Controller';
 
 describe('controller', () => {
-  it('Should only accept functions', () => {
-    const controller = new Controller({
-      1: null,
-      2: () => {},
-      3: 'a',
-      4: 4,
-      5: {},
-      6: undefined
-    });
+  it('Should accept a array of buttons', () => {
+    const controller = new Controller([
+      {
+        key: 'Enter',
+        down: console.log('key down')
+      },
+      { key: 'w', down: console.log('key down') },
+      { key: 'a', down: console.log('key down') },
+      { key: 's', down: console.log('key down') },
+      { key: 'd', down: console.log('key down') },
+      { key: ' ', down: console.log('key down') }
+    ]);
 
-    expect(controller.keys.length).to.equal(1);
+    expect(controller.keys.length).to.equal(6);
   });
 
   it('Should call functions on key press', done => {
-    const controller = new Controller({
-      enter: function() {
-        done();
-      }.bind(this)
-    });
+    const controller = new Controller([
+      {
+        key: 'enter',
+        down: function() {
+          done();
+        }.bind(this)
+      }
+    ]);
 
     const event = new Event('keydown');
     event.key = 'Enter';
@@ -28,11 +34,14 @@ describe('controller', () => {
   });
 
   it('Should not call functions when key is not pressed', done => {
-    const controller = new Controller({
-      enter: function() {
-        done(new Error());
-      }.bind(this)
-    });
+    const controller = new Controller([
+      {
+        key: 'Enter',
+        down: function() {
+          done(new Error());
+        }.bind(this)
+      }
+    ]);
 
     const eventDown = new Event('keydown');
     eventDown.key = 'Enter';
