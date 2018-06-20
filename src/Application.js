@@ -11,7 +11,7 @@ export class Application {
     Application._plugins.forEach(plugin => plugin.setup.call(this));
     
     const preloads = Application._plugins
-      .map(plugin => this.promisify(plugin.preload))
+      .map(plugin => this.promisify(plugin.preload));
     Promise.all(preloads).then(() => this.emit('init'));
   }
 
