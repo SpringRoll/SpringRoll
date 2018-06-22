@@ -33,8 +33,11 @@ export default class Localizer {
    * @memberof Localizer
    */
   resolve(path, options = {}) {
-    const language = options.language ? this.getLocaleKey(options.language) : this.primaryLanguage;
-    const fallback = this.getLocaleKey(options.fallback) || this.fallbackLanguage;
+    const language = options.language
+      ? this.getLocaleKey(options.language)
+      : this.primaryLanguage;
+    const fallback =
+      this.getLocaleKey(options.fallback) || this.fallbackLanguage;
 
     const primaryLocale = this.locales[language];
     const fallbackLocale = this.locales[fallback];
@@ -88,7 +91,7 @@ export default class Localizer {
       if (this.locales[key]) {
         return key;
       }
-      
+
       if (key.indexOf('-') > 0) {
         key = key.split('-')[0];
         return this.getLocaleKey(key);
