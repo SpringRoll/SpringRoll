@@ -88,6 +88,7 @@ export default class Localizer {
       if (this.locales[key]) {
         return key;
       }
+      
       if (key.indexOf('-') > 0) {
         key = key.split('-')[0];
         return this.getLocaleKey(key);
@@ -120,9 +121,11 @@ export default class Localizer {
     if (navigator.languages) {
       return navigator.languages;
     }
+
     if (navigator.language) {
       return [navigator.language || navigator.userLanguage];
     }
+
     return [];
   }
 }
