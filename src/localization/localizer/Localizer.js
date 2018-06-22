@@ -26,34 +26,26 @@ export default class Localizer {
   }
 
   /**
-   * 
-   * @param  {string} path 
-   * @param  {any} [options={}] 
+   *
+   * @param  {string} path
+   * @param  {any} [options={}]
    * @return {Promise}
    * @memberof Localizer
    */
   resolve(path, options = {}) {
-    return new Promise((resolve, reject) => {
-      const language = options.language ? this.getLocaleKey(options.language): this.primaryLanguage;
-      const fallback = this.getLocaleKey(options.fallback) || this.fallbackLanguage;
+    const language = options.language ? this.getLocaleKey(options.language) : this.primaryLanguage;
+    const fallback = this.getLocaleKey(options.fallback) || this.fallbackLanguage;
 
-      const primaryLocale = this.locales[language];
-      const fallbackLocale = this.locales[fallback];
+    const primaryLocale = this.locales[language];
+    const fallbackLocale = this.locales[fallback];
 
-      if (primaryLocale) {
-        resolve({ 
-          'path': primaryLocale.path + path, 
-          'language': language 
-        });
-      } else if (fallbackLocale) {
-        resolve({ 
-          'path': fallbackLocale.path + path, 
-          'language': fallback 
-        });
-      } else {
-        reject(new Error(`[Localizer.resolve()] Locale ${language} not found`));
-      }
-    });
+    if (primaryLocale) {
+      return { path: primaryLocale.path + path, language: language };
+    }
+
+    if (fallbackLocale) {
+      return { path: fallbackLocale.path + path, language: fallback };
+    }
   }
 
   /**
