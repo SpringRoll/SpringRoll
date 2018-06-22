@@ -2,187 +2,166 @@
 
 ### Table of Contents
 
--   [Debugger][1]
+-   [DebuggerParams][1]
     -   [Parameters][2]
-    -   [setLevel][3]
-        -   [Parameters][4]
-    -   [assert][5]
-        -   [Parameters][6]
-    -   [log][7]
-        -   [Parameters][8]
-    -   [emit][9]
-        -   [Parameters][10]
-    -   [assert][11]
-        -   [Parameters][12]
-    -   [isEnabled][13]
-    -   [enable][14]
-        -   [Parameters][15]
--   [PageVisibility][16]
-    -   [Parameters][17]
-    -   [Properties][18]
-    -   [enable][19]
-    -   [disable][20]
-    -   [destroy][21]
--   [SavedData][22]
-    -   [Properties][23]
-    -   [remove][24]
-        -   [Parameters][25]
-    -   [write][26]
-        -   [Parameters][27]
-    -   [read][28]
-        -   [Parameters][29]
--   [SpeechSynth][30]
-    -   [Parameters][31]
-    -   [pause][32]
-    -   [resume][33]
-    -   [cancel][34]
-    -   [say][35]
+    -   [Properties][3]
+-   [params][4]
+-   [minLevel][5]
+    -   [Parameters][6]
+-   [emit][7]
+    -   [Parameters][8]
+-   [LEVEL][9]
+-   [log][10]
+    -   [Parameters][11]
+-   [assert][12]
+    -   [Parameters][13]
+-   [isEnabled][14]
+-   [enable][15]
+    -   [Parameters][16]
+-   [paramKey][17]
+-   [ScaleManager][18]
+    -   [Parameters][19]
+    -   [Properties][20]
+    -   [enable][21]
+        -   [Parameters][22]
+    -   [disable][23]
+-   [SpeechSynth][24]
+    -   [Parameters][25]
+    -   [Properties][26]
+    -   [pause][27]
+    -   [resume][28]
+    -   [cancel][29]
+    -   [say][30]
+        -   [Parameters][31]
+    -   [voice][32]
+        -   [Parameters][33]
+    -   [voice][34]
+    -   [lang][35]
         -   [Parameters][36]
-    -   [voice][37]
-        -   [Parameters][38]
-    -   [voice][39]
-    -   [lang][40]
-        -   [Parameters][41]
-    -   [lang][42]
-    -   [rate][43]
-        -   [Parameters][44]
-    -   [rate][45]
-    -   [pitch][46]
-        -   [Parameters][47]
-    -   [pitch][48]
-    -   [volume][49]
-        -   [Parameters][50]
-    -   [volume][51]
+    -   [lang][37]
+    -   [rate][38]
+        -   [Parameters][39]
+    -   [rate][40]
+    -   [pitch][41]
+        -   [Parameters][42]
+    -   [pitch][43]
+    -   [volume][44]
+        -   [Parameters][45]
+    -   [volume][46]
+-   [ColorFilter][47]
+    -   [applyFilter][48]
+        -   [Parameters][49]
+    -   [changeFilter][50]
+        -   [Parameters][51]
+    -   [removeFilter][52]
+    -   [types][53]
 
-## Debugger
+## DebuggerParams
+
+Type: [object][54]
 
 ### Parameters
 
--   `params` **[Object][52]** options (optional, default `{}`)
-    -   `params.emitEnabled` **[boolean][53]** If this should emit events to the window (optional, default `false`)
+-   `params` **[Object][54]** options
+    -   `params.emitEnabled` **[boolean][55]** If this should emit events to the window (optional, default `false`)
     -   `params.minLevel` **(`"GENERAL"` \| `"DEBUG"` \| `"INFO"` \| `"WARN"` \| `"ERROR"`)** The starting log level for the logger (optional, default `'GENERAL'`)
 
-### setLevel
+### Properties
+
+-   `emitEnabled` **[boolean][55]** 
+-   `enabled` **[boolean][55]** 
+-   `minLevel` **[number][56]** 
+
+## params
+
+returns the params of the debugger
+
+Returns **[DebuggerParams][57]** 
+
+## minLevel
 
 Sets the logging level of the debugger
 
-#### Parameters
+### Parameters
 
--   `level` **[string][54]** the name of the level
+-   `level` **([string][58] \| [number][56])** the name of the level
 
 Returns **void** 
 
-### assert
-
-Will throw if statement is false
-
-#### Parameters
-
--   `isTrue` **[boolean][53]** the expression to evaluate
-
-### log
-
-Console logs all supplied arguments if the log level is low enough for them to be logged
-
-#### Parameters
-
--   `type` **(`"log"` \| `"general"` \| `"warn"` \| `"error"` \| `"debug"` \| `"info"`)** minimum level for this log to run at (optional, default `'log'`)
--   `args` **[Array][55]&lt;any>** arguments you wish to log
-
-### emit
+## emit
 
 If emitting is enabled for this instance than it will dispatch a event on the window
 
-#### Parameters
+### Parameters
 
--   `eventName` **[string][54]** Name of the event (optional, default `'Debugger'`)
+-   `eventName` **[string][58]** Name of the event (optional, default `'Debugger'`)
 
-### assert
+## LEVEL
 
-Will throw if statement is false
+Returns logging levels
 
-#### Parameters
+Returns **[object][54]** 
 
--   `isTrue` **[boolean][53]** the expression to evaluate
+## log
 
-### isEnabled
-
-returns a boolean indicating if the debugger has been enabled or not
-
-Returns **[boolean][53]** 
-
-### enable
-
-Disabled or enables all debugger instances
-
-#### Parameters
-
--   `flag` **[boolean][53]** 
-
-Returns **void** 
-
-## PageVisibility
+Console logs all supplied arguments if the log level is low enough for them to be logged
 
 ### Parameters
 
--   `onFocus` **[Function][56]**  (optional, default `function(){}`)
--   `onBlur` **[Function][56]**  (optional, default `function(){}`)
+-   `type` **(`"log"` \| `"general"` \| `"warn"` \| `"error"` \| `"debug"` \| `"info"`)** minimum level for this log to run at (optional, default `'log'`)
+-   `args` **[Array][59]&lt;any>** arguments you wish to log
+
+## assert
+
+Will throw if statement is false
+
+### Parameters
+
+-   `isTrue` **[boolean][55]** the expression to evaluate
+
+## isEnabled
+
+returns a boolean indicating if the debugger has been enabled or not
+
+Returns **[boolean][55]** 
+
+## enable
+
+Disabled or enables all debugger instances
+
+### Parameters
+
+-   `flag` **[boolean][55]** 
+
+Returns **void** 
+
+## paramKey
+
+returns the global params key
+
+## ScaleManager
+
+Simplifies listening to resize events by passing the relevant data to a provided callback
+
+### Parameters
+
+-   `callback` **[Function][60]**  (optional, default `undefined`)
 
 ### Properties
 
--   `onFocus` **[Function][56]** Callback for when the page becomes visible
--   `onBlur` **[Function][56]** Callback for when the page loses visibility
--   `onToggle` **[Function][56]** the visibility toggle listener function
+-   `callback` **[Function][60]?** 
 
 ### enable
 
-Enables the event listeners
+Enables the scale manager listener. Will not be enabled if a callback is not supplied
+
+#### Parameters
+
+-   `callback` **[Function][60]** the function to be called on resize events (optional, default `undefined`)
 
 ### disable
 
-Disables the event listeners
-
-### destroy
-
-Disable the detection
-
-## SavedData
-
-The SavedData Class use localStorage and sessionStorage to save data, with a cookie fallback for legacy support.
-
-### Properties
-
--   `ERASE_COOKIE` **[Boolean][53]?** A constant for cookie fallback for `SavedData.remove()`
--   `WEB_STORAGE_SUPPORT` **[Boolean][53]?** A constant for if if the user is in Private Browsing, writing to localStorage throws an error
-    in iOS, if the user is in Private Browsing, writing to localStorage throws an error. In this case WEB_STORAGE_SUPPORT is set to false
-
-### remove
-
-Remove a saved variable by name.
-
-#### Parameters
-
--   `name` **[String][54]** The name of the value to remove
-
-### write
-
-Save a variable.
-
-#### Parameters
-
--   `name` **[String][54]** The name/location of where you would like to save
--   `value` **[Object][52]** The value to save.
--   `tempOnly` **[Boolean][53]** If the value should be saved only in the current browser session. (optional, default `false`)
-
-### read
-
-Read the value of a saved variable
-
-#### Parameters
-
--   `name` **[String][54]** The name of the variable
-
-Returns **[Object][52]** Data saved at that location
+Disabled the scale manager
 
 ## SpeechSynth
 
@@ -190,11 +169,15 @@ SpeechSync makes it easy to convert text to speech
 
 ### Parameters
 
--   `params` **[object][52]** 
-    -   `params.voice` **[number][57]** Indicates what voice to use. This does not work on Chrome (optional, default `0`)
-    -   `params.rate` **[number][57]** The rate at which the text is said. Supports a range from 0.1 to 10. (optional, default `1`)
-    -   `params.pitch` **[number][57]** Voice Pitch. Supports a pitch from 0 to 2 (optional, default `0`)
-    -   `params.volume` **[number][57]** Volume. Supports 0 to 1. (optional, default `1`)
+-   `params` **[object][54]** 
+    -   `params.voice` **[number][56]** Indicates what voice to use. (optional, default `0`)
+    -   `params.rate` **[number][56]** The rate at which the text is said. Supports a range from 0.1 to 10. (optional, default `1`)
+    -   `params.pitch` **[number][56]** Voice Pitch. Supports a pitch from 0 to 2 (optional, default `0`)
+    -   `params.volume` **[number][56]** Volume. Supports 0 to 1. (optional, default `1`)
+
+### Properties
+
+-   `voicesLoaded` **[boolean][55]** voices are loaded async. This is will be set to true when they are loaded
 
 ### pause
 
@@ -215,21 +198,21 @@ If the announcer is already saying something then it will be added to a queue.
 
 #### Parameters
 
--   `message` **[string][54]** 
+-   `message` **[string][58]** 
 
 ### voice
 
-Sets the voice by array index. Note the implementation of this is non-standard, and currently Chrome only has 1 voice.
+Sets the voice by array index.
 
 #### Parameters
 
--   `index` **[number][57]** 
+-   `index` **[number][56]** 
 
 ### voice
 
-Returns the voice object. Will return null on Chrome.
+Returns the voice object.
 
-Returns **([object][52] | null)** 
+Returns **([object][54] | null)** 
 
 ### lang
 
@@ -237,13 +220,13 @@ Will set the language for the announcer. If not pull the language from the html 
 
 #### Parameters
 
--   `lang` **[string][54]** e.g 'en-US'
+-   `lang` **[string][58]** e.g 'en-US'
 
 ### lang
 
 Will return the language string if manually set
 
-Returns **[string][54]** 
+Returns **[string][58]** 
 
 ### rate
 
@@ -251,13 +234,13 @@ Rate at which text is spoken
 
 #### Parameters
 
--   `rate` **[number][57]** 
+-   `rate` **[number][56]** 
 
 ### rate
 
 Returns rate which text is spoken
 
-Returns **[number][57]** 
+Returns **[number][56]** 
 
 ### pitch
 
@@ -265,13 +248,13 @@ Sets the pitch at which text is spoken
 
 #### Parameters
 
--   `pitch` **[number][57]** 
+-   `pitch` **[number][56]** 
 
 ### pitch
 
 Returns the pitch at which text is spoken
 
-Returns **[number][57]** 
+Returns **[number][56]** 
 
 ### volume
 
@@ -279,124 +262,163 @@ Sets the current volume of the announcer
 
 #### Parameters
 
--   `volume` **[number][57]** 
+-   `volume` **[number][56]** 
 
 ### volume
 
 Returns the current volume of the announcer
 
-Returns **[number][57]** 
+Returns **[number][56]** 
 
-[1]: #debugger
+## ColorFilter
+
+Color filter allows you to simulate colorblindness
+
+### applyFilter
+
+Applies the specified filter to the element
+
+#### Parameters
+
+-   `element` **[HTMLElement][61]** 
+-   `type` **[string][58]** 
+
+### changeFilter
+
+Changes the currently applied filter to the element if the color filter has that filter
+
+#### Parameters
+
+-   `type` **[string][58]** 
+
+Returns **any** 
+
+### removeFilter
+
+Removes the filter from the element
+
+### types
+
+Supported filter types
+
+[1]: #debuggerparams
 
 [2]: #parameters
 
-[3]: #setlevel
+[3]: #properties
 
-[4]: #parameters-1
+[4]: #params
 
-[5]: #assert
+[5]: #minlevel
 
-[6]: #parameters-2
+[6]: #parameters-1
 
-[7]: #log
+[7]: #emit
 
-[8]: #parameters-3
+[8]: #parameters-2
 
-[9]: #emit
+[9]: #level
 
-[10]: #parameters-4
+[10]: #log
 
-[11]: #assert-1
+[11]: #parameters-3
 
-[12]: #parameters-5
+[12]: #assert
 
-[13]: #isenabled
+[13]: #parameters-4
 
-[14]: #enable
+[14]: #isenabled
 
-[15]: #parameters-6
+[15]: #enable
 
-[16]: #pagevisibility
+[16]: #parameters-5
 
-[17]: #parameters-7
+[17]: #paramkey
 
-[18]: #properties
+[18]: #scalemanager
 
-[19]: #enable-1
+[19]: #parameters-6
 
-[20]: #disable
+[20]: #properties-1
 
-[21]: #destroy
+[21]: #enable-1
 
-[22]: #saveddata
+[22]: #parameters-7
 
-[23]: #properties-1
+[23]: #disable
 
-[24]: #remove
+[24]: #speechsynth
 
 [25]: #parameters-8
 
-[26]: #write
+[26]: #properties-2
 
-[27]: #parameters-9
+[27]: #pause
 
-[28]: #read
+[28]: #resume
 
-[29]: #parameters-10
+[29]: #cancel
 
-[30]: #speechsynth
+[30]: #say
 
-[31]: #parameters-11
+[31]: #parameters-9
 
-[32]: #pause
+[32]: #voice
 
-[33]: #resume
+[33]: #parameters-10
 
-[34]: #cancel
+[34]: #voice-1
 
-[35]: #say
+[35]: #lang
 
-[36]: #parameters-12
+[36]: #parameters-11
 
-[37]: #voice
+[37]: #lang-1
 
-[38]: #parameters-13
+[38]: #rate
 
-[39]: #voice-1
+[39]: #parameters-12
 
-[40]: #lang
+[40]: #rate-1
 
-[41]: #parameters-14
+[41]: #pitch
 
-[42]: #lang-1
+[42]: #parameters-13
 
-[43]: #rate
+[43]: #pitch-1
 
-[44]: #parameters-15
+[44]: #volume
 
-[45]: #rate-1
+[45]: #parameters-14
 
-[46]: #pitch
+[46]: #volume-1
 
-[47]: #parameters-16
+[47]: #colorfilter
 
-[48]: #pitch-1
+[48]: #applyfilter
 
-[49]: #volume
+[49]: #parameters-15
 
-[50]: #parameters-17
+[50]: #changefilter
 
-[51]: #volume-1
+[51]: #parameters-16
 
-[52]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object
+[52]: #removefilter
 
-[53]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean
+[53]: #types
 
-[54]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String
+[54]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object
 
-[55]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array
+[55]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean
 
-[56]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function
+[56]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number
 
-[57]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number
+[57]: #debuggerparams
+
+[58]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String
+
+[59]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array
+
+[60]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function
+
+[61]: https://developer.mozilla.org/docs/Web/HTML/Element

@@ -1,11 +1,14 @@
+import { isArray } from 'util';
+
 /**
  * SpeechSync makes it easy to convert text to speech
  * @class SpeechSynth
  * @param {object} params
- * @param {number} [params.voice=0] Indicates what voice to use. This does not work on Chrome
+ * @param {number} [params.voice=0] Indicates what voice to use.
  * @param {number} [params.rate=1] The rate at which the text is said. Supports a range from 0.1 to 10.
  * @param {number} [params.pitch=0] Voice Pitch. Supports a pitch from 0 to 2
  * @param {number} [params.volume=1] Volume. Supports 0 to 1.
+ * @property {boolean} voicesLoaded voices are loaded async. This is will be set to true when they are loaded
  */
 export class SpeechSynth {
   /**
@@ -13,9 +16,29 @@ export class SpeechSynth {
    */
   constructor({ voice = 0, rate = 1, pitch = 0, volume = 1 } = {}) {
     this.speaker = new SpeechSynthesisUtterance();
-    this.voiceOptions = window.speechSynthesis.getVoices();
+    this.voiceOptions = [];
+    this.voicesLoaded = false;
+    this.voice = {};
 
-    this.voice = voice;
+    /**
+     * Called when voices are ready to be used
+     * @private
+     */
+    const loadVoices = function() {
+      this.voiceOptions = window.speechSynthesis.getVoices();
+      this.voice = this.voiceOptions[voice];
+      this.voicesLoaded = true;
+    }.bind(this);
+
+    const voiceOptions = window.speechSynthesis.getVoices();
+    if (isArray(voiceOptions) && 0 < voiceOptions.length) {
+      loadVoices();
+    } else {
+      window.speechSynthesis.addEventListener('voiceschanged', loadVoices, {
+        once: true
+      });
+    }
+
     this.rate = rate;
     this.pitch = pitch;
     this.volume = volume;
@@ -62,7 +85,7 @@ export class SpeechSynth {
    * @param {string} message
    */
   say(message) {
-    if (this.speaking) {
+    if (this.speaking || !this.voicesLoaded) {
       this.queue.push(message);
       return;
     }
@@ -70,7 +93,6 @@ export class SpeechSynth {
     this.speaking = true;
 
     this.speaker.text = message;
-
     window.speechSynthesis.speak(this.speaker);
   }
 
@@ -101,7 +123,7 @@ export class SpeechSynth {
   }
 
   /**
-   * Sets the voice by array index. Note the implementation of this is non-standard, and currently Chrome only has 1 voice.
+   * Sets the voice by array index.
    * @param {number} index
    */
   set voice(index) {
@@ -109,7 +131,7 @@ export class SpeechSynth {
   }
 
   /**
-   * Returns the voice object. Will return null on Chrome.
+   * Returns the voice object.
    * @returns {object | null}
    */
   get voice() {

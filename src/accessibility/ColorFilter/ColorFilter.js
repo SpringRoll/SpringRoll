@@ -111,7 +111,7 @@ export class ColorFilter {
    * @memberof ColorFilter
    */
   changeFilter(type) {
-    if (null !== this.element && this.types[type]) {
+    if (null !== this.element) {
       this.element.style.filter = `url(#color__filter__${type})`;
     }
   }
@@ -130,15 +130,39 @@ export class ColorFilter {
    * @memberof ColorFilter
    */
   get types() {
-    return {
-      protanopia: 'protanopia',
-      protanomaly: 'protanomaly',
-      deuteranopia: 'deuteranopia',
-      deuteranomaly: 'deuteranomaly',
-      tritanopia: 'tritanopia',
-      tritanomaly: 'tritanomaly',
-      achromatopsia: 'achromatopsia',
-      achromatomaly: 'achromatomaly'
-    };
+    return [
+      {
+        name: 'Protanopia',
+        value: 'protanopia'
+      },
+      {
+        name: 'Protanomaly',
+        value: 'protanomaly'
+      },
+      {
+        name: 'Deuteranopia',
+        value: 'deuteranopia'
+      },
+      {
+        name: 'Deuteranomaly',
+        value: 'deuteranomaly'
+      },
+      {
+        name: 'Tritanopia',
+        value: 'tritanopia'
+      },
+      {
+        name: 'Tritanomaly',
+        value: 'tritanomaly'
+      },
+      {
+        name: 'Achromatopsia',
+        value: 'achromatopsia'
+      },
+      {
+        name: 'Achromatomaly',
+        value: 'achromatomaly'
+      }
+    ];
   }
 }

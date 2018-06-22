@@ -28,19 +28,10 @@ export class ScaleManager {
     const width = event.target.innerWidth;
     const height = event.target.innerHeight;
 
-    if (1 < width || 1 < height) {
-      this.width = width;
-      this.height = height;
-    }
-
     this.callback({
       width,
       height,
-      scale: {
-        ratio: width / height,
-        x: width / this.width,
-        y: height / this.height
-      }
+      ratio: width / height
     });
 
     this.width = width;

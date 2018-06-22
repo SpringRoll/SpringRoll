@@ -7,10 +7,7 @@ describe('Scale Manager', () => {
     sm.enable(e => {
       expect(e.width).to.be.a('number');
       expect(e.height).to.be.a('number');
-      expect(e.scale).to.be.an('object');
-      expect(e.scale.ratio).to.be.a('number');
-      expect(e.scale.x).to.be.not.NaN;
-      expect(e.scale.y).to.be.not.NaN;
+      expect(e.ratio).to.be.an('number');
       done();
     });
 
