@@ -47,10 +47,6 @@ export class Key {
       this.actions.up();
       this.updateState(0);
     }
-
-    if (1 === this.state) {
-      console.log('test');
-    }
   }
 
   /**

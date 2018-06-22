@@ -74,7 +74,6 @@ export class Controller {
     const key = event.key.toLowerCase();
     if (this.buttons[key]) {
       this.buttons[key].updateState(state);
-      console.log(state, this.buttons[key].state);
     }
   }
 }
