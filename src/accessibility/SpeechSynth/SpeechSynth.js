@@ -33,7 +33,8 @@ export class SpeechSynth {
     const voiceOptions = window.speechSynthesis.getVoices();
     if (isArray(voiceOptions) && 0 < voiceOptions.length) {
       loadVoices();
-    } else {
+    }
+    else {
       window.speechSynthesis.addEventListener('voiceschanged', loadVoices, {
         once: true
       });

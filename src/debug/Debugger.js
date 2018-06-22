@@ -36,7 +36,8 @@ export class Debugger {
     level = level.toUpperCase();
     if (Debugger.isValidLevelName(level)) {
       window[Debugger.paramKey].minLevel = Debugger.LEVEL[level];
-    } else {
+    }
+    else {
       window[Debugger.paramKey].minLevel = Debugger.LEVEL['GENERAL'];
     }
   }

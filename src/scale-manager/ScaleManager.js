@@ -46,7 +46,8 @@ export class ScaleManager {
     if (callback instanceof Function) {
       this.callback = callback;
       window.addEventListener('resize', this.onResize);
-    } else {
+    }
+    else {
       console.warn('Scale Manager was not passed a function');
     }
   }
