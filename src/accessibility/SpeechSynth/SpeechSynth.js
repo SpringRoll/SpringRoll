@@ -39,7 +39,8 @@ export class SpeechSynth {
     const voiceOptions = window.speechSynthesis.getVoices();
     if (isArray(voiceOptions) && 0 < voiceOptions.length) {
       loadVoices();
-    } else {
+    }
+    else {
       window.speechSynthesis.addEventListener('voiceschanged', loadVoices, {
         once: true
       });
@@ -78,6 +79,14 @@ export class SpeechSynth {
    * @param {string} message
    */
   say(message) {
+    const onEnd = () => {
+      this.speaking = false;
+
+      if (0 < this.queue.length) {
+        this.say(this.queue.shift());
+      }
+    };
+
     if (this.speaking || !this.voicesLoaded) {
       this.queue.push(message);
       return;
@@ -89,7 +98,7 @@ export class SpeechSynth {
 
     Object.assign(speaker, this.options);
 
-    speaker.onend = this.onEnd;
+    speaker.onend = onEnd;
 
     window.speechSynthesis.speak(speaker);
   }
@@ -118,19 +127,6 @@ export class SpeechSynth {
     }
 
     return value;
-  }
-
-  /**
-   * Called at the end of a utterance
-   * @private
-   * @memberof SpeechSynth
-   */
-  onEnd() {
-    this.speaking = false;
-
-    if (0 < this.queue.length) {
-      this.say(this.queue.shift());
-    }
   }
 
   /**
