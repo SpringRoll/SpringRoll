@@ -23,7 +23,8 @@ export default [
         module: true,
         jsnext: true,
         main: true,
-        browser: true
+        browser: true,
+        preferBuiltins: false
       }),
       commonjs(),
       babel(),
