@@ -79,6 +79,11 @@ export class SpeechSynth {
    * @param {string} message
    */
   say(message) {
+    if (this.speaking || !this.voicesLoaded) {
+      this.queue.push(message);
+      return;
+    }
+
     const onEnd = () => {
       this.speaking = false;
 
@@ -86,11 +91,6 @@ export class SpeechSynth {
         this.say(this.queue.shift());
       }
     };
-
-    if (this.speaking || !this.voicesLoaded) {
-      this.queue.push(message);
-      return;
-    }
 
     this.speaking = true;
 
