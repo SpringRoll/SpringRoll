@@ -16,9 +16,11 @@ export default class Caption {
       if (a.endTime < b.endTime) {
         return -1;
       }
+
       if (a.endTime > b.endTime) {
         return 1;
       }
+
       return 0;
     });
 
@@ -33,7 +35,6 @@ export default class Caption {
   reset() {
     this.time = 0;
     this.lineIndex = 0;
-    this.content = '';
   }
 
   /**
@@ -44,41 +45,36 @@ export default class Caption {
    * @memberof Caption
    */
   update(deltaTime) {
-    this.time += deltaTime * 1000;
-    this.incrementLineIndex(this.time);
-    if (!this.isFinished()) {
-      this.content = this.lines[this.lineIndex].getContent(this.time);
-    } else {
-      this.content = '';
-    }
-  }
-
-  /**
-   * Returns current content;
-   *
-   * @returns {string} content
-   * @memberof Caption
-   */
-  getContent() {
-    return this.content;
-  }
-
-  /**
-   * increments lineIndex if time is greater than the end time of the current line.
-   * @private
-   * @param {Number} time - time in milliseconds
-   * @memberof Caption
-   */
-  incrementLineIndex(time) {
-    if (this.isFinished()) {
-      // <-- this will make sure it doesn't throw an error if this.lines is empty
+    const time = this.time + deltaTime * 1000;
+    if (time == this.time) {
       return;
     }
-    while (time > this.lines[this.lineIndex].endTime) {
+
+    this.updateState(time, this.time);
+    this.time = time;
+  }
+
+  /** */
+  updateState(currentTime, lastTime) {
+    if (this.isFinished()) {
+      return;
+    }
+
+    if (currentTime > this.lines[this.lineIndex].endTime) {
+      this.hideCallback();
+    }
+
+    while (currentTime > this.lines[this.lineIndex].endTime) {
       this.lineIndex++;
       if (this.isFinished()) {
-        break;
+        return;
       }
+    }
+
+    const line = this.lines[this.lineIndex];
+    if (currentTime >= line.startTime && lastTime < line.startTime) {
+      this.showCallback(line);
+      return;
     }
   }
 
@@ -97,8 +93,10 @@ export default class Caption {
    * @param {Number} [time=0] - time in milliseconds
    * @memberof Caption
    */
-  start(time = 0) {
+  start(time = 0, showCallback = () => {}, hideCallback = () => {}) {
     this.reset();
     this.update(time / 1000);
+    this.showCallback = showCallback;
+    this.hideCallback = hideCallback;
   }
 }

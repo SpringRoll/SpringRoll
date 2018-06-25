@@ -1,7 +1,13 @@
 import { Debugger } from './../../debug/Debugger';
+
+/**
+ * Object used to render caption
+ * @typedef {{start:(), stop:(), show:(line: TimedLine), hide:()}} ICaptionRenderer
+ */
+
 /**
  *  CaptionPlayer is used to start, stop and update captions.
- *  it applies the content of an active caption to a given HTML Element.
+ *  it applies the content of an active caption to a given CaptionRenderer.
  *
  * @export
  * @class CaptionPlayer
@@ -12,11 +18,11 @@ export default class CaptionPlayer {
   /**
    * Creates an instance of CaptionPlayer.
    * @param {Object.<string, Caption>} captions - captions map.
-   * @param {HTMLElement} element DOM element that content is written too.
+   * @param {ICaptionRenderer} renderer CaptionRenderer that content is applied too.
    * @memberof CaptionPlayer
    */
-  constructor(captions, element) {
-    this.element = element;
+  constructor(captions, renderer) {
+    this.renderer = renderer;
     this.captions = captions;
 
     this.activeCaption = null;
@@ -32,10 +38,6 @@ export default class CaptionPlayer {
   update(deltaTime) {
     if (this.activeCaption) {
       this.activeCaption.update(deltaTime);
-      if (!this.activeCaption.isFinished()) {
-        this.setElementContent(this.activeCaption.getContent());
-        return;
-      }
       this.stop();
     }
   }
@@ -52,7 +54,11 @@ export default class CaptionPlayer {
     this.stop();
     this.activeCaption = this.captions[name];
     if (this.activeCaption) {
-      this.activeCaption.start(time);
+      if (this.renderer.start) {
+        this.renderer.start();
+      }
+
+      this.activeCaption.start(time, this.renderer.show, this.renderer.hide);
       this.update(0);
     } else {
       Debugger.log('warn', `[CaptionPlayer.Start()] caption ${name} not found`);
@@ -64,19 +70,11 @@ export default class CaptionPlayer {
    * @memberof CaptionPlayer
    */
   stop() {
-    this.activeCaption = null;
-    this.setElementContent('');
-    //Maybe: add onStopCallback?
-  }
-
-  /**
-   * sets content of HTML element.
-   *
-   * @private
-   * @param {String} content
-   * @memberof CaptionPlayer
-   */
-  setElementContent(content) {
-    this.element.innerHTML = content;
+    if (this.activeCaption) {
+      if (this.renderer.stop) {
+        this.renderer.stop();
+      }
+      this.activeCaption = null;
+    }
   }
 }

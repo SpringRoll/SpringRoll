@@ -1,33 +1,28 @@
 /**
- *
- *
  * @export
- * @class Line
+ * @class TimedLine
  */
 export default class TimedLine {
   /**
    * Creates an instance of TimedLine.
-   * @param {string} content - Formatted string content to show during time-span
    * @param {Number} startTime - start time in milliseconds relative to caption
    * @param {Number} endTime - end time in milliseconds relative to caption
+   * @param {string} content - html formatted string content to show during time-span
    * @memberof TimedLine
    */
-  constructor(content, startTime, endTime) {
+  constructor(startTime, endTime, content) {
     this.startTime = startTime;
     this.endTime = endTime;
-    this.content = content;
+    this.setContent(content);
   }
 
   /**
-   * get string contents of line.
-   * @param {Number} time - time in milliseconds
-   * @returns {String} content if time is between startTime and endTime, other wise returns and empty string
-   * @memberof TimedLine
+   * Set's line's content. removes HTML formatting for text
+   * @param  {any} content
+   * @return {void}@memberof TimedLine
    */
-  getContent(time) {
-    if (time <= this.endTime && time >= this.startTime) {
-      return this.content;
-    }
-    return '';
+  setContent(content) {
+    this.content = content;
+    this.text = content.replace(/<(?:.|\n)*?>/gm, '');
   }
 }
