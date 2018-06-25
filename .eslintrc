@@ -10,7 +10,7 @@
     "expect": true,
     "should": true
   },
-  "plugins": ["node"],
+  "plugins": ["node", "prettier"],
   "extends": ["eslint:recommended"],
   "parserOptions": {
     "sourceType": "module"
@@ -28,7 +28,6 @@
       { "functions": "always", "keywords": "always", "classes": "always" }
     ],
     "keyword-spacing": ["error"],
-    "brace-style": ["error", "stroustrup"],
     "indent": ["error", 2],
     "semi": ["error", "always"],
     "no-console": [0],

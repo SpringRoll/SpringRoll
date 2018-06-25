@@ -36,11 +36,13 @@ describe('CaptionFactory', function() {
 
   describe('#createLine()', function() {
     it('should return undefined if data.start is not a number', function() {
-      expect(CaptionFactory.createLine({ start: 0, content: 'hello' })).to.be.undefined;
+      expect(CaptionFactory.createLine({ start: 0, content: 'hello' })).to.be
+        .undefined;
     });
 
     it('should return undefined if data.end is not a number', function() {
-      expect(CaptionFactory.createLine({ end: 1000, content: 'hello' })).to.be.undefined;
+      expect(CaptionFactory.createLine({ end: 1000, content: 'hello' })).to.be
+        .undefined;
     });
 
     it('should return instanceOf TimedLine', function() {
