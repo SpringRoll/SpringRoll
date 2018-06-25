@@ -27,55 +27,72 @@
     -   [disable][23]
 -   [SpeechSynth][24]
     -   [Parameters][25]
-    -   [pause][26]
-    -   [resume][27]
-    -   [cancel][28]
-    -   [say][29]
-        -   [Parameters][30]
-    -   [voice][31]
-        -   [Parameters][32]
-    -   [voice][33]
-    -   [lang][34]
-        -   [Parameters][35]
-    -   [lang][36]
-    -   [rate][37]
-        -   [Parameters][38]
-    -   [rate][39]
-    -   [pitch][40]
-        -   [Parameters][41]
-    -   [pitch][42]
-    -   [volume][43]
-        -   [Parameters][44]
-    -   [volume][45]
--   [ColorFilter][46]
-    -   [applyFilter][47]
-        -   [Parameters][48]
-    -   [changeFilter][49]
-        -   [Parameters][50]
-    -   [removeFilter][51]
-    -   [types][52]
+    -   [Properties][26]
+    -   [pause][27]
+    -   [resume][28]
+    -   [cancel][29]
+    -   [say][30]
+        -   [Parameters][31]
+    -   [voice][32]
+        -   [Parameters][33]
+    -   [voice][34]
+    -   [lang][35]
+        -   [Parameters][36]
+    -   [lang][37]
+    -   [rate][38]
+        -   [Parameters][39]
+    -   [rate][40]
+    -   [pitch][41]
+        -   [Parameters][42]
+    -   [pitch][43]
+    -   [volume][44]
+        -   [Parameters][45]
+    -   [volume][46]
+-   [ColorFilter][47]
+    -   [applyFilter][48]
+        -   [Parameters][49]
+    -   [changeFilter][50]
+        -   [Parameters][51]
+    -   [removeFilter][52]
+    -   [types][53]
+-   [Controller][54]
+    -   [Parameters][55]
+    -   [update][56]
+    -   [onKeyDown][57]
+        -   [Parameters][58]
+    -   [onKeyUp][59]
+        -   [Parameters][60]
+    -   [assignButtons][61]
+        -   [Parameters][62]
+-   [Key][63]
+    -   [Parameters][64]
+    -   [Properties][65]
+    -   [updateState][66]
+        -   [Parameters][67]
+    -   [action][68]
+    -   [state][69]
 
 ## DebuggerParams
 
-Type: [object][53]
+Type: [object][70]
 
 ### Parameters
 
--   `params` **[Object][53]** options
-    -   `params.emitEnabled` **[boolean][54]** If this should emit events to the window (optional, default `false`)
+-   `params` **[Object][70]** options
+    -   `params.emitEnabled` **[boolean][71]** If this should emit events to the window (optional, default `false`)
     -   `params.minLevel` **(`"GENERAL"` \| `"DEBUG"` \| `"INFO"` \| `"WARN"` \| `"ERROR"`)** The starting log level for the logger (optional, default `'GENERAL'`)
 
 ### Properties
 
--   `emitEnabled` **[boolean][54]** 
--   `enabled` **[boolean][54]** 
--   `minLevel` **[number][55]** 
+-   `emitEnabled` **[boolean][71]** 
+-   `enabled` **[boolean][71]** 
+-   `minLevel` **[number][72]** 
 
 ## params
 
 returns the params of the debugger
 
-Returns **[DebuggerParams][56]** 
+Returns **[DebuggerParams][73]** 
 
 ## minLevel
 
@@ -83,7 +100,7 @@ Sets the logging level of the debugger
 
 ### Parameters
 
--   `level` **([string][57] \| [number][55])** the name of the level
+-   `level` **([string][74] \| [number][72])** the name of the level
 
 Returns **void** 
 
@@ -93,13 +110,13 @@ If emitting is enabled for this instance than it will dispatch a event on the wi
 
 ### Parameters
 
--   `eventName` **[string][57]** Name of the event (optional, default `'Debugger'`)
+-   `eventName` **[string][74]** Name of the event (optional, default `'Debugger'`)
 
 ## LEVEL
 
 Returns logging levels
 
-Returns **[object][53]** 
+Returns **[object][70]** 
 
 ## log
 
@@ -108,7 +125,7 @@ Console logs all supplied arguments if the log level is low enough for them to b
 ### Parameters
 
 -   `type` **(`"log"` \| `"general"` \| `"warn"` \| `"error"` \| `"debug"` \| `"info"`)** minimum level for this log to run at (optional, default `'log'`)
--   `args` **[Array][58]&lt;any>** arguments you wish to log
+-   `args` **[Array][75]&lt;any>** arguments you wish to log
 
 ## assert
 
@@ -116,13 +133,13 @@ Will throw if statement is false
 
 ### Parameters
 
--   `isTrue` **[boolean][54]** the expression to evaluate
+-   `isTrue` **[boolean][71]** the expression to evaluate
 
 ## isEnabled
 
 returns a boolean indicating if the debugger has been enabled or not
 
-Returns **[boolean][54]** 
+Returns **[boolean][71]** 
 
 ## enable
 
@@ -130,7 +147,7 @@ Disabled or enables all debugger instances
 
 ### Parameters
 
--   `flag` **[boolean][54]** 
+-   `flag` **[boolean][71]** 
 
 Returns **void** 
 
@@ -144,11 +161,11 @@ Simplifies listening to resize events by passing the relevant data to a provided
 
 ### Parameters
 
--   `callback` **[Function][59]**  (optional, default `undefined`)
+-   `callback` **[Function][76]**  (optional, default `undefined`)
 
 ### Properties
 
--   `callback` **[Function][59]?** 
+-   `callback` **[Function][76]?** 
 
 ### enable
 
@@ -156,7 +173,7 @@ Enables the scale manager listener. Will not be enabled if a callback is not sup
 
 #### Parameters
 
--   `callback` **[Function][59]** the function to be called on resize events (optional, default `undefined`)
+-   `callback` **[Function][76]** the function to be called on resize events (optional, default `undefined`)
 
 ### disable
 
@@ -168,11 +185,15 @@ SpeechSync makes it easy to convert text to speech
 
 ### Parameters
 
--   `params` **[object][53]** 
-    -   `params.voice` **[number][55]** Indicates what voice to use. This does not work on Chrome (optional, default `0`)
-    -   `params.rate` **[number][55]** The rate at which the text is said. Supports a range from 0.1 to 10. (optional, default `1`)
-    -   `params.pitch` **[number][55]** Voice Pitch. Supports a pitch from 0 to 2 (optional, default `0`)
-    -   `params.volume` **[number][55]** Volume. Supports 0 to 1. (optional, default `1`)
+-   `params` **[object][70]** 
+    -   `params.voice` **[number][72]** Indicates what voice to use. (optional, default `0`)
+    -   `params.rate` **[number][72]** The rate at which the text is said. Supports a range from 0.1 to 10. (optional, default `1`)
+    -   `params.pitch` **[number][72]** Voice Pitch. Supports a pitch from 0 to 2 (optional, default `0`)
+    -   `params.volume` **[number][72]** Volume. Supports 0 to 1. (optional, default `1`)
+
+### Properties
+
+-   `voicesLoaded` **[boolean][71]** voices are loaded async. This is will be set to true when they are loaded
 
 ### pause
 
@@ -193,21 +214,21 @@ If the announcer is already saying something then it will be added to a queue.
 
 #### Parameters
 
--   `message` **[string][57]** 
+-   `message` **[string][74]** 
 
 ### voice
 
-Sets the voice by array index. Note the implementation of this is non-standard, and currently Chrome only has 1 voice.
+Sets the voice by array index.
 
 #### Parameters
 
--   `index` **[number][55]** 
+-   `index` **[number][72]** 
 
 ### voice
 
-Returns the voice object. Will return null on Chrome.
+Returns the voice object.
 
-Returns **([object][53] | null)** 
+Returns **([object][70] | null)** 
 
 ### lang
 
@@ -215,13 +236,13 @@ Will set the language for the announcer. If not pull the language from the html 
 
 #### Parameters
 
--   `lang` **[string][57]** e.g 'en-US'
+-   `lang` **[string][74]** e.g 'en-US'
 
 ### lang
 
 Will return the language string if manually set
 
-Returns **[string][57]** 
+Returns **[string][74]** 
 
 ### rate
 
@@ -229,13 +250,13 @@ Rate at which text is spoken
 
 #### Parameters
 
--   `rate` **[number][55]** 
+-   `rate` **[number][72]** 
 
 ### rate
 
 Returns rate which text is spoken
 
-Returns **[number][55]** 
+Returns **[number][72]** 
 
 ### pitch
 
@@ -243,13 +264,13 @@ Sets the pitch at which text is spoken
 
 #### Parameters
 
--   `pitch` **[number][55]** 
+-   `pitch` **[number][72]** 
 
 ### pitch
 
 Returns the pitch at which text is spoken
 
-Returns **[number][55]** 
+Returns **[number][72]** 
 
 ### volume
 
@@ -257,13 +278,13 @@ Sets the current volume of the announcer
 
 #### Parameters
 
--   `volume` **[number][55]** 
+-   `volume` **[number][72]** 
 
 ### volume
 
 Returns the current volume of the announcer
 
-Returns **[number][55]** 
+Returns **[number][72]** 
 
 ## ColorFilter
 
@@ -275,8 +296,8 @@ Applies the specified filter to the element
 
 #### Parameters
 
--   `element` **[HTMLElement][60]** 
--   `type` **[string][57]** 
+-   `element` **[HTMLElement][77]** 
+-   `type` **[string][74]** 
 
 ### changeFilter
 
@@ -284,7 +305,7 @@ Changes the currently applied filter to the element if the color filter has that
 
 #### Parameters
 
--   `type` **[string][57]** 
+-   `type` **[string][74]** 
 
 Returns **any** 
 
@@ -295,6 +316,78 @@ Removes the filter from the element
 ### types
 
 Supported filter types
+
+## Controller
+
+Controller interface class to simplify working with key presses
+
+### Parameters
+
+-   `buttons` **[Array][75]** a object containing all keys you want to watch and their functions. e.g. {enter: () => {}}. See [https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/key/Key_Values][78] for potential values (optional, default `[]`)
+
+### update
+
+Calls all functions for buttons that are currently set to enabled
+
+### onKeyDown
+
+Called on keyup. Sets flag to 1 if key is being watched
+
+#### Parameters
+
+-   `e` **[KeyboardEvent][79]** 
+
+### onKeyUp
+
+Called on keyup. Sets flag to 2 if key is being watched
+
+#### Parameters
+
+-   `e` **[KeyboardEvent][79]** 
+
+### assignButtons
+
+Sets a object of button functions to the controller function to be called
+
+#### Parameters
+
+-   `buttons` **[Array][75]** 
+
+## Key
+
+Represents a single key on the keyboard and the functions related to it
+
+### Parameters
+
+-   `key` **[string][74]** the this object represents
+-   `down` **[function][76]** function to be called while the key is held down (optional, default `()=>{}`)
+-   `up` **[function][76]** function to be called when the key is lifted up (optional, default `()=>{}`)
+
+### Properties
+
+-   `state` **(`0` \| `1` \| `2`)** the current state of the key. 0 = inactive, 1 = active, 2 = to be set to inactive
+-   `key` **[string][74]** the name of the key we are targeting
+-   `actions` **[object][70]** 
+    -   `actions.down` **[function][76]** function to be called while the key is held down
+    -   `actions.up` **[function][76]** function to be called when the key is lifted up
+
+### updateState
+
+Updates the internal state of the key. Accepts a range between 0-2. Will set key state to 0 if nothing is passed.
+
+#### Parameters
+
+-   `state` **(`0` \| `1` \| `2`)**  (optional, default `0`)
+
+### action
+
+calls the relevant action for the current state of the key
+
+### state
+
+returns the current state of the key
+
+Returns **[number][72]** 
 
 [1]: #debuggerparams
 
@@ -346,72 +439,110 @@ Supported filter types
 
 [25]: #parameters-8
 
-[26]: #pause
+[26]: #properties-2
 
-[27]: #resume
+[27]: #pause
 
-[28]: #cancel
+[28]: #resume
 
-[29]: #say
+[29]: #cancel
 
-[30]: #parameters-9
+[30]: #say
 
-[31]: #voice
+[31]: #parameters-9
 
-[32]: #parameters-10
+[32]: #voice
 
-[33]: #voice-1
+[33]: #parameters-10
 
-[34]: #lang
+[34]: #voice-1
 
-[35]: #parameters-11
+[35]: #lang
 
-[36]: #lang-1
+[36]: #parameters-11
 
-[37]: #rate
+[37]: #lang-1
 
-[38]: #parameters-12
+[38]: #rate
 
-[39]: #rate-1
+[39]: #parameters-12
 
-[40]: #pitch
+[40]: #rate-1
 
-[41]: #parameters-13
+[41]: #pitch
 
-[42]: #pitch-1
+[42]: #parameters-13
 
-[43]: #volume
+[43]: #pitch-1
 
-[44]: #parameters-14
+[44]: #volume
 
-[45]: #volume-1
+[45]: #parameters-14
 
-[46]: #colorfilter
+[46]: #volume-1
 
-[47]: #applyfilter
+[47]: #colorfilter
 
-[48]: #parameters-15
+[48]: #applyfilter
 
-[49]: #changefilter
+[49]: #parameters-15
 
-[50]: #parameters-16
+[50]: #changefilter
 
-[51]: #removefilter
+[51]: #parameters-16
 
-[52]: #types
+[52]: #removefilter
 
-[53]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object
+[53]: #types
 
-[54]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean
+[54]: #controller
 
-[55]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number
+[55]: #parameters-17
 
-[56]: #debuggerparams
+[56]: #update
 
-[57]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String
+[57]: #onkeydown
 
-[58]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array
+[58]: #parameters-18
 
-[59]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function
+[59]: #onkeyup
 
-[60]: https://developer.mozilla.org/docs/Web/HTML/Element
+[60]: #parameters-19
+
+[61]: #assignbuttons
+
+[62]: #parameters-20
+
+[63]: #key
+
+[64]: #parameters-21
+
+[65]: #properties-3
+
+[66]: #updatestate
+
+[67]: #parameters-22
+
+[68]: #action
+
+[69]: #state
+
+[70]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object
+
+[71]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean
+
+[72]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number
+
+[73]: #debuggerparams
+
+[74]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String
+
+[75]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array
+
+[76]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function
+
+[77]: https://developer.mozilla.org/docs/Web/HTML/Element
+
+[78]: https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/key/Key_Values
+
+[79]: https://developer.mozilla.org/docs/Web/API/KeyboardEvent
