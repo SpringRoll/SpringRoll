@@ -38,7 +38,7 @@ describe('Localizer', function() {
     it('should resolve with default locale', function() {
       let localizer = new Localizer(config);
       let result = localizer.resolve('sounds/test.mp3');
-      
+
       expect(result.path).to.equal('assets/en-US/sounds/test.mp3');
     });
 
@@ -53,7 +53,7 @@ describe('Localizer', function() {
       let localizer = new Localizer(config);
       let result = localizer.resolve('sounds/test.mp3', { language: 'es' });
 
-      expect(result.path).to.equal('assets/en-US/sounds/test.mp3');        
+      expect(result.path).to.equal('assets/en-US/sounds/test.mp3');
     });
 
     it('should resolve with options fallback locale', function() {
@@ -65,28 +65,37 @@ describe('Localizer', function() {
 
     it('should resolve with fallback locale if option not found', function() {
       let localizer = new Localizer(config);
-      let result =localizer.resolve('sounds/test.mp3', { language: 'es' });
+      let result = localizer.resolve('sounds/test.mp3', { language: 'es' });
 
       expect(result.path).to.equal('assets/en-US/sounds/test.mp3');
     });
 
     it('should resolve with default fallback locale if option fallback not found', function() {
       let localizer = new Localizer(config, { fallback: 'fr' });
-      let result = localizer.resolve('sounds/test.mp3', { language: 'de', fallback: 'es' });
+      let result = localizer.resolve('sounds/test.mp3', {
+        language: 'de',
+        fallback: 'es'
+      });
 
       expect(result.path).to.equal('assets/fr/sounds/test.mp3');
     });
 
     it('should resolve with default fallback locale if option fallback not found', function() {
       let localizer = new Localizer(config, { fallback: 'fr' });
-      let result = localizer.resolve('sounds/test.mp3', { language: 'de', fallback: 'es' });
+      let result = localizer.resolve('sounds/test.mp3', {
+        language: 'de',
+        fallback: 'es'
+      });
 
       expect(result.path).to.equal('assets/fr/sounds/test.mp3');
     });
 
     it('should fail to resolve if no locales can be found', function() {
       let localizer = new Localizer(config, { fallback: 'de' });
-      let result = localizer.resolve('sounds/test.mp3', { language: 'as', fallback: 'es' });
+      let result = localizer.resolve('sounds/test.mp3', {
+        language: 'as',
+        fallback: 'es'
+      });
 
       expect(result).to.not.exist;
     });

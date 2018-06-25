@@ -7,7 +7,7 @@
  */
 export default class CaptionPlayer {
   // Maybe:(CaptionPlayer is written for playing a single caption at a time, minor rework would be required for multiple captions)
-  
+
   /**
    * Creates an instance of CaptionPlayer.
    * @param {Object} captions - Object of Key:Name Value:Caption
@@ -26,7 +26,7 @@ export default class CaptionPlayer {
   /**
    * updates any currently playing caption
    * This ~should~ be called every frame.
-   * 
+   *
    * @param {any} deltaTime Time passed in seconds since last update call.
    * @memberof CaptionPlayer
    */
@@ -75,13 +75,12 @@ export default class CaptionPlayer {
 
   /**
    * sets content of HTML element.
-   * 
+   *
    * @private
-   * @param {String} content 
+   * @param {String} content
    * @memberof CaptionPlayer
    */
-  setElementContent(content)
-  {
+  setElementContent(content) {
     this.element.innerHTML = content; // <-- TODO: not sure if this is the proper way to set a DOM element.
   }
 }
