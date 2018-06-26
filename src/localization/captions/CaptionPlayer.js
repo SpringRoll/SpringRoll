@@ -57,6 +57,7 @@ export default class CaptionPlayer {
       if (this.renderer.start) {
         this.renderer.start();
       }
+
       this.activeCaption.start(
         time,
         this.renderer.lineBegin,

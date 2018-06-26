@@ -4,12 +4,11 @@
       "env",
       {
         "targets": {
-          "browsers": [
-            "Explorer 11"
-          ]
+          "browsers": ["Explorer 11"]
         },
         "modules": false
       }
     ]
-  ]
+  ],
+  "plugins": ["external-helpers"]
 }
