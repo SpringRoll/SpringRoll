@@ -48,7 +48,7 @@ export default class Caption {
    */
   update(deltaTime) {
     const time = this.time + deltaTime * 1000;
-    if (time == this.time) {
+    if (time === this.time) {
       return;
     }
 
@@ -56,7 +56,12 @@ export default class Caption {
     this.time = time;
   }
 
-  /** */
+  /**
+   * Handles calling callbacks and updating caption's current state.
+   * @param  {Number} currentTime
+   * @param  {Number} lastTime
+   * @memberof Caption
+   */
   updateState(currentTime, lastTime) {
     if (this.isFinished()) {
       return;
