@@ -19,7 +19,7 @@ export default class CaptionFactory {
    */
   static createCaptionMap(data) {
     const captions = {};
-    for (let key in data) {
+    for (const key in data) {
       const caption = this.createCaption(data[key]);
       if (!caption) {
         Debugger.log(
@@ -90,7 +90,7 @@ export default class CaptionFactory {
     if (typeof lineData.content !== 'string') {
       Debugger.log(
         'error',
-        '[CaptionFactory.createLine] lineData.string must be defined as a string'
+        '[CaptionFactory.createLine] lineData.content must be defined as a string'
       );
       return;
     }
@@ -98,13 +98,13 @@ export default class CaptionFactory {
     if (lineData.content === '') {
       Debugger.log(
         'warn',
-        '[CaptionFactory.createLine] lineData.string should not be empty',
-        'It\'s recommended to add time to the start of the next line to add delays.'
+        '[CaptionFactory.createLine] lineData.content should not be empty',
+        'Its recommended to add time to the start of the next line to add delays.'
       );
       return;
     }
 
     //TODO: any future formatting changes should go here.
-    return new TimedLine(lineData.content, lineData.start, lineData.end);
+    return new TimedLine(lineData.start, lineData.end, lineData.content);
   }
 }

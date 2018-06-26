@@ -25,22 +25,33 @@ const testData = {
   ]
 };
 
+const htmlRegex = /(<([^>]+)>)/gi;
 /** */
 const milliToSec = function(time) {
   return time / 1000;
 };
 
 describe('CaptionFactory', function() {
-  let lineData = testData.HelloWorld[0];
-  let line = CaptionFactory.createLine(lineData);
+  const lineData = testData.HelloWorld[0];
+  const line = CaptionFactory.createLine(lineData);
 
   describe('#createLine()', function() {
     it('should return undefined if data.start is not a number', function() {
-      expect(CaptionFactory.createLine({ start: 0, content: 'hello' })).to.be.undefined;
+      expect(
+        CaptionFactory.createLine({
+          start: 0,
+          content: 'hello'
+        })
+      ).to.be.undefined;
     });
 
     it('should return undefined if data.end is not a number', function() {
-      expect(CaptionFactory.createLine({ end: 1000, content: 'hello' })).to.be.undefined;
+      expect(
+        CaptionFactory.createLine({
+          end: 1000,
+          content: 'hello'
+        })
+      ).to.be.undefined;
     });
 
     it('should return instanceOf TimedLine', function() {
@@ -61,7 +72,7 @@ describe('CaptionFactory', function() {
   });
 
   describe('#createCaption()', function() {
-    let caption = CaptionFactory.createCaption(testData.HelloWorld);
+    const caption = CaptionFactory.createCaption(testData.HelloWorld);
 
     it('should return instanceOf Caption', function() {
       expect(caption).to.be.instanceOf(Caption);
@@ -77,7 +88,7 @@ describe('CaptionFactory', function() {
   });
 
   describe('#createCaptionMap()', function() {
-    let captionMap = CaptionFactory.createCaptionMap(testData);
+    const captionMap = CaptionFactory.createCaptionMap(testData);
 
     it('should exist', function() {
       expect(captionMap).to.exist;
@@ -96,61 +107,43 @@ describe('CaptionFactory', function() {
 });
 
 describe('TimedLine', function() {
-  let lineData = testData.HelloWorld[0];
-  let line = CaptionFactory.createLine(lineData);
+  const lineData = testData.HelloWorld[0];
+  const line = CaptionFactory.createLine(lineData);
 
-  describe('#getContent(time)', function() {
-    it('should return empty if time less than start time', function() {
-      expect(line.getContent(lineData.start - 1)).to.be.empty;
+  describe('$.content', function() {
+    it('should exist', function() {
+      expect(line.content).to.exist;
+    });
+  });
+
+  describe('$.text', function() {
+    it('should exist', function() {
+      expect(line.text).to.exist;
     });
 
-    it('should return empty if time greater than end time', function() {
-      expect(line.getContent(lineData.end + 1)).to.be.empty;
-    });
-
-    it('should return correct a content if time is between start and end time', function() {
-      expect(line.getContent(lineData.start + 1)).to.equal(lineData.content);
+    it('should not contain html tags', function() {
+      expect(htmlRegex.exec(line.text)).to.equal(null);
     });
   });
 });
 
 describe('Caption', function() {
-  let captionData = testData.HelloWorld;
-  let caption = CaptionFactory.createCaption(captionData);
+  const captionData = testData.HelloWorld;
+  const caption = CaptionFactory.createCaption(captionData);
 
   beforeEach(function() {
     caption.reset();
   });
 
-  describe('#getContent()', function() {
-    it('should return correct line content at the beginning', function() {
-      caption.update(milliToSec(captionData[0].start));
-      expect(caption.getContent()).to.equal(captionData[0].content);
-    });
-
-    it('should return empty content if time is less than next line start', function() {
-      caption.update(milliToSec(captionData[1].start - 1));
-      expect(caption.getContent()).to.be.empty;
-    });
-
-    it('should return correct line content after time has passed', function() {
-      caption.update(milliToSec(captionData[1].start + 1));
-      expect(caption.getContent()).to.equal(captionData[1].content);
-    });
-
-    it('should return empty content if time is less greater than last line end', function() {
-      caption.update(milliToSec(captionData[1].end + 1));
-      expect(caption.getContent()).to.be.empty;
-    });
-  });
-
   describe('#isFinished()', function() {
     it('should return false when time is less than last line end time.', function() {
+      caption.start();
       caption.update(0);
       expect(caption.isFinished()).to.be.false;
     });
 
     it('should return true when time is greater than last line end time.', function() {
+      caption.start();
       caption.update(milliToSec(captionData[1].end + 1));
       expect(caption.isFinished()).to.be.true;
     });
@@ -158,73 +151,215 @@ describe('Caption', function() {
 
   describe('#start()', function() {
     it('should set caption to the correct line', function() {
-      caption.start(captionData[1].start);
-      expect(caption.getContent()).to.equal(captionData[1].content);
+      caption.start(captionData[1].start, line => {
+        expect(line.content).to.equal(captionData[1].content);
+      });
+    });
+
+    it('should not call lineEnd before lineBegin', function() {
+      let lineEndCalled = false;
+      caption.start(
+        captionData[1].start,
+        () => {
+          expect(lineEndCalled).to.equal(false);
+        },
+        () => {
+          lineEndCalled = true;
+        }
+      );
+    });
+  });
+
+  describe('#update()', function() {
+    it('should call lineEndCallback if between lines', function() {
+      let lineEndCalled = false;
+      caption.start(
+        0,
+        () => {},
+        () => {
+          lineEndCalled = true;
+        }
+      );
+      caption.update(milliToSec(1250));
+      expect(lineEndCalled).to.equal(true);
+    });
+
+    it('should call lineBeginCallback when next line starts', function() {
+      let lineBeginCalled = 0;
+      caption.start(
+        1250,
+        () => {
+          lineBeginCalled = true;
+        },
+        () => {}
+      );
+      caption.update(milliToSec(50));
+      expect(lineBeginCalled).to.equal(true);
+    });
+
+    it('should call lineEndCallback then lineBeginCallback between lines', function() {
+      let lineBeginCount = 0;
+      let correctOrder = false;
+      caption.start(
+        0,
+        () => {
+          lineBeginCount++;
+        },
+        () => {
+          if (lineBeginCount == 1) {
+            correctOrder = true;
+          }
+        }
+      );
+      caption.update(milliToSec(600));
+      caption.update(milliToSec(600));
+      caption.update(milliToSec(600));
+      expect(correctOrder).to.equal(true);
     });
   });
 });
 
 describe('CaptionPlayer', function() {
-  let captions = CaptionFactory.createCaptionMap(testData);
-  let htmlElement = document.createElement('p');
-  let player;
-
-  beforeEach(function() {
-    player = new CaptionPlayer(captions, htmlElement);
-  });
-
-  describe('#update(deltaTime)', function() {
-    beforeEach(function() {
-      player.start('HelloWorld');
-    });
-
-    it('should properly set the elements innerHTML', function() {
-      player.update(milliToSec(testData.HelloWorld[1].start));
-      expect(htmlElement.innerHTML).to.be.equal(testData.HelloWorld[1].content);
-    });
-
-    it('should stop when caption line.endTime is exceeded ', function() {
-      player.update(milliToSec(testData.HelloWorld[1].end + 1000));
-      expect(htmlElement.innerHTML).to.be.equal('');
-    });
-  });
+  const captions = CaptionFactory.createCaptionMap(testData);
 
   describe('#start(name)', function() {
-    it('should properly set the elements innerHTML', function() {
+    it('should call ICaptionRenderer.start', function() {
+      let startCalled = false;
+
+      const player = new CaptionPlayer(captions, {
+        start: () => {
+          startCalled = true;
+        }
+      });
+
       player.start('HelloWorld');
-      expect(htmlElement.innerHTML).to.be.equal(testData.HelloWorld[0].content);
+      expect(startCalled).to.equal(true);
     });
 
-    it('should properly set caption to the correct time', function() {
-      player.start('HelloWorld', testData.HelloWorld[1].start);
-      expect(htmlElement.innerHTML).to.be.equal(testData.HelloWorld[1].content);
+    it('should call ICaptionRenderer.lineBegin after ICaptionRenderer.start ', function() {
+      let startCalled = false;
+      let failed = false;
+      const player = new CaptionPlayer(captions, {
+        start: () => {
+          startCalled = true;
+        },
+        lineBegin: () => {
+          if (!startCalled) {
+            failed = true;
+          }
+        }
+      });
+
+      player.start('HelloWorld');
+      expect(failed).to.equal(false);
     });
 
-    it('should not error if caption does not exist', function() {
-      player.start('Not-In-Data');
-      expect(htmlElement.innerText).to.be.equal('');
+    it('should call ICaptionRenderer.lineBegin with the correct line ', function() {
+      const player = new CaptionPlayer(captions, {
+        lineBegin: line => {
+          expect(line.content).to.equal('world');
+        }
+      });
+      player.start('HelloWorld', 1400);
     });
 
-    it('should interupt already playing captions', function() {
+    it('should not call ICaptionRenderer.lineBegin if time is greater than the end time', function() {
+      let lineBeginCalled = false;
+      const player = new CaptionPlayer(captions, {
+        lineBegin: () => {
+          lineBeginCalled = true;
+        }
+      });
+      player.start('HelloWorld', 5000);
+      expect(lineBeginCalled).to.equal(false);
+    });
+
+    it('should not call ICaptionRenderer.lineEnd', function() {
+      let lineEndCalled = false;
+      const player = new CaptionPlayer(captions, {
+        lineEnd: () => {
+          lineEndCalled = true;
+        }
+      });
+      player.start('HelloWorld', 1400);
+      expect(lineEndCalled).to.equal(false);
+    });
+
+    it('should not call ICaptionRenderer.stop', function() {
+      let stopCalled = false;
+      const player = new CaptionPlayer(captions, {
+        stop: () => {
+          stopCalled = true;
+        }
+      });
+      player.start('HelloWorld');
+      expect(stopCalled).to.equal(false);
+    });
+
+    it('should call ICaptionRenderer.stop if a caption is already playing', function() {
+      let stopCalled = false;
+      const player = new CaptionPlayer(captions, {
+        stop: () => {
+          stopCalled = true;
+        }
+      });
       player.start('HelloWorld');
       player.start('Other');
-      expect(htmlElement.innerText).to.be.equal(testData.Other[0].content);
+      expect(stopCalled).to.equal(true);
     });
   });
 
   describe('#stop()', function() {
-    beforeEach(function() {
+    const captions = CaptionFactory.createCaptionMap(testData);
+
+    it('should call ICaptionRenderer.stop', function() {
+      let stopCalled = false;
+      const player = new CaptionPlayer(captions, {
+        stop: () => {
+          stopCalled = true;
+        }
+      });
       player.start('HelloWorld');
+      player.stop();
+      expect(stopCalled).to.equal(true);
     });
 
-    it('should properly set the elements innerHTML', function() {
+    it('should not call ICaptionRenderer.stop if no caption is started', function() {
+      let stopCalled = false;
+      const player = new CaptionPlayer(captions, {
+        stop: () => {
+          stopCalled = true;
+        }
+      });
+
       player.stop();
-      expect(htmlElement.innerText).to.be.equal('');
+      expect(stopCalled).to.equal(false);
+    });
+  });
+
+  describe('#update()', function() {
+    it('should not call ICaptionRenderer.stop if not enough time has passed', function() {
+      let stopCalled = false;
+      const player = new CaptionPlayer(captions, {
+        stop: () => {
+          stopCalled = true;
+        }
+      });
+      player.start('HelloWorld');
+      player.update(milliToSec(500));
+      expect(stopCalled).to.equal(false);
     });
 
-    it('should not error if called twice', function() {
-      player.stop();
-      player.stop();
+    it('should not call ICaptionRenderer.stop if enough time has passed', function() {
+      let stopCalled = false;
+      const player = new CaptionPlayer(captions, {
+        stop: () => {
+          stopCalled = true;
+        }
+      });
+      player.start('HelloWorld');
+      player.update(milliToSec(3000));
+      expect(stopCalled).to.equal(true);
     });
   });
 });

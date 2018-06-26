@@ -35,6 +35,8 @@ export default class Caption {
   reset() {
     this.time = 0;
     this.lineIndex = 0;
+    this.beginCallback = null;
+    this.endCallback = null;
   }
 
   /**
@@ -61,7 +63,7 @@ export default class Caption {
     }
 
     if (currentTime > this.lines[this.lineIndex].endTime) {
-      this.hideCallback();
+      this.endCallback();
     }
 
     while (currentTime > this.lines[this.lineIndex].endTime) {
@@ -73,7 +75,7 @@ export default class Caption {
 
     const line = this.lines[this.lineIndex];
     if (currentTime >= line.startTime && lastTime < line.startTime) {
-      this.showCallback(line);
+      this.beginCallback(line);
       return;
     }
   }
@@ -93,10 +95,19 @@ export default class Caption {
    * @param {Number} [time=0] - time in milliseconds
    * @memberof Caption
    */
-  start(time = 0, showCallback = () => {}, hideCallback = () => {}) {
+  start(time = 0, beginCallback = () => {}, endCallback = () => {}) {
     this.reset();
-    this.update(time / 1000);
-    this.showCallback = showCallback;
-    this.hideCallback = hideCallback;
+    this.beginCallback = beginCallback;
+    this.endCallback = endCallback;
+    this.time = time;
+
+    // initialize to the correct line index;
+    while (this.time > this.lines[this.lineIndex].endTime) {
+      this.lineIndex++;
+      if (this.isFinished()) {
+        return;
+      }
+    }
+    this.updateState(this.time, this.time - 1);
   }
 }

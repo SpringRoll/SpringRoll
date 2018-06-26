@@ -2,7 +2,7 @@ import { Debugger } from './../../debug/Debugger';
 
 /**
  * Object used to render caption
- * @typedef {{start:(), stop:(), show:(line: TimedLine), hide:()}} ICaptionRenderer
+ * @typedef {{start:(), stop:(), lineBegin:(line: TimedLine), lineEnd:()}} ICaptionRenderer
  */
 
 /**
@@ -13,8 +13,6 @@ import { Debugger } from './../../debug/Debugger';
  * @class CaptionPlayer
  */
 export default class CaptionPlayer {
-  // Maybe:(CaptionPlayer is written for playing a single caption at a time, minor rework would be required for multiple captions)
-
   /**
    * Creates an instance of CaptionPlayer.
    * @param {Object.<string, Caption>} captions - captions map.
@@ -38,7 +36,9 @@ export default class CaptionPlayer {
   update(deltaTime) {
     if (this.activeCaption) {
       this.activeCaption.update(deltaTime);
-      this.stop();
+      if (this.activeCaption.isFinished()) {
+        this.stop();
+      }
     }
   }
 
@@ -57,9 +57,11 @@ export default class CaptionPlayer {
       if (this.renderer.start) {
         this.renderer.start();
       }
-
-      this.activeCaption.start(time, this.renderer.show, this.renderer.hide);
-      this.update(0);
+      this.activeCaption.start(
+        time,
+        this.renderer.lineBegin,
+        this.renderer.lineEnd
+      );
     } else {
       Debugger.log('warn', `[CaptionPlayer.Start()] caption ${name} not found`);
     }
@@ -74,7 +76,7 @@ export default class CaptionPlayer {
       if (this.renderer.stop) {
         this.renderer.stop();
       }
-      this.activeCaption = null;
     }
+    this.activeCaption = null;
   }
 }

@@ -23,6 +23,6 @@ export default class TimedLine {
    */
   setContent(content) {
     this.content = content;
-    this.text = content.replace(/<(?:.|\n)*?>/gm, '');
+    this.text = content.replace(/(<([^>]+)>)/gi, '');
   }
 }
