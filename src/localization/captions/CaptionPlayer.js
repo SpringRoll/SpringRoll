@@ -1,41 +1,42 @@
+import { Debugger } from './../../debug/Debugger';
+
+/**
+ * Object used to render caption
+ * @typedef {{start:(), stop:(), lineBegin:(line: TimedLine), lineEnd:()}} ICaptionRenderer
+ */
+
 /**
  *  CaptionPlayer is used to start, stop and update captions.
- *  it applies the content of an active caption to a given HTML Element.
+ *  it applies the content of an active caption to a given CaptionRenderer.
  *
  * @export
  * @class CaptionPlayer
  */
 export default class CaptionPlayer {
-  // Maybe:(CaptionPlayer is written for playing a single caption at a time, minor rework would be required for multiple captions)
-
   /**
    * Creates an instance of CaptionPlayer.
-   * @param {Object} captions - Object of Key:Name Value:Caption
-   * @param {HTMLElement} element DOM element that content is written too.
+   * @param {Object.<string, Caption>} captions - captions map.
+   * @param {ICaptionRenderer} renderer CaptionRenderer that content is applied too.
    * @memberof CaptionPlayer
    */
-  constructor(captions, element) {
-    this.element = element;
+  constructor(captions, renderer) {
+    this.renderer = renderer;
     this.captions = captions;
 
     this.activeCaption = null;
-
-    this.setElementContent('');
   }
 
   /**
    * updates any currently playing caption
    * This ~should~ be called every frame.
    *
-   * @param {any} deltaTime Time passed in seconds since last update call.
+   * @param {Number} deltaTime Time passed in seconds since last update call.
    * @memberof CaptionPlayer
    */
   update(deltaTime) {
     if (this.activeCaption) {
       this.activeCaption.update(deltaTime);
-      if (!this.activeCaption.isFinished()) {
-        this.setElementContent(this.activeCaption.getContent());
-      } else {
+      if (this.activeCaption.isFinished()) {
         this.stop();
       }
     }
@@ -53,10 +54,17 @@ export default class CaptionPlayer {
     this.stop();
     this.activeCaption = this.captions[name];
     if (this.activeCaption) {
-      this.activeCaption.start(time);
-      this.update(0);
+      if (this.renderer.start) {
+        this.renderer.start();
+      }
+
+      this.activeCaption.start(
+        time,
+        this.renderer.lineBegin,
+        this.renderer.lineEnd
+      );
     } else {
-      //TODO: Log Warning '[CaptionPlayer.Start()] caption #NAME not found'
+      Debugger.log('warn', `[CaptionPlayer.Start()] caption ${name} not found`);
     }
   }
 
@@ -66,21 +74,10 @@ export default class CaptionPlayer {
    */
   stop() {
     if (this.activeCaption) {
-      this.activeCaption = null;
-      this.setElementContent('');
-
-      //Maybe: add onStopCallback?
+      if (this.renderer.stop) {
+        this.renderer.stop();
+      }
     }
-  }
-
-  /**
-   * sets content of HTML element.
-   *
-   * @private
-   * @param {String} content
-   * @memberof CaptionPlayer
-   */
-  setElementContent(content) {
-    this.element.innerHTML = content; // <-- TODO: not sure if this is the proper way to set a DOM element.
+    this.activeCaption = null;
   }
 }
