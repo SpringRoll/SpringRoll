@@ -306,7 +306,7 @@
 	};
 
 	/**
-	 * Handler when a application enters single play mode
+	 * Handler when a application receives playOptions from the container
 	 * @method onPlayOptions
 	 * @private
 	 * @param {event} e The Bellhop event
@@ -315,6 +315,7 @@
 	{
 		Object.merge(this.playOptions, e.data ||
 		{});
+		this.trigger('playOptions', this.playOptions);
 	};
 
 	/**
