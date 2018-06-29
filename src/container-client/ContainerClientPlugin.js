@@ -96,7 +96,12 @@
 				this.playOptions = JSON.parse(rawValue);
 			}
 			catch (e)
-			{}
+			{
+				if (springroll.Debug)
+				{
+					springroll.Debug.warn('ContainerClientPlugin: Failed to parse playOptions from query string');
+				}
+			}
 		}
 
 		/**
