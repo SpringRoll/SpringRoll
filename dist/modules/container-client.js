@@ -219,6 +219,21 @@
 		 */
 		this.playOptions = {};
 
+		// attempt to load play options from the query string
+		var match = /playOptions=[^&$]*/.exec(window.location.search);
+		if (match !== null)
+		{
+			var matchedToken = match[0];
+			var rawValue = decodeURIComponent(matchedToken.split('=')[1]);
+
+			try
+			{
+				this.playOptions = JSON.parse(rawValue);
+			}
+			catch (e)
+			{}
+		}
+
 		/**
 		 * When a application is in singlePlay mode it will end.
 		 * It's unnecessary to check `if (this.singlePlay)` just
