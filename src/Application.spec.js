@@ -19,28 +19,18 @@ describe('Application', () => {
       expect(plugin.called).to.be.true;
     });
 
-    it('should run preload on all plugins and then emit an init event', (done) => {
+    it('should run preload on all plugins and then notify listeners that the app is ready', (done) => {
       var plugin = new ApplicationPlugin();
       plugin.called = false;
       plugin.preload = () => plugin.called = true;
       Application.uses(plugin);
 
       var app = new Application();
-      app.on('init', function() {
+      app.state.ready.subscribe(function(value) {
+        expect(value).to.be.true;
         expect(plugin.called).to.be.true;
         done();
       });
-    });
-  });
-
-  describe('event emitting', () => {
-    it('should call a callback if it is registered for an event', (done) => {
-      var app = new Application();
-      app.on('hello', function(data) {
-        expect(data).to.equal('world');
-        done();
-      });
-      app.emit('hello', 'world');
     });
   });
 

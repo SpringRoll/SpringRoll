@@ -1,21 +1,22 @@
-import EventEmitter from './EventEmitter';
+import StateManager from './state/StateManager';
 
 /**
  * Main entry point for a game. Provides a single focal point for plugins and functionality to attach.
  * @class Application
  */
-export class Application extends EventEmitter {
+export class Application {
   /**
    * Creates a new application, setting up plugins along the way
    */
   constructor() {
-    super();
-    
+    this.state = new StateManager();
+    this.state.addField('ready', false);
+
     Application._plugins.forEach(plugin => plugin.setup.call(this));
     
     const preloads = Application._plugins
       .map(plugin => this.promisify(plugin.preload));
-    Promise.all(preloads).then(() => this.emit('init'));
+    Promise.all(preloads).then(() => this.state.ready.value = true);
   }
 
   /**
