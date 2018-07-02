@@ -15,10 +15,16 @@ export class SpeechSynth {
    *Creates an instance of SpeechSynth.
    */
   constructor({ voice = 0, rate = 1, pitch = 0, volume = 1 } = {}) {
-    this.speaker = new SpeechSynthesisUtterance();
     this.voiceOptions = [];
     this.voicesLoaded = false;
-    this.voice = {};
+    this.queue = [];
+
+    this.options = {
+      voice: {},
+      rate,
+      pitch,
+      volume
+    };
 
     /**
      * Called when voices are ready to be used
@@ -26,31 +32,19 @@ export class SpeechSynth {
      */
     const loadVoices = function() {
       this.voiceOptions = window.speechSynthesis.getVoices();
-      this.voice = this.voiceOptions[voice];
+      this.voice = this.setVoice(voice);
       this.voicesLoaded = true;
     }.bind(this);
 
     const voiceOptions = window.speechSynthesis.getVoices();
     if (isArray(voiceOptions) && 0 < voiceOptions.length) {
       loadVoices();
-    } else {
+    }
+    else {
       window.speechSynthesis.addEventListener('voiceschanged', loadVoices, {
         once: true
       });
     }
-
-    this.rate = rate;
-    this.pitch = pitch;
-    this.volume = volume;
-    this.queue = [];
-
-    this.speaker.onend = () => {
-      this.speaking = false;
-
-      if (0 < this.queue.length) {
-        this.say(this.queue.shift());
-      }
-    };
   }
 
   /**
@@ -90,10 +84,23 @@ export class SpeechSynth {
       return;
     }
 
+    const onEnd = () => {
+      this.speaking = false;
+
+      if (0 < this.queue.length) {
+        this.say(this.queue.shift());
+      }
+    };
+
     this.speaking = true;
 
-    this.speaker.text = message;
-    window.speechSynthesis.speak(this.speaker);
+    const speaker = new SpeechSynthesisUtterance(message);
+
+    Object.assign(speaker, this.options);
+
+    speaker.onend = onEnd;
+
+    window.speechSynthesis.speak(speaker);
   }
 
   /**
@@ -126,32 +133,16 @@ export class SpeechSynth {
    * Sets the voice by array index.
    * @param {number} index
    */
-  set voice(index) {
-    this.speaker.voice = this.voiceOptions[index];
+  setVoice(index) {
+    this.options.voice = this.voiceOptions[index];
   }
 
   /**
    * Returns the voice object.
    * @returns {object | null}
    */
-  get voice() {
-    return this.speaker.voice;
-  }
-
-  /**
-   * Will set the language for the announcer. If not pull the language from the html tag or browser.
-   * @param {string} lang e.g 'en-US'
-   */
-  set lang(lang) {
-    this.speaker.lang = lang;
-  }
-
-  /**
-   * Will return the language string if manually set
-   * @returns {string}
-   */
-  get lang() {
-    return this.speaker.lang;
+  getVoice() {
+    return this.options.voice;
   }
 
   /**
@@ -159,7 +150,7 @@ export class SpeechSynth {
    * @param {number} rate
    */
   set rate(rate) {
-    this.speaker.rate = this.rangeLimit(0.1, 10, rate);
+    this.options.rate = this.rangeLimit(0.1, 10, rate);
   }
 
   /**
@@ -167,7 +158,7 @@ export class SpeechSynth {
    * @returns {number}
    */
   get rate() {
-    return this.speaker.rate;
+    return this.options.rate;
   }
 
   /**
@@ -175,7 +166,7 @@ export class SpeechSynth {
    * @param {number} pitch
    */
   set pitch(pitch) {
-    this.speaker.pitch = this.rangeLimit(0, 2, pitch);
+    this.options.pitch = this.rangeLimit(0, 2, pitch);
   }
 
   /**
@@ -183,7 +174,7 @@ export class SpeechSynth {
    * @returns {number}
    */
   get pitch() {
-    return this.speaker.pitch;
+    return this.options.pitch;
   }
 
   /**
@@ -191,7 +182,7 @@ export class SpeechSynth {
    * @param {number} volume
    */
   set volume(volume) {
-    this.speaker.volume = this.rangeLimit(0, 1, volume);
+    this.options.volume = this.rangeLimit(0, 1, volume);
   }
 
   /**
@@ -199,6 +190,6 @@ export class SpeechSynth {
    * @returns {number}
    */
   get volume() {
-    return this.speaker.volume;
+    return this.options.volume;
   }
 }

@@ -42,8 +42,7 @@ export class Key {
   action() {
     if (1 === this.state) {
       this.actions.down();
-    }
-    else if (2 === this.state) {
+    } else if (2 === this.state) {
       this.actions.up();
       this.updateState(0);
     }

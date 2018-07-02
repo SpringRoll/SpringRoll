@@ -1,5 +1,7 @@
+import { Debugger } from './../../debug/Debugger';
 import Caption from './Caption';
 import TimedLine from './TimedLine';
+
 /**
  * Collection of functions for creating Captions
  *
@@ -16,11 +18,15 @@ export default class CaptionFactory {
    * @memberof CaptionFactory
    */
   static createCaptionMap(data) {
-    let captions = {};
-    for (let key in data) {
-      let caption = this.createCaption(data[key]);
+    const captions = {};
+    for (const key in data) {
+      const caption = this.createCaption(data[key]);
       if (!caption) {
-        //TODO: Log Warning '[CaptionFactory.createCaptionMap] failed to create caption #Key'
+        Debugger.log(
+          'error',
+          '[CaptionFactory.createCaptionMap] failed to create caption:',
+          key
+        );
       } else {
         captions[key] = caption;
       }
@@ -37,16 +43,19 @@ export default class CaptionFactory {
    * @memberof CaptionFactory
    */
   static createCaption(captionData) {
-    let lines = [];
-    for (let i = 0; i < captionData.length; i++) {
-      let line = this.createLine(captionData[i]);
+    const lines = [];
+    for (let i = 0, length = captionData.length; i < length; i++) {
+      const line = this.createLine(captionData[i]);
       if (line) {
         lines.push(line);
       }
     }
 
     if (lines.length <= 0) {
-      // TODO: Log warning '[CaptionFactory.createCaption] captions should not have 0 lines.'
+      Debugger.log(
+        'error',
+        '[CaptionFactory.createCaption] captions should not have 0 lines.'
+      );
       return;
     }
 
@@ -63,16 +72,39 @@ export default class CaptionFactory {
    */
   static createLine(lineData) {
     if (typeof lineData.start !== 'number') {
-      // TODO: Log warning '[CaptionFactory.createLine] lineData.start must be defined as a number'
+      Debugger.log(
+        'error',
+        '[CaptionFactory.createLine] lineData.start must be defined as a number'
+      );
       return;
     }
 
     if (typeof lineData.end !== 'number') {
-      // TODO: Log warning '[CaptionFactory.createLine] lineData.end must be defined as a number'
+      Debugger.log(
+        'error',
+        '[CaptionFactory.createLine] lineData.end must be defined as a number'
+      );
+      return;
+    }
+
+    if (typeof lineData.content !== 'string') {
+      Debugger.log(
+        'error',
+        '[CaptionFactory.createLine] lineData.content must be defined as a string'
+      );
+      return;
+    }
+
+    if (lineData.content === '') {
+      Debugger.log(
+        'warn',
+        '[CaptionFactory.createLine] lineData.content should not be empty',
+        'Its recommended to add time to the start of the next line to add delays.'
+      );
       return;
     }
 
     //TODO: any future formatting changes should go here.
-    return new TimedLine(lineData.content, lineData.start, lineData.end);
+    return new TimedLine(lineData.start, lineData.end, lineData.content);
   }
 }
