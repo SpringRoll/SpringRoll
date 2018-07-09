@@ -14,12 +14,16 @@ import Property from './Property';
  */
 export default class StateManager {
   /**
-   * Adds a new subscribable field field to the state manager
+   * Adds a new subscribable field field to the state manager. Throws an error if the field already exists
    * @param {String} name The name of the field
    * @param {Any} initialValue The initial value of the property
    * @return Property The newly created property
    */
   addField(name, initialValue) {
+    if(this[name] !== undefined) {
+      throw new Error('"' + name + '" is already a registered property');
+    }
+
     this[name] = new Property(initialValue);
     return this[name];
   }
