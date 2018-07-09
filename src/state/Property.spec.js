@@ -24,4 +24,17 @@ describe('Property', () => {
       done();
     });
   });
+
+  describe('hasListeners', () => {
+    it('should be true if the property has a listener', () => {
+      let property = new Property(0);
+      property.subscribe(() => {});
+      expect(property.hasListeners).to.equal(true);
+    });
+
+    it('should be false if the property does not have a listener', () => {
+      let property = new Property(0);
+      expect(property.hasListeners).to.equal(false);
+    });
+  });
 });
