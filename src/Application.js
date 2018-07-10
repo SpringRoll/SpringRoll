@@ -20,12 +20,12 @@ export class Application {
     
     // built-in state for the application
     this.state.addField('ready', false);
-    this.state.addField("soundMuted", false);
-    this.state.addField("captionsMuted", true);
-    this.state.addField("musicMuted", false);
-    this.state.addField("voMuted", false);
-    this.state.addField("sfxMuted", false);
-    this.state.addField("pause", false);
+    this.state.addField('soundMuted', false);
+    this.state.addField('captionsMuted', true);
+    this.state.addField('musicMuted', false);
+    this.state.addField('voMuted', false);
+    this.state.addField('sfxMuted', false);
+    this.state.addField('pause', false);
 
     this.features = Object.assign({
       captions: false,
@@ -36,7 +36,7 @@ export class Application {
     }, features);
 
     // always enable sound if one of the sound channels is enabled
-    if(this.features.vo || this.features.music || this.features.sfxButton) {
+    if (this.features.vo || this.features.music || this.features.sfxButton) {
       this.features.sound = true;
     }
 
@@ -48,7 +48,7 @@ export class Application {
 
     // listen for events from the container and keep the local value in sync
     ['soundMuted', 'captionsMuted', 'musicMuted', 'voMuted', 'sfxMuted', 'pause'].forEach(eventName => {
-      let property = this.state[eventName];
+      const property = this.state[eventName];
       this.container.on(eventName, containerEvent => property.value = containerEvent.data);
     });
 
@@ -83,14 +83,14 @@ export class Application {
    */
   promisify(callback) {
     // if it takes no argument, assume that it's synchronous or returns a Promise
-    if(callback.length === 0) {
+    if (callback.length === 0) {
       return Promise.resolve(callback.call(this));
     }
     
     // if it has an argument, that means it uses a callback structure    
     return new Promise((resolve, reject) => {
       callback.call(this, function(error) {
-        if(error) {
+        if (error) {
           reject(error);
         } else {
           resolve(error);
@@ -104,9 +104,9 @@ export class Application {
    * @throws Error
    */
   validateListeners() {
-    let missingListeners = [];
+    const missingListeners = [];
 
-    let featureToStateMap = {
+    const featureToStateMap = {
       captions: 'captionsMuted',
       sound: 'soundMuted',
       music: 'musicMuted',
@@ -115,18 +115,18 @@ export class Application {
     };
 
     Object.keys(featureToStateMap).forEach(feature => {
-      let stateName = featureToStateMap[feature];
+      const stateName = featureToStateMap[feature];
 
-      if(this.features[feature] && !this.state[stateName].hasListeners) {
+      if (this.features[feature] && !this.state[stateName].hasListeners) {
         missingListeners.push(stateName);
       }
     });
 
-    if(!this.state.pause.hasListeners) {
+    if (!this.state.pause.hasListeners) {
       missingListeners.push('pause');
     }
 
-    if(missingListeners.length > 0) {
+    if (missingListeners.length > 0) {
       throw new Error('Application state is missing required listeners: ' + missingListeners.join(', ') + '.');
     }
   }

@@ -20,7 +20,7 @@ export default class StateManager {
    * @return Property The newly created property
    */
   addField(name, initialValue) {
-    if(this[name] !== undefined) {
+    if (this[name] !== undefined) {
       throw new Error('"' + name + '" is already a registered property');
     }
 

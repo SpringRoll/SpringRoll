@@ -26,7 +26,11 @@ export default [
         browser: true,
         preferBuiltins: false
       }),
-      commonjs(),
+      commonjs({
+        namedExports: {
+          'bellhop-iframe' : [ 'Bellhop' ]
+        }
+      }),
       babel(),
       uglify({
         sourceMap: true
