@@ -7,15 +7,54 @@ import StateManager from './state/StateManager';
 export class Application {
   /**
    * Creates a new application, setting up plugins along the way
+   * @param {Object} features A configuration object denoting which features are enabled for this application
+   * @param {Boolean} features.captions A boolean value denoting that this game supports captions
+   * @param {Boolean} features.sound A boolean value denoting that this game has some audio in it
+   * @param {Boolean} features.vo A boolean denoting that this game has mutable voice-over audio in it
+   * @param {Boolean} features.music A boolean denoting that this game has mutable music in it
+   * @param {Boolean} features.sfxButton A boolean denoting that this game has mutable sound effects in it
    */
-  constructor() {
+  constructor(features = {}) {
     this.state = new StateManager();
+    
+    // built-in state for the application
     this.state.addField('ready', false);
+    this.state.addField("soundMuted", false);
+    this.state.addField("captionsMuted", true);
+    this.state.addField("musicMuted", false);
+    this.state.addField("voMuted", false);
+    this.state.addField("sfxMuted", false);
+    this.state.addField("pause", false);
+
+    this.features = Object.assign({
+      captions: false,
+      sound: false,
+      vo: false,
+      music: false,
+      sfxButton: false
+    }, features);
+
+    // always enable sound if one of the sound channels is enabled
+    if(this.features.vo || this.features.music || this.features.sfxButton) {
+      this.features.sound = true;
+    }
 
     Application._plugins.forEach(plugin => plugin.setup.call(this));
     
     const preloads = Application._plugins.map(plugin => this.promisify(plugin.preload));
-    Promise.all(preloads).then(() => this.state.ready.value = true);
+    Promise.all(preloads)
+      .catch(e => {
+        console.warn(e);
+      })
+      .then(() => {
+        this.validateListeners();
+      })
+      .catch(e => {
+        console.warn(e);
+      })
+      .then(() => {
+        this.state.ready.value = true;
+      });
   }
 
   /**
@@ -40,6 +79,38 @@ export class Application {
         }
       });
     });
+  }
+
+  /**
+   * Validates that appropriate listeners are added for the features that were enabled in the constructor
+   * @throws Error
+   */
+  validateListeners() {
+    let missingListeners = [];
+
+    let featureToStateMap = {
+      captions: 'captionsMuted',
+      sound: 'soundMuted',
+      music: 'musicMuted',
+      vo: 'voMuted',
+      sfxButton: 'sfxMuted'
+    };
+
+    Object.keys(featureToStateMap).forEach(feature => {
+      let stateName = featureToStateMap[feature];
+
+      if(this.features[feature] && !this.state[stateName].hasListeners) {
+        missingListeners.push(stateName);
+      }
+    });
+
+    if(!this.state.pause.hasListeners) {
+      missingListeners.push('pause');
+    }
+
+    if(missingListeners.length > 0) {
+      throw new Error('Application state is missing required listeners: ' + missingListeners.join(', ') + '.');
+    }
   }
 }
 

@@ -32,6 +32,30 @@ describe('Application', () => {
         done();
       });
     });
+
+    it('should default features to false for ones that are not set', () => {
+      let application = new Application({ captions: true });
+      expect(application.features.captions).to.equal(true);
+      expect(application.features.sound).to.equal(false);
+    });
+
+    it('should mark sound enabled if vo is marked as a feature', () => {
+      let application = new Application({ sound: false, vo: true });
+      expect(application.features.vo).to.equal(true);
+      expect(application.features.sound).to.equal(true);
+    });
+
+    it('should mark sound enabled if music is enabled', () => {
+      let application = new Application({ sound: false, music: true });
+      expect(application.features.music).to.equal(true);
+      expect(application.features.sound).to.equal(true);
+    });
+    
+    it('should mark sound enabled if sfxButton is enabled', () => {
+      let application = new Application({ sound: false, sfxButton: true });
+      expect(application.features.sfxButton).to.equal(true);
+      expect(application.features.sound).to.equal(true);
+    })
   });
 
   describe('promisify', () => {
