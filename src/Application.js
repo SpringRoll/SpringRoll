@@ -1,3 +1,4 @@
+import { Bellhop } from 'bellhop-iframe';
 import StateManager from './state/StateManager';
 
 /**
@@ -39,6 +40,22 @@ export class Application {
       this.features.sound = true;
     }
 
+    // create the connection to the container (if possible), and report features and SpringRoll 1 compat data
+    this.container = new Bellhop();
+    this.container.connect();
+    this.container.send('features', this.features);
+    this.container.send('keepFocus', false);
+
+    // listen for events from the container and keep the local value in sync
+    ['soundMuted', 'captionsMuted', 'musicMuted', 'voMuted', 'sfxMuted', 'pause'].forEach(eventName => {
+      let property = this.state[eventName];
+      this.container.on(eventName, containerEvent => property.value = containerEvent.data);
+    });
+
+    // maintain focus sync between the container and application
+    window.addEventListener('focus', () => this.container.send('focus', true));
+    window.addEventListener('blur', () => this.container.send('focus', false));
+
     Application._plugins.forEach(plugin => plugin.setup.call(this));
     
     const preloads = Application._plugins.map(plugin => this.promisify(plugin.preload));
@@ -53,6 +70,7 @@ export class Application {
         console.warn(e);
       })
       .then(() => {
+        this.container.send('loaded');
         this.state.ready.value = true;
       });
   }
