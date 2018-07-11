@@ -1,5 +1,3 @@
-import { isArray } from 'util';
-
 /**
  * SpeechSync makes it easy to convert text to speech
  * @class SpeechSynth
@@ -37,10 +35,9 @@ export class SpeechSynth {
     }.bind(this);
 
     const voiceOptions = window.speechSynthesis.getVoices();
-    if (isArray(voiceOptions) && 0 < voiceOptions.length) {
+    if (Array.isArray(voiceOptions) && 0 < voiceOptions.length) {
       loadVoices();
-    }
-    else {
+    } else {
       window.speechSynthesis.addEventListener('voiceschanged', loadVoices, {
         once: true
       });
