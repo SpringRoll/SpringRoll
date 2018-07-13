@@ -1,4 +1,4 @@
-import Property from './Property';
+import Property from './Property.js';
 
 /**
  * A class for managing a group of subscribable properties together. Allows for the registration of new properties

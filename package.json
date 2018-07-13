@@ -41,9 +41,10 @@
     "rollup-plugin-node-resolve": "^3.3.0",
     "rollup-plugin-prettier": "^0.4.0",
     "rollup-plugin-uglify": "^3.0.0",
+    "springroll-container": "^1.1.2",
     "webpack": "^4.10.2"
   },
   "dependencies": {
-    "bellhop-iframe": "^2.0.0"
+    "bellhop-iframe": "^2.1.1"
   }
 }
