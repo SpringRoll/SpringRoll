@@ -11,6 +11,7 @@ import Property from './Property.js';
  * })
  *
  * manager.paused = true;
+ * @class StateManager
  */
 export default class StateManager {
   /**

@@ -16,9 +16,11 @@ export class Application {
    * @param {Boolean} features.sfxButton A boolean denoting that this game has mutable sound effects in it
    */
   constructor(features = {}) {
+    /**
+     * @var {StateManager} state The built-in state manager for the application. Contains state for detecting
+     *                                muting of audio, captions display, and game pause state.
+     */
     this.state = new StateManager();
-    
-    // built-in state for the application
     this.state.addField('ready', false);
     this.state.addField('soundMuted', false);
     this.state.addField('captionsMuted', true);
