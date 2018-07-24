@@ -1,19 +1,19 @@
 # ColorFilter
 ColorFilter is a accessibility testing class.
 
-It has built in support for
+It has built in support for:
 ```
-  protanopia
-  protanomaly
-  deuteranopia
-  deuteranomaly
-  tritanopia
-  tritanomaly
-  achromatopsia
-  achromatomaly
+  Protanopia
+  Protanomaly
+	Deuteranopia
+  Deuteranomaly
+  Tritanopia
+  Tritanomaly
+  Achromatopsia
+  Achromatomaly
 ```
 
-To use it all you have to do is pass it a element and your desired filter.
+To use it, all you have to do is pass it a element and your desired filter.
 
 ```
 import { ColorFilter } from './ColorFilter';

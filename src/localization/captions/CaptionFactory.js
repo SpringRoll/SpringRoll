@@ -10,7 +10,7 @@ import TimedLine from './TimedLine';
  */
 export default class CaptionFactory {
   /**
-   * Creates a new Object<String, Caption>
+   * Creates a new Object<String, Caption>.
    *
    * @static
    * @param {JSON} data
@@ -35,7 +35,7 @@ export default class CaptionFactory {
   }
 
   /**
-   * Creates a new Caption from JSON data
+   * Creates a new Caption from JSON data.
    *
    * @static
    * @param {JSON} captionData

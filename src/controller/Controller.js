@@ -1,13 +1,13 @@
 import { Key } from './Key';
 /**
- * Controller interface class to simplify working with key presses
+ * Controller interface class to simplify working with key presses.
  * @export
  * @class Controller
- * @param {Array} [buttons=[]] a object containing all keys you want to watch and their functions. e.g. {enter: () => {}}. See https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/key/Key_Values for potential values
+ * @param {Array} [buttons=[]] An object containing all keys you want to watch and their functions. e.g. {enter: () => {}}. See https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/key/Key_Values for potential values.
  */
 export class Controller {
   /**
-   *Creates an instance of Controller.
+   * Creates an instance of Controller.
    * @memberof Controller
    */
   constructor(buttons = []) {
@@ -18,7 +18,7 @@ export class Controller {
   }
 
   /**
-   * Calls all functions for buttons that are currently set to enabled
+   * Calls all functions for buttons that are currently set to enabled.
    * @memberof Controller
    */
   update() {
@@ -28,7 +28,7 @@ export class Controller {
   }
 
   /**
-   * Called on keyup. Sets flag to 1 if key is being watched
+   * Called on keyup. Sets flag to 1 if key is being watched.
    * @param {KeyboardEvent} e
    * @memberof Controller
    */
@@ -37,7 +37,7 @@ export class Controller {
   }
 
   /**
-   * Called on keyup. Sets flag to 2 if key is being watched
+   * Called on keyup. Sets flag to 2 if key is being watched.
    * @param {KeyboardEvent} e
    * @memberof Controller
    */
@@ -46,7 +46,7 @@ export class Controller {
   }
 
   /**
-   * Sets a object of button functions to the controller function to be called
+   * Sets an object of button functions to the controller to be called.
    * @param {Array} buttons
    * @memberof Controller
    */
@@ -64,7 +64,7 @@ export class Controller {
   }
 
   /**
-   * Helper class to reduce code between event functions
+   * Helper class to reduce code between event functions.
    * @private
    * @param {KeyboardEvent} event
    * @param {0 | 1 | 2} state

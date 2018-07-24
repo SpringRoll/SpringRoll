@@ -1,18 +1,18 @@
 /**
- * Represents a single key on the keyboard and the functions related to it
+ * Represents a single key on the keyboard and the functions related to it.
  * @class Key
- * @property {0 | 1 | 2} state the current state of the key. 0 = inactive, 1 = active, 2 = to be set to inactive
- * @property {string} key the name of the key we are targeting
+ * @property {0 | 1 | 2} state The current state of the key. 0 = inactive, 1 = active, 2 = to be set to inactive.
+ * @property {string} key The name of the key we are targeting.
  * @property {object} actions
- * @property {function} actions.down function to be called while the key is held down
- * @property {function} actions.up function to be called when the key is lifted up
- * @param {string} key the this object represents
- * @param {function} [down=() => {}] function to be called while the key is held down
- * @param {function} [up=() => {}] function to be called when the key is lifted up
+ * @property {function} actions.down Function to be called while the key is held down.
+ * @property {function} actions.up Function to be called when the key is lifted up.
+ * @param {string} key What this object represents.
+ * @param {function} [down=() => {}] Function to be called while the key is held down.
+ * @param {function} [up=() => {}] Function to be called when the key is lifted up.
  */
 export class Key {
   /**
-   *Creates an instance of Key.
+   * Creates an instance of Key.
    */
   constructor(key, down = () => {}, up = () => {}) {
     this.key = key;
@@ -36,7 +36,7 @@ export class Key {
   }
 
   /**
-   * calls the relevant action for the current state of the key
+   * Calls the relevant action for the current state of the key.
    * @memberof Key
    */
   action() {
@@ -50,7 +50,7 @@ export class Key {
 
   /**
    *
-   * returns the current state of the key
+   * Returns the current state of the key.
    * @readonly
    * @returns { number }
    * @memberof Key
