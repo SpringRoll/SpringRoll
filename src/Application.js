@@ -17,8 +17,8 @@ export class Application {
    */
   constructor(features = {}) {
     /**
-     * @var {StateManager} state The built-in state manager for the application. Contains state for detecting
-     *                                muting of audio, captions display, and game pause state.
+     * @member {StateManager} The state manager for this application instance. Maintains subscribable properties for
+     *                        whether or not audio is muted, captions are displayed, or the game is paused.
      */
     this.state = new StateManager();
     this.state.addField('ready', false);
@@ -128,7 +128,7 @@ export class Application {
       missingListeners.push('pause');
     }
 
-    if (missingListeners.length > 0) {
+    if (missingListeners.length) {
       throw new Error('Application state is missing required listeners: ' + missingListeners.join(', ') + '.');
     }
   }

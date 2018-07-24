@@ -21,7 +21,7 @@ export default class StateManager {
    * @return Property The newly created property
    */
   addField(name, initialValue) {
-    if (this[name] !== undefined) {
+    if ('undefined' !== typeof this[name]) {
       throw new Error('"' + name + '" is already a registered property');
     }
 
