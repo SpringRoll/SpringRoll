@@ -6,7 +6,7 @@ import TimedLine from './TimedLine';
  * Collection of functions for creating Captions
  *
  * @export
- * @class CaptionBuilder
+ * @class CaptionFactory
  */
 export default class CaptionFactory {
   /**

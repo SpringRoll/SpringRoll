@@ -5,7 +5,6 @@
  */
 
 /**
- *
  * @export
  * @class Localizer
  */

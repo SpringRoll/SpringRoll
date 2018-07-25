@@ -2,7 +2,7 @@ import Property from './Property';
 
 /**
  * A class for managing a group of subscribable properties together. Allows for the registration of new properties.
- *
+ * @class StateManager
  * For example:
  * var manager = new StateManager();
  * manager.addField('paused', false);

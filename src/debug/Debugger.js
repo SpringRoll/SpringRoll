@@ -1,4 +1,5 @@
 /**
+ * @class Debugger
  * @typedef {object} DebuggerParams
  * @property {boolean} emitEnabled
  * @property {boolean} enabled
