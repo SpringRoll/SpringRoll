@@ -1,5 +1,6 @@
 /**
- * Simplifies listening to resize events by passing the relevant data to a provided callback
+ * Simplifies listening to resize events by passing the relevant data to a provided callback.
+ * @class ScaleManager
  * @param {Function} [callback=undefined]
  * @property {Function} [callback=undefined]
  */
@@ -20,7 +21,7 @@ export class ScaleManager {
   }
 
   /**
-   * onResize maps and passes the relevant to the user provided callback function
+   * onResize maps and passes the relevant data to the user provided callback function.
    * @param {UIEvent} event
    * @private
    */
@@ -39,8 +40,8 @@ export class ScaleManager {
   }
 
   /**
-   * Enables the scale manager listener. Will not be enabled if a callback is not supplied
-   * @param {Function} callback the function to be called on resize events
+   * Enables the scale manager listener. Will not be enabled if a callback is not supplied.
+   * @param {Function} callback The function to be called on resize events.
    */
   enable(callback = undefined) {
     if (callback instanceof Function) {
@@ -52,7 +53,7 @@ export class ScaleManager {
   }
 
   /**
-   * Disabled the scale manager
+   * Disables the scale manager.
    */
   disable() {
     window.removeEventListener('resize', this.onResize);

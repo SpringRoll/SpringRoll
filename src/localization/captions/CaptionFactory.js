@@ -6,11 +6,11 @@ import TimedLine from './TimedLine';
  * Collection of functions for creating Captions
  *
  * @export
- * @class CaptionBuilder
+ * @class CaptionFactory
  */
 export default class CaptionFactory {
   /**
-   * Creates a new Object<String, Caption>
+   * Creates a new Object<String, Caption>.
    *
    * @static
    * @param {JSON} data
@@ -35,7 +35,7 @@ export default class CaptionFactory {
   }
 
   /**
-   * Creates a new Caption from JSON data
+   * Creates a new Caption from JSON data.
    *
    * @static
    * @param {JSON} captionData

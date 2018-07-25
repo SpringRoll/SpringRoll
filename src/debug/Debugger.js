@@ -3,14 +3,14 @@
  * @property {boolean} emitEnabled
  * @property {boolean} enabled
  * @property {number} minLevel
- *
- * @param {Object} params - options
- * @param {boolean} [params.emitEnabled=false] If this should emit events to the window
- * @param {'GENERAL' | 'DEBUG' | 'INFO' | 'WARN' | 'ERROR'} [params.minLevel='GENERAL'] The starting log level for the logger
+ * @class Debugger
+ * @param {Object} params - Options
+ * @param {boolean} [params.emitEnabled=false] If this should emit events to the window.
+ * @param {'GENERAL' | 'DEBUG' | 'INFO' | 'WARN' | 'ERROR'} [params.minLevel='GENERAL'] The starting log level for the logger.
  */
 export class Debugger {
   /**
-   * returns the params of the debugger
+   * Returns the params of the debugger.
    * @returns {DebuggerParams}
    * @readonly
    * @static
@@ -22,8 +22,8 @@ export class Debugger {
   }
 
   /**
-   * Sets the logging level of the debugger
-   * @param {string | number} level the name of the level
+   * Sets the logging level of the debugger.
+   * @param {string | number} level The name of the level.
    * @return {void}
    */
   static minLevel(level) {
@@ -42,7 +42,7 @@ export class Debugger {
   }
 
   /**
-   * Setup the params if not set
+   * Setup the params if not set already.
    * @private
    * @static
    * @memberof Debugger
@@ -58,7 +58,7 @@ export class Debugger {
   }
 
   /**
-   * If emitting is enabled for this instance than it will dispatch a event on the window
+   * If emitting is enabled for this instance, then it will dispatch an event on the window.
    * @param {string} [eventName='Debugger'] Name of the event
    */
   static emit(eventName = 'Debugger') {
@@ -69,7 +69,7 @@ export class Debugger {
   }
 
   /**
-   * Returns logging levels
+   * Returns logging levels.
    * @readonly
    * @returns {object}
    * @static
@@ -86,7 +86,7 @@ export class Debugger {
   }
 
   /**
-   * Function to test if level meets requirements
+   * Function to test if level meets requirements.
    * @param {string} [level='GENERAL']
    * @returns {boolean}
    * @private
@@ -102,9 +102,9 @@ export class Debugger {
   }
 
   /**
-   * Console logs all supplied arguments if the log level is low enough for them to be logged
+   * Console logs all supplied arguments if the log level is low enough for them to be logged.
    * @param {'log' | 'general' | 'warn'| 'error' | 'debug' | 'info'} [type='log'] minimum level for this log to run at
-   * @param {*[]} args arguments you wish to log
+   * @param {*[]} args Arguments you wish to log.
    */
   static log(type = 'log', ...args) {
     Debugger.initParams();
@@ -152,8 +152,8 @@ export class Debugger {
   }
 
   /**
-   * Checks to see if the string argument is a valid level name
-   * @param {string} level the level name
+   * Checks to see if the string argument is a valid level name.
+   * @param {string} level The level name.
    * @return {boolean}
    * @private
    */
@@ -173,9 +173,9 @@ export class Debugger {
   }
 
   /**
-   * Will throw if statement is false
+   * Will throw if statement is false.
    * @static
-   * @param {boolean} isTrue the expression to evaluate
+   * @param {boolean} isTrue The expression to evaluate.
    * @returns
    */
   static assert(isTrue) {
@@ -186,7 +186,7 @@ export class Debugger {
   }
 
   /**
-   * returns a boolean indicating if the debugger has been enabled or not
+   * Returns a boolean indicating if the debugger has been enabled or not.
    * @static
    * @returns {boolean}
    */
@@ -195,7 +195,7 @@ export class Debugger {
   }
 
   /**
-   * Disabled or enables all debugger instances
+   * Disables or enables all debugger instances.
    * @static
    * @param {boolean} flag
    * @returns {void}
@@ -206,7 +206,7 @@ export class Debugger {
   }
 
   /**
-   * returns the global params key
+   * Returns the global params key.
    * @readonly
    * @static
    * @memberof Debugger

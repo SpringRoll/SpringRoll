@@ -5,15 +5,14 @@
  */
 
 /**
- *
  * @export
  * @class Localizer
  */
 export default class Localizer {
   /**
    * Creates an instance of Localizer.
-   * @param {Localizer.Config} config
-   * @param {Localizer.Options} options
+   * @param {Localizer.Config} Config
+   * @param {Localizer.Options} Options
    * @memberof Localizer
    */
   constructor(config, options = {}) {
@@ -27,7 +26,7 @@ export default class Localizer {
 
   /**
    *
-   * @param  {string} path
+   * @param  {string} Path
    * @param  {any} [options={}]
    * @return {Promise}
    * @memberof Localizer
@@ -53,7 +52,7 @@ export default class Localizer {
 
   /**
    * @param  {string} localeKey
-   * @return {boolean} true if language set.
+   * @return {boolean} True if language is set.
    * @memberof Localizer
    */
   setPrimaryLocale(localeKey) {
@@ -67,7 +66,7 @@ export default class Localizer {
 
   /**
    * @param  {string} localeKey
-   * @return {boolean} true if fallback set.
+   * @return {boolean} True if fallback is set.
    * @memberof Localizer
    */
   setFallbackLocale(localeKey) {
@@ -102,7 +101,8 @@ export default class Localizer {
 
   /**
    * @private
-   * @return {void}@memberof Localizer
+   * @return {void}
+	 * @memberof Localizer
    */
   getBrowsersLocaleKey() {
     const browserLanguages = this.getBrowserLanguages();
@@ -117,7 +117,7 @@ export default class Localizer {
 
   /**
    *
-   * @return {string[]} an array of browser languages
+   * @return {string[]} An array of browser languages.
    * @memberof Localizer
    */
   getBrowserLanguages() {

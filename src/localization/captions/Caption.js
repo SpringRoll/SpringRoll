@@ -5,7 +5,7 @@
 export default class Caption {
   /**
    * Creates an instance of Caption.
-   * @param {TimedLine[]} lines - array of Lines to be used for caption
+   * @param {TimedLine[]} lines - Array of lines to be used for caption.
    * @memberof Caption
    */
   constructor(lines) {
@@ -28,7 +28,7 @@ export default class Caption {
   }
 
   /**
-   * resets time, lineIndex and content fields
+   * Resets time, lineIndex and content fields.
    * @private
    * @memberof Caption
    */
@@ -43,7 +43,7 @@ export default class Caption {
    * Updates content based on time passed.
    * This ~should~ be called every frame that the caption is active.
    *
-   * @param {Number} deltaTime - time in seconds since last frame
+   * @param {Number} deltaTime - Time in seconds since last frame.
    * @memberof Caption
    */
   update(deltaTime) {
@@ -86,7 +86,7 @@ export default class Caption {
   }
 
   /**
-   * Checks if caption has completed
+   * Checks if caption has completed.
    * @returns {Boolean}
    * @memberof Caption
    */
@@ -95,9 +95,9 @@ export default class Caption {
   }
 
   /**
-   * sets time and line index of caption;
+   * Sets time and line index of caption.
    *
-   * @param {Number} [time=0] - time in milliseconds
+   * @param {Number} [time=0] - Time in milliseconds.
    * @memberof Caption
    */
   start(time = 0, beginCallback = () => {}, endCallback = () => {}) {
@@ -106,7 +106,7 @@ export default class Caption {
     this.endCallback = endCallback;
     this.time = time;
 
-    // initialize to the correct line index;
+    // Initialize to the correct line index
     while (this.time > this.lines[this.lineIndex].endTime) {
       this.lineIndex++;
       if (this.isFinished()) {

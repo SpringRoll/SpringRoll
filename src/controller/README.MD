@@ -1,6 +1,6 @@
 # Controller
 
-Controller is a interface class that makes it easier to interact user key inputs.
+Controller is a interface class that makes it easier to interact with user key inputs.
 
 It accepts a array of objects that follow this format `Object {key: string, down?: function, up?: function}`
 
@@ -18,16 +18,15 @@ const controller = new Controller([
 ```
 - Key values can be found [here](https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/key/Key_Values)
 
-- Key values are case insensitive
+- Key values are case insensitive.
 
-
-The controller will monitor key inputs for you. Call the  function for when you wish to call the functions that are related to the currently active keys.
+The controller will monitor key inputs for you. Call the function when you wish to call the functions that are related to the currently active keys.
 
 ```
 controller.update();
 ```
 
-if any time you wish to change the keys currently being watched you can call the assignButtons function. This follows the same format as the constructor
+If at any time you wish to change the keys currently being watched, you can call the assignButtons function. This follows the same format as the constructor:
 
 ```
 controller.assignButtons([

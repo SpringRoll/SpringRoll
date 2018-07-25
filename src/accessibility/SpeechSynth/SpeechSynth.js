@@ -1,16 +1,16 @@
 /**
- * SpeechSync makes it easy to convert text to speech
+ * SpeechSync makes it easy to convert text to speech.
  * @class SpeechSynth
  * @param {object} params
  * @param {number} [params.voice=0] Indicates what voice to use.
  * @param {number} [params.rate=1] The rate at which the text is said. Supports a range from 0.1 to 10.
- * @param {number} [params.pitch=0] Voice Pitch. Supports a pitch from 0 to 2
+ * @param {number} [params.pitch=0] Voice Pitch. Supports a pitch from 0 to 2.
  * @param {number} [params.volume=1] Volume. Supports 0 to 1.
- * @property {boolean} voicesLoaded voices are loaded async. This is will be set to true when they are loaded
+ * @property {boolean} voicesLoaded voices are loaded async. This is will be set to true when they are loaded.
  */
 export class SpeechSynth {
   /**
-   *Creates an instance of SpeechSynth.
+   * Creates an instance of SpeechSynth.
    */
   constructor({ voice = 0, rate = 1, pitch = 0, volume = 1 } = {}) {
     this.voiceOptions = [];
@@ -25,7 +25,7 @@ export class SpeechSynth {
     };
 
     /**
-     * Called when voices are ready to be used
+     * Called when voices are ready to be used.
      * @private
      */
     const loadVoices = function() {
@@ -45,7 +45,7 @@ export class SpeechSynth {
   }
 
   /**
-   * Pauses the announcer
+   * Pauses the announcer.
    */
   pause() {
     this.speaking = false;
@@ -53,7 +53,7 @@ export class SpeechSynth {
   }
 
   /**
-   * Resumes the announcer
+   * Resumes the announcer.
    */
   resume() {
     this.speaking = true;
@@ -61,7 +61,7 @@ export class SpeechSynth {
   }
 
   /**
-   * Pauses the announcer and clears the queue
+   * Pauses the announcer and clears the queue.
    */
   cancel() {
     this.speaking = false;
@@ -102,7 +102,7 @@ export class SpeechSynth {
 
   /**
    * Helper function to control the range of values.
-   * Will return the min value if not a number
+   * Will return the min value if not a number.
    * @private
    * @param {number} min
    * @param {number} max
@@ -143,7 +143,7 @@ export class SpeechSynth {
   }
 
   /**
-   * Rate at which text is spoken
+   * Rate at which text is spoken.
    * @param {number} rate
    */
   set rate(rate) {
@@ -151,7 +151,7 @@ export class SpeechSynth {
   }
 
   /**
-   * Returns rate which text is spoken
+   * Returns rate which text is spoken.
    * @returns {number}
    */
   get rate() {
@@ -159,7 +159,7 @@ export class SpeechSynth {
   }
 
   /**
-   * Sets the pitch at which text is spoken
+   * Sets the pitch at which text is spoken.
    * @param {number} pitch
    */
   set pitch(pitch) {
@@ -167,7 +167,7 @@ export class SpeechSynth {
   }
 
   /**
-   * Returns the pitch at which text is spoken
+   * Returns the pitch at which text is spoken.
    * @returns {number}
    */
   get pitch() {
@@ -175,7 +175,7 @@ export class SpeechSynth {
   }
 
   /**
-   * Sets the current volume of the announcer
+   * Sets the current volume of the announcer.
    * @param {number} volume
    */
   set volume(volume) {
@@ -183,7 +183,7 @@ export class SpeechSynth {
   }
 
   /**
-   * Returns the current volume of the announcer
+   * Returns the current volume of the announcer.
    * @returns {number}
    */
   get volume() {

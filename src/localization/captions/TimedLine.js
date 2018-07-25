@@ -5,9 +5,9 @@
 export default class TimedLine {
   /**
    * Creates an instance of TimedLine.
-   * @param {Number} startTime - start time in milliseconds relative to caption
-   * @param {Number} endTime - end time in milliseconds relative to caption
-   * @param {string} content - html formatted string content to show during time-span
+   * @param {Number} startTime - Start time in milliseconds relative to caption.
+   * @param {Number} endTime - End time in milliseconds relative to caption.
+   * @param {string} content - HMTL formatted string content to show during time-span.
    * @memberof TimedLine
    */
   constructor(startTime, endTime, content) {
@@ -17,7 +17,7 @@ export default class TimedLine {
   }
 
   /**
-   * Set's line's content. removes HTML formatting for text
+   * Sets line's content. Removes HTML formatting for text.
    * @param  {any} content
    * @return {void}@memberof TimedLine
    */
