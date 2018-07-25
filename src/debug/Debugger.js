@@ -1,10 +1,9 @@
 /**
- * @class Debugger
  * @typedef {object} DebuggerParams
  * @property {boolean} emitEnabled
  * @property {boolean} enabled
  * @property {number} minLevel
- *
+ * @class Debugger
  * @param {Object} params - Options
  * @param {boolean} [params.emitEnabled=false] If this should emit events to the window.
  * @param {'GENERAL' | 'DEBUG' | 'INFO' | 'WARN' | 'ERROR'} [params.minLevel='GENERAL'] The starting log level for the logger.
