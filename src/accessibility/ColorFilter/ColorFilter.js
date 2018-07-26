@@ -1,11 +1,11 @@
 /**
- * Color filter allows you to simulate colorblindness
+ * The Color filter allows you to simulate colorblindness.
  * @export
  * @class ColorFilter
  */
 export class ColorFilter {
   /**
-   *Creates an instance of ColorFilter.
+   * Creates an instance of ColorFilter.
    * @memberof ColorFilter
    */
   constructor() {
@@ -94,7 +94,7 @@ export class ColorFilter {
   }
 
   /**
-   * Applies the specified filter to the element
+   * Applies the specified filter to the element.
    * @param {HTMLElement} element
    * @param {string} type
    * @memberof ColorFilter
@@ -105,7 +105,7 @@ export class ColorFilter {
   }
 
   /**
-   * Changes the currently applied filter to the element if the color filter has that filter
+   * Changes the currently applied filter to the element if the color filter has it.
    * @param {string} type
    * @returns
    * @memberof ColorFilter
@@ -117,7 +117,7 @@ export class ColorFilter {
   }
 
   /**
-   * Removes the filter from the element
+   * Removes the filter from the element.
    * @memberof ColorFilter
    */
   removeFilter() {
@@ -125,9 +125,11 @@ export class ColorFilter {
   }
 
   /**
-   * Supported filter types
+   * Supported filter types.
    * @readonly
    * @memberof ColorFilter
+	 * @returns { object } Returns an object { name, value } with the colorblindness type:
+	 * (Protanopia, Protanomaly, Deuteranopia, Deuteranomaly, Tritanopia, Tritanomaly, Achromatopsia, Achromatomaly)
    */
   get types() {
     return [

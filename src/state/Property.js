@@ -1,11 +1,11 @@
 /**
- * A class for representing changeable/subscribable properties
+ * A class for representing changeable/subscribable properties.
  * @class Property
  */
 export default class Property {
   /**
-   * Creates a new property with an initial value
-   * @param Any initialValue The initial value of this property
+   * Creates a new property with an initial value.
+   * @param Any initialValue The initial value of this property.
    */
   constructor(initialValue) {
     this._value = initialValue;
@@ -21,7 +21,7 @@ export default class Property {
   }
 
   /**
-   * Notifies all subscribers to the property of a new value
+   * Notifies all subscribers to the property of a new value.
    */
   notifyChange() {
     this.listeners.forEach(listener => {
@@ -30,16 +30,16 @@ export default class Property {
   }
 
   /**
-   * Add a subscriber to this property
-   * @param Function callback The callback to call whenever the property changes
+   * Adds a subscriber to this property.
+   * @param Function callback The callback to call whenever the property changes.
    */
   subscribe(callback) {
     this.listeners.push(callback);
   }
 
   /**
-   * Unsubscribes a listener from this property
-   * @param Function callback The callback to unsubscribe
+   * Unsubscribes a listener from this property.
+   * @param Function callback The callback to unsubscribe.
    */
   unsubscribe(callback) {
     this.listeners = this.listeners.filter(listener => listener !== callback);

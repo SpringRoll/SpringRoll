@@ -47,10 +47,9 @@ In order to play a caption you'll first need to initialize a captions player and
     }
   });
 ```
-Each line in a caption must have a start and end time, if you want to have a delay between lines you should add time to the start of the next line. it's not recommended to use a line with an empty content.
+Each line in a caption must have a start and end time, if you want to have a delay between lines you should add time to the start of the next line. It's not recommended to use a line with an empty content.
 
-[//]: # (this can probably be reworded)
-if line `B`'s start time is before line `A`'s end time, then `A` will finish before `B` starts.
+If line `B`'s start time is before line `A`'s end time, then `A` will finish before `B` starts.
 
 A caption renderer can have the following callbacks.
 | Name              | Time  |
@@ -61,7 +60,7 @@ A caption renderer can have the following callbacks.
 | `lineEnd()`       | Called at the end of each line, called before `CaptionPlayer.stop()`
 
 ### Updating
-the caption player needs to be updated regularly in order for it to function properly. It's recommended to call update every frame for the most accurate timing.  
+The caption player needs to be updated regularly in order for it to function properly. It's recommended to call update on every frame for the most accurate timing.  
 
 ```javascript
   // DeltaTime is the time passed in SECONDS since the last update call.
@@ -69,7 +68,7 @@ the caption player needs to be updated regularly in order for it to function pro
 ```
 
 ### Playing a caption
-to start playing a captions you call start. you can pass a start time in as an optional parameter.
+To start playing a caption, you call start. You can pass a start time in as an optional parameter.
 
 ```javascript
   captionPlayer.start('welcome');
@@ -81,7 +80,7 @@ to start playing a captions you call start. you can pass a start time in as an o
 __Note:__ the CaptionPlayer can only play one caption at a time
 
 ### Stopping a caption
-captions automatically stop when the time passed is greater than the end time. but you can manually stop them if you need to.
+Captions automatically stop when the time passed is greater than the end time. You can manually stop them if you need to.
 
 ```javascript
   captionPlayer.stop();

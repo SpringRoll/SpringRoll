@@ -1,13 +1,13 @@
 import { Debugger } from './../../debug/Debugger';
 
 /**
- * Object used to render caption
+ * Object used to render caption.
  * @typedef {{start:(), stop:(), lineBegin:(line: TimedLine), lineEnd:()}} ICaptionRenderer
  */
 
 /**
  *  CaptionPlayer is used to start, stop and update captions.
- *  it applies the content of an active caption to a given CaptionRenderer.
+ *  It applies the content of an active caption to a given CaptionRenderer.
  *
  * @export
  * @class CaptionPlayer
@@ -15,8 +15,8 @@ import { Debugger } from './../../debug/Debugger';
 export default class CaptionPlayer {
   /**
    * Creates an instance of CaptionPlayer.
-   * @param {Object.<string, Caption>} captions - captions map.
-   * @param {ICaptionRenderer} renderer CaptionRenderer that content is applied too.
+   * @param {Object.<string, Caption>} captions - Captions map.
+   * @param {ICaptionRenderer} renderer CaptionRenderer that content is applied to.
    * @memberof CaptionPlayer
    */
   constructor(captions, renderer) {
@@ -27,7 +27,7 @@ export default class CaptionPlayer {
   }
 
   /**
-   * updates any currently playing caption
+   * Updates any currently playing caption.
    * This ~should~ be called every frame.
    *
    * @param {Number} deltaTime Time passed in seconds since last update call.
@@ -45,9 +45,9 @@ export default class CaptionPlayer {
   /**
    * Starts playing a caption.
    *
-   * @param {String} name name of caption
-   * @param {number} [time=0] start time in milliseconds
-   * @returns {boolean} true is caption started
+   * @param {String} name Name of caption.
+   * @param {number} [time=0] Atart time in milliseconds.
+   * @returns {boolean} True if caption started.
    * @memberof CaptionPlayer
    */
   start(name, time = 0) {
@@ -69,7 +69,7 @@ export default class CaptionPlayer {
   }
 
   /**
-   * Stops any caption currently playing
+   * Stops any caption currently playing.
    * @memberof CaptionPlayer
    */
   stop() {

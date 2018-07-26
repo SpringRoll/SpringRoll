@@ -2,7 +2,7 @@
 The localizer object provides a layer above your file loader to help with loading localized files. 
 
 ## Initializing
-in order to use the localizer you'll have to provide a config with a default locale
+In order to use the localizer you'll have to provide a config with a default locale,
 as well as all the locales you wish to use.
 ```javascript
 import { Localizer } from 'springroll/localization';
@@ -20,7 +20,7 @@ const config = {
 const localizer = new Localizer(config);
 ```
 
-The localizer will automatically look for the browser's language and use it. A fallback locale will also be set from default in the config. the fallback is used automatically if a language is specified can't found in locales.
+The localizer will automatically look for the browser's language and use it. A fallback locale will also be set from default in the config. The fallback is used automatically if a specified language can't be found in locales.
 
 An options object can also be provided to manually set the target and fallback languages.
 ```javascript
@@ -29,25 +29,25 @@ const localizer = new Localizer(config, { language:'fr', fallback:'en'});
 
 ## Loading a File
 
-`localizer.resolve()` returns an object that contains the resolved path
+`localizer.resolve()` Returns an object that contains the resolved path.
 
 ```javascript
 let result = localizer.resolve('vo/welcome.mp3');
 loader.load(result.path, 'welcome');
 ```
 
-this will load a file relative to the current locale, for example if the browser language was set to french-canadian. the path supplied to the load function would look like: `assets/fr-CA/vo/welcome.mp3`
+This will load a file relative to the current locale, for example if the browser language was set to French-Canadian, the path supplied to the load function would look like: `assets/fr-CA/vo/welcome.mp3`.
 
-you can also provide an options object to override the target and fallback languages for only a single load event.
+You can also provide an options object to override the target and fallback languages for only a single load event.
 
 ```javascript
 let result = localizer.resolve('vo/welcome.mp3', { language: 'es-ES', fallback: 'en' });
 loader.load(result.path, 'welcome');
 ```
 
-if the language or fallback are not found in the locales, then it will load with the default fallback. For example: if `'es-ES'` is not found the load function will try `'es'` if that isn't found it will use the fallback language `'en'`
+If the language or fallback are not found in the locales, then it will load with the default fallback. For example: if `'es-ES'` is not found, the load function will try `'es'` if that isn't found, it will use the fallback language `'en'`.
 
-result also contains the language key of the language used
+Result also contains the language key of the language used.
 
 ```javascript
 let result = localizer.resolve('vo/welcome.mp3', { language: 'es-ES', fallback: 'en' })

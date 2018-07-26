@@ -2,23 +2,23 @@
 
 ### Table of Contents
 
--   [DebuggerParams][1]
+-   [Debugger][1]
     -   [Parameters][2]
     -   [Properties][3]
--   [params][4]
--   [minLevel][5]
-    -   [Parameters][6]
--   [emit][7]
-    -   [Parameters][8]
--   [LEVEL][9]
--   [log][10]
-    -   [Parameters][11]
--   [assert][12]
-    -   [Parameters][13]
--   [isEnabled][14]
--   [enable][15]
-    -   [Parameters][16]
--   [paramKey][17]
+    -   [params][4]
+    -   [minLevel][5]
+        -   [Parameters][6]
+    -   [emit][7]
+        -   [Parameters][8]
+    -   [LEVEL][9]
+    -   [log][10]
+        -   [Parameters][11]
+    -   [assert][12]
+        -   [Parameters][13]
+    -   [isEnabled][14]
+    -   [enable][15]
+        -   [Parameters][16]
+    -   [paramKey][17]
 -   [ScaleManager][18]
     -   [Parameters][19]
     -   [Properties][20]
@@ -87,15 +87,15 @@
         -   [Parameters][83]
     -   [hasListeners][84]
 
-## DebuggerParams
+## Debugger
 
 Type: [object][85]
 
 ### Parameters
 
--   `params` **[Object][85]** options
-    -   `params.emitEnabled` **[boolean][86]** If this should emit events to the window (optional, default `false`)
-    -   `params.minLevel` **(`"GENERAL"` \| `"DEBUG"` \| `"INFO"` \| `"WARN"` \| `"ERROR"`)** The starting log level for the logger (optional, default `'GENERAL'`)
+-   `params` **[Object][85]** Options
+    -   `params.emitEnabled` **[boolean][86]** If this should emit events to the window. (optional, default `false`)
+    -   `params.minLevel` **(`"GENERAL"` \| `"DEBUG"` \| `"INFO"` \| `"WARN"` \| `"ERROR"`)** The starting log level for the logger. (optional, default `'GENERAL'`)
 
 ### Properties
 
@@ -103,124 +103,124 @@ Type: [object][85]
 -   `enabled` **[boolean][86]** 
 -   `minLevel` **[number][87]** 
 
-## params
+### params
 
-returns the params of the debugger
+Returns the params of the debugger.
 
-Returns **[DebuggerParams][88]** 
+Returns **DebuggerParams** 
 
-## minLevel
+### minLevel
 
-Sets the logging level of the debugger
+Sets the logging level of the debugger.
 
-### Parameters
+#### Parameters
 
--   `level` **([string][89] \| [number][87])** the name of the level
+-   `level` **([string][88] \| [number][87])** The name of the level.
 
 Returns **void** 
 
-## emit
+### emit
 
-If emitting is enabled for this instance than it will dispatch a event on the window
+If emitting is enabled for this instance, then it will dispatch an event on the window.
 
-### Parameters
+#### Parameters
 
--   `eventName` **[string][89]** Name of the event (optional, default `'Debugger'`)
+-   `eventName` **[string][88]** Name of the event (optional, default `'Debugger'`)
 
-## LEVEL
+### LEVEL
 
-Returns logging levels
+Returns logging levels.
 
 Returns **[object][85]** 
 
-## log
+### log
 
-Console logs all supplied arguments if the log level is low enough for them to be logged
+Console logs all supplied arguments if the log level is low enough for them to be logged.
 
-### Parameters
+#### Parameters
 
 -   `type` **(`"log"` \| `"general"` \| `"warn"` \| `"error"` \| `"debug"` \| `"info"`)** minimum level for this log to run at (optional, default `'log'`)
--   `args` **[Array][90]&lt;any>** arguments you wish to log
+-   `args` **[Array][89]&lt;any>** Arguments you wish to log.
 
-## assert
+### assert
 
-Will throw if statement is false
+Will throw if statement is false.
 
-### Parameters
+#### Parameters
 
--   `isTrue` **[boolean][86]** the expression to evaluate
+-   `isTrue` **[boolean][86]** The expression to evaluate.
 
-## isEnabled
+### isEnabled
 
-returns a boolean indicating if the debugger has been enabled or not
+Returns a boolean indicating if the debugger has been enabled or not.
 
 Returns **[boolean][86]** 
 
-## enable
+### enable
 
-Disabled or enables all debugger instances
+Disables or enables all debugger instances.
 
-### Parameters
+#### Parameters
 
 -   `flag` **[boolean][86]** 
 
 Returns **void** 
 
-## paramKey
+### paramKey
 
-returns the global params key
+Returns the global params key.
 
 ## ScaleManager
 
-Simplifies listening to resize events by passing the relevant data to a provided callback
+Simplifies listening to resize events by passing the relevant data to a provided callback.
 
 ### Parameters
 
--   `callback` **[Function][91]**  (optional, default `undefined`)
+-   `callback` **[Function][90]**  (optional, default `undefined`)
 
 ### Properties
 
--   `callback` **[Function][91]?** 
+-   `callback` **[Function][90]?** 
 
 ### enable
 
-Enables the scale manager listener. Will not be enabled if a callback is not supplied
+Enables the scale manager listener. Will not be enabled if a callback is not supplied.
 
 #### Parameters
 
--   `callback` **[Function][91]** the function to be called on resize events (optional, default `undefined`)
+-   `callback` **[Function][90]** The function to be called on resize events. (optional, default `undefined`)
 
 ### disable
 
-Disabled the scale manager
+Disables the scale manager.
 
 ## SpeechSynth
 
-SpeechSync makes it easy to convert text to speech
+SpeechSync makes it easy to convert text to speech.
 
 ### Parameters
 
 -   `params` **[object][85]** 
     -   `params.voice` **[number][87]** Indicates what voice to use. (optional, default `0`)
     -   `params.rate` **[number][87]** The rate at which the text is said. Supports a range from 0.1 to 10. (optional, default `1`)
-    -   `params.pitch` **[number][87]** Voice Pitch. Supports a pitch from 0 to 2 (optional, default `0`)
+    -   `params.pitch` **[number][87]** Voice Pitch. Supports a pitch from 0 to 2. (optional, default `0`)
     -   `params.volume` **[number][87]** Volume. Supports 0 to 1. (optional, default `1`)
 
 ### Properties
 
--   `voicesLoaded` **[boolean][86]** voices are loaded async. This is will be set to true when they are loaded
+-   `voicesLoaded` **[boolean][86]** voices are loaded async. This is will be set to true when they are loaded.
 
 ### pause
 
-Pauses the announcer
+Pauses the announcer.
 
 ### resume
 
-Resumes the announcer
+Resumes the announcer.
 
 ### cancel
 
-Pauses the announcer and clears the queue
+Pauses the announcer and clears the queue.
 
 ### say
 
@@ -229,7 +229,7 @@ If the announcer is already saying something then it will be added to a queue.
 
 #### Parameters
 
--   `message` **[string][89]** 
+-   `message` **[string][88]** 
 
 ### setVoice
 
@@ -247,7 +247,7 @@ Returns **([object][85] | null)**
 
 ### rate
 
-Rate at which text is spoken
+Rate at which text is spoken.
 
 #### Parameters
 
@@ -255,13 +255,13 @@ Rate at which text is spoken
 
 ### rate
 
-Returns rate which text is spoken
+Returns rate which text is spoken.
 
 Returns **[number][87]** 
 
 ### pitch
 
-Sets the pitch at which text is spoken
+Sets the pitch at which text is spoken.
 
 #### Parameters
 
@@ -269,13 +269,13 @@ Sets the pitch at which text is spoken
 
 ### pitch
 
-Returns the pitch at which text is spoken
+Returns the pitch at which text is spoken.
 
 Returns **[number][87]** 
 
 ### volume
 
-Sets the current volume of the announcer
+Sets the current volume of the announcer.
 
 #### Parameters
 
@@ -283,94 +283,97 @@ Sets the current volume of the announcer
 
 ### volume
 
-Returns the current volume of the announcer
+Returns the current volume of the announcer.
 
 Returns **[number][87]** 
 
 ## ColorFilter
 
-Color filter allows you to simulate colorblindness
+The Color filter allows you to simulate colorblindness.
 
 ### applyFilter
 
-Applies the specified filter to the element
+Applies the specified filter to the element.
 
 #### Parameters
 
--   `element` **[HTMLElement][92]** 
--   `type` **[string][89]** 
+-   `element` **[HTMLElement][91]** 
+-   `type` **[string][88]** 
 
 ### changeFilter
 
-Changes the currently applied filter to the element if the color filter has that filter
+Changes the currently applied filter to the element if the color filter has it.
 
 #### Parameters
 
--   `type` **[string][89]** 
+-   `type` **[string][88]** 
 
 Returns **any** 
 
 ### removeFilter
 
-Removes the filter from the element
+Removes the filter from the element.
 
 ### types
 
-Supported filter types
+Supported filter types.
+
+Returns **[object][85]** Returns an object { name, value } with the colorblindness type:
+(Protanopia, Protanomaly, Deuteranopia, Deuteranomaly, Tritanopia, Tritanomaly, Achromatopsia, Achromatomaly)
 
 ## Controller
 
-Controller interface class to simplify working with key presses
+Controller interface class to simplify working with key presses.
 
 ### Parameters
 
--   `buttons` **[Array][90]** a object containing all keys you want to watch and their functions. e.g. {enter: () => {}}. See [https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/key/Key_Values][93] for potential values (optional, default `[]`)
+-   `buttons` **[Array][89]** An object containing all keys you want to watch and their functions. e.g. {enter: () => {}}. See [https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/key/Key_Values][92] for potential values. (optional, default `[]`)
 
 ### update
 
-Calls all functions for buttons that are currently set to enabled
+Calls all functions for buttons that are currently set to enabled.
 
 ### onKeyDown
 
-Called on keyup. Sets flag to 1 if key is being watched
+Called on keyup. Sets flag to 1 if key is being watched.
 
 #### Parameters
 
--   `e` **[KeyboardEvent][94]** 
+-   `e` **[KeyboardEvent][93]** 
 
 ### onKeyUp
 
-Called on keyup. Sets flag to 2 if key is being watched
+Called on keyup. Sets flag to 2 if key is being watched.
 
 #### Parameters
 
--   `e` **[KeyboardEvent][94]** 
+-   `e` **[KeyboardEvent][93]** 
 
 ### assignButtons
 
-Sets a object of button functions to the controller function to be called
+Sets an object of button functions to the controller to be called.
 
 #### Parameters
 
--   `buttons` **[Array][90]** 
+-   `buttons` **[Array][89]** 
 
 ## Key
 
-Represents a single key on the keyboard and the functions related to it
+Represents a single key on the keyboard and the functions related to it.
 
 ### Parameters
 
--   `key` **[string][89]** the this object represents
--   `down` **[function][91]** function to be called while the key is held down (optional, default `()=>{}`)
--   `up` **[function][91]** function to be called when the key is lifted up (optional, default `()=>{}`)
+-   `key` **[string][88]** What this object represents.
+-   `down` **[function][90]** Function to be called while the key is held down. (optional, default `()=>{}`)
+-   `up` **[function][90]** Function to be called when the key is lifted up. (optional, default `()=>{}`)
 
 ### Properties
 
--   `state` **(`0` \| `1` \| `2`)** the current state of the key. 0 = inactive, 1 = active, 2 = to be set to inactive
--   `key` **[string][89]** the name of the key we are targeting
+-   `state` **(`0` \| `1` \| `2`)** The current state of the key. 0 = inactive, 1 = active, 2 = to be set to inactive.
+-   `key` **[string][88]** The name of the key we are targeting.
 -   `actions` **[object][85]** 
-    -   `actions.down` **[function][91]** function to be called while the key is held down
-    -   `actions.up` **[function][91]** function to be called when the key is lifted up
+    -   `actions.down` **[function][90]** Function to be called while the key is held down.
+    -   `actions.up` **[function][90]** Function to be called when the key is lifted up.
 
 ### updateState
 
@@ -382,11 +385,11 @@ Updates the internal state of the key. Accepts a range between 0-2. Will set key
 
 ### action
 
-calls the relevant action for the current state of the key
+Calls the relevant action for the current state of the key.
 
 ### state
 
-returns the current state of the key
+Returns the current state of the key.
 
 Returns **[number][87]** 
 
@@ -403,9 +406,9 @@ methods before they are executed.
 
 #### Parameters
 
--   `callback` **[Function][91]** A function that takes either a callback, or returns a promise
+-   `callback` **[Function][90]** A function that takes either a callback, or returns a promise.
 
-Returns **any** Promise A promise that resolves when the function finishes executing (whether it is asynchronous or not)
+Returns **any** Promise A promise that resolves when the function finishes executing (whether it is asynchronous or not).
 
 ### validateListeners
 
@@ -415,65 +418,56 @@ Validates that appropriate listeners are added for the features that were enable
 
 ### \_plugins
 
-The list of plugins that are currently registered to run on Applications
+The list of plugins that are currently registered to run on Applications.
 
 ### uses
 
-Registers a plugin to be used by applications, sorting it by priority order
+Registers a plugin to be used by applications, sorting it by priority order.
 
 #### Parameters
 
--   `plugin` **ApplicationPlugin** The plugin to register
+-   `plugin` **ApplicationPlugin** The plugin to register.
 
 ## StateManager
 
-A class for managing a group of subscribable properties together. Allows for the registration of new properties
-
-For example:
-var manager = new StateManager();
-manager.addField('paused', false);
-manager.paused.subscribe(function(newValue) {
-  console.log('New value is ', newValue);
-})
-
-manager.paused = true;
+A class for managing a group of subscribable properties together. Allows for the registration of new properties.
 
 ### addField
 
-Adds a new subscribable field field to the state manager. Throws an error if the field already exists
+Adds a new subscribable field field to the state manager. Throws an error if the field already exists.
 
 #### Parameters
 
--   `name` **[String][89]** The name of the field
--   `initialValue` **Any** The initial value of the property
+-   `name` **[String][88]** The name of the field.
+-   `initialValue` **Any** The initial value of the property.
 
-Returns **any** Property The newly created property
+Returns **any** Property The newly created property.
 
 ## Property
 
-A class for representing changeable/subscribable properties
+A class for representing changeable/subscribable properties.
 
 ### notifyChange
 
-Notifies all subscribers to the property of a new value
+Notifies all subscribers to the property of a new value.
 
 ### subscribe
 
-Add a subscriber to this property
+Adds a subscriber to this property.
 
 #### Parameters
 
 -   `callback`  
--   `Function`  callback The callback to call whenever the property changes
+-   `Function`  callback The callback to call whenever the property changes.
 
 ### unsubscribe
 
-Unsubscribes a listener from this property
+Unsubscribes a listener from this property.
 
 #### Parameters
 
 -   `callback`  
--   `Function`  callback The callback to unsubscribe
+-   `Function`  callback The callback to unsubscribe.
 
 ### hasListeners
 
@@ -481,7 +475,7 @@ Whether or not this property has any subscribed listeners
 
 Returns **any** Boolean True if this property has at least one subscriber
 
-[1]: #debuggerparams
+[1]: #debugger
 
 [2]: #parameters
 
@@ -655,16 +649,14 @@ Returns **any** Boolean True if this property has at least one subscriber
 
 [87]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number
 
-[88]: #debuggerparams
+[88]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String
 
-[89]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String
+[89]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array
 
-[90]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array
+[90]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function
 
-[91]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function
+[91]: https://developer.mozilla.org/docs/Web/HTML/Element
 
-[92]: https://developer.mozilla.org/docs/Web/HTML/Element
+[92]: https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/key/Key_Values
 
-[93]: https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/key/Key_Values
-
-[94]: https://developer.mozilla.org/docs/Web/API/KeyboardEvent
+[93]: https://developer.mozilla.org/docs/Web/API/KeyboardEvent
