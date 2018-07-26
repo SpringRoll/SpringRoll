@@ -9,5 +9,13 @@ describe('StateManager', () => {
       expect(result).to.be.instanceOf(Property);
       expect(manager.paused).to.be.instanceOf(Property);
     });
+
+    it('should throw if the field already exists', () => {
+      var manager = new StateManager();
+      manager.addField('x', 1);
+      
+      expect(() => manager.addField('x', 2)).to.throw()
+
+    });
   });
 });

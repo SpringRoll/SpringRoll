@@ -1,4 +1,5 @@
-import StateManager from './state/StateManager';
+import { Bellhop } from 'bellhop-iframe';
+import StateManager from './state/StateManager.js';
 
 /**
  * Main entry point for a game. Provides a single focal point for plugins and functionality to attach.
@@ -7,15 +8,73 @@ import StateManager from './state/StateManager';
 export class Application {
   /**
    * Creates a new application, setting up plugins along the way.
+   * @param {Object} features A configuration object denoting which features are enabled for this application
+   * @param {Boolean} features.captions A boolean value denoting that this game supports captions
+   * @param {Boolean} features.sound A boolean value denoting that this game has some audio in it
+   * @param {Boolean} features.vo A boolean denoting that this game has mutable voice-over audio in it
+   * @param {Boolean} features.music A boolean denoting that this game has mutable music in it
+   * @param {Boolean} features.sfxButton A boolean denoting that this game has mutable sound effects in it
    */
-  constructor() {
+  constructor(features = {}) {
+    /**
+     * @member {StateManager} The state manager for this application instance. Maintains subscribable properties for
+     *                        whether or not audio is muted, captions are displayed, or the game is paused.
+     */
     this.state = new StateManager();
     this.state.addField('ready', false);
+    this.state.addField('soundMuted', false);
+    this.state.addField('captionsMuted', true);
+    this.state.addField('musicMuted', false);
+    this.state.addField('voMuted', false);
+    this.state.addField('sfxMuted', false);
+    this.state.addField('pause', false);
+
+    this.features = Object.assign({
+      captions: false,
+      sound: false,
+      vo: false,
+      music: false,
+      sfxButton: false
+    }, features);
+
+    // always enable sound if one of the sound channels is enabled
+    if (this.features.vo || this.features.music || this.features.sfxButton) {
+      this.features.sound = true;
+    }
+
+    // create the connection to the container (if possible), and report features and SpringRoll 1 compat data
+    this.container = new Bellhop();
+    this.container.connect();
+    this.container.send('features', this.features);
+    this.container.send('keepFocus', false);
+
+    // listen for events from the container and keep the local value in sync
+    ['soundMuted', 'captionsMuted', 'musicMuted', 'voMuted', 'sfxMuted', 'pause'].forEach(eventName => {
+      const property = this.state[eventName];
+      this.container.on(eventName, containerEvent => property.value = containerEvent.data);
+    });
+
+    // maintain focus sync between the container and application
+    window.addEventListener('focus', () => this.container.send('focus', true));
+    window.addEventListener('blur', () => this.container.send('focus', false));
 
     Application._plugins.forEach(plugin => plugin.setup.call(this));
     
     const preloads = Application._plugins.map(plugin => this.promisify(plugin.preload));
-    Promise.all(preloads).then(() => this.state.ready.value = true);
+    Promise.all(preloads)
+      .catch(e => {
+        console.warn(e);
+      })
+      .then(() => {
+        this.validateListeners();
+      })
+      .catch(e => {
+        console.warn(e);
+      })
+      .then(() => {
+        this.container.send('loaded');
+        this.state.ready.value = true;
+      });
   }
 
   /**
@@ -25,21 +84,53 @@ export class Application {
    * @return Promise A promise that resolves when the function finishes executing (whether it is asynchronous or not).
    */
   promisify(callback) {
-    // If it takes no argument, assume that it's synchronous or returns a Promise.
-    if(callback.length === 0) {
+    // if it takes no argument, assume that it's synchronous or returns a Promise.
+    if (callback.length === 0) {
       return Promise.resolve(callback.call(this));
     }
     
     // If it has an argument, that means it uses a callback structure.
     return new Promise((resolve, reject) => {
       callback.call(this, function(error) {
-        if(error) {
+        if (error) {
           reject(error);
         } else {
           resolve(error);
         }
       });
     });
+  }
+
+  /**
+   * Validates that appropriate listeners are added for the features that were enabled in the constructor
+   * @throws Error
+   */
+  validateListeners() {
+    const missingListeners = [];
+
+    const featureToStateMap = {
+      captions: 'captionsMuted',
+      sound: 'soundMuted',
+      music: 'musicMuted',
+      vo: 'voMuted',
+      sfxButton: 'sfxMuted'
+    };
+
+    Object.keys(featureToStateMap).forEach(feature => {
+      const stateName = featureToStateMap[feature];
+
+      if (this.features[feature] && !this.state[stateName].hasListeners) {
+        missingListeners.push(stateName);
+      }
+    });
+
+    if (!this.state.pause.hasListeners) {
+      missingListeners.push('pause');
+    }
+
+    if (missingListeners.length) {
+      throw new Error('Application state is missing required listeners: ' + missingListeners.join(', ') + '.');
+    }
   }
 }
 

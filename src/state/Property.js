@@ -44,4 +44,12 @@ export default class Property {
   unsubscribe(callback) {
     this.listeners = this.listeners.filter(listener => listener !== callback);
   }
+
+  /**
+   * Whether or not this property has any subscribed listeners
+   * @return Boolean True if this property has at least one subscriber
+   */
+  get hasListeners() {
+    return this.listeners.length > 0;
+  }
 }
