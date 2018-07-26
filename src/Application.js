@@ -1,4 +1,4 @@
-import { Bellhop } from '../node_modules/bellhop-iframe/bellhop.js';
+import { Bellhop } from 'bellhop-iframe';
 import StateManager from './state/StateManager.js';
 
 /**
