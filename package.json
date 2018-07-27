@@ -1,6 +1,6 @@
 {
-  "name": "Springroll-2",
-  "version": "1.0.0",
+  "name": "springroll",
+  "version": "2.0.0",
   "description": "",
   "module": "dist/Springroll.js",
   "scripts": {
