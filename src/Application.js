@@ -1,4 +1,5 @@
 import { Bellhop } from 'bellhop-iframe';
+import { Debugger } from './debug/Debugger.js';
 import StateManager from './state/StateManager.js';
 
 /**
@@ -28,6 +29,7 @@ export class Application {
     this.state.addField('voMuted', false);
     this.state.addField('sfxMuted', false);
     this.state.addField('pause', false);
+    this.state.addField('playOptions', {});
 
     this.features = Object.assign({
       captions: false,
@@ -57,6 +59,23 @@ export class Application {
     // maintain focus sync between the container and application
     window.addEventListener('focus', () => this.container.send('focus', true));
     window.addEventListener('blur', () => this.container.send('focus', false));
+
+    // attempt to fetch play options from the query string (passed by the Container)
+    var match = /playOptions=[^&$]*/.exec(window.location.search);
+    if (match !== null) {
+      var matchedToken = match[0];
+      var rawValue = decodeURIComponent(matchedToken.split('=')[1]);
+
+      try {
+        this.playOptions = JSON.parse(rawValue);
+      }
+      catch (e) {
+        Debugger.log('warn', 'Failed to parse playOptions from query string:' + e.message);
+      }
+    }
+
+    // Also attempt to fetch over the iframe barrier for old container support
+    this.container.fetch('playOptions', e => this.playOptions.value = e.data);
 
     Application._plugins.forEach(plugin => plugin.setup.call(this));
     
