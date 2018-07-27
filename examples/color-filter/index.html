@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    .container {
+      display: flex;
+      flex-direction: column;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <img id="target" src="./example.png" width="400" alt="example">
+    <select id="options" style="width: 25rem;"></select>
+  </div>
+
+
+
+  <script type="module">
+    import { ColorFilter } from '../../src/accessibility/ColorFilter/ColorFilter.js';
+    const cf = new ColorFilter();
+    const jpeg = document.getElementById('target')
+    const dropDown = document.getElementById('options');
+    const button = document.getElementById('clear');
+    dropDown.onchange = e => {
+      console.log(dropDown.value);
+      cf.changeFilter(dropDown.value)
+    };
+    for (let i = 0, l = cf.types.length; i < l; i++) {
+      const option = document.createElement('option');
+      option.value = cf.types[i].value;
+      option.innerText = cf.types[i].name;
+      dropDown.appendChild(option);
+    }
+
+
+
+    cf.applyFilter(jpeg, 'protanopia');
+  </script>
+</body>
+
+</html>

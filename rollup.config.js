@@ -9,10 +9,9 @@ import babel from 'rollup-plugin-babel';
 export default [
   {
     input: 'src/index.js',
-    external: ['ms'],
     output: [
       {
-        file: pkg.esm,
+        file: pkg.module,
         format: 'es',
         sourceMap: true
       }
@@ -24,9 +23,14 @@ export default [
         module: true,
         jsnext: true,
         main: true,
-        browser: true
+        browser: true,
+        preferBuiltins: false
       }),
-      commonjs(),
+      commonjs({
+        namedExports: {
+          'bellhop-iframe' : [ 'Bellhop' ]
+        }
+      }),
       babel(),
       uglify({
         sourceMap: true
