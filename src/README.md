@@ -74,4 +74,9 @@ myApp.state.ready.subscribe(() => {
 myApp.state.pause.subscribe(isPaused => {
   console.log('Is the game paused?', isPaused);
 });
+
+// the playOptions that the container passes (see https://github.com/SpringRoll/SpringRollContainer#play-options)
+myApp.state.playOptions.subscribe(playOptions => {
+  console.log('New playOptions value set to', playOptions);
+});
 ```
