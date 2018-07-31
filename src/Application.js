@@ -61,10 +61,10 @@ export class Application {
     window.addEventListener('blur', () => this.container.send('focus', false));
 
     // attempt to fetch play options from the query string (passed by the Container)
-    var match = /playOptions=[^&$]*/.exec(window.location.search);
+    const match = /playOptions=[^&$]*/.exec(window.location.search);
     if (match !== null) {
-      var matchedToken = match[0];
-      var rawValue = decodeURIComponent(matchedToken.split('=')[1]);
+      const matchedToken = match[0];
+      const rawValue = decodeURIComponent(matchedToken.split('=')[1]);
 
       try {
         this.playOptions = JSON.parse(rawValue);
