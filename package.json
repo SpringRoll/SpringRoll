@@ -1,6 +1,6 @@
 {
-  "name": "Springroll-2",
-  "version": "1.0.0",
+  "name": "springroll",
+  "version": "2.0.0",
   "description": "",
   "module": "dist/Springroll.js",
   "scripts": {
@@ -9,7 +9,7 @@
     "dev": "rollup -c -w",
     "test": "karma start karma.conf.js",
     "docs": "documentation build ./src/index.js -f html -o docs",
-    "readme": "documentation build ./src/index.js -f md -o README.md",
+    "readme": "documentation build ./src/index.js -f md -o docs.md",
     "docs:serve": "documentation serve --watch ./src/index.js"
   },
   "sideEffects": false,
