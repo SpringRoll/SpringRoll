@@ -8,7 +8,7 @@
  * @export
  * @class Localizer
  */
-export default class Localizer {
+export class Localizer {
   /**
    * Creates an instance of Localizer.
    * @param {Localizer.Config} Config
@@ -102,7 +102,7 @@ export default class Localizer {
   /**
    * @private
    * @return {void}
-	 * @memberof Localizer
+   * @memberof Localizer
    */
   getBrowsersLocaleKey() {
     const browserLanguages = this.getBrowserLanguages();

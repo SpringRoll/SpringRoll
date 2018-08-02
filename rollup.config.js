@@ -6,6 +6,8 @@ import uglify from 'rollup-plugin-uglify';
 import pkg from './package.json';
 import babel from 'rollup-plugin-babel';
 
+const prettierConfig = require('./.prettierrc');
+
 export default [
   {
     input: 'src/index.js',
@@ -18,7 +20,7 @@ export default [
     ],
     plugins: [
       eslint(),
-      prettier(),
+      prettier(prettierConfig),
       resolve({
         module: true,
         jsnext: true,
@@ -28,7 +30,7 @@ export default [
       }),
       commonjs({
         namedExports: {
-          'bellhop-iframe' : [ 'Bellhop' ]
+          'bellhop-iframe': ['Bellhop']
         }
       }),
       babel(),

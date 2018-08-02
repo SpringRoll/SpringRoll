@@ -2,7 +2,7 @@
  * @export
  * @class Caption
  */
-export default class Caption {
+export class Caption {
   /**
    * Creates an instance of Caption.
    * @param {TimedLine[]} lines - Array of lines to be used for caption.

@@ -31,13 +31,16 @@ export class Application {
     this.state.addField('pause', false);
     this.state.addField('playOptions', {});
 
-    this.features = Object.assign({
-      captions: false,
-      sound: false,
-      vo: false,
-      music: false,
-      sfxButton: false
-    }, features);
+    this.features = Object.assign(
+      {
+        captions: false,
+        sound: false,
+        vo: false,
+        music: false,
+        sfxButton: false
+      },
+      features
+    );
 
     // always enable sound if one of the sound channels is enabled
     if (this.features.vo || this.features.music || this.features.sfxButton) {
@@ -51,9 +54,19 @@ export class Application {
     this.container.send('keepFocus', false);
 
     // listen for events from the container and keep the local value in sync
-    ['soundMuted', 'captionsMuted', 'musicMuted', 'voMuted', 'sfxMuted', 'pause'].forEach(eventName => {
+    [
+      'soundMuted',
+      'captionsMuted',
+      'musicMuted',
+      'voMuted',
+      'sfxMuted',
+      'pause'
+    ].forEach(eventName => {
       const property = this.state[eventName];
-      this.container.on(eventName, containerEvent => property.value = containerEvent.data);
+      this.container.on(
+        eventName,
+        containerEvent => (property.value = containerEvent.data)
+      );
     });
 
     // maintain focus sync between the container and application
@@ -68,18 +81,22 @@ export class Application {
 
       try {
         this.playOptions = JSON.parse(rawValue);
-      }
-      catch (e) {
-        Debugger.log('warn', 'Failed to parse playOptions from query string:' + e.message);
+      } catch (e) {
+        Debugger.log(
+          'warn',
+          'Failed to parse playOptions from query string:' + e.message
+        );
       }
     }
 
     // Also attempt to fetch over the iframe barrier for old container support
-    this.container.fetch('playOptions', e => this.playOptions.value = e.data);
+    this.container.fetch('playOptions', e => (this.playOptions.value = e.data));
 
     Application._plugins.forEach(plugin => plugin.setup.call(this));
-    
-    const preloads = Application._plugins.map(plugin => this.promisify(plugin.preload));
+
+    const preloads = Application._plugins.map(plugin =>
+      this.promisify(plugin.preload)
+    );
     Promise.all(preloads)
       .catch(e => {
         console.warn(e);
@@ -107,7 +124,7 @@ export class Application {
     if (callback.length === 0) {
       return Promise.resolve(callback.call(this));
     }
-    
+
     // If it has an argument, that means it uses a callback structure.
     return new Promise((resolve, reject) => {
       callback.call(this, function(error) {
@@ -148,7 +165,11 @@ export class Application {
     }
 
     if (missingListeners.length) {
-      throw new Error('Application state is missing required listeners: ' + missingListeners.join(', ') + '.');
+      throw new Error(
+        'Application state is missing required listeners: ' +
+          missingListeners.join(', ') +
+          '.'
+      );
     }
   }
 }
