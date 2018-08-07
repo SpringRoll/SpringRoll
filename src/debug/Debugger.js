@@ -176,7 +176,6 @@ export class Debugger {
    * Will throw if statement is false.
    * @static
    * @param {boolean} isTrue The expression to evaluate.
-   * @returns
    */
   static assert(isTrue) {
     Debugger.initParams();
