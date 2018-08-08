@@ -1,6 +1,6 @@
 import { Debugger } from './../../debug/Debugger';
-import Caption from './Caption';
-import TimedLine from './TimedLine';
+import { Caption } from './Caption';
+import { TimedLine } from './TimedLine';
 
 /**
  * Collection of functions for creating Captions
@@ -8,7 +8,7 @@ import TimedLine from './TimedLine';
  * @export
  * @class CaptionFactory
  */
-export default class CaptionFactory {
+export class CaptionFactory {
   /**
    * Creates a new Object<String, Caption>.
    *

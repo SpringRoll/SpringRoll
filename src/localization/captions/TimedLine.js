@@ -2,7 +2,7 @@
  * @export
  * @class TimedLine
  */
-export default class TimedLine {
+export class TimedLine {
   /**
    * Creates an instance of TimedLine.
    * @param {Number} startTime - Start time in milliseconds relative to caption.

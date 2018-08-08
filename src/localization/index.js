@@ -1,2 +1,2 @@
-import * as Captions from './captions';
-export { Captions };
+export * from './captions';
+export * from './localizer';

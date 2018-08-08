@@ -72,13 +72,13 @@ SpringRoll contains submodules for various accessibility testing and enhancement
 The [Controller module](./src/controller) provides a mechanism for mapping keyboard input to functions which can help centralize user input management and make supporting multiple input mechanisms easier.
 
 ### Debugger Module
-The Debugger module provides a centralized set of methods for logging that can be enabled or disabled at runtime.
+The [Debugger module](./src/debug) provides a centralized set of methods for logging that can be enabled or disabled at runtime.
 
 ### Localization Module
 The Localization module provides support for supporting [multiple languages in games](./src/localization/localizer) and [captions](./src/localization/captions)
 
 ### Scale Manager Module
-The Scale Manager module helps developers to react to screen size changes.
+The [Scale Manager module](./src/scale-manager) helps developers to react to screen size changes.
 
 ### State Manager Module
-The State Manager module provides classes for creating subscribable properties that notify listeners when they are changed. This is used for managing pause, captions, and audio mute state in the [Application class](./src/), but can also be used for other generic uses.
+The [State Manager module](./src/state) provides classes for creating subscribable properties that notify listeners when they are changed. This is used for managing pause, captions, and audio mute state in the [Application class](./src/), but can also be used for other generic uses.

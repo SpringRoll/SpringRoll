@@ -12,7 +12,7 @@ import { Debugger } from './../../debug/Debugger';
  * @export
  * @class CaptionPlayer
  */
-export default class CaptionPlayer {
+export class CaptionPlayer {
   /**
    * Creates an instance of CaptionPlayer.
    * @param {Object.<string, Caption>} captions - Captions map.

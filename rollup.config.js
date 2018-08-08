@@ -6,19 +6,20 @@ import uglify from 'rollup-plugin-uglify';
 import pkg from './package.json';
 import babel from 'rollup-plugin-babel';
 
+const prettierConfig = require('./.prettierrc');
+
 export default [
   {
     input: 'src/index.js',
     output: [
       {
         file: pkg.module,
-        format: 'es',
-        sourceMap: true
+        format: 'es'
       }
     ],
     plugins: [
       eslint(),
-      prettier(),
+      prettier(prettierConfig),
       resolve({
         module: true,
         jsnext: true,
@@ -28,13 +29,11 @@ export default [
       }),
       commonjs({
         namedExports: {
-          'bellhop-iframe' : [ 'Bellhop' ]
+          'bellhop-iframe': ['Bellhop']
         }
       }),
       babel(),
-      uglify({
-        sourceMap: true
-      })
+      uglify()
     ]
   }
 ];
