@@ -4,3 +4,4 @@ export * from './accessibility';
 export * from './controller';
 export * from './Application';
 export * from './localization';
+export * from './plugins/ApplicationPlugin';
