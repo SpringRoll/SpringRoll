@@ -14,8 +14,7 @@ export default [
     output: [
       {
         file: pkg.module,
-        format: 'es',
-        sourceMap: true
+        format: 'es'
       }
     ],
     plugins: [
@@ -34,9 +33,7 @@ export default [
         }
       }),
       babel(),
-      uglify({
-        sourceMap: true
-      })
+      uglify()
     ]
   }
 ];

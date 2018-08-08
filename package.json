@@ -12,7 +12,6 @@
     "readme": "documentation build ./src/index.js -f md -o docs.md",
     "docs:serve": "documentation serve --watch ./src/index.js"
   },
-  "sideEffects": false,
   "author": "",
   "license": "ISC",
   "devDependencies": {
