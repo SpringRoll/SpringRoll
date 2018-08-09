@@ -35,8 +35,7 @@ export class Caption {
   reset() {
     this.time = 0;
     this.lineIndex = 0;
-    this.beginCallback = null;
-    this.endCallback = null;
+    this.renderer = null;
   }
 
   /**
@@ -68,7 +67,7 @@ export class Caption {
     }
 
     if (currentTime > this.lines[this.lineIndex].endTime) {
-      this.endCallback();
+      this.renderer.lineEnd();
     }
 
     while (currentTime > this.lines[this.lineIndex].endTime) {
@@ -80,7 +79,7 @@ export class Caption {
 
     const line = this.lines[this.lineIndex];
     if (currentTime >= line.startTime && lastTime < line.startTime) {
-      this.beginCallback(line);
+      this.renderer.lineBegin(line);
       return;
     }
   }
@@ -100,10 +99,9 @@ export class Caption {
    * @param {Number} [time=0] - Time in milliseconds.
    * @memberof Caption
    */
-  start(time = 0, beginCallback = () => {}, endCallback = () => {}) {
+  start(time = 0, renderer = { lineBegin: () => {}, lineEnd: () => {} }) {
     this.reset();
-    this.beginCallback = beginCallback;
-    this.endCallback = endCallback;
+    this.renderer = renderer;
     this.time = time;
 
     // Initialize to the correct line index

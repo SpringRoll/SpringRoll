@@ -1,11 +1,11 @@
-# Caption Player 
+# Caption Player
 The CaptionPlayer object provides a simplified way to handle playing captions in your game.
 
 ### Initializing
 In order to play a caption you'll first need to initialize a captions player and an object for rendering your captions.
 
 ```javascript
-  import { CaptionPlayer, CaptionFactory } from 'springroll/localization'
+  import { CaptionPlayer, HtmlRenderer } from 'springroll'
 
   // Start and end times are in Milliseconds
   const captionData = {
@@ -31,21 +31,7 @@ In order to play a caption you'll first need to initialize a captions player and
   }
 
   const captionsElement = document.getElementById("captions");
-  const captionMap = CaptionFactory.createCaptionMap(captionData);
-  const captionPlayer = new CaptionPlayer(captionMap, {
-    start:() => {
-      captionsElement.style.visibility = "visible";
-    },
-    lineBegin:(line) => {
-      captionsElement.innerHTML = line.content;
-    },
-    lineEnd:() => {
-      captionsElement.innerHTML = '';
-    },
-    stop:() => {
-      captionsElement.style.visibility = "hidden";
-    }
-  });
+  const captionPlayer = new CaptionPlayer(captionData,  new HtmlRenderer(captionsElement));
 ```
 Each line in a caption must have a start and end time, if you want to have a delay between lines you should add time to the start of the next line. It's not recommended to use a line with an empty content.
 
@@ -54,17 +40,17 @@ If line `B`'s start time is before line `A`'s end time, then `A` will finish bef
 A caption renderer can have the following callbacks.
 | Name              | Time  |
 |-------------------|-------|
-| `start()`         | Called when `CaptionPlayer.start()` is called
+| `start(args)`     | Called when `CaptionPlayer.start()` is called
 | `stop()`          | Called when `CaptionPlayer.stop()` is called or when caption is finished
 | `lineBegin(line)` | Called at the beginning of each line after `CaptionPlayer.start()`
 | `lineEnd()`       | Called at the end of each line, called before `CaptionPlayer.stop()`
 
 ### Updating
-The caption player needs to be updated regularly in order for it to function properly. It's recommended to call update on every frame for the most accurate timing.  
+The caption player needs to be updated regularly in order for it to function properly. It's recommended to call update on every frame for the most accurate timing.
 
 ```javascript
   // DeltaTime is the time passed in SECONDS since the last update call.
-  captionPlayer.update(deltaTime); 
+  captionPlayer.update(deltaTime);
 ```
 
 ### Playing a caption
@@ -76,6 +62,11 @@ To start playing a caption, you call start. You can pass a start time in as an o
 
 ```javascript
   captionPlayer.start('welcome', 1200);
+```
+
+
+```javascript
+  captionPlayer.start('welcome', 1200, {food: 'spring roll'});
 ```
 __Note:__ the CaptionPlayer can only play one caption at a time
 
