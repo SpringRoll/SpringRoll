@@ -5,7 +5,8 @@
   "module": "dist/Springroll.js",
   "scripts": {
     "build": "rollup -c && npm run readme",
-    "build:map": "rollup -c -m && npm run readme",
+    "build:map": "rollup -c -m",
+    "build:full": "npm run build:map && npm run docs && npm run readme",
     "dev": "rollup -c -w",
     "test": "karma start karma.conf.js",
     "docs": "documentation build ./src/index.js -f html -o docs",
