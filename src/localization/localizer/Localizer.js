@@ -1,6 +1,6 @@
 /**
  * @typedef {{path: string}} Locale
- * @typedef {{default: string, locales: { name: Locale }} Localizer.Config
+ * @typedef {{default: string, locales: { name: Locale }}} Localizer.Config
  * @typedef {{language: string, fallback: string}} Localizer.Options
  */
 
@@ -11,8 +11,8 @@
 export class Localizer {
   /**
    * Creates an instance of Localizer.
-   * @param {Localizer.Config} Config
-   * @param {Localizer.Options} Options
+   * @param {Localizer.Config} config
+   * @param {Localizer.Options} [options={}]
    * @memberof Localizer
    */
   constructor(config, options = {}) {
@@ -26,9 +26,9 @@ export class Localizer {
 
   /**
    *
-   * @param  {string} Path
+   * @param  {string} path
    * @param  {any} [options={}]
-   * @return {Promise}
+   * @return {{path: string, language: string}}
    * @memberof Localizer
    */
   resolve(path, options = {}) {
@@ -101,7 +101,7 @@ export class Localizer {
 
   /**
    * @private
-   * @return {void}
+   * @return {void | string}
    * @memberof Localizer
    */
   getBrowsersLocaleKey() {
@@ -117,7 +117,7 @@ export class Localizer {
 
   /**
    *
-   * @return {string[]} An array of browser languages.
+   * @return {ReadonlyArray[*] | []} An array of browser languages.
    * @memberof Localizer
    */
   getBrowserLanguages() {

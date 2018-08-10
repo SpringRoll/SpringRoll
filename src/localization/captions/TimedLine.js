@@ -1,5 +1,9 @@
 /**
  * @export
+ * @property {number} startTime
+ * @property {number} endTime
+ * @property {string} content
+ * @property {string} text
  * @class TimedLine
  */
 export class TimedLine {
@@ -11,8 +15,9 @@ export class TimedLine {
    * @memberof TimedLine
    */
   constructor(startTime, endTime, content) {
-    this.startTime = startTime;
-    this.endTime = endTime;
+    this.startTime = startTime || 0;
+    this.endTime = endTime || 0;
+    this.content = '';
     this.setContent(content);
   }
 
@@ -23,6 +28,5 @@ export class TimedLine {
    */
   setContent(content) {
     this.content = content;
-    this.text = content.replace(/(<([^>]+)>)/gi, '');
   }
 }

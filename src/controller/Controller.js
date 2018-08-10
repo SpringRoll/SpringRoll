@@ -1,17 +1,27 @@
 import { Key } from './Key';
+
+/**
+ * @typedef {object} KeyTemplate
+ * @property {Function} down
+ * @property {Function} up
+ * @property {string} key
+ *
+ * @typedef {0 | 1 | 2} KeyState
+ */
+
 /**
  * Controller interface class to simplify working with key presses.
  * @export
  * @class Controller
- * @param {Array} [buttons=[]] An object containing all keys you want to watch and their functions. e.g. {enter: () => {}}. See https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/key/Key_Values for potential values.
+ * @param {KeyTemplate[]} [buttons=[]] An object containing all keys you want to watch and their functions. e.g. {enter: () => {}}. See https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/key/Key_Values for potential values.
  */
 export class Controller {
   /**
    * Creates an instance of Controller.
    * @memberof Controller
    */
-  constructor(buttons = []) {
-    this.assignButtons(buttons);
+  constructor(keys = []) {
+    this.assignButtons(keys);
 
     window.addEventListener('keydown', this.onKeyDown.bind(this));
     window.addEventListener('keyup', this.onKeyUp.bind(this));
@@ -47,18 +57,18 @@ export class Controller {
 
   /**
    * Sets an object of button functions to the controller to be called.
-   * @param {Array} buttons
+   * @param {KeyTemplate[]} keys
    * @memberof Controller
    */
-  assignButtons(buttons) {
+  assignButtons(keys) {
     this.buttons = {};
     this.keys = [];
-    for (let i = 0, l = buttons.length; i < l; i++) {
-      this.keys.push(buttons[i].key);
-      this.buttons[buttons[i].key] = new Key(
-        buttons[i].key,
-        buttons[i].down,
-        buttons[i].up
+    for (let i = 0, l = keys.length; i < l; i++) {
+      this.keys.push(keys[i].key);
+      this.buttons[keys[i].key] = new Key(
+        keys[i].key,
+        keys[i].down,
+        keys[i].up
       );
     }
   }
@@ -67,7 +77,7 @@ export class Controller {
    * Helper class to reduce code between event functions.
    * @private
    * @param {KeyboardEvent} event
-   * @param {0 | 1 | 2} state
+   * @param {KeyState} state
    * @memberof Controller
    */
   onKey(event, state) {

@@ -1,4 +1,8 @@
 /**
+ * @typedef {'protanopia' | 'protanomaly'| 'deuteranopia' | 'deuteranomaly' | 'tritanopia' | 'tritanomaly' | 'achromatopsia'| 'achromatomaly' } filterType;
+ */
+
+/**
  * The Color filter allows you to simulate colorblindness.
  * @export
  * @class ColorFilter
@@ -7,8 +11,10 @@ export class ColorFilter {
   /**
    * Creates an instance of ColorFilter.
    * @memberof ColorFilter
+   * @param {HTMLElement} element target html element to apply the filter too
+   * @param {filterType} type the
    */
-  constructor() {
+  constructor(element = undefined, type = undefined) {
     this.element = null;
     if (null === document.getElementById('color__filter__svg')) {
       document.head.innerHTML += `<svg
@@ -91,12 +97,15 @@ export class ColorFilter {
       </svg>
       `;
     }
+    if (element instanceof HTMLElement && 'string' === typeof type) {
+      this.applyFilter(element, type);
+    }
   }
 
   /**
    * Applies the specified filter to the element.
    * @param {HTMLElement} element
-   * @param {string} type
+   * @param {filterType} type
    * @memberof ColorFilter
    */
   applyFilter(element, type) {
@@ -106,7 +115,7 @@ export class ColorFilter {
 
   /**
    * Changes the currently applied filter to the element if the color filter has it.
-   * @param {string} type
+   * @param {filterType} type
    * @returns
    * @memberof ColorFilter
    */
@@ -128,8 +137,8 @@ export class ColorFilter {
    * Supported filter types.
    * @readonly
    * @memberof ColorFilter
-	 * @returns { object } Returns an object { name, value } with the colorblindness type:
-	 * (Protanopia, Protanomaly, Deuteranopia, Deuteranomaly, Tritanopia, Tritanomaly, Achromatopsia, Achromatomaly)
+   * @returns { object } Returns an object { name, value } with the colorblindness type:
+   * (Protanopia, Protanomaly, Deuteranopia, Deuteranomaly, Tritanopia, Tritanomaly, Achromatopsia, Achromatomaly)
    */
   get types() {
     return [
