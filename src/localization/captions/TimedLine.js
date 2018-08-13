@@ -3,7 +3,6 @@
  * @property {number} startTime
  * @property {number} endTime
  * @property {string} content
- * @property {string} text
  * @class TimedLine
  */
 export class TimedLine {
