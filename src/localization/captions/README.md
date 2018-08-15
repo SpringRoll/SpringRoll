@@ -63,12 +63,32 @@ To start playing a caption, you call start. You can pass a start time in as an o
 ```javascript
   captionPlayer.start('welcome', 1200);
 ```
+__Note:__ the CaptionPlayer can only play one caption at a time
 
+### Variable Captions
+Renderers have the option to accept arguments from the player and insert them into the caption.
 
 ```javascript
-  captionPlayer.start('welcome', 1200, {food: 'spring roll'});
+    const captionsElement = document.getElementById("captions");
+    const captionData = {
+    "greeting":[
+      {
+        "content": "Hello {{name}}"
+        "start":0,
+        "end": 1200
+      },
+      {
+        "content": "You last logged in on {{lastLogin}}"
+        "start":1300,
+        "end": 2400
+      }
+    ]
+  };
+  const captionPlayer = new CaptionPlayer(captionData,  new HtmlRenderer(captionsElement));
+  captionPlayer.start('greeting', 0, { name: 'Admin', lastLogin: 'August 13th, 2018' });
 ```
-__Note:__ the CaptionPlayer can only play one caption at a time
+__Note:__ Caption variables are case sensitive
+
 
 ### Stopping a caption
 Captions automatically stop when the time passed is greater than the end time. You can manually stop them if you need to.
