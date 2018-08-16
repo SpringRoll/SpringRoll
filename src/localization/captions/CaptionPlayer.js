@@ -2,6 +2,10 @@ import { Debugger } from '../../debug/Debugger';
 import { CaptionFactory } from './CaptionFactory';
 
 /**
+ * @typedef {import('./renderers/IRenderer.js').IRender} IRender
+ */
+
+/**
  *  CaptionPlayer is used to start, stop and update captions.
  *  It applies the content of an active caption to a given CaptionRenderer.
  *

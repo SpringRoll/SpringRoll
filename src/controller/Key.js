@@ -7,14 +7,14 @@
  * @property {function} actions.down Function to be called while the key is held down.
  * @property {function} actions.up Function to be called when the key is lifted up.
  * @param {string} key What this object represents.
- * @param {function} [down=() => {}] Function to be called while the key is held down.
- * @param {function} [up=() => {}] Function to be called when the key is lifted up.
+ * @param {Function} [down=() => {}] Function to be called while the key is held down.
+ * @param {Function} [up=() => {}] Function to be called when the key is lifted up.
  */
 export class Key {
   /**
    * Creates an instance of Key.
    */
-  constructor(key, down = () => {}, up = () => {}) {
+  constructor(key, down, up) {
     this.key = key;
     this._state = 0;
     this.actions = {

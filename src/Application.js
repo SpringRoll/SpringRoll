@@ -16,7 +16,7 @@ export class Application {
    * @param {Boolean} features.music A boolean denoting that this game has mutable music in it
    * @param {Boolean} features.sfxButton A boolean denoting that this game has mutable sound effects in it
    */
-  constructor(features = {}) {
+  constructor(features) {
     /**
      * @member {StateManager} The state manager for this application instance. Maintains subscribable properties for
      *                        whether or not audio is muted, captions are displayed, or the game is paused.
@@ -39,7 +39,7 @@ export class Application {
         music: false,
         sfxButton: false
       },
-      features
+      features || {}
     );
 
     // always enable sound if one of the sound channels is enabled
@@ -117,7 +117,7 @@ export class Application {
    * Converts a callback-based or synchronous function into a promise. This method is used for massaging plugin preload
    * methods before they are executed.
    * @param {Function} callback A function that takes either a callback, or returns a promise.
-   * @return Promise A promise that resolves when the function finishes executing (whether it is asynchronous or not).
+   * @return {Promise} A promise that resolves when the function finishes executing (whether it is asynchronous or not).
    */
   promisify(callback) {
     // if it takes no argument, assume that it's synchronous or returns a Promise.
@@ -179,6 +179,10 @@ export class Application {
  * @static
  */
 Application._plugins = [];
+
+/**
+ * @typedef {typeof import('./plugins/ApplicationPlugin.js').ApplicationPlugin} ApplicationPlugin
+ */
 
 /**
  * Registers a plugin to be used by applications, sorting it by priority order.

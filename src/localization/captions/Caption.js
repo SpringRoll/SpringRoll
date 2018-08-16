@@ -1,6 +1,14 @@
 /**
+ * @typedef {import('./TimedLine.js').TimedLine} TimedLine
+ * @typedef {import('./renderers/IRenderer.js').IRender} IRender
+ */
+/**
  * @export
  * @class Caption
+ * @property {TimedLine[]} lines
+ * @property {number} time
+ * @property {number} lineIndex
+ * @property {IRender} renderer
  */
 export class Caption {
   /**

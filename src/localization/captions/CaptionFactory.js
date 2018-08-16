@@ -104,7 +104,6 @@ export class CaptionFactory {
       return;
     }
 
-    //TODO: any future formatting changes should go here.
     return new TimedLine(lineData.start, lineData.end, lineData.content);
   }
 }

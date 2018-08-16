@@ -115,11 +115,6 @@ describe('TimedLine', function() {
       expect(line.content).to.exist;
     });
   });
-  describe('$.text', function() {
-    it('should exist', function() {
-      expect(line.text).to.exist;
-    });
-  });
 });
 
 describe('Caption', function() {

@@ -1,23 +1,37 @@
 /**
  * A class for representing changeable/subscribable properties.
  * @class Property
+ * @property {*} _value the value of the property
+ * @property {[]} listeners all the objects listening to this property
  */
 export default class Property {
   /**
    * Creates a new property with an initial value.
-   * @param Any initialValue The initial value of this property.
+   * @param {*} initialValue The initial value of this property.
    */
   constructor(initialValue) {
     this._value = initialValue;
     this.listeners = [];
+  }
 
-    Object.defineProperty(this, 'value', {
-      get: () => this._value,
-      set: (value) => {
-        this._value = value;
-        this.notifyChange();
-      }
-    });
+  /**
+   * returns the current value of the property
+   * @readonly
+   * @returns {*}
+   * @memberof Property
+   */
+  get value() {
+    return this._value;
+  }
+
+  /**
+   * Sets the value of the property and notifies all listeners of the change
+   * @param {*} value the new property value
+   * @memberof Property
+   */
+  set value(value) {
+    this._value = value;
+    this.notifyChange();
   }
 
   /**
@@ -25,13 +39,13 @@ export default class Property {
    */
   notifyChange() {
     this.listeners.forEach(listener => {
-      listener(this.value);
+      listener(this._value);
     });
   }
 
   /**
    * Adds a subscriber to this property.
-   * @param Function callback The callback to call whenever the property changes.
+   * @param {function} callback The callback to call whenever the property changes.
    */
   subscribe(callback) {
     this.listeners.push(callback);
@@ -39,7 +53,7 @@ export default class Property {
 
   /**
    * Unsubscribes a listener from this property.
-   * @param Function callback The callback to unsubscribe.
+   * @param {function} callback The callback to unsubscribe.
    */
   unsubscribe(callback) {
     this.listeners = this.listeners.filter(listener => listener !== callback);
@@ -47,7 +61,7 @@ export default class Property {
 
   /**
    * Whether or not this property has any subscribed listeners
-   * @return Boolean True if this property has at least one subscriber
+   * @return {Boolean} True if this property has at least one subscriber
    */
   get hasListeners() {
     return this.listeners.length > 0;

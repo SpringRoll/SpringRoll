@@ -8,10 +8,10 @@ export class ScaleManager {
   /**
    *Creates an instance of ScaleManager.
    */
-  constructor(callback = undefined) {
+  constructor(callback) {
     this.width = 1;
     this.height = 1;
-    this.callback = undefined;
+    this.callback = callback;
 
     if (callback instanceof Function) {
       this.enable(callback);
@@ -43,7 +43,7 @@ export class ScaleManager {
    * Enables the scale manager listener. Will not be enabled if a callback is not supplied.
    * @param {Function} callback The function to be called on resize events.
    */
-  enable(callback = undefined) {
+  enable(callback) {
     if (callback instanceof Function) {
       this.callback = callback;
       window.addEventListener('resize', this.onResize);
