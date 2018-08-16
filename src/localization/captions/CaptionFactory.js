@@ -38,7 +38,7 @@ export class CaptionFactory {
    * Creates a new Caption from JSON data.
    *
    * @static
-   * @param {JSON} captionData
+   * @param {*} captionData
    * @returns {Caption} new Caption
    * @memberof CaptionFactory
    */
@@ -66,7 +66,7 @@ export class CaptionFactory {
    * Creates a new TimedLine from JSON data.
    *
    * @static
-   * @param {JSON} lineData
+   * @param {*} lineData
    * @returns {TimedLine} new TimedLine;
    * @memberof CaptionFactory
    */
@@ -104,7 +104,6 @@ export class CaptionFactory {
       return;
     }
 
-    //TODO: any future formatting changes should go here.
     return new TimedLine(lineData.start, lineData.end, lineData.content);
   }
 }

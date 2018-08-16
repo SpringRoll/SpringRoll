@@ -1,8 +1,8 @@
-import { Debugger } from './../../debug/Debugger';
+import { Debugger } from '../../debug/Debugger';
+import { CaptionFactory } from './CaptionFactory';
 
 /**
- * Object used to render caption.
- * @typedef {{start:(), stop:(), lineBegin:(line: TimedLine), lineEnd:()}} ICaptionRenderer
+ * @typedef {import('./renderers/IRenderer.js').IRender} IRender
  */
 
 /**
@@ -11,17 +11,22 @@ import { Debugger } from './../../debug/Debugger';
  *
  * @export
  * @class CaptionPlayer
+/*
+ *
+ * @export
+ * @class CaptionPlayer
  */
 export class CaptionPlayer {
   /**
    * Creates an instance of CaptionPlayer.
-   * @param {Object.<string, Caption>} captions - Captions map.
-   * @param {ICaptionRenderer} renderer CaptionRenderer that content is applied to.
+   * @param {*} captions - Captions map.
+   * @param {IRender} renderer CaptionRenderer that content is applied to.
    * @memberof CaptionPlayer
    */
   constructor(captions, renderer) {
+    this.captions = CaptionFactory.createCaptionMap(captions);
+
     this.renderer = renderer;
-    this.captions = captions;
 
     this.activeCaption = null;
   }
@@ -47,25 +52,19 @@ export class CaptionPlayer {
    *
    * @param {String} name Name of caption.
    * @param {number} [time=0] Atart time in milliseconds.
-   * @returns {boolean} True if caption started.
+   * @param {object} [args = {}] Arguments that will get passed to the renderer
    * @memberof CaptionPlayer
    */
-  start(name, time = 0) {
+  start(name, time = 0, args = {}) {
     this.stop();
     this.activeCaption = this.captions[name];
     if (this.activeCaption) {
-      if (this.renderer.start) {
-        this.renderer.start();
-      }
-
-      this.activeCaption.start(
-        time,
-        this.renderer.lineBegin,
-        this.renderer.lineEnd
-      );
-    } else {
-      Debugger.log('warn', `[CaptionPlayer.Start()] caption ${name} not found`);
+      this.renderer.start(args);
+      this.activeCaption.start(time, this.renderer);
+      return;
     }
+
+    Debugger.log('warn', `[CaptionPlayer.Start()] caption ${name} not found`);
   }
 
   /**

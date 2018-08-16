@@ -15,13 +15,11 @@ export class ApplicationPlugin {
   /**
    * A setup method for the plugin. This method is ran synchronously in the constructor of the Application.
    */
-  setup() {
-  }
+  setup() {}
 
   /**
    * A preload method for the plugin which allows for asynchronous setup tasks. Either takes a callback as first
    * parameter, or should return a Promise indicating that loading is finished.
-   * @param {Function|undefined} callback A callback to call when finished (or no parameter at all).
    * @return {Promise|undefined} If defined, treated as promise indicating when the plugin is finished loading.
    */
   preload() {
