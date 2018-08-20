@@ -38,12 +38,12 @@ Each line in a caption must have a start and end time, if you want to have a del
 If line `B`'s start time is before line `A`'s end time, then `A` will finish before `B` starts.
 
 A caption renderer can have the following callbacks.
-| Name              | Time  |
-|-------------------|-------|
-| `start(args)`     | Called when `CaptionPlayer.start()` is called
-| `stop()`          | Called when `CaptionPlayer.stop()` is called or when caption is finished
-| `lineBegin(line)` | Called at the beginning of each line after `CaptionPlayer.start()`
-| `lineEnd()`       | Called at the end of each line, called before `CaptionPlayer.stop()`
+| Name | Time |
+| --- | --- |
+| `start(args)`      | Called when `CaptionPlayer.start()` is called |
+| `stop()`           | Called when `CaptionPlayer.stop()` is called or when caption is finished |
+| `lineBegin(line)`  | Called at the beginning of each line after `CaptionPlayer.start()` |
+| `lineEnd()`        | Called at the end of each line, called before `CaptionPlayer.stop()` |
 
 ### Updating
 The caption player needs to be updated regularly in order for it to function properly. It's recommended to call update on every frame for the most accurate timing.
