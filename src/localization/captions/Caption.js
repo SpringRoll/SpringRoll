@@ -73,7 +73,6 @@ export class Caption {
     if (this.isFinished()) {
       return;
     }
-
     if (currentTime > this.lines[this.lineIndex].endTime) {
       this.renderer.lineEnd();
     }
@@ -119,6 +118,6 @@ export class Caption {
         return;
       }
     }
-    this.updateState(this.time, this.time - 1);
+    this.updateState(this.time, this.lines[this.lineIndex].startTime - 1);
   }
 }
