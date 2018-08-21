@@ -232,6 +232,8 @@ describe('CaptionPlayer', function() {
     it('should call ICaptionRenderer.lineBegin with the correct line ', function() {
       const player = new CaptionPlayer(testData, tester);
       player.start('HelloWorld', 1400);
+
+      expect(tester.content).to.equal('world');
     });
 
     it('should not call ICaptionRenderer.lineBegin if time is greater than the end time', function() {

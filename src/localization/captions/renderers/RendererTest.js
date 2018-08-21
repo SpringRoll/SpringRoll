@@ -13,6 +13,7 @@ export class TestRenderer extends IRender {
   constructor() {
     super();
     this.reset();
+    this.content = '';
   }
 
   /**
@@ -38,7 +39,8 @@ export class TestRenderer extends IRender {
    *
    * @memberof TestRenderer
    */
-  lineBegin() {
+  lineBegin(line) {
+    this.content = line.content;
     this.lineBeginCalled = true;
     if (!this.startCalled) {
       this.failed = true;
