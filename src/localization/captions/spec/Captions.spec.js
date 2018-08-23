@@ -4,7 +4,7 @@ import testData from './CaptionTestData';
 
 describe('Caption', function() {
   const tester = new TestRenderer();
-  const captionData = testData.HelloWorld;
+  const captionData = testData.SameTime;
   const caption = CaptionFactory.createCaption(captionData);
 
   beforeEach(function() {
@@ -47,20 +47,9 @@ describe('Caption', function() {
     });
 
     it('should call lineBeginCallback when next line starts', function() {
-      // caption.start(1250, tester);
-      // caption.update(0.05);
-      // console.log(tester.lineBeginCalled);
-      // expect(tester.lineBeginCalled).to.true; //TODO
-      let lineBeginCalled = 0;
-      caption.start(1250, {
-        lineBegin: () => {
-          console.log('test test');
-          lineBeginCalled = 1;
-        },
-        lineEnd: () => {}
-      });
+      caption.start(1000, tester);
       caption.update(0.05);
-      expect(lineBeginCalled).to.equal(1);
+      expect(tester.lineBeginCalled).to.true;
     });
 
     it('should call lineEndCallback then lineBeginCallback between lines', function() {
