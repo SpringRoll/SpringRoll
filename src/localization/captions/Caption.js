@@ -78,8 +78,7 @@ export class Caption {
     }
 
     while (currentTime > this.lines[this.lineIndex].endTime) {
-      this.lineIndex++;
-      if (this.isFinished()) {
+      if (this.lineIndex++ ,this.isFinished()) {
         return;
       }
     }
@@ -109,15 +108,25 @@ export class Caption {
   start(time = 0, renderer = { lineBegin: () => {}, lineEnd: () => {} }) {
     this.reset();
     this.renderer = renderer;
-    this.time = time;
+    this.updateTimeIndex(time);
+    this.updateState(this.time, this.lines[this.lineIndex].startTime - 1);
+  }
 
-    // Initialize to the correct line index
-    while (this.time > this.lines[this.lineIndex].endTime) {
-      this.lineIndex++;
-      if (this.isFinished()) {
-        return;
+  /**
+   * Updates the current time and index of the caption instance
+   * @param {Number} [time=0]
+   * @memberof Caption
+   */
+  updateTimeIndex(time = 0) {
+    this.time = time;
+    if (this.isFinished()) {
+      return;
+    }
+    for (let i = this.lines.length - 1; i > -1; i--) {
+      if (this.lines[i].startTime <= time) {
+        this.lineIndex = i;
+        break;
       }
     }
-    this.updateState(this.time, this.lines[this.lineIndex].startTime - 1);
   }
 }
