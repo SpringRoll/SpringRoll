@@ -15,6 +15,9 @@ The SpringRoll ecosystem provides a combination of mechanisms for deploying game
 
 SpringRoll games, also referred to as Applications, are typically hosted in an iframe and controlled via a SpringRoll Container instance. This extra layer is mainly used to separate the game's internals from the environment in which it lives. This allows the game to live in multiple environments without any complicated environment specific code. The application can request relevant information from the container without having to know where that information came from.
 
+## [Seed Project](https://github.com/SpringRoll/Springroll-Seed)
+We provide a very basic starter project that comes with Webpack for quick project ramp up.
+
 ## Installation
 SpringRoll is both ES6 module and UMD compatible, and is [available via NPM](https://www.npmjs.com/package/springroll). NPM can install it directly from the command line:
 
