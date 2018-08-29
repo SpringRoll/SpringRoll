@@ -146,5 +146,9 @@ class YourGame
   }
 }
 ```
+# [Caption Studio](http://springroll.io/#/captions)
+To make generating captions easier we have provided a online tool that will let you make captions for all the sound files in your project.
+
+To get started, open the tool at the link provided or by going to [springroll.io](http://springroll.io) and import your projects directory. Caption Studio will parse your project for all sound files.
 
 [//]: # (TODO: add links to jsDoc)
