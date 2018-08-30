@@ -17,8 +17,15 @@ export class ColorFilter {
   constructor(element = undefined, type = undefined) {
     this.element = null;
     if (null === document.getElementById('color__filter__svg')) {
-      document.head.innerHTML += `<svg
-      id="color__filter__svg" xmlns="http://www.w3.org/2000/svg"
+      const div = document.createElement('div');
+
+      div.style.width = '0';
+      div.style.height = '0';
+      div.style.position = 'absolute';
+      div.style.opacity = '0';
+
+
+      div.innerHTML += `<svg id="color__filter__svg" style="width: 0; height: 0; position: absolute;" xmlns="http://www.w3.org/2000/svg"
       version="1.1">
       <defs>
         <filter id="color__filter__protanopia">
@@ -96,6 +103,7 @@ export class ColorFilter {
       </defs>
       </svg>
       `;
+      document.body.appendChild(div);
     }
     if (element instanceof HTMLElement && 'string' === typeof type) {
       this.applyFilter(element, type);
