@@ -51,9 +51,9 @@ describe('Application', () => {
       expect(application.features.sound).to.equal(true);
     });
 
-    it('should mark sound enabled if sfxButton is enabled', () => {
-      const application = new Application({ sound: false, sfxButton: true });
-      expect(application.features.sfxButton).to.equal(true);
+    it('should mark sound enabled if sfx is enabled', () => {
+      const application = new Application({ sound: false, sfx: true });
+      expect(application.features.sfx).to.equal(true);
       expect(application.features.sound).to.equal(true);
     });
   });

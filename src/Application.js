@@ -14,7 +14,7 @@ export class Application {
    * @param {Boolean} features.sound A boolean value denoting that this game has some audio in it
    * @param {Boolean} features.vo A boolean denoting that this game has mutable voice-over audio in it
    * @param {Boolean} features.music A boolean denoting that this game has mutable music in it
-   * @param {Boolean} features.sfxButton A boolean denoting that this game has mutable sound effects in it
+   * @param {Boolean} features.sfx A boolean denoting that this game has mutable sound effects in it
    */
   constructor(features) {
     /**
@@ -37,13 +37,13 @@ export class Application {
         sound: false,
         vo: false,
         music: false,
-        sfxButton: false
+        sfx: false
       },
       features || {}
     );
 
     // always enable sound if one of the sound channels is enabled
-    if (this.features.vo || this.features.music || this.features.sfxButton) {
+    if (this.features.vo || this.features.music || this.features.sfx) {
       this.features.sound = true;
     }
 
@@ -149,7 +149,7 @@ export class Application {
       sound: 'soundMuted',
       music: 'musicMuted',
       vo: 'voMuted',
-      sfxButton: 'sfxMuted'
+      sfx: 'sfxMuted'
     };
 
     Object.keys(featureToStateMap).forEach(feature => {
