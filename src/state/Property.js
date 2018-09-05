@@ -4,7 +4,7 @@
  * @property {*} _value the value of the property
  * @property {[]} listeners all the objects listening to this property
  */
-export default class Property {
+export class Property {
   /**
    * Creates a new property with an initial value.
    * @param {*} initialValue The initial value of this property.
@@ -23,7 +23,7 @@ export default class Property {
   get value() {
     return this._value;
   }
-
+  
   /**
    * Sets the value of the property and notifies all listeners of the change
    * @param {*} value the new property value
