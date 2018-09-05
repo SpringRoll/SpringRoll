@@ -1,4 +1,4 @@
-import Property from './Property.js';
+import { Property } from './Property.js';
 
 /**
  * A class for managing a group of subscribable properties together. Allows for the registration of new properties.
@@ -12,7 +12,7 @@ import Property from './Property.js';
  * manager.paused = true;
  * @class StateManager
  */
-export default class StateManager {
+export class StateManager {
   /**
    * Adds a new subscribable field field to the state manager. Throws an error if the field already exists.
    * @param {String} name The name of the field.

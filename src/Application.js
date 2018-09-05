@@ -1,6 +1,6 @@
 import { Bellhop } from 'bellhop-iframe';
 import { Debugger } from './debug/Debugger.js';
-import StateManager from './state/StateManager.js';
+import { StateManager } from './state/StateManager.js';
 
 /**
  * Main entry point for a game. Provides a single focal point for plugins and functionality to attach.
