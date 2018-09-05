@@ -5,6 +5,14 @@
 
 SpringRoll is a light-weight toolset for building accessible HTML5 games. The latest version, SpringRoll 2, is a large departure from its predecessor. SpringRoll 2 is less prescriptive and contains only a few guidelines and restrictions. Instead, the framework focuses on utilities to help developers make games more accessible and deployable at scale.
 
+## Differences between v1 and v2 branches
+
+### V1 (Legacy)
+V1 is the original version of SpringRoll and was built to address many issues/missing functionality that are now native to JavaScript since ES2016. It comes with its own versions of popular libraries like Pixi.js and Easel.js, but it's not recommended to use this version as it will only receive legacy support.
+
+### V2 (Recommended)
+V2 is massive overhaul of SpringRoll, removing all third party libraries and is rewritten to utilize ES2016. This version will be actively receiving bug fixes, new features and is the recommended version of SpringRoll.
+
 ## Design Considerations
 
 The SpringRoll ecosystem provides a combination of mechanisms for deploying games via the web:
