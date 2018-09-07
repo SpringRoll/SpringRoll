@@ -41,7 +41,7 @@ var myApp = new springroll.Application({
   sound: true
 });
 
-myApp.state.sound.subscribe(result => console.log('Is sound muted?', result));
+myApp.state.soundVolume.subscribe(result => console.log('Value Between 0-1 for volume', result));
 ```
 
 For each possible feature, there is an associated state that can be subscribed to:
@@ -56,10 +56,10 @@ var myApp = new springroll.Application({
 });
 
 myApp.state.captionsMuted.subscribe(result => console.log('Are captions muted?', result));
-myApp.state.sound.subscribe(result => console.log('Is sound muted?', result));
-myApp.state.vo.subscribe(result => console.log('Is VO muted?', result));
-myApp.state.music.subscribe(result => console.log('Is music muted?', result));
-myApp.state.sfx.subscribe(result => console.log('Is SFX muted?', result));
+myApp.state.soundVolume.subscribe(result => console.log('Value Between 0-1', result));
+myApp.state.voVolume.subscribe(result => console.log('Value Between 0-1', result));
+myApp.state.musicVolume.subscribe(result => console.log('Value Between 0-1', result));
+myApp.state.sfxVolume.subscribe(result => console.log('Value Between 0-1', result));
 ```
 
 Lastly, there are two other states available, one that has already been mentioned:

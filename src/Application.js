@@ -23,13 +23,13 @@ export class Application {
      */
     this.state = new StateManager();
     this.state.addField('ready', false);
-    this.state.addField('soundMuted', false);
-    this.state.addField('captionsMuted', true);
-    this.state.addField('musicMuted', false);
-    this.state.addField('voMuted', false);
-    this.state.addField('sfxMuted', false);
     this.state.addField('pause', false);
+    this.state.addField('soundVolume', 1);
+    this.state.addField('musicVolume', 1);
+    this.state.addField('voVolume', 1);
+    this.state.addField('sfxVolume', 1);
     this.state.addField('playOptions', {});
+    this.state.addField('captions', true);
 
     this.features = Object.assign(
       {
@@ -55,11 +55,11 @@ export class Application {
 
     // listen for events from the container and keep the local value in sync
     [
-      'soundMuted',
-      'captionsMuted',
-      'musicMuted',
-      'voMuted',
-      'sfxMuted',
+      'captions',
+      'soundVolume',
+      'musicVolume',
+      'voVolume',
+      'sfxVolume',
       'pause'
     ].forEach(eventName => {
       const property = this.state[eventName];
@@ -145,16 +145,17 @@ export class Application {
     const missingListeners = [];
 
     const featureToStateMap = {
-      captions: 'captionsMuted',
-      sound: 'soundMuted',
-      music: 'musicMuted',
-      vo: 'voMuted',
-      sfx: 'sfxMuted'
+      captions: 'captions',
+      sound: 'soundVolume',
+      music: 'musicVolume',
+      vo: 'voVolume',
+      sfx: 'sfxVolume'
     };
 
     Object.keys(featureToStateMap).forEach(feature => {
       const stateName = featureToStateMap[feature];
 
+      console.log(stateName);
       if (this.features[feature] && !this.state[stateName].hasListeners) {
         missingListeners.push(stateName);
       }

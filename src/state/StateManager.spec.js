@@ -1,5 +1,5 @@
-import StateManager from './StateManager';
-import Property from './Property';
+import { StateManager } from './StateManager';
+import { Property } from './Property';
 
 describe('StateManager', () => {
   describe('addField', () => {
