@@ -1,0 +1,6 @@
+### Hint Timer
+
+## Example
+```Javascript
+     
+```
