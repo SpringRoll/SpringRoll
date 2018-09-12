@@ -92,11 +92,10 @@ export class Application {
     // Also attempt to fetch over the iframe barrier for old container support
     this.container.fetch('playOptions', e => (this.playOptions.value = e.data));
 
-    Application._plugins.forEach(plugin => plugin.setup.call(this));
+    Application._plugins.forEach(plugin => plugin.setup(this));
 
-    const preloads = Application._plugins.map(plugin =>
-      this.promisify(plugin.preload)
-    );
+    const preloads = Application._plugins.map(plugin => plugin.preload(this));
+
     Promise.all(preloads)
       .catch(e => {
         console.warn(e);

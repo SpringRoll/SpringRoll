@@ -1,6 +1,19 @@
 import { Application } from './Application';
 import { ApplicationPlugin } from './plugins/ApplicationPlugin';
 
+class CustomPlugin extends ApplicationPlugin {
+  setup(application) {
+    this.setupCalled = true;
+    expect(application).to.be.instanceOf(Application);
+  }
+
+  preload(application) {
+    this.preloadCalled = true;
+    expect(application).to.be.instanceOf(Application);
+    return Promise.resolve();
+  }
+}
+
 describe('Application', () => {
   beforeEach(() => {
     // remove any old plugins
@@ -9,26 +22,20 @@ describe('Application', () => {
 
   describe('constructor', () => {
     it('should call setup on all registered plugins', () => {
-      const plugin = new ApplicationPlugin();
-      plugin.called = false;
-      plugin.setup = () => (plugin.called = true);
+      const plugin = new CustomPlugin();
       Application.uses(plugin);
-
       const app = new Application();
-
-      expect(plugin.called).to.be.true;
+      expect(plugin.setupCalled).to.be.true;
     });
 
     it('should run preload on all plugins and then notify listeners that the app is ready', done => {
-      const plugin = new ApplicationPlugin();
-      plugin.called = false;
-      plugin.preload = () => (plugin.called = true);
+      const plugin = new CustomPlugin();
       Application.uses(plugin);
 
       const app = new Application();
-      app.state.ready.subscribe(function(value) {
-        expect(value).to.be.true;
-        expect(plugin.called).to.be.true;
+      app.state.ready.subscribe(function(isReady) {
+        expect(isReady).to.be.true;
+        expect(plugin.preloadCalled).to.be.true;
         done();
       });
     });
