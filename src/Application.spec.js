@@ -64,46 +64,4 @@ describe('Application', () => {
       expect(application.features.sound).to.equal(true);
     });
   });
-
-  describe('promisify', () => {
-    it('should properly map preload methods that use a callback with success', done => {
-      const app = new Application();
-
-      const f = callback => callback();
-
-      const result = app.promisify(f);
-      expect(result).to.be.instanceOf(Promise);
-      result.then(done).catch(done);
-    });
-
-    it('should properly map preload methods that use a callback with failure', done => {
-      const app = new Application();
-
-      const f = callback => callback(new Error('something failed!'));
-
-      const result = app.promisify(f);
-      expect(result).to.be.instanceOf(Promise);
-      result.then(() => done('Should have failed!')).catch(e => done());
-    });
-
-    it('should properly handle methods that return a promise', done => {
-      const app = new Application();
-
-      const f = () => Promise.resolve();
-
-      const result = app.promisify(f);
-      expect(result).to.be.instanceOf(Promise);
-      result.then(done);
-    });
-
-    it('should properly handle methods that are synchronous', done => {
-      const app = new Application();
-
-      const f = () => 0;
-
-      const result = app.promisify(f);
-      expect(result).to.be.instanceOf(Promise);
-      result.then(done);
-    });
-  });
 });
