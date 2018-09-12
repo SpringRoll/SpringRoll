@@ -24,12 +24,13 @@ export class Application {
     this.state = new StateManager();
     this.state.addField('ready', false);
     this.state.addField('pause', false);
+    this.state.addField('captionsMuted', true);
+    this.state.addField('playOptions', {});
+
     this.state.addField('soundVolume', 1);
     this.state.addField('musicVolume', 1);
     this.state.addField('voVolume', 1);
     this.state.addField('sfxVolume', 1);
-    this.state.addField('playOptions', {});
-    this.state.addField('captions', true);
 
     this.features = Object.assign(
       {
@@ -55,11 +56,11 @@ export class Application {
 
     // listen for events from the container and keep the local value in sync
     [
-      'captions',
-      'soundVolume',
+      'soundVolume',    
       'musicVolume',
       'voVolume',
       'sfxVolume',
+      'captionsMuted',
       'pause'
     ].forEach(eventName => {
       const property = this.state[eventName];
@@ -67,6 +68,21 @@ export class Application {
         eventName,
         containerEvent => (property.value = containerEvent.data)
       );
+    });
+
+    // listen for legacy mute events from the container and map them to volume properties
+    [
+      { mute: 'soundMuted', volume: 'soundVolume' },
+      { mute: 'musicMuted', volume: 'musicVolume' },
+      { mute: 'voMuted', volume: 'voVolume' },
+      { mute: 'sfxMuted', volume: 'sfxVolume' }
+    ].forEach(pair => {
+      const property = this.state[pair.volume];
+      this.container.on(pair.mute, containerEvent => {
+        const previousValue = property._previousValue || 1;
+        property._previousValue = property.value;
+        property.value = containerEvent.data ? 0 : previousValue;
+      });
     });
 
     // maintain focus sync between the container and application
@@ -145,7 +161,7 @@ export class Application {
     const missingListeners = [];
 
     const featureToStateMap = {
-      captions: 'captions',
+      captions: 'captionsVolume',
       sound: 'soundVolume',
       music: 'musicVolume',
       vo: 'voVolume',
@@ -155,7 +171,6 @@ export class Application {
     Object.keys(featureToStateMap).forEach(feature => {
       const stateName = featureToStateMap[feature];
 
-      console.log(stateName);
       if (this.features[feature] && !this.state[stateName].hasListeners) {
         missingListeners.push(stateName);
       }

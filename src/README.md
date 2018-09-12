@@ -62,6 +62,15 @@ myApp.state.musicVolume.subscribe(result => console.log('Value Between 0-1', res
 myApp.state.sfxVolume.subscribe(result => console.log('Value Between 0-1', result));
 ```
 
+Springroll V1 had the audio events:
+```javascript
+myApp.state.soundMuted.subscribe(result => console.log('true/false', result));
+myApp.state.voMuted.subscribe(result => console.log('true/false', result));
+myApp.state.musicMuted.subscribe(result => console.log('true/false', result));
+myApp.state.sfxMuted.subscribe(result => console.log('true/false', result));
+```
+these have been internally mapped to set volume to 0 and it's previous value.
+
 Lastly, there are two other states available, one that has already been mentioned:
 
 ```javascript
