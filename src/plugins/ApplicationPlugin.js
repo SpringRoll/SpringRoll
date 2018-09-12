@@ -20,7 +20,7 @@ export class ApplicationPlugin {
   /**
    * A preload method for the plugin which allows for asynchronous setup tasks. Either takes a callback as first
    * parameter, or should return a Promise indicating that loading is finished.
-   * @return {Promise|undefined} If defined, treated as promise indicating when the plugin is finished loading.
+   * @return {Promise} A promise indicating when the plugin is finished loading.
    */
   preload() {
     return Promise.resolve();

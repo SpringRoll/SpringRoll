@@ -2,7 +2,6 @@ export type ApplicationFeatures = { [key:string]: boolean };
 
 export class Application {
   constructor(features: ApplicationFeatures);
-  promisify(e: any): any;
   validateListeners(): void;
   state: StateManager;
   features: ApplicationFeatures;
@@ -20,7 +19,7 @@ export interface ApplicationPlugin {
   constructor(priority?: number)
   priority: number;
   setup(): any;
-  preload(): Promise<any> | undefined | void;
+  preload(): Promise<any>;
 }
 
 export class ApplicationPlugin implements ApplicationPlugin {}
