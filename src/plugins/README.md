@@ -11,16 +11,16 @@ export default class CustomPlugin extends ApplicationPlugin {
     super(priority);
   }
 
-  setup() {
-    // custom synchronous code. `this` is bound to the current Application
-    this.customContent = {};
+  setup(application) {
+    // custom synchronous code.
+    application.customContent = {};
   }
 
-  preload() {
+  preload(application) {
     // custom asynchronous code. Expected to return a Promise.
     return fetch(someApiEndpoint)
       .then(response => response.json())
-      .then(json => this.customContent = json);
+      .then(json => application.customContent = json);
   }
 }
 ```
