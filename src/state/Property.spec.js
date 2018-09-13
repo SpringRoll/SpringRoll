@@ -1,4 +1,4 @@
-import Property from './Property';
+import { Property } from './Property';
 
 describe('Property', () => {
   describe('subscribe', () => {
