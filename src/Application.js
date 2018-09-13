@@ -171,11 +171,11 @@ export class Application {
     const missingListeners = [];
 
     const featureToStateMap = {
-      captions: 'captionsVolume',
-      sound: 'soundVolume',
-      music: 'musicVolume',
-      vo: 'voVolume',
-      sfx: 'sfxVolume'
+      captions: captionsMuted,
+      sound: soundVolume,
+      music: musicVolume,
+      vo: voVolume,
+      sfx: sfxVolume
     };
 
     Object.keys(featureToStateMap).forEach(feature => {
