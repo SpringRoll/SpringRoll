@@ -68,4 +68,24 @@ describe('Application', () => {
       expect(application.features.sound).to.equal(true);
     });
   });
+
+  describe('validatePlugins', () => {
+    it('should return an empty array if all dependencies are in place', () => {
+      const pluginA = new ApplicationPlugin({ name: 'a' });
+      const pluginB = new ApplicationPlugin({ name: 'b', required: ['a'] });
+      Application.uses(pluginB);
+      Application.uses(pluginA);
+
+      expect(Application.validatePlugins()).to.deep.equal([]);
+    });
+
+    it('should return a list of errors if there are missing dependencies', () => {
+      const pluginB = new ApplicationPlugin({ name: 'b', required: ['a'] });
+      Application.uses(pluginB);
+
+      expect(Application.validatePlugins()).to.deep.equal([
+        'Application plugin "b" missing required plugins "a"'
+      ]);
+    });
+  });
 });

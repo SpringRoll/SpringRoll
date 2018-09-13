@@ -12,6 +12,7 @@ export class Application {
 
 
   static _plugins: ApplicationPlugin[];
+  static validatePlugins: string[];
   static uses(plugin: ApplicationPlugin): void
 }
 

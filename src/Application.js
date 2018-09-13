@@ -147,6 +147,35 @@ export class Application {
       );
     }
   }
+
+  /**
+   * Validates every plugin to make sure it has it's required dependencies
+   */
+  static validatePlugins() {
+    const errors = [];
+
+    const registeredPluginNames = Application._plugins.map(plugin => plugin.name);
+
+    Application._plugins
+      .forEach(plugin => {
+        const name = plugin.name;
+
+        // for this plugins, find all required plugins that are missing from the full plugin list
+        const missingRequired = plugin.required
+          .filter(name => registeredPluginNames.indexOf(name) < 0)
+          .map(name => `"${name}"`); // format them too
+
+        if(missingRequired.length === 0) {
+          return;
+        }
+
+        // if there were required plugins not in Application._plugins, add this to the error list for later
+        const errorMessage = `Application plugin "${name}" missing required plugins ${ missingRequired.join(', ') }`;
+        errors.push(errorMessage);
+      });
+
+    return errors;
+  }
 }
 
 /**
