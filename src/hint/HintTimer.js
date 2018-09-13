@@ -14,8 +14,7 @@ export class HintTimer {
   }
 
   /**
-   *
-   * @param  {Number} time
+   * @param  {Number} time time in milliseconds
    * @return {void}@memberof HintTimer
    */
   start(time) {
@@ -29,7 +28,7 @@ export class HintTimer {
   }
 
   /**
-   *
+   * resets the timer, does not call subscribed functions
    * @return {void}@memberof HintTimer
    */
   reset() {
@@ -43,7 +42,6 @@ export class HintTimer {
   }
 
   /**
-   *
    * @return {void}@memberof HintTimer
    */
   stop() {
@@ -56,7 +54,7 @@ export class HintTimer {
   }
 
   /**
-   *
+   * Calls all subscribed functions, and resets the timer.
    * @return {void}@memberof HintTimer
    */
   dispatch() {
@@ -67,8 +65,8 @@ export class HintTimer {
   }
 
   /**
-   *
-   * @param  {any} callback
+   * Adds a function to be called when timer is dispatched
+   * @param  {Function()} callback 
    * @return {void}@memberof HintTimer
    */
   subscribe(callback) {
@@ -76,7 +74,7 @@ export class HintTimer {
   }
 
   /**
-   *
+   * Removes a function from being called when timer is dispatched
    * @param  {any} callback
    * @return {void}@memberof HintTimer
    */
