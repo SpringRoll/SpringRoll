@@ -2,6 +2,10 @@ import { Application } from './Application';
 import { ApplicationPlugin } from './plugins/ApplicationPlugin';
 
 class CustomPlugin extends ApplicationPlugin {
+  constructor() {
+    super({ name: 'custom' });
+  }
+
   setup(application) {
     this.setupCalled = true;
     expect(application).to.be.instanceOf(Application);

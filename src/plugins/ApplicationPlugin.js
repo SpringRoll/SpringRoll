@@ -5,11 +5,20 @@
  */
 export class ApplicationPlugin {
   /**
-   * Creates a new Application plugin, with the provided priority.
-   * @param {Number} priority The priority of the plugin. A higher value for priority will cause the plugin to execute sooner.
+   * Creates a new Application plugin with a given name and other required plugins
+   * @param {Object} options The configuration options to the plugin
+   * @param {String} options.name The name of the plugin. Used by other plugins to specify a dependency on the plugin
+   * @param {Array<String>} options.required The list of required plugins (by name) that this plugin depends on
+   * @param {Array<String>} options.optional The list of optional plugins (by name) that this plugin depends on
    */
-  constructor(priority = 0) {
-    this.priority = priority;
+  constructor(options = {}) {
+    if(options.name === undefined) {
+      throw new Error('Application plugin not provided a name field');
+    }
+
+    this.name = options.name;
+    this.required = options.required || [];
+    this.optional = options.optional || [];
   }
 
   /**
