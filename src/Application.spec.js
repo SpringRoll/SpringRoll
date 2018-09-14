@@ -150,6 +150,15 @@ describe('Application', () => {
       expect(Application._plugins[2]).to.equal(b);
     });
 
+    it('should properly handle missing optional dependencies', () => {
+      const b = new ApplicationPlugin({ name: 'b', optional: ['c'] });
+      Application.uses(b);
+
+      Application.sortPlugins();
+
+      expect(Application._plugins[0]).to.equal(b);
+    });
+
     it('should throw an Error if there is a cyclic dependency between plugins', () => {
       const b = new ApplicationPlugin({ name: 'b', optional: ['c'] });
       Application.uses(b);

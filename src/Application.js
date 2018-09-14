@@ -188,12 +188,23 @@ export class Application {
       return; // nothing to do
     }
 
+    const pluginNames = Application._plugins.map(plugin => plugin.name);
     const pluginLookup = {};
     Application._plugins.forEach(plugin => {
+      // for any optional plugins that are missing remove them from the list and warn along the way
+      const optionalAvailablePlugins = plugin.optional.filter(name => {
+        if (pluginNames.indexOf(name) === -1) {
+          console.warn(plugin.name + ' missing optional plugin ' + name);
+          return false;
+        }
+
+        return true;
+      });
+
       pluginLookup[plugin.name] = {
         plugin: plugin,
         name: plugin.name,
-        dependencies: [].concat(plugin.required).concat(plugin.optional)
+        dependencies: [].concat(plugin.required).concat(optionalAvailablePlugins)
       };
     });
 
@@ -201,11 +212,10 @@ export class Application {
     const toVisit = new Set();
 
     // first, add items that do not have any dependencies
-    Application._plugins
-      .filter(plugin => plugin.optional.length === 0 && plugin.required.length === 0)
-      .map(plugin => plugin.name)
-      .forEach(name => toVisit.add(name));
-
+    Object.keys(pluginLookup)
+      .map(key => pluginLookup[key])
+      .filter(lookup => lookup.dependencies.length === 0)
+      .forEach(lookup => toVisit.add(lookup.name));
 
     // if there are no items to visit, throw an error
     if (toVisit.size === 0) {
