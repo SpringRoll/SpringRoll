@@ -26,7 +26,6 @@ export class Application {
    * @param {Boolean} features.sfx A boolean denoting that this game has mutable sound effects in it
    */
   constructor(features) {
-    
     /**
      * @member {StateManager} The state manager for this application instance. Maintains subscribable properties for
      *                        whether or not audio is muted, captions are displayed, or the game is paused.
