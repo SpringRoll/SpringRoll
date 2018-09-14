@@ -32,6 +32,21 @@ describe('Application', () => {
       expect(plugin.setupCalled).to.be.true;
     });
 
+    it('should call setup in the correct order for plugins with dependencies', () => {
+      let aSetupCalled = false;
+      const a = new ApplicationPlugin({ name: 'a' });
+      a.setup = () => aSetupCalled = true;
+
+      // b checks that a is setup first
+      const b = new ApplicationPlugin({ name: 'b', required: ['a'] });
+      b.setup = () => expect(aSetupCalled).to.be.true;
+
+      Application.uses(b);
+      Application.uses(a);
+
+      const app = new Application();
+    });
+
     it('should run preload on all plugins and then notify listeners that the app is ready', done => {
       const plugin = new CustomPlugin();
       Application.uses(plugin);
@@ -42,6 +57,19 @@ describe('Application', () => {
         expect(plugin.preloadCalled).to.be.true;
         done();
       });
+    });
+
+    it('should throw if a plugin is missing a required dependency', () => {
+      const plugin = new ApplicationPlugin({
+        name: 'b',
+        required: ['a']
+      });
+
+      Application.uses(plugin);
+
+      expect(() => {
+        new Application();
+      }).to.throw();
     });
 
     it('should default features to false for ones that are not set', () => {

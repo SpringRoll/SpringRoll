@@ -92,6 +92,8 @@ export class Application {
     // Also attempt to fetch over the iframe barrier for old container support
     this.container.fetch('playOptions', e => (this.playOptions.value = e.data));
 
+    Application.sortPlugins();
+
     Application._plugins.forEach(plugin => plugin.setup(this));
 
     const preloads = Application._plugins.map(plugin => plugin.preload(this));
@@ -264,5 +266,4 @@ Application._plugins = [];
  */
 Application.uses = function(plugin) {
   Application._plugins.push(plugin);
-  Application._plugins.sort((p1, p2) => p2.priority - p1.priority);
 };
