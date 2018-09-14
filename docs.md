@@ -47,17 +47,17 @@
         -   [Parameters][43]
     -   [removeFilter][44]
     -   [types][45]
--   [KeyState][46]
-    -   [Properties][47]
--   [Controller][48]
-    -   [Parameters][49]
-    -   [update][50]
-    -   [onKeyDown][51]
+-   [Controller][46]
+    -   [Parameters][47]
+    -   [update][48]
+    -   [onKeyDown][49]
+        -   [Parameters][50]
+    -   [onKeyUp][51]
         -   [Parameters][52]
-    -   [onKeyUp][53]
+    -   [assignButtons][53]
         -   [Parameters][54]
-    -   [assignButtons][55]
-        -   [Parameters][56]
+-   [KeyState][55]
+    -   [Properties][56]
 -   [Key][57]
     -   [Parameters][58]
     -   [Properties][59]
@@ -96,7 +96,7 @@
     -   [addField][92]
         -   [Parameters][93]
 -   [Caption][94]
-    -   [Parameters][95]
+    -   [Properties][95]
     -   [update][96]
         -   [Parameters][97]
     -   [updateState][98]
@@ -107,7 +107,7 @@
     -   [updateTimeIndex][103]
         -   [Parameters][104]
 -   [Caption][105]
-    -   [Properties][106]
+    -   [Parameters][106]
     -   [update][107]
         -   [Parameters][108]
     -   [updateState][109]
@@ -379,16 +379,6 @@ Supported filter types.
 Returns **[object][175]** Returns an object { name, value } with the colorblindness type:
 (Protanopia, Protanomaly, Deuteranopia, Deuteranomaly, Tritanopia, Tritanomaly, Achromatopsia, Achromatomaly)
 
-## KeyState
-
-Type: (`0` \| `1` \| `2`)
-
-### Properties
-
--   `down` **[Function][173]** 
--   `up` **[Function][173]** 
--   `key` **[string][177]** 
-
 ## Controller
 
 Controller interface class to simplify working with key presses.
@@ -424,6 +414,16 @@ Sets an object of button functions to the controller to be called.
 #### Parameters
 
 -   `keys` **[Array][180]&lt;KeyTemplate>** 
+
+## KeyState
+
+Type: (`0` \| `1` \| `2`)
+
+### Properties
+
+-   `down` **[Function][173]** 
+-   `up` **[Function][173]** 
+-   `key` **[string][177]** 
 
 ## Key
 
@@ -608,9 +608,12 @@ Returns **any** Property The newly created property.
 
 ## Caption
 
-### Parameters
+### Properties
 
--   `lines`  
+-   `lines` **[Array][180]&lt;[TimedLine][184]>** 
+-   `time` **[number][176]** 
+-   `lineIndex` **[number][176]** 
+-   `renderer` **[IRender][185]** 
 
 ### update
 
@@ -655,12 +658,9 @@ Updates the current time and index of the caption instance
 
 ## Caption
 
-### Properties
+### Parameters
 
--   `lines` **[Array][180]&lt;[TimedLine][184]>** 
--   `time` **[number][176]** 
--   `lineIndex` **[number][176]** 
--   `renderer` **[IRender][185]** 
+-   `lines`  
 
 ### update
 
@@ -1044,27 +1044,27 @@ Returns **[Promise][188]** A promise indicating when the plugin is finished load
 
 [45]: #types
 
-[46]: #keystate
+[46]: #controller
 
-[47]: #properties-3
+[47]: #parameters-13
 
-[48]: #controller
+[48]: #update
 
-[49]: #parameters-13
+[49]: #onkeydown
 
-[50]: #update
+[50]: #parameters-14
 
-[51]: #onkeydown
+[51]: #onkeyup
 
-[52]: #parameters-14
+[52]: #parameters-15
 
-[53]: #onkeyup
+[53]: #assignbuttons
 
-[54]: #parameters-15
+[54]: #parameters-16
 
-[55]: #assignbuttons
+[55]: #keystate
 
-[56]: #parameters-16
+[56]: #properties-3
 
 [57]: #key
 
@@ -1142,29 +1142,29 @@ Returns **[Promise][188]** A promise indicating when the plugin is finished load
 
 [94]: #caption
 
-[95]: #parameters-28
+[95]: #properties-6
 
 [96]: #update-1
 
-[97]: #parameters-29
+[97]: #parameters-28
 
 [98]: #updatestate-1
 
-[99]: #parameters-30
+[99]: #parameters-29
 
 [100]: #isfinished
 
 [101]: #start
 
-[102]: #parameters-31
+[102]: #parameters-30
 
 [103]: #updatetimeindex
 
-[104]: #parameters-32
+[104]: #parameters-31
 
 [105]: #caption-1
 
-[106]: #properties-6
+[106]: #parameters-32
 
 [107]: #update-2
 
