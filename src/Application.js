@@ -176,6 +176,74 @@ export class Application {
 
     return errors;
   }
+
+  /**
+   * Helper method for sorting plugins in place. Looks at dependency order and performs a topological sort to enforce
+   * proper load error
+   */
+  static sortPlugins() {
+    const pluginLookup = {};
+    Application._plugins.forEach(plugin => {
+      pluginLookup[plugin.name] = {
+        plugin: plugin,
+        name: plugin.name,
+        dependencies: [].concat(plugin.required).concat(plugin.optional)
+      };
+    });
+
+
+    const visited = [];
+    const toVisit = new Set();
+
+    // first, add items that do not have any dependencies
+    Application._plugins
+      .filter(plugin => plugin.optional.length === 0 && plugin.required.length === 0)
+      .map(plugin => plugin.name)
+      .forEach(name => toVisit.add(name));
+
+
+    // if there are no items to visit, throw an error
+    if(toVisit.size === 0) {
+      throw new Error('Every registered plugin has a dependency!');
+    }
+
+    while(toVisit.size > 0) {
+      console.log(toVisit);
+      // pick an item and remove it from the list
+      const item = toVisit.values().next().value;
+      toVisit.delete(item);
+
+      // add it to the visited list
+      visited.push(item);
+
+      // for every plugin
+      Object.keys(pluginLookup).forEach(pluginName => {
+        const index = pluginLookup[pluginName].dependencies.indexOf(item);
+
+        // remove it as a dependency
+        if(index > -1) {
+          pluginLookup[pluginName].dependencies.splice(index, 1);
+        }
+
+        // if there are no more dependencies left, we can visit this item now
+        if(pluginLookup[pluginName].dependencies.length === 0 && visited.indexOf(pluginName) === -1) {
+          toVisit.add(pluginName);
+        }
+      });
+    }
+
+    // if there are any dependencies left, that means that there's a cycle
+    Object.keys(pluginLookup)
+      .filter(pluginName => pluginLookup[pluginName].dependencies.length > 0)
+      .forEach(() => { throw new Error('Dependency graph has a cycle') });
+
+
+    // now, rebuild the array
+    Application._plugins = [];
+    visited.forEach(name => {
+      Application._plugins.push(pluginLookup[name].plugin);
+    });
+  }
 }
 
 /**

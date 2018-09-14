@@ -88,4 +88,45 @@ describe('Application', () => {
       ]);
     });
   });
+
+  describe('sortPlugins', () => {
+    it('should place plugins\' dependency plugins before the actual plugin', () => {
+      const dependant = new ApplicationPlugin({ name: 'b', required: ['a'], optional: ['c'] });
+      Application.uses(dependant);
+      const dependency1 = new ApplicationPlugin({ name: 'c' });
+      Application.uses(dependency1);
+      const dependency2 = new ApplicationPlugin({ name: 'a' });
+      Application.uses(dependency2);
+
+      Application.sortPlugins();
+
+      expect(Application._plugins[2]).to.equal(dependant);
+    });
+
+    it('should properly sort chains of dependencies', () => {
+      const b = new ApplicationPlugin({ name: 'b', optional: ['c'] });
+      Application.uses(b);
+      const c = new ApplicationPlugin({ name: 'c', required: ['a'] });
+      Application.uses(c);
+      const a = new ApplicationPlugin({ name: 'a' });
+      Application.uses(a);
+
+      Application.sortPlugins();
+
+      expect(Application._plugins[0]).to.equal(a);
+      expect(Application._plugins[1]).to.equal(c);
+      expect(Application._plugins[2]).to.equal(b);
+    });
+
+    it('should throw an Error if there is a cyclic dependency between plugins', () => {
+      const b = new ApplicationPlugin({ name: 'b', optional: ['c'] });
+      Application.uses(b);
+      const c = new ApplicationPlugin({ name: 'c', required: ['a'] });
+      Application.uses(c);
+      const a = new ApplicationPlugin({ name: 'a', optional: ['b'] });
+      Application.uses(a);
+
+      expect(() => Application.sortPlugins()).to.throw();
+    });
+  });
 });
