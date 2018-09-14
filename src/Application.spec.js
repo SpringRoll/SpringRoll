@@ -90,6 +90,10 @@ describe('Application', () => {
   });
 
   describe('sortPlugins', () => {
+    it('should allow no plugins to be provided', () => {
+      Application.sortPlugins();
+    });
+
     it('should place plugins\' dependency plugins before the actual plugin', () => {
       const dependant = new ApplicationPlugin({ name: 'b', required: ['a'], optional: ['c'] });
       Application.uses(dependant);

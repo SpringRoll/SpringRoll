@@ -182,6 +182,10 @@ export class Application {
    * proper load error
    */
   static sortPlugins() {
+    if(Application._plugins.length === 0) {
+      return; // nothing to do
+    }
+
     const pluginLookup = {};
     Application._plugins.forEach(plugin => {
       pluginLookup[plugin.name] = {
@@ -190,7 +194,6 @@ export class Application {
         dependencies: [].concat(plugin.required).concat(plugin.optional)
       };
     });
-
 
     const visited = [];
     const toVisit = new Set();
