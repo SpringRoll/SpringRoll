@@ -208,7 +208,6 @@ export class Application {
     }
 
     while(toVisit.size > 0) {
-      console.log(toVisit);
       // pick an item and remove it from the list
       const item = toVisit.values().next().value;
       toVisit.delete(item);
