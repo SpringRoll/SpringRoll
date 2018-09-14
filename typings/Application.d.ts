@@ -6,7 +6,6 @@ export class Application {
   state: StateManager;
   features: ApplicationFeatures;
   container: BellhopIframe.Bellhop;
-  promisify(callback: Function): Promise<any>;
   validateListeners(): void;
 
 
