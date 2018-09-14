@@ -2,6 +2,15 @@ import { Bellhop } from 'bellhop-iframe';
 import { Debugger } from './debug/Debugger.js';
 import { StateManager } from './state/StateManager.js';
 
+const ready = 'ready';
+const pause = 'pause';
+const captionsMuted = 'captionsMuted';
+const playOptions = 'playOptions';
+const soundVolume = 'soundVolume';
+const musicVolume = 'musicVolume';
+const voVolume = 'voVolume';
+const sfxVolume = 'sfxVolume';
+
 /**
  * Main entry point for a game. Provides a single focal point for plugins and functionality to attach.
  * @class Application
@@ -17,19 +26,21 @@ export class Application {
    * @param {Boolean} features.sfx A boolean denoting that this game has mutable sound effects in it
    */
   constructor(features) {
+    
     /**
      * @member {StateManager} The state manager for this application instance. Maintains subscribable properties for
      *                        whether or not audio is muted, captions are displayed, or the game is paused.
      */
     this.state = new StateManager();
-    this.state.addField('ready', false);
-    this.state.addField('soundMuted', false);
-    this.state.addField('captionsMuted', true);
-    this.state.addField('musicMuted', false);
-    this.state.addField('voMuted', false);
-    this.state.addField('sfxMuted', false);
-    this.state.addField('pause', false);
-    this.state.addField('playOptions', {});
+    this.state.addField(ready, false);
+    this.state.addField(pause, false);
+    this.state.addField(captionsMuted, true);
+    this.state.addField(playOptions, {});
+
+    this.state.addField(soundVolume, 1);
+    this.state.addField(musicVolume, 1);
+    this.state.addField(voVolume, 1);
+    this.state.addField(sfxVolume, 1);
 
     this.features = Object.assign(
       {
@@ -55,18 +66,33 @@ export class Application {
 
     // listen for events from the container and keep the local value in sync
     [
-      'soundMuted',
-      'captionsMuted',
-      'musicMuted',
-      'voMuted',
-      'sfxMuted',
-      'pause'
+      soundVolume,    
+      musicVolume,
+      voVolume,
+      sfxVolume,
+      captionsMuted,
+      pause
     ].forEach(eventName => {
       const property = this.state[eventName];
       this.container.on(
         eventName,
         containerEvent => (property.value = containerEvent.data)
       );
+    });
+
+    // listen for legacy mute events from the container and map them to volume properties
+    [
+      { mute: 'soundMuted', volume: soundVolume },
+      { mute: 'musicMuted', volume: musicVolume },
+      { mute: 'voMuted', volume: voVolume },
+      { mute: 'sfxMuted', volume: sfxVolume }
+    ].forEach(pair => {
+      const property = this.state[pair.volume];
+      this.container.on(pair.mute, containerEvent => {
+        const previousValue = property._previousValue || 1;
+        property._previousValue = property.value;
+        property.value = containerEvent.data ? 0 : previousValue;
+      });
     });
 
     // maintain focus sync between the container and application
@@ -145,11 +171,11 @@ export class Application {
     const missingListeners = [];
 
     const featureToStateMap = {
-      captions: 'captionsMuted',
-      sound: 'soundMuted',
-      music: 'musicMuted',
-      vo: 'voMuted',
-      sfx: 'sfxMuted'
+      captions: captionsMuted,
+      sound: soundVolume,
+      music: musicVolume,
+      vo: voVolume,
+      sfx: sfxVolume
     };
 
     Object.keys(featureToStateMap).forEach(feature => {
