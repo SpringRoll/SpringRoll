@@ -12,7 +12,7 @@ export class ApplicationPlugin {
    * @param {Array<String>} options.optional The list of optional plugins (by name) that this plugin depends on
    */
   constructor(options = {}) {
-    if(options.name === undefined) {
+    if (options.name === undefined) {
       throw new Error('Application plugin not provided a name field');
     }
 

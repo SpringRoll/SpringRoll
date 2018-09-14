@@ -167,7 +167,7 @@ export class Application {
           .filter(name => registeredPluginNames.indexOf(name) < 0)
           .map(name => `"${name}"`); // format them too
 
-        if(missingRequired.length === 0) {
+        if (missingRequired.length === 0) {
           return;
         }
 
@@ -184,7 +184,7 @@ export class Application {
    * proper load error
    */
   static sortPlugins() {
-    if(Application._plugins.length === 0) {
+    if (Application._plugins.length === 0) {
       return; // nothing to do
     }
 
@@ -208,11 +208,11 @@ export class Application {
 
 
     // if there are no items to visit, throw an error
-    if(toVisit.size === 0) {
+    if (toVisit.size === 0) {
       throw new Error('Every registered plugin has a dependency!');
     }
 
-    while(toVisit.size > 0) {
+    while (toVisit.size > 0) {
       // pick an item and remove it from the list
       const item = toVisit.values().next().value;
       toVisit.delete(item);
@@ -225,22 +225,24 @@ export class Application {
         const index = pluginLookup[pluginName].dependencies.indexOf(item);
 
         // remove it as a dependency
-        if(index > -1) {
+        if (index > -1) {
           pluginLookup[pluginName].dependencies.splice(index, 1);
         }
 
         // if there are no more dependencies left, we can visit this item now
-        if(pluginLookup[pluginName].dependencies.length === 0 && visited.indexOf(pluginName) === -1) {
+        if (pluginLookup[pluginName].dependencies.length === 0 && visited.indexOf(pluginName) === -1) {
           toVisit.add(pluginName);
         }
       });
     }
 
     // if there are any dependencies left, that means that there's a cycle
-    Object.keys(pluginLookup)
-      .filter(pluginName => pluginLookup[pluginName].dependencies.length > 0)
-      .forEach(() => { throw new Error('Dependency graph has a cycle') });
+    const uncaughtKeys = Object.keys(pluginLookup)
+      .filter(pluginName => pluginLookup[pluginName].dependencies.length > 0);
 
+    if (uncaughtKeys.length > 0) {
+      throw new Error('Dependency graph has a cycle');
+    }
 
     // now, rebuild the array
     Application._plugins = [];
