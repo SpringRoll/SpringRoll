@@ -128,9 +128,11 @@ export class Application {
 
     Application._plugins.forEach(plugin => plugin.setup(this));
 
-    const preloads = Application._plugins.map(plugin => plugin.preload(this));
+    const preloader = Application._plugins.reduce((promise, plugin) => {
+      return promise.then(() => plugin.preload(this));
+    }, Promise.resolve());
 
-    Promise.all(preloads)
+    preloader
       .catch(e => {
         Debugger.log('warn', e);
       })

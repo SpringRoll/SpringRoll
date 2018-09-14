@@ -59,6 +59,35 @@ describe('Application', () => {
       });
     });
 
+    it('should call preload in the correct order for plugins with dependencies', () => {
+      let aPreloadCalled = false;
+      const a = new ApplicationPlugin({ name: 'a' });
+      // a preload that takes some time
+      a.preload = () => {
+        return new Promise(resolve => {
+          console.log('I AM A!');
+          setTimeout(() => {
+            aPreloadCalled = true;
+            console.log('I AM A after waiting!', aPreloadCalled);
+            resolve();
+          }, 10);
+        });
+      };
+
+      // b checks that a is setup first
+      const b = new ApplicationPlugin({ name: 'b', required: ['a'] });
+      b.preload = () => {
+        console.log('I AM B!', aPreloadCalled);
+        expect(aPreloadCalled).to.be.true;
+        return Promise.resolve();
+      }
+
+      Application.uses(b);
+      Application.uses(a);
+
+      const app = new Application();
+    });
+
     it('should throw if a plugin is missing a required dependency', () => {
       const plugin = new ApplicationPlugin({
         name: 'b',
