@@ -152,6 +152,8 @@ export class Application {
 
   /**
    * Validates every plugin to make sure it has it's required dependencies
+   *
+   * @return Array<string>
    */
   static validatePlugins() {
     const errors = [];
