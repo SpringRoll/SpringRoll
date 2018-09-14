@@ -107,13 +107,13 @@ export class Application {
 
     Promise.all(preloads)
       .catch(e => {
-        console.warn(e);
+        Debugger.log('warn', e);
       })
       .then(() => {
         this.validateListeners();
       })
       .catch(e => {
-        console.warn(e);
+        Debugger.log('warn', e);
       })
       .then(() => {
         this.container.send('loaded');
@@ -203,7 +203,7 @@ export class Application {
       // for any optional plugins that are missing remove them from the list and warn along the way
       const optionalAvailablePlugins = plugin.optional.filter(name => {
         if (pluginNames.indexOf(name) === -1) {
-          console.warn(plugin.name + ' missing optional plugin ' + name);
+          Debugger.log('warn', plugin.name + ' missing optional plugin ' + name);
           return false;
         }
 
