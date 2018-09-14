@@ -47,17 +47,17 @@
         -   [Parameters][43]
     -   [removeFilter][44]
     -   [types][45]
--   [KeyState][46]
-    -   [Properties][47]
--   [Controller][48]
-    -   [Parameters][49]
-    -   [update][50]
-    -   [onKeyDown][51]
+-   [Controller][46]
+    -   [Parameters][47]
+    -   [update][48]
+    -   [onKeyDown][49]
+        -   [Parameters][50]
+    -   [onKeyUp][51]
         -   [Parameters][52]
-    -   [onKeyUp][53]
+    -   [assignButtons][53]
         -   [Parameters][54]
-    -   [assignButtons][55]
-        -   [Parameters][56]
+-   [KeyState][55]
+    -   [Properties][56]
 -   [Key][57]
     -   [Parameters][58]
     -   [Properties][59]
@@ -67,9 +67,9 @@
     -   [state][63]
 -   [Application][64]
     -   [state][65]
-    -   [promisify][66]
-        -   [Parameters][67]
-    -   [validateListeners][68]
+    -   [validateListeners][66]
+    -   [validatePlugins][67]
+    -   [sortPlugins][68]
     -   [\_plugins][69]
     -   [uses][70]
         -   [Parameters][71]
@@ -96,7 +96,7 @@
     -   [addField][92]
         -   [Parameters][93]
 -   [Caption][94]
-    -   [Parameters][95]
+    -   [Properties][95]
     -   [update][96]
         -   [Parameters][97]
     -   [updateState][98]
@@ -107,7 +107,7 @@
     -   [updateTimeIndex][103]
         -   [Parameters][104]
 -   [Caption][105]
-    -   [Properties][106]
+    -   [Parameters][106]
     -   [update][107]
         -   [Parameters][108]
     -   [updateState][109]
@@ -160,17 +160,17 @@
     -   [lineEnd][156]
     -   [sanitize][157]
         -   [Parameters][158]
--   [Localizer.Options][159]
--   [Localizer][160]
-    -   [resolve][161]
-        -   [Parameters][162]
-    -   [setPrimaryLocale][163]
-        -   [Parameters][164]
-    -   [setFallbackLocale][165]
-        -   [Parameters][166]
-    -   [getLocaleKey][167]
-        -   [Parameters][168]
-    -   [getBrowserLanguages][169]
+-   [Localizer][159]
+    -   [resolve][160]
+        -   [Parameters][161]
+    -   [setPrimaryLocale][162]
+        -   [Parameters][163]
+    -   [setFallbackLocale][164]
+        -   [Parameters][165]
+    -   [getLocaleKey][166]
+        -   [Parameters][167]
+    -   [getBrowserLanguages][168]
+-   [Localizer.Options][169]
 -   [ApplicationPlugin][170]
     -   [setup][171]
     -   [preload][172]
@@ -379,16 +379,6 @@ Supported filter types.
 Returns **[object][175]** Returns an object { name, value } with the colorblindness type:
 (Protanopia, Protanomaly, Deuteranopia, Deuteranomaly, Tritanopia, Tritanomaly, Achromatopsia, Achromatomaly)
 
-## KeyState
-
-Type: (`0` \| `1` \| `2`)
-
-### Properties
-
--   `down` **[Function][173]** 
--   `up` **[Function][173]** 
--   `key` **[string][177]** 
-
 ## Controller
 
 Controller interface class to simplify working with key presses.
@@ -424,6 +414,16 @@ Sets an object of button functions to the controller to be called.
 #### Parameters
 
 -   `keys` **[Array][180]&lt;KeyTemplate>** 
+
+## KeyState
+
+Type: (`0` \| `1` \| `2`)
+
+### Properties
+
+-   `down` **[Function][173]** 
+-   `up` **[Function][173]** 
+-   `key` **[string][177]** 
 
 ## Key
 
@@ -467,22 +467,22 @@ Main entry point for a game. Provides a single focal point for plugins and funct
 
 ### state
 
-### promisify
-
-Converts a callback-based or synchronous function into a promise. This method is used for massaging plugin preload
-methods before they are executed.
-
-#### Parameters
-
--   `callback` **[Function][173]** A function that takes either a callback, or returns a promise.
-
-Returns **[Promise][183]** A promise that resolves when the function finishes executing (whether it is asynchronous or not).
-
 ### validateListeners
 
 Validates that appropriate listeners are added for the features that were enabled in the constructor
 
 -   Throws **any** Error
+
+### validatePlugins
+
+Validates every plugin to make sure it has it's required dependencies
+
+Returns **any** Array<string>
+
+### sortPlugins
+
+Helper method for sorting plugins in place. Looks at dependency order and performs a topological sort to enforce
+proper load error
 
 ### \_plugins
 
@@ -494,7 +494,7 @@ Registers a plugin to be used by applications, sorting it by priority order.
 
 #### Parameters
 
--   `plugin` **[ApplicationPlugin][184]** The plugin to register.
+-   `plugin` **[ApplicationPlugin][183]** The plugin to register.
 
 ### uses
 
@@ -610,9 +610,12 @@ Returns **any** Property The newly created property.
 
 ## Caption
 
-### Parameters
+### Properties
 
--   `lines`  
+-   `lines` **[Array][180]&lt;[TimedLine][184]>** 
+-   `time` **[number][176]** 
+-   `lineIndex` **[number][176]** 
+-   `renderer` **[IRender][185]** 
 
 ### update
 
@@ -657,12 +660,9 @@ Updates the current time and index of the caption instance
 
 ## Caption
 
-### Properties
+### Parameters
 
--   `lines` **[Array][180]&lt;[TimedLine][185]>** 
--   `time` **[number][176]** 
--   `lineIndex` **[number][176]** 
--   `renderer` **[IRender][186]** 
+-   `lines`  
 
 ### update
 
@@ -715,7 +715,7 @@ Creates a new Object&lt;String, Caption>.
 
 #### Parameters
 
--   `data` **[JSON][187]** 
+-   `data` **[JSON][186]** 
 
 Returns **[Object][175]** 
 
@@ -727,7 +727,7 @@ Creates a new Caption from JSON data.
 
 -   `captionData` **any** 
 
-Returns **[Caption][188]** new Caption
+Returns **[Caption][187]** new Caption
 
 ### createLine
 
@@ -737,7 +737,7 @@ Creates a new TimedLine from JSON data.
 
 -   `lineData` **any** 
 
-Returns **[TimedLine][185]** new TimedLine;
+Returns **[TimedLine][184]** new TimedLine;
 
 ## CaptionPlayer
 
@@ -899,10 +899,6 @@ Will attempt to remove all html from a string before it's renderer to the page
 
 -   `html` **any** 
 
-## Localizer.Options
-
-Type: {language: [string][177], fallback: [string][177]}
-
 ## Localizer
 
 ### resolve
@@ -940,6 +936,10 @@ Returns **[string][177]**
 
 ### getBrowserLanguages
 
+## Localizer.Options
+
+Type: {language: [string][177], fallback: [string][177]}
+
 ## ApplicationPlugin
 
 Represents a single plugin for applications. Allows developers to inject code in the start up process of an
@@ -954,7 +954,7 @@ A setup method for the plugin. This method is ran synchronously in the construct
 A preload method for the plugin which allows for asynchronous setup tasks. Either takes a callback as first
 parameter, or should return a Promise indicating that loading is finished.
 
-Returns **([Promise][183] \| [undefined][189])** If defined, treated as promise indicating when the plugin is finished loading.
+Returns **[Promise][188]** A promise indicating when the plugin is finished loading.
 
 [1]: #property
 
@@ -1046,27 +1046,27 @@ Returns **([Promise][183] \| [undefined][189])** If defined, treated as promise 
 
 [45]: #types
 
-[46]: #keystate
+[46]: #controller
 
-[47]: #properties-3
+[47]: #parameters-13
 
-[48]: #controller
+[48]: #update
 
-[49]: #parameters-13
+[49]: #onkeydown
 
-[50]: #update
+[50]: #parameters-14
 
-[51]: #onkeydown
+[51]: #onkeyup
 
-[52]: #parameters-14
+[52]: #parameters-15
 
-[53]: #onkeyup
+[53]: #assignbuttons
 
-[54]: #parameters-15
+[54]: #parameters-16
 
-[55]: #assignbuttons
+[55]: #keystate
 
-[56]: #parameters-16
+[56]: #properties-3
 
 [57]: #key
 
@@ -1086,25 +1086,25 @@ Returns **([Promise][183] \| [undefined][189])** If defined, treated as promise 
 
 [65]: #state-1
 
-[66]: #promisify
+[66]: #validatelisteners
 
-[67]: #parameters-19
+[67]: #validateplugins
 
-[68]: #validatelisteners
+[68]: #sortplugins
 
 [69]: #_plugins
 
 [70]: #uses
 
-[71]: #parameters-20
+[71]: #parameters-19
 
 [72]: #uses-1
 
-[73]: #parameters-21
+[73]: #parameters-20
 
 [74]: #debugger
 
-[75]: #parameters-22
+[75]: #parameters-21
 
 [76]: #properties-5
 
@@ -1112,27 +1112,27 @@ Returns **([Promise][183] \| [undefined][189])** If defined, treated as promise 
 
 [78]: #minlevel
 
-[79]: #parameters-23
+[79]: #parameters-22
 
 [80]: #emit
 
-[81]: #parameters-24
+[81]: #parameters-23
 
 [82]: #level
 
 [83]: #log
 
-[84]: #parameters-25
+[84]: #parameters-24
 
 [85]: #assert
 
-[86]: #parameters-26
+[86]: #parameters-25
 
 [87]: #isenabled
 
 [88]: #enable-1
 
-[89]: #parameters-27
+[89]: #parameters-26
 
 [90]: #paramkey
 
@@ -1140,89 +1140,89 @@ Returns **([Promise][183] \| [undefined][189])** If defined, treated as promise 
 
 [92]: #addfield
 
-[93]: #parameters-28
+[93]: #parameters-27
 
 [94]: #caption
 
-[95]: #parameters-29
+[95]: #properties-6
 
 [96]: #update-1
 
-[97]: #parameters-30
+[97]: #parameters-28
 
 [98]: #updatestate-1
 
-[99]: #parameters-31
+[99]: #parameters-29
 
 [100]: #isfinished
 
 [101]: #start
 
-[102]: #parameters-32
+[102]: #parameters-30
 
 [103]: #updatetimeindex
 
-[104]: #parameters-33
+[104]: #parameters-31
 
 [105]: #caption-1
 
-[106]: #properties-6
+[106]: #parameters-32
 
 [107]: #update-2
 
-[108]: #parameters-34
+[108]: #parameters-33
 
 [109]: #updatestate-2
 
-[110]: #parameters-35
+[110]: #parameters-34
 
 [111]: #isfinished-1
 
 [112]: #start-1
 
-[113]: #parameters-36
+[113]: #parameters-35
 
 [114]: #updatetimeindex-1
 
-[115]: #parameters-37
+[115]: #parameters-36
 
 [116]: #captionfactory
 
 [117]: #createcaptionmap
 
-[118]: #parameters-38
+[118]: #parameters-37
 
 [119]: #createcaption
 
-[120]: #parameters-39
+[120]: #parameters-38
 
 [121]: #createline
 
-[122]: #parameters-40
+[122]: #parameters-39
 
 [123]: #captionplayer
 
 [124]: #update-3
 
-[125]: #parameters-41
+[125]: #parameters-40
 
 [126]: #start-2
 
-[127]: #parameters-42
+[127]: #parameters-41
 
 [128]: #stop
 
 [129]: #captionplayer-1
 
-[130]: #parameters-43
+[130]: #parameters-42
 
 [131]: #update-4
 
-[132]: #parameters-44
+[132]: #parameters-43
 
 [133]: #start-3
 
-[134]: #parameters-45
+[134]: #parameters-44
 
 [135]: #stop-1
 
@@ -1232,7 +1232,7 @@ Returns **([Promise][183] \| [undefined][189])** If defined, treated as promise 
 
 [138]: #setcontent
 
-[139]: #parameters-46
+[139]: #parameters-45
 
 [140]: #irender
 
@@ -1240,11 +1240,11 @@ Returns **([Promise][183] \| [undefined][189])** If defined, treated as promise 
 
 [142]: #domrenderer
 
-[143]: #parameters-47
+[143]: #parameters-46
 
 [144]: #start-4
 
-[145]: #parameters-48
+[145]: #parameters-47
 
 [146]: #stop-2
 
@@ -1252,47 +1252,47 @@ Returns **([Promise][183] \| [undefined][189])** If defined, treated as promise 
 
 [148]: #linebegin
 
-[149]: #parameters-49
+[149]: #parameters-48
 
 [150]: #lineend
 
 [151]: #templaterenderer
 
-[152]: #parameters-50
+[152]: #parameters-49
 
 [153]: #textrenderer
 
 [154]: #linebegin-1
 
-[155]: #parameters-51
+[155]: #parameters-50
 
 [156]: #lineend-1
 
 [157]: #sanitize
 
-[158]: #parameters-52
+[158]: #parameters-51
 
-[159]: #localizeroptions
+[159]: #localizer
 
-[160]: #localizer
+[160]: #resolve
 
-[161]: #resolve
+[161]: #parameters-52
 
-[162]: #parameters-53
+[162]: #setprimarylocale
 
-[163]: #setprimarylocale
+[163]: #parameters-53
 
-[164]: #parameters-54
+[164]: #setfallbacklocale
 
-[165]: #setfallbacklocale
+[165]: #parameters-54
 
-[166]: #parameters-55
+[166]: #getlocalekey
 
-[167]: #getlocalekey
+[167]: #parameters-55
 
-[168]: #parameters-56
+[168]: #getbrowserlanguages
 
-[169]: #getbrowserlanguages
+[169]: #localizeroptions
 
 [170]: #applicationplugin
 
@@ -1320,16 +1320,14 @@ Returns **([Promise][183] \| [undefined][189])** If defined, treated as promise 
 
 [182]: https://developer.mozilla.org/docs/Web/API/KeyboardEvent
 
-[183]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise
+[183]: #applicationplugin
 
-[184]: #applicationplugin
+[184]: #timedline
 
-[185]: #timedline
+[185]: #irender
 
-[186]: #irender
+[186]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/JSON
 
-[187]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/JSON
+[187]: #caption
 
-[188]: #caption
-
-[189]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/undefined
+[188]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise

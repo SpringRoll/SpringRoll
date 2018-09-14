@@ -118,49 +118,33 @@ export class Application {
     // Also attempt to fetch over the iframe barrier for old container support
     this.container.fetch('playOptions', e => (this.playOptions.value = e.data));
 
-    Application._plugins.forEach(plugin => plugin.setup.call(this));
+    // check for any invalid plugins
+    const errorMessages = Application.validatePlugins();
+    if (errorMessages.length > 0) {
+      const message = errorMessages.join('. ') + '.';
+      throw new Error(message);
+    }
 
-    const preloads = Application._plugins.map(plugin =>
-      this.promisify(plugin.preload)
-    );
+    Application.sortPlugins();
+
+    Application._plugins.forEach(plugin => plugin.setup(this));
+
+    const preloads = Application._plugins.map(plugin => plugin.preload(this));
+
     Promise.all(preloads)
       .catch(e => {
-        console.warn(e);
+        Debugger.log('warn', e);
       })
       .then(() => {
         this.validateListeners();
       })
       .catch(e => {
-        console.warn(e);
+        Debugger.log('warn', e);
       })
       .then(() => {
         this.container.send('loaded');
         this.state.ready.value = true;
       });
-  }
-
-  /**
-   * Converts a callback-based or synchronous function into a promise. This method is used for massaging plugin preload
-   * methods before they are executed.
-   * @param {Function} callback A function that takes either a callback, or returns a promise.
-   * @return {Promise} A promise that resolves when the function finishes executing (whether it is asynchronous or not).
-   */
-  promisify(callback) {
-    // if it takes no argument, assume that it's synchronous or returns a Promise.
-    if (callback.length === 0) {
-      return Promise.resolve(callback.call(this));
-    }
-
-    // If it has an argument, that means it uses a callback structure.
-    return new Promise((resolve, reject) => {
-      callback.call(this, function(error) {
-        if (error) {
-          reject(error);
-        } else {
-          resolve(error);
-        }
-      });
-    });
   }
 
   /**
@@ -198,6 +182,119 @@ export class Application {
       );
     }
   }
+
+  /**
+   * Validates every plugin to make sure it has it's required dependencies
+   *
+   * @return Array<string>
+   */
+  static validatePlugins() {
+    const errors = [];
+
+    const registeredPluginNames = Application._plugins.map(plugin => plugin.name);
+
+    Application._plugins
+      .forEach(plugin => {
+        const name = plugin.name;
+
+        // for this plugins, find all required plugins that are missing from the full plugin list
+        const missingRequired = plugin.required
+          .filter(name => registeredPluginNames.indexOf(name) < 0)
+          .map(name => `"${name}"`); // format them too
+
+        if (missingRequired.length === 0) {
+          return;
+        }
+
+        // if there were required plugins not in Application._plugins, add this to the error list for later
+        const errorMessage = `Application plugin "${name}" missing required plugins ${ missingRequired.join(', ') }`;
+        errors.push(errorMessage);
+      });
+
+    return errors;
+  }
+
+  /**
+   * Helper method for sorting plugins in place. Looks at dependency order and performs a topological sort to enforce
+   * proper load error
+   */
+  static sortPlugins() {
+    if (Application._plugins.length === 0) {
+      return; // nothing to do
+    }
+
+    const pluginNames = Application._plugins.map(plugin => plugin.name);
+    const pluginLookup = {};
+    Application._plugins.forEach(plugin => {
+      // for any optional plugins that are missing remove them from the list and warn along the way
+      const optionalAvailablePlugins = plugin.optional.filter(name => {
+        if (pluginNames.indexOf(name) === -1) {
+          Debugger.log('warn', plugin.name + ' missing optional plugin ' + name);
+          return false;
+        }
+
+        return true;
+      });
+
+      pluginLookup[plugin.name] = {
+        plugin: plugin,
+        name: plugin.name,
+        dependencies: [].concat(plugin.required).concat(optionalAvailablePlugins)
+      };
+    });
+
+    const visited = [];
+    const toVisit = new Set();
+
+    // first, add items that do not have any dependencies
+    Object.keys(pluginLookup)
+      .map(key => pluginLookup[key])
+      .filter(lookup => lookup.dependencies.length === 0)
+      .forEach(lookup => toVisit.add(lookup.name));
+
+    // if there are no items to visit, throw an error
+    if (toVisit.size === 0) {
+      throw new Error('Every registered plugin has a dependency!');
+    }
+
+    while (toVisit.size > 0) {
+      // pick an item and remove it from the list
+      const item = toVisit.values().next().value;
+      toVisit.delete(item);
+
+      // add it to the visited list
+      visited.push(item);
+
+      // for every plugin
+      Object.keys(pluginLookup).forEach(pluginName => {
+        const index = pluginLookup[pluginName].dependencies.indexOf(item);
+
+        // remove it as a dependency
+        if (index > -1) {
+          pluginLookup[pluginName].dependencies.splice(index, 1);
+        }
+
+        // if there are no more dependencies left, we can visit this item now
+        if (pluginLookup[pluginName].dependencies.length === 0 && visited.indexOf(pluginName) === -1) {
+          toVisit.add(pluginName);
+        }
+      });
+    }
+
+    // if there are any dependencies left, that means that there's a cycle
+    const uncaughtKeys = Object.keys(pluginLookup)
+      .filter(pluginName => pluginLookup[pluginName].dependencies.length > 0);
+
+    if (uncaughtKeys.length > 0) {
+      throw new Error('Dependency graph has a cycle');
+    }
+
+    // now, rebuild the array
+    Application._plugins = [];
+    visited.forEach(name => {
+      Application._plugins.push(pluginLookup[name].plugin);
+    });
+  }
 }
 
 /**
@@ -216,5 +313,4 @@ Application._plugins = [];
  */
 Application.uses = function(plugin) {
   Application._plugins.push(plugin);
-  Application._plugins.sort((p1, p2) => p2.priority - p1.priority);
 };

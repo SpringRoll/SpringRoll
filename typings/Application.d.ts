@@ -2,17 +2,17 @@ export type ApplicationFeatures = { [key:string]: boolean };
 
 export class Application {
   constructor(features: ApplicationFeatures);
-  promisify(e: any): any;
   validateListeners(): void;
   state: StateManager;
   features: ApplicationFeatures;
   container: BellhopIframe.Bellhop;
-  promisify(callback: Function): Promise<any>;
   validateListeners(): void;
 
 
 
   static _plugins: ApplicationPlugin[];
+  static validatePlugins: string[];
+  static sortPlugins: void;
   static uses(plugin: ApplicationPlugin): void
 }
 
@@ -20,7 +20,7 @@ export interface ApplicationPlugin {
   constructor(priority?: number)
   priority: number;
   setup(): any;
-  preload(): Promise<any> | undefined | void;
+  preload(): Promise<any>;
 }
 
 export class ApplicationPlugin implements ApplicationPlugin {}
