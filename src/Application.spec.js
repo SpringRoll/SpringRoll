@@ -59,7 +59,7 @@ describe('Application', () => {
       });
     });
 
-    it('should call preload in the correct order for plugins with dependencies', () => {
+    it('should call preload in the correct order for plugins with dependencies', (done) => {
       let aPreloadCalled = false;
       const a = new ApplicationPlugin({ name: 'a' });
       // a preload that takes some time
@@ -83,6 +83,9 @@ describe('Application', () => {
       Application.uses(a);
 
       const app = new Application();
+      app.state.ready.subscribe(() => {
+        done();
+      });
     });
 
     it('should throw if a plugin is missing a required dependency', () => {
