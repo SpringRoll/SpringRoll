@@ -21,26 +21,29 @@ test('SavedData', function(assert)
 
 test('UserData', function(assert)
 {
+	var done = assert.async();
+
 	expect(4);
 
 	assert.ok(!!app.userData, "Application userData property");
 
-	app.userData.write('highScore', 1000);
-	app.userData.read('highScore', function(value)
-	{
-		assert.strictEqual(value, 1000, "Read/write works");
-	});
+	// turn off iframe communication for the test
+	app.container.supported = false;
 
-	app.userData.write('highScore', 2000);
-	app.userData.read('highScore', function(value)
-	{
-		assert.strictEqual(value, 2000, "Read/rewrite works");
+	app.userData.write('highScore', 1000, function() {
+		app.userData.read('highScore', function(value) {
+			assert.strictEqual(value, 1000, "Read/write works");
+			app.userData.write('highScore', 2000, function() {
+				app.userData.read('highScore', function(value) {
+					assert.strictEqual(value, 2000, "Read/rewrite works");
+					app.userData.remove('highScore', function() {
+						app.userData.read('highScore', function(value) {
+							assert.strictEqual(value, null, 'Removed works');
+							done();
+						});
+					});
+				});
+			});
+		});
 	});
-
-	app.userData.remove('highScore');
-	app.userData.read('highScore', function(value)
-	{
-		assert.strictEqual(value, null, 'Removed works');
-	});
-
 });
