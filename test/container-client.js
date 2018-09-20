@@ -20,34 +20,42 @@ test('SavedData', function(assert)
 });
 
 QUnit.module('UserData');
-test('existence', function(assert) {
-  assert.ok(!!app.userData, 'Application userData property');
+test('existence', function(assert)
+{
+	assert.ok(!!app.userData, 'Application userData property');
 });
 
-test('write', function(assert) {
-  var done = assert.async();
+test('write', function(assert)
+{
+	var done = assert.async();
 
-  app.container.supported = false;
+	app.container.supported = false;
 
-  app.userData.write('highScore', 1000, function() {
-    app.userData.read('highScore', function(value) {
-      assert.strictEqual(value, 1000, "Read/write works");
-      done();
-    });
-  });
+	app.userData.write('highScore', 1000, function()
+	{
+		app.userData.read('highScore', function(value)
+		{
+			assert.strictEqual(value, 1000, "Read/write works");
+			done();
+		});
+	});
 });
 
-test('remove', function(assert) {
-  var done = assert.async();
+test('remove', function(assert)
+{
+	var done = assert.async();
 
-  app.container.supported = false;
+	app.container.supported = false;
 
-  app.userData.write('highScore', 1000, function() {
-    app.userData.remove('highScore', function() {
-      app.userData.read('highScore', function(value) {
-        assert.strictEqual(value, null, "remove works correctly");
-        done();
-      });
-    });
-  });
+	app.userData.write('highScore', 1000, function()
+	{
+		app.userData.remove('highScore', function()
+		{
+			app.userData.read('highScore', function(value)
+			{
+				assert.strictEqual(value, null, "remove works correctly");
+				done();
+			});
+		});
+	});
 });
