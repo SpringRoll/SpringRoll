@@ -217,17 +217,14 @@
 		if (this.container.supported)
 		{
 			//Setup the container listeners for site soundMute and captionsMute events
-			this.container.on(
-			{
-				soundMuted: onSoundMuted.bind(this),
-				captionsMuted: onCaptionsMuted.bind(this),
-				musicMuted: onContextMuted.bind(this, 'music'),
-				voMuted: onContextMuted.bind(this, 'vo'),
-				sfxMuted: onContextMuted.bind(this, 'sfx'),
-				captionsStyles: onCaptionsStyles.bind(this),
-				pause: onPause.bind(this),
-				close: onClose.bind(this)
-			});
+			this.container.on('soundMuted', onSoundMuted.bind(this));
+			this.container.on('captionsMuted', onCaptionsMuted.bind(this));
+			this.container.on('musicMuted', onContextMuted.bind(this, 'music'));
+			this.container.on('voMuted', onContextMuted.bind(this, 'vo'));
+			this.container.on('sfxMuted', onContextMuted.bind(this, 'sfx'));
+			this.container.on('captionsStyles', onCaptionsStyles.bind(this));
+			this.container.on('pause', onPause.bind(this));
+			this.container.on('close', onClose.bind(this));
 
 			// Turn off the page hide and show auto pausing the App
 			this.options.autoPause = false;
