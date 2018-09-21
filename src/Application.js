@@ -128,9 +128,12 @@ export class Application {
 
     Application._plugins.forEach(plugin => plugin.setup(this));
 
-    const preloader = Application._plugins.reduce((promise, plugin) => {
-      return promise.then(() => plugin.preload(this));
-    }, Promise.resolve());
+    // loop over each plugin and chain their asynchronous preload calls in order. This enforces load order for
+    // asynchronous tasks too, given that we just sorted them
+    let preloader = Promise.resolve();
+    for (let plugin of Application._plugins) {
+      preloader = preloader.then(() => plugin.preload(this));
+    }
 
     preloader
       .catch(e => {
