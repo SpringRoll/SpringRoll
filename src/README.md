@@ -1,6 +1,6 @@
 # Application Class
 The SpringRoll Application provides the main entrypoint for games. In particular, it provides access to any
-functionality provided by plugins along with access to any state set or changed by the container.
+[functionality provided by plugins](./plugins) along with access to any state set or changed by the container.
 
 ## Usage Example
 ```javascript
