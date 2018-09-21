@@ -74,7 +74,7 @@ const app = new window.springroll.Application();
 SpringRoll consists of a handful of modules intended to help developers improve the accessibility of their game.
 
 ### Application Module
-The `Application` class provides the main communication bus through which the game can send and receive messages to the container. It also manages global game state, such as pause and captions display. More information can be found in the [Application module documentation](./src/README.md)
+The `Application` class provides the main communication bus through which the game can send and receive messages to the container. It also manages global game state, such as pause and captions display. More information can be found in the [Application module documentation](./src/README.md). It also consists of a simple [plugin architecture](./src/plugins) for hooking into the load sequence of applications.
 
 ### Accessibility Module
 SpringRoll contains submodules for various accessibility testing and enhancement. The [Color Filter module](./src/accessibility/ColorFilter) provides filters for testing color blindness support in your game. Enabling the class allows developers to see what their game would look like for various types of color vision deficiency. The [Speech Synth module](./accessibility/SpeechSynth/README.md) gives developers the ability to synthesize speech from text.
