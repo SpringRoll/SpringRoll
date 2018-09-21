@@ -26,7 +26,6 @@ export class Application {
    * @param {Boolean} features.sfx A boolean denoting that this game has mutable sound effects in it
    */
   constructor(features) {
-    
     /**
      * @member {StateManager} The state manager for this application instance. Maintains subscribable properties for
      *                        whether or not audio is muted, captions are displayed, or the game is paused.
@@ -129,9 +128,14 @@ export class Application {
 
     Application._plugins.forEach(plugin => plugin.setup(this));
 
-    const preloads = Application._plugins.map(plugin => plugin.preload(this));
+    // loop over each plugin and chain their asynchronous preload calls in order. This enforces load order for
+    // asynchronous tasks too, given that we just sorted them
+    let preloader = Promise.resolve();
+    for (let plugin of Application._plugins) {
+      preloader = preloader.then(() => plugin.preload(this));
+    }
 
-    Promise.all(preloads)
+    preloader
       .catch(e => {
         Debugger.log('warn', e);
       })
