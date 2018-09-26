@@ -131,7 +131,7 @@ export class Application {
     // loop over each plugin and chain their asynchronous preload calls in order. This enforces load order for
     // asynchronous tasks too, given that we just sorted them
     let preloader = Promise.resolve();
-    for (let plugin of Application._plugins) {
+    for (const plugin of Application._plugins) {
       preloader = preloader.then(() => plugin.preload(this));
     }
 
