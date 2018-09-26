@@ -125,13 +125,13 @@
     -   [createLine][121]
         -   [Parameters][122]
 -   [CaptionPlayer][123]
-    -   [update][124]
-        -   [Parameters][125]
-    -   [start][126]
-        -   [Parameters][127]
-    -   [stop][128]
--   [CaptionPlayer][129]
-    -   [Parameters][130]
+    -   [Parameters][124]
+    -   [update][125]
+        -   [Parameters][126]
+    -   [start][127]
+        -   [Parameters][128]
+    -   [stop][129]
+-   [CaptionPlayer][130]
     -   [update][131]
         -   [Parameters][132]
     -   [start][133]
@@ -490,17 +490,17 @@ The list of plugins that are currently registered to run on Applications.
 
 ### uses
 
+#### Parameters
+
+-   `plugin`  
+
+### uses
+
 Registers a plugin to be used by applications, sorting it by priority order.
 
 #### Parameters
 
 -   `plugin` **[ApplicationPlugin][183]** The plugin to register.
-
-### uses
-
-#### Parameters
-
--   `plugin`  
 
 ## Debugger
 
@@ -741,8 +741,10 @@ Returns **[TimedLine][184]** new TimedLine;
 
 ## CaptionPlayer
 
-CaptionPlayer is used to start, stop and update captions.
- It applies the content of an active caption to a given CaptionRenderer.
+### Parameters
+
+-   `captions`  
+-   `renderer`  
 
 ### update
 
@@ -769,10 +771,8 @@ Stops any caption currently playing.
 
 ## CaptionPlayer
 
-### Parameters
-
--   `captions`  
--   `renderer`  
+CaptionPlayer is used to start, stop and update captions.
+ It applies the content of an active caption to a given CaptionRenderer.
 
 ### update
 
@@ -1202,19 +1202,19 @@ Returns **[Promise][188]** A promise indicating when the plugin is finished load
 
 [123]: #captionplayer
 
-[124]: #update-3
+[124]: #parameters-40
 
-[125]: #parameters-40
+[125]: #update-3
 
-[126]: #start-2
+[126]: #parameters-41
 
-[127]: #parameters-41
+[127]: #start-2
 
-[128]: #stop
+[128]: #parameters-42
 
-[129]: #captionplayer-1
+[129]: #stop
 
-[130]: #parameters-42
+[130]: #captionplayer-1
 
 [131]: #update-4
 
