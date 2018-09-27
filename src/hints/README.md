@@ -38,7 +38,7 @@ hints.play() // --> hint 1
 
 ```
 
-The Springroll Application comes with a HintSequencePlayer attached by default. play will automatically be called when the Bellhop `playHelp` event is received.
+The Springroll Application comes with a HintSequencePlayer attached by default. `play` will automatically be invoked when the Bellhop `playHelp` event is received.
 ```javascript
 import { Application } from 'springroll';
 
@@ -73,7 +73,7 @@ app.hints.play(); // --> My Special Behaviour
 ```
 ## IdleTimer
 
-The Idle Timer is a simple reset-able timer that you can have multiple callbacks. After start is called it will automatically invoke callbacks after a set amount of time, unless it is reset or stopped.
+The Idle Timer is a simple reset-able timer that can have multiple callbacks. After start is called it will automatically invoke callbacks after a set amount of time, unless it is reset or stopped.
 
 | Name | Time | Params |
 | --- | --- | --- |
