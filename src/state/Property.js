@@ -30,16 +30,10 @@ export class Property {
    * @memberof Property
    */
   set value(value) {
+    const prevValue = this._value;
     this._value = value;
-    this.notifyChange();
-  }
-
-  /**
-   * Notifies all subscribers to the property of a new value.
-   */
-  notifyChange() {
     this.listeners.forEach(listener => {
-      listener(this._value);
+      listener(this._value, prevValue);
     });
   }
 
