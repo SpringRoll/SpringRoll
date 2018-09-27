@@ -216,16 +216,6 @@
               
                 
                 <li><a
-                  href='#filtertype'
-                  class="">
-                  filterType
-                  
-                </a>
-                
-                </li>
-              
-                
-                <li><a
                   href='#colorfilter'
                   class=" toggle-sibling">
                   ColorFilter
@@ -272,6 +262,26 @@
               
                 
                 <li><a
+                  href='#filtertype'
+                  class="">
+                  filterType
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#keystate'
+                  class="">
+                  KeyState
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
                   href='#controller'
                   class=" toggle-sibling">
                   Controller
@@ -313,16 +323,6 @@
                   
                   
                 </div>
-                
-                </li>
-              
-                
-                <li><a
-                  href='#keystate'
-                  class="">
-                  KeyState
-                  
-                </a>
                 
                 </li>
               
@@ -395,12 +395,6 @@
                         href='#application_plugins'
                         class='regular pre-open'>
                         ._plugins
-                      </a></li>
-                    
-                      <li><a
-                        href='#applicationuses'
-                        class='regular pre-open'>
-                        .uses
                       </a></li>
                     
                       <li><a
@@ -1652,7 +1646,8 @@
   </div>
   
 
-  <p>SpeechSync makes it easy to convert text to speech.</p>
+  <p>SpeechSync makes it easy to convert text to speech.
+Note: This is not supported on IE11 and below because of the underlying APIs are not implemented in those browsers</p>
 
  
   
@@ -2457,58 +2452,6 @@ If the announcer is already saying something then it will be added to a queue.</
   
   <div class='clearfix'>
     
-    <h3 class='fl m0' id='filtertype'>
-      filterType
-    </h3>
-    
-    
-  </div>
-  
-
-  
- 
-  
-    <div class='pre p1 fill-light mt0'>filterType</div>
-   
-  
-    <p>
-      Type:
-      (<code>"protanopia"</code> | <code>"protanomaly"</code> | <code>"deuteranopia"</code> | <code>"deuteranomaly"</code> | <code>"tritanopia"</code> | <code>"tritanomaly"</code> | <code>"achromatopsia"</code> | <code>"achromatomaly"</code>)
-    </p>
-  
-  
-
-  
-  
-  
-  
-  
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-</section>
-
-        
-          
-          <section class='p2 mb2 clearfix bg-white minishadow'>
-
-  
-  <div class='clearfix'>
-    
     <h3 class='fl m0' id='colorfilter'>
       ColorFilter
     </h3>
@@ -2791,6 +2734,133 @@ If the announcer is already saying something then it will be added to a queue.</
     </div>
   
 </div>
+
+  
+
+  
+
+  
+</section>
+
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='filtertype'>
+      filterType
+    </h3>
+    
+    
+  </div>
+  
+
+  
+ 
+  
+    <div class='pre p1 fill-light mt0'>filterType</div>
+   
+  
+    <p>
+      Type:
+      (<code>"protanopia"</code> | <code>"protanomaly"</code> | <code>"deuteranopia"</code> | <code>"deuteranomaly"</code> | <code>"tritanopia"</code> | <code>"tritanomaly"</code> | <code>"achromatopsia"</code> | <code>"achromatomaly"</code>)
+    </p>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='keystate'>
+      KeyState
+    </h3>
+    
+    
+  </div>
+  
+
+  
+ 
+  
+    <div class='pre p1 fill-light mt0'>KeyState</div>
+   
+  
+    <p>
+      Type:
+      (<code>0</code> | <code>1</code> | <code>2</code>)
+    </p>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Properties</div>
+    <div>
+      
+        <div class='space-bottom0'>
+          <span class='code bold'>down</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function">Function</a>)</code>
+          
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <span class='code bold'>up</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function">Function</a>)</code>
+          
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <span class='code bold'>key</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
+          
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+
+  
 
   
 
@@ -3093,81 +3163,6 @@ If the announcer is already saying something then it will be added to a queue.</
     </div>
   
 </div>
-
-  
-
-  
-
-  
-</section>
-
-        
-          
-          <section class='p2 mb2 clearfix bg-white minishadow'>
-
-  
-  <div class='clearfix'>
-    
-    <h3 class='fl m0' id='keystate'>
-      KeyState
-    </h3>
-    
-    
-  </div>
-  
-
-  
- 
-  
-    <div class='pre p1 fill-light mt0'>KeyState</div>
-   
-  
-    <p>
-      Type:
-      (<code>0</code> | <code>1</code> | <code>2</code>)
-    </p>
-  
-  
-
-  
-  
-  
-  
-  
-  
-
-  
-
-  
-    <div class='py1 quiet mt1 prose-big'>Properties</div>
-    <div>
-      
-        <div class='space-bottom0'>
-          <span class='code bold'>down</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function">Function</a>)</code>
-          
-          
-        </div>
-      
-        <div class='space-bottom0'>
-          <span class='code bold'>up</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function">Function</a>)</code>
-          
-          
-        </div>
-      
-        <div class='space-bottom0'>
-          <span class='code bold'>key</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
-          
-          
-        </div>
-      
-    </div>
-  
-
-  
-
-  
-
-  
 
   
 
@@ -3705,66 +3700,6 @@ proper load error</p>
             <span class='code bold'>plugin</span> <code class='quiet'>(<a href="#applicationplugin">ApplicationPlugin</a>)</code>
 	    The plugin to register.
 
-          </div>
-          
-        </div>
-      
-    </div>
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-</section>
-
-      </div>
-    </div>
-  
-    <div class='border-bottom' id='applicationuses'>
-      <div class="clearfix small pointer toggle-sibling">
-        <div class="py1 contain">
-            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
-            <span class='code strong strong truncate'>uses(plugin)</span>
-        </div>
-      </div>
-      <div class="clearfix display-none toggle-target">
-        <section class='p2 mb2 clearfix bg-white minishadow'>
-
-  
-
-  
- 
-  
-    <div class='pre p1 fill-light mt0'>uses(plugin: any)</div>
-   
-  
-  
-
-  
-  
-  
-  
-  
-  
-
-  
-    <div class='py1 quiet mt1 prose-big'>Parameters</div>
-    <div class='prose'>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>plugin</span> <code class='quiet'>(any)</code>
-	    
           </div>
           
         </div>
