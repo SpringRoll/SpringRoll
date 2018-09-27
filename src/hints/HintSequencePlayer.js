@@ -1,4 +1,5 @@
 import { IHintPlayer } from './IHintPlayer';
+import { Debugger } from '../debug';
 
 /**
  *
@@ -23,7 +24,7 @@ export class HintSequencePlayer extends IHintPlayer {
    */
   play() {
     if (this.hints.length == 0) {
-      console.log('empty!');
+      Debugger.log('warn', '[HintSequencePlayer.play()] No hints?!');
       return;
     }
 
@@ -64,7 +65,7 @@ export class HintSequencePlayer extends IHintPlayer {
     const length = callbacks.length;
     for (let i = 0; i < length; i++) {
       this.hints = this.hints.filter(call => call !== callbacks[i]);
-      
+
     }
   }
 }
