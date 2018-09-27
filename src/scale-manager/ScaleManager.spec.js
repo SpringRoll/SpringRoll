@@ -1,4 +1,5 @@
 import { ScaleManager } from './ScaleManager';
+import { newEvent } from '../debug';
 
 describe('Scale Manager', () => {
   const sm = new ScaleManager();
@@ -11,8 +12,8 @@ describe('Scale Manager', () => {
       done();
     });
 
-    window.dispatchEvent(new Event('resize'));
-    window.dispatchEvent(new Event('resize'));
+    window.dispatchEvent(newEvent('resize'));
+    window.dispatchEvent(newEvent('resize'));
   });
 
   it('Should not call the resize if disabled', done => {
@@ -22,8 +23,8 @@ describe('Scale Manager', () => {
     };
 
     sm.disable();
-    window.dispatchEvent(new Event('resize'));
-    window.dispatchEvent(new Event('resize'));
+    window.dispatchEvent(newEvent('resize'));
+    window.dispatchEvent(newEvent('resize'));
 
     setTimeout(() => {
       done();

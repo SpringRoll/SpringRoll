@@ -6,10 +6,10 @@
 export class ApplicationPlugin {
   /**
    * Creates a new Application plugin with a given name and other required plugins
-   * @param {Object} options The configuration options to the plugin
-   * @param {String} options.name The name of the plugin. Used by other plugins to specify a dependency on the plugin
-   * @param {Array<String>} options.required The list of required plugins (by name) that this plugin depends on
-   * @param {Array<String>} options.optional The list of optional plugins (by name) that this plugin depends on
+   * @param {Object} [options={}] The configuration options to the plugin
+   * @param {String} [options.name] The name of the plugin. Used by other plugins to specify a dependency on the plugin
+   * @param {Array<String>} [options.required] The list of required plugins (by name) that this plugin depends on
+   * @param {Array<String>} [options.optional] The list of optional plugins (by name) that this plugin depends on
    */
   constructor(options = {}) {
     if (options.name === undefined) {

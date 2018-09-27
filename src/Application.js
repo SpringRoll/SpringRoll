@@ -18,14 +18,14 @@ const sfxVolume = 'sfxVolume';
 export class Application {
   /**
    * Creates a new application, setting up plugins along the way.
-   * @param {Object} features A configuration object denoting which features are enabled for this application
-   * @param {Boolean} features.captions A boolean value denoting that this game supports captions
-   * @param {Boolean} features.sound A boolean value denoting that this game has some audio in it
-   * @param {Boolean} features.vo A boolean denoting that this game has mutable voice-over audio in it
-   * @param {Boolean} features.music A boolean denoting that this game has mutable music in it
-   * @param {Boolean} features.sfx A boolean denoting that this game has mutable sound effects in it
+   * @param {Object} [features={}] A configuration object denoting which features are Penabled for this application
+   * @param {Boolean} [features.captions] A boolean value denoting that this game supports captions
+   * @param {Boolean} [features.sound] A boolean value denoting that this game has some audio in it
+   * @param {Boolean} [features.vo] A boolean denoting that this game has mutable voice-over audio in it
+   * @param {Boolean} [features.music] A boolean denoting that this game has mutable music in it
+   * @param {Boolean} [features.sfx] A boolean denoting that this game has mutable sound effects in it
    */
-  constructor(features) {
+  constructor(features = {}) {
     /**
      * @member {StateManager} The state manager for this application instance. Maintains subscribable properties for
      *                        whether or not audio is muted, captions are displayed, or the game is paused.
@@ -65,7 +65,7 @@ export class Application {
 
     // listen for events from the container and keep the local value in sync
     [
-      soundVolume,    
+      soundVolume,
       musicVolume,
       voVolume,
       sfxVolume,
@@ -195,25 +195,28 @@ export class Application {
   static validatePlugins() {
     const errors = [];
 
-    const registeredPluginNames = Application._plugins.map(plugin => plugin.name);
+    const registeredPluginNames = Application._plugins.map(
+      plugin => plugin.name
+    );
 
-    Application._plugins
-      .forEach(plugin => {
-        const name = plugin.name;
+    Application._plugins.forEach(plugin => {
+      const name = plugin.name;
 
-        // for this plugins, find all required plugins that are missing from the full plugin list
-        const missingRequired = plugin.required
-          .filter(name => registeredPluginNames.indexOf(name) < 0)
-          .map(name => `"${name}"`); // format them too
+      // for this plugins, find all required plugins that are missing from the full plugin list
+      const missingRequired = plugin.required
+        .filter(name => registeredPluginNames.indexOf(name) < 0)
+        .map(name => `"${name}"`); // format them too
 
-        if (missingRequired.length === 0) {
-          return;
-        }
+      if (missingRequired.length === 0) {
+        return;
+      }
 
-        // if there were required plugins not in Application._plugins, add this to the error list for later
-        const errorMessage = `Application plugin "${name}" missing required plugins ${ missingRequired.join(', ') }`;
-        errors.push(errorMessage);
-      });
+      // if there were required plugins not in Application._plugins, add this to the error list for later
+      const errorMessage = `Application plugin "${name}" missing required plugins ${missingRequired.join(
+        ', '
+      )}`;
+      errors.push(errorMessage);
+    });
 
     return errors;
   }
@@ -233,7 +236,10 @@ export class Application {
       // for any optional plugins that are missing remove them from the list and warn along the way
       const optionalAvailablePlugins = plugin.optional.filter(name => {
         if (pluginNames.indexOf(name) === -1) {
-          Debugger.log('warn', plugin.name + ' missing optional plugin ' + name);
+          Debugger.log(
+            'warn',
+            plugin.name + ' missing optional plugin ' + name
+          );
           return false;
         }
 
@@ -243,7 +249,9 @@ export class Application {
       pluginLookup[plugin.name] = {
         plugin: plugin,
         name: plugin.name,
-        dependencies: [].concat(plugin.required).concat(optionalAvailablePlugins)
+        dependencies: []
+          .concat(plugin.required)
+          .concat(optionalAvailablePlugins)
       };
     });
 
@@ -279,15 +287,19 @@ export class Application {
         }
 
         // if there are no more dependencies left, we can visit this item now
-        if (pluginLookup[pluginName].dependencies.length === 0 && visited.indexOf(pluginName) === -1) {
+        if (
+          pluginLookup[pluginName].dependencies.length === 0 &&
+          visited.indexOf(pluginName) === -1
+        ) {
           toVisit.add(pluginName);
         }
       });
     }
 
     // if there are any dependencies left, that means that there's a cycle
-    const uncaughtKeys = Object.keys(pluginLookup)
-      .filter(pluginName => pluginLookup[pluginName].dependencies.length > 0);
+    const uncaughtKeys = Object.keys(pluginLookup).filter(
+      pluginName => pluginLookup[pluginName].dependencies.length > 0
+    );
 
     if (uncaughtKeys.length > 0) {
       throw new Error('Dependency graph has a cycle');
@@ -306,10 +318,6 @@ export class Application {
  * @static
  */
 Application._plugins = [];
-
-/**
- * @typedef {typeof import('./plugins/ApplicationPlugin.js').ApplicationPlugin} ApplicationPlugin
- */
 
 /**
  * Registers a plugin to be used by applications, sorting it by priority order.
