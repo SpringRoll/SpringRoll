@@ -44,7 +44,7 @@ export default [
       {
         file: 'dist/SpringRoll-umd.js',
         format: 'umd',
-        name: 'window',
+        name: 'SpringRoll',
         extend: true,
         sourceMap: true
       }
