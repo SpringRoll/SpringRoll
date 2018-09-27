@@ -1,6 +1,8 @@
-# Hint Timer
+ # Hints
 
-The hint timer is a simple resettable timer.
+
+## Reset Timer
+The reset timer provides a small layer of abstraction above javascript's builtin timeout.
 
 ## Example
 ```Javascript

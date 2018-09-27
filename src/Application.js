@@ -1,6 +1,7 @@
 import { Bellhop } from 'bellhop-iframe';
 import { Debugger } from './debug/Debugger.js';
 import { StateManager } from './state/StateManager.js';
+import { HintSequencePlayer } from './hints/HintSequencePlayer.js';
 
 /**
  * Main entry point for a game. Provides a single focal point for plugins and functionality to attach.
@@ -111,6 +112,14 @@ export class Application {
         this.container.send('loaded');
         this.state.ready.value = true;
       });
+
+    // Create default hint player; and register bellhop event;
+    this.hints = new HintSequencePlayer();
+    this.container.on('playHelp', () => {
+      if (this.hints) {
+        this.hints.play();
+      }
+    });
   }
 
   /**

@@ -1,13 +1,13 @@
-import { Debugger } from './../debug/Debugger';
+import { Debugger } from '../debug/Debugger';
 /**
  *
  * @export
- * @class HintTimer
+ * @class IdleTimer
  */
-export class HintTimer {
+export class IdleTimer {
   /**
-   * Creates an instance of HintTimer.
-   * @memberof HintTimer
+   * Creates an instance of IdleTimer.
+   * @memberof IdleTimer
    */
   constructor() {
     this.listeners = [];
@@ -15,11 +15,11 @@ export class HintTimer {
 
   /**
    * @param  {Number} time time in milliseconds
-   * @return {void}@memberof HintTimer
+   * @return {void}@memberof IdleTimer
    */
-  start(time) {
+  start(time = 15000) {
     if (!time) {
-      Debugger.log('warn', '[HintTimer.start()] must specify a time!');
+      Debugger.log('warn', '[IdleTimer.start()] must specify a time!');
       return;
     }
 
@@ -29,11 +29,11 @@ export class HintTimer {
 
   /**
    * resets the timer, does not call subscribed functions
-   * @return {void}@memberof HintTimer
+   * @return {void}@memberof IdleTimer
    */
   reset() {
     if (!this.timer) {
-      Debugger.log('warn', '[HintTimer.reset()] timer has not been started');
+      Debugger.log('warn', '[IdleTimer.reset()] timer has not been started');
       return;
     }
 
@@ -42,11 +42,11 @@ export class HintTimer {
   }
 
   /**
-   * @return {void}@memberof HintTimer
+   * @return {void}@memberof IdleTimer
    */
   stop() {
     if (!this.timer) {
-      Debugger.log('warn', '[HintTimer.reset()] timer has not been started');
+      Debugger.log('warn', '[IdleTimer.reset()] timer has not been started');
       return;
     }
     clearTimeout(this.timer);
@@ -55,7 +55,7 @@ export class HintTimer {
 
   /**
    * Calls all subscribed functions, and resets the timer.
-   * @return {void}@memberof HintTimer
+   * @return {void}@memberof IdleTimer
    */
   dispatch() {
     this.listeners.forEach(listener => {
@@ -67,7 +67,7 @@ export class HintTimer {
   /**
    * Adds a function to be called when timer is dispatched
    * @param  {Function()} callback 
-   * @return {void}@memberof HintTimer
+   * @return {void}@memberof IdleTimer
    */
   subscribe(callback) {
     this.listeners.push(callback);
@@ -76,7 +76,7 @@ export class HintTimer {
   /**
    * Removes a function from being called when timer is dispatched
    * @param  {any} callback
-   * @return {void}@memberof HintTimer
+   * @return {void}@memberof IdleTimer
    */
   unsubscribe(callback) {
     this.listeners = this.listeners.filter(listener => listener !== callback);

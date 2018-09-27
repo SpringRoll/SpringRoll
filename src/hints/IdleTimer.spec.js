@@ -1,30 +1,30 @@
-import { HintTimer } from './HintTimer';
+import { IdleTimer } from './IdleTimer';
 
-describe('HintTimer', function() {
+describe('IdleTimer', function() {
   describe('#start()', function() {
     it('should create a timeout', function() {
-      const timer = new HintTimer();
+      const timer = new IdleTimer();
       timer.start(1000);
       expect(timer.timer != null && timer.timer != undefined).to.be.true;
     });
 
     it('should not create a timeout if time is null or 0', function() {
-      const timer = new HintTimer();
-      timer.start();
+      const timer = new IdleTimer();
+      timer.start(null);
       expect(timer.timer == null || timer.timer == undefined).to.be.true;
     });
   });
 
   describe('#stop()', function() {
     it('should clear the timer', function() {
-      const timer = new HintTimer();
+      const timer = new IdleTimer();
       timer.start(1000);
       timer.stop();
       expect(timer.timer == null || timer.timer == undefined).to.be.true;
     });
 
     it('should do nothing if the time is not started', function() {
-      const timer = new HintTimer();
+      const timer = new IdleTimer();
       timer.stop();
       expect(timer.timer == null || timer.timer == undefined).to.be.true;
     });
@@ -32,7 +32,7 @@ describe('HintTimer', function() {
 
   describe('#reset()', function() {
     it('should reset the timer', function() {
-      const timer = new HintTimer();
+      const timer = new IdleTimer();
       timer.start(1000);
 
       const temp = timer.timer;
@@ -42,7 +42,7 @@ describe('HintTimer', function() {
     });
 
     it('should do nothing if the time is not started', function() {
-      const timer = new HintTimer();
+      const timer = new IdleTimer();
       timer.reset();
       expect(timer.timer == null || timer.timer == undefined).to.be.true;
     });
@@ -50,7 +50,7 @@ describe('HintTimer', function() {
 
   describe('#dispatch()', function() {
     it('should invoke each subscribed function', function() {
-      const timer = new HintTimer();
+      const timer = new IdleTimer();
       let callCount = 0;
       timer.subscribe(function() {
         callCount++;
@@ -63,7 +63,7 @@ describe('HintTimer', function() {
     });
 
     it('should not invoke functions that have been unsubscribed', function() {
-      const timer = new HintTimer();
+      const timer = new IdleTimer();
       let testCalled = false;
       /** Test Func */
       const testFunc = function() {
