@@ -21,6 +21,7 @@ export class Application {
 
   /**
    * @param {Object} [config={}]  Root configuration object for various internal Application objects
+   * @param {Object} [config.hintPlayer = HintSequencePlayer] IHintPlayer application will use.
    * @param {Object} [config.features={}] A configuration object denoting which features are enabled for this application
    * @param {Boolean} [config.features.captions] A boolean value denoting that this game supports captions
    * @param {Boolean} [config.features.sound] A boolean value denoting that this game has some audio in it
