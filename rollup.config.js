@@ -8,6 +8,25 @@ import babel from 'rollup-plugin-babel';
 
 const prettierConfig = require('./.prettierrc');
 
+const plugins = [
+  eslint(),
+  prettier(prettierConfig),
+  resolve({
+    module: true,
+    jsnext: true,
+    main: true,
+    browser: true,
+    preferBuiltins: false
+  }),
+  commonjs({
+    namedExports: {
+      'bellhop-iframe': ['Bellhop']
+    }
+  }),
+  babel(),
+  uglify()
+];
+
 export default [
   {
     input: 'src/index.js',
@@ -17,23 +36,19 @@ export default [
         format: 'es'
       }
     ],
-    plugins: [
-      eslint(),
-      prettier(prettierConfig),
-      resolve({
-        module: true,
-        jsnext: true,
-        main: true,
-        browser: true,
-        preferBuiltins: false
-      }),
-      commonjs({
-        namedExports: {
-          'bellhop-iframe': ['Bellhop']
-        }
-      }),
-      babel(),
-      uglify()
-    ]
+    plugins: plugins
+  },
+  {
+    input: 'src/index.js',
+    output: [
+      {
+        file: 'dist/SpringRoll-umd.js',
+        format: 'umd',
+        name: 'window',
+        extend: true,
+        sourceMap: true
+      }
+    ],
+    plugins: plugins
   }
 ];

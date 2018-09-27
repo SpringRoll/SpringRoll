@@ -1,6 +1,23 @@
 import { Application } from './Application';
 import { ApplicationPlugin } from './plugins/ApplicationPlugin';
 
+class CustomPlugin extends ApplicationPlugin {
+  constructor() {
+    super({ name: 'custom' });
+  }
+
+  setup(application) {
+    this.setupCalled = true;
+    expect(application).to.be.instanceOf(Application);
+  }
+
+  preload(application) {
+    this.preloadCalled = true;
+    expect(application).to.be.instanceOf(Application);
+    return Promise.resolve();
+  }
+}
+
 describe('Application', () => {
   beforeEach(() => {
     // remove any old plugins
@@ -9,28 +26,79 @@ describe('Application', () => {
 
   describe('constructor', () => {
     it('should call setup on all registered plugins', () => {
-      const plugin = new ApplicationPlugin();
-      plugin.called = false;
-      plugin.setup = () => (plugin.called = true);
+      const plugin = new CustomPlugin();
       Application.uses(plugin);
+      const app = new Application();
+      expect(plugin.setupCalled).to.be.true;
+    });
+
+    it('should call setup in the correct order for plugins with dependencies', () => {
+      let aSetupCalled = false;
+      const a = new ApplicationPlugin({ name: 'a' });
+      a.setup = () => aSetupCalled = true;
+
+      // b checks that a is setup first
+      const b = new ApplicationPlugin({ name: 'b', required: ['a'] });
+      b.setup = () => expect(aSetupCalled).to.be.true;
+
+      Application.uses(b);
+      Application.uses(a);
 
       const app = new Application();
-
-      expect(plugin.called).to.be.true;
     });
 
     it('should run preload on all plugins and then notify listeners that the app is ready', done => {
-      const plugin = new ApplicationPlugin();
-      plugin.called = false;
-      plugin.preload = () => (plugin.called = true);
+      const plugin = new CustomPlugin();
       Application.uses(plugin);
 
       const app = new Application();
-      app.state.ready.subscribe(function(value) {
-        expect(value).to.be.true;
-        expect(plugin.called).to.be.true;
+      app.state.ready.subscribe(function(isReady) {
+        expect(isReady).to.be.true;
+        expect(plugin.preloadCalled).to.be.true;
         done();
       });
+    });
+
+    it('should call preload in the correct order for plugins with dependencies', (done) => {
+      let aPreloadCalled = false;
+      const a = new ApplicationPlugin({ name: 'a' });
+      // a preload that takes some time
+      a.preload = () => {
+        return new Promise(resolve => {
+          setTimeout(() => {
+            aPreloadCalled = true;
+            resolve();
+          }, 10);
+        });
+      };
+
+      // b checks that a is setup first
+      const b = new ApplicationPlugin({ name: 'b', required: ['a'] });
+      b.preload = () => {
+        expect(aPreloadCalled).to.be.true;
+        return Promise.resolve();
+      }
+
+      Application.uses(b);
+      Application.uses(a);
+
+      const app = new Application();
+      app.state.ready.subscribe(() => {
+        done();
+      });
+    });
+
+    it('should throw if a plugin is missing a required dependency', () => {
+      const plugin = new ApplicationPlugin({
+        name: 'b',
+        required: ['a']
+      });
+
+      Application.uses(plugin);
+
+      expect(() => {
+        new Application();
+      }).to.throw();
     });
 
     it('should default features to false for ones that are not set', () => {
@@ -58,45 +126,77 @@ describe('Application', () => {
     });
   });
 
-  describe('promisify', () => {
-    it('should properly map preload methods that use a callback with success', done => {
-      const app = new Application();
+  describe('validatePlugins', () => {
+    it('should return an empty array if all dependencies are in place', () => {
+      const pluginA = new ApplicationPlugin({ name: 'a' });
+      const pluginB = new ApplicationPlugin({ name: 'b', required: ['a'] });
+      Application.uses(pluginB);
+      Application.uses(pluginA);
 
-      const f = callback => callback();
-
-      const result = app.promisify(f);
-      expect(result).to.be.instanceOf(Promise);
-      result.then(done).catch(done);
+      expect(Application.validatePlugins()).to.deep.equal([]);
     });
 
-    it('should properly map preload methods that use a callback with failure', done => {
-      const app = new Application();
+    it('should return a list of errors if there are missing dependencies', () => {
+      const pluginB = new ApplicationPlugin({ name: 'b', required: ['a'] });
+      Application.uses(pluginB);
 
-      const f = callback => callback(new Error('something failed!'));
+      expect(Application.validatePlugins()).to.deep.equal([
+        'Application plugin "b" missing required plugins "a"'
+      ]);
+    });
+  });
 
-      const result = app.promisify(f);
-      expect(result).to.be.instanceOf(Promise);
-      result.then(() => done('Should have failed!')).catch(e => done());
+  describe('sortPlugins', () => {
+    it('should allow no plugins to be provided', () => {
+      Application.sortPlugins();
     });
 
-    it('should properly handle methods that return a promise', done => {
-      const app = new Application();
+    it('should place plugins\' dependency plugins before the actual plugin', () => {
+      const dependant = new ApplicationPlugin({ name: 'b', required: ['a'], optional: ['c'] });
+      Application.uses(dependant);
+      const dependency1 = new ApplicationPlugin({ name: 'c' });
+      Application.uses(dependency1);
+      const dependency2 = new ApplicationPlugin({ name: 'a' });
+      Application.uses(dependency2);
 
-      const f = () => Promise.resolve();
+      Application.sortPlugins();
 
-      const result = app.promisify(f);
-      expect(result).to.be.instanceOf(Promise);
-      result.then(done);
+      expect(Application._plugins[2]).to.equal(dependant);
     });
 
-    it('should properly handle methods that are synchronous', done => {
-      const app = new Application();
+    it('should properly sort chains of dependencies', () => {
+      const b = new ApplicationPlugin({ name: 'b', optional: ['c'] });
+      Application.uses(b);
+      const c = new ApplicationPlugin({ name: 'c', required: ['a'] });
+      Application.uses(c);
+      const a = new ApplicationPlugin({ name: 'a' });
+      Application.uses(a);
 
-      const f = () => 0;
+      Application.sortPlugins();
 
-      const result = app.promisify(f);
-      expect(result).to.be.instanceOf(Promise);
-      result.then(done);
+      expect(Application._plugins[0]).to.equal(a);
+      expect(Application._plugins[1]).to.equal(c);
+      expect(Application._plugins[2]).to.equal(b);
+    });
+
+    it('should properly handle missing optional dependencies', () => {
+      const b = new ApplicationPlugin({ name: 'b', optional: ['c'] });
+      Application.uses(b);
+
+      Application.sortPlugins();
+
+      expect(Application._plugins[0]).to.equal(b);
+    });
+
+    it('should throw an Error if there is a cyclic dependency between plugins', () => {
+      const b = new ApplicationPlugin({ name: 'b', optional: ['c'] });
+      Application.uses(b);
+      const c = new ApplicationPlugin({ name: 'c', required: ['a'] });
+      Application.uses(c);
+      const a = new ApplicationPlugin({ name: 'a', optional: ['b'] });
+      Application.uses(a);
+
+      expect(() => Application.sortPlugins()).to.throw();
     });
   });
 });
