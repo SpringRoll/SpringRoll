@@ -18,15 +18,16 @@ const playHelp = 'playHelp';
  * @class Application
  */
 export class Application {
+
   /**
-   * Creates a new application, setting up plugins along the way.
-   * @param {Object} config A configuration object denoting which features are enabled for this application
-   * @param {Boolean} features.captions A boolean value denoting that this game supports captions
-   * @param {Boolean} features.sound A boolean value denoting that this game has some audio in it
-   * @param {Boolean} features.vo A boolean denoting that this game has mutable voice-over audio in it
-   * @param {Boolean} features.music A boolean denoting that this game has mutable music in it
-   * @param {Boolean} features.sfx A boolean denoting that this game has mutable sound effects in it
-   */
+   * @param {Object} [config={}]  Root configuration object for various internal Application objects
+   * @param {Object} [config.features={}] A configuration object denoting which features are enabled for this application
+   * @param {Boolean} [config.features.captions] A boolean value denoting that this game supports captions
+   * @param {Boolean} [config.features.sound] A boolean value denoting that this game has some audio in it
+   * @param {Boolean} [config.features.vo] A boolean denoting that this game has mutable voice-over audio in it
+   * @param {Boolean} [config.features.music] A boolean denoting that this game has mutable music in it
+   * @param {Boolean} [config.features.sfx] A boolean denoting that this game has mutable sound effects in it
+  */
   constructor({ features, hintPlayer = new HintSequencePlayer() } = {}) {
     /**
      * @member {StateManager} The state manager for this application instance. Maintains subscribable properties for
@@ -333,10 +334,6 @@ export class Application {
  * @static
  */
 Application._plugins = [];
-
-/**
- * @typedef {typeof import('./plugins/ApplicationPlugin.js').ApplicationPlugin} ApplicationPlugin
- */
 
 /**
  * Registers a plugin to be used by applications, sorting it by priority order.

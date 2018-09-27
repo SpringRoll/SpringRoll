@@ -1,4 +1,5 @@
 import { Controller } from './Controller';
+import { newEvent } from '../debug';
 
 describe('controller', () => {
   it('Should accept a array of buttons', () => {
@@ -27,7 +28,7 @@ describe('controller', () => {
       }
     ]);
 
-    const event = new Event('keydown');
+    const event = newEvent('keydown');
     event.key = 'Enter';
     window.dispatchEvent(event);
     controller.update();
@@ -43,11 +44,11 @@ describe('controller', () => {
       }
     ]);
 
-    const eventDown = new Event('keydown');
+    const eventDown = newEvent('keydown');
     eventDown.key = 'Enter';
     window.dispatchEvent(eventDown);
 
-    const eventUp = new Event('keyup');
+    const eventUp = newEvent('keyup');
     eventUp.key = 'Enter';
     window.dispatchEvent(eventUp);
 

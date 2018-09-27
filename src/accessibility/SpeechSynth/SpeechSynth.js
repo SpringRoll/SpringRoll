@@ -1,5 +1,6 @@
 /**
  * SpeechSync makes it easy to convert text to speech.
+ * Note: This is not supported on IE11 and below because of the underlying APIs are not implemented in those browsers
  * @class SpeechSynth
  * @param {object} params
  * @param {number} [params.voice=0] Indicates what voice to use.
@@ -13,6 +14,12 @@ export class SpeechSynth {
    * Creates an instance of SpeechSynth.
    */
   constructor({ voice = 0, rate = 1, pitch = 0, volume = 1 } = {}) {
+    if (!window.speechSynthesis) {
+      console.error(
+        'Springroll SpeechSynth is not supported on on this Device'
+      );
+      return;
+    }
     this.voiceOptions = [];
     this.voicesLoaded = false;
     this.queue = [];

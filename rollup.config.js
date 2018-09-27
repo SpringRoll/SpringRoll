@@ -1,16 +1,12 @@
 import resolve from 'rollup-plugin-node-resolve';
 import commonjs from 'rollup-plugin-commonjs';
-import eslint from 'rollup-plugin-eslint';
-import prettier from 'rollup-plugin-prettier';
-import uglify from 'rollup-plugin-uglify';
+import { eslint } from 'rollup-plugin-eslint';
+import { terser } from 'rollup-plugin-terser';
 import pkg from './package.json';
 import babel from 'rollup-plugin-babel';
 
-const prettierConfig = require('./.prettierrc');
-
 const plugins = [
   eslint(),
-  prettier(prettierConfig),
   resolve({
     module: true,
     jsnext: true,
@@ -24,7 +20,7 @@ const plugins = [
     }
   }),
   babel(),
-  uglify()
+  terser()
 ];
 
 export default [
@@ -44,7 +40,7 @@ export default [
       {
         file: 'dist/SpringRoll-umd.js',
         format: 'umd',
-        name: 'window',
+        name: 'springroll',
         extend: true,
         sourceMap: true
       }
