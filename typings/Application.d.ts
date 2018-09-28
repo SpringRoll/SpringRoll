@@ -1,7 +1,14 @@
+import { IHintPlayer } from "../src/hints";
+
 export type ApplicationFeatures = { [key:string]: boolean };
 
+export type ApplicationConfig = {
+  features: ApplicationFeatures,
+  hintPlayer: IHintPlayer
+}
+
 export class Application {
-  constructor(features: ApplicationFeatures);
+  constructor(config: ApplicationConfig);
   validateListeners(): void;
   state: StateManager;
   features: ApplicationFeatures;

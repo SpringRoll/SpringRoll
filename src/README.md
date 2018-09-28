@@ -21,11 +21,13 @@ constructor:
 
 ```javascript
 var myApp = new springroll.Application({
-  captions: false, // whether or not the game has captions
-  sound: false, // whether or not the game has any sound
-  vo: false, // whether or not the game has a VO
-  music: false, // whether or not the game has music
-  sfx: false, // whether or not the game has any sound effects
+  features: {
+    captions: false, // whether or not the game has captions
+    sound: false, // whether or not the game has any sound
+    vo: false, // whether or not the game has a VO
+    music: false, // whether or not the game has music
+    sfx: false, // whether or not the game has any sound effects
+  }
 });
 ```
 
@@ -38,7 +40,9 @@ if `sound` is enabled as a feature of the game, there must be a subscriber to th
 
 ```javascript
 var myApp = new springroll.Application({
-  sound: true
+  features: {
+    sound: true
+  }
 });
 
 myApp.state.soundVolume.subscribe(result => console.log('Value Between 0-1 for volume', result));
@@ -48,11 +52,13 @@ For each possible feature, there is an associated state that can be subscribed t
 
 ```javascript
 var myApp = new springroll.Application({
-  captions: true,
-  sound: true,
-  vo: true,
-  music: true,
-  sfx: true
+  features: {
+    captions: true,
+    sound: true,
+    vo: true,
+    music: true,
+    sfx: true
+  }
 });
 
 myApp.state.captionsMuted.subscribe(result => console.log('Are captions muted?', result));

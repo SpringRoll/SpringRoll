@@ -105,25 +105,31 @@ describe('Application', () => {
     });
 
     it('should default features to false for ones that are not set', () => {
-      const application = new Application({ captions: true });
+      const application = new Application({ features: { captions: true } });
       expect(application.features.captions).to.equal(true);
       expect(application.features.sound).to.equal(false);
     });
 
     it('should mark sound enabled if vo is marked as a feature', () => {
-      const application = new Application({ sound: false, vo: true });
+      const application = new Application({
+        features: { sound: false, vo: true }
+      });
       expect(application.features.vo).to.equal(true);
       expect(application.features.sound).to.equal(true);
     });
 
     it('should mark sound enabled if music is enabled', () => {
-      const application = new Application({ sound: false, music: true });
+      const application = new Application({
+        features: { sound: false, music: true }
+      });
       expect(application.features.music).to.equal(true);
       expect(application.features.sound).to.equal(true);
     });
 
     it('should mark sound enabled if sfx is enabled', () => {
-      const application = new Application({ sound: false, sfx: true });
+      const application = new Application({
+        features: { sound: false, sfx: true }
+      });
       expect(application.features.sfx).to.equal(true);
       expect(application.features.sound).to.equal(true);
     });
@@ -148,7 +154,7 @@ describe('Application', () => {
       ]);
     });
   });
-
+ 
   describe('sortPlugins', () => {
     it('should allow no plugins to be provided', () => {
       Application.sortPlugins();

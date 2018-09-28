@@ -1,6 +1,7 @@
 import { Bellhop } from 'bellhop-iframe';
 import { Debugger } from './debug/Debugger.js';
 import { StateManager } from './state/StateManager.js';
+import { HintSequencePlayer } from './hints/HintSequencePlayer.js';
 
 const ready = 'ready';
 const pause = 'pause';
@@ -10,22 +11,25 @@ const soundVolume = 'soundVolume';
 const musicVolume = 'musicVolume';
 const voVolume = 'voVolume';
 const sfxVolume = 'sfxVolume';
+const playHelp = 'playHelp';
 
 /**
  * Main entry point for a game. Provides a single focal point for plugins and functionality to attach.
  * @class Application
  */
 export class Application {
+
   /**
-   * Creates a new application, setting up plugins along the way.
-   * @param {Object} [features={}] A configuration object denoting which features are Penabled for this application
-   * @param {Boolean} [features.captions] A boolean value denoting that this game supports captions
-   * @param {Boolean} [features.sound] A boolean value denoting that this game has some audio in it
-   * @param {Boolean} [features.vo] A boolean denoting that this game has mutable voice-over audio in it
-   * @param {Boolean} [features.music] A boolean denoting that this game has mutable music in it
-   * @param {Boolean} [features.sfx] A boolean denoting that this game has mutable sound effects in it
-   */
-  constructor(features = {}) {
+   * @param {Object} [config={}]  Root configuration object for various internal Application objects
+   * @param {Object} [config.hintPlayer = HintSequencePlayer] IHintPlayer application will use.
+   * @param {Object} [config.features={}] A configuration object denoting which features are enabled for this application
+   * @param {Boolean} [config.features.captions] A boolean value denoting that this game supports captions
+   * @param {Boolean} [config.features.sound] A boolean value denoting that this game has some audio in it
+   * @param {Boolean} [config.features.vo] A boolean denoting that this game has mutable voice-over audio in it
+   * @param {Boolean} [config.features.music] A boolean denoting that this game has mutable music in it
+   * @param {Boolean} [config.features.sfx] A boolean denoting that this game has mutable sound effects in it
+  */
+  constructor({ features, hintPlayer = new HintSequencePlayer() } = {}) {
     /**
      * @member {StateManager} The state manager for this application instance. Maintains subscribable properties for
      *                        whether or not audio is muted, captions are displayed, or the game is paused.
@@ -149,6 +153,17 @@ export class Application {
         this.container.send('loaded');
         this.state.ready.value = true;
       });
+
+    //register bellhop event for hints.
+    this.hints = hintPlayer;
+    this.container.on(playHelp, () => {
+      if (!this.hints) {
+        Debugger.log('warn', '[Springroll] Missing IHintPlayer see: https://github.com/SpringRoll/SpringRoll/tree/v2/src/hints'); // <-- this could only happen if devs set this.hints manually. 
+        return;
+      }
+
+      this.hints.play();
+    });
   }
 
   /**
