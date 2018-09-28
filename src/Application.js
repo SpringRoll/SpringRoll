@@ -45,8 +45,6 @@ export class Application {
     this.state.addField(voVolume, 1);
     this.state.addField(sfxVolume, 1);
 
-    console.log(hintPlayer);
-
     this.features = Object.assign(
       {
         captions: false,

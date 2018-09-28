@@ -13,7 +13,6 @@ export class HintSequencePlayer extends IHintPlayer {
    */
   constructor() {
     super();
-    /** @type {function()[]} */
     this.hints = [];
     this.index = 0;
   }
