@@ -18,7 +18,7 @@ export class HintSequencePlayer extends IHintPlayer {
   }
 
   /**
-   *
+   * invokes the next hint
    * @return {void}@memberof HintSequencePlayer
    */
   play() {
@@ -36,7 +36,7 @@ export class HintSequencePlayer extends IHintPlayer {
   }
 
   /**
-   *
+   * removes all hints
    * @return {void}@memberof HintSequencePlayer
    */
   clear() {
@@ -44,7 +44,6 @@ export class HintSequencePlayer extends IHintPlayer {
   }
 
   /**
-   *
    * @param  {function()[]} callbacks
    * @return {void}@memberof HintSequencePlayer
    */
@@ -56,7 +55,6 @@ export class HintSequencePlayer extends IHintPlayer {
   }
 
   /**
-   *
    * @param  {function()[]} callbacks
    * @return {void}@memberof HintSequencePlayer
    */

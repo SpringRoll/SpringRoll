@@ -158,7 +158,7 @@ export class Application {
     this.hints = hintPlayer;
     this.container.on(playHelp, () => {
       if (!this.hints) {
-        Debugger.log('warn', '[Springroll] Missing IHintPlayer'); // <-- this could only happen if devs set this.hints manually. 
+        Debugger.log('warn', '[Springroll] Missing IHintPlayer see: https://github.com/SpringRoll/SpringRoll/tree/v2/src/hints'); // <-- this could only happen if devs set this.hints manually. 
         return;
       }
 
