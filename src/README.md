@@ -98,3 +98,24 @@ myApp.state.playOptions.subscribe(playOptions => {
   console.log('New playOptions value set to', playOptions);
 });
 ```
+
+## Custom State Management
+The Application's `StateManager` instance can also be used for custom purposes. For instance, scene management can
+be managed in a declarative way:
+
+```javascript
+var myApp = new Application();
+
+myApp.state.addField('scene', null);
+myApp.state.scene.subscribe(function(newScene, oldScene) {
+  renderer.stage.removeChild(oldScene);
+  oldScene.teardown();
+
+  renderer.stage.addChild(newScene);
+  newScene.setup();
+});
+
+myApp.state.ready.subscribe(function() {
+  myApp.state.scene.value = new TitleScene();
+});
+```
