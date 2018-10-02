@@ -35,6 +35,9 @@ Note that if any of `vo`, `music`, or `sfx` are available features, `sound` will
 Also, all of these features are marked `false` by default.
 
 ## Handling State Change
+The SpringRoll Application class has a general [StateManager](./state) instance attached for managing important
+properties that can be changed via the container or outside environment. Property changes can be subscribed to allow the
+game to react appropriately to the given situation.
 When certain features are enabled, SpringRoll warns if an associated state change listener is missing. For instance,
 if `sound` is enabled as a feature of the game, there must be a subscriber to the `soundMuted` state:
 
