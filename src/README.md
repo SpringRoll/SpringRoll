@@ -119,3 +119,5 @@ myApp.state.ready.subscribe(function() {
   myApp.state.scene.value = new TitleScene();
 });
 ```
+
+For more information on adding your own properties, see the [StateManager documentation](./state)
