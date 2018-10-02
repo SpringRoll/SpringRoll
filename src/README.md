@@ -39,7 +39,7 @@ The SpringRoll Application class has a general [StateManager](./state) instance 
 properties that can be changed via the container or outside environment. Property changes can be subscribed to allow the
 game to react appropriately to the given situation.
 When certain features are enabled, SpringRoll warns if an associated state change listener is missing. For instance,
-if `sound` is enabled as a feature of the game, there must be a subscriber to the `soundMuted` state:
+if `sound` is enabled as a feature of the game, there must be a subscriber to the `soundVolume` state:
 
 ```javascript
 var myApp = new springroll.Application({
