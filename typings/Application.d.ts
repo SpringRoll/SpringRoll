@@ -4,7 +4,7 @@ export type ApplicationFeatures = { [key:string]: boolean };
 
 export type ApplicationConfig = {
   features: ApplicationFeatures,
-  hintPlayer: IHintPlayer
+  hintPlayer?: IHintPlayer
 }
 
 export class Application {
