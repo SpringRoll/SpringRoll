@@ -50,14 +50,14 @@
     -   [volume][46]
         -   [Parameters][47]
     -   [volume][48]
--   [filterType][49]
--   [ColorFilter][50]
-    -   [applyFilter][51]
-        -   [Parameters][52]
-    -   [changeFilter][53]
-        -   [Parameters][54]
-    -   [removeFilter][55]
-    -   [types][56]
+-   [ColorFilter][49]
+    -   [applyFilter][50]
+        -   [Parameters][51]
+    -   [changeFilter][52]
+        -   [Parameters][53]
+    -   [removeFilter][54]
+    -   [types][55]
+-   [filterType][56]
 -   [KeyState][57]
     -   [Properties][58]
 -   [Controller][59]
@@ -141,13 +141,13 @@
     -   [createLine][137]
         -   [Parameters][138]
 -   [CaptionPlayer][139]
-    -   [update][140]
-        -   [Parameters][141]
-    -   [start][142]
-        -   [Parameters][143]
-    -   [stop][144]
--   [CaptionPlayer][145]
-    -   [Parameters][146]
+    -   [Parameters][140]
+    -   [update][141]
+        -   [Parameters][142]
+    -   [start][143]
+        -   [Parameters][144]
+    -   [stop][145]
+-   [CaptionPlayer][146]
     -   [update][147]
         -   [Parameters][148]
     -   [start][149]
@@ -176,17 +176,17 @@
     -   [lineEnd][172]
     -   [sanitize][173]
         -   [Parameters][174]
--   [Localizer.Options][175]
--   [Localizer][176]
-    -   [resolve][177]
-        -   [Parameters][178]
-    -   [setPrimaryLocale][179]
-        -   [Parameters][180]
-    -   [setFallbackLocale][181]
-        -   [Parameters][182]
-    -   [getLocaleKey][183]
-        -   [Parameters][184]
-    -   [getBrowserLanguages][185]
+-   [Localizer][175]
+    -   [resolve][176]
+        -   [Parameters][177]
+    -   [setPrimaryLocale][178]
+        -   [Parameters][179]
+    -   [setFallbackLocale][180]
+        -   [Parameters][181]
+    -   [getLocaleKey][182]
+        -   [Parameters][183]
+    -   [getBrowserLanguages][184]
+-   [Localizer.Options][185]
 -   [ApplicationPlugin][186]
     -   [setup][187]
     -   [preload][188]
@@ -408,10 +408,6 @@ Returns the current volume of the announcer.
 
 Returns **[number][189]** 
 
-## filterType
-
-Type: (`"protanopia"` \| `"protanomaly"` \| `"deuteranopia"` \| `"deuteranomaly"` \| `"tritanopia"` \| `"tritanomaly"` \| `"achromatopsia"` \| `"achromatomaly"`)
-
 ## ColorFilter
 
 The Color filter allows you to simulate colorblindness.
@@ -445,6 +441,10 @@ Supported filter types.
 
 Returns **[object][192]** Returns an object { name, value } with the colorblindness type:
 (Protanopia, Protanomaly, Deuteranopia, Deuteranomaly, Tritanopia, Tritanomaly, Achromatopsia, Achromatomaly)
+
+## filterType
+
+Type: (`"protanopia"` \| `"protanomaly"` \| `"deuteranopia"` \| `"deuteranomaly"` \| `"tritanopia"` \| `"tritanomaly"` \| `"achromatopsia"` \| `"achromatomaly"`)
 
 ## KeyState
 
@@ -832,8 +832,10 @@ Returns **[TimedLine][200]** new TimedLine;
 
 ## CaptionPlayer
 
-CaptionPlayer is used to start, stop and update captions.
- It applies the content of an active caption to a given CaptionRenderer.
+### Parameters
+
+-   `captions`  
+-   `renderer`  
 
 ### update
 
@@ -860,10 +862,8 @@ Stops any caption currently playing.
 
 ## CaptionPlayer
 
-### Parameters
-
--   `captions`  
--   `renderer`  
+CaptionPlayer is used to start, stop and update captions.
+ It applies the content of an active caption to a given CaptionRenderer.
 
 ### update
 
@@ -990,10 +990,6 @@ Will attempt to remove all html from a string before it's renderer to the page
 
 -   `html` **any** 
 
-## Localizer.Options
-
-Type: {language: [string][193], fallback: [string][193]}
-
 ## Localizer
 
 ### resolve
@@ -1030,6 +1026,10 @@ Returns **[boolean][191]** True if fallback is set.
 Returns **[string][193]** 
 
 ### getBrowserLanguages
+
+## Localizer.Options
+
+Type: {language: [string][193], fallback: [string][193]}
 
 ## ApplicationPlugin
 
@@ -1143,21 +1143,21 @@ Returns **[Promise][204]** A promise indicating when the plugin is finished load
 
 [48]: #volume-1
 
-[49]: #filtertype
+[49]: #colorfilter
 
-[50]: #colorfilter
+[50]: #applyfilter
 
-[51]: #applyfilter
+[51]: #parameters-14
 
-[52]: #parameters-14
+[52]: #changefilter
 
-[53]: #changefilter
+[53]: #parameters-15
 
-[54]: #parameters-15
+[54]: #removefilter
 
-[55]: #removefilter
+[55]: #types
 
-[56]: #types
+[56]: #filtertype
 
 [57]: #keystate
 
@@ -1325,19 +1325,19 @@ Returns **[Promise][204]** A promise indicating when the plugin is finished load
 
 [139]: #captionplayer
 
-[140]: #update-3
+[140]: #parameters-44
 
-[141]: #parameters-44
+[141]: #update-3
 
-[142]: #start-3
+[142]: #parameters-45
 
-[143]: #parameters-45
+[143]: #start-3
 
-[144]: #stop-1
+[144]: #parameters-46
 
-[145]: #captionplayer-1
+[145]: #stop-1
 
-[146]: #parameters-46
+[146]: #captionplayer-1
 
 [147]: #update-4
 
@@ -1395,27 +1395,27 @@ Returns **[Promise][204]** A promise indicating when the plugin is finished load
 
 [174]: #parameters-55
 
-[175]: #localizeroptions
+[175]: #localizer
 
-[176]: #localizer
+[176]: #resolve
 
-[177]: #resolve
+[177]: #parameters-56
 
-[178]: #parameters-56
+[178]: #setprimarylocale
 
-[179]: #setprimarylocale
+[179]: #parameters-57
 
-[180]: #parameters-57
+[180]: #setfallbacklocale
 
-[181]: #setfallbacklocale
+[181]: #parameters-58
 
-[182]: #parameters-58
+[182]: #getlocalekey
 
-[183]: #getlocalekey
+[183]: #parameters-59
 
-[184]: #parameters-59
+[184]: #getbrowserlanguages
 
-[185]: #getbrowserlanguages
+[185]: #localizeroptions
 
 [186]: #applicationplugin
 
