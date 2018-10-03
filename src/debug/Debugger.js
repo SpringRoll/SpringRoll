@@ -195,6 +195,7 @@ export class Debugger {
 
   /**
    * Disables or enables all debugger instances.
+   * TODO: Remove the parameter here, and add a disable method as well
    * @static
    * @param {boolean} flag
    * @returns {void}

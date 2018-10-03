@@ -35,8 +35,11 @@ Note that if any of `vo`, `music`, or `sfx` are available features, `sound` will
 Also, all of these features are marked `false` by default.
 
 ## Handling State Change
+The SpringRoll Application class has a general [StateManager](./state) instance attached for managing important
+properties that can be changed via the container or outside environment.
+Developers can subscribe to property changes, allowing the game to react appropriately to the given situation.
 When certain features are enabled, SpringRoll warns if an associated state change listener is missing. For instance,
-if `sound` is enabled as a feature of the game, there must be a subscriber to the `soundMuted` state:
+if the developer enables `sound` as a feature of the game, a subscriber to the `soundVolume` state must exist:
 
 ```javascript
 var myApp = new springroll.Application({
@@ -95,3 +98,26 @@ myApp.state.playOptions.subscribe(playOptions => {
   console.log('New playOptions value set to', playOptions);
 });
 ```
+
+## Custom State Management
+The Application's `StateManager` instance can also be used for custom purposes.
+For instance, developers can declaratively control scene management:
+
+```javascript
+var myApp = new Application();
+
+myApp.state.addField('scene', null);
+myApp.state.scene.subscribe(function(newScene, oldScene) {
+  renderer.stage.removeChild(oldScene);
+  oldScene.teardown();
+
+  renderer.stage.addChild(newScene);
+  newScene.setup();
+});
+
+myApp.state.ready.subscribe(function() {
+  myApp.state.scene.value = new TitleScene();
+});
+```
+
+For more information on adding your own properties, see the [StateManager documentation](./state)
