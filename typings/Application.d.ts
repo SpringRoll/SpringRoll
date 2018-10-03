@@ -11,11 +11,9 @@ export class Application {
   constructor(config: ApplicationConfig);
   validateListeners(): void;
   state: StateManager;
+  hints: IHintPlayer;
   features: ApplicationFeatures;
   container: BellhopIframe.Bellhop;
-  validateListeners(): void;
-
-
 
   static _plugins: ApplicationPlugin[];
   static validatePlugins: string[];
