@@ -22,7 +22,7 @@ For more fine-grained control, you can set the minimum logging level:
 Debugger.minLevel('WARN');
 ```
 
-Now, only `WARN` and `ERROR` level messages will be reported, and `GENERAL`, `DEBUG`, and `INFO` will not.
+Now, only `WARN` and `ERROR` level messages will print, and `GENERAL`, `DEBUG`, and `INFO` will not.
 In particular, the message levels are as follows:
 * `GENERAL` : 1
 * `DEBUG` : 2
@@ -30,5 +30,7 @@ In particular, the message levels are as follows:
 * `WARN` : 4
 * `ERROR` : 5
 
-Because of this, if the min debug level is set to `INFO`, `DEBUG` and `GENERAL` are disabled, but not `WARN` and `ERROR`
-Also, this mapping can be accessed programmatically from `Debugger.LEVEL` if needed.
+Due to the message level ordering, if the minimum debug level is set to `INFO`, then `DEBUG` and `GENERAL` are disabled
+and will not print, but `WARN` and `ERROR` will still print.
+
+This mapping is programmatically accessible from `Debugger.LEVEL`.

@@ -1,6 +1,5 @@
 # Scale Manager
-
-A utility class for listen for resize events.
+A utility class that listens for resize events.
 
 ```javascript
 var scaleManager = new ScaleManager(function(resizeData) {
@@ -12,8 +11,8 @@ var scaleManager = new ScaleManager(function(resizeData) {
 });
 ```
 
-If you do not have a listener ready at the time of construction or you need to replace the existing listener, the
-`enable` method exists for that purpose:
+The `enable` method exists in case you do not have a listener ready at the time of construction or need to replace the
+existing listener.
 
 ```javascript
 scaleManager.enable(function(resizeData) {

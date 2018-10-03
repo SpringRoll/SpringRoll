@@ -36,10 +36,10 @@ Also, all of these features are marked `false` by default.
 
 ## Handling State Change
 The SpringRoll Application class has a general [StateManager](./state) instance attached for managing important
-properties that can be changed via the container or outside environment. Property changes can be subscribed to allow the
-game to react appropriately to the given situation.
+properties that can be changed via the container or outside environment.
+Developers can subscribe to property changes, allowing the game to react appropriately to the given situation.
 When certain features are enabled, SpringRoll warns if an associated state change listener is missing. For instance,
-if `sound` is enabled as a feature of the game, there must be a subscriber to the `soundVolume` state:
+if the developer enables `sound` as a feature of the game, a subscriber to the `soundVolume` state must exist:
 
 ```javascript
 var myApp = new springroll.Application({
@@ -100,8 +100,8 @@ myApp.state.playOptions.subscribe(playOptions => {
 ```
 
 ## Custom State Management
-The Application's `StateManager` instance can also be used for custom purposes. For instance, scene management can
-be managed in a declarative way:
+The Application's `StateManager` instance can also be used for custom purposes.
+For instance, developers can declaratively control scene management:
 
 ```javascript
 var myApp = new Application();

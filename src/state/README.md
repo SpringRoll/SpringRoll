@@ -1,13 +1,13 @@
 # State Manager
 The `StateManager` is a class that manages a group of subscribable [`Property`](./Property.js) instances.
-The provides functionality for registration of new properties, and for subscribing to existing properties.
+This class provides functionality for registration of new properties and subscription to existing properties.
 
 An example usage:
 
 ```javascript
 var manager = new StateManager();
 
-// adds a new field called 'paused' to the manager, and sets it initially to false
+// adds a new field called 'paused' to the manager with an initial value of false
 manager.addField('paused', false);
 
 // listen for any changes on the newly created 'paused' field.
@@ -31,6 +31,6 @@ isPaused.subscribe(function(newValue, oldValue) {
   console.log('Value changed from', oldValue, 'to', newValue);
 });
 
-// the property can be changed similar to the previous case, and the handler will be triggered appropriately
+// the property can change similarly to the previous case, the handler triggering appropriately
 isPaused.value = true;
 ```
