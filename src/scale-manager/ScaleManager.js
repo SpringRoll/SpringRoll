@@ -13,11 +13,11 @@ export class ScaleManager {
     this.height = 1;
     this.callback = callback;
 
+    this.onResize = this.onResize.bind(this);
+
     if (callback instanceof Function) {
       this.enable(callback);
     }
-
-    this.onResize = this.onResize.bind(this);
   }
 
   /**
