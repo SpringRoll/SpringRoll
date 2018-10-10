@@ -112,7 +112,7 @@
     -   [remove][108]
         -   [Parameters][109]
 -   [Caption][110]
-    -   [Parameters][111]
+    -   [Properties][111]
     -   [update][112]
         -   [Parameters][113]
     -   [updateState][114]
@@ -123,7 +123,7 @@
     -   [updateTimeIndex][119]
         -   [Parameters][120]
 -   [Caption][121]
-    -   [Properties][122]
+    -   [Parameters][122]
     -   [update][123]
         -   [Parameters][124]
     -   [updateState][125]
@@ -635,6 +635,7 @@ Returns **[boolean][191]**
 ### enable
 
 Disables or enables all debugger instances.
+TODO: Remove the parameter here, and add a disable method as well
 
 #### Parameters
 
@@ -701,9 +702,12 @@ Returns **void** @memberof HintSequencePlayer
 
 ## Caption
 
-### Parameters
+### Properties
 
--   `lines`  
+-   `lines` **[Array][196]&lt;[TimedLine][200]>** 
+-   `time` **[number][189]** 
+-   `lineIndex` **[number][189]** 
+-   `renderer` **[IRender][201]** 
 
 ### update
 
@@ -748,12 +752,9 @@ Updates the current time and index of the caption instance
 
 ## Caption
 
-### Properties
+### Parameters
 
--   `lines` **[Array][196]&lt;[TimedLine][200]>** 
--   `time` **[number][189]** 
--   `lineIndex` **[number][189]** 
--   `renderer` **[IRender][201]** 
+-   `lines`  
 
 ### update
 
@@ -1267,29 +1268,29 @@ Returns **[Promise][204]** A promise indicating when the plugin is finished load
 
 [110]: #caption
 
-[111]: #parameters-32
+[111]: #properties-7
 
 [112]: #update-1
 
-[113]: #parameters-33
+[113]: #parameters-32
 
 [114]: #updatestate-1
 
-[115]: #parameters-34
+[115]: #parameters-33
 
 [116]: #isfinished
 
 [117]: #start-1
 
-[118]: #parameters-35
+[118]: #parameters-34
 
 [119]: #updatetimeindex
 
-[120]: #parameters-36
+[120]: #parameters-35
 
 [121]: #caption-1
 
-[122]: #properties-7
+[122]: #parameters-36
 
 [123]: #update-2
 
