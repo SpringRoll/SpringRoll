@@ -40,6 +40,7 @@ export class HintSequencePlayer extends IHintPlayer {
    * @return {void}@memberof HintSequencePlayer
    */
   clear() {
+    this.index = 0;
     this.hints.length = 0;
   }
 
