@@ -4,6 +4,18 @@ import { newEvent } from '../debug';
 describe('Scale Manager', () => {
   const sm = new ScaleManager();
 
+  it('Should call the callback passed via the constructor', done => {
+    const defaultScaleManager = new ScaleManager(e => {
+      expect(e.width).to.be.a('number');
+      expect(e.height).to.be.a('number');
+      expect(e.ratio).to.be.an('number');
+      done();
+    });
+
+    window.dispatchEvent(newEvent('resize'));
+    window.dispatchEvent(newEvent('resize'));
+  });
+
   it('Should call the callback on resize', done => {
     sm.enable(e => {
       expect(e.width).to.be.a('number');

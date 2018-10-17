@@ -112,7 +112,7 @@
     -   [remove][108]
         -   [Parameters][109]
 -   [Caption][110]
-    -   [Parameters][111]
+    -   [Properties][111]
     -   [update][112]
         -   [Parameters][113]
     -   [updateState][114]
@@ -123,7 +123,7 @@
     -   [updateTimeIndex][119]
         -   [Parameters][120]
 -   [Caption][121]
-    -   [Properties][122]
+    -   [Parameters][122]
     -   [update][123]
         -   [Parameters][124]
     -   [updateState][125]
@@ -141,13 +141,13 @@
     -   [createLine][137]
         -   [Parameters][138]
 -   [CaptionPlayer][139]
-    -   [Parameters][140]
-    -   [update][141]
-        -   [Parameters][142]
-    -   [start][143]
-        -   [Parameters][144]
-    -   [stop][145]
--   [CaptionPlayer][146]
+    -   [update][140]
+        -   [Parameters][141]
+    -   [start][142]
+        -   [Parameters][143]
+    -   [stop][144]
+-   [CaptionPlayer][145]
+    -   [Parameters][146]
     -   [update][147]
         -   [Parameters][148]
     -   [start][149]
@@ -176,17 +176,17 @@
     -   [lineEnd][172]
     -   [sanitize][173]
         -   [Parameters][174]
--   [Localizer][175]
-    -   [resolve][176]
-        -   [Parameters][177]
-    -   [setPrimaryLocale][178]
-        -   [Parameters][179]
-    -   [setFallbackLocale][180]
-        -   [Parameters][181]
-    -   [getLocaleKey][182]
-        -   [Parameters][183]
-    -   [getBrowserLanguages][184]
--   [Localizer.Options][185]
+-   [Localizer.Options][175]
+-   [Localizer][176]
+    -   [resolve][177]
+        -   [Parameters][178]
+    -   [setPrimaryLocale][179]
+        -   [Parameters][180]
+    -   [setFallbackLocale][181]
+        -   [Parameters][182]
+    -   [getLocaleKey][183]
+        -   [Parameters][184]
+    -   [getBrowserLanguages][185]
 -   [ApplicationPlugin][186]
     -   [setup][187]
     -   [preload][188]
@@ -635,6 +635,7 @@ Returns **[boolean][191]**
 ### enable
 
 Disables or enables all debugger instances.
+TODO: Remove the parameter here, and add a disable method as well
 
 #### Parameters
 
@@ -701,9 +702,12 @@ Returns **void** @memberof HintSequencePlayer
 
 ## Caption
 
-### Parameters
+### Properties
 
--   `lines`  
+-   `lines` **[Array][196]&lt;[TimedLine][200]>** 
+-   `time` **[number][189]** 
+-   `lineIndex` **[number][189]** 
+-   `renderer` **[IRender][201]** 
 
 ### update
 
@@ -748,12 +752,9 @@ Updates the current time and index of the caption instance
 
 ## Caption
 
-### Properties
+### Parameters
 
--   `lines` **[Array][196]&lt;[TimedLine][200]>** 
--   `time` **[number][189]** 
--   `lineIndex` **[number][189]** 
--   `renderer` **[IRender][201]** 
+-   `lines`  
 
 ### update
 
@@ -832,10 +833,8 @@ Returns **[TimedLine][200]** new TimedLine;
 
 ## CaptionPlayer
 
-### Parameters
-
--   `captions`  
--   `renderer`  
+CaptionPlayer is used to start, stop and update captions.
+ It applies the content of an active caption to a given CaptionRenderer.
 
 ### update
 
@@ -862,8 +861,10 @@ Stops any caption currently playing.
 
 ## CaptionPlayer
 
-CaptionPlayer is used to start, stop and update captions.
- It applies the content of an active caption to a given CaptionRenderer.
+### Parameters
+
+-   `captions`  
+-   `renderer`  
 
 ### update
 
@@ -990,6 +991,10 @@ Will attempt to remove all html from a string before it's renderer to the page
 
 -   `html` **any** 
 
+## Localizer.Options
+
+Type: {language: [string][193], fallback: [string][193]}
+
 ## Localizer
 
 ### resolve
@@ -1026,10 +1031,6 @@ Returns **[boolean][191]** True if fallback is set.
 Returns **[string][193]** 
 
 ### getBrowserLanguages
-
-## Localizer.Options
-
-Type: {language: [string][193], fallback: [string][193]}
 
 ## ApplicationPlugin
 
@@ -1267,29 +1268,29 @@ Returns **[Promise][204]** A promise indicating when the plugin is finished load
 
 [110]: #caption
 
-[111]: #parameters-32
+[111]: #properties-7
 
 [112]: #update-1
 
-[113]: #parameters-33
+[113]: #parameters-32
 
 [114]: #updatestate-1
 
-[115]: #parameters-34
+[115]: #parameters-33
 
 [116]: #isfinished
 
 [117]: #start-1
 
-[118]: #parameters-35
+[118]: #parameters-34
 
 [119]: #updatetimeindex
 
-[120]: #parameters-36
+[120]: #parameters-35
 
 [121]: #caption-1
 
-[122]: #properties-7
+[122]: #parameters-36
 
 [123]: #update-2
 
@@ -1325,19 +1326,19 @@ Returns **[Promise][204]** A promise indicating when the plugin is finished load
 
 [139]: #captionplayer
 
-[140]: #parameters-44
+[140]: #update-3
 
-[141]: #update-3
+[141]: #parameters-44
 
-[142]: #parameters-45
+[142]: #start-3
 
-[143]: #start-3
+[143]: #parameters-45
 
-[144]: #parameters-46
+[144]: #stop-1
 
-[145]: #stop-1
+[145]: #captionplayer-1
 
-[146]: #captionplayer-1
+[146]: #parameters-46
 
 [147]: #update-4
 
@@ -1395,27 +1396,27 @@ Returns **[Promise][204]** A promise indicating when the plugin is finished load
 
 [174]: #parameters-55
 
-[175]: #localizer
+[175]: #localizeroptions
 
-[176]: #resolve
+[176]: #localizer
 
-[177]: #parameters-56
+[177]: #resolve
 
-[178]: #setprimarylocale
+[178]: #parameters-56
 
-[179]: #parameters-57
+[179]: #setprimarylocale
 
-[180]: #setfallbacklocale
+[180]: #parameters-57
 
-[181]: #parameters-58
+[181]: #setfallbacklocale
 
-[182]: #getlocalekey
+[182]: #parameters-58
 
-[183]: #parameters-59
+[183]: #getlocalekey
 
-[184]: #getbrowserlanguages
+[184]: #parameters-59
 
-[185]: #localizeroptions
+[185]: #getbrowserlanguages
 
 [186]: #applicationplugin
 
