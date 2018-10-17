@@ -112,7 +112,7 @@
     -   [remove][108]
         -   [Parameters][109]
 -   [Caption][110]
-    -   [Properties][111]
+    -   [Parameters][111]
     -   [update][112]
         -   [Parameters][113]
     -   [updateState][114]
@@ -123,7 +123,7 @@
     -   [updateTimeIndex][119]
         -   [Parameters][120]
 -   [Caption][121]
-    -   [Parameters][122]
+    -   [Properties][122]
     -   [update][123]
         -   [Parameters][124]
     -   [updateState][125]
@@ -701,12 +701,9 @@ Returns **void** @memberof HintSequencePlayer
 
 ## Caption
 
-### Properties
+### Parameters
 
--   `lines` **[Array][196]&lt;[TimedLine][200]>** 
--   `time` **[number][189]** 
--   `lineIndex` **[number][189]** 
--   `renderer` **[IRender][201]** 
+-   `lines`  
 
 ### update
 
@@ -751,9 +748,12 @@ Updates the current time and index of the caption instance
 
 ## Caption
 
-### Parameters
+### Properties
 
--   `lines`  
+-   `lines` **[Array][196]&lt;[TimedLine][200]>** 
+-   `time` **[number][189]** 
+-   `lineIndex` **[number][189]** 
+-   `renderer` **[IRender][201]** 
 
 ### update
 
@@ -1267,29 +1267,29 @@ Returns **[Promise][204]** A promise indicating when the plugin is finished load
 
 [110]: #caption
 
-[111]: #properties-7
+[111]: #parameters-32
 
 [112]: #update-1
 
-[113]: #parameters-32
+[113]: #parameters-33
 
 [114]: #updatestate-1
 
-[115]: #parameters-33
+[115]: #parameters-34
 
 [116]: #isfinished
 
 [117]: #start-1
 
-[118]: #parameters-34
+[118]: #parameters-35
 
 [119]: #updatetimeindex
 
-[120]: #parameters-35
+[120]: #parameters-36
 
 [121]: #caption-1
 
-[122]: #parameters-36
+[122]: #properties-7
 
 [123]: #update-2
 
