@@ -126,7 +126,7 @@ export class Application {
     }
 
     // Also attempt to fetch over the iframe barrier for old container support
-    this.container.fetch('playOptions', e => (this.playOptions.value = e.data));
+    this.container.fetch('playOptions', e => (this.state.playOptions.value = e.data));
 
     // check for any invalid plugins
     const errorMessages = Application.validatePlugins();
