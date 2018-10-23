@@ -47,7 +47,7 @@ export class Property<T> {
   private listeners: Function[];
   value: T;
   notifyChange(): void;
-  subscribe(callback: Function): void;
+  subscribe(callback:(value: T, previousValue: T) => void): void;
   unsubscribe(callback: Function): void;
   hasListeners(): boolean;
 }
