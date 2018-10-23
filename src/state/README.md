@@ -1,5 +1,5 @@
 ## Property
-`Property` is a subscribable class that will emit changes to all callbacks when the property instance has been modified
+`Property` is a class that monitors a value and notifies listeners whenever it has changed.
 
 ```javascript
 // creates the property, defaulting the value to false
