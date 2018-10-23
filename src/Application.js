@@ -42,8 +42,6 @@ export class Application {
       sfxVolume: new Property(1)
     };
 
-    this.state.ready;
-
     this.features = Object.assign(
       {
         captions: false,
