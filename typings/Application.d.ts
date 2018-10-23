@@ -1,9 +1,20 @@
 import { IHintPlayer } from "../src/hints";
 
-export type ApplicationFeatures = { [key:string]: boolean };
+export type ApplicationFeatures = {
+  captions?: boolean,
+  sound?: boolean,
+  vo?: boolean,
+  music?: boolean,
+  sfx?: boolean,
+  soundVolume?: boolean,
+  musicVolume?: boolean,
+  voVolume?: boolean,
+  sfxVolume?: boolean
+}
+;
 
 export type ApplicationConfig = {
-  features: ApplicationFeatures,
+  features?: ApplicationFeatures,
   hintPlayer?: IHintPlayer
 }
 

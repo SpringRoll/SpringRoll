@@ -25,6 +25,10 @@ export class Application {
    * @param {Boolean} [config.features.vo] A boolean denoting that this game has mutable voice-over audio in it
    * @param {Boolean} [config.features.music] A boolean denoting that this game has mutable music in it
    * @param {Boolean} [config.features.sfx] A boolean denoting that this game has mutable sound effects in it
+   * @param {Boolean} [config.features.soundVolume] A boolean denoting that this game has adjustable sound volume in it
+   * @param {Boolean} [config.features.musicVolume] A boolean denoting that this game has adjustable music volume in it
+   * @param {Boolean} [config.features.voVolume] A boolean denoting that this game has adjustable voice-over volume in it
+   * @param {Boolean} [config.features.sfxVolume] A boolean denoting that this game has adjustable sound effects volume in it
    */
   constructor({ features, hintPlayer = new HintSequencePlayer() } = {}) {
     this.state = {
@@ -46,7 +50,11 @@ export class Application {
         sound: false,
         vo: false,
         music: false,
-        sfx: false
+        sfx: false,
+        soundVolume: false,
+        musicVolume: false,
+        voVolume: false,
+        sfxVolume: false
       },
       features || {}
     );
@@ -114,7 +122,7 @@ export class Application {
     }
 
     // Also attempt to fetch over the iframe barrier for old container support
-    this.container.fetch('playOptions', e => (this.playOptions.value = e.data));
+    this.container.fetch('playOptions', e => (this.state.playOptions.value = e.data));
 
     // check for any invalid plugins
     const errorMessages = Application.validatePlugins();
