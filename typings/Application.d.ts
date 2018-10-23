@@ -21,7 +21,17 @@ export type ApplicationConfig = {
 export class Application {
   constructor(config: ApplicationConfig);
   validateListeners(): void;
-  state: StateManager;
+  state: {
+    ready: Property<boolean>,
+    pause: Property<boolean>,
+    captionsMuted: Property<boolean>,
+    playOptions: Property<object>,
+    soundVolume: Property<number>,
+    musicVolume: Property<number>,
+    voVolume: Property<number>,
+    sfxVolume: Property<number>,
+    [key:string]: Property
+  }
   hints: IHintPlayer;
   features: ApplicationFeatures;
   container: BellhopIframe.Bellhop;
@@ -41,18 +51,14 @@ export interface ApplicationPlugin {
 
 export class ApplicationPlugin implements ApplicationPlugin {}
 
-export class StateManager {
-  addField(name: string, initialValue: any): Property;
-  [key:string]:((name: string, initialValue: string) => Property) | Property
-}
 
-export class Property {
-  constructor(initialValue: any);
-  private _value: any;
+export class Property<T> {
+  constructor(initialValue: T);
+  private _value: T;
   private listeners: Function[];
-  value: any;
+  value: T;
   notifyChange(): void;
-  subscribe(callback: Function): void;
+  subscribe(callback:(value: T, previousValue: T) => void): void;
   unsubscribe(callback: Function): void;
   hasListeners(): boolean;
 }

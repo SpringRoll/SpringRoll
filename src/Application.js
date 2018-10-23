@@ -1,12 +1,10 @@
 import { Bellhop } from 'bellhop-iframe';
 import { Debugger } from './debug/Debugger.js';
-import { StateManager } from './state/StateManager.js';
 import { HintSequencePlayer } from './hints/HintSequencePlayer.js';
+import { Property } from './state/Property.js';
 
-const ready = 'ready';
 const pause = 'pause';
 const captionsMuted = 'captionsMuted';
-const playOptions = 'playOptions';
 const soundVolume = 'soundVolume';
 const musicVolume = 'musicVolume';
 const voVolume = 'voVolume';
@@ -33,20 +31,18 @@ export class Application {
    * @param {Boolean} [config.features.sfxVolume] A boolean denoting that this game has adjustable sound effects volume in it
    */
   constructor({ features, hintPlayer = new HintSequencePlayer() } = {}) {
-    /**
-     * @member {StateManager} The state manager for this application instance. Maintains subscribable properties for
-     *                        whether or not audio is muted, captions are displayed, or the game is paused.
-     */
-    this.state = new StateManager();
-    this.state.addField(ready, false);
-    this.state.addField(pause, false);
-    this.state.addField(captionsMuted, true);
-    this.state.addField(playOptions, {});
+    this.state = {
+      ready: new Property(false),
+      pause: new Property(false),
+      captionsMuted: new Property(true),
+      playOptions: new Property({}),
+      soundVolume: new Property(1),
+      musicVolume: new Property(1),
+      voVolume: new Property(1),
+      sfxVolume: new Property(1)
+    };
 
-    this.state.addField(soundVolume, 1);
-    this.state.addField(musicVolume, 1);
-    this.state.addField(voVolume, 1);
-    this.state.addField(sfxVolume, 1);
+    this.state.ready;
 
     this.features = Object.assign(
       {
@@ -346,7 +342,7 @@ Application._plugins = [];
 
 /**
  * Registers a plugin to be used by applications, sorting it by priority order.
- * @param {ApplicationPlugin} plugin The plugin to register.
+ * @param {SpringRoll.ApplicationPlugin} plugin The plugin to register.
  */
 Application.uses = function(plugin) {
   Application._plugins.push(plugin);
