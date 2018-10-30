@@ -26,6 +26,12 @@ SpringRoll games, also referred to as Applications, are typically hosted in an i
 ## [Seed Project](https://github.com/SpringRoll/Springroll-Seed)
 We provide a very basic starter project that comes with Webpack for quick project ramp up.
 
+We've also provided a few template projects.
+* [PIXI](https://github.com/SpringRoll/Springroll-Seed/tree/templates/pixi)
+* [Phaser 3](https://github.com/SpringRoll/Springroll-Seed/tree/templates/phaser3)
+* [CreateJS](https://github.com/SpringRoll/Springroll-Seed/tree/templates/createjs)
+
+
 ## Installation
 SpringRoll is both ES6 module and UMD compatible, and is [available via NPM](https://www.npmjs.com/package/springroll). NPM can install it directly from the command line:
 
