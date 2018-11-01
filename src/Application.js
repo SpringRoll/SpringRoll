@@ -1,12 +1,10 @@
 import { Bellhop } from 'bellhop-iframe';
 import { Debugger } from './debug/Debugger.js';
-import { StateManager } from './state/StateManager.js';
 import { HintSequencePlayer } from './hints/HintSequencePlayer.js';
+import { Property } from './state/Property.js';
 
-const ready = 'ready';
 const pause = 'pause';
 const captionsMuted = 'captionsMuted';
-const playOptions = 'playOptions';
 const soundVolume = 'soundVolume';
 const musicVolume = 'musicVolume';
 const voVolume = 'voVolume';
@@ -18,7 +16,6 @@ const playHelp = 'playHelp';
  * @class Application
  */
 export class Application {
-
   /**
    * @param {Object} [config={}]  Root configuration object for various internal Application objects
    * @param {Object} [config.hintPlayer = HintSequencePlayer] IHintPlayer application will use.
@@ -28,22 +25,22 @@ export class Application {
    * @param {Boolean} [config.features.vo] A boolean denoting that this game has mutable voice-over audio in it
    * @param {Boolean} [config.features.music] A boolean denoting that this game has mutable music in it
    * @param {Boolean} [config.features.sfx] A boolean denoting that this game has mutable sound effects in it
-  */
+   * @param {Boolean} [config.features.soundVolume] A boolean denoting that this game has adjustable sound volume in it
+   * @param {Boolean} [config.features.musicVolume] A boolean denoting that this game has adjustable music volume in it
+   * @param {Boolean} [config.features.voVolume] A boolean denoting that this game has adjustable voice-over volume in it
+   * @param {Boolean} [config.features.sfxVolume] A boolean denoting that this game has adjustable sound effects volume in it
+   */
   constructor({ features, hintPlayer = new HintSequencePlayer() } = {}) {
-    /**
-     * @member {StateManager} The state manager for this application instance. Maintains subscribable properties for
-     *                        whether or not audio is muted, captions are displayed, or the game is paused.
-     */
-    this.state = new StateManager();
-    this.state.addField(ready, false);
-    this.state.addField(pause, false);
-    this.state.addField(captionsMuted, true);
-    this.state.addField(playOptions, {});
-
-    this.state.addField(soundVolume, 1);
-    this.state.addField(musicVolume, 1);
-    this.state.addField(voVolume, 1);
-    this.state.addField(sfxVolume, 1);
+    this.state = {
+      ready: new Property(false),
+      pause: new Property(false),
+      captionsMuted: new Property(true),
+      playOptions: new Property({}),
+      soundVolume: new Property(1),
+      musicVolume: new Property(1),
+      voVolume: new Property(1),
+      sfxVolume: new Property(1)
+    };
 
     this.features = Object.assign(
       {
@@ -51,7 +48,11 @@ export class Application {
         sound: false,
         vo: false,
         music: false,
-        sfx: false
+        sfx: false,
+        soundVolume: false,
+        musicVolume: false,
+        voVolume: false,
+        sfxVolume: false
       },
       features || {}
     );
@@ -119,7 +120,7 @@ export class Application {
     }
 
     // Also attempt to fetch over the iframe barrier for old container support
-    this.container.fetch('playOptions', e => (this.playOptions.value = e.data));
+    this.container.fetch('playOptions', e => (this.state.playOptions.value = e.data));
 
     // check for any invalid plugins
     const errorMessages = Application.validatePlugins();
@@ -158,7 +159,10 @@ export class Application {
     this.hints = hintPlayer;
     this.container.on(playHelp, () => {
       if (!this.hints) {
-        Debugger.log('warn', '[Springroll] Missing IHintPlayer see: https://github.com/SpringRoll/SpringRoll/tree/v2/src/hints'); // <-- this could only happen if devs set this.hints manually. 
+        Debugger.log(
+          'warn',
+          '[Springroll] Missing IHintPlayer see: https://github.com/SpringRoll/SpringRoll/tree/v2/src/hints'
+        ); // <-- this could only happen if devs set this.hints manually.
         return;
       }
 
@@ -336,7 +340,7 @@ Application._plugins = [];
 
 /**
  * Registers a plugin to be used by applications, sorting it by priority order.
- * @param {ApplicationPlugin} plugin The plugin to register.
+ * @param {SpringRoll.ApplicationPlugin} plugin The plugin to register.
  */
 Application.uses = function(plugin) {
   Application._plugins.push(plugin);

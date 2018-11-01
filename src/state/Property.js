@@ -23,7 +23,7 @@ export class Property {
   get value() {
     return this._value;
   }
-  
+
   /**
    * Sets the value of the property and notifies all listeners of the change
    * @param {*} value the new property value
