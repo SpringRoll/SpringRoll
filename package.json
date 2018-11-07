@@ -1,6 +1,6 @@
 {
   "name": "springroll",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "",
   "module": "dist/Springroll.js",
   "typings": "typings/index.d.ts",
@@ -50,7 +50,7 @@
   },
   "dependencies": {
     "@babel/polyfill": "^7.0.0",
-    "bellhop-iframe": "^2.2.0",
+    "bellhop-iframe": "^2.3.0",
     "rollup-plugin-terser": "^3.0.0"
   }
 }
