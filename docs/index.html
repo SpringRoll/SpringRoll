@@ -989,16 +989,6 @@
               
                 
                 <li><a
-                  href='#localizeroptions'
-                  class="">
-                  Localizer.Options
-                  
-                </a>
-                
-                </li>
-              
-                
-                <li><a
                   href='#localizer'
                   class=" toggle-sibling">
                   Localizer
@@ -1046,6 +1036,16 @@
                   
                   
                 </div>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#localizeroptions'
+                  class="">
+                  Localizer.Options
+                  
+                </a>
                 
                 </li>
               
@@ -5315,7 +5315,7 @@ TODO: Remove the parameter here, and add a disable method as well</p>
   
  
   
-    <div class='pre p1 fill-light mt0'>new Caption(lines: any)</div>
+    <div class='pre p1 fill-light mt0'>new Caption()</div>
    
   
   
@@ -5328,20 +5328,36 @@ TODO: Remove the parameter here, and add a disable method as well</p>
   
 
   
-    <div class='py1 quiet mt1 prose-big'>Parameters</div>
-    <div class='prose'>
+
+  
+    <div class='py1 quiet mt1 prose-big'>Properties</div>
+    <div>
       
         <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>lines</span> <code class='quiet'>(any)</code>
-	    
-          </div>
+          <span class='code bold'>lines</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>&#x3C;<a href="#timedline">TimedLine</a>>)</code>
+          
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <span class='code bold'>time</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>)</code>
+          
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <span class='code bold'>lineIndex</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>)</code>
+          
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <span class='code bold'>renderer</span> <code class='quiet'>(<a href="#irender">IRender</a>)</code>
+          
           
         </div>
       
     </div>
-  
-
   
 
   
@@ -5703,7 +5719,7 @@ This ~should~ be called every frame that the caption is active.</p>
   
  
   
-    <div class='pre p1 fill-light mt0'>new Caption()</div>
+    <div class='pre p1 fill-light mt0'>new Caption(lines: any)</div>
    
   
   
@@ -5716,36 +5732,20 @@ This ~should~ be called every frame that the caption is active.</p>
   
 
   
-
-  
-    <div class='py1 quiet mt1 prose-big'>Properties</div>
-    <div>
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
       
         <div class='space-bottom0'>
-          <span class='code bold'>lines</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>&#x3C;<a href="#timedline">TimedLine</a>>)</code>
-          
-          
-        </div>
-      
-        <div class='space-bottom0'>
-          <span class='code bold'>time</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>)</code>
-          
-          
-        </div>
-      
-        <div class='space-bottom0'>
-          <span class='code bold'>lineIndex</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>)</code>
-          
-          
-        </div>
-      
-        <div class='space-bottom0'>
-          <span class='code bold'>renderer</span> <code class='quiet'>(<a href="#irender">IRender</a>)</code>
-          
+          <div>
+            <span class='code bold'>lines</span> <code class='quiet'>(any)</code>
+	    
+          </div>
           
         </div>
       
     </div>
+  
+
   
 
   
@@ -7751,58 +7751,6 @@ and swaps out the placeholder inside the double brackets with the matching key i
   
   <div class='clearfix'>
     
-    <h3 class='fl m0' id='localizeroptions'>
-      Localizer.Options
-    </h3>
-    
-    
-  </div>
-  
-
-  
- 
-  
-    <div class='pre p1 fill-light mt0'>Localizer.Options</div>
-   
-  
-    <p>
-      Type:
-      {language: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>, fallback: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>}
-    </p>
-  
-  
-
-  
-  
-  
-  
-  
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-</section>
-
-        
-          
-          <section class='p2 mb2 clearfix bg-white minishadow'>
-
-  
-  <div class='clearfix'>
-    
     <h3 class='fl m0' id='localizer'>
       Localizer
     </h3>
@@ -8169,6 +8117,58 @@ and swaps out the placeholder inside the double brackets with the matching key i
     </div>
   
 </div>
+
+  
+
+  
+
+  
+</section>
+
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='localizeroptions'>
+      Localizer.Options
+    </h3>
+    
+    
+  </div>
+  
+
+  
+ 
+  
+    <div class='pre p1 fill-light mt0'>Localizer.Options</div>
+   
+  
+    <p>
+      Type:
+      {language: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>, fallback: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>}
+    </p>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
 
   
 
