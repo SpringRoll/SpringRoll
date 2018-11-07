@@ -1,6 +1,6 @@
 {
   "name": "springroll",
-  "version": "2.0.1",
+  "version": "2.0.0",
   "description": "",
   "module": "dist/Springroll.js",
   "typings": "typings/index.d.ts",
