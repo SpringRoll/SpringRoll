@@ -40,25 +40,25 @@
     -   [volume][36]
         -   [Parameters][37]
     -   [volume][38]
--   [filterType][39]
--   [ColorFilter][40]
-    -   [applyFilter][41]
-        -   [Parameters][42]
-    -   [changeFilter][43]
-        -   [Parameters][44]
-    -   [removeFilter][45]
-    -   [types][46]
--   [Controller][47]
-    -   [Parameters][48]
-    -   [update][49]
-    -   [onKeyDown][50]
-        -   [Parameters][51]
-    -   [onKeyUp][52]
+-   [ColorFilter][39]
+    -   [applyFilter][40]
+        -   [Parameters][41]
+    -   [changeFilter][42]
+        -   [Parameters][43]
+    -   [removeFilter][44]
+    -   [types][45]
+-   [filterType][46]
+-   [KeyState][47]
+    -   [Properties][48]
+-   [Controller][49]
+    -   [Parameters][50]
+    -   [update][51]
+    -   [onKeyDown][52]
         -   [Parameters][53]
-    -   [assignButtons][54]
+    -   [onKeyUp][54]
         -   [Parameters][55]
--   [KeyState][56]
-    -   [Properties][57]
+    -   [assignButtons][56]
+        -   [Parameters][57]
 -   [Key][58]
     -   [Parameters][59]
     -   [Properties][60]
@@ -108,7 +108,7 @@
     -   [value][104]
         -   [Parameters][105]
 -   [Caption][106]
-    -   [Properties][107]
+    -   [Parameters][107]
     -   [update][108]
         -   [Parameters][109]
     -   [updateState][110]
@@ -119,7 +119,7 @@
     -   [updateTimeIndex][115]
         -   [Parameters][116]
 -   [Caption][117]
-    -   [Parameters][118]
+    -   [Properties][118]
     -   [update][119]
         -   [Parameters][120]
     -   [updateState][121]
@@ -172,17 +172,17 @@
     -   [lineEnd][168]
     -   [sanitize][169]
         -   [Parameters][170]
--   [Localizer][171]
-    -   [resolve][172]
-        -   [Parameters][173]
-    -   [setPrimaryLocale][174]
-        -   [Parameters][175]
-    -   [setFallbackLocale][176]
-        -   [Parameters][177]
-    -   [getLocaleKey][178]
-        -   [Parameters][179]
-    -   [getBrowserLanguages][180]
--   [Localizer.Options][181]
+-   [Localizer.Options][171]
+-   [Localizer][172]
+    -   [resolve][173]
+        -   [Parameters][174]
+    -   [setPrimaryLocale][175]
+        -   [Parameters][176]
+    -   [setFallbackLocale][177]
+        -   [Parameters][178]
+    -   [getLocaleKey][179]
+        -   [Parameters][180]
+    -   [getBrowserLanguages][181]
 -   [ApplicationPlugin][182]
     -   [setup][183]
     -   [preload][184]
@@ -359,10 +359,6 @@ Returns the current volume of the announcer.
 
 Returns **[number][185]** 
 
-## filterType
-
-Type: (`"protanopia"` \| `"protanomaly"` \| `"deuteranopia"` \| `"deuteranomaly"` \| `"tritanopia"` \| `"tritanomaly"` \| `"achromatopsia"` \| `"achromatomaly"`)
-
 ## ColorFilter
 
 The Color filter allows you to simulate colorblindness.
@@ -396,6 +392,20 @@ Supported filter types.
 
 Returns **[object][187]** Returns an object { name, value } with the colorblindness type:
 (Protanopia, Protanomaly, Deuteranopia, Deuteranomaly, Tritanopia, Tritanomaly, Achromatopsia, Achromatomaly)
+
+## filterType
+
+Type: (`"protanopia"` \| `"protanomaly"` \| `"deuteranopia"` \| `"deuteranomaly"` \| `"tritanopia"` \| `"tritanomaly"` \| `"achromatopsia"` \| `"achromatomaly"`)
+
+## KeyState
+
+Type: (`0` \| `1` \| `2`)
+
+### Properties
+
+-   `down` **[Function][186]** 
+-   `up` **[Function][186]** 
+-   `key` **[string][189]** 
 
 ## Controller
 
@@ -432,16 +442,6 @@ Sets an object of button functions to the controller to be called.
 #### Parameters
 
 -   `keys` **[Array][192]&lt;KeyTemplate>** 
-
-## KeyState
-
-Type: (`0` \| `1` \| `2`)
-
-### Properties
-
--   `down` **[Function][186]** 
--   `up` **[Function][186]** 
--   `key` **[string][189]** 
 
 ## Key
 
@@ -673,12 +673,9 @@ Sets the value of the property and notifies all listeners of the change
 
 ## Caption
 
-### Properties
+### Parameters
 
--   `lines` **[Array][192]&lt;[TimedLine][195]>** 
--   `time` **[number][185]** 
--   `lineIndex` **[number][185]** 
--   `renderer` **[IRender][196]** 
+-   `lines`  
 
 ### update
 
@@ -723,9 +720,12 @@ Updates the current time and index of the caption instance
 
 ## Caption
 
-### Parameters
+### Properties
 
--   `lines`  
+-   `lines` **[Array][192]&lt;[TimedLine][195]>** 
+-   `time` **[number][185]** 
+-   `lineIndex` **[number][185]** 
+-   `renderer` **[IRender][196]** 
 
 ### update
 
@@ -962,6 +962,10 @@ Will attempt to remove all html from a string before it's renderer to the page
 
 -   `html` **any** 
 
+## Localizer.Options
+
+Type: {language: [string][189], fallback: [string][189]}
+
 ## Localizer
 
 ### resolve
@@ -998,10 +1002,6 @@ Returns **[boolean][188]** True if fallback is set.
 Returns **[string][189]** 
 
 ### getBrowserLanguages
-
-## Localizer.Options
-
-Type: {language: [string][189], fallback: [string][189]}
 
 ## ApplicationPlugin
 
@@ -1095,43 +1095,43 @@ Returns **[Promise][199]** A promise indicating when the plugin is finished load
 
 [38]: #volume-1
 
-[39]: #filtertype
+[39]: #colorfilter
 
-[40]: #colorfilter
+[40]: #applyfilter
 
-[41]: #applyfilter
+[41]: #parameters-11
 
-[42]: #parameters-11
+[42]: #changefilter
 
-[43]: #changefilter
+[43]: #parameters-12
 
-[44]: #parameters-12
+[44]: #removefilter
 
-[45]: #removefilter
+[45]: #types
 
-[46]: #types
+[46]: #filtertype
 
-[47]: #controller
+[47]: #keystate
 
-[48]: #parameters-13
+[48]: #properties-3
 
-[49]: #update
+[49]: #controller
 
-[50]: #onkeydown
+[50]: #parameters-13
 
-[51]: #parameters-14
+[51]: #update
 
-[52]: #onkeyup
+[52]: #onkeydown
 
-[53]: #parameters-15
+[53]: #parameters-14
 
-[54]: #assignbuttons
+[54]: #onkeyup
 
-[55]: #parameters-16
+[55]: #parameters-15
 
-[56]: #keystate
+[56]: #assignbuttons
 
-[57]: #properties-3
+[57]: #parameters-16
 
 [58]: #key
 
@@ -1231,29 +1231,29 @@ Returns **[Promise][199]** A promise indicating when the plugin is finished load
 
 [106]: #caption
 
-[107]: #properties-7
+[107]: #parameters-31
 
 [108]: #update-1
 
-[109]: #parameters-31
+[109]: #parameters-32
 
 [110]: #updatestate-1
 
-[111]: #parameters-32
+[111]: #parameters-33
 
 [112]: #isfinished
 
 [113]: #start-1
 
-[114]: #parameters-33
+[114]: #parameters-34
 
 [115]: #updatetimeindex
 
-[116]: #parameters-34
+[116]: #parameters-35
 
 [117]: #caption-1
 
-[118]: #parameters-35
+[118]: #properties-7
 
 [119]: #update-2
 
@@ -1359,27 +1359,27 @@ Returns **[Promise][199]** A promise indicating when the plugin is finished load
 
 [170]: #parameters-54
 
-[171]: #localizer
+[171]: #localizeroptions
 
-[172]: #resolve
+[172]: #localizer
 
-[173]: #parameters-55
+[173]: #resolve
 
-[174]: #setprimarylocale
+[174]: #parameters-55
 
-[175]: #parameters-56
+[175]: #setprimarylocale
 
-[176]: #setfallbacklocale
+[176]: #parameters-56
 
-[177]: #parameters-57
+[177]: #setfallbacklocale
 
-[178]: #getlocalekey
+[178]: #parameters-57
 
-[179]: #parameters-58
+[179]: #getlocalekey
 
-[180]: #getbrowserlanguages
+[180]: #parameters-58
 
-[181]: #localizeroptions
+[181]: #getbrowserlanguages
 
 [182]: #applicationplugin
 
