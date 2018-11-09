@@ -1,6 +1,8 @@
 # Scale Manager
 A utility class that listens for resize events.
 
+There is a 500ms delay added to the event to solve an issues where on some browsers the window isn't fully resized before the event fires.
+
 ```javascript
 var scaleManager = new ScaleManager(function(resizeData) {
   console.log('This is called on window resize');
