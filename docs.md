@@ -40,14 +40,14 @@
     -   [volume][36]
         -   [Parameters][37]
     -   [volume][38]
--   [ColorFilter][39]
-    -   [applyFilter][40]
-        -   [Parameters][41]
-    -   [changeFilter][42]
-        -   [Parameters][43]
-    -   [removeFilter][44]
-    -   [types][45]
--   [filterType][46]
+-   [filterType][39]
+-   [ColorFilter][40]
+    -   [applyFilter][41]
+        -   [Parameters][42]
+    -   [changeFilter][43]
+        -   [Parameters][44]
+    -   [removeFilter][45]
+    -   [types][46]
 -   [Controller][47]
     -   [Parameters][48]
     -   [update][49]
@@ -359,6 +359,10 @@ Returns the current volume of the announcer.
 
 Returns **[number][185]** 
 
+## filterType
+
+Type: (`"protanopia"` \| `"protanomaly"` \| `"deuteranopia"` \| `"deuteranomaly"` \| `"tritanopia"` \| `"tritanomaly"` \| `"achromatopsia"` \| `"achromatomaly"`)
+
 ## ColorFilter
 
 The Color filter allows you to simulate colorblindness.
@@ -392,10 +396,6 @@ Supported filter types.
 
 Returns **[object][187]** Returns an object { name, value } with the colorblindness type:
 (Protanopia, Protanomaly, Deuteranopia, Deuteranomaly, Tritanopia, Tritanomaly, Achromatopsia, Achromatomaly)
-
-## filterType
-
-Type: (`"protanopia"` \| `"protanomaly"` \| `"deuteranopia"` \| `"deuteranomaly"` \| `"tritanopia"` \| `"tritanomaly"` \| `"achromatopsia"` \| `"achromatomaly"`)
 
 ## Controller
 
@@ -1095,21 +1095,21 @@ Returns **[Promise][199]** A promise indicating when the plugin is finished load
 
 [38]: #volume-1
 
-[39]: #colorfilter
+[39]: #filtertype
 
-[40]: #applyfilter
+[40]: #colorfilter
 
-[41]: #parameters-11
+[41]: #applyfilter
 
-[42]: #changefilter
+[42]: #parameters-11
 
-[43]: #parameters-12
+[43]: #changefilter
 
-[44]: #removefilter
+[44]: #parameters-12
 
-[45]: #types
+[45]: #removefilter
 
-[46]: #filtertype
+[46]: #types
 
 [47]: #controller
 

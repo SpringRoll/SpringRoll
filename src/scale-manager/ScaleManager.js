@@ -26,19 +26,19 @@ export class ScaleManager {
    * @private
    */
   onResize(event) {
-    const width = event.target.innerWidth;
-    const height = event.target.innerHeight;
-
     setTimeout(() => {
+      const width = event.target.innerWidth;
+      const height = event.target.innerHeight;
+
       this.callback({
         width,
         height,
         ratio: width / height
       });
-    }, 500);
 
-    this.width = width;
-    this.height = height;
+      this.width = width;
+      this.height = height;
+    }, 500);
   }
 
   /**
