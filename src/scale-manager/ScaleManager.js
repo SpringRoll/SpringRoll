@@ -26,7 +26,7 @@ export class ScaleManager {
    * @private
    */
   onResize(event) {
-    setTimeout(() => {
+    const resize = () => {
       const width = event.target.innerWidth;
       const height = event.target.innerHeight;
 
@@ -38,7 +38,12 @@ export class ScaleManager {
 
       this.width = width;
       this.height = height;
-    }, 500);
+    };
+
+    resize();
+
+    // handle a bug in iOS where innerWidth and innerHeight aren't correct immediately after resize.
+    setTimeout(resize, 500);
   }
 
   /**
