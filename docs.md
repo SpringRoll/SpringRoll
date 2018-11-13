@@ -48,17 +48,17 @@
     -   [removeFilter][44]
     -   [types][45]
 -   [filterType][46]
--   [KeyState][47]
-    -   [Properties][48]
--   [Controller][49]
-    -   [Parameters][50]
-    -   [update][51]
-    -   [onKeyDown][52]
+-   [Controller][47]
+    -   [Parameters][48]
+    -   [update][49]
+    -   [onKeyDown][50]
+        -   [Parameters][51]
+    -   [onKeyUp][52]
         -   [Parameters][53]
-    -   [onKeyUp][54]
+    -   [assignButtons][54]
         -   [Parameters][55]
-    -   [assignButtons][56]
-        -   [Parameters][57]
+-   [KeyState][56]
+    -   [Properties][57]
 -   [Key][58]
     -   [Parameters][59]
     -   [Properties][60]
@@ -137,13 +137,13 @@
     -   [createLine][133]
         -   [Parameters][134]
 -   [CaptionPlayer][135]
-    -   [update][136]
-        -   [Parameters][137]
-    -   [start][138]
-        -   [Parameters][139]
-    -   [stop][140]
--   [CaptionPlayer][141]
-    -   [Parameters][142]
+    -   [Parameters][136]
+    -   [update][137]
+        -   [Parameters][138]
+    -   [start][139]
+        -   [Parameters][140]
+    -   [stop][141]
+-   [CaptionPlayer][142]
     -   [update][143]
         -   [Parameters][144]
     -   [start][145]
@@ -172,17 +172,17 @@
     -   [lineEnd][168]
     -   [sanitize][169]
         -   [Parameters][170]
--   [Localizer.Options][171]
--   [Localizer][172]
-    -   [resolve][173]
-        -   [Parameters][174]
-    -   [setPrimaryLocale][175]
-        -   [Parameters][176]
-    -   [setFallbackLocale][177]
-        -   [Parameters][178]
-    -   [getLocaleKey][179]
-        -   [Parameters][180]
-    -   [getBrowserLanguages][181]
+-   [Localizer][171]
+    -   [resolve][172]
+        -   [Parameters][173]
+    -   [setPrimaryLocale][174]
+        -   [Parameters][175]
+    -   [setFallbackLocale][176]
+        -   [Parameters][177]
+    -   [getLocaleKey][178]
+        -   [Parameters][179]
+    -   [getBrowserLanguages][180]
+-   [Localizer.Options][181]
 -   [ApplicationPlugin][182]
     -   [setup][183]
     -   [preload][184]
@@ -397,16 +397,6 @@ Returns **[object][187]** Returns an object { name, value } with the colorblindn
 
 Type: (`"protanopia"` \| `"protanomaly"` \| `"deuteranopia"` \| `"deuteranomaly"` \| `"tritanopia"` \| `"tritanomaly"` \| `"achromatopsia"` \| `"achromatomaly"`)
 
-## KeyState
-
-Type: (`0` \| `1` \| `2`)
-
-### Properties
-
--   `down` **[Function][186]** 
--   `up` **[Function][186]** 
--   `key` **[string][189]** 
-
 ## Controller
 
 Controller interface class to simplify working with key presses.
@@ -442,6 +432,16 @@ Sets an object of button functions to the controller to be called.
 #### Parameters
 
 -   `keys` **[Array][192]&lt;KeyTemplate>** 
+
+## KeyState
+
+Type: (`0` \| `1` \| `2`)
+
+### Properties
+
+-   `down` **[Function][186]** 
+-   `up` **[Function][186]** 
+-   `key` **[string][189]** 
 
 ## Key
 
@@ -804,8 +804,10 @@ Returns **[TimedLine][195]** new TimedLine;
 
 ## CaptionPlayer
 
-CaptionPlayer is used to start, stop and update captions.
- It applies the content of an active caption to a given CaptionRenderer.
+### Parameters
+
+-   `captions`  
+-   `renderer`  
 
 ### update
 
@@ -832,10 +834,8 @@ Stops any caption currently playing.
 
 ## CaptionPlayer
 
-### Parameters
-
--   `captions`  
--   `renderer`  
+CaptionPlayer is used to start, stop and update captions.
+ It applies the content of an active caption to a given CaptionRenderer.
 
 ### update
 
@@ -962,10 +962,6 @@ Will attempt to remove all html from a string before it's renderer to the page
 
 -   `html` **any** 
 
-## Localizer.Options
-
-Type: {language: [string][189], fallback: [string][189]}
-
 ## Localizer
 
 ### resolve
@@ -1002,6 +998,10 @@ Returns **[boolean][188]** True if fallback is set.
 Returns **[string][189]** 
 
 ### getBrowserLanguages
+
+## Localizer.Options
+
+Type: {language: [string][189], fallback: [string][189]}
 
 ## ApplicationPlugin
 
@@ -1111,27 +1111,27 @@ Returns **[Promise][199]** A promise indicating when the plugin is finished load
 
 [46]: #filtertype
 
-[47]: #keystate
+[47]: #controller
 
-[48]: #properties-3
+[48]: #parameters-13
 
-[49]: #controller
+[49]: #update
 
-[50]: #parameters-13
+[50]: #onkeydown
 
-[51]: #update
+[51]: #parameters-14
 
-[52]: #onkeydown
+[52]: #onkeyup
 
-[53]: #parameters-14
+[53]: #parameters-15
 
-[54]: #onkeyup
+[54]: #assignbuttons
 
-[55]: #parameters-15
+[55]: #parameters-16
 
-[56]: #assignbuttons
+[56]: #keystate
 
-[57]: #parameters-16
+[57]: #properties-3
 
 [58]: #key
 
@@ -1289,19 +1289,19 @@ Returns **[Promise][199]** A promise indicating when the plugin is finished load
 
 [135]: #captionplayer
 
-[136]: #update-3
+[136]: #parameters-43
 
-[137]: #parameters-43
+[137]: #update-3
 
-[138]: #start-3
+[138]: #parameters-44
 
-[139]: #parameters-44
+[139]: #start-3
 
-[140]: #stop-1
+[140]: #parameters-45
 
-[141]: #captionplayer-1
+[141]: #stop-1
 
-[142]: #parameters-45
+[142]: #captionplayer-1
 
 [143]: #update-4
 
@@ -1359,27 +1359,27 @@ Returns **[Promise][199]** A promise indicating when the plugin is finished load
 
 [170]: #parameters-54
 
-[171]: #localizeroptions
+[171]: #localizer
 
-[172]: #localizer
+[172]: #resolve
 
-[173]: #resolve
+[173]: #parameters-55
 
-[174]: #parameters-55
+[174]: #setprimarylocale
 
-[175]: #setprimarylocale
+[175]: #parameters-56
 
-[176]: #parameters-56
+[176]: #setfallbacklocale
 
-[177]: #setfallbacklocale
+[177]: #parameters-57
 
-[178]: #parameters-57
+[178]: #getlocalekey
 
-[179]: #getlocalekey
+[179]: #parameters-58
 
-[180]: #parameters-58
+[180]: #getbrowserlanguages
 
-[181]: #getbrowserlanguages
+[181]: #localizeroptions
 
 [182]: #applicationplugin
 
