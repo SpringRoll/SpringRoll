@@ -62,3 +62,9 @@ export class Property<T> {
   unsubscribe(callback: Function): void;
   hasListeners(): boolean;
 }
+
+export class UserData {
+  static read(name:string, callback:function): void;
+  static write(name:string, value:any):void;
+  static delete(name:string): void;
+}
