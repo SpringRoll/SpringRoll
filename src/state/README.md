@@ -13,3 +13,19 @@ isPaused.subscribe(function(newValue, oldValue) {
 // the property can change similarly to the previous case, the handler triggering appropriately
 isPaused.value = true;
 ```
+
+
+## UserData
+
+`UserData` is a class that handles communication between your SpringRoll Application and Container
+
+```javascript
+import { UserData } from 'springroll'
+
+UserData.write('my-value', {foo:'bar'});
+
+UserData.read('my-value', (response) => console.log(response));
+
+UserData.delete('my-value');
+
+```

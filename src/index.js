@@ -1,6 +1,7 @@
 import '@babel/polyfill';
 
 export * from './debug';
+export * from './communication';
 export * from './hints';
 export * from './state';
 export * from './scale-manager';

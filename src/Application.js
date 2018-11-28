@@ -1,7 +1,7 @@
-import { Bellhop } from 'bellhop-iframe';
 import { Debugger } from './debug/Debugger.js';
 import { HintSequencePlayer } from './hints/HintSequencePlayer.js';
 import { Property } from './state/Property.js';
+import { comm } from './communication/comm';
 
 const pause = 'pause';
 const captionsMuted = 'captionsMuted';
@@ -63,7 +63,7 @@ export class Application {
     }
 
     // create the connection to the container (if possible), and report features and SpringRoll 1 compat data
-    this.container = new Bellhop();
+    this.container = comm;
     this.container.connect();
     this.container.send('features', this.features);
     this.container.send('keepFocus', false);
@@ -120,7 +120,10 @@ export class Application {
     }
 
     // Also attempt to fetch over the iframe barrier for old container support
-    this.container.fetch('playOptions', e => (this.state.playOptions.value = e.data));
+    this.container.fetch(
+      'playOptions',
+      e => (this.state.playOptions.value = e.data)
+    );
 
     // check for any invalid plugins
     const errorMessages = Application.validatePlugins();
