@@ -22,9 +22,9 @@ isPaused.value = true;
 ```javascript
 import { UserData } from 'springroll'
 
-UserData.write('my-value', {foo:'bar'});
+UserData.write('my-value', {foo:'bar'}).then(() => {});
 
-UserData.read('my-value', (response) => console.log(response));
+UserData.read('my-value').then(value => {});
 
 UserData.delete('my-value');
 
