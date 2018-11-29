@@ -64,7 +64,7 @@ export class Property<T> {
 }
 
 export class UserData {
-  static read(name:string, callback:function): void;
-  static write(name:string, value:any):void;
+  static read(name:string): Promise<any>;
+  static write(name:string, value:any):Promise<any>;
   static delete(name:string): void;
 }

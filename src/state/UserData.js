@@ -1,4 +1,5 @@
 import { comm } from '../communication/comm';
+const onReturn = Symbol('onReturn');
 const READ = 'userDataRead';
 const WRITE = 'userDataWrite';
 const DELETE = 'userDataRemove';
@@ -10,17 +11,59 @@ const DELETE = 'userDataRemove';
  */
 export class UserData {
   /**
-   * Gets data from SpringRoll Container
+   * Handles return
+   * @function
    * @memberof UserData
-   * @param {function} callback
-   * @param {string} name
+   * @name onReturn
+   * @param {*} data
+   * @param {number} [attempts=3]
+   * @param {string} METHOD
+   * @private
+   * @returns
    * @static
    */
-  static read(name, callback) {
+  static [onReturn](METHOD, data, attempts = 3) {
+    return new Promise((resolve, reject) => {
+      let success = false;
+      let count = 0;
+
+      const onReturn = event => {
+        comm.off(METHOD, onReturn);
+        success = true;
+        resolve(event);
+      };
+      comm.on(METHOD, onReturn);
+
+      comm.send(METHOD, data);
+
+      const interval = setInterval(() => {
+        if (success) {
+          clearInterval(interval);
+          return;
+        }
+
+        if (count >= attempts) {
+          clearInterval(interval);
+          comm.off(METHOD, onReturn);
+          reject('No Response');
+        }
+        count++;
+      }, 100);
+    });
+  }
+
+  /**
+   * Gets data from SpringRoll Container
+   * @memberof UserData
+   * @param {string} name
+   * @return {Promise}
+   * @static
+   */
+  static read(name) {
     const warning = `Could not complete read action for ${name}. Bellhop is not connected.`;
-    comm.connected
-      ? comm.fetch(READ, callback, { name }, true)
-      : console.warn(warning);
+    return comm.connected
+      ? this[onReturn](READ, {})
+      : new Promise((_, reject) => reject(warning));
   }
 
   /**
@@ -28,11 +71,14 @@ export class UserData {
    * @memberof UserData
    * @param {*} value
    * @param {string} name
+   * @returns {Promise}
    * @static
    */
   static write(name, value) {
     const warning = `Could not complete write action for ${name} with value ${value}. Bellhop is not connected.`;
-    comm.connected ? comm.send(WRITE, { name, value }) : console.warn(warning);
+    return comm.connected
+      ? this[onReturn](WRITE, { name, value })
+      : new Promise((_, reject) => reject(warning));
   }
 
   /**
