@@ -1,4 +1,4 @@
-import { comm } from '../communication/comm';
+import { BellhopSingleton } from '../communication/BellhopSingleton';
 const onReturn = Symbol('onReturn');
 const READ = 'userDataRead';
 const WRITE = 'userDataWrite';
@@ -28,13 +28,13 @@ export class UserData {
       let count = 0;
 
       const onReturn = event => {
-        comm.off(METHOD, onReturn);
+        BellhopSingleton.off(METHOD, onReturn);
         success = true;
         resolve(event);
       };
-      comm.on(METHOD, onReturn);
+      BellhopSingleton.on(METHOD, onReturn);
 
-      comm.send(METHOD, data);
+      BellhopSingleton.send(METHOD, data);
 
       const interval = setInterval(() => {
         if (success) {
@@ -44,7 +44,7 @@ export class UserData {
 
         if (count >= attempts) {
           clearInterval(interval);
-          comm.off(METHOD, onReturn);
+          BellhopSingleton.off(METHOD, onReturn);
           reject('No Response');
         }
         count++;
@@ -61,7 +61,7 @@ export class UserData {
    */
   static read(name) {
     const warning = `Could not complete read action for ${name}. Bellhop is not connected.`;
-    return comm.connected
+    return BellhopSingleton.connected
       ? this[onReturn](READ, {})
       : new Promise((_, reject) => reject(warning));
   }
@@ -76,7 +76,7 @@ export class UserData {
    */
   static write(name, value) {
     const warning = `Could not complete write action for ${name} with value ${value}. Bellhop is not connected.`;
-    return comm.connected
+    return BellhopSingleton.connected
       ? this[onReturn](WRITE, { name, value })
       : new Promise((_, reject) => reject(warning));
   }
@@ -89,7 +89,9 @@ export class UserData {
    */
   static delete(name) {
     const warning = `Could not complete delete action for ${name}. Bellhop is not connected.`;
-    comm.connected ? comm.send(DELETE, { name }) : console.warn(warning);
+    BellhopSingleton.connected
+      ? BellhopSingleton.send(DELETE, { name })
+      : console.warn(warning);
   }
 }
 export default UserData;

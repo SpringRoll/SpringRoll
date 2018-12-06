@@ -1,7 +1,7 @@
 import { Debugger } from './debug/Debugger.js';
 import { HintSequencePlayer } from './hints/HintSequencePlayer.js';
 import { Property } from './state/Property.js';
-import { comm } from './communication/comm';
+import { BellhopSingleton } from './communication/BellhopSingleton';
 
 const pause = 'pause';
 const captionsMuted = 'captionsMuted';
@@ -63,7 +63,7 @@ export class Application {
     }
 
     // create the connection to the container (if possible), and report features and SpringRoll 1 compat data
-    this.container = comm;
+    this.container = BellhopSingleton;
     this.container.connect();
     this.container.send('features', this.features);
     this.container.send('keepFocus', false);

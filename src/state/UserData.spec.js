@@ -1,5 +1,5 @@
 import { UserData } from './UserData';
-import comm from '../communication/comm';
+import comm from '../communication/BellhopSingleton';
 
 document.body.addEventListener('message', t => {
   console.log('called =>', t);

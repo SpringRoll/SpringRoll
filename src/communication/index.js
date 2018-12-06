@@ -1,1 +1,1 @@
-export * from './comm';
+export * from './BellhopSingleton';
