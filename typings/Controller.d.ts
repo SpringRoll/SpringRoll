@@ -14,7 +14,7 @@ export class Key {
   }
   updateState(state?: KeyState): void;
   action(): void;
-  get state(): KeyState
+  readonly state: KeyState
 
   private _state: KeyState
 }

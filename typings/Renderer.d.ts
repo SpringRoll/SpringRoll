@@ -10,9 +10,14 @@ export class DOMRenderer {
   stop();
 }
 
-export class HtmlRenderer extends DOMRenderer implements IRender {}
+export class HtmlRenderer extends DOMRenderer implements IRender {
+  lineBegin: Function;
+  lineEnd: Function;
+}
 export class TextRenderer extends DOMRenderer implements IRender {
   sanitize(html: string): string;
+  lineBegin: Function;
+  lineEnd: Function;
 }
 
 export function TemplateRenderer(template: string, args: object): string;
