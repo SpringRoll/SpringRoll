@@ -41,7 +41,7 @@ export class CaptionPlayer {
   activeCaption: Caption;
 
   update(deltaTime:number): void;
-  start(name: string, time?: number, args: object): void;
+  start(name: string, time?: number, args?: object): void;
   stop(): void;
 
 }

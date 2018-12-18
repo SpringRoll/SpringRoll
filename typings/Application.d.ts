@@ -1,4 +1,6 @@
-import { IHintPlayer } from "../src/hints";
+/// <reference types="bellhop-iframe" />
+import { IHintPlayer } from "./Hint";
+
 
 export type ApplicationFeatures = {
   captions?: boolean,
@@ -30,7 +32,7 @@ export class Application {
     musicVolume: Property<number>,
     voVolume: Property<number>,
     sfxVolume: Property<number>,
-    [key:string]: Property
+    [key:string]: Property<any>
   }
   hints: IHintPlayer;
   features: ApplicationFeatures;

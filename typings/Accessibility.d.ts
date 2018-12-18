@@ -17,7 +17,7 @@ export class SpeechSynth {
   voiceOptions: any[];
   pasue(): void;
   resume(): void;
-  cancel(); void;
+  cancel(): void;
   say(message: string): void;
   rangeLimit(min: number, max: number, value: number): number;
   setVoice(index: number): void;
