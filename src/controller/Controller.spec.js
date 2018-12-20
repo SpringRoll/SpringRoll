@@ -34,6 +34,22 @@ describe('controller', () => {
     controller.update();
   });
 
+  it('Should not be case-sensitive', done => {
+    const controller = new Controller([
+      {
+        key: 'EnTeR',
+        down: function() {
+          done();
+        }.bind(this)
+      }
+    ]);
+
+    const event = newEvent('keydown');
+    event.key = 'Enter';
+    window.dispatchEvent(event);
+    controller.update();
+  });
+
   it('Should not call functions when key is not pressed', done => {
     const controller = new Controller([
       {
