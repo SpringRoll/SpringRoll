@@ -64,10 +64,10 @@ export class Controller {
     this.buttons = {};
     this.keys = [];
     for (let i = 0, l = keys.length; i < l; i++) {
-      const keyName = keys[i].key.toLowerCase();
-      this.keys.push(keyName);
-      this.buttons[keyName] = new Key(
-        keyName,
+      const currentKey = keys[i].key.toLowerCase();
+      this.keys.push(currentKey);
+      this.buttons[currentKey] = new Key(
+        currentKey,
         keys[i].down,
         keys[i].up
       );
