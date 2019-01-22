@@ -2,8 +2,8 @@
   "name": "springroll",
   "version": "2.0.0",
   "description": "",
-  "main": "dist/Springroll.js",
-  "module": "dist/Springroll.js",
+  "main": "dist/SpringRoll.js",
+  "module": "dist/SpringRoll.js",
   "typings": "typings/index.d.ts",
   "scripts": {
     "build": "npm run build:full",

@@ -115,7 +115,7 @@
     -   [value][111]
         -   [Parameters][112]
 -   [Caption][113]
-    -   [Parameters][114]
+    -   [Properties][114]
     -   [update][115]
         -   [Parameters][116]
     -   [updateState][117]
@@ -126,7 +126,7 @@
     -   [updateTimeIndex][122]
         -   [Parameters][123]
 -   [Caption][124]
-    -   [Properties][125]
+    -   [Parameters][125]
     -   [update][126]
         -   [Parameters][127]
     -   [updateState][128]
@@ -179,17 +179,17 @@
     -   [lineEnd][175]
     -   [sanitize][176]
         -   [Parameters][177]
--   [Localizer][178]
-    -   [resolve][179]
-        -   [Parameters][180]
-    -   [setPrimaryLocale][181]
-        -   [Parameters][182]
-    -   [setFallbackLocale][183]
-        -   [Parameters][184]
-    -   [getLocaleKey][185]
-        -   [Parameters][186]
-    -   [getBrowserLanguages][187]
--   [Localizer.Options][188]
+-   [Localizer.Options][178]
+-   [Localizer][179]
+    -   [resolve][180]
+        -   [Parameters][181]
+    -   [setPrimaryLocale][182]
+        -   [Parameters][183]
+    -   [setFallbackLocale][184]
+        -   [Parameters][185]
+    -   [getLocaleKey][186]
+        -   [Parameters][187]
+    -   [getBrowserLanguages][188]
 -   [ApplicationPlugin][189]
     -   [setup][190]
     -   [preload][191]
@@ -713,9 +713,12 @@ Sets the value of the property and notifies all listeners of the change
 
 ## Caption
 
-### Parameters
+### Properties
 
--   `lines`  
+-   `lines` **[Array][200]&lt;[TimedLine][203]>** 
+-   `time` **[number][192]** 
+-   `lineIndex` **[number][192]** 
+-   `renderer` **[IRender][204]** 
 
 ### update
 
@@ -760,12 +763,9 @@ Updates the current time and index of the caption instance
 
 ## Caption
 
-### Properties
+### Parameters
 
--   `lines` **[Array][200]&lt;[TimedLine][203]>** 
--   `time` **[number][192]** 
--   `lineIndex` **[number][192]** 
--   `renderer` **[IRender][204]** 
+-   `lines`  
 
 ### update
 
@@ -1002,6 +1002,10 @@ Will attempt to remove all html from a string before it's renderer to the page
 
 -   `html` **any** 
 
+## Localizer.Options
+
+Type: {language: [string][194], fallback: [string][194]}
+
 ## Localizer
 
 ### resolve
@@ -1038,10 +1042,6 @@ Returns **[boolean][197]** True if fallback is set.
 Returns **[string][194]** 
 
 ### getBrowserLanguages
-
-## Localizer.Options
-
-Type: {language: [string][194], fallback: [string][194]}
 
 ## ApplicationPlugin
 
@@ -1285,29 +1285,29 @@ Returns **[Promise][195]** A promise indicating when the plugin is finished load
 
 [113]: #caption
 
-[114]: #parameters-34
+[114]: #properties-7
 
 [115]: #update-1
 
-[116]: #parameters-35
+[116]: #parameters-34
 
 [117]: #updatestate-1
 
-[118]: #parameters-36
+[118]: #parameters-35
 
 [119]: #isfinished
 
 [120]: #start-1
 
-[121]: #parameters-37
+[121]: #parameters-36
 
 [122]: #updatetimeindex
 
-[123]: #parameters-38
+[123]: #parameters-37
 
 [124]: #caption-1
 
-[125]: #properties-7
+[125]: #parameters-38
 
 [126]: #update-2
 
@@ -1413,27 +1413,27 @@ Returns **[Promise][195]** A promise indicating when the plugin is finished load
 
 [177]: #parameters-57
 
-[178]: #localizer
+[178]: #localizeroptions
 
-[179]: #resolve
+[179]: #localizer
 
-[180]: #parameters-58
+[180]: #resolve
 
-[181]: #setprimarylocale
+[181]: #parameters-58
 
-[182]: #parameters-59
+[182]: #setprimarylocale
 
-[183]: #setfallbacklocale
+[183]: #parameters-59
 
-[184]: #parameters-60
+[184]: #setfallbacklocale
 
-[185]: #getlocalekey
+[185]: #parameters-60
 
-[186]: #parameters-61
+[186]: #getlocalekey
 
-[187]: #getbrowserlanguages
+[187]: #parameters-61
 
-[188]: #localizeroptions
+[188]: #getbrowserlanguages
 
 [189]: #applicationplugin
 
