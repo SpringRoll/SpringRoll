@@ -1,15 +1,24 @@
 import { ScaleManager } from './ScaleManager';
 import { newEvent } from '../debug';
+import { Anchor } from './Anchor';
 
 describe('Scale Manager', () => {
-  const sm = new ScaleManager();
+  const sm = new ScaleManager({ width: 400, height: 400 });
 
   it('Should call the callback passed via the constructor', done => {
-    const defaultScaleManager = new ScaleManager(e => {
-      expect(e.width).to.be.a('number');
-      expect(e.height).to.be.a('number');
-      expect(e.ratio).to.be.an('number');
-      done();
+    new ScaleManager({
+      width: 400,
+      height: 400,
+      safeWidth: 200,
+      safeHeight: 200,
+      callback: e => {
+        expect(e.width).to.be.a('number');
+        expect(e.height).to.be.a('number');
+        expect(e.scale).to.be.an('object');
+        expect(e.scale.x).to.be.a('number');
+        expect(e.scale.y).to.be.a('number');
+        done();
+      }
     });
 
     window.dispatchEvent(newEvent('resize'));
@@ -20,7 +29,9 @@ describe('Scale Manager', () => {
     sm.enable(e => {
       expect(e.width).to.be.a('number');
       expect(e.height).to.be.a('number');
-      expect(e.ratio).to.be.an('number');
+      expect(e.scale).to.be.an('object');
+      expect(e.scale.x).to.be.a('number');
+      expect(e.scale.y).to.be.a('number');
       done();
     });
 
@@ -41,5 +52,62 @@ describe('Scale Manager', () => {
     setTimeout(() => {
       done();
     }, 1);
+  });
+
+  describe('--Anchor Handling--', () => {
+    beforeEach(() => {
+      sm.anchors = [];
+    });
+
+    it('should add an anchor', () => {
+      sm.addAnchor(new Anchor());
+
+      expect(sm.anchors.length).to.equal(1);
+    });
+
+    it('should not add an anchor if it already exists', () => {
+      const testAnchor = new Anchor();
+
+      sm.addAnchor(testAnchor);
+      sm.addAnchor(testAnchor);
+
+      expect(sm.anchors.length).to.equal(1);
+    });
+
+    it('should remove anchors', () => {
+      const testAnchor = new Anchor();
+
+      sm.addAnchor(testAnchor);
+      sm.removeAnchor(testAnchor);
+
+      expect(sm.anchors.length).to.equal(0);
+    });
+
+    it('should invoke anchor update when added', done => {
+      const testAnchor = new Anchor({
+        callback: () => {
+          done();
+        }
+      });
+      sm.addAnchor(testAnchor);
+    });
+
+    it('should invoke anchor update on resize', done => {
+      let count = 0;
+
+      const testAnchor = new Anchor({
+        callback: () => {
+          if (count == 1) {
+            done();
+          }
+          count++;
+        }
+      });
+
+      sm.addAnchor(testAnchor);
+
+      window.dispatchEvent(newEvent('resize'));
+      window.dispatchEvent(newEvent('resize'));
+    });
   });
 });
