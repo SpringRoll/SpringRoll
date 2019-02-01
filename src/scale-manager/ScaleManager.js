@@ -8,8 +8,9 @@ import { Debugger } from '../debug';
 /**
  * callback to used scale game and canvas
  * @callback ScaleCallback
- * @param {Number} x horizontal scale value
- * @param {Number} y vertical scale value
+ * @param {Number} width width canvas should be
+ * @param {Number} height height canvas should be
+ * @param {Point} scale x/y scale values
  */
 
 /**
@@ -107,8 +108,12 @@ export class ScaleManager {
     const gameWidthRatio = this.gameWidth / this.safeWidth;
     const gameHeightRatio = this.gameHeight / this.safeHeight;
 
-    const deltaX = (scale.x - 1) / (gameWidthRatio - 1);
-    const deltaY = (scale.y - 1) / (gameHeightRatio - 1);
+    let deltaX = (scale.x - 1) / (gameWidthRatio - 1);
+    let deltaY = (scale.y - 1) / (gameHeightRatio - 1);
+
+    //FIXME: NAN Bug from 0 / 0;
+    deltaX = deltaX || 0;
+    deltaY = deltaY || 0;
 
     const x = (this.gameWidth - this.safeWidth) * deltaX * 0.5;
     const y = (this.gameHeight - this.safeHeight) * deltaY * 0.5;
