@@ -21,13 +21,13 @@
         -   [Parameters][17]
     -   [delete][18]
         -   [Parameters][19]
--   [Point][20]
--   [Point][21]
--   [PositionCallback][22]
-    -   [Parameters][23]
--   [Anchor][24]
-    -   [updatePosition][25]
-        -   [Parameters][26]
+-   [Anchor][20]
+    -   [updatePosition][21]
+        -   [Parameters][22]
+-   [Point][23]
+-   [Point][24]
+-   [PositionCallback][25]
+    -   [Parameters][26]
 -   [ScaleCallback][27]
     -   [Parameters][28]
 -   [ScaleManager][29]
@@ -62,14 +62,14 @@
     -   [volume][58]
         -   [Parameters][59]
     -   [volume][60]
--   [filterType][61]
--   [ColorFilter][62]
-    -   [applyFilter][63]
-        -   [Parameters][64]
-    -   [changeFilter][65]
-        -   [Parameters][66]
-    -   [removeFilter][67]
-    -   [types][68]
+-   [ColorFilter][61]
+    -   [applyFilter][62]
+        -   [Parameters][63]
+    -   [changeFilter][64]
+        -   [Parameters][65]
+    -   [removeFilter][66]
+    -   [types][67]
+-   [filterType][68]
 -   [KeyState][69]
     -   [Properties][70]
 -   [Controller][71]
@@ -296,6 +296,19 @@ Removes data from SpringRoll Container
 
 -   `name` **[string][209]** 
 
+## Anchor
+
+### updatePosition
+
+#### Parameters
+
+-   `param` **[object][211]** 
+    -   `param.offset` **[Point][212]** 
+    -   `param.halfWidth` **[Number][207]** 
+    -   `param.halfHeight` **[Number][207]** 
+
+Returns **void** @memberof Anchor
+
 ## Point
 
 Type: {x: [Number][207], y: [Number][207]}
@@ -314,19 +327,6 @@ Type: [Function][208]
 
 -   `x` **[Number][207]** horizontal position relative to anchor direction
 -   `y` **[Number][207]** vertical position relative to anchor direction
-
-## Anchor
-
-### updatePosition
-
-#### Parameters
-
--   `param` **[object][211]** 
-    -   `param.offset` **[Point][212]** 
-    -   `param.halfWidth` **[Number][207]** 
-    -   `param.halfHeight` **[Number][207]** 
-
-Returns **void** @memberof Anchor
 
 ## ScaleCallback
 
@@ -492,10 +492,6 @@ Returns the current volume of the announcer.
 
 Returns **[number][207]** 
 
-## filterType
-
-Type: (`"protanopia"` \| `"protanomaly"` \| `"deuteranopia"` \| `"deuteranomaly"` \| `"tritanopia"` \| `"tritanomaly"` \| `"achromatopsia"` \| `"achromatomaly"`)
-
 ## ColorFilter
 
 The Color filter allows you to simulate colorblindness.
@@ -529,6 +525,10 @@ Supported filter types.
 
 Returns **[object][211]** Returns an object { name, value } with the colorblindness type:
 (Protanopia, Protanomaly, Deuteranopia, Deuteranomaly, Tritanopia, Tritanomaly, Achromatopsia, Achromatomaly)
+
+## filterType
+
+Type: (`"protanopia"` \| `"protanomaly"` \| `"deuteranopia"` \| `"deuteranomaly"` \| `"tritanopia"` \| `"tritanomaly"` \| `"achromatopsia"` \| `"achromatomaly"`)
 
 ## KeyState
 
@@ -1190,17 +1190,17 @@ Returns **[Promise][210]** A promise indicating when the plugin is finished load
 
 [19]: #parameters-5
 
-[20]: #point
+[20]: #anchor
 
-[21]: #point-1
+[21]: #updateposition
 
-[22]: #positioncallback
+[22]: #parameters-6
 
-[23]: #parameters-6
+[23]: #point
 
-[24]: #anchor
+[24]: #point-1
 
-[25]: #updateposition
+[25]: #positioncallback
 
 [26]: #parameters-7
 
@@ -1272,21 +1272,21 @@ Returns **[Promise][210]** A promise indicating when the plugin is finished load
 
 [60]: #volume-1
 
-[61]: #filtertype
+[61]: #colorfilter
 
-[62]: #colorfilter
+[62]: #applyfilter
 
-[63]: #applyfilter
+[63]: #parameters-20
 
-[64]: #parameters-20
+[64]: #changefilter
 
-[65]: #changefilter
+[65]: #parameters-21
 
-[66]: #parameters-21
+[66]: #removefilter
 
-[67]: #removefilter
+[67]: #types
 
-[68]: #types
+[68]: #filtertype
 
 [69]: #keystate
 
