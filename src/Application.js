@@ -110,7 +110,7 @@ export class Application {
       const rawValue = decodeURIComponent(matchedToken.split('=')[1]);
 
       try {
-        this.playOptions = JSON.parse(rawValue);
+        this.state.playOptions.value = JSON.parse(rawValue);
       } catch (e) {
         Debugger.log(
           'warn',
