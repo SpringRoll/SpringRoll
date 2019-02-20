@@ -156,8 +156,9 @@ export class Application {
   }
 
   /**
-   *
-   * @return {void}@memberof Application
+   * preloads, initializes and starts plugins.
+   * @return {void}
+   * @memberof Application
    */
   setupPlugins() {
     const preloads = [];
