@@ -62,7 +62,6 @@ describe('Application', () => {
   });
 
   describe('constructor', () => {
-
     it('should default features to false for ones that are not set', () => {
       const application = new Application({ features: { captions: true } });
       expect(application.features.captions).to.equal(true);
@@ -92,69 +91,129 @@ describe('Application', () => {
       expect(application.features.sfx).to.equal(true);
       expect(application.features.sound).to.equal(true);
     });
-  });
 
-  it('should run preload on all plugins and then notify listeners that the app is ready', done => {
-    const plugin = new SuccessPlugin();
-    Application.uses(plugin);
+    it('should run preload on all plugins and then notify listeners that the app is ready', done => {
+      const plugin = new SuccessPlugin();
+      Application.uses(plugin);
 
-    const app = new Application();
-    app.state.ready.subscribe(function(isReady) {
-      expect(isReady).to.be.true;
-      expect(plugin.preloadCalled).to.be.true;
-      done();
+      const app = new Application();
+      app.state.ready.subscribe(function(isReady) {
+        expect(isReady).to.be.true;
+        expect(plugin.preloadCalled).to.be.true;
+        done();
+      });
+    });
+
+    it('should continue if a plugin preload fails', done => {
+      const plugin = new FailPlugin();
+      Application.uses(plugin);
+
+      const app = new Application();
+      app.state.ready.subscribe(function(isReady) {
+        expect(isReady).to.be.true;
+        expect(plugin.preloadCalled).to.be.true;
+        done();
+      });
+    });
+
+    it('should continue loading other plugins if another plugins preload fails', done => {
+      const pluginA = new FailPlugin();
+      Application.uses(pluginA);
+
+      const pluginB = new SuccessPlugin();
+      Application.uses(pluginB);
+
+      const app = new Application();
+      app.state.ready.subscribe(function(isReady) {
+        expect(isReady).to.be.true;
+        expect(pluginB.preloadCalled).to.be.true;
+        done();
+      });
+    });
+
+    it('should not call init on a plugin that has failed its preload', done => {
+      const plugin = new FailPlugin();
+      Application.uses(plugin);
+
+      const app = new Application();
+      app.state.ready.subscribe(function(isReady) {
+        expect(isReady).to.be.true;
+        expect(!plugin.initCalled).to.be.true;
+        done();
+      });
+    });
+
+    it('should not call start on a plugin that has failed its preload', done => {
+      const plugin = new FailPlugin();
+      Application.uses(plugin);
+
+      const app = new Application();
+      app.state.ready.subscribe(function(isReady) {
+        expect(isReady).to.be.true;
+        expect(!plugin.startCalled).to.be.true;
+        done();
+      });
+    });
+
+    it('should remove plugins that fail to preload', done => {
+      const plugin = new FailPlugin();
+      Application.uses(plugin);
+
+      const app = new Application();
+      app.state.ready.subscribe(function(isReady) {
+        expect(isReady).to.be.true;
+        expect(Application._plugins.length).to.equal(0);
+        done();
+      });
     });
   });
 
-  it('should continue if a plugin preload fails', done => {
-    const plugin = new FailPlugin();
-    Application.uses(plugin);
+  describe('getPlugin', () => {
+    beforeEach(() => {
+      // remove any old plugins
+      Application._plugins = [];
+    });
 
-    const app = new Application();
-    app.state.ready.subscribe(function(isReady) {
-      expect(isReady).to.be.true;
-      expect(plugin.preloadCalled).to.be.true;
-      done();
+    it('should return a plugin', done => {
+      const plugin = new SuccessPlugin();
+      Application.uses(plugin);
+
+      const app = new Application();
+      app.state.ready.subscribe(function(isReady) {
+        expect(isReady).to.be.true;
+
+        const found = Application.getPlugin('success plugin');
+        expect(found).to.be.instanceOf(SuccessPlugin);
+        done();
+      });
+    });
+
+    it('should return a undefined if plugin is not found', done => {
+      const plugin = new SuccessPlugin();
+      Application.uses(plugin);
+
+      const app = new Application();
+      app.state.ready.subscribe(function(isReady) {
+        expect(isReady).to.be.true;
+
+        const found = Application.getPlugin('not a plugin name');
+        expect(found).to.be.undefined;
+        done();
+      });
+    });
+
+    it('should not return plugins that fail to preload', done => {
+      const plugin = new FailPlugin();
+      Application.uses(plugin);
+
+      const app = new Application();
+      app.state.ready.subscribe(function(isReady) {
+        expect(isReady).to.be.true;
+
+        const found = Application.getPlugin('failed plugin');
+        expect(found).to.be.undefined;
+        done();
+      });
     });
   });
-
-  it('should continue loading other plugins if another plugin\'s preload fails', done =>{
-    const pluginA = new FailPlugin();
-    Application.uses(pluginA);
-
-    const pluginB = new SuccessPlugin();
-    Application.uses(pluginB);
-
-    const app = new Application();
-    app.state.ready.subscribe(function(isReady) {
-      expect(isReady).to.be.true;
-      expect(pluginB.preloadCalled).to.be.true;
-      done();
-    });
-  });
-
-  it('should not call init on a plugin that has failed it\'s preload', done =>{
-    const plugin = new FailPlugin();
-    Application.uses(plugin);
-
-    const app = new Application();
-    app.state.ready.subscribe(function(isReady) {
-      expect(isReady).to.be.true;
-      expect(!plugin.initCalled).to.be.true;
-      done();
-    });
-  });
-
-  it('should not call start on a plugin that has failed it\'s preload', done =>{
-    const plugin = new FailPlugin();
-    Application.uses(plugin);
-
-    const app = new Application();
-    app.state.ready.subscribe(function(isReady) {
-      expect(isReady).to.be.true;
-      expect(!plugin.startCalled).to.be.true;
-      done();
-    });
-  });
-
 });

@@ -169,22 +169,30 @@ export class Application {
       preloads.push(
         plugin.preload(this).catch(function preloadFail(error) {
           plugin.preloadFailed = true;
-          console.warn(plugin.name, error);
+          console.warn(plugin.name, 'Preload Failed:', error);
         })
       );
     });
 
+    // ~wait for all preloads to resolve
     return Promise.all(preloads).then(() => {
+      // Remove plugins that fail to load.
+      Application._plugins = Application._plugins.filter(
+        plugin => plugin.preloadFailed != true
+      );
+
+      //init
       Application._plugins.forEach(plugin => {
-        if (!plugin.init || plugin.preloadFailed) {
+        if (!plugin.init) {
           return;
         }
 
         plugin.init(this);
       });
 
+      //start
       Application._plugins.forEach(plugin => {
-        if (!plugin.start || plugin.preloadFailed) {
+        if (!plugin.start) {
           return;
         }
 
