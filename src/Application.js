@@ -203,6 +203,15 @@ export class Application {
   }
 
   /**
+   * returns instance of a plugin.
+   * @param  {string} name
+   * @return {ApplicationPlugin}@memberof Application
+   */
+  getPlugin(name) {
+    return Application.getPlugin(name);
+  }
+
+  /**
    * Validates that appropriate listeners are added for the features that were enabled in the constructor
    * @throws Error
    */
