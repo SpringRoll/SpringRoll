@@ -179,7 +179,7 @@ export class Application {
     return Promise.all(preloads).then(() => {
       // Remove plugins that fail to load.
       Application._plugins = Application._plugins.filter(
-        plugin => plugin.preloadFailed != true
+        plugin => plugin.preloadFailed !== true
       );
 
       //init
