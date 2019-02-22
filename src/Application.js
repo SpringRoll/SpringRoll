@@ -125,25 +125,7 @@ export class Application {
       e => (this.state.playOptions.value = e.data)
     );
 
-    // check for any invalid plugins
-    const errorMessages = Application.validatePlugins();
-    if (errorMessages.length > 0) {
-      const message = errorMessages.join('. ') + '.';
-      throw new Error(message);
-    }
-
-    Application.sortPlugins();
-
-    Application._plugins.forEach(plugin => plugin.setup(this));
-
-    // loop over each plugin and chain their asynchronous preload calls in order. This enforces load order for
-    // asynchronous tasks too, given that we just sorted them
-    let preloader = Promise.resolve();
-    for (const plugin of Application._plugins) {
-      preloader = preloader.then(() => plugin.preload(this));
-    }
-
-    preloader
+    this.setupPlugins()
       .catch(e => {
         Debugger.log('warn', e);
       })
@@ -171,6 +153,63 @@ export class Application {
 
       this.hints.play();
     });
+  }
+
+  /**
+   * preloads, initializes and starts plugins.
+   * @return {Promise<void>}
+   * @memberof Application
+   */
+  setupPlugins() {
+    const preloads = [];
+    Application._plugins.forEach(plugin => {
+      if (!plugin.preload) {
+        return;
+      }
+
+      preloads.push(
+        plugin.preload(this).catch(function preloadFail(error) {
+          plugin.preloadFailed = true;
+          console.warn(plugin.name, 'Preload Failed:', error);
+        })
+      );
+    });
+
+    // ~wait for all preloads to resolve
+    return Promise.all(preloads).then(() => {
+      // Remove plugins that fail to load.
+      Application._plugins = Application._plugins.filter(
+        plugin => plugin.preloadFailed !== true
+      );
+
+      //init
+      Application._plugins.forEach(plugin => {
+        if (!plugin.init) {
+          return;
+        }
+
+        plugin.init(this);
+      });
+
+      //start
+      Application._plugins.forEach(plugin => {
+        if (!plugin.start) {
+          return;
+        }
+
+        plugin.start(this);
+      });
+    });
+  }
+
+  /**
+   * returns instance of a plugin.
+   * @param  {string} name
+   * @return {SpringRoll.ApplicationPlugin | undefined}
+   * @memberof Application
+   */
+  getPlugin(name) {
+    return Application.getPlugin(name);
   }
 
   /**
@@ -208,131 +247,6 @@ export class Application {
       );
     }
   }
-
-  /**
-   * Validates every plugin to make sure it has it's required dependencies
-   *
-   * @return Array<string>
-   */
-  static validatePlugins() {
-    const errors = [];
-
-    const registeredPluginNames = Application._plugins.map(
-      plugin => plugin.name
-    );
-
-    Application._plugins.forEach(plugin => {
-      const name = plugin.name;
-
-      // for this plugins, find all required plugins that are missing from the full plugin list
-      const missingRequired = plugin.required
-        .filter(name => registeredPluginNames.indexOf(name) < 0)
-        .map(name => `"${name}"`); // format them too
-
-      if (missingRequired.length === 0) {
-        return;
-      }
-
-      // if there were required plugins not in Application._plugins, add this to the error list for later
-      const errorMessage = `Application plugin "${name}" missing required plugins ${missingRequired.join(
-        ', '
-      )}`;
-      errors.push(errorMessage);
-    });
-
-    return errors;
-  }
-
-  /**
-   * Helper method for sorting plugins in place. Looks at dependency order and performs a topological sort to enforce
-   * proper load error
-   */
-  static sortPlugins() {
-    if (Application._plugins.length === 0) {
-      return; // nothing to do
-    }
-
-    const pluginNames = Application._plugins.map(plugin => plugin.name);
-    const pluginLookup = {};
-    Application._plugins.forEach(plugin => {
-      // for any optional plugins that are missing remove them from the list and warn along the way
-      const optionalAvailablePlugins = plugin.optional.filter(name => {
-        if (pluginNames.indexOf(name) === -1) {
-          Debugger.log(
-            'warn',
-            plugin.name + ' missing optional plugin ' + name
-          );
-          return false;
-        }
-
-        return true;
-      });
-
-      pluginLookup[plugin.name] = {
-        plugin: plugin,
-        name: plugin.name,
-        dependencies: []
-          .concat(plugin.required)
-          .concat(optionalAvailablePlugins)
-      };
-    });
-
-    const visited = [];
-    const toVisit = new Set();
-
-    // first, add items that do not have any dependencies
-    Object.keys(pluginLookup)
-      .map(key => pluginLookup[key])
-      .filter(lookup => lookup.dependencies.length === 0)
-      .forEach(lookup => toVisit.add(lookup.name));
-
-    // if there are no items to visit, throw an error
-    if (toVisit.size === 0) {
-      throw new Error('Every registered plugin has a dependency!');
-    }
-
-    while (toVisit.size > 0) {
-      // pick an item and remove it from the list
-      const item = toVisit.values().next().value;
-      toVisit.delete(item);
-
-      // add it to the visited list
-      visited.push(item);
-
-      // for every plugin
-      Object.keys(pluginLookup).forEach(pluginName => {
-        const index = pluginLookup[pluginName].dependencies.indexOf(item);
-
-        // remove it as a dependency
-        if (index > -1) {
-          pluginLookup[pluginName].dependencies.splice(index, 1);
-        }
-
-        // if there are no more dependencies left, we can visit this item now
-        if (
-          pluginLookup[pluginName].dependencies.length === 0 &&
-          visited.indexOf(pluginName) === -1
-        ) {
-          toVisit.add(pluginName);
-        }
-      });
-    }
-
-    // if there are any dependencies left, that means that there's a cycle
-    const uncaughtKeys = Object.keys(pluginLookup).filter(
-      pluginName => pluginLookup[pluginName].dependencies.length > 0
-    );
-
-    if (uncaughtKeys.length > 0) {
-      throw new Error('Dependency graph has a cycle');
-    }
-
-    // now, rebuild the array
-    Application._plugins = [];
-    visited.forEach(name => {
-      Application._plugins.push(pluginLookup[name].plugin);
-    });
-  }
 }
 
 /**
@@ -347,4 +261,15 @@ Application._plugins = [];
  */
 Application.uses = function(plugin) {
   Application._plugins.push(plugin);
+};
+
+/**
+ * Finds a plugin by name.
+ * @param {string} name The name of the plugin.
+ * @returns {SpringRoll.ApplicationPlugin | undefined}
+ */
+Application.getPlugin = function(name) {
+  return Application._plugins.find(function(plugin) {
+    return plugin.name === name;
+  });
 };
