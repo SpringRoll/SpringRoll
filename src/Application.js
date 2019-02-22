@@ -157,7 +157,7 @@ export class Application {
 
   /**
    * preloads, initializes and starts plugins.
-   * @return {void}
+   * @return {Promise<void>}
    * @memberof Application
    */
   setupPlugins() {
@@ -205,7 +205,8 @@ export class Application {
   /**
    * returns instance of a plugin.
    * @param  {string} name
-   * @return {ApplicationPlugin}@memberof Application
+   * @return {SpringRoll.ApplicationPlugin | undefined}
+   * @memberof Application
    */
   getPlugin(name) {
     return Application.getPlugin(name);
@@ -265,6 +266,7 @@ Application.uses = function(plugin) {
 /**
  * Finds a plugin by name.
  * @param {string} name The name of the plugin.
+ * @returns {SpringRoll.ApplicationPlugin | undefined}
  */
 Application.getPlugin = function(name) {
   return Application._plugins.find(function(plugin) {

@@ -12,8 +12,7 @@ export type ApplicationFeatures = {
   musicVolume?: boolean,
   voVolume?: boolean,
   sfxVolume?: boolean
-}
-;
+};
 
 export type ApplicationConfig = {
   features?: ApplicationFeatures,
@@ -37,18 +36,19 @@ export class Application {
   hints: IHintPlayer;
   features: ApplicationFeatures;
   container: BellhopIframe.Bellhop;
-
+  setupPlugins(): Promise<void>;
+  getPlugin(name: string): ApplicationPlugin | undefined
   static _plugins: ApplicationPlugin[];
-  static validatePlugins: string[];
-  static sortPlugins: void;
+  static getPlugin(name: string): ApplicationPlugin | undefined
   static uses(plugin: ApplicationPlugin): void
 }
 
 export interface ApplicationPlugin {
   constructor(priority?: number)
-  priority: number;
-  setup(): any;
-  preload(): Promise<any>;
+  name: string;
+  start(app: Application): void;
+  preload(app: Application): Promise<any>;
+  init(app: Application): void;
 }
 
 export class ApplicationPlugin implements ApplicationPlugin {}
