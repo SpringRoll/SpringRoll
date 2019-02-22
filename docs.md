@@ -115,7 +115,7 @@
     -   [value][111]
         -   [Parameters][112]
 -   [Caption][113]
-    -   [Properties][114]
+    -   [Parameters][114]
     -   [update][115]
         -   [Parameters][116]
     -   [updateState][117]
@@ -126,7 +126,7 @@
     -   [updateTimeIndex][122]
         -   [Parameters][123]
 -   [Caption][124]
-    -   [Parameters][125]
+    -   [Properties][125]
     -   [update][126]
         -   [Parameters][127]
     -   [updateState][128]
@@ -144,13 +144,13 @@
     -   [createLine][140]
         -   [Parameters][141]
 -   [CaptionPlayer][142]
-    -   [update][143]
-        -   [Parameters][144]
-    -   [start][145]
-        -   [Parameters][146]
-    -   [stop][147]
--   [CaptionPlayer][148]
-    -   [Parameters][149]
+    -   [Parameters][143]
+    -   [update][144]
+        -   [Parameters][145]
+    -   [start][146]
+        -   [Parameters][147]
+    -   [stop][148]
+-   [CaptionPlayer][149]
     -   [update][150]
         -   [Parameters][151]
     -   [start][152]
@@ -179,17 +179,17 @@
     -   [lineEnd][175]
     -   [sanitize][176]
         -   [Parameters][177]
--   [Localizer.Options][178]
--   [Localizer][179]
-    -   [resolve][180]
-        -   [Parameters][181]
-    -   [setPrimaryLocale][182]
-        -   [Parameters][183]
-    -   [setFallbackLocale][184]
-        -   [Parameters][185]
-    -   [getLocaleKey][186]
-        -   [Parameters][187]
-    -   [getBrowserLanguages][188]
+-   [Localizer][178]
+    -   [resolve][179]
+        -   [Parameters][180]
+    -   [setPrimaryLocale][181]
+        -   [Parameters][182]
+    -   [setFallbackLocale][183]
+        -   [Parameters][184]
+    -   [getLocaleKey][185]
+        -   [Parameters][186]
+    -   [getBrowserLanguages][187]
+-   [Localizer.Options][188]
 -   [ApplicationPlugin][189]
     -   [setup][190]
     -   [preload][191]
@@ -713,12 +713,9 @@ Sets the value of the property and notifies all listeners of the change
 
 ## Caption
 
-### Properties
+### Parameters
 
--   `lines` **[Array][200]&lt;[TimedLine][203]>** 
--   `time` **[number][192]** 
--   `lineIndex` **[number][192]** 
--   `renderer` **[IRender][204]** 
+-   `lines`  
 
 ### update
 
@@ -763,9 +760,12 @@ Updates the current time and index of the caption instance
 
 ## Caption
 
-### Parameters
+### Properties
 
--   `lines`  
+-   `lines` **[Array][200]&lt;[TimedLine][203]>** 
+-   `time` **[number][192]** 
+-   `lineIndex` **[number][192]** 
+-   `renderer` **[IRender][204]** 
 
 ### update
 
@@ -844,8 +844,10 @@ Returns **[TimedLine][203]** new TimedLine;
 
 ## CaptionPlayer
 
-CaptionPlayer is used to start, stop and update captions.
- It applies the content of an active caption to a given CaptionRenderer.
+### Parameters
+
+-   `captions`  
+-   `renderer`  
 
 ### update
 
@@ -872,10 +874,8 @@ Stops any caption currently playing.
 
 ## CaptionPlayer
 
-### Parameters
-
--   `captions`  
--   `renderer`  
+CaptionPlayer is used to start, stop and update captions.
+ It applies the content of an active caption to a given CaptionRenderer.
 
 ### update
 
@@ -1002,10 +1002,6 @@ Will attempt to remove all html from a string before it's renderer to the page
 
 -   `html` **any** 
 
-## Localizer.Options
-
-Type: {language: [string][194], fallback: [string][194]}
-
 ## Localizer
 
 ### resolve
@@ -1042,6 +1038,10 @@ Returns **[boolean][197]** True if fallback is set.
 Returns **[string][194]** 
 
 ### getBrowserLanguages
+
+## Localizer.Options
+
+Type: {language: [string][194], fallback: [string][194]}
 
 ## ApplicationPlugin
 
@@ -1285,29 +1285,29 @@ Returns **[Promise][195]** A promise indicating when the plugin is finished load
 
 [113]: #caption
 
-[114]: #properties-7
+[114]: #parameters-34
 
 [115]: #update-1
 
-[116]: #parameters-34
+[116]: #parameters-35
 
 [117]: #updatestate-1
 
-[118]: #parameters-35
+[118]: #parameters-36
 
 [119]: #isfinished
 
 [120]: #start-1
 
-[121]: #parameters-36
+[121]: #parameters-37
 
 [122]: #updatetimeindex
 
-[123]: #parameters-37
+[123]: #parameters-38
 
 [124]: #caption-1
 
-[125]: #parameters-38
+[125]: #properties-7
 
 [126]: #update-2
 
@@ -1343,19 +1343,19 @@ Returns **[Promise][195]** A promise indicating when the plugin is finished load
 
 [142]: #captionplayer
 
-[143]: #update-3
+[143]: #parameters-46
 
-[144]: #parameters-46
+[144]: #update-3
 
-[145]: #start-3
+[145]: #parameters-47
 
-[146]: #parameters-47
+[146]: #start-3
 
-[147]: #stop-1
+[147]: #parameters-48
 
-[148]: #captionplayer-1
+[148]: #stop-1
 
-[149]: #parameters-48
+[149]: #captionplayer-1
 
 [150]: #update-4
 
@@ -1413,27 +1413,27 @@ Returns **[Promise][195]** A promise indicating when the plugin is finished load
 
 [177]: #parameters-57
 
-[178]: #localizeroptions
+[178]: #localizer
 
-[179]: #localizer
+[179]: #resolve
 
-[180]: #resolve
+[180]: #parameters-58
 
-[181]: #parameters-58
+[181]: #setprimarylocale
 
-[182]: #setprimarylocale
+[182]: #parameters-59
 
-[183]: #parameters-59
+[183]: #setfallbacklocale
 
-[184]: #setfallbacklocale
+[184]: #parameters-60
 
-[185]: #parameters-60
+[185]: #getlocalekey
 
-[186]: #getlocalekey
+[186]: #parameters-61
 
-[187]: #parameters-61
+[187]: #getbrowserlanguages
 
-[188]: #getbrowserlanguages
+[188]: #localizeroptions
 
 [189]: #applicationplugin
 
