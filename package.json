@@ -53,5 +53,17 @@
     "@babel/polyfill": "^7.0.0",
     "bellhop-iframe": "^2.3.1",
     "rollup-plugin-terser": "^3.0.0"
+  },
+  "browserify": {
+    "transform": [
+      [
+        "babelify",
+        {
+          "presets": [
+            "@babel/preset-env"
+          ]
+        }
+      ]
+    ]
   }
 }
