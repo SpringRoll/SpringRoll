@@ -1,4 +1,5 @@
 import { Debugger } from '../debug';
+import { ScaledEntity } from './ScaledEntity';
 
 /**
  * @typedef {{x:Number, y:Number}} Point
@@ -7,15 +8,16 @@ import { Debugger } from '../debug';
 /**
  * callback to used scale game and canvas
  * @callback PositionCallback
- * @param {Number} x horizontal position relative to anchor direction
- * @param {Number} y vertical position relative to anchor direction
+ * @param {Point} position position relative to anchor direction
  */
 
 /**
+ * Used to fix positions to a relative point in the viewport.
  * @export
  * @class Anchor
+ * @implements ScaledEntity
  */
-export class Anchor {
+export class Anchor extends ScaledEntity {
   /**
    * Creates an instance of AnchoredEntity.
    * @param  {object} param
@@ -25,6 +27,7 @@ export class Anchor {
    * @memberof Anchor
    */
   constructor({ position, direction, callback } = {}) {
+    super();
     this.position = position || { x: 0, y: 0 };
 
     this.direction = direction || { x: -1, y: -1 };
@@ -45,11 +48,13 @@ export class Anchor {
   /**
    * @param  {object} param
    * @param  {Point}  param.offset
-   * @param  {Number} param.halfWidth
-   * @param  {Number} param.halfHeight
+   * @param  {Point} param.gameSize
    * @return {void} @memberof Anchor
    */
-  updatePosition({ offset, halfWidth, halfHeight }) {
+  onResize({ offset, gameSize }) {
+    const halfWidth = gameSize.x / 2;
+    const halfHeight = gameSize.y / 2;
+
     const x =
       this.position.x * -this.direction.x -
       offset.x * this.direction.x +

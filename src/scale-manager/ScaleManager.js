@@ -1,7 +1,8 @@
 import { Debugger } from '../debug';
 
 /**
- * @typedef {import('./Anchor').Anchor} Anchor
+ * @typedef {import('./ScaledEntity').ScaledEntity} ScaledEntity
+ * @typedef {import('./ScaledEntity').EntityResizeEvent} EntityResizeEvent
  * @typedef {{x:Number, y:Number}} Point
  */
 
@@ -42,8 +43,8 @@ export class ScaleManager {
 
     this.onResize = this.onResize.bind(this);
 
-    /** @type {Anchor[]} */
-    this.anchors = [];
+    /** @type {ScaledEntity[]} */
+    this.entities = [];
 
     if (callback instanceof Function) {
       this.enable(callback);
@@ -73,21 +74,21 @@ export class ScaleManager {
         x: (this.gameWidth / nWidth) * scaleMod,
         y: (this.gameHeight / nHeight) * scaleMod
       };
+      const offset = this.calcOffset(scale);
+      const gameSize = { x: this.gameWidth, y: this.gameHeight };
+
+      /** @type {EntityResizeEvent} */
+      this.resizeEventData = Object.freeze({
+        scale,
+        offset,
+        gameSize
+      });
 
       this.callback({ width: nWidth, height: nHeight, scale });
 
-      this.offset = this.calcOffset(scale);
-
-      const halfWidth = this.gameWidth * 0.5;
-      const halfHeight = this.gameHeight * 0.5;
-
-      for (let i = 0, length = this.anchors.length; i < length; i++) {
-        const anchor = this.anchors[i];
-        anchor.updatePosition({
-          offset: this.offset,
-          halfWidth,
-          halfHeight
-        });
+      for (let i = 0, length = this.entities.length; i < length; i++) {
+        const entity = this.entities[i];
+        entity.onResize(this.resizeEventData);
       }
     };
 
@@ -104,14 +105,13 @@ export class ScaleManager {
    * @memberof ScaleManager
    */
   calcOffset(scale) {
-    // this has a small error that still needs to be tracked down
     const gameWidthRatio = this.gameWidth / this.safeWidth;
     const gameHeightRatio = this.gameHeight / this.safeHeight;
 
     let deltaX = (scale.x - 1) / (gameWidthRatio - 1);
     let deltaY = (scale.y - 1) / (gameHeightRatio - 1);
 
-    //FIXME: NAN Bug from 0 / 0;
+    //FIXES: NAN Bug from 0 / 0;
     deltaX = deltaX || 0;
     deltaY = deltaY || 0;
 
@@ -123,32 +123,28 @@ export class ScaleManager {
 
   /**
    * Adds and anchor to be updated during resize
-   * @param  {Anchor} anchor
+   * @param  {ScaledEntity} entity
    * @memberof ScaleManager
    */
-  addAnchor(anchor) {
-    if (this.anchors.includes(anchor)) {
+  addEntity(entity) {
+    if (this.entities.includes(entity)) {
       return;
     }
-    const halfWidth = this.gameWidth * 0.5;
-    const halfHeight = this.gameHeight * 0.5;
 
-    anchor.updatePosition({
-      offset: this.offset,
-      halfWidth,
-      halfHeight
-    });
+    if (this.resizeEventData) {
+      entity.onResize(this.resizeEventData);
+    }
 
-    this.anchors.push(anchor);
+    this.entities.push(entity);
   }
 
   /**
    * Removes an anchor
-   * @param  {any} anchor
-   * @return {void}@memberof ScaleManager
+   * @param  {ScaledEntity} entity
+   * @return {void} @memberof ScaleManager
    */
-  removeAnchor(anchor) {
-    this.anchors = this.anchors.filter(a => a !== anchor);
+  removeEntity(entity) {
+    this.entities = this.entities.filter(e => e !== entity);
   }
 
   /**

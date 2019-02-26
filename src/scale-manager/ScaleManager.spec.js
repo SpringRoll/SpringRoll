@@ -56,31 +56,31 @@ describe('Scale Manager', () => {
 
   describe('--Anchor Handling--', () => {
     beforeEach(() => {
-      sm.anchors = [];
+      sm.entities = [];
     });
 
     it('should add an anchor', () => {
-      sm.addAnchor(new Anchor());
+      sm.addEntity(new Anchor());
 
-      expect(sm.anchors.length).to.equal(1);
+      expect(sm.entities.length).to.equal(1);
     });
 
     it('should not add an anchor if it already exists', () => {
       const testAnchor = new Anchor();
 
-      sm.addAnchor(testAnchor);
-      sm.addAnchor(testAnchor);
+      sm.addEntity(testAnchor);
+      sm.addEntity(testAnchor);
 
-      expect(sm.anchors.length).to.equal(1);
+      expect(sm.entities.length).to.equal(1);
     });
 
     it('should remove anchors', () => {
       const testAnchor = new Anchor();
 
-      sm.addAnchor(testAnchor);
-      sm.removeAnchor(testAnchor);
+      sm.addEntity(testAnchor);
+      sm.removeEntity(testAnchor);
 
-      expect(sm.anchors.length).to.equal(0);
+      expect(sm.entities.length).to.equal(0);
     });
 
     it('should invoke anchor update when added', done => {
@@ -89,7 +89,7 @@ describe('Scale Manager', () => {
           done();
         }
       });
-      sm.addAnchor(testAnchor);
+      sm.addEntity(testAnchor);
     });
 
     it('should invoke anchor update on resize', done => {
@@ -104,7 +104,7 @@ describe('Scale Manager', () => {
         }
       });
 
-      sm.addAnchor(testAnchor);
+      sm.addEntity(testAnchor);
 
       window.dispatchEvent(newEvent('resize'));
       window.dispatchEvent(newEvent('resize'));

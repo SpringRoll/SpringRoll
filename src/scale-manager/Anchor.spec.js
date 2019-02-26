@@ -12,10 +12,9 @@ describe('Anchor', () => {
     let anchor;
 
     afterEach(() => {
-      anchor.updatePosition({
+      anchor.onResize({
         offset: { x: 15, y: 12 },
-        halfWidth: 400,
-        halfHeight: 400
+        gameSize: { x: 800, y: 800 }
       });
     });
 
