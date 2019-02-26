@@ -21,17 +21,17 @@
         -   [Parameters][17]
     -   [delete][18]
         -   [Parameters][19]
--   [PositionCallback][20]
-    -   [Parameters][21]
--   [Point][22]
--   [Point][23]
+-   [Point][20]
+-   [Point][21]
+-   [PositionCallback][22]
+    -   [Parameters][23]
 -   [Anchor][24]
     -   [onResize][25]
         -   [Parameters][26]
--   [EntityResizeEvent][27]
--   [ScaledEntity][28]
-    -   [onResize][29]
-        -   [Parameters][30]
+-   [ScaledEntity][27]
+    -   [onResize][28]
+        -   [Parameters][29]
+-   [EntityResizeEvent][30]
 -   [ScaleCallback][31]
     -   [Parameters][32]
 -   [ScaleManager][33]
@@ -138,7 +138,7 @@
     -   [value][134]
         -   [Parameters][135]
 -   [Caption][136]
-    -   [Properties][137]
+    -   [Parameters][137]
     -   [update][138]
         -   [Parameters][139]
     -   [updateState][140]
@@ -149,7 +149,7 @@
     -   [updateTimeIndex][145]
         -   [Parameters][146]
 -   [Caption][147]
-    -   [Parameters][148]
+    -   [Properties][148]
     -   [update][149]
         -   [Parameters][150]
     -   [updateState][151]
@@ -305,6 +305,14 @@ Removes data from SpringRoll Container
 
 -   `name` **[string][218]** 
 
+## Point
+
+Type: {x: [Number][216], y: [Number][216]}
+
+## Point
+
+Type: {x: [Number][216], y: [Number][216]}
+
 ## PositionCallback
 
 callback to used scale game and canvas
@@ -314,14 +322,6 @@ Type: [Function][217]
 ### Parameters
 
 -   `position` **[Point][220]** position relative to anchor direction
-
-## Point
-
-Type: {x: [Number][216], y: [Number][216]}
-
-## Point
-
-Type: {x: [Number][216], y: [Number][216]}
 
 ## Anchor
 
@@ -337,10 +337,6 @@ Used to fix positions to a relative point in the viewport.
 
 Returns **void** @memberof Anchor
 
-## EntityResizeEvent
-
-Type: {offset: [Point][220], gameSize: [Point][220], scale: [Point][220]}
-
 ## ScaledEntity
 
 ### onResize
@@ -350,6 +346,10 @@ Type: {offset: [Point][220], gameSize: [Point][220], scale: [Point][220]}
 -   `event` **[EntityResizeEvent][222]** 
 
 Returns **void** @memberof ScaledEntity
+
+## EntityResizeEvent
+
+Type: {offset: [Point][220], gameSize: [Point][220], scale: [Point][220]}
 
 ## ScaleCallback
 
@@ -848,12 +848,9 @@ Sets the value of the property and notifies all listeners of the change
 
 ## Caption
 
-### Properties
+### Parameters
 
--   `lines` **[Array][223]&lt;[TimedLine][232]>** 
--   `time` **[number][216]** 
--   `lineIndex` **[number][216]** 
--   `renderer` **[IRender][233]** 
+-   `lines`  
 
 ### update
 
@@ -898,9 +895,12 @@ Updates the current time and index of the caption instance
 
 ## Caption
 
-### Parameters
+### Properties
 
--   `lines`  
+-   `lines` **[Array][223]&lt;[TimedLine][232]>** 
+-   `time` **[number][216]** 
+-   `lineIndex` **[number][216]** 
+-   `renderer` **[IRender][233]** 
 
 ### update
 
@@ -1238,13 +1238,13 @@ After all plugins inits has completed
 
 [19]: #parameters-5
 
-[20]: #positioncallback
+[20]: #point
 
-[21]: #parameters-6
+[21]: #point-1
 
-[22]: #point
+[22]: #positioncallback
 
-[23]: #point-1
+[23]: #parameters-6
 
 [24]: #anchor
 
@@ -1252,13 +1252,13 @@ After all plugins inits has completed
 
 [26]: #parameters-7
 
-[27]: #entityresizeevent
+[27]: #scaledentity
 
-[28]: #scaledentity
+[28]: #onresize-1
 
-[29]: #onresize-1
+[29]: #parameters-8
 
-[30]: #parameters-8
+[30]: #entityresizeevent
 
 [31]: #scalecallback
 
@@ -1472,29 +1472,29 @@ After all plugins inits has completed
 
 [136]: #caption
 
-[137]: #properties-6
+[137]: #parameters-43
 
 [138]: #update-1
 
-[139]: #parameters-43
+[139]: #parameters-44
 
 [140]: #updatestate-1
 
-[141]: #parameters-44
+[141]: #parameters-45
 
 [142]: #isfinished
 
 [143]: #start-1
 
-[144]: #parameters-45
+[144]: #parameters-46
 
 [145]: #updatetimeindex
 
-[146]: #parameters-46
+[146]: #parameters-47
 
 [147]: #caption-1
 
-[148]: #parameters-47
+[148]: #properties-6
 
 [149]: #update-2
 
