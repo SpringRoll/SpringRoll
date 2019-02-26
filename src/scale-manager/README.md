@@ -96,7 +96,7 @@ scaleManager.removeEntity(myEntity);
 
 ### Anchor
 
-An Anchor is a scaled entity used too keep UI elements in a relative position regardless of the size of the viewport. for example if you always wanted to keep a health bar in the top left corner:
+An Anchor is a scaled entity, provided by SpringRoll used too keep UI elements in a relative position regardless of the size of the viewport. for example if you always wanted to keep a health bar in the top left corner:
 
 ```javascript
 const healthBar = new StatusBar("#ff0000"); // <-- not a springroll object.

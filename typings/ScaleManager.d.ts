@@ -1,3 +1,5 @@
+import { ScaledEntity } from "../src/scale-manager/ScaledEntity";
+
 export interface Point {
   x: Number;
   y: Number;
@@ -10,6 +12,16 @@ export interface ScaleEvent {
 }
 
 export type ScaleCallback = (event:ScaleEvent) => void;
+
+export interface EntityResizeEvent {
+  offset: Point;
+  gameSize: Point;
+  scale: Point;
+}
+
+export interface ScaledEntity {
+  onResize(event: EntityResizeEvent):void
+}
 
 export interface ScaleManagerConfig {
   width: Number;
@@ -24,8 +36,8 @@ export class ScaleManager {
   disable(): void;
   enable(callback: ScaleCallback): void;
   onResize(event: UIEvent): void;
-  addAnchor(anchor: Anchor): void;
-  removeAnchore(anchor: Anchor): void;
+  addEntity(entity: ScaledEntity): void;
+  removeEntity(entity: ScaledEntity): void;
   calcOffset(scale:Point): Point;
 }
 
@@ -35,15 +47,9 @@ export interface AnchorConfig {
   callback: AnchorCallback;
 }
 
-export interface AnchorUpdateEvent {
-  offset: Point;
-  halfWidth: Number;
-  halfHeight: Number;
-}
-
 export type AnchorCallback = (position: Point) => void;
 
-export class Anchor {
+export class Anchor implements ScaledEntity {
   constructor(config: AnchorConfig);
-  updatePosition(event: AnchorUpdateEvent): void;
+  onResize(event: EntityResizeEvent): void;
 }
