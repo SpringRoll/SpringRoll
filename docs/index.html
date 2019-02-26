@@ -133,26 +133,6 @@
               
                 
                 <li><a
-                  href='#point'
-                  class="">
-                  Point
-                  
-                </a>
-                
-                </li>
-              
-                
-                <li><a
-                  href='#point'
-                  class="">
-                  Point
-                  
-                </a>
-                
-                </li>
-              
-                
-                <li><a
                   href='#positioncallback'
                   class="">
                   PositionCallback
@@ -176,9 +156,9 @@
                       <li class='h5'><span>Instance members</span></li>
                       
                       <li><a
-                        href='#anchorupdateposition'
+                        href='#anchoronresize'
                         class='regular pre-open'>
-                        #updatePosition
+                        #onResize
                       </a></li>
                       
                     </ul>
@@ -191,9 +171,57 @@
               
                 
                 <li><a
-                  href='#scalecallback'
+                  href='#point'
                   class="">
-                  ScaleCallback
+                  Point
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#point'
+                  class="">
+                  Point
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#scaledentity'
+                  class=" toggle-sibling">
+                  ScaledEntity
+                  <span class='icon'>▸</span>
+                </a>
+                
+                <div class='toggle-target display-none'>
+                  
+                  
+                    <ul class='list-reset py1-ul pl1'>
+                      <li class='h5'><span>Instance members</span></li>
+                      
+                      <li><a
+                        href='#scaledentityonresize'
+                        class='regular pre-open'>
+                        #onResize
+                      </a></li>
+                      
+                    </ul>
+                  
+                  
+                  
+                </div>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#entityresizeevent'
+                  class="">
+                  EntityResizeEvent
                   
                 </a>
                 
@@ -219,9 +247,9 @@
                       </a></li>
                     
                       <li><a
-                        href='#scalemanageraddanchor'
+                        href='#scalemanageraddentity'
                         class='regular pre-open'>
-                        .addAnchor
+                        .addEntity
                       </a></li>
                     
                     </ul>
@@ -231,15 +259,15 @@
                       <li class='h5'><span>Instance members</span></li>
                       
                       <li><a
-                        href='#scalemanageranchors'
+                        href='#scalemanagerentities'
                         class='regular pre-open'>
-                        #anchors
+                        #entities
                       </a></li>
                       
                       <li><a
-                        href='#scalemanagerremoveanchor'
+                        href='#scalemanagerremoveentity'
                         class='regular pre-open'>
-                        #removeAnchor
+                        #removeEntity
                       </a></li>
                       
                       <li><a
@@ -259,6 +287,26 @@
                   
                   
                 </div>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#scalecallback'
+                  class="">
+                  ScaleCallback
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#resizeeventdata'
+                  class="">
+                  resizeEventData
+                  
+                </a>
                 
                 </li>
               
@@ -358,16 +406,6 @@
               
                 
                 <li><a
-                  href='#filtertype'
-                  class="">
-                  filterType
-                  
-                </a>
-                
-                </li>
-              
-                
-                <li><a
                   href='#colorfilter'
                   class=" toggle-sibling">
                   ColorFilter
@@ -409,6 +447,16 @@
                   
                   
                 </div>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#filtertype'
+                  class="">
+                  filterType
+                  
+                </a>
                 
                 </li>
               
@@ -1996,110 +2044,6 @@
   
   <div class='clearfix'>
     
-    <h3 class='fl m0' id='point'>
-      Point
-    </h3>
-    
-    
-  </div>
-  
-
-  
- 
-  
-    <div class='pre p1 fill-light mt0'>Point</div>
-   
-  
-    <p>
-      Type:
-      {x: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a>, y: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a>}
-    </p>
-  
-  
-
-  
-  
-  
-  
-  
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-</section>
-
-        
-          
-          <section class='p2 mb2 clearfix bg-white minishadow'>
-
-  
-  <div class='clearfix'>
-    
-    <h3 class='fl m0' id='point'>
-      Point
-    </h3>
-    
-    
-  </div>
-  
-
-  
- 
-  
-    <div class='pre p1 fill-light mt0'>Point</div>
-   
-  
-    <p>
-      Type:
-      {x: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a>, y: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a>}
-    </p>
-  
-  
-
-  
-  
-  
-  
-  
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-</section>
-
-        
-          
-          <section class='p2 mb2 clearfix bg-white minishadow'>
-
-  
-  <div class='clearfix'>
-    
     <h3 class='fl m0' id='positioncallback'>
       PositionCallback
     </h3>
@@ -2112,7 +2056,7 @@
 
  
   
-    <div class='pre p1 fill-light mt0'>PositionCallback(x: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a>, y: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a>)</div>
+    <div class='pre p1 fill-light mt0'>PositionCallback(position: <a href="#point">Point</a>)</div>
    
   
     <p>
@@ -2135,17 +2079,8 @@
       
         <div class='space-bottom0'>
           <div>
-            <span class='code bold'>x</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a>)</code>
-	    horizontal position relative to anchor direction
-
-          </div>
-          
-        </div>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>y</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a>)</code>
-	    vertical position relative to anchor direction
+            <span class='code bold'>position</span> <code class='quiet'>(<a href="#point">Point</a>)</code>
+	    position relative to anchor direction
 
           </div>
           
@@ -2184,7 +2119,8 @@
   </div>
   
 
-  
+  <p>Used to fix positions to a relative point in the viewport.</p>
+
  
   
     <div class='pre p1 fill-light mt0'>new Anchor()</div>
@@ -2215,11 +2151,11 @@
     <div class='py1 quiet mt1 prose-big'>Instance Members</div>
     <div class="clearfix">
   
-    <div class='border-bottom' id='anchorupdateposition'>
+    <div class='border-bottom' id='anchoronresize'>
       <div class="clearfix small pointer toggle-sibling">
         <div class="py1 contain">
             <a class='icon pin-right py1 dark-link caret-right'>▸</a>
-            <span class='code strong strong truncate'>updatePosition(param)</span>
+            <span class='code strong strong truncate'>onResize(param)</span>
         </div>
       </div>
       <div class="clearfix display-none toggle-target">
@@ -2230,7 +2166,7 @@
   
  
   
-    <div class='pre p1 fill-light mt0'>updatePosition(param: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a>): void</div>
+    <div class='pre p1 fill-light mt0'>onResize(param: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a>): void</div>
    
   
   
@@ -2274,15 +2210,7 @@
 
               
                 <tr>
-  <td class='break-word'><span class='code bold'>param.halfWidth</span> <code class='quiet'><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a></code>
-  </td>
-  <td class='break-word'><span></span></td>
-</tr>
-
-
-              
-                <tr>
-  <td class='break-word'><span class='code bold'>param.halfHeight</span> <code class='quiet'><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a></code>
+  <td class='break-word'><span class='code bold'>param.gameSize</span> <code class='quiet'><a href="#point">Point</a></code>
   </td>
   <td class='break-word'><span></span></td>
 </tr>
@@ -2337,25 +2265,166 @@
   
   <div class='clearfix'>
     
-    <h3 class='fl m0' id='scalecallback'>
-      ScaleCallback
+    <h3 class='fl m0' id='point'>
+      Point
     </h3>
     
     
   </div>
   
 
-  <p>callback to used scale game and canvas</p>
-
+  
  
   
-    <div class='pre p1 fill-light mt0'>ScaleCallback(width: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a>, height: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a>, scale: <a href="#point">Point</a>)</div>
+    <div class='pre p1 fill-light mt0'>Point</div>
    
   
     <p>
       Type:
-      <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function">Function</a>
+      {x: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a>, y: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a>}
     </p>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='point'>
+      Point
+    </h3>
+    
+    
+  </div>
+  
+
+  
+ 
+  
+    <div class='pre p1 fill-light mt0'>Point</div>
+   
+  
+    <p>
+      Type:
+      {x: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a>, y: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a>}
+    </p>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='scaledentity'>
+      ScaledEntity
+    </h3>
+    
+    
+  </div>
+  
+
+  
+ 
+  
+    <div class='pre p1 fill-light mt0'>ScaledEntity</div>
+   
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Instance Members</div>
+    <div class="clearfix">
+  
+    <div class='border-bottom' id='scaledentityonresize'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>onResize(event)</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  
+ 
+  
+    <div class='pre p1 fill-light mt0'>onResize(event: <a href="#entityresizeevent">EntityResizeEvent</a>): void</div>
+   
   
   
 
@@ -2372,32 +2441,83 @@
       
         <div class='space-bottom0'>
           <div>
-            <span class='code bold'>width</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a>)</code>
-	    width canvas should be
-
-          </div>
-          
-        </div>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>height</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a>)</code>
-	    height canvas should be
-
-          </div>
-          
-        </div>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>scale</span> <code class='quiet'>(<a href="#point">Point</a>)</code>
-	    x/y scale values
-
+            <span class='code bold'>event</span> <code class='quiet'>(<a href="#entityresizeevent">EntityResizeEvent</a>)</code>
+	    
           </div>
           
         </div>
       
     </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code>void</code>:
+        @memberof ScaledEntity
+
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+</div>
+
+  
+
+  
+</section>
+
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='entityresizeevent'>
+      EntityResizeEvent
+    </h3>
+    
+    
+  </div>
+  
+
+  
+ 
+  
+    <div class='pre p1 fill-light mt0'>EntityResizeEvent</div>
+   
+  
+    <p>
+      Type:
+      {offset: <a href="#point">Point</a>, gameSize: <a href="#point">Point</a>, scale: <a href="#point">Point</a>}
+    </p>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
   
 
   
@@ -2611,11 +2731,11 @@
       </div>
     </div>
   
-    <div class='border-bottom' id='scalemanageraddanchor'>
+    <div class='border-bottom' id='scalemanageraddentity'>
       <div class="clearfix small pointer toggle-sibling">
         <div class="py1 contain">
             <a class='icon pin-right py1 dark-link caret-right'>▸</a>
-            <span class='code strong strong truncate'>addAnchor(anchor)</span>
+            <span class='code strong strong truncate'>addEntity(entity)</span>
         </div>
       </div>
       <div class="clearfix display-none toggle-target">
@@ -2627,7 +2747,7 @@
 
  
   
-    <div class='pre p1 fill-light mt0'>addAnchor(anchor: <a href="#anchor">Anchor</a>)</div>
+    <div class='pre p1 fill-light mt0'>addEntity(entity: <a href="#scaledentity">ScaledEntity</a>)</div>
    
   
   
@@ -2645,7 +2765,7 @@
       
         <div class='space-bottom0'>
           <div>
-            <span class='code bold'>anchor</span> <code class='quiet'>(<a href="#anchor">Anchor</a>)</code>
+            <span class='code bold'>entity</span> <code class='quiet'>(<a href="#scaledentity">ScaledEntity</a>)</code>
 	    
           </div>
           
@@ -2680,11 +2800,11 @@
     <div class='py1 quiet mt1 prose-big'>Instance Members</div>
     <div class="clearfix">
   
-    <div class='border-bottom' id='scalemanageranchors'>
+    <div class='border-bottom' id='scalemanagerentities'>
       <div class="clearfix small pointer toggle-sibling">
         <div class="py1 contain">
             <a class='icon pin-right py1 dark-link caret-right'>▸</a>
-            <span class='code strong strong truncate'>anchors</span>
+            <span class='code strong strong truncate'>entities</span>
         </div>
       </div>
       <div class="clearfix display-none toggle-target">
@@ -2695,12 +2815,12 @@
   
  
   
-    <div class='pre p1 fill-light mt0'>anchors</div>
+    <div class='pre p1 fill-light mt0'>entities</div>
    
   
     <p>
       Type:
-      <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>&#x3C;<a href="#anchor">Anchor</a>>
+      <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>&#x3C;<a href="#scaledentity">ScaledEntity</a>>
     </p>
   
   
@@ -2732,11 +2852,11 @@
       </div>
     </div>
   
-    <div class='border-bottom' id='scalemanagerremoveanchor'>
+    <div class='border-bottom' id='scalemanagerremoveentity'>
       <div class="clearfix small pointer toggle-sibling">
         <div class="py1 contain">
             <a class='icon pin-right py1 dark-link caret-right'>▸</a>
-            <span class='code strong strong truncate'>removeAnchor(anchor)</span>
+            <span class='code strong strong truncate'>removeEntity(entity)</span>
         </div>
       </div>
       <div class="clearfix display-none toggle-target">
@@ -2748,7 +2868,7 @@
 
  
   
-    <div class='pre p1 fill-light mt0'>removeAnchor(anchor: any): void</div>
+    <div class='pre p1 fill-light mt0'>removeEntity(entity: <a href="#scaledentity">ScaledEntity</a>): void</div>
    
   
   
@@ -2766,7 +2886,7 @@
       
         <div class='space-bottom0'>
           <div>
-            <span class='code bold'>anchor</span> <code class='quiet'>(any)</code>
+            <span class='code bold'>entity</span> <code class='quiet'>(<a href="#scaledentity">ScaledEntity</a>)</code>
 	    
           </div>
           
@@ -2912,6 +3032,143 @@
     </div>
   
 </div>
+
+  
+
+  
+</section>
+
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='scalecallback'>
+      ScaleCallback
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>callback to used scale game and canvas</p>
+
+ 
+  
+    <div class='pre p1 fill-light mt0'>ScaleCallback(width: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a>, height: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a>, scale: <a href="#point">Point</a>)</div>
+   
+  
+    <p>
+      Type:
+      <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function">Function</a>
+    </p>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>width</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a>)</code>
+	    width canvas should be
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>height</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a>)</code>
+	    height canvas should be
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>scale</span> <code class='quiet'>(<a href="#point">Point</a>)</code>
+	    x/y scale values
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='resizeeventdata'>
+      resizeEventData
+    </h3>
+    
+    
+  </div>
+  
+
+  
+ 
+  
+    <div class='pre p1 fill-light mt0'>resizeEventData</div>
+   
+  
+    <p>
+      Type:
+      <a href="#entityresizeevent">EntityResizeEvent</a>
+    </p>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
 
   
 
@@ -3739,58 +3996,6 @@ If the announcer is already saying something then it will be added to a queue.</
   
   <div class='clearfix'>
     
-    <h3 class='fl m0' id='filtertype'>
-      filterType
-    </h3>
-    
-    
-  </div>
-  
-
-  
- 
-  
-    <div class='pre p1 fill-light mt0'>filterType</div>
-   
-  
-    <p>
-      Type:
-      (<code>"protanopia"</code> | <code>"protanomaly"</code> | <code>"deuteranopia"</code> | <code>"deuteranomaly"</code> | <code>"tritanopia"</code> | <code>"tritanomaly"</code> | <code>"achromatopsia"</code> | <code>"achromatomaly"</code>)
-    </p>
-  
-  
-
-  
-  
-  
-  
-  
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-</section>
-
-        
-          
-          <section class='p2 mb2 clearfix bg-white minishadow'>
-
-  
-  <div class='clearfix'>
-    
     <h3 class='fl m0' id='colorfilter'>
       ColorFilter
     </h3>
@@ -4073,6 +4278,58 @@ If the announcer is already saying something then it will be added to a queue.</
     </div>
   
 </div>
+
+  
+
+  
+
+  
+</section>
+
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='filtertype'>
+      filterType
+    </h3>
+    
+    
+  </div>
+  
+
+  
+ 
+  
+    <div class='pre p1 fill-light mt0'>filterType</div>
+   
+  
+    <p>
+      Type:
+      (<code>"protanopia"</code> | <code>"protanomaly"</code> | <code>"deuteranopia"</code> | <code>"deuteranomaly"</code> | <code>"tritanopia"</code> | <code>"tritanomaly"</code> | <code>"achromatopsia"</code> | <code>"achromatomaly"</code>)
+    </p>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
 
   
 
