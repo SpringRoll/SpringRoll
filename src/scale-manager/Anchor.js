@@ -6,7 +6,7 @@ import { ScaledEntity } from './ScaledEntity';
  */
 
 /**
- * callback to used scale game and canvas
+ * callback to used move game entities
  * @callback PositionCallback
  * @param {Point} position position relative to anchor direction
  */
@@ -52,19 +52,37 @@ export class Anchor extends ScaledEntity {
    * @return {void} @memberof Anchor
    */
   onResize({ offset, gameSize }) {
-    const halfWidth = gameSize.x / 2;
-    const halfHeight = gameSize.y / 2;
+    const x = this.calcWorldPosition(
+      this.position.x,
+      this.direction.x,
+      offset.x,
+      gameSize.x / 2
+    );
 
-    const x =
-      this.position.x * -this.direction.x -
-      offset.x * this.direction.x +
-      (halfWidth + this.direction.x * halfWidth);
-
-    const y =
-      this.position.y * -this.direction.y -
-      offset.y * this.direction.y +
-      (halfHeight + this.direction.y * halfHeight);
+    const y = this.calcWorldPosition(
+      this.position.y,
+      this.direction.y,
+      offset.y,
+      gameSize.y / 2
+    );
 
     this.callback({ x, y });
+  }
+
+  /**
+   * Calculates and returns the world position of a single axis
+   * Based on viewport offset and anchor direction.
+   * @param  {Number} position
+   * @param  {Number} direction
+   * @param  {Number} offset
+   * @param  {Number} halfSize
+   * @return {void}@memberof Anchor
+   */
+  calcWorldPosition(position, direction, offset, halfSize) {
+    return (
+      position * -direction -
+      offset * direction +
+      (halfSize + direction * halfSize)
+    );
   }
 }
