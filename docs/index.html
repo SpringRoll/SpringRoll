@@ -7961,12 +7961,10 @@ This ~should~ be called every frame that the caption is active.</p>
   </div>
   
 
-  <p>CaptionPlayer is used to start, stop and update captions.
-It applies the content of an active caption to a given CaptionRenderer.</p>
-
+  
  
   
-    <div class='pre p1 fill-light mt0'>new CaptionPlayer()</div>
+    <div class='pre p1 fill-light mt0'>new CaptionPlayer(captions: any, renderer: any)</div>
    
   
   
@@ -7978,6 +7976,27 @@ It applies the content of an active caption to a given CaptionRenderer.</p>
   
   
 
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>captions</span> <code class='quiet'>(any)</code>
+	    
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>renderer</span> <code class='quiet'>(any)</code>
+	    
+          </div>
+          
+        </div>
+      
+    </div>
   
 
   
@@ -8209,10 +8228,12 @@ This ~should~ be called every frame.</p>
   </div>
   
 
-  
+  <p>CaptionPlayer is used to start, stop and update captions.
+It applies the content of an active caption to a given CaptionRenderer.</p>
+
  
   
-    <div class='pre p1 fill-light mt0'>new CaptionPlayer(captions: any, renderer: any)</div>
+    <div class='pre p1 fill-light mt0'>new CaptionPlayer()</div>
    
   
   
@@ -8224,27 +8245,6 @@ This ~should~ be called every frame.</p>
   
   
 
-  
-    <div class='py1 quiet mt1 prose-big'>Parameters</div>
-    <div class='prose'>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>captions</span> <code class='quiet'>(any)</code>
-	    
-          </div>
-          
-        </div>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>renderer</span> <code class='quiet'>(any)</code>
-	    
-          </div>
-          
-        </div>
-      
-    </div>
   
 
   

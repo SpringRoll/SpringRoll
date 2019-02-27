@@ -19,7 +19,7 @@ import { ScaledEntity } from './ScaledEntity';
  */
 export class Anchor extends ScaledEntity {
   /**
-   * Creates an instance of AnchoredEntity.
+   * Creates an instance of Anchor.
    * @param  {object} param
    * @param  {Point} param.position
    * @param  {Point} [param.direction= {x: -1, y: -1}]

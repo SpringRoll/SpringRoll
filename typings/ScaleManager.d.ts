@@ -44,10 +44,10 @@ export class ScaleManager {
 export interface AnchorConfig {
   position?: Point;
   direction?: Point;
-  callback: AnchorCallback;
+  callback: PositionCallback;
 }
 
-export type AnchorCallback = (position: Point) => void;
+export type PositionCallback = (position: Point) => void;
 
 export class Anchor implements ScaledEntity {
   constructor(config: AnchorConfig);
