@@ -112,8 +112,8 @@ export class ScaleManager {
     let deltaY = (scale.y - 1) / (gameHeightRatio - 1);
 
     //FIXES: NAN Bug from 0 / 0;
-    deltaX = deltaX || 0;
-    deltaY = deltaY || 0;
+    deltaX = Number.isFinite(deltaX) ? deltaX : 0;
+    deltaY = Number.isFinite(deltaY) ? deltaY : 0;
 
     const x = (this.gameWidth - this.safeWidth) * deltaX * 0.5;
     const y = (this.gameHeight - this.safeHeight) * deltaY * 0.5;
