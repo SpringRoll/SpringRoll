@@ -84,6 +84,26 @@
 		 */
 		this.playOptions = {};
 
+		// attempt to load play options from the query string
+		var match = /playOptions=[^&$]*/.exec(window.location.search);
+		if (match !== null)
+		{
+			var matchedToken = match[0];
+			var rawValue = decodeURIComponent(matchedToken.split('=')[1]);
+
+			try
+			{
+				this.playOptions = JSON.parse(rawValue);
+			}
+			catch (e)
+			{
+				if (springroll.Debug)
+				{
+					springroll.Debug.warn('ContainerClientPlugin: Failed to parse playOptions from query string');
+				}
+			}
+		}
+
 		/**
 		 * When a application is in singlePlay mode it will end.
 		 * It's unnecessary to check `if (this.singlePlay)` just
@@ -197,17 +217,14 @@
 		if (this.container.supported)
 		{
 			//Setup the container listeners for site soundMute and captionsMute events
-			this.container.on(
-			{
-				soundMuted: onSoundMuted.bind(this),
-				captionsMuted: onCaptionsMuted.bind(this),
-				musicMuted: onContextMuted.bind(this, 'music'),
-				voMuted: onContextMuted.bind(this, 'vo'),
-				sfxMuted: onContextMuted.bind(this, 'sfx'),
-				captionsStyles: onCaptionsStyles.bind(this),
-				pause: onPause.bind(this),
-				close: onClose.bind(this)
-			});
+			this.container.on('soundMuted', onSoundMuted.bind(this));
+			this.container.on('captionsMuted', onCaptionsMuted.bind(this));
+			this.container.on('musicMuted', onContextMuted.bind(this, 'music'));
+			this.container.on('voMuted', onContextMuted.bind(this, 'vo'));
+			this.container.on('sfxMuted', onContextMuted.bind(this, 'sfx'));
+			this.container.on('captionsStyles', onCaptionsStyles.bind(this));
+			this.container.on('pause', onPause.bind(this));
+			this.container.on('close', onClose.bind(this));
 
 			// Turn off the page hide and show auto pausing the App
 			this.options.autoPause = false;
@@ -306,7 +323,7 @@
 	};
 
 	/**
-	 * Handler when a application enters single play mode
+	 * Handler when a application receives playOptions from the container
 	 * @method onPlayOptions
 	 * @private
 	 * @param {event} e The Bellhop event
@@ -315,6 +332,7 @@
 	{
 		Object.merge(this.playOptions, e.data ||
 		{});
+		this.trigger('playOptions', this.playOptions);
 	};
 
 	/**
