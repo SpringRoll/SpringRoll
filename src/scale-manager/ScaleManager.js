@@ -111,7 +111,7 @@ export class ScaleManager {
     let deltaX = (scale.x - 1) / (gameWidthRatio - 1);
     let deltaY = (scale.y - 1) / (gameHeightRatio - 1);
 
-    //FIXES: NAN Bug from 0 / 0;
+    //FIXES: NaN / infinite Bug from 0 / 0;
     deltaX = Number.isFinite(deltaX) ? deltaX : 0;
     deltaY = Number.isFinite(deltaY) ? deltaY : 0;
 

@@ -107,7 +107,7 @@ describe('Scale Manager', () => {
       sm.addEntity(testAnchor);
 
       window.dispatchEvent(newEvent('resize'));
-      window.dispatchEvent(newEvent('resize'));
+      // window.dispatchEvent(newEvent('resize'));
     });
   });
 });
