@@ -51,7 +51,7 @@ scaleManager.enable(({width, height, scale}) => {
 });
 ```
 
-**Note**: A Phaser3 example can be found here: https://github.com/SpringRoll/Springroll-Seed/tree/templates/pixi
+**Note**: A Phaser3 example can be found [here](https://github.com/SpringRoll/Springroll-Seed/tree/templates/phaser3)
 
 ## Safe Scaling
 Safe scaling is enabled by setting `safeWidth` and `safeHeight` in the scaleManager's config. 
@@ -70,7 +70,7 @@ This allows for the scale manager to calculate the canvas's target size and scal
 
 ## Scaled Entities
 
-Any object that needs to be updated after a resize event can be implemented as a scaled Entity. The object must have an `onResize` function.
+If your game has any code that needs to be updated after the game resizes it can be implemented as a ScaledEntity. A ScaledEntity's `onResize` function is automatically called by the ScaleManager.
 
 ```javascript
 class MyEntity extends ScaledEntity
@@ -94,9 +94,27 @@ scaleManager.removeEntity(myEntity);
 |`scale`| `x,y ` | scale values calculated for viewport |
 |`gameSize`| `x,y` | actual game space size, set during scale manager initialization |
 
+An example of a ScaledEntity might be offsetting a camera to keep the game in view.
+
+```javascript
+class CameraPositioner extends ScaledEntity
+{
+  constructor(camera)
+  {
+    super();
+    this.camera = camera;
+  }
+
+  onResize({ offset, gameSize })
+  {
+    this.camera.setViewport(-offset.x, -offset.y, gameSize.x, gameSize.y);
+  }
+}
+```
+
 ### Anchor
 
-An Anchor is a scaled entity, provided by SpringRoll used too keep UI elements in a relative position regardless of the size of the viewport. for example if you always wanted to keep a health bar in the top left corner:
+An Anchor is another example of a scaled entity provided by SpringRoll. It's primary use is to keep UI elements in a relative position regardless of the size of the viewport. for example if you always wanted to keep a health bar in the top left corner:
 
 ```javascript
 const healthBar = new StatusBar("#ff0000"); // <-- not a springroll object.
