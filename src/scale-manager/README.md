@@ -117,7 +117,7 @@ class CameraPositioner extends ScaledEntity
 
 ### Anchor
 
-An Anchor is another example of a scaled entity provided by SpringRoll. It's primary use is to keep UI elements in a relative position regardless of the size of the viewport. for example if you always wanted to keep a health bar in the top left corner:
+An Anchor is another example of a scaled entity provided by SpringRoll. It's primary use is to keep UI elements in a relative position regardless of the size of the viewport. For example if you always wanted to keep a health bar in the top left corner:
 
 ```javascript
 const healthBar = new StatusBar("#ff0000"); // <-- not a springroll object.
@@ -133,4 +133,4 @@ scaleManager.addEntity(healthAnchor);
 |---|---|
 |`position`| desired `x,y` position of the element relative to the Anchor's `direction` |
 |`direction`| `x,y` axis that the Anchor is attached to, `x:-1` is left, and `y:-1` is up. `X:0,Y:0` locks the element to the center of the viewport. |
-|`callback`| function to be call anytime the screen is resized, the parameters contain the `x,y` position int world space to set your object too. |
+|`callback`| function to be call anytime the screen is resized, the parameters contain the `x,y` position in world space to set your object too. |
