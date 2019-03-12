@@ -23,7 +23,10 @@ scaleManager.enable(function(resizeData) {
 });
 ```
 
-**Note:** There is a 500ms delay added to the event to solve an issues where on some browsers the window isn't fully resized before the event fires.
+**Note:** The Resize event will fire twice. A 500ms debounce was added to the event to solve an issues where on iOS the window inner height/width are not guaranteed to match actual the dimensions when the event fires.
+
+For more info check out the [WebKit Bug](https://bugs.webkit.org/show_bug.cgi?id=170595).
+
 
 ### Callback Example
 
