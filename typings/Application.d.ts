@@ -11,7 +11,10 @@ export type ApplicationFeatures = {
   soundVolume?: boolean,
   musicVolume?: boolean,
   voVolume?: boolean,
-  sfxVolume?: boolean
+  sfxVolume?: boolean,
+  pointerSize?: boolean,
+  controlSensitivity?: boolean,
+  difficulty?: boolean,
 };
 
 export type ApplicationConfig = {
@@ -31,6 +34,9 @@ export class Application {
     musicVolume: Property<number>,
     voVolume: Property<number>,
     sfxVolume: Property<number>,
+    pointerSize: Property<number>,
+    controlSensitivity: Property<number>,
+    difficulty: Property<number>,
     [key:string]: Property<any>
   }
   hints: IHintPlayer;
