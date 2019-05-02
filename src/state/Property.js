@@ -32,9 +32,10 @@ export class Property {
   set value(value) {
     const prevValue = this._value;
     this._value = value;
-    this.listeners.forEach(listener => {
-      listener(this._value, prevValue);
-    });
+
+    for (let i = 0; i < this.listeners.length; i++) {
+      this.listeners[i](this._value, prevValue);
+    }
   }
 
   /**
