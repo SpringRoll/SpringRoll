@@ -15,6 +15,7 @@ export type ApplicationFeatures = {
   pointerSize?: boolean,
   controlSensitivity?: boolean,
   difficulty?: boolean,
+  buttonSize?: boolean,
 };
 
 export type ApplicationConfig = {
@@ -37,6 +38,7 @@ export class Application {
     pointerSize: Property<number>,
     controlSensitivity: Property<number>,
     difficulty: Property<number>,
+    buttonSize: Property<number>,
     [key:string]: Property<any>
   }
   hints: IHintPlayer;
