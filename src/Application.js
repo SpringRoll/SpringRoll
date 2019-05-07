@@ -12,8 +12,9 @@ const sfxVolume = 'sfxVolume';
 const playHelp = 'playHelp';
 const pointerSize = 'pointerSize';
 const controlSensitivity = 'controlSensitivity';
-const difficulty = 'difficulty';
+//const difficulty = 'difficulty';
 const buttonSize = 'buttonSize';
+const removableLayers = 'removableLayers';
 
 /**
  * Main entry point for a game. Provides a single focal point for plugins and functionality to attach.
@@ -32,7 +33,8 @@ const buttonSize = 'buttonSize';
  * @property {boolean} [features.controlSensitivity] A boolean denoting that this game has adjustable control sensitivity in it
  * @property {boolean} [features.difficulty] A boolean denoting that this game has adjustable difficulty in it
  * @property {boolean} [features.buttonSize] A boolean denoting that this game has adjustable button sizes in it
- *
+ * @property {boolean} [features.removableLayers] A boolean denoting that this game has removable game layers in it
+
  */
 export class Application {
   /**
@@ -52,6 +54,7 @@ export class Application {
    * @param {boolean} [config.features.controlSensitivity] A boolean denoting that this game has adjustable control sensitivity in it
    * @param {boolean} [config.features.difficulty] A boolean denoting that this game has adjustable difficulty in it
    * @param {boolean} [config.features.buttonSize] A boolean denoting that this game has adjustable button sizes in it
+   * @param {boolean} [config.features.removableLayers] A boolean denoting that this game has removable game layers in it
    */
   constructor({ features, hintPlayer = new HintSequencePlayer() } = {}) {
     this.state = {
@@ -65,8 +68,9 @@ export class Application {
       sfxVolume: new Property(1),
       pointerSize: new Property(0.05),
       controlSensitivity: new Property(0.5),
-      difficulty: new Property(0.5),
-      buttonSize: new Property(0.5)
+      //difficulty: new Property(0.5),
+      buttonSize: new Property(0.5),
+      removableLayers: new Property({})
     };
 
     this.features = Object.assign(
@@ -82,8 +86,9 @@ export class Application {
         sfxVolume: false,
         pointerSize: false,
         controlSensitivity: false,
-        difficulty: false,
-        buttonSize: false
+        //difficulty: false,
+        buttonSize: false,
+        removableLayers: false
       },
       features || {}
     );
@@ -109,8 +114,9 @@ export class Application {
       pause,
       pointerSize,
       controlSensitivity,
-      difficulty,
-      buttonSize
+      //difficulty,
+      buttonSize,
+      removableLayers
     ].forEach(eventName => {
       const property = this.state[eventName];
       this.container.on(
@@ -263,7 +269,9 @@ export class Application {
       sfx: sfxVolume,
       pointerSize: pointerSize,
       controlSensitivity: controlSensitivity,
-      difficulty: difficulty
+      buttonSize: buttonSize,
+      removableLayers: removableLayers
+      //difficulty: difficulty
     };
 
     Object.keys(featureToStateMap).forEach(feature => {
