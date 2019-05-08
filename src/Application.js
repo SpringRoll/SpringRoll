@@ -12,7 +12,6 @@ const sfxVolume = 'sfxVolume';
 const playHelp = 'playHelp';
 const pointerSize = 'pointerSize';
 const controlSensitivity = 'controlSensitivity';
-//const difficulty = 'difficulty';
 const buttonSize = 'buttonSize';
 const removableLayers = 'removableLayers';
 
@@ -31,7 +30,6 @@ const removableLayers = 'removableLayers';
  * @property {boolean} [features.sfxVolume] A boolean denoting that this game has adjustable sound effects volume in it
  * @property {boolean} [features.pointerSize] A boolean denoting that this game has adjustable pointer size in it
  * @property {boolean} [features.controlSensitivity] A boolean denoting that this game has adjustable control sensitivity in it
- * @property {boolean} [features.difficulty] A boolean denoting that this game has adjustable difficulty in it
  * @property {boolean} [features.buttonSize] A boolean denoting that this game has adjustable button sizes in it
  * @property {boolean} [features.removableLayers] A boolean denoting that this game has removable game layers in it
 
@@ -52,7 +50,6 @@ export class Application {
    * @param {boolean} [config.features.sfxVolume] A boolean denoting that this game has adjustable sound effects volume in it
    * @param {boolean} [config.features.pointerSize] A boolean denoting that this game has adjustable pointer size in it
    * @param {boolean} [config.features.controlSensitivity] A boolean denoting that this game has adjustable control sensitivity in it
-   * @param {boolean} [config.features.difficulty] A boolean denoting that this game has adjustable difficulty in it
    * @param {boolean} [config.features.buttonSize] A boolean denoting that this game has adjustable button sizes in it
    * @param {boolean} [config.features.removableLayers] A boolean denoting that this game has removable game layers in it
    */
@@ -68,7 +65,6 @@ export class Application {
       sfxVolume: new Property(1),
       pointerSize: new Property(0.05),
       controlSensitivity: new Property(0.5),
-      //difficulty: new Property(0.5),
       buttonSize: new Property(0.5),
       removableLayers: new Property({})
     };
@@ -86,7 +82,6 @@ export class Application {
         sfxVolume: false,
         pointerSize: false,
         controlSensitivity: false,
-        //difficulty: false,
         buttonSize: false,
         removableLayers: false
       },
@@ -114,7 +109,6 @@ export class Application {
       pause,
       pointerSize,
       controlSensitivity,
-      //difficulty,
       buttonSize,
       removableLayers
     ].forEach(eventName => {
@@ -271,7 +265,6 @@ export class Application {
       controlSensitivity: controlSensitivity,
       buttonSize: buttonSize,
       removableLayers: removableLayers
-      //difficulty: difficulty
     };
 
     Object.keys(featureToStateMap).forEach(feature => {
