@@ -26,23 +26,20 @@ export class Anchor extends ScaledEntity {
    * @param  {PositionCallback} param.callback
    * @memberof Anchor
    */
-  constructor({ position, direction, callback } = {}) {
+  constructor({
+    position,
+    direction,
+    callback = () => {
+      Debugger.log('warn', this, 'Anchor missing callback');
+    }
+  } = {}) {
     super();
     this.position = position || { x: 0, y: 0 };
 
     this.direction = direction || { x: -1, y: -1 };
     this.direction.x = Math.sign(this.direction.x);
     this.direction.y = Math.sign(this.direction.y);
-
-    if (callback instanceof Function) {
-      this.callback = callback;
-      return;
-    }
-
-    // Warn user that anchor callback is not set.
-    this.callback = () => {
-      Debugger.log('warn', this, 'Anchor missing callback');
-    };
+    this.callback = callback;
   }
 
   /**
