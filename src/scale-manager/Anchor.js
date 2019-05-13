@@ -29,9 +29,7 @@ export class Anchor extends ScaledEntity {
   constructor({
     position,
     direction,
-    callback = () => {
-      Debugger.log('warn', this, 'Anchor missing callback');
-    }
+    callback = () => Debugger.log('warn', this, 'Anchor missing callback')
   } = {}) {
     super();
     this.position = position || { x: 0, y: 0 };
