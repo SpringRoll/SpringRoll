@@ -14,6 +14,7 @@ const pointerSize = 'pointerSize';
 const controlSensitivity = 'controlSensitivity';
 const buttonSize = 'buttonSize';
 const removableLayers = 'removableLayers';
+const hudPosition = 'hudPosition';
 
 /**
  * Main entry point for a game. Provides a single focal point for plugins and functionality to attach.
@@ -32,7 +33,7 @@ const removableLayers = 'removableLayers';
  * @property {boolean} [features.controlSensitivity] A boolean denoting that this game has adjustable control sensitivity in it
  * @property {boolean} [features.buttonSize] A boolean denoting that this game has adjustable button sizes in it
  * @property {boolean} [features.removableLayers] A boolean denoting that this game has removable game layers in it
-
+ * @property {boolean} [features.hudPosition] A boolean denoting that this game has cusotm HUD positions.
  */
 export class Application {
   /**
@@ -52,6 +53,7 @@ export class Application {
    * @param {boolean} [config.features.controlSensitivity] A boolean denoting that this game has adjustable control sensitivity in it
    * @param {boolean} [config.features.buttonSize] A boolean denoting that this game has adjustable button sizes in it
    * @param {boolean} [config.features.removableLayers] A boolean denoting that this game has removable game layers in it
+   * @param {boolean} [config.features.hudPosition] A boolean denoting that this game has custom HUD positions in it
    */
   constructor({ features, hintPlayer = new HintSequencePlayer() } = {}) {
     this.state = {
@@ -66,7 +68,8 @@ export class Application {
       pointerSize: new Property(0.05),
       controlSensitivity: new Property(0.5),
       buttonSize: new Property(0.5),
-      removableLayers: new Property({})
+      removableLayers: new Property({}),
+      hudPosition: new Property('')
     };
 
     this.features = Object.assign(
@@ -83,7 +86,8 @@ export class Application {
         pointerSize: false,
         controlSensitivity: false,
         buttonSize: false,
-        removableLayers: false
+        removableLayers: false,
+        hudPosition: false
       },
       features || {}
     );
@@ -110,7 +114,8 @@ export class Application {
       pointerSize,
       controlSensitivity,
       buttonSize,
-      removableLayers
+      removableLayers,
+      hudPosition
     ].forEach(eventName => {
       const property = this.state[eventName];
       this.container.on(
