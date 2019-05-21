@@ -56,7 +56,7 @@ import CustomPlugin from './CustomPlugin';
 Application.uses(new CustomPlugin());
 
 const myApp = new Application();
-myApp.on('init', function() {
+myApp.state.ready.subscribe(() => {
   console.log('Ready!');
 });
 ```

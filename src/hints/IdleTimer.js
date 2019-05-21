@@ -58,15 +58,15 @@ export class IdleTimer {
    * @return {void}@memberof IdleTimer
    */
   dispatch() {
-    this.listeners.forEach(listener => {
-      listener(this._value);
-    });
+    for (let i = 0; i < this.listeners.length; i++) {
+      this.listeners[i](this['_value']);
+    }
     this.reset();
   }
 
   /**
    * Adds a function to be called when timer is dispatched
-   * @param  {Function()} callback 
+   * @param  {Function()} callback
    * @return {void}@memberof IdleTimer
    */
   subscribe(callback) {

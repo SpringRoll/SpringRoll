@@ -104,40 +104,48 @@ export class Application {
     this.container.send('keepFocus', false);
 
     // listen for events from the container and keep the local value in sync
-    [
-      soundVolume,
-      musicVolume,
-      voVolume,
-      sfxVolume,
-      captionsMuted,
-      pause,
-      pointerSize,
-      controlSensitivity,
-      buttonSize,
-      removableLayers,
-      hudPosition
-    ].forEach(eventName => {
-      const property = this.state[eventName];
-      this.container.on(
-        eventName,
-        containerEvent => (property.value = containerEvent.data)
-      );
-    });
+    {
+      const events = [
+        soundVolume,
+        musicVolume,
+        voVolume,
+        sfxVolume,
+        captionsMuted,
+        pause,
+        pointerSize,
+        controlSensitivity,
+        buttonSize,
+        removableLayers,
+        hudPosition
+      ];
+      const length = events.length;
+      for (let i = 0; i < length; i++) {
+        const property = this.state[events[i]];
+        this.container.on(
+          events[i],
+          containerEvent => (property.value = containerEvent.data)
+        );
+      }
+    }
 
     // listen for legacy mute events from the container and map them to volume properties
-    [
-      { mute: 'soundMuted', volume: soundVolume },
-      { mute: 'musicMuted', volume: musicVolume },
-      { mute: 'voMuted', volume: voVolume },
-      { mute: 'sfxMuted', volume: sfxVolume }
-    ].forEach(pair => {
-      const property = this.state[pair.volume];
-      this.container.on(pair.mute, containerEvent => {
-        const previousValue = property._previousValue || 1;
-        property._previousValue = property.value;
-        property.value = containerEvent.data ? 0 : previousValue;
-      });
-    });
+    {
+      const legacyListeners = [
+        { mute: 'soundMuted', volume: soundVolume },
+        { mute: 'musicMuted', volume: musicVolume },
+        { mute: 'voMuted', volume: voVolume },
+        { mute: 'sfxMuted', volume: sfxVolume }
+      ];
+
+      for (let i = 0; i < legacyListeners.length; i++) {
+        const property = this.state[legacyListeners[i].volume];
+        this.container.on(legacyListeners[i].mute, containerEvent => {
+          const previousValue = property._previousValue || 1;
+          property._previousValue = property.value;
+          property.value = containerEvent.data ? 0 : previousValue;
+        });
+      }
+    }
 
     // maintain focus sync between the container and application
     window.addEventListener('focus', () => this.container.send('focus', true));
@@ -202,18 +210,25 @@ export class Application {
    */
   setupPlugins() {
     const preloads = [];
-    Application._plugins.forEach(plugin => {
-      if (!plugin.preload) {
+
+    for (let i = 0; i < Application._plugins.length; i++) {
+      if (!Application._plugins[i].preload) {
         return;
       }
 
       preloads.push(
-        plugin.preload(this).catch(function preloadFail(error) {
-          plugin.preloadFailed = true;
-          console.warn(plugin.name, 'Preload Failed:', error);
-        })
+        Application._plugins[i]
+          .preload(this)
+          .catch(function preloadFail(error) {
+            Application._plugins[i].preloadFailed = true;
+            console.warn(
+              Application._plugins[i].name,
+              'Preload Failed:',
+              error
+            );
+          })
       );
-    });
+    }
 
     // ~wait for all preloads to resolve
     return Promise.all(preloads).then(() => {
@@ -223,22 +238,20 @@ export class Application {
       );
 
       //init
-      Application._plugins.forEach(plugin => {
-        if (!plugin.init) {
+      for (let i = 0; i < Application._plugins.length; i++) {
+        if (!Application._plugins[i].init) {
           return;
         }
-
-        plugin.init(this);
-      });
+        Application._plugins[i].init(this);
+      }
 
       //start
-      Application._plugins.forEach(plugin => {
-        if (!plugin.start) {
+      for (let i = 0; i < Application._plugins.length; i++) {
+        if (!Application._plugins[i].start) {
           return;
         }
-
-        plugin.start(this);
-      });
+        Application._plugins[i].start(this);
+      }
     });
   }
 
@@ -273,13 +286,15 @@ export class Application {
       hudPosition: hudPosition
     };
 
-    Object.keys(featureToStateMap).forEach(feature => {
-      const stateName = featureToStateMap[feature];
+    const keys = Object.keys(featureToStateMap);
 
-      if (this.features[feature] && !this.state[stateName].hasListeners) {
+    for (let i = 0; i < keys.length; i++) {
+      const stateName = featureToStateMap[keys[i]];
+
+      if (this.features[keys[i]] && !this.state[stateName].hasListeners) {
         missingListeners.push(stateName);
       }
-    });
+    }
 
     if (!this.state.pause.hasListeners) {
       missingListeners.push('pause');
