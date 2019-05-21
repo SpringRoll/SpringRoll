@@ -269,7 +269,8 @@ export class Application {
       pointerSize: pointerSize,
       controlSensitivity: controlSensitivity,
       buttonSize: buttonSize,
-      removableLayers: removableLayers
+      removableLayers: removableLayers,
+      hudPosition: hudPosition
     };
 
     Object.keys(featureToStateMap).forEach(feature => {
