@@ -65,6 +65,7 @@ var myApp = new springroll.Application({
     controlSensitivity: true,
     buttonSize: true,
     removableLayers: true,
+    hudPosition: true
   }
 });
 
@@ -76,6 +77,7 @@ myApp.state.sfxVolume.subscribe(result => console.log('Value Between 0-1', resul
 myApp.state.pointerSize.subscribe(result => console.log('Value Between 0-1', result));
 myApp.state.controlSensitivity.subscribe(result => console.log('Value Between 0-1', result));
 myApp.state.layersToggleState.subscribe(result => console.log('Which layers are enabled(true) and which are disabled(false)', result));
+myApp.state.hudPosition.subscribe(result => console.log('Which position the HUD should be in', result));
 ```
 
 Springroll V1 had the audio events:
