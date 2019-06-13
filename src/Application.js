@@ -173,7 +173,7 @@ export class Application {
 
     for (let i = 0; i < Application._plugins.length; i++) {
       if (!Application._plugins[i].preload) {
-        return;
+        continue;
       }
 
       preloads.push(
