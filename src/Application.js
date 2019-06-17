@@ -214,7 +214,7 @@ export class Application {
       }
     });
   }
-
+  //test
   /**
    * returns instance of a plugin.
    * @param  {string} name
