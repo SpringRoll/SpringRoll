@@ -55,6 +55,14 @@ class FailPlugin extends ApplicationPlugin {
   }
 }
 
+/** */
+class EmptyPlugin extends ApplicationPlugin {
+  /** */
+  constructor() {
+    super({ name: 'empty plugin' });
+  }
+}
+
 describe('Application', () => {
   beforeEach(() => {
     // remove any old plugins
@@ -163,6 +171,22 @@ describe('Application', () => {
       app.state.ready.subscribe(function(isReady) {
         expect(isReady).to.be.true;
         expect(Application._plugins.length).to.equal(0);
+        done();
+      });
+    });
+
+    it('should continue preloading plugins if a plugin has no preload function', done => {
+      const emptyPlugin = new EmptyPlugin();
+      const successPlugin = new SuccessPlugin();
+
+      Application.uses(emptyPlugin);
+      Application.uses(successPlugin);
+
+      const app = new Application();
+      app.state.ready.subscribe(function(isReady) {
+        expect(isReady).to.be.true;
+        expect(Application._plugins.length).to.equal(2);
+        expect(!emptyPlugin.initCalled).to.be.true;
         done();
       });
     });
