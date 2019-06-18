@@ -14,8 +14,9 @@ export type ApplicationFeatures = {
   sfxVolume?: boolean,
   pointerSize?: boolean,
   controlSensitivity?: boolean,
-  difficulty?: boolean,
   buttonSize?: boolean,
+  removableLayers?: boolean,
+  hudPosition?: boolean,
 };
 
 export type ApplicationConfig = {
@@ -37,8 +38,9 @@ export class Application {
     sfxVolume: Property<number>,
     pointerSize: Property<number>,
     controlSensitivity: Property<number>,
-    difficulty: Property<number>,
     buttonSize: Property<number>,
+    removableLayers: Property<object>,
+    hudPosition: Property<string>,
     [key:string]: Property<any>
   }
   hints: IHintPlayer;
