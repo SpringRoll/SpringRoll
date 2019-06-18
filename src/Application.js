@@ -213,7 +213,7 @@ export class Application {
 
     for (let i = 0; i < Application._plugins.length; i++) {
       if (!Application._plugins[i].preload) {
-        return;
+        continue;
       }
 
       preloads.push(
@@ -240,7 +240,7 @@ export class Application {
       //init
       for (let i = 0; i < Application._plugins.length; i++) {
         if (!Application._plugins[i].init) {
-          return;
+          continue;
         }
         Application._plugins[i].init(this);
       }
@@ -248,13 +248,13 @@ export class Application {
       //start
       for (let i = 0; i < Application._plugins.length; i++) {
         if (!Application._plugins[i].start) {
-          return;
+          continue;
         }
         Application._plugins[i].start(this);
       }
     });
   }
-
+  //test
   /**
    * returns instance of a plugin.
    * @param  {string} name
