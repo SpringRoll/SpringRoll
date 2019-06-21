@@ -39,7 +39,7 @@ export class Application {
     pointerSize: Property<number>,
     controlSensitivity: Property<number>,
     buttonSize: Property<number>,
-    removableLayers: Property<object>,
+    removableLayers: Property<number>,
     hudPosition: Property<string>,
     [key:string]: Property<any>
   }

@@ -68,7 +68,7 @@ export class Application {
       pointerSize: new Property(0.05),
       controlSensitivity: new Property(0.5),
       buttonSize: new Property(0.5),
-      removableLayers: new Property({}),
+      removableLayers: new Property(0),
       hudPosition: new Property('')
     };
 
