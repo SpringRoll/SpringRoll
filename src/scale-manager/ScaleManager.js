@@ -1,19 +1,50 @@
+import { Debugger } from '../debug';
+
 /**
- * Simplifies listening to resize events by passing the relevant data to a provided callback.
- * @class ScaleManager
- * @param {Function} [callback=undefined]
- * @property {Function} [callback=undefined]
+ * @typedef {import('./ScaledEntity').ScaledEntity} ScaledEntity
+ * @typedef {import('./ScaledEntity').EntityResizeEvent} EntityResizeEvent
+ * @typedef {{x:Number, y:Number}} Point
+ */
+
+/**
+ * callback to used scale game and canvas
+ * @callback ScaleCallback
+ * @param {Number} width width canvas should be
+ * @param {Number} height height canvas should be
+ * @param {Point} scale x/y scale values
+ */
+
+/**
+ * Handles scaling the game
  */
 export class ScaleManager {
   /**
-   *Creates an instance of ScaleManager.
+   * Creates an instance of ScaleManager.
+   * @param  {object} param
+   * @param  {Number} param.width width of game
+   * @param  {Number} param.height height of game
+   * @param  {Number} param.safeWidth width of safe area for the game
+   * @param  {Number} param.safeHeight height of safe area for the game
+   * @param  {ScaleCallback} param.callback function called to scale game and canvas
+   * @memberof ScaleManager
    */
-  constructor(callback) {
-    this.width = 1;
-    this.height = 1;
+  constructor({
+    width,
+    height,
+    safeWidth = Infinity,
+    safeHeight = Infinity,
+    callback
+  }) {
+    this.gameWidth = width;
+    this.gameHeight = height;
+    this.safeWidth = safeWidth <= width ? safeWidth : width;
+    this.safeHeight = safeHeight <= height ? safeHeight : height;
     this.callback = callback;
 
     this.onResize = this.onResize.bind(this);
+
+    /** @type {ScaledEntity[]} */
+    this.entities = [];
 
     if (callback instanceof Function) {
       this.enable(callback);
@@ -30,14 +61,35 @@ export class ScaleManager {
       const width = event.target.innerWidth;
       const height = event.target.innerHeight;
 
-      this.callback({
-        width,
-        height,
-        ratio: width / height
+      // Calculate Canvas size and scale //
+      const scaleMod = Math.min(
+        width / this.safeWidth,
+        height / this.safeHeight
+      );
+
+      const nWidth = Math.max(0, Math.min(this.gameWidth * scaleMod, width));
+      const nHeight = Math.max(0, Math.min(this.gameHeight * scaleMod, height));
+
+      const scale = {
+        x: (this.gameWidth / nWidth) * scaleMod,
+        y: (this.gameHeight / nHeight) * scaleMod
+      };
+      const offset = this.calcOffset(scale);
+      const gameSize = { x: this.gameWidth, y: this.gameHeight };
+
+      /** @type {EntityResizeEvent} */
+      this.resizeEventData = Object.freeze({
+        scale,
+        offset,
+        gameSize
       });
 
-      this.width = width;
-      this.height = height;
+      this.callback({ width: nWidth, height: nHeight, scale });
+
+      for (let i = 0, length = this.entities.length; i < length; i++) {
+        const entity = this.entities[i];
+        entity.onResize(this.resizeEventData);
+      }
     };
 
     resize();
@@ -47,18 +99,67 @@ export class ScaleManager {
   }
 
   /**
+   * Calculates the offset for anchors.
+   * @param  {Point} scale scale value
+   * @return {Point}
+   * @memberof ScaleManager
+   */
+  calcOffset(scale) {
+    const gameWidthRatio = this.gameWidth / this.safeWidth;
+    const gameHeightRatio = this.gameHeight / this.safeHeight;
+
+    let deltaX = (scale.x - 1) / (gameWidthRatio - 1);
+    let deltaY = (scale.y - 1) / (gameHeightRatio - 1);
+
+    //FIXES: NaN / infinite Bug from 0 / 0;
+    deltaX = Number.isFinite(deltaX) ? deltaX : 0;
+    deltaY = Number.isFinite(deltaY) ? deltaY : 0;
+
+    const x = (this.gameWidth - this.safeWidth) * deltaX * 0.5;
+    const y = (this.gameHeight - this.safeHeight) * deltaY * 0.5;
+
+    return { x, y };
+  }
+
+  /**
+   * Adds and anchor to be updated during resize
+   * @param  {ScaledEntity} entity
+   * @memberof ScaleManager
+   */
+  addEntity(entity) {
+    if (this.entities.includes(entity)) {
+      return;
+    }
+
+    if (this.resizeEventData) {
+      entity.onResize(this.resizeEventData);
+    }
+
+    this.entities.push(entity);
+  }
+
+  /**
+   * Removes an anchor
+   * @param  {ScaledEntity} entity
+   * @return {void} @memberof ScaleManager
+   */
+  removeEntity(entity) {
+    this.entities = this.entities.filter(e => e !== entity);
+  }
+
+  /**
    * Enables the scale manager listener. Will not be enabled if a callback is not supplied.
-   * @param {Function} callback The function to be called on resize events.
+   * @param {ScaleCallback} callback The function to be called on resize events.
    */
   enable(callback) {
     if (callback instanceof Function) {
       this.callback = callback;
       window.addEventListener('resize', this.onResize);
+      window.dispatchEvent(new Event('resize')); // <-- this forces resize to fire;
     } else {
-      console.warn('Scale Manager was not passed a function');
+      Debugger.warn('Scale Manager was not passed a function');
     }
   }
-
   /**
    * Disables the scale manager.
    */
