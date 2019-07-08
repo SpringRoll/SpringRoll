@@ -132,5 +132,5 @@ scaleManager.addEntity(healthAnchor);
 | Parameter | Description |
 |---|---|
 |`position`| desired `x,y` position of the element relative to the Anchor's `direction` |
-|`direction`| `x,y` axis that the Anchor is attached to, `x:-1` is left, and `y:-1` is up. `X:0,Y:0` locks the element to the center of the viewport. |
+|`direction`| `x,y` axis that the Anchor is attached to, `x:-1` is left, and `y:-1` is up. `x:0` and `y:0` locks the element to the center of the viewport. |
 |`callback`| function to be call anytime the screen is resized, the parameters contain the `x,y` position in world space to set your object too. |
