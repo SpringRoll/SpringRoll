@@ -60,7 +60,12 @@ var myApp = new springroll.Application({
     sound: true,
     vo: true,
     music: true,
-    sfx: true
+    sfx: true,
+    pointerSize: true,
+    controlSensitivity: true,
+    buttonSize: true,
+    removableLayers: true,
+    hudPosition: true
   }
 });
 
@@ -69,6 +74,11 @@ myApp.state.soundVolume.subscribe(result => console.log('Value Between 0-1', res
 myApp.state.voVolume.subscribe(result => console.log('Value Between 0-1', result));
 myApp.state.musicVolume.subscribe(result => console.log('Value Between 0-1', result));
 myApp.state.sfxVolume.subscribe(result => console.log('Value Between 0-1', result));
+myApp.state.pointerSize.subscribe(result => console.log('Value Between 0-1', result));
+myApp.state.buttonSize.subscribe(result => console.log('Value Between 0-1', result));
+myApp.state.controlSensitivity.subscribe(result => console.log('Value Between 0-1', result));
+myApp.state.removableLayers.subscribe(result => console.log('Object containing the layers and their state(boolean)', result));
+myApp.state.hudPosition.subscribe(result => console.log('String position of the HUD', result));
 ```
 
 Springroll V1 had the audio events:

@@ -10,25 +10,50 @@ const musicVolume = 'musicVolume';
 const voVolume = 'voVolume';
 const sfxVolume = 'sfxVolume';
 const playHelp = 'playHelp';
+const pointerSize = 'pointerSize';
+const controlSensitivity = 'controlSensitivity';
+const buttonSize = 'buttonSize';
+const removableLayers = 'removableLayers';
+const hudPosition = 'hudPosition';
 
 /**
  * Main entry point for a game. Provides a single focal point for plugins and functionality to attach.
  * @class Application
+ * @property {object} features A configuration object denoting which features are enabled for this application
+ * @property {boolean} [features.captions] A boolean value denoting that this game supports captions
+ * @property {boolean} [features.sound] A boolean value denoting that this game has some audio in it
+ * @property {boolean} [features.vo] A boolean denoting that this game has mutable voice-over audio in it
+ * @property {boolean} [features.music] A boolean denoting that this game has mutable music in it
+ * @property {boolean} [features.sfx] A boolean denoting that this game has mutable sound effects in it
+ * @property {boolean} [features.soundVolume] A boolean denoting that this game has adjustable sound volume in it
+ * @property {boolean} [features.musicVolume] A boolean denoting that this game has adjustable music volume in it
+ * @property {boolean} [features.voVolume] A boolean denoting that this game has adjustable voice-over volume in it
+ * @property {boolean} [features.sfxVolume] A boolean denoting that this game has adjustable sound effects volume in it
+ * @property {boolean} [features.pointerSize] A boolean denoting that this game has adjustable pointer size in it
+ * @property {boolean} [features.controlSensitivity] A boolean denoting that this game has adjustable control sensitivity in it
+ * @property {boolean} [features.buttonSize] A boolean denoting that this game has adjustable button sizes in it
+ * @property {boolean} [features.removableLayers] A boolean denoting that this game has removable game layers in it
+ * @property {boolean} [features.hudPosition] A boolean denoting that this game has cusotm HUD positions.
  */
 export class Application {
   /**
-   * @param {Object} [config={}]  Root configuration object for various internal Application objects
-   * @param {Object} [config.hintPlayer = HintSequencePlayer] IHintPlayer application will use.
-   * @param {Object} [config.features={}] A configuration object denoting which features are enabled for this application
-   * @param {Boolean} [config.features.captions] A boolean value denoting that this game supports captions
-   * @param {Boolean} [config.features.sound] A boolean value denoting that this game has some audio in it
-   * @param {Boolean} [config.features.vo] A boolean denoting that this game has mutable voice-over audio in it
-   * @param {Boolean} [config.features.music] A boolean denoting that this game has mutable music in it
-   * @param {Boolean} [config.features.sfx] A boolean denoting that this game has mutable sound effects in it
-   * @param {Boolean} [config.features.soundVolume] A boolean denoting that this game has adjustable sound volume in it
-   * @param {Boolean} [config.features.musicVolume] A boolean denoting that this game has adjustable music volume in it
-   * @param {Boolean} [config.features.voVolume] A boolean denoting that this game has adjustable voice-over volume in it
-   * @param {Boolean} [config.features.sfxVolume] A boolean denoting that this game has adjustable sound effects volume in it
+   * @param {object} [config={}]  Root configuration object for various internal Application objects
+   * @param {object} [config.hintPlayer = HintSequencePlayer] IHintPlayer application will use.
+   * @param {object} [config.features={}] A configuration object denoting which features are enabled for this application
+   * @param {boolean} [config.features.captions] A boolean value denoting that this game supports captions
+   * @param {boolean} [config.features.sound] A boolean value denoting that this game has some audio in it
+   * @param {boolean} [config.features.vo] A boolean denoting that this game has mutable voice-over audio in it
+   * @param {boolean} [config.features.music] A boolean denoting that this game has mutable music in it
+   * @param {boolean} [config.features.sfx] A boolean denoting that this game has mutable sound effects in it
+   * @param {boolean} [config.features.soundVolume] A boolean denoting that this game has adjustable sound volume in it
+   * @param {boolean} [config.features.musicVolume] A boolean denoting that this game has adjustable music volume in it
+   * @param {boolean} [config.features.voVolume] A boolean denoting that this game has adjustable voice-over volume in it
+   * @param {boolean} [config.features.sfxVolume] A boolean denoting that this game has adjustable sound effects volume in it
+   * @param {boolean} [config.features.pointerSize] A boolean denoting that this game has adjustable pointer size in it
+   * @param {boolean} [config.features.controlSensitivity] A boolean denoting that this game has adjustable control sensitivity in it
+   * @param {boolean} [config.features.buttonSize] A boolean denoting that this game has adjustable button sizes in it
+   * @param {boolean} [config.features.removableLayers] A boolean denoting that this game has removable game layers in it
+   * @param {boolean} [config.features.hudPosition] A boolean denoting that this game has custom HUD positions in it
    */
   constructor({ features, hintPlayer = new HintSequencePlayer() } = {}) {
     this.state = {
@@ -39,7 +64,12 @@ export class Application {
       soundVolume: new Property(1),
       musicVolume: new Property(1),
       voVolume: new Property(1),
-      sfxVolume: new Property(1)
+      sfxVolume: new Property(1),
+      pointerSize: new Property(0.05),
+      controlSensitivity: new Property(0.5),
+      buttonSize: new Property(0.5),
+      removableLayers: new Property(0),
+      hudPosition: new Property('')
     };
 
     this.features = Object.assign(
@@ -52,7 +82,12 @@ export class Application {
         soundVolume: false,
         musicVolume: false,
         voVolume: false,
-        sfxVolume: false
+        sfxVolume: false,
+        pointerSize: false,
+        controlSensitivity: false,
+        buttonSize: false,
+        removableLayers: false,
+        hudPosition: false
       },
       features || {}
     );
@@ -76,7 +111,12 @@ export class Application {
         voVolume,
         sfxVolume,
         captionsMuted,
-        pause
+        pause,
+        pointerSize,
+        controlSensitivity,
+        buttonSize,
+        removableLayers,
+        hudPosition
       ];
       const length = events.length;
       for (let i = 0; i < length; i++) {
@@ -220,6 +260,7 @@ export class Application {
    * @param  {string} name
    * @return {SpringRoll.ApplicationPlugin | undefined}
    * @memberof Application
+   * @instance
    */
   getPlugin(name) {
     return Application.getPlugin(name);
@@ -237,7 +278,12 @@ export class Application {
       sound: soundVolume,
       music: musicVolume,
       vo: voVolume,
-      sfx: sfxVolume
+      sfx: sfxVolume,
+      pointerSize: pointerSize,
+      controlSensitivity: controlSensitivity,
+      buttonSize: buttonSize,
+      removableLayers: removableLayers,
+      hudPosition: hudPosition
     };
 
     const keys = Object.keys(featureToStateMap);
