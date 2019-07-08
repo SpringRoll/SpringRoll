@@ -30,10 +30,10 @@
 -   [Point][26]
 -   [PositionCallback][27]
     -   [Parameters][28]
--   [EntityResizeEvent][29]
--   [ScaledEntity][30]
-    -   [onResize][31]
-        -   [Parameters][32]
+-   [ScaledEntity][29]
+    -   [onResize][30]
+        -   [Parameters][31]
+-   [EntityResizeEvent][32]
 -   [ScaleManager][33]
     -   [Parameters][34]
     -   [entities][35]
@@ -69,25 +69,25 @@
     -   [volume][65]
         -   [Parameters][66]
     -   [volume][67]
--   [ColorFilter][68]
-    -   [applyFilter][69]
-        -   [Parameters][70]
-    -   [changeFilter][71]
-        -   [Parameters][72]
-    -   [removeFilter][73]
-    -   [types][74]
--   [filterType][75]
--   [Controller][76]
-    -   [Parameters][77]
-    -   [update][78]
-    -   [onKeyDown][79]
-        -   [Parameters][80]
-    -   [onKeyUp][81]
+-   [filterType][68]
+-   [ColorFilter][69]
+    -   [applyFilter][70]
+        -   [Parameters][71]
+    -   [changeFilter][72]
+        -   [Parameters][73]
+    -   [removeFilter][74]
+    -   [types][75]
+-   [KeyState][76]
+    -   [Properties][77]
+-   [Controller][78]
+    -   [Parameters][79]
+    -   [update][80]
+    -   [onKeyDown][81]
         -   [Parameters][82]
-    -   [assignButtons][83]
+    -   [onKeyUp][83]
         -   [Parameters][84]
--   [KeyState][85]
-    -   [Properties][86]
+    -   [assignButtons][85]
+        -   [Parameters][86]
 -   [Key][87]
     -   [Parameters][88]
     -   [Properties][89]
@@ -141,7 +141,7 @@
     -   [value][137]
         -   [Parameters][138]
 -   [Caption][139]
-    -   [Properties][140]
+    -   [Parameters][140]
     -   [update][141]
         -   [Parameters][142]
     -   [updateState][143]
@@ -152,7 +152,7 @@
     -   [updateTimeIndex][148]
         -   [Parameters][149]
 -   [Caption][150]
-    -   [Parameters][151]
+    -   [Properties][151]
     -   [update][152]
         -   [Parameters][153]
     -   [updateState][154]
@@ -170,13 +170,13 @@
     -   [createLine][166]
         -   [Parameters][167]
 -   [CaptionPlayer][168]
-    -   [Parameters][169]
-    -   [update][170]
-        -   [Parameters][171]
-    -   [start][172]
-        -   [Parameters][173]
-    -   [stop][174]
--   [CaptionPlayer][175]
+    -   [update][169]
+        -   [Parameters][170]
+    -   [start][171]
+        -   [Parameters][172]
+    -   [stop][173]
+-   [CaptionPlayer][174]
+    -   [Parameters][175]
     -   [update][176]
         -   [Parameters][177]
     -   [start][178]
@@ -354,10 +354,6 @@ Type: [Function][220]
 
 -   `position` **[Point][224]** position relative to anchor direction
 
-## EntityResizeEvent
-
-Type: {offset: [Point][224], gameSize: [Point][224], scale: [Point][224]}
-
 ## ScaledEntity
 
 ### onResize
@@ -367,6 +363,10 @@ Type: {offset: [Point][224], gameSize: [Point][224], scale: [Point][224]}
 -   `event` **[EntityResizeEvent][225]** 
 
 Returns **void** @memberof ScaledEntity
+
+## EntityResizeEvent
+
+Type: {offset: [Point][224], gameSize: [Point][224], scale: [Point][224]}
 
 ## ScaleManager
 
@@ -536,6 +536,10 @@ Returns the current volume of the announcer.
 
 Returns **[number][219]** 
 
+## filterType
+
+Type: (`"protanopia"` \| `"protanomaly"` \| `"deuteranopia"` \| `"deuteranomaly"` \| `"tritanopia"` \| `"tritanomaly"` \| `"achromatopsia"` \| `"achromatomaly"`)
+
 ## ColorFilter
 
 The Color filter allows you to simulate colorblindness.
@@ -570,9 +574,15 @@ Supported filter types.
 Returns **[object][223]** Returns an object { name, value } with the colorblindness type:
 (Protanopia, Protanomaly, Deuteranopia, Deuteranomaly, Tritanopia, Tritanomaly, Achromatopsia, Achromatomaly)
 
-## filterType
+## KeyState
 
-Type: (`"protanopia"` \| `"protanomaly"` \| `"deuteranopia"` \| `"deuteranomaly"` \| `"tritanopia"` \| `"tritanomaly"` \| `"achromatopsia"` \| `"achromatomaly"`)
+Type: (`0` \| `1` \| `2`)
+
+### Properties
+
+-   `down` **[Function][220]** 
+-   `up` **[Function][220]** 
+-   `key` **[string][221]** 
 
 ## Controller
 
@@ -609,16 +619,6 @@ Sets an object of button functions to the controller to be called.
 #### Parameters
 
 -   `keys` **[Array][226]&lt;KeyTemplate>** 
-
-## KeyState
-
-Type: (`0` \| `1` \| `2`)
-
-### Properties
-
--   `down` **[Function][220]** 
--   `up` **[Function][220]** 
--   `key` **[string][221]** 
 
 ## Key
 
@@ -883,12 +883,9 @@ Sets the value of the property and notifies all listeners of the change
 
 ## Caption
 
-### Properties
+### Parameters
 
--   `lines` **[Array][226]&lt;[TimedLine][235]>** 
--   `time` **[number][219]** 
--   `lineIndex` **[number][219]** 
--   `renderer` **[IRender][236]** 
+-   `lines`  
 
 ### update
 
@@ -933,9 +930,12 @@ Updates the current time and index of the caption instance
 
 ## Caption
 
-### Parameters
+### Properties
 
--   `lines`  
+-   `lines` **[Array][226]&lt;[TimedLine][235]>** 
+-   `time` **[number][219]** 
+-   `lineIndex` **[number][219]** 
+-   `renderer` **[IRender][236]** 
 
 ### update
 
@@ -1014,10 +1014,8 @@ Returns **[TimedLine][235]** new TimedLine;
 
 ## CaptionPlayer
 
-### Parameters
-
--   `captions`  
--   `renderer`  
+CaptionPlayer is used to start, stop and update captions.
+ It applies the content of an active caption to a given CaptionRenderer.
 
 ### update
 
@@ -1044,8 +1042,10 @@ Stops any caption currently playing.
 
 ## CaptionPlayer
 
-CaptionPlayer is used to start, stop and update captions.
- It applies the content of an active caption to a given CaptionRenderer.
+### Parameters
+
+-   `captions`  
+-   `renderer`  
 
 ### update
 
@@ -1291,13 +1291,13 @@ After all plugins inits has completed
 
 [28]: #parameters-8
 
-[29]: #entityresizeevent
+[29]: #scaledentity
 
-[30]: #scaledentity
+[30]: #onresize-1
 
-[31]: #onresize-1
+[31]: #parameters-9
 
-[32]: #parameters-9
+[32]: #entityresizeevent
 
 [33]: #scalemanager
 
@@ -1369,43 +1369,43 @@ After all plugins inits has completed
 
 [67]: #volume-1
 
-[68]: #colorfilter
+[68]: #filtertype
 
-[69]: #applyfilter
+[69]: #colorfilter
 
-[70]: #parameters-22
+[70]: #applyfilter
 
-[71]: #changefilter
+[71]: #parameters-22
 
-[72]: #parameters-23
+[72]: #changefilter
 
-[73]: #removefilter
+[73]: #parameters-23
 
-[74]: #types
+[74]: #removefilter
 
-[75]: #filtertype
+[75]: #types
 
-[76]: #controller
+[76]: #keystate
 
-[77]: #parameters-24
+[77]: #properties-2
 
-[78]: #update
+[78]: #controller
 
-[79]: #onkeydown
+[79]: #parameters-24
 
-[80]: #parameters-25
+[80]: #update
 
-[81]: #onkeyup
+[81]: #onkeydown
 
-[82]: #parameters-26
+[82]: #parameters-25
 
-[83]: #assignbuttons
+[83]: #onkeyup
 
-[84]: #parameters-27
+[84]: #parameters-26
 
-[85]: #keystate
+[85]: #assignbuttons
 
-[86]: #properties-2
+[86]: #parameters-27
 
 [87]: #key
 
@@ -1513,29 +1513,29 @@ After all plugins inits has completed
 
 [139]: #caption
 
-[140]: #properties-7
+[140]: #parameters-44
 
 [141]: #update-1
 
-[142]: #parameters-44
+[142]: #parameters-45
 
 [143]: #updatestate-1
 
-[144]: #parameters-45
+[144]: #parameters-46
 
 [145]: #isfinished
 
 [146]: #start-1
 
-[147]: #parameters-46
+[147]: #parameters-47
 
 [148]: #updatetimeindex
 
-[149]: #parameters-47
+[149]: #parameters-48
 
 [150]: #caption-1
 
-[151]: #parameters-48
+[151]: #properties-7
 
 [152]: #update-2
 
@@ -1571,19 +1571,19 @@ After all plugins inits has completed
 
 [168]: #captionplayer
 
-[169]: #parameters-56
+[169]: #update-3
 
-[170]: #update-3
+[170]: #parameters-56
 
-[171]: #parameters-57
+[171]: #start-3
 
-[172]: #start-3
+[172]: #parameters-57
 
-[173]: #parameters-58
+[173]: #stop-1
 
-[174]: #stop-1
+[174]: #captionplayer-1
 
-[175]: #captionplayer-1
+[175]: #parameters-58
 
 [176]: #update-4
 
