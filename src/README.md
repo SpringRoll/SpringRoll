@@ -95,9 +95,10 @@ var myApp = new springroll.Application({
   }
 });
 
-myApp.container.respond('hudPositions', ['top', 'bottom']); //this should be an array of strings(representing the positions the game supports)
+myApp.container.respond('hudPositions', ['top', 'bottom', 'left', 'right']);
+//this should be an array of strings(representing the positions the game supports).
 ```
-
+The positions accepted are `top`, `bottom`, `right`, `left`. However the application doesn't need to support all of them, it can support only a subset (e.g. `['top', 'left']`) depending on the layout of the Heads Up Display.
 
 Springroll V1 had the audio events:
 ```javascript
