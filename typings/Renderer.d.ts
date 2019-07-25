@@ -6,6 +6,7 @@ export interface IRender {
 }
 
 export class DOMRenderer {
+  constructor(element : HTMLElement, templateVariables : object);
   start(templateVariables: object);
   stop();
 }
