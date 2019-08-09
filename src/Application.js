@@ -15,6 +15,7 @@ const controlSensitivity = 'controlSensitivity';
 const buttonSize = 'buttonSize';
 const removableLayers = 'removableLayers';
 const hudPosition = 'hudPosition';
+const difficulty = 'difficulty';
 
 /**
  * Main entry point for a game. Provides a single focal point for plugins and functionality to attach.
@@ -33,7 +34,8 @@ const hudPosition = 'hudPosition';
  * @property {boolean} [features.controlSensitivity] A boolean denoting that this game has adjustable control sensitivity in it
  * @property {boolean} [features.buttonSize] A boolean denoting that this game has adjustable button sizes in it
  * @property {boolean} [features.removableLayers] A boolean denoting that this game has removable game layers in it
- * @property {boolean} [features.hudPosition] A boolean denoting that this game has cusotm HUD positions.
+ * @property {boolean} [features.hudPosition] A boolean denoting that this game has custom HUD positions.
+ * @property {boolean} [features.difficulty] A boolean denoting that this game has adjustable difficulty/speed.
  */
 export class Application {
   /**
@@ -54,6 +56,7 @@ export class Application {
    * @param {boolean} [config.features.buttonSize] A boolean denoting that this game has adjustable button sizes in it
    * @param {boolean} [config.features.removableLayers] A boolean denoting that this game has removable game layers in it
    * @param {boolean} [config.features.hudPosition] A boolean denoting that this game has custom HUD positions in it
+   * @param {boolean} [config.features.difficulty] A boolean denoting that this game has adjustable difficulty/speed.
    */
   constructor({ features, hintPlayer = new HintSequencePlayer() } = {}) {
     this.state = {
@@ -69,7 +72,8 @@ export class Application {
       controlSensitivity: new Property(0.5),
       buttonSize: new Property(0.5),
       removableLayers: new Property(0),
-      hudPosition: new Property('')
+      hudPosition: new Property(''),
+      difficulty: new Property(0.5)
     };
 
     this.features = Object.assign(
@@ -87,7 +91,8 @@ export class Application {
         controlSensitivity: false,
         buttonSize: false,
         removableLayers: false,
-        hudPosition: false
+        hudPosition: false,
+        difficulty: false
       },
       features || {}
     );
@@ -116,7 +121,8 @@ export class Application {
         controlSensitivity,
         buttonSize,
         removableLayers,
-        hudPosition
+        hudPosition,
+        difficulty
       ];
       const length = events.length;
       for (let i = 0; i < length; i++) {
@@ -283,7 +289,8 @@ export class Application {
       controlSensitivity: controlSensitivity,
       buttonSize: buttonSize,
       removableLayers: removableLayers,
-      hudPosition: hudPosition
+      hudPosition: hudPosition,
+      difficulty: difficulty
     };
 
     const keys = Object.keys(featureToStateMap);

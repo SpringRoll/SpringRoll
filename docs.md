@@ -676,7 +676,8 @@ Main entry point for a game. Provides a single focal point for plugins and funct
     -   `features.controlSensitivity` **[boolean][229]?** A boolean denoting that this game has adjustable control sensitivity in it
     -   `features.buttonSize` **[boolean][229]?** A boolean denoting that this game has adjustable button sizes in it
     -   `features.removableLayers` **[boolean][229]?** A boolean denoting that this game has removable game layers in it
-    -   `features.hudPosition` **[boolean][229]?** A boolean denoting that this game has cusotm HUD positions.
+    -   `features.hudPosition` **[boolean][229]?** A boolean denoting that this game has custom HUD positions.
+    -   `features.difficulty` **[boolean][229]?** A boolean denoting that this game has adjustable difficulty/speed.
 
 ### getPlugin
 

@@ -27,6 +27,12 @@ var myApp = new springroll.Application({
     vo: false, // whether or not the game has a VO
     music: false, // whether or not the game has music
     sfx: false, // whether or not the game has any sound effects
+    pointerSize: false, // whether or not the game has a resizable pointer
+    controlSensitivity: false, // whether or not the game has adjustable control sensitivity
+    buttonSize: false, // whether or not the game has adjustable button sizes
+    removableLayers: false, // whether or not the game supports the removal of distracting game layers
+    hudPosition: false, // whether or not the game supports multiple HUD positions
+    difficulty: false, // whether or not the game supports an adjustable difficulty
   }
 });
 ```
@@ -65,7 +71,8 @@ var myApp = new springroll.Application({
     controlSensitivity: true,
     buttonSize: true,
     removableLayers: true,
-    hudPosition: true
+    hudPosition: true,
+    difficulty: true,
   }
 });
 
@@ -77,9 +84,24 @@ myApp.state.sfxVolume.subscribe(result => console.log('Value Between 0-1', resul
 myApp.state.pointerSize.subscribe(result => console.log('Value Between 0-1', result));
 myApp.state.buttonSize.subscribe(result => console.log('Value Between 0-1', result));
 myApp.state.controlSensitivity.subscribe(result => console.log('Value Between 0-1', result));
-myApp.state.removableLayers.subscribe(result => console.log('Object containing the layers and their state(boolean)', result));
-myApp.state.hudPosition.subscribe(result => console.log('String position of the HUD', result));
+myApp.state.removableLayers.subscribe(result => console.log('Value Between 0-1', result));
+myApp.state.hudPosition.subscribe(result => console.log('String position of the HUD', result));*
+myApp.state.difficulty.subscribe(result => console.log('Value Between 0-1', result));
 ```
+
+*the HUD position state requires one additional bit of configuration to interact with Springroll Container correctly. The example below shows the `respond` call you need to implement to report the HUD positions your game allows.
+
+```javascript
+var myApp = new springroll.Application({
+  features: {
+    hudPosition: true
+  }
+});
+
+myApp.container.respond('hudPositions', ['top', 'bottom', 'left', 'right']);
+//this should be an array of strings(representing the positions the game supports).
+```
+The positions accepted are `top`, `bottom`, `right`, `left` (any positions other than these are discarded). However, the application doesn't need to support all of them, it can support only a subset (e.g. `['top', 'left']`) depending on the layout of the Heads Up Display.
 
 Springroll V1 had the audio events:
 ```javascript
@@ -88,7 +110,7 @@ myApp.state.voMuted.subscribe(result => console.log('true/false', result));
 myApp.state.musicMuted.subscribe(result => console.log('true/false', result));
 myApp.state.sfxMuted.subscribe(result => console.log('true/false', result));
 ```
-these have been internally mapped to set volume to 0 and it's previous value.
+These have been internally mapped to set volume to 0 and it's previous value.
 
 Lastly, there are two other states available, one that has already been mentioned:
 
@@ -131,3 +153,4 @@ myApp.state.ready.subscribe(function() {
 ```
 
 For more information on adding your own properties, see the [StateManager documentation](./state)
+
