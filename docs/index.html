@@ -197,6 +197,16 @@
               
                 
                 <li><a
+                  href='#entityresizeevent'
+                  class="">
+                  EntityResizeEvent
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
                   href='#scaledentity'
                   class=" toggle-sibling">
                   ScaledEntity
@@ -220,16 +230,6 @@
                   
                   
                 </div>
-                
-                </li>
-              
-                
-                <li><a
-                  href='#entityresizeevent'
-                  class="">
-                  EntityResizeEvent
-                  
-                </a>
                 
                 </li>
               
@@ -412,6 +412,16 @@
               
                 
                 <li><a
+                  href='#filtertype'
+                  class="">
+                  filterType
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
                   href='#colorfilter'
                   class=" toggle-sibling">
                   ColorFilter
@@ -458,9 +468,9 @@
               
                 
                 <li><a
-                  href='#filtertype'
+                  href='#keystate'
                   class="">
-                  filterType
+                  KeyState
                   
                 </a>
                 
@@ -509,16 +519,6 @@
                   
                   
                 </div>
-                
-                </li>
-              
-                
-                <li><a
-                  href='#keystate'
-                  class="">
-                  KeyState
-                  
-                </a>
                 
                 </li>
               
@@ -2458,6 +2458,58 @@ Based on viewport offset and anchor direction.</p>
   
   <div class='clearfix'>
     
+    <h3 class='fl m0' id='entityresizeevent'>
+      EntityResizeEvent
+    </h3>
+    
+    
+  </div>
+  
+
+  
+    <div class='pre p1 fill-light mt0'>EntityResizeEvent</div>
+  
+    <p>
+      Type:
+      {offset: <a href="#point">Point</a>, gameSize: <a href="#point">Point</a>, scale: <a href="#point">Point</a>}
+    </p>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
     <h3 class='fl m0' id='scaledentity'>
       ScaledEntity
     </h3>
@@ -2562,58 +2614,6 @@ Based on viewport offset and anchor direction.</p>
     </div>
   
 </div>
-
-  
-
-  
-
-  
-</section>
-
-          
-        
-          
-          <section class='p2 mb2 clearfix bg-white minishadow'>
-
-  
-  <div class='clearfix'>
-    
-    <h3 class='fl m0' id='entityresizeevent'>
-      EntityResizeEvent
-    </h3>
-    
-    
-  </div>
-  
-
-  
-    <div class='pre p1 fill-light mt0'>EntityResizeEvent</div>
-  
-    <p>
-      Type:
-      {offset: <a href="#point">Point</a>, gameSize: <a href="#point">Point</a>, scale: <a href="#point">Point</a>}
-    </p>
-  
-  
-
-  
-  
-  
-  
-  
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
 
   
 
@@ -4066,6 +4066,58 @@ If the announcer is already saying something then it will be added to a queue.</
   
   <div class='clearfix'>
     
+    <h3 class='fl m0' id='filtertype'>
+      filterType
+    </h3>
+    
+    
+  </div>
+  
+
+  
+    <div class='pre p1 fill-light mt0'>filterType</div>
+  
+    <p>
+      Type:
+      (<code>"protanopia"</code> | <code>"protanomaly"</code> | <code>"deuteranopia"</code> | <code>"deuteranomaly"</code> | <code>"tritanopia"</code> | <code>"tritanomaly"</code> | <code>"achromatopsia"</code> | <code>"achromatomaly"</code>)
+    </p>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
     <h3 class='fl m0' id='colorfilter'>
       ColorFilter
     </h3>
@@ -4359,8 +4411,8 @@ If the announcer is already saying something then it will be added to a queue.</
   
   <div class='clearfix'>
     
-    <h3 class='fl m0' id='filtertype'>
-      filterType
+    <h3 class='fl m0' id='keystate'>
+      KeyState
     </h3>
     
     
@@ -4368,11 +4420,11 @@ If the announcer is already saying something then it will be added to a queue.</
   
 
   
-    <div class='pre p1 fill-light mt0'>filterType</div>
+    <div class='pre p1 fill-light mt0'>KeyState</div>
   
     <p>
       Type:
-      (<code>"protanopia"</code> | <code>"protanomaly"</code> | <code>"deuteranopia"</code> | <code>"deuteranomaly"</code> | <code>"tritanopia"</code> | <code>"tritanomaly"</code> | <code>"achromatopsia"</code> | <code>"achromatomaly"</code>)
+      (<code>0</code> | <code>1</code> | <code>2</code>)
     </p>
   
   
@@ -4386,6 +4438,29 @@ If the announcer is already saying something then it will be added to a queue.</
 
   
 
+  
+    <div class='py1 quiet mt1 prose-big'>Properties</div>
+    <div>
+      
+        <div class='space-bottom0'>
+          <span class='code bold'>down</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function">Function</a>)</code>
+          
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <span class='code bold'>up</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function">Function</a>)</code>
+          
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <span class='code bold'>key</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
+          
+          
+        </div>
+      
+    </div>
   
 
   
@@ -4691,81 +4766,6 @@ If the announcer is already saying something then it will be added to a queue.</
     </div>
   
 </div>
-
-  
-
-  
-
-  
-
-  
-</section>
-
-          
-        
-          
-          <section class='p2 mb2 clearfix bg-white minishadow'>
-
-  
-  <div class='clearfix'>
-    
-    <h3 class='fl m0' id='keystate'>
-      KeyState
-    </h3>
-    
-    
-  </div>
-  
-
-  
-    <div class='pre p1 fill-light mt0'>KeyState</div>
-  
-    <p>
-      Type:
-      (<code>0</code> | <code>1</code> | <code>2</code>)
-    </p>
-  
-  
-
-  
-  
-  
-  
-  
-  
-
-  
-
-  
-    <div class='py1 quiet mt1 prose-big'>Properties</div>
-    <div>
-      
-        <div class='space-bottom0'>
-          <span class='code bold'>down</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function">Function</a>)</code>
-          
-          
-        </div>
-      
-        <div class='space-bottom0'>
-          <span class='code bold'>up</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function">Function</a>)</code>
-          
-          
-        </div>
-      
-        <div class='space-bottom0'>
-          <span class='code bold'>key</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
-          
-          
-        </div>
-      
-    </div>
-  
-
-  
-
-  
-
-  
 
   
 
@@ -5181,6 +5181,11 @@ If the announcer is already saying something then it will be added to a queue.</
                 <li><code>features.difficulty</code> <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a>?
                   
                   <p>A boolean denoting that this game has adjustable difficulty/speed.</p>
+</li>
+              
+                <li><code>features.keyBinding</code> <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a>?
+                  
+                  <p>A boolean denoting that this game has re-mappable key bindings.</p>
 </li>
               
             </ul>
@@ -7974,8 +7979,10 @@ This ~should~ be called every frame that the caption is active.</p>
   </div>
   
 
-  
-    <div class='pre p1 fill-light mt0'>new CaptionPlayer(captions: any, renderer: any)</div>
+  <p>CaptionPlayer is used to start, stop and update captions.
+It applies the content of an active caption to a given CaptionRenderer.</p>
+
+    <div class='pre p1 fill-light mt0'>new CaptionPlayer()</div>
   
   
 
@@ -7986,27 +7993,6 @@ This ~should~ be called every frame that the caption is active.</p>
   
   
 
-  
-    <div class='py1 quiet mt1 prose-big'>Parameters</div>
-    <div class='prose'>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>captions</span> <code class='quiet'>(any)</code>
-	    
-          </div>
-          
-        </div>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>renderer</span> <code class='quiet'>(any)</code>
-	    
-          </div>
-          
-        </div>
-      
-    </div>
   
 
   
@@ -8238,10 +8224,8 @@ This ~should~ be called every frame.</p>
   </div>
   
 
-  <p>CaptionPlayer is used to start, stop and update captions.
-It applies the content of an active caption to a given CaptionRenderer.</p>
-
-    <div class='pre p1 fill-light mt0'>new CaptionPlayer()</div>
+  
+    <div class='pre p1 fill-light mt0'>new CaptionPlayer(captions: any, renderer: any)</div>
   
   
 
@@ -8252,6 +8236,27 @@ It applies the content of an active caption to a given CaptionRenderer.</p>
   
   
 
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>captions</span> <code class='quiet'>(any)</code>
+	    
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>renderer</span> <code class='quiet'>(any)</code>
+	    
+          </div>
+          
+        </div>
+      
+    </div>
   
 
   

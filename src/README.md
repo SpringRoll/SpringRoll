@@ -32,7 +32,8 @@ var myApp = new springroll.Application({
     buttonSize: false, // whether or not the game has adjustable button sizes
     removableLayers: false, // whether or not the game supports the removal of distracting game layers
     hudPosition: false, // whether or not the game supports multiple HUD positions
-    difficulty: false, // whether or not the game supports an adjustable difficulty
+    difficulty: false, // whether or not the game supports an adjustable difficulty,
+    keyBinding: true, //whether or not the game supports re-mappable key bindings.
   }
 });
 ```
@@ -73,6 +74,7 @@ var myApp = new springroll.Application({
     removableLayers: true,
     hudPosition: true,
     difficulty: true,
+    keyBinding,
   }
 });
 
@@ -87,21 +89,32 @@ myApp.state.controlSensitivity.subscribe(result => console.log('Value Between 0-
 myApp.state.removableLayers.subscribe(result => console.log('Value Between 0-1', result));
 myApp.state.hudPosition.subscribe(result => console.log('String position of the HUD', result));*
 myApp.state.difficulty.subscribe(result => console.log('Value Between 0-1', result));
+myApp.state.keyBinding.subscribe(result => console.log('Array of key/value pairs reflecting the currently selected keys', result));
 ```
 
-*the HUD position state requires one additional bit of configuration to interact with Springroll Container correctly. The example below shows the `respond` call you need to implement to report the HUD positions your game allows.
-
+*the HUD position and keyBinding states requires one additional bit of configuration to interact with Springroll Container correctly. The examples below shows the `respond` call you need to implement to report back to the container.
 ```javascript
 var myApp = new springroll.Application({
   features: {
-    hudPosition: true
+    hudPosition: true,
+    keyBinding: true,
   }
 });
 
-myApp.container.respond('hudPositions', ['top', 'bottom', 'left', 'right']);
 //this should be an array of strings(representing the positions the game supports).
+myApp.container.respond('hudPositions', ['top', 'bottom', 'left', 'right']);
+
+//this should be an array of objects that represent the user actions and the default key used in the game
+myApp.container.respond('keyBinding', [
+  {actionName: 'Jump', defaultKey: 'w'},
+  {actionName: 'Left', defaultKey: 'a'},
+  {actionName: 'Right', defaultKey: 'd'},
+  {actionName: 'Crouch', defaultKey: 's'},
+]);
 ```
-The positions accepted are `top`, `bottom`, `right`, `left` (any positions other than these are discarded). However, the application doesn't need to support all of them, it can support only a subset (e.g. `['top', 'left']`) depending on the layout of the Heads Up Display.
+The positions accepted for the HUD are `top`, `bottom`, `right`, `left` (any positions other than these are discarded). However, the application doesn't need to support all of them, it can support only a subset (e.g. `['top', 'left']`) depending on the layout of the Heads Up Display.
+
+The keyBinding options can be whatever you want, but the defaultKey currently uses the `KeyboardEvent.key` when setting keys.
 
 Springroll V1 had the audio events:
 ```javascript

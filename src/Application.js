@@ -16,6 +16,7 @@ const buttonSize = 'buttonSize';
 const removableLayers = 'removableLayers';
 const hudPosition = 'hudPosition';
 const difficulty = 'difficulty';
+const keyBinding = 'keyBinding';
 
 /**
  * Main entry point for a game. Provides a single focal point for plugins and functionality to attach.
@@ -36,6 +37,7 @@ const difficulty = 'difficulty';
  * @property {boolean} [features.removableLayers] A boolean denoting that this game has removable game layers in it
  * @property {boolean} [features.hudPosition] A boolean denoting that this game has custom HUD positions.
  * @property {boolean} [features.difficulty] A boolean denoting that this game has adjustable difficulty/speed.
+ * @property {boolean} [features.keyBinding] A boolean denoting that this game has re-mappable key bindings.
  */
 export class Application {
   /**
@@ -57,6 +59,7 @@ export class Application {
    * @param {boolean} [config.features.removableLayers] A boolean denoting that this game has removable game layers in it
    * @param {boolean} [config.features.hudPosition] A boolean denoting that this game has custom HUD positions in it
    * @param {boolean} [config.features.difficulty] A boolean denoting that this game has adjustable difficulty/speed.
+   * @param {boolean} [config.features.keyBinding] A boolean denoting that this game has re-mappable key bindings.
    */
   constructor({ features, hintPlayer = new HintSequencePlayer() } = {}) {
     this.state = {
@@ -73,7 +76,8 @@ export class Application {
       buttonSize: new Property(0.5),
       removableLayers: new Property(0),
       hudPosition: new Property(''),
-      difficulty: new Property(0.5)
+      difficulty: new Property(0.5),
+      keyBinding: new Property({})
     };
 
     this.features = Object.assign(
@@ -92,7 +96,8 @@ export class Application {
         buttonSize: false,
         removableLayers: false,
         hudPosition: false,
-        difficulty: false
+        difficulty: false,
+        keyBinding: false,
       },
       features || {}
     );
@@ -122,7 +127,8 @@ export class Application {
         buttonSize,
         removableLayers,
         hudPosition,
-        difficulty
+        difficulty,
+        keyBinding,
       ];
       const length = events.length;
       for (let i = 0; i < length; i++) {
@@ -290,7 +296,8 @@ export class Application {
       buttonSize: buttonSize,
       removableLayers: removableLayers,
       hudPosition: hudPosition,
-      difficulty: difficulty
+      difficulty: difficulty,
+      keyBinding: keyBinding,
     };
 
     const keys = Object.keys(featureToStateMap);
