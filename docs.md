@@ -141,7 +141,7 @@
     -   [value][137]
         -   [Parameters][138]
 -   [Caption][139]
-    -   [Parameters][140]
+    -   [Properties][140]
     -   [update][141]
         -   [Parameters][142]
     -   [updateState][143]
@@ -152,7 +152,7 @@
     -   [updateTimeIndex][148]
         -   [Parameters][149]
 -   [Caption][150]
-    -   [Properties][151]
+    -   [Parameters][151]
     -   [update][152]
         -   [Parameters][153]
     -   [updateState][154]
@@ -885,9 +885,12 @@ Sets the value of the property and notifies all listeners of the change
 
 ## Caption
 
-### Parameters
+### Properties
 
--   `lines`  
+-   `lines` **[Array][226]&lt;[TimedLine][235]>** 
+-   `time` **[number][219]** 
+-   `lineIndex` **[number][219]** 
+-   `renderer` **[IRender][236]** 
 
 ### update
 
@@ -932,12 +935,9 @@ Updates the current time and index of the caption instance
 
 ## Caption
 
-### Properties
+### Parameters
 
--   `lines` **[Array][226]&lt;[TimedLine][235]>** 
--   `time` **[number][219]** 
--   `lineIndex` **[number][219]** 
--   `renderer` **[IRender][236]** 
+-   `lines`  
 
 ### update
 
@@ -1515,29 +1515,29 @@ After all plugins inits has completed
 
 [139]: #caption
 
-[140]: #parameters-44
+[140]: #properties-7
 
 [141]: #update-1
 
-[142]: #parameters-45
+[142]: #parameters-44
 
 [143]: #updatestate-1
 
-[144]: #parameters-46
+[144]: #parameters-45
 
 [145]: #isfinished
 
 [146]: #start-1
 
-[147]: #parameters-47
+[147]: #parameters-46
 
 [148]: #updatetimeindex
 
-[149]: #parameters-48
+[149]: #parameters-47
 
 [150]: #caption-1
 
-[151]: #properties-7
+[151]: #parameters-48
 
 [152]: #update-2
 
