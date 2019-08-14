@@ -89,12 +89,12 @@ myApp.state.pointerSize.subscribe(result => console.log('Value Between 0-1', res
 myApp.state.buttonSize.subscribe(result => console.log('Value Between 0-1', result));
 myApp.state.controlSensitivity.subscribe(result => console.log('Value Between 0-1', result));
 myApp.state.removableLayers.subscribe(result => console.log('Value Between 0-1', result));
-myApp.state.hudPosition.subscribe(result => console.log('String position of the HUD', result));
+myApp.state.hudPosition.subscribe(result => console.log('String position of the HUD', result)); //See below about responding to the container
 myApp.state.difficulty.subscribe(result => console.log('Value Between 0-1', result));
-myApp.state.keyBinding.subscribe(result => console.log('Array of key/value pairs reflecting the currently selected keys', result));
-myApp.state.colorVision.subscribe(result => console.log('String representing the chose type of color blindness', result));
+myApp.state.keyBinding.subscribe(result => console.log('Array of key/value pairs reflecting the currently selected keys', result)); //See below about responding to the container
+myApp.state.colorVision.subscribe(result => console.log('String representing the chose type of color blindness', result)); //See below about responding to the container
 ```
-
+### Responding to the Container
 *the HUDPosition, keyBinding, and colorVision states requires one additional bit of configuration to interact with Springroll Container correctly. The examples below shows the `respond` call you need to implement to report back to the container.
 ```javascript
 var myApp = new springroll.Application({
