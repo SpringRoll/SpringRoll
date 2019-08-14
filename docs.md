@@ -77,17 +77,17 @@
         -   [Parameters][73]
     -   [removeFilter][74]
     -   [types][75]
--   [Controller][76]
-    -   [Parameters][77]
-    -   [update][78]
-    -   [onKeyDown][79]
-        -   [Parameters][80]
-    -   [onKeyUp][81]
+-   [KeyState][76]
+    -   [Properties][77]
+-   [Controller][78]
+    -   [Parameters][79]
+    -   [update][80]
+    -   [onKeyDown][81]
         -   [Parameters][82]
-    -   [assignButtons][83]
+    -   [onKeyUp][83]
         -   [Parameters][84]
--   [KeyState][85]
-    -   [Properties][86]
+    -   [assignButtons][85]
+        -   [Parameters][86]
 -   [Key][87]
     -   [Parameters][88]
     -   [Properties][89]
@@ -170,13 +170,13 @@
     -   [createLine][166]
         -   [Parameters][167]
 -   [CaptionPlayer][168]
-    -   [update][169]
-        -   [Parameters][170]
-    -   [start][171]
-        -   [Parameters][172]
-    -   [stop][173]
--   [CaptionPlayer][174]
-    -   [Parameters][175]
+    -   [Parameters][169]
+    -   [update][170]
+        -   [Parameters][171]
+    -   [start][172]
+        -   [Parameters][173]
+    -   [stop][174]
+-   [CaptionPlayer][175]
     -   [update][176]
         -   [Parameters][177]
     -   [start][178]
@@ -574,6 +574,16 @@ Supported filter types.
 Returns **[object][224]** Returns an object { name, value } with the colorblindness type:
 (Protanopia, Protanomaly, Deuteranopia, Deuteranomaly, Tritanopia, Tritanomaly, Achromatopsia, Achromatomaly)
 
+## KeyState
+
+Type: (`0` \| `1` \| `2`)
+
+### Properties
+
+-   `down` **[Function][220]** 
+-   `up` **[Function][220]** 
+-   `key` **[string][221]** 
+
 ## Controller
 
 Controller interface class to simplify working with key presses.
@@ -609,16 +619,6 @@ Sets an object of button functions to the controller to be called.
 #### Parameters
 
 -   `keys` **[Array][226]&lt;KeyTemplate>** 
-
-## KeyState
-
-Type: (`0` \| `1` \| `2`)
-
-### Properties
-
--   `down` **[Function][220]** 
--   `up` **[Function][220]** 
--   `key` **[string][221]** 
 
 ## Key
 
@@ -679,6 +679,7 @@ Main entry point for a game. Provides a single focal point for plugins and funct
     -   `features.hudPosition` **[boolean][229]?** A boolean denoting that this game has custom HUD positions.
     -   `features.difficulty` **[boolean][229]?** A boolean denoting that this game has adjustable difficulty/speed.
     -   `features.keyBinding` **[boolean][229]?** A boolean denoting that this game has re-mappable key bindings.
+    -   `features.colorVision` **[boolean][229]?** A boolean denoting that this game has color blindess filters
 
 ### getPlugin
 
@@ -1016,8 +1017,10 @@ Returns **[TimedLine][235]** new TimedLine;
 
 ## CaptionPlayer
 
-CaptionPlayer is used to start, stop and update captions.
- It applies the content of an active caption to a given CaptionRenderer.
+### Parameters
+
+-   `captions`  
+-   `renderer`  
 
 ### update
 
@@ -1044,10 +1047,8 @@ Stops any caption currently playing.
 
 ## CaptionPlayer
 
-### Parameters
-
--   `captions`  
--   `renderer`  
+CaptionPlayer is used to start, stop and update captions.
+ It applies the content of an active caption to a given CaptionRenderer.
 
 ### update
 
@@ -1387,27 +1388,27 @@ After all plugins inits has completed
 
 [75]: #types
 
-[76]: #controller
+[76]: #keystate
 
-[77]: #parameters-24
+[77]: #properties-2
 
-[78]: #update
+[78]: #controller
 
-[79]: #onkeydown
+[79]: #parameters-24
 
-[80]: #parameters-25
+[80]: #update
 
-[81]: #onkeyup
+[81]: #onkeydown
 
-[82]: #parameters-26
+[82]: #parameters-25
 
-[83]: #assignbuttons
+[83]: #onkeyup
 
-[84]: #parameters-27
+[84]: #parameters-26
 
-[85]: #keystate
+[85]: #assignbuttons
 
-[86]: #properties-2
+[86]: #parameters-27
 
 [87]: #key
 
@@ -1573,19 +1574,19 @@ After all plugins inits has completed
 
 [168]: #captionplayer
 
-[169]: #update-3
+[169]: #parameters-56
 
-[170]: #parameters-56
+[170]: #update-3
 
-[171]: #start-3
+[171]: #parameters-57
 
-[172]: #parameters-57
+[172]: #start-3
 
-[173]: #stop-1
+[173]: #parameters-58
 
-[174]: #captionplayer-1
+[174]: #stop-1
 
-[175]: #parameters-58
+[175]: #captionplayer-1
 
 [176]: #update-4
 

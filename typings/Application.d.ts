@@ -17,6 +17,9 @@ export type ApplicationFeatures = {
   buttonSize?: boolean,
   removableLayers?: boolean,
   hudPosition?: boolean,
+  difficulty?: boolean,
+  keyBinding?: boolean,
+  colorVision?: boolean,
 };
 
 export type ApplicationConfig = {
@@ -41,6 +44,9 @@ export class Application {
     buttonSize: Property<number>,
     removableLayers: Property<number>,
     hudPosition: Property<string>,
+    difficulty: Property<number>,
+    keyBinding: Property<object>,
+    colorVision: Property<string>,
     [key:string]: Property<any>
   }
   hints: IHintPlayer;

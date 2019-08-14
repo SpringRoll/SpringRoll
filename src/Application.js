@@ -17,6 +17,7 @@ const removableLayers = 'removableLayers';
 const hudPosition = 'hudPosition';
 const difficulty = 'difficulty';
 const keyBinding = 'keyBinding';
+const colorVision = 'colorVision';
 
 /**
  * Main entry point for a game. Provides a single focal point for plugins and functionality to attach.
@@ -38,6 +39,7 @@ const keyBinding = 'keyBinding';
  * @property {boolean} [features.hudPosition] A boolean denoting that this game has custom HUD positions.
  * @property {boolean} [features.difficulty] A boolean denoting that this game has adjustable difficulty/speed.
  * @property {boolean} [features.keyBinding] A boolean denoting that this game has re-mappable key bindings.
+ * @property {boolean} [features.colorVision] A boolean denoting that this game has color blindess filters
  */
 export class Application {
   /**
@@ -60,6 +62,7 @@ export class Application {
    * @param {boolean} [config.features.hudPosition] A boolean denoting that this game has custom HUD positions in it
    * @param {boolean} [config.features.difficulty] A boolean denoting that this game has adjustable difficulty/speed.
    * @param {boolean} [config.features.keyBinding] A boolean denoting that this game has re-mappable key bindings.
+   * @param {boolean} [config.features.colorVision] A boolean denoting that this game has color blindness filters.
    */
   constructor({ features, hintPlayer = new HintSequencePlayer() } = {}) {
     this.state = {
@@ -77,7 +80,8 @@ export class Application {
       removableLayers: new Property(0),
       hudPosition: new Property(''),
       difficulty: new Property(0.5),
-      keyBinding: new Property({})
+      keyBinding: new Property({}),
+      colorVision: new Property('none')
     };
 
     this.features = Object.assign(
@@ -98,6 +102,7 @@ export class Application {
         hudPosition: false,
         difficulty: false,
         keyBinding: false,
+        colorVision: false
       },
       features || {}
     );
@@ -129,6 +134,7 @@ export class Application {
         hudPosition,
         difficulty,
         keyBinding,
+        colorVision
       ];
       const length = events.length;
       for (let i = 0; i < length; i++) {
@@ -298,6 +304,7 @@ export class Application {
       hudPosition: hudPosition,
       difficulty: difficulty,
       keyBinding: keyBinding,
+      colorVision: colorVision
     };
 
     const keys = Object.keys(featureToStateMap);
