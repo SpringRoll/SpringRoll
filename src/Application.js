@@ -172,22 +172,20 @@ export class Application {
     const preloads = [];
 
     for (let i = 0; i < Application._plugins.length; i++) {
-      if (!Application._plugins[i].preload) {
-        continue;
+      if (Application._plugins[i].preload) {
+        preloads.push(
+          Application._plugins[i]
+            .preload(this)
+            .catch(function preloadFail(error) {
+              Application._plugins[i].preloadFailed = true;
+              console.warn(
+                Application._plugins[i].name,
+                'Preload Failed:',
+                error
+              );
+            })
+        );
       }
-
-      preloads.push(
-        Application._plugins[i]
-          .preload(this)
-          .catch(function preloadFail(error) {
-            Application._plugins[i].preloadFailed = true;
-            console.warn(
-              Application._plugins[i].name,
-              'Preload Failed:',
-              error
-            );
-          })
-      );
     }
 
     // ~wait for all preloads to resolve
