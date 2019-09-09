@@ -5,6 +5,7 @@ import { BellhopSingleton } from './communication/BellhopSingleton';
 
 const pause = 'pause';
 const captionsMuted = 'captionsMuted';
+const captionsStyles = 'captionsStyles';
 const soundVolume = 'soundVolume';
 const musicVolume = 'musicVolume';
 const voVolume = 'voVolume';
@@ -18,6 +19,15 @@ const hudPosition = 'hudPosition';
 const difficulty = 'difficulty';
 const keyBinding = 'keyBinding';
 const colorVision = 'colorVision';
+
+const captionsStylesDefault = {
+  color: '#FFFFFF',
+  edge: 'none',
+  font: 'arial',
+  background: '#000000',
+  size: 'md',
+  align: 'top'
+};
 
 /**
  * Main entry point for a game. Provides a single focal point for plugins and functionality to attach.
@@ -69,6 +79,7 @@ export class Application {
       ready: new Property(false),
       pause: new Property(false),
       captionsMuted: new Property(true),
+      captionsStyles: new Property(captionsStylesDefault),
       playOptions: new Property({}),
       soundVolume: new Property(1),
       musicVolume: new Property(1),
@@ -87,6 +98,7 @@ export class Application {
     this.features = Object.assign(
       {
         captions: false,
+        captionsStyles: false,
         sound: false,
         vo: false,
         music: false,
@@ -126,6 +138,7 @@ export class Application {
         voVolume,
         sfxVolume,
         captionsMuted,
+        captionsStyles,
         pause,
         pointerSize,
         controlSensitivity,
