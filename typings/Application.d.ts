@@ -1,6 +1,5 @@
 /// <reference types="bellhop-iframe" />
 import { IHintPlayer } from "./Hint";
-import { type } from "os";
 
 export type ApplicationFeatures = {
   captions?: boolean,
