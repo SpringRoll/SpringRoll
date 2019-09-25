@@ -30,10 +30,10 @@
 -   [Point][26]
 -   [PositionCallback][27]
     -   [Parameters][28]
--   [ScaledEntity][29]
-    -   [onResize][30]
-        -   [Parameters][31]
--   [EntityResizeEvent][32]
+-   [EntityResizeEvent][29]
+-   [ScaledEntity][30]
+    -   [onResize][31]
+        -   [Parameters][32]
 -   [ScaleManager][33]
     -   [Parameters][34]
     -   [entities][35]
@@ -69,25 +69,25 @@
     -   [volume][65]
         -   [Parameters][66]
     -   [volume][67]
--   [filterType][68]
--   [ColorFilter][69]
-    -   [applyFilter][70]
-        -   [Parameters][71]
-    -   [changeFilter][72]
-        -   [Parameters][73]
-    -   [removeFilter][74]
-    -   [types][75]
--   [KeyState][76]
-    -   [Properties][77]
--   [Controller][78]
-    -   [Parameters][79]
-    -   [update][80]
-    -   [onKeyDown][81]
+-   [ColorFilter][68]
+    -   [applyFilter][69]
+        -   [Parameters][70]
+    -   [changeFilter][71]
+        -   [Parameters][72]
+    -   [removeFilter][73]
+    -   [types][74]
+-   [filterType][75]
+-   [Controller][76]
+    -   [Parameters][77]
+    -   [update][78]
+    -   [onKeyDown][79]
+        -   [Parameters][80]
+    -   [onKeyUp][81]
         -   [Parameters][82]
-    -   [onKeyUp][83]
+    -   [assignButtons][83]
         -   [Parameters][84]
-    -   [assignButtons][85]
-        -   [Parameters][86]
+-   [KeyState][85]
+    -   [Properties][86]
 -   [Key][87]
     -   [Parameters][88]
     -   [Properties][89]
@@ -141,7 +141,7 @@
     -   [value][137]
         -   [Parameters][138]
 -   [Caption][139]
-    -   [Parameters][140]
+    -   [Properties][140]
     -   [update][141]
         -   [Parameters][142]
     -   [updateState][143]
@@ -152,7 +152,7 @@
     -   [updateTimeIndex][148]
         -   [Parameters][149]
 -   [Caption][150]
-    -   [Properties][151]
+    -   [Parameters][151]
     -   [update][152]
         -   [Parameters][153]
     -   [updateState][154]
@@ -354,6 +354,10 @@ Type: [Function][220]
 
 -   `position` **[Point][224]** position relative to anchor direction
 
+## EntityResizeEvent
+
+Type: {offset: [Point][224], gameSize: [Point][224], scale: [Point][224]}
+
 ## ScaledEntity
 
 ### onResize
@@ -363,10 +367,6 @@ Type: [Function][220]
 -   `event` **[EntityResizeEvent][225]** 
 
 Returns **void** @memberof ScaledEntity
-
-## EntityResizeEvent
-
-Type: {offset: [Point][224], gameSize: [Point][224], scale: [Point][224]}
 
 ## ScaleManager
 
@@ -536,10 +536,6 @@ Returns the current volume of the announcer.
 
 Returns **[number][219]** 
 
-## filterType
-
-Type: (`"protanopia"` \| `"protanomaly"` \| `"deuteranopia"` \| `"deuteranomaly"` \| `"tritanopia"` \| `"tritanomaly"` \| `"achromatopsia"` \| `"achromatomaly"`)
-
 ## ColorFilter
 
 The Color filter allows you to simulate colorblindness.
@@ -574,15 +570,9 @@ Supported filter types.
 Returns **[object][223]** Returns an object { name, value } with the colorblindness type:
 (Protanopia, Protanomaly, Deuteranopia, Deuteranomaly, Tritanopia, Tritanomaly, Achromatopsia, Achromatomaly)
 
-## KeyState
+## filterType
 
-Type: (`0` \| `1` \| `2`)
-
-### Properties
-
--   `down` **[Function][220]** 
--   `up` **[Function][220]** 
--   `key` **[string][221]** 
+Type: (`"protanopia"` \| `"protanomaly"` \| `"deuteranopia"` \| `"deuteranomaly"` \| `"tritanopia"` \| `"tritanomaly"` \| `"achromatopsia"` \| `"achromatomaly"`)
 
 ## Controller
 
@@ -619,6 +609,16 @@ Sets an object of button functions to the controller to be called.
 #### Parameters
 
 -   `keys` **[Array][226]&lt;KeyTemplate>** 
+
+## KeyState
+
+Type: (`0` \| `1` \| `2`)
+
+### Properties
+
+-   `down` **[Function][220]** 
+-   `up` **[Function][220]** 
+-   `key` **[string][221]** 
 
 ## Key
 
@@ -676,7 +676,10 @@ Main entry point for a game. Provides a single focal point for plugins and funct
     -   `features.controlSensitivity` **[boolean][229]?** A boolean denoting that this game has adjustable control sensitivity in it
     -   `features.buttonSize` **[boolean][229]?** A boolean denoting that this game has adjustable button sizes in it
     -   `features.removableLayers` **[boolean][229]?** A boolean denoting that this game has removable game layers in it
-    -   `features.hudPosition` **[boolean][229]?** A boolean denoting that this game has cusotm HUD positions.
+    -   `features.hudPosition` **[boolean][229]?** A boolean denoting that this game has custom HUD positions.
+    -   `features.difficulty` **[boolean][229]?** A boolean denoting that this game has adjustable difficulty/speed.
+    -   `features.keyBinding` **[boolean][229]?** A boolean denoting that this game has re-mappable key bindings.
+    -   `features.colorVision` **[boolean][229]?** A boolean denoting that this game has color blindess filters
 
 ### getPlugin
 
@@ -883,9 +886,12 @@ Sets the value of the property and notifies all listeners of the change
 
 ## Caption
 
-### Parameters
+### Properties
 
--   `lines`  
+-   `lines` **[Array][226]&lt;[TimedLine][235]>** 
+-   `time` **[number][219]** 
+-   `lineIndex` **[number][219]** 
+-   `renderer` **[IRender][236]** 
 
 ### update
 
@@ -930,12 +936,9 @@ Updates the current time and index of the caption instance
 
 ## Caption
 
-### Properties
+### Parameters
 
--   `lines` **[Array][226]&lt;[TimedLine][235]>** 
--   `time` **[number][219]** 
--   `lineIndex` **[number][219]** 
--   `renderer` **[IRender][236]** 
+-   `lines`  
 
 ### update
 
@@ -1291,13 +1294,13 @@ After all plugins inits has completed
 
 [28]: #parameters-8
 
-[29]: #scaledentity
+[29]: #entityresizeevent
 
-[30]: #onresize-1
+[30]: #scaledentity
 
-[31]: #parameters-9
+[31]: #onresize-1
 
-[32]: #entityresizeevent
+[32]: #parameters-9
 
 [33]: #scalemanager
 
@@ -1369,43 +1372,43 @@ After all plugins inits has completed
 
 [67]: #volume-1
 
-[68]: #filtertype
+[68]: #colorfilter
 
-[69]: #colorfilter
+[69]: #applyfilter
 
-[70]: #applyfilter
+[70]: #parameters-22
 
-[71]: #parameters-22
+[71]: #changefilter
 
-[72]: #changefilter
+[72]: #parameters-23
 
-[73]: #parameters-23
+[73]: #removefilter
 
-[74]: #removefilter
+[74]: #types
 
-[75]: #types
+[75]: #filtertype
 
-[76]: #keystate
+[76]: #controller
 
-[77]: #properties-2
+[77]: #parameters-24
 
-[78]: #controller
+[78]: #update
 
-[79]: #parameters-24
+[79]: #onkeydown
 
-[80]: #update
+[80]: #parameters-25
 
-[81]: #onkeydown
+[81]: #onkeyup
 
-[82]: #parameters-25
+[82]: #parameters-26
 
-[83]: #onkeyup
+[83]: #assignbuttons
 
-[84]: #parameters-26
+[84]: #parameters-27
 
-[85]: #assignbuttons
+[85]: #keystate
 
-[86]: #parameters-27
+[86]: #properties-2
 
 [87]: #key
 
@@ -1513,29 +1516,29 @@ After all plugins inits has completed
 
 [139]: #caption
 
-[140]: #parameters-44
+[140]: #properties-7
 
 [141]: #update-1
 
-[142]: #parameters-45
+[142]: #parameters-44
 
 [143]: #updatestate-1
 
-[144]: #parameters-46
+[144]: #parameters-45
 
 [145]: #isfinished
 
 [146]: #start-1
 
-[147]: #parameters-47
+[147]: #parameters-46
 
 [148]: #updatetimeindex
 
-[149]: #parameters-48
+[149]: #parameters-47
 
 [150]: #caption-1
 
-[151]: #properties-7
+[151]: #parameters-48
 
 [152]: #update-2
 

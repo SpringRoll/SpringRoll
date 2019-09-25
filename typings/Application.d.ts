@@ -1,9 +1,9 @@
 /// <reference types="bellhop-iframe" />
 import { IHintPlayer } from "./Hint";
 
-
 export type ApplicationFeatures = {
   captions?: boolean,
+  captionsStyles?: boolean,
   sound?: boolean,
   vo?: boolean,
   music?: boolean,
@@ -17,7 +17,24 @@ export type ApplicationFeatures = {
   buttonSize?: boolean,
   removableLayers?: boolean,
   hudPosition?: boolean,
+  difficulty?: boolean,
+  keyBinding?: boolean,
+  colorVision?: boolean,
 };
+
+export type CaptionStyle = {
+  color: string,
+  edge: string,
+  font:string,
+  background:string,
+  size:string,
+  align:string,
+  value?:string
+}
+
+export type KeyBinding = {
+  [key:string]: string
+}
 
 export type ApplicationConfig = {
   features?: ApplicationFeatures,
@@ -31,6 +48,7 @@ export class Application {
     ready: Property<boolean>,
     pause: Property<boolean>,
     captionsMuted: Property<boolean>,
+    captionsStyles: Property<CaptionStyle>,
     playOptions: Property<object>,
     soundVolume: Property<number>,
     musicVolume: Property<number>,
@@ -41,6 +59,9 @@ export class Application {
     buttonSize: Property<number>,
     removableLayers: Property<number>,
     hudPosition: Property<string>,
+    difficulty: Property<number>,
+    keyBinding: Property<KeyBinding>,
+    colorVision: Property<string>,
     [key:string]: Property<any>
   }
   hints: IHintPlayer;

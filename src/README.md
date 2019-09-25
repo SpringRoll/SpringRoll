@@ -32,6 +32,9 @@ var myApp = new springroll.Application({
     buttonSize: false, // whether or not the game has adjustable button sizes
     removableLayers: false, // whether or not the game supports the removal of distracting game layers
     hudPosition: false, // whether or not the game supports multiple HUD positions
+    difficulty: false, // whether or not the game supports an adjustable difficulty,
+    keyBinding: true, //whether or not the game supports re-mappable key bindings.
+    colorVision: true, //whether or not the game supports alternate color schemes for color blind users
   }
 });
 ```
@@ -70,7 +73,10 @@ var myApp = new springroll.Application({
     controlSensitivity: true,
     buttonSize: true,
     removableLayers: true,
-    hudPosition: true
+    hudPosition: true,
+    difficulty: true,
+    keyBinding: true,
+    colorVision: true,
   }
 });
 
@@ -83,23 +89,49 @@ myApp.state.pointerSize.subscribe(result => console.log('Value Between 0-1', res
 myApp.state.buttonSize.subscribe(result => console.log('Value Between 0-1', result));
 myApp.state.controlSensitivity.subscribe(result => console.log('Value Between 0-1', result));
 myApp.state.removableLayers.subscribe(result => console.log('Value Between 0-1', result));
-myApp.state.hudPosition.subscribe(result => console.log('String position of the HUD', result));*
+myApp.state.hudPosition.subscribe(result => console.log('String position of the HUD', result)); //See below about responding to the container
+myApp.state.difficulty.subscribe(result => console.log('Value Between 0-1', result));
+myApp.state.keyBinding.subscribe(result => console.log('Array of key/value pairs reflecting the currently selected keys', result)); //See below about responding to the container
+myApp.state.colorVision.subscribe(result => console.log('String representing the chose type of color blindness', result)); //See below about responding to the container
 ```
-
-*the HUD position state requires one additional bit of configuration to interact with Springroll Container correctly. The example below shows the `respond` call you need to implement to report the HUD positions your game allows.
-
+### Responding to the Container
+*the HUDPosition, keyBinding, and colorVision states requires one additional bit of configuration to interact with Springroll Container correctly. The examples below shows the `respond` call you need to implement to report back to the container.
 ```javascript
 var myApp = new springroll.Application({
   features: {
-    hudPosition: true
+    hudPosition: true,
+    keyBinding: true,
+    colorVision: true,
   }
 });
 
-myApp.container.respond('hudPositions', ['top', 'bottom', 'left', 'right']);
 //this should be an array of strings(representing the positions the game supports).
-```
-The positions accepted are `top`, `bottom`, `right`, `left`. However the application doesn't need to support all of them, it can support only a subset (e.g. `['top', 'left']`) depending on the layout of the Heads Up Display.
+myApp.container.respond('hudPositions', ['top', 'bottom', 'left', 'right']);
 
+//this should be an array of objects that represent the user actions and the default key used in the game
+myApp.container.respond('keyBinding', [
+  {actionName: 'Jump', defaultKey: 'w'},
+  {actionName: 'Left', defaultKey: 'a'},
+  {actionName: 'Right', defaultKey: 'd'},
+  {actionName: 'Crouch', defaultKey: 's'},
+]);
+
+//there is an 'enum' object available that will help with the available options for color fitlers. *All available options are listed in the below example*
+myApp.container.respond('colorFilters', [
+  springroll.COLOR_VISION.NONE,
+  springroll.COLOR_VISION.PROTANOPIA,
+  springroll.COLOR_VISION.DEUTERANOPIA,
+  springroll.COLOR_VISION.TRITANOPIA,
+  springroll.COLOR_VISION.ACHROMATOPSIA,
+]);
+```
+The positions accepted for the HUD are `top`, `bottom`, `right`, `left` (any positions other than these are discarded). However, the application doesn't need to support all of them, it can support only a subset (e.g. `['top', 'left']`) depending on the layout of the Heads Up Display.
+
+The keyBinding actionName can be whatever you want, the only constraint is that defaultKey currently uses the `KeyboardEvent.key` when setting keys.
+
+Similar to the HUDPositions call only the options in the Color Vision example are accepted, and only the options your game supports need to be included. Anything outside of the options above wil be discarded by the container.
+
+## Legacy Audio Events
 Springroll V1 had the audio events:
 ```javascript
 myApp.state.soundMuted.subscribe(result => console.log('true/false', result));

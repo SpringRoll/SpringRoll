@@ -5,6 +5,7 @@ import { BellhopSingleton } from './communication/BellhopSingleton';
 
 const pause = 'pause';
 const captionsMuted = 'captionsMuted';
+const captionsStyles = 'captionsStyles';
 const soundVolume = 'soundVolume';
 const musicVolume = 'musicVolume';
 const voVolume = 'voVolume';
@@ -15,6 +16,18 @@ const controlSensitivity = 'controlSensitivity';
 const buttonSize = 'buttonSize';
 const removableLayers = 'removableLayers';
 const hudPosition = 'hudPosition';
+const difficulty = 'difficulty';
+const keyBinding = 'keyBinding';
+const colorVision = 'colorVision';
+
+const captionsStylesDefault = {
+  color: '#FFFFFF',
+  edge: 'none',
+  font: 'arial',
+  background: '#000000',
+  size: 'md',
+  align: 'top'
+};
 
 /**
  * Main entry point for a game. Provides a single focal point for plugins and functionality to attach.
@@ -33,7 +46,10 @@ const hudPosition = 'hudPosition';
  * @property {boolean} [features.controlSensitivity] A boolean denoting that this game has adjustable control sensitivity in it
  * @property {boolean} [features.buttonSize] A boolean denoting that this game has adjustable button sizes in it
  * @property {boolean} [features.removableLayers] A boolean denoting that this game has removable game layers in it
- * @property {boolean} [features.hudPosition] A boolean denoting that this game has cusotm HUD positions.
+ * @property {boolean} [features.hudPosition] A boolean denoting that this game has custom HUD positions.
+ * @property {boolean} [features.difficulty] A boolean denoting that this game has adjustable difficulty/speed.
+ * @property {boolean} [features.keyBinding] A boolean denoting that this game has re-mappable key bindings.
+ * @property {boolean} [features.colorVision] A boolean denoting that this game has color blindess filters
  */
 export class Application {
   /**
@@ -54,12 +70,16 @@ export class Application {
    * @param {boolean} [config.features.buttonSize] A boolean denoting that this game has adjustable button sizes in it
    * @param {boolean} [config.features.removableLayers] A boolean denoting that this game has removable game layers in it
    * @param {boolean} [config.features.hudPosition] A boolean denoting that this game has custom HUD positions in it
+   * @param {boolean} [config.features.difficulty] A boolean denoting that this game has adjustable difficulty/speed.
+   * @param {boolean} [config.features.keyBinding] A boolean denoting that this game has re-mappable key bindings.
+   * @param {boolean} [config.features.colorVision] A boolean denoting that this game has color blindness filters.
    */
   constructor({ features, hintPlayer = new HintSequencePlayer() } = {}) {
     this.state = {
       ready: new Property(false),
       pause: new Property(false),
       captionsMuted: new Property(true),
+      captionsStyles: new Property(captionsStylesDefault),
       playOptions: new Property({}),
       soundVolume: new Property(1),
       musicVolume: new Property(1),
@@ -69,12 +89,16 @@ export class Application {
       controlSensitivity: new Property(0.5),
       buttonSize: new Property(0.5),
       removableLayers: new Property(0),
-      hudPosition: new Property('')
+      hudPosition: new Property(''),
+      difficulty: new Property(0.5),
+      keyBinding: new Property({}),
+      colorVision: new Property('none')
     };
 
     this.features = Object.assign(
       {
         captions: false,
+        captionsStyles: false,
         sound: false,
         vo: false,
         music: false,
@@ -87,7 +111,10 @@ export class Application {
         controlSensitivity: false,
         buttonSize: false,
         removableLayers: false,
-        hudPosition: false
+        hudPosition: false,
+        difficulty: false,
+        keyBinding: false,
+        colorVision: false
       },
       features || {}
     );
@@ -111,12 +138,16 @@ export class Application {
         voVolume,
         sfxVolume,
         captionsMuted,
+        captionsStyles,
         pause,
         pointerSize,
         controlSensitivity,
         buttonSize,
         removableLayers,
-        hudPosition
+        hudPosition,
+        difficulty,
+        keyBinding,
+        colorVision
       ];
       const length = events.length;
       for (let i = 0; i < length; i++) {
@@ -283,7 +314,10 @@ export class Application {
       controlSensitivity: controlSensitivity,
       buttonSize: buttonSize,
       removableLayers: removableLayers,
-      hudPosition: hudPosition
+      hudPosition: hudPosition,
+      difficulty: difficulty,
+      keyBinding: keyBinding,
+      colorVision: colorVision
     };
 
     const keys = Object.keys(featureToStateMap);
