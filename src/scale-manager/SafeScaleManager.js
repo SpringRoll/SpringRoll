@@ -17,16 +17,16 @@ import { Debugger } from '../debug';
 /**
  * Handles scaling the game
  */
-export class ScaleManager {
+export class SafeScaleManager {
   /**
-   * Creates an instance of ScaleManager.
+   * Creates an instance of SafeScaleManager.
    * @param  {object} param
    * @param  {Number} param.width width of game
    * @param  {Number} param.height height of game
    * @param  {Number} param.safeWidth width of safe area for the game
    * @param  {Number} param.safeHeight height of safe area for the game
    * @param  {ScaleCallback} param.callback function called to scale game and canvas
-   * @memberof ScaleManager
+   * @memberof SafeScaleManager
    */
   constructor({
     width,
@@ -102,7 +102,7 @@ export class ScaleManager {
    * Calculates the offset for anchors.
    * @param  {Point} scale scale value
    * @return {Point}
-   * @memberof ScaleManager
+   * @memberof SafeScaleManager
    */
   calcOffset(scale) {
     const gameWidthRatio = this.gameWidth / this.safeWidth;
@@ -124,7 +124,7 @@ export class ScaleManager {
   /**
    * Adds and anchor to be updated during resize
    * @param  {ScaledEntity} entity
-   * @memberof ScaleManager
+   * @memberof SafeScaleManager
    */
   addEntity(entity) {
     if (this.entities.includes(entity)) {
@@ -141,7 +141,7 @@ export class ScaleManager {
   /**
    * Removes an anchor
    * @param  {ScaledEntity} entity
-   * @return {void} @memberof ScaleManager
+   * @return {void} @memberof SafeScaleManager
    */
   removeEntity(entity) {
     this.entities = this.entities.filter(e => e !== entity);

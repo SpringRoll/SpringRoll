@@ -1,12 +1,12 @@
-import { ScaleManager } from './ScaleManager';
+import { SafeScaleManager } from './SafeScaleManager';
 import { newEvent } from '../debug';
 import { Anchor } from './Anchor';
 
 describe('Scale Manager', () => {
-  const sm = new ScaleManager({ width: 400, height: 400 });
+  const sm = new SafeScaleManager({ width: 400, height: 400 });
 
   it('Should call the callback passed via the constructor', done => {
-    new ScaleManager({
+    new SafeScaleManager({
       width: 400,
       height: 400,
       safeWidth: 200,
