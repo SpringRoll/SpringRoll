@@ -1,8 +1,32 @@
 # Scale Manager
+A utility class that listens for resize events.
+
+There is a 500ms delay added to the event to solve an issues where on some browsers the window isn't fully resized before the event fires.
+
+```javascript
+var scaleManager = new ScaleManager(function(resizeData) {
+  console.log('This is called on window resize');
+
+  console.log('Window width is', resizeData.width);
+  console.log('Window height is', resizeData.height);
+  console.log('Window aspect ratio is', resizeData.ratio);
+});
+```
+
+The `enable` method exists in case you do not have a listener ready at the time of construction or need to replace the
+existing listener.
+
+```javascript
+scaleManager.enable(function(resizeData) {
+  console.log('The old listener is replaced with this one!', resizeData);
+});
+```
+
+# Safe Scale Manager
 A utility class that listens for resize events and calculates the width and height your game should be to fit within the screen without stretching or squishing the game. 
 
 ```javascript
-let scaleManager = new ScaleManager({
+let scaleManager = new SafeScaleManager({
   width: 1320,
   height: 780,
   callback: function(resizeData) {
@@ -30,7 +54,7 @@ For more info check out the [WebKit Bug](https://bugs.webkit.org/show_bug.cgi?id
 
 ### Callback Example
 
-The scale manager callback parameter contains `width`, `height`, and `scale`. these values can be used to resize your game. Depending on the engine you choose you'll have to use them differently. `scale` contains `x` and `y`, these are the independent scaling values for the x and y axis.
+The safe scale manager's callback parameter contains `width`, `height`, and `scale`. these values can be used to resize your game. Depending on the engine you choose you'll have to use them differently. `scale` contains `x` and `y`, these are the independent scaling values for the x and y axis.
 
 ```javascript
 scaleManager.enable(({width, height, scale}) => {
@@ -60,7 +84,7 @@ scaleManager.enable(({width, height, scale}) => {
 Safe scaling is enabled by setting `safeWidth` and `safeHeight` in the scaleManager's config. 
 
 ```javascript
-let scaleManager = new ScaleManager({
+let scaleManager = new SafeScaleManager({
   width: 1320,
   height: 780,
   safeWidth: 1024,
