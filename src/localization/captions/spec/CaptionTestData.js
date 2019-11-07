@@ -43,5 +43,17 @@ export default {
       start: 1000,
       end: 1000
     }
+  ],
+  StartEnd: [
+    {
+      content: 'first',
+      start: 0,
+      end: 1000
+    },
+    {
+      content: 'last',
+      start: 1000,
+      end: 2000
+    }
   ]
 };
