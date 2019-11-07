@@ -51,7 +51,7 @@ describe('CaptionPlayer', function() {
       expect(tester.stopCalled).to.equal(true);
     });
 
-    it('Should call the later caption if start and end time of two captions are the same', function() {
+    it('Should finish the first caption and wait for next update to start the second if start and end time of two captions are the same', function() {
       player.start('StartEnd', 900);
       expect(tester.content).to.equal('first');
       expect(tester.lineEndCalled).to.equal(false);
