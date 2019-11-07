@@ -147,13 +147,13 @@
     -   [createLine][143]
         -   [Parameters][144]
 -   [CaptionPlayer][145]
-    -   [update][146]
-        -   [Parameters][147]
-    -   [start][148]
-        -   [Parameters][149]
-    -   [stop][150]
--   [CaptionPlayer][151]
-    -   [Parameters][152]
+    -   [Parameters][146]
+    -   [update][147]
+        -   [Parameters][148]
+    -   [start][149]
+        -   [Parameters][150]
+    -   [stop][151]
+-   [CaptionPlayer][152]
     -   [update][153]
         -   [Parameters][154]
     -   [start][155]
@@ -863,8 +863,10 @@ Returns **[TimedLine][208]** new TimedLine;
 
 ## CaptionPlayer
 
-CaptionPlayer is used to start, stop and update captions.
- It applies the content of an active caption to a given CaptionRenderer.
+### Parameters
+
+-   `captions`  
+-   `renderer`  
 
 ### update
 
@@ -891,10 +893,8 @@ Stops any caption currently playing.
 
 ## CaptionPlayer
 
-### Parameters
-
--   `captions`  
--   `renderer`  
+CaptionPlayer is used to start, stop and update captions.
+ It applies the content of an active caption to a given CaptionRenderer.
 
 ### update
 
@@ -1374,19 +1374,19 @@ After all plugins inits has completed
 
 [145]: #captionplayer
 
-[146]: #update-3
+[146]: #parameters-48
 
-[147]: #parameters-48
+[147]: #update-3
 
-[148]: #start-3
+[148]: #parameters-49
 
-[149]: #parameters-49
+[149]: #start-3
 
-[150]: #stop-1
+[150]: #parameters-50
 
-[151]: #captionplayer-1
+[151]: #stop-1
 
-[152]: #parameters-50
+[152]: #captionplayer-1
 
 [153]: #update-4
 
