@@ -47,25 +47,25 @@
     -   [volume][43]
         -   [Parameters][44]
     -   [volume][45]
--   [filterType][46]
--   [ColorFilter][47]
-    -   [applyFilter][48]
-        -   [Parameters][49]
-    -   [changeFilter][50]
-        -   [Parameters][51]
-    -   [removeFilter][52]
-    -   [types][53]
--   [KeyState][54]
-    -   [Properties][55]
--   [Controller][56]
-    -   [Parameters][57]
-    -   [update][58]
-    -   [onKeyDown][59]
+-   [ColorFilter][46]
+    -   [applyFilter][47]
+        -   [Parameters][48]
+    -   [changeFilter][49]
+        -   [Parameters][50]
+    -   [removeFilter][51]
+    -   [types][52]
+-   [filterType][53]
+-   [Controller][54]
+    -   [Parameters][55]
+    -   [update][56]
+    -   [onKeyDown][57]
+        -   [Parameters][58]
+    -   [onKeyUp][59]
         -   [Parameters][60]
-    -   [onKeyUp][61]
+    -   [assignButtons][61]
         -   [Parameters][62]
-    -   [assignButtons][63]
-        -   [Parameters][64]
+-   [KeyState][63]
+    -   [Properties][64]
 -   [Key][65]
     -   [Parameters][66]
     -   [Properties][67]
@@ -147,13 +147,13 @@
     -   [createLine][143]
         -   [Parameters][144]
 -   [CaptionPlayer][145]
-    -   [Parameters][146]
-    -   [update][147]
-        -   [Parameters][148]
-    -   [start][149]
-        -   [Parameters][150]
-    -   [stop][151]
--   [CaptionPlayer][152]
+    -   [update][146]
+        -   [Parameters][147]
+    -   [start][148]
+        -   [Parameters][149]
+    -   [stop][150]
+-   [CaptionPlayer][151]
+    -   [Parameters][152]
     -   [update][153]
         -   [Parameters][154]
     -   [start][155]
@@ -403,10 +403,6 @@ Returns the current volume of the announcer.
 
 Returns **[number][196]** 
 
-## filterType
-
-Type: (`"protanopia"` \| `"protanomaly"` \| `"deuteranopia"` \| `"deuteranomaly"` \| `"tritanopia"` \| `"tritanomaly"` \| `"achromatopsia"` \| `"achromatomaly"`)
-
 ## ColorFilter
 
 The Color filter allows you to simulate colorblindness.
@@ -441,15 +437,9 @@ Supported filter types.
 Returns **[object][200]** Returns an object { name, value } with the colorblindness type:
 (Protanopia, Protanomaly, Deuteranopia, Deuteranomaly, Tritanopia, Tritanomaly, Achromatopsia, Achromatomaly)
 
-## KeyState
+## filterType
 
-Type: (`0` \| `1` \| `2`)
-
-### Properties
-
--   `down` **[Function][197]** 
--   `up` **[Function][197]** 
--   `key` **[string][198]** 
+Type: (`"protanopia"` \| `"protanomaly"` \| `"deuteranopia"` \| `"deuteranomaly"` \| `"tritanopia"` \| `"tritanomaly"` \| `"achromatopsia"` \| `"achromatomaly"`)
 
 ## Controller
 
@@ -486,6 +476,16 @@ Sets an object of button functions to the controller to be called.
 #### Parameters
 
 -   `keys` **[Array][204]&lt;KeyTemplate>** 
+
+## KeyState
+
+Type: (`0` \| `1` \| `2`)
+
+### Properties
+
+-   `down` **[Function][197]** 
+-   `up` **[Function][197]** 
+-   `key` **[string][198]** 
 
 ## Key
 
@@ -863,10 +863,8 @@ Returns **[TimedLine][208]** new TimedLine;
 
 ## CaptionPlayer
 
-### Parameters
-
--   `captions`  
--   `renderer`  
+CaptionPlayer is used to start, stop and update captions.
+ It applies the content of an active caption to a given CaptionRenderer.
 
 ### update
 
@@ -893,8 +891,10 @@ Stops any caption currently playing.
 
 ## CaptionPlayer
 
-CaptionPlayer is used to start, stop and update captions.
- It applies the content of an active caption to a given CaptionRenderer.
+### Parameters
+
+-   `captions`  
+-   `renderer`  
 
 ### update
 
@@ -1174,43 +1174,43 @@ After all plugins inits has completed
 
 [45]: #volume-1
 
-[46]: #filtertype
+[46]: #colorfilter
 
-[47]: #colorfilter
+[47]: #applyfilter
 
-[48]: #applyfilter
+[48]: #parameters-14
 
-[49]: #parameters-14
+[49]: #changefilter
 
-[50]: #changefilter
+[50]: #parameters-15
 
-[51]: #parameters-15
+[51]: #removefilter
 
-[52]: #removefilter
+[52]: #types
 
-[53]: #types
+[53]: #filtertype
 
-[54]: #keystate
+[54]: #controller
 
-[55]: #properties-3
+[55]: #parameters-16
 
-[56]: #controller
+[56]: #update
 
-[57]: #parameters-16
+[57]: #onkeydown
 
-[58]: #update
+[58]: #parameters-17
 
-[59]: #onkeydown
+[59]: #onkeyup
 
-[60]: #parameters-17
+[60]: #parameters-18
 
-[61]: #onkeyup
+[61]: #assignbuttons
 
-[62]: #parameters-18
+[62]: #parameters-19
 
-[63]: #assignbuttons
+[63]: #keystate
 
-[64]: #parameters-19
+[64]: #properties-3
 
 [65]: #key
 
@@ -1374,19 +1374,19 @@ After all plugins inits has completed
 
 [145]: #captionplayer
 
-[146]: #parameters-48
+[146]: #update-3
 
-[147]: #update-3
+[147]: #parameters-48
 
-[148]: #parameters-49
+[148]: #start-3
 
-[149]: #start-3
+[149]: #parameters-49
 
-[150]: #parameters-50
+[150]: #stop-1
 
-[151]: #stop-1
+[151]: #captionplayer-1
 
-[152]: #captionplayer-1
+[152]: #parameters-50
 
 [153]: #update-4
 
