@@ -15,7 +15,7 @@ export class SpeechSynth {
   queue: string[];
   voicesLoaded: false;
   voiceOptions: any[];
-  pasue(): void;
+  pause(): void;
   resume(): void;
   cancel(): void;
   say(message: string): void;
