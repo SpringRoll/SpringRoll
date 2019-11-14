@@ -47,7 +47,7 @@ export interface ApplicationPluginOptions {
   name: string;
 }
 
-export interface ApplicationPlugin {
+export class ApplicationPlugin {
   constructor(options: ApplicationPluginOptions)
   name: string;
   start(app: Application): void;
@@ -56,8 +56,6 @@ export interface ApplicationPlugin {
 }
 
 
-
-export class ApplicationPlugin implements ApplicationPlugin {}
 
 
 export class Property<T> {
