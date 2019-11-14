@@ -23,7 +23,7 @@ export interface ScaledEntity {
   onResize(event: EntityResizeEvent):void
 }
 
-export interface ScaleManagerConfig {
+export interface SafeScaleManagerConfig {
   width: Number;
   height: Number;
   safeWidth?: Number;
@@ -31,8 +31,8 @@ export interface ScaleManagerConfig {
   callback: ScaleCallback; 
 }
 
-export class ScaleManager {
-  constructor(config: ScaleManagerConfig);
+export class SafeScaleManager {
+  constructor(config: SafeScaleManagerConfig);
   disable(): void;
   enable(callback: ScaleCallback): void;
   onResize(event: UIEvent): void;
