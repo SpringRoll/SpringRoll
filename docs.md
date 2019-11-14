@@ -21,182 +21,208 @@
         -   [Parameters][17]
     -   [delete][18]
         -   [Parameters][19]
--   [ScaleManager][20]
-    -   [Parameters][21]
-    -   [Properties][22]
-    -   [enable][23]
-        -   [Parameters][24]
-    -   [disable][25]
--   [SpeechSynth][26]
-    -   [Parameters][27]
-    -   [Properties][28]
-    -   [pause][29]
-    -   [resume][30]
-    -   [cancel][31]
-    -   [say][32]
+-   [Point][20]
+-   [Point][21]
+-   [PositionCallback][22]
+    -   [Parameters][23]
+-   [Anchor][24]
+    -   [onResize][25]
+        -   [Parameters][26]
+-   [ScaleCallback][27]
+    -   [Parameters][28]
+-   [SafeScaleManager][29]
+    -   [Parameters][30]
+    -   [entities][31]
+    -   [removeEntity][32]
         -   [Parameters][33]
-    -   [setVoice][34]
+    -   [enable][34]
         -   [Parameters][35]
-    -   [getVoice][36]
-    -   [rate][37]
+    -   [disable][36]
+    -   [calcOffset][37]
         -   [Parameters][38]
-    -   [rate][39]
-    -   [pitch][40]
-        -   [Parameters][41]
-    -   [pitch][42]
-    -   [volume][43]
-        -   [Parameters][44]
-    -   [volume][45]
--   [ColorFilter][46]
-    -   [applyFilter][47]
-        -   [Parameters][48]
-    -   [changeFilter][49]
+    -   [addEntity][39]
+        -   [Parameters][40]
+-   [resizeEventData][41]
+-   [EntityResizeEvent][42]
+-   [ScaledEntity][43]
+    -   [onResize][44]
+        -   [Parameters][45]
+-   [ScaleManager][46]
+    -   [Parameters][47]
+    -   [Properties][48]
+    -   [enable][49]
         -   [Parameters][50]
-    -   [removeFilter][51]
-    -   [types][52]
--   [filterType][53]
--   [Controller][54]
-    -   [Parameters][55]
-    -   [update][56]
-    -   [onKeyDown][57]
-        -   [Parameters][58]
-    -   [onKeyUp][59]
-        -   [Parameters][60]
-    -   [assignButtons][61]
-        -   [Parameters][62]
--   [KeyState][63]
-    -   [Properties][64]
--   [Key][65]
-    -   [Parameters][66]
-    -   [Properties][67]
-    -   [updateState][68]
-        -   [Parameters][69]
-    -   [action][70]
-    -   [state][71]
--   [Application][72]
-    -   [validateListeners][73]
-    -   [setupPlugins][74]
-    -   [getPlugin][75]
-        -   [Parameters][76]
-    -   [getPlugin][77]
-        -   [Parameters][78]
-    -   [\_plugins][79]
-    -   [uses][80]
-        -   [Parameters][81]
--   [Debugger][82]
+    -   [disable][51]
+-   [SpeechSynth][52]
+    -   [Parameters][53]
+    -   [Properties][54]
+    -   [pause][55]
+    -   [resume][56]
+    -   [cancel][57]
+    -   [say][58]
+        -   [Parameters][59]
+    -   [setVoice][60]
+        -   [Parameters][61]
+    -   [getVoice][62]
+    -   [rate][63]
+        -   [Parameters][64]
+    -   [rate][65]
+    -   [pitch][66]
+        -   [Parameters][67]
+    -   [pitch][68]
+    -   [volume][69]
+        -   [Parameters][70]
+    -   [volume][71]
+-   [filterType][72]
+-   [ColorFilter][73]
+    -   [applyFilter][74]
+        -   [Parameters][75]
+    -   [changeFilter][76]
+        -   [Parameters][77]
+    -   [removeFilter][78]
+    -   [types][79]
+-   [KeyState][80]
+    -   [Properties][81]
+-   [Controller][82]
     -   [Parameters][83]
-    -   [Properties][84]
-    -   [params][85]
-    -   [minLevel][86]
-        -   [Parameters][87]
-    -   [emit][88]
-        -   [Parameters][89]
-    -   [LEVEL][90]
-    -   [log][91]
-        -   [Parameters][92]
-    -   [assert][93]
-        -   [Parameters][94]
-    -   [isEnabled][95]
-    -   [enable][96]
-        -   [Parameters][97]
-    -   [paramKey][98]
--   [HintSequencePlayer][99]
-    -   [play][100]
-    -   [clear][101]
-    -   [add][102]
-        -   [Parameters][103]
-    -   [remove][104]
-        -   [Parameters][105]
--   [Property][106]
-    -   [Properties][107]
-    -   [subscribe][108]
-        -   [Parameters][109]
-    -   [unsubscribe][110]
-        -   [Parameters][111]
-    -   [hasListeners][112]
-    -   [value][113]
-    -   [value][114]
+    -   [update][84]
+    -   [onKeyDown][85]
+        -   [Parameters][86]
+    -   [onKeyUp][87]
+        -   [Parameters][88]
+    -   [assignButtons][89]
+        -   [Parameters][90]
+-   [Key][91]
+    -   [Parameters][92]
+    -   [Properties][93]
+    -   [updateState][94]
+        -   [Parameters][95]
+    -   [action][96]
+    -   [state][97]
+-   [Application][98]
+    -   [validateListeners][99]
+    -   [setupPlugins][100]
+    -   [getPlugin][101]
+        -   [Parameters][102]
+    -   [getPlugin][103]
+        -   [Parameters][104]
+    -   [\_plugins][105]
+    -   [uses][106]
+        -   [Parameters][107]
+-   [Debugger][108]
+    -   [Parameters][109]
+    -   [Properties][110]
+    -   [params][111]
+    -   [minLevel][112]
+        -   [Parameters][113]
+    -   [emit][114]
         -   [Parameters][115]
--   [Caption][116]
-    -   [Properties][117]
-    -   [update][118]
-        -   [Parameters][119]
-    -   [updateState][120]
-        -   [Parameters][121]
-    -   [isFinished][122]
-    -   [start][123]
-        -   [Parameters][124]
-    -   [updateTimeIndex][125]
-        -   [Parameters][126]
--   [Caption][127]
-    -   [Parameters][128]
-    -   [update][129]
-        -   [Parameters][130]
-    -   [updateState][131]
-        -   [Parameters][132]
-    -   [isFinished][133]
-    -   [start][134]
+    -   [LEVEL][116]
+    -   [log][117]
+        -   [Parameters][118]
+    -   [assert][119]
+        -   [Parameters][120]
+    -   [isEnabled][121]
+    -   [enable][122]
+        -   [Parameters][123]
+    -   [paramKey][124]
+-   [HintSequencePlayer][125]
+    -   [play][126]
+    -   [clear][127]
+    -   [add][128]
+        -   [Parameters][129]
+    -   [remove][130]
+        -   [Parameters][131]
+-   [Property][132]
+    -   [Properties][133]
+    -   [subscribe][134]
         -   [Parameters][135]
-    -   [updateTimeIndex][136]
+    -   [unsubscribe][136]
         -   [Parameters][137]
--   [CaptionFactory][138]
-    -   [createCaptionMap][139]
-        -   [Parameters][140]
-    -   [createCaption][141]
-        -   [Parameters][142]
-    -   [createLine][143]
-        -   [Parameters][144]
--   [CaptionPlayer][145]
-    -   [Parameters][146]
-    -   [update][147]
-        -   [Parameters][148]
+    -   [hasListeners][138]
+    -   [value][139]
+    -   [value][140]
+        -   [Parameters][141]
+-   [Caption][142]
+    -   [Parameters][143]
+    -   [update][144]
+        -   [Parameters][145]
+    -   [updateState][146]
+        -   [Parameters][147]
+    -   [isFinished][148]
     -   [start][149]
         -   [Parameters][150]
-    -   [stop][151]
--   [CaptionPlayer][152]
-    -   [update][153]
-        -   [Parameters][154]
-    -   [start][155]
+    -   [updateTimeIndex][151]
+        -   [Parameters][152]
+-   [Caption][153]
+    -   [Properties][154]
+    -   [update][155]
         -   [Parameters][156]
-    -   [stop][157]
--   [TimedLine][158]
-    -   [Properties][159]
-    -   [setContent][160]
+    -   [updateState][157]
+        -   [Parameters][158]
+    -   [isFinished][159]
+    -   [start][160]
         -   [Parameters][161]
--   [IRender][162]
-    -   [Properties][163]
--   [DOMRenderer][164]
-    -   [Parameters][165]
-    -   [start][166]
-        -   [Parameters][167]
-    -   [stop][168]
--   [HtmlRenderer][169]
-    -   [lineBegin][170]
-        -   [Parameters][171]
-    -   [lineEnd][172]
--   [TemplateRenderer][173]
-    -   [Parameters][174]
--   [TextRenderer][175]
-    -   [lineBegin][176]
-        -   [Parameters][177]
-    -   [lineEnd][178]
-    -   [sanitize][179]
+    -   [updateTimeIndex][162]
+        -   [Parameters][163]
+-   [CaptionFactory][164]
+    -   [createCaptionMap][165]
+        -   [Parameters][166]
+    -   [createCaption][167]
+        -   [Parameters][168]
+    -   [createLine][169]
+        -   [Parameters][170]
+-   [CaptionPlayer][171]
+    -   [Parameters][172]
+    -   [update][173]
+        -   [Parameters][174]
+    -   [start][175]
+        -   [Parameters][176]
+    -   [stop][177]
+-   [CaptionPlayer][178]
+    -   [update][179]
         -   [Parameters][180]
--   [Localizer.Options][181]
--   [Localizer][182]
-    -   [resolve][183]
-        -   [Parameters][184]
-    -   [setPrimaryLocale][185]
-        -   [Parameters][186]
-    -   [setFallbackLocale][187]
-        -   [Parameters][188]
-    -   [getLocaleKey][189]
-        -   [Parameters][190]
-    -   [getBrowserLanguages][191]
--   [ApplicationPlugin][192]
-    -   [preload][193]
-    -   [init][194]
-    -   [start][195]
+    -   [start][181]
+        -   [Parameters][182]
+    -   [stop][183]
+-   [TimedLine][184]
+    -   [Properties][185]
+    -   [setContent][186]
+        -   [Parameters][187]
+-   [IRender][188]
+    -   [Properties][189]
+-   [DOMRenderer][190]
+    -   [Parameters][191]
+    -   [start][192]
+        -   [Parameters][193]
+    -   [stop][194]
+-   [HtmlRenderer][195]
+    -   [lineBegin][196]
+        -   [Parameters][197]
+    -   [lineEnd][198]
+-   [TemplateRenderer][199]
+    -   [Parameters][200]
+-   [TextRenderer][201]
+    -   [lineBegin][202]
+        -   [Parameters][203]
+    -   [lineEnd][204]
+    -   [sanitize][205]
+        -   [Parameters][206]
+-   [Localizer.Options][207]
+-   [Localizer][208]
+    -   [resolve][209]
+        -   [Parameters][210]
+    -   [setPrimaryLocale][211]
+        -   [Parameters][212]
+    -   [setFallbackLocale][213]
+        -   [Parameters][214]
+    -   [getLocaleKey][215]
+        -   [Parameters][216]
+    -   [getBrowserLanguages][217]
+-   [ApplicationPlugin][218]
+    -   [preload][219]
+    -   [init][220]
+    -   [start][221]
 
 ## IdleTimer
 
@@ -204,7 +230,7 @@
 
 #### Parameters
 
--   `time` **[Number][196]** time in milliseconds (optional, default `15000`)
+-   `time` **[Number][222]** time in milliseconds (optional, default `15000`)
 
 Returns **void** @memberof IdleTimer
 
@@ -250,7 +276,7 @@ Hint Player interface to help enforce minimum requirements for hint players
 
 ### Properties
 
--   `play` **[function][197]** called by application to
+-   `play` **[function][223]** called by application to
 
 ## UserData
 
@@ -262,9 +288,9 @@ Gets data from SpringRoll Container
 
 #### Parameters
 
--   `name` **[string][198]** 
+-   `name` **[string][224]** 
 
-Returns **[Promise][199]** 
+Returns **[Promise][225]** 
 
 ### write
 
@@ -272,10 +298,10 @@ Sends data to SpringRoll Container
 
 #### Parameters
 
--   `name` **[string][198]** 
+-   `name` **[string][224]** 
 -   `value` **any** 
 
-Returns **[Promise][199]** 
+Returns **[Promise][225]** 
 
 ### delete
 
@@ -283,19 +309,79 @@ Removes data from SpringRoll Container
 
 #### Parameters
 
--   `name` **[string][198]** 
+-   `name` **[string][224]** 
 
-## ScaleManager
+## Point
 
-Simplifies listening to resize events by passing the relevant data to a provided callback.
+Type: {x: [Number][222], y: [Number][222]}
+
+## Point
+
+Type: {x: [Number][222], y: [Number][222]}
+
+## PositionCallback
+
+callback to used scale game and canvas
+
+Type: [Function][223]
 
 ### Parameters
 
--   `callback` **[Function][197]**  (optional, default `undefined`)
+-   `position` **[Point][226]** position relative to anchor direction
 
-### Properties
+## Anchor
 
--   `callback` **[Function][197]?** 
+Used to fix positions to a relative point in the viewport.
+
+### onResize
+
+#### Parameters
+
+-   `param` **[object][227]** 
+    -   `param.offset` **[Point][226]** 
+    -   `param.gameSize` **[Point][226]** 
+
+Returns **void** @memberof Anchor
+
+## ScaleCallback
+
+callback to used scale game and canvas
+
+Type: [Function][223]
+
+### Parameters
+
+-   `width` **[Number][222]** width canvas should be
+-   `height` **[Number][222]** height canvas should be
+-   `scale` **[Point][226]** x/y scale values
+
+## SafeScaleManager
+
+Handles scaling the game
+
+### Parameters
+
+-   `$0` **[Object][227]** 
+    -   `$0.width`  
+    -   `$0.height`  
+    -   `$0.safeWidth`   (optional, default `Infinity`)
+    -   `$0.safeHeight`   (optional, default `Infinity`)
+    -   `$0.callback`  
+-   `param` **[object][227]** 
+
+### entities
+
+Type: [Array][228]&lt;[ScaledEntity][229]>
+
+### removeEntity
+
+Removes an anchor
+
+#### Parameters
+
+-   `entity` **[ScaledEntity][229]** 
+
+Returns **void** @memberof SafeScaleManager
 
 ### enable
 
@@ -303,7 +389,67 @@ Enables the scale manager listener. Will not be enabled if a callback is not sup
 
 #### Parameters
 
--   `callback` **[Function][197]** The function to be called on resize events.
+-   `callback` **[ScaleCallback][230]** The function to be called on resize events.
+
+### disable
+
+Disables the scale manager.
+
+### calcOffset
+
+Calculates the offset for anchors.
+
+#### Parameters
+
+-   `scale` **[Point][226]** scale value
+
+Returns **[Point][226]** 
+
+### addEntity
+
+Adds and anchor to be updated during resize
+
+#### Parameters
+
+-   `entity` **[ScaledEntity][229]** 
+
+## resizeEventData
+
+Type: [EntityResizeEvent][231]
+
+## EntityResizeEvent
+
+Type: {offset: [Point][226], gameSize: [Point][226], scale: [Point][226]}
+
+## ScaledEntity
+
+### onResize
+
+#### Parameters
+
+-   `event` **[EntityResizeEvent][231]** 
+
+Returns **void** @memberof ScaledEntity
+
+## ScaleManager
+
+Simplifies listening to resize events by passing the relevant data to a provided callback.
+
+### Parameters
+
+-   `callback` **[Function][223]**  (optional, default `undefined`)
+
+### Properties
+
+-   `callback` **[Function][223]?** 
+
+### enable
+
+Enables the scale manager listener. Will not be enabled if a callback is not supplied.
+
+#### Parameters
+
+-   `callback` **[Function][223]** The function to be called on resize events.
 
 ### disable
 
@@ -316,15 +462,15 @@ Note: This is not supported on IE11 and below because of the underlying APIs are
 
 ### Parameters
 
--   `params` **[object][200]** 
-    -   `params.voice` **[number][196]** Indicates what voice to use. (optional, default `0`)
-    -   `params.rate` **[number][196]** The rate at which the text is said. Supports a range from 0.1 to 10. (optional, default `1`)
-    -   `params.pitch` **[number][196]** Voice Pitch. Supports a pitch from 0 to 2. (optional, default `0`)
-    -   `params.volume` **[number][196]** Volume. Supports 0 to 1. (optional, default `1`)
+-   `params` **[object][227]** 
+    -   `params.voice` **[number][222]** Indicates what voice to use. (optional, default `0`)
+    -   `params.rate` **[number][222]** The rate at which the text is said. Supports a range from 0.1 to 10. (optional, default `1`)
+    -   `params.pitch` **[number][222]** Voice Pitch. Supports a pitch from 0 to 2. (optional, default `0`)
+    -   `params.volume` **[number][222]** Volume. Supports 0 to 1. (optional, default `1`)
 
 ### Properties
 
--   `voicesLoaded` **[boolean][201]** voices are loaded async. This is will be set to true when they are loaded.
+-   `voicesLoaded` **[boolean][232]** voices are loaded async. This is will be set to true when they are loaded.
 
 ### pause
 
@@ -345,7 +491,7 @@ If the announcer is already saying something then it will be added to a queue.
 
 #### Parameters
 
--   `message` **[string][198]** 
+-   `message` **[string][224]** 
 
 ### setVoice
 
@@ -353,13 +499,13 @@ Sets the voice by array index.
 
 #### Parameters
 
--   `index` **[number][196]** 
+-   `index` **[number][222]** 
 
 ### getVoice
 
 Returns the voice object.
 
-Returns **([object][200] | null)** 
+Returns **([object][227] | null)** 
 
 ### rate
 
@@ -367,13 +513,13 @@ Rate at which text is spoken.
 
 #### Parameters
 
--   `rate` **[number][196]** 
+-   `rate` **[number][222]** 
 
 ### rate
 
 Returns rate which text is spoken.
 
-Returns **[number][196]** 
+Returns **[number][222]** 
 
 ### pitch
 
@@ -381,13 +527,13 @@ Sets the pitch at which text is spoken.
 
 #### Parameters
 
--   `pitch` **[number][196]** 
+-   `pitch` **[number][222]** 
 
 ### pitch
 
 Returns the pitch at which text is spoken.
 
-Returns **[number][196]** 
+Returns **[number][222]** 
 
 ### volume
 
@@ -395,13 +541,17 @@ Sets the current volume of the announcer.
 
 #### Parameters
 
--   `volume` **[number][196]** 
+-   `volume` **[number][222]** 
 
 ### volume
 
 Returns the current volume of the announcer.
 
-Returns **[number][196]** 
+Returns **[number][222]** 
+
+## filterType
+
+Type: (`"protanopia"` \| `"protanomaly"` \| `"deuteranopia"` \| `"deuteranomaly"` \| `"tritanopia"` \| `"tritanomaly"` \| `"achromatopsia"` \| `"achromatomaly"`)
 
 ## ColorFilter
 
@@ -413,8 +563,8 @@ Applies the specified filter to the element.
 
 #### Parameters
 
--   `element` **[HTMLElement][202]** 
--   `type` **[filterType][203]** 
+-   `element` **[HTMLElement][233]** 
+-   `type` **[filterType][234]** 
 
 ### changeFilter
 
@@ -422,7 +572,7 @@ Changes the currently applied filter to the element if the color filter has it.
 
 #### Parameters
 
--   `type` **[filterType][203]** 
+-   `type` **[filterType][234]** 
 
 Returns **any** 
 
@@ -434,12 +584,18 @@ Removes the filter from the element.
 
 Supported filter types.
 
-Returns **[object][200]** Returns an object { name, value } with the colorblindness type:
+Returns **[object][227]** Returns an object { name, value } with the colorblindness type:
 (Protanopia, Protanomaly, Deuteranopia, Deuteranomaly, Tritanopia, Tritanomaly, Achromatopsia, Achromatomaly)
 
-## filterType
+## KeyState
 
-Type: (`"protanopia"` \| `"protanomaly"` \| `"deuteranopia"` \| `"deuteranomaly"` \| `"tritanopia"` \| `"tritanomaly"` \| `"achromatopsia"` \| `"achromatomaly"`)
+Type: (`0` \| `1` \| `2`)
+
+### Properties
+
+-   `down` **[Function][223]** 
+-   `up` **[Function][223]** 
+-   `key` **[string][224]** 
 
 ## Controller
 
@@ -447,7 +603,7 @@ Controller interface class to simplify working with key presses.
 
 ### Parameters
 
--   `buttons` **[Array][204]&lt;KeyTemplate>** An object containing all keys you want to watch and their functions. e.g. {enter: () => {}}. See [https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/key/Key_Values][205] for potential values. (optional, default `[]`)
+-   `buttons` **[Array][228]&lt;KeyTemplate>** An object containing all keys you want to watch and their functions. e.g. {enter: () => {}}. See [https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/key/Key_Values][235] for potential values. (optional, default `[]`)
 
 ### update
 
@@ -459,7 +615,7 @@ Called on keyup. Sets flag to 1 if key is being watched.
 
 #### Parameters
 
--   `e` **[KeyboardEvent][206]** 
+-   `e` **[KeyboardEvent][236]** 
 
 ### onKeyUp
 
@@ -467,7 +623,7 @@ Called on keyup. Sets flag to 2 if key is being watched.
 
 #### Parameters
 
--   `e` **[KeyboardEvent][206]** 
+-   `e` **[KeyboardEvent][236]** 
 
 ### assignButtons
 
@@ -475,17 +631,7 @@ Sets an object of button functions to the controller to be called.
 
 #### Parameters
 
--   `keys` **[Array][204]&lt;KeyTemplate>** 
-
-## KeyState
-
-Type: (`0` \| `1` \| `2`)
-
-### Properties
-
--   `down` **[Function][197]** 
--   `up` **[Function][197]** 
--   `key` **[string][198]** 
+-   `keys` **[Array][228]&lt;KeyTemplate>** 
 
 ## Key
 
@@ -493,17 +639,17 @@ Represents a single key on the keyboard and the functions related to it.
 
 ### Parameters
 
--   `key` **[string][198]** What this object represents.
--   `down` **[Function][197]** Function to be called while the key is held down. (optional, default `()=>{}`)
--   `up` **[Function][197]** Function to be called when the key is lifted up. (optional, default `()=>{}`)
+-   `key` **[string][224]** What this object represents.
+-   `down` **[Function][223]** Function to be called while the key is held down. (optional, default `()=>{}`)
+-   `up` **[Function][223]** Function to be called when the key is lifted up. (optional, default `()=>{}`)
 
 ### Properties
 
 -   `state` **(`0` \| `1` \| `2`)** The current state of the key. 0 = inactive, 1 = active, 2 = to be set to inactive.
--   `key` **[string][198]** The name of the key we are targeting.
--   `actions` **[object][200]** 
-    -   `actions.down` **[function][197]** Function to be called while the key is held down.
-    -   `actions.up` **[function][197]** Function to be called when the key is lifted up.
+-   `key` **[string][224]** The name of the key we are targeting.
+-   `actions` **[object][227]** 
+    -   `actions.down` **[function][223]** Function to be called while the key is held down.
+    -   `actions.up` **[function][223]** Function to be called when the key is lifted up.
 
 ### updateState
 
@@ -521,7 +667,7 @@ Calls the relevant action for the current state of the key.
 
 Returns the current state of the key.
 
-Returns **[number][196]** 
+Returns **[number][222]** 
 
 ## Application
 
@@ -537,7 +683,7 @@ Validates that appropriate listeners are added for the features that were enable
 
 preloads, initializes and starts plugins.
 
-Returns **[Promise][199]&lt;void>** 
+Returns **[Promise][225]&lt;void>** 
 
 ### getPlugin
 
@@ -545,9 +691,9 @@ returns instance of a plugin.
 
 #### Parameters
 
--   `name` **[string][198]** 
+-   `name` **[string][224]** 
 
-Returns **(SpringRoll.ApplicationPlugin | [undefined][207])** 
+Returns **(SpringRoll.ApplicationPlugin | [undefined][237])** 
 
 ### getPlugin
 
@@ -555,9 +701,9 @@ Finds a plugin by name.
 
 #### Parameters
 
--   `name` **[string][198]** The name of the plugin.
+-   `name` **[string][224]** The name of the plugin.
 
-Returns **(SpringRoll.ApplicationPlugin | [undefined][207])** 
+Returns **(SpringRoll.ApplicationPlugin | [undefined][237])** 
 
 ### \_plugins
 
@@ -573,19 +719,19 @@ Registers a plugin to be used by applications, sorting it by priority order.
 
 ## Debugger
 
-Type: [object][200]
+Type: [object][227]
 
 ### Parameters
 
--   `params` **[Object][200]** Options
-    -   `params.emitEnabled` **[boolean][201]** If this should emit events to the window. (optional, default `false`)
+-   `params` **[Object][227]** Options
+    -   `params.emitEnabled` **[boolean][232]** If this should emit events to the window. (optional, default `false`)
     -   `params.minLevel` **(`"GENERAL"` \| `"DEBUG"` \| `"INFO"` \| `"WARN"` \| `"ERROR"`)** The starting log level for the logger. (optional, default `'GENERAL'`)
 
 ### Properties
 
--   `emitEnabled` **[boolean][201]** 
--   `enabled` **[boolean][201]** 
--   `minLevel` **[number][196]** 
+-   `emitEnabled` **[boolean][232]** 
+-   `enabled` **[boolean][232]** 
+-   `minLevel` **[number][222]** 
 
 ### params
 
@@ -599,7 +745,7 @@ Sets the logging level of the debugger.
 
 #### Parameters
 
--   `level` **([string][198] \| [number][196])** The name of the level.
+-   `level` **([string][224] \| [number][222])** The name of the level.
 
 Returns **void** 
 
@@ -609,13 +755,13 @@ If emitting is enabled for this instance, then it will dispatch an event on the 
 
 #### Parameters
 
--   `eventName` **[string][198]** Name of the event (optional, default `'Debugger'`)
+-   `eventName` **[string][224]** Name of the event (optional, default `'Debugger'`)
 
 ### LEVEL
 
 Returns logging levels.
 
-Returns **[object][200]** 
+Returns **[object][227]** 
 
 ### log
 
@@ -624,7 +770,7 @@ Console logs all supplied arguments if the log level is low enough for them to b
 #### Parameters
 
 -   `type` **(`"log"` \| `"general"` \| `"warn"` \| `"error"` \| `"debug"` \| `"info"`)** minimum level for this log to run at (optional, default `'log'`)
--   `args` **[Array][204]&lt;any>** Arguments you wish to log.
+-   `args` **[Array][228]&lt;any>** Arguments you wish to log.
 
 ### assert
 
@@ -632,13 +778,13 @@ Will throw if statement is false.
 
 #### Parameters
 
--   `isTrue` **[boolean][201]** The expression to evaluate.
+-   `isTrue` **[boolean][232]** The expression to evaluate.
 
 ### isEnabled
 
 Returns a boolean indicating if the debugger has been enabled or not.
 
-Returns **[boolean][201]** 
+Returns **[boolean][232]** 
 
 ### enable
 
@@ -647,7 +793,7 @@ TODO: Remove the parameter here, and add a disable method as well
 
 #### Parameters
 
--   `flag` **[boolean][201]** 
+-   `flag` **[boolean][232]** 
 
 Returns **void** 
 
@@ -673,7 +819,7 @@ Returns **void** @memberof HintSequencePlayer
 
 #### Parameters
 
--   `callbacks` **[Array][204]&lt;function ()>** 
+-   `callbacks` **[Array][228]&lt;function ()>** 
 
 Returns **void** @memberof HintSequencePlayer
 
@@ -681,7 +827,7 @@ Returns **void** @memberof HintSequencePlayer
 
 #### Parameters
 
--   `callbacks` **[Array][204]&lt;function ()>** 
+-   `callbacks` **[Array][228]&lt;function ()>** 
 
 Returns **void** @memberof HintSequencePlayer
 
@@ -700,7 +846,7 @@ Adds a subscriber to this property.
 
 #### Parameters
 
--   `callback` **[function][197]** The callback to call whenever the property changes.
+-   `callback` **[function][223]** The callback to call whenever the property changes.
 
 ### unsubscribe
 
@@ -708,13 +854,13 @@ Unsubscribes a listener from this property.
 
 #### Parameters
 
--   `callback` **[function][197]** The callback to unsubscribe.
+-   `callback` **[function][223]** The callback to unsubscribe.
 
 ### hasListeners
 
 Whether or not this property has any subscribed listeners
 
-Returns **[Boolean][201]** True if this property has at least one subscriber
+Returns **[Boolean][232]** True if this property has at least one subscriber
 
 ### value
 
@@ -732,56 +878,6 @@ Sets the value of the property and notifies all listeners of the change
 
 ## Caption
 
-### Properties
-
--   `lines` **[Array][204]&lt;[TimedLine][208]>** 
--   `time` **[number][196]** 
--   `lineIndex` **[number][196]** 
--   `renderer` **[IRender][209]** 
-
-### update
-
-Updates content based on time passed.
-This ~should~ be called every frame that the caption is active.
-
-#### Parameters
-
--   `deltaTime` **[Number][196]** Time in seconds since last frame.
-
-### updateState
-
-Handles calling callbacks and updating caption's current state.
-
-#### Parameters
-
--   `currentTime` **[Number][196]** 
--   `lastTime` **[Number][196]** 
-
-### isFinished
-
-Checks if caption has completed.
-
-Returns **[Boolean][201]** 
-
-### start
-
-Sets time and line index of caption.
-
-#### Parameters
-
--   `time` **[Number][196]** Time in milliseconds. (optional, default `0`)
--   `renderer`   (optional, default `{lineBegin:()=>{},lineEnd:()=>{}}`)
-
-### updateTimeIndex
-
-Updates the current time and index of the caption instance
-
-#### Parameters
-
--   `time` **[Number][196]**  (optional, default `0`)
-
-## Caption
-
 ### Parameters
 
 -   `lines`  
@@ -793,7 +889,7 @@ This ~should~ be called every frame that the caption is active.
 
 #### Parameters
 
--   `deltaTime` **[Number][196]** Time in seconds since last frame.
+-   `deltaTime` **[Number][222]** Time in seconds since last frame.
 
 ### updateState
 
@@ -801,14 +897,14 @@ Handles calling callbacks and updating caption's current state.
 
 #### Parameters
 
--   `currentTime` **[Number][196]** 
--   `lastTime` **[Number][196]** 
+-   `currentTime` **[Number][222]** 
+-   `lastTime` **[Number][222]** 
 
 ### isFinished
 
 Checks if caption has completed.
 
-Returns **[Boolean][201]** 
+Returns **[Boolean][232]** 
 
 ### start
 
@@ -816,7 +912,7 @@ Sets time and line index of caption.
 
 #### Parameters
 
--   `time` **[Number][196]** Time in milliseconds. (optional, default `0`)
+-   `time` **[Number][222]** Time in milliseconds. (optional, default `0`)
 -   `renderer`   (optional, default `{lineBegin:()=>{},lineEnd:()=>{}}`)
 
 ### updateTimeIndex
@@ -825,7 +921,57 @@ Updates the current time and index of the caption instance
 
 #### Parameters
 
--   `time` **[Number][196]**  (optional, default `0`)
+-   `time` **[Number][222]**  (optional, default `0`)
+
+## Caption
+
+### Properties
+
+-   `lines` **[Array][228]&lt;[TimedLine][238]>** 
+-   `time` **[number][222]** 
+-   `lineIndex` **[number][222]** 
+-   `renderer` **[IRender][239]** 
+
+### update
+
+Updates content based on time passed.
+This ~should~ be called every frame that the caption is active.
+
+#### Parameters
+
+-   `deltaTime` **[Number][222]** Time in seconds since last frame.
+
+### updateState
+
+Handles calling callbacks and updating caption's current state.
+
+#### Parameters
+
+-   `currentTime` **[Number][222]** 
+-   `lastTime` **[Number][222]** 
+
+### isFinished
+
+Checks if caption has completed.
+
+Returns **[Boolean][232]** 
+
+### start
+
+Sets time and line index of caption.
+
+#### Parameters
+
+-   `time` **[Number][222]** Time in milliseconds. (optional, default `0`)
+-   `renderer`   (optional, default `{lineBegin:()=>{},lineEnd:()=>{}}`)
+
+### updateTimeIndex
+
+Updates the current time and index of the caption instance
+
+#### Parameters
+
+-   `time` **[Number][222]**  (optional, default `0`)
 
 ## CaptionFactory
 
@@ -837,9 +983,9 @@ Creates a new Object&lt;String, Caption>.
 
 #### Parameters
 
--   `data` **[JSON][210]** 
+-   `data` **[JSON][240]** 
 
-Returns **[Object][200]** 
+Returns **[Object][227]** 
 
 ### createCaption
 
@@ -849,7 +995,7 @@ Creates a new Caption from JSON data.
 
 -   `captionData` **any** 
 
-Returns **[Caption][211]** new Caption
+Returns **[Caption][241]** new Caption
 
 ### createLine
 
@@ -859,7 +1005,7 @@ Creates a new TimedLine from JSON data.
 
 -   `lineData` **any** 
 
-Returns **[TimedLine][208]** new TimedLine;
+Returns **[TimedLine][238]** new TimedLine;
 
 ## CaptionPlayer
 
@@ -875,7 +1021,7 @@ This ~should~ be called every frame.
 
 #### Parameters
 
--   `deltaTime` **[Number][196]** Time passed in seconds since last update call.
+-   `deltaTime` **[Number][222]** Time passed in seconds since last update call.
 
 ### start
 
@@ -883,9 +1029,9 @@ Starts playing a caption.
 
 #### Parameters
 
--   `name` **[String][198]** Name of caption.
--   `time` **[number][196]** Atart time in milliseconds. (optional, default `0`)
--   `args` **[object][200]** Arguments that will get passed to the renderer (optional, default `{}`)
+-   `name` **[String][224]** Name of caption.
+-   `time` **[number][222]** Atart time in milliseconds. (optional, default `0`)
+-   `args` **[object][227]** Arguments that will get passed to the renderer (optional, default `{}`)
 
 ### stop
 
@@ -903,7 +1049,7 @@ This ~should~ be called every frame.
 
 #### Parameters
 
--   `deltaTime` **[Number][196]** Time passed in seconds since last update call.
+-   `deltaTime` **[Number][222]** Time passed in seconds since last update call.
 
 ### start
 
@@ -911,9 +1057,9 @@ Starts playing a caption.
 
 #### Parameters
 
--   `name` **[String][198]** Name of caption.
--   `time` **[number][196]** Atart time in milliseconds. (optional, default `0`)
--   `args` **[object][200]** Arguments that will get passed to the renderer (optional, default `{}`)
+-   `name` **[String][224]** Name of caption.
+-   `time` **[number][222]** Atart time in milliseconds. (optional, default `0`)
+-   `args` **[object][227]** Arguments that will get passed to the renderer (optional, default `{}`)
 
 ### stop
 
@@ -923,9 +1069,9 @@ Stops any caption currently playing.
 
 ### Properties
 
--   `startTime` **[number][196]** 
--   `endTime` **[number][196]** 
--   `content` **[string][198]** 
+-   `startTime` **[number][222]** 
+-   `endTime` **[number][222]** 
+-   `content` **[string][224]** 
 
 ### setContent
 
@@ -943,10 +1089,10 @@ Render interface to help enforce minimum requirements for caption renderers
 
 ### Properties
 
--   `start` **[function][197]** called when the Caption Player starts playing captions
--   `stop` **[function][197]** called when the Caption Player stops playing captions
--   `lineBegin` **[function][197]** called when rendering a new line of text
--   `lineEnd` **[function][197]** called when finished rendering a new of text
+-   `start` **[function][223]** called when the Caption Player starts playing captions
+-   `stop` **[function][223]** called when the Caption Player stops playing captions
+-   `lineBegin` **[function][223]** called when rendering a new line of text
+-   `lineEnd` **[function][223]** called when finished rendering a new of text
 
 ## DOMRenderer
 
@@ -954,8 +1100,8 @@ DOMRender is a incomplete renderer that is intended to supply just the basic sta
 
 ### Parameters
 
--   `element` **[HTMLElement][202]** 
--   `templateVariables` **[Object][200]** 
+-   `element` **[HTMLElement][233]** 
+-   `templateVariables` **[Object][227]** 
 
 ### start
 
@@ -963,7 +1109,7 @@ Makes target element visible and ready to present captions
 
 #### Parameters
 
--   `templateVariables` **[object][200]** Variables that can used during caption play time (optional, default `{}`)
+-   `templateVariables` **[object][227]** Variables that can used during caption play time (optional, default `{}`)
 
 ### stop
 
@@ -992,10 +1138,10 @@ and swaps out the placeholder inside the double brackets with the matching key i
 
 ### Parameters
 
--   `template` **[string][198]** String template that will be rendered with the supplied arguments
--   `args` **[Object][200]** //An Object contain data to be inserted into the template This will match based on key values
+-   `template` **[string][224]** String template that will be rendered with the supplied arguments
+-   `args` **[Object][227]** //An Object contain data to be inserted into the template This will match based on key values
 
-Returns **[string][198]** 
+Returns **[string][224]** 
 
 ## TextRenderer
 
@@ -1023,7 +1169,7 @@ Will attempt to remove all html from a string before it's renderer to the page
 
 ## Localizer.Options
 
-Type: {language: [string][198], fallback: [string][198]}
+Type: {language: [string][224], fallback: [string][224]}
 
 ## Localizer
 
@@ -1031,34 +1177,34 @@ Type: {language: [string][198], fallback: [string][198]}
 
 #### Parameters
 
--   `path` **[string][198]** 
+-   `path` **[string][224]** 
 -   `options` **any**  (optional, default `{}`)
 
-Returns **{path: [string][198], language: [string][198]}** 
+Returns **{path: [string][224], language: [string][224]}** 
 
 ### setPrimaryLocale
 
 #### Parameters
 
--   `localeKey` **[string][198]** 
+-   `localeKey` **[string][224]** 
 
-Returns **[boolean][201]** True if language is set.
+Returns **[boolean][232]** True if language is set.
 
 ### setFallbackLocale
 
 #### Parameters
 
--   `localeKey` **[string][198]** 
+-   `localeKey` **[string][224]** 
 
-Returns **[boolean][201]** True if fallback is set.
+Returns **[boolean][232]** True if fallback is set.
 
 ### getLocaleKey
 
 #### Parameters
 
--   `localeKey` **[string][198]** 
+-   `localeKey` **[string][224]** 
 
-Returns **[string][198]** 
+Returns **[string][224]** 
 
 ### getBrowserLanguages
 
@@ -1072,7 +1218,7 @@ application providing new features to the application.
 A preload method for the plugin which allows for asynchronous setup tasks. Either takes a callback as first
 parameter, or should return a Promise indicating that loading is finished.
 
-Returns **[Promise][199]** A promise indicating when the plugin is finished loading.
+Returns **[Promise][225]** A promise indicating when the plugin is finished loading.
 
 ### init
 
@@ -1122,386 +1268,446 @@ After all plugins inits has completed
 
 [19]: #parameters-5
 
-[20]: #scalemanager
+[20]: #point
 
-[21]: #parameters-6
+[21]: #point-1
 
-[22]: #properties-1
+[22]: #positioncallback
 
-[23]: #enable
+[23]: #parameters-6
 
-[24]: #parameters-7
+[24]: #anchor
 
-[25]: #disable
+[25]: #onresize
 
-[26]: #speechsynth
+[26]: #parameters-7
 
-[27]: #parameters-8
+[27]: #scalecallback
 
-[28]: #properties-2
+[28]: #parameters-8
 
-[29]: #pause
+[29]: #safescalemanager
 
-[30]: #resume
+[30]: #parameters-9
 
-[31]: #cancel
+[31]: #entities
 
-[32]: #say
+[32]: #removeentity
 
-[33]: #parameters-9
+[33]: #parameters-10
 
-[34]: #setvoice
+[34]: #enable
 
-[35]: #parameters-10
+[35]: #parameters-11
 
-[36]: #getvoice
+[36]: #disable
 
-[37]: #rate
+[37]: #calcoffset
 
-[38]: #parameters-11
+[38]: #parameters-12
 
-[39]: #rate-1
+[39]: #addentity
 
-[40]: #pitch
+[40]: #parameters-13
 
-[41]: #parameters-12
+[41]: #resizeeventdata
 
-[42]: #pitch-1
+[42]: #entityresizeevent
 
-[43]: #volume
+[43]: #scaledentity
 
-[44]: #parameters-13
+[44]: #onresize-1
 
-[45]: #volume-1
+[45]: #parameters-14
 
-[46]: #colorfilter
+[46]: #scalemanager
 
-[47]: #applyfilter
+[47]: #parameters-15
 
-[48]: #parameters-14
+[48]: #properties-1
 
-[49]: #changefilter
+[49]: #enable-1
 
-[50]: #parameters-15
+[50]: #parameters-16
 
-[51]: #removefilter
+[51]: #disable-1
 
-[52]: #types
+[52]: #speechsynth
 
-[53]: #filtertype
+[53]: #parameters-17
 
-[54]: #controller
+[54]: #properties-2
 
-[55]: #parameters-16
+[55]: #pause
 
-[56]: #update
+[56]: #resume
 
-[57]: #onkeydown
+[57]: #cancel
 
-[58]: #parameters-17
+[58]: #say
 
-[59]: #onkeyup
+[59]: #parameters-18
 
-[60]: #parameters-18
+[60]: #setvoice
 
-[61]: #assignbuttons
+[61]: #parameters-19
 
-[62]: #parameters-19
+[62]: #getvoice
 
-[63]: #keystate
+[63]: #rate
 
-[64]: #properties-3
+[64]: #parameters-20
 
-[65]: #key
+[65]: #rate-1
 
-[66]: #parameters-20
+[66]: #pitch
 
-[67]: #properties-4
+[67]: #parameters-21
 
-[68]: #updatestate
+[68]: #pitch-1
 
-[69]: #parameters-21
+[69]: #volume
 
-[70]: #action
+[70]: #parameters-22
 
-[71]: #state
+[71]: #volume-1
 
-[72]: #application
+[72]: #filtertype
 
-[73]: #validatelisteners
+[73]: #colorfilter
 
-[74]: #setupplugins
+[74]: #applyfilter
 
-[75]: #getplugin
+[75]: #parameters-23
 
-[76]: #parameters-22
+[76]: #changefilter
 
-[77]: #getplugin-1
+[77]: #parameters-24
 
-[78]: #parameters-23
+[78]: #removefilter
 
-[79]: #_plugins
+[79]: #types
 
-[80]: #uses
+[80]: #keystate
 
-[81]: #parameters-24
+[81]: #properties-3
 
-[82]: #debugger
+[82]: #controller
 
 [83]: #parameters-25
 
-[84]: #properties-5
+[84]: #update
 
-[85]: #params
+[85]: #onkeydown
 
-[86]: #minlevel
+[86]: #parameters-26
 
-[87]: #parameters-26
+[87]: #onkeyup
 
-[88]: #emit
+[88]: #parameters-27
 
-[89]: #parameters-27
+[89]: #assignbuttons
 
-[90]: #level
+[90]: #parameters-28
 
-[91]: #log
+[91]: #key
 
-[92]: #parameters-28
+[92]: #parameters-29
 
-[93]: #assert
+[93]: #properties-4
 
-[94]: #parameters-29
+[94]: #updatestate
 
-[95]: #isenabled
+[95]: #parameters-30
 
-[96]: #enable-1
+[96]: #action
 
-[97]: #parameters-30
+[97]: #state
 
-[98]: #paramkey
+[98]: #application
 
-[99]: #hintsequenceplayer
+[99]: #validatelisteners
 
-[100]: #play
+[100]: #setupplugins
 
-[101]: #clear
+[101]: #getplugin
 
-[102]: #add
+[102]: #parameters-31
 
-[103]: #parameters-31
+[103]: #getplugin-1
 
-[104]: #remove
+[104]: #parameters-32
 
-[105]: #parameters-32
+[105]: #_plugins
 
-[106]: #property
+[106]: #uses
 
-[107]: #properties-6
+[107]: #parameters-33
 
-[108]: #subscribe-1
+[108]: #debugger
 
-[109]: #parameters-33
+[109]: #parameters-34
 
-[110]: #unsubscribe-1
+[110]: #properties-5
 
-[111]: #parameters-34
+[111]: #params
 
-[112]: #haslisteners
+[112]: #minlevel
 
-[113]: #value
+[113]: #parameters-35
 
-[114]: #value-1
+[114]: #emit
 
-[115]: #parameters-35
+[115]: #parameters-36
 
-[116]: #caption
+[116]: #level
 
-[117]: #properties-7
+[117]: #log
 
-[118]: #update-1
+[118]: #parameters-37
 
-[119]: #parameters-36
+[119]: #assert
 
-[120]: #updatestate-1
+[120]: #parameters-38
 
-[121]: #parameters-37
+[121]: #isenabled
 
-[122]: #isfinished
+[122]: #enable-2
 
-[123]: #start-1
+[123]: #parameters-39
 
-[124]: #parameters-38
+[124]: #paramkey
 
-[125]: #updatetimeindex
+[125]: #hintsequenceplayer
 
-[126]: #parameters-39
+[126]: #play
 
-[127]: #caption-1
+[127]: #clear
 
-[128]: #parameters-40
+[128]: #add
 
-[129]: #update-2
+[129]: #parameters-40
 
-[130]: #parameters-41
+[130]: #remove
 
-[131]: #updatestate-2
+[131]: #parameters-41
 
-[132]: #parameters-42
+[132]: #property
 
-[133]: #isfinished-1
+[133]: #properties-6
 
-[134]: #start-2
+[134]: #subscribe-1
 
-[135]: #parameters-43
+[135]: #parameters-42
 
-[136]: #updatetimeindex-1
+[136]: #unsubscribe-1
 
-[137]: #parameters-44
+[137]: #parameters-43
 
-[138]: #captionfactory
+[138]: #haslisteners
 
-[139]: #createcaptionmap
+[139]: #value
 
-[140]: #parameters-45
+[140]: #value-1
 
-[141]: #createcaption
+[141]: #parameters-44
 
-[142]: #parameters-46
+[142]: #caption
 
-[143]: #createline
+[143]: #parameters-45
 
-[144]: #parameters-47
+[144]: #update-1
 
-[145]: #captionplayer
+[145]: #parameters-46
 
-[146]: #parameters-48
+[146]: #updatestate-1
 
-[147]: #update-3
+[147]: #parameters-47
 
-[148]: #parameters-49
+[148]: #isfinished
 
-[149]: #start-3
+[149]: #start-1
 
-[150]: #parameters-50
+[150]: #parameters-48
 
-[151]: #stop-1
+[151]: #updatetimeindex
 
-[152]: #captionplayer-1
+[152]: #parameters-49
 
-[153]: #update-4
+[153]: #caption-1
 
-[154]: #parameters-51
+[154]: #properties-7
 
-[155]: #start-4
+[155]: #update-2
 
-[156]: #parameters-52
+[156]: #parameters-50
 
-[157]: #stop-2
+[157]: #updatestate-2
 
-[158]: #timedline
+[158]: #parameters-51
 
-[159]: #properties-8
+[159]: #isfinished-1
 
-[160]: #setcontent
+[160]: #start-2
 
-[161]: #parameters-53
+[161]: #parameters-52
 
-[162]: #irender
+[162]: #updatetimeindex-1
 
-[163]: #properties-9
+[163]: #parameters-53
 
-[164]: #domrenderer
+[164]: #captionfactory
 
-[165]: #parameters-54
+[165]: #createcaptionmap
 
-[166]: #start-5
+[166]: #parameters-54
 
-[167]: #parameters-55
+[167]: #createcaption
 
-[168]: #stop-3
+[168]: #parameters-55
 
-[169]: #htmlrenderer
+[169]: #createline
 
-[170]: #linebegin
+[170]: #parameters-56
 
-[171]: #parameters-56
+[171]: #captionplayer
 
-[172]: #lineend
+[172]: #parameters-57
 
-[173]: #templaterenderer
+[173]: #update-3
 
-[174]: #parameters-57
+[174]: #parameters-58
 
-[175]: #textrenderer
+[175]: #start-3
 
-[176]: #linebegin-1
+[176]: #parameters-59
 
-[177]: #parameters-58
+[177]: #stop-1
 
-[178]: #lineend-1
+[178]: #captionplayer-1
 
-[179]: #sanitize
+[179]: #update-4
 
-[180]: #parameters-59
+[180]: #parameters-60
 
-[181]: #localizeroptions
+[181]: #start-4
 
-[182]: #localizer
+[182]: #parameters-61
 
-[183]: #resolve
+[183]: #stop-2
 
-[184]: #parameters-60
+[184]: #timedline
 
-[185]: #setprimarylocale
+[185]: #properties-8
 
-[186]: #parameters-61
+[186]: #setcontent
 
-[187]: #setfallbacklocale
+[187]: #parameters-62
 
-[188]: #parameters-62
+[188]: #irender
 
-[189]: #getlocalekey
+[189]: #properties-9
 
-[190]: #parameters-63
+[190]: #domrenderer
 
-[191]: #getbrowserlanguages
+[191]: #parameters-63
 
-[192]: #applicationplugin
+[192]: #start-5
 
-[193]: #preload
+[193]: #parameters-64
 
-[194]: #init
+[194]: #stop-3
 
-[195]: #start-6
+[195]: #htmlrenderer
 
-[196]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number
+[196]: #linebegin
 
-[197]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function
+[197]: #parameters-65
 
-[198]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String
+[198]: #lineend
 
-[199]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise
+[199]: #templaterenderer
 
-[200]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object
+[200]: #parameters-66
 
-[201]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean
+[201]: #textrenderer
 
-[202]: https://developer.mozilla.org/docs/Web/HTML/Element
+[202]: #linebegin-1
 
-[203]: #filtertype
+[203]: #parameters-67
 
-[204]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array
+[204]: #lineend-1
 
-[205]: https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/key/Key_Values
+[205]: #sanitize
 
-[206]: https://developer.mozilla.org/docs/Web/API/KeyboardEvent
+[206]: #parameters-68
 
-[207]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/undefined
+[207]: #localizeroptions
 
-[208]: #timedline
+[208]: #localizer
 
-[209]: #irender
+[209]: #resolve
 
-[210]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/JSON
+[210]: #parameters-69
 
-[211]: #caption
+[211]: #setprimarylocale
+
+[212]: #parameters-70
+
+[213]: #setfallbacklocale
+
+[214]: #parameters-71
+
+[215]: #getlocalekey
+
+[216]: #parameters-72
+
+[217]: #getbrowserlanguages
+
+[218]: #applicationplugin
+
+[219]: #preload
+
+[220]: #init
+
+[221]: #start-6
+
+[222]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number
+
+[223]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function
+
+[224]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String
+
+[225]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise
+
+[226]: #point
+
+[227]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object
+
+[228]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array
+
+[229]: #scaledentity
+
+[230]: #scalecallback
+
+[231]: #entityresizeevent
+
+[232]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean
+
+[233]: https://developer.mozilla.org/docs/Web/HTML/Element
+
+[234]: #filtertype
+
+[235]: https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/key/Key_Values
+
+[236]: https://developer.mozilla.org/docs/Web/API/KeyboardEvent
+
+[237]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/undefined
+
+[238]: #timedline
+
+[239]: #irender
+
+[240]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/JSON
+
+[241]: #caption
