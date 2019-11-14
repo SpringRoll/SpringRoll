@@ -43,13 +43,19 @@ export class Application {
   static uses(plugin: ApplicationPlugin): void
 }
 
+export interface ApplicationPluginOptions {
+  name: string;
+}
+
 export interface ApplicationPlugin {
-  constructor(priority?: number)
+  constructor(options: ApplicationPluginOptions)
   name: string;
   start(app: Application): void;
   preload(app: Application): Promise<any>;
   init(app: Application): void;
 }
+
+
 
 export class ApplicationPlugin implements ApplicationPlugin {}
 
