@@ -3,6 +3,7 @@ export as namespace SpringRoll;
   export * from './Application';
   export * from './Controller';
   export * from './Debug';
+  export * from './Hint';
   export * from './Localization';
   export * from './Renderer';
   export * from './ScaleManager';
