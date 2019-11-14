@@ -6,5 +6,5 @@ export as namespace SpringRoll;
   export * from './Hint';
   export * from './Localization';
   export * from './Renderer';
-  export * from './ScaleManager';
   export * from './SafeScaleManager';
+  export * from './ScaleManager';
