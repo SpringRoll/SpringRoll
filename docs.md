@@ -43,10 +43,10 @@
     -   [addEntity][39]
         -   [Parameters][40]
 -   [resizeEventData][41]
--   [EntityResizeEvent][42]
--   [ScaledEntity][43]
-    -   [onResize][44]
-        -   [Parameters][45]
+-   [ScaledEntity][42]
+    -   [onResize][43]
+        -   [Parameters][44]
+-   [EntityResizeEvent][45]
 -   [ScaleManager][46]
     -   [Parameters][47]
     -   [Properties][48]
@@ -144,7 +144,7 @@
     -   [value][140]
         -   [Parameters][141]
 -   [Caption][142]
-    -   [Parameters][143]
+    -   [Properties][143]
     -   [update][144]
         -   [Parameters][145]
     -   [updateState][146]
@@ -155,7 +155,7 @@
     -   [updateTimeIndex][151]
         -   [Parameters][152]
 -   [Caption][153]
-    -   [Properties][154]
+    -   [Parameters][154]
     -   [update][155]
         -   [Parameters][156]
     -   [updateState][157]
@@ -173,13 +173,13 @@
     -   [createLine][169]
         -   [Parameters][170]
 -   [CaptionPlayer][171]
-    -   [Parameters][172]
-    -   [update][173]
-        -   [Parameters][174]
-    -   [start][175]
-        -   [Parameters][176]
-    -   [stop][177]
--   [CaptionPlayer][178]
+    -   [update][172]
+        -   [Parameters][173]
+    -   [start][174]
+        -   [Parameters][175]
+    -   [stop][176]
+-   [CaptionPlayer][177]
+    -   [Parameters][178]
     -   [update][179]
         -   [Parameters][180]
     -   [start][181]
@@ -417,10 +417,6 @@ Adds and anchor to be updated during resize
 
 Type: [EntityResizeEvent][231]
 
-## EntityResizeEvent
-
-Type: {offset: [Point][226], gameSize: [Point][226], scale: [Point][226]}
-
 ## ScaledEntity
 
 ### onResize
@@ -430,6 +426,10 @@ Type: {offset: [Point][226], gameSize: [Point][226], scale: [Point][226]}
 -   `event` **[EntityResizeEvent][231]** 
 
 Returns **void** @memberof ScaledEntity
+
+## EntityResizeEvent
+
+Type: {offset: [Point][226], gameSize: [Point][226], scale: [Point][226]}
 
 ## ScaleManager
 
@@ -878,9 +878,12 @@ Sets the value of the property and notifies all listeners of the change
 
 ## Caption
 
-### Parameters
+### Properties
 
--   `lines`  
+-   `lines` **[Array][228]&lt;[TimedLine][238]>** 
+-   `time` **[number][222]** 
+-   `lineIndex` **[number][222]** 
+-   `renderer` **[IRender][239]** 
 
 ### update
 
@@ -925,12 +928,9 @@ Updates the current time and index of the caption instance
 
 ## Caption
 
-### Properties
+### Parameters
 
--   `lines` **[Array][228]&lt;[TimedLine][238]>** 
--   `time` **[number][222]** 
--   `lineIndex` **[number][222]** 
--   `renderer` **[IRender][239]** 
+-   `lines`  
 
 ### update
 
@@ -1009,10 +1009,8 @@ Returns **[TimedLine][238]** new TimedLine;
 
 ## CaptionPlayer
 
-### Parameters
-
--   `captions`  
--   `renderer`  
+CaptionPlayer is used to start, stop and update captions.
+ It applies the content of an active caption to a given CaptionRenderer.
 
 ### update
 
@@ -1039,8 +1037,10 @@ Stops any caption currently playing.
 
 ## CaptionPlayer
 
-CaptionPlayer is used to start, stop and update captions.
- It applies the content of an active caption to a given CaptionRenderer.
+### Parameters
+
+-   `captions`  
+-   `renderer`  
 
 ### update
 
@@ -1312,13 +1312,13 @@ After all plugins inits has completed
 
 [41]: #resizeeventdata
 
-[42]: #entityresizeevent
+[42]: #scaledentity
 
-[43]: #scaledentity
+[43]: #onresize-1
 
-[44]: #onresize-1
+[44]: #parameters-14
 
-[45]: #parameters-14
+[45]: #entityresizeevent
 
 [46]: #scalemanager
 
@@ -1514,29 +1514,29 @@ After all plugins inits has completed
 
 [142]: #caption
 
-[143]: #parameters-45
+[143]: #properties-7
 
 [144]: #update-1
 
-[145]: #parameters-46
+[145]: #parameters-45
 
 [146]: #updatestate-1
 
-[147]: #parameters-47
+[147]: #parameters-46
 
 [148]: #isfinished
 
 [149]: #start-1
 
-[150]: #parameters-48
+[150]: #parameters-47
 
 [151]: #updatetimeindex
 
-[152]: #parameters-49
+[152]: #parameters-48
 
 [153]: #caption-1
 
-[154]: #properties-7
+[154]: #parameters-49
 
 [155]: #update-2
 
@@ -1572,19 +1572,19 @@ After all plugins inits has completed
 
 [171]: #captionplayer
 
-[172]: #parameters-57
+[172]: #update-3
 
-[173]: #update-3
+[173]: #parameters-57
 
-[174]: #parameters-58
+[174]: #start-3
 
-[175]: #start-3
+[175]: #parameters-58
 
-[176]: #parameters-59
+[176]: #stop-1
 
-[177]: #stop-1
+[177]: #captionplayer-1
 
-[178]: #captionplayer-1
+[178]: #parameters-59
 
 [179]: #update-4
 
