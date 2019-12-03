@@ -144,7 +144,7 @@
     -   [value][140]
         -   [Parameters][141]
 -   [Caption][142]
-    -   [Properties][143]
+    -   [Parameters][143]
     -   [update][144]
         -   [Parameters][145]
     -   [updateState][146]
@@ -155,7 +155,7 @@
     -   [updateTimeIndex][151]
         -   [Parameters][152]
 -   [Caption][153]
-    -   [Parameters][154]
+    -   [Properties][154]
     -   [update][155]
         -   [Parameters][156]
     -   [updateState][157]
@@ -173,13 +173,13 @@
     -   [createLine][169]
         -   [Parameters][170]
 -   [CaptionPlayer][171]
-    -   [update][172]
-        -   [Parameters][173]
-    -   [start][174]
-        -   [Parameters][175]
-    -   [stop][176]
--   [CaptionPlayer][177]
-    -   [Parameters][178]
+    -   [Parameters][172]
+    -   [update][173]
+        -   [Parameters][174]
+    -   [start][175]
+        -   [Parameters][176]
+    -   [stop][177]
+-   [CaptionPlayer][178]
     -   [update][179]
         -   [Parameters][180]
     -   [start][181]
@@ -878,12 +878,9 @@ Sets the value of the property and notifies all listeners of the change
 
 ## Caption
 
-### Properties
+### Parameters
 
--   `lines` **[Array][228]&lt;[TimedLine][238]>** 
--   `time` **[number][222]** 
--   `lineIndex` **[number][222]** 
--   `renderer` **[IRender][239]** 
+-   `lines`  
 
 ### update
 
@@ -928,9 +925,12 @@ Updates the current time and index of the caption instance
 
 ## Caption
 
-### Parameters
+### Properties
 
--   `lines`  
+-   `lines` **[Array][228]&lt;[TimedLine][238]>** 
+-   `time` **[number][222]** 
+-   `lineIndex` **[number][222]** 
+-   `renderer` **[IRender][239]** 
 
 ### update
 
@@ -1009,8 +1009,10 @@ Returns **[TimedLine][238]** new TimedLine;
 
 ## CaptionPlayer
 
-CaptionPlayer is used to start, stop and update captions.
- It applies the content of an active caption to a given CaptionRenderer.
+### Parameters
+
+-   `captions`  
+-   `renderer`  
 
 ### update
 
@@ -1037,10 +1039,8 @@ Stops any caption currently playing.
 
 ## CaptionPlayer
 
-### Parameters
-
--   `captions`  
--   `renderer`  
+CaptionPlayer is used to start, stop and update captions.
+ It applies the content of an active caption to a given CaptionRenderer.
 
 ### update
 
@@ -1514,29 +1514,29 @@ After all plugins inits has completed
 
 [142]: #caption
 
-[143]: #properties-7
+[143]: #parameters-45
 
 [144]: #update-1
 
-[145]: #parameters-45
+[145]: #parameters-46
 
 [146]: #updatestate-1
 
-[147]: #parameters-46
+[147]: #parameters-47
 
 [148]: #isfinished
 
 [149]: #start-1
 
-[150]: #parameters-47
+[150]: #parameters-48
 
 [151]: #updatetimeindex
 
-[152]: #parameters-48
+[152]: #parameters-49
 
 [153]: #caption-1
 
-[154]: #parameters-49
+[154]: #properties-7
 
 [155]: #update-2
 
@@ -1572,19 +1572,19 @@ After all plugins inits has completed
 
 [171]: #captionplayer
 
-[172]: #update-3
+[172]: #parameters-57
 
-[173]: #parameters-57
+[173]: #update-3
 
-[174]: #start-3
+[174]: #parameters-58
 
-[175]: #parameters-58
+[175]: #start-3
 
-[176]: #stop-1
+[176]: #parameters-59
 
-[177]: #captionplayer-1
+[177]: #stop-1
 
-[178]: #parameters-59
+[178]: #captionplayer-1
 
 [179]: #update-4
 

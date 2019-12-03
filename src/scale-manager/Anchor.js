@@ -31,8 +31,6 @@ export class Anchor extends ScaledEntity {
     this.position = position || { x: 0, y: 0 };
 
     this.direction = direction || { x: -1, y: -1 };
-    this.direction.x = Math.sign(this.direction.x);
-    this.direction.y = Math.sign(this.direction.y);
 
     if (callback instanceof Function) {
       this.callback = callback;
