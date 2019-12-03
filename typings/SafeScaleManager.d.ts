@@ -1,13 +1,13 @@
 import { ScaledEntity } from "../src/scale-manager/ScaledEntity";
 
 export interface Point {
-  x: Number;
-  y: Number;
+  x: number;
+  y: number;
 }
 
 export interface ScaleEvent {
-  width: Number;
-  height: Number;
+  width: number;
+  height: number;
   scale: Point;
 }
 
@@ -24,10 +24,10 @@ export interface ScaledEntity {
 }
 
 export interface SafeScaleManagerConfig {
-  width: Number;
-  height: Number;
-  safeWidth?: Number;
-  safeHeight?: Number;
+  width: number;
+  height: number;
+  safeWidth?: number;
+  safeHeight?: number;
   callback: ScaleCallback; 
 }
 
