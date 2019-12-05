@@ -35,7 +35,7 @@ In order to play a caption you'll first need to initialize a captions player and
 ```
 Each line in a caption must have a start and end time, if you want to have a delay between lines you should add time to the start of the next line. It's not recommended to use a line with an empty content.
 
-If line `B`'s start time is before line `A`'s end time, then `A` will finish before `B` starts.
+If line `B`'s start time is before (or the same as) line `A`'s end time, then `A` will finish before `B` starts.
 
 A caption renderer can have the following callbacks.
 

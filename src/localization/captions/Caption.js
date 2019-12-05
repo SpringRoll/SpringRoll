@@ -76,15 +76,14 @@ export class Caption {
     if (currentTime > this.lines[this.lineIndex].endTime) {
       this.renderer.lineEnd();
     }
-
     while (currentTime > this.lines[this.lineIndex].endTime) {
-      if (this.lineIndex++ ,this.isFinished()) {
+      if ((this.lineIndex++, this.isFinished())) {
         return;
       }
     }
 
     const line = this.lines[this.lineIndex];
-    if (currentTime >= line.startTime && lastTime < line.startTime) {
+    if (currentTime >= line.startTime && lastTime <= line.startTime) {
       this.renderer.lineBegin(line);
       return;
     }
