@@ -21,34 +21,34 @@
         -   [Parameters][17]
     -   [delete][18]
         -   [Parameters][19]
--   [PositionCallback][20]
-    -   [Parameters][21]
--   [Anchor][22]
-    -   [onResize][23]
-        -   [Parameters][24]
-    -   [calcWorldPosition][25]
+-   [Point][20]
+-   [Point][21]
+-   [PositionCallback][22]
+    -   [Parameters][23]
+-   [Anchor][24]
+    -   [onResize][25]
         -   [Parameters][26]
--   [Point][27]
--   [Point][28]
--   [ScaledEntity][29]
-    -   [onResize][30]
-        -   [Parameters][31]
--   [EntityResizeEvent][32]
--   [SafeScaleManager][33]
-    -   [Parameters][34]
-    -   [entities][35]
-    -   [removeEntity][36]
+    -   [calcWorldPosition][27]
+        -   [Parameters][28]
+-   [ScaleCallback][29]
+    -   [Parameters][30]
+-   [SafeScaleManager][31]
+    -   [Parameters][32]
+    -   [entities][33]
+    -   [removeEntity][34]
+        -   [Parameters][35]
+    -   [enable][36]
         -   [Parameters][37]
-    -   [enable][38]
-        -   [Parameters][39]
-    -   [disable][40]
-    -   [calcOffset][41]
+    -   [disable][38]
+    -   [calcOffset][39]
+        -   [Parameters][40]
+    -   [addEntity][41]
         -   [Parameters][42]
-    -   [addEntity][43]
-        -   [Parameters][44]
--   [ScaleCallback][45]
-    -   [Parameters][46]
--   [resizeEventData][47]
+-   [resizeEventData][43]
+-   [EntityResizeEvent][44]
+-   [ScaledEntity][45]
+    -   [onResize][46]
+        -   [Parameters][47]
 -   [ScaleManager][48]
     -   [Parameters][49]
     -   [Properties][50]
@@ -147,7 +147,7 @@
     -   [value][143]
         -   [Parameters][144]
 -   [Caption][145]
-    -   [Properties][146]
+    -   [Parameters][146]
     -   [update][147]
         -   [Parameters][148]
     -   [updateState][149]
@@ -158,7 +158,7 @@
     -   [updateTimeIndex][154]
         -   [Parameters][155]
 -   [Caption][156]
-    -   [Parameters][157]
+    -   [Properties][157]
     -   [update][158]
         -   [Parameters][159]
     -   [updateState][160]
@@ -176,13 +176,13 @@
     -   [createLine][172]
         -   [Parameters][173]
 -   [CaptionPlayer][174]
-    -   [update][175]
-        -   [Parameters][176]
-    -   [start][177]
-        -   [Parameters][178]
-    -   [stop][179]
--   [CaptionPlayer][180]
-    -   [Parameters][181]
+    -   [Parameters][175]
+    -   [update][176]
+        -   [Parameters][177]
+    -   [start][178]
+        -   [Parameters][179]
+    -   [stop][180]
+-   [CaptionPlayer][181]
     -   [update][182]
         -   [Parameters][183]
     -   [start][184]
@@ -314,6 +314,14 @@ Removes data from SpringRoll Container
 
 -   `name` **[string][227]** 
 
+## Point
+
+Type: {x: [Number][225], y: [Number][225]}
+
+## Point
+
+Type: {x: [Number][225], y: [Number][225]}
+
 ## PositionCallback
 
 callback to used move game entities
@@ -352,27 +360,17 @@ Based on viewport offset and anchor direction.
 
 Returns **void** @memberof Anchor
 
-## Point
+## ScaleCallback
 
-Type: {x: [Number][225], y: [Number][225]}
+callback to used scale game and canvas
 
-## Point
+Type: [Function][226]
 
-Type: {x: [Number][225], y: [Number][225]}
+### Parameters
 
-## ScaledEntity
-
-### onResize
-
-#### Parameters
-
--   `event` **[EntityResizeEvent][231]** 
-
-Returns **void** @memberof ScaledEntity
-
-## EntityResizeEvent
-
-Type: {offset: [Point][229], gameSize: [Point][229], scale: [Point][229]}
+-   `width` **[Number][225]** width canvas should be
+-   `height` **[Number][225]** height canvas should be
+-   `scale` **[Point][229]** x/y scale values
 
 ## SafeScaleManager
 
@@ -390,7 +388,7 @@ Handles scaling the game
 
 ### entities
 
-Type: [Array][232]&lt;[ScaledEntity][233]>
+Type: [Array][231]&lt;[ScaledEntity][232]>
 
 ### removeEntity
 
@@ -398,7 +396,7 @@ Removes an anchor
 
 #### Parameters
 
--   `entity` **[ScaledEntity][233]** 
+-   `entity` **[ScaledEntity][232]** 
 
 Returns **void** @memberof SafeScaleManager
 
@@ -408,7 +406,7 @@ Enables the scale manager listener. Will not be enabled if a callback is not sup
 
 #### Parameters
 
--   `callback` **[ScaleCallback][234]** The function to be called on resize events.
+-   `callback` **[ScaleCallback][233]** The function to be called on resize events.
 
 ### disable
 
@@ -430,23 +428,25 @@ Adds and anchor to be updated during resize
 
 #### Parameters
 
--   `entity` **[ScaledEntity][233]** 
-
-## ScaleCallback
-
-callback to used scale game and canvas
-
-Type: [Function][226]
-
-### Parameters
-
--   `width` **[Number][225]** width canvas should be
--   `height` **[Number][225]** height canvas should be
--   `scale` **[Point][229]** x/y scale values
+-   `entity` **[ScaledEntity][232]** 
 
 ## resizeEventData
 
-Type: [EntityResizeEvent][231]
+Type: [EntityResizeEvent][234]
+
+## EntityResizeEvent
+
+Type: {offset: [Point][229], gameSize: [Point][229], scale: [Point][229]}
+
+## ScaledEntity
+
+### onResize
+
+#### Parameters
+
+-   `event` **[EntityResizeEvent][234]** 
+
+Returns **void** @memberof ScaledEntity
 
 ## ScaleManager
 
@@ -620,7 +620,7 @@ Controller interface class to simplify working with key presses.
 
 ### Parameters
 
--   `buttons` **[Array][232]&lt;KeyTemplate>** An object containing all keys you want to watch and their functions. e.g. {enter: () => {}}. See [https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/key/Key_Values][238] for potential values. (optional, default `[]`)
+-   `buttons` **[Array][231]&lt;KeyTemplate>** An object containing all keys you want to watch and their functions. e.g. {enter: () => {}}. See [https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/key/Key_Values][238] for potential values. (optional, default `[]`)
 
 ### update
 
@@ -648,7 +648,7 @@ Sets an object of button functions to the controller to be called.
 
 #### Parameters
 
--   `keys` **[Array][232]&lt;KeyTemplate>** 
+-   `keys` **[Array][231]&lt;KeyTemplate>** 
 
 ## Key
 
@@ -808,7 +808,7 @@ Console logs all supplied arguments if the log level is low enough for them to b
 #### Parameters
 
 -   `type` **(`"log"` \| `"general"` \| `"warn"` \| `"error"` \| `"debug"` \| `"info"`)** minimum level for this log to run at (optional, default `'log'`)
--   `args` **[Array][232]&lt;any>** Arguments you wish to log.
+-   `args` **[Array][231]&lt;any>** Arguments you wish to log.
 
 ### assert
 
@@ -857,7 +857,7 @@ Returns **void** @memberof HintSequencePlayer
 
 #### Parameters
 
--   `callbacks` **[Array][232]&lt;function ()>** 
+-   `callbacks` **[Array][231]&lt;function ()>** 
 
 Returns **void** @memberof HintSequencePlayer
 
@@ -865,7 +865,7 @@ Returns **void** @memberof HintSequencePlayer
 
 #### Parameters
 
--   `callbacks` **[Array][232]&lt;function ()>** 
+-   `callbacks` **[Array][231]&lt;function ()>** 
 
 Returns **void** @memberof HintSequencePlayer
 
@@ -916,12 +916,9 @@ Sets the value of the property and notifies all listeners of the change
 
 ## Caption
 
-### Properties
+### Parameters
 
--   `lines` **[Array][232]&lt;[TimedLine][241]>** 
--   `time` **[number][225]** 
--   `lineIndex` **[number][225]** 
--   `renderer` **[IRender][242]** 
+-   `lines`  
 
 ### update
 
@@ -966,9 +963,12 @@ Updates the current time and index of the caption instance
 
 ## Caption
 
-### Parameters
+### Properties
 
--   `lines`  
+-   `lines` **[Array][231]&lt;[TimedLine][241]>** 
+-   `time` **[number][225]** 
+-   `lineIndex` **[number][225]** 
+-   `renderer` **[IRender][242]** 
 
 ### update
 
@@ -1047,8 +1047,10 @@ Returns **[TimedLine][241]** new TimedLine;
 
 ## CaptionPlayer
 
-CaptionPlayer is used to start, stop and update captions.
- It applies the content of an active caption to a given CaptionRenderer.
+### Parameters
+
+-   `captions`  
+-   `renderer`  
 
 ### update
 
@@ -1075,10 +1077,8 @@ Stops any caption currently playing.
 
 ## CaptionPlayer
 
-### Parameters
-
--   `captions`  
--   `renderer`  
+CaptionPlayer is used to start, stop and update captions.
+ It applies the content of an active caption to a given CaptionRenderer.
 
 ### update
 
@@ -1306,61 +1306,61 @@ After all plugins inits has completed
 
 [19]: #parameters-5
 
-[20]: #positioncallback
+[20]: #point
 
-[21]: #parameters-6
+[21]: #point-1
 
-[22]: #anchor
+[22]: #positioncallback
 
-[23]: #onresize
+[23]: #parameters-6
 
-[24]: #parameters-7
+[24]: #anchor
 
-[25]: #calcworldposition
+[25]: #onresize
 
-[26]: #parameters-8
+[26]: #parameters-7
 
-[27]: #point
+[27]: #calcworldposition
 
-[28]: #point-1
+[28]: #parameters-8
 
-[29]: #scaledentity
+[29]: #scalecallback
 
-[30]: #onresize-1
+[30]: #parameters-9
 
-[31]: #parameters-9
+[31]: #safescalemanager
 
-[32]: #entityresizeevent
+[32]: #parameters-10
 
-[33]: #safescalemanager
+[33]: #entities
 
-[34]: #parameters-10
+[34]: #removeentity
 
-[35]: #entities
+[35]: #parameters-11
 
-[36]: #removeentity
+[36]: #enable
 
-[37]: #parameters-11
+[37]: #parameters-12
 
-[38]: #enable
+[38]: #disable
 
-[39]: #parameters-12
+[39]: #calcoffset
 
-[40]: #disable
+[40]: #parameters-13
 
-[41]: #calcoffset
+[41]: #addentity
 
-[42]: #parameters-13
+[42]: #parameters-14
 
-[43]: #addentity
+[43]: #resizeeventdata
 
-[44]: #parameters-14
+[44]: #entityresizeevent
 
-[45]: #scalecallback
+[45]: #scaledentity
 
-[46]: #parameters-15
+[46]: #onresize-1
 
-[47]: #resizeeventdata
+[47]: #parameters-15
 
 [48]: #scalemanager
 
@@ -1558,29 +1558,29 @@ After all plugins inits has completed
 
 [145]: #caption
 
-[146]: #properties-8
+[146]: #parameters-46
 
 [147]: #update-1
 
-[148]: #parameters-46
+[148]: #parameters-47
 
 [149]: #updatestate-1
 
-[150]: #parameters-47
+[150]: #parameters-48
 
 [151]: #isfinished
 
 [152]: #start-1
 
-[153]: #parameters-48
+[153]: #parameters-49
 
 [154]: #updatetimeindex
 
-[155]: #parameters-49
+[155]: #parameters-50
 
 [156]: #caption-1
 
-[157]: #parameters-50
+[157]: #properties-8
 
 [158]: #update-2
 
@@ -1616,19 +1616,19 @@ After all plugins inits has completed
 
 [174]: #captionplayer
 
-[175]: #update-3
+[175]: #parameters-58
 
-[176]: #parameters-58
+[176]: #update-3
 
-[177]: #start-3
+[177]: #parameters-59
 
-[178]: #parameters-59
+[178]: #start-3
 
-[179]: #stop-1
+[179]: #parameters-60
 
-[180]: #captionplayer-1
+[180]: #stop-1
 
-[181]: #parameters-60
+[181]: #captionplayer-1
 
 [182]: #update-4
 
@@ -1728,13 +1728,13 @@ After all plugins inits has completed
 
 [230]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object
 
-[231]: #entityresizeevent
+[231]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array
 
-[232]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array
+[232]: #scaledentity
 
-[233]: #scaledentity
+[233]: #scalecallback
 
-[234]: #scalecallback
+[234]: #entityresizeevent
 
 [235]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean
 

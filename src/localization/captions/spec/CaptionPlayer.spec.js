@@ -51,8 +51,19 @@ describe('CaptionPlayer', function() {
       expect(tester.stopCalled).to.equal(true);
     });
 
-    it('Should call the later caption if start and end time of two captions are the same', function() {
-      player.start('SameTime', 2000);
+    it('Should finish the first caption and wait for next update to start the second if start and end time of two captions are the same', function() {
+      player.start('StartEnd', 900);
+      expect(tester.content).to.equal('first');
+      expect(tester.lineEndCalled).to.equal(false);
+
+      //update to shared start/end time. First caption should still be playing
+      player.update(0.1);
+      expect(tester.content).to.equal('first');
+
+      //on next update the second/last caption should be playing
+      player.update(0.001);
+      expect(tester.content).to.equal('last');
+      expect(tester.lineEndCalled).to.equal(true);
     });
   });
 
