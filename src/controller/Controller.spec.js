@@ -94,7 +94,7 @@ describe('controller', () => {
     controller.update();
   });
 
-  it('Should call not call up function on blur if the key was not down', done => {
+  it('Should not call up function on blur if the key was not down', done => {
     const controller = new Controller([
       {
         key: 'Enter',
