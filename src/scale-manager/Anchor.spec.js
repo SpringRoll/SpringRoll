@@ -1,13 +1,6 @@
 import { Anchor } from './Anchor';
 
 describe('Anchor', () => {
-  it('should force direction to be -1 to 1', () => {
-    const anchor = new Anchor({ direction: { x: -100, y: -100 } });
-
-    expect(anchor.direction.x).to.equal(-1);
-    expect(anchor.direction.x).to.equal(-1);
-  });
-
   describe('direction', () => {
     let anchor;
 
