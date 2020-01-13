@@ -12,6 +12,7 @@ import { Debugger } from '../debug';
  * @param {Number} width width canvas should be
  * @param {Number} height height canvas should be
  * @param {Point} scale x/y scale values
+ * @param {Number} scaleMod minimum aspect ratio that fit's in the screen.
  */
 
 /**
@@ -84,7 +85,7 @@ export class SafeScaleManager {
         gameSize
       });
 
-      this.callback({ width: nWidth, height: nHeight, scale });
+      this.callback({ width: nWidth, height: nHeight, scale, scaleMod });
 
       for (let i = 0, length = this.entities.length; i < length; i++) {
         const entity = this.entities[i];
