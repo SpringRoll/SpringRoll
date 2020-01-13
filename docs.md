@@ -372,6 +372,7 @@ Type: [Function][227]
 -   `width` **[Number][226]** width canvas should be
 -   `height` **[Number][226]** height canvas should be
 -   `scale` **[Point][230]** x/y scale values
+-   `scaleMod` **[Number][226]** minimum aspect ratio that fit's in the screen.
 
 ## SafeScaleManager
 
