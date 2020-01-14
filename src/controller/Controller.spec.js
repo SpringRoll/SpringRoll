@@ -65,4 +65,45 @@ describe('controller', () => {
 
     expect(callback.callCount).to.equal(0);
   });
+
+  it('Should call up function on blur if the key was down', done => {
+    const controller = new Controller([
+      {
+        key: 'Enter',
+        up: function() {
+          done();
+        }.bind(this)
+      }
+    ]);
+
+    const eventDown = newEvent('keydown');
+    eventDown.key = 'Enter';
+    window.dispatchEvent(eventDown);
+
+    const blurEvent = newEvent('blur');
+    window.dispatchEvent(blurEvent);
+
+    controller.update();
+  });
+
+  it('Should not call up function on blur if the key was not down', done => {
+    const controller = new Controller([
+      {
+        key: 'Enter',
+        up: function() {
+          done(new Error());
+        }.bind(this)
+      }
+    ]);
+
+    const blurEvent = newEvent('blur');
+    window.dispatchEvent(blurEvent);
+
+    controller.update();
+
+    controller.update();
+    setTimeout(() => {
+      done();
+    }, 10);
+  });
 });
