@@ -1,27 +1,31 @@
 import { Property } from './Property';
+import Sinon from 'sinon';
 
 describe('Property', () => {
   describe('subscribe', () => {
-    it('should notify the subscriber whenever the property changes', done => {
+    it('should notify the subscriber whenever the property changes', () => {
+      const callback = Sinon.fake();
       const property = new Property(7);
-      property.subscribe(() => {
-        expect(property.value).to.equal(8);
-        done();
-      });
+
+      property.subscribe(callback);
       property.value = 8;
+
+      expect(callback.callCount).to.equal(1);
+      expect(property.value).to.equal(8);
     });
   });
 
   describe('unsubscribe', () => {
-    it('should notify listeners that are unsubscribed', done => {
-      const oops = () => {
-        throw new Error('I should not execute');
-      };
+    it('should notify listeners that are unsubscribed', () => {
+      const callback = Sinon.fake();
       const property = new Property(1);
-      property.subscribe(oops);
-      property.unsubscribe(oops);
+
+      property.subscribe(callback);
+      property.unsubscribe(callback);
       property.value = 0;
-      done();
+
+      expect(callback.callCount).to.equal(0);
+      expect(property.value).to.equal(0);
     });
   });
 

@@ -1,4 +1,5 @@
 import { IdleTimer } from './IdleTimer';
+import Sinon from 'sinon';
 
 describe('IdleTimer', function() {
   describe('#start()', function() {
@@ -51,30 +52,31 @@ describe('IdleTimer', function() {
   describe('#dispatch()', function() {
     it('should invoke each subscribed function', function() {
       const timer = new IdleTimer();
-      let callCount = 0;
-      timer.subscribe(function() {
-        callCount++;
-      });
-      timer.subscribe(function() {
-        callCount++;
-      });
+      const callback1 = Sinon.fake();
+      const callback2 = Sinon.fake();
+
+      timer.subscribe(callback1);
+      timer.subscribe(callback2);
+
       timer.dispatch();
-      expect(callCount).to.equal(2);
+
+      expect(callback1.callCount).to.equal(1);
+      expect(callback2.callCount).to.equal(1);
     });
 
     it('should not invoke functions that have been unsubscribed', function() {
       const timer = new IdleTimer();
-      let testCalled = false;
-      /** Test Func */
-      const testFunc = function() {
-        testCalled = true;
-      };
+      const callback = Sinon.fake();
 
-      timer.subscribe(testFunc);
-      timer.unsubscribe(testFunc);
+      timer.subscribe(callback);
       timer.dispatch();
 
-      expect(testCalled).to.equal(false);
+      expect(callback.callCount).to.equal(1);
+
+      timer.unsubscribe(callback);
+      timer.dispatch();
+
+      expect(callback.callCount).to.equal(1);
     });
   });
 });
