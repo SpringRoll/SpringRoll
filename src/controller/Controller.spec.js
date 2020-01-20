@@ -1,5 +1,5 @@
 import { Controller } from './Controller';
-import { newEvent } from '../debug';
+import { newEvent, isIE11 } from '../debug';
 import Sinon from 'sinon';
 
 describe('controller', () => {
@@ -105,5 +105,24 @@ describe('controller', () => {
     setTimeout(() => {
       done();
     }, 10);
+  });
+
+  it('should map "left" to "leftarrow" on IE ', function() {
+
+    if (!isIE11) {
+      this.skip();
+    }
+
+    const callback = Sinon.fake();
+    const controller = new Controller([
+      { key: 'left', down: callback}
+    ]);
+
+    const event = newEvent('leftarrow');
+    event.key = 'leftarrow';
+    window.dispatchEvent(event);
+    controller.update();
+
+    expect(callback.callCount).to.equal(1);
   });
 });
