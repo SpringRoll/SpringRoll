@@ -1,3 +1,4 @@
+import { alternateKeyMap } from './AlternateKeyMap';
 import { Key } from './Key';
 
 /**
@@ -80,6 +81,13 @@ export class Controller {
     this.keys = [];
     for (let i = 0, l = keys.length; i < l; i++) {
       const currentKey = keys[i].key.toLowerCase();
+      const altKey = alternateKeyMap[currentKey];
+
+      if (altKey !== undefined) {
+        this.keys.push(altKey);
+        this.buttons[altKey] = new Key(altKey, keys[i].down, keys[i].up);
+      }
+
       this.keys.push(currentKey);
       this.buttons[currentKey] = new Key(currentKey, keys[i].down, keys[i].up);
     }
