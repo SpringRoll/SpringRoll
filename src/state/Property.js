@@ -30,6 +30,10 @@ export class Property {
    * @memberof Property
    */
   set value(value) {
+    if (this.value === value) {
+      return;
+    }
+
     const prevValue = this._value;
     this._value = value;
 
