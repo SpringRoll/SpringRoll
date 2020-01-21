@@ -83,7 +83,7 @@ export class Controller {
       const currentKey = keys[i].key.toLowerCase();
       const altKey = alternateKeyMap[currentKey];
 
-      if (altKey) {
+      if (altKey !== undefined) {
         this.keys.push(altKey);
         this.buttons[altKey] = new Key(altKey, keys[i].down, keys[i].up);
       }
