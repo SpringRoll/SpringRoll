@@ -13,6 +13,16 @@ describe('Property', () => {
       expect(callback.callCount).to.equal(1);
       expect(property.value).to.equal(8);
     });
+
+    it('should not invoke listeners if the provided value is the same as the current value', () => {
+      const callback = Sinon.fake();
+      const property = new Property(8);
+
+      property.subscribe(callback);
+      property.value = 8;
+
+      expect(callback.callCount).to.equal(0);
+    });
   });
 
   describe('unsubscribe', () => {
