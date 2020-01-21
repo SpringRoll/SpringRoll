@@ -1,6 +1,13 @@
 import { Controller } from './Controller';
-import { newEvent, isIE11 } from '../debug';
+import { newEvent } from '../debug';
 import Sinon from 'sinon';
+
+const ieKeysMap = {
+  'down':'downArrow',
+  'up': 'upArrow',
+  'left': 'leftArrow',
+  'right': 'rightArrow'
+};
 
 describe('controller', () => {
   it('Should accept a array of buttons', () => {
@@ -107,59 +114,23 @@ describe('controller', () => {
     }, 10);
   });
 
-  it('should map "left" to "leftarrow" event (needed for IE)', function() {
-    const callback = Sinon.fake();
-    const controller = new Controller([
-      { key: 'left', down: callback}
-    ]);
+  // Check all IE keys are mapped to Chrome/Firefox
+  for (const keyName in ieKeysMap) {
+    const mappedName = ieKeysMap[keyName];
 
-    const event = newEvent('keydown');
-    event.key = 'leftArrow';
-    window.dispatchEvent(event);
-    controller.update();
+    it(`should map ${keyName} to ${mappedName} event (needed for IE)`, function() {
+      const callback = Sinon.fake();
+      const controller = new Controller([
+        { key: keyName, down: callback}
+      ]);
+  
+      const event = newEvent('keydown');
+      event.key = mappedName;
+      window.dispatchEvent(event);
+      controller.update();
+  
+      expect(callback.callCount).to.equal(1);
+    });
+  }
 
-    expect(callback.callCount).to.equal(1);
-  });
-
-  it('should map "right" to "rightarrow" event (needed for IE)', function() {
-    const callback = Sinon.fake();
-    const controller = new Controller([
-      { key: 'right', down: callback}
-    ]);
-
-    const event = newEvent('keydown');
-    event.key = 'rightArrow';
-    window.dispatchEvent(event);
-    controller.update();
-
-    expect(callback.callCount).to.equal(1);
-  });
-
-  it('should map "up" to "uparrow" event (needed for IE)', function() {
-    const callback = Sinon.fake();
-    const controller = new Controller([
-      { key: 'up', down: callback}
-    ]);
-
-    const event = newEvent('keydown');
-    event.key = 'upArrow';
-    window.dispatchEvent(event);
-    controller.update();
-
-    expect(callback.callCount).to.equal(1);
-  });
-
-  it('should map "down" to "downarrow" event (needed for IE)', function() {
-    const callback = Sinon.fake();
-    const controller = new Controller([
-      { key: 'down', down: callback}
-    ]);
-
-    const event = newEvent('keydown');
-    event.key = 'downArrow';
-    window.dispatchEvent(event);
-    controller.update();
-
-    expect(callback.callCount).to.equal(1);
-  });
 });
