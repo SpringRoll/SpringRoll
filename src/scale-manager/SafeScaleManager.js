@@ -12,7 +12,7 @@ import { Debugger } from '../debug';
  * @param {Number} width width canvas should be
  * @param {Number} height height canvas should be
  * @param {Point} scale x/y scale values
- * @param {Number} scaleMod minimum aspect ratio that fit's in the screen.
+ * @param {Number} scaleRatio minimum aspect ratio that fit's in the screen.
  */
 
 /**
@@ -63,17 +63,17 @@ export class SafeScaleManager {
       const height = event.target.innerHeight;
 
       // Calculate Canvas size and scale //
-      const scaleMod = Math.min(
+      const scaleRatio = Math.min(
         width / this.safeWidth,
         height / this.safeHeight
       );
 
-      const nWidth = Math.max(0, Math.min(this.gameWidth * scaleMod, width));
-      const nHeight = Math.max(0, Math.min(this.gameHeight * scaleMod, height));
+      const nWidth = Math.max(0, Math.min(this.gameWidth * scaleRatio, width));
+      const nHeight = Math.max(0, Math.min(this.gameHeight * scaleRatio, height));
 
       const scale = {
-        x: (this.gameWidth / nWidth) * scaleMod,
-        y: (this.gameHeight / nHeight) * scaleMod
+        x: (this.gameWidth / nWidth) * scaleRatio,
+        y: (this.gameHeight / nHeight) * scaleRatio
       };
       const offset = this.calcOffset(scale);
       const gameSize = { x: this.gameWidth, y: this.gameHeight };
@@ -85,7 +85,7 @@ export class SafeScaleManager {
         gameSize
       });
 
-      this.callback({ width: nWidth, height: nHeight, scale, scaleMod });
+      this.callback({ width: nWidth, height: nHeight, scale, scaleRatio });
 
       for (let i = 0, length = this.entities.length; i < length; i++) {
         const entity = this.entities[i];

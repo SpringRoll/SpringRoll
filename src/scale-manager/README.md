@@ -54,7 +54,7 @@ For more info check out the [WebKit Bug](https://bugs.webkit.org/show_bug.cgi?id
 
 ### Callback Example
 
-The safe scale manager's callback parameter contains `width`, `height`, `scale`, and `scaleMod`. these values can be used to resize your game. Depending on the engine you choose you'll have to use them differently. `scale` contains `x` and `y`, these are the independent scaling values for the x and y axis. You may also need to use the `scaleMod` value, this is the minimum size ratio either `width/safeWidth` or `height/safeHeight`
+The safe scale manager's callback parameter contains `width`, `height`, `scale`, and `scaleRatio`. these values can be used to resize your game. Depending on the engine you choose you'll have to use them differently. `scale` contains `x` and `y`, these are the independent scaling values for the x and y axis. You may also need to use the `scaleRatio` value, this is the minimum size ratio either `width/safeWidth` or `height/safeHeight`
 
 ```javascript
 scaleManager.enable(({width, height, scale}) => {
