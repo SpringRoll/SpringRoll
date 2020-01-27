@@ -181,27 +181,11 @@
                         #onResize
                       </a></li>
                       
-                      <li><a
-                        href='#anchorcalcworldposition'
-                        class='regular pre-open'>
-                        #calcWorldPosition
-                      </a></li>
-                      
                     </ul>
                   
                   
                   
                 </div>
-                
-                </li>
-              
-                
-                <li><a
-                  href='#scalecallback'
-                  class="">
-                  ScaleCallback
-                  
-                </a>
                 
                 </li>
               
@@ -270,9 +254,9 @@
               
                 
                 <li><a
-                  href='#resizeeventdata'
+                  href='#scalecallback'
                   class="">
-                  resizeEventData
+                  ScaleCallback
                   
                 </a>
                 
@@ -280,9 +264,9 @@
               
                 
                 <li><a
-                  href='#entityresizeevent'
+                  href='#resizeeventdata'
                   class="">
-                  EntityResizeEvent
+                  resizeEventData
                   
                 </a>
                 
@@ -313,6 +297,16 @@
                   
                   
                 </div>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#entityresizeevent'
+                  class="">
+                  EntityResizeEvent
+                  
+                </a>
                 
                 </li>
               
@@ -2342,15 +2336,7 @@
             <tbody class='mt1'>
               
                 <tr>
-  <td class='break-word'><span class='code bold'>param.offset</span> <code class='quiet'><a href="#point">Point</a></code>
-  </td>
-  <td class='break-word'><span></span></td>
-</tr>
-
-
-              
-                <tr>
-  <td class='break-word'><span class='code bold'>param.gameSize</span> <code class='quiet'><a href="#point">Point</a></code>
+  <td class='break-word'><span class='code bold'>param.viewArea</span> <code class='quiet'><a href="#point">Point</a></code>
   </td>
   <td class='break-word'><span></span></td>
 </tr>
@@ -2393,194 +2379,7 @@
       </div>
     </div>
   
-    <div class='border-bottom' id='anchorcalcworldposition'>
-      <div class="clearfix small pointer toggle-sibling">
-        <div class="py1 contain">
-            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
-            <span class='code strong strong truncate'>calcWorldPosition(position, direction, offset, halfSize)</span>
-        </div>
-      </div>
-      <div class="clearfix display-none toggle-target">
-        <section class='p2 mb2 clearfix bg-white minishadow'>
-
-  
-
-  <p>Calculates and returns the world position of a single axis
-Based on viewport offset and anchor direction.</p>
-
-    <div class='pre p1 fill-light mt0'>calcWorldPosition(position: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a>, direction: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a>, offset: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a>, halfSize: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a>): void</div>
-  
-  
-
-  
-  
-  
-  
-  
-  
-
-  
-    <div class='py1 quiet mt1 prose-big'>Parameters</div>
-    <div class='prose'>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>position</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a>)</code>
-	    
-          </div>
-          
-        </div>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>direction</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a>)</code>
-	    
-          </div>
-          
-        </div>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>offset</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a>)</code>
-	    
-          </div>
-          
-        </div>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>halfSize</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a>)</code>
-	    
-          </div>
-          
-        </div>
-      
-    </div>
-  
-
-  
-
-  
-    
-      <div class='py1 quiet mt1 prose-big'>Returns</div>
-      <code>void</code>:
-        @memberof Anchor
-
-      
-    
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-</section>
-
-      </div>
-    </div>
-  
 </div>
-
-  
-
-  
-
-  
-</section>
-
-          
-        
-          
-          <section class='p2 mb2 clearfix bg-white minishadow'>
-
-  
-  <div class='clearfix'>
-    
-    <h3 class='fl m0' id='scalecallback'>
-      ScaleCallback
-    </h3>
-    
-    
-  </div>
-  
-
-  <p>callback to used scale game and canvas</p>
-
-    <div class='pre p1 fill-light mt0'>ScaleCallback(width: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a>, height: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a>, scale: <a href="#point">Point</a>, scaleRatio: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a>)</div>
-  
-    <p>
-      Type:
-      <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function">Function</a>
-    </p>
-  
-  
-
-  
-  
-  
-  
-  
-  
-
-  
-    <div class='py1 quiet mt1 prose-big'>Parameters</div>
-    <div class='prose'>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>width</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a>)</code>
-	    width canvas should be
-
-          </div>
-          
-        </div>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>height</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a>)</code>
-	    height canvas should be
-
-          </div>
-          
-        </div>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>scale</span> <code class='quiet'>(<a href="#point">Point</a>)</code>
-	    x/y scale values
-
-          </div>
-          
-        </div>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>scaleRatio</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a>)</code>
-	    minimum aspect ratio that fit's in the screen.
-
-          </div>
-          
-        </div>
-      
-    </div>
-  
-
-  
-
-  
-
-  
-
-  
-
-  
 
   
 
@@ -3094,20 +2893,21 @@ Based on viewport offset and anchor direction.</p>
   
   <div class='clearfix'>
     
-    <h3 class='fl m0' id='resizeeventdata'>
-      resizeEventData
+    <h3 class='fl m0' id='scalecallback'>
+      ScaleCallback
     </h3>
     
     
   </div>
   
 
-  
-    <div class='pre p1 fill-light mt0'>resizeEventData</div>
+  <p>callback to used scale game and canvas</p>
+
+    <div class='pre p1 fill-light mt0'>ScaleCallback(width: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a>, height: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a>, scale: <a href="#point">Point</a>, scaleRatio: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a>, viewArea: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</div>
   
     <p>
       Type:
-      <a href="#entityresizeevent">EntityResizeEvent</a>
+      <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function">Function</a>
     </p>
   
   
@@ -3119,6 +2919,56 @@ Based on viewport offset and anchor direction.</p>
   
   
 
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>width</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a>)</code>
+	    width canvas should be
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>height</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a>)</code>
+	    height canvas should be
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>scale</span> <code class='quiet'>(<a href="#point">Point</a>)</code>
+	    x/y scale values
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>scaleRatio</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a>)</code>
+	    minimum aspect ratio that fit's in the screen.
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>viewArea</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code>
+	    Rectangle defining the total viewable area of game content.
+
+          </div>
+          
+        </div>
+      
+    </div>
   
 
   
@@ -3146,8 +2996,8 @@ Based on viewport offset and anchor direction.</p>
   
   <div class='clearfix'>
     
-    <h3 class='fl m0' id='entityresizeevent'>
-      EntityResizeEvent
+    <h3 class='fl m0' id='resizeeventdata'>
+      resizeEventData
     </h3>
     
     
@@ -3155,11 +3005,11 @@ Based on viewport offset and anchor direction.</p>
   
 
   
-    <div class='pre p1 fill-light mt0'>EntityResizeEvent</div>
+    <div class='pre p1 fill-light mt0'>resizeEventData</div>
   
     <p>
       Type:
-      {offset: <a href="#point">Point</a>, gameSize: <a href="#point">Point</a>, scale: <a href="#point">Point</a>}
+      <a href="#entityresizeevent">EntityResizeEvent</a>
     </p>
   
   
@@ -3302,6 +3152,58 @@ Based on viewport offset and anchor direction.</p>
     </div>
   
 </div>
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='entityresizeevent'>
+      EntityResizeEvent
+    </h3>
+    
+    
+  </div>
+  
+
+  
+    <div class='pre p1 fill-light mt0'>EntityResizeEvent</div>
+  
+    <p>
+      Type:
+      {offset: <a href="#point">Point</a>, gameSize: <a href="#point">Point</a>, scale: <a href="#point">Point</a>}
+    </p>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
 
   
 
@@ -8286,8 +8188,10 @@ This ~should~ be called every frame that the caption is active.</p>
   </div>
   
 
-  
-    <div class='pre p1 fill-light mt0'>new CaptionPlayer(captions: any, renderer: any)</div>
+  <p>CaptionPlayer is used to start, stop and update captions.
+It applies the content of an active caption to a given CaptionRenderer.</p>
+
+    <div class='pre p1 fill-light mt0'>new CaptionPlayer()</div>
   
   
 
@@ -8298,27 +8202,6 @@ This ~should~ be called every frame that the caption is active.</p>
   
   
 
-  
-    <div class='py1 quiet mt1 prose-big'>Parameters</div>
-    <div class='prose'>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>captions</span> <code class='quiet'>(any)</code>
-	    
-          </div>
-          
-        </div>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>renderer</span> <code class='quiet'>(any)</code>
-	    
-          </div>
-          
-        </div>
-      
-    </div>
   
 
   
@@ -8550,10 +8433,8 @@ This ~should~ be called every frame.</p>
   </div>
   
 
-  <p>CaptionPlayer is used to start, stop and update captions.
-It applies the content of an active caption to a given CaptionRenderer.</p>
-
-    <div class='pre p1 fill-light mt0'>new CaptionPlayer()</div>
+  
+    <div class='pre p1 fill-light mt0'>new CaptionPlayer(captions: any, renderer: any)</div>
   
   
 
@@ -8564,6 +8445,27 @@ It applies the content of an active caption to a given CaptionRenderer.</p>
   
   
 
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>captions</span> <code class='quiet'>(any)</code>
+	    
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>renderer</span> <code class='quiet'>(any)</code>
+	    
+          </div>
+          
+        </div>
+      
+    </div>
   
 
   

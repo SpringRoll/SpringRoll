@@ -13,6 +13,7 @@ import { Debugger } from '../debug';
  * @param {Number} height height canvas should be
  * @param {Point} scale x/y scale values
  * @param {Number} scaleRatio minimum aspect ratio that fit's in the screen.
+ * @param {Object} viewArea Rectangle defining the total viewable area of game content.
  */
 
 /**
@@ -41,6 +42,19 @@ export class SafeScaleManager {
     this.safeWidth = safeWidth <= width ? safeWidth : width;
     this.safeHeight = safeHeight <= height ? safeHeight : height;
     this.callback = callback;
+    this.scaleRatio = 1;
+
+    // Rectangle containing the total viewable game content.
+    this.viewArea = { 
+      x: 0, 
+      y: 0, 
+      width: 0, 
+      height: 0, 
+      left: 0, 
+      right: 0, 
+      top: 0, 
+      bottom: 0 
+    };
 
     this.onResize = this.onResize.bind(this);
 
@@ -63,29 +77,45 @@ export class SafeScaleManager {
       const height = event.target.innerHeight;
 
       // Calculate Canvas size and scale //
-      const scaleRatio = Math.min(
+      this.scaleRatio = Math.min(
         width / this.safeWidth,
         height / this.safeHeight
       );
 
-      const nWidth = Math.max(0, Math.min(this.gameWidth * scaleRatio, width));
-      const nHeight = Math.max(0, Math.min(this.gameHeight * scaleRatio, height));
-
+      const nWidth = Math.max(0, Math.min(this.gameWidth * this.scaleRatio, width));
+      const nHeight = Math.max(0, Math.min(this.gameHeight * this.scaleRatio, height));
       const scale = {
-        x: (this.gameWidth / nWidth) * scaleRatio,
-        y: (this.gameHeight / nHeight) * scaleRatio
+        x: (this.gameWidth / nWidth) * this.scaleRatio,
+        y: (this.gameHeight / nHeight) * this.scaleRatio
       };
-      const offset = this.calcOffset(scale);
-      const gameSize = { x: this.gameWidth, y: this.gameHeight };
+      const scaledWidth = width / this.scaleRatio;
+      const scaledHeight = height / this.scaleRatio;
+
+      this.viewArea.left = Math.max(-(scaledWidth - this.gameWidth) * 0.5, 0);
+      this.viewArea.top = Math.max(-(scaledHeight - this.gameHeight) * 0.5, 0);
+      this.viewArea.right = Math.min(this.viewArea.left + scaledWidth, this.gameWidth);
+      this.viewArea.bottom = Math.min(this.viewArea.top + scaledHeight, this.gameHeight);
+      
+      this.viewArea.x = this.viewArea.left;
+      this.viewArea.y = this.viewArea.top;
+      this.viewArea.width = this.viewArea.right - this.viewArea.left;
+      this.viewArea.height = this.viewArea.bottom - this.viewArea.top;
 
       /** @type {EntityResizeEvent} */
       this.resizeEventData = Object.freeze({
-        scale,
-        offset,
-        gameSize
+        offset: { x: this.viewArea.x, y: this.viewArea.y },
+        gameSize:{ x: this.gameWidth, y: this.gameHeight },
+        viewArea: this.viewArea,
+        scale
       });
 
-      this.callback({ width: nWidth, height: nHeight, scale, scaleRatio });
+      this.callback({ 
+        width: nWidth, 
+        height: nHeight, 
+        scaleRatio: this.scaleRatio,
+        viewArea: this.viewArea,
+        scale
+      });
 
       for (let i = 0, length = this.entities.length; i < length; i++) {
         const entity = this.entities[i];
