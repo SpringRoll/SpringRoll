@@ -43,10 +43,10 @@
     -   [addEntity][39]
         -   [Parameters][40]
 -   [resizeEventData][41]
--   [ScaledEntity][42]
-    -   [onResize][43]
-        -   [Parameters][44]
--   [EntityResizeEvent][45]
+-   [EntityResizeEvent][42]
+-   [ScaledEntity][43]
+    -   [onResize][44]
+        -   [Parameters][45]
 -   [ScaleManager][46]
     -   [Parameters][47]
     -   [Properties][48]
@@ -146,7 +146,7 @@
     -   [value][142]
         -   [Parameters][143]
 -   [Caption][144]
-    -   [Parameters][145]
+    -   [Properties][145]
     -   [update][146]
         -   [Parameters][147]
     -   [updateState][148]
@@ -157,7 +157,7 @@
     -   [updateTimeIndex][153]
         -   [Parameters][154]
 -   [Caption][155]
-    -   [Properties][156]
+    -   [Parameters][156]
     -   [update][157]
         -   [Parameters][158]
     -   [updateState][159]
@@ -210,17 +210,17 @@
     -   [lineEnd][206]
     -   [sanitize][207]
         -   [Parameters][208]
--   [Localizer][209]
-    -   [resolve][210]
-        -   [Parameters][211]
-    -   [setPrimaryLocale][212]
-        -   [Parameters][213]
-    -   [setFallbackLocale][214]
-        -   [Parameters][215]
-    -   [getLocaleKey][216]
-        -   [Parameters][217]
-    -   [getBrowserLanguages][218]
--   [Localizer.Options][219]
+-   [Localizer.Options][209]
+-   [Localizer][210]
+    -   [resolve][211]
+        -   [Parameters][212]
+    -   [setPrimaryLocale][213]
+        -   [Parameters][214]
+    -   [setFallbackLocale][215]
+        -   [Parameters][216]
+    -   [getLocaleKey][217]
+        -   [Parameters][218]
+    -   [getBrowserLanguages][219]
 -   [ApplicationPlugin][220]
     -   [preload][221]
     -   [init][222]
@@ -420,6 +420,10 @@ Adds and anchor to be updated during resize
 
 Type: [EntityResizeEvent][233]
 
+## EntityResizeEvent
+
+Type: {offset: [Point][228], gameSize: [Point][228], scale: [Point][228]}
+
 ## ScaledEntity
 
 ### onResize
@@ -429,10 +433,6 @@ Type: [EntityResizeEvent][233]
 -   `event` **[EntityResizeEvent][233]** 
 
 Returns **void** @memberof ScaledEntity
-
-## EntityResizeEvent
-
-Type: {offset: [Point][228], gameSize: [Point][228], scale: [Point][228]}
 
 ## ScaleManager
 
@@ -908,9 +908,12 @@ Sets the value of the property and notifies all listeners of the change
 
 ## Caption
 
-### Parameters
+### Properties
 
--   `lines`  
+-   `lines` **[Array][230]&lt;[TimedLine][240]>** 
+-   `time` **[number][224]** 
+-   `lineIndex` **[number][224]** 
+-   `renderer` **[IRender][241]** 
 
 ### update
 
@@ -955,12 +958,9 @@ Updates the current time and index of the caption instance
 
 ## Caption
 
-### Properties
+### Parameters
 
--   `lines` **[Array][230]&lt;[TimedLine][240]>** 
--   `time` **[number][224]** 
--   `lineIndex` **[number][224]** 
--   `renderer` **[IRender][241]** 
+-   `lines`  
 
 ### update
 
@@ -1197,6 +1197,10 @@ Will attempt to remove all html from a string before it's renderer to the page
 
 -   `html` **any** 
 
+## Localizer.Options
+
+Type: {language: [string][226], fallback: [string][226]}
+
 ## Localizer
 
 ### resolve
@@ -1233,10 +1237,6 @@ Returns **[boolean][234]** True if fallback is set.
 Returns **[string][226]** 
 
 ### getBrowserLanguages
-
-## Localizer.Options
-
-Type: {language: [string][226], fallback: [string][226]}
 
 ## ApplicationPlugin
 
@@ -1342,13 +1342,13 @@ After all plugins inits has completed
 
 [41]: #resizeeventdata
 
-[42]: #scaledentity
+[42]: #entityresizeevent
 
-[43]: #onresize-1
+[43]: #scaledentity
 
-[44]: #parameters-14
+[44]: #onresize-1
 
-[45]: #entityresizeevent
+[45]: #parameters-14
 
 [46]: #scalemanager
 
@@ -1548,29 +1548,29 @@ After all plugins inits has completed
 
 [144]: #caption
 
-[145]: #parameters-45
+[145]: #properties-8
 
 [146]: #update-1
 
-[147]: #parameters-46
+[147]: #parameters-45
 
 [148]: #updatestate-1
 
-[149]: #parameters-47
+[149]: #parameters-46
 
 [150]: #isfinished
 
 [151]: #start-1
 
-[152]: #parameters-48
+[152]: #parameters-47
 
 [153]: #updatetimeindex
 
-[154]: #parameters-49
+[154]: #parameters-48
 
 [155]: #caption-1
 
-[156]: #properties-8
+[156]: #parameters-49
 
 [157]: #update-2
 
@@ -1676,27 +1676,27 @@ After all plugins inits has completed
 
 [208]: #parameters-68
 
-[209]: #localizer
+[209]: #localizeroptions
 
-[210]: #resolve
+[210]: #localizer
 
-[211]: #parameters-69
+[211]: #resolve
 
-[212]: #setprimarylocale
+[212]: #parameters-69
 
-[213]: #parameters-70
+[213]: #setprimarylocale
 
-[214]: #setfallbacklocale
+[214]: #parameters-70
 
-[215]: #parameters-71
+[215]: #setfallbacklocale
 
-[216]: #getlocalekey
+[216]: #parameters-71
 
-[217]: #parameters-72
+[217]: #getlocalekey
 
-[218]: #getbrowserlanguages
+[218]: #parameters-72
 
-[219]: #localizeroptions
+[219]: #getbrowserlanguages
 
 [220]: #applicationplugin
 
