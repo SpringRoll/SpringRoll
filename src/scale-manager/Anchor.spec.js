@@ -6,62 +6,63 @@ describe('Anchor', () => {
 
     afterEach(() => {
       anchor.onResize({
-        offset: { x: 15, y: 12 },
-        gameSize: { x: 800, y: 800 }
+        viewArea: {
+          x: 0, y: 0, width: 800, height: 800
+        }
       });
     });
 
     it('should calculate the direction correctly {1, 1}', () => {
       anchor = new Anchor({
-        position: { x: 60, y: 30 },
+        position: { x: -50, y: -40 },
         direction: { x: 1, y: 1 },
         callback: ({ x, y }) => {
-          expect(x).to.equal(725);
-          expect(y).to.equal(758);
+          expect(x).to.equal(750);
+          expect(y).to.equal(760);
         }
       });
     });
 
     it('should calculate the direction correctly {-1, 1}', () => {
       anchor = new Anchor({
-        position: { x: 60, y: 30 },
+        position: { x: 50, y: -40 },
         direction: { x: -1, y: 1 },
         callback: ({ x, y }) => {
-          expect(x).to.equal(75);
-          expect(y).to.equal(758);
+          expect(x).to.equal(50);
+          expect(y).to.equal(760);
         }
       });
     });
 
     it('should calculate the direction correctly {-1, -1}', () => {
       anchor = new Anchor({
-        position: { x: 60, y: 30 },
+        position: { x: 50, y: 40 },
         direction: { x: -1, y: -1 },
         callback: ({ x, y }) => {
-          expect(x).to.equal(75);
-          expect(y).to.equal(42);
+          expect(x).to.equal(50);
+          expect(y).to.equal(40);
         }
       });
     });
 
     it('should calculate the direction correctly {1, -1}', () => {
       anchor = new Anchor({
-        position: { x: 60, y: 30 },
+        position: { x: -50, y: 40 },
         direction: { x: 1, y: -1 },
         callback: ({ x, y }) => {
-          expect(x).to.equal(725);
-          expect(y).to.equal(42);
+          expect(x).to.equal(750);
+          expect(y).to.equal(40);
         }
       });
     });
 
     it('should calculate the direction correctly {0, 0}', () => {
       anchor = new Anchor({
-        position: { x: 60, y: 30 },
+        position: { x: 50, y: -40 },
         direction: { x: 0, y: 0 },
         callback: ({ x, y }) => {
-          expect(x).to.equal(400);
-          expect(y).to.equal(400);
+          expect(x).to.equal(450);
+          expect(y).to.equal(360);
         }
       });
     });
