@@ -2,6 +2,10 @@ name: build
 
 on: 
   pull_request:
+    paths-ignore:
+     - 'docs/**'
+     - 'dist/**'
+     - 'typings/**'
   push:
     branches:
       - master
