@@ -9,6 +9,7 @@ export interface ScaleEvent {
   width: number;
   height: number;
   scale: Point;
+  scaleMod: number;
 }
 
 export type ScaleCallback = (event:ScaleEvent) => void;

@@ -51,10 +51,20 @@ scaleManager.enable(function(resizeData) {
 
 For more info check out the [WebKit Bug](https://bugs.webkit.org/show_bug.cgi?id=170595).
 
+| Member Variables | values | Description |
+|---|---|---|
+| `gameWidth` | number | The gameWidth is the maximum horizontal dimension of your game. This value should be used when initializing the width of your game |
+| `gameHeight` | number | The gameHeight is the maximum vertical dimension of your game. This value should be used when initializing the height of your game |
+| `safeWidth` | number | The safeWidth is the minimum horizontal dimension of your game. This value defines the width of your game's safe playable area. |
+| `safeHeight` | number | The safeHeight in the minimum vertical dimension of your game. This value defines the height of your game's safe playable area. |
+| `callback` | function | The callback is the handler function given to the SafeScaleManager that will be called on window resize events, after scaling calculation shave been done. The results of these scaling calculations will be passed to this handler function. See example below. |
+| `scaleRatio` | number | The scaleRatio is a scaler value calculated on window resize events. This value is the ratio between the `safeWidth` and `safeHeight`, and the width and height of the container your game lives in (typically `window.innerWidth` and `window.innerHeight`). This value is passed to the callback on resize events, along with being accessible through a SafeScaleManager instance. You can use this value to scale your game's canvas.style width and height to the appropriate size to fill the game's container. |
+| `viewArea` | rectangle | The viewArea is a rectangle that defines the total viewable area of your game. It is calculated on window resize events and is passed into the callback. It can also be accessed through a SafeScaleManager instance. It contains values for the `left`, `right`, `top`, `bottom` edges of the viewable area, along with `x`, `y`, `width`, and `height` of the rectangle. This rectangle is useful for knowing where the viewable edges of your game content are. |
 
-### Callback Example
 
-The safe scale manager's callback parameter contains `width`, `height`, and `scale`. these values can be used to resize your game. Depending on the engine you choose you'll have to use them differently. `scale` contains `x` and `y`, these are the independent scaling values for the x and y axis.
+## Callback Example
+
+The safe scale manager's callback parameter contains `width`, `height`, `scale`, and `scaleRatio`. these values can be used to resize your game. Depending on the engine you choose you'll have to use them differently. `scale` contains `x` and `y`, these are the independent scaling values for the x and y axis. You may also need to use the `scaleRatio` value, this is the minimum size ratio either `width/safeWidth` or `height/safeHeight`. The `viewArea` value is also passed along to the callback.
 
 ```javascript
 scaleManager.enable(({width, height, scale}) => {
