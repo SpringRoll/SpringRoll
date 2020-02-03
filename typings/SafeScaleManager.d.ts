@@ -8,7 +8,7 @@ export type ViewAreaRect = {
   left: number;
   right: number;
   top: number;
-  bottom: numbe;
+  bottom: number;
 }
 
 export interface Point {

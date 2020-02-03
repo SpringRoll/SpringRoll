@@ -274,6 +274,16 @@
               
                 
                 <li><a
+                  href='#entityresizeevent'
+                  class="">
+                  EntityResizeEvent
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
                   href='#scaledentity'
                   class=" toggle-sibling">
                   ScaledEntity
@@ -297,16 +307,6 @@
                   
                   
                 </div>
-                
-                </li>
-              
-                
-                <li><a
-                  href='#entityresizeevent'
-                  class="">
-                  EntityResizeEvent
-                  
-                </a>
                 
                 </li>
               
@@ -3048,6 +3048,58 @@
   
   <div class='clearfix'>
     
+    <h3 class='fl m0' id='entityresizeevent'>
+      EntityResizeEvent
+    </h3>
+    
+    
+  </div>
+  
+
+  
+    <div class='pre p1 fill-light mt0'>EntityResizeEvent</div>
+  
+    <p>
+      Type:
+      {offset: <a href="#point">Point</a>, gameSize: <a href="#point">Point</a>, scale: <a href="#point">Point</a>}
+    </p>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
     <h3 class='fl m0' id='scaledentity'>
       ScaledEntity
     </h3>
@@ -3152,58 +3204,6 @@
     </div>
   
 </div>
-
-  
-
-  
-
-  
-</section>
-
-          
-        
-          
-          <section class='p2 mb2 clearfix bg-white minishadow'>
-
-  
-  <div class='clearfix'>
-    
-    <h3 class='fl m0' id='entityresizeevent'>
-      EntityResizeEvent
-    </h3>
-    
-    
-  </div>
-  
-
-  
-    <div class='pre p1 fill-light mt0'>EntityResizeEvent</div>
-  
-    <p>
-      Type:
-      {offset: <a href="#point">Point</a>, gameSize: <a href="#point">Point</a>, scale: <a href="#point">Point</a>}
-    </p>
-  
-  
-
-  
-  
-  
-  
-  
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
 
   
 
@@ -7149,7 +7149,7 @@ TODO: Remove the parameter here, and add a disable method as well</p>
   
 
   
-    <div class='pre p1 fill-light mt0'>new Caption()</div>
+    <div class='pre p1 fill-light mt0'>new Caption(lines: any)</div>
   
   
 
@@ -7161,36 +7161,20 @@ TODO: Remove the parameter here, and add a disable method as well</p>
   
 
   
-
-  
-    <div class='py1 quiet mt1 prose-big'>Properties</div>
-    <div>
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
       
         <div class='space-bottom0'>
-          <span class='code bold'>lines</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>&#x3C;<a href="#timedline">TimedLine</a>>)</code>
-          
-          
-        </div>
-      
-        <div class='space-bottom0'>
-          <span class='code bold'>time</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>)</code>
-          
-          
-        </div>
-      
-        <div class='space-bottom0'>
-          <span class='code bold'>lineIndex</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>)</code>
-          
-          
-        </div>
-      
-        <div class='space-bottom0'>
-          <span class='code bold'>renderer</span> <code class='quiet'>(<a href="#irender">IRender</a>)</code>
-          
+          <div>
+            <span class='code bold'>lines</span> <code class='quiet'>(any)</code>
+	    
+          </div>
           
         </div>
       
     </div>
+  
+
   
 
   
@@ -7548,7 +7532,7 @@ This ~should~ be called every frame that the caption is active.</p>
   
 
   
-    <div class='pre p1 fill-light mt0'>new Caption(lines: any)</div>
+    <div class='pre p1 fill-light mt0'>new Caption()</div>
   
   
 
@@ -7560,20 +7544,36 @@ This ~should~ be called every frame that the caption is active.</p>
   
 
   
-    <div class='py1 quiet mt1 prose-big'>Parameters</div>
-    <div class='prose'>
+
+  
+    <div class='py1 quiet mt1 prose-big'>Properties</div>
+    <div>
       
         <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>lines</span> <code class='quiet'>(any)</code>
-	    
-          </div>
+          <span class='code bold'>lines</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>&#x3C;<a href="#timedline">TimedLine</a>>)</code>
+          
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <span class='code bold'>time</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>)</code>
+          
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <span class='code bold'>lineIndex</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>)</code>
+          
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <span class='code bold'>renderer</span> <code class='quiet'>(<a href="#irender">IRender</a>)</code>
+          
           
         </div>
       
     </div>
-  
-
   
 
   
