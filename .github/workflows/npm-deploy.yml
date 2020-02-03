@@ -1,0 +1,38 @@
+name: npm-deploy
+
+on:
+  release:
+    types: [created]
+
+jobs:
+  publish-npm:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 10
+          registry-url: https://registry.npmjs.org/
+
+      - name: install
+        run: |
+          npm ci
+        env:
+          CI: true
+
+      - name: build
+        run: |
+          npm run build:full
+        env:
+          CI: true
+
+      - name: test
+        run: npm run github-test
+        env:
+          CI: true
+
+      - name: publish
+        run: npm publish
+        env:
+          CI: true
+          NODE_AUTH_TOKEN: ${{secrets.npm_token}}
