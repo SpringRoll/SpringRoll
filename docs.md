@@ -43,10 +43,10 @@
     -   [addEntity][39]
         -   [Parameters][40]
 -   [resizeEventData][41]
--   [EntityResizeEvent][42]
--   [ScaledEntity][43]
-    -   [onResize][44]
-        -   [Parameters][45]
+-   [ScaledEntity][42]
+    -   [onResize][43]
+        -   [Parameters][44]
+-   [EntityResizeEvent][45]
 -   [ScaleManager][46]
     -   [Parameters][47]
     -   [Properties][48]
@@ -414,15 +414,11 @@ Adds and anchor to be updated during resize
 
 #### Parameters
 
--   `entity` **[ScaledEntity][231]** 
+-   `entity` **([ScaledEntity][231] \| [Array][230]&lt;[ScaledEntity][231]>)** 
 
 ## resizeEventData
 
 Type: [EntityResizeEvent][233]
-
-## EntityResizeEvent
-
-Type: {offset: [Point][228], gameSize: [Point][228], scale: [Point][228]}
 
 ## ScaledEntity
 
@@ -433,6 +429,10 @@ Type: {offset: [Point][228], gameSize: [Point][228], scale: [Point][228]}
 -   `event` **[EntityResizeEvent][233]** 
 
 Returns **void** @memberof ScaledEntity
+
+## EntityResizeEvent
+
+Type: {offset: [Point][228], gameSize: [Point][228], scale: [Point][228]}
 
 ## ScaleManager
 
@@ -1342,13 +1342,13 @@ After all plugins inits has completed
 
 [41]: #resizeeventdata
 
-[42]: #entityresizeevent
+[42]: #scaledentity
 
-[43]: #scaledentity
+[43]: #onresize-1
 
-[44]: #onresize-1
+[44]: #parameters-14
 
-[45]: #parameters-14
+[45]: #entityresizeevent
 
 [46]: #scalemanager
 
