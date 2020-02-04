@@ -17,7 +17,13 @@
     "docs:serve": "documentation serve --watch ./src/index.js",
     "github-test": "./node_modules/.bin/karma start --single-run --browsers ChromeHeadless"
   },
-  "author": "",
+  "author": [
+    {
+      "name": "The SpringRoll Team",
+      "email": "admin@springroll.io",
+      "url": "https://springroll.io"
+    }
+  ],
   "license": "ISC",
   "devDependencies": {
     "@babel/core": "^7.1.0",
