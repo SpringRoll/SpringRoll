@@ -56,6 +56,15 @@ describe('Scale Manager', () => {
       expect(sm.entities.length).to.equal(1);
     });
 
+    it('should add two anchors', () => {
+      const anchor1 = new Anchor();
+      const anchor2 = new Anchor();
+
+      sm.addEntity([anchor1, anchor2]);
+
+      expect(sm.entities.length).to.equal(2);
+    });
+
     it('should not add an anchor if it already exists', () => {
       const testAnchor = new Anchor();
 
