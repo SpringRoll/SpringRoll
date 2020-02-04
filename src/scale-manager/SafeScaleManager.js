@@ -154,19 +154,25 @@ export class SafeScaleManager {
 
   /**
    * Adds and anchor to be updated during resize
-   * @param  {ScaledEntity} entity
+   * @param  {ScaledEntity | ScaledEntity[]} entity
    * @memberof SafeScaleManager
    */
   addEntity(entity) {
-    if (this.entities.includes(entity)) {
-      return;
+    if (!Array.isArray(entity)) {
+      entity = [entity];      
     }
 
-    if (this.resizeEventData) {
-      entity.onResize(this.resizeEventData);
-    }
-
-    this.entities.push(entity);
+    entity.forEach(e => {
+      if (this.entities.includes(e)) {
+        return;
+      }
+  
+      if (this.resizeEventData) {
+        e.onResize(this.resizeEventData);
+      }
+  
+      this.entities.push(e);
+    });
   }
 
   /**
