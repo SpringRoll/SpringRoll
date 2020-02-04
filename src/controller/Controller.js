@@ -1,3 +1,4 @@
+import { alternateKeyMap } from './AlternateKeyMap';
 import { Key } from './Key';
 
 /**
@@ -23,6 +24,7 @@ export class Controller {
   constructor(keys = []) {
     this.assignButtons(keys);
 
+    window.addEventListener('blur', this.onWindowBlur.bind(this));
     window.addEventListener('keydown', this.onKeyDown.bind(this));
     window.addEventListener('keyup', this.onKeyUp.bind(this));
   }
@@ -56,6 +58,20 @@ export class Controller {
   }
 
   /**
+   * Called on window blur, sets button state to up if button was down;
+   * @return {void}@memberof Controller
+   */
+  onWindowBlur() {
+    for (const key of Object.keys(this.buttons)) {
+      const button = this.buttons[key];
+
+      if (button._state === 1) {
+        this.buttons[key].updateState(2);
+      }
+    }
+  }
+
+  /**
    * Sets an object of button functions to the controller to be called.
    * @param {KeyTemplate[]} keys
    * @memberof Controller
@@ -65,12 +81,15 @@ export class Controller {
     this.keys = [];
     for (let i = 0, l = keys.length; i < l; i++) {
       const currentKey = keys[i].key.toLowerCase();
+      const altKey = alternateKeyMap[currentKey];
+
+      if (altKey !== undefined) {
+        this.keys.push(altKey);
+        this.buttons[altKey] = new Key(altKey, keys[i].down, keys[i].up);
+      }
+
       this.keys.push(currentKey);
-      this.buttons[currentKey] = new Key(
-        currentKey,
-        keys[i].down,
-        keys[i].up
-      );
+      this.buttons[currentKey] = new Key(currentKey, keys[i].down, keys[i].up);
     }
   }
 

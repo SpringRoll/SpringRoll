@@ -6,7 +6,7 @@ import { ScaledEntity } from './ScaledEntity';
  */
 
 /**
- * callback to used scale game and canvas
+ * callback to used move game entities
  * @callback PositionCallback
  * @param {Point} position position relative to anchor direction
  */
@@ -19,49 +19,38 @@ import { ScaledEntity } from './ScaledEntity';
  */
 export class Anchor extends ScaledEntity {
   /**
-   * Creates an instance of AnchoredEntity.
+   * Creates an instance of Anchor.
    * @param  {object} param
    * @param  {Point} param.position
    * @param  {Point} [param.direction= {x: -1, y: -1}]
    * @param  {PositionCallback} param.callback
    * @memberof Anchor
    */
-  constructor({ position, direction, callback } = {}) {
+  constructor({
+    position,
+    direction,
+    callback = () => Debugger.log('warn', this, 'Anchor missing callback')
+  } = {}) {
     super();
     this.position = position || { x: 0, y: 0 };
-
     this.direction = direction || { x: -1, y: -1 };
-
-    if (callback instanceof Function) {
-      this.callback = callback;
-      return;
-    }
-
-    // Warn user that anchor callback is not set.
-    this.callback = () => {
-      Debugger.log('warn', this, 'Anchor missing callback');
-    };
+    this.callback = callback;
   }
 
   /**
    * @param  {object} param
-   * @param  {Point}  param.offset
-   * @param  {Point} param.gameSize
+   * @param  {Point}  param.viewArea
    * @return {void} @memberof Anchor
    */
-  onResize({ offset, gameSize }) {
-    const halfWidth = gameSize.x / 2;
-    const halfHeight = gameSize.y / 2;
+  onResize({ viewArea }) {
+    const halfWidth = viewArea.width * 0.5;
+    const halfHeight = viewArea.height * 0.5;
 
-    const x =
-      this.position.x * -this.direction.x -
-      offset.x * this.direction.x +
-      (halfWidth + this.direction.x * halfWidth);
+    const centerX = viewArea.x + halfWidth;
+    const centerY = viewArea.y + halfHeight;
 
-    const y =
-      this.position.y * -this.direction.y -
-      offset.y * this.direction.y +
-      (halfHeight + this.direction.y * halfHeight);
+    const x = centerX + (this.direction.x * halfWidth) + this.position.x;
+    const y = centerY + (this.direction.y * halfHeight) + this.position.y;
 
     this.callback({ x, y });
   }

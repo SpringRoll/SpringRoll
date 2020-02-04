@@ -134,8 +134,8 @@ class YourGame
   start()
   {
     const captionsElement = document.getElementById("captions");
-    const captionMap = CaptionFactory.createCaptionMap(this.cache.getJSON('captionData'));
-    this.captionPlayer = new CaptionPlayer(captionMap, new HTMLCaptionRenderer(captionsElement));
+    const captions = this.cache.getJSON('captionData');
+    this.captionPlayer = new CaptionPlayer(captions, new HTMLCaptionRenderer(captionsElement));
 
     this.captionPlayer.start('example');
   }

@@ -1,11 +1,12 @@
 import { SafeScaleManager } from './SafeScaleManager';
 import { newEvent } from '../debug';
 import { Anchor } from './Anchor';
+import Sinon from 'sinon';
 
 describe('Scale Manager', () => {
   const sm = new SafeScaleManager({ width: 400, height: 400 });
 
-  it('Should call the callback passed via the constructor', done => {
+  it('Should call the callback passed via the constructor', () => {
     new SafeScaleManager({
       width: 400,
       height: 400,
@@ -17,41 +18,31 @@ describe('Scale Manager', () => {
         expect(e.scale).to.be.an('object');
         expect(e.scale.x).to.be.a('number');
         expect(e.scale.y).to.be.a('number');
-        done();
       }
     });
 
     window.dispatchEvent(newEvent('resize'));
-    window.dispatchEvent(newEvent('resize'));
   });
 
-  it('Should call the callback on resize', done => {
+  it('Should call the callback on resize', () => {
     sm.enable(e => {
       expect(e.width).to.be.a('number');
       expect(e.height).to.be.a('number');
       expect(e.scale).to.be.an('object');
       expect(e.scale.x).to.be.a('number');
       expect(e.scale.y).to.be.a('number');
-      done();
     });
 
     window.dispatchEvent(newEvent('resize'));
-    window.dispatchEvent(newEvent('resize'));
   });
 
-  it('Should not call the resize if disabled', done => {
-    sm.callback = () => {
-      //Should not be called
-      done(new Error());
-    };
+  it('Should not call the resize if disabled', () => {
+    sm.callback = Sinon.fake();
 
     sm.disable();
     window.dispatchEvent(newEvent('resize'));
-    window.dispatchEvent(newEvent('resize'));
 
-    setTimeout(() => {
-      done();
-    }, 1);
+    expect(sm.callback.callCount).to.equal(0);
   });
 
   describe('--Anchor Handling--', () => {
@@ -63,6 +54,15 @@ describe('Scale Manager', () => {
       sm.addEntity(new Anchor());
 
       expect(sm.entities.length).to.equal(1);
+    });
+
+    it('should add two anchors', () => {
+      const anchor1 = new Anchor();
+      const anchor2 = new Anchor();
+
+      sm.addEntity([anchor1, anchor2]);
+
+      expect(sm.entities.length).to.equal(2);
     });
 
     it('should not add an anchor if it already exists', () => {
@@ -83,31 +83,24 @@ describe('Scale Manager', () => {
       expect(sm.entities.length).to.equal(0);
     });
 
-    it('should invoke anchor update when added', done => {
-      const testAnchor = new Anchor({
-        callback: () => {
-          done();
-        }
-      });
+    it('should invoke anchor update when added', () => {
+      const callback = Sinon.fake();
+      const testAnchor = new Anchor({ callback });
+
       sm.addEntity(testAnchor);
+
+      expect(callback.callCount).to.equal(1);
     });
 
-    it('should invoke anchor update on resize', done => {
-      let count = 0;
-
-      const testAnchor = new Anchor({
-        callback: () => {
-          if (count == 1) {
-            done();
-          }
-          count++;
-        }
-      });
+    it('should invoke anchor update on resize', () => {
+      const callback = Sinon.fake();
+      const testAnchor = new Anchor({ callback });
 
       sm.addEntity(testAnchor);
 
       window.dispatchEvent(newEvent('resize'));
-      // window.dispatchEvent(newEvent('resize'));
+
+      expect(callback.callCount).to.equal(1);
     });
   });
 });

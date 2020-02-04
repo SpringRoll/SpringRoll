@@ -1,6 +1,6 @@
 {
   "name": "springroll",
-  "version": "2.1.1",
+  "version": "2.2.0",
   "description": "",
   "main": "dist/SpringRoll.js",
   "module": "dist/SpringRoll.js",
@@ -15,7 +15,7 @@
     "docs": "documentation build ./src/index.js -f html -o docs",
     "readme": "documentation build ./src/index.js -f md -o docs.md",
     "docs:serve": "documentation serve --watch ./src/index.js",
-    "travis-test": "./node_modules/.bin/karma start --single-run --browsers ChromeHeadless"
+    "github-test": "./node_modules/.bin/karma start --single-run --browsers ChromeHeadless"
   },
   "author": "",
   "license": "ISC",
@@ -48,6 +48,7 @@
     "rollup-plugin-eslint": "^5.0.0",
     "rollup-plugin-node-resolve": "^3.4.0",
     "rollup-plugin-uglify": "^6.0.0",
+    "sinon": "^8.0.4",
     "webpack": "^4.20.2"
   },
   "dependencies": {
