@@ -1,7 +1,7 @@
 {
   "name": "springroll",
   "version": "2.2.0",
-  "description": "",
+  "description": "A small JavaScript library for making accessible games for kids",
   "main": "dist/SpringRoll.js",
   "module": "dist/SpringRoll.js",
   "typings": "typings/index.d.ts",
