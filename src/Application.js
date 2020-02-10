@@ -85,7 +85,7 @@ export class Application {
       musicVolume: new Property(1),
       voVolume: new Property(1),
       sfxVolume: new Property(1),
-      pointerSize: new Property(0.05),
+      pointerSize: new Property(0.5),
       controlSensitivity: new Property(0.5),
       buttonSize: new Property(0.5),
       removableLayers: new Property(0),
