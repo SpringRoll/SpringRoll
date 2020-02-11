@@ -31,7 +31,7 @@ var myApp = new springroll.Application({
     controlSensitivity: false, // whether or not the game has adjustable control sensitivity
     buttonSize: false, // whether or not the game has adjustable button sizes
     removableLayers: false, // whether or not the game supports the removal of distracting game layers
-    hudPosition: false, // whether or not the game supports multiple HUD positionshitAreaScale: true,
+    hudPosition: false, // whether or not the game supports multiple HUD positions
     hitAreaScale: true, // whether or not the game supports adjustable hit areas
     dragThresholdScale: true, // whether or not the game supports adjustable drag thresholds
     health: true, // whether or not the game supports adjustable health amounts
