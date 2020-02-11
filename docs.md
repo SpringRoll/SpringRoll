@@ -24,24 +24,24 @@
 -   [Anchor][20]
     -   [onResize][21]
         -   [Parameters][22]
--   [PositionCallback][23]
-    -   [Parameters][24]
--   [Point][25]
--   [Point][26]
--   [SafeScaleManager][27]
+-   [Point][23]
+-   [Point][24]
+-   [PositionCallback][25]
+    -   [Parameters][26]
+-   [ScaleCallback][27]
     -   [Parameters][28]
-    -   [entities][29]
-    -   [removeEntity][30]
-        -   [Parameters][31]
-    -   [enable][32]
+-   [SafeScaleManager][29]
+    -   [Parameters][30]
+    -   [entities][31]
+    -   [removeEntity][32]
         -   [Parameters][33]
-    -   [disable][34]
-    -   [calcOffset][35]
-        -   [Parameters][36]
-    -   [addEntity][37]
+    -   [enable][34]
+        -   [Parameters][35]
+    -   [disable][36]
+    -   [calcOffset][37]
         -   [Parameters][38]
--   [ScaleCallback][39]
-    -   [Parameters][40]
+    -   [addEntity][39]
+        -   [Parameters][40]
 -   [resizeEventData][41]
 -   [ScaledEntity][42]
     -   [onResize][43]
@@ -175,13 +175,13 @@
     -   [createLine][171]
         -   [Parameters][172]
 -   [CaptionPlayer][173]
-    -   [update][174]
-        -   [Parameters][175]
-    -   [start][176]
-        -   [Parameters][177]
-    -   [stop][178]
--   [CaptionPlayer][179]
-    -   [Parameters][180]
+    -   [Parameters][174]
+    -   [update][175]
+        -   [Parameters][176]
+    -   [start][177]
+        -   [Parameters][178]
+    -   [stop][179]
+-   [CaptionPlayer][180]
     -   [update][181]
         -   [Parameters][182]
     -   [start][183]
@@ -210,17 +210,17 @@
     -   [lineEnd][206]
     -   [sanitize][207]
         -   [Parameters][208]
--   [Localizer.Options][209]
--   [Localizer][210]
-    -   [resolve][211]
-        -   [Parameters][212]
-    -   [setPrimaryLocale][213]
-        -   [Parameters][214]
-    -   [setFallbackLocale][215]
-        -   [Parameters][216]
-    -   [getLocaleKey][217]
-        -   [Parameters][218]
-    -   [getBrowserLanguages][219]
+-   [Localizer][209]
+    -   [resolve][210]
+        -   [Parameters][211]
+    -   [setPrimaryLocale][212]
+        -   [Parameters][213]
+    -   [setFallbackLocale][214]
+        -   [Parameters][215]
+    -   [getLocaleKey][216]
+        -   [Parameters][217]
+    -   [getBrowserLanguages][218]
+-   [Localizer.Options][219]
 -   [ApplicationPlugin][220]
     -   [preload][221]
     -   [init][222]
@@ -326,6 +326,14 @@ Used to fix positions to a relative point in the viewport.
 
 Returns **void** @memberof Anchor
 
+## Point
+
+Type: {x: [Number][224], y: [Number][224]}
+
+## Point
+
+Type: {x: [Number][224], y: [Number][224]}
+
 ## PositionCallback
 
 callback to used move game entities
@@ -336,13 +344,19 @@ Type: [Function][225]
 
 -   `position` **[Point][229]** position relative to anchor direction
 
-## Point
+## ScaleCallback
 
-Type: {x: [Number][224], y: [Number][224]}
+callback to used scale game and canvas
 
-## Point
+Type: [Function][225]
 
-Type: {x: [Number][224], y: [Number][224]}
+### Parameters
+
+-   `width` **[Number][224]** width canvas should be
+-   `height` **[Number][224]** height canvas should be
+-   `scale` **[Point][229]** x/y scale values
+-   `scaleRatio` **[Number][224]** minimum aspect ratio that fit's in the screen.
+-   `viewArea` **[Object][228]** Rectangle defining the total viewable area of game content.
 
 ## SafeScaleManager
 
@@ -401,20 +415,6 @@ Adds and anchor to be updated during resize
 #### Parameters
 
 -   `entity` **([ScaledEntity][231] \| [Array][230]&lt;[ScaledEntity][231]>)** 
-
-## ScaleCallback
-
-callback to used scale game and canvas
-
-Type: [Function][225]
-
-### Parameters
-
--   `width` **[Number][224]** width canvas should be
--   `height` **[Number][224]** height canvas should be
--   `scale` **[Point][229]** x/y scale values
--   `scaleRatio` **[Number][224]** minimum aspect ratio that fit's in the screen.
--   `viewArea` **[Object][228]** Rectangle defining the total viewable area of game content.
 
 ## resizeEventData
 
@@ -699,7 +699,14 @@ Main entry point for a game. Provides a single focal point for plugins and funct
     -   `features.buttonSize` **[boolean][234]?** A boolean denoting that this game has adjustable button sizes in it
     -   `features.removableLayers` **[boolean][234]?** A boolean denoting that this game has removable game layers in it
     -   `features.hudPosition` **[boolean][234]?** A boolean denoting that this game has custom HUD positions.
-    -   `features.difficulty` **[boolean][234]?** A boolean denoting that this game has adjustable difficulty/speed.
+    -   `features.hitAreaScale` **[boolean][234]?** A boolean denoting that this game has adjustable hit areas.
+    -   `features.dragThresholdScale` **[boolean][234]?** A boolean denoting that this game has adjustable drag thresholds.
+    -   `features.health` **[boolean][234]?** A boolean denoting that this game has adjustable health.
+    -   `features.objectCount` **[boolean][234]?** A boolean denoting that this game has adjustable object count requirements.
+    -   `features.completionPercentage` **[boolean][234]?** A boolean denoting that this game has adjustable completion percentage requirements.
+    -   `features.speedScale` **[boolean][234]?** A boolean denoting that this game has adjustable speed.
+    -   `features.timersScale` **[boolean][234]?** A boolean denoting that this game has adjustable timers.
+    -   `features.inputCount` **[boolean][234]?** A boolean denoting that this game has adjustable input count requirements.
     -   `features.keyBinding` **[boolean][234]?** A boolean denoting that this game has re-mappable key bindings.
     -   `features.colorVision` **[boolean][234]?** A boolean denoting that this game has color blindess filters
 
@@ -1039,8 +1046,10 @@ Returns **[TimedLine][240]** new TimedLine;
 
 ## CaptionPlayer
 
-CaptionPlayer is used to start, stop and update captions.
- It applies the content of an active caption to a given CaptionRenderer.
+### Parameters
+
+-   `captions`  
+-   `renderer`  
 
 ### update
 
@@ -1067,10 +1076,8 @@ Stops any caption currently playing.
 
 ## CaptionPlayer
 
-### Parameters
-
--   `captions`  
--   `renderer`  
+CaptionPlayer is used to start, stop and update captions.
+ It applies the content of an active caption to a given CaptionRenderer.
 
 ### update
 
@@ -1197,10 +1204,6 @@ Will attempt to remove all html from a string before it's renderer to the page
 
 -   `html` **any** 
 
-## Localizer.Options
-
-Type: {language: [string][226], fallback: [string][226]}
-
 ## Localizer
 
 ### resolve
@@ -1237,6 +1240,10 @@ Returns **[boolean][234]** True if fallback is set.
 Returns **[string][226]** 
 
 ### getBrowserLanguages
+
+## Localizer.Options
+
+Type: {language: [string][226], fallback: [string][226]}
 
 ## ApplicationPlugin
 
@@ -1304,39 +1311,39 @@ After all plugins inits has completed
 
 [22]: #parameters-6
 
-[23]: #positioncallback
+[23]: #point
 
-[24]: #parameters-7
+[24]: #point-1
 
-[25]: #point
+[25]: #positioncallback
 
-[26]: #point-1
+[26]: #parameters-7
 
-[27]: #safescalemanager
+[27]: #scalecallback
 
 [28]: #parameters-8
 
-[29]: #entities
+[29]: #safescalemanager
 
-[30]: #removeentity
+[30]: #parameters-9
 
-[31]: #parameters-9
+[31]: #entities
 
-[32]: #enable
+[32]: #removeentity
 
 [33]: #parameters-10
 
-[34]: #disable
+[34]: #enable
 
-[35]: #calcoffset
+[35]: #parameters-11
 
-[36]: #parameters-11
+[36]: #disable
 
-[37]: #addentity
+[37]: #calcoffset
 
 [38]: #parameters-12
 
-[39]: #scalecallback
+[39]: #addentity
 
 [40]: #parameters-13
 
@@ -1606,19 +1613,19 @@ After all plugins inits has completed
 
 [173]: #captionplayer
 
-[174]: #update-3
+[174]: #parameters-57
 
-[175]: #parameters-57
+[175]: #update-3
 
-[176]: #start-3
+[176]: #parameters-58
 
-[177]: #parameters-58
+[177]: #start-3
 
-[178]: #stop-1
+[178]: #parameters-59
 
-[179]: #captionplayer-1
+[179]: #stop-1
 
-[180]: #parameters-59
+[180]: #captionplayer-1
 
 [181]: #update-4
 
@@ -1676,27 +1683,27 @@ After all plugins inits has completed
 
 [208]: #parameters-68
 
-[209]: #localizeroptions
+[209]: #localizer
 
-[210]: #localizer
+[210]: #resolve
 
-[211]: #resolve
+[211]: #parameters-69
 
-[212]: #parameters-69
+[212]: #setprimarylocale
 
-[213]: #setprimarylocale
+[213]: #parameters-70
 
-[214]: #parameters-70
+[214]: #setfallbacklocale
 
-[215]: #setfallbacklocale
+[215]: #parameters-71
 
-[216]: #parameters-71
+[216]: #getlocalekey
 
-[217]: #getlocalekey
+[217]: #parameters-72
 
-[218]: #parameters-72
+[218]: #getbrowserlanguages
 
-[219]: #getbrowserlanguages
+[219]: #localizeroptions
 
 [220]: #applicationplugin
 

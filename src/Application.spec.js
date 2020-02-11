@@ -1,4 +1,5 @@
 import { Application, ApplicationPlugin } from './index';
+import Sinon from 'sinon';
 
 /** */
 class SuccessPlugin extends ApplicationPlugin {
@@ -190,6 +191,40 @@ describe('Application', () => {
         expect(successPlugin.preloadCalled).to.be.true;
         done();
       });
+    });
+
+    it('should be able to dispatch each difficulty type event', () => {
+      const app = new Application({
+        hitAreaScale: true,
+        dragThresholdScale: true,
+        health: true,
+        objectCount: true,
+        completionPercentage: true,
+        speedScale: true,
+        timersScale: true,
+        inputCount: true
+      })
+      const callback = Sinon.fake();
+
+      app.state.hitAreaScale.subscribe(callback);
+      app.state.dragThresholdScale.subscribe(callback);
+      app.state.health.subscribe(callback);
+      app.state.objectCount.subscribe(callback);
+      app.state.completionPercentage.subscribe(callback);
+      app.state.speedScale.subscribe(callback);
+      app.state.timersScale.subscribe(callback);
+      app.state.inputCount.subscribe(callback);
+
+      app.state.hitAreaScale.value = 1;
+      app.state.dragThresholdScale.value = 1;
+      app.state.health.value = 1;
+      app.state.objectCount.value = 1;
+      app.state.completionPercentage.value = 1;
+      app.state.speedScale.value = 1;
+      app.state.timersScale.value = 1;
+      app.state.inputCount.value = 1;
+
+      expect(callback.callCount).to.equal(8);
     });
 
     it('should continue running init on plugins if a plugin has no init function', done => {
