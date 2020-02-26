@@ -24,29 +24,29 @@
 -   [Anchor][20]
     -   [onResize][21]
         -   [Parameters][22]
--   [PositionCallback][23]
-    -   [Parameters][24]
--   [Point][25]
--   [Point][26]
--   [SafeScaleManager][27]
+-   [Point][23]
+-   [Point][24]
+-   [PositionCallback][25]
+    -   [Parameters][26]
+-   [ScaleCallback][27]
     -   [Parameters][28]
-    -   [entities][29]
-    -   [removeEntity][30]
-        -   [Parameters][31]
-    -   [enable][32]
+-   [SafeScaleManager][29]
+    -   [Parameters][30]
+    -   [entities][31]
+    -   [removeEntity][32]
         -   [Parameters][33]
-    -   [disable][34]
-    -   [calcOffset][35]
-        -   [Parameters][36]
-    -   [addEntity][37]
+    -   [enable][34]
+        -   [Parameters][35]
+    -   [disable][36]
+    -   [calcOffset][37]
         -   [Parameters][38]
--   [ScaleCallback][39]
-    -   [Parameters][40]
+    -   [addEntity][39]
+        -   [Parameters][40]
 -   [resizeEventData][41]
--   [ScaledEntity][42]
-    -   [onResize][43]
-        -   [Parameters][44]
--   [EntityResizeEvent][45]
+-   [EntityResizeEvent][42]
+-   [ScaledEntity][43]
+    -   [onResize][44]
+        -   [Parameters][45]
 -   [ScaleManager][46]
     -   [Parameters][47]
     -   [Properties][48]
@@ -175,13 +175,13 @@
     -   [createLine][171]
         -   [Parameters][172]
 -   [CaptionPlayer][173]
-    -   [update][174]
-        -   [Parameters][175]
-    -   [start][176]
-        -   [Parameters][177]
-    -   [stop][178]
--   [CaptionPlayer][179]
-    -   [Parameters][180]
+    -   [Parameters][174]
+    -   [update][175]
+        -   [Parameters][176]
+    -   [start][177]
+        -   [Parameters][178]
+    -   [stop][179]
+-   [CaptionPlayer][180]
     -   [update][181]
         -   [Parameters][182]
     -   [start][183]
@@ -326,6 +326,14 @@ Used to fix positions to a relative point in the viewport.
 
 Returns **void** @memberof Anchor
 
+## Point
+
+Type: {x: [Number][224], y: [Number][224]}
+
+## Point
+
+Type: {x: [Number][224], y: [Number][224]}
+
 ## PositionCallback
 
 callback to used move game entities
@@ -336,13 +344,19 @@ Type: [Function][225]
 
 -   `position` **[Point][229]** position relative to anchor direction
 
-## Point
+## ScaleCallback
 
-Type: {x: [Number][224], y: [Number][224]}
+callback to used scale game and canvas
 
-## Point
+Type: [Function][225]
 
-Type: {x: [Number][224], y: [Number][224]}
+### Parameters
+
+-   `width` **[Number][224]** width canvas should be
+-   `height` **[Number][224]** height canvas should be
+-   `scale` **[Point][229]** x/y scale values
+-   `scaleRatio` **[Number][224]** minimum aspect ratio that fit's in the screen.
+-   `viewArea` **[Object][228]** Rectangle defining the total viewable area of game content.
 
 ## SafeScaleManager
 
@@ -402,23 +416,13 @@ Adds and anchor to be updated during resize
 
 -   `entity` **([ScaledEntity][231] \| [Array][230]&lt;[ScaledEntity][231]>)** 
 
-## ScaleCallback
-
-callback to used scale game and canvas
-
-Type: [Function][225]
-
-### Parameters
-
--   `width` **[Number][224]** width canvas should be
--   `height` **[Number][224]** height canvas should be
--   `scale` **[Point][229]** x/y scale values
--   `scaleRatio` **[Number][224]** minimum aspect ratio that fit's in the screen.
--   `viewArea` **[Object][228]** Rectangle defining the total viewable area of game content.
-
 ## resizeEventData
 
 Type: [EntityResizeEvent][233]
+
+## EntityResizeEvent
+
+Type: {offset: [Point][229], gameSize: [Point][229], scale: [Point][229]}
 
 ## ScaledEntity
 
@@ -429,10 +433,6 @@ Type: [EntityResizeEvent][233]
 -   `event` **[EntityResizeEvent][233]** 
 
 Returns **void** @memberof ScaledEntity
-
-## EntityResizeEvent
-
-Type: {offset: [Point][229], gameSize: [Point][229], scale: [Point][229]}
 
 ## ScaleManager
 
@@ -1039,8 +1039,10 @@ Returns **[TimedLine][240]** new TimedLine;
 
 ## CaptionPlayer
 
-CaptionPlayer is used to start, stop and update captions.
- It applies the content of an active caption to a given CaptionRenderer.
+### Parameters
+
+-   `captions`  
+-   `renderer`  
 
 ### update
 
@@ -1067,10 +1069,8 @@ Stops any caption currently playing.
 
 ## CaptionPlayer
 
-### Parameters
-
--   `captions`  
--   `renderer`  
+CaptionPlayer is used to start, stop and update captions.
+ It applies the content of an active caption to a given CaptionRenderer.
 
 ### update
 
@@ -1304,51 +1304,51 @@ After all plugins inits has completed
 
 [22]: #parameters-6
 
-[23]: #positioncallback
+[23]: #point
 
-[24]: #parameters-7
+[24]: #point-1
 
-[25]: #point
+[25]: #positioncallback
 
-[26]: #point-1
+[26]: #parameters-7
 
-[27]: #safescalemanager
+[27]: #scalecallback
 
 [28]: #parameters-8
 
-[29]: #entities
+[29]: #safescalemanager
 
-[30]: #removeentity
+[30]: #parameters-9
 
-[31]: #parameters-9
+[31]: #entities
 
-[32]: #enable
+[32]: #removeentity
 
 [33]: #parameters-10
 
-[34]: #disable
+[34]: #enable
 
-[35]: #calcoffset
+[35]: #parameters-11
 
-[36]: #parameters-11
+[36]: #disable
 
-[37]: #addentity
+[37]: #calcoffset
 
 [38]: #parameters-12
 
-[39]: #scalecallback
+[39]: #addentity
 
 [40]: #parameters-13
 
 [41]: #resizeeventdata
 
-[42]: #scaledentity
+[42]: #entityresizeevent
 
-[43]: #onresize-1
+[43]: #scaledentity
 
-[44]: #parameters-14
+[44]: #onresize-1
 
-[45]: #entityresizeevent
+[45]: #parameters-14
 
 [46]: #scalemanager
 
@@ -1606,19 +1606,19 @@ After all plugins inits has completed
 
 [173]: #captionplayer
 
-[174]: #update-3
+[174]: #parameters-57
 
-[175]: #parameters-57
+[175]: #update-3
 
-[176]: #start-3
+[176]: #parameters-58
 
-[177]: #parameters-58
+[177]: #start-3
 
-[178]: #stop-1
+[178]: #parameters-59
 
-[179]: #captionplayer-1
+[179]: #stop-1
 
-[180]: #parameters-59
+[180]: #captionplayer-1
 
 [181]: #update-4
 

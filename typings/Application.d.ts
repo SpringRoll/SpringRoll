@@ -90,7 +90,7 @@ export class ApplicationPlugin {
 
 
 export class Property<T> {
-  constructor(initialValue: T);
+  constructor(initialValue: T, alwaysNotify?: boolean);
   private _value: T;
   private listeners: Function[];
   value: T;
