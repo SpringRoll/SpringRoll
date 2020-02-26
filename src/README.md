@@ -49,8 +49,8 @@ var myApp = new springroll.Application({
 Note that if any of `vo`, `music`, or `sfx` are available features, `sound` will be marked as a feature implicitly.
 Also, all of these features are marked `false` by default.
 
-## Difficulty Features
-The following difficulty features are represented by a value between 0 and 1, with 0 being the easiest setting and 1 being the hardest. All features will begin with a default difficulty value of 0.5. 
+## Configurable Mechanics
+The following mechanics are represented by a value between 0 and 1, and default to 0.5.
 
 ### Hit Area Scale
 Enable this feature if your game has scalable hit boxes for entities. This value will allow you to increase the size of hit boxes for potentially hard-to-hit buttons or UI elements. Caution: Prevent overlapping hit boxes for larger settings
