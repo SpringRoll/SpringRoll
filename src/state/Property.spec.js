@@ -23,6 +23,16 @@ describe('Property', () => {
 
       expect(callback.callCount).to.equal(0);
     });
+
+    it('should invoke listeners if flagged to always notify and provided value is the same as the current value.', () => {
+      const callback = Sinon.fake();
+      const property = new Property(8, true);
+
+      property.subscribe(callback);
+      property.value = 8;
+
+      expect(callback.callCount).to.equal(1);
+    });
   });
 
   describe('unsubscribe', () => {

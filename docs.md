@@ -28,20 +28,20 @@
 -   [Anchor][24]
     -   [onResize][25]
         -   [Parameters][26]
--   [ScaleCallback][27]
+-   [SafeScaleManager][27]
     -   [Parameters][28]
--   [SafeScaleManager][29]
-    -   [Parameters][30]
-    -   [entities][31]
-    -   [removeEntity][32]
+    -   [entities][29]
+    -   [removeEntity][30]
+        -   [Parameters][31]
+    -   [enable][32]
         -   [Parameters][33]
-    -   [enable][34]
-        -   [Parameters][35]
-    -   [disable][36]
-    -   [calcOffset][37]
+    -   [disable][34]
+    -   [calcOffset][35]
+        -   [Parameters][36]
+    -   [addEntity][37]
         -   [Parameters][38]
-    -   [addEntity][39]
-        -   [Parameters][40]
+-   [ScaleCallback][39]
+    -   [Parameters][40]
 -   [resizeEventData][41]
 -   [ScaledEntity][42]
     -   [onResize][43]
@@ -81,18 +81,18 @@
         -   [Parameters][77]
     -   [removeFilter][78]
     -   [types][79]
--   [Controller][80]
-    -   [Parameters][81]
-    -   [onWindowBlur][82]
-    -   [update][83]
-    -   [onKeyDown][84]
-        -   [Parameters][85]
-    -   [onKeyUp][86]
+-   [KeyState][80]
+    -   [Properties][81]
+-   [Controller][82]
+    -   [Parameters][83]
+    -   [onWindowBlur][84]
+    -   [update][85]
+    -   [onKeyDown][86]
         -   [Parameters][87]
-    -   [assignButtons][88]
+    -   [onKeyUp][88]
         -   [Parameters][89]
--   [KeyState][90]
-    -   [Properties][91]
+    -   [assignButtons][90]
+        -   [Parameters][91]
 -   [Key][92]
     -   [Parameters][93]
     -   [Properties][94]
@@ -210,17 +210,17 @@
     -   [lineEnd][206]
     -   [sanitize][207]
         -   [Parameters][208]
--   [Localizer.Options][209]
--   [Localizer][210]
-    -   [resolve][211]
-        -   [Parameters][212]
-    -   [setPrimaryLocale][213]
-        -   [Parameters][214]
-    -   [setFallbackLocale][215]
-        -   [Parameters][216]
-    -   [getLocaleKey][217]
-        -   [Parameters][218]
-    -   [getBrowserLanguages][219]
+-   [Localizer][209]
+    -   [resolve][210]
+        -   [Parameters][211]
+    -   [setPrimaryLocale][212]
+        -   [Parameters][213]
+    -   [setFallbackLocale][214]
+        -   [Parameters][215]
+    -   [getLocaleKey][216]
+        -   [Parameters][217]
+    -   [getBrowserLanguages][218]
+-   [Localizer.Options][219]
 -   [ApplicationPlugin][220]
     -   [preload][221]
     -   [init][222]
@@ -344,20 +344,6 @@ Used to fix positions to a relative point in the viewport.
 
 Returns **void** @memberof Anchor
 
-## ScaleCallback
-
-callback to used scale game and canvas
-
-Type: [Function][225]
-
-### Parameters
-
--   `width` **[Number][224]** width canvas should be
--   `height` **[Number][224]** height canvas should be
--   `scale` **[Point][228]** x/y scale values
--   `scaleRatio` **[Number][224]** minimum aspect ratio that fit's in the screen.
--   `viewArea` **[Object][229]** Rectangle defining the total viewable area of game content.
-
 ## SafeScaleManager
 
 Handles scaling the game
@@ -415,6 +401,20 @@ Adds and anchor to be updated during resize
 #### Parameters
 
 -   `entity` **([ScaledEntity][231] \| [Array][230]&lt;[ScaledEntity][231]>)** 
+
+## ScaleCallback
+
+callback to used scale game and canvas
+
+Type: [Function][225]
+
+### Parameters
+
+-   `width` **[Number][224]** width canvas should be
+-   `height` **[Number][224]** height canvas should be
+-   `scale` **[Point][228]** x/y scale values
+-   `scaleRatio` **[Number][224]** minimum aspect ratio that fit's in the screen.
+-   `viewArea` **[Object][229]** Rectangle defining the total viewable area of game content.
 
 ## resizeEventData
 
@@ -590,6 +590,16 @@ Supported filter types.
 Returns **[object][229]** Returns an object { name, value } with the colorblindness type:
 (Protanopia, Protanomaly, Deuteranopia, Deuteranomaly, Tritanopia, Tritanomaly, Achromatopsia, Achromatomaly)
 
+## KeyState
+
+Type: (`0` \| `1` \| `2`)
+
+### Properties
+
+-   `down` **[Function][225]** 
+-   `up` **[Function][225]** 
+-   `key` **[string][226]** 
+
 ## Controller
 
 Controller interface class to simplify working with key presses.
@@ -631,16 +641,6 @@ Sets an object of button functions to the controller to be called.
 #### Parameters
 
 -   `keys` **[Array][230]&lt;KeyTemplate>** 
-
-## KeyState
-
-Type: (`0` \| `1` \| `2`)
-
-### Properties
-
--   `down` **[Function][225]** 
--   `up` **[Function][225]** 
--   `key` **[string][226]** 
 
 ## Key
 
@@ -1204,10 +1204,6 @@ Will attempt to remove all html from a string before it's renderer to the page
 
 -   `html` **any** 
 
-## Localizer.Options
-
-Type: {language: [string][226], fallback: [string][226]}
-
 ## Localizer
 
 ### resolve
@@ -1244,6 +1240,10 @@ Returns **[boolean][234]** True if fallback is set.
 Returns **[string][226]** 
 
 ### getBrowserLanguages
+
+## Localizer.Options
+
+Type: {language: [string][226], fallback: [string][226]}
 
 ## ApplicationPlugin
 
@@ -1319,31 +1319,31 @@ After all plugins inits has completed
 
 [26]: #parameters-7
 
-[27]: #scalecallback
+[27]: #safescalemanager
 
 [28]: #parameters-8
 
-[29]: #safescalemanager
+[29]: #entities
 
-[30]: #parameters-9
+[30]: #removeentity
 
-[31]: #entities
+[31]: #parameters-9
 
-[32]: #removeentity
+[32]: #enable
 
 [33]: #parameters-10
 
-[34]: #enable
+[34]: #disable
 
-[35]: #parameters-11
+[35]: #calcoffset
 
-[36]: #disable
+[36]: #parameters-11
 
-[37]: #calcoffset
+[37]: #addentity
 
 [38]: #parameters-12
 
-[39]: #addentity
+[39]: #scalecallback
 
 [40]: #parameters-13
 
@@ -1425,29 +1425,29 @@ After all plugins inits has completed
 
 [79]: #types
 
-[80]: #controller
+[80]: #keystate
 
-[81]: #parameters-25
+[81]: #properties-3
 
-[82]: #onwindowblur
+[82]: #controller
 
-[83]: #update
+[83]: #parameters-25
 
-[84]: #onkeydown
+[84]: #onwindowblur
 
-[85]: #parameters-26
+[85]: #update
 
-[86]: #onkeyup
+[86]: #onkeydown
 
-[87]: #parameters-27
+[87]: #parameters-26
 
-[88]: #assignbuttons
+[88]: #onkeyup
 
-[89]: #parameters-28
+[89]: #parameters-27
 
-[90]: #keystate
+[90]: #assignbuttons
 
-[91]: #properties-3
+[91]: #parameters-28
 
 [92]: #key
 
@@ -1683,27 +1683,27 @@ After all plugins inits has completed
 
 [208]: #parameters-68
 
-[209]: #localizeroptions
+[209]: #localizer
 
-[210]: #localizer
+[210]: #resolve
 
-[211]: #resolve
+[211]: #parameters-69
 
-[212]: #parameters-69
+[212]: #setprimarylocale
 
-[213]: #setprimarylocale
+[213]: #parameters-70
 
-[214]: #parameters-70
+[214]: #setfallbacklocale
 
-[215]: #setfallbacklocale
+[215]: #parameters-71
 
-[216]: #parameters-71
+[216]: #getlocalekey
 
-[217]: #getlocalekey
+[217]: #parameters-72
 
-[218]: #parameters-72
+[218]: #getbrowserlanguages
 
-[219]: #getbrowserlanguages
+[219]: #localizeroptions
 
 [220]: #applicationplugin
 
