@@ -8,10 +8,12 @@ export class Property {
   /**
    * Creates a new property with an initial value.
    * @param {*} initialValue The initial value of this property.
+   * @param {boolean} alwaysNotify Determines if the property will notify a value change regardless if it's a new value or not.
    */
-  constructor(initialValue) {
+  constructor(initialValue, alwaysNotify = false) {
     this._value = initialValue;
     this.listeners = [];
+    this.alwaysNotify = alwaysNotify;
   }
 
   /**
@@ -30,7 +32,7 @@ export class Property {
    * @memberof Property
    */
   set value(value) {
-    if (this.value === value) {
+    if (this.value === value && !this.alwaysNotify) {
       return;
     }
 
