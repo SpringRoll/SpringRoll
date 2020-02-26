@@ -50,6 +50,8 @@ Note that if any of `vo`, `music`, or `sfx` are available features, `sound` will
 Also, all of these features are marked `false` by default.
 
 ## Difficulty Features
+The following difficulty features are represented by a value between 0 and 1, with 0 being the easiest setting and 1 being the hardest. All features will begin with a default difficulty value of 0.5. 
+
 ### Hit Area Scale
 Enable this feature if your game has scalable hit boxes for entities. This value will allow you to increase the size of hit boxes for potentially hard-to-hit buttons or UI elements. Caution: Prevent overlapping hit boxes for larger settings
 
@@ -69,10 +71,10 @@ Enable this feature if the speed of the game mechanics can increase or decrease.
 Enable this feature if your game includes mechanics with a configurable completion percentage for a task. This allows the player to change the amount of times they need to interact before moving forward in the game. Example: How many swipes it takes to clear dirt off a puzzle.
 
 ### Timer Scale
-Enable this feature in your game includes an adjustable timer mechanic. This allows players to give themselves more or less time to complete a challenge depending on the difficulty level they require.
+Enable this feature if your game includes an adjustable timer mechanic. This allows players to give themselves more or less time to complete a challenge depending on the difficulty level they require.
 
 ### Input Count
-Enable this feature if your game includes a configurable mechanic that requires multiple clicks, taps or keyboard input to complete an objective. This allows players interact with the elements more or less to complete the objective depending on their difficulty requirements
+Enable this feature if your game includes a configurable mechanic that requires multiple clicks, taps or keyboard input to complete an objective. This allows players to interact with the elements more or less to complete the objective depending on their difficulty requirements
 
 ## Handling State Change
 The SpringRoll Application class has a general [StateManager](./state) instance attached for managing important
