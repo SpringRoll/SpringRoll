@@ -17,7 +17,14 @@ export type ApplicationFeatures = {
   buttonSize?: boolean,
   removableLayers?: boolean,
   hudPosition?: boolean,
-  difficulty?: boolean,
+  hitAreaScale?: boolean,
+  dragThresholdScale?: boolean,
+  health?: boolean,
+  objectCount?: boolean,
+  completionPercentage?: boolean,
+  speedScale?: boolean,
+  timersScale?: boolean,
+  inputCount?: boolean
   keyBinding?: boolean,
   colorVision?: boolean,
 };
@@ -59,7 +66,14 @@ export class Application {
     buttonSize: Property<number>,
     removableLayers: Property<number>,
     hudPosition: Property<string>,
-    difficulty: Property<number>,
+    hitAreaScale: Property<number>,
+    dragThresholdScale: Property<number>,
+    health: Property<number>,
+    objectCount: Property<number>,
+    completionPercentage: Property<number>,
+    speedScale: Property<number>,
+    timersScale: Property<number>,
+    inputCount: Property<number>
     keyBinding: Property<KeyBinding>,
     colorVision: Property<string>,
     [key:string]: Property<any>

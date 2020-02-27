@@ -32,15 +32,49 @@ var myApp = new springroll.Application({
     buttonSize: false, // whether or not the game has adjustable button sizes
     removableLayers: false, // whether or not the game supports the removal of distracting game layers
     hudPosition: false, // whether or not the game supports multiple HUD positions
-    difficulty: false, // whether or not the game supports an adjustable difficulty,
-    keyBinding: true, //whether or not the game supports re-mappable key bindings.
-    colorVision: true, //whether or not the game supports alternate color schemes for color blind users
+    hitAreaScale: true, // whether or not the game supports adjustable hit areas
+    dragThresholdScale: true, // whether or not the game supports adjustable drag thresholds
+    health: true, // whether or not the game supports adjustable health amounts
+    objectCount: true, // whether or not the game supports adjustable object count requirements
+    completionPercentage: true, // whether or not the game supports adjustable completion percentage requirements
+    speedScale: true, // whether or not the game supports adjustable speeds
+    timersScale: true, // whether or not the game supports adjustable timers
+    inputCount: true, // whether or not the game supports adjustable input count requirements
+    keyBinding: true, // whether or not the game supports re-mappable key bindings.
+    colorVision: true, // whether or not the game supports alternate color schemes for color blind users
   }
 });
 ```
 
 Note that if any of `vo`, `music`, or `sfx` are available features, `sound` will be marked as a feature implicitly.
 Also, all of these features are marked `false` by default.
+
+## Configurable Mechanics
+The following mechanics are represented by a value between 0 and 1, and default to 0.5.
+
+### Hit Area Scale
+Enable this feature if your game has scalable hit boxes for entities. This value will allow you to increase the size of hit boxes for potentially hard-to-hit buttons or UI elements. Caution: Prevent overlapping hit boxes for larger settings
+
+### Drag Threshold Scale
+Enable this feature to make dragging detection more sensitive and allows the distance delta to be configurable. Typically developers need to use a distance delta for the detection of a drag but it can sometimes be too large or small for users.
+
+### Health
+Enable this feature if your game does not have a configurable number of attempts, retries, lives, or health. Players may want to adjust these numbers manually to give themselves more tries at an objective or lower health to increase difficulty.
+
+### Object Count
+Enable this feature in the game to allow players to adjust the number of objects used to complete objectives. This will allow players to increase or decrease the number of items used in the game, hidden and visible.
+
+### Speed Scale
+Enable this feature if the speed of the game mechanics can increase or decrease. By slowing down or speeding up the game features the player can increase or decrease the difficulty as needed.
+
+### Completion Percentage
+Enable this feature if your game includes mechanics with a configurable completion percentage for a task. This allows the player to change the amount of times they need to interact before moving forward in the game. Example: How many swipes it takes to clear dirt off a puzzle.
+
+### Timer Scale
+Enable this feature if your game includes an adjustable timer mechanic. This allows players to give themselves more or less time to complete a challenge depending on the difficulty level they require.
+
+### Input Count
+Enable this feature if your game includes a configurable mechanic that requires multiple clicks, taps or keyboard input to complete an objective. This allows players to interact with the elements more or less to complete the objective depending on their difficulty requirements
 
 ## Handling State Change
 The SpringRoll Application class has a general [StateManager](./state) instance attached for managing important
@@ -74,7 +108,14 @@ var myApp = new springroll.Application({
     buttonSize: true,
     removableLayers: true,
     hudPosition: true,
-    difficulty: true,
+    hitAreaScale: true,
+    dragThresholdScale: true,
+    health: true,
+    objectCount: true,
+    completionPercentage: true,
+    speedScale: true,
+    timersScale: true,
+    inputCount: true,
     keyBinding: true,
     colorVision: true,
   }
@@ -90,7 +131,16 @@ myApp.state.buttonSize.subscribe(result => console.log('Value Between 0-1', resu
 myApp.state.controlSensitivity.subscribe(result => console.log('Value Between 0-1', result));
 myApp.state.removableLayers.subscribe(result => console.log('Value Between 0-1', result));
 myApp.state.hudPosition.subscribe(result => console.log('String position of the HUD', result)); //See below about responding to the container
-myApp.state.difficulty.subscribe(result => console.log('Value Between 0-1', result));
+myApp.state.hitAreaScale.subscribe(result => console.log('Value Between 0-1', result));
+myApp.state.dragThresholdScale.subscribe(result => console.log('Value Between 0-1', result));
+myApp.state.health.subscribe(result => console.log('Value Between 0-1', result));
+myApp.state.objectCount.subscribe(result => console.log('Value Between 0-1', result));
+myApp.state.completionPercentage.subscribe(result => console.log('Value Between 0-1', result));
+myApp.state.speedScale.subscribe(result => console.log('Value Between 0-1', result));
+myApp.state.timersScale.subscribe(result => console.log('Value Between 0-1', result));
+myApp.state.inputCount.subscribe(result => console.log('Value Between 0-1', result));
+myApp.state.keyBinding.subscribe(result => console.log('Value Between 0-1', result));
+myApp.state.colorVision.subscribe(result => console.log('Value Between 0-1', result));
 myApp.state.keyBinding.subscribe(result => console.log('Array of key/value pairs reflecting the currently selected keys', result)); //See below about responding to the container
 myApp.state.colorVision.subscribe(result => console.log('String representing the chose type of color blindness', result)); //See below about responding to the container
 ```

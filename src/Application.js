@@ -16,9 +16,16 @@ const controlSensitivity = 'controlSensitivity';
 const buttonSize = 'buttonSize';
 const removableLayers = 'removableLayers';
 const hudPosition = 'hudPosition';
-const difficulty = 'difficulty';
 const keyBinding = 'keyBinding';
 const colorVision = 'colorVision';
+const hitAreaScale = 'hitAreaScale';
+const dragThresholdScale = 'dragThresholdScale';
+const health = 'health';
+const objectCount = 'objectCount';
+const completionPercentage = 'completionPercentage';
+const speedScale = 'speedScale';
+const timersScale = 'timersScale';
+const inputCount = 'inputCount';
 
 const captionsStylesDefault = {
   color: '#FFFFFF',
@@ -47,7 +54,14 @@ const captionsStylesDefault = {
  * @property {boolean} [features.buttonSize] A boolean denoting that this game has adjustable button sizes in it
  * @property {boolean} [features.removableLayers] A boolean denoting that this game has removable game layers in it
  * @property {boolean} [features.hudPosition] A boolean denoting that this game has custom HUD positions.
- * @property {boolean} [features.difficulty] A boolean denoting that this game has adjustable difficulty/speed.
+ * @property {boolean} [features.hitAreaScale] A boolean denoting that this game has adjustable hit areas.
+ * @property {boolean} [features.dragThresholdScale] A boolean denoting that this game has adjustable drag thresholds.
+ * @property {boolean} [features.health] A boolean denoting that this game has adjustable health.
+ * @property {boolean} [features.objectCount] A boolean denoting that this game has adjustable object count requirements.
+ * @property {boolean} [features.completionPercentage] A boolean denoting that this game has adjustable completion percentage requirements.
+ * @property {boolean} [features.speedScale] A boolean denoting that this game has adjustable speed.
+ * @property {boolean} [features.timersScale] A boolean denoting that this game has adjustable timers.
+ * @property {boolean} [features.inputCount] A boolean denoting that this game has adjustable input count requirements.
  * @property {boolean} [features.keyBinding] A boolean denoting that this game has re-mappable key bindings.
  * @property {boolean} [features.colorVision] A boolean denoting that this game has color blindess filters
  */
@@ -70,7 +84,14 @@ export class Application {
    * @param {boolean} [config.features.buttonSize] A boolean denoting that this game has adjustable button sizes in it
    * @param {boolean} [config.features.removableLayers] A boolean denoting that this game has removable game layers in it
    * @param {boolean} [config.features.hudPosition] A boolean denoting that this game has custom HUD positions in it
-   * @param {boolean} [config.features.difficulty] A boolean denoting that this game has adjustable difficulty/speed.
+   * @param {boolean} [config.features.hitAreaScale] A boolean denoting that this game has adjustable hit areas.
+   * @param {boolean} [config.features.dragThresholdScale] A boolean denoting that this game has adjustable drag thresholds.
+   * @param {boolean} [config.features.health] A boolean denoting that this game has adjustable health.
+   * @param {boolean} [config.features.objectCount] A boolean denoting that this game has adjustable object count requirements.
+   * @param {boolean} [config.features.completionPercentage] A boolean denoting that this game has adjustable completion percentage requirements.
+   * @param {boolean} [config.features.speedScale] A boolean denoting that this game has adjustable speed.
+   * @param {boolean} [config.features.timersScale] A boolean denoting that this game has adjustable timers.
+   * @param {boolean} [config.features.inputCount] A boolean denoting that this game has adjustable input count requirements.
    * @param {boolean} [config.features.keyBinding] A boolean denoting that this game has re-mappable key bindings.
    * @param {boolean} [config.features.colorVision] A boolean denoting that this game has color blindness filters.
    */
@@ -85,12 +106,19 @@ export class Application {
       musicVolume: new Property(1),
       voVolume: new Property(1),
       sfxVolume: new Property(1),
-      pointerSize: new Property(0.05),
+      pointerSize: new Property(0.5),
       controlSensitivity: new Property(0.5),
       buttonSize: new Property(0.5),
       removableLayers: new Property(0),
       hudPosition: new Property(''),
-      difficulty: new Property(0.5),
+      hitAreaScale: new Property(0.5),
+      dragThresholdScale: new Property(0.5),
+      health: new Property(0.5),
+      objectCount: new Property(0.5),
+      completionPercentage: new Property(0.5),
+      speedScale: new Property(0.5),
+      timersScale: new Property(0.5),
+      inputCount: new Property(0.5),
       keyBinding: new Property({}),
       colorVision: new Property('none')
     };
@@ -112,9 +140,16 @@ export class Application {
         buttonSize: false,
         removableLayers: false,
         hudPosition: false,
-        difficulty: false,
         keyBinding: false,
-        colorVision: false
+        colorVision: false,
+        hitAreaScale: false,
+        dragThresholdScale: false,
+        health: false,
+        objectCount: false,
+        completionPercentage: false,
+        speedScale: false,
+        timersScale: false,
+        inputCount: false
       },
       features || {}
     );
@@ -145,9 +180,16 @@ export class Application {
         buttonSize,
         removableLayers,
         hudPosition,
-        difficulty,
         keyBinding,
-        colorVision
+        colorVision,
+        hitAreaScale,
+        dragThresholdScale,
+        health,
+        objectCount,
+        completionPercentage,
+        speedScale,
+        timersScale,
+        inputCount
       ];
       const length = events.length;
       for (let i = 0; i < length; i++) {
@@ -313,7 +355,14 @@ export class Application {
       buttonSize: buttonSize,
       removableLayers: removableLayers,
       hudPosition: hudPosition,
-      difficulty: difficulty,
+      hitAreaScale: hitAreaScale,
+      dragThresholdScale: dragThresholdScale,
+      health: health,
+      objectCount: objectCount,
+      completionPercentage: completionPercentage,
+      speedScale: speedScale,
+      timersScale: timersScale,
+      inputCount: inputCount,
       keyBinding: keyBinding,
       colorVision: colorVision
     };
