@@ -59,7 +59,7 @@ Enable this feature if your game has scalable hit boxes for entities. This value
 Enable this feature to make dragging detection more sensitive and allows the distance delta to be configurable. Typically developers need to use a distance delta for the detection of a drag but it can sometimes be too large or small for users.
 
 ### Health
-Enable this feature if your game does not have a configurable number of attempts, retries, lives, or health. Players may want to adjust these numbers manually to give themselves more tries at an objective or lower health to increase difficulty.
+Enable this feature if your game does have a configurable number of attempts, retries, lives, or health. Players may want to adjust these numbers manually to give themselves more tries at an objective or lower health to increase difficulty.
 
 ### Object Count
 Enable this feature in the game to allow players to adjust the number of objects used to complete objectives. This will allow players to increase or decrease the number of items used in the game, hidden and visible.
