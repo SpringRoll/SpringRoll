@@ -28,20 +28,20 @@
 -   [Anchor][24]
     -   [onResize][25]
         -   [Parameters][26]
--   [SafeScaleManager][27]
+-   [ScaleCallback][27]
     -   [Parameters][28]
-    -   [entities][29]
-    -   [removeEntity][30]
-        -   [Parameters][31]
-    -   [enable][32]
+-   [SafeScaleManager][29]
+    -   [Parameters][30]
+    -   [entities][31]
+    -   [removeEntity][32]
         -   [Parameters][33]
-    -   [disable][34]
-    -   [calcOffset][35]
-        -   [Parameters][36]
-    -   [addEntity][37]
+    -   [enable][34]
+        -   [Parameters][35]
+    -   [disable][36]
+    -   [calcOffset][37]
         -   [Parameters][38]
--   [ScaleCallback][39]
-    -   [Parameters][40]
+    -   [addEntity][39]
+        -   [Parameters][40]
 -   [resizeEventData][41]
 -   [ScaledEntity][42]
     -   [onResize][43]
@@ -81,18 +81,18 @@
         -   [Parameters][77]
     -   [removeFilter][78]
     -   [types][79]
--   [KeyState][80]
-    -   [Properties][81]
--   [Controller][82]
-    -   [Parameters][83]
-    -   [onWindowBlur][84]
-    -   [update][85]
-    -   [onKeyDown][86]
+-   [Controller][80]
+    -   [Parameters][81]
+    -   [onWindowBlur][82]
+    -   [update][83]
+    -   [onKeyDown][84]
+        -   [Parameters][85]
+    -   [onKeyUp][86]
         -   [Parameters][87]
-    -   [onKeyUp][88]
+    -   [assignButtons][88]
         -   [Parameters][89]
-    -   [assignButtons][90]
-        -   [Parameters][91]
+-   [KeyState][90]
+    -   [Properties][91]
 -   [Key][92]
     -   [Parameters][93]
     -   [Properties][94]
@@ -146,7 +146,7 @@
     -   [value][142]
         -   [Parameters][143]
 -   [Caption][144]
-    -   [Properties][145]
+    -   [Parameters][145]
     -   [update][146]
         -   [Parameters][147]
     -   [updateState][148]
@@ -157,7 +157,7 @@
     -   [updateTimeIndex][153]
         -   [Parameters][154]
 -   [Caption][155]
-    -   [Parameters][156]
+    -   [Properties][156]
     -   [update][157]
         -   [Parameters][158]
     -   [updateState][159]
@@ -210,17 +210,17 @@
     -   [lineEnd][206]
     -   [sanitize][207]
         -   [Parameters][208]
--   [Localizer][209]
-    -   [resolve][210]
-        -   [Parameters][211]
-    -   [setPrimaryLocale][212]
-        -   [Parameters][213]
-    -   [setFallbackLocale][214]
-        -   [Parameters][215]
-    -   [getLocaleKey][216]
-        -   [Parameters][217]
-    -   [getBrowserLanguages][218]
--   [Localizer.Options][219]
+-   [Localizer.Options][209]
+-   [Localizer][210]
+    -   [resolve][211]
+        -   [Parameters][212]
+    -   [setPrimaryLocale][213]
+        -   [Parameters][214]
+    -   [setFallbackLocale][215]
+        -   [Parameters][216]
+    -   [getLocaleKey][217]
+        -   [Parameters][218]
+    -   [getBrowserLanguages][219]
 -   [ApplicationPlugin][220]
     -   [preload][221]
     -   [init][222]
@@ -344,6 +344,20 @@ Used to fix positions to a relative point in the viewport.
 
 Returns **void** @memberof Anchor
 
+## ScaleCallback
+
+callback to used scale game and canvas
+
+Type: [Function][225]
+
+### Parameters
+
+-   `width` **[Number][224]** width canvas should be
+-   `height` **[Number][224]** height canvas should be
+-   `scale` **[Point][228]** x/y scale values
+-   `scaleRatio` **[Number][224]** minimum aspect ratio that fit's in the screen.
+-   `viewArea` **[Object][229]** Rectangle defining the total viewable area of game content.
+
 ## SafeScaleManager
 
 Handles scaling the game
@@ -401,20 +415,6 @@ Adds and anchor to be updated during resize
 #### Parameters
 
 -   `entity` **([ScaledEntity][231] \| [Array][230]&lt;[ScaledEntity][231]>)** 
-
-## ScaleCallback
-
-callback to used scale game and canvas
-
-Type: [Function][225]
-
-### Parameters
-
--   `width` **[Number][224]** width canvas should be
--   `height` **[Number][224]** height canvas should be
--   `scale` **[Point][228]** x/y scale values
--   `scaleRatio` **[Number][224]** minimum aspect ratio that fit's in the screen.
--   `viewArea` **[Object][229]** Rectangle defining the total viewable area of game content.
 
 ## resizeEventData
 
@@ -590,16 +590,6 @@ Supported filter types.
 Returns **[object][229]** Returns an object { name, value } with the colorblindness type:
 (Protanopia, Protanomaly, Deuteranopia, Deuteranomaly, Tritanopia, Tritanomaly, Achromatopsia, Achromatomaly)
 
-## KeyState
-
-Type: (`0` \| `1` \| `2`)
-
-### Properties
-
--   `down` **[Function][225]** 
--   `up` **[Function][225]** 
--   `key` **[string][226]** 
-
 ## Controller
 
 Controller interface class to simplify working with key presses.
@@ -641,6 +631,16 @@ Sets an object of button functions to the controller to be called.
 #### Parameters
 
 -   `keys` **[Array][230]&lt;KeyTemplate>** 
+
+## KeyState
+
+Type: (`0` \| `1` \| `2`)
+
+### Properties
+
+-   `down` **[Function][225]** 
+-   `up` **[Function][225]** 
+-   `key` **[string][226]** 
 
 ## Key
 
@@ -915,12 +915,9 @@ Sets the value of the property and notifies all listeners of the change
 
 ## Caption
 
-### Properties
+### Parameters
 
--   `lines` **[Array][230]&lt;[TimedLine][240]>** 
--   `time` **[number][224]** 
--   `lineIndex` **[number][224]** 
--   `renderer` **[IRender][241]** 
+-   `lines`  
 
 ### update
 
@@ -965,9 +962,12 @@ Updates the current time and index of the caption instance
 
 ## Caption
 
-### Parameters
+### Properties
 
--   `lines`  
+-   `lines` **[Array][230]&lt;[TimedLine][240]>** 
+-   `time` **[number][224]** 
+-   `lineIndex` **[number][224]** 
+-   `renderer` **[IRender][241]** 
 
 ### update
 
@@ -1204,6 +1204,10 @@ Will attempt to remove all html from a string before it's renderer to the page
 
 -   `html` **any** 
 
+## Localizer.Options
+
+Type: {language: [string][226], fallback: [string][226]}
+
 ## Localizer
 
 ### resolve
@@ -1240,10 +1244,6 @@ Returns **[boolean][234]** True if fallback is set.
 Returns **[string][226]** 
 
 ### getBrowserLanguages
-
-## Localizer.Options
-
-Type: {language: [string][226], fallback: [string][226]}
 
 ## ApplicationPlugin
 
@@ -1319,31 +1319,31 @@ After all plugins inits has completed
 
 [26]: #parameters-7
 
-[27]: #safescalemanager
+[27]: #scalecallback
 
 [28]: #parameters-8
 
-[29]: #entities
+[29]: #safescalemanager
 
-[30]: #removeentity
+[30]: #parameters-9
 
-[31]: #parameters-9
+[31]: #entities
 
-[32]: #enable
+[32]: #removeentity
 
 [33]: #parameters-10
 
-[34]: #disable
+[34]: #enable
 
-[35]: #calcoffset
+[35]: #parameters-11
 
-[36]: #parameters-11
+[36]: #disable
 
-[37]: #addentity
+[37]: #calcoffset
 
 [38]: #parameters-12
 
-[39]: #scalecallback
+[39]: #addentity
 
 [40]: #parameters-13
 
@@ -1425,29 +1425,29 @@ After all plugins inits has completed
 
 [79]: #types
 
-[80]: #keystate
+[80]: #controller
 
-[81]: #properties-3
+[81]: #parameters-25
 
-[82]: #controller
+[82]: #onwindowblur
 
-[83]: #parameters-25
+[83]: #update
 
-[84]: #onwindowblur
+[84]: #onkeydown
 
-[85]: #update
+[85]: #parameters-26
 
-[86]: #onkeydown
+[86]: #onkeyup
 
-[87]: #parameters-26
+[87]: #parameters-27
 
-[88]: #onkeyup
+[88]: #assignbuttons
 
-[89]: #parameters-27
+[89]: #parameters-28
 
-[90]: #assignbuttons
+[90]: #keystate
 
-[91]: #parameters-28
+[91]: #properties-3
 
 [92]: #key
 
@@ -1555,29 +1555,29 @@ After all plugins inits has completed
 
 [144]: #caption
 
-[145]: #properties-8
+[145]: #parameters-45
 
 [146]: #update-1
 
-[147]: #parameters-45
+[147]: #parameters-46
 
 [148]: #updatestate-1
 
-[149]: #parameters-46
+[149]: #parameters-47
 
 [150]: #isfinished
 
 [151]: #start-1
 
-[152]: #parameters-47
+[152]: #parameters-48
 
 [153]: #updatetimeindex
 
-[154]: #parameters-48
+[154]: #parameters-49
 
 [155]: #caption-1
 
-[156]: #parameters-49
+[156]: #properties-8
 
 [157]: #update-2
 
@@ -1683,27 +1683,27 @@ After all plugins inits has completed
 
 [208]: #parameters-68
 
-[209]: #localizer
+[209]: #localizeroptions
 
-[210]: #resolve
+[210]: #localizer
 
-[211]: #parameters-69
+[211]: #resolve
 
-[212]: #setprimarylocale
+[212]: #parameters-69
 
-[213]: #parameters-70
+[213]: #setprimarylocale
 
-[214]: #setfallbacklocale
+[214]: #parameters-70
 
-[215]: #parameters-71
+[215]: #setfallbacklocale
 
-[216]: #getlocalekey
+[216]: #parameters-71
 
-[217]: #parameters-72
+[217]: #getlocalekey
 
-[218]: #getbrowserlanguages
+[218]: #parameters-72
 
-[219]: #localizeroptions
+[219]: #getbrowserlanguages
 
 [220]: #applicationplugin
 
