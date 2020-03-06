@@ -44,6 +44,8 @@ export class ResizeHelper {
       this.resizeEvent.initUIEvent('resize', true, false, window, 0);
 
       this.resizeTick();
+
+      setInterval(this.resizeTick.bind(this), 50);
     }
   }
 
@@ -52,7 +54,6 @@ export class ResizeHelper {
    * @memberof ResizeHelper
    */
   resizeTick() {
-    setTimeout(() => this.resizeTick(), 10);
     this.aspectRatio.value = window.innerWidth / window.innerHeight;
   }
 

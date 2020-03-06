@@ -45,6 +45,16 @@ describe('Scale Manager', () => {
     expect(sm.callback.callCount).to.equal(0);
   });
 
+  it('Should not call resize in IE 11 environemnt', () => {
+    sm.callback = Sinon.fake();
+
+    Sinon.replace(window, 'dispatchEvent', () => {});
+    sm.resizer.resize();
+    Sinon.restore();
+
+    expect(sm.callback.callCount).to.equal(0);
+  });
+
   describe('--Anchor Handling--', () => {
     beforeEach(() => {
       sm.entities = [];
