@@ -27,13 +27,36 @@ const speedScale = 'speedScale';
 const timersScale = 'timersScale';
 const inputCount = 'inputCount';
 
-const captionsStylesDefault = {
-  color: '#FFFFFF',
-  edge: 'none',
-  font: 'arial',
-  background: '#000000',
-  size: 'md',
-  align: 'top'
+const stateDefaults = {
+  pause: false,
+  captionsMuted: false,
+  captionsStyles: {
+    color: '#FFFFFF',
+    edge: 'none',
+    font: 'arial',
+    background: '#000000',
+    size: 'md',
+    align: 'top'
+  },
+  soundVolume: 1,
+  musicVolume: 1,
+  voVolume: 1,
+  sfxVolume: 1,
+  pointerSize: 0.5,
+  controlSensitivity: 0.5,
+  buttonSize: 0.5,
+  removableLayers: 0,
+  hudPosition: '',
+  hitAreaScale: 0.5,
+  dragThresholdScale: 0.5,
+  health: 0.5,
+  objectCount: 0.5,
+  completionPercentage: 0.5,
+  speedScale: 0.5,
+  timersScale: 0.5,
+  inputCount: 0.5,
+  keyBinding: {},
+  colorVision: 'none'
 };
 
 /**
@@ -98,29 +121,29 @@ export class Application {
   constructor({ features, hintPlayer = new HintSequencePlayer() } = {}) {
     this.state = {
       ready: new Property(false),
-      pause: new Property(false),
-      captionsMuted: new Property(true),
-      captionsStyles: new Property(captionsStylesDefault),
       playOptions: new Property({}),
-      soundVolume: new Property(1),
-      musicVolume: new Property(1),
-      voVolume: new Property(1),
-      sfxVolume: new Property(1),
-      pointerSize: new Property(0.5),
-      controlSensitivity: new Property(0.5),
-      buttonSize: new Property(0.5),
-      removableLayers: new Property(0),
-      hudPosition: new Property(''),
-      hitAreaScale: new Property(0.5),
-      dragThresholdScale: new Property(0.5),
-      health: new Property(0.5),
-      objectCount: new Property(0.5),
-      completionPercentage: new Property(0.5),
-      speedScale: new Property(0.5),
-      timersScale: new Property(0.5),
-      inputCount: new Property(0.5),
-      keyBinding: new Property({}),
-      colorVision: new Property('none')
+      pause: new Property(undefined),
+      captionsMuted: new Property(undefined),
+      captionsStyles: new Property(undefined),
+      soundVolume: new Property(undefined),
+      musicVolume: new Property(undefined),
+      voVolume: new Property(undefined),
+      sfxVolume: new Property(undefined),
+      pointerSize: new Property(undefined),
+      controlSensitivity: new Property(undefined),
+      buttonSize: new Property(undefined),
+      removableLayers: new Property(undefined),
+      hudPosition: new Property(undefined),
+      hitAreaScale: new Property(undefined),
+      dragThresholdScale: new Property(undefined),
+      health: new Property(undefined),
+      objectCount: new Property(undefined),
+      completionPercentage: new Property(undefined),
+      speedScale: new Property(undefined),
+      timersScale: new Property(undefined),
+      inputCount: new Property(undefined),
+      keyBinding: new Property(undefined),
+      colorVision: new Property(undefined)
     };
 
     this.features = Object.assign(
@@ -194,6 +217,8 @@ export class Application {
       const length = events.length;
       for (let i = 0; i < length; i++) {
         const property = this.state[events[i]];
+
+        // Listen for feature changes from the container.
         this.container.on(
           events[i],
           containerEvent => (property.value = containerEvent.data)
@@ -252,6 +277,7 @@ export class Application {
       })
       .then(() => {
         this.validateListeners();
+        this.setStateDefaults();
       })
       .catch(e => {
         Debugger.log('warn', e);
@@ -388,6 +414,14 @@ export class Application {
           '.'
       );
     }
+  }
+
+  /**
+   * 
+   */
+  setStateDefaults() {
+    console.log("setting defaults");
+    Object.keys(stateDefaults).forEach(key => this.state[key].value = stateDefaults[key]);
   }
 }
 
