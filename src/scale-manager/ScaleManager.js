@@ -10,7 +10,7 @@ export class ScaleManager {
   /**
    *Creates an instance of ScaleManager.
    */
-  constructor(callback) {
+  constructor(callback = () => {}) {
     this.width = 1;
     this.height = 1;
     this.callback = callback;

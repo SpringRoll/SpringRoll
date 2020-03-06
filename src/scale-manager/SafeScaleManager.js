@@ -36,7 +36,7 @@ export class SafeScaleManager {
     height,
     safeWidth = Infinity,
     safeHeight = Infinity,
-    callback
+    callback = () => {}
   }) {
     this.gameWidth = width;
     this.gameHeight = height;
@@ -57,11 +57,11 @@ export class SafeScaleManager {
       bottom: 0 
     };
 
-    /** @private */
-    this.resizer = new ResizeHelper(this);
-
     /** @type {ScaledEntity[]} */
     this.entities = [];
+
+    /** @private */
+    this.resizer = new ResizeHelper(this);
 
     if (callback instanceof Function) {
       this.enable(callback);
@@ -110,7 +110,7 @@ export class SafeScaleManager {
         viewArea: this.viewArea,
         scale
       });
-
+      
       this.callback({ 
         width: nWidth, 
         height: nHeight, 

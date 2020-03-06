@@ -16,7 +16,7 @@ export class ResizeHelper {
    * @memberof ResizeHelper
    */
   set enabled(value) {
-    this._enabled;
+    this._enabled = value;
     if (this._enabled) {
       this.resize();
     }
@@ -31,7 +31,7 @@ export class ResizeHelper {
     this._enabled = true;
     this.resizeCallback = scaleManager.onResize.bind(scaleManager);
 
-    window.addEventListener('resize', this.resizeCallback);
+    window.addEventListener('resize', this.onWindowResize.bind(this));
 
     if (typeof Event === 'function') {
       this.resize();
@@ -48,7 +48,7 @@ export class ResizeHelper {
   }
 
   /**
-   * For older browsers, specifically for IE11, this a loop making sure resize events are fired.
+   * For older browsers, specifically for IE11, starts a loop making sure resize events are fired.
    * @memberof ResizeHelper
    */
   resizeTick() {
@@ -61,9 +61,18 @@ export class ResizeHelper {
    * @memberof ResizeHelper
    */
   resize() {
+    window.dispatchEvent(this.resizeEvent ? this.resizeEvent : new Event('resize'));
+  }
+
+  /**
+   * Handler for window resize events. Forwards this event to the scale manager if enabled.
+   * @param {*} e
+   * @memberof ResizeHelper
+   */
+  onWindowResize(e) {
     if (!this.enabled) {
       return;
     }
-    window.dispatchEvent(this.resizeEvent ? this.resizeEvent : new Event('resize'));
+    this.resizeCallback(e);
   }
 }
