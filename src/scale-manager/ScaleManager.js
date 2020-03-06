@@ -1,3 +1,5 @@
+import { ResizeHelper } from './ResizeHelper';
+
 /**
  * Simplifies listening to resize events by passing the relevant data to a provided callback.
  * @class ScaleManager
@@ -13,7 +15,8 @@ export class ScaleManager {
     this.height = 1;
     this.callback = callback;
 
-    this.onResize = this.onResize.bind(this);
+    /** @private */
+    this.resizer = new ResizeHelper(this);
 
     if (callback instanceof Function) {
       this.enable(callback);
@@ -53,7 +56,7 @@ export class ScaleManager {
   enable(callback) {
     if (callback instanceof Function) {
       this.callback = callback;
-      window.addEventListener('resize', this.onResize);
+      this.resizer.enabled = true;
     } else {
       console.warn('Scale Manager was not passed a function');
     }
@@ -63,6 +66,6 @@ export class ScaleManager {
    * Disables the scale manager.
    */
   disable() {
-    window.removeEventListener('resize', this.onResize);
+    this.resizer.enabled = false;
   }
 }
