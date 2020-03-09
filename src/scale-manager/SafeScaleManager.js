@@ -1,4 +1,5 @@
 import { Debugger } from '../debug';
+import { ResizeHelper } from './ResizeHelper';
 
 /**
  * @typedef {import('./ScaledEntity').ScaledEntity} ScaledEntity
@@ -35,7 +36,7 @@ export class SafeScaleManager {
     height,
     safeWidth = Infinity,
     safeHeight = Infinity,
-    callback
+    callback = () => {}
   }) {
     this.gameWidth = width;
     this.gameHeight = height;
@@ -56,10 +57,11 @@ export class SafeScaleManager {
       bottom: 0 
     };
 
-    this.onResize = this.onResize.bind(this);
-
     /** @type {ScaledEntity[]} */
     this.entities = [];
+
+    /** @private */
+    this.resizer = new ResizeHelper(this);
 
     if (callback instanceof Function) {
       this.enable(callback);
@@ -75,7 +77,7 @@ export class SafeScaleManager {
     const resize = () => {
       const width = event.target.innerWidth;
       const height = event.target.innerHeight;
-
+      
       // Calculate Canvas size and scale //
       this.scaleRatio = Math.min(
         width / this.safeWidth,
@@ -108,7 +110,7 @@ export class SafeScaleManager {
         viewArea: this.viewArea,
         scale
       });
-
+      
       this.callback({ 
         width: nWidth, 
         height: nHeight, 
@@ -191,8 +193,7 @@ export class SafeScaleManager {
   enable(callback) {
     if (callback instanceof Function) {
       this.callback = callback;
-      window.addEventListener('resize', this.onResize);
-      window.dispatchEvent(new Event('resize')); // <-- this forces resize to fire;
+      this.resizer.enabled = true;
     } else {
       Debugger.warn('Scale Manager was not passed a function');
     }
@@ -201,6 +202,6 @@ export class SafeScaleManager {
    * Disables the scale manager.
    */
   disable() {
-    window.removeEventListener('resize', this.onResize);
+    this.resizer.enabled = false;
   }
 }
