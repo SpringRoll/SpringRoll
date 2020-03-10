@@ -29,7 +29,7 @@ const inputCount = 'inputCount';
 
 const stateDefaults = {
   pause: false,
-  captionsMuted: false,
+  captionsMuted: true,
   captionsStyles: {
     color: '#FFFFFF',
     edge: 'none',
@@ -417,10 +417,9 @@ export class Application {
   }
 
   /**
-   * 
+   * Sets default values of application state properties.
    */
   setStateDefaults() {
-    console.log("setting defaults");
     Object.keys(stateDefaults).forEach(key => this.state[key].value = stateDefaults[key]);
   }
 }

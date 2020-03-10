@@ -316,8 +316,7 @@ describe('Application', () => {
     app.state.pause.subscribe(() => {}); // Add a listener to avoid non-listener errors from the pause feature.
     app.state.ready.subscribe(isReady => {
       Object.keys(app.state).forEach(key => {
-        console.log(key, app.state[key].value); // Log so we can see which feature has an undefined value.
-        expect(app.state[key].value).to.not.equal(undefined);
+        expect(app.state[key].value).to.not.equal(undefined)
       });
       done();
     });
