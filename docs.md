@@ -28,40 +28,40 @@
 -   [Anchor][24]
     -   [onResize][25]
         -   [Parameters][26]
--   [SafeScaleManager][27]
+-   [ScaleCallback][27]
     -   [Parameters][28]
-    -   [entities][29]
-    -   [removeEntity][30]
-        -   [Parameters][31]
-    -   [enable][32]
+-   [SafeScaleManager][29]
+    -   [Parameters][30]
+    -   [entities][31]
+    -   [removeEntity][32]
         -   [Parameters][33]
-    -   [disable][34]
-    -   [calcOffset][35]
-        -   [Parameters][36]
-    -   [addEntity][37]
+    -   [enable][34]
+        -   [Parameters][35]
+    -   [disable][36]
+    -   [calcOffset][37]
         -   [Parameters][38]
--   [ScaleCallback][39]
-    -   [Parameters][40]
+    -   [addEntity][39]
+        -   [Parameters][40]
 -   [resizeEventData][41]
--   [ResizeHelper][42]
-    -   [Parameters][43]
-    -   [enabled][44]
-    -   [enabled][45]
-        -   [Parameters][46]
-    -   [resizeTick][47]
-    -   [resize][48]
-    -   [onWindowResize][49]
+-   [EntityResizeEvent][42]
+-   [ScaledEntity][43]
+    -   [onResize][44]
+        -   [Parameters][45]
+-   [ScaleManager][46]
+    -   [Parameters][47]
+    -   [Properties][48]
+    -   [enable][49]
         -   [Parameters][50]
--   [EntityResizeEvent][51]
--   [ScaledEntity][52]
-    -   [onResize][53]
-        -   [Parameters][54]
--   [ScaleManager][55]
-    -   [Parameters][56]
-    -   [Properties][57]
-    -   [enable][58]
-        -   [Parameters][59]
-    -   [disable][60]
+    -   [disable][51]
+-   [ResizeHelper][52]
+    -   [Parameters][53]
+    -   [enabled][54]
+    -   [enabled][55]
+        -   [Parameters][56]
+    -   [resizeTick][57]
+    -   [resize][58]
+    -   [onWindowResize][59]
+        -   [Parameters][60]
 -   [SpeechSynth][61]
     -   [Parameters][62]
     -   [Properties][63]
@@ -82,26 +82,26 @@
     -   [volume][78]
         -   [Parameters][79]
     -   [volume][80]
--   [filterType][81]
--   [ColorFilter][82]
-    -   [applyFilter][83]
-        -   [Parameters][84]
-    -   [changeFilter][85]
-        -   [Parameters][86]
-    -   [removeFilter][87]
-    -   [types][88]
--   [KeyState][89]
-    -   [Properties][90]
--   [Controller][91]
-    -   [Parameters][92]
-    -   [onWindowBlur][93]
-    -   [update][94]
-    -   [onKeyDown][95]
+-   [ColorFilter][81]
+    -   [applyFilter][82]
+        -   [Parameters][83]
+    -   [changeFilter][84]
+        -   [Parameters][85]
+    -   [removeFilter][86]
+    -   [types][87]
+-   [filterType][88]
+-   [Controller][89]
+    -   [Parameters][90]
+    -   [onWindowBlur][91]
+    -   [update][92]
+    -   [onKeyDown][93]
+        -   [Parameters][94]
+    -   [onKeyUp][95]
         -   [Parameters][96]
-    -   [onKeyUp][97]
+    -   [assignButtons][97]
         -   [Parameters][98]
-    -   [assignButtons][99]
-        -   [Parameters][100]
+-   [KeyState][99]
+    -   [Properties][100]
 -   [Key][101]
     -   [Parameters][102]
     -   [Properties][103]
@@ -354,6 +354,20 @@ Used to fix positions to a relative point in the viewport.
 
 Returns **void** @memberof Anchor
 
+## ScaleCallback
+
+callback to used scale game and canvas
+
+Type: [Function][235]
+
+### Parameters
+
+-   `width` **[Number][234]** width canvas should be
+-   `height` **[Number][234]** height canvas should be
+-   `scale` **[Point][238]** x/y scale values
+-   `scaleRatio` **[Number][234]** minimum aspect ratio that fit's in the screen.
+-   `viewArea` **[Object][239]** Rectangle defining the total viewable area of game content.
+
 ## SafeScaleManager
 
 Handles scaling the game
@@ -412,60 +426,9 @@ Adds and anchor to be updated during resize
 
 -   `entity` **([ScaledEntity][241] \| [Array][240]&lt;[ScaledEntity][241]>)** 
 
-## ScaleCallback
-
-callback to used scale game and canvas
-
-Type: [Function][235]
-
-### Parameters
-
--   `width` **[Number][234]** width canvas should be
--   `height` **[Number][234]** height canvas should be
--   `scale` **[Point][238]** x/y scale values
--   `scaleRatio` **[Number][234]** minimum aspect ratio that fit's in the screen.
--   `viewArea` **[Object][239]** Rectangle defining the total viewable area of game content.
-
 ## resizeEventData
 
 Type: [EntityResizeEvent][243]
-
-## ResizeHelper
-
-Utility class that handles resize events for ScaleManager and SafeScaleManager.
-
-### Parameters
-
--   `scaleManager` **([ScaleManager][244] \| [SafeScaleManager][245])** 
-
-### enabled
-
-Returns the enabled state of the ResizeHelper.
-
-### enabled
-
-Sets the enabled state of the ResizeHelper. 
-Forces a resize event.
-
-#### Parameters
-
--   `value`  
-
-### resizeTick
-
-For older browsers, specifically for IE11, starts a loop making sure resize events are fired.
-
-### resize
-
-Dispatches window resize events if the ResizeHelper is enabled.
-
-### onWindowResize
-
-Handler for window resize events. Forwards this event to the scale manager if enabled.
-
-#### Parameters
-
--   `e` **any** 
 
 ## EntityResizeEvent
 
@@ -504,6 +467,43 @@ Enables the scale manager listener. Will not be enabled if a callback is not sup
 ### disable
 
 Disables the scale manager.
+
+## ResizeHelper
+
+Utility class that handles resize events for ScaleManager and SafeScaleManager.
+
+### Parameters
+
+-   `scaleManager` **([ScaleManager][244] \| [SafeScaleManager][245])** 
+
+### enabled
+
+Returns the enabled state of the ResizeHelper.
+
+### enabled
+
+Sets the enabled state of the ResizeHelper. 
+Forces a resize event.
+
+#### Parameters
+
+-   `value`  
+
+### resizeTick
+
+For older browsers, specifically for IE11, starts a loop making sure resize events are fired.
+
+### resize
+
+Dispatches window resize events if the ResizeHelper is enabled.
+
+### onWindowResize
+
+Handler for window resize events. Forwards this event to the scale manager if enabled.
+
+#### Parameters
+
+-   `e` **any** 
 
 ## SpeechSynth
 
@@ -599,10 +599,6 @@ Returns the current volume of the announcer.
 
 Returns **[number][234]** 
 
-## filterType
-
-Type: (`"protanopia"` \| `"protanomaly"` \| `"deuteranopia"` \| `"deuteranomaly"` \| `"tritanopia"` \| `"tritanomaly"` \| `"achromatopsia"` \| `"achromatomaly"`)
-
 ## ColorFilter
 
 The Color filter allows you to simulate colorblindness.
@@ -637,15 +633,9 @@ Supported filter types.
 Returns **[object][239]** Returns an object { name, value } with the colorblindness type:
 (Protanopia, Protanomaly, Deuteranopia, Deuteranomaly, Tritanopia, Tritanomaly, Achromatopsia, Achromatomaly)
 
-## KeyState
+## filterType
 
-Type: (`0` \| `1` \| `2`)
-
-### Properties
-
--   `down` **[Function][235]** 
--   `up` **[Function][235]** 
--   `key` **[string][236]** 
+Type: (`"protanopia"` \| `"protanomaly"` \| `"deuteranopia"` \| `"deuteranomaly"` \| `"tritanopia"` \| `"tritanomaly"` \| `"achromatopsia"` \| `"achromatomaly"`)
 
 ## Controller
 
@@ -688,6 +678,16 @@ Sets an object of button functions to the controller to be called.
 #### Parameters
 
 -   `keys` **[Array][240]&lt;KeyTemplate>** 
+
+## KeyState
+
+Type: (`0` \| `1` \| `2`)
+
+### Properties
+
+-   `down` **[Function][235]** 
+-   `up` **[Function][235]** 
+-   `key` **[string][236]** 
 
 ## Key
 
@@ -1370,73 +1370,73 @@ After all plugins inits has completed
 
 [26]: #parameters-7
 
-[27]: #safescalemanager
+[27]: #scalecallback
 
 [28]: #parameters-8
 
-[29]: #entities
+[29]: #safescalemanager
 
-[30]: #removeentity
+[30]: #parameters-9
 
-[31]: #parameters-9
+[31]: #entities
 
-[32]: #enable
+[32]: #removeentity
 
 [33]: #parameters-10
 
-[34]: #disable
+[34]: #enable
 
-[35]: #calcoffset
+[35]: #parameters-11
 
-[36]: #parameters-11
+[36]: #disable
 
-[37]: #addentity
+[37]: #calcoffset
 
 [38]: #parameters-12
 
-[39]: #scalecallback
+[39]: #addentity
 
 [40]: #parameters-13
 
 [41]: #resizeeventdata
 
-[42]: #resizehelper
+[42]: #entityresizeevent
 
-[43]: #parameters-14
+[43]: #scaledentity
 
-[44]: #enabled
+[44]: #onresize-1
 
-[45]: #enabled-1
+[45]: #parameters-14
 
-[46]: #parameters-15
+[46]: #scalemanager
 
-[47]: #resizetick
+[47]: #parameters-15
 
-[48]: #resize
+[48]: #properties-1
 
-[49]: #onwindowresize
+[49]: #enable-1
 
 [50]: #parameters-16
 
-[51]: #entityresizeevent
+[51]: #disable-1
 
-[52]: #scaledentity
+[52]: #resizehelper
 
-[53]: #onresize-1
+[53]: #parameters-17
 
-[54]: #parameters-17
+[54]: #enabled
 
-[55]: #scalemanager
+[55]: #enabled-1
 
 [56]: #parameters-18
 
-[57]: #properties-1
+[57]: #resizetick
 
-[58]: #enable-1
+[58]: #resize
 
-[59]: #parameters-19
+[59]: #onwindowresize
 
-[60]: #disable-1
+[60]: #parameters-19
 
 [61]: #speechsynth
 
@@ -1478,45 +1478,45 @@ After all plugins inits has completed
 
 [80]: #volume-1
 
-[81]: #filtertype
+[81]: #colorfilter
 
-[82]: #colorfilter
+[82]: #applyfilter
 
-[83]: #applyfilter
+[83]: #parameters-26
 
-[84]: #parameters-26
+[84]: #changefilter
 
-[85]: #changefilter
+[85]: #parameters-27
 
-[86]: #parameters-27
+[86]: #removefilter
 
-[87]: #removefilter
+[87]: #types
 
-[88]: #types
+[88]: #filtertype
 
-[89]: #keystate
+[89]: #controller
 
-[90]: #properties-3
+[90]: #parameters-28
 
-[91]: #controller
+[91]: #onwindowblur
 
-[92]: #parameters-28
+[92]: #update
 
-[93]: #onwindowblur
+[93]: #onkeydown
 
-[94]: #update
+[94]: #parameters-29
 
-[95]: #onkeydown
+[95]: #onkeyup
 
-[96]: #parameters-29
+[96]: #parameters-30
 
-[97]: #onkeyup
+[97]: #assignbuttons
 
-[98]: #parameters-30
+[98]: #parameters-31
 
-[99]: #assignbuttons
+[99]: #keystate
 
-[100]: #parameters-31
+[100]: #properties-3
 
 [101]: #key
 
