@@ -115,9 +115,9 @@ scaleManager.removeEntity(myEntity);
 
 | Parameter | values | Description |
 |---|---|---|
-|`offset`| `x,y` | distance calculated between the game size and the viewport size |
-|`scale`| `x,y ` | scale values calculated for viewport |
-|`gameSize`| `x,y` | actual game space size, set during scale manager initialization |
+|`offset`| `x,y` | (deprecated)distance calculated between the game size and the viewport size |
+|`scale`| `x,y ` | (deprecated)scale values calculated for viewport |
+|`gameSize`| `x,y` | (deprecated)actual game space size, set during scale manager initialization |
 |`scaleRatio`| `number` | scaling ratio between the safe resolution and container resolution |
 |`viewArea`| `rect` | viewable area of game content |
 
