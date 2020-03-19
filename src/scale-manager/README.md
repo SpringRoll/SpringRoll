@@ -67,24 +67,12 @@ For more info check out the [WebKit Bug](https://bugs.webkit.org/show_bug.cgi?id
 The safe scale manager's callback parameter contains `width`, `height`, `scale`, and `scaleRatio`. these values can be used to resize your game. Depending on the engine you choose you'll have to use them differently. `scale` contains `x` and `y`, these are the independent scaling values for the x and y axis. You may also need to use the `scaleRatio` value, this is the minimum size ratio either `width/safeWidth` or `height/safeHeight`. The `viewArea` value is also passed along to the callback.
 
 ```javascript
-scaleManager.enable(({width, height, scale}) => {
+scaleManager.enable(({ scaleRatio }) => {
   // -- PIXI -- //
-  const view = this.pixi.view;
-  const stage = this.pixi.stage;
   const renderer = this.pixi.renderer;
 
-  stage.position.set(renderer.width / 2, renderer.height / 2);
-  stage.scale.set(scale.x, scale.y);
-
-  stage.pivot.x = renderer.width / 2;
-  stage.pivot.y = renderer.height / 2;
-
-  view.style.width = width + 'px';
-  view.style.height = height + 'px';
-
-  view.style.position = 'absolute'
-  view.style.left = '0px';
-  view.style.top = '0px'; 
+  renderer.view.style.width = `${GAMEPLAY.WIDTH * scaleRatio}px`;
+  renderer.view.style.height = `${GAMEPLAY.HEIGHT * scaleRatio}px`; 
 });
 ```
 
@@ -112,7 +100,7 @@ If your game has any code that needs to be updated after the game resizes it can
 ```javascript
 class MyEntity extends ScaledEntity
 {
-  onResize({offset, scale, gameSize})
+  onResize({ scaleRatio })
   {
     //Resize dependant code.
   }
@@ -130,6 +118,8 @@ scaleManager.removeEntity(myEntity);
 |`offset`| `x,y` | distance calculated between the game size and the viewport size |
 |`scale`| `x,y ` | scale values calculated for viewport |
 |`gameSize`| `x,y` | actual game space size, set during scale manager initialization |
+|`scaleRatio`| `number` | scaling ratio between the safe resolution and container resolution |
+|`viewArea`| `rect` | viewable area of game content |
 
 An example of a ScaledEntity might be offsetting a camera to keep the game in view.
 
@@ -142,9 +132,9 @@ class CameraPositioner extends ScaledEntity
     this.camera = camera;
   }
 
-  onResize({ offset, gameSize })
+  onResize({ viewArea })
   {
-    this.camera.setViewport(-offset.x, -offset.y, gameSize.x, gameSize.y);
+    this.camera.setViewport(viewArea.x, viewArea.y, viewArea.width, viewArea.height);
   }
 }
 ```
