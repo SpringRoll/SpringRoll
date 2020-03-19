@@ -16,7 +16,7 @@ export class ScaleManager {
     this.callback = callback;
 
     /** @private */
-    this.resizer = new ResizeHelper(this);
+    this.resizer = new ResizeHelper(this.onResize.bind(this));
 
     if (callback instanceof Function) {
       this.enable(callback);
@@ -25,28 +25,17 @@ export class ScaleManager {
 
   /**
    * onResize maps and passes the relevant data to the user provided callback function.
-   * @param {UIEvent} event
+   * @param {object} param
+   * @param {number} param.width - Current window width
+   * @param {number} param.height - Current window height
    * @private
    */
-  onResize(event) {
-    const resize = () => {
-      const width = event.target.innerWidth;
-      const height = event.target.innerHeight;
+  onResize({ width, height }) {
+    this.width = width;
+    this.height = height;
 
-      this.callback({
-        width,
-        height,
-        ratio: width / height
-      });
-
-      this.width = width;
-      this.height = height;
-    };
-
-    resize();
-
-    // handle a bug in iOS where innerWidth and innerHeight aren't correct immediately after resize.
-    setTimeout(resize, 500);
+    const ratio = width / height;
+    this.callback({ width, height, ratio });
   }
 
   /**
