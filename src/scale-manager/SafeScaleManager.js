@@ -61,7 +61,7 @@ export class SafeScaleManager {
     this.entities = [];
 
     /** @private */
-    this.resizer = new ResizeHelper(this);
+    this.resizer = new ResizeHelper(this.onResize.bind(this));
 
     if (callback instanceof Function) {
       this.enable(callback);
@@ -70,65 +70,56 @@ export class SafeScaleManager {
 
   /**
    * onResize maps and passes the relevant data to the user provided callback function.
-   * @param {UIEvent} event
+   * @param {object} param
+   * @param {number} param.width - Current window width
+   * @param {number} param.height - Current window height
    * @private
    */
-  onResize(event) {
-    const resize = () => {
-      const width = event.target.innerWidth;
-      const height = event.target.innerHeight;
-      
-      // Calculate Canvas size and scale //
-      this.scaleRatio = Math.min(
-        width / this.safeWidth,
-        height / this.safeHeight
-      );
+  onResize({ width, height }) {
+    // Calculate the scaling ratio.
+    this.scaleRatio = Math.min(width / this.safeWidth, height / this.safeHeight);
 
-      const nWidth = Math.max(0, Math.min(this.gameWidth * this.scaleRatio, width));
-      const nHeight = Math.max(0, Math.min(this.gameHeight * this.scaleRatio, height));
-      const scale = {
-        x: (this.gameWidth / nWidth) * this.scaleRatio,
-        y: (this.gameHeight / nHeight) * this.scaleRatio
-      };
-      const scaledWidth = width / this.scaleRatio;
-      const scaledHeight = height / this.scaleRatio;
+    const nWidth = Math.max(0, Math.min(this.gameWidth * this.scaleRatio, width));
+    const nHeight = Math.max(0, Math.min(this.gameHeight * this.scaleRatio, height));
 
-      this.viewArea.left = Math.max(-(scaledWidth - this.gameWidth) * 0.5, 0);
-      this.viewArea.top = Math.max(-(scaledHeight - this.gameHeight) * 0.5, 0);
-      this.viewArea.right = Math.min(this.viewArea.left + scaledWidth, this.gameWidth);
-      this.viewArea.bottom = Math.min(this.viewArea.top + scaledHeight, this.gameHeight);
-      
-      this.viewArea.x = this.viewArea.left;
-      this.viewArea.y = this.viewArea.top;
-      this.viewArea.width = this.viewArea.right - this.viewArea.left;
-      this.viewArea.height = this.viewArea.bottom - this.viewArea.top;
-
-      /** @type {EntityResizeEvent} */
-      this.resizeEventData = Object.freeze({
-        offset: { x: this.viewArea.x, y: this.viewArea.y },
-        gameSize:{ x: this.gameWidth, y: this.gameHeight },
-        viewArea: this.viewArea,
-        scale
-      });
-      
-      this.callback({ 
-        width: nWidth, 
-        height: nHeight, 
-        scaleRatio: this.scaleRatio,
-        viewArea: this.viewArea,
-        scale
-      });
-
-      for (let i = 0, length = this.entities.length; i < length; i++) {
-        const entity = this.entities[i];
-        entity.onResize(this.resizeEventData);
-      }
+    const scale = {
+      x: (this.gameWidth / nWidth) * this.scaleRatio,
+      y: (this.gameHeight / nHeight) * this.scaleRatio
     };
 
-    resize();
+    const scaledWidth = width / this.scaleRatio;
+    const scaledHeight = height / this.scaleRatio;
 
-    // handle a bug in iOS where innerWidth and innerHeight aren't correct immediately after resize.
-    setTimeout(resize, 500);
+    this.viewArea.left = Math.max(-(scaledWidth - this.gameWidth) * 0.5, 0);
+    this.viewArea.top = Math.max(-(scaledHeight - this.gameHeight) * 0.5, 0);
+    this.viewArea.right = Math.min(this.viewArea.left + scaledWidth, this.gameWidth);
+    this.viewArea.bottom = Math.min(this.viewArea.top + scaledHeight, this.gameHeight);
+    
+    this.viewArea.x = this.viewArea.left;
+    this.viewArea.y = this.viewArea.top;
+    this.viewArea.width = this.viewArea.right - this.viewArea.left;
+    this.viewArea.height = this.viewArea.bottom - this.viewArea.top;
+
+    /** @type {EntityResizeEvent} */
+    this.resizeEventData = Object.freeze({
+      offset: { x: this.viewArea.x, y: this.viewArea.y },
+      gameSize:{ x: this.gameWidth, y: this.gameHeight },
+      viewArea: this.viewArea,
+      scale
+    });
+    
+    this.callback({ 
+      width: nWidth, 
+      height: nHeight, 
+      scaleRatio: this.scaleRatio,
+      viewArea: this.viewArea,
+      scale
+    });
+
+    for (let i = 0, length = this.entities.length; i < length; i++) {
+      const entity = this.entities[i];
+      entity.onResize(this.resizeEventData);
+    }
   }
 
   /**
