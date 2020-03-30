@@ -1,3 +1,5 @@
+import { ResizeHelper } from './ResizeHelper';
+
 /**
  * Simplifies listening to resize events by passing the relevant data to a provided callback.
  * @class ScaleManager
@@ -8,12 +10,13 @@ export class ScaleManager {
   /**
    *Creates an instance of ScaleManager.
    */
-  constructor(callback) {
+  constructor(callback = () => {}) {
     this.width = 1;
     this.height = 1;
     this.callback = callback;
 
-    this.onResize = this.onResize.bind(this);
+    /** @private */
+    this.resizer = new ResizeHelper(this.onResize.bind(this));
 
     if (callback instanceof Function) {
       this.enable(callback);
@@ -22,28 +25,17 @@ export class ScaleManager {
 
   /**
    * onResize maps and passes the relevant data to the user provided callback function.
-   * @param {UIEvent} event
+   * @param {object} param
+   * @param {number} param.width - Current window width
+   * @param {number} param.height - Current window height
    * @private
    */
-  onResize(event) {
-    const resize = () => {
-      const width = event.target.innerWidth;
-      const height = event.target.innerHeight;
+  onResize({ width, height }) {
+    this.width = width;
+    this.height = height;
 
-      this.callback({
-        width,
-        height,
-        ratio: width / height
-      });
-
-      this.width = width;
-      this.height = height;
-    };
-
-    resize();
-
-    // handle a bug in iOS where innerWidth and innerHeight aren't correct immediately after resize.
-    setTimeout(resize, 500);
+    const ratio = width / height;
+    this.callback({ width, height, ratio });
   }
 
   /**
@@ -53,7 +45,7 @@ export class ScaleManager {
   enable(callback) {
     if (callback instanceof Function) {
       this.callback = callback;
-      window.addEventListener('resize', this.onResize);
+      this.resizer.enabled = true;
     } else {
       console.warn('Scale Manager was not passed a function');
     }
@@ -63,6 +55,6 @@ export class ScaleManager {
    * Disables the scale manager.
    */
   disable() {
-    window.removeEventListener('resize', this.onResize);
+    this.resizer.enabled = false;
   }
 }

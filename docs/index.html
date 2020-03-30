@@ -237,6 +237,12 @@
                       </a></li>
                       
                       <li><a
+                        href='#safescalemanagerresizeeventdata'
+                        class='regular pre-open'>
+                        #resizeEventData
+                      </a></li>
+                      
+                      <li><a
                         href='#safescalemanagerremoveentity'
                         class='regular pre-open'>
                         #removeEntity
@@ -264,9 +270,61 @@
               
                 
                 <li><a
-                  href='#resizeeventdata'
+                  href='#resizehelper'
+                  class=" toggle-sibling">
+                  ResizeHelper
+                  <span class='icon'>▸</span>
+                </a>
+                
+                <div class='toggle-target display-none'>
+                  
+                  <ul class='list-reset py1-ul pl1'>
+                    <li class='h5'><span>Static members</span></li>
+                    
+                      <li><a
+                        href='#resizehelperios'
+                        class='regular pre-open'>
+                        .iOS
+                      </a></li>
+                    
+                      <li><a
+                        href='#resizehelperenabled'
+                        class='regular pre-open'>
+                        .enabled
+                      </a></li>
+                    
+                      <li><a
+                        href='#resizehelperenabled'
+                        class='regular pre-open'>
+                        .enabled
+                      </a></li>
+                    
+                      <li><a
+                        href='#resizehelperonwindowresize'
+                        class='regular pre-open'>
+                        .onWindowResize
+                      </a></li>
+                    
+                      <li><a
+                        href='#resizehelpergetwindowresolution'
+                        class='regular pre-open'>
+                        .getWindowResolution
+                      </a></li>
+                    
+                    </ul>
+                  
+                  
+                  
+                  
+                </div>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#entityresizeevent'
                   class="">
-                  resizeEventData
+                  EntityResizeEvent
                   
                 </a>
                 
@@ -297,16 +355,6 @@
                   
                   
                 </div>
-                
-                </li>
-              
-                
-                <li><a
-                  href='#entityresizeevent'
-                  class="">
-                  EntityResizeEvent
-                  
-                </a>
                 
                 </li>
               
@@ -440,16 +488,6 @@
               
                 
                 <li><a
-                  href='#filtertype'
-                  class="">
-                  filterType
-                  
-                </a>
-                
-                </li>
-              
-                
-                <li><a
                   href='#colorfilter'
                   class=" toggle-sibling">
                   ColorFilter
@@ -491,6 +529,26 @@
                   
                   
                 </div>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#filtertype'
+                  class="">
+                  filterType
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#keystate'
+                  class="">
+                  KeyState
+                  
+                </a>
                 
                 </li>
               
@@ -548,16 +606,6 @@
                   
                   
                 </div>
-                
-                </li>
-              
-                
-                <li><a
-                  href='#keystate'
-                  class="">
-                  KeyState
-                  
-                </a>
                 
                 </li>
               
@@ -654,6 +702,12 @@
                         href='#applicationvalidatelisteners'
                         class='regular pre-open'>
                         #validateListeners
+                      </a></li>
+                      
+                      <li><a
+                        href='#applicationsetstatedefaults'
+                        class='regular pre-open'>
+                        #setStateDefaults
                       </a></li>
                       
                     </ul>
@@ -1225,6 +1279,16 @@
               
                 
                 <li><a
+                  href='#localizeroptions'
+                  class="">
+                  Localizer.Options
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
                   href='#localizer'
                   class=" toggle-sibling">
                   Localizer
@@ -1272,16 +1336,6 @@
                   
                   
                 </div>
-                
-                </li>
-              
-                
-                <li><a
-                  href='#localizeroptions'
-                  class="">
-                  Localizer.Options
-                  
-                </a>
                 
                 </li>
               
@@ -2581,6 +2635,8 @@
               
                 <tr>
   <td class='break-word'><span class='code bold'>$0.callback</span> <code class='quiet'>any</code>
+  
+    (default <code>()=&gt;{}</code>)
   </td>
   <td class='break-word'><span></span></td>
 </tr>
@@ -2770,6 +2826,57 @@
     <p>
       Type:
       <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>&#x3C;<a href="#scaledentity">ScaledEntity</a>>
+    </p>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='safescalemanagerresizeeventdata'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>resizeEventData</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  
+    <div class='pre p1 fill-light mt0'>resizeEventData</div>
+  
+    <p>
+      Type:
+      <a href="#entityresizeevent">EntityResizeEvent</a>
     </p>
   
   
@@ -2996,8 +3103,324 @@
   
   <div class='clearfix'>
     
-    <h3 class='fl m0' id='resizeeventdata'>
-      resizeEventData
+    <h3 class='fl m0' id='resizehelper'>
+      ResizeHelper
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Utility class that handles resize events for ScaleManager and SafeScaleManager.</p>
+
+    <div class='pre p1 fill-light mt0'>new ResizeHelper(resizeCallback: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function">function</a>)</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>resizeCallback</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function">function</a>)</code>
+	    
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Static Members</div>
+    <div class="clearfix">
+  
+    <div class='border-bottom' id='resizehelperios'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>iOS</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Whether or not the application is running on an iOS device.</p>
+
+    <div class='pre p1 fill-light mt0'>iOS</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='resizehelperenabled'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>enabled</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Returns the enabled state of the ResizeHelper.</p>
+
+    <div class='pre p1 fill-light mt0'>enabled</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='resizehelperenabled'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>enabled</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Sets the enabled state of the ResizeHelper.
+Forces a resize event.</p>
+
+    <div class='pre p1 fill-light mt0'>enabled</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>value</span> <code class='quiet'>(any)</code>
+	    
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='resizehelperonwindowresize'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>onWindowResize()</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Handler for window resize events. Forwards this event to the scale manager if enabled.</p>
+
+    <div class='pre p1 fill-light mt0'>onWindowResize()</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='resizehelpergetwindowresolution'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>getWindowResolution()</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Sets the window width and window height values of the ResizeHelper.</p>
+
+    <div class='pre p1 fill-light mt0'>getWindowResolution()</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+</div>
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='entityresizeevent'>
+      EntityResizeEvent
     </h3>
     
     
@@ -3005,11 +3428,11 @@
   
 
   
-    <div class='pre p1 fill-light mt0'>resizeEventData</div>
+    <div class='pre p1 fill-light mt0'>EntityResizeEvent</div>
   
     <p>
       Type:
-      <a href="#entityresizeevent">EntityResizeEvent</a>
+      {offset: <a href="#point">Point</a>, gameSize: <a href="#point">Point</a>, scale: <a href="#point">Point</a>}
     </p>
   
   
@@ -3152,58 +3575,6 @@
     </div>
   
 </div>
-
-  
-
-  
-
-  
-</section>
-
-          
-        
-          
-          <section class='p2 mb2 clearfix bg-white minishadow'>
-
-  
-  <div class='clearfix'>
-    
-    <h3 class='fl m0' id='entityresizeevent'>
-      EntityResizeEvent
-    </h3>
-    
-    
-  </div>
-  
-
-  
-    <div class='pre p1 fill-light mt0'>EntityResizeEvent</div>
-  
-    <p>
-      Type:
-      {offset: <a href="#point">Point</a>, gameSize: <a href="#point">Point</a>, scale: <a href="#point">Point</a>}
-    </p>
-  
-  
-
-  
-  
-  
-  
-  
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
 
   
 
@@ -4209,58 +4580,6 @@ If the announcer is already saying something then it will be added to a queue.</
   
   <div class='clearfix'>
     
-    <h3 class='fl m0' id='filtertype'>
-      filterType
-    </h3>
-    
-    
-  </div>
-  
-
-  
-    <div class='pre p1 fill-light mt0'>filterType</div>
-  
-    <p>
-      Type:
-      (<code>"protanopia"</code> | <code>"protanomaly"</code> | <code>"deuteranopia"</code> | <code>"deuteranomaly"</code> | <code>"tritanopia"</code> | <code>"tritanomaly"</code> | <code>"achromatopsia"</code> | <code>"achromatomaly"</code>)
-    </p>
-  
-  
-
-  
-  
-  
-  
-  
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-</section>
-
-          
-        
-          
-          <section class='p2 mb2 clearfix bg-white minishadow'>
-
-  
-  <div class='clearfix'>
-    
     <h3 class='fl m0' id='colorfilter'>
       ColorFilter
     </h3>
@@ -4536,6 +4855,133 @@ If the announcer is already saying something then it will be added to a queue.</
     </div>
   
 </div>
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='filtertype'>
+      filterType
+    </h3>
+    
+    
+  </div>
+  
+
+  
+    <div class='pre p1 fill-light mt0'>filterType</div>
+  
+    <p>
+      Type:
+      (<code>"protanopia"</code> | <code>"protanomaly"</code> | <code>"deuteranopia"</code> | <code>"deuteranomaly"</code> | <code>"tritanopia"</code> | <code>"tritanomaly"</code> | <code>"achromatopsia"</code> | <code>"achromatomaly"</code>)
+    </p>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='keystate'>
+      KeyState
+    </h3>
+    
+    
+  </div>
+  
+
+  
+    <div class='pre p1 fill-light mt0'>KeyState</div>
+  
+    <p>
+      Type:
+      (<code>0</code> | <code>1</code> | <code>2</code>)
+    </p>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Properties</div>
+    <div>
+      
+        <div class='space-bottom0'>
+          <span class='code bold'>down</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function">Function</a>)</code>
+          
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <span class='code bold'>up</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function">Function</a>)</code>
+          
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <span class='code bold'>key</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
+          
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+
+  
 
   
 
@@ -4897,81 +5343,6 @@ If the announcer is already saying something then it will be added to a queue.</
     </div>
   
 </div>
-
-  
-
-  
-
-  
-</section>
-
-          
-        
-          
-          <section class='p2 mb2 clearfix bg-white minishadow'>
-
-  
-  <div class='clearfix'>
-    
-    <h3 class='fl m0' id='keystate'>
-      KeyState
-    </h3>
-    
-    
-  </div>
-  
-
-  
-    <div class='pre p1 fill-light mt0'>KeyState</div>
-  
-    <p>
-      Type:
-      (<code>0</code> | <code>1</code> | <code>2</code>)
-    </p>
-  
-  
-
-  
-  
-  
-  
-  
-  
-
-  
-
-  
-    <div class='py1 quiet mt1 prose-big'>Properties</div>
-    <div>
-      
-        <div class='space-bottom0'>
-          <span class='code bold'>down</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function">Function</a>)</code>
-          
-          
-        </div>
-      
-        <div class='space-bottom0'>
-          <span class='code bold'>up</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function">Function</a>)</code>
-          
-          
-        </div>
-      
-        <div class='space-bottom0'>
-          <span class='code bold'>key</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
-          
-          
-        </div>
-      
-    </div>
-  
-
-  
-
-  
-
-  
-
-  
 
   
 
@@ -5796,6 +6167,53 @@ If the announcer is already saying something then it will be added to a queue.</
 </li>
       
     </ul>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='applicationsetstatedefaults'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>setStateDefaults()</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Sets default values of application state properties.</p>
+
+    <div class='pre p1 fill-light mt0'>setStateDefaults()</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
   
 
   
@@ -9595,6 +10013,58 @@ and swaps out the placeholder inside the double brackets with the matching key i
   
   <div class='clearfix'>
     
+    <h3 class='fl m0' id='localizeroptions'>
+      Localizer.Options
+    </h3>
+    
+    
+  </div>
+  
+
+  
+    <div class='pre p1 fill-light mt0'>Localizer.Options</div>
+  
+    <p>
+      Type:
+      {language: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>, fallback: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>}
+    </p>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
     <h3 class='fl m0' id='localizer'>
       Localizer
     </h3>
@@ -9953,58 +10423,6 @@ and swaps out the placeholder inside the double brackets with the matching key i
     </div>
   
 </div>
-
-  
-
-  
-
-  
-
-  
-</section>
-
-          
-        
-          
-          <section class='p2 mb2 clearfix bg-white minishadow'>
-
-  
-  <div class='clearfix'>
-    
-    <h3 class='fl m0' id='localizeroptions'>
-      Localizer.Options
-    </h3>
-    
-    
-  </div>
-  
-
-  
-    <div class='pre p1 fill-light mt0'>Localizer.Options</div>
-  
-    <p>
-      Type:
-      {language: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>, fallback: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>}
-    </p>
-  
-  
-
-  
-  
-  
-  
-  
-  
-
-  
-
-  
-
-  
-
-  
-
-  
 
   
 
