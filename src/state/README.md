@@ -14,6 +14,25 @@ isPaused.subscribe(function(newValue, oldValue) {
 isPaused.value = true;
 ```
 
+A `Property` only notifies listeners when the value set is different than the current value it has. To
+tell the `Property` to always notify regardless if the values are equal, provide a `true` as a second argument in the constructor.
+
+```javascript
+const width = 1024;
+const height = 768;
+
+// Creates a property that will always notify.
+const aspectRatio = new Property(width / height, true);
+
+// subscribe for changes to the property
+aspectRatio.subscribe(function(newValue, oldValue) {
+  if (newValue === oldValue) {
+    console.log("Property value has not changed, but the listener was still called.");
+  }
+});
+
+aspectRatio.value = width / height;
+```
 
 ## UserData
 

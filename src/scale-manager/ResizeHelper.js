@@ -122,8 +122,8 @@ export class ResizeHelper {
       }
     }
     else {
-      width = document.documentElement.clientWidth;
-      height = document.documentElement.clientHeight;
+      width = window.innerWidth;
+      height = window.innerHeight;
     }
 
     return { width, height };

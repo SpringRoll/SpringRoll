@@ -21,10 +21,10 @@
         -   [Parameters][17]
     -   [delete][18]
         -   [Parameters][19]
--   [Point][20]
--   [Point][21]
--   [PositionCallback][22]
-    -   [Parameters][23]
+-   [PositionCallback][20]
+    -   [Parameters][21]
+-   [Point][22]
+-   [Point][23]
 -   [Anchor][24]
     -   [onResize][25]
         -   [Parameters][26]
@@ -89,18 +89,18 @@
     -   [removeFilter][85]
     -   [types][86]
 -   [filterType][87]
--   [Controller][88]
-    -   [Parameters][89]
-    -   [onWindowBlur][90]
-    -   [update][91]
-    -   [onKeyDown][92]
-        -   [Parameters][93]
-    -   [onKeyUp][94]
+-   [KeyState][88]
+    -   [Properties][89]
+-   [Controller][90]
+    -   [Parameters][91]
+    -   [onWindowBlur][92]
+    -   [update][93]
+    -   [onKeyDown][94]
         -   [Parameters][95]
-    -   [assignButtons][96]
+    -   [onKeyUp][96]
         -   [Parameters][97]
--   [KeyState][98]
-    -   [Properties][99]
+    -   [assignButtons][98]
+        -   [Parameters][99]
 -   [Key][100]
     -   [Parameters][101]
     -   [Properties][102]
@@ -155,7 +155,7 @@
     -   [value][151]
         -   [Parameters][152]
 -   [Caption][153]
-    -   [Parameters][154]
+    -   [Properties][154]
     -   [update][155]
         -   [Parameters][156]
     -   [updateState][157]
@@ -166,7 +166,7 @@
     -   [updateTimeIndex][162]
         -   [Parameters][163]
 -   [Caption][164]
-    -   [Properties][165]
+    -   [Parameters][165]
     -   [update][166]
         -   [Parameters][167]
     -   [updateState][168]
@@ -184,13 +184,13 @@
     -   [createLine][180]
         -   [Parameters][181]
 -   [CaptionPlayer][182]
-    -   [update][183]
-        -   [Parameters][184]
-    -   [start][185]
-        -   [Parameters][186]
-    -   [stop][187]
--   [CaptionPlayer][188]
-    -   [Parameters][189]
+    -   [Parameters][183]
+    -   [update][184]
+        -   [Parameters][185]
+    -   [start][186]
+        -   [Parameters][187]
+    -   [stop][188]
+-   [CaptionPlayer][189]
     -   [update][190]
         -   [Parameters][191]
     -   [start][192]
@@ -322,14 +322,6 @@ Removes data from SpringRoll Container
 
 -   `name` **[string][235]** 
 
-## Point
-
-Type: {x: [Number][233], y: [Number][233]}
-
-## Point
-
-Type: {x: [Number][233], y: [Number][233]}
-
 ## PositionCallback
 
 callback to used move game entities
@@ -339,6 +331,14 @@ Type: [Function][234]
 ### Parameters
 
 -   `position` **[Point][237]** position relative to anchor direction
+
+## Point
+
+Type: {x: [Number][233], y: [Number][233]}
+
+## Point
+
+Type: {x: [Number][233], y: [Number][233]}
 
 ## Anchor
 
@@ -632,6 +632,16 @@ Returns **[object][238]** Returns an object { name, value } with the colorblindn
 
 Type: (`"protanopia"` \| `"protanomaly"` \| `"deuteranopia"` \| `"deuteranomaly"` \| `"tritanopia"` \| `"tritanomaly"` \| `"achromatopsia"` \| `"achromatomaly"`)
 
+## KeyState
+
+Type: (`0` \| `1` \| `2`)
+
+### Properties
+
+-   `down` **[Function][234]** 
+-   `up` **[Function][234]** 
+-   `key` **[string][235]** 
+
 ## Controller
 
 Controller interface class to simplify working with key presses.
@@ -673,16 +683,6 @@ Sets an object of button functions to the controller to be called.
 #### Parameters
 
 -   `keys` **[Array][239]&lt;KeyTemplate>** 
-
-## KeyState
-
-Type: (`0` \| `1` \| `2`)
-
-### Properties
-
--   `down` **[Function][234]** 
--   `up` **[Function][234]** 
--   `key` **[string][235]** 
 
 ## Key
 
@@ -961,9 +961,12 @@ Sets the value of the property and notifies all listeners of the change
 
 ## Caption
 
-### Parameters
+### Properties
 
--   `lines`  
+-   `lines` **[Array][239]&lt;[TimedLine][249]>** 
+-   `time` **[number][233]** 
+-   `lineIndex` **[number][233]** 
+-   `renderer` **[IRender][250]** 
 
 ### update
 
@@ -1008,12 +1011,9 @@ Updates the current time and index of the caption instance
 
 ## Caption
 
-### Properties
+### Parameters
 
--   `lines` **[Array][239]&lt;[TimedLine][249]>** 
--   `time` **[number][233]** 
--   `lineIndex` **[number][233]** 
--   `renderer` **[IRender][250]** 
+-   `lines`  
 
 ### update
 
@@ -1092,8 +1092,10 @@ Returns **[TimedLine][249]** new TimedLine;
 
 ## CaptionPlayer
 
-CaptionPlayer is used to start, stop and update captions.
- It applies the content of an active caption to a given CaptionRenderer.
+### Parameters
+
+-   `captions`  
+-   `renderer`  
 
 ### update
 
@@ -1120,10 +1122,8 @@ Stops any caption currently playing.
 
 ## CaptionPlayer
 
-### Parameters
-
--   `captions`  
--   `renderer`  
+CaptionPlayer is used to start, stop and update captions.
+ It applies the content of an active caption to a given CaptionRenderer.
 
 ### update
 
@@ -1351,13 +1351,13 @@ After all plugins inits has completed
 
 [19]: #parameters-5
 
-[20]: #point
+[20]: #positioncallback
 
-[21]: #point-1
+[21]: #parameters-6
 
-[22]: #positioncallback
+[22]: #point
 
-[23]: #parameters-6
+[23]: #point-1
 
 [24]: #anchor
 
@@ -1487,29 +1487,29 @@ After all plugins inits has completed
 
 [87]: #filtertype
 
-[88]: #controller
+[88]: #keystate
 
-[89]: #parameters-27
+[89]: #properties-3
 
-[90]: #onwindowblur
+[90]: #controller
 
-[91]: #update
+[91]: #parameters-27
 
-[92]: #onkeydown
+[92]: #onwindowblur
 
-[93]: #parameters-28
+[93]: #update
 
-[94]: #onkeyup
+[94]: #onkeydown
 
-[95]: #parameters-29
+[95]: #parameters-28
 
-[96]: #assignbuttons
+[96]: #onkeyup
 
-[97]: #parameters-30
+[97]: #parameters-29
 
-[98]: #keystate
+[98]: #assignbuttons
 
-[99]: #properties-3
+[99]: #parameters-30
 
 [100]: #key
 
@@ -1619,29 +1619,29 @@ After all plugins inits has completed
 
 [153]: #caption
 
-[154]: #parameters-47
+[154]: #properties-8
 
 [155]: #update-1
 
-[156]: #parameters-48
+[156]: #parameters-47
 
 [157]: #updatestate-1
 
-[158]: #parameters-49
+[158]: #parameters-48
 
 [159]: #isfinished
 
 [160]: #start-1
 
-[161]: #parameters-50
+[161]: #parameters-49
 
 [162]: #updatetimeindex
 
-[163]: #parameters-51
+[163]: #parameters-50
 
 [164]: #caption-1
 
-[165]: #properties-8
+[165]: #parameters-51
 
 [166]: #update-2
 
@@ -1677,19 +1677,19 @@ After all plugins inits has completed
 
 [182]: #captionplayer
 
-[183]: #update-3
+[183]: #parameters-59
 
-[184]: #parameters-59
+[184]: #update-3
 
-[185]: #start-3
+[185]: #parameters-60
 
-[186]: #parameters-60
+[186]: #start-3
 
-[187]: #stop-1
+[187]: #parameters-61
 
-[188]: #captionplayer-1
+[188]: #stop-1
 
-[189]: #parameters-61
+[189]: #captionplayer-1
 
 [190]: #update-4
 
