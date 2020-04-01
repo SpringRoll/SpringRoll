@@ -21,46 +21,46 @@
         -   [Parameters][17]
     -   [delete][18]
         -   [Parameters][19]
--   [Point][20]
--   [Point][21]
+-   [PositionCallback][20]
+    -   [Parameters][21]
 -   [Anchor][22]
     -   [onResize][23]
         -   [Parameters][24]
--   [PositionCallback][25]
-    -   [Parameters][26]
--   [ScaleCallback][27]
+-   [Point][25]
+-   [Point][26]
+-   [SafeScaleManager][27]
     -   [Parameters][28]
--   [SafeScaleManager][29]
-    -   [Parameters][30]
-    -   [entities][31]
-    -   [resizeEventData][32]
-    -   [removeEntity][33]
+    -   [entities][29]
+    -   [resizeEventData][30]
+    -   [removeEntity][31]
+        -   [Parameters][32]
+    -   [enable][33]
         -   [Parameters][34]
-    -   [enable][35]
-        -   [Parameters][36]
-    -   [disable][37]
-    -   [calcOffset][38]
+    -   [disable][35]
+    -   [calcOffset][36]
+        -   [Parameters][37]
+    -   [addEntity][38]
         -   [Parameters][39]
-    -   [addEntity][40]
-        -   [Parameters][41]
--   [EntityResizeEvent][42]
--   [ScaledEntity][43]
-    -   [onResize][44]
-        -   [Parameters][45]
--   [ScaleManager][46]
-    -   [Parameters][47]
-    -   [Properties][48]
-    -   [enable][49]
-        -   [Parameters][50]
-    -   [disable][51]
--   [ResizeHelper][52]
-    -   [Parameters][53]
-    -   [iOS][54]
-    -   [enabled][55]
-    -   [enabled][56]
-        -   [Parameters][57]
-    -   [onWindowResize][58]
-    -   [getWindowResolution][59]
+-   [ScaleCallback][40]
+    -   [Parameters][41]
+-   [ResizeHelper][42]
+    -   [Parameters][43]
+    -   [iOS][44]
+    -   [enabled][45]
+    -   [enabled][46]
+        -   [Parameters][47]
+    -   [onWindowResize][48]
+    -   [getWindowResolution][49]
+-   [EntityResizeEvent][50]
+-   [ScaledEntity][51]
+    -   [onResize][52]
+        -   [Parameters][53]
+-   [ScaleManager][54]
+    -   [Parameters][55]
+    -   [Properties][56]
+    -   [enable][57]
+        -   [Parameters][58]
+    -   [disable][59]
 -   [SpeechSynth][60]
     -   [Parameters][61]
     -   [Properties][62]
@@ -219,17 +219,17 @@
     -   [lineEnd][215]
     -   [sanitize][216]
         -   [Parameters][217]
--   [Localizer.Options][218]
--   [Localizer][219]
-    -   [resolve][220]
-        -   [Parameters][221]
-    -   [setPrimaryLocale][222]
-        -   [Parameters][223]
-    -   [setFallbackLocale][224]
-        -   [Parameters][225]
-    -   [getLocaleKey][226]
-        -   [Parameters][227]
-    -   [getBrowserLanguages][228]
+-   [Localizer][218]
+    -   [resolve][219]
+        -   [Parameters][220]
+    -   [setPrimaryLocale][221]
+        -   [Parameters][222]
+    -   [setFallbackLocale][223]
+        -   [Parameters][224]
+    -   [getLocaleKey][225]
+        -   [Parameters][226]
+    -   [getBrowserLanguages][227]
+-   [Localizer.Options][228]
 -   [ApplicationPlugin][229]
     -   [preload][230]
     -   [init][231]
@@ -322,13 +322,15 @@ Removes data from SpringRoll Container
 
 -   `name` **[string][235]** 
 
-## Point
+## PositionCallback
 
-Type: {x: [Number][233], y: [Number][233]}
+callback to used move game entities
 
-## Point
+Type: [Function][234]
 
-Type: {x: [Number][233], y: [Number][233]}
+### Parameters
+
+-   `position` **[Point][237]** position relative to anchor direction
 
 ## Anchor
 
@@ -338,34 +340,18 @@ Used to fix positions to a relative point in the viewport.
 
 #### Parameters
 
--   `param` **[object][237]** 
-    -   `param.viewArea` **[Point][238]** 
+-   `param` **[object][238]** 
+    -   `param.viewArea` **[Point][237]** 
 
 Returns **void** @memberof Anchor
 
-## PositionCallback
+## Point
 
-callback to used move game entities
+Type: {x: [Number][233], y: [Number][233]}
 
-Type: [Function][234]
+## Point
 
-### Parameters
-
--   `position` **[Point][238]** position relative to anchor direction
-
-## ScaleCallback
-
-callback to used scale game and canvas
-
-Type: [Function][234]
-
-### Parameters
-
--   `width` **[Number][233]** width canvas should be
--   `height` **[Number][233]** height canvas should be
--   `scale` **[Point][238]** x/y scale values
--   `scaleRatio` **[Number][233]** minimum aspect ratio that fit's in the screen.
--   `viewArea` **[Object][237]** Rectangle defining the total viewable area of game content.
+Type: {x: [Number][233], y: [Number][233]}
 
 ## SafeScaleManager
 
@@ -373,13 +359,13 @@ Handles scaling the game
 
 ### Parameters
 
--   `$0` **[Object][237]** 
+-   `$0` **[Object][238]** 
     -   `$0.width`  
     -   `$0.height`  
     -   `$0.safeWidth`   (optional, default `Infinity`)
     -   `$0.safeHeight`   (optional, default `Infinity`)
     -   `$0.callback`   (optional, default `()=>{}`)
--   `param` **[object][237]** 
+-   `param` **[object][238]** 
 
 ### entities
 
@@ -417,9 +403,9 @@ Calculates the offset for anchors.
 
 #### Parameters
 
--   `scale` **[Point][238]** scale value
+-   `scale` **[Point][237]** scale value
 
-Returns **[Point][238]** 
+Returns **[Point][237]** 
 
 ### addEntity
 
@@ -429,9 +415,56 @@ Adds and anchor to be updated during resize
 
 -   `entity` **([ScaledEntity][240] \| [Array][239]&lt;[ScaledEntity][240]>)** 
 
+## ScaleCallback
+
+callback to used scale game and canvas
+
+Type: [Function][234]
+
+### Parameters
+
+-   `width` **[Number][233]** width canvas should be
+-   `height` **[Number][233]** height canvas should be
+-   `scale` **[Point][237]** x/y scale values
+-   `scaleRatio` **[Number][233]** minimum aspect ratio that fit's in the screen.
+-   `viewArea` **[Object][238]** Rectangle defining the total viewable area of game content.
+
+## ResizeHelper
+
+Utility class that handles resize events for ScaleManager and SafeScaleManager.
+
+### Parameters
+
+-   `resizeCallback` **[function][234]** 
+
+### iOS
+
+Whether or not the application is running on an iOS device.
+
+### enabled
+
+Returns the enabled state of the ResizeHelper.
+
+### enabled
+
+Sets the enabled state of the ResizeHelper. 
+Forces a resize event.
+
+#### Parameters
+
+-   `value`  
+
+### onWindowResize
+
+Handler for window resize events. Forwards this event to the scale manager if enabled.
+
+### getWindowResolution
+
+Sets the window width and window height values of the ResizeHelper.
+
 ## EntityResizeEvent
 
-Type: {offset: [Point][238], gameSize: [Point][238], scale: [Point][238]}
+Type: {offset: [Point][237], gameSize: [Point][237], scale: [Point][237]}
 
 ## ScaledEntity
 
@@ -467,39 +500,6 @@ Enables the scale manager listener. Will not be enabled if a callback is not sup
 
 Disables the scale manager.
 
-## ResizeHelper
-
-Utility class that handles resize events for ScaleManager and SafeScaleManager.
-
-### Parameters
-
--   `resizeCallback` **[function][234]** 
-
-### iOS
-
-Whether or not the application is running on an iOS device.
-
-### enabled
-
-Returns the enabled state of the ResizeHelper.
-
-### enabled
-
-Sets the enabled state of the ResizeHelper. 
-Forces a resize event.
-
-#### Parameters
-
--   `value`  
-
-### onWindowResize
-
-Handler for window resize events. Forwards this event to the scale manager if enabled.
-
-### getWindowResolution
-
-Sets the window width and window height values of the ResizeHelper.
-
 ## SpeechSynth
 
 SpeechSync makes it easy to convert text to speech.
@@ -507,7 +507,7 @@ Note: This is not supported on IE11 and below because of the underlying APIs are
 
 ### Parameters
 
--   `params` **[object][237]** 
+-   `params` **[object][238]** 
     -   `params.voice` **[number][233]** Indicates what voice to use. (optional, default `0`)
     -   `params.rate` **[number][233]** The rate at which the text is said. Supports a range from 0.1 to 10. (optional, default `1`)
     -   `params.pitch` **[number][233]** Voice Pitch. Supports a pitch from 0 to 2. (optional, default `0`)
@@ -550,7 +550,7 @@ Sets the voice by array index.
 
 Returns the voice object.
 
-Returns **([object][237] | null)** 
+Returns **([object][238] | null)** 
 
 ### rate
 
@@ -625,7 +625,7 @@ Removes the filter from the element.
 
 Supported filter types.
 
-Returns **[object][237]** Returns an object { name, value } with the colorblindness type:
+Returns **[object][238]** Returns an object { name, value } with the colorblindness type:
 (Protanopia, Protanomaly, Deuteranopia, Deuteranomaly, Tritanopia, Tritanomaly, Achromatopsia, Achromatomaly)
 
 ## filterType
@@ -698,7 +698,7 @@ Represents a single key on the keyboard and the functions related to it.
 
 -   `state` **(`0` \| `1` \| `2`)** The current state of the key. 0 = inactive, 1 = active, 2 = to be set to inactive.
 -   `key` **[string][235]** The name of the key we are targeting.
--   `actions` **[object][237]** 
+-   `actions` **[object][238]** 
     -   `actions.down` **[function][234]** Function to be called while the key is held down.
     -   `actions.up` **[function][234]** Function to be called when the key is lifted up.
 
@@ -726,7 +726,7 @@ Main entry point for a game. Provides a single focal point for plugins and funct
 
 ### Properties
 
--   `features` **[object][237]** A configuration object denoting which features are enabled for this application
+-   `features` **[object][238]** A configuration object denoting which features are enabled for this application
     -   `features.captions` **[boolean][243]?** A boolean value denoting that this game supports captions
     -   `features.sound` **[boolean][243]?** A boolean value denoting that this game has some audio in it
     -   `features.vo` **[boolean][243]?** A boolean denoting that this game has mutable voice-over audio in it
@@ -802,11 +802,11 @@ Returns **(SpringRoll.ApplicationPlugin | [undefined][248])**
 
 ## Debugger
 
-Type: [object][237]
+Type: [object][238]
 
 ### Parameters
 
--   `params` **[Object][237]** Options
+-   `params` **[Object][238]** Options
     -   `params.emitEnabled` **[boolean][243]** If this should emit events to the window. (optional, default `false`)
     -   `params.minLevel` **(`"GENERAL"` \| `"DEBUG"` \| `"INFO"` \| `"WARN"` \| `"ERROR"`)** The starting log level for the logger. (optional, default `'GENERAL'`)
 
@@ -844,7 +844,7 @@ If emitting is enabled for this instance, then it will dispatch an event on the 
 
 Returns logging levels.
 
-Returns **[object][237]** 
+Returns **[object][238]** 
 
 ### log
 
@@ -1068,7 +1068,7 @@ Creates a new Object&lt;String, Caption>.
 
 -   `data` **[JSON][251]** 
 
-Returns **[Object][237]** 
+Returns **[Object][238]** 
 
 ### createCaption
 
@@ -1112,7 +1112,7 @@ Starts playing a caption.
 
 -   `name` **[String][235]** Name of caption.
 -   `time` **[number][233]** Atart time in milliseconds. (optional, default `0`)
--   `args` **[object][237]** Arguments that will get passed to the renderer (optional, default `{}`)
+-   `args` **[object][238]** Arguments that will get passed to the renderer (optional, default `{}`)
 
 ### stop
 
@@ -1142,7 +1142,7 @@ Starts playing a caption.
 
 -   `name` **[String][235]** Name of caption.
 -   `time` **[number][233]** Atart time in milliseconds. (optional, default `0`)
--   `args` **[object][237]** Arguments that will get passed to the renderer (optional, default `{}`)
+-   `args` **[object][238]** Arguments that will get passed to the renderer (optional, default `{}`)
 
 ### stop
 
@@ -1184,7 +1184,7 @@ DOMRender is a incomplete renderer that is intended to supply just the basic sta
 ### Parameters
 
 -   `element` **[HTMLElement][244]** 
--   `templateVariables` **[Object][237]** 
+-   `templateVariables` **[Object][238]** 
 
 ### start
 
@@ -1192,7 +1192,7 @@ Makes target element visible and ready to present captions
 
 #### Parameters
 
--   `templateVariables` **[object][237]** Variables that can used during caption play time (optional, default `{}`)
+-   `templateVariables` **[object][238]** Variables that can used during caption play time (optional, default `{}`)
 
 ### stop
 
@@ -1222,7 +1222,7 @@ and swaps out the placeholder inside the double brackets with the matching key i
 ### Parameters
 
 -   `template` **[string][235]** String template that will be rendered with the supplied arguments
--   `args` **[Object][237]** //An Object contain data to be inserted into the template This will match based on key values
+-   `args` **[Object][238]** //An Object contain data to be inserted into the template This will match based on key values
 
 Returns **[string][235]** 
 
@@ -1249,10 +1249,6 @@ Will attempt to remove all html from a string before it's renderer to the page
 #### Parameters
 
 -   `html` **any** 
-
-## Localizer.Options
-
-Type: {language: [string][235], fallback: [string][235]}
 
 ## Localizer
 
@@ -1290,6 +1286,10 @@ Returns **[boolean][243]** True if fallback is set.
 Returns **[string][235]** 
 
 ### getBrowserLanguages
+
+## Localizer.Options
+
+Type: {language: [string][235], fallback: [string][235]}
 
 ## ApplicationPlugin
 
@@ -1351,85 +1351,85 @@ After all plugins inits has completed
 
 [19]: #parameters-5
 
-[20]: #point
+[20]: #positioncallback
 
-[21]: #point-1
+[21]: #parameters-6
 
 [22]: #anchor
 
 [23]: #onresize
 
-[24]: #parameters-6
+[24]: #parameters-7
 
-[25]: #positioncallback
+[25]: #point
 
-[26]: #parameters-7
+[26]: #point-1
 
-[27]: #scalecallback
+[27]: #safescalemanager
 
 [28]: #parameters-8
 
-[29]: #safescalemanager
+[29]: #entities
 
-[30]: #parameters-9
+[30]: #resizeeventdata
 
-[31]: #entities
+[31]: #removeentity
 
-[32]: #resizeeventdata
+[32]: #parameters-9
 
-[33]: #removeentity
+[33]: #enable
 
 [34]: #parameters-10
 
-[35]: #enable
+[35]: #disable
 
-[36]: #parameters-11
+[36]: #calcoffset
 
-[37]: #disable
+[37]: #parameters-11
 
-[38]: #calcoffset
+[38]: #addentity
 
 [39]: #parameters-12
 
-[40]: #addentity
+[40]: #scalecallback
 
 [41]: #parameters-13
 
-[42]: #entityresizeevent
+[42]: #resizehelper
 
-[43]: #scaledentity
+[43]: #parameters-14
 
-[44]: #onresize-1
+[44]: #ios
 
-[45]: #parameters-14
+[45]: #enabled
 
-[46]: #scalemanager
+[46]: #enabled-1
 
 [47]: #parameters-15
 
-[48]: #properties-1
+[48]: #onwindowresize
 
-[49]: #enable-1
+[49]: #getwindowresolution
 
-[50]: #parameters-16
+[50]: #entityresizeevent
 
-[51]: #disable-1
+[51]: #scaledentity
 
-[52]: #resizehelper
+[52]: #onresize-1
 
-[53]: #parameters-17
+[53]: #parameters-16
 
-[54]: #ios
+[54]: #scalemanager
 
-[55]: #enabled
+[55]: #parameters-17
 
-[56]: #enabled-1
+[56]: #properties-1
 
-[57]: #parameters-18
+[57]: #enable-1
 
-[58]: #onwindowresize
+[58]: #parameters-18
 
-[59]: #getwindowresolution
+[59]: #disable-1
 
 [60]: #speechsynth
 
@@ -1747,27 +1747,27 @@ After all plugins inits has completed
 
 [217]: #parameters-70
 
-[218]: #localizeroptions
+[218]: #localizer
 
-[219]: #localizer
+[219]: #resolve
 
-[220]: #resolve
+[220]: #parameters-71
 
-[221]: #parameters-71
+[221]: #setprimarylocale
 
-[222]: #setprimarylocale
+[222]: #parameters-72
 
-[223]: #parameters-72
+[223]: #setfallbacklocale
 
-[224]: #setfallbacklocale
+[224]: #parameters-73
 
-[225]: #parameters-73
+[225]: #getlocalekey
 
-[226]: #getlocalekey
+[226]: #parameters-74
 
-[227]: #parameters-74
+[227]: #getbrowserlanguages
 
-[228]: #getbrowserlanguages
+[228]: #localizeroptions
 
 [229]: #applicationplugin
 
@@ -1785,9 +1785,9 @@ After all plugins inits has completed
 
 [236]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise
 
-[237]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object
+[237]: #point
 
-[238]: #point
+[238]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object
 
 [239]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array
 
