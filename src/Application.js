@@ -5,46 +5,151 @@ import { BellhopSingleton } from './communication/BellhopSingleton';
 
 const pause = 'pause';
 const captionsMuted = 'captionsMuted';
+const captionsStyles = 'captionsStyles';
 const soundVolume = 'soundVolume';
 const musicVolume = 'musicVolume';
 const voVolume = 'voVolume';
 const sfxVolume = 'sfxVolume';
 const playHelp = 'playHelp';
+const pointerSize = 'pointerSize';
+const controlSensitivity = 'controlSensitivity';
+const buttonSize = 'buttonSize';
+const removableLayers = 'removableLayers';
+const hudPosition = 'hudPosition';
+const keyBinding = 'keyBinding';
+const colorVision = 'colorVision';
+const hitAreaScale = 'hitAreaScale';
+const dragThresholdScale = 'dragThresholdScale';
+const health = 'health';
+const objectCount = 'objectCount';
+const completionPercentage = 'completionPercentage';
+const speedScale = 'speedScale';
+const timersScale = 'timersScale';
+const inputCount = 'inputCount';
+
+const stateDefaults = {
+  [pause]: false,
+  [captionsMuted]: true,
+  [captionsStyles]: {
+    color: '#FFFFFF',
+    edge: 'none',
+    font: 'arial',
+    background: '#000000',
+    size: 'md',
+    align: 'top'
+  },
+  [soundVolume]: 1,
+  [musicVolume]: 1,
+  [voVolume]: 1,
+  [sfxVolume]: 1,
+  [pointerSize]: 0.5,
+  [controlSensitivity]: 0.5,
+  [buttonSize]: 0.5,
+  [removableLayers]: 0,
+  [hudPosition]: '',
+  [hitAreaScale]: 0.5,
+  [dragThresholdScale]: 0.5,
+  [health]: 0.5,
+  [objectCount]: 0.5,
+  [completionPercentage]: 0.5,
+  [speedScale]: 0.5,
+  [timersScale]: 0.5,
+  [inputCount]: 0.5,
+  [keyBinding]: {},
+  [colorVision]: 'none'
+};
 
 /**
  * Main entry point for a game. Provides a single focal point for plugins and functionality to attach.
  * @class Application
+ * @property {object} features A configuration object denoting which features are enabled for this application
+ * @property {boolean} [features.captions] A boolean value denoting that this game supports captions
+ * @property {boolean} [features.sound] A boolean value denoting that this game has some audio in it
+ * @property {boolean} [features.vo] A boolean denoting that this game has mutable voice-over audio in it
+ * @property {boolean} [features.music] A boolean denoting that this game has mutable music in it
+ * @property {boolean} [features.sfx] A boolean denoting that this game has mutable sound effects in it
+ * @property {boolean} [features.soundVolume] A boolean denoting that this game has adjustable sound volume in it
+ * @property {boolean} [features.musicVolume] A boolean denoting that this game has adjustable music volume in it
+ * @property {boolean} [features.voVolume] A boolean denoting that this game has adjustable voice-over volume in it
+ * @property {boolean} [features.sfxVolume] A boolean denoting that this game has adjustable sound effects volume in it
+ * @property {boolean} [features.pointerSize] A boolean denoting that this game has adjustable pointer size in it
+ * @property {boolean} [features.controlSensitivity] A boolean denoting that this game has adjustable control sensitivity in it
+ * @property {boolean} [features.buttonSize] A boolean denoting that this game has adjustable button sizes in it
+ * @property {boolean} [features.removableLayers] A boolean denoting that this game has removable game layers in it
+ * @property {boolean} [features.hudPosition] A boolean denoting that this game has custom HUD positions.
+ * @property {boolean} [features.hitAreaScale] A boolean denoting that this game has adjustable hit areas.
+ * @property {boolean} [features.dragThresholdScale] A boolean denoting that this game has adjustable drag thresholds.
+ * @property {boolean} [features.health] A boolean denoting that this game has adjustable health.
+ * @property {boolean} [features.objectCount] A boolean denoting that this game has adjustable object count requirements.
+ * @property {boolean} [features.completionPercentage] A boolean denoting that this game has adjustable completion percentage requirements.
+ * @property {boolean} [features.speedScale] A boolean denoting that this game has adjustable speed.
+ * @property {boolean} [features.timersScale] A boolean denoting that this game has adjustable timers.
+ * @property {boolean} [features.inputCount] A boolean denoting that this game has adjustable input count requirements.
+ * @property {boolean} [features.keyBinding] A boolean denoting that this game has re-mappable key bindings.
+ * @property {boolean} [features.colorVision] A boolean denoting that this game has color blindess filters
  */
 export class Application {
   /**
-   * @param {Object} [config={}]  Root configuration object for various internal Application objects
-   * @param {Object} [config.hintPlayer = HintSequencePlayer] IHintPlayer application will use.
-   * @param {Object} [config.features={}] A configuration object denoting which features are enabled for this application
-   * @param {Boolean} [config.features.captions] A boolean value denoting that this game supports captions
-   * @param {Boolean} [config.features.sound] A boolean value denoting that this game has some audio in it
-   * @param {Boolean} [config.features.vo] A boolean denoting that this game has mutable voice-over audio in it
-   * @param {Boolean} [config.features.music] A boolean denoting that this game has mutable music in it
-   * @param {Boolean} [config.features.sfx] A boolean denoting that this game has mutable sound effects in it
-   * @param {Boolean} [config.features.soundVolume] A boolean denoting that this game has adjustable sound volume in it
-   * @param {Boolean} [config.features.musicVolume] A boolean denoting that this game has adjustable music volume in it
-   * @param {Boolean} [config.features.voVolume] A boolean denoting that this game has adjustable voice-over volume in it
-   * @param {Boolean} [config.features.sfxVolume] A boolean denoting that this game has adjustable sound effects volume in it
+   * @param {object} [config={}]  Root configuration object for various internal Application objects
+   * @param {object} [config.hintPlayer = HintSequencePlayer] IHintPlayer application will use.
+   * @param {object} [config.features={}] A configuration object denoting which features are enabled for this application
+   * @param {boolean} [config.features.captions] A boolean value denoting that this game supports captions
+   * @param {boolean} [config.features.sound] A boolean value denoting that this game has some audio in it
+   * @param {boolean} [config.features.vo] A boolean denoting that this game has mutable voice-over audio in it
+   * @param {boolean} [config.features.music] A boolean denoting that this game has mutable music in it
+   * @param {boolean} [config.features.sfx] A boolean denoting that this game has mutable sound effects in it
+   * @param {boolean} [config.features.soundVolume] A boolean denoting that this game has adjustable sound volume in it
+   * @param {boolean} [config.features.musicVolume] A boolean denoting that this game has adjustable music volume in it
+   * @param {boolean} [config.features.voVolume] A boolean denoting that this game has adjustable voice-over volume in it
+   * @param {boolean} [config.features.sfxVolume] A boolean denoting that this game has adjustable sound effects volume in it
+   * @param {boolean} [config.features.pointerSize] A boolean denoting that this game has adjustable pointer size in it
+   * @param {boolean} [config.features.controlSensitivity] A boolean denoting that this game has adjustable control sensitivity in it
+   * @param {boolean} [config.features.buttonSize] A boolean denoting that this game has adjustable button sizes in it
+   * @param {boolean} [config.features.removableLayers] A boolean denoting that this game has removable game layers in it
+   * @param {boolean} [config.features.hudPosition] A boolean denoting that this game has custom HUD positions in it
+   * @param {boolean} [config.features.hitAreaScale] A boolean denoting that this game has adjustable hit areas.
+   * @param {boolean} [config.features.dragThresholdScale] A boolean denoting that this game has adjustable drag thresholds.
+   * @param {boolean} [config.features.health] A boolean denoting that this game has adjustable health.
+   * @param {boolean} [config.features.objectCount] A boolean denoting that this game has adjustable object count requirements.
+   * @param {boolean} [config.features.completionPercentage] A boolean denoting that this game has adjustable completion percentage requirements.
+   * @param {boolean} [config.features.speedScale] A boolean denoting that this game has adjustable speed.
+   * @param {boolean} [config.features.timersScale] A boolean denoting that this game has adjustable timers.
+   * @param {boolean} [config.features.inputCount] A boolean denoting that this game has adjustable input count requirements.
+   * @param {boolean} [config.features.keyBinding] A boolean denoting that this game has re-mappable key bindings.
+   * @param {boolean} [config.features.colorVision] A boolean denoting that this game has color blindness filters.
    */
   constructor({ features, hintPlayer = new HintSequencePlayer() } = {}) {
     this.state = {
       ready: new Property(false),
-      pause: new Property(false),
-      captionsMuted: new Property(true),
       playOptions: new Property({}),
-      soundVolume: new Property(1),
-      musicVolume: new Property(1),
-      voVolume: new Property(1),
-      sfxVolume: new Property(1)
+      [pause]: new Property(undefined),
+      [captionsMuted]: new Property(undefined),
+      [captionsStyles]: new Property(undefined),
+      [soundVolume]: new Property(undefined),
+      [musicVolume]: new Property(undefined),
+      [voVolume]: new Property(undefined),
+      [sfxVolume]: new Property(undefined),
+      [pointerSize]: new Property(undefined),
+      [controlSensitivity]: new Property(undefined),
+      [buttonSize]: new Property(undefined),
+      [removableLayers]: new Property(undefined),
+      [hudPosition]: new Property(undefined),
+      [hitAreaScale]: new Property(undefined),
+      [dragThresholdScale]: new Property(undefined),
+      [health]: new Property(undefined),
+      [objectCount]: new Property(undefined),
+      [completionPercentage]: new Property(undefined),
+      [speedScale]: new Property(undefined),
+      [timersScale]: new Property(undefined),
+      [inputCount]: new Property(undefined),
+      [keyBinding]: new Property(undefined),
+      [colorVision]: new Property(undefined)
     };
 
     this.features = Object.assign(
       {
         captions: false,
+        captionsStyles: false,
         sound: false,
         vo: false,
         music: false,
@@ -52,7 +157,22 @@ export class Application {
         soundVolume: false,
         musicVolume: false,
         voVolume: false,
-        sfxVolume: false
+        sfxVolume: false,
+        pointerSize: false,
+        controlSensitivity: false,
+        buttonSize: false,
+        removableLayers: false,
+        hudPosition: false,
+        keyBinding: false,
+        colorVision: false,
+        hitAreaScale: false,
+        dragThresholdScale: false,
+        health: false,
+        objectCount: false,
+        completionPercentage: false,
+        speedScale: false,
+        timersScale: false,
+        inputCount: false
       },
       features || {}
     );
@@ -76,11 +196,29 @@ export class Application {
         voVolume,
         sfxVolume,
         captionsMuted,
-        pause
+        captionsStyles,
+        pause,
+        pointerSize,
+        controlSensitivity,
+        buttonSize,
+        removableLayers,
+        hudPosition,
+        keyBinding,
+        colorVision,
+        hitAreaScale,
+        dragThresholdScale,
+        health,
+        objectCount,
+        completionPercentage,
+        speedScale,
+        timersScale,
+        inputCount
       ];
       const length = events.length;
       for (let i = 0; i < length; i++) {
         const property = this.state[events[i]];
+
+        // Listen for feature changes from the container.
         this.container.on(
           events[i],
           containerEvent => (property.value = containerEvent.data)
@@ -139,6 +277,7 @@ export class Application {
       })
       .then(() => {
         this.validateListeners();
+        this.setStateDefaults();
       })
       .catch(e => {
         Debugger.log('warn', e);
@@ -218,6 +357,7 @@ export class Application {
    * @param  {string} name
    * @return {SpringRoll.ApplicationPlugin | undefined}
    * @memberof Application
+   * @instance
    */
   getPlugin(name) {
     return Application.getPlugin(name);
@@ -235,7 +375,22 @@ export class Application {
       sound: soundVolume,
       music: musicVolume,
       vo: voVolume,
-      sfx: sfxVolume
+      sfx: sfxVolume,
+      pointerSize: pointerSize,
+      controlSensitivity: controlSensitivity,
+      buttonSize: buttonSize,
+      removableLayers: removableLayers,
+      hudPosition: hudPosition,
+      hitAreaScale: hitAreaScale,
+      dragThresholdScale: dragThresholdScale,
+      health: health,
+      objectCount: objectCount,
+      completionPercentage: completionPercentage,
+      speedScale: speedScale,
+      timersScale: timersScale,
+      inputCount: inputCount,
+      keyBinding: keyBinding,
+      colorVision: colorVision
     };
 
     const keys = Object.keys(featureToStateMap);
@@ -259,6 +414,13 @@ export class Application {
           '.'
       );
     }
+  }
+
+  /**
+   * Sets default values of application state properties.
+   */
+  setStateDefaults() {
+    Object.keys(stateDefaults).forEach(key => this.state[key].value = stateDefaults[key]);
   }
 }
 

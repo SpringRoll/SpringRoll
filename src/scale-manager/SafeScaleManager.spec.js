@@ -5,6 +5,9 @@ import Sinon from 'sinon';
 
 describe('Scale Manager', () => {
   const sm = new SafeScaleManager({ width: 400, height: 400 });
+  afterEach(() => {
+    Sinon.restore();
+  });
 
   it('Should call the callback passed via the constructor', () => {
     new SafeScaleManager({
@@ -41,6 +44,15 @@ describe('Scale Manager', () => {
 
     sm.disable();
     window.dispatchEvent(newEvent('resize'));
+
+    expect(sm.callback.callCount).to.equal(0);
+  });
+
+  it('Should not call resize in IE 11 environemnt', () => {
+    sm.callback = Sinon.fake();
+
+    Sinon.replace(window, 'dispatchEvent', () => {});
+    sm.resizer.resize();
 
     expect(sm.callback.callCount).to.equal(0);
   });

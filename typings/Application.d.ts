@@ -1,9 +1,9 @@
 /// <reference types="bellhop-iframe" />
 import { IHintPlayer } from "./Hint";
 
-
 export type ApplicationFeatures = {
   captions?: boolean,
+  captionsStyles?: boolean,
   sound?: boolean,
   vo?: boolean,
   music?: boolean,
@@ -11,8 +11,37 @@ export type ApplicationFeatures = {
   soundVolume?: boolean,
   musicVolume?: boolean,
   voVolume?: boolean,
-  sfxVolume?: boolean
+  sfxVolume?: boolean,
+  pointerSize?: boolean,
+  controlSensitivity?: boolean,
+  buttonSize?: boolean,
+  removableLayers?: boolean,
+  hudPosition?: boolean,
+  hitAreaScale?: boolean,
+  dragThresholdScale?: boolean,
+  health?: boolean,
+  objectCount?: boolean,
+  completionPercentage?: boolean,
+  speedScale?: boolean,
+  timersScale?: boolean,
+  inputCount?: boolean
+  keyBinding?: boolean,
+  colorVision?: boolean,
 };
+
+export type CaptionStyle = {
+  color: string,
+  edge: string,
+  font:string,
+  background:string,
+  size:string,
+  align:string,
+  value?:string
+}
+
+export type KeyBinding = {
+  [key:string]: string
+}
 
 export type ApplicationConfig = {
   features?: ApplicationFeatures,
@@ -26,11 +55,27 @@ export class Application {
     ready: Property<boolean>,
     pause: Property<boolean>,
     captionsMuted: Property<boolean>,
+    captionsStyles: Property<CaptionStyle>,
     playOptions: Property<object>,
     soundVolume: Property<number>,
     musicVolume: Property<number>,
     voVolume: Property<number>,
     sfxVolume: Property<number>,
+    pointerSize: Property<number>,
+    controlSensitivity: Property<number>,
+    buttonSize: Property<number>,
+    removableLayers: Property<number>,
+    hudPosition: Property<string>,
+    hitAreaScale: Property<number>,
+    dragThresholdScale: Property<number>,
+    health: Property<number>,
+    objectCount: Property<number>,
+    completionPercentage: Property<number>,
+    speedScale: Property<number>,
+    timersScale: Property<number>,
+    inputCount: Property<number>
+    keyBinding: Property<KeyBinding>,
+    colorVision: Property<string>,
     [key:string]: Property<any>
   }
   hints: IHintPlayer;
@@ -59,7 +104,7 @@ export class ApplicationPlugin {
 
 
 export class Property<T> {
-  constructor(initialValue: T);
+  constructor(initialValue: T, alwaysNotify?: boolean);
   private _value: T;
   private listeners: Function[];
   value: T;
