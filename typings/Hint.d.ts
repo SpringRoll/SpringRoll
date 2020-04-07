@@ -13,7 +13,7 @@ export class HintSequencePlayer implements IHintPlayer {
 
 export class IdleTimer
 {
-  start(time:Number): void;
+  start(time?:Number): void;
   stop(): void;
   reset(): void;
   dispatch(): void;
