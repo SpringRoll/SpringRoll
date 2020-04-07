@@ -1,22 +1,22 @@
 export interface IHintPlayer {
-  play:Function;
+  play:() => void;
 }
 
 export type HintCallback = () => any;
 
 export class HintSequencePlayer implements IHintPlayer {
-  play:Function;
+  play(): void;
   add(...hints: HintCallback[]):void;
   remove(...hints: HintCallback[]):void;
-  clear:Function;
+  clear(): void;
 }
 
 export class IdleTimer
 {
-  start(time:Number);
-  stop:Function;
-  reset:Function;
-  dispatch:Function;
-  subscribe(callback:Function);
-  unsubscribe(callback:Function);
+  start(time:Number): void;
+  stop(): void;
+  reset(): void;
+  dispatch(): void;
+  subscribe(callback:() => void): void;
+  unsubscribe(callback:() => void): void;
 }
