@@ -1,5 +1,3 @@
-import { ScaledEntity } from "../src/scale-manager/ScaledEntity";
-
 export type ViewAreaRect = {
   x: number;
   y: number;
