@@ -1,22 +1,22 @@
 export type KeyState = 0 | 1 | 2;
 export type KeyTemplate = {
-  down: Function;
+  down?: () => void;
   key: string;
-  up: Function;
+  up?: () => void;
 }
 
 export class Key {
-  constructor(key: string, down: Function, up: Function);
+  constructor(key: string, down?: () => void, up?: () => void);
   key: string;
   actions: {
-    up: Function,
-    down: Function
+    up?: () => void,
+    down?: () => void
   }
   updateState(state?: KeyState): void;
   action(): void;
-  readonly state: KeyState
+  readonly state: KeyState;
 
-  private _state: KeyState
+  private _state: KeyState;
 }
 
 export class Controller {

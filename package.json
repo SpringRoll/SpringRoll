@@ -1,6 +1,6 @@
 {
   "name": "springroll",
-  "version": "2.3.0",
+  "version": "2.3.1",
   "description": "",
   "main": "dist/SpringRoll.js",
   "module": "dist/SpringRoll.js",
@@ -22,6 +22,7 @@
   "devDependencies": {
     "@babel/core": "^7.1.0",
     "@babel/plugin-external-helpers": "^7.0.0",
+    "@babel/polyfill": "^7.0.0",
     "@babel/preset-env": "^7.1.0",
     "chai": "^4.2.0",
     "documentation": "^9.0.0-alpha.0",
@@ -47,14 +48,13 @@
     "rollup-plugin-commonjs": "^9.1.8",
     "rollup-plugin-eslint": "^5.0.0",
     "rollup-plugin-node-resolve": "^3.4.0",
+    "rollup-plugin-terser": "^3.0.0",
     "rollup-plugin-uglify": "^6.0.0",
     "sinon": "^8.0.4",
     "webpack": "^4.20.2"
   },
   "dependencies": {
-    "@babel/polyfill": "^7.0.0",
-    "bellhop-iframe": "^2.3.1",
-    "rollup-plugin-terser": "^3.0.0"
+    "bellhop-iframe": "^2.3.1"
   },
   "browserify": {
     "transform": [
