@@ -59,7 +59,7 @@ export class IdleTimer {
    */
   dispatch() {
     for (let i = 0; i < this.listeners.length; i++) {
-      this.listeners[i](this['_value']);
+      this.listeners[i]();
     }
     this.reset();
   }

@@ -101,16 +101,16 @@ export class ApplicationPlugin {
 }
 
 
-
+export type PropertyChangeListener<T> = (value: T, previousValue: T) => void;
 
 export class Property<T> {
   constructor(initialValue: T, alwaysNotify?: boolean);
   private _value: T;
-  private listeners: Function[];
+  private listeners: PropertyChangeListener<T>[];
   value: T;
   notifyChange(): void;
-  subscribe(callback:(value: T, previousValue: T) => void): void;
-  unsubscribe(callback: Function): void;
+  subscribe(callback: PropertyChangeListener<T>): void;
+  unsubscribe(callback: PropertyChangeListener<T>): void;
   hasListeners(): boolean;
 }
 
