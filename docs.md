@@ -21,10 +21,10 @@
         -   [Parameters][17]
     -   [delete][18]
         -   [Parameters][19]
--   [PositionCallback][20]
-    -   [Parameters][21]
--   [Point][22]
--   [Point][23]
+-   [Point][20]
+-   [Point][21]
+-   [PositionCallback][22]
+    -   [Parameters][23]
 -   [Anchor][24]
     -   [onResize][25]
         -   [Parameters][26]
@@ -322,6 +322,14 @@ Removes data from SpringRoll Container
 
 -   `name` **[string][235]** 
 
+## Point
+
+Type: {x: [Number][233], y: [Number][233]}
+
+## Point
+
+Type: {x: [Number][233], y: [Number][233]}
+
 ## PositionCallback
 
 callback to used move game entities
@@ -331,14 +339,6 @@ Type: [Function][234]
 ### Parameters
 
 -   `position` **[Point][237]** position relative to anchor direction
-
-## Point
-
-Type: {x: [Number][233], y: [Number][233]}
-
-## Point
-
-Type: {x: [Number][233], y: [Number][233]}
 
 ## Anchor
 
@@ -1351,13 +1351,13 @@ After all plugins inits has completed
 
 [19]: #parameters-5
 
-[20]: #positioncallback
+[20]: #point
 
-[21]: #parameters-6
+[21]: #point-1
 
-[22]: #point
+[22]: #positioncallback
 
-[23]: #point-1
+[23]: #parameters-6
 
 [24]: #anchor
 
