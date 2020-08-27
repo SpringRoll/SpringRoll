@@ -1,3 +1,5 @@
+import sinon from 'sinon';
+
 import { UserData } from './UserData';
 import container from '../communication/BellhopSingleton';
 
@@ -33,6 +35,36 @@ describe('UserData', () => {
 
     it('Should timeout if no response from Container', async () => {
       await assertThrows(() => UserData.read('value'));
+    });
+
+    describe('data formatting', () => {
+      beforeEach(() => {
+        sinon.stub(container, 'send');
+      });
+
+      afterEach(() => {
+        container.send.restore();
+      });
+
+      it('should properly format, send, and receive an event', async () => {
+        // start the read workflow
+        const promise = UserData.read('test');
+
+        // make sure that the event was properly formatted before being sent over the iframe boundary
+        expect(container.send.calledWith('userDataRead', 'test')).to.equal(true);
+
+        // trigger the fake response from the client
+        container.trigger({
+          type: 'userDataRead',
+          data: 'hello'
+        });
+
+        // wait for UserData to receive the event
+        const result = await promise;
+
+        // make sure the UserData formatted it properly
+        expect(result).to.equal('hello');
+      });
     });
   });
 
