@@ -73,6 +73,7 @@ describe('UserData', () => {
       container.connected = false;
       await assertThrows(() => UserData.write('value', { foo: 'bar' }));
     });
+
     it('Should timeout if no response from Container', async () => {
       await assertThrows(() => UserData.write('name', { foo: 'bar' }));
     });
