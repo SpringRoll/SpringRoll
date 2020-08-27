@@ -153,6 +153,16 @@
               
                 
                 <li><a
+                  href='#positioncallback'
+                  class="">
+                  PositionCallback
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
                   href='#anchor'
                   class=" toggle-sibling">
                   Anchor
@@ -176,16 +186,6 @@
                   
                   
                 </div>
-                
-                </li>
-              
-                
-                <li><a
-                  href='#positioncallback'
-                  class="">
-                  PositionCallback
-                  
-                </a>
                 
                 </li>
               
@@ -270,6 +270,16 @@
               
                 
                 <li><a
+                  href='#entityresizeevent'
+                  class="">
+                  EntityResizeEvent
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
                   href='#scaledentity'
                   class=" toggle-sibling">
                   ScaledEntity
@@ -293,16 +303,6 @@
                   
                   
                 </div>
-                
-                </li>
-              
-                
-                <li><a
-                  href='#entityresizeevent'
-                  class="">
-                  EntityResizeEvent
-                  
-                </a>
                 
                 </li>
               
@@ -1279,6 +1279,16 @@
               
                 
                 <li><a
+                  href='#localizeroptions'
+                  class="">
+                  Localizer.Options
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
                   href='#localizer'
                   class=" toggle-sibling">
                   Localizer
@@ -1326,16 +1336,6 @@
                   
                   
                 </div>
-                
-                </li>
-              
-                
-                <li><a
-                  href='#localizeroptions'
-                  class="">
-                  Localizer.Options
-                  
-                </a>
                 
                 </li>
               
@@ -2238,6 +2238,73 @@
   
   <div class='clearfix'>
     
+    <h3 class='fl m0' id='positioncallback'>
+      PositionCallback
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>callback to used move game entities</p>
+
+    <div class='pre p1 fill-light mt0'>PositionCallback(position: <a href="#point">Point</a>)</div>
+  
+    <p>
+      Type:
+      <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function">Function</a>
+    </p>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>position</span> <code class='quiet'>(<a href="#point">Point</a>)</code>
+	    position relative to anchor direction
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
     <h3 class='fl m0' id='anchor'>
       Anchor
     </h3>
@@ -2367,73 +2434,6 @@
     </div>
   
 </div>
-
-  
-
-  
-
-  
-</section>
-
-          
-        
-          
-          <section class='p2 mb2 clearfix bg-white minishadow'>
-
-  
-  <div class='clearfix'>
-    
-    <h3 class='fl m0' id='positioncallback'>
-      PositionCallback
-    </h3>
-    
-    
-  </div>
-  
-
-  <p>callback to used move game entities</p>
-
-    <div class='pre p1 fill-light mt0'>PositionCallback(position: <a href="#point">Point</a>)</div>
-  
-    <p>
-      Type:
-      <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function">Function</a>
-    </p>
-  
-  
-
-  
-  
-  
-  
-  
-  
-
-  
-    <div class='py1 quiet mt1 prose-big'>Parameters</div>
-    <div class='prose'>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>position</span> <code class='quiet'>(<a href="#point">Point</a>)</code>
-	    position relative to anchor direction
-
-          </div>
-          
-        </div>
-      
-    </div>
-  
-
-  
-
-  
-
-  
-
-  
-
-  
 
   
 
@@ -3103,6 +3103,58 @@
   
   <div class='clearfix'>
     
+    <h3 class='fl m0' id='entityresizeevent'>
+      EntityResizeEvent
+    </h3>
+    
+    
+  </div>
+  
+
+  
+    <div class='pre p1 fill-light mt0'>EntityResizeEvent</div>
+  
+    <p>
+      Type:
+      {offset: <a href="#point">Point</a>, gameSize: <a href="#point">Point</a>, scale: <a href="#point">Point</a>}
+    </p>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
     <h3 class='fl m0' id='scaledentity'>
       ScaledEntity
     </h3>
@@ -3207,58 +3259,6 @@
     </div>
   
 </div>
-
-  
-
-  
-
-  
-</section>
-
-          
-        
-          
-          <section class='p2 mb2 clearfix bg-white minishadow'>
-
-  
-  <div class='clearfix'>
-    
-    <h3 class='fl m0' id='entityresizeevent'>
-      EntityResizeEvent
-    </h3>
-    
-    
-  </div>
-  
-
-  
-    <div class='pre p1 fill-light mt0'>EntityResizeEvent</div>
-  
-    <p>
-      Type:
-      {offset: <a href="#point">Point</a>, gameSize: <a href="#point">Point</a>, scale: <a href="#point">Point</a>}
-    </p>
-  
-  
-
-  
-  
-  
-  
-  
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
 
   
 
@@ -10013,6 +10013,58 @@ and swaps out the placeholder inside the double brackets with the matching key i
   
   <div class='clearfix'>
     
+    <h3 class='fl m0' id='localizeroptions'>
+      Localizer.Options
+    </h3>
+    
+    
+  </div>
+  
+
+  
+    <div class='pre p1 fill-light mt0'>Localizer.Options</div>
+  
+    <p>
+      Type:
+      {language: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>, fallback: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>}
+    </p>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
     <h3 class='fl m0' id='localizer'>
       Localizer
     </h3>
@@ -10371,58 +10423,6 @@ and swaps out the placeholder inside the double brackets with the matching key i
     </div>
   
 </div>
-
-  
-
-  
-
-  
-
-  
-</section>
-
-          
-        
-          
-          <section class='p2 mb2 clearfix bg-white minishadow'>
-
-  
-  <div class='clearfix'>
-    
-    <h3 class='fl m0' id='localizeroptions'>
-      Localizer.Options
-    </h3>
-    
-    
-  </div>
-  
-
-  
-    <div class='pre p1 fill-light mt0'>Localizer.Options</div>
-  
-    <p>
-      Type:
-      {language: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>, fallback: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>}
-    </p>
-  
-  
-
-  
-  
-  
-  
-  
-  
-
-  
-
-  
-
-  
-
-  
-
-  
 
   
 
