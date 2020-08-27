@@ -51,10 +51,10 @@
         -   [Parameters][47]
     -   [onWindowResize][48]
     -   [getWindowResolution][49]
--   [EntityResizeEvent][50]
--   [ScaledEntity][51]
-    -   [onResize][52]
-        -   [Parameters][53]
+-   [ScaledEntity][50]
+    -   [onResize][51]
+        -   [Parameters][52]
+-   [EntityResizeEvent][53]
 -   [ScaleManager][54]
     -   [Parameters][55]
     -   [Properties][56]
@@ -81,14 +81,14 @@
     -   [volume][77]
         -   [Parameters][78]
     -   [volume][79]
--   [filterType][80]
--   [ColorFilter][81]
-    -   [applyFilter][82]
-        -   [Parameters][83]
-    -   [changeFilter][84]
-        -   [Parameters][85]
-    -   [removeFilter][86]
-    -   [types][87]
+-   [ColorFilter][80]
+    -   [applyFilter][81]
+        -   [Parameters][82]
+    -   [changeFilter][83]
+        -   [Parameters][84]
+    -   [removeFilter][85]
+    -   [types][86]
+-   [filterType][87]
 -   [KeyState][88]
     -   [Properties][89]
 -   [Controller][90]
@@ -155,7 +155,7 @@
     -   [value][151]
         -   [Parameters][152]
 -   [Caption][153]
-    -   [Parameters][154]
+    -   [Properties][154]
     -   [update][155]
         -   [Parameters][156]
     -   [updateState][157]
@@ -166,7 +166,7 @@
     -   [updateTimeIndex][162]
         -   [Parameters][163]
 -   [Caption][164]
-    -   [Properties][165]
+    -   [Parameters][165]
     -   [update][166]
         -   [Parameters][167]
     -   [updateState][168]
@@ -184,13 +184,13 @@
     -   [createLine][180]
         -   [Parameters][181]
 -   [CaptionPlayer][182]
-    -   [Parameters][183]
-    -   [update][184]
-        -   [Parameters][185]
-    -   [start][186]
-        -   [Parameters][187]
-    -   [stop][188]
--   [CaptionPlayer][189]
+    -   [update][183]
+        -   [Parameters][184]
+    -   [start][185]
+        -   [Parameters][186]
+    -   [stop][187]
+-   [CaptionPlayer][188]
+    -   [Parameters][189]
     -   [update][190]
         -   [Parameters][191]
     -   [start][192]
@@ -219,17 +219,17 @@
     -   [lineEnd][215]
     -   [sanitize][216]
         -   [Parameters][217]
--   [Localizer.Options][218]
--   [Localizer][219]
-    -   [resolve][220]
-        -   [Parameters][221]
-    -   [setPrimaryLocale][222]
-        -   [Parameters][223]
-    -   [setFallbackLocale][224]
-        -   [Parameters][225]
-    -   [getLocaleKey][226]
-        -   [Parameters][227]
-    -   [getBrowserLanguages][228]
+-   [Localizer][218]
+    -   [resolve][219]
+        -   [Parameters][220]
+    -   [setPrimaryLocale][221]
+        -   [Parameters][222]
+    -   [setFallbackLocale][223]
+        -   [Parameters][224]
+    -   [getLocaleKey][225]
+        -   [Parameters][226]
+    -   [getBrowserLanguages][227]
+-   [Localizer.Options][228]
 -   [ApplicationPlugin][229]
     -   [preload][230]
     -   [init][231]
@@ -462,10 +462,6 @@ Handler for window resize events. Forwards this event to the scale manager if en
 
 Sets the window width and window height values of the ResizeHelper.
 
-## EntityResizeEvent
-
-Type: {offset: [Point][237], gameSize: [Point][237], scale: [Point][237]}
-
 ## ScaledEntity
 
 ### onResize
@@ -475,6 +471,10 @@ Type: {offset: [Point][237], gameSize: [Point][237], scale: [Point][237]}
 -   `event` **[EntityResizeEvent][241]** 
 
 Returns **void** @memberof ScaledEntity
+
+## EntityResizeEvent
+
+Type: {offset: [Point][237], gameSize: [Point][237], scale: [Point][237]}
 
 ## ScaleManager
 
@@ -594,10 +594,6 @@ Returns the current volume of the announcer.
 
 Returns **[number][233]** 
 
-## filterType
-
-Type: (`"protanopia"` \| `"protanomaly"` \| `"deuteranopia"` \| `"deuteranomaly"` \| `"tritanopia"` \| `"tritanomaly"` \| `"achromatopsia"` \| `"achromatomaly"`)
-
 ## ColorFilter
 
 The Color filter allows you to simulate colorblindness.
@@ -631,6 +627,10 @@ Supported filter types.
 
 Returns **[object][238]** Returns an object { name, value } with the colorblindness type:
 (Protanopia, Protanomaly, Deuteranopia, Deuteranomaly, Tritanopia, Tritanomaly, Achromatopsia, Achromatomaly)
+
+## filterType
+
+Type: (`"protanopia"` \| `"protanomaly"` \| `"deuteranopia"` \| `"deuteranomaly"` \| `"tritanopia"` \| `"tritanomaly"` \| `"achromatopsia"` \| `"achromatomaly"`)
 
 ## KeyState
 
@@ -961,9 +961,12 @@ Sets the value of the property and notifies all listeners of the change
 
 ## Caption
 
-### Parameters
+### Properties
 
--   `lines`  
+-   `lines` **[Array][239]&lt;[TimedLine][249]>** 
+-   `time` **[number][233]** 
+-   `lineIndex` **[number][233]** 
+-   `renderer` **[IRender][250]** 
 
 ### update
 
@@ -1008,12 +1011,9 @@ Updates the current time and index of the caption instance
 
 ## Caption
 
-### Properties
+### Parameters
 
--   `lines` **[Array][239]&lt;[TimedLine][249]>** 
--   `time` **[number][233]** 
--   `lineIndex` **[number][233]** 
--   `renderer` **[IRender][250]** 
+-   `lines`  
 
 ### update
 
@@ -1092,10 +1092,8 @@ Returns **[TimedLine][249]** new TimedLine;
 
 ## CaptionPlayer
 
-### Parameters
-
--   `captions`  
--   `renderer`  
+CaptionPlayer is used to start, stop and update captions.
+ It applies the content of an active caption to a given CaptionRenderer.
 
 ### update
 
@@ -1122,8 +1120,10 @@ Stops any caption currently playing.
 
 ## CaptionPlayer
 
-CaptionPlayer is used to start, stop and update captions.
- It applies the content of an active caption to a given CaptionRenderer.
+### Parameters
+
+-   `captions`  
+-   `renderer`  
 
 ### update
 
@@ -1250,10 +1250,6 @@ Will attempt to remove all html from a string before it's renderer to the page
 
 -   `html` **any** 
 
-## Localizer.Options
-
-Type: {language: [string][235], fallback: [string][235]}
-
 ## Localizer
 
 ### resolve
@@ -1290,6 +1286,10 @@ Returns **[boolean][243]** True if fallback is set.
 Returns **[string][235]** 
 
 ### getBrowserLanguages
+
+## Localizer.Options
+
+Type: {language: [string][235], fallback: [string][235]}
 
 ## ApplicationPlugin
 
@@ -1411,13 +1411,13 @@ After all plugins inits has completed
 
 [49]: #getwindowresolution
 
-[50]: #entityresizeevent
+[50]: #scaledentity
 
-[51]: #scaledentity
+[51]: #onresize-1
 
-[52]: #onresize-1
+[52]: #parameters-16
 
-[53]: #parameters-16
+[53]: #entityresizeevent
 
 [54]: #scalemanager
 
@@ -1471,21 +1471,21 @@ After all plugins inits has completed
 
 [79]: #volume-1
 
-[80]: #filtertype
+[80]: #colorfilter
 
-[81]: #colorfilter
+[81]: #applyfilter
 
-[82]: #applyfilter
+[82]: #parameters-25
 
-[83]: #parameters-25
+[83]: #changefilter
 
-[84]: #changefilter
+[84]: #parameters-26
 
-[85]: #parameters-26
+[85]: #removefilter
 
-[86]: #removefilter
+[86]: #types
 
-[87]: #types
+[87]: #filtertype
 
 [88]: #keystate
 
@@ -1619,29 +1619,29 @@ After all plugins inits has completed
 
 [153]: #caption
 
-[154]: #parameters-47
+[154]: #properties-8
 
 [155]: #update-1
 
-[156]: #parameters-48
+[156]: #parameters-47
 
 [157]: #updatestate-1
 
-[158]: #parameters-49
+[158]: #parameters-48
 
 [159]: #isfinished
 
 [160]: #start-1
 
-[161]: #parameters-50
+[161]: #parameters-49
 
 [162]: #updatetimeindex
 
-[163]: #parameters-51
+[163]: #parameters-50
 
 [164]: #caption-1
 
-[165]: #properties-8
+[165]: #parameters-51
 
 [166]: #update-2
 
@@ -1677,19 +1677,19 @@ After all plugins inits has completed
 
 [182]: #captionplayer
 
-[183]: #parameters-59
+[183]: #update-3
 
-[184]: #update-3
+[184]: #parameters-59
 
-[185]: #parameters-60
+[185]: #start-3
 
-[186]: #start-3
+[186]: #parameters-60
 
-[187]: #parameters-61
+[187]: #stop-1
 
-[188]: #stop-1
+[188]: #captionplayer-1
 
-[189]: #captionplayer-1
+[189]: #parameters-61
 
 [190]: #update-4
 
@@ -1747,27 +1747,27 @@ After all plugins inits has completed
 
 [217]: #parameters-70
 
-[218]: #localizeroptions
+[218]: #localizer
 
-[219]: #localizer
+[219]: #resolve
 
-[220]: #resolve
+[220]: #parameters-71
 
-[221]: #parameters-71
+[221]: #setprimarylocale
 
-[222]: #setprimarylocale
+[222]: #parameters-72
 
-[223]: #parameters-72
+[223]: #setfallbacklocale
 
-[224]: #setfallbacklocale
+[224]: #parameters-73
 
-[225]: #parameters-73
+[225]: #getlocalekey
 
-[226]: #getlocalekey
+[226]: #parameters-74
 
-[227]: #parameters-74
+[227]: #getbrowserlanguages
 
-[228]: #getbrowserlanguages
+[228]: #localizeroptions
 
 [229]: #applicationplugin
 
