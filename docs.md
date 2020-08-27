@@ -81,14 +81,14 @@
     -   [volume][77]
         -   [Parameters][78]
     -   [volume][79]
--   [ColorFilter][80]
-    -   [applyFilter][81]
-        -   [Parameters][82]
-    -   [changeFilter][83]
-        -   [Parameters][84]
-    -   [removeFilter][85]
-    -   [types][86]
--   [filterType][87]
+-   [filterType][80]
+-   [ColorFilter][81]
+    -   [applyFilter][82]
+        -   [Parameters][83]
+    -   [changeFilter][84]
+        -   [Parameters][85]
+    -   [removeFilter][86]
+    -   [types][87]
 -   [KeyState][88]
     -   [Properties][89]
 -   [Controller][90]
@@ -155,7 +155,7 @@
     -   [value][151]
         -   [Parameters][152]
 -   [Caption][153]
-    -   [Properties][154]
+    -   [Parameters][154]
     -   [update][155]
         -   [Parameters][156]
     -   [updateState][157]
@@ -166,7 +166,7 @@
     -   [updateTimeIndex][162]
         -   [Parameters][163]
 -   [Caption][164]
-    -   [Parameters][165]
+    -   [Properties][165]
     -   [update][166]
         -   [Parameters][167]
     -   [updateState][168]
@@ -594,6 +594,10 @@ Returns the current volume of the announcer.
 
 Returns **[number][233]** 
 
+## filterType
+
+Type: (`"protanopia"` \| `"protanomaly"` \| `"deuteranopia"` \| `"deuteranomaly"` \| `"tritanopia"` \| `"tritanomaly"` \| `"achromatopsia"` \| `"achromatomaly"`)
+
 ## ColorFilter
 
 The Color filter allows you to simulate colorblindness.
@@ -627,10 +631,6 @@ Supported filter types.
 
 Returns **[object][238]** Returns an object { name, value } with the colorblindness type:
 (Protanopia, Protanomaly, Deuteranopia, Deuteranomaly, Tritanopia, Tritanomaly, Achromatopsia, Achromatomaly)
-
-## filterType
-
-Type: (`"protanopia"` \| `"protanomaly"` \| `"deuteranopia"` \| `"deuteranomaly"` \| `"tritanopia"` \| `"tritanomaly"` \| `"achromatopsia"` \| `"achromatomaly"`)
 
 ## KeyState
 
@@ -961,12 +961,9 @@ Sets the value of the property and notifies all listeners of the change
 
 ## Caption
 
-### Properties
+### Parameters
 
--   `lines` **[Array][239]&lt;[TimedLine][249]>** 
--   `time` **[number][233]** 
--   `lineIndex` **[number][233]** 
--   `renderer` **[IRender][250]** 
+-   `lines`  
 
 ### update
 
@@ -1011,9 +1008,12 @@ Updates the current time and index of the caption instance
 
 ## Caption
 
-### Parameters
+### Properties
 
--   `lines`  
+-   `lines` **[Array][239]&lt;[TimedLine][249]>** 
+-   `time` **[number][233]** 
+-   `lineIndex` **[number][233]** 
+-   `renderer` **[IRender][250]** 
 
 ### update
 
@@ -1471,21 +1471,21 @@ After all plugins inits has completed
 
 [79]: #volume-1
 
-[80]: #colorfilter
+[80]: #filtertype
 
-[81]: #applyfilter
+[81]: #colorfilter
 
-[82]: #parameters-25
+[82]: #applyfilter
 
-[83]: #changefilter
+[83]: #parameters-25
 
-[84]: #parameters-26
+[84]: #changefilter
 
-[85]: #removefilter
+[85]: #parameters-26
 
-[86]: #types
+[86]: #removefilter
 
-[87]: #filtertype
+[87]: #types
 
 [88]: #keystate
 
@@ -1619,29 +1619,29 @@ After all plugins inits has completed
 
 [153]: #caption
 
-[154]: #properties-8
+[154]: #parameters-47
 
 [155]: #update-1
 
-[156]: #parameters-47
+[156]: #parameters-48
 
 [157]: #updatestate-1
 
-[158]: #parameters-48
+[158]: #parameters-49
 
 [159]: #isfinished
 
 [160]: #start-1
 
-[161]: #parameters-49
+[161]: #parameters-50
 
 [162]: #updatetimeindex
 
-[163]: #parameters-50
+[163]: #parameters-51
 
 [164]: #caption-1
 
-[165]: #parameters-51
+[165]: #properties-8
 
 [166]: #update-2
 
