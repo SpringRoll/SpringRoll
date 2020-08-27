@@ -78,4 +78,30 @@ describe('UserData', () => {
       await assertThrows(() => UserData.write('name', { foo: 'bar' }));
     });
   });
+
+  describe('delete', () => {
+    it('should reject if Bellhop is not connected', async () => {
+      container.connected = false;
+      await assertThrows(() => UserData.delete('value'));
+    });
+
+    describe('data formatting', () => {
+      beforeEach(() => sinon.stub(container, 'send'));
+      afterEach(() => container.send.restore());
+
+      it('should properly format, send, and receive an event', async () => {
+        // start the delete workflow
+        const promise = UserData.delete('test');
+
+        // make sure that the event was properly formatted before sent over the iframe boundary
+        expect(container.send.calledWith('userDataRemove', 'test')).to.equal(true);
+
+        // trigger the fake response from the client
+        container.trigger('userDataRemove');
+
+        // make sure the promise resolves properly
+        await promise;
+      });
+    })
+  });
 });
