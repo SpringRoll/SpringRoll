@@ -38,16 +38,17 @@ aspectRatio.value = width / height;
 
 The `UserData` provides a mechanism for storing game/session data _outside of the game instance_ by saving it in
 `localStorage` at the Container level. This mechanism can be used to share information across games on the same domain.
+Since this feature relies on Bellhop communication, you must wait for Bellhop to be connected first
 
 ```javascript
 import { UserData } from 'springroll'
 
-UserData.write('my-value', { foo:'bar' })
-  .then(() => console.log('Value saved'));
+app.container.on('connected', async () => {
+    await UserData.write('my-value', { foo:'bar' });
 
-UserData.read('my-value')
-  .then(value => console.log('Value retrieved:', value));
+    const value = await UserData.read('my-value');
+    console.log('Value retrieved:', value);
 
-UserData.delete('my-value');
-
+    await UserData.delete('my-value');
+});
 ```
