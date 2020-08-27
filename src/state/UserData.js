@@ -60,10 +60,15 @@ export class UserData {
    * @static
    */
   static read(name) {
-    const warning = `Could not complete read action for ${name}. Bellhop is not connected.`;
-    return BellhopSingleton.connected
-      ? this[onReturn](READ, { name })
-      : new Promise((_, reject) => reject(warning));
+    if (!BellhopSingleton.connected) {
+      const warning = `Could not complete read action for ${name}. Bellhop is not connected.`;
+      return Promise.reject(warning);
+    }
+
+    return this[onReturn](READ, name)
+      .then(({ data }) => {
+        return data;
+      });
   }
 
   /**
