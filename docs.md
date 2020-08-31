@@ -51,10 +51,10 @@
         -   [Parameters][47]
     -   [onWindowResize][48]
     -   [getWindowResolution][49]
--   [EntityResizeEvent][50]
--   [ScaledEntity][51]
-    -   [onResize][52]
-        -   [Parameters][53]
+-   [ScaledEntity][50]
+    -   [onResize][51]
+        -   [Parameters][52]
+-   [EntityResizeEvent][53]
 -   [ScaleManager][54]
     -   [Parameters][55]
     -   [Properties][56]
@@ -184,13 +184,13 @@
     -   [createLine][180]
         -   [Parameters][181]
 -   [CaptionPlayer][182]
-    -   [Parameters][183]
-    -   [update][184]
-        -   [Parameters][185]
-    -   [start][186]
-        -   [Parameters][187]
-    -   [stop][188]
--   [CaptionPlayer][189]
+    -   [update][183]
+        -   [Parameters][184]
+    -   [start][185]
+        -   [Parameters][186]
+    -   [stop][187]
+-   [CaptionPlayer][188]
+    -   [Parameters][189]
     -   [update][190]
         -   [Parameters][191]
     -   [start][192]
@@ -219,17 +219,17 @@
     -   [lineEnd][215]
     -   [sanitize][216]
         -   [Parameters][217]
--   [Localizer.Options][218]
--   [Localizer][219]
-    -   [resolve][220]
-        -   [Parameters][221]
-    -   [setPrimaryLocale][222]
-        -   [Parameters][223]
-    -   [setFallbackLocale][224]
-        -   [Parameters][225]
-    -   [getLocaleKey][226]
-        -   [Parameters][227]
-    -   [getBrowserLanguages][228]
+-   [Localizer][218]
+    -   [resolve][219]
+        -   [Parameters][220]
+    -   [setPrimaryLocale][221]
+        -   [Parameters][222]
+    -   [setFallbackLocale][223]
+        -   [Parameters][224]
+    -   [getLocaleKey][225]
+        -   [Parameters][226]
+    -   [getBrowserLanguages][227]
+-   [Localizer.Options][228]
 -   [ApplicationPlugin][229]
     -   [preload][230]
     -   [init][231]
@@ -462,10 +462,6 @@ Handler for window resize events. Forwards this event to the scale manager if en
 
 Sets the window width and window height values of the ResizeHelper.
 
-## EntityResizeEvent
-
-Type: {offset: [Point][237], gameSize: [Point][237], scale: [Point][237]}
-
 ## ScaledEntity
 
 ### onResize
@@ -475,6 +471,10 @@ Type: {offset: [Point][237], gameSize: [Point][237], scale: [Point][237]}
 -   `event` **[EntityResizeEvent][241]** 
 
 Returns **void** @memberof ScaledEntity
+
+## EntityResizeEvent
+
+Type: {offset: [Point][237], gameSize: [Point][237], scale: [Point][237]}
 
 ## ScaleManager
 
@@ -1092,10 +1092,8 @@ Returns **[TimedLine][249]** new TimedLine;
 
 ## CaptionPlayer
 
-### Parameters
-
--   `captions`  
--   `renderer`  
+CaptionPlayer is used to start, stop and update captions.
+ It applies the content of an active caption to a given CaptionRenderer.
 
 ### update
 
@@ -1122,8 +1120,10 @@ Stops any caption currently playing.
 
 ## CaptionPlayer
 
-CaptionPlayer is used to start, stop and update captions.
- It applies the content of an active caption to a given CaptionRenderer.
+### Parameters
+
+-   `captions`  
+-   `renderer`  
 
 ### update
 
@@ -1250,10 +1250,6 @@ Will attempt to remove all html from a string before it's renderer to the page
 
 -   `html` **any** 
 
-## Localizer.Options
-
-Type: {language: [string][235], fallback: [string][235]}
-
 ## Localizer
 
 ### resolve
@@ -1290,6 +1286,10 @@ Returns **[boolean][243]** True if fallback is set.
 Returns **[string][235]** 
 
 ### getBrowserLanguages
+
+## Localizer.Options
+
+Type: {language: [string][235], fallback: [string][235]}
 
 ## ApplicationPlugin
 
@@ -1411,13 +1411,13 @@ After all plugins inits has completed
 
 [49]: #getwindowresolution
 
-[50]: #entityresizeevent
+[50]: #scaledentity
 
-[51]: #scaledentity
+[51]: #onresize-1
 
-[52]: #onresize-1
+[52]: #parameters-16
 
-[53]: #parameters-16
+[53]: #entityresizeevent
 
 [54]: #scalemanager
 
@@ -1677,19 +1677,19 @@ After all plugins inits has completed
 
 [182]: #captionplayer
 
-[183]: #parameters-59
+[183]: #update-3
 
-[184]: #update-3
+[184]: #parameters-59
 
-[185]: #parameters-60
+[185]: #start-3
 
-[186]: #start-3
+[186]: #parameters-60
 
-[187]: #parameters-61
+[187]: #stop-1
 
-[188]: #stop-1
+[188]: #captionplayer-1
 
-[189]: #captionplayer-1
+[189]: #parameters-61
 
 [190]: #update-4
 
@@ -1747,27 +1747,27 @@ After all plugins inits has completed
 
 [217]: #parameters-70
 
-[218]: #localizeroptions
+[218]: #localizer
 
-[219]: #localizer
+[219]: #resolve
 
-[220]: #resolve
+[220]: #parameters-71
 
-[221]: #parameters-71
+[221]: #setprimarylocale
 
-[222]: #setprimarylocale
+[222]: #parameters-72
 
-[223]: #parameters-72
+[223]: #setfallbacklocale
 
-[224]: #setfallbacklocale
+[224]: #parameters-73
 
-[225]: #parameters-73
+[225]: #getlocalekey
 
-[226]: #getlocalekey
+[226]: #parameters-74
 
-[227]: #parameters-74
+[227]: #getbrowserlanguages
 
-[228]: #getbrowserlanguages
+[228]: #localizeroptions
 
 [229]: #applicationplugin
 

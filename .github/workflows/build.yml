@@ -8,7 +8,7 @@ on:
      - 'typings/**'
   push:
     branches:
-      - master
+      - main
   
 jobs:
   build:

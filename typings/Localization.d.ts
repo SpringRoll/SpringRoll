@@ -37,7 +37,7 @@ export class Caption {
 export class CaptionPlayer {
   constructor(captions: CaptionData, renderer: IRender);
   renderer: IRender;
-  captions: Timedline[];
+  captions: {[name:string]: Caption};
   activeCaption: Caption;
 
   update(deltaTime:number): void;
