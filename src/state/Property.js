@@ -17,20 +17,14 @@ export class Property {
   }
 
   /**
-   * returns the current value of the property
-   * @readonly
-   * @returns {*}
-   * @memberof Property
+   * The current value of the property
+   * Setting this value notifies all listeners of the change.
+   * @type {*}
    */
   get value() {
     return this._value;
   }
 
-  /**
-   * Sets the value of the property and notifies all listeners of the change
-   * @param {*} value the new property value
-   * @memberof Property
-   */
   set value(value) {
     if (this.value === value && !this.alwaysNotify) {
       return;
@@ -62,7 +56,8 @@ export class Property {
 
   /**
    * Whether or not this property has any subscribed listeners
-   * @return {Boolean} True if this property has at least one subscriber
+   * @readonly
+   * @type {Boolean}
    */
   get hasListeners() {
     return this.listeners.length > 0;
