@@ -18,13 +18,15 @@ export class Property {
 
   /**
    * The current value of the property
-   * Setting this value notifies all listeners of the change.
    * @type {*}
    */
   get value() {
     return this._value;
   }
-
+  /**
+   * Setting this value notifies all listeners of the change.
+   * @type {*}
+   */
   set value(value) {
     if (this.value === value && !this.alwaysNotify) {
       return;
