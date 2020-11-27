@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport"
+    content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible"
+    content="ie=edge" />
+  <title>Accessibility Tests</title>
+
+  <style>
+    body {
+      display: flex;
+    }
+
+    #controls {
+      width: 50%;
+      display: flex;
+      flex-direction: column;
+      margin-left: 5rem;
+    }
+
+    .pluginContainer {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      border: 1px solid black;
+    }
+
+    #controls * {
+      margin: 5px;
+    }
+
+    #controls button {
+      border: 1px solid black;
+      cursor: pointer;
+    }
+  </style>
+</head>
+
+<body>
+  <iframe id="frame"
+    height="400px"
+    width="400px"></iframe>
+
+  <div id="controls">
+    <label for="pointerSize">Pointer Size</label>
+    <input type="range"
+      id="pointerSize"
+      name="pointerSize" />
+
+    <label for="controlSensitivity">Control Sensitivity</label>
+    <input type="range"
+      id="controlSensitivity"
+      name="controlSensitivity" />
+
+    <label for="buttonSize">Button Size</label>
+    <input type="range"
+      id="buttonSize"
+      name="buttonSize" />
+
+    <div class="pluginContainer">
+      <h2>Difficulty Settings</h2>
+      <label for="hitArea">Hit Area Scale</label>
+      <input type="range"
+        id="hitArea"
+        name="hitArea">
+
+      <label for="dragThreshold">Drag Threshold Scale</label>
+      <input type="range"
+        id="dragThreshold"
+        name="dragThreshold">
+
+      <label for="health">Health</label>
+      <input type="range"
+        id="health"
+        name="health">
+
+      <label for="objectCount">Object Count</label>
+      <input type="range"
+        id="objectCount"
+        name="objectCount">
+
+      <label for="completionPercentage">Completion Percentage</label>
+      <input type="range"
+        id="completionPercentage"
+        name="completionPercentage">
+
+      <label for="speedScale">Speed Scale</label>
+      <input type="range"
+        id="speedScale"
+        name="speedScale">
+
+      <label for="timersScale">Timers Scale</label>
+      <input type="range"
+        id="timersScale"
+        name="timersScale">
+
+      <label for="inputCount">Input Count</label>
+      <input type="range"
+        id="inputCount"
+        name="inputCount">
+    </div>
+
+    <label for="layers">Distracting Layers</label>
+    <input type="range"
+      id="layers"
+      name="layers" />
+
+    <button id='hudPosition'>Positions</button>
+
+    <div id='keyContainer'></div>
+
+    <select id='colorBlind'></select>
+
+    <div class="pluginContainer">
+      <h2>Sound Plugin</h2>
+      <label for="soundVolume">sound Volume</label>
+      <input type="range"
+        id="soundVolume"
+        name="soundVolume" />
+
+      <label for="musicVolume">Music Volume</label>
+      <input type="range"
+        id="musicVolume"
+        name="musicVolume" />
+
+      <label for="sfxVolume">sfx Volume</label>
+      <input type="range"
+        id="sfxVolume"
+        name="sfxVolume" />
+
+      <label for="voVolume">vo Volume</label>
+      <input type="range"
+        id="voVolume"
+        name="voVolume" />
+    </div>
+
+    <button id="captionButton">Captions On/Off</button>
+  </div>
+
+  <script src="./dist/SpringRoll-Container-umd.js"></script>
+
+  <script>
+
+    const controlPlugin = new springroll.ControlsPlugin({
+      sensitivitySlider: '#controlSensitivity',
+      keyContainer: '#keyContainer',
+    });
+    const uiSizePlugin = new springroll.UISizePlugin({
+      pointerSlider: '#pointerSize',
+      buttonSlider: '#buttonSize'
+    });
+    const layersPlugin = new springroll.LayersPlugin({
+      layersSlider: '#layers'
+    });
+    const hudPlugin = new springroll.HUDPlugin({ hudSelectorButton: '#hudPosition' });
+
+    const mechanicsPlugin = new springroll.MechanicsPlugin({
+      hitAreaScaleSlider: '#hitArea',
+      dragThresholdScaleSlider: '#dragThreshold',
+      healthSlider: '#health',
+      objectCountSlider: '#objectCount',
+      completionPercentageSlider: '#completionPercentage',
+      speedScaleSlider: '#speedScale',
+      timersScaleSlider: '#timersScale',
+      inputCountSlider: '#inputCount',
+    });
+
+    const colorVisionPlugin = new springroll.ColorVisionPlugin({
+      colorSelect: '#colorBlind'
+    });
+
+    const soundPlugin = new springroll.SoundPlugin({
+      soundSlider: '#soundVolume',
+      musicSlider: '#musicVolume',
+      sfxSlider: '#sfxVolume',
+      voSlider: '#voVolume',
+    });
+
+    const captionsPlugin = new springroll.CaptionsPlugin(
+      '#captionButton'
+    );
+
+    const container = new springroll.Container({
+      iframeSelector: '#frame',
+      plugins: [
+        controlPlugin,
+        uiSizePlugin,
+        layersPlugin,
+        hudPlugin,
+        mechanicsPlugin,
+        colorVisionPlugin,
+        captionsPlugin,
+        soundPlugin,
+      ]
+    });
+
+
+    container.openPath('./frame.html');
+  </script>
+</body>
+
+</html>
