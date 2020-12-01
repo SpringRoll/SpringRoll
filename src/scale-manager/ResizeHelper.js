@@ -18,7 +18,7 @@ export class ResizeHelper {
    */
   get enabled() { return this._enabled; }
   /**
-   * Sets the enabled state of the ResizeHelper. 
+   * Sets the enabled state of the ResizeHelper.
    * Forces a resize event.
    * @memberof ResizeHelper
    */
@@ -31,7 +31,7 @@ export class ResizeHelper {
 
   /**
    *Creates an instance of ResizeHelper.
-  * @param {function} resizeCallback 
+  * @param {function} resizeCallback
   * @memberof ResizeHelper
   */
   constructor(resizeCallback) {
@@ -83,7 +83,7 @@ export class ResizeHelper {
 
   /**
    * Dispatches window resize events if the ResizeHelper is manually handling a resize loop.
-   * This is the callback for the aspectRatio property change and is intended to only be called in 
+   * This is the callback for the aspectRatio property change and is intended to only be called in
    * specific environments or when enabling/disableing the ResizeHelper.
    * @memberof ResizeHelper
    * @private
@@ -112,14 +112,8 @@ export class ResizeHelper {
     let width, height;
 
     if (this.iOS) {
-      if (window.orientation % 180 === 0) {
-        width = window.screen.width;
-        height = window.screen.height;
-      }
-      else {
-        width = document.documentElement.clientWidth;
-        height = document.documentElement.clientHeight;
-      }
+      width = document.documentElement.clientWidth;
+      height = document.documentElement.clientHeight;
     }
     else {
       width = window.innerWidth;
