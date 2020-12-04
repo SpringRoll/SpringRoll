@@ -21,46 +21,46 @@
         -   [Parameters][17]
     -   [delete][18]
         -   [Parameters][19]
--   [Anchor][20]
-    -   [onResize][21]
-        -   [Parameters][22]
--   [PositionCallback][23]
-    -   [Parameters][24]
--   [Point][25]
--   [Point][26]
--   [SafeScaleManager][27]
+-   [Point][20]
+-   [Point][21]
+-   [Anchor][22]
+    -   [onResize][23]
+        -   [Parameters][24]
+-   [PositionCallback][25]
+    -   [Parameters][26]
+-   [ScaleCallback][27]
     -   [Parameters][28]
-    -   [entities][29]
-    -   [resizeEventData][30]
-    -   [removeEntity][31]
-        -   [Parameters][32]
-    -   [enable][33]
+-   [SafeScaleManager][29]
+    -   [Parameters][30]
+    -   [entities][31]
+    -   [resizeEventData][32]
+    -   [removeEntity][33]
         -   [Parameters][34]
-    -   [disable][35]
-    -   [calcOffset][36]
-        -   [Parameters][37]
-    -   [addEntity][38]
+    -   [enable][35]
+        -   [Parameters][36]
+    -   [disable][37]
+    -   [calcOffset][38]
         -   [Parameters][39]
--   [ScaleCallback][40]
-    -   [Parameters][41]
--   [ResizeHelper][42]
-    -   [Parameters][43]
-    -   [iOS][44]
-    -   [enabled][45]
-    -   [enabled][46]
-        -   [Parameters][47]
-    -   [onWindowResize][48]
-    -   [getWindowResolution][49]
--   [ScaledEntity][50]
-    -   [onResize][51]
-        -   [Parameters][52]
--   [EntityResizeEvent][53]
--   [ScaleManager][54]
-    -   [Parameters][55]
-    -   [Properties][56]
-    -   [enable][57]
-        -   [Parameters][58]
-    -   [disable][59]
+    -   [addEntity][40]
+        -   [Parameters][41]
+-   [ScaledEntity][42]
+    -   [onResize][43]
+        -   [Parameters][44]
+-   [EntityResizeEvent][45]
+-   [ScaleManager][46]
+    -   [Parameters][47]
+    -   [Properties][48]
+    -   [enable][49]
+        -   [Parameters][50]
+    -   [disable][51]
+-   [ResizeHelper][52]
+    -   [Parameters][53]
+    -   [iOS][54]
+    -   [enabled][55]
+    -   [enabled][56]
+        -   [Parameters][57]
+    -   [onWindowResize][58]
+    -   [getWindowResolution][59]
 -   [SpeechSynth][60]
     -   [Parameters][61]
     -   [Properties][62]
@@ -81,26 +81,26 @@
     -   [volume][77]
         -   [Parameters][78]
     -   [volume][79]
--   [ColorFilter][80]
-    -   [applyFilter][81]
-        -   [Parameters][82]
-    -   [changeFilter][83]
-        -   [Parameters][84]
-    -   [removeFilter][85]
-    -   [types][86]
--   [filterType][87]
--   [Controller][88]
-    -   [Parameters][89]
-    -   [onWindowBlur][90]
-    -   [update][91]
-    -   [onKeyDown][92]
-        -   [Parameters][93]
-    -   [onKeyUp][94]
+-   [filterType][80]
+-   [ColorFilter][81]
+    -   [applyFilter][82]
+        -   [Parameters][83]
+    -   [changeFilter][84]
+        -   [Parameters][85]
+    -   [removeFilter][86]
+    -   [types][87]
+-   [KeyState][88]
+    -   [Properties][89]
+-   [Controller][90]
+    -   [Parameters][91]
+    -   [onWindowBlur][92]
+    -   [update][93]
+    -   [onKeyDown][94]
         -   [Parameters][95]
-    -   [assignButtons][96]
+    -   [onKeyUp][96]
         -   [Parameters][97]
--   [KeyState][98]
-    -   [Properties][99]
+    -   [assignButtons][98]
+        -   [Parameters][99]
 -   [Key][100]
     -   [Parameters][101]
     -   [Properties][102]
@@ -155,7 +155,7 @@
         -   [Parameters][151]
     -   [hasListeners][152]
 -   [Caption][153]
-    -   [Properties][154]
+    -   [Parameters][154]
     -   [update][155]
         -   [Parameters][156]
     -   [updateState][157]
@@ -166,7 +166,7 @@
     -   [updateTimeIndex][162]
         -   [Parameters][163]
 -   [Caption][164]
-    -   [Parameters][165]
+    -   [Properties][165]
     -   [update][166]
         -   [Parameters][167]
     -   [updateState][168]
@@ -184,13 +184,13 @@
     -   [createLine][180]
         -   [Parameters][181]
 -   [CaptionPlayer][182]
-    -   [Parameters][183]
-    -   [update][184]
-        -   [Parameters][185]
-    -   [start][186]
-        -   [Parameters][187]
-    -   [stop][188]
--   [CaptionPlayer][189]
+    -   [update][183]
+        -   [Parameters][184]
+    -   [start][185]
+        -   [Parameters][186]
+    -   [stop][187]
+-   [CaptionPlayer][188]
+    -   [Parameters][189]
     -   [update][190]
         -   [Parameters][191]
     -   [start][192]
@@ -219,17 +219,17 @@
     -   [lineEnd][215]
     -   [sanitize][216]
         -   [Parameters][217]
--   [Localizer][218]
-    -   [resolve][219]
-        -   [Parameters][220]
-    -   [setPrimaryLocale][221]
-        -   [Parameters][222]
-    -   [setFallbackLocale][223]
-        -   [Parameters][224]
-    -   [getLocaleKey][225]
-        -   [Parameters][226]
-    -   [getBrowserLanguages][227]
--   [Localizer.Options][228]
+-   [Localizer.Options][218]
+-   [Localizer][219]
+    -   [resolve][220]
+        -   [Parameters][221]
+    -   [setPrimaryLocale][222]
+        -   [Parameters][223]
+    -   [setFallbackLocale][224]
+        -   [Parameters][225]
+    -   [getLocaleKey][226]
+        -   [Parameters][227]
+    -   [getBrowserLanguages][228]
 -   [ApplicationPlugin][229]
     -   [preload][230]
     -   [init][231]
@@ -322,6 +322,14 @@ Removes data from SpringRoll Container
 
 -   `name` **[string][235]** 
 
+## Point
+
+Type: {x: [Number][233], y: [Number][233]}
+
+## Point
+
+Type: {x: [Number][233], y: [Number][233]}
+
 ## Anchor
 
 Used to fix positions to a relative point in the viewport.
@@ -345,13 +353,19 @@ Type: [Function][234]
 
 -   `position` **[Point][238]** position relative to anchor direction
 
-## Point
+## ScaleCallback
 
-Type: {x: [Number][233], y: [Number][233]}
+callback to used scale game and canvas
 
-## Point
+Type: [Function][234]
 
-Type: {x: [Number][233], y: [Number][233]}
+### Parameters
+
+-   `width` **[Number][233]** width canvas should be
+-   `height` **[Number][233]** height canvas should be
+-   `scale` **[Point][238]** x/y scale values
+-   `scaleRatio` **[Number][233]** minimum aspect ratio that fit's in the screen.
+-   `viewArea` **[Object][237]** Rectangle defining the total viewable area of game content.
 
 ## SafeScaleManager
 
@@ -415,53 +429,6 @@ Adds and anchor to be updated during resize
 
 -   `entity` **([ScaledEntity][240] \| [Array][239]&lt;[ScaledEntity][240]>)** 
 
-## ScaleCallback
-
-callback to used scale game and canvas
-
-Type: [Function][234]
-
-### Parameters
-
--   `width` **[Number][233]** width canvas should be
--   `height` **[Number][233]** height canvas should be
--   `scale` **[Point][238]** x/y scale values
--   `scaleRatio` **[Number][233]** minimum aspect ratio that fit's in the screen.
--   `viewArea` **[Object][237]** Rectangle defining the total viewable area of game content.
-
-## ResizeHelper
-
-Utility class that handles resize events for ScaleManager and SafeScaleManager.
-
-### Parameters
-
--   `resizeCallback` **[function][234]** 
-
-### iOS
-
-Whether or not the application is running on an iOS device.
-
-### enabled
-
-Returns the enabled state of the ResizeHelper.
-
-### enabled
-
-Sets the enabled state of the ResizeHelper. 
-Forces a resize event.
-
-#### Parameters
-
--   `value`  
-
-### onWindowResize
-
-Handler for window resize events. Forwards this event to the scale manager if enabled.
-
-### getWindowResolution
-
-Sets the window width and window height values of the ResizeHelper.
-
 ## ScaledEntity
 
 ### onResize
@@ -501,6 +468,39 @@ Enables the scale manager listener. Will not be enabled if a callback is not sup
 ### disable
 
 Disables the scale manager.
+
+## ResizeHelper
+
+Utility class that handles resize events for ScaleManager and SafeScaleManager.
+
+### Parameters
+
+-   `resizeCallback` **[function][234]** 
+
+### iOS
+
+Whether or not the application is running on an iOS device.
+
+### enabled
+
+Returns the enabled state of the ResizeHelper.
+
+### enabled
+
+Sets the enabled state of the ResizeHelper. 
+Forces a resize event.
+
+#### Parameters
+
+-   `value`  
+
+### onWindowResize
+
+Handler for window resize events. Forwards this event to the scale manager if enabled.
+
+### getWindowResolution
+
+Sets the window width and window height values of the ResizeHelper.
 
 ## SpeechSynth
 
@@ -596,6 +596,10 @@ Returns the current volume of the announcer.
 
 Returns **[number][233]** 
 
+## filterType
+
+Type: (`"protanopia"` \| `"protanomaly"` \| `"deuteranopia"` \| `"deuteranomaly"` \| `"tritanopia"` \| `"tritanomaly"` \| `"achromatopsia"` \| `"achromatomaly"`)
+
 ## ColorFilter
 
 The Color filter allows you to simulate colorblindness.
@@ -630,9 +634,15 @@ Supported filter types.
 Returns **[object][237]** Returns an object { name, value } with the colorblindness type:
 (Protanopia, Protanomaly, Deuteranopia, Deuteranomaly, Tritanopia, Tritanomaly, Achromatopsia, Achromatomaly)
 
-## filterType
+## KeyState
 
-Type: (`"protanopia"` \| `"protanomaly"` \| `"deuteranopia"` \| `"deuteranomaly"` \| `"tritanopia"` \| `"tritanomaly"` \| `"achromatopsia"` \| `"achromatomaly"`)
+Type: (`0` \| `1` \| `2`)
+
+### Properties
+
+-   `down` **[Function][234]** 
+-   `up` **[Function][234]** 
+-   `key` **[string][235]** 
 
 ## Controller
 
@@ -675,16 +685,6 @@ Sets an object of button functions to the controller to be called.
 #### Parameters
 
 -   `keys` **[Array][239]&lt;KeyTemplate>** 
-
-## KeyState
-
-Type: (`0` \| `1` \| `2`)
-
-### Properties
-
--   `down` **[Function][234]** 
--   `up` **[Function][234]** 
--   `key` **[string][235]** 
 
 ## Key
 
@@ -753,6 +753,7 @@ Main entry point for a game. Provides a single focal point for plugins and funct
     -   `features.inputCount` **[boolean][243]?** A boolean denoting that this game has adjustable input count requirements.
     -   `features.keyBinding` **[boolean][243]?** A boolean denoting that this game has re-mappable key bindings.
     -   `features.colorVision` **[boolean][243]?** A boolean denoting that this game has color blindess filters
+    -   `features.fullscreen` **[boolean][243]?** A boolean denoting that this game has fullscreen capabilities
 
 ### getPlugin
 
@@ -965,12 +966,9 @@ Type: [Boolean][243]
 
 ## Caption
 
-### Properties
+### Parameters
 
--   `lines` **[Array][239]&lt;[TimedLine][249]>** 
--   `time` **[number][233]** 
--   `lineIndex` **[number][233]** 
--   `renderer` **[IRender][250]** 
+-   `lines`  
 
 ### update
 
@@ -1015,9 +1013,12 @@ Updates the current time and index of the caption instance
 
 ## Caption
 
-### Parameters
+### Properties
 
--   `lines`  
+-   `lines` **[Array][239]&lt;[TimedLine][249]>** 
+-   `time` **[number][233]** 
+-   `lineIndex` **[number][233]** 
+-   `renderer` **[IRender][250]** 
 
 ### update
 
@@ -1096,10 +1097,8 @@ Returns **[TimedLine][249]** new TimedLine;
 
 ## CaptionPlayer
 
-### Parameters
-
--   `captions`  
--   `renderer`  
+CaptionPlayer is used to start, stop and update captions.
+ It applies the content of an active caption to a given CaptionRenderer.
 
 ### update
 
@@ -1126,8 +1125,10 @@ Stops any caption currently playing.
 
 ## CaptionPlayer
 
-CaptionPlayer is used to start, stop and update captions.
- It applies the content of an active caption to a given CaptionRenderer.
+### Parameters
+
+-   `captions`  
+-   `renderer`  
 
 ### update
 
@@ -1254,6 +1255,10 @@ Will attempt to remove all html from a string before it's renderer to the page
 
 -   `html` **any** 
 
+## Localizer.Options
+
+Type: {language: [string][235], fallback: [string][235]}
+
 ## Localizer
 
 ### resolve
@@ -1290,10 +1295,6 @@ Returns **[boolean][243]** True if fallback is set.
 Returns **[string][235]** 
 
 ### getBrowserLanguages
-
-## Localizer.Options
-
-Type: {language: [string][235], fallback: [string][235]}
 
 ## ApplicationPlugin
 
@@ -1355,85 +1356,85 @@ After all plugins inits has completed
 
 [19]: #parameters-5
 
-[20]: #anchor
+[20]: #point
 
-[21]: #onresize
+[21]: #point-1
 
-[22]: #parameters-6
+[22]: #anchor
 
-[23]: #positioncallback
+[23]: #onresize
 
-[24]: #parameters-7
+[24]: #parameters-6
 
-[25]: #point
+[25]: #positioncallback
 
-[26]: #point-1
+[26]: #parameters-7
 
-[27]: #safescalemanager
+[27]: #scalecallback
 
 [28]: #parameters-8
 
-[29]: #entities
+[29]: #safescalemanager
 
-[30]: #resizeeventdata
+[30]: #parameters-9
 
-[31]: #removeentity
+[31]: #entities
 
-[32]: #parameters-9
+[32]: #resizeeventdata
 
-[33]: #enable
+[33]: #removeentity
 
 [34]: #parameters-10
 
-[35]: #disable
+[35]: #enable
 
-[36]: #calcoffset
+[36]: #parameters-11
 
-[37]: #parameters-11
+[37]: #disable
 
-[38]: #addentity
+[38]: #calcoffset
 
 [39]: #parameters-12
 
-[40]: #scalecallback
+[40]: #addentity
 
 [41]: #parameters-13
 
-[42]: #resizehelper
+[42]: #scaledentity
 
-[43]: #parameters-14
+[43]: #onresize-1
 
-[44]: #ios
+[44]: #parameters-14
 
-[45]: #enabled
+[45]: #entityresizeevent
 
-[46]: #enabled-1
+[46]: #scalemanager
 
 [47]: #parameters-15
 
-[48]: #onwindowresize
+[48]: #properties-1
 
-[49]: #getwindowresolution
+[49]: #enable-1
 
-[50]: #scaledentity
+[50]: #parameters-16
 
-[51]: #onresize-1
+[51]: #disable-1
 
-[52]: #parameters-16
+[52]: #resizehelper
 
-[53]: #entityresizeevent
+[53]: #parameters-17
 
-[54]: #scalemanager
+[54]: #ios
 
-[55]: #parameters-17
+[55]: #enabled
 
-[56]: #properties-1
+[56]: #enabled-1
 
-[57]: #enable-1
+[57]: #parameters-18
 
-[58]: #parameters-18
+[58]: #onwindowresize
 
-[59]: #disable-1
+[59]: #getwindowresolution
 
 [60]: #speechsynth
 
@@ -1475,45 +1476,45 @@ After all plugins inits has completed
 
 [79]: #volume-1
 
-[80]: #colorfilter
+[80]: #filtertype
 
-[81]: #applyfilter
+[81]: #colorfilter
 
-[82]: #parameters-25
+[82]: #applyfilter
 
-[83]: #changefilter
+[83]: #parameters-25
 
-[84]: #parameters-26
+[84]: #changefilter
 
-[85]: #removefilter
+[85]: #parameters-26
 
-[86]: #types
+[86]: #removefilter
 
-[87]: #filtertype
+[87]: #types
 
-[88]: #controller
+[88]: #keystate
 
-[89]: #parameters-27
+[89]: #properties-3
 
-[90]: #onwindowblur
+[90]: #controller
 
-[91]: #update
+[91]: #parameters-27
 
-[92]: #onkeydown
+[92]: #onwindowblur
 
-[93]: #parameters-28
+[93]: #update
 
-[94]: #onkeyup
+[94]: #onkeydown
 
-[95]: #parameters-29
+[95]: #parameters-28
 
-[96]: #assignbuttons
+[96]: #onkeyup
 
-[97]: #parameters-30
+[97]: #parameters-29
 
-[98]: #keystate
+[98]: #assignbuttons
 
-[99]: #properties-3
+[99]: #parameters-30
 
 [100]: #key
 
@@ -1623,29 +1624,29 @@ After all plugins inits has completed
 
 [153]: #caption
 
-[154]: #properties-8
+[154]: #parameters-47
 
 [155]: #update-1
 
-[156]: #parameters-47
+[156]: #parameters-48
 
 [157]: #updatestate-1
 
-[158]: #parameters-48
+[158]: #parameters-49
 
 [159]: #isfinished
 
 [160]: #start-1
 
-[161]: #parameters-49
+[161]: #parameters-50
 
 [162]: #updatetimeindex
 
-[163]: #parameters-50
+[163]: #parameters-51
 
 [164]: #caption-1
 
-[165]: #parameters-51
+[165]: #properties-8
 
 [166]: #update-2
 
@@ -1681,19 +1682,19 @@ After all plugins inits has completed
 
 [182]: #captionplayer
 
-[183]: #parameters-59
+[183]: #update-3
 
-[184]: #update-3
+[184]: #parameters-59
 
-[185]: #parameters-60
+[185]: #start-3
 
-[186]: #start-3
+[186]: #parameters-60
 
-[187]: #parameters-61
+[187]: #stop-1
 
-[188]: #stop-1
+[188]: #captionplayer-1
 
-[189]: #captionplayer-1
+[189]: #parameters-61
 
 [190]: #update-4
 
@@ -1751,27 +1752,27 @@ After all plugins inits has completed
 
 [217]: #parameters-70
 
-[218]: #localizer
+[218]: #localizeroptions
 
-[219]: #resolve
+[219]: #localizer
 
-[220]: #parameters-71
+[220]: #resolve
 
-[221]: #setprimarylocale
+[221]: #parameters-71
 
-[222]: #parameters-72
+[222]: #setprimarylocale
 
-[223]: #setfallbacklocale
+[223]: #parameters-72
 
-[224]: #parameters-73
+[224]: #setfallbacklocale
 
-[225]: #getlocalekey
+[225]: #parameters-73
 
-[226]: #parameters-74
+[226]: #getlocalekey
 
-[227]: #getbrowserlanguages
+[227]: #parameters-74
 
-[228]: #localizeroptions
+[228]: #getbrowserlanguages
 
 [229]: #applicationplugin
 
