@@ -27,6 +27,7 @@ const speedScale = 'speedScale';
 const timersScale = 'timersScale';
 const inputCount = 'inputCount';
 const fullScreen = 'fullScreen';
+const indexedDBPlugin = 'indexedDBPlugin';
 
 const stateDefaults = {
   [pause]: false,
@@ -58,7 +59,8 @@ const stateDefaults = {
   [inputCount]: 0.5,
   [keyBinding]: {},
   [colorVision]: 'none',
-  [fullScreen]: false
+  [fullScreen]: false,
+  [indexedDBPlugin]: false
 };
 
 /**
@@ -90,6 +92,7 @@ const stateDefaults = {
  * @property {boolean} [features.keyBinding] A boolean denoting that this game has re-mappable key bindings.
  * @property {boolean} [features.colorVision] A boolean denoting that this game has color blindess filters
  * @property {boolean} [features.fullScreen] A boolean denoting that this game has fullScreen capabilities
+ * @property {boolean} [features.indexedDb] A boolean denoting that this game has fullScreen capabilities
  */
 export class Application {
   /**
@@ -120,7 +123,8 @@ export class Application {
    * @param {boolean} [config.features.inputCount] A boolean denoting that this game has adjustable input count requirements.
    * @param {boolean} [config.features.keyBinding] A boolean denoting that this game has re-mappable key bindings.
    * @param {boolean} [config.features.colorVision] A boolean denoting that this game has color blindness filters.
-   * @param {boolean} [features.fullScreen] A boolean denoting that this game has fullScreen capabilities
+   * @param {boolean} [config.features.fullScreen] A boolean denoting that this game has fullScreen capabilities
+   * @param {boolean} [config.features.indexedDBPlugin] A boolean denoting that this game has fullScreen capabilities
    * 
    */
   constructor({ features, hintPlayer = new HintSequencePlayer() } = {}) {
@@ -149,7 +153,8 @@ export class Application {
       [inputCount]: new Property(undefined),
       [keyBinding]: new Property(undefined),
       [colorVision]: new Property(undefined),
-      [fullScreen]: new Property(undefined)
+      [fullScreen]: new Property(undefined),
+      [indexedDBPlugin]: new Property(undefined)
     };
 
     this.features = Object.assign(
@@ -179,7 +184,8 @@ export class Application {
         speedScale: false,
         timersScale: false,
         inputCount: false,
-        fullScreen: false
+        fullScreen: false,
+        indexedDBPlugin: false
       },
       features || {}
     );
@@ -220,7 +226,8 @@ export class Application {
         speedScale,
         timersScale,
         inputCount,
-        fullScreen
+        fullScreen,
+        indexedDBPlugin
       ];
       const length = events.length;
       for (let i = 0; i < length; i++) {
@@ -399,7 +406,8 @@ export class Application {
       inputCount: inputCount,
       keyBinding: keyBinding,
       colorVision: colorVision,
-      fullScreen: fullScreen
+      fullScreen: fullScreen,
+      indexedDb: indexedDBPlugin
     };
 
     const keys = Object.keys(featureToStateMap);
