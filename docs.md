@@ -43,10 +43,10 @@
         -   [Parameters][39]
     -   [addEntity][40]
         -   [Parameters][41]
--   [EntityResizeEvent][42]
--   [ScaledEntity][43]
-    -   [onResize][44]
-        -   [Parameters][45]
+-   [ScaledEntity][42]
+    -   [onResize][43]
+        -   [Parameters][44]
+-   [EntityResizeEvent][45]
 -   [ScaleManager][46]
     -   [Parameters][47]
     -   [Properties][48]
@@ -81,14 +81,15 @@
     -   [volume][77]
         -   [Parameters][78]
     -   [volume][79]
--   [ColorFilter][80]
-    -   [applyFilter][81]
-        -   [Parameters][82]
-    -   [changeFilter][83]
-        -   [Parameters][84]
-    -   [removeFilter][85]
-    -   [types][86]
--   [filterType][87]
+-   [filterType][80]
+-   [ColorFilter][81]
+    -   [applyFilter][82]
+        -   [Parameters][83]
+    -   [changeFilter][84]
+        -   [Parameters][85]
+    -   [removeFilter][86]
+    -   [types][87]
+
 -   [KeyState][88]
     -   [Properties][89]
 -   [Controller][90]
@@ -219,17 +220,17 @@
     -   [lineEnd][215]
     -   [sanitize][216]
         -   [Parameters][217]
--   [Localizer][218]
-    -   [resolve][219]
-        -   [Parameters][220]
-    -   [setPrimaryLocale][221]
-        -   [Parameters][222]
-    -   [setFallbackLocale][223]
-        -   [Parameters][224]
-    -   [getLocaleKey][225]
-        -   [Parameters][226]
-    -   [getBrowserLanguages][227]
--   [Localizer.Options][228]
+-   [Localizer.Options][218]
+-   [Localizer][219]
+    -   [resolve][220]
+        -   [Parameters][221]
+    -   [setPrimaryLocale][222]
+        -   [Parameters][223]
+    -   [setFallbackLocale][224]
+        -   [Parameters][225]
+    -   [getLocaleKey][226]
+        -   [Parameters][227]
+    -   [getBrowserLanguages][228]
 -   [ApplicationPlugin][229]
     -   [preload][230]
     -   [init][231]
@@ -429,10 +430,6 @@ Adds and anchor to be updated during resize
 
 -   `entity` **([ScaledEntity][240] \| [Array][239]&lt;[ScaledEntity][240]>)** 
 
-## EntityResizeEvent
-
-Type: {offset: [Point][238], gameSize: [Point][238], scale: [Point][238]}
-
 ## ScaledEntity
 
 ### onResize
@@ -442,6 +439,12 @@ Type: {offset: [Point][238], gameSize: [Point][238], scale: [Point][238]}
 -   `event` **[EntityResizeEvent][241]** 
 
 Returns **void** @memberof ScaledEntity
+
+
+## EntityResizeEvent
+
+Type: {offset: [Point][238], gameSize: [Point][238], scale: [Point][238]}
+
 
 ## ScaleManager
 
@@ -487,7 +490,7 @@ Returns the enabled state of the ResizeHelper.
 
 ### enabled
 
-Sets the enabled state of the ResizeHelper. 
+Sets the enabled state of the ResizeHelper.
 Forces a resize event.
 
 #### Parameters
@@ -596,6 +599,10 @@ Returns the current volume of the announcer.
 
 Returns **[number][233]** 
 
+## filterType
+
+Type: (`"protanopia"` \| `"protanomaly"` \| `"deuteranopia"` \| `"deuteranomaly"` \| `"tritanopia"` \| `"tritanomaly"` \| `"achromatopsia"` \| `"achromatomaly"`)
+
 ## ColorFilter
 
 The Color filter allows you to simulate colorblindness.
@@ -630,9 +637,15 @@ Supported filter types.
 Returns **[object][237]** Returns an object { name, value } with the colorblindness type:
 (Protanopia, Protanomaly, Deuteranopia, Deuteranomaly, Tritanopia, Tritanomaly, Achromatopsia, Achromatomaly)
 
-## filterType
+## KeyState
 
-Type: (`"protanopia"` \| `"protanomaly"` \| `"deuteranopia"` \| `"deuteranomaly"` \| `"tritanopia"` \| `"tritanomaly"` \| `"achromatopsia"` \| `"achromatomaly"`)
+Type: (`0` \| `1` \| `2`)
+
+### Properties
+
+-   `down` **[Function][234]** 
+-   `up` **[Function][234]** 
+-   `key` **[string][235]** 
 
 ## KeyState
 
@@ -1255,6 +1268,10 @@ Will attempt to remove all html from a string before it's renderer to the page
 
 -   `html` **any** 
 
+## Localizer.Options
+
+Type: {language: [string][235], fallback: [string][235]}
+
 ## Localizer
 
 ### resolve
@@ -1291,10 +1308,6 @@ Returns **[boolean][243]** True if fallback is set.
 Returns **[string][235]** 
 
 ### getBrowserLanguages
-
-## Localizer.Options
-
-Type: {language: [string][235], fallback: [string][235]}
 
 ## ApplicationPlugin
 
@@ -1400,13 +1413,13 @@ After all plugins inits has completed
 
 [41]: #parameters-13
 
-[42]: #entityresizeevent
+[42]: #scaledentity
 
-[43]: #scaledentity
+[43]: #onresize-1
 
-[44]: #onresize-1
+[44]: #parameters-14
 
-[45]: #parameters-14
+[45]: #entityresizeevent
 
 [46]: #scalemanager
 
@@ -1476,21 +1489,21 @@ After all plugins inits has completed
 
 [79]: #volume-1
 
-[80]: #colorfilter
+[80]: #filtertype
 
-[81]: #applyfilter
+[81]: #colorfilter
 
-[82]: #parameters-25
+[82]: #applyfilter
 
-[83]: #changefilter
+[83]: #parameters-25
 
-[84]: #parameters-26
+[84]: #changefilter
 
-[85]: #removefilter
+[85]: #parameters-26
 
-[86]: #types
+[86]: #removefilter
 
-[87]: #filtertype
+[87]: #types
 
 [88]: #keystate
 
@@ -1752,27 +1765,27 @@ After all plugins inits has completed
 
 [217]: #parameters-70
 
-[218]: #localizer
+[218]: #localizeroptions
 
-[219]: #resolve
+[219]: #localizer
 
-[220]: #parameters-71
+[220]: #resolve
 
-[221]: #setprimarylocale
+[221]: #parameters-71
 
-[222]: #parameters-72
+[222]: #setprimarylocale
 
-[223]: #setfallbacklocale
+[223]: #parameters-72
 
-[224]: #parameters-73
+[224]: #setfallbacklocale
 
-[225]: #getlocalekey
+[225]: #parameters-73
 
-[226]: #parameters-74
+[226]: #getlocalekey
 
-[227]: #getbrowserlanguages
+[227]: #parameters-74
 
-[228]: #localizeroptions
+[228]: #getbrowserlanguages
 
 [229]: #applicationplugin
 
