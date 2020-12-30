@@ -103,3 +103,4 @@ The [State Manager module](./src/state) provides classes for creating subscribab
 
 ## BrowserStack Testing
 To test Springroll v2 on BrowserStack. Copy `.env.sample` and rename it to `.env`. Replace the placeholder values with your own BrowserStack credentials, and then run `npm run test:bs`.
+ 
