@@ -180,7 +180,6 @@ export class Application {
         timersScale: false,
         inputCount: false,
         fullScreen: false,
-        indexedDBPlugin: false
       },
       features || {}
     );
