@@ -28,21 +28,21 @@
         -   [Parameters][24]
 -   [PositionCallback][25]
     -   [Parameters][26]
--   [SafeScaleManager][27]
+-   [ScaleCallback][27]
     -   [Parameters][28]
-    -   [entities][29]
-    -   [resizeEventData][30]
-    -   [removeEntity][31]
-        -   [Parameters][32]
-    -   [enable][33]
+-   [SafeScaleManager][29]
+    -   [Parameters][30]
+    -   [entities][31]
+    -   [resizeEventData][32]
+    -   [removeEntity][33]
         -   [Parameters][34]
-    -   [disable][35]
-    -   [calcOffset][36]
-        -   [Parameters][37]
-    -   [addEntity][38]
+    -   [enable][35]
+        -   [Parameters][36]
+    -   [disable][37]
+    -   [calcOffset][38]
         -   [Parameters][39]
--   [ScaleCallback][40]
-    -   [Parameters][41]
+    -   [addEntity][40]
+        -   [Parameters][41]
 -   [ScaledEntity][42]
     -   [onResize][43]
         -   [Parameters][44]
@@ -89,18 +89,18 @@
         -   [Parameters][85]
     -   [removeFilter][86]
     -   [types][87]
--   [Controller][88]
-    -   [Parameters][89]
-    -   [onWindowBlur][90]
-    -   [update][91]
-    -   [onKeyDown][92]
-        -   [Parameters][93]
-    -   [onKeyUp][94]
+-   [KeyState][88]
+    -   [Properties][89]
+-   [Controller][90]
+    -   [Parameters][91]
+    -   [onWindowBlur][92]
+    -   [update][93]
+    -   [onKeyDown][94]
         -   [Parameters][95]
-    -   [assignButtons][96]
+    -   [onKeyUp][96]
         -   [Parameters][97]
--   [KeyState][98]
-    -   [Properties][99]
+    -   [assignButtons][98]
+        -   [Parameters][99]
 -   [Key][100]
     -   [Parameters][101]
     -   [Properties][102]
@@ -267,7 +267,7 @@ Adds a function to be called when timer is dispatched
 
 #### Parameters
 
--   `callback`  
+-   `callback`
 
 Returns **void** @memberof IdleTimer
 
@@ -277,7 +277,7 @@ Removes a function from being called when timer is dispatched
 
 #### Parameters
 
--   `callback` **any** 
+-   `callback` **any**
 
 Returns **void** @memberof IdleTimer
 
@@ -299,9 +299,9 @@ Gets data from SpringRoll Container
 
 #### Parameters
 
--   `name` **[string][235]** 
+-   `name` **[string][235]**
 
-Returns **[Promise][236]** 
+Returns **[Promise][236]**
 
 ### write
 
@@ -309,10 +309,10 @@ Sends data to SpringRoll Container
 
 #### Parameters
 
--   `name` **[string][235]** 
--   `value` **any** 
+-   `name` **[string][235]**
+-   `value` **any**
 
-Returns **[Promise][236]** 
+Returns **[Promise][236]**
 
 ### delete
 
@@ -320,7 +320,7 @@ Removes data from SpringRoll Container
 
 #### Parameters
 
--   `name` **[string][235]** 
+-   `name` **[string][235]**
 
 ## Point
 
@@ -338,8 +338,8 @@ Used to fix positions to a relative point in the viewport.
 
 #### Parameters
 
--   `param` **[object][237]** 
-    -   `param.viewArea` **[Point][238]** 
+-   `param` **[object][237]**
+    -   `param.viewArea` **[Point][238]**
 
 Returns **void** @memberof Anchor
 
@@ -353,19 +353,33 @@ Type: [Function][234]
 
 -   `position` **[Point][238]** position relative to anchor direction
 
+## ScaleCallback
+
+callback to used scale game and canvas
+
+Type: [Function][234]
+
+### Parameters
+
+-   `width` **[Number][233]** width canvas should be
+-   `height` **[Number][233]** height canvas should be
+-   `scale` **[Point][238]** x/y scale values
+-   `scaleRatio` **[Number][233]** minimum aspect ratio that fit's in the screen.
+-   `viewArea` **[Object][237]** Rectangle defining the total viewable area of game content.
+
 ## SafeScaleManager
 
 Handles scaling the game
 
 ### Parameters
 
--   `$0` **[Object][237]** 
-    -   `$0.width`  
-    -   `$0.height`  
+-   `$0` **[Object][237]**
+    -   `$0.width`
+    -   `$0.height`
     -   `$0.safeWidth`   (optional, default `Infinity`)
     -   `$0.safeHeight`   (optional, default `Infinity`)
     -   `$0.callback`   (optional, default `()=>{}`)
--   `param` **[object][237]** 
+-   `param` **[object][237]**
 
 ### entities
 
@@ -381,7 +395,7 @@ Removes an anchor
 
 #### Parameters
 
--   `entity` **[ScaledEntity][240]** 
+-   `entity` **[ScaledEntity][240]**
 
 Returns **void** @memberof SafeScaleManager
 
@@ -405,7 +419,7 @@ Calculates the offset for anchors.
 
 -   `scale` **[Point][238]** scale value
 
-Returns **[Point][238]** 
+Returns **[Point][238]**
 
 ### addEntity
 
@@ -413,21 +427,7 @@ Adds and anchor to be updated during resize
 
 #### Parameters
 
--   `entity` **([ScaledEntity][240] \| [Array][239]&lt;[ScaledEntity][240]>)** 
-
-## ScaleCallback
-
-callback to used scale game and canvas
-
-Type: [Function][234]
-
-### Parameters
-
--   `width` **[Number][233]** width canvas should be
--   `height` **[Number][233]** height canvas should be
--   `scale` **[Point][238]** x/y scale values
--   `scaleRatio` **[Number][233]** minimum aspect ratio that fit's in the screen.
--   `viewArea` **[Object][237]** Rectangle defining the total viewable area of game content.
+-   `entity` **([ScaledEntity][240] \| [Array][239]&lt;[ScaledEntity][240]>)**
 
 ## ScaledEntity
 
@@ -435,7 +435,7 @@ Type: [Function][234]
 
 #### Parameters
 
--   `event` **[EntityResizeEvent][241]** 
+-   `event` **[EntityResizeEvent][241]**
 
 Returns **void** @memberof ScaledEntity
 
@@ -455,7 +455,7 @@ Simplifies listening to resize events by passing the relevant data to a provided
 
 ### Properties
 
--   `callback` **[Function][234]?** 
+-   `callback` **[Function][234]?**
 
 ### enable
 
@@ -475,7 +475,7 @@ Utility class that handles resize events for ScaleManager and SafeScaleManager.
 
 ### Parameters
 
--   `resizeCallback` **[function][234]** 
+-   `resizeCallback` **[function][234]**
 
 ### iOS
 
@@ -487,12 +487,12 @@ Returns the enabled state of the ResizeHelper.
 
 ### enabled
 
-Sets the enabled state of the ResizeHelper. 
+Sets the enabled state of the ResizeHelper.
 Forces a resize event.
 
 #### Parameters
 
--   `value`  
+-   `value`
 
 ### onWindowResize
 
@@ -509,7 +509,7 @@ Note: This is not supported on IE11 and below because of the underlying APIs are
 
 ### Parameters
 
--   `params` **[object][237]** 
+-   `params` **[object][237]**
     -   `params.voice` **[number][233]** Indicates what voice to use. (optional, default `0`)
     -   `params.rate` **[number][233]** The rate at which the text is said. Supports a range from 0.1 to 10. (optional, default `1`)
     -   `params.pitch` **[number][233]** Voice Pitch. Supports a pitch from 0 to 2. (optional, default `0`)
@@ -538,7 +538,7 @@ If the announcer is already saying something then it will be added to a queue.
 
 #### Parameters
 
--   `message` **[string][235]** 
+-   `message` **[string][235]**
 
 ### setVoice
 
@@ -546,13 +546,13 @@ Sets the voice by array index.
 
 #### Parameters
 
--   `index` **[number][233]** 
+-   `index` **[number][233]**
 
 ### getVoice
 
 Returns the voice object.
 
-Returns **([object][237] | null)** 
+Returns **([object][237] | null)**
 
 ### rate
 
@@ -560,13 +560,13 @@ Rate at which text is spoken.
 
 #### Parameters
 
--   `rate` **[number][233]** 
+-   `rate` **[number][233]**
 
 ### rate
 
 Returns rate which text is spoken.
 
-Returns **[number][233]** 
+Returns **[number][233]**
 
 ### pitch
 
@@ -574,13 +574,13 @@ Sets the pitch at which text is spoken.
 
 #### Parameters
 
--   `pitch` **[number][233]** 
+-   `pitch` **[number][233]**
 
 ### pitch
 
 Returns the pitch at which text is spoken.
 
-Returns **[number][233]** 
+Returns **[number][233]**
 
 ### volume
 
@@ -588,13 +588,13 @@ Sets the current volume of the announcer.
 
 #### Parameters
 
--   `volume` **[number][233]** 
+-   `volume` **[number][233]**
 
 ### volume
 
 Returns the current volume of the announcer.
 
-Returns **[number][233]** 
+Returns **[number][233]**
 
 ## filterType
 
@@ -610,8 +610,8 @@ Applies the specified filter to the element.
 
 #### Parameters
 
--   `element` **[HTMLElement][244]** 
--   `type` **[filterType][245]** 
+-   `element` **[HTMLElement][244]**
+-   `type` **[filterType][245]**
 
 ### changeFilter
 
@@ -619,9 +619,9 @@ Changes the currently applied filter to the element if the color filter has it.
 
 #### Parameters
 
--   `type` **[filterType][245]** 
+-   `type` **[filterType][245]**
 
-Returns **any** 
+Returns **any**
 
 ### removeFilter
 
@@ -633,6 +633,16 @@ Supported filter types.
 
 Returns **[object][237]** Returns an object { name, value } with the colorblindness type:
 (Protanopia, Protanomaly, Deuteranopia, Deuteranomaly, Tritanopia, Tritanomaly, Achromatopsia, Achromatomaly)
+
+## KeyState
+
+Type: (`0` \| `1` \| `2`)
+
+### Properties
+
+-   `down` **[Function][234]**
+-   `up` **[Function][234]**
+-   `key` **[string][235]**
 
 ## Controller
 
@@ -658,7 +668,7 @@ Called on keyup. Sets flag to 1 if key is being watched.
 
 #### Parameters
 
--   `e` **[KeyboardEvent][247]** 
+-   `e` **[KeyboardEvent][247]**
 
 ### onKeyUp
 
@@ -666,7 +676,7 @@ Called on keyup. Sets flag to 2 if key is being watched.
 
 #### Parameters
 
--   `e` **[KeyboardEvent][247]** 
+-   `e` **[KeyboardEvent][247]**
 
 ### assignButtons
 
@@ -674,17 +684,7 @@ Sets an object of button functions to the controller to be called.
 
 #### Parameters
 
--   `keys` **[Array][239]&lt;KeyTemplate>** 
-
-## KeyState
-
-Type: (`0` \| `1` \| `2`)
-
-### Properties
-
--   `down` **[Function][234]** 
--   `up` **[Function][234]** 
--   `key` **[string][235]** 
+-   `keys` **[Array][239]&lt;KeyTemplate>**
 
 ## Key
 
@@ -700,7 +700,7 @@ Represents a single key on the keyboard and the functions related to it.
 
 -   `state` **(`0` \| `1` \| `2`)** The current state of the key. 0 = inactive, 1 = active, 2 = to be set to inactive.
 -   `key` **[string][235]** The name of the key we are targeting.
--   `actions` **[object][237]** 
+-   `actions` **[object][237]**
     -   `actions.down` **[function][234]** Function to be called while the key is held down.
     -   `actions.up` **[function][234]** Function to be called when the key is lifted up.
 
@@ -720,7 +720,7 @@ Calls the relevant action for the current state of the key.
 
 Returns the current state of the key.
 
-Returns **[number][233]** 
+Returns **[number][233]**
 
 ## Application
 
@@ -760,9 +760,9 @@ returns instance of a plugin.
 
 #### Parameters
 
--   `name` **[string][235]** 
+-   `name` **[string][235]**
 
-Returns **(SpringRoll.ApplicationPlugin | [undefined][248])** 
+Returns **(SpringRoll.ApplicationPlugin | [undefined][248])**
 
 ### validateListeners
 
@@ -778,7 +778,7 @@ Sets default values of application state properties.
 
 preloads, initializes and starts plugins.
 
-Returns **[Promise][236]&lt;void>** 
+Returns **[Promise][236]&lt;void>**
 
 ### \_plugins
 
@@ -800,7 +800,7 @@ Finds a plugin by name.
 
 -   `name` **[string][235]** The name of the plugin.
 
-Returns **(SpringRoll.ApplicationPlugin | [undefined][248])** 
+Returns **(SpringRoll.ApplicationPlugin | [undefined][248])**
 
 ## Debugger
 
@@ -814,15 +814,15 @@ Type: [object][237]
 
 ### Properties
 
--   `emitEnabled` **[boolean][243]** 
--   `enabled` **[boolean][243]** 
--   `minLevel` **[number][233]** 
+-   `emitEnabled` **[boolean][243]**
+-   `enabled` **[boolean][243]**
+-   `minLevel` **[number][233]**
 
 ### params
 
 Returns the params of the debugger.
 
-Returns **DebuggerParams** 
+Returns **DebuggerParams**
 
 ### minLevel
 
@@ -832,7 +832,7 @@ Sets the logging level of the debugger.
 
 -   `level` **([string][235] \| [number][233])** The name of the level.
 
-Returns **void** 
+Returns **void**
 
 ### emit
 
@@ -846,7 +846,7 @@ If emitting is enabled for this instance, then it will dispatch an event on the 
 
 Returns logging levels.
 
-Returns **[object][237]** 
+Returns **[object][237]**
 
 ### log
 
@@ -869,7 +869,7 @@ Will throw if statement is false.
 
 Returns a boolean indicating if the debugger has been enabled or not.
 
-Returns **[boolean][243]** 
+Returns **[boolean][243]**
 
 ### enable
 
@@ -878,9 +878,9 @@ TODO: Remove the parameter here, and add a disable method as well
 
 #### Parameters
 
--   `flag` **[boolean][243]** 
+-   `flag` **[boolean][243]**
 
-Returns **void** 
+Returns **void**
 
 ### paramKey
 
@@ -904,7 +904,7 @@ Returns **void** @memberof HintSequencePlayer
 
 #### Parameters
 
--   `callbacks` **[Array][239]&lt;function ()>** 
+-   `callbacks` **[Array][239]&lt;function ()>**
 
 Returns **void** @memberof HintSequencePlayer
 
@@ -912,7 +912,7 @@ Returns **void** @memberof HintSequencePlayer
 
 #### Parameters
 
--   `callbacks` **[Array][239]&lt;function ()>** 
+-   `callbacks` **[Array][239]&lt;function ()>**
 
 Returns **void** @memberof HintSequencePlayer
 
@@ -939,7 +939,7 @@ Type: any
 
 #### Parameters
 
--   `value`  
+-   `value`
 
 ### subscribe
 
@@ -967,7 +967,10 @@ Type: [Boolean][243]
 
 ### Parameters
 
--   `lines`  
+-   `lines` **[Array][239]&lt;[TimedLine][249]>**
+-   `time` **[number][233]**
+-   `lineIndex` **[number][233]**
+-   `renderer` **[IRender][250]**
 
 ### update
 
@@ -984,14 +987,14 @@ Handles calling callbacks and updating caption's current state.
 
 #### Parameters
 
--   `currentTime` **[Number][233]** 
--   `lastTime` **[Number][233]** 
+-   `currentTime` **[Number][233]**
+-   `lastTime` **[Number][233]**
 
 ### isFinished
 
 Checks if caption has completed.
 
-Returns **[Boolean][243]** 
+Returns **[Boolean][243]**
 
 ### start
 
@@ -1014,10 +1017,7 @@ Updates the current time and index of the caption instance
 
 ### Properties
 
--   `lines` **[Array][239]&lt;[TimedLine][249]>** 
--   `time` **[number][233]** 
--   `lineIndex` **[number][233]** 
--   `renderer` **[IRender][250]** 
+-   `lines`
 
 ### update
 
@@ -1034,14 +1034,14 @@ Handles calling callbacks and updating caption's current state.
 
 #### Parameters
 
--   `currentTime` **[Number][233]** 
--   `lastTime` **[Number][233]** 
+-   `currentTime` **[Number][233]**
+-   `lastTime` **[Number][233]**
 
 ### isFinished
 
 Checks if caption has completed.
 
-Returns **[Boolean][243]** 
+Returns **[Boolean][243]**
 
 ### start
 
@@ -1070,9 +1070,9 @@ Creates a new Object&lt;String, Caption>.
 
 #### Parameters
 
--   `data` **[JSON][251]** 
+-   `data` **[JSON][251]**
 
-Returns **[Object][237]** 
+Returns **[Object][237]**
 
 ### createCaption
 
@@ -1080,7 +1080,7 @@ Creates a new Caption from JSON data.
 
 #### Parameters
 
--   `captionData` **any** 
+-   `captionData` **any**
 
 Returns **[Caption][252]** new Caption
 
@@ -1090,7 +1090,7 @@ Creates a new TimedLine from JSON data.
 
 #### Parameters
 
--   `lineData` **any** 
+-   `lineData` **any**
 
 Returns **[TimedLine][249]** new TimedLine;
 
@@ -1098,8 +1098,8 @@ Returns **[TimedLine][249]** new TimedLine;
 
 ### Parameters
 
--   `captions`  
--   `renderer`  
+-   `captions`
+-   `renderer`
 
 ### update
 
@@ -1126,8 +1126,10 @@ Stops any caption currently playing.
 
 ## CaptionPlayer
 
-CaptionPlayer is used to start, stop and update captions.
- It applies the content of an active caption to a given CaptionRenderer.
+### Parameters
+
+-   `captions`
+-   `renderer`
 
 ### update
 
@@ -1156,9 +1158,9 @@ Stops any caption currently playing.
 
 ### Properties
 
--   `startTime` **[number][233]** 
--   `endTime` **[number][233]** 
--   `content` **[string][235]** 
+-   `startTime` **[number][233]**
+-   `endTime` **[number][233]**
+-   `content` **[string][235]**
 
 ### setContent
 
@@ -1166,7 +1168,7 @@ Sets line's content. Removes HTML formatting for text.
 
 #### Parameters
 
--   `content` **any** 
+-   `content` **any**
 
 Returns **void** @memberof TimedLine
 
@@ -1187,8 +1189,8 @@ DOMRender is a incomplete renderer that is intended to supply just the basic sta
 
 ### Parameters
 
--   `element` **[HTMLElement][244]** 
--   `templateVariables` **[Object][237]** 
+-   `element` **[HTMLElement][244]**
+-   `templateVariables` **[Object][237]**
 
 ### start
 
@@ -1212,7 +1214,7 @@ Called by Caption Player when a new line needs to be displayed
 
 #### Parameters
 
--   `line`  
+-   `line`
 
 ### lineEnd
 
@@ -1228,7 +1230,7 @@ and swaps out the placeholder inside the double brackets with the matching key i
 -   `template` **[string][235]** String template that will be rendered with the supplied arguments
 -   `args` **[Object][237]** //An Object contain data to be inserted into the template This will match based on key values
 
-Returns **[string][235]** 
+Returns **[string][235]**
 
 ## TextRenderer
 
@@ -1240,7 +1242,7 @@ Called by Caption Player when a new line needs to be displayed
 
 #### Parameters
 
--   `line`  
+-   `line`
 
 ### lineEnd
 
@@ -1252,7 +1254,7 @@ Will attempt to remove all html from a string before it's renderer to the page
 
 #### Parameters
 
--   `html` **any** 
+-   `html` **any**
 
 ## Localizer.Options
 
@@ -1264,16 +1266,16 @@ Type: {language: [string][235], fallback: [string][235]}
 
 #### Parameters
 
--   `path` **[string][235]** 
+-   `path` **[string][235]**
 -   `options` **any**  (optional, default `{}`)
 
-Returns **{path: [string][235], language: [string][235]}** 
+Returns **{path: [string][235], language: [string][235]}**
 
 ### setPrimaryLocale
 
 #### Parameters
 
--   `localeKey` **[string][235]** 
+-   `localeKey` **[string][235]**
 
 Returns **[boolean][243]** True if language is set.
 
@@ -1281,7 +1283,7 @@ Returns **[boolean][243]** True if language is set.
 
 #### Parameters
 
--   `localeKey` **[string][235]** 
+-   `localeKey` **[string][235]**
 
 Returns **[boolean][243]** True if fallback is set.
 
@@ -1289,9 +1291,9 @@ Returns **[boolean][243]** True if fallback is set.
 
 #### Parameters
 
--   `localeKey` **[string][235]** 
+-   `localeKey` **[string][235]**
 
-Returns **[string][235]** 
+Returns **[string][235]**
 
 ### getBrowserLanguages
 
@@ -1369,33 +1371,33 @@ After all plugins inits has completed
 
 [26]: #parameters-7
 
-[27]: #safescalemanager
+[27]: #scalecallback
 
 [28]: #parameters-8
 
-[29]: #entities
+[29]: #safescalemanager
 
-[30]: #resizeeventdata
+[30]: #parameters-9
 
-[31]: #removeentity
+[31]: #entities
 
-[32]: #parameters-9
+[32]: #resizeeventdata
 
-[33]: #enable
+[33]: #removeentity
 
 [34]: #parameters-10
 
-[35]: #disable
+[35]: #enable
 
-[36]: #calcoffset
+[36]: #parameters-11
 
-[37]: #parameters-11
+[37]: #disable
 
-[38]: #addentity
+[38]: #calcoffset
 
 [39]: #parameters-12
 
-[40]: #scalecallback
+[40]: #addentity
 
 [41]: #parameters-13
 
@@ -1491,29 +1493,29 @@ After all plugins inits has completed
 
 [87]: #types
 
-[88]: #controller
+[88]: #keystate
 
-[89]: #parameters-27
+[89]: #properties-3
 
-[90]: #onwindowblur
+[90]: #controller
 
-[91]: #update
+[91]: #parameters-27
 
-[92]: #onkeydown
+[92]: #onwindowblur
 
-[93]: #parameters-28
+[93]: #update
 
-[94]: #onkeyup
+[94]: #onkeydown
 
-[95]: #parameters-29
+[95]: #parameters-28
 
-[96]: #assignbuttons
+[96]: #onkeyup
 
-[97]: #parameters-30
+[97]: #parameters-29
 
-[98]: #keystate
+[98]: #assignbuttons
 
-[99]: #properties-3
+[99]: #parameters-30
 
 [100]: #key
 

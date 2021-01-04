@@ -1,4 +1,4 @@
-import { IRender } from './Renderer';
+import { IRender, TemplateVariables } from './Renderer';
 
 type Locale = {path: string};
 type LocalizerConfig = {default: string, locales: { name: Locale }};
@@ -41,7 +41,7 @@ export class CaptionPlayer {
   activeCaption: Caption;
 
   update(deltaTime:number): void;
-  start(name: string, time?: number, args?: object): void;
+  start(name: string, time?: number, args?: TemplateVariables): void;
   stop(): void;
 
 }
