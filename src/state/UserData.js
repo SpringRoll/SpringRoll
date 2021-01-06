@@ -3,6 +3,12 @@ const onReturn = Symbol('onReturn');
 const READ = 'userDataRead';
 const WRITE = 'userDataWrite';
 const DELETE = 'userDataRemove';
+
+const IDBOPEN = 'openDb';
+const IDBADD = 'addToDb';
+const IDBDELETE = 'deleteFromDb';
+const IDBREAD = 'readDb';
+const IDBUPDATE = 'getCursorDb';
 /**
  *
  * Manages data between SpringRoll Container and SpringRoll
@@ -100,5 +106,93 @@ export class UserData {
 
     return this[onReturn](DELETE, name);
   }
+
+
+  /**
+   * Opens a connection with the indexedDB database
+   * @memberof UserData
+   * @param {string} name
+   * @static
+   */
+  static openDb(dbName, dbVersion = null, additions = {}) {
+    if (!BellhopSingleton.connected) {
+      const warning = `Could not complete connect action for ${name}. Bellhop is not connected.`;
+      return Promise.reject(warning);
+    }
+
+    return this[onReturn](IDBOPEN, {dbName: dbName, dbVersion: dbVersion, additions: additions });
+  }
+
+  /**
+   * Adds a record to the indexedDB database
+   * @memberof UserData
+   * @param {string} name
+   * @static
+   */
+  static addToStore(storeName, value) {
+    if (!BellhopSingleton.connected) {
+      const warning = `Could not complete connect action for ${name}. Bellhop is not connected.`;
+      return Promise.reject(warning);
+    }
+
+    return this[onReturn](IDBADD, { storeName, value });
+  }
+
+  /**
+   * Removes data from SpringRoll Container
+   * @memberof UserData
+   * @param {string} name
+   * @static
+   */
+  static deleteFromStore(storeName, key) {
+    if (!BellhopSingleton.connected) {
+      const warning = `Could not complete connect action for ${name}. Bellhop is not connected.`;
+      return Promise.reject(warning);
+    }
+
+    return this[onReturn](IDBDELETE, {storeName, key });
+  }
+  /**
+   * Removes data from SpringRoll Container
+   * @memberof UserData
+   * @param {string} name
+   * @static
+   */
+  static readFromStore(storeName, key) {
+    if (!BellhopSingleton.connected) {
+      const warning = `Could not complete connect action for ${name}. Bellhop is not connected.`;
+      return Promise.reject(warning);
+    }
+    
+    return this[onReturn](IDBREAD, {storeName, key });
+  }
+
+  /**
+   * Create a cursor instance in container
+   */
+  static createCursor(storeName, key) {
+    if (!BellhopSingleton.connected) {
+      const warning = `Could not complete connect action for ${name}. Bellhop is not connected.`;
+      return Promise.reject(warning);
+    }
+
+    return this[onReturn](IDBCURSOR, {storeName, key });
+  }
+
+  /**
+   * 
+   * @param {string} storeName 
+   * @param {string} key 
+   * @param {string} object 
+   */
+  static updateFromStore(storeName, key, object ) {
+    if (!BellhopSingleton.connected) {
+      const warning = `Could not complete connect action for ${name}. Bellhop is not connected.`;
+      return Promise.reject(warning);
+    }
+    return this[onReturn](IDBUPDATE, {storeName, key, object });
+
+  }
 }
 export default UserData;
+
