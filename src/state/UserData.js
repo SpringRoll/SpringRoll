@@ -4,7 +4,7 @@ const READ = 'userDataRead';
 const WRITE = 'userDataWrite';
 const DELETE = 'userDataRemove';
 
-const IDBOPEN = 'openDb';
+const IDBOPEN = 'IDBOpen';
 const IDBADD = 'addToDb';
 const IDBDELETE = 'deleteFromDb';
 const IDBREAD = 'readDb';
@@ -114,13 +114,14 @@ export class UserData {
    * @param {string} name
    * @static
    */
-  static openDb(dbName, dbVersion = null, additions = {}) {
+  static IDBOpen(dbName, dbVersion = null, additions = {}, deletions = {}) {
     if (!BellhopSingleton.connected) {
+      console.log('gggg');
       const warning = `Could not complete connect action for ${name}. Bellhop is not connected.`;
       return Promise.reject(warning);
     }
 
-    return this[onReturn](IDBOPEN, {dbName: dbName, dbVersion: dbVersion, additions: additions });
+    return this[onReturn](IDBOPEN, {dbName: dbName, dbVersion: dbVersion, additions: additions, deletions: deletions });
   }
 
   /**
@@ -165,18 +166,6 @@ export class UserData {
     }
     
     return this[onReturn](IDBREAD, {storeName, key });
-  }
-
-  /**
-   * Create a cursor instance in container
-   */
-  static createCursor(storeName, key) {
-    if (!BellhopSingleton.connected) {
-      const warning = `Could not complete connect action for ${name}. Bellhop is not connected.`;
-      return Promise.reject(warning);
-    }
-
-    return this[onReturn](IDBCURSOR, {storeName, key });
   }
 
   /**

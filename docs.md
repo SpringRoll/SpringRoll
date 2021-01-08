@@ -21,7 +21,7 @@
         -   [Parameters][17]
     -   [delete][18]
         -   [Parameters][19]
-    -   [openDb][20]
+    -   [IDBOpen][20]
         -   [Parameters][21]
     -   [addToStore][22]
         -   [Parameters][23]
@@ -29,48 +29,48 @@
         -   [Parameters][25]
     -   [readFromStore][26]
         -   [Parameters][27]
-    -   [createCursor][28]
+    -   [updateFromStore][28]
         -   [Parameters][29]
--   [Point][30]
--   [Point][31]
--   [Anchor][32]
-    -   [onResize][33]
-        -   [Parameters][34]
--   [PositionCallback][35]
-    -   [Parameters][36]
--   [SafeScaleManager][37]
+-   [Anchor][30]
+    -   [onResize][31]
+        -   [Parameters][32]
+-   [PositionCallback][33]
+    -   [Parameters][34]
+-   [Point][35]
+-   [Point][36]
+-   [ScaleCallback][37]
     -   [Parameters][38]
-    -   [entities][39]
-    -   [resizeEventData][40]
-    -   [removeEntity][41]
-        -   [Parameters][42]
-    -   [enable][43]
+-   [SafeScaleManager][39]
+    -   [Parameters][40]
+    -   [entities][41]
+    -   [resizeEventData][42]
+    -   [removeEntity][43]
         -   [Parameters][44]
-    -   [disable][45]
-    -   [calcOffset][46]
-        -   [Parameters][47]
-    -   [addEntity][48]
+    -   [enable][45]
+        -   [Parameters][46]
+    -   [disable][47]
+    -   [calcOffset][48]
         -   [Parameters][49]
--   [ScaleCallback][50]
-    -   [Parameters][51]
--   [EntityResizeEvent][52]
--   [ScaledEntity][53]
-    -   [onResize][54]
-        -   [Parameters][55]
--   [ScaleManager][56]
-    -   [Parameters][57]
-    -   [Properties][58]
-    -   [enable][59]
-        -   [Parameters][60]
-    -   [disable][61]
--   [ResizeHelper][62]
-    -   [Parameters][63]
-    -   [iOS][64]
-    -   [enabled][65]
-    -   [enabled][66]
-        -   [Parameters][67]
-    -   [onWindowResize][68]
-    -   [getWindowResolution][69]
+    -   [addEntity][50]
+        -   [Parameters][51]
+-   [ResizeHelper][52]
+    -   [Parameters][53]
+    -   [iOS][54]
+    -   [enabled][55]
+    -   [enabled][56]
+        -   [Parameters][57]
+    -   [onWindowResize][58]
+    -   [getWindowResolution][59]
+-   [ScaledEntity][60]
+    -   [onResize][61]
+        -   [Parameters][62]
+-   [EntityResizeEvent][63]
+-   [ScaleManager][64]
+    -   [Parameters][65]
+    -   [Properties][66]
+    -   [enable][67]
+        -   [Parameters][68]
+    -   [disable][69]
 -   [SpeechSynth][70]
     -   [Parameters][71]
     -   [Properties][72]
@@ -91,26 +91,26 @@
     -   [volume][87]
         -   [Parameters][88]
     -   [volume][89]
--   [filterType][90]
--   [ColorFilter][91]
-    -   [applyFilter][92]
-        -   [Parameters][93]
-    -   [changeFilter][94]
-        -   [Parameters][95]
-    -   [removeFilter][96]
-    -   [types][97]
--   [KeyState][98]
-    -   [Properties][99]
--   [Controller][100]
-    -   [Parameters][101]
-    -   [onWindowBlur][102]
-    -   [update][103]
-    -   [onKeyDown][104]
+-   [ColorFilter][90]
+    -   [applyFilter][91]
+        -   [Parameters][92]
+    -   [changeFilter][93]
+        -   [Parameters][94]
+    -   [removeFilter][95]
+    -   [types][96]
+-   [filterType][97]
+-   [Controller][98]
+    -   [Parameters][99]
+    -   [onWindowBlur][100]
+    -   [update][101]
+    -   [onKeyDown][102]
+        -   [Parameters][103]
+    -   [onKeyUp][104]
         -   [Parameters][105]
-    -   [onKeyUp][106]
+    -   [assignButtons][106]
         -   [Parameters][107]
-    -   [assignButtons][108]
-        -   [Parameters][109]
+-   [KeyState][108]
+    -   [Properties][109]
 -   [Key][110]
     -   [Parameters][111]
     -   [Properties][112]
@@ -165,7 +165,7 @@
         -   [Parameters][161]
     -   [hasListeners][162]
 -   [Caption][163]
-    -   [Parameters][164]
+    -   [Properties][164]
     -   [update][165]
         -   [Parameters][166]
     -   [updateState][167]
@@ -176,7 +176,7 @@
     -   [updateTimeIndex][172]
         -   [Parameters][173]
 -   [Caption][174]
-    -   [Properties][175]
+    -   [Parameters][175]
     -   [update][176]
         -   [Parameters][177]
     -   [updateState][178]
@@ -229,17 +229,17 @@
     -   [lineEnd][225]
     -   [sanitize][226]
         -   [Parameters][227]
--   [Localizer][228]
-    -   [resolve][229]
-        -   [Parameters][230]
-    -   [setPrimaryLocale][231]
-        -   [Parameters][232]
-    -   [setFallbackLocale][233]
-        -   [Parameters][234]
-    -   [getLocaleKey][235]
-        -   [Parameters][236]
-    -   [getBrowserLanguages][237]
--   [Localizer.Options][238]
+-   [Localizer.Options][228]
+-   [Localizer][229]
+    -   [resolve][230]
+        -   [Parameters][231]
+    -   [setPrimaryLocale][232]
+        -   [Parameters][233]
+    -   [setFallbackLocale][234]
+        -   [Parameters][235]
+    -   [getLocaleKey][236]
+        -   [Parameters][237]
+    -   [getBrowserLanguages][238]
 -   [ApplicationPlugin][239]
     -   [preload][240]
     -   [init][241]
@@ -332,7 +332,7 @@ Removes data from SpringRoll Container
 
 -   `name` **[string][245]** 
 
-### openDb
+### IDBOpen
 
 Opens a connection with the indexedDB database
 
@@ -341,6 +341,7 @@ Opens a connection with the indexedDB database
 -   `dbName`  
 -   `dbVersion`   (optional, default `null`)
 -   `additions`   (optional, default `{}`)
+-   `deletions`   (optional, default `{}`)
 -   `name` **[string][245]** 
 
 ### addToStore
@@ -350,7 +351,7 @@ Adds a record to the indexedDB database
 #### Parameters
 
 -   `storeName`  
--   `note`  
+-   `value`  
 -   `name` **[string][245]** 
 
 ### deleteFromStore
@@ -373,22 +374,13 @@ Removes data from SpringRoll Container
 -   `key`  
 -   `name` **[string][245]** 
 
-### createCursor
-
-Create a cursor instance in container
+### updateFromStore
 
 #### Parameters
 
--   `storeName`  
--   `key`  
-
-## Point
-
-Type: {x: [Number][243], y: [Number][243]}
-
-## Point
-
-Type: {x: [Number][243], y: [Number][243]}
+-   `storeName` **[string][245]** 
+-   `key` **[string][245]** 
+-   `object` **[string][245]** 
 
 ## Anchor
 
@@ -412,6 +404,28 @@ Type: [Function][244]
 ### Parameters
 
 -   `position` **[Point][248]** position relative to anchor direction
+
+## Point
+
+Type: {x: [Number][243], y: [Number][243]}
+
+## Point
+
+Type: {x: [Number][243], y: [Number][243]}
+
+## ScaleCallback
+
+callback to used scale game and canvas
+
+Type: [Function][244]
+
+### Parameters
+
+-   `width` **[Number][243]** width canvas should be
+-   `height` **[Number][243]** height canvas should be
+-   `scale` **[Point][248]** x/y scale values
+-   `scaleRatio` **[Number][243]** minimum aspect ratio that fit's in the screen.
+-   `viewArea` **[Object][247]** Rectangle defining the total viewable area of game content.
 
 ## SafeScaleManager
 
@@ -475,60 +489,6 @@ Adds and anchor to be updated during resize
 
 -   `entity` **([ScaledEntity][250] \| [Array][249]&lt;[ScaledEntity][250]>)** 
 
-## ScaleCallback
-
-callback to used scale game and canvas
-
-Type: [Function][244]
-
-### Parameters
-
--   `width` **[Number][243]** width canvas should be
--   `height` **[Number][243]** height canvas should be
--   `scale` **[Point][248]** x/y scale values
--   `scaleRatio` **[Number][243]** minimum aspect ratio that fit's in the screen.
--   `viewArea` **[Object][247]** Rectangle defining the total viewable area of game content.
-
-## EntityResizeEvent
-
-Type: {offset: [Point][248], gameSize: [Point][248], scale: [Point][248]}
-
-## ScaledEntity
-
-### onResize
-
-#### Parameters
-
--   `event` **[EntityResizeEvent][251]** 
-
-Returns **void** @memberof ScaledEntity
-
-## ScaleManager
-
-[Deprecated]
-
-Simplifies listening to resize events by passing the relevant data to a provided callback.
-
-### Parameters
-
--   `callback` **[Function][244]**  (optional, default `undefined`)
-
-### Properties
-
--   `callback` **[Function][244]?** 
-
-### enable
-
-Enables the scale manager listener. Will not be enabled if a callback is not supplied.
-
-#### Parameters
-
--   `callback` **[Function][244]** The function to be called on resize events.
-
-### disable
-
-Disables the scale manager.
-
 ## ResizeHelper
 
 Utility class that handles resize events for ScaleManager and SafeScaleManager.
@@ -561,6 +521,46 @@ Handler for window resize events. Forwards this event to the scale manager if en
 ### getWindowResolution
 
 Sets the window width and window height values of the ResizeHelper.
+
+## ScaledEntity
+
+### onResize
+
+#### Parameters
+
+-   `event` **[EntityResizeEvent][251]** 
+
+Returns **void** @memberof ScaledEntity
+
+## EntityResizeEvent
+
+Type: {offset: [Point][248], gameSize: [Point][248], scale: [Point][248]}
+
+## ScaleManager
+
+[Deprecated]
+
+Simplifies listening to resize events by passing the relevant data to a provided callback.
+
+### Parameters
+
+-   `callback` **[Function][244]**  (optional, default `undefined`)
+
+### Properties
+
+-   `callback` **[Function][244]?** 
+
+### enable
+
+Enables the scale manager listener. Will not be enabled if a callback is not supplied.
+
+#### Parameters
+
+-   `callback` **[Function][244]** The function to be called on resize events.
+
+### disable
+
+Disables the scale manager.
 
 ## SpeechSynth
 
@@ -656,10 +656,6 @@ Returns the current volume of the announcer.
 
 Returns **[number][243]** 
 
-## filterType
-
-Type: (`"protanopia"` \| `"protanomaly"` \| `"deuteranopia"` \| `"deuteranomaly"` \| `"tritanopia"` \| `"tritanomaly"` \| `"achromatopsia"` \| `"achromatomaly"`)
-
 ## ColorFilter
 
 The Color filter allows you to simulate colorblindness.
@@ -694,15 +690,9 @@ Supported filter types.
 Returns **[object][247]** Returns an object { name, value } with the colorblindness type:
 (Protanopia, Protanomaly, Deuteranopia, Deuteranomaly, Tritanopia, Tritanomaly, Achromatopsia, Achromatomaly)
 
-## KeyState
+## filterType
 
-Type: (`0` \| `1` \| `2`)
-
-### Properties
-
--   `down` **[Function][244]** 
--   `up` **[Function][244]** 
--   `key` **[string][245]** 
+Type: (`"protanopia"` \| `"protanomaly"` \| `"deuteranopia"` \| `"deuteranomaly"` \| `"tritanopia"` \| `"tritanomaly"` \| `"achromatopsia"` \| `"achromatomaly"`)
 
 ## Controller
 
@@ -745,6 +735,16 @@ Sets an object of button functions to the controller to be called.
 #### Parameters
 
 -   `keys` **[Array][249]&lt;KeyTemplate>** 
+
+## KeyState
+
+Type: (`0` \| `1` \| `2`)
+
+### Properties
+
+-   `down` **[Function][244]** 
+-   `up` **[Function][244]** 
+-   `key` **[string][245]** 
 
 ## Key
 
@@ -1027,9 +1027,12 @@ Type: [Boolean][253]
 
 ## Caption
 
-### Parameters
+### Properties
 
--   `lines`  
+-   `lines` **[Array][249]&lt;[TimedLine][259]>** 
+-   `time` **[number][243]** 
+-   `lineIndex` **[number][243]** 
+-   `renderer` **[IRender][260]** 
 
 ### update
 
@@ -1074,12 +1077,9 @@ Updates the current time and index of the caption instance
 
 ## Caption
 
-### Properties
+### Parameters
 
--   `lines` **[Array][249]&lt;[TimedLine][259]>** 
--   `time` **[number][243]** 
--   `lineIndex` **[number][243]** 
--   `renderer` **[IRender][260]** 
+-   `lines`  
 
 ### update
 
@@ -1316,6 +1316,10 @@ Will attempt to remove all html from a string before it's renderer to the page
 
 -   `html` **any** 
 
+## Localizer.Options
+
+Type: {language: [string][245], fallback: [string][245]}
+
 ## Localizer
 
 ### resolve
@@ -1352,10 +1356,6 @@ Returns **[boolean][253]** True if fallback is set.
 Returns **[string][245]** 
 
 ### getBrowserLanguages
-
-## Localizer.Options
-
-Type: {language: [string][245], fallback: [string][245]}
 
 ## ApplicationPlugin
 
@@ -1417,7 +1417,7 @@ After all plugins inits has completed
 
 [19]: #parameters-5
 
-[20]: #opendb
+[20]: #idbopen
 
 [21]: #parameters-6
 
@@ -1433,89 +1433,89 @@ After all plugins inits has completed
 
 [27]: #parameters-9
 
-[28]: #createcursor
+[28]: #updatefromstore
 
 [29]: #parameters-10
 
-[30]: #point
+[30]: #anchor
 
-[31]: #point-1
+[31]: #onresize
 
-[32]: #anchor
+[32]: #parameters-11
 
-[33]: #onresize
+[33]: #positioncallback
 
-[34]: #parameters-11
+[34]: #parameters-12
 
-[35]: #positioncallback
+[35]: #point
 
-[36]: #parameters-12
+[36]: #point-1
 
-[37]: #safescalemanager
+[37]: #scalecallback
 
 [38]: #parameters-13
 
-[39]: #entities
+[39]: #safescalemanager
 
-[40]: #resizeeventdata
+[40]: #parameters-14
 
-[41]: #removeentity
+[41]: #entities
 
-[42]: #parameters-14
+[42]: #resizeeventdata
 
-[43]: #enable
+[43]: #removeentity
 
 [44]: #parameters-15
 
-[45]: #disable
+[45]: #enable
 
-[46]: #calcoffset
+[46]: #parameters-16
 
-[47]: #parameters-16
+[47]: #disable
 
-[48]: #addentity
+[48]: #calcoffset
 
 [49]: #parameters-17
 
-[50]: #scalecallback
+[50]: #addentity
 
 [51]: #parameters-18
 
-[52]: #entityresizeevent
+[52]: #resizehelper
 
-[53]: #scaledentity
+[53]: #parameters-19
 
-[54]: #onresize-1
+[54]: #ios
 
-[55]: #parameters-19
+[55]: #enabled
 
-[56]: #scalemanager
+[56]: #enabled-1
 
 [57]: #parameters-20
 
-[58]: #properties-1
+[58]: #onwindowresize
 
-[59]: #enable-1
+[59]: #getwindowresolution
 
-[60]: #parameters-21
+[60]: #scaledentity
 
-[61]: #disable-1
+[61]: #onresize-1
 
-[62]: #resizehelper
+[62]: #parameters-21
 
-[63]: #parameters-22
+[63]: #entityresizeevent
 
-[64]: #ios
+[64]: #scalemanager
 
-[65]: #enabled
+[65]: #parameters-22
 
-[66]: #enabled-1
+[66]: #properties-1
 
-[67]: #parameters-23
+[67]: #enable-1
 
-[68]: #onwindowresize
+[68]: #parameters-23
 
-[69]: #getwindowresolution
+[69]: #disable-1
 
 [70]: #speechsynth
 
@@ -1557,45 +1557,45 @@ After all plugins inits has completed
 
 [89]: #volume-1
 
-[90]: #filtertype
+[90]: #colorfilter
 
-[91]: #colorfilter
+[91]: #applyfilter
 
-[92]: #applyfilter
+[92]: #parameters-30
 
-[93]: #parameters-30
+[93]: #changefilter
 
-[94]: #changefilter
+[94]: #parameters-31
 
-[95]: #parameters-31
+[95]: #removefilter
 
-[96]: #removefilter
+[96]: #types
 
-[97]: #types
+[97]: #filtertype
 
-[98]: #keystate
+[98]: #controller
 
-[99]: #properties-3
+[99]: #parameters-32
 
-[100]: #controller
+[100]: #onwindowblur
 
-[101]: #parameters-32
+[101]: #update
 
-[102]: #onwindowblur
+[102]: #onkeydown
 
-[103]: #update
+[103]: #parameters-33
 
-[104]: #onkeydown
+[104]: #onkeyup
 
-[105]: #parameters-33
+[105]: #parameters-34
 
-[106]: #onkeyup
+[106]: #assignbuttons
 
-[107]: #parameters-34
+[107]: #parameters-35
 
-[108]: #assignbuttons
+[108]: #keystate
 
-[109]: #parameters-35
+[109]: #properties-3
 
 [110]: #key
 
@@ -1705,29 +1705,29 @@ After all plugins inits has completed
 
 [163]: #caption
 
-[164]: #parameters-52
+[164]: #properties-8
 
 [165]: #update-1
 
-[166]: #parameters-53
+[166]: #parameters-52
 
 [167]: #updatestate-1
 
-[168]: #parameters-54
+[168]: #parameters-53
 
 [169]: #isfinished
 
 [170]: #start-1
 
-[171]: #parameters-55
+[171]: #parameters-54
 
 [172]: #updatetimeindex
 
-[173]: #parameters-56
+[173]: #parameters-55
 
 [174]: #caption-1
 
-[175]: #properties-8
+[175]: #parameters-56
 
 [176]: #update-2
 
@@ -1833,27 +1833,27 @@ After all plugins inits has completed
 
 [227]: #parameters-75
 
-[228]: #localizer
+[228]: #localizeroptions
 
-[229]: #resolve
+[229]: #localizer
 
-[230]: #parameters-76
+[230]: #resolve
 
-[231]: #setprimarylocale
+[231]: #parameters-76
 
-[232]: #parameters-77
+[232]: #setprimarylocale
 
-[233]: #setfallbacklocale
+[233]: #parameters-77
 
-[234]: #parameters-78
+[234]: #setfallbacklocale
 
-[235]: #getlocalekey
+[235]: #parameters-78
 
-[236]: #parameters-79
+[236]: #getlocalekey
 
-[237]: #getbrowserlanguages
+[237]: #parameters-79
 
-[238]: #localizeroptions
+[238]: #getbrowserlanguages
 
 [239]: #applicationplugin
 
