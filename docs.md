@@ -155,7 +155,7 @@
         -   [Parameters][151]
     -   [hasListeners][152]
 -   [Caption][153]
-    -   [Properties][154]
+    -   [Parameters][154]
     -   [update][155]
         -   [Parameters][156]
     -   [updateState][157]
@@ -166,7 +166,7 @@
     -   [updateTimeIndex][162]
         -   [Parameters][163]
 -   [Caption][164]
-    -   [Parameters][165]
+    -   [Properties][165]
     -   [update][166]
         -   [Parameters][167]
     -   [updateState][168]
@@ -184,13 +184,13 @@
     -   [createLine][180]
         -   [Parameters][181]
 -   [CaptionPlayer][182]
-    -   [update][183]
-        -   [Parameters][184]
-    -   [start][185]
-        -   [Parameters][186]
-    -   [stop][187]
--   [CaptionPlayer][188]
-    -   [Parameters][189]
+    -   [Parameters][183]
+    -   [update][184]
+        -   [Parameters][185]
+    -   [start][186]
+        -   [Parameters][187]
+    -   [stop][188]
+-   [CaptionPlayer][189]
     -   [update][190]
         -   [Parameters][191]
     -   [start][192]
@@ -219,17 +219,17 @@
     -   [lineEnd][215]
     -   [sanitize][216]
         -   [Parameters][217]
--   [Localizer.Options][218]
--   [Localizer][219]
-    -   [resolve][220]
-        -   [Parameters][221]
-    -   [setPrimaryLocale][222]
-        -   [Parameters][223]
-    -   [setFallbackLocale][224]
-        -   [Parameters][225]
-    -   [getLocaleKey][226]
-        -   [Parameters][227]
-    -   [getBrowserLanguages][228]
+-   [Localizer][218]
+    -   [resolve][219]
+        -   [Parameters][220]
+    -   [setPrimaryLocale][221]
+        -   [Parameters][222]
+    -   [setFallbackLocale][223]
+        -   [Parameters][224]
+    -   [getLocaleKey][225]
+        -   [Parameters][226]
+    -   [getBrowserLanguages][227]
+-   [Localizer.Options][228]
 -   [ApplicationPlugin][229]
     -   [preload][230]
     -   [init][231]
@@ -965,12 +965,9 @@ Type: [Boolean][243]
 
 ## Caption
 
-### Properties
+### Parameters
 
--   `lines` **[Array][239]&lt;[TimedLine][249]>** 
--   `time` **[number][233]** 
--   `lineIndex` **[number][233]** 
--   `renderer` **[IRender][250]** 
+-   `lines`  
 
 ### update
 
@@ -1015,9 +1012,12 @@ Updates the current time and index of the caption instance
 
 ## Caption
 
-### Parameters
+### Properties
 
--   `lines`  
+-   `lines` **[Array][239]&lt;[TimedLine][249]>** 
+-   `time` **[number][233]** 
+-   `lineIndex` **[number][233]** 
+-   `renderer` **[IRender][250]** 
 
 ### update
 
@@ -1096,8 +1096,10 @@ Returns **[TimedLine][249]** new TimedLine;
 
 ## CaptionPlayer
 
-CaptionPlayer is used to start, stop and update captions.
- It applies the content of an active caption to a given CaptionRenderer.
+### Parameters
+
+-   `captions`  
+-   `renderer`  
 
 ### update
 
@@ -1124,10 +1126,8 @@ Stops any caption currently playing.
 
 ## CaptionPlayer
 
-### Parameters
-
--   `captions`  
--   `renderer`  
+CaptionPlayer is used to start, stop and update captions.
+ It applies the content of an active caption to a given CaptionRenderer.
 
 ### update
 
@@ -1254,10 +1254,6 @@ Will attempt to remove all html from a string before it's renderer to the page
 
 -   `html` **any** 
 
-## Localizer.Options
-
-Type: {language: [string][235], fallback: [string][235]}
-
 ## Localizer
 
 ### resolve
@@ -1294,6 +1290,10 @@ Returns **[boolean][243]** True if fallback is set.
 Returns **[string][235]** 
 
 ### getBrowserLanguages
+
+## Localizer.Options
+
+Type: {language: [string][235], fallback: [string][235]}
 
 ## ApplicationPlugin
 
@@ -1623,29 +1623,29 @@ After all plugins inits has completed
 
 [153]: #caption
 
-[154]: #properties-8
+[154]: #parameters-47
 
 [155]: #update-1
 
-[156]: #parameters-47
+[156]: #parameters-48
 
 [157]: #updatestate-1
 
-[158]: #parameters-48
+[158]: #parameters-49
 
 [159]: #isfinished
 
 [160]: #start-1
 
-[161]: #parameters-49
+[161]: #parameters-50
 
 [162]: #updatetimeindex
 
-[163]: #parameters-50
+[163]: #parameters-51
 
 [164]: #caption-1
 
-[165]: #parameters-51
+[165]: #properties-8
 
 [166]: #update-2
 
@@ -1681,19 +1681,19 @@ After all plugins inits has completed
 
 [182]: #captionplayer
 
-[183]: #update-3
+[183]: #parameters-59
 
-[184]: #parameters-59
+[184]: #update-3
 
-[185]: #start-3
+[185]: #parameters-60
 
-[186]: #parameters-60
+[186]: #start-3
 
-[187]: #stop-1
+[187]: #parameters-61
 
-[188]: #captionplayer-1
+[188]: #stop-1
 
-[189]: #parameters-61
+[189]: #captionplayer-1
 
 [190]: #update-4
 
@@ -1751,27 +1751,27 @@ After all plugins inits has completed
 
 [217]: #parameters-70
 
-[218]: #localizeroptions
+[218]: #localizer
 
-[219]: #localizer
+[219]: #resolve
 
-[220]: #resolve
+[220]: #parameters-71
 
-[221]: #parameters-71
+[221]: #setprimarylocale
 
-[222]: #setprimarylocale
+[222]: #parameters-72
 
-[223]: #parameters-72
+[223]: #setfallbacklocale
 
-[224]: #setfallbacklocale
+[224]: #parameters-73
 
-[225]: #parameters-73
+[225]: #getlocalekey
 
-[226]: #getlocalekey
+[226]: #parameters-74
 
-[227]: #parameters-74
+[227]: #getbrowserlanguages
 
-[228]: #getbrowserlanguages
+[228]: #localizeroptions
 
 [229]: #applicationplugin
 
