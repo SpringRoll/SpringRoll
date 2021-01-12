@@ -21,10 +21,10 @@
         -   [Parameters][17]
     -   [delete][18]
         -   [Parameters][19]
--   [PositionCallback][20]
-    -   [Parameters][21]
--   [Point][22]
--   [Point][23]
+-   [Point][20]
+-   [Point][21]
+-   [PositionCallback][22]
+    -   [Parameters][23]
 -   [Anchor][24]
     -   [onResize][25]
         -   [Parameters][26]
@@ -89,18 +89,18 @@
     -   [removeFilter][85]
     -   [types][86]
 -   [filterType][87]
--   [KeyState][88]
-    -   [Properties][89]
--   [Controller][90]
-    -   [Parameters][91]
-    -   [onWindowBlur][92]
-    -   [update][93]
-    -   [onKeyDown][94]
+-   [Controller][88]
+    -   [Parameters][89]
+    -   [onWindowBlur][90]
+    -   [update][91]
+    -   [onKeyDown][92]
+        -   [Parameters][93]
+    -   [onKeyUp][94]
         -   [Parameters][95]
-    -   [onKeyUp][96]
+    -   [assignButtons][96]
         -   [Parameters][97]
-    -   [assignButtons][98]
-        -   [Parameters][99]
+-   [KeyState][98]
+    -   [Properties][99]
 -   [Key][100]
     -   [Parameters][101]
     -   [Properties][102]
@@ -184,13 +184,13 @@
     -   [createLine][180]
         -   [Parameters][181]
 -   [CaptionPlayer][182]
-    -   [Parameters][183]
-    -   [update][184]
-        -   [Parameters][185]
-    -   [start][186]
-        -   [Parameters][187]
-    -   [stop][188]
--   [CaptionPlayer][189]
+    -   [update][183]
+        -   [Parameters][184]
+    -   [start][185]
+        -   [Parameters][186]
+    -   [stop][187]
+-   [CaptionPlayer][188]
+    -   [Parameters][189]
     -   [update][190]
         -   [Parameters][191]
     -   [start][192]
@@ -219,17 +219,17 @@
     -   [lineEnd][215]
     -   [sanitize][216]
         -   [Parameters][217]
--   [Localizer][218]
-    -   [resolve][219]
-        -   [Parameters][220]
-    -   [setPrimaryLocale][221]
-        -   [Parameters][222]
-    -   [setFallbackLocale][223]
-        -   [Parameters][224]
-    -   [getLocaleKey][225]
-        -   [Parameters][226]
-    -   [getBrowserLanguages][227]
--   [Localizer.Options][228]
+-   [Localizer.Options][218]
+-   [Localizer][219]
+    -   [resolve][220]
+        -   [Parameters][221]
+    -   [setPrimaryLocale][222]
+        -   [Parameters][223]
+    -   [setFallbackLocale][224]
+        -   [Parameters][225]
+    -   [getLocaleKey][226]
+        -   [Parameters][227]
+    -   [getBrowserLanguages][228]
 -   [ApplicationPlugin][229]
     -   [preload][230]
     -   [init][231]
@@ -322,6 +322,14 @@ Removes data from SpringRoll Container
 
 -   `name` **[string][235]** 
 
+## Point
+
+Type: {x: [Number][233], y: [Number][233]}
+
+## Point
+
+Type: {x: [Number][233], y: [Number][233]}
+
 ## PositionCallback
 
 callback to used move game entities
@@ -331,14 +339,6 @@ Type: [Function][234]
 ### Parameters
 
 -   `position` **[Point][237]** position relative to anchor direction
-
-## Point
-
-Type: {x: [Number][233], y: [Number][233]}
-
-## Point
-
-Type: {x: [Number][233], y: [Number][233]}
 
 ## Anchor
 
@@ -634,16 +634,6 @@ Returns **[object][238]** Returns an object { name, value } with the colorblindn
 
 Type: (`"protanopia"` \| `"protanomaly"` \| `"deuteranopia"` \| `"deuteranomaly"` \| `"tritanopia"` \| `"tritanomaly"` \| `"achromatopsia"` \| `"achromatomaly"`)
 
-## KeyState
-
-Type: (`0` \| `1` \| `2`)
-
-### Properties
-
--   `down` **[Function][234]** 
--   `up` **[Function][234]** 
--   `key` **[string][235]** 
-
 ## Controller
 
 Controller interface class to simplify working with key presses.
@@ -685,6 +675,16 @@ Sets an object of button functions to the controller to be called.
 #### Parameters
 
 -   `keys` **[Array][239]&lt;KeyTemplate>** 
+
+## KeyState
+
+Type: (`0` \| `1` \| `2`)
+
+### Properties
+
+-   `down` **[Function][234]** 
+-   `up` **[Function][234]** 
+-   `key` **[string][235]** 
 
 ## Key
 
@@ -1097,10 +1097,8 @@ Returns **[TimedLine][249]** new TimedLine;
 
 ## CaptionPlayer
 
-### Parameters
-
--   `captions`  
--   `renderer`  
+CaptionPlayer is used to start, stop and update captions.
+ It applies the content of an active caption to a given CaptionRenderer.
 
 ### update
 
@@ -1127,8 +1125,10 @@ Stops any caption currently playing.
 
 ## CaptionPlayer
 
-CaptionPlayer is used to start, stop and update captions.
- It applies the content of an active caption to a given CaptionRenderer.
+### Parameters
+
+-   `captions`  
+-   `renderer`  
 
 ### update
 
@@ -1255,6 +1255,10 @@ Will attempt to remove all html from a string before it's renderer to the page
 
 -   `html` **any** 
 
+## Localizer.Options
+
+Type: {language: [string][235], fallback: [string][235]}
+
 ## Localizer
 
 ### resolve
@@ -1291,10 +1295,6 @@ Returns **[boolean][243]** True if fallback is set.
 Returns **[string][235]** 
 
 ### getBrowserLanguages
-
-## Localizer.Options
-
-Type: {language: [string][235], fallback: [string][235]}
 
 ## ApplicationPlugin
 
@@ -1356,13 +1356,13 @@ After all plugins inits has completed
 
 [19]: #parameters-5
 
-[20]: #positioncallback
+[20]: #point
 
-[21]: #parameters-6
+[21]: #point-1
 
-[22]: #point
+[22]: #positioncallback
 
-[23]: #point-1
+[23]: #parameters-6
 
 [24]: #anchor
 
@@ -1492,29 +1492,29 @@ After all plugins inits has completed
 
 [87]: #filtertype
 
-[88]: #keystate
+[88]: #controller
 
-[89]: #properties-3
+[89]: #parameters-27
 
-[90]: #controller
+[90]: #onwindowblur
 
-[91]: #parameters-27
+[91]: #update
 
-[92]: #onwindowblur
+[92]: #onkeydown
 
-[93]: #update
+[93]: #parameters-28
 
-[94]: #onkeydown
+[94]: #onkeyup
 
-[95]: #parameters-28
+[95]: #parameters-29
 
-[96]: #onkeyup
+[96]: #assignbuttons
 
-[97]: #parameters-29
+[97]: #parameters-30
 
-[98]: #assignbuttons
+[98]: #keystate
 
-[99]: #parameters-30
+[99]: #properties-3
 
 [100]: #key
 
@@ -1682,19 +1682,19 @@ After all plugins inits has completed
 
 [182]: #captionplayer
 
-[183]: #parameters-59
+[183]: #update-3
 
-[184]: #update-3
+[184]: #parameters-59
 
-[185]: #parameters-60
+[185]: #start-3
 
-[186]: #start-3
+[186]: #parameters-60
 
-[187]: #parameters-61
+[187]: #stop-1
 
-[188]: #stop-1
+[188]: #captionplayer-1
 
-[189]: #captionplayer-1
+[189]: #parameters-61
 
 [190]: #update-4
 
@@ -1752,27 +1752,27 @@ After all plugins inits has completed
 
 [217]: #parameters-70
 
-[218]: #localizer
+[218]: #localizeroptions
 
-[219]: #resolve
+[219]: #localizer
 
-[220]: #parameters-71
+[220]: #resolve
 
-[221]: #setprimarylocale
+[221]: #parameters-71
 
-[222]: #parameters-72
+[222]: #setprimarylocale
 
-[223]: #setfallbacklocale
+[223]: #parameters-72
 
-[224]: #parameters-73
+[224]: #setfallbacklocale
 
-[225]: #getlocalekey
+[225]: #parameters-73
 
-[226]: #parameters-74
+[226]: #getlocalekey
 
-[227]: #getbrowserlanguages
+[227]: #parameters-74
 
-[228]: #localizeroptions
+[228]: #getbrowserlanguages
 
 [229]: #applicationplugin
 
