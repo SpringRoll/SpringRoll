@@ -5,10 +5,12 @@ const WRITE = 'userDataWrite';
 const DELETE = 'userDataRemove';
 
 const IDBOPEN = 'IDBOpen';
-const IDBADD = 'addToDb';
-const IDBDELETE = 'deleteFromDb';
-const IDBREAD = 'readDb';
-const IDBUPDATE = 'getCursorDb';
+const IDBADD = 'IDBAdd';
+const IDBREMOVE = 'IDBRemove';
+const IDBREAD = 'IDBRead';
+const IDBUPDATE = 'IDBUpdate';
+const IDBCLOSE = 'IDBClose';
+const IDBREADALL = 'IDBReadAll';
 /**
  *
  * Manages data between SpringRoll Container and SpringRoll
@@ -16,6 +18,16 @@ const IDBUPDATE = 'getCursorDb';
  * @class UserData
  */
 export class UserData {
+
+  /**
+   * 
+   * @param {*} dbName 
+   */
+  constructor (dbName) {
+    console.log('built');
+    this.dbName = dbName;
+
+  }
   /**
    * Handles return
    * @function
@@ -115,13 +127,15 @@ export class UserData {
    * @static
    */
   static IDBOpen(dbName, dbVersion = null, additions = {}, deletions = {}) {
+    console.log(dbName);
     if (!BellhopSingleton.connected) {
-      console.log('gggg');
       const warning = `Could not complete connect action for ${name}. Bellhop is not connected.`;
       return Promise.reject(warning);
     }
 
-    return this[onReturn](IDBOPEN, {dbName: dbName, dbVersion: dbVersion, additions: additions, deletions: deletions });
+    const data = {dbName: dbName, dbVersion: dbVersion, additions: additions, deletions: deletions };
+
+    return this[onReturn](IDBOPEN, data);
   }
 
   /**
@@ -130,13 +144,14 @@ export class UserData {
    * @param {string} name
    * @static
    */
-  static addToStore(storeName, value) {
+  static IDBAdd(storeName, value, key = null) {
+    console.log('Nooo');
     if (!BellhopSingleton.connected) {
       const warning = `Could not complete connect action for ${name}. Bellhop is not connected.`;
       return Promise.reject(warning);
     }
 
-    return this[onReturn](IDBADD, { storeName, value });
+    return this[onReturn](IDBADD, { storeName, value, key });
   }
 
   /**
@@ -145,13 +160,13 @@ export class UserData {
    * @param {string} name
    * @static
    */
-  static deleteFromStore(storeName, key) {
+  static IDBRemove(storeName, key) {
     if (!BellhopSingleton.connected) {
       const warning = `Could not complete connect action for ${name}. Bellhop is not connected.`;
       return Promise.reject(warning);
     }
 
-    return this[onReturn](IDBDELETE, {storeName, key });
+    return this[onReturn](IDBREMOVE, {storeName, key });
   }
   /**
    * Removes data from SpringRoll Container
@@ -159,7 +174,7 @@ export class UserData {
    * @param {string} name
    * @static
    */
-  static readFromStore(storeName, key) {
+  static IDBRead(storeName, key) {
     if (!BellhopSingleton.connected) {
       const warning = `Could not complete connect action for ${name}. Bellhop is not connected.`;
       return Promise.reject(warning);
@@ -174,12 +189,39 @@ export class UserData {
    * @param {string} key 
    * @param {string} object 
    */
-  static updateFromStore(storeName, key, object ) {
+  static IDBUpdate(storeName, key, value ) {
     if (!BellhopSingleton.connected) {
       const warning = `Could not complete connect action for ${name}. Bellhop is not connected.`;
       return Promise.reject(warning);
     }
-    return this[onReturn](IDBUPDATE, {storeName, key, object });
+    return this[onReturn](IDBUPDATE, {storeName, key, value });
+
+  }
+
+
+  /**
+   * 
+   * @param {string} storeName The name of the store to read from
+   * @param {integer} count Specifies the number of values to return if more than one is found. 
+   */
+  static IDBReadAll(storeName, count = null) {
+    if (!BellhopSingleton.connected) {
+      const warning = `Could not complete connect action for ${name}. Bellhop is not connected.`;
+      return Promise.reject(warning);
+    }
+    return this[onReturn](IDBREADALL, {storeName, count});
+
+  }
+
+  /**
+   * Close the connection with the database
+   */
+  static IDBClose() {
+    if (!BellhopSingleton.connected) {
+      const warning = `Could not complete connect action for ${name}. Bellhop is not connected.`;
+      return Promise.reject(warning);
+    }
+    return this[onReturn](IDBCLOSE);
 
   }
 }

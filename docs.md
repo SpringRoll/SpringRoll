@@ -31,13 +31,13 @@
         -   [Parameters][27]
     -   [updateFromStore][28]
         -   [Parameters][29]
--   [Anchor][30]
-    -   [onResize][31]
-        -   [Parameters][32]
--   [PositionCallback][33]
-    -   [Parameters][34]
--   [Point][35]
--   [Point][36]
+-   [Point][30]
+-   [Point][31]
+-   [Anchor][32]
+    -   [onResize][33]
+        -   [Parameters][34]
+-   [PositionCallback][35]
+    -   [Parameters][36]
 -   [ScaleCallback][37]
     -   [Parameters][38]
 -   [SafeScaleManager][39]
@@ -61,10 +61,10 @@
         -   [Parameters][57]
     -   [onWindowResize][58]
     -   [getWindowResolution][59]
--   [ScaledEntity][60]
-    -   [onResize][61]
-        -   [Parameters][62]
--   [EntityResizeEvent][63]
+-   [EntityResizeEvent][60]
+-   [ScaledEntity][61]
+    -   [onResize][62]
+        -   [Parameters][63]
 -   [ScaleManager][64]
     -   [Parameters][65]
     -   [Properties][66]
@@ -229,17 +229,17 @@
     -   [lineEnd][225]
     -   [sanitize][226]
         -   [Parameters][227]
--   [Localizer.Options][228]
--   [Localizer][229]
-    -   [resolve][230]
-        -   [Parameters][231]
-    -   [setPrimaryLocale][232]
-        -   [Parameters][233]
-    -   [setFallbackLocale][234]
-        -   [Parameters][235]
-    -   [getLocaleKey][236]
-        -   [Parameters][237]
-    -   [getBrowserLanguages][238]
+-   [Localizer][228]
+    -   [resolve][229]
+        -   [Parameters][230]
+    -   [setPrimaryLocale][231]
+        -   [Parameters][232]
+    -   [setFallbackLocale][233]
+        -   [Parameters][234]
+    -   [getLocaleKey][235]
+        -   [Parameters][236]
+    -   [getBrowserLanguages][237]
+-   [Localizer.Options][238]
 -   [ApplicationPlugin][239]
     -   [preload][240]
     -   [init][241]
@@ -382,6 +382,14 @@ Removes data from SpringRoll Container
 -   `key` **[string][245]** 
 -   `object` **[string][245]** 
 
+## Point
+
+Type: {x: [Number][243], y: [Number][243]}
+
+## Point
+
+Type: {x: [Number][243], y: [Number][243]}
+
 ## Anchor
 
 Used to fix positions to a relative point in the viewport.
@@ -404,14 +412,6 @@ Type: [Function][244]
 ### Parameters
 
 -   `position` **[Point][248]** position relative to anchor direction
-
-## Point
-
-Type: {x: [Number][243], y: [Number][243]}
-
-## Point
-
-Type: {x: [Number][243], y: [Number][243]}
 
 ## ScaleCallback
 
@@ -522,6 +522,10 @@ Handler for window resize events. Forwards this event to the scale manager if en
 
 Sets the window width and window height values of the ResizeHelper.
 
+## EntityResizeEvent
+
+Type: {offset: [Point][248], gameSize: [Point][248], scale: [Point][248]}
+
 ## ScaledEntity
 
 ### onResize
@@ -531,10 +535,6 @@ Sets the window width and window height values of the ResizeHelper.
 -   `event` **[EntityResizeEvent][251]** 
 
 Returns **void** @memberof ScaledEntity
-
-## EntityResizeEvent
-
-Type: {offset: [Point][248], gameSize: [Point][248], scale: [Point][248]}
 
 ## ScaleManager
 
@@ -1316,10 +1316,6 @@ Will attempt to remove all html from a string before it's renderer to the page
 
 -   `html` **any** 
 
-## Localizer.Options
-
-Type: {language: [string][245], fallback: [string][245]}
-
 ## Localizer
 
 ### resolve
@@ -1356,6 +1352,10 @@ Returns **[boolean][253]** True if fallback is set.
 Returns **[string][245]** 
 
 ### getBrowserLanguages
+
+## Localizer.Options
+
+Type: {language: [string][245], fallback: [string][245]}
 
 ## ApplicationPlugin
 
@@ -1437,19 +1437,19 @@ After all plugins inits has completed
 
 [29]: #parameters-10
 
-[30]: #anchor
+[30]: #point
 
-[31]: #onresize
+[31]: #point-1
 
-[32]: #parameters-11
+[32]: #anchor
 
-[33]: #positioncallback
+[33]: #onresize
 
-[34]: #parameters-12
+[34]: #parameters-11
 
-[35]: #point
+[35]: #positioncallback
 
-[36]: #point-1
+[36]: #parameters-12
 
 [37]: #scalecallback
 
@@ -1497,13 +1497,13 @@ After all plugins inits has completed
 
 [59]: #getwindowresolution
 
-[60]: #scaledentity
+[60]: #entityresizeevent
 
-[61]: #onresize-1
+[61]: #scaledentity
 
-[62]: #parameters-21
+[62]: #onresize-1
 
-[63]: #entityresizeevent
+[63]: #parameters-21
 
 [64]: #scalemanager
 
@@ -1833,27 +1833,27 @@ After all plugins inits has completed
 
 [227]: #parameters-75
 
-[228]: #localizeroptions
+[228]: #localizer
 
-[229]: #localizer
+[229]: #resolve
 
-[230]: #resolve
+[230]: #parameters-76
 
-[231]: #parameters-76
+[231]: #setprimarylocale
 
-[232]: #setprimarylocale
+[232]: #parameters-77
 
-[233]: #parameters-77
+[233]: #setfallbacklocale
 
-[234]: #setfallbacklocale
+[234]: #parameters-78
 
-[235]: #parameters-78
+[235]: #getlocalekey
 
-[236]: #getlocalekey
+[236]: #parameters-79
 
-[237]: #parameters-79
+[237]: #getbrowserlanguages
 
-[238]: #getbrowserlanguages
+[238]: #localizeroptions
 
 [239]: #applicationplugin
 
