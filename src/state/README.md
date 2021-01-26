@@ -59,8 +59,8 @@ Any work with indexedDB or the userData plugin as a whole should be done inside 
 import { UserData } from 'springroll';
 
 app.container.on('connected', async () => {
-  // Conect to your database
-  let responce = await userData.OpenDb('dbName');
+  // connect to your database
+  let response = await userData.OpenDb('dbName');
   
   // Work with IndexedDB below
   ...
@@ -106,28 +106,49 @@ In order to  change the structure of the database, such as adding/removing store
   let dbName = 'dbName';
 
   // Finally, open the connection with the database. This will return a success or failure
-  let responce = await userData.OpenDb( dbName, dbVersion, additions, deletions);
+  let response = await userData.OpenDb( dbName, dbVersion, additions, deletions);
   ```
 
-There are other methods currently supported to interact with the database. Each will return a success, or on failiure, an error messege 
+There are other methods currently supported to interact with the database. Each will return a success, or on failure, an error message 
 
   ``` javascript
 
   //Delete a record by the key in a specific store
-  let responce = await userData.deleteRecord('storeName', 'key');
+  let response = await userData.deleteRecord('storeName', 'key');
 
   // add a record to a store. The record can be any type of object accepted by indexedDB
-  let responce = await userData.onIDBAdd('storeName', 'record');
+  let response = await userData.IDBAdd('storeName', 'record');
 
   // returns the record with the given key from the store with the given storeName
-  let responce = await userData.onIDBRead('storeName', 'key');
+  let response = await userData.IDBRead('storeName', 'key');
+  // This will return {data: Object { result: "valuable", success: true }, type: IDBRead}
+
+  console.log(response.data.result) // This will return the 
 
   // Return all records from a database or optionally a specified amount defined by the second parameter
-  let responce = await IDBReadAll('storeName');
-  let responce = await IDBReadAll('storeName', 5);
+  let response = await IDBReadAll('storeName');
+  let response = await IDBReadAll('storeName', 5);
 
   // Finally, close the connection to the database
-  let responce = await userData.closeDb();
+  let response = await userData.closeDb();
+```
 
+All functions will return either a success or a failure message with error details
+``` javascript
+// Successes will return something similar to this
+{
+  data: { 
+    result: 'Success: IDBOpen', 
+    success: true 
+  },
+  type: 'IDBOpen'
+}
+
+// Failures will return something similar to this
+  data: { 
+    result: 'Failure: Current version is greater than given version', 
+    success: true 
+  },
+  type: 'IDBOpen'
 }
 ```

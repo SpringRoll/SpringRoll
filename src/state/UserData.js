@@ -24,7 +24,6 @@ export class UserData {
    * @param {*} dbName 
    */
   constructor (dbName) {
-    console.log('built');
     this.dbName = dbName;
 
   }
@@ -127,7 +126,6 @@ export class UserData {
    * @static
    */
   static IDBOpen(dbName, dbVersion = null, additions = {}, deletions = {}) {
-    console.log(dbName);
     if (!BellhopSingleton.connected) {
       const warning = `Could not complete connect action for ${name}. Bellhop is not connected.`;
       return Promise.reject(warning);
@@ -145,7 +143,6 @@ export class UserData {
    * @static
    */
   static IDBAdd(storeName, value, key = null) {
-    console.log('Nooo');
     if (!BellhopSingleton.connected) {
       const warning = `Could not complete connect action for ${name}. Bellhop is not connected.`;
       return Promise.reject(warning);
