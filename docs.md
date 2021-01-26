@@ -178,6 +178,48 @@
 -   [Caption][174]
     -   [Parameters][175]
     -   [update][176]
+    -   [paramKey][135]
+-   [HintSequencePlayer][136]
+    -   [play][137]
+    -   [clear][138]
+    -   [add][139]
+        -   [Parameters][140]
+    -   [remove][141]
+        -   [Parameters][142]
+-   [Property][143]
+    -   [Properties][144]
+    -   [value][145]
+    -   [value][146]
+        -   [Parameters][147]
+    -   [subscribe][148]
+        -   [Parameters][149]
+    -   [unsubscribe][150]
+        -   [Parameters][151]
+    -   [hasListeners][152]
+-   [Caption][153]
+    -   [Parameters][154]
+    -   [update][155]
+        -   [Parameters][156]
+    -   [updateState][157]
+        -   [Parameters][158]
+    -   [isFinished][159]
+    -   [start][160]
+        -   [Parameters][161]
+    -   [updateTimeIndex][162]
+        -   [Parameters][163]
+-   [Caption][164]
+    -   [Properties][165]
+    -   [update][166]
+        -   [Parameters][167]
+    -   [updateState][168]
+        -   [Parameters][169]
+    -   [isFinished][170]
+    -   [start][171]
+        -   [Parameters][172]
+    -   [updateTimeIndex][173]
+        -   [Parameters][174]
+-   [CaptionFactory][175]
+    -   [createCaptionMap][176]
         -   [Parameters][177]
     -   [updateState][178]
         -   [Parameters][179]
@@ -192,6 +234,17 @@
     -   [createCaption][188]
         -   [Parameters][189]
     -   [createLine][190]
+    -   [createLine][180]
+        -   [Parameters][181]
+-   [CaptionPlayer][182]
+    -   [Parameters][183]
+    -   [update][184]
+        -   [Parameters][185]
+    -   [start][186]
+        -   [Parameters][187]
+    -   [stop][188]
+-   [CaptionPlayer][189]
+    -   [update][190]
         -   [Parameters][191]
 -   [CaptionPlayer][192]
     -   [update][193]
@@ -244,6 +297,24 @@
     -   [preload][240]
     -   [init][241]
     -   [start][242]
+    -   [lineEnd][215]
+    -   [sanitize][216]
+        -   [Parameters][217]
+-   [Localizer][218]
+    -   [resolve][219]
+        -   [Parameters][220]
+    -   [setPrimaryLocale][221]
+        -   [Parameters][222]
+    -   [setFallbackLocale][223]
+        -   [Parameters][224]
+    -   [getLocaleKey][225]
+        -   [Parameters][226]
+    -   [getBrowserLanguages][227]
+-   [Localizer.Options][228]
+-   [ApplicationPlugin][229]
+    -   [preload][230]
+    -   [init][231]
+    -   [start][232]
 
 ## IdleTimer
 
@@ -1027,12 +1098,13 @@ Type: [Boolean][253]
 
 ## Caption
 
-### Properties
+### Parameters
 
 -   `lines` **[Array][249]&lt;[TimedLine][259]>** 
 -   `time` **[number][243]** 
 -   `lineIndex` **[number][243]** 
 -   `renderer` **[IRender][260]** 
+-   `lines`  
 
 ### update
 
@@ -1077,9 +1149,12 @@ Updates the current time and index of the caption instance
 
 ## Caption
 
-### Parameters
+### Properties
 
--   `lines`  
+-   `lines` **[Array][239]&lt;[TimedLine][249]>** 
+-   `time` **[number][233]** 
+-   `lineIndex` **[number][233]** 
+-   `renderer` **[IRender][250]** 
 
 ### update
 
@@ -1158,8 +1233,10 @@ Returns **[TimedLine][259]** new TimedLine;
 
 ## CaptionPlayer
 
-CaptionPlayer is used to start, stop and update captions.
- It applies the content of an active caption to a given CaptionRenderer.
+### Parameters
+
+-   `captions`  
+-   `renderer`  
 
 ### update
 
@@ -1186,10 +1263,8 @@ Stops any caption currently playing.
 
 ## CaptionPlayer
 
-### Parameters
-
--   `captions`  
--   `renderer`  
+CaptionPlayer is used to start, stop and update captions.
+ It applies the content of an active caption to a given CaptionRenderer.
 
 ### update
 
@@ -1356,6 +1431,7 @@ Returns **[string][245]**
 ## Localizer.Options
 
 Type: {language: [string][245], fallback: [string][245]}
+Type: {language: [string][235], fallback: [string][235]}
 
 ## ApplicationPlugin
 
@@ -1706,28 +1782,34 @@ After all plugins inits has completed
 [163]: #caption
 
 [164]: #properties-8
+[154]: #parameters-47
 
 [165]: #update-1
 
 [166]: #parameters-52
+[156]: #parameters-48
 
 [167]: #updatestate-1
 
 [168]: #parameters-53
+[158]: #parameters-49
 
 [169]: #isfinished
 
 [170]: #start-1
 
 [171]: #parameters-54
+[161]: #parameters-50
 
 [172]: #updatetimeindex
 
 [173]: #parameters-55
+[163]: #parameters-51
 
 [174]: #caption-1
 
 [175]: #parameters-56
+[165]: #properties-8
 
 [176]: #update-2
 
@@ -1776,6 +1858,19 @@ After all plugins inits has completed
 [198]: #captionplayer-1
 
 [199]: #parameters-66
+[183]: #parameters-59
+
+[184]: #update-3
+
+[185]: #parameters-60
+
+[186]: #start-3
+
+[187]: #parameters-61
+
+[188]: #stop-1
+
+[189]: #captionplayer-1
 
 [200]: #update-4
 
@@ -1854,6 +1949,27 @@ After all plugins inits has completed
 [237]: #getbrowserlanguages
 
 [238]: #localizeroptions
+[218]: #localizer
+
+[219]: #resolve
+
+[220]: #parameters-71
+
+[221]: #setprimarylocale
+
+[222]: #parameters-72
+
+[223]: #setfallbacklocale
+
+[224]: #parameters-73
+
+[225]: #getlocalekey
+
+[226]: #parameters-74
+
+[227]: #getbrowserlanguages
+
+[228]: #localizeroptions
 
 [239]: #applicationplugin
 

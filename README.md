@@ -100,6 +100,5 @@ The [Scale Manager module](./src/scale-manager) helps developers to react to scr
 ### State Manager Module
 The [State Manager module](./src/state) provides classes for creating subscribable properties that notify listeners when they are changed. This is used for managing pause, captions, and audio mute state in the [Application class](./src/), but can also be used for other generic uses.
 
-
 ## BrowserStack Testing
 To test Springroll v2 on BrowserStack. Copy `.env.sample` and rename it to `.env`. Replace the placeholder values with your own BrowserStack credentials, and then run `npm run test:bs`.

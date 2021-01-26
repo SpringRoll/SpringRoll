@@ -1,8 +1,8 @@
 export type ResizeCallback = (event: { width: Number, height: Number }) => void;
 
 export class ResizeHelper {
-  iOS: Boolean;
-  enabled: Booolean;
+  iOS: boolean;
+  enabled: boolean;
 
   constructor(callback: ResizeCallback);
 
