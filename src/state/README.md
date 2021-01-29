@@ -52,27 +52,29 @@ app.container.on('connected', async () => {
     await UserData.delete('my-value');
 });
 ```
-### IndexedDB
-Any work with indexedDB or the userData plugin as a whole should be done inside the 'connected' callback method
+### [IndexedDB](https://developer.mozilla.org/en-US/docs/Web/API/IndexedDB_API)
+This plugin is an abstraction of some of IndexedDBs functionality. Data passed in should conform to their documentation unless otherwise specified.
+Any work with indexedDB or the UserData plugin as a whole should be done inside the 'connected' callback method
 
 ``` javascript
 import { UserData } from 'springroll';
 
 app.container.on('connected', async () => {
   // connect to your database
-  let response = await userData.OpenDb('dbName');
+  let response = await UserData.OpenDb('dbName');
   
   // Work with IndexedDB below
   ...
 }
 ```
 
-In order to  change the structure of the database, such as adding/removing stores to a database or an index to a store, you should do so in the IDBOpen method
+In order to  change the structure of the database, such as adding/removing stores to a database or an index to a store, you should do so in the IDBOpen method. [Structuring the database](https://developer.mozilla.org/en-US/docs/Web/API/IndexedDB_API/Using_IndexedDB#creating_or_updating_the_version_of_the_database) has documentationl on the options able to be passed into indexes and stores
 
 ``` javascript
   
   // Additions is an optional parameter expecting a JSON object with any additions to the databases structure namely new stores and indexes. These are placed inside of an array 
   let additions = {
+    // []
     stores: [{
       storeName: 'storeOne',
       // optionally define a keyPath and/or set autoIncrement to true or false
@@ -106,31 +108,40 @@ In order to  change the structure of the database, such as adding/removing store
   let dbName = 'dbName';
 
   // Finally, open the connection with the database. This will return a success or failure
-  let response = await userData.OpenDb( dbName, dbVersion, additions, deletions);
+  let response = await UserData.OpenDb( dbName, dbVersion, additions, deletions);
   ```
 
-There are other methods currently supported to interact with the database. Each will return a success, or on failure, an error message 
+There are other methods currently supported to interact with the database. These allow you to [Add a record](https://developer.mozilla.org/en-US/docs/Web/API/IDBObjectStore/add), [Deleting a record](https://developer.mozilla.org/en-US/docs/Web/API/IDBObjectStore/delete), [Reading](https://developer.mozilla.org/en-US/docs/Web/API/IDBObjectStore/get), [reading all records](https://developer.mozilla.org/en-US/docs/Web/API/IDBObjectStore/getAll) Each will return a success, or on failure, an error message 
 
   ``` javascript
 
-  //Delete a record by the key in a specific store
-  let response = await userData.deleteRecord('storeName', 'key');
-
   // add a record to a store. The record can be any type of object accepted by indexedDB
-  let response = await userData.IDBAdd('storeName', 'record');
+  let response = await UserData.IDBAdd('storeName', 'record');
+
+  //Delete a record by the key in a specific store
+  let response = await UserData.deleteRecord('storeName', 'key');
 
   // returns the record with the given key from the store with the given storeName
-  let response = await userData.IDBRead('storeName', 'key');
-  // This will return {data: Object { result: "valuable", success: true }, type: IDBRead}
+  let response = await UserData.IDBRead('storeName', 'key');
+  // Expected Output:  {data: Object { result: "item", success: true }, type: IDBRead}
 
-  console.log(response.data.result) // This will return the 
+  console.log(response.data.result); // The value of the record given
 
   // Return all records from a database or optionally a specified amount defined by the second parameter
   let response = await IDBReadAll('storeName');
   let response = await IDBReadAll('storeName', 5);
 
+  // Expected Output:  {data: Object { result: ["item1", "item2"], success: true }, type: IDBRead}
+
+
   // Finally, close the connection to the database
-  let response = await userData.closeDb();
+  let response = await UserData.closeDb();
+```
+
+
+Return the version of the given database
+``` javascript
+let version = await UserData.IDBGetVersion('dbName');
 ```
 
 All functions will return either a success or a failure message with error details

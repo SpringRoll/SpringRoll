@@ -20,14 +20,6 @@ const IDBREADALL = 'IDBReadAll';
 export class UserData {
 
   /**
-   * 
-   * @param {*} dbName 
-   */
-  constructor (dbName) {
-    this.dbName = dbName;
-
-  }
-  /**
    * Handles return
    * @function
    * @memberof UserData
@@ -133,7 +125,10 @@ export class UserData {
 
     const data = {dbName: dbName, dbVersion: dbVersion, additions: additions, deletions: deletions };
 
-    return this[onReturn](IDBOPEN, data);
+    return this[onReturn](IDBOPEN, data)
+      .then(({ data }) => {
+        return data;
+      });
   }
 
   /**
