@@ -7,7 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [2.3.3] - 2021-01-29
 ### Added
 - This CHANGELOG
-### Changed
+### Fixed
 - `ResizeHelpers`'s iOS screen size reporting function updated to never return `window.screen.width` and `height` as they were reporting incorrect values when moving from portrait to landscape orientation.
 - Typings for caption classes were slightly off, and have now been corrected.
 
