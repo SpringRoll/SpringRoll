@@ -1,6 +1,6 @@
 name: build
 
-on: 
+on:
   pull_request:
     paths-ignore:
      - 'docs/**'
@@ -9,7 +9,7 @@ on:
   push:
     branches:
       - main
-  
+
 jobs:
   build:
 
@@ -17,7 +17,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [8.x, 10.x, 12.x]
+        node-version: [10.x, 12.x, 14.x]
 
     steps:
     - uses: actions/checkout@v1
@@ -32,7 +32,7 @@ jobs:
         npm ci
       env:
         CI: true
-    
+
     - name: build
       run: |
         npm run build:full
@@ -44,4 +44,4 @@ jobs:
         npm run github-test
       env:
         CI: true
-    
+

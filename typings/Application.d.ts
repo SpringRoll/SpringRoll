@@ -111,7 +111,7 @@ export class Property<T> {
   notifyChange(): void;
   subscribe(callback: PropertyChangeListener<T>): void;
   unsubscribe(callback: PropertyChangeListener<T>): void;
-  hasListeners(): boolean;
+  hasListeners: boolean;
 }
 
 export class UserData {

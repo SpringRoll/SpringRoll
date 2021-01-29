@@ -1,27 +1,3 @@
-# Scale Manager
-A utility class that listens for resize events.
-
-There is a 500ms delay added to the event to solve an issues where on some browsers the window isn't fully resized before the event fires.
-
-```javascript
-var scaleManager = new ScaleManager(function(resizeData) {
-  console.log('This is called on window resize');
-
-  console.log('Window width is', resizeData.width);
-  console.log('Window height is', resizeData.height);
-  console.log('Window aspect ratio is', resizeData.ratio);
-});
-```
-
-The `enable` method exists in case you do not have a listener ready at the time of construction or need to replace the
-existing listener.
-
-```javascript
-scaleManager.enable(function(resizeData) {
-  console.log('The old listener is replaced with this one!', resizeData);
-});
-```
-
 # Safe Scale Manager
 A utility class that listens for resize events and calculates the width and height your game should be to fit within the screen without stretching or squishing the game. 
 
@@ -158,3 +134,59 @@ scaleManager.addEntity(healthAnchor);
 |`position`| desired `x,y` position of the element relative to the Anchor's `direction` |
 |`direction`| `x,y` axis that the Anchor is attached to, `x:-1` is left, and `y:-1` is up. `x:0` and `y:0` locks the element to the center of the viewport. |
 |`callback`| function to be call anytime the screen is resized, the parameters contain the `x,y` position in world space to set your object too. |
+
+# ResizeHelper
+The ResizeHelper is a utility class that is used by the SafeScaleManager to handle detecting the dimension of the game container and when it resizes. Typically this utility class is meant to be used internally, however if needed developers can create their own instances to listen for resize events and get the current dimensions of the game container.
+
+```javascript
+const maxWidth = 1320;
+const maxHeight = 780;
+
+const minWidth = 1024;
+const minHeight = 660;
+
+function onGameResize({ width, height }) {  
+  const scale = Math.min(width / minWidth, height / minHeight);
+
+  const scaledWidth = maxWidth * scale;
+  const scaledHeight = maxHeight * scale;
+
+  const canvas = document.getElementById('gameCanvas');
+
+  canvas.style.width = `${scaledWidth}px`;
+  canvas.style.height = `${scaledHeight}px`;
+}
+
+this.resizer = new ResizeHelper(onGameResize);
+```
+
+**Note:** The above scaling logic requires the following canvas style setup in order for the game to scale relative to the center of the game container.
+
+```css
+canvas {
+    margin: auto;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+```
+
+## iOS
+The Resizehelper also provides a property that will return whether for not the game container is running in an iOS devices. There are some instances where a developer may need to implement separate logic if the game is running on an iOS device.
+
+```javascript
+if (resizeHelper.iOS) {
+  // Add iOS specific logic here.
+}
+```
+
+## Get Window Resolution
+The `ResizeHelper.getWindowResolution()` method is used to get the current width and height of the game container. It returns an object that containers the width and height values.
+
+```javascript
+const resolution = resizeHelper.getWindowResolution();
+
+console.log(resolution.width, resolution.height);
+```

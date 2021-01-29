@@ -1,6 +1,8 @@
 import { ResizeHelper } from './ResizeHelper';
 
 /**
+ * [Deprecated]
+ * 
  * Simplifies listening to resize events by passing the relevant data to a provided callback.
  * @class ScaleManager
  * @param {Function} [callback=undefined]
@@ -11,6 +13,8 @@ export class ScaleManager {
    *Creates an instance of ScaleManager.
    */
   constructor(callback = () => {}) {
+    console.warn('SpringRoll.ScaleManager has been deprecated. Use SpringRoll.SafeScaleManager instead.');
+
     this.width = 1;
     this.height = 1;
     this.callback = callback;

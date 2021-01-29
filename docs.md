@@ -28,21 +28,21 @@
 -   [Anchor][24]
     -   [onResize][25]
         -   [Parameters][26]
--   [ScaleCallback][27]
+-   [SafeScaleManager][27]
     -   [Parameters][28]
--   [SafeScaleManager][29]
-    -   [Parameters][30]
-    -   [entities][31]
-    -   [resizeEventData][32]
-    -   [removeEntity][33]
+    -   [entities][29]
+    -   [resizeEventData][30]
+    -   [removeEntity][31]
+        -   [Parameters][32]
+    -   [enable][33]
         -   [Parameters][34]
-    -   [enable][35]
-        -   [Parameters][36]
-    -   [disable][37]
-    -   [calcOffset][38]
+    -   [disable][35]
+    -   [calcOffset][36]
+        -   [Parameters][37]
+    -   [addEntity][38]
         -   [Parameters][39]
-    -   [addEntity][40]
-        -   [Parameters][41]
+-   [ScaleCallback][40]
+    -   [Parameters][41]
 -   [ResizeHelper][42]
     -   [Parameters][43]
     -   [iOS][44]
@@ -146,14 +146,14 @@
         -   [Parameters][142]
 -   [Property][143]
     -   [Properties][144]
-    -   [subscribe][145]
-        -   [Parameters][146]
-    -   [unsubscribe][147]
-        -   [Parameters][148]
-    -   [hasListeners][149]
-    -   [value][150]
-    -   [value][151]
-        -   [Parameters][152]
+    -   [value][145]
+    -   [value][146]
+        -   [Parameters][147]
+    -   [subscribe][148]
+        -   [Parameters][149]
+    -   [unsubscribe][150]
+        -   [Parameters][151]
+    -   [hasListeners][152]
 -   [Caption][153]
     -   [Properties][154]
     -   [update][155]
@@ -219,17 +219,17 @@
     -   [lineEnd][215]
     -   [sanitize][216]
         -   [Parameters][217]
--   [Localizer][218]
-    -   [resolve][219]
-        -   [Parameters][220]
-    -   [setPrimaryLocale][221]
-        -   [Parameters][222]
-    -   [setFallbackLocale][223]
-        -   [Parameters][224]
-    -   [getLocaleKey][225]
-        -   [Parameters][226]
-    -   [getBrowserLanguages][227]
--   [Localizer.Options][228]
+-   [Localizer.Options][218]
+-   [Localizer][219]
+    -   [resolve][220]
+        -   [Parameters][221]
+    -   [setPrimaryLocale][222]
+        -   [Parameters][223]
+    -   [setFallbackLocale][224]
+        -   [Parameters][225]
+    -   [getLocaleKey][226]
+        -   [Parameters][227]
+    -   [getBrowserLanguages][228]
 -   [ApplicationPlugin][229]
     -   [preload][230]
     -   [init][231]
@@ -353,20 +353,6 @@ Used to fix positions to a relative point in the viewport.
 
 Returns **void** @memberof Anchor
 
-## ScaleCallback
-
-callback to used scale game and canvas
-
-Type: [Function][234]
-
-### Parameters
-
--   `width` **[Number][233]** width canvas should be
--   `height` **[Number][233]** height canvas should be
--   `scale` **[Point][237]** x/y scale values
--   `scaleRatio` **[Number][233]** minimum aspect ratio that fit's in the screen.
--   `viewArea` **[Object][238]** Rectangle defining the total viewable area of game content.
-
 ## SafeScaleManager
 
 Handles scaling the game
@@ -429,6 +415,20 @@ Adds and anchor to be updated during resize
 
 -   `entity` **([ScaledEntity][240] \| [Array][239]&lt;[ScaledEntity][240]>)** 
 
+## ScaleCallback
+
+callback to used scale game and canvas
+
+Type: [Function][234]
+
+### Parameters
+
+-   `width` **[Number][233]** width canvas should be
+-   `height` **[Number][233]** height canvas should be
+-   `scale` **[Point][237]** x/y scale values
+-   `scaleRatio` **[Number][233]** minimum aspect ratio that fit's in the screen.
+-   `viewArea` **[Object][238]** Rectangle defining the total viewable area of game content.
+
 ## ResizeHelper
 
 Utility class that handles resize events for ScaleManager and SafeScaleManager.
@@ -447,7 +447,7 @@ Returns the enabled state of the ResizeHelper.
 
 ### enabled
 
-Sets the enabled state of the ResizeHelper. 
+Sets the enabled state of the ResizeHelper.
 Forces a resize event.
 
 #### Parameters
@@ -477,6 +477,8 @@ Returns **void** @memberof ScaledEntity
 Type: {offset: [Point][237], gameSize: [Point][237], scale: [Point][237]}
 
 ## ScaleManager
+
+[Deprecated]
 
 Simplifies listening to resize events by passing the relevant data to a provided callback.
 
@@ -923,6 +925,22 @@ A class for representing changeable/subscribable properties.
 -   `_value` **any** the value of the property
 -   `listeners` **\[]** all the objects listening to this property
 
+### value
+
+The current value of the property
+
+Type: any
+
+### value
+
+Setting this value notifies all listeners of the change.
+
+Type: any
+
+#### Parameters
+
+-   `value`  
+
 ### subscribe
 
 Adds a subscriber to this property.
@@ -943,21 +961,7 @@ Unsubscribes a listener from this property.
 
 Whether or not this property has any subscribed listeners
 
-Returns **[Boolean][243]** True if this property has at least one subscriber
-
-### value
-
-returns the current value of the property
-
-Returns **any** 
-
-### value
-
-Sets the value of the property and notifies all listeners of the change
-
-#### Parameters
-
--   `value` **any** the new property value
+Type: [Boolean][243]
 
 ## Caption
 
@@ -1250,6 +1254,10 @@ Will attempt to remove all html from a string before it's renderer to the page
 
 -   `html` **any** 
 
+## Localizer.Options
+
+Type: {language: [string][235], fallback: [string][235]}
+
 ## Localizer
 
 ### resolve
@@ -1286,10 +1294,6 @@ Returns **[boolean][243]** True if fallback is set.
 Returns **[string][235]** 
 
 ### getBrowserLanguages
-
-## Localizer.Options
-
-Type: {language: [string][235], fallback: [string][235]}
 
 ## ApplicationPlugin
 
@@ -1365,33 +1369,33 @@ After all plugins inits has completed
 
 [26]: #parameters-7
 
-[27]: #scalecallback
+[27]: #safescalemanager
 
 [28]: #parameters-8
 
-[29]: #safescalemanager
+[29]: #entities
 
-[30]: #parameters-9
+[30]: #resizeeventdata
 
-[31]: #entities
+[31]: #removeentity
 
-[32]: #resizeeventdata
+[32]: #parameters-9
 
-[33]: #removeentity
+[33]: #enable
 
 [34]: #parameters-10
 
-[35]: #enable
+[35]: #disable
 
-[36]: #parameters-11
+[36]: #calcoffset
 
-[37]: #disable
+[37]: #parameters-11
 
-[38]: #calcoffset
+[38]: #addentity
 
 [39]: #parameters-12
 
-[40]: #addentity
+[40]: #scalecallback
 
 [41]: #parameters-13
 
@@ -1601,21 +1605,21 @@ After all plugins inits has completed
 
 [144]: #properties-7
 
-[145]: #subscribe-1
+[145]: #value
 
-[146]: #parameters-44
+[146]: #value-1
 
-[147]: #unsubscribe-1
+[147]: #parameters-44
 
-[148]: #parameters-45
+[148]: #subscribe-1
 
-[149]: #haslisteners
+[149]: #parameters-45
 
-[150]: #value
+[150]: #unsubscribe-1
 
-[151]: #value-1
+[151]: #parameters-46
 
-[152]: #parameters-46
+[152]: #haslisteners
 
 [153]: #caption
 
@@ -1747,27 +1751,27 @@ After all plugins inits has completed
 
 [217]: #parameters-70
 
-[218]: #localizer
+[218]: #localizeroptions
 
-[219]: #resolve
+[219]: #localizer
 
-[220]: #parameters-71
+[220]: #resolve
 
-[221]: #setprimarylocale
+[221]: #parameters-71
 
-[222]: #parameters-72
+[222]: #setprimarylocale
 
-[223]: #setfallbacklocale
+[223]: #parameters-72
 
-[224]: #parameters-73
+[224]: #setfallbacklocale
 
-[225]: #getlocalekey
+[225]: #parameters-73
 
-[226]: #parameters-74
+[226]: #getlocalekey
 
-[227]: #getbrowserlanguages
+[227]: #parameters-74
 
-[228]: #localizeroptions
+[228]: #getbrowserlanguages
 
 [229]: #applicationplugin
 
