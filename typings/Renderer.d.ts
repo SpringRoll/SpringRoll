@@ -1,7 +1,9 @@
+import { Timedline } from './Localization';
+
 export interface IRender {
-  start: () => void;
+  start: (args:TemplateVariables) => void;
   stop: () => void;
-  lineBegin: (line:{content:string, templateVariables:TemplateVariables}) => void;
+  lineBegin: (line:Timedline) => void;
   lineEnd: () => void;
 }
 
@@ -16,14 +18,13 @@ export class DOMRenderer {
 }
 
 export class HtmlRenderer extends DOMRenderer implements IRender {
-  lineBegin(line:{content:string, templateVariables:TemplateVariables}): void;
+  lineBegin(line:Timedline): void;
   lineEnd(): void;
 }
 export class TextRenderer extends DOMRenderer implements IRender {
   sanitize(html: string): string;
-  lineBegin(line:{content:string, templateVariables:TemplateVariables}): void;
+  lineBegin(line:Timedline): void;
   lineEnd(): void;
 }
 
 export function TemplateRenderer(template: string, args: TemplateVariables): string;
-
