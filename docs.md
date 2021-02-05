@@ -41,26 +41,26 @@
         -   [Parameters][37]
     -   [addEntity][38]
         -   [Parameters][39]
--   [ScaleCallback][40]
-    -   [Parameters][41]
--   [ResizeHelper][42]
-    -   [Parameters][43]
-    -   [iOS][44]
-    -   [enabled][45]
-    -   [enabled][46]
-        -   [Parameters][47]
-    -   [onWindowResize][48]
-    -   [getWindowResolution][49]
--   [EntityResizeEvent][50]
--   [ScaledEntity][51]
-    -   [onResize][52]
-        -   [Parameters][53]
--   [ScaleManager][54]
-    -   [Parameters][55]
-    -   [Properties][56]
-    -   [enable][57]
-        -   [Parameters][58]
-    -   [disable][59]
+    -   [addEntity][40]
+        -   [Parameters][41]
+-   [EntityResizeEvent][42]
+-   [ScaledEntity][43]
+    -   [onResize][44]
+        -   [Parameters][45]
+-   [ScaleManager][46]
+    -   [Parameters][47]
+    -   [Properties][48]
+    -   [enable][49]
+        -   [Parameters][50]
+    -   [disable][51]
+-   [ResizeHelper][52]
+    -   [Parameters][53]
+    -   [iOS][54]
+    -   [enabled][55]
+    -   [enabled][56]
+        -   [Parameters][57]
+    -   [onWindowResize][58]
+    -   [getWindowResolution][59]
 -   [SpeechSynth][60]
     -   [Parameters][61]
     -   [Properties][62]
@@ -219,17 +219,17 @@
     -   [lineEnd][215]
     -   [sanitize][216]
         -   [Parameters][217]
--   [Localizer][218]
-    -   [resolve][219]
-        -   [Parameters][220]
-    -   [setPrimaryLocale][221]
-        -   [Parameters][222]
-    -   [setFallbackLocale][223]
-        -   [Parameters][224]
-    -   [getLocaleKey][225]
-        -   [Parameters][226]
-    -   [getBrowserLanguages][227]
--   [Localizer.Options][228]
+-   [Localizer.Options][218]
+-   [Localizer][219]
+    -   [resolve][220]
+        -   [Parameters][221]
+    -   [setPrimaryLocale][222]
+        -   [Parameters][223]
+    -   [setFallbackLocale][224]
+        -   [Parameters][225]
+    -   [getLocaleKey][226]
+        -   [Parameters][227]
+    -   [getBrowserLanguages][228]
 -   [ApplicationPlugin][229]
     -   [preload][230]
     -   [init][231]
@@ -416,6 +416,21 @@ Adds and anchor to be updated during resize
 -   `entity` **([ScaledEntity][240] \| [Array][239]&lt;[ScaledEntity][240]>)** 
 
 ## ScaleCallback
+## EntityResizeEvent
+
+Type: {offset: [Point][238], gameSize: [Point][238], scale: [Point][238]}
+
+## ScaledEntity
+
+### onResize
+
+#### Parameters
+
+-   `event` **[EntityResizeEvent][241]** 
+
+Returns **void** @memberof ScaledEntity
+
+## ScaleManager
 
 callback to used scale game and canvas
 
@@ -1255,6 +1270,10 @@ Will attempt to remove all html from a string before it's renderer to the page
 
 -   `html` **any** 
 
+## Localizer.Options
+
+Type: {language: [string][235], fallback: [string][235]}
+
 ## Localizer
 
 ### resolve
@@ -1291,10 +1310,6 @@ Returns **[boolean][243]** True if fallback is set.
 Returns **[string][235]** 
 
 ### getBrowserLanguages
-
-## Localizer.Options
-
-Type: {language: [string][235], fallback: [string][235]}
 
 ## ApplicationPlugin
 
@@ -1407,6 +1422,11 @@ After all plugins inits has completed
 [44]: #ios
 
 [45]: #enabled
+[42]: #entityresizeevent
+
+[43]: #scaledentity
+
+[44]: #onresize-1
 
 [46]: #enabled-1
 
@@ -1752,27 +1772,27 @@ After all plugins inits has completed
 
 [217]: #parameters-70
 
-[218]: #localizer
+[218]: #localizeroptions
 
-[219]: #resolve
+[219]: #localizer
 
-[220]: #parameters-71
+[220]: #resolve
 
-[221]: #setprimarylocale
+[221]: #parameters-71
 
-[222]: #parameters-72
+[222]: #setprimarylocale
 
-[223]: #setfallbacklocale
+[223]: #parameters-72
 
-[224]: #parameters-73
+[224]: #setfallbacklocale
 
-[225]: #getlocalekey
+[225]: #parameters-73
 
-[226]: #parameters-74
+[226]: #getlocalekey
 
-[227]: #getbrowserlanguages
+[227]: #parameters-74
 
-[228]: #localizeroptions
+[228]: #getbrowserlanguages
 
 [229]: #applicationplugin
 
