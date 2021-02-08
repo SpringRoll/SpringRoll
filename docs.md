@@ -36,23 +36,23 @@
 -   [Anchor][32]
     -   [onResize][33]
         -   [Parameters][34]
--   [PositionCallback][35]
-    -   [Parameters][36]
--   [ScaleCallback][37]
-    -   [Parameters][38]
--   [SafeScaleManager][39]
-    -   [Parameters][40]
-    -   [entities][41]
-    -   [resizeEventData][42]
-    -   [removeEntity][43]
-        -   [Parameters][44]
-    -   [enable][45]
-        -   [Parameters][46]
-    -   [disable][47]
-    -   [calcOffset][48]
-        -   [Parameters][49]
-    -   [addEntity][50]
-        -   [Parameters][51]
+    -   [enable][35]
+        -   [Parameters][36]
+    -   [disable][37]
+    -   [calcOffset][38]
+        -   [Parameters][39]
+    -   [addEntity][40]
+        -   [Parameters][41]
+-   [EntityResizeEvent][42]
+-   [ScaledEntity][43]
+    -   [onResize][44]
+        -   [Parameters][45]
+-   [ScaleManager][46]
+    -   [Parameters][47]
+    -   [Properties][48]
+    -   [enable][49]
+        -   [Parameters][50]
+    -   [disable][51]
 -   [ResizeHelper][52]
     -   [Parameters][53]
     -   [iOS][54]
@@ -61,72 +61,72 @@
         -   [Parameters][57]
     -   [onWindowResize][58]
     -   [getWindowResolution][59]
--   [EntityResizeEvent][60]
--   [ScaledEntity][61]
-    -   [onResize][62]
-        -   [Parameters][63]
--   [ScaleManager][64]
-    -   [Parameters][65]
-    -   [Properties][66]
-    -   [enable][67]
-        -   [Parameters][68]
-    -   [disable][69]
--   [SpeechSynth][70]
-    -   [Parameters][71]
-    -   [Properties][72]
-    -   [pause][73]
-    -   [resume][74]
-    -   [cancel][75]
-    -   [say][76]
-        -   [Parameters][77]
-    -   [setVoice][78]
-        -   [Parameters][79]
-    -   [getVoice][80]
-    -   [rate][81]
+-   [SpeechSynth][60]
+    -   [Parameters][61]
+    -   [Properties][62]
+    -   [pause][63]
+    -   [resume][64]
+    -   [cancel][65]
+    -   [say][66]
+        -   [Parameters][67]
+    -   [setVoice][68]
+        -   [Parameters][69]
+    -   [getVoice][70]
+    -   [rate][71]
+        -   [Parameters][72]
+    -   [rate][73]
+    -   [pitch][74]
+        -   [Parameters][75]
+    -   [pitch][76]
+    -   [volume][77]
+        -   [Parameters][78]
+    -   [volume][79]
+-   [ColorFilter][80]
+    -   [applyFilter][81]
         -   [Parameters][82]
-    -   [rate][83]
-    -   [pitch][84]
-        -   [Parameters][85]
-    -   [pitch][86]
-    -   [volume][87]
-        -   [Parameters][88]
-    -   [volume][89]
--   [ColorFilter][90]
-    -   [applyFilter][91]
-        -   [Parameters][92]
-    -   [changeFilter][93]
-        -   [Parameters][94]
-    -   [removeFilter][95]
-    -   [types][96]
--   [filterType][97]
--   [Controller][98]
-    -   [Parameters][99]
-    -   [onWindowBlur][100]
-    -   [update][101]
-    -   [onKeyDown][102]
-        -   [Parameters][103]
-    -   [onKeyUp][104]
-        -   [Parameters][105]
-    -   [assignButtons][106]
-        -   [Parameters][107]
--   [KeyState][108]
-    -   [Properties][109]
--   [Key][110]
-    -   [Parameters][111]
-    -   [Properties][112]
-    -   [updateState][113]
-        -   [Parameters][114]
-    -   [action][115]
-    -   [state][116]
--   [Application][117]
-    -   [Properties][118]
-    -   [getPlugin][119]
-        -   [Parameters][120]
-    -   [validateListeners][121]
-    -   [setStateDefaults][122]
-    -   [setupPlugins][123]
-    -   [\_plugins][124]
-    -   [uses][125]
+    -   [changeFilter][83]
+        -   [Parameters][84]
+    -   [removeFilter][85]
+    -   [types][86]
+-   [filterType][87]
+-   [KeyState][88]
+    -   [Properties][89]
+-   [Controller][90]
+    -   [Parameters][91]
+    -   [onWindowBlur][92]
+    -   [update][93]
+    -   [onKeyDown][94]
+        -   [Parameters][95]
+    -   [onKeyUp][96]
+        -   [Parameters][97]
+    -   [assignButtons][98]
+        -   [Parameters][99]
+-   [Key][100]
+    -   [Parameters][101]
+    -   [Properties][102]
+    -   [updateState][103]
+        -   [Parameters][104]
+    -   [action][105]
+    -   [state][106]
+-   [Application][107]
+    -   [Properties][108]
+    -   [getPlugin][109]
+        -   [Parameters][110]
+    -   [validateListeners][111]
+    -   [setStateDefaults][112]
+    -   [setupPlugins][113]
+    -   [\_plugins][114]
+    -   [uses][115]
+        -   [Parameters][116]
+    -   [getPlugin][117]
+        -   [Parameters][118]
+-   [Debugger][119]
+    -   [Parameters][120]
+    -   [Properties][121]
+    -   [params][122]
+    -   [minLevel][123]
+        -   [Parameters][124]
+    -   [emit][125]
         -   [Parameters][126]
     -   [getPlugin][127]
         -   [Parameters][128]
@@ -197,7 +197,7 @@
         -   [Parameters][151]
     -   [hasListeners][152]
 -   [Caption][153]
-    -   [Parameters][154]
+    -   [Properties][154]
     -   [update][155]
         -   [Parameters][156]
     -   [updateState][157]
@@ -208,7 +208,7 @@
     -   [updateTimeIndex][162]
         -   [Parameters][163]
 -   [Caption][164]
-    -   [Properties][165]
+    -   [Parameters][165]
     -   [update][166]
         -   [Parameters][167]
     -   [updateState][168]
@@ -237,13 +237,13 @@
     -   [createLine][180]
         -   [Parameters][181]
 -   [CaptionPlayer][182]
-    -   [Parameters][183]
-    -   [update][184]
-        -   [Parameters][185]
-    -   [start][186]
-        -   [Parameters][187]
-    -   [stop][188]
--   [CaptionPlayer][189]
+    -   [update][183]
+        -   [Parameters][184]
+    -   [start][185]
+        -   [Parameters][186]
+    -   [stop][187]
+-   [CaptionPlayer][188]
+    -   [Parameters][189]
     -   [update][190]
         -   [Parameters][191]
 -   [CaptionPlayer][192]
@@ -300,17 +300,17 @@
     -   [lineEnd][215]
     -   [sanitize][216]
         -   [Parameters][217]
--   [Localizer][218]
-    -   [resolve][219]
-        -   [Parameters][220]
-    -   [setPrimaryLocale][221]
-        -   [Parameters][222]
-    -   [setFallbackLocale][223]
-        -   [Parameters][224]
-    -   [getLocaleKey][225]
-        -   [Parameters][226]
-    -   [getBrowserLanguages][227]
--   [Localizer.Options][228]
+-   [Localizer.Options][218]
+-   [Localizer][219]
+    -   [resolve][220]
+        -   [Parameters][221]
+    -   [setPrimaryLocale][222]
+        -   [Parameters][223]
+    -   [setFallbackLocale][224]
+        -   [Parameters][225]
+    -   [getLocaleKey][226]
+        -   [Parameters][227]
+    -   [getBrowserLanguages][228]
 -   [ApplicationPlugin][229]
     -   [preload][230]
     -   [init][231]
@@ -560,7 +560,11 @@ Adds and anchor to be updated during resize
 
 -   `entity` **([ScaledEntity][250] \| [Array][249]&lt;[ScaledEntity][250]>)** 
 
-## ResizeHelper
+## EntityResizeEvent
+
+Type: {offset: [Point][238], gameSize: [Point][238], scale: [Point][238]}
+
+## ScaledEntity
 
 Utility class that handles resize events for ScaleManager and SafeScaleManager.
 
@@ -570,11 +574,7 @@ Utility class that handles resize events for ScaleManager and SafeScaleManager.
 
 ### iOS
 
-Whether or not the application is running on an iOS device.
-
-### enabled
-
-Returns the enabled state of the ResizeHelper.
+## ScaleManager
 
 ### enabled
 
@@ -725,7 +725,7 @@ Sets the current volume of the announcer.
 
 Returns the current volume of the announcer.
 
-Returns **[number][243]** 
+Returns **[number][233]** 
 
 ## ColorFilter
 
@@ -762,6 +762,14 @@ Returns **[object][247]** Returns an object { name, value } with the colorblindn
 (Protanopia, Protanomaly, Deuteranopia, Deuteranomaly, Tritanopia, Tritanomaly, Achromatopsia, Achromatomaly)
 
 ## filterType
+
+Type: (`"protanopia"` \| `"protanomaly"` \| `"deuteranopia"` \| `"deuteranomaly"` \| `"tritanopia"` \| `"tritanomaly"` \| `"achromatopsia"` \| `"achromatomaly"`)
+
+## KeyState
+
+Type: (`0` \| `1` \| `2`)
+
+### Properties
 
 Type: (`"protanopia"` \| `"protanomaly"` \| `"deuteranopia"` \| `"deuteranomaly"` \| `"tritanopia"` \| `"tritanomaly"` \| `"achromatopsia"` \| `"achromatomaly"`)
 
@@ -1098,13 +1106,12 @@ Type: [Boolean][253]
 
 ## Caption
 
-### Parameters
+### Properties
 
--   `lines` **[Array][249]&lt;[TimedLine][259]>** 
--   `time` **[number][243]** 
--   `lineIndex` **[number][243]** 
--   `renderer` **[IRender][260]** 
--   `lines`  
+-   `lines` **[Array][239]&lt;[TimedLine][249]>** 
+-   `time` **[number][233]** 
+-   `lineIndex` **[number][233]** 
+-   `renderer` **[IRender][250]** 
 
 ### update
 
@@ -1149,12 +1156,9 @@ Updates the current time and index of the caption instance
 
 ## Caption
 
-### Properties
+### Parameters
 
--   `lines` **[Array][239]&lt;[TimedLine][249]>** 
--   `time` **[number][233]** 
--   `lineIndex` **[number][233]** 
--   `renderer` **[IRender][250]** 
+-   `lines`  
 
 ### update
 
@@ -1233,10 +1237,8 @@ Returns **[TimedLine][259]** new TimedLine;
 
 ## CaptionPlayer
 
-### Parameters
-
--   `captions`  
--   `renderer`  
+CaptionPlayer is used to start, stop and update captions.
+ It applies the content of an active caption to a given CaptionRenderer.
 
 ### update
 
@@ -1263,8 +1265,10 @@ Stops any caption currently playing.
 
 ## CaptionPlayer
 
-CaptionPlayer is used to start, stop and update captions.
- It applies the content of an active caption to a given CaptionRenderer.
+### Parameters
+
+-   `captions`  
+-   `renderer`  
 
 ### update
 
@@ -1391,6 +1395,10 @@ Will attempt to remove all html from a string before it's renderer to the page
 
 -   `html` **any** 
 
+## Localizer.Options
+
+Type: {language: [string][235], fallback: [string][235]}
+
 ## Localizer
 
 ### resolve
@@ -1427,11 +1435,6 @@ Returns **[boolean][253]** True if fallback is set.
 Returns **[string][245]** 
 
 ### getBrowserLanguages
-
-## Localizer.Options
-
-Type: {language: [string][245], fallback: [string][245]}
-Type: {language: [string][235], fallback: [string][235]}
 
 ## ApplicationPlugin
 
@@ -1537,13 +1540,13 @@ After all plugins inits has completed
 
 [41]: #entities
 
-[42]: #resizeeventdata
+[42]: #entityresizeevent
 
-[43]: #removeentity
+[43]: #scaledentity
 
-[44]: #parameters-15
+[44]: #onresize-1
 
-[45]: #enable
+[45]: #parameters-14
 
 [46]: #parameters-16
 
@@ -1633,21 +1636,21 @@ After all plugins inits has completed
 
 [89]: #volume-1
 
-[90]: #colorfilter
+[80]: #colorfilter
 
-[91]: #applyfilter
+[81]: #applyfilter
 
-[92]: #parameters-30
+[82]: #parameters-25
 
-[93]: #changefilter
+[83]: #changefilter
 
-[94]: #parameters-31
+[84]: #parameters-26
 
-[95]: #removefilter
+[85]: #removefilter
 
-[96]: #types
+[86]: #types
 
-[97]: #filtertype
+[87]: #filtertype
 
 [98]: #controller
 
@@ -1781,35 +1784,29 @@ After all plugins inits has completed
 
 [163]: #caption
 
-[164]: #properties-8
-[154]: #parameters-47
+[154]: #properties-8
 
 [165]: #update-1
 
-[166]: #parameters-52
-[156]: #parameters-48
+[156]: #parameters-47
 
 [167]: #updatestate-1
 
-[168]: #parameters-53
-[158]: #parameters-49
+[158]: #parameters-48
 
 [169]: #isfinished
 
 [170]: #start-1
 
-[171]: #parameters-54
-[161]: #parameters-50
+[161]: #parameters-49
 
 [172]: #updatetimeindex
 
-[173]: #parameters-55
-[163]: #parameters-51
+[163]: #parameters-50
 
 [174]: #caption-1
 
-[175]: #parameters-56
-[165]: #properties-8
+[165]: #parameters-51
 
 [176]: #update-2
 
@@ -1853,24 +1850,19 @@ After all plugins inits has completed
 
 [196]: #parameters-65
 
-[197]: #stop-1
+[183]: #update-3
 
-[198]: #captionplayer-1
+[184]: #parameters-59
 
-[199]: #parameters-66
-[183]: #parameters-59
+[185]: #start-3
 
-[184]: #update-3
+[186]: #parameters-60
 
-[185]: #parameters-60
+[187]: #stop-1
 
-[186]: #start-3
+[188]: #captionplayer-1
 
-[187]: #parameters-61
-
-[188]: #stop-1
-
-[189]: #captionplayer-1
+[189]: #parameters-61
 
 [200]: #update-4
 
@@ -1948,28 +1940,27 @@ After all plugins inits has completed
 
 [237]: #getbrowserlanguages
 
-[238]: #localizeroptions
-[218]: #localizer
+[218]: #localizeroptions
 
-[219]: #resolve
+[219]: #localizer
 
-[220]: #parameters-71
+[220]: #resolve
 
-[221]: #setprimarylocale
+[221]: #parameters-71
 
-[222]: #parameters-72
+[222]: #setprimarylocale
 
-[223]: #setfallbacklocale
+[223]: #parameters-72
 
-[224]: #parameters-73
+[224]: #setfallbacklocale
 
-[225]: #getlocalekey
+[225]: #parameters-73
 
-[226]: #parameters-74
+[226]: #getlocalekey
 
-[227]: #getbrowserlanguages
+[227]: #parameters-74
 
-[228]: #localizeroptions
+[228]: #getbrowserlanguages
 
 [239]: #applicationplugin
 
