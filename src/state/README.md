@@ -68,7 +68,7 @@ app.container.on('connected', async () => {
 }
 ```
 
-In order to  change the structure of the database, such as adding/removing stores to a database or an index to a store, you should do so in the IDBOpen method. [Structuring the database](https://developer.mozilla.org/en-US/docs/Web/API/IndexedDB_API/Using_IndexedDB#creating_or_updating_the_version_of_the_database) has documentationl on the options able to be passed into indexes and stores
+In order to  change the structure of the database, such as adding/removing stores to a database or an index to a store, you should do so in the IDBOpen method. [Structuring the database](https://developer.mozilla.org/en-US/docs/Web/API/IndexedDB_API/Using_IndexedDB#creating_or_updating_the_version_of_the_database) has documentation on the options able to be passed into indexes and stores
 
 ``` javascript
   
