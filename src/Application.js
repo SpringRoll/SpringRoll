@@ -26,6 +26,7 @@ const completionPercentage = 'completionPercentage';
 const speedScale = 'speedScale';
 const timersScale = 'timersScale';
 const inputCount = 'inputCount';
+const fullScreen = 'fullScreen';
 
 const stateDefaults = {
   [pause]: false,
@@ -56,7 +57,8 @@ const stateDefaults = {
   [timersScale]: 0.5,
   [inputCount]: 0.5,
   [keyBinding]: {},
-  [colorVision]: 'none'
+  [colorVision]: 'none',
+  [fullScreen]: false,
 };
 
 /**
@@ -87,6 +89,7 @@ const stateDefaults = {
  * @property {boolean} [features.inputCount] A boolean denoting that this game has adjustable input count requirements.
  * @property {boolean} [features.keyBinding] A boolean denoting that this game has re-mappable key bindings.
  * @property {boolean} [features.colorVision] A boolean denoting that this game has color blindess filters
+ * @property {boolean} [features.fullScreen] A boolean denoting that this game has fullScreen capabilities
  */
 export class Application {
   /**
@@ -117,6 +120,8 @@ export class Application {
    * @param {boolean} [config.features.inputCount] A boolean denoting that this game has adjustable input count requirements.
    * @param {boolean} [config.features.keyBinding] A boolean denoting that this game has re-mappable key bindings.
    * @param {boolean} [config.features.colorVision] A boolean denoting that this game has color blindness filters.
+   * @param {boolean} [config.features.fullScreen] A boolean denoting that this game has fullScreen capabilities
+   * 
    */
   constructor({ features, hintPlayer = new HintSequencePlayer() } = {}) {
     this.state = {
@@ -143,7 +148,8 @@ export class Application {
       [timersScale]: new Property(undefined),
       [inputCount]: new Property(undefined),
       [keyBinding]: new Property(undefined),
-      [colorVision]: new Property(undefined)
+      [colorVision]: new Property(undefined),
+      [fullScreen]: new Property(undefined),
     };
 
     this.features = Object.assign(
@@ -172,7 +178,8 @@ export class Application {
         completionPercentage: false,
         speedScale: false,
         timersScale: false,
-        inputCount: false
+        inputCount: false,
+        fullScreen: false,
       },
       features || {}
     );
@@ -212,7 +219,8 @@ export class Application {
         completionPercentage,
         speedScale,
         timersScale,
-        inputCount
+        inputCount,
+        fullScreen,
       ];
       const length = events.length;
       for (let i = 0; i < length; i++) {
@@ -390,7 +398,8 @@ export class Application {
       timersScale: timersScale,
       inputCount: inputCount,
       keyBinding: keyBinding,
-      colorVision: colorVision
+      colorVision: colorVision,
+      fullScreen: fullScreen,
     };
 
     const keys = Object.keys(featureToStateMap);
