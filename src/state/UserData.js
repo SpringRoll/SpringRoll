@@ -11,6 +11,7 @@ const IDBREAD = 'IDBRead';
 const IDBUPDATE = 'IDBUpdate';
 const IDBCLOSE = 'IDBClose';
 const IDBREADALL = 'IDBReadAll';
+const IDBDELETEDB = 'IDBDeleteDB';
 /**
  *
  * Manages data between SpringRoll Container and SpringRoll
@@ -214,6 +215,18 @@ export class UserData {
       return Promise.reject(warning);
     }
     return this[onReturn](IDBCLOSE);
+
+  }
+  /**
+   * Delete a given database
+   * @param {string} DBName The name of the database to be deleted
+   */
+  static IDBDeleteDB(dbName) {
+    if (!BellhopSingleton.connected) {
+      const warning = `Could not complete connect action for ${name}. Bellhop is not connected.`;
+      return Promise.reject(warning);
+    }
+    return this[onReturn](IDBDELETEDB, {dbName});
 
   }
 }

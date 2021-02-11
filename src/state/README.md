@@ -119,7 +119,7 @@ There are other methods currently supported to interact with the database. These
   let response = await UserData.IDBAdd('storeName', 'record');
 
   //Delete a record by the key in a specific store
-  let response = await UserData.deleteRecord('storeName', 'key');
+  let response = await UserData.IDBRemove('storeName', 'key');
 
   // returns the record with the given key from the store with the given storeName
   let response = await UserData.IDBRead('storeName', 'key');
@@ -136,6 +136,9 @@ There are other methods currently supported to interact with the database. These
 
   // Finally, close the connection to the database
   let response = await UserData.closeDb();
+
+  // One may also choose to delete a database 
+  let response = await UserData.IDBDeleteDB();
 ```
 
 
