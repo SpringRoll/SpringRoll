@@ -26,6 +26,7 @@ const completionPercentage = 'completionPercentage';
 const speedScale = 'speedScale';
 const timersScale = 'timersScale';
 const inputCount = 'inputCount';
+const fullScreen = 'fullScreen';
 
 const stateDefaults = {
   [pause]: false,
@@ -57,6 +58,7 @@ const stateDefaults = {
   [inputCount]: 0.5,
   [keyBinding]: {},
   [colorVision]: 'none',
+  [fullScreen]: false,
 };
 
 /**
@@ -148,6 +150,7 @@ export class Application {
       [inputCount]: new Property(undefined),
       [keyBinding]: new Property(undefined),
       [colorVision]: new Property(undefined),
+      [fullScreen]: new Property(undefined),
     };
 
     this.features = Object.assign(
@@ -177,6 +180,7 @@ export class Application {
         speedScale: false,
         timersScale: false,
         inputCount: false,
+        fullScreen: false,
       },
       features || {}
     );
@@ -217,6 +221,7 @@ export class Application {
         speedScale,
         timersScale,
         inputCount,
+        fullScreen,
       ];
       const length = events.length;
       for (let i = 0; i < length; i++) {
@@ -395,6 +400,7 @@ export class Application {
       inputCount: inputCount,
       keyBinding: keyBinding,
       colorVision: colorVision,
+      fullScreen: fullScreen,
     };
 
     const keys = Object.keys(featureToStateMap);

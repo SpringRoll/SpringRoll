@@ -21,25 +21,25 @@
         -   [Parameters][17]
     -   [delete][18]
         -   [Parameters][19]
-    -   [IDBOpen][20]
-        -   [Parameters][21]
-    -   [addToStore][22]
-        -   [Parameters][23]
-    -   [deleteFromStore][24]
-        -   [Parameters][25]
-    -   [readFromStore][26]
-        -   [Parameters][27]
-    -   [updateFromStore][28]
-        -   [Parameters][29]
--   [Point][30]
--   [Point][31]
--   [Anchor][32]
-    -   [onResize][33]
+-   [PositionCallback][20]
+    -   [Parameters][21]
+-   [Anchor][22]
+    -   [onResize][23]
+        -   [Parameters][24]
+-   [Point][25]
+-   [Point][26]
+-   [SafeScaleManager][27]
+    -   [Parameters][28]
+    -   [entities][29]
+    -   [resizeEventData][30]
+    -   [removeEntity][31]
+        -   [Parameters][32]
+    -   [enable][33]
         -   [Parameters][34]
-    -   [enable][35]
-        -   [Parameters][36]
-    -   [disable][37]
-    -   [calcOffset][38]
+    -   [disable][35]
+    -   [calcOffset][36]
+        -   [Parameters][37]
+    -   [addEntity][38]
         -   [Parameters][39]
     -   [addEntity][40]
         -   [Parameters][41]
@@ -453,13 +453,15 @@ Removes data from SpringRoll Container
 -   `key` **[string][245]** 
 -   `object` **[string][245]** 
 
-## Point
+## PositionCallback
 
-Type: {x: [Number][243], y: [Number][243]}
+callback to used move game entities
 
-## Point
+Type: [Function][234]
 
-Type: {x: [Number][243], y: [Number][243]}
+### Parameters
+
+-   `position` **[Point][237]** position relative to anchor direction
 
 ## Anchor
 
@@ -469,34 +471,18 @@ Used to fix positions to a relative point in the viewport.
 
 #### Parameters
 
--   `param` **[object][247]** 
-    -   `param.viewArea` **[Point][248]** 
+-   `param` **[object][238]** 
+    -   `param.viewArea` **[Point][237]** 
 
 Returns **void** @memberof Anchor
 
-## PositionCallback
+## Point
 
-callback to used move game entities
+Type: {x: [Number][233], y: [Number][233]}
 
-Type: [Function][244]
+## Point
 
-### Parameters
-
--   `position` **[Point][248]** position relative to anchor direction
-
-## ScaleCallback
-
-callback to used scale game and canvas
-
-Type: [Function][244]
-
-### Parameters
-
--   `width` **[Number][243]** width canvas should be
--   `height` **[Number][243]** height canvas should be
--   `scale` **[Point][248]** x/y scale values
--   `scaleRatio` **[Number][243]** minimum aspect ratio that fit's in the screen.
--   `viewArea` **[Object][247]** Rectangle defining the total viewable area of game content.
+Type: {x: [Number][233], y: [Number][233]}
 
 ## SafeScaleManager
 
@@ -504,13 +490,13 @@ Handles scaling the game
 
 ### Parameters
 
--   `$0` **[Object][247]** 
+-   `$0` **[Object][238]** 
     -   `$0.width`  
     -   `$0.height`  
     -   `$0.safeWidth`   (optional, default `Infinity`)
     -   `$0.safeHeight`   (optional, default `Infinity`)
     -   `$0.callback`   (optional, default `()=>{}`)
--   `param` **[object][247]** 
+-   `param` **[object][238]** 
 
 ### entities
 
@@ -548,9 +534,9 @@ Calculates the offset for anchors.
 
 #### Parameters
 
--   `scale` **[Point][248]** scale value
+-   `scale` **[Point][237]** scale value
 
-Returns **[Point][248]** 
+Returns **[Point][237]** 
 
 ### addEntity
 
@@ -560,6 +546,7 @@ Adds and anchor to be updated during resize
 
 -   `entity` **([ScaledEntity][250] \| [Array][249]&lt;[ScaledEntity][250]>)** 
 
+## ScaleCallback
 ## EntityResizeEvent
 
 Type: {offset: [Point][238], gameSize: [Point][238], scale: [Point][238]}
@@ -576,30 +563,17 @@ Utility class that handles resize events for ScaleManager and SafeScaleManager.
 
 ## ScaleManager
 
-### enabled
+callback to used scale game and canvas
 
-Sets the enabled state of the ResizeHelper.
-Forces a resize event.
+Type: [Function][234]
 
 #### Parameters
 
--   `value`  
-
-### onWindowResize
-
-Handler for window resize events. Forwards this event to the scale manager if enabled.
-
-### getWindowResolution
-
-Sets the window width and window height values of the ResizeHelper.
-
-## EntityResizeEvent
-
-Type: {offset: [Point][248], gameSize: [Point][248], scale: [Point][248]}
-
-## ScaledEntity
-
-### onResize
+-   `width` **[Number][233]** width canvas should be
+-   `height` **[Number][233]** height canvas should be
+-   `scale` **[Point][237]** x/y scale values
+-   `scaleRatio` **[Number][233]** minimum aspect ratio that fit's in the screen.
+-   `viewArea` **[Object][238]** Rectangle defining the total viewable area of game content.
 
 #### Parameters
 
@@ -633,6 +607,46 @@ Enables the scale manager listener. Will not be enabled if a callback is not sup
 
 Disables the scale manager.
 
+## EntityResizeEvent
+
+Type: {offset: [Point][237], gameSize: [Point][237], scale: [Point][237]}
+
+## ScaledEntity
+
+### onResize
+
+#### Parameters
+
+-   `event` **[EntityResizeEvent][241]** 
+
+Returns **void** @memberof ScaledEntity
+
+## ScaleManager
+
+[Deprecated]
+
+Simplifies listening to resize events by passing the relevant data to a provided callback.
+
+### Parameters
+
+-   `callback` **[Function][234]**  (optional, default `undefined`)
+
+### Properties
+
+-   `callback` **[Function][234]?** 
+
+### enable
+
+Enables the scale manager listener. Will not be enabled if a callback is not supplied.
+
+#### Parameters
+
+-   `callback` **[Function][234]** The function to be called on resize events.
+
+### disable
+
+Disables the scale manager.
+
 ## SpeechSynth
 
 SpeechSync makes it easy to convert text to speech.
@@ -640,11 +654,11 @@ Note: This is not supported on IE11 and below because of the underlying APIs are
 
 ### Parameters
 
--   `params` **[object][247]** 
-    -   `params.voice` **[number][243]** Indicates what voice to use. (optional, default `0`)
-    -   `params.rate` **[number][243]** The rate at which the text is said. Supports a range from 0.1 to 10. (optional, default `1`)
-    -   `params.pitch` **[number][243]** Voice Pitch. Supports a pitch from 0 to 2. (optional, default `0`)
-    -   `params.volume` **[number][243]** Volume. Supports 0 to 1. (optional, default `1`)
+-   `params` **[object][238]** 
+    -   `params.voice` **[number][233]** Indicates what voice to use. (optional, default `0`)
+    -   `params.rate` **[number][233]** The rate at which the text is said. Supports a range from 0.1 to 10. (optional, default `1`)
+    -   `params.pitch` **[number][233]** Voice Pitch. Supports a pitch from 0 to 2. (optional, default `0`)
+    -   `params.volume` **[number][233]** Volume. Supports 0 to 1. (optional, default `1`)
 
 ### Properties
 
@@ -683,7 +697,7 @@ Sets the voice by array index.
 
 Returns the voice object.
 
-Returns **([object][247] | null)** 
+Returns **([object][238] | null)** 
 
 ### rate
 
@@ -758,7 +772,7 @@ Removes the filter from the element.
 
 Supported filter types.
 
-Returns **[object][247]** Returns an object { name, value } with the colorblindness type:
+Returns **[object][238]** Returns an object { name, value } with the colorblindness type:
 (Protanopia, Protanomaly, Deuteranopia, Deuteranomaly, Tritanopia, Tritanomaly, Achromatopsia, Achromatomaly)
 
 ## filterType
@@ -838,10 +852,10 @@ Represents a single key on the keyboard and the functions related to it.
 ### Properties
 
 -   `state` **(`0` \| `1` \| `2`)** The current state of the key. 0 = inactive, 1 = active, 2 = to be set to inactive.
--   `key` **[string][245]** The name of the key we are targeting.
--   `actions` **[object][247]** 
-    -   `actions.down` **[function][244]** Function to be called while the key is held down.
-    -   `actions.up` **[function][244]** Function to be called when the key is lifted up.
+-   `key` **[string][235]** The name of the key we are targeting.
+-   `actions` **[object][238]** 
+    -   `actions.down` **[function][234]** Function to be called while the key is held down.
+    -   `actions.up` **[function][234]** Function to be called when the key is lifted up.
 
 ### updateState
 
@@ -867,33 +881,32 @@ Main entry point for a game. Provides a single focal point for plugins and funct
 
 ### Properties
 
--   `features` **[object][247]** A configuration object denoting which features are enabled for this application
-    -   `features.captions` **[boolean][253]?** A boolean value denoting that this game supports captions
-    -   `features.sound` **[boolean][253]?** A boolean value denoting that this game has some audio in it
-    -   `features.vo` **[boolean][253]?** A boolean denoting that this game has mutable voice-over audio in it
-    -   `features.music` **[boolean][253]?** A boolean denoting that this game has mutable music in it
-    -   `features.sfx` **[boolean][253]?** A boolean denoting that this game has mutable sound effects in it
-    -   `features.soundVolume` **[boolean][253]?** A boolean denoting that this game has adjustable sound volume in it
-    -   `features.musicVolume` **[boolean][253]?** A boolean denoting that this game has adjustable music volume in it
-    -   `features.voVolume` **[boolean][253]?** A boolean denoting that this game has adjustable voice-over volume in it
-    -   `features.sfxVolume` **[boolean][253]?** A boolean denoting that this game has adjustable sound effects volume in it
-    -   `features.pointerSize` **[boolean][253]?** A boolean denoting that this game has adjustable pointer size in it
-    -   `features.controlSensitivity` **[boolean][253]?** A boolean denoting that this game has adjustable control sensitivity in it
-    -   `features.buttonSize` **[boolean][253]?** A boolean denoting that this game has adjustable button sizes in it
-    -   `features.removableLayers` **[boolean][253]?** A boolean denoting that this game has removable game layers in it
-    -   `features.hudPosition` **[boolean][253]?** A boolean denoting that this game has custom HUD positions.
-    -   `features.hitAreaScale` **[boolean][253]?** A boolean denoting that this game has adjustable hit areas.
-    -   `features.dragThresholdScale` **[boolean][253]?** A boolean denoting that this game has adjustable drag thresholds.
-    -   `features.health` **[boolean][253]?** A boolean denoting that this game has adjustable health.
-    -   `features.objectCount` **[boolean][253]?** A boolean denoting that this game has adjustable object count requirements.
-    -   `features.completionPercentage` **[boolean][253]?** A boolean denoting that this game has adjustable completion percentage requirements.
-    -   `features.speedScale` **[boolean][253]?** A boolean denoting that this game has adjustable speed.
-    -   `features.timersScale` **[boolean][253]?** A boolean denoting that this game has adjustable timers.
-    -   `features.inputCount` **[boolean][253]?** A boolean denoting that this game has adjustable input count requirements.
-    -   `features.keyBinding` **[boolean][253]?** A boolean denoting that this game has re-mappable key bindings.
-    -   `features.colorVision` **[boolean][253]?** A boolean denoting that this game has color blindess filters
-    -   `features.fullScreen` **[boolean][253]?** A boolean denoting that this game has fullScreen capabilities
-    -   `features.indexedDb` **[boolean][253]?** A boolean denoting that this game has fullScreen capabilities
+-   `features` **[object][238]** A configuration object denoting which features are enabled for this application
+    -   `features.captions` **[boolean][243]?** A boolean value denoting that this game supports captions
+    -   `features.sound` **[boolean][243]?** A boolean value denoting that this game has some audio in it
+    -   `features.vo` **[boolean][243]?** A boolean denoting that this game has mutable voice-over audio in it
+    -   `features.music` **[boolean][243]?** A boolean denoting that this game has mutable music in it
+    -   `features.sfx` **[boolean][243]?** A boolean denoting that this game has mutable sound effects in it
+    -   `features.soundVolume` **[boolean][243]?** A boolean denoting that this game has adjustable sound volume in it
+    -   `features.musicVolume` **[boolean][243]?** A boolean denoting that this game has adjustable music volume in it
+    -   `features.voVolume` **[boolean][243]?** A boolean denoting that this game has adjustable voice-over volume in it
+    -   `features.sfxVolume` **[boolean][243]?** A boolean denoting that this game has adjustable sound effects volume in it
+    -   `features.pointerSize` **[boolean][243]?** A boolean denoting that this game has adjustable pointer size in it
+    -   `features.controlSensitivity` **[boolean][243]?** A boolean denoting that this game has adjustable control sensitivity in it
+    -   `features.buttonSize` **[boolean][243]?** A boolean denoting that this game has adjustable button sizes in it
+    -   `features.removableLayers` **[boolean][243]?** A boolean denoting that this game has removable game layers in it
+    -   `features.hudPosition` **[boolean][243]?** A boolean denoting that this game has custom HUD positions.
+    -   `features.hitAreaScale` **[boolean][243]?** A boolean denoting that this game has adjustable hit areas.
+    -   `features.dragThresholdScale` **[boolean][243]?** A boolean denoting that this game has adjustable drag thresholds.
+    -   `features.health` **[boolean][243]?** A boolean denoting that this game has adjustable health.
+    -   `features.objectCount` **[boolean][243]?** A boolean denoting that this game has adjustable object count requirements.
+    -   `features.completionPercentage` **[boolean][243]?** A boolean denoting that this game has adjustable completion percentage requirements.
+    -   `features.speedScale` **[boolean][243]?** A boolean denoting that this game has adjustable speed.
+    -   `features.timersScale` **[boolean][243]?** A boolean denoting that this game has adjustable timers.
+    -   `features.inputCount` **[boolean][243]?** A boolean denoting that this game has adjustable input count requirements.
+    -   `features.keyBinding` **[boolean][243]?** A boolean denoting that this game has re-mappable key bindings.
+    -   `features.colorVision` **[boolean][243]?** A boolean denoting that this game has color blindess filters
+    -   `features.fullScreen` **[boolean][243]?** A boolean denoting that this game has fullScreen capabilities
 
 ### getPlugin
 
@@ -945,12 +958,12 @@ Returns **(SpringRoll.ApplicationPlugin | [undefined][258])**
 
 ## Debugger
 
-Type: [object][247]
+Type: [object][238]
 
 ### Parameters
 
--   `params` **[Object][247]** Options
-    -   `params.emitEnabled` **[boolean][253]** If this should emit events to the window. (optional, default `false`)
+-   `params` **[Object][238]** Options
+    -   `params.emitEnabled` **[boolean][243]** If this should emit events to the window. (optional, default `false`)
     -   `params.minLevel` **(`"GENERAL"` \| `"DEBUG"` \| `"INFO"` \| `"WARN"` \| `"ERROR"`)** The starting log level for the logger. (optional, default `'GENERAL'`)
 
 ### Properties
@@ -987,7 +1000,7 @@ If emitting is enabled for this instance, then it will dispatch an event on the 
 
 Returns logging levels.
 
-Returns **[object][247]** 
+Returns **[object][238]** 
 
 ### log
 
@@ -1213,7 +1226,7 @@ Creates a new Object&lt;String, Caption>.
 
 -   `data` **[JSON][261]** 
 
-Returns **[Object][247]** 
+Returns **[Object][238]** 
 
 ### createCaption
 
@@ -1255,9 +1268,9 @@ Starts playing a caption.
 
 #### Parameters
 
--   `name` **[String][245]** Name of caption.
--   `time` **[number][243]** Atart time in milliseconds. (optional, default `0`)
--   `args` **[object][247]** Arguments that will get passed to the renderer (optional, default `{}`)
+-   `name` **[String][235]** Name of caption.
+-   `time` **[number][233]** Atart time in milliseconds. (optional, default `0`)
+-   `args` **[object][238]** Arguments that will get passed to the renderer (optional, default `{}`)
 
 ### stop
 
@@ -1285,9 +1298,9 @@ Starts playing a caption.
 
 #### Parameters
 
--   `name` **[String][245]** Name of caption.
--   `time` **[number][243]** Atart time in milliseconds. (optional, default `0`)
--   `args` **[object][247]** Arguments that will get passed to the renderer (optional, default `{}`)
+-   `name` **[String][235]** Name of caption.
+-   `time` **[number][233]** Atart time in milliseconds. (optional, default `0`)
+-   `args` **[object][238]** Arguments that will get passed to the renderer (optional, default `{}`)
 
 ### stop
 
@@ -1328,8 +1341,8 @@ DOMRender is a incomplete renderer that is intended to supply just the basic sta
 
 ### Parameters
 
--   `element` **[HTMLElement][254]** 
--   `templateVariables` **[Object][247]** 
+-   `element` **[HTMLElement][244]** 
+-   `templateVariables` **[Object][238]** 
 
 ### start
 
@@ -1337,7 +1350,7 @@ Makes target element visible and ready to present captions
 
 #### Parameters
 
--   `templateVariables` **[object][247]** Variables that can used during caption play time (optional, default `{}`)
+-   `templateVariables` **[object][238]** Variables that can used during caption play time (optional, default `{}`)
 
 ### stop
 
@@ -1366,8 +1379,8 @@ and swaps out the placeholder inside the double brackets with the matching key i
 
 ### Parameters
 
--   `template` **[string][245]** String template that will be rendered with the supplied arguments
--   `args` **[Object][247]** //An Object contain data to be inserted into the template This will match based on key values
+-   `template` **[string][235]** String template that will be rendered with the supplied arguments
+-   `args` **[Object][238]** //An Object contain data to be inserted into the template This will match based on key values
 
 Returns **[string][245]** 
 
@@ -1496,7 +1509,7 @@ After all plugins inits has completed
 
 [19]: #parameters-5
 
-[20]: #idbopen
+[20]: #positioncallback
 
 [21]: #parameters-6
 
@@ -1504,77 +1517,82 @@ After all plugins inits has completed
 
 [23]: #parameters-7
 
-[24]: #deletefromstore
+[24]: #parameters-7
 
-[25]: #parameters-8
+[25]: #point
 
-[26]: #readfromstore
+[26]: #point-1
 
-[27]: #parameters-9
+[27]: #safescalemanager
 
 [28]: #updatefromstore
 
-[29]: #parameters-10
+[29]: #entities
 
-[30]: #point
+[30]: #resizeeventdata
 
-[31]: #point-1
+[31]: #removeentity
 
-[32]: #anchor
+[32]: #parameters-9
 
-[33]: #onresize
+[33]: #enable
 
 [34]: #parameters-11
 
-[35]: #positioncallback
+[35]: #disable
 
-[36]: #parameters-12
+[36]: #calcoffset
 
-[37]: #scalecallback
+[37]: #parameters-11
 
-[38]: #parameters-13
+[38]: #addentity
 
 [39]: #safescalemanager
 
-[40]: #parameters-14
+[40]: #scalecallback
 
 [41]: #entities
 
+[42]: #resizehelper
+
+[43]: #parameters-14
+
+[44]: #ios
+
+[45]: #enabled
 [42]: #entityresizeevent
 
 [43]: #scaledentity
 
 [44]: #onresize-1
 
-[45]: #parameters-14
-
-[46]: #parameters-16
+[46]: #enabled-1
 
 [47]: #disable
 
-[48]: #calcoffset
+[48]: #onwindowresize
 
-[49]: #parameters-17
+[49]: #getwindowresolution
 
-[50]: #addentity
+[50]: #entityresizeevent
 
-[51]: #parameters-18
+[51]: #scaledentity
 
-[52]: #resizehelper
+[52]: #onresize-1
 
-[53]: #parameters-19
+[53]: #parameters-16
 
-[54]: #ios
+[54]: #scalemanager
 
-[55]: #enabled
+[55]: #parameters-17
 
-[56]: #enabled-1
+[56]: #properties-1
 
-[57]: #parameters-20
+[57]: #enable-1
 
-[58]: #onwindowresize
+[58]: #parameters-18
 
-[59]: #getwindowresolution
+[59]: #disable-1
 
 [60]: #entityresizeevent
 
@@ -1978,9 +1996,9 @@ After all plugins inits has completed
 
 [246]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise
 
-[247]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object
+[237]: #point
 
-[248]: #point
+[238]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object
 
 [249]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array
 

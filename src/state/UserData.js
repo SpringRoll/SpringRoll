@@ -231,4 +231,3 @@ export class UserData {
   }
 }
 export default UserData;
-

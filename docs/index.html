@@ -1,13 +1,13 @@
 <!doctype html>
-<html lang="en">
+<html>
 <head>
-  <meta charset='utf-8'>
+  <meta charset='utf-8' />
   <title>springroll 2.3.2 | Documentation</title>
   <meta name='viewport' content='width=device-width,initial-scale=1'>
-  <link href='assets/bass.css' rel='stylesheet'>
-  <link href='assets/style.css' rel='stylesheet'>
-  <link href='assets/github.css' rel='stylesheet'>
-  <link href='assets/split.css' rel='stylesheet'>
+  <link href='assets/bass.css' rel='stylesheet' />
+  <link href='assets/style.css' rel='stylesheet' />
+  <link href='assets/github.css' rel='stylesheet' />
+  <link href='assets/split.css' rel='stylesheet' />
 </head>
 <body class='documentation m0'>
     <div class='flex'>
@@ -19,9 +19,6 @@
             placeholder='Filter'
             id='filter-input'
             class='col12 block input'
-            spellcheck='false'
-            autocapitalize='off'
-            autocorrect='off'
             type='text' />
           <div id='toc'>
             <ul class='list-reset h5 py1-ul'>
@@ -166,6 +163,9 @@
               
                 
                 <li><a
+                  href='#positioncallback'
+                  class="">
+                  PositionCallback
                   href='#point'
                   class="">
                   Point
@@ -629,16 +629,6 @@
                   
                   
                 </div>
-                
-                </li>
-              
-                
-                <li><a
-                  href='#keystate'
-                  class="">
-                  KeyState
-                  
-                </a>
                 
                 </li>
               
@@ -1455,8 +1445,6 @@
   
 
   
-
-  
     <div class='py1 quiet mt1 prose-big'>Instance Members</div>
     <div class="clearfix">
   
@@ -1511,8 +1499,6 @@
 
       
     
-  
-
   
 
   
@@ -1581,8 +1567,6 @@
   
 
   
-
-  
 </section>
 
       </div>
@@ -1624,8 +1608,6 @@
 
       
     
-  
-
   
 
   
@@ -1681,8 +1663,6 @@
 
       
     
-  
-
   
 
   
@@ -1764,8 +1744,6 @@
   
 
   
-
-  
 </section>
 
       </div>
@@ -1821,8 +1799,6 @@
 
       
     
-  
-
   
 
   
@@ -1908,8 +1884,6 @@
   
 
   
-
-  
 </section>
 
           
@@ -1952,393 +1926,8 @@
   
 
   
-
-  
     <div class='py1 quiet mt1 prose-big'>Static Members</div>
     <div class="clearfix">
-  
-    <div class='border-bottom' id='userdataread'>
-      <div class="clearfix small pointer toggle-sibling">
-        <div class="py1 contain">
-            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
-            <span class='code strong strong truncate'>read(name)</span>
-        </div>
-      </div>
-      <div class="clearfix display-none toggle-target">
-        <section class='p2 mb2 clearfix bg-white minishadow'>
-
-  
-
-  <p>Gets data from SpringRoll Container</p>
-
-    <div class='pre p1 fill-light mt0'>read(name: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>): <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></div>
-  
-  
-
-  
-  
-  
-  
-  
-  
-
-  
-    <div class='py1 quiet mt1 prose-big'>Parameters</div>
-    <div class='prose'>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>name</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
-	    
-          </div>
-          
-        </div>
-      
-    </div>
-  
-
-  
-
-  
-    
-      <div class='py1 quiet mt1 prose-big'>Returns</div>
-      <code><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></code>:
-        
-
-      
-    
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-</section>
-
-      </div>
-    </div>
-  
-    <div class='border-bottom' id='userdatawrite'>
-      <div class="clearfix small pointer toggle-sibling">
-        <div class="py1 contain">
-            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
-            <span class='code strong strong truncate'>write(name, value)</span>
-        </div>
-      </div>
-      <div class="clearfix display-none toggle-target">
-        <section class='p2 mb2 clearfix bg-white minishadow'>
-
-  
-
-  <p>Sends data to SpringRoll Container</p>
-
-    <div class='pre p1 fill-light mt0'>write(name: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>, value: any): <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></div>
-  
-  
-
-  
-  
-  
-  
-  
-  
-
-  
-    <div class='py1 quiet mt1 prose-big'>Parameters</div>
-    <div class='prose'>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>name</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
-	    
-          </div>
-          
-        </div>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>value</span> <code class='quiet'>(any)</code>
-	    
-          </div>
-          
-        </div>
-      
-    </div>
-  
-
-  
-
-  
-    
-      <div class='py1 quiet mt1 prose-big'>Returns</div>
-      <code><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></code>:
-        
-
-      
-    
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-</section>
-
-      </div>
-    </div>
-  
-    <div class='border-bottom' id='userdatadelete'>
-      <div class="clearfix small pointer toggle-sibling">
-        <div class="py1 contain">
-            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
-            <span class='code strong strong truncate'>delete(name)</span>
-        </div>
-      </div>
-      <div class="clearfix display-none toggle-target">
-        <section class='p2 mb2 clearfix bg-white minishadow'>
-
-  
-
-  <p>Removes data from SpringRoll Container</p>
-
-    <div class='pre p1 fill-light mt0'>delete(name: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</div>
-  
-  
-
-  
-  
-  
-  
-  
-  
-
-  
-    <div class='py1 quiet mt1 prose-big'>Parameters</div>
-    <div class='prose'>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>name</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
-	    
-          </div>
-          
-        </div>
-      
-    </div>
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-</section>
-
-      </div>
-    </div>
-  
-    <div class='border-bottom' id='userdataidbopen'>
-      <div class="clearfix small pointer toggle-sibling">
-        <div class="py1 contain">
-            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
-            <span class='code strong strong truncate'>IDBOpen(dbName, dbVersion, additions, deletions, name)</span>
-        </div>
-      </div>
-      <div class="clearfix display-none toggle-target">
-        <section class='p2 mb2 clearfix bg-white minishadow'>
-
-  
-
-  <p>Opens a connection with the indexedDB database</p>
-
-    <div class='pre p1 fill-light mt0'>IDBOpen(dbName: any, dbVersion: any, additions: any, deletions: any, name: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</div>
-  
-  
-
-  
-  
-  
-  
-  
-  
-
-  
-    <div class='py1 quiet mt1 prose-big'>Parameters</div>
-    <div class='prose'>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>dbName</span> <code class='quiet'>(any)</code>
-	    
-          </div>
-          
-        </div>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>dbVersion</span> <code class='quiet'>(any
-            = <code>null</code>)</code>
-	    
-          </div>
-          
-        </div>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>additions</span> <code class='quiet'>(any
-            = <code>{}</code>)</code>
-	    
-          </div>
-          
-        </div>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>deletions</span> <code class='quiet'>(any
-            = <code>{}</code>)</code>
-	    
-          </div>
-          
-        </div>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>name</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
-	    
-          </div>
-          
-        </div>
-      
-    </div>
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-    <div class='py1 quiet mt1 prose-big'>Instance Members</div>
-    <div class="clearfix">
-  
-    <div class='border-bottom' id='userdataaddtostore'>
-      <div class="clearfix small pointer toggle-sibling">
-        <div class="py1 contain">
-            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
-            <span class='code strong strong truncate'>addToStore(storeName, value, name)</span>
-        </div>
-      </div>
-      <div class="clearfix display-none toggle-target">
-        <section class='p2 mb2 clearfix bg-white minishadow'>
-
-  
-
-  <p>Adds a record to the indexedDB database</p>
-
-    <div class='pre p1 fill-light mt0'>addToStore(storeName: any, value: any, name: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</div>
-  
-  
-
-  
-  
-  
-  
-  
-  
-
-  
-    <div class='py1 quiet mt1 prose-big'>Parameters</div>
-    <div class='prose'>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>storeName</span> <code class='quiet'>(any)</code>
-	    
-          </div>
-          
-        </div>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>value</span> <code class='quiet'>(any)</code>
-	    
-          </div>
-          
-        </div>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>name</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
-	    
-          </div>
-          
-        </div>
-      
-    </div>
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-</section>
-
-      </div>
-    </div>
   
     <div class='border-bottom' id='userdatadeletefromstore'>
       <div class="clearfix small pointer toggle-sibling">
@@ -2427,8 +2016,6 @@
   
 
   
-
-  
 </section>
 
       </div>
@@ -2488,8 +2075,6 @@
         </div>
       
     </div>
-  
-
   
 
   
@@ -2708,11 +2293,6 @@
 
   
 
-  
-
-  
-
-  
 
   
 </section>
@@ -2815,7 +2395,7 @@
   
     <div class='py1 quiet mt1 prose-big'>Instance Members</div>
     <div class="clearfix">
-  
+
     <div class='border-bottom' id='anchoronresize'>
       <div class="clearfix small pointer toggle-sibling">
         <div class="py1 contain">
@@ -2825,9 +2405,6 @@
       </div>
       <div class="clearfix display-none toggle-target">
         <section class='p2 mb2 clearfix bg-white minishadow'>
-
-  
-
   
     <div class='pre p1 fill-light mt0'>onResize(param: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a>): void</div>
   
@@ -2924,111 +2501,6 @@
     </div>
   
 </div>
-
-  
-
-  
-
-  
-</section>
-
-          
-        
-          
-          <section class='p2 mb2 clearfix bg-white minishadow'>
-
-  
-  <div class='clearfix'>
-    
-    <h3 class='fl m0' id='scalecallback'>
-      ScaleCallback
-    </h3>
-    
-    
-  </div>
-  
-
-  <p>callback to used scale game and canvas</p>
-
-    <div class='pre p1 fill-light mt0'>ScaleCallback(width: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a>, height: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a>, scale: <a href="#point">Point</a>, scaleRatio: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a>, viewArea: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</div>
-  
-    <p>
-      Type:
-      <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function">Function</a>
-    </p>
-  
-  
-
-  
-  
-  
-  
-  
-  
-
-  
-    <div class='py1 quiet mt1 prose-big'>Parameters</div>
-    <div class='prose'>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>width</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a>)</code>
-	    width canvas should be
-
-          </div>
-          
-        </div>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>height</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a>)</code>
-	    height canvas should be
-
-          </div>
-          
-        </div>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>scale</span> <code class='quiet'>(<a href="#point">Point</a>)</code>
-	    x/y scale values
-
-          </div>
-          
-        </div>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>scaleRatio</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a>)</code>
-	    minimum aspect ratio that fit's in the screen.
-
-          </div>
-          
-        </div>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>viewArea</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code>
-	    Rectangle defining the total viewable area of game content.
-
-          </div>
-          
-        </div>
-      
-    </div>
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
 
   
 
@@ -3158,8 +2630,6 @@
   
 
   
-
-  
     <div class='py1 quiet mt1 prose-big'>Static Members</div>
     <div class="clearfix">
   
@@ -3227,8 +2697,6 @@
   
 
   
-
-  
 </section>
 
       </div>
@@ -3272,8 +2740,6 @@
         </div>
       
     </div>
-  
-
   
 
   
@@ -3350,8 +2816,6 @@
   
 
   
-
-  
 </section>
 
       </div>
@@ -3384,8 +2848,6 @@
   
   
   
-  
-
   
 
   
@@ -3473,8 +2935,6 @@
   
 
   
-
-  
 </section>
 
       </div>
@@ -3536,8 +2996,6 @@
   
 
   
-
-  
 </section>
 
       </div>
@@ -3566,8 +3024,6 @@
   
   
   
-  
-
   
 
   
@@ -3705,8 +3161,6 @@
   
 
   
-
-  
 </section>
 
           
@@ -3762,8 +3216,6 @@
   
 
   
-
-  
     <div class='py1 quiet mt1 prose-big'>Static Members</div>
     <div class="clearfix">
   
@@ -3782,13 +3234,6 @@
   <p>Whether or not the application is running on an iOS device.</p>
 
     <div class='pre p1 fill-light mt0'>iOS</div>
-  
-  
-
-  
-  
-  
-  
   
   
 
@@ -3837,22 +3282,6 @@
   
   
   
-  
-  
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
   
 
   
@@ -3920,7 +3349,6 @@ Forces a resize event.</p>
 
   
 
-  
 
   
 </section>
@@ -3951,14 +3379,6 @@ Forces a resize event.</p>
   
   
   
-  
-
-  
-
-  
-
-  
-
   
 
   
@@ -4019,8 +3439,6 @@ Forces a resize event.</p>
   
 
   
-
-  
 </section>
 
       </div>
@@ -4045,6 +3463,55 @@ Forces a resize event.</p>
   
   <div class='clearfix'>
     
+    <h3 class='fl m0' id='entityresizeevent'>
+      EntityResizeEvent
+    <h3 class='fl m0' id='scaledentity'>
+      ScaledEntity
+    </h3>
+    
+    
+  </div>
+  
+
+ 
+    <div class='pre p1 fill-light mt0'>EntityResizeEvent</div>
+  
+    <p>
+      Type:
+      {offset: <a href="#point">Point</a>, gameSize: <a href="#point">Point</a>, scale: <a href="#point">Point</a>}
+    </p>
+    <div class='pre p1 fill-light mt0'>ScaledEntity</div>
+  
+  
+
+  
+  
+  
+  
+  
+
+    <div class='py1 quiet mt1 prose-big'>Instance Members</div>
+    <div class="clearfix">
+  
+    <div class='border-bottom' id='scaledentityonresize'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>onResize(event)</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+</section>
+
+
+  
+    <div class='pre p1 fill-light mt0'>onResize(event: <a href="#entityresizeevent">EntityResizeEvent</a>): void</div>
+  
+  <div class='clearfix'>
+    
     <h3 class='fl m0' id='scaledentity'>
       ScaledEntity
     </h3>
@@ -4061,10 +3528,31 @@ Forces a resize event.</p>
   
   
   
-  
-  
+
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>event</span> <code class='quiet'>(<a href="#entityresizeevent">EntityResizeEvent</a>)</code>
+	    
+          </div>
+          
+        </div>
+      
+    </div>
   
 
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code>void</code>:
+        @memberof ScaledEntity
+
+      
+    
   
 
   
@@ -4083,20 +3571,37 @@ Forces a resize event.</p>
     <div class='py1 quiet mt1 prose-big'>Instance Members</div>
     <div class="clearfix">
   
-    <div class='border-bottom' id='scaledentityonresize'>
-      <div class="clearfix small pointer toggle-sibling">
-        <div class="py1 contain">
-            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
-            <span class='code strong strong truncate'>onResize(event)</span>
-        </div>
-      </div>
-      <div class="clearfix display-none toggle-target">
-        <section class='p2 mb2 clearfix bg-white minishadow'>
+</div>
 
   
 
+
   
-    <div class='pre p1 fill-light mt0'>onResize(event: <a href="#entityresizeevent">EntityResizeEvent</a>): void</div>
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='entityresizeevent'>
+      EntityResizeEvent
+    </h3>
+    
+    
+  </div>
+  
+
+  
+    <div class='pre p1 fill-light mt0'>EntityResizeEvent</div>
+  
+    <p>
+      Type:
+      {offset: <a href="#point">Point</a>, gameSize: <a href="#point">Point</a>, scale: <a href="#point">Point</a>}
+    </p>
   
   
 
@@ -4145,8 +3650,6 @@ Forces a resize event.</p>
   
 
   
-
-  
 </section>
 
       </div>
@@ -4154,71 +3657,6 @@ Forces a resize event.</p>
   
 </div>
 
-  
-
-  
-
-  
-</section>
-
-          
-        
-          
-          <section class='p2 mb2 clearfix bg-white minishadow'>
-
-  
-  <div class='clearfix'>
-    
-    <h3 class='fl m0' id='entityresizeevent'>
-      EntityResizeEvent
-    </h3>
-    
-    
-  </div>
-  
-
-  
-    <div class='pre p1 fill-light mt0'>EntityResizeEvent</div>
-  
-    <p>
-      Type:
-      {offset: <a href="#point">Point</a>, gameSize: <a href="#point">Point</a>, scale: <a href="#point">Point</a>}
-    </p>
-  
-  
-
-  
-  
-  
-  
-  
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-</section>
-
-          
-        
-          
-          <section class='p2 mb2 clearfix bg-white minishadow'>
 
   
   <div class='clearfix'>
@@ -4230,6 +3668,7 @@ Forces a resize event.</p>
     
   </div>
   
+
 
   <p>[Deprecated]</p>
 <p>Simplifies listening to resize events by passing the relevant data to a provided callback.</p>
@@ -4272,7 +3711,6 @@ Forces a resize event.</p>
         </div>
       
     </div>
-  
 
   
 
@@ -4284,10 +3722,6 @@ Forces a resize event.</p>
 
   
 
-  
-    <div class='py1 quiet mt1 prose-big'>Instance Members</div>
-    <div class="clearfix">
-  
     <div class='border-bottom' id='scalemanagerenable'>
       <div class="clearfix small pointer toggle-sibling">
         <div class="py1 contain">
@@ -4329,6 +3763,12 @@ Forces a resize event.</p>
     </div>
   
 
+
+          </div>
+          
+        </div>
+      
+    </div>
   
 
   
@@ -4374,8 +3814,6 @@ Forces a resize event.</p>
   
   
   
-  
-
   
 
   
@@ -4537,8 +3975,6 @@ Note: This is not supported on IE11 and below because of the underlying APIs are
   
 
   
-
-  
     <div class='py1 quiet mt1 prose-big'>Instance Members</div>
     <div class="clearfix">
   
@@ -4565,8 +4001,6 @@ Note: This is not supported on IE11 and below because of the underlying APIs are
   
   
   
-  
-
   
 
   
@@ -4633,8 +4067,6 @@ Note: This is not supported on IE11 and below because of the underlying APIs are
   
 
   
-
-  
 </section>
 
       </div>
@@ -4663,8 +4095,6 @@ Note: This is not supported on IE11 and below because of the underlying APIs are
   
   
   
-  
-
   
 
   
@@ -4745,8 +4175,6 @@ If the announcer is already saying something then it will be added to a queue.</
   
 
   
-
-  
 </section>
 
       </div>
@@ -4807,8 +4235,6 @@ If the announcer is already saying something then it will be added to a queue.</
   
 
   
-
-  
 </section>
 
       </div>
@@ -4851,8 +4277,6 @@ If the announcer is already saying something then it will be added to a queue.</
 
       
     
-  
-
   
 
   
@@ -4926,8 +4350,6 @@ If the announcer is already saying something then it will be added to a queue.</
   
 
   
-
-  
 </section>
 
       </div>
@@ -4970,8 +4392,6 @@ If the announcer is already saying something then it will be added to a queue.</
 
       
     
-  
-
   
 
   
@@ -5045,8 +4465,6 @@ If the announcer is already saying something then it will be added to a queue.</
   
 
   
-
-  
 </section>
 
       </div>
@@ -5089,8 +4507,6 @@ If the announcer is already saying something then it will be added to a queue.</
 
       
     
-  
-
   
 
   
@@ -5164,8 +4580,6 @@ If the announcer is already saying something then it will be added to a queue.</
   
 
   
-
-  
 </section>
 
       </div>
@@ -5208,8 +4622,6 @@ If the announcer is already saying something then it will be added to a queue.</
 
       
     
-  
-
   
 
   
@@ -5331,8 +4743,6 @@ If the announcer is already saying something then it will be added to a queue.</
   
 
   
-
-  
     <div class='py1 quiet mt1 prose-big'>Static Members</div>
     <div class="clearfix">
   
@@ -5382,8 +4792,6 @@ If the announcer is already saying something then it will be added to a queue.</
         </div>
       
     </div>
-  
-
   
 
   
@@ -5469,8 +4877,6 @@ If the announcer is already saying something then it will be added to a queue.</
   
 
   
-
-  
 </section>
 
       </div>
@@ -5499,8 +4905,6 @@ If the announcer is already saying something then it will be added to a queue.</
   
   
   
-  
-
   
 
   
@@ -5576,8 +4980,6 @@ If the announcer is already saying something then it will be added to a queue.</
   
 
   
-
-  
 </section>
 
       </div>
@@ -5602,6 +5004,7 @@ If the announcer is already saying something then it will be added to a queue.</
   
   <div class='clearfix'>
     
+
     <h3 class='fl m0' id='controller'>
       Controller
     </h3>
@@ -5651,8 +5054,6 @@ If the announcer is already saying something then it will be added to a queue.</
   
 
   
-
-  
     <div class='py1 quiet mt1 prose-big'>Static Members</div>
     <div class="clearfix">
   
@@ -5679,8 +5080,6 @@ If the announcer is already saying something then it will be added to a queue.</
   
   
   
-  
-
   
 
   
@@ -5760,8 +5159,6 @@ If the announcer is already saying something then it will be added to a queue.</
   
 
   
-
-  
 </section>
 
       </div>
@@ -5822,8 +5219,6 @@ If the announcer is already saying something then it will be added to a queue.</
   
 
   
-
-  
 </section>
 
       </div>
@@ -5867,8 +5262,6 @@ If the announcer is already saying something then it will be added to a queue.</
         </div>
       
     </div>
-  
-
   
 
   
@@ -5949,91 +5342,12 @@ If the announcer is already saying something then it will be added to a queue.</
   
 
   
-
-  
 </section>
 
       </div>
     </div>
   
 </div>
-
-  
-
-  
-
-  
-</section>
-
-          
-        
-          
-          <section class='p2 mb2 clearfix bg-white minishadow'>
-
-  
-  <div class='clearfix'>
-    
-    <h3 class='fl m0' id='keystate'>
-      KeyState
-    </h3>
-    
-    
-  </div>
-  
-
-  
-    <div class='pre p1 fill-light mt0'>KeyState</div>
-  
-    <p>
-      Type:
-      (<code>0</code> | <code>1</code> | <code>2</code>)
-    </p>
-  
-  
-
-  
-  
-  
-  
-  
-  
-
-  
-
-  
-    <div class='py1 quiet mt1 prose-big'>Properties</div>
-    <div>
-      
-        <div class='space-bottom0'>
-          <span class='code bold'>down</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function">Function</a>)</code>
-          
-          
-        </div>
-      
-        <div class='space-bottom0'>
-          <span class='code bold'>up</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function">Function</a>)</code>
-          
-          
-        </div>
-      
-        <div class='space-bottom0'>
-          <span class='code bold'>key</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
-          
-          
-        </div>
-      
-    </div>
-  
-
-  
-
-  
-
-  
-
-  
-
-  
 
   
 
@@ -6155,8 +5469,6 @@ If the announcer is already saying something then it will be added to a queue.</
   
 
   
-
-  
     <div class='py1 quiet mt1 prose-big'>Static Members</div>
     <div class="clearfix">
   
@@ -6199,8 +5511,6 @@ If the announcer is already saying something then it will be added to a queue.</
         </div>
       
     </div>
-  
-
   
 
   
@@ -6265,8 +5575,6 @@ If the announcer is already saying something then it will be added to a queue.</
   
 
   
-
-  
 </section>
 
       </div>
@@ -6309,8 +5617,6 @@ If the announcer is already saying something then it will be added to a queue.</
 
       
     
-  
-
   
 
   
@@ -6507,18 +5813,11 @@ If the announcer is already saying something then it will be added to a queue.</
                   <p>A boolean denoting that this game has fullScreen capabilities</p>
 </li>
               
-                <li><code>features.indexedDb</code> <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a>?
-                  
-                  <p>A boolean denoting that this game has fullScreen capabilities</p>
-</li>
-              
             </ul>
           
         </div>
       
     </div>
-  
-
   
 
   
@@ -6581,8 +5880,6 @@ If the announcer is already saying something then it will be added to a queue.</
   
 
   
-
-  
 </section>
 
       </div>
@@ -6611,8 +5908,6 @@ If the announcer is already saying something then it will be added to a queue.</
   
   
   
-  
-
   
 
   
@@ -6693,8 +5988,6 @@ If the announcer is already saying something then it will be added to a queue.</
   
 
   
-
-  
 </section>
 
       </div>
@@ -6751,8 +6044,6 @@ If the announcer is already saying something then it will be added to a queue.</
 
       
     
-  
-
   
 
   
@@ -6842,8 +6133,6 @@ If the announcer is already saying something then it will be added to a queue.</
   
 
   
-
-  
 </section>
 
       </div>
@@ -6872,8 +6161,6 @@ If the announcer is already saying something then it will be added to a queue.</
   
   
   
-  
-
   
 
   
@@ -6929,8 +6216,6 @@ If the announcer is already saying something then it will be added to a queue.</
   
   
   
-  
-
   
 
   
@@ -7083,8 +6368,6 @@ If the announcer is already saying something then it will be added to a queue.</
   
 
   
-
-  
     <div class='py1 quiet mt1 prose-big'>Static Members</div>
     <div class="clearfix">
   
@@ -7125,8 +6408,6 @@ If the announcer is already saying something then it will be added to a queue.</
 
       
     
-  
-
   
 
   
@@ -7209,8 +6490,6 @@ If the announcer is already saying something then it will be added to a queue.</
   
 
   
-
-  
 </section>
 
       </div>
@@ -7273,8 +6552,6 @@ If the announcer is already saying something then it will be added to a queue.</
   
 
   
-
-  
 </section>
 
       </div>
@@ -7317,8 +6594,6 @@ If the announcer is already saying something then it will be added to a queue.</
 
       
     
-  
-
   
 
   
@@ -7403,8 +6678,6 @@ If the announcer is already saying something then it will be added to a queue.</
   
 
   
-
-  
 </section>
 
       </div>
@@ -7466,8 +6739,6 @@ If the announcer is already saying something then it will be added to a queue.</
   
 
   
-
-  
 </section>
 
       </div>
@@ -7510,8 +6781,6 @@ If the announcer is already saying something then it will be added to a queue.</
 
       
     
-  
-
   
 
   
@@ -7594,8 +6863,6 @@ TODO: Remove the parameter here, and add a disable method as well</p>
   
 
   
-
-  
 </section>
 
       </div>
@@ -7624,8 +6891,6 @@ TODO: Remove the parameter here, and add a disable method as well</p>
   
   
   
-  
-
   
 
   
@@ -7702,8 +6967,6 @@ TODO: Remove the parameter here, and add a disable method as well</p>
   
 
   
-
-  
     <div class='py1 quiet mt1 prose-big'>Instance Members</div>
     <div class="clearfix">
   
@@ -7744,8 +7007,6 @@ TODO: Remove the parameter here, and add a disable method as well</p>
 
       
     
-  
-
   
 
   
@@ -7801,8 +7062,6 @@ TODO: Remove the parameter here, and add a disable method as well</p>
 
       
     
-  
-
   
 
   
@@ -7883,8 +7142,6 @@ TODO: Remove the parameter here, and add a disable method as well</p>
   
 
   
-
-  
 </section>
 
       </div>
@@ -7939,8 +7196,6 @@ TODO: Remove the parameter here, and add a disable method as well</p>
 
       
     
-  
-
   
 
   
@@ -8029,8 +7284,6 @@ TODO: Remove the parameter here, and add a disable method as well</p>
   
 
   
-
-  
     <div class='py1 quiet mt1 prose-big'>Instance Members</div>
     <div class="clearfix">
   
@@ -8062,8 +7315,6 @@ TODO: Remove the parameter here, and add a disable method as well</p>
   
   
   
-  
-
   
 
   
@@ -8148,8 +7399,6 @@ TODO: Remove the parameter here, and add a disable method as well</p>
   
 
   
-
-  
 </section>
 
       </div>
@@ -8194,8 +7443,6 @@ TODO: Remove the parameter here, and add a disable method as well</p>
         </div>
       
     </div>
-  
-
   
 
   
@@ -8274,8 +7521,6 @@ TODO: Remove the parameter here, and add a disable method as well</p>
   
 
   
-
-  
 </section>
 
       </div>
@@ -8328,6 +7573,383 @@ TODO: Remove the parameter here, and add a disable method as well</p>
   
 
   
+</section>
+
+      </div>
+    </div>
+  
+</div>
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='caption'>
+      Caption
+    </h3>
+    
+    
+  </div>
+  
+
+  
+    <div class='pre p1 fill-light mt0'>new Caption(lines: any)</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>lines</span> <code class='quiet'>(any)</code>
+	    
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Static Members</div>
+    <div class="clearfix">
+  
+    <div class='border-bottom' id='captionupdate'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>update(deltaTime)</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Updates content based on time passed.
+This ~should~ be called every frame that the caption is active.</p>
+
+    <div class='pre p1 fill-light mt0'>update(deltaTime: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a>)</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>deltaTime</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a>)</code>
+	    Time in seconds since last frame.
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='captionupdatestate'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>updateState(currentTime, lastTime)</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Handles calling callbacks and updating caption's current state.</p>
+
+    <div class='pre p1 fill-light mt0'>updateState(currentTime: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a>, lastTime: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a>)</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>currentTime</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a>)</code>
+	    
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>lastTime</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a>)</code>
+	    
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='captionisfinished'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>isFinished()</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Checks if caption has completed.</p>
+
+    <div class='pre p1 fill-light mt0'>isFinished(): <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean">Boolean</a></div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean">Boolean</a></code>:
+        
+
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='captionstart'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>start(time, renderer)</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Sets time and line index of caption.</p>
+
+    <div class='pre p1 fill-light mt0'>start(time: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a>, renderer: any)</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>time</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a>
+            = <code>0</code>)</code>
+	    Time in milliseconds.
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>renderer</span> <code class='quiet'>(any
+            = <code>{lineBegin:()=&gt;{},lineEnd:()=&gt;{}}</code>)</code>
+	    
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='captionupdatetimeindex'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>updateTimeIndex(time)</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Updates the current time and index of the caption instance</p>
+
+    <div class='pre p1 fill-light mt0'>updateTimeIndex(time: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a>)</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>time</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a>
+            = <code>0</code>)</code>
+	    
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
 
   
 </section>
@@ -8336,6 +7958,8 @@ TODO: Remove the parameter here, and add a disable method as well</p>
     </div>
   
 </div>
+
+  
 
   
 
@@ -8472,8 +8096,6 @@ This ~should~ be called every frame that the caption is active.</p>
   
 
   
-
-  
 </section>
 
       </div>
@@ -8542,8 +8164,6 @@ This ~should~ be called every frame that the caption is active.</p>
   
 
   
-
-  
 </section>
 
       </div>
@@ -8586,8 +8206,6 @@ This ~should~ be called every frame that the caption is active.</p>
 
       
     
-  
-
   
 
   
@@ -8672,8 +8290,6 @@ This ~should~ be called every frame that the caption is active.</p>
   
 
   
-
-  
 </section>
 
       </div>
@@ -8718,403 +8334,6 @@ This ~should~ be called every frame that the caption is active.</p>
         </div>
       
     </div>
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-</section>
-
-      </div>
-    </div>
-  
-</div>
-
-  
-
-  
-
-  
-
-  
-</section>
-
-          
-        
-          
-          <section class='p2 mb2 clearfix bg-white minishadow'>
-
-  
-  <div class='clearfix'>
-    
-    <h3 class='fl m0' id='caption'>
-      Caption
-    </h3>
-    
-    
-  </div>
-  
-
-  
-    <div class='pre p1 fill-light mt0'>new Caption(lines: any)</div>
-  
-  
-
-  
-  
-  
-  
-  
-  
-
-  
-    <div class='py1 quiet mt1 prose-big'>Parameters</div>
-    <div class='prose'>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>lines</span> <code class='quiet'>(any)</code>
-	    
-          </div>
-          
-        </div>
-      
-    </div>
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-    <div class='py1 quiet mt1 prose-big'>Static Members</div>
-    <div class="clearfix">
-  
-    <div class='border-bottom' id='captionupdate'>
-      <div class="clearfix small pointer toggle-sibling">
-        <div class="py1 contain">
-            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
-            <span class='code strong strong truncate'>update(deltaTime)</span>
-        </div>
-      </div>
-      <div class="clearfix display-none toggle-target">
-        <section class='p2 mb2 clearfix bg-white minishadow'>
-
-  
-
-  <p>Updates content based on time passed.
-This ~should~ be called every frame that the caption is active.</p>
-
-    <div class='pre p1 fill-light mt0'>update(deltaTime: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a>)</div>
-  
-  
-
-  
-  
-  
-  
-  
-  
-
-  
-    <div class='py1 quiet mt1 prose-big'>Parameters</div>
-    <div class='prose'>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>deltaTime</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a>)</code>
-	    Time in seconds since last frame.
-
-          </div>
-          
-        </div>
-      
-    </div>
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-</section>
-
-      </div>
-    </div>
-  
-    <div class='border-bottom' id='captionupdatestate'>
-      <div class="clearfix small pointer toggle-sibling">
-        <div class="py1 contain">
-            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
-            <span class='code strong strong truncate'>updateState(currentTime, lastTime)</span>
-        </div>
-      </div>
-      <div class="clearfix display-none toggle-target">
-        <section class='p2 mb2 clearfix bg-white minishadow'>
-
-  
-
-  <p>Handles calling callbacks and updating caption's current state.</p>
-
-    <div class='pre p1 fill-light mt0'>updateState(currentTime: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a>, lastTime: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a>)</div>
-  
-  
-
-  
-  
-  
-  
-  
-  
-
-  
-    <div class='py1 quiet mt1 prose-big'>Parameters</div>
-    <div class='prose'>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>currentTime</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a>)</code>
-	    
-          </div>
-          
-        </div>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>lastTime</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a>)</code>
-	    
-          </div>
-          
-        </div>
-      
-    </div>
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-</section>
-
-      </div>
-    </div>
-  
-    <div class='border-bottom' id='captionisfinished'>
-      <div class="clearfix small pointer toggle-sibling">
-        <div class="py1 contain">
-            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
-            <span class='code strong strong truncate'>isFinished()</span>
-        </div>
-      </div>
-      <div class="clearfix display-none toggle-target">
-        <section class='p2 mb2 clearfix bg-white minishadow'>
-
-  
-
-  <p>Checks if caption has completed.</p>
-
-    <div class='pre p1 fill-light mt0'>isFinished(): <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean">Boolean</a></div>
-  
-  
-
-  
-  
-  
-  
-  
-  
-
-  
-
-  
-
-  
-    
-      <div class='py1 quiet mt1 prose-big'>Returns</div>
-      <code><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean">Boolean</a></code>:
-        
-
-      
-    
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-</section>
-
-      </div>
-    </div>
-  
-    <div class='border-bottom' id='captionstart'>
-      <div class="clearfix small pointer toggle-sibling">
-        <div class="py1 contain">
-            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
-            <span class='code strong strong truncate'>start(time, renderer)</span>
-        </div>
-      </div>
-      <div class="clearfix display-none toggle-target">
-        <section class='p2 mb2 clearfix bg-white minishadow'>
-
-  
-
-  <p>Sets time and line index of caption.</p>
-
-    <div class='pre p1 fill-light mt0'>start(time: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a>, renderer: any)</div>
-  
-  
-
-  
-  
-  
-  
-  
-  
-
-  
-    <div class='py1 quiet mt1 prose-big'>Parameters</div>
-    <div class='prose'>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>time</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a>
-            = <code>0</code>)</code>
-	    Time in milliseconds.
-
-          </div>
-          
-        </div>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>renderer</span> <code class='quiet'>(any
-            = <code>{lineBegin:()=&gt;{},lineEnd:()=&gt;{}}</code>)</code>
-	    
-          </div>
-          
-        </div>
-      
-    </div>
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-</section>
-
-      </div>
-    </div>
-  
-    <div class='border-bottom' id='captionupdatetimeindex'>
-      <div class="clearfix small pointer toggle-sibling">
-        <div class="py1 contain">
-            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
-            <span class='code strong strong truncate'>updateTimeIndex(time)</span>
-        </div>
-      </div>
-      <div class="clearfix display-none toggle-target">
-        <section class='p2 mb2 clearfix bg-white minishadow'>
-
-  
-
-  <p>Updates the current time and index of the caption instance</p>
-
-    <div class='pre p1 fill-light mt0'>updateTimeIndex(time: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a>)</div>
-  
-  
-
-  
-  
-  
-  
-  
-  
-
-  
-    <div class='py1 quiet mt1 prose-big'>Parameters</div>
-    <div class='prose'>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>time</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a>
-            = <code>0</code>)</code>
-	    
-          </div>
-          
-        </div>
-      
-    </div>
-  
-
   
 
   
@@ -9188,8 +8407,6 @@ This ~should~ be called every frame that the caption is active.</p>
   
 
   
-
-  
     <div class='py1 quiet mt1 prose-big'>Static Members</div>
     <div class="clearfix">
   
@@ -9243,8 +8460,6 @@ This ~should~ be called every frame that the caption is active.</p>
 
       
     
-  
-
   
 
   
@@ -9326,8 +8541,6 @@ This ~should~ be called every frame that the caption is active.</p>
   
 
   
-
-  
 </section>
 
       </div>
@@ -9383,8 +8596,6 @@ This ~should~ be called every frame that the caption is active.</p>
 
       
     
-  
-
   
 
   
@@ -9474,8 +8685,6 @@ This ~should~ be called every frame that the caption is active.</p>
   
 
   
-
-  
     <div class='py1 quiet mt1 prose-big'>Static Members</div>
     <div class="clearfix">
   
@@ -9519,8 +8728,6 @@ This ~should~ be called every frame.</p>
         </div>
       
     </div>
-  
-
   
 
   
@@ -9619,8 +8826,6 @@ This ~should~ be called every frame.</p>
   
 
   
-
-  
 </section>
 
       </div>
@@ -9649,8 +8854,6 @@ This ~should~ be called every frame.</p>
   
   
   
-  
-
   
 
   
@@ -9727,8 +8930,6 @@ It applies the content of an active caption to a given CaptionRenderer.</p>
   
 
   
-
-  
     <div class='py1 quiet mt1 prose-big'>Static Members</div>
     <div class="clearfix">
   
@@ -9772,8 +8973,6 @@ This ~should~ be called every frame.</p>
         </div>
       
     </div>
-  
-
   
 
   
@@ -9872,8 +9071,6 @@ This ~should~ be called every frame.</p>
   
 
   
-
-  
 </section>
 
       </div>
@@ -9902,8 +9099,6 @@ This ~should~ be called every frame.</p>
   
   
   
-  
-
   
 
   
@@ -10003,8 +9198,6 @@ This ~should~ be called every frame.</p>
   
 
   
-
-  
     <div class='py1 quiet mt1 prose-big'>Instance Members</div>
     <div class="clearfix">
   
@@ -10058,8 +9251,6 @@ This ~should~ be called every frame.</p>
 
       
     
-  
-
   
 
   
@@ -10166,8 +9357,6 @@ This ~should~ be called every frame.</p>
   
 
   
-
-  
 </section>
 
           
@@ -10220,8 +9409,6 @@ This ~should~ be called every frame.</p>
         </div>
       
     </div>
-  
-
   
 
   
@@ -10293,8 +9480,6 @@ This ~should~ be called every frame.</p>
   
 
   
-
-  
 </section>
 
       </div>
@@ -10323,8 +9508,6 @@ This ~should~ be called every frame.</p>
   
   
   
-  
-
   
 
   
@@ -10400,8 +9583,6 @@ This ~should~ be called every frame.</p>
   
 
   
-
-  
     <div class='py1 quiet mt1 prose-big'>Static Members</div>
     <div class="clearfix">
   
@@ -10460,8 +9641,6 @@ This ~should~ be called every frame.</p>
   
 
   
-
-  
 </section>
 
       </div>
@@ -10490,8 +9669,6 @@ This ~should~ be called every frame.</p>
   
   
   
-  
-
   
 
   
@@ -10605,8 +9782,6 @@ and swaps out the placeholder inside the double brackets with the matching key i
   
 
   
-
-  
 </section>
 
           
@@ -10636,8 +9811,6 @@ and swaps out the placeholder inside the double brackets with the matching key i
   
   
   
-  
-
   
 
   
@@ -10709,8 +9882,6 @@ and swaps out the placeholder inside the double brackets with the matching key i
   
 
   
-
-  
 </section>
 
       </div>
@@ -10739,8 +9910,6 @@ and swaps out the placeholder inside the double brackets with the matching key i
   
   
   
-  
-
   
 
   
@@ -10820,8 +9989,6 @@ and swaps out the placeholder inside the double brackets with the matching key i
   
 
   
-
-  
 </section>
 
       </div>
@@ -10864,8 +10031,6 @@ and swaps out the placeholder inside the double brackets with the matching key i
   
   
   
-  
-
   
 
   
@@ -10953,8 +10118,6 @@ and swaps out the placeholder inside the double brackets with the matching key i
   
 
   
-
-  
 </section>
 
       </div>
@@ -11009,8 +10172,6 @@ and swaps out the placeholder inside the double brackets with the matching key i
 
       
     
-  
-
   
 
   
@@ -11091,8 +10252,6 @@ and swaps out the placeholder inside the double brackets with the matching key i
   
 
   
-
-  
 </section>
 
       </div>
@@ -11160,8 +10319,6 @@ and swaps out the placeholder inside the double brackets with the matching key i
   
 
   
-
-  
 </section>
 
       </div>
@@ -11189,8 +10346,6 @@ and swaps out the placeholder inside the double brackets with the matching key i
   
   
   
-  
-
   
 
   
@@ -11276,8 +10431,6 @@ and swaps out the placeholder inside the double brackets with the matching key i
   
 
   
-
-  
 </section>
 
           
@@ -11308,8 +10461,6 @@ application providing new features to the application.</p>
   
   
   
-  
-
   
 
   
@@ -11379,8 +10530,6 @@ parameter, or should return a Promise indicating that loading is finished.</p>
   
 
   
-
-  
 </section>
 
       </div>
@@ -11429,8 +10578,6 @@ After all plugins preloads  has completed</p>
   
 
   
-
-  
 </section>
 
       </div>
@@ -11460,8 +10607,6 @@ After all plugins inits has completed</p>
   
   
   
-  
-
   
 
   
