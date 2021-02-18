@@ -166,7 +166,7 @@ myApp.container.respond('keyBinding', [
   {actionName: 'Crouch', defaultKey: 's'},
 ]);
 
-//there is an 'enum' object available that will help with the available options for color fitlers. *All available options are listed in the below example*
+//there is an 'enum' object available that will help with the available options for color filters. *All available options are listed in the below example*
 myApp.container.respond('colorFilters', [
   springroll.COLOR_VISION.NONE,
   springroll.COLOR_VISION.PROTANOPIA,

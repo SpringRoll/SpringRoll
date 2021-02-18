@@ -90,6 +90,7 @@ const stateDefaults = {
  * @property {boolean} [features.keyBinding] A boolean denoting that this game has re-mappable key bindings.
  * @property {boolean} [features.colorVision] A boolean denoting that this game has color blindess filters
  * @property {boolean} [features.fullScreen] A boolean denoting that this game has fullScreen capabilities
+ * @property {boolean} [features.indexedDb] A boolean denoting that this game has fullScreen capabilities
  */
 export class Application {
   /**
