@@ -104,4 +104,287 @@ describe('UserData', () => {
       });
     })
   });
+
+  // ---------------------------------------------------------------------
+  //                               IndexedDB
+  // ---------------------------------------------------------------------
+
+  // connecting ----------------------------------------------------------
+
+  describe('connect', () => {
+    it('Should reject if Bellhop is not connected', async () => {
+      container.connected = false;
+      await assertThrows(() => UserData.IDBOpen('value'));
+    });
+
+    it('Should timeout if no response from Container', async () => {
+      await assertThrows(() => UserData.IDBOpen('value'));
+    });
+
+    describe('data formatting', () => {
+      beforeEach(() => {
+        sinon.stub(container, 'send');
+      });
+
+      afterEach(() => {
+        container.send.restore();
+      });
+
+      it('should properly format, send, and receive an event', async () => {
+        // start the IDBOpen workflow
+        const promise = UserData.IDBOpen('test');
+
+        // trigger the fake response from the client
+        container.trigger({
+          type: 'IDBOpen',
+          data: { result: "Success: IDBOpen", success: true }
+        });
+
+        // wait for UserData to receive the event
+        const result = await promise;
+
+        // make sure the UserData formatted it properly
+        expect(result.success).to.equal(true);
+      });
+    });
+  });
+
+  // Reading ------------------------------------------------------------------
+
+  describe('IDB read', () => {
+    it('Should reject if Bellhop is not connected', async () => {
+      container.connected = false;
+      await assertThrows(() => UserData.IDBRead('value'));
+    });
+
+    it('Should timeout if no response from Container', async () => {
+      await assertThrows(() => UserData.IDBRead('value'));
+    });
+
+    describe('data formatting', () => {
+      beforeEach(() => {
+        sinon.stub(container, 'send');
+      });
+
+      afterEach(() => {
+        container.send.restore();
+      });
+
+      it('should properly format, send, and receive an event', async () => {
+        // start the IDBRead workflow
+        const promise = UserData.IDBRead('test', 'testKey');
+
+        // trigger the fake response from the client
+        container.trigger({
+          type: 'IDBRead',
+          data: { result: "item", success: true}
+        });
+
+        // wait for UserData to receive the event
+        const result = await promise;
+
+        // make sure the UserData formatted it properly
+        expect(result.data.result).to.equal('item');
+      });
+    });
+  });
+
+  // Adding ------------------------------------------------------------------
+
+  describe('IDB add', () => {
+    it('Should reject if Bellhop is not connected', async () => {
+      container.connected = false;
+      await assertThrows(() => UserData.IDBAdd('value'));
+    });
+
+    it('Should timeout if no response from Container', async () => {
+      await assertThrows(() => UserData.IDBAdd('value'));
+    });
+
+    describe('data formatting', () => {
+      beforeEach(() => {
+        sinon.stub(container, 'send');
+      });
+
+      afterEach(() => {
+        container.send.restore();
+      });
+
+      it('should properly format, send, and receive an event', async () => {
+        // start the IDBAdd workflow
+        const promise = UserData.IDBAdd('test', 'testKey');
+
+        // trigger the fake response from the client
+        container.trigger({
+          type: 'IDBAdd',
+          data: { result: "Success: IDBAdd", success: true}
+        });
+
+        // wait for UserData to receive the event
+        const result = await promise;
+
+        // make sure the UserData formatted it properly
+        expect(result.data.success).to.equal(true);
+      });
+    });
+  });
+
+  // Updating ------------------------------------------------------------------
+
+  describe('IDB Update', () => {
+    it('Should reject if Bellhop is not connected', async () => {
+      container.connected = false;
+      await assertThrows(() => UserData.IDBUpdate('value'));
+    });
+
+    it('Should timeout if no response from Container', async () => {
+      await assertThrows(() => UserData.IDBUpdate('value'));
+    });
+
+    describe('data formatting', () => {
+      beforeEach(() => {
+        sinon.stub(container, 'send');
+      });
+
+      afterEach(() => {
+        container.send.restore();
+      });
+
+      it('should properly format, send, and receive an event', async () => {
+        // start the IDBUpdate workflow
+        const promise = UserData.IDBUpdate('test', 'testKey');
+
+        // trigger the fake response from the client
+        container.trigger({
+          type: 'IDBUpdate',
+          data: { result: "Success: IDBUpdate", success: true}
+        });
+
+        // wait for UserData to receive the event
+        const result = await promise;
+
+        // make sure the UserData formatted it properly
+        expect(result.data.success).to.equal(true);
+      });
+    });
+  });
+
+  // Deleting ------------------------------------------------------------------
+
+  describe('IDB Delete', () => {
+    it('Should reject if Bellhop is not connected', async () => {
+      container.connected = false;
+      await assertThrows(() => UserData.IDBAdd('value'));
+    });
+
+    it('Should timeout if no response from Container', async () => {
+      await assertThrows(() => UserData.IDBAdd('value'));
+    });
+
+    describe('data formatting', () => {
+      beforeEach(() => {
+        sinon.stub(container, 'send');
+      });
+
+      afterEach(() => {
+        container.send.restore();
+      });
+
+      it('should properly format, send, and receive an event', async () => {
+        // start the IDBAdd workflow
+        const promise = UserData.IDBAdd('test');
+
+        // trigger the fake response from the client
+        container.trigger({
+          type: 'IDBAdd',
+          data: { result: "Success: IDBAdd", success: true}
+        });
+
+        // wait for UserData to receive the event
+        const result = await promise;
+
+        // make sure the UserData formatted it properly
+        expect(result.data.success).to.equal(true);
+      });
+    });
+  });
+
+  // Read All ------------------------------------------------------------------
+
+  describe('IDB read all', () => {
+    it('Should reject if Bellhop is not connected', async () => {
+      container.connected = false;
+      await assertThrows(() => UserData.IDBReadAll('value'));
+    });
+
+    it('Should timeout if no response from Container', async () => {
+      await assertThrows(() => UserData.IDBReadAll('value'));
+    });
+
+    describe('data formatting', () => {
+      beforeEach(() => {
+        sinon.stub(container, 'send');
+      });
+
+      afterEach(() => {
+        container.send.restore();
+      });
+
+      it('should properly format, send, and receive an event', async () => {
+        // start the IDBReadAll workflow
+        const promise = UserData.IDBReadAll('test');
+
+        // trigger the fake response from the client
+        container.trigger({
+          type: 'IDBReadAll',
+          data: { result: ["item1", "item2"], success: true }
+        });
+
+        // wait for UserData to receive the event
+        const result = await promise;
+
+        // make sure the UserData formatted it properly
+        expect(result.data.result[1]).to.equal('item2');
+      });
+    });
+  });
+  // closing ------------------------------------------------------------------
+
+  describe('IDB Close', () => {
+    it('Should reject if Bellhop is not connected', async () => {
+      container.connected = false;
+      await assertThrows(() => UserData.IDBClose('value'));
+    });
+
+    it('Should timeout if no response from Container', async () => {
+      await assertThrows(() => UserData.IDBClose('value'));
+    });
+
+    describe('data formatting', () => {
+      beforeEach(() => {
+        sinon.stub(container, 'send');
+      });
+
+      afterEach(() => {
+        container.send.restore();
+      });
+
+      it('should properly format, send, and receive an event', async () => {
+        // start the IDBClose workflow
+        const promise = UserData.IDBClose('test');
+
+        // trigger the fake response from the client
+        container.trigger({
+          type: 'IDBClose',
+          data: { result: 'Success: IDBClose', success: true }
+        });
+
+        // wait for UserData to receive the event
+        const result = await promise;
+
+        // make sure the UserData formatted it properly
+        expect(result.data.success).to.equal(true);
+      });
+    });
+  });
 });

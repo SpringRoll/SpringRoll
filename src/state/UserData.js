@@ -3,6 +3,15 @@ const onReturn = Symbol('onReturn');
 const READ = 'userDataRead';
 const WRITE = 'userDataWrite';
 const DELETE = 'userDataRemove';
+
+const IDBOPEN = 'IDBOpen';
+const IDBADD = 'IDBAdd';
+const IDBREMOVE = 'IDBRemove';
+const IDBREAD = 'IDBRead';
+const IDBUPDATE = 'IDBUpdate';
+const IDBCLOSE = 'IDBClose';
+const IDBREADALL = 'IDBReadAll';
+const IDBDELETEDB = 'IDBDeleteDB';
 /**
  *
  * Manages data between SpringRoll Container and SpringRoll
@@ -10,6 +19,7 @@ const DELETE = 'userDataRemove';
  * @class UserData
  */
 export class UserData {
+
   /**
    * Handles return
    * @function
@@ -99,6 +109,125 @@ export class UserData {
     }
 
     return this[onReturn](DELETE, name);
+  }
+
+
+  /**
+   * Opens a connection with the indexedDB database
+   * @memberof UserData
+   * @param {string} name
+   * @static
+   */
+  static IDBOpen(dbName, dbVersion = null, additions = {}, deletions = {}) {
+    if (!BellhopSingleton.connected) {
+      const warning = `Could not complete connect action for ${name}. Bellhop is not connected.`;
+      return Promise.reject(warning);
+    }
+
+    const data = {dbName: dbName, dbVersion: dbVersion, additions: additions, deletions: deletions };
+
+    return this[onReturn](IDBOPEN, data)
+      .then(({ data }) => {
+        return data;
+      });
+  }
+
+  /**
+   * Adds a record to the indexedDB database
+   * @memberof UserData
+   * @param {string} name
+   * @static
+   */
+  static IDBAdd(storeName, value, key = null) {
+    if (!BellhopSingleton.connected) {
+      const warning = `Could not complete connect action for ${name}. Bellhop is not connected.`;
+      return Promise.reject(warning);
+    }
+
+    return this[onReturn](IDBADD, { storeName, value, key });
+  }
+
+  /**
+   * Removes data from SpringRoll Container
+   * @memberof UserData
+   * @param {string} name
+   * @static
+   */
+  static IDBRemove(storeName, key) {
+    if (!BellhopSingleton.connected) {
+      const warning = `Could not complete connect action for ${name}. Bellhop is not connected.`;
+      return Promise.reject(warning);
+    }
+
+    return this[onReturn](IDBREMOVE, {storeName, key });
+  }
+  /**
+   * Removes data from SpringRoll Container
+   * @memberof UserData
+   * @param {string} name
+   * @static
+   */
+  static IDBRead(storeName, key) {
+    if (!BellhopSingleton.connected) {
+      const warning = `Could not complete connect action for ${name}. Bellhop is not connected.`;
+      return Promise.reject(warning);
+    }
+    
+    return this[onReturn](IDBREAD, {storeName, key });
+  }
+
+  /**
+   * 
+   * @param {string} storeName 
+   * @param {string} key 
+   * @param {string} object 
+   */
+  static IDBUpdate(storeName, key, value ) {
+    if (!BellhopSingleton.connected) {
+      const warning = `Could not complete connect action for ${name}. Bellhop is not connected.`;
+      return Promise.reject(warning);
+    }
+    return this[onReturn](IDBUPDATE, {storeName, key, value });
+
+  }
+
+
+  /**
+   * 
+   * @param {string} storeName The name of the store to read from
+   * @param {integer} count Specifies the number of values to return if more than one is found. 
+   */
+  static IDBReadAll(storeName, count = null) {
+    if (!BellhopSingleton.connected) {
+      const warning = `Could not complete connect action for ${name}. Bellhop is not connected.`;
+      return Promise.reject(warning);
+    }
+    return this[onReturn](IDBREADALL, {storeName, count});
+
+  }
+
+  /**
+   * Close the connection with the database
+   */
+  static IDBClose() {
+    if (!BellhopSingleton.connected) {
+      const warning = `Could not complete connect action for ${name}. Bellhop is not connected.`;
+      return Promise.reject(warning);
+    }
+    return this[onReturn](IDBCLOSE);
+
+  }
+  /**
+   * Delete a given database
+   * @param {string} DBName The name of the database to be deleted
+   */
+  static IDBDeleteDB(dbName) {
+    if (!BellhopSingleton.connected) {
+      const warning = `Could not complete connect action for ${name}. Bellhop is not connected.`;
+      return Promise.reject(warning);
+    }
+    return this[onReturn](IDBDELETEDB, {dbName});
+
   }
 }
 export default UserData;
