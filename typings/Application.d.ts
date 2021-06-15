@@ -27,6 +27,7 @@ export type ApplicationFeatures = {
   inputCount?: boolean
   keyBinding?: boolean,
   colorVision?: boolean,
+  fullScreen?: boolean,
 };
 
 export type CaptionStyle = {
@@ -76,6 +77,7 @@ export class Application {
     inputCount: Property<number>
     keyBinding: Property<KeyBinding>,
     colorVision: Property<string>,
+    fullScreen: Property<boolean>,
     [key:string]: Property<any>
   }
   hints: IHintPlayer;
