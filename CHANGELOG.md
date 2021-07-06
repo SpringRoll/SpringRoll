@@ -16,6 +16,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Bump browserslist from 4.14.0 to 4.16.6
 - Update y18n version in package-lock.json
 - Bump socket.io-parser from 3.3.1 to 3.3.2
+- add FullScreen Feature to typings
 
 ## [2.4.0] - 2021-02-19
 ### Added
