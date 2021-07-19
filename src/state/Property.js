@@ -3,6 +3,7 @@
  * @class Property
  * @property {*} _value the value of the property
  * @property {[]} listeners all the objects listening to this property
+ * @property {boolean} alwaysNotify Determines if the property will notify a value change regardless if it's a new value or not.
  */
 export class Property {
   /**
