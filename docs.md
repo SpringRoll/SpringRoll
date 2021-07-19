@@ -36,28 +36,28 @@
     -   [IDBClose][32]
     -   [IDBDeleteDB][33]
         -   [Parameters][34]
--   [Point][35]
--   [Point][36]
--   [PositionCallback][37]
-    -   [Parameters][38]
--   [Anchor][39]
-    -   [onResize][40]
-        -   [Parameters][41]
--   [ScaleCallback][42]
+-   [Anchor][35]
+    -   [onResize][36]
+        -   [Parameters][37]
+-   [Point][38]
+-   [Point][39]
+-   [PositionCallback][40]
+    -   [Parameters][41]
+-   [SafeScaleManager][42]
     -   [Parameters][43]
--   [SafeScaleManager][44]
-    -   [Parameters][45]
-    -   [entities][46]
-    -   [resizeEventData][47]
-    -   [removeEntity][48]
+    -   [entities][44]
+    -   [resizeEventData][45]
+    -   [removeEntity][46]
+        -   [Parameters][47]
+    -   [enable][48]
         -   [Parameters][49]
-    -   [enable][50]
-        -   [Parameters][51]
-    -   [disable][52]
-    -   [calcOffset][53]
+    -   [disable][50]
+    -   [calcOffset][51]
+        -   [Parameters][52]
+    -   [addEntity][53]
         -   [Parameters][54]
-    -   [addEntity][55]
-        -   [Parameters][56]
+-   [ScaleCallback][55]
+    -   [Parameters][56]
 -   [ResizeHelper][57]
     -   [Parameters][58]
     -   [iOS][59]
@@ -96,14 +96,14 @@
     -   [volume][92]
         -   [Parameters][93]
     -   [volume][94]
--   [filterType][95]
--   [ColorFilter][96]
-    -   [applyFilter][97]
-        -   [Parameters][98]
-    -   [changeFilter][99]
-        -   [Parameters][100]
-    -   [removeFilter][101]
-    -   [types][102]
+-   [ColorFilter][95]
+    -   [applyFilter][96]
+        -   [Parameters][97]
+    -   [changeFilter][98]
+        -   [Parameters][99]
+    -   [removeFilter][100]
+    -   [types][101]
+-   [filterType][102]
 -   [KeyState][103]
     -   [Properties][104]
 -   [Controller][105]
@@ -234,17 +234,17 @@
     -   [lineEnd][230]
     -   [sanitize][231]
         -   [Parameters][232]
--   [Localizer][233]
-    -   [resolve][234]
-        -   [Parameters][235]
-    -   [setPrimaryLocale][236]
-        -   [Parameters][237]
-    -   [setFallbackLocale][238]
-        -   [Parameters][239]
-    -   [getLocaleKey][240]
-        -   [Parameters][241]
-    -   [getBrowserLanguages][242]
--   [Localizer.Options][243]
+-   [Localizer.Options][233]
+-   [Localizer][234]
+    -   [resolve][235]
+        -   [Parameters][236]
+    -   [setPrimaryLocale][237]
+        -   [Parameters][238]
+    -   [setFallbackLocale][239]
+        -   [Parameters][240]
+    -   [getLocaleKey][241]
+        -   [Parameters][242]
+    -   [getBrowserLanguages][243]
 -   [ApplicationPlugin][244]
     -   [preload][245]
     -   [init][246]
@@ -409,6 +409,19 @@ Delete a given database
 -   `dbName`  
 -   `DBName` **[string][250]** The name of the database to be deleted
 
+## Anchor
+
+Used to fix positions to a relative point in the viewport.
+
+### onResize
+
+#### Parameters
+
+-   `param` **[object][252]** 
+    -   `param.viewArea` **[Point][253]** 
+
+Returns **void** @memberof Anchor
+
 ## Point
 
 Type: {x: [Number][248], y: [Number][248]}
@@ -425,34 +438,7 @@ Type: [Function][249]
 
 ### Parameters
 
--   `position` **[Point][252]** position relative to anchor direction
-
-## Anchor
-
-Used to fix positions to a relative point in the viewport.
-
-### onResize
-
-#### Parameters
-
--   `param` **[object][253]** 
-    -   `param.viewArea` **[Point][252]** 
-
-Returns **void** @memberof Anchor
-
-## ScaleCallback
-
-callback to used scale game and canvas
-
-Type: [Function][249]
-
-### Parameters
-
--   `width` **[Number][248]** width canvas should be
--   `height` **[Number][248]** height canvas should be
--   `scale` **[Point][252]** x/y scale values
--   `scaleRatio` **[Number][248]** minimum aspect ratio that fit's in the screen.
--   `viewArea` **[Object][253]** Rectangle defining the total viewable area of game content.
+-   `position` **[Point][253]** position relative to anchor direction
 
 ## SafeScaleManager
 
@@ -460,13 +446,13 @@ Handles scaling the game
 
 ### Parameters
 
--   `$0` **[Object][253]** 
+-   `$0` **[Object][252]** 
     -   `$0.width`  
     -   `$0.height`  
     -   `$0.safeWidth`   (optional, default `Infinity`)
     -   `$0.safeHeight`   (optional, default `Infinity`)
     -   `$0.callback`   (optional, default `()=>{}`)
--   `param` **[object][253]** 
+-   `param` **[object][252]** 
 
 ### entities
 
@@ -504,9 +490,9 @@ Calculates the offset for anchors.
 
 #### Parameters
 
--   `scale` **[Point][252]** scale value
+-   `scale` **[Point][253]** scale value
 
-Returns **[Point][252]** 
+Returns **[Point][253]** 
 
 ### addEntity
 
@@ -515,6 +501,20 @@ Adds and anchor to be updated during resize
 #### Parameters
 
 -   `entity` **([ScaledEntity][255] \| [Array][254]&lt;[ScaledEntity][255]>)** 
+
+## ScaleCallback
+
+callback to used scale game and canvas
+
+Type: [Function][249]
+
+### Parameters
+
+-   `width` **[Number][248]** width canvas should be
+-   `height` **[Number][248]** height canvas should be
+-   `scale` **[Point][253]** x/y scale values
+-   `scaleRatio` **[Number][248]** minimum aspect ratio that fit's in the screen.
+-   `viewArea` **[Object][252]** Rectangle defining the total viewable area of game content.
 
 ## ResizeHelper
 
@@ -561,7 +561,7 @@ Returns **void** @memberof ScaledEntity
 
 ## EntityResizeEvent
 
-Type: {offset: [Point][252], gameSize: [Point][252], scale: [Point][252]}
+Type: {offset: [Point][253], gameSize: [Point][253], scale: [Point][253]}
 
 ## ScaleManager
 
@@ -596,7 +596,7 @@ Note: This is not supported on IE11 and below because of the underlying APIs are
 
 ### Parameters
 
--   `params` **[object][253]** 
+-   `params` **[object][252]** 
     -   `params.voice` **[number][248]** Indicates what voice to use. (optional, default `0`)
     -   `params.rate` **[number][248]** The rate at which the text is said. Supports a range from 0.1 to 10. (optional, default `1`)
     -   `params.pitch` **[number][248]** Voice Pitch. Supports a pitch from 0 to 2. (optional, default `0`)
@@ -639,7 +639,7 @@ Sets the voice by array index.
 
 Returns the voice object.
 
-Returns **([object][253] | null)** 
+Returns **([object][252] | null)** 
 
 ### rate
 
@@ -683,10 +683,6 @@ Returns the current volume of the announcer.
 
 Returns **[number][248]** 
 
-## filterType
-
-Type: (`"protanopia"` \| `"protanomaly"` \| `"deuteranopia"` \| `"deuteranomaly"` \| `"tritanopia"` \| `"tritanomaly"` \| `"achromatopsia"` \| `"achromatomaly"`)
-
 ## ColorFilter
 
 The Color filter allows you to simulate colorblindness.
@@ -718,8 +714,12 @@ Removes the filter from the element.
 
 Supported filter types.
 
-Returns **[object][253]** Returns an object { name, value } with the colorblindness type:
+Returns **[object][252]** Returns an object { name, value } with the colorblindness type:
 (Protanopia, Protanomaly, Deuteranopia, Deuteranomaly, Tritanopia, Tritanomaly, Achromatopsia, Achromatomaly)
+
+## filterType
+
+Type: (`"protanopia"` \| `"protanomaly"` \| `"deuteranopia"` \| `"deuteranomaly"` \| `"tritanopia"` \| `"tritanomaly"` \| `"achromatopsia"` \| `"achromatomaly"`)
 
 ## KeyState
 
@@ -787,7 +787,7 @@ Represents a single key on the keyboard and the functions related to it.
 
 -   `state` **(`0` \| `1` \| `2`)** The current state of the key. 0 = inactive, 1 = active, 2 = to be set to inactive.
 -   `key` **[string][250]** The name of the key we are targeting.
--   `actions` **[object][253]** 
+-   `actions` **[object][252]** 
     -   `actions.down` **[function][249]** Function to be called while the key is held down.
     -   `actions.up` **[function][249]** Function to be called when the key is lifted up.
 
@@ -815,7 +815,7 @@ Main entry point for a game. Provides a single focal point for plugins and funct
 
 ### Properties
 
--   `features` **[object][253]** A configuration object denoting which features are enabled for this application
+-   `features` **[object][252]** A configuration object denoting which features are enabled for this application
     -   `features.captions` **[boolean][258]?** A boolean value denoting that this game supports captions
     -   `features.sound` **[boolean][258]?** A boolean value denoting that this game has some audio in it
     -   `features.vo` **[boolean][258]?** A boolean denoting that this game has mutable voice-over audio in it
@@ -893,11 +893,11 @@ Returns **(SpringRoll.ApplicationPlugin | [undefined][263])**
 
 ## Debugger
 
-Type: [object][253]
+Type: [object][252]
 
 ### Parameters
 
--   `params` **[Object][253]** Options
+-   `params` **[Object][252]** Options
     -   `params.emitEnabled` **[boolean][258]** If this should emit events to the window. (optional, default `false`)
     -   `params.minLevel` **(`"GENERAL"` \| `"DEBUG"` \| `"INFO"` \| `"WARN"` \| `"ERROR"`)** The starting log level for the logger. (optional, default `'GENERAL'`)
 
@@ -935,7 +935,7 @@ If emitting is enabled for this instance, then it will dispatch an event on the 
 
 Returns logging levels.
 
-Returns **[object][253]** 
+Returns **[object][252]** 
 
 ### log
 
@@ -1013,6 +1013,7 @@ A class for representing changeable/subscribable properties.
 
 -   `_value` **any** the value of the property
 -   `listeners` **\[]** all the objects listening to this property
+-   `alwaysNotify` **[boolean][258]** Determines if the property will notify a value change regardless if it's a new value or not.
 
 ### value
 
@@ -1161,7 +1162,7 @@ Creates a new Object&lt;String, Caption>.
 
 -   `data` **[JSON][266]** 
 
-Returns **[Object][253]** 
+Returns **[Object][252]** 
 
 ### createCaption
 
@@ -1205,7 +1206,7 @@ Starts playing a caption.
 
 -   `name` **[String][250]** Name of caption.
 -   `time` **[number][248]** Atart time in milliseconds. (optional, default `0`)
--   `args` **[object][253]** Arguments that will get passed to the renderer (optional, default `{}`)
+-   `args` **[object][252]** Arguments that will get passed to the renderer (optional, default `{}`)
 
 ### stop
 
@@ -1235,7 +1236,7 @@ Starts playing a caption.
 
 -   `name` **[String][250]** Name of caption.
 -   `time` **[number][248]** Atart time in milliseconds. (optional, default `0`)
--   `args` **[object][253]** Arguments that will get passed to the renderer (optional, default `{}`)
+-   `args` **[object][252]** Arguments that will get passed to the renderer (optional, default `{}`)
 
 ### stop
 
@@ -1277,7 +1278,7 @@ DOMRender is a incomplete renderer that is intended to supply just the basic sta
 ### Parameters
 
 -   `element` **[HTMLElement][259]** 
--   `templateVariables` **[Object][253]** 
+-   `templateVariables` **[Object][252]** 
 
 ### start
 
@@ -1285,7 +1286,7 @@ Makes target element visible and ready to present captions
 
 #### Parameters
 
--   `templateVariables` **[object][253]** Variables that can used during caption play time (optional, default `{}`)
+-   `templateVariables` **[object][252]** Variables that can used during caption play time (optional, default `{}`)
 
 ### stop
 
@@ -1315,7 +1316,7 @@ and swaps out the placeholder inside the double brackets with the matching key i
 ### Parameters
 
 -   `template` **[string][250]** String template that will be rendered with the supplied arguments
--   `args` **[Object][253]** //An Object contain data to be inserted into the template This will match based on key values
+-   `args` **[Object][252]** //An Object contain data to be inserted into the template This will match based on key values
 
 Returns **[string][250]** 
 
@@ -1342,6 +1343,10 @@ Will attempt to remove all html from a string before it's renderer to the page
 #### Parameters
 
 -   `html` **any** 
+
+## Localizer.Options
+
+Type: {language: [string][250], fallback: [string][250]}
 
 ## Localizer
 
@@ -1379,10 +1384,6 @@ Returns **[boolean][258]** True if fallback is set.
 Returns **[string][250]** 
 
 ### getBrowserLanguages
-
-## Localizer.Options
-
-Type: {language: [string][250], fallback: [string][250]}
 
 ## ApplicationPlugin
 
@@ -1474,47 +1475,47 @@ After all plugins inits has completed
 
 [34]: #parameters-12
 
-[35]: #point
+[35]: #anchor
 
-[36]: #point-1
+[36]: #onresize
 
-[37]: #positioncallback
+[37]: #parameters-13
 
-[38]: #parameters-13
+[38]: #point
 
-[39]: #anchor
+[39]: #point-1
 
-[40]: #onresize
+[40]: #positioncallback
 
 [41]: #parameters-14
 
-[42]: #scalecallback
+[42]: #safescalemanager
 
 [43]: #parameters-15
 
-[44]: #safescalemanager
+[44]: #entities
 
-[45]: #parameters-16
+[45]: #resizeeventdata
 
-[46]: #entities
+[46]: #removeentity
 
-[47]: #resizeeventdata
+[47]: #parameters-16
 
-[48]: #removeentity
+[48]: #enable
 
 [49]: #parameters-17
 
-[50]: #enable
+[50]: #disable
 
-[51]: #parameters-18
+[51]: #calcoffset
 
-[52]: #disable
+[52]: #parameters-18
 
-[53]: #calcoffset
+[53]: #addentity
 
 [54]: #parameters-19
 
-[55]: #addentity
+[55]: #scalecallback
 
 [56]: #parameters-20
 
@@ -1594,21 +1595,21 @@ After all plugins inits has completed
 
 [94]: #volume-1
 
-[95]: #filtertype
+[95]: #colorfilter
 
-[96]: #colorfilter
+[96]: #applyfilter
 
-[97]: #applyfilter
+[97]: #parameters-32
 
-[98]: #parameters-32
+[98]: #changefilter
 
-[99]: #changefilter
+[99]: #parameters-33
 
-[100]: #parameters-33
+[100]: #removefilter
 
-[101]: #removefilter
+[101]: #types
 
-[102]: #types
+[102]: #filtertype
 
 [103]: #keystate
 
@@ -1870,27 +1871,27 @@ After all plugins inits has completed
 
 [232]: #parameters-77
 
-[233]: #localizer
+[233]: #localizeroptions
 
-[234]: #resolve
+[234]: #localizer
 
-[235]: #parameters-78
+[235]: #resolve
 
-[236]: #setprimarylocale
+[236]: #parameters-78
 
-[237]: #parameters-79
+[237]: #setprimarylocale
 
-[238]: #setfallbacklocale
+[238]: #parameters-79
 
-[239]: #parameters-80
+[239]: #setfallbacklocale
 
-[240]: #getlocalekey
+[240]: #parameters-80
 
-[241]: #parameters-81
+[241]: #getlocalekey
 
-[242]: #getbrowserlanguages
+[242]: #parameters-81
 
-[243]: #localizeroptions
+[243]: #getbrowserlanguages
 
 [244]: #applicationplugin
 
@@ -1908,9 +1909,9 @@ After all plugins inits has completed
 
 [251]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise
 
-[252]: #point
+[252]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object
 
-[253]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object
+[253]: #point
 
 [254]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array
 
