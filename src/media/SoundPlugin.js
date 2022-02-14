@@ -62,7 +62,7 @@
 		 * @default ['ogg','mp3']
 		 * @readOnly
 		 */
-		this.options.add('audioTypes', ["ogg", "mp3"], true);
+		this.options.add('audioTypes', ["mp3"], true);
 
 		if (DEBUG)
 		{

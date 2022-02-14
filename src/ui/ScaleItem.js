@@ -161,39 +161,39 @@
 		switch (this.vertAlign)
 		{
 			case ScaleManager.ALIGN_TOP:
-				{
-					this.origMarginVert = position.y + this.origBounds.y;
-					break;
-				}
+			{
+				this.origMarginVert = position.y + this.origBounds.y;
+				break;
+			}
 			case ScaleManager.ALIGN_CENTER:
-				{
-					this.origMarginVert = size.height * 0.5 - position.y;
-					break;
-				}
+			{
+				this.origMarginVert = size.height * 0.5 - position.y;
+				break;
+			}
 			case ScaleManager.ALIGN_BOTTOM:
-				{
-					this.origMarginVert = size.height - (position.y + this.origBounds.bottom);
-					break;
-				}
+			{
+				this.origMarginVert = size.height - (position.y + this.origBounds.bottom);
+				break;
+			}
 		}
 
 		switch (this.horiAlign)
 		{
 			case ScaleManager.ALIGN_LEFT:
-				{
-					this.origMarginHori = position.x + this.origBounds.x;
-					break;
-				}
+			{
+				this.origMarginHori = position.x + this.origBounds.x;
+				break;
+			}
 			case ScaleManager.ALIGN_CENTER:
-				{
-					this.origMarginHori = size.width * 0.5 - position.x;
-					break;
-				}
+			{
+				this.origMarginHori = size.width * 0.5 - position.x;
+				break;
+			}
 			case ScaleManager.ALIGN_RIGHT:
-				{
-					this.origMarginHori = size.width - (position.x + this.origBounds.right);
-					break;
-				}
+			{
+				this.origMarginHori = size.width - (position.x + this.origBounds.right);
+				break;
+			}
 		}
 	};
 
@@ -281,34 +281,34 @@
 		switch (this.vertAlign)
 		{
 			case ScaleManager.ALIGN_TOP:
+			{
+				if (titleSafe)
 				{
-					if (titleSafe)
-					{
-						y = letterBoxHeight + m - origBounds.y * itemScale;
-					}
-					else
-					{
-						y = m - origBounds.y * itemScale;
-					}
-					break;
+					y = letterBoxHeight + m - origBounds.y * itemScale;
 				}
+				else
+				{
+					y = m - origBounds.y * itemScale;
+				}
+				break;
+			}
 			case ScaleManager.ALIGN_CENTER:
-				{
-					y = displayHeight * 0.5 - m;
-					break;
-				}
+			{
+				y = displayHeight * 0.5 - m;
+				break;
+			}
 			case ScaleManager.ALIGN_BOTTOM:
+			{
+				if (titleSafe)
 				{
-					if (titleSafe)
-					{
-						y = displayHeight - letterBoxHeight - m - origBounds.bottom * itemScale;
-					}
-					else
-					{
-						y = displayHeight - m - origBounds.bottom * itemScale;
-					}
-					break;
+					y = displayHeight - letterBoxHeight - m - origBounds.bottom * itemScale;
 				}
+				else
+				{
+					y = displayHeight - m - origBounds.bottom * itemScale;
+				}
+				break;
+			}
 		}
 
 		// Set the position
@@ -326,41 +326,41 @@
 		switch (this.horiAlign)
 		{
 			case ScaleManager.ALIGN_LEFT:
+			{
+				if (titleSafe)
 				{
-					if (titleSafe)
-					{
-						x = letterBoxWidth + m - origBounds.x * itemScale;
-					}
-					else
-					{
-						x = m - origBounds.x * itemScale;
-					}
-					break;
+					x = letterBoxWidth + m - origBounds.x * itemScale;
 				}
+				else
+				{
+					x = m - origBounds.x * itemScale;
+				}
+				break;
+			}
 			case ScaleManager.ALIGN_CENTER:
+			{
+				if (this.centeredHorizontally)
 				{
-					if (this.centeredHorizontally)
-					{
-						x = (displayWidth - _display.width) * 0.5;
-					}
-					else
-					{
-						x = displayWidth * 0.5 - m;
-					}
-					break;
+					x = (displayWidth - _display.width) * 0.5;
 				}
+				else
+				{
+					x = displayWidth * 0.5 - m;
+				}
+				break;
+			}
 			case ScaleManager.ALIGN_RIGHT:
+			{
+				if (titleSafe)
 				{
-					if (titleSafe)
-					{
-						x = displayWidth - letterBoxWidth - m - origBounds.right * itemScale;
-					}
-					else
-					{
-						x = displayWidth - m - origBounds.right * itemScale;
-					}
-					break;
+					x = displayWidth - letterBoxWidth - m - origBounds.right * itemScale;
 				}
+				else
+				{
+					x = displayWidth - m - origBounds.right * itemScale;
+				}
+				break;
+			}
 		}
 
 		// Set the position

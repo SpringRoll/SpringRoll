@@ -609,29 +609,29 @@
 			switch (typeof value)
 			{
 				case "object":
-					{
-						result[key] = (depth > maxDepth || circularArray.indexOf(value) > -1) ?
+				{
+					result[key] = (depth > maxDepth || circularArray.indexOf(value) > -1) ?
 						String(value) : removeCircular(value, maxDepth, depth + 1);
-						break;
-					}
+					break;
+				}
 				case "function":
-					{
-						result[key] = "[function]";
-						break;
-					}
+				{
+					result[key] = "[function]";
+					break;
+				}
 				case "string":
 				case "number":
 				case "boolean":
 				case "bool":
-					{
-						result[key] = value;
-						break;
-					}
+				{
+					result[key] = value;
+					break;
+				}
 				default:
-					{
-						result[key] = value;
-						break;
-					}
+				{
+					result[key] = value;
+					break;
+				}
 			}
 		}
 		return result;
