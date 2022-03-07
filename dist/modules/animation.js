@@ -1,4 +1,4 @@
-/*! SpringRoll 1.1.1 */
+/*! SpringRoll 1.1.2 */
 /**
  * @module Animation
  * @namespace springroll
@@ -217,37 +217,37 @@
 		switch (typeof listItem)
 		{
 			case "object":
-				{
-					this.isTimer = false;
-					var instance = this.instance;
-					instance.beginAnim(listItem, repeat);
-					this.duration = instance.duration;
-					this.speed = listItem.speed;
-					this.isLooping = instance.isLooping || listItem.loop;
-					this._position = instance.position;
+			{
+				this.isTimer = false;
+				var instance = this.instance;
+				instance.beginAnim(listItem, repeat);
+				this.duration = instance.duration;
+				this.speed = listItem.speed;
+				this.isLooping = instance.isLooping || listItem.loop;
+				this._position = instance.position;
 
-					if (listItem.alias)
-					{
-						this.soundAlias = listItem.alias;
-						this.soundStart = listItem.audioStart;
-						this.playSound = true;
-						this.useCaptions = listItem.useCaptions;
-					}
-					break;
+				if (listItem.alias)
+				{
+					this.soundAlias = listItem.alias;
+					this.soundStart = listItem.audioStart;
+					this.playSound = true;
+					this.useCaptions = listItem.useCaptions;
 				}
+				break;
+			}
 			case "number":
-				{
-					this.isTimer = true;
-					this.duration = listItem;
-					this._position = 0;
-					break;
-				}
+			{
+				this.isTimer = true;
+				this.duration = listItem;
+				this._position = 0;
+				break;
+			}
 			case "function":
-				{
-					listItem();
-					this._nextItem();
-					break;
-				}
+			{
+				listItem();
+				this._nextItem();
+				break;
+			}
 		}
 	};
 

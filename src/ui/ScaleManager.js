@@ -518,22 +518,22 @@
 			switch (align)
 			{
 				case ALIGN_CENTER:
-					{
-						align = align + "-" + align;
-						break;
-					}
+				{
+					align = align + "-" + align;
+					break;
+				}
 				case ALIGN_LEFT:
 				case ALIGN_RIGHT:
-					{
-						align = ALIGN_CENTER + "-" + align;
-						break;
-					}
+				{
+					align = ALIGN_CENTER + "-" + align;
+					break;
+				}
 				case ALIGN_TOP:
 				case ALIGN_BOTTOM:
-					{
-						align = align + "-" + ALIGN_CENTER;
-						break;
-					}
+				{
+					align = align + "-" + ALIGN_CENTER;
+					break;
+				}
 			}
 
 			// Error check the alignment value input

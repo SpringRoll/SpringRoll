@@ -79,7 +79,8 @@
 		if (result)
 		{
 			//attempt to destroy it as a single thing that we can handle
-			if (!destroyResult(result)) {
+			if (!destroyResult(result))
+			{
 				//if we didn't handle it, see if it is a collection of things
 				// Destroy list of results
 				if (Array.isArray(result))

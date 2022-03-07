@@ -1,4 +1,4 @@
-/*! SpringRoll 1.1.1 */
+/*! SpringRoll 1.1.2 */
 /**
  * @module Sound
  * @namespace springroll
@@ -2754,10 +2754,10 @@
 		 * preferred, where "ogg" becomes a ".ogg"
 		 * extension on all sound file urls.
 		 * @property {Array} options.audioTypes
-		 * @default ['ogg','mp3']
+		 * @default ['mp3']
 		 * @readOnly
 		 */
-		this.options.add('audioTypes', ["ogg", "mp3"], true);
+		this.options.add('audioTypes', ["mp3"], true);
 
 		if (true)
 		{
