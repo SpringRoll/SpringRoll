@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset='utf-8'>
-  <title>springroll 2.4.1 | Documentation</title>
+  <title>springroll 2.4.2 | Documentation</title>
   <meta name='viewport' content='width=device-width,initial-scale=1'>
   <link href='assets/bass.css' rel='stylesheet'>
   <link href='assets/style.css' rel='stylesheet'>
@@ -14,7 +14,7 @@
       <div id='split-left' class='overflow-auto fs0 height-viewport-100'>
         <div class='py1 px2'>
           <h3 class='mb0 no-anchor'>springroll</h3>
-          <div class='mb1'><code>2.4.1</code></div>
+          <div class='mb1'><code>2.4.2</code></div>
           <input
             placeholder='Filter'
             id='filter-input'
@@ -184,34 +184,6 @@
               
                 
                 <li><a
-                  href='#anchor'
-                  class=" toggle-sibling">
-                  Anchor
-                  <span class='icon'>▸</span>
-                </a>
-                
-                <div class='toggle-target display-none'>
-                  
-                  
-                    <ul class='list-reset py1-ul pl1'>
-                      <li class='h5'><span>Instance members</span></li>
-                      
-                      <li><a
-                        href='#anchoronresize'
-                        class='regular pre-open'>
-                        #onResize
-                      </a></li>
-                      
-                    </ul>
-                  
-                  
-                  
-                </div>
-                
-                </li>
-              
-                
-                <li><a
                   href='#point'
                   class="">
                   Point
@@ -237,6 +209,34 @@
                   PositionCallback
                   
                 </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#anchor'
+                  class=" toggle-sibling">
+                  Anchor
+                  <span class='icon'>▸</span>
+                </a>
+                
+                <div class='toggle-target display-none'>
+                  
+                  
+                    <ul class='list-reset py1-ul pl1'>
+                      <li class='h5'><span>Instance members</span></li>
+                      
+                      <li><a
+                        href='#anchoronresize'
+                        class='regular pre-open'>
+                        #onResize
+                      </a></li>
+                      
+                    </ul>
+                  
+                  
+                  
+                </div>
                 
                 </li>
               
@@ -373,6 +373,16 @@
               
                 
                 <li><a
+                  href='#entityresizeevent'
+                  class="">
+                  EntityResizeEvent
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
                   href='#scaledentity'
                   class=" toggle-sibling">
                   ScaledEntity
@@ -396,16 +406,6 @@
                   
                   
                 </div>
-                
-                </li>
-              
-                
-                <li><a
-                  href='#entityresizeevent'
-                  class="">
-                  EntityResizeEvent
-                  
-                </a>
                 
                 </li>
               
@@ -539,6 +539,16 @@
               
                 
                 <li><a
+                  href='#filtertype'
+                  class="">
+                  filterType
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
                   href='#colorfilter'
                   class=" toggle-sibling">
                   ColorFilter
@@ -580,16 +590,6 @@
                   
                   
                 </div>
-                
-                </li>
-              
-                
-                <li><a
-                  href='#filtertype'
-                  class="">
-                  filterType
-                  
-                </a>
                 
                 </li>
               
@@ -2022,7 +2022,6 @@
       <div class='py1 quiet mt1 prose-big'>Returns</div>
       <code><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></code>:
         
-
       
     
   
@@ -2100,7 +2099,6 @@
       <div class='py1 quiet mt1 prose-big'>Returns</div>
       <code><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></code>:
         
-
       
     
   
@@ -2821,155 +2819,6 @@
   
   <div class='clearfix'>
     
-    <h3 class='fl m0' id='anchor'>
-      Anchor
-    </h3>
-    
-    
-  </div>
-  
-
-  <p>Used to fix positions to a relative point in the viewport.</p>
-
-    <div class='pre p1 fill-light mt0'>new Anchor()</div>
-  
-  
-
-  
-  
-  
-  
-  
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-    <div class='py1 quiet mt1 prose-big'>Instance Members</div>
-    <div class="clearfix">
-  
-    <div class='border-bottom' id='anchoronresize'>
-      <div class="clearfix small pointer toggle-sibling">
-        <div class="py1 contain">
-            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
-            <span class='code strong strong truncate'>onResize(param)</span>
-        </div>
-      </div>
-      <div class="clearfix display-none toggle-target">
-        <section class='p2 mb2 clearfix bg-white minishadow'>
-
-  
-
-  
-    <div class='pre p1 fill-light mt0'>onResize(param: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a>): void</div>
-  
-  
-
-  
-  
-  
-  
-  
-  
-
-  
-    <div class='py1 quiet mt1 prose-big'>Parameters</div>
-    <div class='prose'>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>param</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a>)</code>
-	    
-          </div>
-          
-          <table class='mt1 mb2 fixed-table h5 col-12'>
-            <colgroup>
-              <col width='30%' />
-              <col width='70%' />
-            </colgroup>
-            <thead>
-              <tr class='bold fill-light'>
-                <th>Name</th>
-                <th>Description</th>
-              </tr>
-            </thead>
-            <tbody class='mt1'>
-              
-                <tr>
-  <td class='break-word'><span class='code bold'>param.viewArea</span> <code class='quiet'><a href="#point">Point</a></code>
-  </td>
-  <td class='break-word'><span></span></td>
-</tr>
-
-
-              
-            </tbody>
-          </table>
-          
-        </div>
-      
-    </div>
-  
-
-  
-
-  
-    
-      <div class='py1 quiet mt1 prose-big'>Returns</div>
-      <code>void</code>:
-        @memberof Anchor
-
-      
-    
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-</section>
-
-      </div>
-    </div>
-  
-</div>
-
-  
-
-  
-
-  
-</section>
-
-          
-        
-          
-          <section class='p2 mb2 clearfix bg-white minishadow'>
-
-  
-  <div class='clearfix'>
-    
     <h3 class='fl m0' id='point'>
       Point
     </h3>
@@ -3131,6 +2980,155 @@
   
 
   
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='anchor'>
+      Anchor
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Used to fix positions to a relative point in the viewport.</p>
+
+    <div class='pre p1 fill-light mt0'>new Anchor()</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Instance Members</div>
+    <div class="clearfix">
+  
+    <div class='border-bottom' id='anchoronresize'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>onResize(param)</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  
+    <div class='pre p1 fill-light mt0'>onResize(param: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a>): void</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>param</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a>)</code>
+	    
+          </div>
+          
+          <table class='mt1 mb2 fixed-table h5 col-12'>
+            <colgroup>
+              <col width='30%' />
+              <col width='70%' />
+            </colgroup>
+            <thead>
+              <tr class='bold fill-light'>
+                <th>Name</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody class='mt1'>
+              
+                <tr>
+  <td class='break-word'><span class='code bold'>param.viewArea</span> <code class='quiet'><a href="#point">Point</a></code>
+  </td>
+  <td class='break-word'><span></span></td>
+</tr>
+
+
+              
+            </tbody>
+          </table>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code>void</code>:
+        @memberof Anchor
+
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+</div>
 
   
 
@@ -3420,7 +3418,6 @@
       <div class='py1 quiet mt1 prose-big'>Returns</div>
       <code><a href="#point">Point</a></code>:
         
-
       
     
   
@@ -4146,6 +4143,60 @@ Forces a resize event.</p>
   
   <div class='clearfix'>
     
+    <h3 class='fl m0' id='entityresizeevent'>
+      EntityResizeEvent
+    </h3>
+    
+    
+  </div>
+  
+
+  
+    <div class='pre p1 fill-light mt0'>EntityResizeEvent</div>
+  
+    <p>
+      Type:
+      {offset: <a href="#point">Point</a>, gameSize: <a href="#point">Point</a>, scale: <a href="#point">Point</a>}
+    </p>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
     <h3 class='fl m0' id='scaledentity'>
       ScaledEntity
     </h3>
@@ -4254,60 +4305,6 @@ Forces a resize event.</p>
     </div>
   
 </div>
-
-  
-
-  
-
-  
-</section>
-
-          
-        
-          
-          <section class='p2 mb2 clearfix bg-white minishadow'>
-
-  
-  <div class='clearfix'>
-    
-    <h3 class='fl m0' id='entityresizeevent'>
-      EntityResizeEvent
-    </h3>
-    
-    
-  </div>
-  
-
-  
-    <div class='pre p1 fill-light mt0'>EntityResizeEvent</div>
-  
-    <p>
-      Type:
-      {offset: <a href="#point">Point</a>, gameSize: <a href="#point">Point</a>, scale: <a href="#point">Point</a>}
-    </p>
-  
-  
-
-  
-  
-  
-  
-  
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
 
   
 
@@ -4949,7 +4946,6 @@ If the announcer is already saying something then it will be added to a queue.</
       <div class='py1 quiet mt1 prose-big'>Returns</div>
       <code>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a> | null)</code>:
         
-
       
     
   
@@ -5068,7 +5064,6 @@ If the announcer is already saying something then it will be added to a queue.</
       <div class='py1 quiet mt1 prose-big'>Returns</div>
       <code><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></code>:
         
-
       
     
   
@@ -5187,7 +5182,6 @@ If the announcer is already saying something then it will be added to a queue.</
       <div class='py1 quiet mt1 prose-big'>Returns</div>
       <code><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></code>:
         
-
       
     
   
@@ -5306,7 +5300,6 @@ If the announcer is already saying something then it will be added to a queue.</
       <div class='py1 quiet mt1 prose-big'>Returns</div>
       <code><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></code>:
         
-
       
     
   
@@ -5330,6 +5323,60 @@ If the announcer is already saying something then it will be added to a queue.</
     </div>
   
 </div>
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='filtertype'>
+      filterType
+    </h3>
+    
+    
+  </div>
+  
+
+  
+    <div class='pre p1 fill-light mt0'>filterType</div>
+  
+    <p>
+      Type:
+      (<code>"protanopia"</code> | <code>"protanomaly"</code> | <code>"deuteranopia"</code> | <code>"deuteranomaly"</code> | <code>"tritanopia"</code> | <code>"tritanomaly"</code> | <code>"achromatopsia"</code> | <code>"achromatomaly"</code>)
+    </p>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
 
   
 
@@ -5500,7 +5547,6 @@ If the announcer is already saying something then it will be added to a queue.</
       <div class='py1 quiet mt1 prose-big'>Returns</div>
       <code>any</code>:
         
-
       
     
   
@@ -5631,60 +5677,6 @@ If the announcer is already saying something then it will be added to a queue.</
     </div>
   
 </div>
-
-  
-
-  
-
-  
-
-  
-</section>
-
-          
-        
-          
-          <section class='p2 mb2 clearfix bg-white minishadow'>
-
-  
-  <div class='clearfix'>
-    
-    <h3 class='fl m0' id='filtertype'>
-      filterType
-    </h3>
-    
-    
-  </div>
-  
-
-  
-    <div class='pre p1 fill-light mt0'>filterType</div>
-  
-    <p>
-      Type:
-      (<code>"protanopia"</code> | <code>"protanomaly"</code> | <code>"deuteranopia"</code> | <code>"deuteranomaly"</code> | <code>"tritanopia"</code> | <code>"tritanomaly"</code> | <code>"achromatopsia"</code> | <code>"achromatomaly"</code>)
-    </p>
-  
-  
-
-  
-  
-  
-  
-  
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
 
   
 
@@ -6407,7 +6399,6 @@ If the announcer is already saying something then it will be added to a queue.</
       <div class='py1 quiet mt1 prose-big'>Returns</div>
       <code><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></code>:
         
-
       
     
   
@@ -6666,7 +6657,6 @@ If the announcer is already saying something then it will be added to a queue.</
       <div class='py1 quiet mt1 prose-big'>Returns</div>
       <code><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a>&#x3C;void></code>:
         
-
       
     
   
@@ -6849,7 +6839,6 @@ If the announcer is already saying something then it will be added to a queue.</
       <div class='py1 quiet mt1 prose-big'>Returns</div>
       <code>(SpringRoll.ApplicationPlugin | <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/undefined">undefined</a>)</code>:
         
-
       
     
   
@@ -6927,7 +6916,6 @@ If the announcer is already saying something then it will be added to a queue.</
       <div class='py1 quiet mt1 prose-big'>Returns</div>
       <code>(SpringRoll.ApplicationPlugin | <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/undefined">undefined</a>)</code>:
         
-
       
     
   
@@ -7223,7 +7211,6 @@ If the announcer is already saying something then it will be added to a queue.</
       <div class='py1 quiet mt1 prose-big'>Returns</div>
       <code>DebuggerParams</code>:
         
-
       
     
   
@@ -7294,7 +7281,6 @@ If the announcer is already saying something then it will be added to a queue.</
       <div class='py1 quiet mt1 prose-big'>Returns</div>
       <code>void</code>:
         
-
       
     
   
@@ -7415,7 +7401,6 @@ If the announcer is already saying something then it will be added to a queue.</
       <div class='py1 quiet mt1 prose-big'>Returns</div>
       <code><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></code>:
         
-
       
     
   
@@ -7608,7 +7593,6 @@ If the announcer is already saying something then it will be added to a queue.</
       <div class='py1 quiet mt1 prose-big'>Returns</div>
       <code><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></code>:
         
-
       
     
   
@@ -7679,7 +7663,6 @@ TODO: Remove the parameter here, and add a disable method as well</p>
       <div class='py1 quiet mt1 prose-big'>Returns</div>
       <code>void</code>:
         
-
       
     
   
@@ -8469,7 +8452,7 @@ TODO: Remove the parameter here, and add a disable method as well</p>
   
 
   
-    <div class='pre p1 fill-light mt0'>new Caption()</div>
+    <div class='pre p1 fill-light mt0'>new Caption(lines: any)</div>
   
   
 
@@ -8481,36 +8464,20 @@ TODO: Remove the parameter here, and add a disable method as well</p>
   
 
   
-
-  
-    <div class='py1 quiet mt1 prose-big'>Properties</div>
-    <div>
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
       
         <div class='space-bottom0'>
-          <span class='code bold'>lines</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>&#x3C;<a href="#timedline">TimedLine</a>>)</code>
-          
-          
-        </div>
-      
-        <div class='space-bottom0'>
-          <span class='code bold'>time</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>)</code>
-          
-          
-        </div>
-      
-        <div class='space-bottom0'>
-          <span class='code bold'>lineIndex</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>)</code>
-          
-          
-        </div>
-      
-        <div class='space-bottom0'>
-          <span class='code bold'>renderer</span> <code class='quiet'>(<a href="#irender">IRender</a>)</code>
-          
+          <div>
+            <span class='code bold'>lines</span> <code class='quiet'>(any)</code>
+	    
+          </div>
           
         </div>
       
     </div>
+  
+
   
 
   
@@ -8538,7 +8505,7 @@ TODO: Remove the parameter here, and add a disable method as well</p>
   
 
   <p>Updates content based on time passed.
-This ~should~ be called every frame that the caption is active.</p>
+This <del>should</del> be called every frame that the caption is active.</p>
 
     <div class='pre p1 fill-light mt0'>update(deltaTime: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a>)</div>
   
@@ -8693,7 +8660,6 @@ This ~should~ be called every frame that the caption is active.</p>
       <div class='py1 quiet mt1 prose-big'>Returns</div>
       <code><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean">Boolean</a></code>:
         
-
       
     
   
@@ -8880,7 +8846,7 @@ This ~should~ be called every frame that the caption is active.</p>
   
 
   
-    <div class='pre p1 fill-light mt0'>new Caption(lines: any)</div>
+    <div class='pre p1 fill-light mt0'>new Caption()</div>
   
   
 
@@ -8892,20 +8858,36 @@ This ~should~ be called every frame that the caption is active.</p>
   
 
   
-    <div class='py1 quiet mt1 prose-big'>Parameters</div>
-    <div class='prose'>
+
+  
+    <div class='py1 quiet mt1 prose-big'>Properties</div>
+    <div>
       
         <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>lines</span> <code class='quiet'>(any)</code>
-	    
-          </div>
+          <span class='code bold'>lines</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>&#x3C;<a href="#timedline">TimedLine</a>>)</code>
+          
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <span class='code bold'>time</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>)</code>
+          
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <span class='code bold'>lineIndex</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>)</code>
+          
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <span class='code bold'>renderer</span> <code class='quiet'>(<a href="#irender">IRender</a>)</code>
+          
           
         </div>
       
     </div>
-  
-
   
 
   
@@ -8933,7 +8915,7 @@ This ~should~ be called every frame that the caption is active.</p>
   
 
   <p>Updates content based on time passed.
-This ~should~ be called every frame that the caption is active.</p>
+This <del>should</del> be called every frame that the caption is active.</p>
 
     <div class='pre p1 fill-light mt0'>update(deltaTime: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a>)</div>
   
@@ -9088,7 +9070,6 @@ This ~should~ be called every frame that the caption is active.</p>
       <div class='py1 quiet mt1 prose-big'>Returns</div>
       <code><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean">Boolean</a></code>:
         
-
       
     
   
@@ -9350,7 +9331,6 @@ This ~should~ be called every frame that the caption is active.</p>
       <div class='py1 quiet mt1 prose-big'>Returns</div>
       <code><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></code>:
         
-
       
     
   
@@ -9540,10 +9520,8 @@ This ~should~ be called every frame that the caption is active.</p>
   </div>
   
 
-  <p>CaptionPlayer is used to start, stop and update captions.
-It applies the content of an active caption to a given CaptionRenderer.</p>
-
-    <div class='pre p1 fill-light mt0'>new CaptionPlayer()</div>
+  
+    <div class='pre p1 fill-light mt0'>new CaptionPlayer(captions: any, renderer: any)</div>
   
   
 
@@ -9554,6 +9532,27 @@ It applies the content of an active caption to a given CaptionRenderer.</p>
   
   
 
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>captions</span> <code class='quiet'>(any)</code>
+	    
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>renderer</span> <code class='quiet'>(any)</code>
+	    
+          </div>
+          
+        </div>
+      
+    </div>
   
 
   
@@ -9583,7 +9582,7 @@ It applies the content of an active caption to a given CaptionRenderer.</p>
   
 
   <p>Updates any currently playing caption.
-This ~should~ be called every frame.</p>
+This <del>should</del> be called every frame.</p>
 
     <div class='pre p1 fill-light mt0'>update(deltaTime: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a>)</div>
   
@@ -9793,8 +9792,10 @@ This ~should~ be called every frame.</p>
   </div>
   
 
-  
-    <div class='pre p1 fill-light mt0'>new CaptionPlayer(captions: any, renderer: any)</div>
+  <p>CaptionPlayer is used to start, stop and update captions.
+It applies the content of an active caption to a given CaptionRenderer.</p>
+
+    <div class='pre p1 fill-light mt0'>new CaptionPlayer()</div>
   
   
 
@@ -9805,27 +9806,6 @@ This ~should~ be called every frame.</p>
   
   
 
-  
-    <div class='py1 quiet mt1 prose-big'>Parameters</div>
-    <div class='prose'>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>captions</span> <code class='quiet'>(any)</code>
-	    
-          </div>
-          
-        </div>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>renderer</span> <code class='quiet'>(any)</code>
-	    
-          </div>
-          
-        </div>
-      
-    </div>
   
 
   
@@ -9855,7 +9835,7 @@ This ~should~ be called every frame.</p>
   
 
   <p>Updates any currently playing caption.
-This ~should~ be called every frame.</p>
+This <del>should</del> be called every frame.</p>
 
     <div class='pre p1 fill-light mt0'>update(deltaTime: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a>)</div>
   
@@ -10699,7 +10679,6 @@ and swaps out the placeholder inside the double brackets with the matching key i
       <div class='py1 quiet mt1 prose-big'>Returns</div>
       <code><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></code>:
         
-
       
     
   
@@ -11101,7 +11080,6 @@ and swaps out the placeholder inside the double brackets with the matching key i
       <div class='py1 quiet mt1 prose-big'>Returns</div>
       <code>{path: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>, language: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>}</code>:
         
-
       
     
   
@@ -11308,7 +11286,6 @@ and swaps out the placeholder inside the double brackets with the matching key i
       <div class='py1 quiet mt1 prose-big'>Returns</div>
       <code><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></code>:
         
-
       
     
   
