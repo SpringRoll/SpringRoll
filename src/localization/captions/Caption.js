@@ -20,7 +20,7 @@ export class Caption {
     this.lines = lines;
 
     // Sort by end time, this ensures proper execution order of lines.
-    this.lines.sort(function(a, b) {
+    this.lines.sort(function (a, b) {
       if (a.endTime < b.endTime) {
         return -1;
       }
@@ -48,7 +48,7 @@ export class Caption {
 
   /**
    * Updates content based on time passed.
-   * This ~should~ be called every frame that the caption is active.
+   * This should be called every frame that the caption is active.
    *
    * @param {Number} deltaTime - Time in seconds since last frame.
    * @memberof Caption
@@ -104,7 +104,7 @@ export class Caption {
    * @param {Number} [time=0] - Time in milliseconds.
    * @memberof Caption
    */
-  start(time = 0, renderer = { lineBegin: () => {}, lineEnd: () => {} }) {
+  start(time = 0, renderer = { lineBegin: () => { }, lineEnd: () => { } }) {
     this.reset();
     this.renderer = renderer;
     this.updateTimeIndex(time);

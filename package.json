@@ -13,7 +13,7 @@
     "test": "karma start karma.conf.js",
     "test:bs": "karma start karma.conf.bs.js",
     "docs": "documentation build ./src/index.js -f html -o docs",
-    "readme": "documentation build ./src/index.js -f md -o test.md",
+    "readme": "documentation build ./src/index.js -f md -o docs.md",
     "docs:serve": "documentation serve --watch ./src/index.js",
     "github-test": "./node_modules/.bin/karma start --single-run --browsers ChromeHeadless"
   },
