@@ -33,7 +33,7 @@ export class CaptionPlayer {
 
   /**
    * Updates any currently playing caption.
-   * This ~should~ be called every frame.
+   * This should be called every frame.
    *
    * @param {Number} deltaTime Time passed in seconds since last update call.
    * @memberof CaptionPlayer
