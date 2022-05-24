@@ -119,7 +119,7 @@ export class Property<T> {
 export class UserData {
   static read(name:string): Promise<any>;
   static write(name:string, value:any):Promise<any>;
-  static delete(name:string): void;
+  static delete(name:string): Promise<any>;
 
   static IDBOpen(dbName: string, dbVersion: number | null, additions: object | null, deletions: object | null): Promise<any>;
   static IDBAdd(storeName: string, value: any, key: string | number): Promise<any>;
@@ -127,6 +127,6 @@ export class UserData {
   static IDBRead(storeName: string, key: any): Promise<any>;
   static IDBUpdate(storeName: string, key: string | number, value: any): Promise<any>;
   static IDBReadAll(storeName: string, count: number): Promise<any>;
-  static IDBClose(): void;
+  static IDBClose(): Promise<any>;
   static IDBDeleteDB(dbName: string): Promise<any>;
 }
