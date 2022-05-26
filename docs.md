@@ -96,14 +96,14 @@
     *   [volume][92]
         *   [Parameters][93]
     *   [volume][94]
-*   [filterType][95]
-*   [ColorFilter][96]
-    *   [applyFilter][97]
-        *   [Parameters][98]
-    *   [changeFilter][99]
-        *   [Parameters][100]
-    *   [removeFilter][101]
-    *   [types][102]
+*   [ColorFilter][95]
+    *   [applyFilter][96]
+        *   [Parameters][97]
+    *   [changeFilter][98]
+        *   [Parameters][99]
+    *   [removeFilter][100]
+    *   [types][101]
+*   [filterType][102]
 *   [KeyState][103]
     *   [Properties][104]
 *   [Controller][105]
@@ -170,7 +170,7 @@
         *   [Parameters][166]
     *   [hasListeners][167]
 *   [Caption][168]
-    *   [Properties][169]
+    *   [Parameters][169]
     *   [update][170]
         *   [Parameters][171]
     *   [updateState][172]
@@ -181,7 +181,7 @@
     *   [updateTimeIndex][177]
         *   [Parameters][178]
 *   [Caption][179]
-    *   [Parameters][180]
+    *   [Properties][180]
     *   [update][181]
         *   [Parameters][182]
     *   [updateState][183]
@@ -199,13 +199,13 @@
     *   [createLine][195]
         *   [Parameters][196]
 *   [CaptionPlayer][197]
-    *   [update][198]
-        *   [Parameters][199]
-    *   [start][200]
-        *   [Parameters][201]
-    *   [stop][202]
-*   [CaptionPlayer][203]
-    *   [Parameters][204]
+    *   [Parameters][198]
+    *   [update][199]
+        *   [Parameters][200]
+    *   [start][201]
+        *   [Parameters][202]
+    *   [stop][203]
+*   [CaptionPlayer][204]
     *   [update][205]
         *   [Parameters][206]
     *   [start][207]
@@ -686,10 +686,6 @@ Returns the current volume of the announcer.
 
 Returns **[number][248]** 
 
-## filterType
-
-Type: (`"protanopia"` | `"protanomaly"` | `"deuteranopia"` | `"deuteranomaly"` | `"tritanopia"` | `"tritanomaly"` | `"achromatopsia"` | `"achromatomaly"`)
-
 ## ColorFilter
 
 The Color filter allows you to simulate colorblindness.
@@ -723,6 +719,10 @@ Supported filter types.
 
 Returns **[object][252]** Returns an object { name, value } with the colorblindness type:
 (Protanopia, Protanomaly, Deuteranopia, Deuteranomaly, Tritanopia, Tritanomaly, Achromatopsia, Achromatomaly)
+
+## filterType
+
+Type: (`"protanopia"` | `"protanomaly"` | `"deuteranopia"` | `"deuteranomaly"` | `"tritanopia"` | `"tritanomaly"` | `"achromatopsia"` | `"achromatomaly"`)
 
 ## KeyState
 
@@ -1061,12 +1061,9 @@ Type: [Boolean][258]
 
 ## Caption
 
-### Properties
+### Parameters
 
-*   `lines` **[Array][254]<[TimedLine][264]>** 
-*   `time` **[number][248]** 
-*   `lineIndex` **[number][248]** 
-*   `renderer` **[IRender][265]** 
+*   `lines`  
 
 ### update
 
@@ -1111,9 +1108,12 @@ Updates the current time and index of the caption instance
 
 ## Caption
 
-### Parameters
+### Properties
 
-*   `lines`  
+*   `lines` **[Array][254]<[TimedLine][264]>** 
+*   `time` **[number][248]** 
+*   `lineIndex` **[number][248]** 
+*   `renderer` **[IRender][265]** 
 
 ### update
 
@@ -1192,8 +1192,10 @@ Returns **[TimedLine][264]** new TimedLine;
 
 ## CaptionPlayer
 
-CaptionPlayer is used to start, stop and update captions.
-It applies the content of an active caption to a given CaptionRenderer.
+### Parameters
+
+*   `captions`  
+*   `renderer`  
 
 ### update
 
@@ -1220,10 +1222,8 @@ Stops any caption currently playing.
 
 ## CaptionPlayer
 
-### Parameters
-
-*   `captions`  
-*   `renderer`  
+CaptionPlayer is used to start, stop and update captions.
+It applies the content of an active caption to a given CaptionRenderer.
 
 ### update
 
@@ -1601,21 +1601,21 @@ After all plugins inits has completed
 
 [94]: #volume-1
 
-[95]: #filtertype
+[95]: #colorfilter
 
-[96]: #colorfilter
+[96]: #applyfilter
 
-[97]: #applyfilter
+[97]: #parameters-32
 
-[98]: #parameters-32
+[98]: #changefilter
 
-[99]: #changefilter
+[99]: #parameters-33
 
-[100]: #parameters-33
+[100]: #removefilter
 
-[101]: #removefilter
+[101]: #types
 
-[102]: #types
+[102]: #filtertype
 
 [103]: #keystate
 
@@ -1749,29 +1749,29 @@ After all plugins inits has completed
 
 [168]: #caption
 
-[169]: #properties-8
+[169]: #parameters-54
 
 [170]: #update-1
 
-[171]: #parameters-54
+[171]: #parameters-55
 
 [172]: #updatestate-1
 
-[173]: #parameters-55
+[173]: #parameters-56
 
 [174]: #isfinished
 
 [175]: #start-1
 
-[176]: #parameters-56
+[176]: #parameters-57
 
 [177]: #updatetimeindex
 
-[178]: #parameters-57
+[178]: #parameters-58
 
 [179]: #caption-1
 
-[180]: #parameters-58
+[180]: #properties-8
 
 [181]: #update-2
 
@@ -1807,19 +1807,19 @@ After all plugins inits has completed
 
 [197]: #captionplayer
 
-[198]: #update-3
+[198]: #parameters-66
 
-[199]: #parameters-66
+[199]: #update-3
 
-[200]: #start-3
+[200]: #parameters-67
 
-[201]: #parameters-67
+[201]: #start-3
 
-[202]: #stop-1
+[202]: #parameters-68
 
-[203]: #captionplayer-1
+[203]: #stop-1
 
-[204]: #parameters-68
+[204]: #captionplayer-1
 
 [205]: #update-4
 
