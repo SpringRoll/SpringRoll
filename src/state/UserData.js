@@ -172,15 +172,15 @@ export class UserData {
       const warning = `Could not complete connect action for ${name}. Bellhop is not connected.`;
       return Promise.reject(warning);
     }
-    
+
     return this[onReturn](IDBREAD, {storeName, key });
   }
 
   /**
-   * 
-   * @param {string} storeName 
-   * @param {string} key 
-   * @param {string} object 
+   *
+   * @param {string} storeName
+   * @param {string} key
+   * @param {string} object
    */
   static IDBUpdate(storeName, key, value ) {
     if (!BellhopSingleton.connected) {
@@ -193,9 +193,9 @@ export class UserData {
 
 
   /**
-   * 
+   *
    * @param {string} storeName The name of the store to read from
-   * @param {integer} count Specifies the number of values to return if more than one is found. 
+   * @param {integer} count Specifies the number of values to return if more than one is found.
    */
   static IDBReadAll(storeName, count = null) {
     if (!BellhopSingleton.connected) {

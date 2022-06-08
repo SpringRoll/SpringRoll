@@ -58,24 +58,24 @@
         *   [Parameters][54]
     *   [addEntity][55]
         *   [Parameters][56]
-*   [EntityResizeEvent][57]
-*   [ScaledEntity][58]
-    *   [onResize][59]
-        *   [Parameters][60]
-*   [ScaleManager][61]
-    *   [Parameters][62]
-    *   [Properties][63]
-    *   [enable][64]
-        *   [Parameters][65]
-    *   [disable][66]
-*   [ResizeHelper][67]
-    *   [Parameters][68]
-    *   [iOS][69]
-    *   [enabled][70]
-    *   [enabled][71]
-        *   [Parameters][72]
-    *   [onWindowResize][73]
-    *   [getWindowResolution][74]
+*   [ResizeHelper][57]
+    *   [Parameters][58]
+    *   [iOS][59]
+    *   [enabled][60]
+    *   [enabled][61]
+        *   [Parameters][62]
+    *   [onWindowResize][63]
+    *   [getWindowResolution][64]
+*   [ScaledEntity][65]
+    *   [onResize][66]
+        *   [Parameters][67]
+*   [EntityResizeEvent][68]
+*   [ScaleManager][69]
+    *   [Parameters][70]
+    *   [Properties][71]
+    *   [enable][72]
+        *   [Parameters][73]
+    *   [disable][74]
 *   [SpeechSynth][75]
     *   [Parameters][76]
     *   [Properties][77]
@@ -518,46 +518,6 @@ Adds and anchor to be updated during resize
 
 *   `entity` **([ScaledEntity][255] | [Array][254]<[ScaledEntity][255]>)** 
 
-## EntityResizeEvent
-
-Type: {offset: [Point][252], gameSize: [Point][252], scale: [Point][252]}
-
-## ScaledEntity
-
-### onResize
-
-#### Parameters
-
-*   `event` **[EntityResizeEvent][256]** 
-
-Returns **void** @memberof ScaledEntity
-
-## ScaleManager
-
-\[Deprecated]
-
-Simplifies listening to resize events by passing the relevant data to a provided callback.
-
-### Parameters
-
-*   `callback` **[Function][249]**  (optional, default `undefined`)
-
-### Properties
-
-*   `callback` **[Function][249]?** 
-
-### enable
-
-Enables the scale manager listener. Will not be enabled if a callback is not supplied.
-
-#### Parameters
-
-*   `callback` **[Function][249]** The function to be called on resize events.
-
-### disable
-
-Disables the scale manager.
-
 ## ResizeHelper
 
 Utility class that handles resize events for ScaleManager and SafeScaleManager.
@@ -590,6 +550,46 @@ Handler for window resize events. Forwards this event to the scale manager if en
 ### getWindowResolution
 
 Sets the window width and window height values of the ResizeHelper.
+
+## ScaledEntity
+
+### onResize
+
+#### Parameters
+
+*   `event` **[EntityResizeEvent][256]** 
+
+Returns **void** @memberof ScaledEntity
+
+## EntityResizeEvent
+
+Type: {offset: [Point][252], gameSize: [Point][252], scale: [Point][252]}
+
+## ScaleManager
+
+\[Deprecated]
+
+Simplifies listening to resize events by passing the relevant data to a provided callback.
+
+### Parameters
+
+*   `callback` **[Function][249]**  (optional, default `undefined`)
+
+### Properties
+
+*   `callback` **[Function][249]?** 
+
+### enable
+
+Enables the scale manager listener. Will not be enabled if a callback is not supplied.
+
+#### Parameters
+
+*   `callback` **[Function][249]** The function to be called on resize events.
+
+### disable
+
+Disables the scale manager.
 
 ## SpeechSynth
 
@@ -1525,41 +1525,41 @@ After all plugins inits has completed
 
 [56]: #parameters-20
 
-[57]: #entityresizeevent
+[57]: #resizehelper
 
-[58]: #scaledentity
+[58]: #parameters-21
 
-[59]: #onresize-1
+[59]: #ios
 
-[60]: #parameters-21
+[60]: #enabled
 
-[61]: #scalemanager
+[61]: #enabled-1
 
 [62]: #parameters-22
 
-[63]: #properties-1
+[63]: #onwindowresize
 
-[64]: #enable-1
+[64]: #getwindowresolution
 
-[65]: #parameters-23
+[65]: #scaledentity
 
-[66]: #disable-1
+[66]: #onresize-1
 
-[67]: #resizehelper
+[67]: #parameters-23
 
-[68]: #parameters-24
+[68]: #entityresizeevent
 
-[69]: #ios
+[69]: #scalemanager
 
-[70]: #enabled
+[70]: #parameters-24
 
-[71]: #enabled-1
+[71]: #properties-1
 
-[72]: #parameters-25
+[72]: #enable-1
 
-[73]: #onwindowresize
+[73]: #parameters-25
 
-[74]: #getwindowresolution
+[74]: #disable-1
 
 [75]: #speechsynth
 

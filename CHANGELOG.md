@@ -1,23 +1,41 @@
 # Changelog
+
 All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [2.4.3] - 2022-04-06
+## [2.4.4] - 2022-06-06
+
 ### Changed
+
+- Updated Bellhop version to 3.3.0
+
+### Fixed
+
+- Fixed duplicate UserData API typings
+
+## [2.4.3] - 2022-04-06
+
+### Changed
+
 - Bump minimist from 1.2.5 to 1.2.6
 - Bump ansi-regex from 3.0.0 to 3.0.1
 
 ## [2.4.2] - 2022-03-10
+
 ### Changed
+
 - minor dependency bumps
 
 ## [2.4.1] - 2021-07-19
 
 ## Added
+
 - add fullScreen feature to typings
+
 ### Changed
+
 - Bump ssri from 6.0.1 to 6.0.2
 - Bump lodash from 4.17.20 to 4.17.21
 - Bump hosted-git-info from 2.8.8 to 2.8.9
@@ -28,15 +46,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - add FullScreen Feature to typings
 
 ## [2.4.0] - 2021-02-19
+
 ### Added
+
 - Built in FullScreen support
 - Initial IndexedDB functionality for creating, updated, deleting, and reading databases, stores, and records.
 
 ## [2.3.3] - 2021-01-29
+
 ### Added
+
 - This CHANGELOG
+
 ### Fixed
+
 - `ResizeHelpers`'s iOS screen size reporting function updated to never return `window.screen.width` and `height` as they were reporting incorrect values when moving from portrait to landscape orientation.
 - Typings for caption classes were slightly off, and have now been corrected.
 - npm modules updated to remove security vulnerabilities.
-
