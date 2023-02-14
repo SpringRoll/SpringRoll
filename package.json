@@ -1,6 +1,6 @@
 {
   "name": "springroll",
-  "version": "2.4.3",
+  "version": "2.4.4",
   "description": "",
   "main": "dist/SpringRoll.js",
   "module": "dist/SpringRoll.js",
@@ -53,7 +53,7 @@
     "webpack": "^4.20.2"
   },
   "dependencies": {
-    "bellhop-iframe": "^2.3.1"
+    "bellhop-iframe": "^3.3.0"
   },
   "browserify": {
     "transform": [
