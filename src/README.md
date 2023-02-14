@@ -191,6 +191,8 @@ myApp.state.sfxMuted.subscribe(result => console.log('true/false', result));
 ```
 These have been internally mapped to set volume to 0 and it's previous value.
 
+## Ready and Pause States
+
 Lastly, there are two other states available, one that has already been mentioned:
 
 ```javascript
@@ -203,12 +205,20 @@ myApp.state.ready.subscribe(() => {
 myApp.state.pause.subscribe(isPaused => {
   console.log('Is the game paused?', isPaused);
 });
+```
+## Play Options
 
-// the playOptions that the container passes (see https://github.com/SpringRoll/SpringRollContainer#play-options)
+Play options allows developers to pass values from the container environment to the SpringRoll environment. These values can contain any key value pairs the developer requires. These can be used to modify the game with such values as difficulty or theme.
+
+```javascript
+var myApp = new Application();
+// The playOptions that the container passes (see https://github.com/SpringRoll/SpringRollContainer#play-options)
 myApp.state.playOptions.subscribe(playOptions => {
   console.log('New playOptions value set to', playOptions);
 });
 ```
+
+For rapid development/testing it is possible to insert `playOption` values into the url. `Ex. localhost:8080?playOptions={difficulty: "hard", theme: "winter"}` (use a url encoder for your query string)
 
 ## Custom State Management
 The Application's `StateManager` instance can also be used for custom purposes.
