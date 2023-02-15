@@ -40,7 +40,7 @@
     "karma-firefox-launcher": "^1.1.0",
     "karma-mocha": "^2.0.1",
     "karma-requirejs": "^1.1.0",
-    "karma-webpack": "^5.0.0",
+    "karma-webpack": "^3.0.5",
     "mocha": "^8.2.1",
     "requirejs": "^2.3.6",
     "rollup": "^0.66.2",
@@ -50,7 +50,7 @@
     "rollup-plugin-node-resolve": "^3.4.0",
     "rollup-plugin-terser": "^5.3.1",
     "sinon": "^8.0.4",
-    "webpack": "^5.75.0"
+    "webpack": "^4.44.1"
   },
   "dependencies": {
     "bellhop-iframe": "^3.3.0"
