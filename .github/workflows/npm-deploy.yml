@@ -2,7 +2,7 @@ name: npm-deploy
 
 on:
   release:
-    types: [created]
+    types: [released]
 
 jobs:
   publish-npm:
