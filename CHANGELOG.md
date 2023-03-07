@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.4.5] - 2023-03-07
+
+## Changed
+
+- Dependency updates
+- Update NPM Deploy Github Action trigger to released to avoid pre-releases being deployed to NPM
+
 ## [2.4.4] - 2022-06-06
 
 ### Changed
