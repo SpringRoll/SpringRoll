@@ -30,7 +30,16 @@ module.exports = function(config) {
       accessKey: process.env.BROWSER_STACK_ACCESS_KEY,
       video: false
     },
-    frameworks: ['mocha', 'chai'],
+    frameworks: ['mocha','chai', 'webpack'],
+    plugins: [
+      'karma-webpack',
+      'karma-mocha',
+      'karma-chai',
+      'karma-chrome-launcher',
+      'karma-firefox-launcher',
+      'karma-babel-preprocessor',
+      'karma-browserstack-launcher'
+    ],
     files: [{ pattern: 'src/**/*.spec.js', watched: false }],
     preprocessors: {
       'src/**/*.js': ['babel'],
@@ -49,7 +58,6 @@ module.exports = function(config) {
         ]
       ]
     },
-    webpackMiddleware: { stats: 'errors-only' },
     reporters: ['progress'],
     port: 9876, // karma web server port
     colors: true,
@@ -57,6 +65,10 @@ module.exports = function(config) {
     browsers: ['bs_iPad_mini_2_safari', 'bs_ie_windows_7', 'bs_chrome_69'],
     autoWatch: true,
     concurrency: Infinity,
-    singleRun: true
+    singleRun: true,
+    webpack: {
+      // karma watches the test entry points
+      stats: 'errors-only'
+    },
   });
 };
