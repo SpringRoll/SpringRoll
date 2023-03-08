@@ -53,7 +53,7 @@
     "webpack": "^5.10.0"
   },
   "dependencies": {
-    "bellhop-iframe": "^3.3.0"
+    "bellhop-iframe": "^3.3.1"
   },
   "browserify": {
     "transform": [
