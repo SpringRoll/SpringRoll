@@ -3,7 +3,6 @@ import commonjs from '@rollup/plugin-commonjs';
 import eslint from '@rollup/plugin-eslint';
 import terser from '@rollup/plugin-terser';
 import { babel } from '@rollup/plugin-babel';
-// import pkg from './package.json' assert { type: `json` };
 
 const plugins = [
   eslint(),
