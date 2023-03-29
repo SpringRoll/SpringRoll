@@ -1,13 +1,13 @@
-import resolve from 'rollup-plugin-node-resolve';
-import commonjs from 'rollup-plugin-commonjs';
-import { eslint } from 'rollup-plugin-eslint';
-import { terser } from 'rollup-plugin-terser';
-import pkg from './package.json';
-import babel from 'rollup-plugin-babel';
+import { nodeResolve } from '@rollup/plugin-node-resolve';
+import commonjs from '@rollup/plugin-commonjs';
+import eslint from '@rollup/plugin-eslint';
+import terser from '@rollup/plugin-terser';
+import { babel } from '@rollup/plugin-babel';
+// import pkg from './package.json' assert { type: `json` };
 
 const plugins = [
   eslint(),
-  resolve({
+  nodeResolve({
     module: true,
     jsnext: true,
     main: true,
@@ -28,7 +28,7 @@ export default [
     input: 'src/index.js',
     output: [
       {
-        file: pkg.module,
+        file: 'dist/SpringRoll.js',
         format: 'es'
       }
     ],
