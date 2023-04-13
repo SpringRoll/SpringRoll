@@ -66,10 +66,10 @@
         *   [Parameters][62]
     *   [onWindowResize][63]
     *   [getWindowResolution][64]
-*   [ScaledEntity][65]
-    *   [onResize][66]
-        *   [Parameters][67]
-*   [EntityResizeEvent][68]
+*   [EntityResizeEvent][65]
+*   [ScaledEntity][66]
+    *   [onResize][67]
+        *   [Parameters][68]
 *   [ScaleManager][69]
     *   [Parameters][70]
     *   [Properties][71]
@@ -551,6 +551,10 @@ Handler for window resize events. Forwards this event to the scale manager if en
 
 Sets the window width and window height values of the ResizeHelper.
 
+## EntityResizeEvent
+
+Type: {offset: [Point][252], gameSize: [Point][252], scale: [Point][252]}
+
 ## ScaledEntity
 
 ### onResize
@@ -560,10 +564,6 @@ Sets the window width and window height values of the ResizeHelper.
 *   `event` **[EntityResizeEvent][256]** 
 
 Returns **void** @memberof ScaledEntity
-
-## EntityResizeEvent
-
-Type: {offset: [Point][252], gameSize: [Point][252], scale: [Point][252]}
 
 ## ScaleManager
 
@@ -1541,13 +1541,13 @@ After all plugins inits has completed
 
 [64]: #getwindowresolution
 
-[65]: #scaledentity
+[65]: #entityresizeevent
 
-[66]: #onresize-1
+[66]: #scaledentity
 
-[67]: #parameters-23
+[67]: #onresize-1
 
-[68]: #entityresizeevent
+[68]: #parameters-23
 
 [69]: #scalemanager
 
