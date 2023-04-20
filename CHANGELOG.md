@@ -5,9 +5,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.5.0] - unreleased
+
+### Changed
+
+- Updated Rollup to 3.20.2
+- Brought all Rollup plugins to latest version to match
+
 ## [2.4.5] - 2023-03-07
 
-## Changed
+### Changed
 
 - Dependency updates
 - Update NPM Deploy Github Action trigger to released to avoid pre-releases being deployed to NPM
