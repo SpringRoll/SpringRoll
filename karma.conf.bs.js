@@ -53,7 +53,8 @@ module.exports = function(config) {
             useBuiltIns: 'entry',
             targets: {
               ie: '11'
-            }
+            },
+            "corejs": "2",
           }
         ]
       ]
