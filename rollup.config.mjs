@@ -13,12 +13,14 @@ const plugins = [
     browser: true,
     preferBuiltins: false
   }),
-  commonjs({
+  commonjs(
+    {
     namedExports: {
       'bellhop-iframe': ['Bellhop']
     }
-  }),
-  babel(),
+  }
+  ),
+  babel({babelHelpers: 'bundled'}),
   terser()
 ];
 
@@ -41,7 +43,7 @@ export default [
         format: 'umd',
         name: 'springroll',
         extend: true,
-        sourceMap: true
+        sourcemap: true
       }
     ],
     plugins: plugins
