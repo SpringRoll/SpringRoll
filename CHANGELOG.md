@@ -5,12 +5,22 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [2.5.0] - unreleased
+## [2.5.0] - 2023-04-21
 
 ### Changed
 
 - Updated Rollup to 3.20.2
 - Brought all Rollup plugins to latest version to match
+- Dependabot updates:
+  - Removed glob-parent
+  - Removed ansi-html
+  - Updated documentation from 13.2.5 to 14.0.1
+  - Updated parse-path from 4.0.3 to 7.0.0
+  - Updated nanoid from 3.1.12 to 3.3.3
+  - Updated mocha from 8.2.1 to 10.2.0
+  - Updated minimatch from 3.0.4 to 3.1.2
+  - Updated parse-url from 6.0.5 to 8.1.0
+  - Updated webpack from 5.75.0 to 5.76.0
 
 ## [2.4.5] - 2023-03-07
 
