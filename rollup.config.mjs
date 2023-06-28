@@ -15,10 +15,10 @@ const plugins = [
   }),
   commonjs(
     {
-    namedExports: {
-      'bellhop-iframe': ['Bellhop']
+      namedExports: {
+        'bellhop-iframe': ['Bellhop']
+      }
     }
-  }
   ),
   babel({babelHelpers: 'bundled'}),
   terser()
