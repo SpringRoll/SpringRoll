@@ -80,6 +80,38 @@ export class Application {
     fullScreen: Property<boolean>,
     [key:string]: Property<any>
   }
+  stateDefaults: {
+    pause: boolean,
+    captionsMuted: boolean,
+    captionsStyles: {
+      color:string,
+      edge:string,
+      font:string,
+      background:string,
+      size:string,
+      align:string
+    },
+    soundVolume: number,
+    musicVolume: number,
+    voVolume: number,
+    sfxVolume: number,
+    pointerSize: number,
+    controlSensitivity: number,
+    buttonSize: number,
+    removableLayers: number,
+    hudPosition: string,
+    hitAreaScale: number,
+    dragThresholdScale: number,
+    health: number,
+    objectCount: number,
+    completionPercentage: number,
+    speedScale: number,
+    timersScale: number,
+    inputCount: number,
+    keyBinding: object,
+    colorVision: string,
+    fullScreen: boolean,
+  }
   hints: IHintPlayer;
   features: ApplicationFeatures;
   container: BellhopIframe.Bellhop;
