@@ -28,39 +28,6 @@ const timersScale = 'timersScale';
 const inputCount = 'inputCount';
 const fullScreen = 'fullScreen';
 
-const stateDefaults = {
-  [pause]: false,
-  [captionsMuted]: true,
-  [captionsStyles]: {
-    color: '#FFFFFF',
-    edge: 'none',
-    font: 'arial',
-    background: '#000000',
-    size: 'md',
-    align: 'top'
-  },
-  [soundVolume]: 1,
-  [musicVolume]: 1,
-  [voVolume]: 1,
-  [sfxVolume]: 1,
-  [pointerSize]: 0.5,
-  [controlSensitivity]: 0.5,
-  [buttonSize]: 0.5,
-  [removableLayers]: 0,
-  [hudPosition]: '',
-  [hitAreaScale]: 0.5,
-  [dragThresholdScale]: 0.5,
-  [health]: 0.5,
-  [objectCount]: 0.5,
-  [completionPercentage]: 0.5,
-  [speedScale]: 0.5,
-  [timersScale]: 0.5,
-  [inputCount]: 0.5,
-  [keyBinding]: {},
-  [colorVision]: 'none',
-  [fullScreen]: false,
-};
-
 /**
  * Main entry point for a game. Provides a single focal point for plugins and functionality to attach.
  * @class Application
@@ -151,6 +118,39 @@ export class Application {
       [keyBinding]: new Property(undefined),
       [colorVision]: new Property(undefined),
       [fullScreen]: new Property(undefined),
+    };
+
+    this.stateDefaults = {
+      [pause]: false,
+      [captionsMuted]: true,
+      [captionsStyles]: {
+        color: '#FFFFFF',
+        edge: 'none',
+        font: 'arial',
+        background: '#000000',
+        size: 'md',
+        align: 'top'
+      },
+      [soundVolume]: 1,
+      [musicVolume]: 1,
+      [voVolume]: 1,
+      [sfxVolume]: 1,
+      [pointerSize]: 0.5,
+      [controlSensitivity]: 0.5,
+      [buttonSize]: 0.5,
+      [removableLayers]: 0,
+      [hudPosition]: '',
+      [hitAreaScale]: 0.5,
+      [dragThresholdScale]: 0.5,
+      [health]: 0.5,
+      [objectCount]: 0.5,
+      [completionPercentage]: 0.5,
+      [speedScale]: 0.5,
+      [timersScale]: 0.5,
+      [inputCount]: 0.5,
+      [keyBinding]: {},
+      [colorVision]: 'none',
+      [fullScreen]: false,
     };
 
     this.features = Object.assign(
@@ -430,7 +430,7 @@ export class Application {
    * Sets default values of application state properties.
    */
   setStateDefaults() {
-    Object.keys(stateDefaults).forEach(key => this.state[key].value = stateDefaults[key]);
+    Object.keys(this.stateDefaults).forEach(key => this.state[key].value = this.stateDefaults[key]);
   }
 }
 
