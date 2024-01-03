@@ -22,11 +22,15 @@ constructor:
 ```javascript
 var myApp = new springroll.Application({
   features: {
-    captions: false, // whether or not the game has captions
-    sound: false, // whether or not the game has any sound
-    vo: false, // whether or not the game has a VO
-    music: false, // whether or not the game has music
-    sfx: false, // whether or not the game has any sound effects
+    captions: false, // whether or not the game supports muting/unmuting captions
+    sound: false, // whether or not the game supports muting/unmuting all sound
+    vo: false, // whether or not the game supports muting/unmuting VO
+    music: false, // whether or not the game supports muting/unmuting music
+    sfx: false, // whether or not the game supports muting/unmuting sound effects
+    soundVolume: false, // whether or not the game supports granular volume controls for all sound
+    voVolume: false, // whether or not the game supports granular volume controls for VO
+    musicVolume: false, // whether or not the game supports granular volume controls for music
+    sfxVolume: false, // whether or not the game supports granular volume controls for sound effects
     pointerSize: false, // whether or not the game has a resizable pointer
     controlSensitivity: false, // whether or not the game has adjustable control sensitivity
     buttonSize: false, // whether or not the game has adjustable button sizes
@@ -103,6 +107,10 @@ var myApp = new springroll.Application({
     vo: true,
     music: true,
     sfx: true,
+    soundVolume: true,
+    voVolume: true, 
+    musicVolume: true,
+    sfxVolume: true,
     pointerSize: true,
     controlSensitivity: true,
     buttonSize: true,
@@ -144,6 +152,9 @@ myApp.state.colorVision.subscribe(result => console.log('Value Between 0-1', res
 myApp.state.keyBinding.subscribe(result => console.log('Array of key/value pairs reflecting the currently selected keys', result)); //See below about responding to the container
 myApp.state.colorVision.subscribe(result => console.log('String representing the chose type of color blindness', result)); //See below about responding to the container
 ```
+
+Note: audio controls like `sound` and `soundVolume` both refer to the `state.soundVolume` property, they just denote different HTML controls at the container level. 
+
 ### Responding to the Container
 *the HUDPosition, keyBinding, and colorVision states requires one additional bit of configuration to interact with Springroll Container correctly. The examples below shows the `respond` call you need to implement to report back to the container.
 ```javascript
