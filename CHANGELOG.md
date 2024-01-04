@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - Updated Node version to 18
+- Updated Bellhop from 3.3.1 to 3.4.0
 - Dependabot updates:
   - Updated @babel/traverse from 7.22.8 to 7.23.7
   - Updated postcss from 8.4.23 to 8.4.31
