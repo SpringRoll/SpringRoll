@@ -5,6 +5,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.6.0] - 2024-01-05
+
+### Changed
+
+- Updated Node version to 18
+- Updated Bellhop from 3.3.1 to 3.4.0
+- Dependabot updates:
+  - Updated @babel/traverse from 7.22.8 to 7.23.7
+  - Updated postcss from 8.4.23 to 8.4.31
+  - Updated word-wrap from 1.2.3 to 1.2.4
+
 ## [2.5.1] - 2023-07-07
 
 ### Changed
