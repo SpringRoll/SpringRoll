@@ -1,7 +1,26 @@
 # Application Plugins
 SpringRoll provides the ability to register plugins for the application to attach new behavior.
 
-## Execution Order and Intent
+## Using Plugins
+
+To be recognized and used by the SpringRoll Application a plugin must be registered. This is done via the `Application.uses()` method. 
+```javascript
+import { Application } from 'springroll';
+import CustomPlugin from './CustomPlugin';
+
+Application.uses(new CustomPlugin()); // Register plugin
+
+const myApp = new Application(); // Application startup will also call the lifecycle methods of plugins
+myApp.state.ready.subscribe(() => {
+  console.log('Ready!');
+});
+```
+
+*It's important to note that if your plugin uses any of the lifecycle methods (`preload`, `init`, `start`) these are only called if your plugin is registered BEFORE the Application is instantiated*
+
+## Plugins in depth
+
+### Execution Order and Intent
 | Function | Description | Intent |
 | --- | --- | --- |
 | `constructor` | called when the plugin is created | Used for setting options |
@@ -12,7 +31,7 @@ SpringRoll provides the ability to register plugins for the application to attac
 **Note**: `preload`, `init` and `start` functions are all optional. 
 
 
-## Example
+### Example
 here is a brief example of how a plugin might be created:
 ```javascript
 import { ApplicationPlugin } from 'springroll/plugins/ApplicationPlugin';
@@ -47,26 +66,7 @@ export default class CustomPlugin extends ApplicationPlugin {
 }
 ```
 
-## Registering Plugins
-
-Once your plugin is created it needs to be registered with the SpringRoll application before it can be used. This is done via the `Application.uses()` method. Example below. 
-
-*It's important to note that if your plugin uses any of the lifecycle methods (`preload`, `init`, `start`) these are only called if your plugin is registered BEFORE the Application is instantiated*
-
-
-```javascript
-import { Application } from 'springroll';
-import CustomPlugin from './CustomPlugin';
-
-Application.uses(new CustomPlugin()); // Register plugin
-
-const myApp = new Application(); // Application startup will also call the lifecycle methods of plugins
-myApp.state.ready.subscribe(() => {
-  console.log('Ready!');
-});
-```
-
-## Plugin Dependencies
+### Plugin Dependencies
 All plugins must declare a unique key `name` which allows other plugins to depend on it. For instance, in the above case, `CustomPlugin` declares it's name as `'custom'`, and during initialization it calls `getPlugin` to retrieve a reference to `'otherPlugin'`.
 
 `getPlugin` can be called at any time. but we recommend keeping it in `init` but recognize this might not always be possible.
