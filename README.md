@@ -16,9 +16,9 @@ If you need more info on the various components of SpringRoll see the individual
 - [Controller module](./src/controller) - provides a mechanism for mapping keyboard input to functions
 - [Debugger module](./src/debug) - provides a centralized set of methods for logging that can be enabled or disabled at runtime.
 - Localization Modules
-  - [Localizer](./src/localization/localizer) - provides support for multiple language
+  - [Localizer](./src/localization/localizer) - provides support for multiple languages
   - [Captions](./src/localization/captions) - Caption players and renderers 
-- [Scale Manager](./src/scale-manager) - helps developers to react to screen size changes.
+- [Scale Manager](./src/scale-manager) - helps developers to react to screen size changes
 - [State Manager](./src/state) - provides classes for creating subscribable properties that notify listeners when they are changed
 
 ## Design Considerations
