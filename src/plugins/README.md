@@ -47,15 +47,20 @@ export default class CustomPlugin extends ApplicationPlugin {
 }
 ```
 
-Once you've created a plugin, you'll need to register it before instantiating the application:
+## Registering Plugins
+
+Once your plugin is created it needs to be registered with the SpringRoll application before it can be used. This is done via the `Application.uses()` method. Example below. 
+
+*It's important to note that if your plugin uses any of the lifecycle methods (`preload`, `init`, `start`) these are only called if your plugin is registered BEFORE the Application is instantiated*
+
 
 ```javascript
 import { Application } from 'springroll';
 import CustomPlugin from './CustomPlugin';
 
-Application.uses(new CustomPlugin());
+Application.uses(new CustomPlugin()); // Register plugin
 
-const myApp = new Application();
+const myApp = new Application(); // Application startup will also call the lifecycle methods of plugins
 myApp.state.ready.subscribe(() => {
   console.log('Ready!');
 });
