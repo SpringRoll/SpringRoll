@@ -9,7 +9,7 @@ SpringRoll is a light-weight toolset for building accessible HTML5 games. The la
 If you need more info on the various components of SpringRoll see the individual docs below or view the [module overview](#module-overview)
 
 - [Application](./src/README.md) - The main SpringRoll Application class 
-- [Plugin architecture](./src/plugins) - for hooking into the load sequence of applications.
+- [Plugin architecture](./src/plugins) - implementing and/or using custom plugins to augment SpringRoll behaviour
 - Accessibility Module - SpringRoll contains submodules for various accessibility testing and enhancement. 
   - [Color Filter module](./src/accessibility/ColorFilter) - provides filters for testing color blindness support in your game.
   - [Speech Synth module](./accessibility/SpeechSynth/README.md) - gives developers the ability to synthesize speech from text.
