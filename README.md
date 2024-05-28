@@ -5,19 +5,27 @@
 
 SpringRoll is a light-weight toolset for building accessible HTML5 games. The latest version, SpringRoll 2, is a large departure from its predecessor. SpringRoll 2 is less prescriptive and contains only a few guidelines and restrictions. Instead, the framework focuses on utilities to help developers make games more accessible and deployable at scale.
 
-## Differences between v1 and v2 branches
+## Quick Navigation
+If you need more info on the various components of SpringRoll see the individual docs below or view the [module overview](#module-overview)
 
-### V1 (Legacy)
-V1 is the original version of SpringRoll and was built to address many issues/missing functionality that are now native to JavaScript since ES2016. It comes with its own versions of popular libraries like Pixi.js and Easel.js, but it's not recommended to use this version as it will only receive legacy support.
-
-### V2 (Recommended)
-V2 is massive overhaul of SpringRoll, removing all third party libraries and is rewritten to utilize ES2016. This version will be actively receiving bug fixes, new features and is the recommended version of SpringRoll.
+- [Application](./src/README.md) - The main SpringRoll Application class 
+- [Plugin architecture](./src/plugins) - implementing and/or using custom plugins to augment SpringRoll behaviour
+- Accessibility Module - SpringRoll contains submodules for various accessibility testing and enhancement. 
+  - [Color Filter module](./src/accessibility/ColorFilter) - provides filters for testing color blindness support in your game.
+  - [Speech Synth module](./accessibility/SpeechSynth/README.md) - gives developers the ability to synthesize speech from text.
+- [Controller module](./src/controller) - provides a mechanism for mapping keyboard input to functions
+- [Debugger module](./src/debug) - provides a centralized set of methods for logging that can be enabled or disabled at runtime.
+- Localization Modules
+  - [Localizer](./src/localization/localizer) - provides support for multiple languages
+  - [Captions](./src/localization/captions) - Caption players and renderers 
+- [Scale Manager](./src/scale-manager) - helps developers to react to screen size changes
+- [State Manager](./src/state) - provides classes for creating subscribable properties that notify listeners when they are changed
 
 ## Design Considerations
 
 The SpringRoll ecosystem provides a combination of mechanisms for deploying games via the web:
 
-* [SpringRollConnect](https://github.com/SpringRoll/SpringRollConnect), a release management system for games.
+* DEPRECATED: [~~SpringRollConnect~~](https://github.com/SpringRoll/SpringRollConnect), a release management system for games.
 * The [SpringRollContainer](https://github.com/SpringRoll/SpringRollContainer), an iframe based controller for loading and controlling SpringRoll games in an HTML environment.
 * [Bellhop](https://github.com/SpringRoll/Bellhop), an event layer that enriches the [postMessage API](https://developer.mozilla.org/en-US/docs/Web/API/Window/postMessage) for improved communication between the container and game.
 
@@ -99,6 +107,14 @@ The [Scale Manager module](./src/scale-manager) helps developers to react to scr
 
 ### State Manager Module
 The [State Manager module](./src/state) provides classes for creating subscribable properties that notify listeners when they are changed. This is used for managing pause, captions, and audio mute state in the [Application class](./src/), but can also be used for other generic uses.
+
+## Differences between v1 and v2 branches
+
+### V1 (Legacy)
+V1 is the original version of SpringRoll and was built to address many issues/missing functionality that are now native to JavaScript since ES2016. It comes with its own versions of popular libraries like Pixi.js and Easel.js, but it's not recommended to use this version as it will only receive legacy support.
+
+### V2 (Recommended)
+V2 is massive overhaul of SpringRoll, removing all third party libraries and is rewritten to utilize ES2016. This version will be actively receiving bug fixes, new features and is the recommended version of SpringRoll.
 
 ## BrowserStack Testing
 To test Springroll v2 on BrowserStack. Copy `.env.sample` and rename it to `.env`. Replace the placeholder values with your own BrowserStack credentials, and then run `npm run test:bs`.
