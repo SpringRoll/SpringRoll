@@ -53,6 +53,8 @@ var myApp = new springroll.Application({
 Note that if any of `vo`, `music`, or `sfx` are available features, `sound` will be marked as a feature implicitly.
 Also, all of these features are marked `false` by default.
 
+If a feature is excluded or marked as `false` Container will automatically hide associated controls on the containing webpage, so if you intend to support a feature ensure it is included in your feature list.
+
 ## Configurable Mechanics
 The following mechanics are represented by a value between 0 and 1, and default to 0.5.
 
@@ -88,7 +90,7 @@ When certain features are enabled, SpringRoll warns if an associated state chang
 if the developer enables `sound` as a feature of the game, a subscriber to the `soundVolume` state must exist:
 
 ```javascript
-var myApp = new springroll.Application({
+const myApp = new springroll.Application({
   features: {
     sound: true
   }
@@ -100,7 +102,7 @@ myApp.state.soundVolume.subscribe(result => console.log('Value Between 0-1 for v
 For each possible feature, there is an associated state that can be subscribed to:
 
 ```javascript
-var myApp = new springroll.Application({
+const myApp = new springroll.Application({
   features: {
     captions: true,
     sound: true,
@@ -152,8 +154,22 @@ myApp.state.colorVision.subscribe(result => console.log('Value Between 0-1', res
 myApp.state.keyBinding.subscribe(result => console.log('Array of key/value pairs reflecting the currently selected keys', result)); //See below about responding to the container
 myApp.state.colorVision.subscribe(result => console.log('String representing the chose type of color blindness', result)); //See below about responding to the container
 ```
+### Important note about sound features
 
-Note: audio controls like `sound` and `soundVolume` both refer to the `state.soundVolume` property, they just denote different HTML controls at the container level. 
+Audio controls like `sound` and `soundVolume` both refer to the `state.soundVolume` property, they just denote different HTML controls at the container level. If you intend to support both muting, and volume control you will need to include both `sound` and `soundVolume` but only require the one subscriber.
+
+e.g.
+```javascript
+const myApp = new springroll.Application({
+  features: {
+    sound: true,
+    soundVolume: true,
+  }
+});
+
+// this will recieve events from both mute/unmute buttons as well as finer volume controls
+myApp.state.soundVolume.subscribe(result => console.log('Value Between 0-1', result));
+```
 
 ### Responding to the Container
 *the HUDPosition, keyBinding, and colorVision states requires one additional bit of configuration to interact with Springroll Container correctly. The examples below shows the `respond` call you need to implement to report back to the container.
