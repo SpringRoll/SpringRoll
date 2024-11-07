@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.7.0] - 2024-11-04
+
+### Changed
+- Updated base Node version in `nvmrc` and workflows to 20
+- Dependabot update: Bump follow-redirects from 1.15.2 to 1.15.6
+- Bellhop updated to 3.6.0
+
 ## [2.6.0] - 2024-01-05
 
 ### Changed
