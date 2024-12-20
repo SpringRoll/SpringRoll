@@ -39,6 +39,7 @@ export class DOMRenderer extends IRender {
    */
   stop() {
     this.renderTarget.style.visibility = 'hidden';
+    this.renderTarget.innerHTML = '';
     this.templateVariables = {};
   }
 }
