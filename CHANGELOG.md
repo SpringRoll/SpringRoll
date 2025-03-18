@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+- Removed indexedDB support from UserData [ticket](https://pbskids.atlassian.net/browse/SR-66)
 - Updated captions RendererDOM to clear out CC text when caption stops.
 
 ## [2.7.0] - 2024-11-04
