@@ -7,7 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [2.8.0] - Unreleased
 
-## [2.7.1] - Unreleased
+## [2.7.1] - 2024-3-19
 
 - Updated captions RendererDOM to clear out CC text when caption stops.
 
