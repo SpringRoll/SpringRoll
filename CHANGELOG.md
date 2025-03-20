@@ -8,7 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [2.8.0] - Unreleased
 
-- Removed indexedDB support from UserData [ticket](https://pbskids.atlassian.net/browse/SR-66)
+- Removed indexedDB support from UserData
 
 ## [2.7.1] - 2024-3-19
 
