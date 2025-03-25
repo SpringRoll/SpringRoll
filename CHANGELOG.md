@@ -7,7 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [2.8.0] - Unreleased
 
-- Removed reference to removed file in typings
+- Removed reference to deleted file in typings
 
 ## [2.7.1] - 2024-3-19
 
