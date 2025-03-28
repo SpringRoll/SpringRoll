@@ -12,15 +12,21 @@ export class DateUtil {
  * 
  * @example
  * // Check if current date is within Christmas season
- * if (isInSeason('2024-12-01', '2024-12-31')) {
+ * 
+ * import { DateUtil } from "springroll";
+ * 
+ * if (DateUtil.isInSeason('2024-12-01', '2024-12-31')) {
  *   showChristmasContent();
  * }
  * 
  * @example
  * // Using Date objects
+ * 
+ * import { DateUtil } from "springroll";
+ * 
  * const summerStart = new Date(2024, 5, 21); // June 21, 2024
  * const summerEnd = new Date(2024, 8, 22);   // September 22, 2024
- * if (isInSeason(summerStart, summerEnd)) {
+ * if (DateUtil.isInSeason(summerStart, summerEnd)) {
  *   showSummerContent();
  * }
  */
