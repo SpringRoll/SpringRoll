@@ -153,3 +153,7 @@ export class UserData {
   static write(name:string, value:any):Promise<any>;
   static delete(name:string): Promise<any>;
 }
+
+export class DateUtil {
+  static isInSeason(startDate: string | Date, endDate: string | Date): boolean;
+}
