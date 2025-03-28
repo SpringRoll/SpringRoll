@@ -8,4 +8,3 @@ export as namespace SpringRoll;
   export * from './Renderer';
   export * from './SafeScaleManager';
   export * from './ScaleManager';
-  export * from './UserData'
