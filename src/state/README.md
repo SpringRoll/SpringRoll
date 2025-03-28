@@ -52,3 +52,17 @@ app.container.on('connected', async () => {
     await UserData.delete('my-value');
 });
 ```
+
+## DateUtil
+
+The DateUtil class is for date-related utilities and helpers. it includes isInSeason(startdate,enddate), which returns true if the current date is in the inclusive range. 
+
+```javascript
+import { DateUtil } from "springroll";
+ 
+const summerStart = new Date(2024, 5, 21); // June 21, 2024
+const summerEnd = new Date(2024, 8, 22);   // September 22, 2024
+if (DateUtil.isInSeason(summerStart, summerEnd)) {
+  showSummerContent();
+}
+```
