@@ -55,8 +55,7 @@ app.container.on('connected', async () => {
 
 ## DateUtil
 
-The DateUtil class is for date-related utilities and helpers. it includes isInSeason(startdate,enddate), which returns true if the current date is in the inclusive range. 
-
+The DateUtil class is for date-related utilities and helpers. It includes isInSeason(startDate, endDate), which returns true if the current date is in the inclusive range.
 ```javascript
 import { DateUtil } from "springroll";
  
