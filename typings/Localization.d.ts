@@ -47,6 +47,6 @@ export class CaptionPlayer {
 }
 
 export class CaptionFactory {
-  static createCaptionMap(data: CaptionData): {[name:string]: Caption};
+  static createCaptionMap(data: CaptionData): {[key:string]: Caption};
   static createCaption(captionData: CaptionLine[]): Caption;
 }
