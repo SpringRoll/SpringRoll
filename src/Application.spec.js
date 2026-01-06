@@ -203,7 +203,7 @@ describe('Application', () => {
         speedScale: true,
         timersScale: true,
         inputCount: true
-      })
+      });
       const callback = Sinon.fake();
 
       app.state.hitAreaScale.subscribe(callback);
@@ -316,7 +316,7 @@ describe('Application', () => {
     app.state.pause.subscribe(() => {}); // Add a listener to avoid non-listener errors from the pause feature.
     app.state.ready.subscribe(isReady => {
       Object.keys(app.state).forEach(key => {
-        expect(app.state[key].value).to.not.equal(undefined)
+        expect(app.state[key].value).to.not.equal(undefined);
       });
       done();
     });
