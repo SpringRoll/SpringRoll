@@ -1,3 +1,5 @@
+// Uncomment next line if you see an error like "No binary for FirefoxHeadless browser on your platform. Please, set "FIREFOX_BIN" env variable." when running unit tests
+// process.env.FIREFOX_BIN = 'your path to Firefox binary>';
 module.exports = function(config) {
   config.set({
     frameworks: ['mocha','chai', 'webpack'],
