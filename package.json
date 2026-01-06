@@ -10,6 +10,7 @@
     "build:map": "rollup -c -m",
     "build:full": "npm run build:map && npm run docs && npm run readme",
     "dev": "rollup -c -w",
+    "lint": "eslint ./src",
     "test": "karma start karma.conf.js",
     "test:bs": "karma start karma.conf.bs.js",
     "docs": "documentation build ./src/index.js -f html -o docs",
