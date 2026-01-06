@@ -15,7 +15,7 @@ export class Localizer {
   getBrowserLanguages(): ReadonlyArray<any> | Array<any>;
 }
 
-export class Timedline {
+export class TimedLine {
   constructor(startTime: number, endTime: number, content: string);
   startTime: number;
   endTime: number;
@@ -24,8 +24,8 @@ export class Timedline {
 }
 
 export class Caption {
-  constructor(lines: Timedline[]);
-  lines: Timedline[];
+  constructor(lines: TimedLine[]);
+  lines: TimedLine[];
   renderer: IRender;
   reset(): void;
   update(deltaTime: number): void;
@@ -49,4 +49,5 @@ export class CaptionPlayer {
 export class CaptionFactory {
   static createCaptionMap(data: CaptionData): {[key:string]: Caption};
   static createCaption(captionData: CaptionLine[]): Caption;
+  static createLine(lineData: CaptionLine): TimedLine;
 }
