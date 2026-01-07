@@ -203,7 +203,7 @@ describe('Application', () => {
         speedScale: true,
         timersScale: true,
         inputCount: true
-      })
+      });
       const callback = Sinon.fake();
 
       app.state.hitAreaScale.subscribe(callback);
@@ -314,9 +314,9 @@ describe('Application', () => {
   it('should not contain any undefined state property values', done => {
     const app = new Application();
     app.state.pause.subscribe(() => {}); // Add a listener to avoid non-listener errors from the pause feature.
-    app.state.ready.subscribe(isReady => {
+    app.state.ready.subscribe(() => {
       Object.keys(app.state).forEach(key => {
-        expect(app.state[key].value).to.not.equal(undefined)
+        expect(app.state[key].value).to.not.equal(undefined);
       });
       done();
     });

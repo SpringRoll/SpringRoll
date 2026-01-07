@@ -11,12 +11,13 @@ const assertThrows = async (F) => {
   let didThrow = false;
   try {
     await F();
-  } catch(e) {
+  // eslint-disable-next-line no-unused-vars
+  } catch (e) {
     didThrow = true;
   }
 
   expect(didThrow).to.equal(true);
-}
+};
 
 describe('UserData', () => {
   beforeEach(() => {
@@ -102,6 +103,6 @@ describe('UserData', () => {
         // make sure the promise resolves properly
         await promise;
       });
-    })
+    });
   });
 });
