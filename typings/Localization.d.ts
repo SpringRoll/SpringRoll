@@ -47,6 +47,6 @@ export class CaptionPlayer {
 }
 
 export class CaptionFactory {
-  static createCaptionMap(data: CaptionData): Timedline[];
-  static createCaption(captionData: CaptionData): Timedline;
+  static createCaptionMap(data: CaptionData): {[name:string]: Caption};
+  static createCaption(captionData: CaptionLine[]): Caption;
 }
