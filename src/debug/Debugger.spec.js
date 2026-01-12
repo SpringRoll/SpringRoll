@@ -19,13 +19,14 @@ describe('Debugger', () => {
   });
 
   it('assert should do nothing if true', () => {
-    Debugger.assert(true === true);
+    Debugger.assert(true);
   });
 
   it('assert should throw if false ', done => {
     try {
-      Debugger.assert(true !== true);
+      Debugger.assert(false);
       done(new Error());
+      // eslint-disable-next-line no-unused-vars
     } catch (err) {
       done();
     }

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset='utf-8'>
-  <title>springroll 2.8.0 | Documentation</title>
+  <title>springroll 2.9.0 | Documentation</title>
   <meta name='viewport' content='width=device-width,initial-scale=1'>
   <link href='assets/bass.css' rel='stylesheet'>
   <link href='assets/style.css' rel='stylesheet'>
@@ -14,7 +14,7 @@
       <div id='split-left' class='overflow-auto fs0 height-viewport-100'>
         <div class='py1 px2'>
           <h3 class='mb0 no-anchor'>springroll</h3>
-          <div class='mb1'><code>2.8.0</code></div>
+          <div class='mb1'><code>2.9.0</code></div>
           <input
             placeholder='Filter'
             id='filter-input'
@@ -2228,15 +2228,21 @@
     
       
       <pre class='p1 overflow-auto round fill-light'><span class="hljs-comment">// Check if current date is within Christmas season</span>
-<span class="hljs-keyword">if</span> (<span class="hljs-title function_">isInSeason</span>(<span class="hljs-string">&#x27;2024-12-01&#x27;</span>, <span class="hljs-string">&#x27;2024-12-31&#x27;</span>)) {
+
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">DateUtil</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;springroll&quot;</span>;
+
+<span class="hljs-keyword">if</span> (<span class="hljs-title class_">DateUtil</span>.<span class="hljs-title function_">isInSeason</span>(<span class="hljs-string">&#x27;2024-12-01&#x27;</span>, <span class="hljs-string">&#x27;2024-12-31&#x27;</span>)) {
   <span class="hljs-title function_">showChristmasContent</span>();
 }</pre>
     
       
       <pre class='p1 overflow-auto round fill-light'><span class="hljs-comment">// Using Date objects</span>
+
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">DateUtil</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;springroll&quot;</span>;
+
 <span class="hljs-keyword">const</span> summerStart = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Date</span>(<span class="hljs-number">2024</span>, <span class="hljs-number">5</span>, <span class="hljs-number">21</span>); <span class="hljs-comment">// June 21, 2024</span>
 <span class="hljs-keyword">const</span> summerEnd = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Date</span>(<span class="hljs-number">2024</span>, <span class="hljs-number">8</span>, <span class="hljs-number">22</span>);   <span class="hljs-comment">// September 22, 2024</span>
-<span class="hljs-keyword">if</span> (<span class="hljs-title function_">isInSeason</span>(summerStart, summerEnd)) {
+<span class="hljs-keyword">if</span> (<span class="hljs-title class_">DateUtil</span>.<span class="hljs-title function_">isInSeason</span>(summerStart, summerEnd)) {
   <span class="hljs-title function_">showSummerContent</span>();
 }</pre>
     
