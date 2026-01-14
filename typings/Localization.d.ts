@@ -32,6 +32,7 @@ export class Caption {
   updateState(currentTime: number, lastTime: number): void;
   isFinished(): boolean;
   start(time: number, renderer: any);
+  updateTimeIndex(time: number): void;
 }
 
 export class CaptionPlayer {
@@ -49,5 +50,5 @@ export class CaptionPlayer {
 export class CaptionFactory {
   static createCaptionMap(data: CaptionData): {[key:string]: Caption};
   static createCaption(captionData: CaptionLine[]): Caption;
-  static createLine(lineData: CaptionLine): TimedLine;
+  static createLine(lineData: CaptionLine): TimedLine | null;
 }
