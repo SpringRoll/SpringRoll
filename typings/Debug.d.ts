@@ -8,7 +8,7 @@ export class Debugger {
   static emit(eventName?: string): void;
   static meetsLevelRequirements(level?: string): boolean;
   static log(type?: string, ...args:any[]):void;
-  static isValidLevelName(level: string): void;
+  static isValidLevelName(level: string): boolean;
   static assert(isTrue: boolean): void;
   static isEnabled(): boolean;
   static enable(flag: boolean): void;

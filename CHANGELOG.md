@@ -8,6 +8,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [2.9.0] Unreleased
 
 - Updated base Node version in `nvmrc` and workflows to 24
+- Dependabot updates:
+  - Update qs from 6.13.0 to 6.14.1
+  - Bump body-parser from 1.20.3 to 1.20.4
+  - Bump js-yaml from 4.1.0 to 4.1.1
+  - Update eslint from 5.16.0 to 9.39.1 and create new eslint.config.mjs file (.eslintrc not deleted at this time)
+  - Bump tmp from 0.2.3 to 0.2.4
+- Reviewed and updated typings
 
 ## [2.8.0] - 2025-3-31
 

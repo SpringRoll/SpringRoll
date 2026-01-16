@@ -112,6 +112,7 @@ export class Application {
     colorVision: string,
     fullScreen: boolean,
   }
+  setStateDefaults(): void;
   hints: IHintPlayer;
   features: ApplicationFeatures;
   container: BellhopIframe.Bellhop;
