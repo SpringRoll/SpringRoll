@@ -5,7 +5,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [2.9.0] Unreleased
+## [2.9.0] - 2026-01-26
 
 - Updated base Node version in `nvmrc` and workflows to 24
 - Dependabot updates:
@@ -16,13 +16,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Bump tmp from 0.2.3 to 0.2.4
 - Reviewed and updated typings
 
-## [2.8.0] - 2025-3-31
+## [2.8.0] - 2025-03-31
 
 - Removed indexedDB support from UserData
 - Added DateUtil class and isInSeason function
 - Fixed error in typings
 
-## [2.7.1] - 2024-3-19
+## [2.7.1] - 2024-03-19
 
 - Updated captions RendererDOM to clear out CC text when caption stops.
 
