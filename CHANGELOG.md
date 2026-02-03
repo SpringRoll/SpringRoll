@@ -5,7 +5,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [2.9.0] - 2026-01-26
+## [2.9.0] - 2026-02-03
 
 - Updated base Node version in `nvmrc` and workflows to 24
 - Dependabot updates:
@@ -15,6 +15,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Update eslint from 5.16.0 to 9.39.1 and create new eslint.config.mjs file (.eslintrc not deleted at this time)
   - Bump tmp from 0.2.3 to 0.2.4
 - Reviewed and updated typings
+- Updated npm-deploy workflow to use new authentication (see [npm update](https://github.blog/changelog/2025-12-09-npm-classic-tokens-revoked-session-based-auth-and-cli-token-management-now-available/))
 
 ## [2.8.0] - 2025-03-31
 
