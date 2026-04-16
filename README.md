@@ -23,7 +23,7 @@ If you need more info on the various components of SpringRoll see the individual
 
 ## Design Considerations
 
-SpringRoll games, also referred to as Applications, are typically hosted in an iframe and controlled via a container instance built into both the PBS KIDS website and Games App. This extra layer is mainly used to separate the game's internals from the environment in which it lives. This allows the game to live in multiple environments without any complicated environment specific code. The application can request relevant information from the container without having to know where that information came from.
+SpringRoll games, also referred to as Applications, are typically hosted in an iframe within the PBS KIDS website and Games App. This separation keeps the game's internals isolated from the environment in which it lives, allowing games to run across multiple environments without environment-specific code. The application can request relevant information from its host without having to know where that information came from.
 
 ## [Seed Project](https://github.com/SpringRoll/Springroll-Seed)
 We provide a very basic starter project that comes with Webpack for quick project ramp up.
@@ -82,7 +82,7 @@ const app = new window.springroll.Application();
 SpringRoll consists of a handful of modules intended to help developers improve the accessibility of their game.
 
 ### Application Module
-The `Application` class provides the main communication bus through which the game can send and receive messages to the container. It also manages global game state, such as pause and captions display. More information can be found in the [Application module documentation](./src/README.md). It also consists of a simple [plugin architecture](./src/plugins) for hooking into the load sequence of applications.
+The `Application` class provides the main communication bus through which the game can send and receive messages to its host environment. It also manages global game state, such as pause and captions display. More information can be found in the [Application module documentation](./src/README.md). It also consists of a simple [plugin architecture](./src/plugins) for hooking into the load sequence of applications.
 
 ### Accessibility Module
 SpringRoll contains submodules for various accessibility testing and enhancement. The [Color Filter module](./src/accessibility/ColorFilter) provides filters for testing color blindness support in your game. Enabling the class allows developers to see what their game would look like for various types of color vision deficiency. The [Speech Synth module](./src/accessibility/SpeechSynth/README.md) gives developers the ability to synthesize speech from text.
