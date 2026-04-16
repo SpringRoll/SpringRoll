@@ -26,8 +26,8 @@ If you need more info on the various components of SpringRoll see the individual
 The SpringRoll ecosystem provides a combination of mechanisms for deploying games via the web:
 
 * DEPRECATED: [~~SpringRollConnect~~](https://github.com/SpringRoll/SpringRollConnect), a release management system for games.
-* The [SpringRollContainer](https://github.com/SpringRoll/SpringRollContainer), an iframe based controller for loading and controlling SpringRoll games in an HTML environment.
-* [Bellhop](https://github.com/SpringRoll/Bellhop), an event layer that enriches the [postMessage API](https://developer.mozilla.org/en-US/docs/Web/API/Window/postMessage) for improved communication between the container and game.
+* DEPRECATED: [~~SpringRollContainer~~](https://github.com/SpringRoll/SpringRollContainer), an iframe based controller for loading and controlling SpringRoll games in an HTML environment.
+*  DEPRECATED: [~~Bellhop~~](https://github.com/SpringRoll/Bellhop), an event layer that enriches the [postMessage API](https://developer.mozilla.org/en-US/docs/Web/API/Window/postMessage) for improved communication between the container and game.
 
 SpringRoll games, also referred to as Applications, are typically hosted in an iframe and controlled via a SpringRoll Container instance. This extra layer is mainly used to separate the game's internals from the environment in which it lives. This allows the game to live in multiple environments without any complicated environment specific code. The application can request relevant information from the container without having to know where that information came from.
 
