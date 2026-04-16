@@ -12,7 +12,7 @@ If you need more info on the various components of SpringRoll see the individual
 - [Plugin architecture](./src/plugins) - implementing and/or using custom plugins to augment SpringRoll behaviour
 - Accessibility Module - SpringRoll contains submodules for various accessibility testing and enhancement. 
   - [Color Filter module](./src/accessibility/ColorFilter) - provides filters for testing color blindness support in your game.
-  - [Speech Synth module](./accessibility/SpeechSynth/README.md) - gives developers the ability to synthesize speech from text.
+  - [Speech Synth module](./src/accessibility/SpeechSynth/README.md) - gives developers the ability to synthesize speech from text.
 - [Controller module](./src/controller) - provides a mechanism for mapping keyboard input to functions
 - [Debugger module](./src/debug) - provides a centralized set of methods for logging that can be enabled or disabled at runtime.
 - Localization Modules
@@ -23,13 +23,7 @@ If you need more info on the various components of SpringRoll see the individual
 
 ## Design Considerations
 
-The SpringRoll ecosystem provides a combination of mechanisms for deploying games via the web:
-
-* DEPRECATED: [~~SpringRollConnect~~](https://github.com/SpringRoll/SpringRollConnect), a release management system for games.
-* DEPRECATED: [~~SpringRollContainer~~](https://github.com/SpringRoll/SpringRollContainer), an iframe based controller for loading and controlling SpringRoll games in an HTML environment.
-*  DEPRECATED: [~~Bellhop~~](https://github.com/SpringRoll/Bellhop), an event layer that enriches the [postMessage API](https://developer.mozilla.org/en-US/docs/Web/API/Window/postMessage) for improved communication between the container and game.
-
-SpringRoll games, also referred to as Applications, are typically hosted in an iframe and controlled via a SpringRoll Container instance. This extra layer is mainly used to separate the game's internals from the environment in which it lives. This allows the game to live in multiple environments without any complicated environment specific code. The application can request relevant information from the container without having to know where that information came from.
+SpringRoll games, also referred to as Applications, are typically hosted in an iframe and controlled via a container instance built into both the PBS KIDS website and Games App. This extra layer is mainly used to separate the game's internals from the environment in which it lives. This allows the game to live in multiple environments without any complicated environment specific code. The application can request relevant information from the container without having to know where that information came from.
 
 ## [Seed Project](https://github.com/SpringRoll/Springroll-Seed)
 We provide a very basic starter project that comes with Webpack for quick project ramp up.
@@ -91,7 +85,7 @@ SpringRoll consists of a handful of modules intended to help developers improve 
 The `Application` class provides the main communication bus through which the game can send and receive messages to the container. It also manages global game state, such as pause and captions display. More information can be found in the [Application module documentation](./src/README.md). It also consists of a simple [plugin architecture](./src/plugins) for hooking into the load sequence of applications.
 
 ### Accessibility Module
-SpringRoll contains submodules for various accessibility testing and enhancement. The [Color Filter module](./src/accessibility/ColorFilter) provides filters for testing color blindness support in your game. Enabling the class allows developers to see what their game would look like for various types of color vision deficiency. The [Speech Synth module](./accessibility/SpeechSynth/README.md) gives developers the ability to synthesize speech from text.
+SpringRoll contains submodules for various accessibility testing and enhancement. The [Color Filter module](./src/accessibility/ColorFilter) provides filters for testing color blindness support in your game. Enabling the class allows developers to see what their game would look like for various types of color vision deficiency. The [Speech Synth module](./src/accessibility/SpeechSynth/README.md) gives developers the ability to synthesize speech from text.
 
 ### Controller Module
 The [Controller module](./src/controller) provides a mechanism for mapping keyboard input to functions which can help centralize user input management and make supporting multiple input mechanisms easier.
