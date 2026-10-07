@@ -5,6 +5,10 @@
   "main": "dist/SpringRoll.js",
   "module": "dist/SpringRoll.js",
   "typings": "typings/index.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/SpringRoll/SpringRoll"
+  },
   "scripts": {
     "build": "npm run build:full",
     "build:map": "rollup -c -m",
