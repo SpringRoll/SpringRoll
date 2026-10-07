@@ -35,6 +35,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Bump @rollup/plugin-eslint from 9.0.3 to 9.2.0
   - Bump @rollup/plugin-node-resolve from 15.0.1 to 16.0.3
   - Bump @rollup/plugin-terser from 0.4.0 to 1.0.0
+- Updated base Node version in `nvmrc`, `package.json` engines, and workflows to 26, and added Node 26.x to the CI build
 
 ## [2.9.0] - 2026-02-03
 
