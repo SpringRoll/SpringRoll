@@ -4,7 +4,7 @@ updates:
     directory: "/"
     target-branch: "develop"
     schedule:
-      interval: "weekly"
+      interval: "monthly"
     groups:
       dev-dependencies-minor-patch:
         dependency-type: "development"
