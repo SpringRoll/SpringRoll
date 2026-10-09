@@ -7,7 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
-- Added `.github/dependabot.yml`: npm updates target `develop`, with minor/patch dev-dependency updates grouped into a single PR (security updates remain ungrouped)
+- Added `.github/dependabot.yml`: npm updates target `develop`, with minor/patch dev-dependency updates grouped into a single PR (security updates remain ungrouped) [ticket](https://pbskids.atlassian.net/browse/SR-243)
 
 ## [2.9.0] - 2026-02-03
 
