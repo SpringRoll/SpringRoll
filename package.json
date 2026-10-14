@@ -57,7 +57,7 @@
     "karma-webpack": "^5.0.0",
     "mocha": "^10.2.0",
     "requirejs": "^2.3.6",
-    "rollup": "^3.20.2",
+    "rollup": "^4.64.5",
     "sinon": "^8.0.4",
     "webpack": "^5.10.0"
   },
