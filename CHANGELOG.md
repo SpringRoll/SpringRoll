@@ -5,6 +5,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+- Dependabot updates:
+  - Bump rollup from 3.29.5 to 4.64.5 (major)
+  - Bump @rollup/plugin-babel from 6.0.3 to 7.1.0
+  - Bump @rollup/plugin-commonjs from 24.0.1 to 29.0.3
+  - Bump @rollup/plugin-eslint from 9.0.3 to 9.2.0
+  - Bump @rollup/plugin-node-resolve from 15.0.1 to 16.0.3
+  - Bump @rollup/plugin-terser from 0.4.0 to 1.0.0
+
 ## [2.9.0] - 2026-02-03
 
 - Updated base Node version in `nvmrc` and workflows to 24
