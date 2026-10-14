@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+- Dependabot updates:
+  - Bump picomatch from 4.0.2 to 4.0.7 (security fix: [CVE-2026-33671](https://github.com/micromatch/picomatch/security/advisories/GHSA-c2c7-rcm5-vvqj), [CVE-2026-33672](https://github.com/micromatch/picomatch/security/advisories/GHSA-3v7f-55p6-f55p))
+  - Bump picomatch from 2.3.1 to 2.3.2 (security fix: same advisories, separate picomatch major resolved elsewhere in the tree)
+
 ## [2.9.0] - 2026-02-03
 
 - Updated base Node version in `nvmrc` and workflows to 24
