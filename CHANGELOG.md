@@ -29,6 +29,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Bump browserslist from 4.24.4 to 4.29.3
   - Bump nanoid from 3.3.11 to 3.3.20
   - Bump fast-uri from 3.0.6 to 3.1.8
+  - Bump rollup from 3.29.5 to 4.64.5 (major)
+  - Bump @rollup/plugin-babel from 6.0.3 to 7.1.0
+  - Bump @rollup/plugin-commonjs from 24.0.1 to 29.0.3
+  - Bump @rollup/plugin-eslint from 9.0.3 to 9.2.0
+  - Bump @rollup/plugin-node-resolve from 15.0.1 to 16.0.3
+  - Bump @rollup/plugin-terser from 0.4.0 to 1.0.0
 
 ## [2.9.0] - 2026-02-03
 
