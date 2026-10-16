@@ -21,6 +21,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Bump body-parser from 1.20.4 to 1.20.8
   - Bump follow-redirects from 1.15.9 to 1.16.1
   - Bump lodash from 4.17.21 to 4.18.1
+  - Bump source-map-js from 1.2.1 to 1.2.2
 
 ## [2.9.0] - 2026-02-03
 
