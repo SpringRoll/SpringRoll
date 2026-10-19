@@ -23,6 +23,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Bump follow-redirects from 1.15.9 to 1.16.1
   - Bump lodash from 4.17.21 to 4.18.1
   - Bump source-map-js from 1.2.1 to 1.2.2
+  - Bump brace-expansion from 1.1.11 to 1.1.21
+  - Bump js-yaml from 4.1.1 to 4.3.2
+  - Bump @humanfs/node from 0.16.6 to 0.16.8
+  - Bump browserslist from 4.24.4 to 4.29.3
+  - Bump nanoid from 3.3.11 to 3.3.20
+  - Bump fast-uri from 3.0.6 to 3.1.8
 
 ## [2.9.0] - 2026-02-03
 
