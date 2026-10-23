@@ -7,8 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+- Updated base Node version in `nvmrc`, `package.json` engines, and workflows to 26. Added Node 26.x to the CI build, and dropped 20.x
 - Added `.github/dependabot.yml`: npm updates target `develop`, with minor/patch dev-dependency updates grouped into a single PR (security updates remain ungrouped) [ticket](https://pbskids.atlassian.net/browse/SR-243)
-- Dependabot updates (minor/patch dev-dependency bumps):
+- Dependabot updates:
   - Bump webpack from 5.98.0 to 5.111.1
   - Bump @eslint/eslintrc from 3.3.3 to 3.3.7
   - Bump @rollup/plugin-eslint from 9.0.5 to 9.2.0
@@ -35,7 +36,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Bump @rollup/plugin-eslint from 9.0.3 to 9.2.0
   - Bump @rollup/plugin-node-resolve from 15.0.1 to 16.0.3
   - Bump @rollup/plugin-terser from 0.4.0 to 1.0.0
-- Updated base Node version in `nvmrc`, `package.json` engines, and workflows to 26. Added Node 26.x to the CI build, and dropped 20.x
+  - Bump picomatch from 4.0.2 to 4.0.7 (security fix: [CVE-2026-33671](https://github.com/micromatch/picomatch/security/advisories/GHSA-c2c7-rcm5-vvqj), [CVE-2026-33672](https://github.com/micromatch/picomatch/security/advisories/GHSA-3v7f-55p6-f55p))
+  - Bump picomatch from 2.3.1 to 2.3.2 (security fix: same advisories, separate picomatch major resolved elsewhere in the tree)
 
 ## [2.9.0] - 2026-02-03
 
