@@ -5,7 +5,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## Unreleased
+## [2.10.0]
 
 - Updated base Node version in `nvmrc`, `package.json` engines, and workflows to 26. Added Node 26.x to the CI build, and dropped 20.x
 - Added `.github/dependabot.yml`: npm updates target `develop`, with minor/patch dev-dependency updates grouped into a single PR (security updates remain ungrouped) [ticket](https://pbskids.atlassian.net/browse/SR-243)
