@@ -5,9 +5,39 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## Unreleased
+## [2.10.0]
 
+- Updated base Node version in `nvmrc`, `package.json` engines, and workflows to 26. Added Node 26.x to the CI build, and dropped 20.x
 - Added `.github/dependabot.yml`: npm updates target `develop`, with minor/patch dev-dependency updates grouped into a single PR (security updates remain ungrouped) [ticket](https://pbskids.atlassian.net/browse/SR-243)
+- Dependabot updates:
+  - Bump webpack from 5.98.0 to 5.111.1
+  - Bump @eslint/eslintrc from 3.3.3 to 3.3.7
+  - Bump @rollup/plugin-eslint from 9.0.5 to 9.2.0
+  - Bump eslint-plugin-import from 2.31.0 to 2.32.0
+  - Bump globals from 17.0.0 to 17.13.0
+  - Bump requirejs from 2.3.7 to 2.3.8
+  - Bump browserstack-local from 1.5.6 to 1.5.16
+  - Bump flatted from 3.3.3 to 3.4.4
+  - Bump minimatch from 3.1.2 to 3.1.5
+  - Bump qs from 6.14.1 to 6.16.0
+  - Bump body-parser from 1.20.4 to 1.20.8
+  - Bump follow-redirects from 1.15.9 to 1.16.1
+  - Bump lodash from 4.17.21 to 4.18.1
+  - Bump source-map-js from 1.2.1 to 1.2.2
+  - Bump brace-expansion from 1.1.11 to 1.1.21
+  - Bump js-yaml from 4.1.1 to 4.3.2
+  - Bump @humanfs/node from 0.16.6 to 0.16.8
+  - Bump browserslist from 4.24.4 to 4.29.3
+  - Bump nanoid from 3.3.11 to 3.3.20
+  - Bump fast-uri from 3.0.6 to 3.1.8
+  - Bump rollup from 3.29.5 to 4.64.5 (major)
+  - Bump @rollup/plugin-babel from 6.0.3 to 7.1.0
+  - Bump @rollup/plugin-commonjs from 24.0.1 to 29.0.3
+  - Bump @rollup/plugin-eslint from 9.0.3 to 9.2.0
+  - Bump @rollup/plugin-node-resolve from 15.0.1 to 16.0.3
+  - Bump @rollup/plugin-terser from 0.4.0 to 1.0.0
+  - Bump picomatch from 4.0.2 to 4.0.7 (security fix: [CVE-2026-33671](https://github.com/micromatch/picomatch/security/advisories/GHSA-c2c7-rcm5-vvqj), [CVE-2026-33672](https://github.com/micromatch/picomatch/security/advisories/GHSA-3v7f-55p6-f55p))
+  - Bump picomatch from 2.3.1 to 2.3.2 (security fix: same advisories, separate picomatch major resolved elsewhere in the tree)
 
 ## [2.9.0] - 2026-02-03
 
