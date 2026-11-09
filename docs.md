@@ -45,24 +45,24 @@
         *   [Parameters][41]
     *   [addEntity][42]
         *   [Parameters][43]
-*   [ResizeHelper][44]
-    *   [Parameters][45]
-    *   [iOS][46]
-    *   [enabled][47]
-    *   [enabled][48]
-        *   [Parameters][49]
-    *   [onWindowResize][50]
-    *   [getWindowResolution][51]
-*   [EntityResizeEvent][52]
-*   [ScaledEntity][53]
-    *   [onResize][54]
-        *   [Parameters][55]
-*   [ScaleManager][56]
-    *   [Parameters][57]
-    *   [Properties][58]
-    *   [enable][59]
-        *   [Parameters][60]
-    *   [disable][61]
+*   [EntityResizeEvent][44]
+*   [ScaledEntity][45]
+    *   [onResize][46]
+        *   [Parameters][47]
+*   [ScaleManager][48]
+    *   [Parameters][49]
+    *   [Properties][50]
+    *   [enable][51]
+        *   [Parameters][52]
+    *   [disable][53]
+*   [ResizeHelper][54]
+    *   [Parameters][55]
+    *   [iOS][56]
+    *   [enabled][57]
+    *   [enabled][58]
+        *   [Parameters][59]
+    *   [onWindowResize][60]
+    *   [getWindowResolution][61]
 *   [SpeechSynth][62]
     *   [Parameters][63]
     *   [Properties][64]
@@ -420,11 +420,11 @@ Handles scaling the game
 
 ### entities
 
-Type: [Array][244]<[ScaledEntity][53]>
+Type: [Array][244]<[ScaledEntity][45]>
 
 ### resizeEventData
 
-Type: [EntityResizeEvent][52]
+Type: [EntityResizeEvent][44]
 
 ### removeEntity
 
@@ -432,7 +432,7 @@ Removes an anchor
 
 #### Parameters
 
-*   `entity` **[ScaledEntity][53]**&#x20;
+*   `entity` **[ScaledEntity][45]**&#x20;
 
 Returns **void** @memberof SafeScaleManager
 
@@ -464,7 +464,47 @@ Adds and anchor to be updated during resize
 
 #### Parameters
 
-*   `entity` **([ScaledEntity][53] | [Array][244]<[ScaledEntity][53]>)**&#x20;
+*   `entity` **([ScaledEntity][45] | [Array][244]<[ScaledEntity][45]>)**&#x20;
+
+## EntityResizeEvent
+
+Type: {offset: [Point][22], gameSize: [Point][22], scale: [Point][22]}
+
+## ScaledEntity
+
+### onResize
+
+#### Parameters
+
+*   `event` **[EntityResizeEvent][44]**&#x20;
+
+Returns **void** @memberof ScaledEntity
+
+## ScaleManager
+
+\[Deprecated]
+
+Simplifies listening to resize events by passing the relevant data to a provided callback.
+
+### Parameters
+
+*   `callback` **[Function][242]**  (optional, default `undefined`)
+
+### Properties
+
+*   `callback` **[Function][242]?**&#x20;
+
+### enable
+
+Enables the scale manager listener. Will not be enabled if a callback is not supplied.
+
+#### Parameters
+
+*   `callback` **[Function][242]** The function to be called on resize events.
+
+### disable
+
+Disables the scale manager.
 
 ## ResizeHelper
 
@@ -498,46 +538,6 @@ Handler for window resize events. Forwards this event to the scale manager if en
 ### getWindowResolution
 
 Sets the window width and window height values of the ResizeHelper.
-
-## EntityResizeEvent
-
-Type: {offset: [Point][22], gameSize: [Point][22], scale: [Point][22]}
-
-## ScaledEntity
-
-### onResize
-
-#### Parameters
-
-*   `event` **[EntityResizeEvent][52]**&#x20;
-
-Returns **void** @memberof ScaledEntity
-
-## ScaleManager
-
-\[Deprecated]
-
-Simplifies listening to resize events by passing the relevant data to a provided callback.
-
-### Parameters
-
-*   `callback` **[Function][242]**  (optional, default `undefined`)
-
-### Properties
-
-*   `callback` **[Function][242]?**&#x20;
-
-### enable
-
-Enables the scale manager listener. Will not be enabled if a callback is not supplied.
-
-#### Parameters
-
-*   `callback` **[Function][242]** The function to be called on resize events.
-
-### disable
-
-Disables the scale manager.
 
 ## SpeechSynth
 
@@ -1454,41 +1454,41 @@ After all plugins inits has completed
 
 [43]: #parameters-14
 
-[44]: #resizehelper
+[44]: #entityresizeevent
 
-[45]: #parameters-15
+[45]: #scaledentity
 
-[46]: #ios
+[46]: #onresize-1
 
-[47]: #enabled
+[47]: #parameters-15
 
-[48]: #enabled-1
+[48]: #scalemanager
 
 [49]: #parameters-16
 
-[50]: #onwindowresize
+[50]: #properties
 
-[51]: #getwindowresolution
+[51]: #enable-1
 
-[52]: #entityresizeevent
+[52]: #parameters-17
 
-[53]: #scaledentity
+[53]: #disable-1
 
-[54]: #onresize-1
+[54]: #resizehelper
 
-[55]: #parameters-17
+[55]: #parameters-18
 
-[56]: #scalemanager
+[56]: #ios
 
-[57]: #parameters-18
+[57]: #enabled
 
-[58]: #properties
+[58]: #enabled-1
 
-[59]: #enable-1
+[59]: #parameters-19
 
-[60]: #parameters-19
+[60]: #onwindowresize
 
-[61]: #disable-1
+[61]: #getwindowresolution
 
 [62]: #speechsynth
 
